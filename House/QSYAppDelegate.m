@@ -7,6 +7,7 @@
 //
 
 #import "QSYAppDelegate.h"
+#import "QSTabBarViewController.h"
 
 @implementation QSYAppDelegate
 
@@ -17,9 +18,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    ///加载tabbar控制器
+    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+    
+    ///加载到rootViewController上
+    self.window.rootViewController = tabbarVC;
+    
     return YES;
 }
 

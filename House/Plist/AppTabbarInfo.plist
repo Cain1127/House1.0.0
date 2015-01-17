@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>tabbar_info</key>
+	<array>
+		<dict>
+			<key>class</key>
+			<string>QSHomeViewController</string>
+			<key>image_normal</key>
+			<string>tabbar_home_normal.png</string>
+			<key>image_selected</key>
+			<string>tabbar_home_selected.png</string>
+			<key>action_type</key>
+			<string>1000</string>
+		</dict>
+		<dict>
+			<key>class</key>
+			<string>QSHousesViewController</string>
+			<key>image_normal</key>
+			<string>tabbar_houses_normal.png</string>
+			<key>image_selected</key>
+			<string>tabbar_houses_selected.png</string>
+			<key>action_type</key>
+			<string>1001</string>
+		</dict>
+		<dict>
+			<key>class</key>
+			<string>QSChatViewController</string>
+			<key>image_normal</key>
+			<string>tabbar_chat_normal.png</string>
+			<key>image_selected</key>
+			<string>tabbar_chat_selected.png</string>
+			<key>action_type</key>
+			<string>1002</string>
+		</dict>
+		<dict>
+			<key>class</key>
+			<string>QSMyZoneViewController</string>
+			<key>image_normal</key>
+			<string>tabbar_myzone_normal.png</string>
+			<key>image_selected</key>
+			<string>tabbar_myzone_selected.png</string>
+			<key>action_type</key>
+			<string>1003</string>
+		</dict>
+	</array>
+</dict>
+</plist>

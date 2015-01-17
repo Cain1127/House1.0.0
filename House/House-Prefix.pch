@@ -11,7 +11,15 @@
 #endif
 
 #ifdef __OBJC__
+
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+
+    #import "CoreHeader.h"              //!<使用的自定义视图核心库
+    #import "FontHeader.h"              //!<字体大小宏定义
+    #import "ColorHeader.h"             //!<颜色宏定义
+    #import "DeviceSizeHeader.h"        //!<设备尺寸大小的宏定义
+    #import "PlistHeader.h"             //!<plist配置相关的头文件
+
 #endif
