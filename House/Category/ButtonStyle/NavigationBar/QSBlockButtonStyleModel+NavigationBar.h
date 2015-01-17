@@ -22,13 +22,11 @@ typedef enum
 {
 
     nNavigationBarButtonTypeTurnBack = 0,       //!<返回按钮
-    
     nNavigationBarButtonTypeSearch,             //!<导航栏搜索按钮
-    
     nNavigationBarButtonTypeSetting,            //!<我的页面：设置按钮
     nNavigationBarButtonTypeMessage,            //!<我的页面：消息按钮
-    
-    nNavigationBarButtonTypeTool                //!<发现：工具
+    nNavigationBarButtonTypeTool,               //!<发现：工具
+    nNavigationBarButtonTypeMapList             //!<找房：地图列表按钮
     
 }NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置乖乖
 

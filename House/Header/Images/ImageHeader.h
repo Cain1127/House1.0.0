@@ -29,7 +29,12 @@
 #define IMAGE_NAVIGATIONBAR_SETTING_NORMAL @"navigationbar_setting_normal"
 #define IMAGE_NAVIGATIONBAR_SETTING_HIGHLIGHTED @"navigationbar_setting_highlighted"
 
+///<发现>工具按钮
 #define IMAGE_NAVIGATIONBAR_TOOL_NORMAL @"navigationbar_tool_normal"
 #define IMAGE_NAVIGATIONBAR_TOOL_HIGHLIGHTED @"navigationbar_tool_highlighted"
+
+///<找房>地图列表按钮
+#define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
+#define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
 
 #endif

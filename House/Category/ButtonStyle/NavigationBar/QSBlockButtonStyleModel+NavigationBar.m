@@ -65,6 +65,13 @@
             
             break;
             
+            ///地图列表按钮
+        case nNavigationBarButtonTypeMapList:
+            
+            return [self createNavigationBarMapListButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
@@ -105,6 +112,20 @@
     }
     
     return nil;
+    
+}
+
+#pragma mark - 地图列表按钮
++ (QSBlockButtonStyleModel *)createNavigationBarMapListButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    
+    ///搜索按钮的普通状态和高亮状态图片
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED;
+    
+    return buttonStyle;
     
 }
 
