@@ -7,7 +7,9 @@
 //
 
 #import "QSHomeViewController.h"
+#import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "QSHouseKeySearchViewController.h"
 
 @interface QSHomeViewController ()
 
@@ -41,6 +43,23 @@
     
     ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
 //    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    UIButton *button = [UIButton createBlockButtonWithFrame:CGRectMake(30.0f, 100.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        QSHouseKeySearchViewController *vc = [[QSHouseKeySearchViewController alloc] init];
+        vc.hiddenCustomTabbarWhenPush = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        ///隐藏tabbar
+        QSTabBarViewController *tabbarController = (QSTabBarViewController *)self.tabBarController;
+        [tabbarController hiddenBottomTabbar:YES];
+        
+    }];
+    [button setTitle:@"测试tabbar隐藏" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.view addSubview:button];
     
 }
 

@@ -56,6 +56,8 @@
             ///返回按钮
         case nNavigationBarButtonTypeTurnBack:
             
+            return [self createNavigationBarTurnBackButtonStyle];
+            
             break;
             
             ///设置按钮
@@ -112,6 +114,20 @@
     }
     
     return nil;
+    
+}
+
+#pragma mark - 返回按钮
++ (QSBlockButtonStyleModel *)createNavigationBarTurnBackButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    
+    ///搜索按钮的普通状态和高亮状态图片
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_TURNBACK_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_TURNBACK_HIGHLIGHTED;
+    
+    return buttonStyle;
     
 }
 

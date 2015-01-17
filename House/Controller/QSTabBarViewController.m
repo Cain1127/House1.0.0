@@ -69,6 +69,9 @@
     ///获取tabbar栏按钮信息及所对应的控制器
     [self getTabbarSettingPlistFile];
     
+    ///背景颜色
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     ///临时数组，用来放所有的VC
     NSMutableArray *tempViewControllers = [[NSMutableArray alloc] init];
     
@@ -108,6 +111,49 @@
     }];
     [self.view addSubview:self.customTabbarView];
     
+}
+
+#pragma mark - 显示或者隐藏tabbar
+/**
+ *  @author     yangshengmeng, 15-01-17 23:01:01
+ *
+ *  @brief      隐藏/显示tabbar：flag：YES-隐藏 NO-显示
+ *
+ *  @param flag YES-隐藏，NO-显示
+ *
+ *  @since      1.0.0
+ */
+- (void)hiddenBottomTabbar:(BOOL)flag
+{
+
+    ///flag为真时隐藏
+    if (flag) {
+        
+        ///动画转动并隐藏
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            ///转动
+            self.customTabbarView.transform = CGAffineTransformMakeRotation(M_PI);
+            
+            ///变透明
+            self.customTabbarView.alpha = 0.0f;
+            
+        }];
+        
+    } else {
+    
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            ///恢复转动
+            self.customTabbarView.transform = CGAffineTransformIdentity;
+            
+            ///显示
+            self.customTabbarView.alpha = 1.0f;
+            
+        }];
+    
+    }
+
 }
 
 @end

@@ -58,6 +58,8 @@
 		18C8A1231A6AACCA00BB9611 /* navigationbar_tool_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A11D1A6AACCA00BB9611 /* navigationbar_tool_normal.png */; };
 		18C8A1261A6AB08600BB9611 /* navigationbar_maplist_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A1241A6AB08600BB9611 /* navigationbar_maplist_highlighted.png */; };
 		18C8A1271A6AB08600BB9611 /* navigationbar_maplist_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A1251A6AB08600BB9611 /* navigationbar_maplist_normal.png */; };
+		18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */; };
+		18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +149,11 @@
 		18C8A11D1A6AACCA00BB9611 /* navigationbar_tool_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_tool_normal.png; sourceTree = "<group>"; };
 		18C8A1241A6AB08600BB9611 /* navigationbar_maplist_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_maplist_highlighted.png; sourceTree = "<group>"; };
 		18C8A1251A6AB08600BB9611 /* navigationbar_maplist_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_maplist_normal.png; sourceTree = "<group>"; };
+		18C8A1281A6AB1B300BB9611 /* URLHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHeader.h; sourceTree = "<group>"; };
+		18C8A12E1A6AB6E600BB9611 /* QSTurnBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSTurnBackViewController.h; path = TurnBack/QSTurnBackViewController.h; sourceTree = "<group>"; };
+		18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSTurnBackViewController.m; path = TurnBack/QSTurnBackViewController.m; sourceTree = "<group>"; };
+		18C8A1311A6AB73E00BB9611 /* QSHouseKeySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseKeySearchViewController.h; path = Search/QSHouseKeySearchViewController.h; sourceTree = "<group>"; };
+		18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseKeySearchViewController.m; path = Search/QSHouseKeySearchViewController.m; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -334,6 +341,7 @@
 		1893007A1A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18C8A1291A6AB4E400BB9611 /* Search */,
 				189300AB1A690C880081D0AA /* Chat */,
 				189300AC1A690C880081D0AA /* Home */,
 				189300AD1A690C880081D0AA /* Houses */,
@@ -475,6 +483,7 @@
 		189300891A6902E30081D0AA /* URL */ = {
 			isa = PBXGroup;
 			children = (
+				18C8A1281A6AB1B300BB9611 /* URLHeader.h */,
 			);
 			path = URL;
 			sourceTree = "<group>";
@@ -619,6 +628,7 @@
 		189300981A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18C8A12D1A6AB6CA00BB9611 /* TurnBack */,
 				18C8A0D41A6A753B00BB9611 /* Master */,
 			);
 			path = Controller;
@@ -758,6 +768,24 @@
 				18C8A1041A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m */,
 			);
 			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		18C8A1291A6AB4E400BB9611 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				18C8A1311A6AB73E00BB9611 /* QSHouseKeySearchViewController.h */,
+				18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		18C8A12D1A6AB6CA00BB9611 /* TurnBack */ = {
+			isa = PBXGroup;
+			children = (
+				18C8A12E1A6AB6E600BB9611 /* QSTurnBackViewController.h */,
+				18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */,
+			);
+			name = TurnBack;
 			sourceTree = "<group>";
 		};
 		F4AD990E4AF8F9F85ED4C216 /* Pods */ = {
@@ -925,6 +953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
@@ -936,6 +965,7 @@
 				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
+				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,

@@ -17,6 +17,10 @@
  *  @since  1.0.0
  */
 
+///返回按钮图片
+#define IMAGE_NAVIGATIONBAR_TURNBACK_NORMAL @"navigationbar_turnback_normal"
+#define IMAGE_NAVIGATIONBAR_TURNBACK_HIGHLIGHTED @"navigationbar_turnback_highlighted"
+
 ///搜索按钮图片
 #define IMAGE_NAVIGATIONBAR_SEARCH_NORMAL @"navigationbar_search_normal"
 #define IMAGE_NAVIGATIONBAR_SEARCH_HIGHLIGHTED @"navigationbar_search_highlighted"
