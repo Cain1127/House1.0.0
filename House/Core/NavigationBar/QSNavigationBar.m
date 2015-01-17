@@ -23,6 +23,9 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
 
     if (self = [super initWithFrame:frame]) {
         
+        ///背景颜色
+        self.backgroundColor = [UIColor whiteColor];
+        
         ///添加左中右三个底view
         [self createNavigationBarInitUI];
         
@@ -58,12 +61,22 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     NSDictionary *___viewDict = NSDictionaryOfVariableBindings(leftRootView,middleRootView,rightRootView);
     
     ///约束
-    NSString *___hVFL_all = @"H:|-0-[leftRootView(44)]-10-[middleRootView(>=212)]-10-[rightRootView(40)]-0-|";
+    NSString *___hVFL_all = @"H:|-0-[leftRootView(44)]-10-[middleRootView(>=212)]-10-[rightRootView(44)]-0-|";
     NSString *___vVFL_middleRootView = @"V:|-20-[middleRootView(44)]-0-|";
+    NSString *___vVFL_rightRootView = @"V:|-20-[rightRootView(44)]-0-|";
+    NSString *___vVFL_leftRootView = @"V:|-20-[leftRootView(44)]-0-|";
     
     ///添加约束
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllLastBaseline metrics:nil views:___viewDict]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_middleRootView options:NSLayoutFormatAlignAllCenterX metrics:nil views:___viewDict]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_rightRootView options:NSLayoutFormatAlignAllCenterX metrics:nil views:___viewDict]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_leftRootView options:NSLayoutFormatAlignAllCenterX metrics:nil views:___viewDict]];
+    
+    ///底部划分线
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.frame.size.height - 0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
+    lineLabel.backgroundColor = COLOR_CHARACTERS_NORMAL;
+    lineLabel.alpha = 0.5f;
+    [self addSubview:lineLabel];
 
 }
 
@@ -241,16 +254,30 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     CGRect subviewFrame = view.frame;
     
     ///判断宽是否需要重置
-    if (subviewFrame.size.width >= subviewFrame.size.width) {
+    if (subviewFrame.size.width > superFrame.size.width) {
         
         subviewFrame = CGRectMake(subviewFrame.origin.x, subviewFrame.origin.y, superFrame.size.width, subviewFrame.size.height);
         
     }
     
+    ///如果子视图的宽小于30，重置为30
+    if (subviewFrame.size.width < 30.0f) {
+        
+        subviewFrame = CGRectMake(subviewFrame.origin.x, subviewFrame.origin.y, 30.0f, subviewFrame.size.height);
+        
+    }
+    
     ///判断高是否需要重置
-    if (superFrame.size.height > superFrame.size.height) {
+    if (subviewFrame.size.height > superFrame.size.height) {
         
         subviewFrame = CGRectMake(subviewFrame.origin.x, subviewFrame.origin.y, subviewFrame.size.width, superFrame.size.height);
+        
+    }
+    
+    ///如果子视图的高度小于30，重置为30
+    if (subviewFrame.size.height < 30.0f) {
+        
+        subviewFrame = CGRectMake(subviewFrame.origin.x, subviewFrame.origin.y, subviewFrame.size.width, 30.0f);
         
     }
     

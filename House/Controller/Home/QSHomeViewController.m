@@ -7,6 +7,7 @@
 //
 
 #import "QSHomeViewController.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 @interface QSHomeViewController ()
 
@@ -14,13 +15,41 @@
 
 @implementation QSHomeViewController
 
-- (void)viewDidLoad
+#pragma mark - UI搭建
+- (void)createNavigationBarUI
+{
+
+    [super createNavigationBarUI];
+    
+    ///添加中间view
+    
+    
+    ///添加右侧搜索按钮
+    UIButton *searchButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarSearchButtonStyle] andCallBack:^(UIButton *button) {
+        
+        ///进入搜索页
+        [self gotoSearchViewController];
+        
+    }];
+    [self setNavigationBarRightView:searchButton];
+
+}
+
+///搭建主展示UI
+- (void)createMainShowUI
 {
     
-    [super viewDidLoad];
+    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
+//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
     
-    self.view.backgroundColor = [UIColor redColor];
+}
+
+#pragma mark - 进入搜索页面
+- (void)gotoSearchViewController
+{
+
     
+
 }
 
 @end

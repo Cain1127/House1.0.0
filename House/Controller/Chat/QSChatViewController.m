@@ -14,13 +14,24 @@
 
 @implementation QSChatViewController
 
-- (void)viewDidLoad
+#pragma mark - UI搭建
+- (void)createNavigationBarUI
 {
+
+    [super createNavigationBarUI];
     
-    [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor orangeColor];
-    
+    ///设置标题
+    [self setNavigationBarTitle:TITLE_VIEWCONTROLLER_TITLE_CHAT];
+
+}
+
+///搭建主展示UI
+- (void)createMainShowUI
+{
+
+    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
+//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
+
 }
 
 @end

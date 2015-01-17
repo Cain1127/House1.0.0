@@ -122,6 +122,7 @@
     ///顶部线条
     UILabel *lineLabel = [[UILabel alloc ] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, 0.5f)];
     lineLabel.backgroundColor = COLOR_CHARACTERS_NORMAL;
+    lineLabel.alpha = 0.5f;
     [self addSubview:lineLabel];
 
 }

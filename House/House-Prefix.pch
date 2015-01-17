@@ -21,5 +21,7 @@
     #import "ColorHeader.h"             //!<颜色宏定义
     #import "DeviceSizeHeader.h"        //!<设备尺寸大小的宏定义
     #import "PlistHeader.h"             //!<plist配置相关的头文件
+    #import "TitleHeader.h"             //!<标题信息显示相关的宏定义
+    #import "ImageHeader.h"             //!<图片相关宏定义
 
 #endif
