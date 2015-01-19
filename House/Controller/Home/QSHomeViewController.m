@@ -42,10 +42,17 @@
 {
     
     ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
-//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
+   CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    
+    
+    
+    
+    
+    
+ /*
     UIButton *button = [UIButton createBlockButtonWithFrame:CGRectMake(30.0f, 100.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         QSHouseKeySearchViewController *vc = [[QSHouseKeySearchViewController alloc] init];
@@ -60,10 +67,10 @@
     [button setTitle:@"测试tabbar隐藏" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:button];
-    
+*/
     
     ///网络测试
-    UIButton *testnetstautsbutton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 200.0f, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+   /* UIButton *testnetstautsbutton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 200.0f, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         QSNetworkingStatus* reach = [QSNetworkingStatus reachabilityWithHostName:@"www.baidu.com"];
         
@@ -87,10 +94,10 @@
     [testnetstautsbutton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     [self.view addSubview:testnetstautsbutton];
-    
+    */
 }
 
-///当前网络状态提示
+/*当前网络状态提示
 - (void) showAlert:(NSString*)msg
 {
     UIAlertView* alert = [[UIAlertView alloc]
@@ -98,7 +105,7 @@
                           cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alert show];
 }
-
+*/
 
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController
