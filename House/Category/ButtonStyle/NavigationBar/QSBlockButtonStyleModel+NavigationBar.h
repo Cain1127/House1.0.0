@@ -28,7 +28,7 @@ typedef enum
     nNavigationBarButtonTypeTool,               //!<发现：工具
     nNavigationBarButtonTypeMapList             //!<找房：地图列表按钮
     
-}NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置乖乖
+}NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置等等
 
 @interface QSBlockButtonStyleModel (NavigationBar)
 
