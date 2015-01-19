@@ -22,6 +22,7 @@
 
 #define COLOR_HEXCOLORH(rgbValue,a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0f green:((float)((rgbValue & 0xFF00) >> 8))/255.0f blue:((float)(rgbValue & 0xFF))/255.0f alpha:a]
 
+///普通文本颜色
 #define COLOR_CHARACTERS_NORMAL COLOR_HEXCOLOR(0x898b8a)
 
 #endif

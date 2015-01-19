@@ -32,15 +32,15 @@ static char NavigationBarKey;//!<导航栏的关联key
 ///搭建UI
 - (void)createUI
 {
+    
+    ///搭建中间主展示信息
+    [self createMainShowUI];
 
     ///搭建导航栏
     [self createNavigationBarUI];
     
     ///搭建tabbar
     [self createBottomTabbar];
-    
-    ///搭建中间主展示信息
-    [self createMainShowUI];
 
 }
 
