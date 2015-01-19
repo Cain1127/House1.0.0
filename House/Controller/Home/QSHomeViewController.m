@@ -10,7 +10,7 @@
 #import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
-
+#import "QSNetworkingStatus.h"
 @interface QSHomeViewController ()
 
 @end
@@ -61,7 +61,44 @@
     [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:button];
     
+    
+    ///网络测试
+    UIButton *testnetstautsbutton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 200.0f, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        QSNetworkingStatus* reach = [QSNetworkingStatus reachabilityWithHostName:@"www.baidu.com"];
+        
+        switch ([reach currentReachabilityStatus])
+        {
+            case NotReachable:
+                [self showAlert:@"当前网络不可用"];
+                break;
+            case ReachableViaWWAN:
+                [self showAlert:@"当前使用3G/4G访问网络"];
+                break;
+            case ReachableViaWiFi:
+                [self showAlert:@"当前使用WiFi访问网络"];
+                break;
+        }
+       
+    }];
+    
+    [testnetstautsbutton setTitle:@"网络测试" forState:UIControlStateNormal];
+    
+    [testnetstautsbutton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
+    [self.view addSubview:testnetstautsbutton];
+    
 }
+
+///当前网络状态提示
+- (void) showAlert:(NSString*)msg
+{
+    UIAlertView* alert = [[UIAlertView alloc]
+                          initWithTitle:@"网络状态" message:msg delegate:nil
+                          cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
+}
+
 
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController
