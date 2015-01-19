@@ -25,4 +25,7 @@
 ///普通文本颜色
 #define COLOR_CHARACTERS_NORMAL COLOR_HEXCOLOR(0x898b8a)
 
+///黄色文本
+#define COLOR_CHARACTERS_YELLOW COLOR_HEXCOLOR(0xffcd0e)
+
 #endif
