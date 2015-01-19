@@ -16,9 +16,9 @@
 #define SIZE_DEVICE_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 
 ///左右限隙宏
-#define SIZE_DEFAULT_MARGIN_LEFT_RIGHT (DeviceWidth >= 375.0f ? 15.0f : 10.0f)
+#define SIZE_DEFAULT_MARGIN_LEFT_RIGHT (SIZE_DEVICE_WIDTH >= 375.0f ? 15.0f : 10.0f)
 
 ///默认的总宽
-#define SIZE_DEFAULT_MAX_WIDTH (DeviceWidth - 2.0f * MARGIN_LEFT_RIGHT)
+#define SIZE_DEFAULT_MAX_WIDTH (SIZE_DEVICE_WIDTH - 2.0f * MARGIN_LEFT_RIGHT)
 
 #endif

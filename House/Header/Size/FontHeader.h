@@ -9,6 +9,7 @@
 #ifndef House_FontHeader_h
 #define House_FontHeader_h
 
+///默认的导航栏标题字体
 #define FONT_NAVIGATIONBAR_TITLE 20.0f
 
 #endif
