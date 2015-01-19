@@ -11,6 +11,8 @@
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
 #import "QSNetworkingStatus.h"
+#import "ColorHeader.h"
+
 @interface QSHomeViewController ()
 
 @end
@@ -37,75 +39,52 @@
 
 }
 
-///搭建主展示UI
-- (void)createMainShowUI
+-(void)createMainShowUI
 {
+    [super createMainShowUI];
     
-    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
-//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
+    ///设置房源Label颜色
+    self.houseTypeCountOneLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    self.houseTypeCountTwoLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    self.houseTypeCountThreeLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    self.houseTypeCountFourLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    self.houseTypeCountOtherLabel.textColor = COLOR_CHARACTERS_YELLOW;
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    UIButton *button = [UIButton createBlockButtonWithFrame:CGRectMake(30.0f, 100.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        QSHouseKeySearchViewController *vc = [[QSHouseKeySearchViewController alloc] init];
-        vc.hiddenCustomTabbarWhenPush = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-        ///隐藏tabbar
-        QSTabBarViewController *tabbarController = (QSTabBarViewController *)self.tabBarController;
-        [tabbarController hiddenBottomTabbar:YES];
-        
-    }];
-    [button setTitle:@"测试tabbar隐藏" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [self.view addSubview:button];
-    
-    
-    ///网络测试
-    UIButton *testnetstautsbutton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 200.0f, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        QSNetworkingStatus* reach = [QSNetworkingStatus reachabilityWithHostName:@"www.baidu.com"];
-        
-        switch ([reach currentReachabilityStatus])
-        {
-            case NotReachable:
-                [self showAlert:@"当前网络不可用"];
-                break;
-            case ReachableViaWWAN:
-                [self showAlert:@"当前使用3G/4G访问网络"];
-                break;
-            case ReachableViaWiFi:
-                [self showAlert:@"当前使用WiFi访问网络"];
-                break;
-        }
-       
-    }];
-    
-    [testnetstautsbutton setTitle:@"网络测试" forState:UIControlStateNormal];
-    
-    [testnetstautsbutton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    
-    [self.view addSubview:testnetstautsbutton];
     
 }
 
-///当前网络状态提示
-- (void) showAlert:(NSString*)msg
-{
-    UIAlertView* alert = [[UIAlertView alloc]
-                          initWithTitle:@"网络状态" message:msg delegate:nil
-                          cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alert show];
-}
 
+-(void)awakeFromNib
+{
+ 
+}
 
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController
 {
 
-    
 
 }
 
+#pragma mark -按钮点击事件
+
+///新房按钮点击事件
+- (IBAction)newHouseButton:(id)sender {
+}
+
+///二手房按钮点击事件
+- (IBAction)secondHandHouseButton:(id)sender {
+}
+
+///租房按钮点击事件
+- (IBAction)rentingHouseButton:(id)sender {
+}
+
+///我要放盘按钮点击事件
+- (IBAction)saleHouseButton:(id)sender {
+}
+
+///笋盘推荐按钮点击事件
+- (IBAction)bambooplateHouseButton:(id)sender {
+}
 @end
