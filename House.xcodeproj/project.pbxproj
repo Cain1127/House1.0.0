@@ -15,7 +15,6 @@
 		183CC66D1A68FC8800B8F97D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CC66C1A68FC8800B8F97D /* main.m */; };
 		183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CC6701A68FC8800B8F97D /* QSYAppDelegate.m */; };
 		183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 183CC6721A68FC8800B8F97D /* House.xcdatamodeld */; };
-		183CC6761A68FC8800B8F97D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 183CC6751A68FC8800B8F97D /* Images.xcassets */; };
 		183CC67D1A68FC8800B8F97D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC67C1A68FC8800B8F97D /* XCTest.framework */; };
 		183CC67E1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC67F1A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -88,7 +87,6 @@
 		183CC66F1A68FC8800B8F97D /* QSYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSYAppDelegate.h; sourceTree = "<group>"; };
 		183CC6701A68FC8800B8F97D /* QSYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSYAppDelegate.m; sourceTree = "<group>"; };
 		183CC6731A68FC8800B8F97D /* House.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = House.xcdatamodel; sourceTree = "<group>"; };
-		183CC6751A68FC8800B8F97D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		183CC67B1A68FC8800B8F97D /* HouseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HouseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC67C1A68FC8800B8F97D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		183CC6851A68FC8800B8F97D /* HouseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HouseTests-Info.plist"; sourceTree = "<group>"; };
@@ -242,7 +240,6 @@
 			children = (
 				183CC66F1A68FC8800B8F97D /* QSYAppDelegate.h */,
 				183CC6701A68FC8800B8F97D /* QSYAppDelegate.m */,
-				183CC6751A68FC8800B8F97D /* Images.xcassets */,
 				183CC6721A68FC8800B8F97D /* House.xcdatamodeld */,
 				183CC6671A68FC8800B8F97D /* Supporting Files */,
 			);
@@ -924,7 +921,6 @@
 				18C8A1271A6AB08600BB9611 /* navigationbar_maplist_normal.png in Resources */,
 				18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */,
 				18C8A0F01A6A883900BB9611 /* tabbar_home_normal.png in Resources */,
-				183CC6761A68FC8800B8F97D /* Images.xcassets in Resources */,
 				18C8A1171A6AA3BC00BB9611 /* navigationbar_turnback_normal.png in Resources */,
 				18C8A0F11A6A883900BB9611 /* tabbar_home_selected.png in Resources */,
 			);
