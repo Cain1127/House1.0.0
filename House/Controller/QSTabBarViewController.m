@@ -65,7 +65,7 @@
 {
     
     [super viewDidLoad];
-    
+        
     ///获取tabbar栏按钮信息及所对应的控制器
     [self getTabbarSettingPlistFile];
     

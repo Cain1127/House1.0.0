@@ -45,9 +45,6 @@
  */
 - (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index;
 
-///每一页的展示时间
-- (CGFloat)displayTime:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index;
-
 @end
 
 typedef enum
@@ -82,6 +79,6 @@ typedef enum
  *
  *  @since                  1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andTapCallBack:(void(^)(id params))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andShowPageIndex:(BOOL)pageIndexFlag andShowTime:(CGFloat)showTime andTapCallBack:(void(^)(id params))callBack;
 
 @end
