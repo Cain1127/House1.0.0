@@ -1,11 +1,11 @@
 
+#import "QSNetworkingStatus.h"
+
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #import <netdb.h>
 #import <sys/socket.h>
 #import <CoreFoundation/CoreFoundation.h>
-
-#import "QSNetworkingStatus.h"
 
 ///
 #define kShouldPrintReachabilityFlags 1
@@ -65,8 +65,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	if (reachability != NULL){
         
 		returnValue= [[self alloc] init];
-		if (returnValue != NULL)
-		{
+		if (returnValue != NULL){
             
 			returnValue->reachabilityRef = reachability;
 			returnValue->localWiFiRef = NO;

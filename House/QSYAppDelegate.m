@@ -8,6 +8,7 @@
 
 #import "QSYAppDelegate.h"
 #import "QSTabBarViewController.h"
+#import "QSAdvertViewController.h"
 
 @implementation QSYAppDelegate
 
@@ -22,11 +23,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    ///加载tabbar控制器
-    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
-    
-    ///加载到rootViewController上
-    self.window.rootViewController = tabbarVC;
+    ///显示广告页
+    QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
+    self.window.rootViewController = advertVC;
     
     return YES;
     

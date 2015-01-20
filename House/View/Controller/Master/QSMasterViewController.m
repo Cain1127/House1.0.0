@@ -19,31 +19,7 @@ static char NavigationBarKey;//!<导航栏的关联key
 
 @implementation QSMasterViewController
 
-#pragma mark - UI搭建
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
-    
-    ///通过统一的方法创建UI
-    [self createUI];
-    
-}
-
-///搭建UI
-- (void)createUI
-{
-    
-    ///搭建中间主展示信息
-    [self createMainShowUI];
-
-    ///搭建导航栏
-    [self createNavigationBarUI];
-    
-    ///搭建tabbar
-    [self createBottomTabbar];
-
-}
-
+#pragma mark - 重写导航栏：添加导航栏
 ///导航栏UI
 - (void)createNavigationBarUI
 {
@@ -52,22 +28,6 @@ static char NavigationBarKey;//!<导航栏的关联key
     QSNavigationBar *navigationBar = [[QSNavigationBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 64.0f)];
     [self.view addSubview:navigationBar];
     objc_setAssociatedObject(self, &NavigationBarKey, navigationBar, OBJC_ASSOCIATION_ASSIGN);
-
-}
-
-///底部功能UI
-- (void)createBottomTabbar
-{
-
-    
-
-}
-
-///中间主展示信息UI
-- (void)createMainShowUI
-{
-
-    
 
 }
 

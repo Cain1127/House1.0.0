@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+    <entity name="QSHouseApplicationInfoModel" syncable="YES">
+        <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="app_info_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_new_index" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="QSHouseApplicationInfoModel" positionX="-63" positionY="-18" width="128" height="90"/>
+    </elements>
 </model>
