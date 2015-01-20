@@ -10,6 +10,7 @@
 #import "QSAutoScrollView.h"
 #import "QSGuideSummaryView.h"
 #import "QSGuideLookingforRoomView.h"
+#import "QSWDeveloperHomeViewController.h"
 
 @interface QSGuideViewController ()
 
@@ -48,6 +49,14 @@
             
             ///我要放盘事件
         case gGuideButtonActionTypeSaleHouse:
+            
+        {
+            ///开发商首页
+            QSWDeveloperHomeViewController *vc = [[QSWDeveloperHomeViewController alloc] init];
+            
+            [self changeWindowRootViewController:vc];
+        
+        }
             
             break;
             
