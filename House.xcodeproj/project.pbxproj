@@ -81,6 +81,7 @@
 		18C8A1641A6CBEBD00BB9611 /* share_weibo_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A15E1A6CBEBD00BB9611 /* share_weibo_highlighted.png */; };
 		18C8A1651A6CBEBD00BB9611 /* share_weibo_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A15F1A6CBEBD00BB9611 /* share_weibo_normal.png */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
+		CE2B43121A6DFBE8006B9F8E /* QSNetworkingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43111A6DFBE8006B9F8E /* QSNetworkingTest.m */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
 		CE8F12671A6CACB0005ECB65 /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8F12661A6CACB0005ECB65 /* QSHomeViewController.xib */; };
@@ -200,6 +201,8 @@
 		18C8A15F1A6CBEBD00BB9611 /* share_weibo_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_weibo_normal.png; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CE2B43101A6DFBE8006B9F8E /* QSNetworkingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingTest.h; sourceTree = "<group>"; };
+		CE2B43111A6DFBE8006B9F8E /* QSNetworkingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingTest.m; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
 		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
@@ -904,6 +907,8 @@
 		CE8F125D1A6B92BB005ECB65 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				CE2B43101A6DFBE8006B9F8E /* QSNetworkingTest.h */,
+				CE2B43111A6DFBE8006B9F8E /* QSNetworkingTest.m */,
 				CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */,
 				CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */,
 			);
@@ -1100,6 +1105,7 @@
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
+				CE2B43121A6DFBE8006B9F8E /* QSNetworkingTest.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
