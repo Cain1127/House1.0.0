@@ -98,6 +98,7 @@
 		18C8A2681A6E1DB100BB9611 /* guide_tenant_haved_circle_tip.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A25E1A6E1DB100BB9611 /* guide_tenant_haved_circle_tip.png */; };
 		18C8A2691A6E1DB100BB9611 /* guide_tenant_haved_tip.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A25F1A6E1DB100BB9611 /* guide_tenant_haved_tip.png */; };
 		18C8A26D1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A26C1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m */; };
+		18C8A2711A6E5C9200BB9611 /* QSGuideSaleHouseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2701A6E5C9200BB9611 /* QSGuideSaleHouseView.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
@@ -246,6 +247,8 @@
 		18C8A25F1A6E1DB100BB9611 /* guide_tenant_haved_tip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guide_tenant_haved_tip.png; sourceTree = "<group>"; };
 		18C8A26B1A6E4A3900BB9611 /* QSGuideLookingforRoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSGuideLookingforRoomView.h; path = FindHouse/QSGuideLookingforRoomView.h; sourceTree = "<group>"; };
 		18C8A26C1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSGuideLookingforRoomView.m; path = FindHouse/QSGuideLookingforRoomView.m; sourceTree = "<group>"; };
+		18C8A26F1A6E5C9200BB9611 /* QSGuideSaleHouseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSGuideSaleHouseView.h; path = SaleHouse/QSGuideSaleHouseView.h; sourceTree = "<group>"; };
+		18C8A2701A6E5C9200BB9611 /* QSGuideSaleHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSGuideSaleHouseView.m; path = SaleHouse/QSGuideSaleHouseView.m; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
@@ -864,6 +867,7 @@
 		18C8A1371A6CA2FC00BB9611 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
+				18C8A26E1A6E5C0800BB9611 /* SaleHouse */,
 				18C8A26A1A6E49F800BB9611 /* FindHouse */,
 				18C8A2211A6E017E00BB9611 /* Header */,
 				18C8A21D1A6DFEAB00BB9611 /* Summary */,
@@ -1051,6 +1055,15 @@
 				18C8A26C1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m */,
 			);
 			name = FindHouse;
+			sourceTree = "<group>";
+		};
+		18C8A26E1A6E5C0800BB9611 /* SaleHouse */ = {
+			isa = PBXGroup;
+			children = (
+				18C8A26F1A6E5C9200BB9611 /* QSGuideSaleHouseView.h */,
+				18C8A2701A6E5C9200BB9611 /* QSGuideSaleHouseView.m */,
+			);
+			name = SaleHouse;
 			sourceTree = "<group>";
 		};
 		CE2B43141A6E2AD2006B9F8E /* Developer */ = {
@@ -1294,6 +1307,7 @@
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
+				18C8A2711A6E5C9200BB9611 /* QSGuideSaleHouseView.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				18C8A21C1A6DFBD900BB9611 /* QSGuideViewController.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,

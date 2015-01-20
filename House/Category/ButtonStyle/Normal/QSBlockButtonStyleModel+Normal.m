@@ -40,11 +40,31 @@
             
             break;
             
+            ///黑字白底按钮
+        case nNormalButtonTypeClear:
+            
+            return [self createNormalClearButton];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
+
+}
+
+///创建普通黑字白底按钮
++ (QSBlockButtonStyleModel *)createNormalClearButton
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = [UIColor whiteColor];
+    buttonStyle.titleNormalColor = [UIColor blackColor];
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
+    return buttonStyle;
 
 }
 

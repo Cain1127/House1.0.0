@@ -1,17 +1,16 @@
 //
-//  QSGuideLookingforRoomView.m
+//  QSGuideSaleHouseView.m
 //  House
 //
 //  Created by ysmeng on 15/1/20.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSGuideLookingforRoomView.h"
+#import "QSGuideSaleHouseView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
-@implementation QSGuideLookingforRoomView
+@implementation QSGuideSaleHouseView
 
-#pragma mark - UI搭建
 /**
  *  @author     yangshengmeng, 15-01-20 14:01:51
  *
@@ -24,31 +23,31 @@
 - (void)createCustomGuideFooterUI:(UIView *)view
 {
     
-    ///二手房
+    ///出售物业
     QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-    yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
-    UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
+    yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
+    UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
         ///回调
         if (self.guideButtonCallBack) {
             
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseSecondHouse);
+            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseSaleHouse);
             
         }
         
     }];
-    secondHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [view addSubview:secondHouseButton];
+    saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [view addSubview:saleHouseButton];
     
-    ///出租房
+    ///出租物业
     QSBlockButtonStyleModel *whiteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
-    whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_RENTAL_BUTTON;
+    whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
         ///回调
         if (self.guideButtonCallBack) {
             
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseRentalHouse);
+            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseRentalHouse);
             
         }
         
@@ -64,7 +63,7 @@
         ///回调
         if (self.guideButtonCallBack) {
             
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseSkip);
+            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseSkip);
             
         }
         
@@ -78,17 +77,17 @@
     NSDictionary *___VFLSizeDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%.2f",gap],@"gap",[NSString stringWithFormat:@"%.2f",width],@"width",nil];
     
     ///添加约束
-    NSString *___hVFL_secondButton = @"H:[secondHouseButton(width)]";
+    NSString *___hVFL_secondButton = @"H:[saleHouseButton(width)]";
     NSString *___hVFL_rentalButton = @"H:[rentalHouseButton(width)]";
     NSString *___hVFL_skipButton = @"H:[skipButton(width)]";
-    NSString *___vVFL_all = @"V:|-gap-[secondHouseButton]-10-[rentalHouseButton(==secondHouseButton)]-[skipButton(==secondHouseButton)]-gap-|";
+    NSString *___vVFL_all = @"V:|-gap-[saleHouseButton]-10-[rentalHouseButton(==saleHouseButton)]-[skipButton(==saleHouseButton)]-gap-|";
     
     ///约束参数字典
-    NSDictionary *___VFLViewsDict = NSDictionaryOfVariableBindings(secondHouseButton,rentalHouseButton,skipButton);
+    NSDictionary *___VFLViewsDict = NSDictionaryOfVariableBindings(saleHouseButton,rentalHouseButton,skipButton);
     
     ///添加约束
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_secondButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
-    [view addConstraint:[NSLayoutConstraint constraintWithItem:secondHouseButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:saleHouseButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_rentalButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_skipButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_all options:NSLayoutFormatAlignAllCenterX metrics:___VFLSizeDict views:___VFLViewsDict]];
