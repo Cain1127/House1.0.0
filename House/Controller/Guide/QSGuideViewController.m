@@ -10,6 +10,7 @@
 #import "QSAutoScrollView.h"
 #import "QSGuideSummaryView.h"
 #import "QSGuideLookingforRoomView.h"
+#import "QSGuideSaleHouseView.h"
 #import "QSWDeveloperHomeViewController.h"
 
 @interface QSGuideViewController ()
@@ -50,13 +51,48 @@
             ///我要放盘事件
         case gGuideButtonActionTypeSaleHouse:
             
-        {
-            ///开发商首页
-            QSWDeveloperHomeViewController *vc = [[QSWDeveloperHomeViewController alloc] init];
+            [self gotoSaleHouse];
             
-            [self changeWindowRootViewController:vc];
-        
+            break;
+            
+            ///找房：二手房
+        case gGuideButtonActionTypeFindHouseSecondHouse:
+            
+            
+            
+            break;
+            
+            ///找房：出租房
+        case gGuideButtonActionTypeFindHouseRentalHouse:
+            
+            
+            
+            break;
+            
+            ///找房：跳过
+        case gGuideButtonActionTypeFindHouseSkip:
+            
+            
+            
+            break;
+            
+            ///我要放盘：出售物业
+        case gGuideButtonActionTypeSaleHouseSaleHouse:
+            
+            ///我要放盘：出租物业
+        case gGuideButtonActionTypeSaleHouseRentalHouse:
+        {
+         
+            QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
+            [self changeWindowRootViewController:developerVC];
+            
         }
+            break;
+            
+            ///我要放盘：跳过
+        case gGuideButtonActionTypeSaleHouseSkip:
+            
+            
             
             break;
             
@@ -66,7 +102,45 @@
 
 }
 
-#pragma mark - 我要找房页面
+#pragma mark - 我要发盘指引页
+- (void)gotoSaleHouse
+{
+
+    ///原来首页
+    UIView *guideSummaryView = [self.view subviews][0];
+    
+    ///创建我要找房页面
+    QSGuideSaleHouseView *saleHouseView = [[QSGuideSaleHouseView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    
+    ///保存回调
+    saleHouseView.guideButtonCallBack = ^(GUIDE_BUTTON_ATIONTYPE guideActionType){
+    
+        [self guideButtonActionCallBack:guideActionType];
+    
+    };
+    
+    [self.view addSubview:saleHouseView];
+    
+    ///动画移出
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        saleHouseView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT);
+        guideSummaryView.frame = CGRectMake(-SIZE_DEVICE_WIDTH, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT);
+        
+    } completion:^(BOOL finished) {
+        
+        if (finished) {
+            
+            ///移聊汇总页
+            [guideSummaryView removeFromSuperview];
+            
+        }
+        
+    }];
+
+}
+
+#pragma mark - 我要找房指引页面
 - (void)gotoFindHouse
 {
     
@@ -75,6 +149,14 @@
 
     ///创建我要找房页面
     QSGuideLookingforRoomView *findHouseView = [[QSGuideLookingforRoomView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    
+    ///保存回调
+    findHouseView.guideButtonCallBack = ^(GUIDE_BUTTON_ATIONTYPE guideActionType){
+        
+        [self guideButtonActionCallBack:guideActionType];
+        
+    };
+    
     [self.view addSubview:findHouseView];
     
     ///动画移出

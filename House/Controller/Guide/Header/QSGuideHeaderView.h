@@ -14,8 +14,14 @@ typedef enum
     
     gGuideButtonActionTypeFindHouse = 100,          //!<我要找房
     gGuideButtonActionTypeSaleHouse,                //!<我要放盘
-    gGuideButtonActionTypeFindHouseSecondHouse,     //!<二手房
-    gGuideButtonActionTypeFindHouseRentalHouse      //!<出租房
+    
+    gGuideButtonActionTypeFindHouseSecondHouse,     //!<找房：二手房
+    gGuideButtonActionTypeFindHouseRentalHouse,     //!<找房：出租房
+    gGuideButtonActionTypeFindHouseSkip,            //!<找房：跳过
+    
+    gGuideButtonActionTypeSaleHouseSaleHouse,     //!<发盘：二手房
+    gGuideButtonActionTypeSaleHouseRentalHouse,     //!<发盘：出租房
+    gGuideButtonActionTypeSaleHouseSkip             //!<发盘：跳过
 
 }GUIDE_BUTTON_ATIONTYPE;                    //!<指引页按钮类型
 
