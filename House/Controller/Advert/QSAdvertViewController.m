@@ -8,6 +8,8 @@
 
 #import "QSAdvertViewController.h"
 #import "QSAutoScrollView.h"
+#import "QSTabBarViewController.h"
+#import "QSYAppDelegate.h"
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
@@ -20,7 +22,18 @@
     
     [super viewDidLoad];
     
-    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:YES andShowTime:3.0f andTapCallBack:^(id params) {
+    ///白色背景
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    ///创建默认版权信息
+    UILabel *rightInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, SIZE_DEVICE_HEIGHT - 54.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f)];
+    rightInfoLabel.text = @"Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.";
+    rightInfoLabel.textColor = COLOR_CHARACTERS_NORMAL;
+    rightInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    rightInfoLabel.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:rightInfoLabel];
+    
+    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
         
         NSLog(@"=============================%@",params);
         
@@ -28,13 +41,17 @@
     
     [self.view addSubview:autoScrollView];
     
-    /**
-     *  ///加载tabbar控制器
-     QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
-     
-     ///加载到rootViewController上
-     self.window.rootViewController = tabbarVC;
-     */
+    ///10秒后进入主页
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        ///加载tabbar控制器
+        QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+        
+        ///加载到rootViewController上
+        QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate.window.rootViewController = tabbarVC;
+        
+    });
     
 }
 
@@ -42,7 +59,7 @@
 - (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
 {
 
-    return 3;
+    return 1;
 
 }
 
