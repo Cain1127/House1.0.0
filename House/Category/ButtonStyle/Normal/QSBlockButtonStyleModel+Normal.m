@@ -49,7 +49,7 @@
 }
 
 ///创建普通白色圆角按钮
-+ (QSBlockButtonStyleModel *)ceateNormalCornerWhiteButton
++ (QSBlockButtonStyleModel *)ceateNormalCornerYellowButton
 {
 
     QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
@@ -63,7 +63,7 @@
 }
 
 ///创建普通黄色圆角按钮
-+ (QSBlockButtonStyleModel *)ceateNormalCornerYellowButton
++ (QSBlockButtonStyleModel *)ceateNormalCornerWhiteButton
 {
     
     QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];

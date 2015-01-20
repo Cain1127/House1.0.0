@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "QSCoreDataManager.h"
-#import "QSNetworkingStatus.h"
 
 /**
  *  @author yangshengmeng, 15-01-20 10:01:07
@@ -46,5 +45,17 @@
  *  @since  1.0.0
  */
 - (void)createMainShowUI;
+
+#pragma mark - 检测网络
+/**
+ *  @author yangshengmeng, 15-01-20 12:01:16
+ *
+ *  @brief  判断当前网络状态是否可用，是wifi还是3G/4G
+ *
+ *  @return 返回网络状态
+ *
+ *  @since  1.0.0
+ */
+- (NETWORK_STATUS)currentReachabilityStatus;
 
 @end

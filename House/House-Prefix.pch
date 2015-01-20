@@ -24,5 +24,6 @@
     #import "TitleHeader.h"             //!<标题信息显示相关的宏定义
     #import "ImageHeader.h"             //!<图片相关宏定义
     #import "ViewSizeHeader.h"          //!<视图控制相关的尺寸：如圆角
+    #import "TypeEnumHeader.h"          //!<一些房当家的类型枚举定义
 
 #endif
