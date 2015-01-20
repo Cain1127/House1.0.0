@@ -8,6 +8,8 @@
 
 #import "QSGuideSummaryView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSWDeveloperHomeViewController.h"
+
 
 @implementation QSGuideSummaryView
 
@@ -47,9 +49,11 @@
     }];
     [self addSubview:findHouseButton];
     
-    ///我要找房
+    ///我要放房
     QSBlockButtonStyleModel *whiteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
+    
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
+    
     UIButton *saleHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 160.0f)/2.0f, SIZE_DEVICE_HEIGHT - 20.0f - 44.0f, 160.0f, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
         [self saleHouse];
@@ -71,7 +75,7 @@
 - (void)saleHouse
 {
 
-    
+
 
 }
 

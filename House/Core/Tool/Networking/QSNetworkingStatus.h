@@ -16,12 +16,12 @@ extern NSString *kReachabilityChangedNotification;
 @interface QSNetworkingStatus : NSObject
 
 /*!
- * Use to check the reachability of a given host name.
+ * 设置给定的检查网络地址
  */
 + (instancetype)reachabilityWithHostName:(NSString *)hostName;
 
 /*!
- * Use to check the reachability of a given IP address.
+ * 设置给定的检查网络IP
  */
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
 
@@ -31,14 +31,15 @@ extern NSString *kReachabilityChangedNotification;
 + (instancetype)reachabilityForInternetConnection;
 
 /*!
- * Checks whether a local WiFi connection is available.
+ * 检查本地wifi是否可用
  */
 + (instancetype)reachabilityForLocalWiFi;
 
-/*!
- * Start listening for reachability notifications on the current run loop.
- */
+
+///开启侦听网络连接
 - (BOOL)startNotifier;
+
+///停止网络信号侦听
 - (void)stopNotifier;
 
 /**

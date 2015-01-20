@@ -8,6 +8,8 @@
 
 #import "QSGuideHeaderView.h"
 
+
+
 /**
  *  @author yangshengmeng, 15-01-20 11:01:32
  *
@@ -16,5 +18,6 @@
  *  @since  1.0.0
  */
 @interface QSGuideSummaryView : QSGuideHeaderView
+
 
 @end
