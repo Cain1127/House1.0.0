@@ -105,6 +105,7 @@
 		CE000DC41A6E5451008FD309 /* developer_saling_house.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBE1A6E5451008FD309 /* developer_saling_house.png */; };
 		CE000DC51A6E5451008FD309 /* developer_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBF1A6E5451008FD309 /* developer_setting.png */; };
 		CE000DC61A6E5451008FD309 /* developer_setting_hightlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */; };
+		CE000DCA1A6E60D6008FD309 /* QSGuideSaleHouseView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
@@ -260,6 +261,8 @@
 		CE000DBE1A6E5451008FD309 /* developer_saling_house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_saling_house.png; sourceTree = "<group>"; };
 		CE000DBF1A6E5451008FD309 /* developer_setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_setting.png; sourceTree = "<group>"; };
 		CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_setting_hightlight.png; sourceTree = "<group>"; };
+		CE000DC81A6E60D6008FD309 /* QSGuideSaleHouseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGuideSaleHouseView.h; sourceTree = "<group>"; };
+		CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGuideSaleHouseView.m; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
 		CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
@@ -877,6 +880,7 @@
 		18C8A1371A6CA2FC00BB9611 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
+				CE000DC71A6E60D6008FD309 /* SaleHouse */,
 				18C8A26A1A6E49F800BB9611 /* FindHouse */,
 				18C8A2211A6E017E00BB9611 /* Header */,
 				18C8A21D1A6DFEAB00BB9611 /* Summary */,
@@ -1077,6 +1081,15 @@
 				CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */,
 			);
 			path = Developer;
+			sourceTree = "<group>";
+		};
+		CE000DC71A6E60D6008FD309 /* SaleHouse */ = {
+			isa = PBXGroup;
+			children = (
+				CE000DC81A6E60D6008FD309 /* QSGuideSaleHouseView.h */,
+				CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */,
+			);
+			path = SaleHouse;
 			sourceTree = "<group>";
 		};
 		CE2B43141A6E2AD2006B9F8E /* Developer */ = {
@@ -1326,6 +1339,7 @@
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
+				CE000DCA1A6E60D6008FD309 /* QSGuideSaleHouseView.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				18C8A21C1A6DFBD900BB9611 /* QSGuideViewController.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
