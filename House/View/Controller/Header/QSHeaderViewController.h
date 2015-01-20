@@ -58,4 +58,16 @@
  */
 - (NETWORK_STATUS)currentReachabilityStatus;
 
+#pragma mark - window加载临时VC
+/**
+ *  @author         yangshengmeng, 15-01-20 16:01:54
+ *
+ *  @brief          修改当前window的根视图
+ *
+ *  @param newVC    新的视图
+ *
+ *  @since          1.0.0
+ */
+- (void)changeWindowRootViewController:(UIViewController *)newVC;
+
 @end
