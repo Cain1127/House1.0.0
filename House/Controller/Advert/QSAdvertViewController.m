@@ -13,9 +13,27 @@
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
+@property (nonatomic,assign) BOOL isShowAdvert;     //!<是否显示广告栏的标记：YES-显示,NO-不显示
+@property (nonatomic,assign) BOOL isShowGuideIndex; //!<是否显示指引页标记：YES-显示,NO-不显示
+
 @end
 
 @implementation QSAdvertViewController
+
+#pragma mark - 初始化
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        
+        ///获取指引状态
+        self.isShowGuideIndex = [QSCoreDataManager getAppGuideIndexStatus];
+        
+    }
+    
+    return self;
+
+}
 
 #pragma mark - UI搭建
 - (void)viewDidLoad {
@@ -41,18 +59,35 @@
     
     [self.view addSubview:autoScrollView];
     
-    ///10秒后进入主页
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///判断是否需要显示指引页
+    if (self.isShowGuideIndex) {
         
-        ///加载tabbar控制器
-        QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
         
-        ///加载到rootViewController上
-        QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        appDelegate.window.rootViewController = tabbarVC;
         
-    });
+    } else {
     
+        ///10秒后进入主页
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self gotoAppMainViewController];
+            
+        });
+    
+    }
+    
+}
+
+#pragma mark - 进入主显示页面
+- (void)gotoAppMainViewController
+{
+
+    ///加载tabbar控制器
+    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+    
+    ///加载到rootViewController上
+    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = tabbarVC;
+
 }
 
 #pragma mark - 广告总页数

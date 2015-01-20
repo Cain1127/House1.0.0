@@ -5,9 +5,9 @@
 
 typedef enum : NSInteger {
     
-	NotReachable = 0,   //!<
-	ReachableViaWiFi,   //!<
-	ReachableViaWWAN    //!<
+	NotReachable = 0,   //!<当前网络不可用
+	ReachableViaWiFi,   //!<wifi
+	ReachableViaWWAN    //!<3G
     
 }NETWORK_STATUS;        //!<
 
@@ -17,9 +17,9 @@ extern NSString *kReachabilityChangedNotification;
 /**
  *  @author yangshengmeng, 15-01-19 10:01:39
  *
- *  @brief  <#Description#>
+ *  @brief  判断当前网络是否可用，返回当前的网络类型
  *
- *  @since <#version number#>
+ *  @since  1.0.0
  */
 @interface QSNetworkingStatus : NSObject
 
@@ -49,9 +49,16 @@ extern NSString *kReachabilityChangedNotification;
 - (BOOL)startNotifier;
 - (void)stopNotifier;
 
+/**
+ *  @author yangshengmeng, 15-01-20 10:01:30
+ *
+ *  @brief  返回当前网络类型
+ *
+ *  @return 返回当前网络类型
+ *
+ *  @since  1.0.0
+ */
 - (NETWORK_STATUS)currentReachabilityStatus;
-
-
 
 /*!
  * WWAN may be available, but not active until a connection has been established. WiFi may require a connection for VPN on Demand.
