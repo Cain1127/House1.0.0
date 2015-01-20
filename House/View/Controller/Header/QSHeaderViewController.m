@@ -8,6 +8,7 @@
 
 #import "QSHeaderViewController.h"
 #import "QSNetworkingStatus.h"
+#import "QSYAppDelegate.h"
 
 @interface QSHeaderViewController ()
 
@@ -80,6 +81,24 @@
     QSNetworkingStatus *reach=[QSNetworkingStatus reachabilityWithHostName:@"www.baidu.com"];
     ///返回网络状态的判断
     return [reach currentReachabilityStatus];
+
+}
+
+#pragma mark - window加载临时VC
+/**
+ *  @author         yangshengmeng, 15-01-20 16:01:54
+ *
+ *  @brief          修改当前window的根视图
+ *
+ *  @param newVC    新的视图
+ *
+ *  @since          1.0.0
+ */
+- (void)changeWindowRootViewController:(UIViewController *)newVC
+{
+
+    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = newVC;
 
 }
 

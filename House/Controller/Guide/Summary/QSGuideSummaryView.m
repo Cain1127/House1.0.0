@@ -76,13 +76,13 @@
     ///房客:173 x 200
     UIImageView *tenantHavedTipsImageView = [[UIImageView alloc] init];
     tenantHavedTipsImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    tenantHavedTipsImageView.image = [UIImage imageNamed:IMAGE_GUIDE_HOUSESTIP];
+    tenantHavedTipsImageView.image = [UIImage imageNamed:IMAGE_GUIDE_TENANTTIP];
     [view addSubview:tenantHavedTipsImageView];
     
     ///房客数量人头图片
     UIImageView *tenantHavedImageView = [[UIImageView alloc] init];
     tenantHavedImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    tenantHavedImageView.image = [UIImage imageNamed:IMAGE_GUIDE_HOUSES_PERSION];
+    tenantHavedImageView.image = [UIImage imageNamed:IMAGE_GUIDE_TENANT_PERSION];
     [view addSubview:tenantHavedImageView];
     
     ///数量显示Label
@@ -100,7 +100,7 @@
     NSString *___hVFL_tipAndHaved = @"H:|-15-[tenantHavedTipsImageView(87)]-[tenantHavedImageView(165)]-(>=15)-|";
     NSString *___hVFL_countLabel = @"H:[countLabel(>=165)]";
     NSString *___vVFL_havedTip = @"V:[tenantHavedTipsImageView(100)]";
-    NSString *___vVFL_havedImageAndCountLabel = @"V:[tenantHavedImageView(28)]-[countLabel(tenantHavedImageView)]-15-|";
+    NSString *___vVFL_havedImageAndCountLabel = @"V:|-75-[tenantHavedImageView(28)]-[countLabel(tenantHavedImageView)]";
     
     ///添加结束
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_tipAndHaved options:NSLayoutFormatAlignAllLastBaseline metrics:nil views:___VFLViewsDict]];
@@ -127,7 +127,11 @@
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON;
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        [self findHouse];
+        if (self.guideButtonCallBack) {
+            
+            self.guideButtonCallBack(gGuideButtonActionTypeFindHouse);
+            
+        }
         
     }];
     findHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -138,7 +142,11 @@
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        [self saleHouse];
+        if (self.guideButtonCallBack) {
+            
+            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouse);
+            
+        }
         
     }];
     saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -163,30 +171,6 @@
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_saleButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_all options:NSLayoutFormatAlignAllCenterX metrics:___VFLSizeDict views:___VFLViewsDict]];
     
-}
-
-#pragma mark - 点击<我要找房>
-- (void)findHouse
-{
-
-    if (self.guideButtonCallBack) {
-        
-        self.guideButtonCallBack(gGuideButtonActionTypeFindHouse);
-        
-    }
-
-}
-
-#pragma mark - 点击<我要放盘>
-- (void)saleHouse
-{
-
-    if (self.guideButtonCallBack) {
-        
-        self.guideButtonCallBack(gGuideButtonActionTypeSaleHouse);
-        
-    }
-
 }
 
 @end
