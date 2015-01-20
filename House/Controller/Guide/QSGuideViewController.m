@@ -50,7 +50,37 @@
 {
 
     QSGuideSummaryView *sumaryView = [[QSGuideSummaryView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    
+    ///设置回调
+    sumaryView.guideButtonCallBack = ^(GUIDE_BUTTON_ATIONTYPE guideButtonActionType){
+        
+        [self guideButtonActionCallBack:guideButtonActionType];
+    
+    };
+    
     return sumaryView;
+
+}
+
+#pragma mark - 指引页点击事件回调
+- (void)guideButtonActionCallBack:(GUIDE_BUTTON_ATIONTYPE)guideButtonActionType
+{
+
+    switch (guideButtonActionType) {
+            
+            ///我要找房事件
+        case gGuideButtonActionTypeFindHouse:
+            
+            break;
+            
+            ///我要放盘事件
+        case gGuideButtonActionTypeSaleHouse:
+            
+            break;
+            
+        default:
+            break;
+    }
 
 }
 

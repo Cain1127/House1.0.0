@@ -11,6 +11,35 @@
 @implementation UIButton (QSBlockButton)
 
 /**
+ *  @author             yangshengmeng, 15-01-20 14:01:46
+ *
+ *  @brief              创建一个没有相对位置和大小的指定风格按钮，方便自适应使用
+ *
+ *  @param buttonStyle  按钮风格模型
+ *  @param callBack     单击按钮时的回调
+ *
+ *  @return             返回创建的按钮
+ *
+ *  @since              1.0.0
+ */
++ (UIButton *)createBlockButtonWithButtonStyle:(QSBlockButtonStyleModel *)buttonStyle andCallBack:(void(^)(UIButton *button))callBack
+{
+
+    ///创建一个单击时回调的按钮并返回
+    QSBlockButton *blockButton = [[QSBlockButton alloc] initWithButtonStyle:buttonStyle];
+    
+    ///保存回调
+    if (callBack) {
+        
+        blockButton.blockButtonCallBack = callBack;
+        
+    }
+    
+    return blockButton;
+
+}
+
+/**
  *  @author             yangshengmeng, 15-01-17 17:01:04
  *
  *  @brief              创建并返回一个特定风格并且带有回调的按钮
@@ -45,6 +74,27 @@
 @implementation QSBlockButton
 
 #pragma mark - 初始化
+- (instancetype)initWithButtonStyle:(QSBlockButtonStyleModel *)buttonStyle
+{
+
+    if (self = [super init]) {
+        
+        ///创建按钮时就添加单击回调
+        [self addTarget:self action:@selector(blockButtonTapAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        ///设置风格
+        if (buttonStyle) {
+            
+            [self setButtonPropertyWithButtonStyle:buttonStyle];
+            
+        }
+        
+    }
+    
+    return self;
+
+}
+
 - (instancetype)initWithFrame:(CGRect)frame andButtonStyle:(QSBlockButtonStyleModel *)buttonStyle
 {
 

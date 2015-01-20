@@ -41,4 +41,27 @@
 #define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
 #define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
 
+/**
+ *  @author yangshengmeng, 15-01-20 13:01:03
+ *
+ *  @brief  指引页相关图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///指引页背景图片
+#define IMAGE_GUIDE_HEADER_BACKGROUD @"guide_header_backgroud"
+
+///指引页房源提示水珠图
+#define IMAGE_GUIDE_HOUSESTIP @"guide_houses_haved_tip"
+
+///指引页房客提示水珠图
+#define IMAGE_GUIDE_TENANTTIP @"guide_tenant_haved_tip"
+
+///指引页房源数人头图片
+#define IMAGE_GUIDE_HOUSES_PERSION @"guide_houses_haved"
+
+///指引页房客数人头图片
+#define IMAGE_GUIDE_TENANT_PERSION @"guide_tenant_haved"
+
 #endif
