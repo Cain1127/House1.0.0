@@ -7,6 +7,7 @@
 //
 
 #import "QSWDeveloperHomeViewController.h"
+#import "QSGuideViewController.h"
 
 @interface QSWDeveloperHomeViewController ()
 

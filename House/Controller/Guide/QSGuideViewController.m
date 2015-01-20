@@ -9,7 +9,8 @@
 #import "QSGuideViewController.h"
 #import "QSAutoScrollView.h"
 #import "QSGuideSummaryView.h"
-
+#import "QSWDeveloperHomeViewController.h"
+#import "QSYAppDelegate.h"
 @interface QSGuideViewController ()<QSAutoScrollViewDelegate>
 
 @end
@@ -76,6 +77,7 @@
             ///我要放盘事件
         case gGuideButtonActionTypeSaleHouse:
             
+            
             break;
             
         default:
@@ -83,5 +85,7 @@
     }
 
 }
+
+
 
 @end
