@@ -19,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUY-hV-zgz">
-                    <rect key="frame" x="15" y="64" width="291" height="220"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUY-hV-zgz">
+                    <rect key="frame" x="15" y="64" width="290" height="220"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHO-BM-phJ">
                             <rect key="frame" x="8" y="8" width="94" height="80"/>
@@ -78,9 +78,6 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="220" id="KJo-aB-g7U"/>
-                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gkg-25-k9I">
                     <rect key="frame" x="30" y="181" width="282" height="122"/>
@@ -192,11 +189,6 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="EUY-hV-zgz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="D9q-ej-XhE"/>
-                <constraint firstAttribute="trailing" secondItem="EUY-hV-zgz" secondAttribute="trailing" constant="14" id="K3C-Qn-feF"/>
-                <constraint firstItem="EUY-hV-zgz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Mdi-xL-u8X"/>
-            </constraints>
             <point key="canvasLocation" x="278" y="162"/>
         </view>
     </objects>
