@@ -18,6 +18,7 @@
 
 @property (nonatomic,assign) AUTOSCROLL_DIRECTION_TYPE autoScrollDirectionType;//!<自滚动方向
 @property (nonatomic,assign) BOOL pageIndexFlag;                        //!<是否显示页码指示器
+@property (nonatomic,assign) BOOL isAutoScroll;                         //!<是否开启自滚动
 @property (nonatomic,assign) int sumPage;                               //!<总的是滚动页数
 @property (nonatomic,assign) int currentIndex;                          //!<当前显示的下标
 @property (nonatomic,assign) CGFloat currentShowTime;                   //!<当前显示页的显示时间
@@ -59,8 +60,18 @@
         ///保存代理
         self.delegate = delegate;
         
-        ///保存显示时间
-        self.currentShowTime = currentShowTime;
+        ///保存显示时间：如果时间小于0.5，则不启动自滚动
+        if (currentShowTime > 0.5f) {
+            
+            self.currentShowTime = currentShowTime;
+            self.isAutoScroll = YES;
+            
+        } else {
+        
+            self.currentShowTime = 1.0f;
+            self.isAutoScroll = NO;
+        
+        }
         
         ///是否显示页码指示器
         self.pageIndexFlag = pageIndexFlag;
@@ -158,12 +169,17 @@
         
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.currentShowTime + 2.0f) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///判断是否开启定时器
+    if (self.isAutoScroll) {
         
-        ///开始切换视图
-        [self startAnimination];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((self.currentShowTime + 2.0f) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            ///开始切换视图
+            [self startAnimination];
+            
+        });
         
-    });
+    }
     
 }
 

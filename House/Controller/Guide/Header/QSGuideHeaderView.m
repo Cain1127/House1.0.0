@@ -7,6 +7,7 @@
 //
 
 #import "QSGuideHeaderView.h"
+#import "QSBlockButtonStyleModel+Normal.h"
 
 @implementation QSGuideHeaderView
 
@@ -30,7 +31,7 @@
 {
 
     ///背景图片
-    QSImageView *backgoundImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    QSImageView *backgoundImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 88.0f - 40.0f - 8.0f)];
     backgoundImageView.backgroundColor = COLOR_CHARACTERS_YELLOW;
     [self addSubview:backgoundImageView];
 
