@@ -12,7 +12,6 @@
 #import "QSHouseKeySearchViewController.h"
 #import "QSNetworkingStatus.h"
 #import "ColorHeader.h"
-#import "QSNetworkingTest.h"
 
 @interface QSHomeViewController ()
 @property (weak, nonatomic) IBOutlet UIView *houseTypeView;//!< 房源view
@@ -43,6 +42,7 @@
 
 -(void)createMainShowUI
 {
+    
     [super createMainShowUI];
     
     ///设置房源Label颜色
@@ -64,30 +64,50 @@
 - (void)gotoSearchViewController
 {
     
-///网络检测
-  [QSNetworkingTest currentReachabilityStatus];
-
+    
+    
 }
 
 #pragma mark -按钮点击事件
 
 ///新房按钮点击事件
-- (IBAction)newHouseButton:(id)sender {
+- (IBAction)newHouseButton:(id)sender
+{
+    
+    
+    
 }
 
 ///二手房按钮点击事件
-- (IBAction)secondHandHouseButton:(id)sender {
+- (IBAction)secondHandHouseButton:(id)sender
+{
+    
+    
+    
 }
 
 ///租房按钮点击事件
-- (IBAction)rentingHouseButton:(id)sender {
+- (IBAction)rentingHouseButton:(id)sender
+{
+    
+    
+    
 }
 
 ///我要放盘按钮点击事件
-- (IBAction)saleHouseButton:(id)sender {
+- (IBAction)saleHouseButton:(id)sender
+{
+    
+    
+    
 }
 
 ///笋盘推荐按钮点击事件
-- (IBAction)bambooplateHouseButton:(id)sender {
+- (IBAction)bambooplateHouseButton:(id)sender
+{
+    
+    
+    
 }
+
 @end

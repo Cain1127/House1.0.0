@@ -3,14 +3,6 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <netinet/in.h>
 
-typedef enum : NSInteger {
-    
-	NotReachable = 0,   //!<当前网络不可用
-	ReachableViaWiFi,   //!<wifi
-	ReachableViaWWAN    //!<3G
-    
-}NETWORK_STATUS;        //!<
-
 ///
 extern NSString *kReachabilityChangedNotification;
 
