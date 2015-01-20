@@ -121,6 +121,13 @@
         
     }
     
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
     ///查询成功
     NSObject *resultModel = resultList[0];
     return resultModel ? ([resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil) : nil;

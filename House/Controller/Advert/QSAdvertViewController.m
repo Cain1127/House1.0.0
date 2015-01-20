@@ -10,6 +10,7 @@
 #import "QSAutoScrollView.h"
 #import "QSTabBarViewController.h"
 #import "QSYAppDelegate.h"
+#import "QSGuideViewController.h"
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
@@ -59,22 +60,34 @@
     
     [self.view addSubview:autoScrollView];
     
-    ///判断是否需要显示指引页
-    if (self.isShowGuideIndex) {
+    ///10秒后进入主页
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        
-        
-    } else {
-    
-        ///10秒后进入主页
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        ///判断是否需要显示指引页
+        if (self.isShowGuideIndex) {
             
+            [self gotoGuideIndexViewController];
+            
+        } else {
+            
+            ///进入主功能页
             [self gotoAppMainViewController];
             
-        });
+        }
+        
+    });
     
-    }
-    
+}
+
+#pragma mark - 进入指引页
+- (void)gotoGuideIndexViewController
+{
+
+    QSGuideViewController *guideView = [[QSGuideViewController alloc] init];
+    ///加载到rootViewController上
+    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = guideView;
+
 }
 
 #pragma mark - 进入主显示页面

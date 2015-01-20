@@ -23,4 +23,18 @@
 ///<我的>页面的默认标题
 #define TITLE_VIEWCONTROLLER_TITLE_MYZONE @"我的地盘"
 
+/**
+ *  @author yangshengmeng, 15-01-20 12:01:30
+ *
+ *  @brief  指引页相关标题
+ *
+ *  @since  1.0.0
+ */
+
+///汇总页<我要找房>按钮标题
+#define TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON @"我要找房"
+
+///汇总页<我要放盘>按钮标题
+#define TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON @"我要放盘"
+
 #endif
