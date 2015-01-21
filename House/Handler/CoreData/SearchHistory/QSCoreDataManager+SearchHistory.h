@@ -7,7 +7,7 @@
 //
 
 #import "QSCoreDataManager.h"
-#import "QSFDangJiaSearchHistoryDataModel.h"
+#import "QSCDLocalSearchHistoryDataModel.h"
 
 /**
  *  @author yangshengmeng, 15-01-21 20:01:43
@@ -30,7 +30,7 @@
 + (NSArray *)getLocalSearchHistory;
 
 ///插入一个新的搜索历史
-+ (BOOL)addLocalSearchHistory:(QSFDangJiaSearchHistoryDataModel *)model;
++ (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model;
 
 ///清空本地搜索历史
 + (BOOL)clearLocalSearchHistory;

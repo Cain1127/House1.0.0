@@ -42,4 +42,18 @@
  */
 + (instancetype)getDataWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
 
+/**
+ *  @author             yangshengmeng, 15-01-21 21:01:57
+ *
+ *  @brief              根据给定的字段和字段新内容更新CoreData数据
+ *
+ *  @param entityName   实体名
+ *  @param fieldName    字段名
+ *
+ *  @return             更新结果：YES-更新成功，NO-更新失败
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)updateFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue;
+
 @end

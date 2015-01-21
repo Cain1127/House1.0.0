@@ -23,12 +23,12 @@
 + (NSArray *)getLocalSearchHistory
 {
     
-    return [self getDataListWithKey:@"QSFDangJiaSearchHistoryDataModel" andSortKeyWord:@"search_time" andAscend:YES];
+    return [self getDataListWithKey:@"QSCDLocalSearchHistoryDataModel" andSortKeyWord:@"search_time" andAscend:YES];
     
 }
 
 ///插入一个新的搜索历史
-+ (BOOL)addLocalSearchHistory:(QSFDangJiaSearchHistoryDataModel *)model
++ (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model
 {
     
     return YES;

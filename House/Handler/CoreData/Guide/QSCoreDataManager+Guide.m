@@ -21,7 +21,7 @@
 + (BOOL)getAppGuideIndexStatus
 {
     
-    NSString *indexStatus = (NSString *)[self getDataWithKey:@"QSHouseApplicationInfoModel" andKeyword:@"is_new_index"];
+    NSString *indexStatus = (NSString *)[self getDataWithKey:@"QSCDApplicationInfoDataModel" andKeyword:@"is_new_guide_index"];
     
     ///如果当前没有配置，则返回NO
     if (nil == indexStatus) {

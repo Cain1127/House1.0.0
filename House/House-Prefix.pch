@@ -27,5 +27,6 @@
     #import "TypeEnumHeader.h"          //!<一些房当家的类型枚举定义
     #import "URLHeader.h"               //!<URL常量
     #import "UIImageView+CacheImage.h"  //!<图片加载类型，添加本地缓存
+    #import "TipsHeader.h"              //!<其他展示信息宏定义
 
 #endif

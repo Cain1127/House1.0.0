@@ -28,4 +28,15 @@
  */
 + (NSString *)getAdvertLastShowTime;
 
+/**
+ *  @author yangshengmeng, 15-01-21 21:01:01
+ *
+ *  @brief  更新广告显示时间戳
+ *
+ *  @return 更新成功返回：YES-更新成功
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)updateAdvertLastShowTime:(NSString *)timeStamp;
+
 @end

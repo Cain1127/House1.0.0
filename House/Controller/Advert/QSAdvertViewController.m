@@ -14,6 +14,7 @@
 #import "QSYAppDelegate.h"
 #import "QSGuideViewController.h"
 #import "QSAdvertReturnData.h"
+#import "NSDate+Formatter.h"
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
@@ -51,12 +52,47 @@
     
     ///创建默认版权信息
     UILabel *rightInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, SIZE_DEVICE_HEIGHT - 54.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f)];
-    rightInfoLabel.text = @"Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.";
+    rightInfoLabel.text = APPLICATION_RIGHT_INFO;
     rightInfoLabel.textColor = COLOR_CHARACTERS_NORMAL;
     rightInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
     
+    ///获取上次显示时间戳
+    NSString *lastAdvertShowTime = [QSCoreDataManager getAdvertLastShowTime];
+    
+    ///判断是否有时间戳
+    if (lastAdvertShowTime) {
+                
+        ///获取时间差
+        NSTimeInterval advertTimeInterval = [[NSDate date] timeIntervalSinceDate:[NSDate timeStampStringToNSDate:lastAdvertShowTime]];
+        
+        ///判断是否超过一小时
+        if (advertTimeInterval > (60.0f * 60.0f)) {
+            
+            ///再次显示广告
+            [self prepareShowAdvert];
+            
+        } else {
+        
+            ///不显示广告
+            [self nextStepFilter];
+        
+        }
+        
+    } else {
+    
+        ///如若本地没有写入广告最后显示时间，则必须进行广告请求
+        [self prepareShowAdvert];
+    
+    }
+    
+}
+
+#pragma mark - 显示广告
+- (void)prepareShowAdvert
+{
+
     ///开始请求数据
     [QSRequestManager requestDataWithType:rRequestTypeAdvert andCallBack:^void(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -67,6 +103,9 @@
             case rRequestResultTypeSuccess:
                 
                 [self handleRequestResult:resultData];
+                
+                ///更新广告最后显示时间戳
+                [QSCoreDataManager updateAdvertLastShowTime:[NSDate currentDateTimeStamp]];
                 
                 break;
                 
@@ -81,22 +120,30 @@
                 ///数据解析失败
             case rRequestResultTypeDataAnalyzeFail:
                 
-                
-                
-                break;
-                
                 ///当前无可用网络
             case rRequestResultTypeNoNetworking:
                 
-                
-                
-                break;
-                
                 ///网络不稳定
             case rRequestResultTypeBadNetworking:
+            {
                 
+                ///查找本地是否有缓存广告，有则显示，无则跳过
+                QSAdvertReturnData *adverReturnData = (QSAdvertReturnData *)[QSAdvertReturnData getModelDataFromCoreData];
                 
+                if (nil == adverReturnData) {
+                    
+                    [self nextStepFilter];
+                    
+                } else {
                 
+                    [self handleRequestResult:adverReturnData];
+                    
+                    ///更新广告最后显示时间戳
+                    [QSCoreDataManager updateAdvertLastShowTime:[NSDate currentDateTimeStamp]];
+                
+                }
+                
+            }
                 break;
                 
             default:
@@ -104,7 +151,7 @@
         }
         
     }];
-    
+
 }
 
 #pragma mark - 进入指引页
@@ -137,6 +184,9 @@
 
     ///转换模型
     QSAdvertReturnData *advertReturnData = resultData;
+    
+    ///将数据本地化
+    [advertReturnData saveModelDataIntoCoreData];
     
     ///保存广告页数组
     self.advertsDataSource = nil;

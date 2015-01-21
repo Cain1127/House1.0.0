@@ -23,8 +23,31 @@
 + (NSString *)getAdvertLastShowTime
 {
     
-    return (NSString *)[self getDataWithKey:@"QSHouseApplicationInfoModel" andKeyword:@"advert_last_show_time"];
+    return (NSString *)[self getDataWithKey:@"QSCDApplicationInfoDataModel" andKeyword:@"advert_last_show_time"];
     
+}
+
+#pragma mark - 更新广告最后显示时间
+/**
+ *  @author yangshengmeng, 15-01-21 21:01:01
+ *
+ *  @brief  更新广告显示时间戳
+ *
+ *  @return 更新成功返回：YES-更新成功
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)updateAdvertLastShowTime:(NSString *)timeStamp
+{
+
+    if (nil == timeStamp) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateFieldWithKey:@"QSCDApplicationInfoDataModel" andUpdateField:@"advert_last_show_time" andFieldNewValue:timeStamp];
+
 }
 
 @end
