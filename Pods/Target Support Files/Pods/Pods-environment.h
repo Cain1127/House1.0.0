@@ -48,3 +48,33 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// ISO8601DateFormatterValueTransformer
+#define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
+#define COCOAPODS_VERSION_MAJOR_ISO8601DateFormatterValueTransformer 0
+#define COCOAPODS_VERSION_MINOR_ISO8601DateFormatterValueTransformer 6
+#define COCOAPODS_VERSION_PATCH_ISO8601DateFormatterValueTransformer 0
+
+// RKValueTransformers
+#define COCOAPODS_POD_AVAILABLE_RKValueTransformers
+#define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
+#define COCOAPODS_VERSION_MINOR_RKValueTransformers 1
+#define COCOAPODS_VERSION_PATCH_RKValueTransformers 0
+
+// RestKit/ObjectMapping
+#define COCOAPODS_POD_AVAILABLE_RestKit_ObjectMapping
+#define COCOAPODS_VERSION_MAJOR_RestKit_ObjectMapping 0
+#define COCOAPODS_VERSION_MINOR_RestKit_ObjectMapping 23
+#define COCOAPODS_VERSION_PATCH_RestKit_ObjectMapping 3
+
+// RestKit/Support
+#define COCOAPODS_POD_AVAILABLE_RestKit_Support
+#define COCOAPODS_VERSION_MAJOR_RestKit_Support 0
+#define COCOAPODS_VERSION_MINOR_RestKit_Support 23
+#define COCOAPODS_VERSION_PATCH_RestKit_Support 3
+
+// TransitionKit
+#define COCOAPODS_POD_AVAILABLE_TransitionKit
+#define COCOAPODS_VERSION_MAJOR_TransitionKit 2
+#define COCOAPODS_VERSION_MINOR_TransitionKit 1
+#define COCOAPODS_VERSION_PATCH_TransitionKit 0
+

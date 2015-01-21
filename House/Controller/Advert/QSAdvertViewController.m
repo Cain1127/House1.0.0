@@ -11,11 +11,14 @@
 #import "QSTabBarViewController.h"
 #import "QSYAppDelegate.h"
 #import "QSGuideViewController.h"
+#import "QSAdvertReturnData.h"
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
 @property (nonatomic,assign) BOOL isShowAdvert;     //!<是否显示广告栏的标记：YES-显示,NO-不显示
 @property (nonatomic,assign) BOOL isShowGuideIndex; //!<是否显示指引页标记：YES-显示,NO-不显示
+
+@property (nonatomic,retain) NSMutableArray *advertsDataSource;//!<广告数组
 
 @end
 
@@ -52,30 +55,53 @@
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
     
-    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+    ///开始请求数据
+    [QSRequestManager requestDataWithType:rRequestTypeAdvert andCallBack:^void(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        NSLog(@"=============================%@",params);
-        
-    }];
-    
-    [self.view addSubview:autoScrollView];
-    
-    ///10秒后进入主页
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        ///判断是否需要显示指引页
-        if (self.isShowGuideIndex) {
-            
-            [self gotoGuideIndexViewController];
-            
-        } else {
-            
-            ///进入主功能页
-            [self gotoAppMainViewController];
-            
+        ///请求结果过滤
+        switch (resultStatus) {
+                
+                ///请求成功
+            case rRequestResultTypeSuccess:
+                
+                [self handleRequestResult:resultData];
+                
+                break;
+                
+                ///服务端返回false
+            case rRequestResultTypeFail:
+                
+                ///服务端响应失败，进行下一页面显示
+                [self nextStepFilter];
+                
+                break;
+                
+                ///数据解析失败
+            case rRequestResultTypeDataAnalyzeFail:
+                
+                
+                
+                break;
+                
+                ///当前无可用网络
+            case rRequestResultTypeNoNetworking:
+                
+                
+                
+                break;
+                
+                ///网络不稳定
+            case rRequestResultTypeBadNetworking:
+                
+                
+                
+                break;
+                
+            default:
+                break;
         }
         
-    });
+    }];
     
 }
 
@@ -103,11 +129,63 @@
 
 }
 
+#pragma mark - 处理返回的请求结果
+- (void)handleRequestResult:(id)resultData
+{
+
+    ///转换模型
+    QSAdvertReturnData *advertReturnData = resultData;
+    
+    ///保存广告页数组
+    self.advertsDataSource = nil;
+    self.advertsDataSource = [[NSMutableArray alloc] initWithArray:advertReturnData.advertHeaderData.advertsArray];
+    
+    ///每页广告的显示时间
+    CGFloat showTime = [advertReturnData.advertHeaderData.time floatValue] / [self.advertsDataSource count];
+    
+    ///是否显示页码控制器
+    BOOL isAutoScroll = [self.advertsDataSource count] > 1;
+    
+    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:isAutoScroll andShowTime:showTime andTapCallBack:^(id params) {
+        
+        
+        
+    }];
+    
+    [self.view addSubview:autoScrollView];
+    
+    ///广告总时长后进入主页
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(([advertReturnData.advertHeaderData.time floatValue] + 1.0f) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self nextStepFilter];
+        
+    });
+
+}
+
+#pragma mark - 判断是否进入指引页，或者直接进入主页面
+- (void)nextStepFilter
+{
+
+    ///判断是否需要显示指引页
+    if (self.isShowGuideIndex) {
+        
+        [self gotoGuideIndexViewController];
+        
+    } else {
+        
+        ///进入主功能页
+        [self gotoAppMainViewController];
+        
+    }
+
+}
+
 #pragma mark - 广告总页数
 - (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
 {
 
-    return 1;
+    return (int)[self.advertsDataSource count];
 
 }
 
@@ -115,32 +193,12 @@
 - (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
 
-    UIView *advertView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    ///广告页的自定义view
+    QSImageView *advertView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 100.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
-    titleLabel.text = [NSString stringWithFormat:@"%d",index];
-    titleLabel.font = [UIFont boldSystemFontOfSize:60.0f];
-    titleLabel.textColor = [UIColor blackColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [advertView addSubview:titleLabel];
-    
-    if (index == 0) {
-        
-        advertView.backgroundColor = [UIColor redColor];
-        
-    }
-    
-    if (index == 1) {
-        
-        advertView.backgroundColor = [UIColor orangeColor];
-        
-    }
-    
-    if (index == 2) {
-        
-        advertView.backgroundColor = [UIColor blueColor];
-        
-    }
+    ///广告数据模型
+    QSAdvertInfoDataModel *model = self.advertsDataSource[index];
+    advertView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLFDangJiaImageIPHome,model.img]]]];
     
     return advertView;
 
@@ -150,7 +208,9 @@
 - (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
 
-    return [NSString stringWithFormat:@"%d",index];
+    ///广告数据模型
+    QSAdvertInfoDataModel *model = self.advertsDataSource[index];
+    return model.url;
 
 }
 
