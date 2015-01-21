@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QSCoreDataManager.h"
+#import "QSRequestManager.h"
 
 /**
  *  @author yangshengmeng, 15-01-20 10:01:07

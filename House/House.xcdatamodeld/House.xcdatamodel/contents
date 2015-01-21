@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="QSAdvertDetailDataModel" representedClassName="QSAdvertDetailDataModel" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="img" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="QSFDangJiaRequestBaseMSGDataModel" representedClassName="QSFDangJiaRequestBaseMSGDataModel" syncable="YES">
+        <attribute name="before_page" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="msg_base_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="next_page" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="page_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="per_page" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="total_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="total_page" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="QSFDangJiaRequestReturnHeaderDataModel" representedClassName="QSFDangJiaRequestReturnHeaderDataModel" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="header_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
     <entity name="QSHouseApplicationInfoModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_info_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_new_index" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="QSHouseApplicationInfoModel" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="QSHouseApplicationInfoModel" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="QSFDangJiaRequestReturnHeaderDataModel" positionX="-36" positionY="36" width="128" height="103"/>
+        <element name="QSFDangJiaRequestBaseMSGDataModel" positionX="0" positionY="72" width="128" height="148"/>
+        <element name="QSAdvertDetailDataModel" positionX="18" positionY="126" width="128" height="120"/>
     </elements>
 </model>
