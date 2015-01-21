@@ -22,6 +22,12 @@
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
+    <entity name="QSFDangJiaSearchHistoryDataModel" representedClassName="QSFDangJiaSearchHistoryDataModel" syncable="YES">
+        <attribute name="search_keywork" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="search_sub_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="search_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="search_type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="QSHouseApplicationInfoModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_info_id" optional="YES" attributeType="String" syncable="YES"/>
@@ -29,9 +35,10 @@
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="QSHouseApplicationInfoModel" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="QSFDangJiaRequestReturnHeaderDataModel" positionX="-36" positionY="36" width="128" height="103"/>
+        <element name="QSAdvertDetailDataModel" positionX="18" positionY="126" width="128" height="118"/>
         <element name="QSFDangJiaRequestBaseMSGDataModel" positionX="0" positionY="72" width="128" height="148"/>
-        <element name="QSAdvertDetailDataModel" positionX="18" positionY="126" width="128" height="120"/>
+        <element name="QSFDangJiaRequestReturnHeaderDataModel" positionX="-36" positionY="36" width="128" height="103"/>
+        <element name="QSHouseApplicationInfoModel" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="QSFDangJiaSearchHistoryDataModel" positionX="-18" positionY="90" width="128" height="103"/>
     </elements>
 </model>

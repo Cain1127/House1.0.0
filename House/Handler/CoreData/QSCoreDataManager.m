@@ -85,6 +85,88 @@
 
 }
 
+#pragma mark - 本地搜索历史记录相关操作
+/**
+ *  @author yangshengmeng, 15-01-21 18:01:15
+ *
+ *  @brief  获取本地搜索历史
+ *
+ *  @return 返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getLocalSearchHistory
+{
+
+    return [self getDataListWithKey:@"QSFDangJiaSearchHistoryDataModel" andSortKeyWord:@"search_time" andAscend:YES];
+
+}
+
+///插入一个新的搜索历史
++ (BOOL)addLocalSearchHistory:(QSFDangJiaSearchHistoryDataModel *)model
+{
+    
+    return YES;
+
+}
+
+///清空本地搜索历史
++ (BOOL)clearLocalSearchHistory
+{
+
+    return YES;
+
+}
+
+#pragma mark - 返回指定实体所有数据
+/**
+ *  @author             yangshengmeng, 15-01-21 18:01:56
+ *
+ *  @brief              返回指定实体所有数据数组
+ *
+ *  @param entityName   实体名
+ *
+ *  @return             返回实体数组
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getDataListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend
+{
+
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    
+    ///设置查找
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:enty];
+    
+    ///设置排序
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
+    [request setSortDescriptors:@[sort]];
+    
+    NSError *error;
+    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
+    
+    ///判断是否查询失败
+    if (error) {
+        
+        return nil;
+        
+    }
+    
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    ///查询成功
+    return resultList;
+
+}
+
 #pragma mark - 返回coreData中的指定表中的某字段信息
 /**
  *  @author             yangshengmeng, 15-01-20 09:01:45

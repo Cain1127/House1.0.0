@@ -116,6 +116,7 @@
 		18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801FB1A6F8D3800CA21D4 /* UIView+MJExtension.m */; };
 		18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E802061A6F8F2100CA21D4 /* UIImageView+CacheImage.m */; };
 		18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E8020A1A6FA78F00CA21D4 /* UIImage+Compressed.m */; };
+		18E802131A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E802121A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		CE000DC11A6E5451008FD309 /* developer_actives.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBB1A6E5451008FD309 /* developer_actives.png */; };
 		CE000DC21A6E5451008FD309 /* developer_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBC1A6E5451008FD309 /* developer_chat.png */; };
@@ -308,6 +309,8 @@
 		18E802061A6F8F2100CA21D4 /* UIImageView+CacheImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+CacheImage.m"; path = "ImageCache/UIImageView+CacheImage.m"; sourceTree = "<group>"; };
 		18E802091A6FA78F00CA21D4 /* UIImage+Compressed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compressed.h"; path = "Image/UIImage+Compressed.h"; sourceTree = "<group>"; };
 		18E8020A1A6FA78F00CA21D4 /* UIImage+Compressed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compressed.m"; path = "Image/UIImage+Compressed.m"; sourceTree = "<group>"; };
+		18E802111A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSFDangJiaSearchHistoryDataModel.h; path = CoreData/SearchHistory/QSFDangJiaSearchHistoryDataModel.h; sourceTree = "<group>"; };
+		18E802121A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSFDangJiaSearchHistoryDataModel.m; path = CoreData/SearchHistory/QSFDangJiaSearchHistoryDataModel.m; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE000DBB1A6E5451008FD309 /* developer_actives.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_actives.png; sourceTree = "<group>"; };
@@ -763,6 +766,7 @@
 		189300941A6902E30081D0AA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18E8020C1A6FB87900CA21D4 /* CoreData */,
 				18C8A2891A6EAFB500BB9611 /* Advert */,
 				18C8A2781A6EA66A00BB9611 /* Base */,
 				1893009C1A69049A0081D0AA /* Chat */,
@@ -1244,6 +1248,23 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
+		18E8020C1A6FB87900CA21D4 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				18E802101A6FB8A900CA21D4 /* SearchHistory */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		18E802101A6FB8A900CA21D4 /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				18E802111A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.h */,
+				18E802121A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.m */,
+			);
+			name = SearchHistory;
+			sourceTree = "<group>";
+		};
 		CE000DBA1A6E5451008FD309 /* Developer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1503,6 +1524,7 @@
 			files = (
 				18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
+				18E802131A6FB8D000CA21D4 /* QSFDangJiaSearchHistoryDataModel.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
