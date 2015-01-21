@@ -148,7 +148,12 @@
     
     QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:isAutoScroll andShowTime:showTime andTapCallBack:^(id params) {
         
-        
+        ///如果回调的参数有效，跳转链接
+        if (params) {
+            
+            [[UIApplication sharedApplication] openURL:params];
+            
+        }
         
     }];
     
@@ -198,7 +203,9 @@
     
     ///广告数据模型
     QSAdvertInfoDataModel *model = self.advertsDataSource[index];
-    advertView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",URLFDangJiaImageIPHome,model.img]]]];
+    
+    ///加载图片
+    [advertView loadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,model.img]] placeholderImage:nil];
     
     return advertView;
 

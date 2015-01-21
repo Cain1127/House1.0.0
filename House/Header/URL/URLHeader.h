@@ -25,7 +25,12 @@ static NSString *const URLFDangJiaIPHome = @"http://117.41.235.110:9527/";
 //
 //房当家域名根地址
 //
-static NSString *const URLFDangJiaDomainHome = @"http://www.fdangjia.com/";
+static NSString *const URLFDangJiaDomainHome = @"http://api.fdangjia.com/";
+
+//
+//房当家域名测试地址
+//
+static NSString *const URLFDangJiaDomainHomeTest = @"site/test";
 
 //
 //图片IP根地址
