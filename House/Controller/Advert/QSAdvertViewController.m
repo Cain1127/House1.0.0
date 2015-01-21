@@ -18,8 +18,8 @@
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
-@property (nonatomic,assign) BOOL isShowAdvert;     //!<是否显示广告栏的标记：YES-显示,NO-不显示
-@property (nonatomic,assign) BOOL isShowGuideIndex; //!<是否显示指引页标记：YES-显示,NO-不显示
+@property (nonatomic,assign) BOOL isShowAdvert;             //!<是否显示广告栏的标记：YES-显示,NO-不显示
+@property (nonatomic,assign) GUIDE_STATUS isShowGuideIndex; //!<是否显示指引页标记：YES-显示,NO-不显示
 
 @property (nonatomic,retain) NSMutableArray *advertsDataSource;//!<广告数组
 
@@ -57,6 +57,14 @@
     rightInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
+    
+    ///如果是第一次运行，直接显示指引页，暂不显示广告页
+    if (gGuideStatusNoRecord == self.isShowGuideIndex) {
+        
+        [self gotoGuideIndexViewController];
+        return;
+        
+    }
     
     ///获取上次显示时间戳
     NSString *lastAdvertShowTime = [QSCoreDataManager getAdvertLastShowTime];
@@ -162,6 +170,9 @@
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = guideView;
+    
+    ///修改指引状态
+    [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
 
 }
 
@@ -225,7 +236,7 @@
 {
 
     ///判断是否需要显示指引页
-    if (self.isShowGuideIndex) {
+    if (gGuideStatusNeedDispay == self.isShowGuideIndex) {
         
         [self gotoGuideIndexViewController];
         
