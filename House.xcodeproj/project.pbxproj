@@ -124,6 +124,8 @@
 		CE000DC51A6E5451008FD309 /* developer_setting.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBF1A6E5451008FD309 /* developer_setting.png */; };
 		CE000DC61A6E5451008FD309 /* developer_setting_hightlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */; };
 		CE000DCA1A6E60D6008FD309 /* QSGuideSaleHouseView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */; };
+		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
+		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
@@ -316,6 +318,9 @@
 		CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_setting_hightlight.png; sourceTree = "<group>"; };
 		CE000DC81A6E60D6008FD309 /* QSGuideSaleHouseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGuideSaleHouseView.h; sourceTree = "<group>"; };
 		CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGuideSaleHouseView.m; sourceTree = "<group>"; };
+		CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
+		CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperActivityViewController.m; sourceTree = "<group>"; };
+		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
 		CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
@@ -1267,6 +1272,9 @@
 				CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */,
 				CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */,
 				CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */,
+				CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */,
+				CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */,
+				CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */,
 			);
 			path = Developer;
 			sourceTree = "<group>";
@@ -1378,6 +1386,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */,
 				18C8A14C1A6CBA2F00BB9611 /* home_background.png in Resources */,
 				18C8A1231A6AACCA00BB9611 /* navigationbar_tool_normal.png in Resources */,
 				18C8A0EF1A6A883900BB9611 /* tabbar_chat_selected.png in Resources */,
@@ -1508,6 +1517,7 @@
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
+				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				18E801E11A6F7FD900CA21D4 /* QSHeaderDataModel.m in Sources */,

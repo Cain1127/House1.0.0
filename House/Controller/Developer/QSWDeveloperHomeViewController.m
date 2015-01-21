@@ -8,6 +8,7 @@
 
 #import "QSWDeveloperHomeViewController.h"
 #import "QSGuideViewController.h"
+#import "QSWDeveloperActivityViewController.h"
 
 @interface QSWDeveloperHomeViewController ()
 
@@ -33,32 +34,40 @@
 
 }
 
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 #pragma mark -按钮事件
-- (IBAction)settingButton:(id)sender
-{
+
+///在售楼盘按钮点击事件
+- (IBAction)salingButton:(id)sender {
     
-    
+
     
 }
 
-- (IBAction)messageButton:(id)sender
-{
+///当前活动按钮点击事件
+- (IBAction)activeButton:(id)sender {
     
+    QSWDeveloperActivityViewController *VC=[[QSWDeveloperActivityViewController alloc]init];
     
-    
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
-- (IBAction)salingButton:(id)sender
-{
-    
-    
-    
+///设置按钮点击事件
+- (IBAction)settingButton:(id)sender {
 }
 
-- (IBAction)activeButton:(id)sender
-{
-    
-    
-    
-}
-@end
+///消息按钮点击事件
+- (IBAction)messageButton:(id)sender {
+}@end
