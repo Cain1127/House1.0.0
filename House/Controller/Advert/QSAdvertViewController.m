@@ -18,10 +18,10 @@
 
 @interface QSAdvertViewController ()<QSAutoScrollViewDelegate>
 
-@property (nonatomic,assign) BOOL isShowAdvert;             //!<是否显示广告栏的标记：YES-显示,NO-不显示
-@property (nonatomic,assign) GUIDE_STATUS isShowGuideIndex; //!<是否显示指引页标记：YES-显示,NO-不显示
+@property (nonatomic,assign) BOOL isShowAdvert;                 //!<是否显示广告栏的标记：YES-显示,NO-不显示
+@property (nonatomic,assign) GUIDE_STATUS isShowGuideIndex;     //!<是否显示指引页标记：YES-显示,NO-不显示
 
-@property (nonatomic,retain) NSMutableArray *advertsDataSource;//!<广告数组
+@property (nonatomic,retain) NSMutableArray *advertsDataSource; //!<广告数组
 
 @end
 

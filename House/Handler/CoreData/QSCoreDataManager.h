@@ -56,4 +56,31 @@
  */
 + (BOOL)updateFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue;
 
+/**
+ *  @author                 yangshengmeng, 15-01-21 23:01:37
+ *
+ *  @brief                  根据给定的实例名和实体对象，插入一条数据
+ *
+ *  @param entityName       实体名
+ *  @param coreDataModel    实体对象
+ *
+ *  @return                 返回是否插入成功：YES-插入成功，NO-插入失败
+ *
+ *  @since                  1.0.0
+ */
++ (BOOL)insertEntityWithEntityName:(NSString *)entityName andCoreDataModel:(NSManagedObject *)coreDataModel;
+
+/**
+ *  @author             yangshengmeng, 15-01-21 23:01:28
+ *
+ *  @brief              清空某个实体模型中所有的数据
+ *
+ *  @param entityName   实体名
+ *
+ *  @return             删除结果标识：YES-删除成功,NO-删除失败
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)clearDataListWithEntityName:(NSString *)entityName;
+
 @end

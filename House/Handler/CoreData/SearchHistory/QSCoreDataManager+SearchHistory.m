@@ -31,7 +31,7 @@
 + (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model
 {
     
-    return YES;
+    return [self insertEntityWithEntityName:@"QSCDLocalSearchHistoryDataModel" andCoreDataModel:model];
     
 }
 
@@ -39,7 +39,7 @@
 + (BOOL)clearLocalSearchHistory
 {
     
-    return YES;
+    return [self clearDataListWithEntityName:@"QSCDLocalSearchHistoryDataModel"];
     
 }
 
