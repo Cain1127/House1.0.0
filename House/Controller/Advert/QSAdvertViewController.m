@@ -7,6 +7,8 @@
 //
 
 #import "QSAdvertViewController.h"
+#import "QSCoreDataManager+Advert.h"
+#import "QSCoreDataManager+Guide.h"
 #import "QSAutoScrollView.h"
 #import "QSTabBarViewController.h"
 #import "QSYAppDelegate.h"

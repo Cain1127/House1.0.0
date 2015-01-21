@@ -15,62 +15,31 @@
  *
  *  @since  1.0.0
  */
-@class QSFDangJiaSearchHistoryDataModel;
 @interface QSCoreDataManager : NSObject
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:58
+ *  @author             yangshengmeng, 15-01-21 18:01:56
  *
- *  @brief  返回指定城市的可选区域列表
+ *  @brief              返回指定实体所有数据数组
  *
- *  @since  1.0.0
+ *  @param entityName   实体名
+ *
+ *  @return             返回实体数组
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getDistrictWithCity:(NSString *)city;
++ (NSArray *)getDataListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend;
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:47
+ *  @author             yangshengmeng, 15-01-20 09:01:45
  *
- *  @brief  返回城市列表
+ *  @brief              查询指定表中的某字段信息
  *
- *  @since  1.0.0
+ *  @param entityName   实体名
+ *  @param keyword      字段名
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getCityList;
-
-/**
- *  @author yangshengmeng, 15-01-20 10:01:15
- *
- *  @brief  获取应用指引状态：YES-已经指引过，NO-需要重新指引
- *
- *  @since  1.0.0
- */
-+ (BOOL)getAppGuideIndexStatus;
-
-/**
- *  @author yangshengmeng, 15-01-20 00:01:14
- *
- *  @brief  返回最后显示广告的时间
- *
- *  @return 返回上一次显示广告的时间日期整数字符串
- *
- *  @since  1.0.0
- */
-+ (NSString *)getAdvertLastShowTime;
-
-/**
- *  @author yangshengmeng, 15-01-21 18:01:15
- *
- *  @brief  获取本地搜索历史
- *
- *  @return 返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
- *
- *  @since  1.0.0
- */
-+ (NSArray *)getLocalSearchHistory;
-
-///插入一个新的搜索历史
-+ (BOOL)addLocalSearchHistory:(QSFDangJiaSearchHistoryDataModel *)model;
-
-///清空本地搜索历史
-+ (BOOL)clearLocalSearchHistory;
++ (instancetype)getDataWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
 
 @end
