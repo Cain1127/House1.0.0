@@ -8,6 +8,7 @@
 
 #import "QSWDeveloperHomeViewController.h"
 #import "QSGuideViewController.h"
+#import "QSWDeveloperActivityViewController.h"
 
 @interface QSWDeveloperHomeViewController ()
 
@@ -47,15 +48,26 @@
 
 
 #pragma mark -按钮事件
+
+///在售楼盘按钮点击事件
+- (IBAction)salingButton:(id)sender {
+    
+
+    
+}
+
+///当前活动按钮点击事件
+- (IBAction)activeButton:(id)sender {
+    
+    QSWDeveloperActivityViewController *VC=[[QSWDeveloperActivityViewController alloc]init];
+    
+    [self.navigationController pushViewController:VC animated:YES];
+}
+
+///设置按钮点击事件
 - (IBAction)settingButton:(id)sender {
 }
 
-
+///消息按钮点击事件
 - (IBAction)messageButton:(id)sender {
-}
-- (IBAction)salingButton:(id)sender {
-}
-
-- (IBAction)activeButton:(id)sender {
-}
-@end
+}@end

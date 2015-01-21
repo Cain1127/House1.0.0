@@ -23,6 +23,10 @@
 ///<我的>页面的默认标题
 #define TITLE_VIEWCONTROLLER_TITLE_MYZONE @"我的地盘"
 
+//<开发商>页面的标题
+#define TITLE_VIEWCONTROLLER_TITLE_DEVELOPERACTIVITY @"活动"
+
+
 /**
  *  @author yangshengmeng, 15-01-20 12:01:30
  *
@@ -51,5 +55,9 @@
 
 ///指引页<跳过>按钮标题
 #define TITLE_GUIDE_SKIP_BUTTON @"跳过，我先随便看看"
+
+
+
+
 
 #endif
