@@ -7,8 +7,17 @@
 //
 
 #import "QSYAppDelegate.h"
-#import "QSTabBarViewController.h"
+#import "QSRequestManager.h"
 #import "QSAdvertViewController.h"
+#import "QSConfigurationReturnData.h"
+#import "QSCoreDataManager+App.h"
+
+@interface QSYAppDelegate ()
+
+///非主线程任务处理使用的自定义线程
+@property (nonatomic, strong) dispatch_queue_t appDelegateOperationQueue;
+
+@end
 
 @implementation QSYAppDelegate
 
@@ -23,40 +32,145 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    ///非主线程任务操作线程初始化
+    self.appDelegateOperationQueue = dispatch_queue_create(QUEUE_REQUEST_OPERATION, DISPATCH_QUEUE_CONCURRENT);
+    
     ///显示广告页
     QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
     self.window.rootViewController = advertVC;
+    
+    ///下载配置信息
+//    [self downloadApplicationBasInfo];
     
     return YES;
     
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+#pragma mark - 请求应用配置信息
+- (void)downloadApplicationBasInfo
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
+    ///放在后台运行
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    
+        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///转换模型
+            QSConfigurationReturnData *configModel = resultData;
+            
+            ///更新token信息
+            [QSCoreDataManager updateApplicationCurrentToken:configModel.configurationHeaderData.t];
+            [QSCoreDataManager updateApplicationCurrentTokenID:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.t_id]];
+            
+            ///更新版本信息
+            [QSCoreDataManager updateApplicationCurrentVersion:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.version]];
+            
+            ///配置信息检测
+            [self checkConfigurationInfo:configModel.configurationHeaderData.configurationList];
+            
+        }];
+        
+    });
+
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+///检测基本信息的版本：本操作要求处于子线程中，不允许在主线程里操作
+- (void)checkConfigurationInfo:(NSArray *)configurationList
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+    ///暂时保存配置版本信息
+    NSArray *tempConfigurationArray = [NSArray arrayWithArray:configurationList];
+    
+    ///获取本地配置版本数组
+    NSArray *localConfigurationArray = [QSCoreDataManager getConfigurationList];
+    
+    ///判断本地配置版本信息
+    if ((nil == localConfigurationArray) || (0 >= [localConfigurationArray count])) {
+        
+        ///本地暂无基本信息，则全部更新
+        for (QSConfigurationDataModel *obj in tempConfigurationArray) {
+            
+            [self updateConfigurationInfoWithModel:obj];
+            
+        }
+        return;
+        
+    }
+    
+    ///检测本地版本总数是否和新的版本总数一致
+    if ([tempConfigurationArray count] != [localConfigurationArray count]) {
+        
+        
+        return;
+        
+    }
+    
+    ///将两个数组转化为字典
+    NSDictionary *newConfigurationDictionary = [self changeArrayToDictionary:tempConfigurationArray];
+    NSDictionary *localConfigurationDictionary = [self changeArrayToDictionary:localConfigurationArray];
+    
+    ///检测本地版本和最新版本是否一致
+    for (NSString *newKey in newConfigurationDictionary) {
+        
+        ///新的配置模型
+        QSConfigurationDataModel *newConfDataModel = [newConfigurationDictionary valueForKey:newKey];
+        
+        ///本地配置模型
+        QSConfigurationDataModel *localConfDataModel = [localConfigurationDictionary valueForKey:newKey];
+        
+        ///检测版本
+        if (([newConfDataModel.conf isEqualToString:localConfDataModel.conf]) &&
+            (!([newConfDataModel.c_v isEqualToString:localConfDataModel.c_v]))) {
+            
+            ///版本不致，则更新对应的配置信息
+            [self updateConfigurationInfoWithModel:newConfDataModel];
+            
+        }
+        
+    }
+
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+///将数组转化为字典，方便进行数组内的对象进行比效
+- (NSDictionary *)changeArrayToDictionary:(NSArray *)array
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    ///临时字典
+    NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+    
+    ///遍历转换
+    for (QSConfigurationDataModel *obj in array) {
+        
+        [tempDict setObject:obj forKey:obj.conf];
+        
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:tempDict];
+
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
+#pragma mark - 下载配置信息
+- (void)updateConfigurationInfoWithModel:(QSConfigurationDataModel *)confModel
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+    ///在子线程中执行网络请求
+    dispatch_sync(self.appDelegateOperationQueue, ^{
+        
+        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            
+            
+        }];
+        
+    });
+
 }
 
+#pragma mark - 应用退出前保存数据
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     
-    // Saves changes in the application's managed object context before the application terminates.
+    ///应用退出前进行保存动作
     [self saveContext];
     
 }
@@ -70,8 +184,7 @@
         
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+             ///应用退出时的相关操作
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
             
@@ -81,10 +194,9 @@
     
 }
 
-#pragma mark - Core Data stack
+#pragma mark - CoreData相关操作
 
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+///返回CoreData操作的上下文
 - (NSManagedObjectContext *)managedObjectContext
 {
     
@@ -106,8 +218,7 @@
     
 }
 
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
+///返回CoreData数据管理模型
 - (NSManagedObjectModel *)managedObjectModel
 {
     
@@ -123,8 +234,7 @@
     
 }
 
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
+//返回CoreData操作的NSPersistentStoreCoordinator
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     
@@ -139,29 +249,9 @@
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
+        
+        ///在这里添加CoreData错误处理代理
+        
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
         
@@ -171,9 +261,8 @@
     
 }
 
-#pragma mark - Application's Documents directory
-
-// Returns the URL to the application's Documents directory.
+#pragma mark - 获取应用沙盒目录
+///获取应用沙盒目录
 - (NSURL *)applicationDocumentsDirectory
 {
     

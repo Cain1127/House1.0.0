@@ -9,6 +9,23 @@
 #ifndef House_TypeEnumHeader_h
 #define House_TypeEnumHeader_h
 
+/*
+ *  //用户类型
+ *  user_type : "0" "房客";
+ *  user_type : "1" "业主";
+ *  user_type : "2" "中介";
+ *  user_type : "3" "开发商";
+ */
+typedef enum
+{
+
+    uUserCountTypeTenant = 0,   //!<房客
+    uUserCountTypeOwner,        //!<业主
+    uUserCountTypeAgency,       //!<中介
+    uUserCountTypeDeveloper     //!<开发商
+
+}USER_COUNT_TYPE;
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *
@@ -73,10 +90,11 @@ typedef enum
 typedef enum
 {
 
-    rRequestTypeAdvert = 999,   //!<广告信息请求
+    rRequestTypeAdvert = 999,            //!<广告信息请求：此类型为首类型，请新添加的类型不要放在这个类型之前
+    rRequestTypeAppBaseInfo = 1000,      //!<应用中的基本信息版本请求：如可选城市
+    rRequestTypeAppBaseInfoConfiguration,//!<具体某个配置信息的请求
     
-    rRequestTypeAppBaseInfo,    //!<应用中的基本信息版本请求：如可选城市
-    rRequestTypeImage           //!<图片请求
+    rRequestTypeImage                    //!<图片请求：此类型为尾类型，请新添加的类型不要放在这个类型之后
 
 }REQUEST_TYPE;
 

@@ -10,6 +10,11 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "QSDataMappingManager.h"
 #import "QSRequestTaskDataModel.h"
+#import "NSDate+Formatter.h"
+#import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+User.h"
+
+#import <CommonCrypto/CommonDigest.h>
 
 @interface QSRequestManager ()
 
@@ -193,6 +198,7 @@
 
 }
 
+#pragma mark - http请求数据
 ///开始请求数据
 - (void)startRequestDataWithRequestTaskModel:(QSRequestTaskDataModel *)taskModel
 {
@@ -202,73 +208,252 @@
         
         [self.httpRequestManager GET:taskModel.requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            ///先获取响应结果
-            BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
-            
-            if (isServerRespondSuccess) {
-                
-                ///解析数据:QSHeaderDataModel/QSAdvertReturnData
-                id analyzeResult = [QSDataMappingManager analyzeDataWithData:operation.responseData andMappingClass:taskModel.dataMappingClass];
-                
-                ///判断解析结果
-                if (analyzeResult && taskModel.requestCallBack) {
-                    
-                    taskModel.requestCallBack(rRequestResultTypeSuccess,analyzeResult,nil,nil);
-                    
-                    
-                } else {
-                    
-                    ///数据解析失败回调
-                    taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                    
-                }
-                
-            } else {
-                
-                ///解析数据
-                id analyzeResult = [QSDataMappingManager analyzeDataWithData:operation.responseData andMappingClass:@"QSHeaderDataModel"];
-                
-                ///判断解析结果
-                if (analyzeResult && taskModel.requestCallBack) {
-                    
-                    taskModel.requestCallBack(rRequestResultTypeFail,analyzeResult,nil,nil);
-                    
-                    
-                } else {
-                    
-                    ///数据解析失败回调
-                    taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                    
-                }
-                
-            }
-            
-            ///开启下一次的请求
-            [self removeFirstObjectFromTaskPool];
+            [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
-            if (taskModel.requestCallBack) {
-                
-                ///回调
-                taskModel.requestCallBack(rRequestResultTypeBadNetworking,nil,[error.userInfo valueForKey:NSLocalizedDescriptionKey],[NSString stringWithFormat:@"%@%d",error.domain,(int)error.code]);
-                
-            }
-            
-            ///开启下一次的请求
-            [self removeFirstObjectFromTaskPool];
+            ///请求失败时处理失败回调
+            [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
             
         }];
+        
+        return;
         
     }
     
     ///POST请求
     if (rRequestHttpRequestTypePost == taskModel.httpRequestType) {
         
+        [self.httpRequestManager POST:taskModel.requestURL parameters:[self postDefaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            ///请求成功
+            [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            ///请求失败
+            [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
+            
+        }];
         
+        return;
         
     }
 
+}
+
+///处理请求成功时的回调
+- (void)handleRequestSuccess:(id)responseObject andRespondData:(NSData *)respondData andTaskModel:(QSRequestTaskDataModel *)taskModel
+{
+    
+    ///先获取响应结果
+    BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
+    
+    if (isServerRespondSuccess) {
+        
+        ///解析数据
+        id analyzeResult = [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:taskModel.dataMappingClass];
+        
+        ///判断解析结果
+        if (analyzeResult && taskModel.requestCallBack) {
+            
+            taskModel.requestCallBack(rRequestResultTypeSuccess,analyzeResult,nil,nil);
+            
+            
+        } else {
+            
+            ///数据解析失败回调
+            taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+            
+        }
+        
+    } else {
+        
+        ///解析数据
+        id analyzeResult = [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:@"QSHeaderDataModel"];
+        
+        ///判断解析结果
+        if (analyzeResult && taskModel.requestCallBack) {
+            
+            taskModel.requestCallBack(rRequestResultTypeFail,analyzeResult,nil,nil);
+            
+            
+        } else {
+            
+            ///数据解析失败回调
+            taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+            
+        }
+        
+    }
+    
+    ///开启下一次的请求
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self removeFirstObjectFromTaskPool];
+        
+    });
+    
+}
+
+///处理请求失败时的回调
+- (void)handleRequestFail:(NSError *)error andFailCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack
+{
+    
+    if (callBack) {
+        
+        ///回调
+        callBack(rRequestResultTypeBadNetworking,nil,[error.userInfo valueForKey:NSLocalizedDescriptionKey],[NSString stringWithFormat:@"%@%d",error.domain,(int)error.code]);
+        
+    }
+    
+    ///开启下一次的请求
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self removeFirstObjectFromTaskPool];
+        
+    });
+    
+}
+
+#pragma mark - POST请求参数封装
+- (NSDictionary *)getPostParamsWithRequestType:(REQUEST_TYPE)requestType
+{
+
+    switch (requestType) {
+            
+            ///应用基本配置信息请求参数
+        case rRequestTypeAppBaseInfo:
+            
+        default:
+            
+            break;
+    }
+    
+    ///返回默认的参数
+    return [self postDefaultParams];
+
+}
+
+///默认无用户信息的post请求参数
+- (NSDictionary *)postDefaultParams
+{
+    
+    ///获取token信息
+    NSString *token = [QSCoreDataManager getApplicationCurrentToken];
+    NSString *tokenID = [QSCoreDataManager getApplicationCurrentTokenID];
+    return [self packPostParamsWithBody:@{@"device" : @"iOS"} andTokenKey:(token ? token : @"hello") andTokenID:(tokenID ? tokenID : @"1")];
+
+}
+
+///默认无用户信息，有其他参数的post请求参数
+- (NSDictionary *)postDefaultParams:(NSDictionary *)params
+{
+    
+    NSMutableDictionary *tempParams = [params mutableCopy];
+    [tempParams setObject:@"iOS" forKey:@"device"];
+    
+    ///获取token信息
+    NSString *token = [QSCoreDataManager getApplicationCurrentToken];
+    NSString *tokenID = [QSCoreDataManager getApplicationCurrentTokenID];
+    
+    return [self packPostParamsWithBody:[NSDictionary dictionaryWithDictionary:tempParams] andTokenKey:(token ? token : @"hello") andTokenID:(tokenID ? tokenID : @"1")];
+    
+}
+
+///配置用户信息的post请求参数
+- (NSDictionary *)postUserInfoParams
+{
+
+    ///获取token信息
+    NSString *token = [QSCoreDataManager getApplicationCurrentToken];
+    NSString *tokenID = [QSCoreDataManager getApplicationCurrentTokenID];
+    
+    ///获取用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    
+    return [self packPostParamsWithBody:@{@"device" : @"iOS",@"user_id" : (userID ? userID :@"1")} andTokenKey:(token ? token : @"hello") andTokenID:(tokenID ? tokenID : @"1")];
+
+}
+
+///配置用户信息，有其他参数的post请求参数
+- (NSDictionary *)postUserInfoParams:(NSDictionary *)params
+{
+
+    NSMutableDictionary *tempParams = [params mutableCopy];
+    [tempParams setObject:@"iOS" forKey:@"device"];
+    
+    ///获取用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    [tempParams setObject:(userID ? userID : @"1") forKey:@"user_id"];
+    
+    ///获取token信息
+    NSString *token = [QSCoreDataManager getApplicationCurrentToken];
+    NSString *tokenID = [QSCoreDataManager getApplicationCurrentTokenID];
+    
+    return [self packPostParamsWithBody:[NSDictionary dictionaryWithDictionary:tempParams] andTokenKey:(token ? token : @"hello") andTokenID:(tokenID ? tokenID : @"1")];
+
+}
+
+///按给定的body参数，封装请求参数
+- (NSDictionary *)packPostParamsWithBody:(NSDictionary *)bodyParams andTokenKey:(NSString *)tokenKey andTokenID:(NSString *)tokenID
+{
+
+    /**
+     *  k: 加密后的字符串
+     *  d:传递的数据
+     *  t:访问接口的时间
+     *  p:随机的数字
+     *  i:token的id
+     */
+    
+    ///时间戳
+    NSString *t = [NSDate currentDateTimeStamp];
+    
+    ///参数体
+    NSString *d;
+    if ([NSJSONSerialization isValidJSONObject:bodyParams]) {
+        
+        NSError *error;
+        NSData *bodyParamsData = [NSJSONSerialization dataWithJSONObject:bodyParams options:NSJSONWritingPrettyPrinted error:&error];
+        d = [[NSString alloc] initWithData:bodyParamsData encoding:NSUTF8StringEncoding];
+        
+    }
+    
+    ///加密串封装
+    NSString *k_key = [t stringByAppendingString:tokenKey];
+    NSString *k_temp = [d stringByAppendingString:k_key];
+    NSString *k = [self paramsMD5Encryption:k_temp];
+    
+    ///参数
+    NSMutableDictionary *resultTempDictionary = [[NSMutableDictionary alloc]init];
+    [resultTempDictionary setValue:k forKey:@"k"];
+    [resultTempDictionary setValue:d forKey:@"d"];
+    [resultTempDictionary setValue:t forKey:@"t"];
+    [resultTempDictionary setValue:[NSString stringWithFormat:@"%d",(arc4random() % 999) + 1] forKey:@"p"];
+    [resultTempDictionary setValue:tokenID forKey:@"i"];
+    
+    ///返回一个不可变参数列
+    return [NSDictionary dictionaryWithDictionary:resultTempDictionary];
+
+}
+
+#pragma mark - MD5加密
+///MD5加密请求参数
+- (NSString *)paramsMD5Encryption:(NSString *)params
+{
+
+    const char *cStr = [params UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+    
+    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+    
 }
 
 #pragma mark - ===============类方法区域===============
@@ -330,6 +515,7 @@
             callBack(rRequestResultTypeURLError,nil,@"无法获取有效URL信息",nil);
             
         }
+        
         return;
         
     }
@@ -389,7 +575,25 @@
 + (REQUEST_HTTPREQUEST_TYPE)getHttpRequestTypeWithType:(REQUEST_TYPE)taskType
 {
     
-    return rRequestHttpRequestTypeGet;
+    switch (taskType) {
+            
+            ///广告信息
+        case rRequestTypeAdvert:
+            
+            return rRequestHttpRequestTypeGet;
+            
+            break;
+            
+            ///配置信息
+        case rRequestTypeAppBaseInfo:
+            
+            ///默认返回Post
+        default:
+            
+            return rRequestHttpRequestTypePost;
+            
+            break;
+    }
     
 }
 

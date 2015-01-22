@@ -8,6 +8,9 @@
 
 #import "QSCoreDataManager+SearchHistory.h"
 
+///应用配置信息的CoreData模型
+#define COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO @"QSCDLocalSearchHistoryDataModel"
+
 @implementation QSCoreDataManager (SearchHistory)
 
 #pragma mark - 本地搜索历史记录相关操作
@@ -23,7 +26,7 @@
 + (NSArray *)getLocalSearchHistory
 {
     
-    return [self getDataListWithKey:@"QSCDLocalSearchHistoryDataModel" andSortKeyWord:@"search_time" andAscend:YES];
+    return [self getDataListWithKey:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andSortKeyWord:@"search_time" andAscend:YES];
     
 }
 
@@ -31,7 +34,7 @@
 + (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model
 {
     
-    return [self insertEntityWithEntityName:@"QSCDLocalSearchHistoryDataModel" andCoreDataModel:model];
+    return [self insertEntityWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andCoreDataModel:model];
     
 }
 
@@ -39,7 +42,7 @@
 + (BOOL)clearLocalSearchHistory
 {
     
-    return [self clearDataListWithEntityName:@"QSCDLocalSearchHistoryDataModel"];
+    return [self clearDataListWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO];
     
 }
 

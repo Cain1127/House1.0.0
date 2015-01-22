@@ -40,4 +40,7 @@
  */
 + (void)requestDataWithType:(REQUEST_TYPE)requestType andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack;
 
+
+//+ (void)requestDataWithType:(REQUEST_TYPE)requestType and andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack;
+
 @end

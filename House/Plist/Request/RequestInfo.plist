@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>1000</key>
+	<dict>
+		<key>class</key>
+		<string>QSConfigurationReturnData</string>
+		<key>url</key>
+		<string>config/version</string>
+	</dict>
 	<key>999</key>
 	<dict>
 		<key>class</key>

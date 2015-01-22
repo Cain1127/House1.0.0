@@ -8,6 +8,9 @@
 
 #import "QSCoreDataManager+Guide.h"
 
+///应用配置信息的CoreData模型
+#define COREDATA_ENTITYNAME_APPLICATION_INFO @"QSCDApplicationInfoDataModel"
+
 @implementation QSCoreDataManager (Guide)
 
 #pragma mark - 返回应用的指引状态
@@ -21,7 +24,7 @@
 + (GUIDE_STATUS)getAppGuideIndexStatus
 {
     
-    NSString *indexStatus = (NSString *)[self getDataWithKey:@"QSCDApplicationInfoDataModel" andKeyword:@"is_new_guide_index"];
+    NSString *indexStatus = (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_new_guide_index"];
     
     ///如果当前没有配置，则返回NO
     if (nil == indexStatus) {
@@ -59,7 +62,7 @@
         
     }
     
-    return [self updateFieldWithKey:@"QSCDApplicationInfoDataModel" andUpdateField:@"is_new_guide_index" andFieldNewValue:[NSString stringWithFormat:@"%d",guideStatus]];
+    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"is_new_guide_index" andFieldNewValue:[NSString stringWithFormat:@"%d",guideStatus]];
 
 }
 

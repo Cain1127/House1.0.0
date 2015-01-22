@@ -8,6 +8,9 @@
 
 #import "QSCoreDataManager+Advert.h"
 
+///应用配置信息的CoreData模型
+#define COREDATA_ENTITYNAME_APPLICATION_INFO @"QSCDApplicationInfoDataModel"
+
 @implementation QSCoreDataManager (Advert)
 
 #pragma mark - 返回上一次显示广告的时间
@@ -23,7 +26,7 @@
 + (NSString *)getAdvertLastShowTime
 {
     
-    return (NSString *)[self getDataWithKey:@"QSCDApplicationInfoDataModel" andKeyword:@"advert_last_show_time"];
+    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"advert_last_show_time"];
     
 }
 
@@ -46,7 +49,7 @@
         
     }
     
-    return [self updateFieldWithKey:@"QSCDApplicationInfoDataModel" andUpdateField:@"advert_last_show_time" andFieldNewValue:timeStamp];
+    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"advert_last_show_time" andFieldNewValue:timeStamp];
 
 }
 
