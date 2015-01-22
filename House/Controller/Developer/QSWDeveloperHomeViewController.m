@@ -12,6 +12,10 @@
 
 @interface QSWDeveloperHomeViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *salingButton; //!<
+
+@property (weak, nonatomic) IBOutlet UIButton *activeButton;  //!<
+
 @end
 
 @implementation QSWDeveloperHomeViewController
@@ -22,8 +26,9 @@
     
     [super createNavigationBarUI];
     
-    self.navigationItem.title=@"开发商名称";
-
+    [self setNavigationBarTitle:@"开发商名称"];
+    
+    
 }
 
 ///添加中间view
@@ -36,10 +41,6 @@
 
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
