@@ -64,7 +64,27 @@
 - (void)gotoSearchViewController
 {
     
+    ///显示房源列表，并进入搜索页
+    self.tabBarController.selectedIndex = 1;
     
+    UIViewController *housesVC = self.tabBarController.viewControllers[1];
+    
+    ///判断是ViewController还是NavigationController
+    if ([housesVC isKindOfClass:[UINavigationController class]]) {
+        
+        housesVC = ((UINavigationController *)housesVC).viewControllers[0];
+        
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if ([housesVC respondsToSelector:@selector(gotoSearchViewController)]) {
+            
+            [housesVC performSelector:@selector(gotoSearchViewController)];
+            
+        }
+        
+    });
     
 }
 
