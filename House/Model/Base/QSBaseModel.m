@@ -10,7 +10,24 @@
 
 @implementation QSBaseModel
 
+///数据解析方法
 + (RKObjectMapping *)objectMapping
+{
+
+    return nil;
+
+}
+
+///数据存入CoreData
+- (BOOL)saveModelDataIntoCoreData
+{
+
+    return NO;
+
+}
+
+///将数据从CoreData中取出来
++ (QSBaseModel *)getModelDataFromCoreData
 {
 
     return nil;

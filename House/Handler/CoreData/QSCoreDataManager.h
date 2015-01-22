@@ -8,44 +8,79 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  @author yangshengmeng, 15-01-21 18:01:59
+ *
+ *  @brief  CoreData操作控制器
+ *
+ *  @since  1.0.0
+ */
 @interface QSCoreDataManager : NSObject
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:58
+ *  @author             yangshengmeng, 15-01-21 18:01:56
  *
- *  @brief  返回指定城市的可选区域列表
+ *  @brief              返回指定实体所有数据数组
  *
- *  @since  1.0.0
+ *  @param entityName   实体名
+ *
+ *  @return             返回实体数组
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getDistrictWithCity:(NSString *)city;
++ (NSArray *)getDataListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend;
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:47
+ *  @author             yangshengmeng, 15-01-20 09:01:45
  *
- *  @brief  返回城市列表
+ *  @brief              查询指定表中的某字段信息
  *
- *  @since  1.0.0
+ *  @param entityName   实体名
+ *  @param keyword      字段名
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getCityList;
++ (instancetype)getDataWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:15
+ *  @author             yangshengmeng, 15-01-21 21:01:57
  *
- *  @brief  获取应用指引状态：YES-已经指引过，NO-需要重新指引
+ *  @brief              根据给定的字段和字段新内容更新CoreData数据
  *
- *  @since  1.0.0
+ *  @param entityName   实体名
+ *  @param fieldName    字段名
+ *
+ *  @return             更新结果：YES-更新成功，NO-更新失败
+ *
+ *  @since              1.0.0
  */
-+ (BOOL)getAppGuideIndexStatus;
++ (BOOL)updateFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue;
 
 /**
- *  @author yangshengmeng, 15-01-20 00:01:14
+ *  @author                 yangshengmeng, 15-01-21 23:01:37
  *
- *  @brief  返回最后显示广告的时间
+ *  @brief                  根据给定的实例名和实体对象，插入一条数据
  *
- *  @return 返回上一次显示广告的时间日期整数字符串
+ *  @param entityName       实体名
+ *  @param coreDataModel    实体对象
  *
- *  @since  1.0.0
+ *  @return                 返回是否插入成功：YES-插入成功，NO-插入失败
+ *
+ *  @since                  1.0.0
  */
-+ (NSString *)getAdvertLastShowTime;
++ (BOOL)insertEntityWithEntityName:(NSString *)entityName andCoreDataModel:(NSManagedObject *)coreDataModel;
+
+/**
+ *  @author             yangshengmeng, 15-01-21 23:01:28
+ *
+ *  @brief              清空某个实体模型中所有的数据
+ *
+ *  @param entityName   实体名
+ *
+ *  @return             删除结果标识：YES-删除成功,NO-删除失败
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)clearDataListWithEntityName:(NSString *)entityName;
 
 @end
