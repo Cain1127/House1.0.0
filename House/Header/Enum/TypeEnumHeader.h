@@ -39,10 +39,29 @@ typedef enum
     
     rRequestResultTypeDataAnalyzeFail,  //!<数据解析失败
     
+    rRequestResultTypeError,            //!<请求类型有误
+    rRequestResultTypeURLError,         //!<无法获取有效URL信息
+    rRequestResultTypeMappingClassError,//!<无效的mapping类
+    
     rRequestResultTypeNoNetworking,     //!<请求失败，无可用网络
     rRequestResultTypeBadNetworking     //!<请求失败，网络不稳定
 
 }REQUEST_RESULT_STATUS;                 //!<网络请求结果标识
+
+/**
+ *  @author yangshengmeng, 15-01-20 21:01:02
+ *
+ *  @brief  http网络请求时使用的请求类型：POST,GET
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    rRequestHttpRequestTypeGet = 0, //!<GET请求
+    rRequestHttpRequestTypePost     //!<POST请求
+    
+}REQUEST_HTTPREQUEST_TYPE;
 
 /**
  *  @author yangshengmeng, 15-01-20 21:01:51

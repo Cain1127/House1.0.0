@@ -18,6 +18,17 @@
 @interface QSRequestManager : NSObject
 
 /**
+ *  @author yangshengmeng, 15-01-22 09:01:30
+ *
+ *  @brief  返回请求管理器的单例
+ *
+ *  @return 返回网格请求单例对象
+ *
+ *  @since  1.0.0
+ */
++ (instancetype)shareRequestManager;
+
+/**
  *  @author             yangshengmeng, 15-01-20 21:01:18
  *
  *  @brief              根据不同的请求类型，进行不同的请求，并返回对应的请求结果信息

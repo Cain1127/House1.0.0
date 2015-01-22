@@ -15,4 +15,7 @@
 ///tabbar配置相关的plist名字
 #define PLIST_FILE_NAME_TABBAR  @"AppTabbarInfo"
 
+///网络请求相关的配置
+#define PLIST_FILE_NAME_REQUEST @"RequestInfo"
+
 #endif

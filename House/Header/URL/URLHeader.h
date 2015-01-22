@@ -42,9 +42,4 @@ static NSString *const URLFDangJiaImageIPHome = @"http://117.41.235.102:6300/";
 //
 static NSString *const URLFDangJiaImageDomainHome = @"http://img.fdangjia.com/";
 
-//
-//广告页地址
-//
-static NSString *const URLAdvert = @"site/advertise";
-
 #endif

@@ -102,6 +102,8 @@
 		18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2761A6E904C00BB9611 /* QSRequestManager.m */; };
 		18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */; };
 		18C8A28F1A6F39C900BB9611 /* QSAdvertReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A28E1A6F39C900BB9611 /* QSAdvertReturnData.m */; };
+		18CAFC9B1A708DAC00C90C90 /* QSRequestTaskDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFC9A1A708DAC00C90C90 /* QSRequestTaskDataModel.m */; };
+		18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */; };
 		18E801E11A6F7FD900CA21D4 /* QSHeaderDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801E01A6F7FD900CA21D4 /* QSHeaderDataModel.m */; };
 		18E801E41A6F810A00CA21D4 /* QSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801E31A6F810A00CA21D4 /* QSBaseModel.m */; };
 		18E801E71A6F817D00CA21D4 /* QSMSGBaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801E61A6F817D00CA21D4 /* QSMSGBaseDataModel.m */; };
@@ -286,6 +288,10 @@
 		18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSDataMappingManager.m; path = DataMapping/QSDataMappingManager.m; sourceTree = "<group>"; };
 		18C8A28D1A6F39C900BB9611 /* QSAdvertReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSAdvertReturnData.h; path = Advert/QSAdvertReturnData.h; sourceTree = "<group>"; };
 		18C8A28E1A6F39C900BB9611 /* QSAdvertReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSAdvertReturnData.m; path = Advert/QSAdvertReturnData.m; sourceTree = "<group>"; };
+		18CAFC991A708DAC00C90C90 /* QSRequestTaskDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSRequestTaskDataModel.h; path = Handler/QSRequestTaskDataModel.h; sourceTree = "<group>"; };
+		18CAFC9A1A708DAC00C90C90 /* QSRequestTaskDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSRequestTaskDataModel.m; path = Handler/QSRequestTaskDataModel.m; sourceTree = "<group>"; };
+		18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = RequestInfo.plist; path = Request/RequestInfo.plist; sourceTree = "<group>"; };
+		18CAFCA01A70953E00C90C90 /* QueueHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueHeader.h; path = Queue/QueueHeader.h; sourceTree = "<group>"; };
 		18E801DF1A6F7FD900CA21D4 /* QSHeaderDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHeaderDataModel.h; sourceTree = "<group>"; };
 		18E801E01A6F7FD900CA21D4 /* QSHeaderDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHeaderDataModel.m; sourceTree = "<group>"; };
 		18E801E21A6F810A00CA21D4 /* QSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSBaseModel.h; path = Base/QSBaseModel.h; sourceTree = "<group>"; };
@@ -651,6 +657,7 @@
 		189300851A6902E30081D0AA /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				18CAFC9F1A70952100C90C90 /* Queue */,
 				18C8A2401A6E188600BB9611 /* Color */,
 				18C8A2421A6E188600BB9611 /* Core */,
 				18C8A2441A6E188600BB9611 /* Enum */,
@@ -787,6 +794,7 @@
 		189300941A6902E30081D0AA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18CAFC971A708D5300C90C90 /* Handler */,
 				18E8020C1A6FB87900CA21D4 /* CoreData */,
 				18C8A2891A6EAFB500BB9611 /* Advert */,
 				18C8A2781A6EA66A00BB9611 /* Base */,
@@ -800,6 +808,7 @@
 			isa = PBXGroup;
 			children = (
 				18C8A2721A6E7DB500BB9611 /* URL */,
+				18CAFC9C1A70913500C90C90 /* Request */,
 				189300961A6902E30081D0AA /* Home */,
 				18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */,
 			);
@@ -1229,6 +1238,39 @@
 			name = Advert;
 			sourceTree = "<group>";
 		};
+		18CAFC971A708D5300C90C90 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFC981A708D7400C90C90 /* Request */,
+			);
+			name = Handler;
+			sourceTree = "<group>";
+		};
+		18CAFC981A708D7400C90C90 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFC991A708DAC00C90C90 /* QSRequestTaskDataModel.h */,
+				18CAFC9A1A708DAC00C90C90 /* QSRequestTaskDataModel.m */,
+			);
+			name = Request;
+			sourceTree = "<group>";
+		};
+		18CAFC9C1A70913500C90C90 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */,
+			);
+			name = Request;
+			sourceTree = "<group>";
+		};
+		18CAFC9F1A70952100C90C90 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCA01A70953E00C90C90 /* QueueHeader.h */,
+			);
+			name = Queue;
+			sourceTree = "<group>";
+		};
 		18E801EB1A6F8D3800CA21D4 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1525,6 +1567,7 @@
 				18C8A1561A6CBA2F00BB9611 /* home_tenement_normal.png in Resources */,
 				18C8A2601A6E1DB100BB9611 /* guide_big_circle.png in Resources */,
 				18C8A0F51A6A883900BB9611 /* tabbar_myzone_selected.png in Resources */,
+				18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */,
 				18C8A11E1A6AACCA00BB9611 /* navigationbar_message_highlighted.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
 				18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */,
@@ -1608,6 +1651,7 @@
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18E801E41A6F810A00CA21D4 /* QSBaseModel.m in Sources */,
+				18CAFC9B1A708DAC00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
