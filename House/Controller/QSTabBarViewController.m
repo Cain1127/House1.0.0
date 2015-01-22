@@ -156,4 +156,14 @@
 
 }
 
+#pragma mark - 重写tabbar重置当前选择的tabbar
+///重写设置当前选择状态的view，重选时，修改tabbar相关的状态
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
+{
+
+    [super setSelectedIndex:selectedIndex];
+    [self.customTabbarView setCurrentSelectedIndex:(int)selectedIndex];
+
+}
+
 @end
