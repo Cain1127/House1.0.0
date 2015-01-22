@@ -14,6 +14,11 @@
 
 @implementation QSHouseKeySearchViewController
 
+-(void)createNavigationBarUI
+{
+
+}
+
 - (void)createMainShowUI
 {
 
