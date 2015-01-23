@@ -80,4 +80,21 @@
 ///出售物业指引页
 #define TITLE_GUIDE_SALEHOUSE_HEADER_TIP @"发布您的物业，马上成为房当家!"
 
+/**
+ *  @author yangshengmeng, 15-01-23 15:01:50
+ *
+ *  @brief  过滤设置页面相关title
+ *
+ *  @since  1.0.0
+ */
+
+///第一次设置过滤时的标题提示
+#define TITLE_FILTER_FIRSTSETTING_HEADER_TITLE @"定制您的房源目标"
+
+///第一次设置过滤时的子标题提示
+#define TITLE_FILTER_FIRSTSETTING_SUBHEADER_TITLE @"让我们更好的为您推荐"
+
+///第一次设置过滤时的子标题提示
+#define TITLE_FILTER_FIRSTSETTING_COMMITBUTTON @"看看运气如何"
+
 #endif

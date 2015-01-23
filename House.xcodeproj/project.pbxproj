@@ -119,6 +119,7 @@
 		18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */; };
 		18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */; };
 		18CAFCEB1A72240200C90C90 /* UITextField+RightArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */; };
+		18CAFCEF1A723B2500C90C90 /* QSCDFilterDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
 		18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801EF1A6F8D3800CA21D4 /* MJRefreshBaseView.m */; };
 		18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801F11A6F8D3800CA21D4 /* MJRefreshConst.m */; };
@@ -328,6 +329,8 @@
 		18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSFilterViewController.m; path = Filter/QSFilterViewController.m; sourceTree = "<group>"; };
 		18CAFCE91A72240200C90C90 /* UITextField+RightArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RightArrow.h"; sourceTree = "<group>"; };
 		18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RightArrow.m"; sourceTree = "<group>"; };
+		18CAFCED1A723B2500C90C90 /* QSCDFilterDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDFilterDataModel.h; path = Filter/QSCDFilterDataModel.h; sourceTree = "<group>"; };
+		18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDFilterDataModel.m; path = Filter/QSCDFilterDataModel.m; sourceTree = "<group>"; };
 		18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18E801ED1A6F8D3800CA21D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18E801EE1A6F8D3800CA21D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -422,7 +425,6 @@
 				189300851A6902E30081D0AA /* Header */,
 				1893008A1A6902E30081D0AA /* Images */,
 				189300931A6902E30081D0AA /* Lib */,
-				189300941A6902E30081D0AA /* Model */,
 				189300951A6902E30081D0AA /* Plist */,
 				189300971A6902E30081D0AA /* View */,
 				183CC6661A68FC8800B8F97D /* House */,
@@ -826,14 +828,6 @@
 			);
 			name = Lib;
 			path = House/Lib;
-			sourceTree = "<group>";
-		};
-		189300941A6902E30081D0AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = House/Model;
 			sourceTree = "<group>";
 		};
 		189300951A6902E30081D0AA /* Plist */ = {
@@ -1321,6 +1315,7 @@
 		18CAFCC71A70E45A00C90C90 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				18CAFCEC1A723B0600C90C90 /* Filter */,
 				18CAFCC81A70E45A00C90C90 /* SearchHistory */,
 			);
 			path = CoreData;
@@ -1358,6 +1353,15 @@
 			children = (
 				18CAFCE61A720EEE00C90C90 /* QSFilterViewController.h */,
 				18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */,
+			);
+			name = Filter;
+			sourceTree = "<group>";
+		};
+		18CAFCEC1A723B0600C90C90 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCED1A723B2500C90C90 /* QSCDFilterDataModel.h */,
+				18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -1730,6 +1734,7 @@
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
+				18CAFCEF1A723B2500C90C90 /* QSCDFilterDataModel.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,

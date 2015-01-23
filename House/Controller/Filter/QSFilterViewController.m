@@ -78,14 +78,14 @@
     
     ///头部提示信息
     QSLabel *titleTipsLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.size.height / 2.0f - 30.0f, SIZE_DEFAULT_MAX_WIDTH, 30.0f)];
-    titleTipsLabel.text = @"定制您的房源目标";
+    titleTipsLabel.text = TITLE_FILTER_FIRSTSETTING_HEADER_TITLE;
     titleTipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     titleTipsLabel.textAlignment = NSTextAlignmentCenter;
     titleTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     [headerImageView addSubview:titleTipsLabel];
     
     QSLabel *subTitleTipsLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.size.height / 2.0f, SIZE_DEFAULT_MAX_WIDTH, 20.0f)];
-    subTitleTipsLabel.text = @"让我们更好的为您推荐";
+    subTitleTipsLabel.text = TITLE_FILTER_FIRSTSETTING_SUBHEADER_TITLE;
     subTitleTipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     subTitleTipsLabel.textAlignment = NSTextAlignmentCenter;
     subTitleTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
@@ -102,7 +102,7 @@
         
         
     }];
-    [commitFilterButton setTitle:@"看看运气如何" forState:UIControlStateNormal];
+    [commitFilterButton setTitle:TITLE_FILTER_FIRSTSETTING_COMMITBUTTON forState:UIControlStateNormal];
     [self.view addSubview:commitFilterButton];
 
 }
@@ -111,7 +111,25 @@
 - (void)createSettingInputUI:(UIView *)view
 {
 
-    
+    /**
+     *  房子类型 :
+     *  区域 : 
+     *  户型 :
+     *  购房目的 :
+     *  售价 :
+     *  面积 :
+     *  出租方式 :
+     *  租金 :
+     *  面积 :
+     *  租金支付方式 :
+     *  楼层 :
+     *  朝向 :
+     *  装修 :
+     *  房龄 :
+     *  标签 :
+     *  备注 :
+     *  配套 :
+     */
 
 }
 
