@@ -21,4 +21,20 @@
 
 }
 
+/**
+ *  @author yangshengmeng, 15-01-23 10:01:47
+ *
+ *  @brief  返回当前用户所在的城市
+ *
+ *  @return 返回城市
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserCity
+{
+
+    return @"广州";
+
+}
+
 @end

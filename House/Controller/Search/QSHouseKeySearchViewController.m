@@ -170,7 +170,7 @@
     
     headButton.backgroundColor=COLOR_CHARACTERS_YELLOW;
   
-    [headButton setTintColor:COLOR_CHARACTERS_NORMAL];
+    [headButton setTintColor:COLOR_CHARACTERS_GRAY];
     [headButton setTitle:@"点击清空历史记录" forState:UIControlStateNormal];
     
     headButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;

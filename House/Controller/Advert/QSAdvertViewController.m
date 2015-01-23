@@ -53,10 +53,13 @@
     ///创建默认版权信息
     UILabel *rightInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, SIZE_DEVICE_HEIGHT - 54.0f, SIZE_DEVICE_WIDTH - 60.0f, 44.0f)];
     rightInfoLabel.text = APPLICATION_RIGHT_INFO;
-    rightInfoLabel.textColor = COLOR_CHARACTERS_NORMAL;
+    rightInfoLabel.textColor = COLOR_CHARACTERS_GRAY;
     rightInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
+    
+//    [self gotoGuideIndexViewController];
+//    return;
     
     ///如果是第一次运行，直接显示指引页，暂不显示广告页
     if (gGuideStatusNoRecord == self.isShowGuideIndex) {

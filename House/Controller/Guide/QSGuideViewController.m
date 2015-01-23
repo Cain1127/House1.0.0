@@ -12,6 +12,7 @@
 #import "QSGuideLookingforRoomView.h"
 #import "QSGuideSaleHouseView.h"
 #import "QSWDeveloperHomeViewController.h"
+#import "QSFilterViewController.h"
 
 @interface QSGuideViewController ()
 
@@ -57,16 +58,22 @@
             
             ///找房：二手房
         case gGuideButtonActionTypeFindHouseSecondHouse:
+        {
             
+            QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeSecondHandHouse];
+            [self changeWindowRootViewController:filterVC];
             
-            
+        }
             break;
             
             ///找房：出租房
         case gGuideButtonActionTypeFindHouseRentalHouse:
+        {
             
+            QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeRenantHouse];
+            [self changeWindowRootViewController:filterVC];
             
-            
+        }
             break;
             
             ///找房：跳过

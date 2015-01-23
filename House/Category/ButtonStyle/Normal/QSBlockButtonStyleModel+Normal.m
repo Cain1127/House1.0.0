@@ -40,6 +40,13 @@
             
             break;
             
+            ///圆角浅黄色按钮
+        case nNormalButtonTypeCornerLightYellow:
+            
+            return [self ceateNormalCornerLightYellowButton];
+            
+            break;
+            
             ///黑字白底按钮
         case nNormalButtonTypeClear:
             
@@ -52,6 +59,19 @@
     }
     
     return nil;
+
+}
+
++ (QSBlockButtonStyleModel *)ceateNormalCornerLightYellowButton
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    buttonStyle.cornerRadio = VIEW_SIZE_NORMAL_CORNERADIO;
+    buttonStyle.titleNormalColor = [UIColor blackColor];
+    buttonStyle.titleHightedColor = [UIColor whiteColor];
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
+    return buttonStyle;
 
 }
 
@@ -92,7 +112,7 @@
     buttonStyle.titleNormalColor = [UIColor blackColor];
     buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
     buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
-    buttonStyle.borderColor = COLOR_CHARACTERS_NORMAL;
+    buttonStyle.borderColor = COLOR_CHARACTERS_GRAY;
     buttonStyle.borderWith = 0.5f;
     return buttonStyle;
     
