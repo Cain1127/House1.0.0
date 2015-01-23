@@ -10,21 +10,21 @@
 #import "ColorHeader.h"
 #import "QSCoreDataManager+SearchHistory.h"
 
-@interface QSHouseKeySearchViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
-@property (nonatomic,strong)NSMutableArray *dataSource;
+@property (nonatomic,retain) NSMutableArray *localSearchHistoryDataSource;//!<数据源
 
 @end
 
 @implementation QSHouseKeySearchViewController
 
-
 #pragma mark -添加导航栏视图
 -(void)setDataSource:(NSMutableArray *)dataSource
 {
-    _dataSource=[QSCoreDataManager getLocalSearchHistory];
+    
+    ///获取本地搜索历史
+    self.localSearchHistoryDataSource = [[NSMutableArray alloc] initWithArray:[QSCoreDataManager getLocalSearchHistory]];
   
-
 }
 
 
@@ -43,6 +43,7 @@
     /// 设置字体与边框类型
     seachTextField.font=[UIFont systemFontOfSize:14.0f];
     seachTextField.borderStyle=UITextBorderStyleRoundedRect;
+    
     ///设置键盘的返回按钮点击类型
     seachTextField.returnKeyType=UIReturnKeySearch;
     seachTextField.autocorrectionType=UITextAutocorrectionTypeNo;
@@ -72,7 +73,6 @@
     
 }
 
-
 #pragma mark -添加中间视图
 - (void)createMainShowUI
 {
@@ -81,18 +81,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     ///加载没有搜索历史记录界面
-    [self setupHistoryView];
+//    [self setupHistoryView];
     
     ///加载有搜索历史界面
-    //[self setupTableView];
+    [self setupTableView];
    
 }
 
 ///添加没有搜索历史记录界面
 -(void)setupHistoryView
 {
+    
     ///添加没有搜索历史记录图片
-    UIImageView *seachImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH *0.5 -40.0f, 150.0f, 80.0f, 80.0f)];
+    UIImageView *seachImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH *0.5 -40.0f, 150.0f, 75.0f, 85.0f)];
     seachImageView.image=[UIImage imageNamed:@"seach_seachstatus"];
     [self.view addSubview:seachImageView];
     
@@ -105,10 +106,10 @@
     label.textAlignment=NSTextAlignmentCenter;
     
     [self.view addSubview:label];
+    
 }
 
-
-///添加tablevie
+///添加tableView
 -(void)setupTableView
 {
  
@@ -116,9 +117,9 @@
     UITableView *tableView=[[UITableView alloc]initWithFrame:rect];
     tableView.delegate=self;
     tableView.dataSource=self;
-    [self.view addSubview:tableView];}
+    [self.view addSubview:tableView];
 
-#pragma mark -tablevie代理方法
+}
 
 ///返回的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -128,7 +129,8 @@
     
 }
 
-///返回的cell
+#pragma mark - 返回每一个搜索历史记录Cell
+///返回每一个搜索记录显示cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -144,11 +146,11 @@
     return cell;
 }
 
-#pragma mark -设置列表头部信息
-
+#pragma mark -设置列表Header信息
 ///添加列表头部view
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     UIButton *headButton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         NSLog(@"清空历史记录");
     }];
@@ -161,14 +163,18 @@
     headButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
 
     return headButton;
+    
 }
 
 ///设置列表头部高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    
     return 44.0f;
+    
 }
 
+#pragma mark - 键盘回收事件
 ///键盘回收
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -176,8 +182,9 @@
     [textField resignFirstResponder];
     
     NSLog(@"搜索内容%@",textField.text);
-    NSLog(@"搜索返回的内容%@",_dataSource);
+    NSLog(@"搜索返回的内容%@",self.localSearchHistoryDataSource);
     
     return YES;
+    
 }
 @end

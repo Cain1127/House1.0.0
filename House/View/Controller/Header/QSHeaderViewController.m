@@ -21,6 +21,12 @@
     
     [super viewDidLoad];
     
+    ///背景颜色
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    ///取消scrollView自适应位移
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     ///通过统一的方法创建UI
     [self createUI];
     

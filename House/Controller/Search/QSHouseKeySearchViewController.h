@@ -8,6 +8,13 @@
 
 #import "QSTurnBackViewController.h"
 
+/**
+ *  @author yangshengmeng, 15-01-23 10:01:44
+ *
+ *  @brief  搜索模型首页
+ *
+ *  @since  1.0.0
+ */
 @interface QSHouseKeySearchViewController : QSTurnBackViewController
 
 @end
