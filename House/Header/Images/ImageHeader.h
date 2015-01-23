@@ -10,6 +10,17 @@
 #define House_ImageHeader_h
 
 /**
+ *  @author yangshengmeng, 15-01-23 14:01:28
+ *
+ *  @brief  公共使用的图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///右侧大剪头
+#define IMAGE_PUBLIC_RIGHT_ARROW @"public_row_arrow"
+
+/**
  *  @author yangshengmeng, 15-01-17 21:01:26
  *
  *  @brief  导航栏的图片资源
@@ -75,5 +86,16 @@
 
 ///指引页-中间提示信息划线
 #define IMAGE_GUIDE_INNER_TIP @"guide_middle_tip"
+
+/**
+ *  @author yangshengmeng, 15-01-23 14:01:41
+ *
+ *  @brief  过滤器设置页面相关图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///指引页-中间提示信息划线
+#define IMAGE_FILTER_DEFAULT_HEADER @"guide_filter_header"
 
 #endif

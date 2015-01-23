@@ -185,4 +185,35 @@
 
 }
 
+#pragma mark - 进入应用时的过滤器标识
+/**
+ *  @author yangshengmeng, 15-01-23 14:01:22
+ *
+ *  @brief  获取本地是否已配置有过滤器
+ *
+ *  @return 返回配置情况：YES-已配置
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)getLocalFilterSettingFlag
+{
+
+    NSString *isSettingFilter = (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_setting_filter"];
+    
+    if (nil == isSettingFilter) {
+        
+        return NO;
+        
+    }
+    
+    if (0 == [isSettingFilter intValue]) {
+        
+        return NO;
+        
+    }
+    
+    return YES;
+
+}
+
 @end

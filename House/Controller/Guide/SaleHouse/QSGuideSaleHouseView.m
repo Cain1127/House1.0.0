@@ -31,7 +31,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
     
     ///中间信息圆:
     UIView *middleInfoRootView = [[UIView alloc] initWithFrame:CGRectMake((view.frame.size.width - 125.0f) / 2.0f, (view.frame.size.height - 125.0f) / 2.0f, 125.0f, 125.0f)];
-    middleInfoRootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+    middleInfoRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     middleInfoRootView.layer.cornerRadius = 125.0f / 2.0f;
     [self createTenantHouseGuideMiddleTipsUI:middleInfoRootView];
     [view addSubview:middleInfoRootView];
@@ -152,7 +152,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
 {
     
     ///出售物业
-    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         

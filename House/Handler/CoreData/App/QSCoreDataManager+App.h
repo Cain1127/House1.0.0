@@ -116,4 +116,15 @@
  */
 + (BOOL)updateConfigurationList:(NSArray *)conList;
 
+/**
+ *  @author yangshengmeng, 15-01-23 14:01:22
+ *
+ *  @brief  获取本地是否已配置有过滤器
+ *
+ *  @return 返回配置情况：YES-已配置
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)getLocalFilterSettingFlag;
+
 @end

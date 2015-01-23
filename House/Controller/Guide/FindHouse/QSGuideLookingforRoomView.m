@@ -9,14 +9,15 @@
 #import "QSGuideLookingforRoomView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCoreDataManager+User.h"
+#import "QSFilterViewController.h"
 
 #import <objc/runtime.h>
 
 ///关联
 static char HousesSumCountKey;          //!<房源总数
 static char HousesTypeOneCountKey;      //!<一房房型的统计数量
-static char HousesTypeTwoCountKey;      //!<一房房型的统计数量
-static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
+static char HousesTypeTwoCountKey;      //!<二房房型的统计数量
+static char HousesTypeThreeCountKey;    //!<三房房型的统计数量
 
 @implementation QSGuideLookingforRoomView
 
@@ -39,7 +40,7 @@ static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
     
     ///中间信息圆:
     UIView *middleInfoRootView = [[UIView alloc] initWithFrame:CGRectMake((view.frame.size.width - 125.0f) / 2.0f, (view.frame.size.height - 125.0f) / 2.0f, 125.0f, 125.0f)];
-    middleInfoRootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+    middleInfoRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     middleInfoRootView.layer.cornerRadius = 125.0f / 2.0f;
     [self createFindHouseGuideMiddleTipsUI:middleInfoRootView];
     [view addSubview:middleInfoRootView];
@@ -61,7 +62,7 @@ static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
     twoHouseInfoRootView.layer.cornerRadius = 40.0f;
     twoHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     twoHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:twoHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [self createHouseTypeInfoUI:twoHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP andAssociatinKey:HousesTypeTwoCountKey];
     [view addSubview:twoHouseInfoRootView];
     
     ///三房房源数据
@@ -71,7 +72,7 @@ static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
     threeHouseInfoRootView.layer.cornerRadius = 40.0f;
     threeHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     threeHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:HousesTypeTwoCountKey];
     [view addSubview:threeHouseInfoRootView];
     
 }
@@ -151,7 +152,7 @@ static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
 {
     
     ///二手房
-    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
@@ -234,6 +235,45 @@ static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
         
     }
 
+}
+
+///更新一房房源总数统计
+- (void)updateHouseTypeOnwSumCount:(NSString *)count
+{
+    
+    UILabel *sumCountLabel = objc_getAssociatedObject(self, &HousesTypeOneCountKey);
+    if (sumCountLabel && count) {
+        
+        sumCountLabel.text = count;
+        
+    }
+    
+}
+
+///更新二房房源总数统计
+- (void)updateHouseTypeTwoSumCount:(NSString *)count
+{
+    
+    UILabel *sumCountLabel = objc_getAssociatedObject(self, &HousesTypeTwoCountKey);
+    if (sumCountLabel && count) {
+        
+        sumCountLabel.text = count;
+        
+    }
+    
+}
+
+///更新三房房源总数统计
+- (void)updateHouseTypeThreeSumCount:(NSString *)count
+{
+    
+    UILabel *sumCountLabel = objc_getAssociatedObject(self, &HousesTypeThreeCountKey);
+    if (sumCountLabel && count) {
+        
+        sumCountLabel.text = count;
+        
+    }
+    
 }
 
 @end
