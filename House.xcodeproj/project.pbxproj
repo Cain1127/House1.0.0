@@ -109,7 +109,6 @@
 		18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC01A70E45A00C90C90 /* QSMSGBaseDataModel.m */; };
 		18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC21A70E45A00C90C90 /* QSBaseModel.m */; };
 		18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */; };
-		18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */; };
 		18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCCD1A70E45A00C90C90 /* QSRequestTaskDataModel.m */; };
 		18CAFCD81A71E21800C90C90 /* seach_seachstatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCD71A71E21800C90C90 /* seach_seachstatus.png */; };
 		18CAFCDD1A71E22800C90C90 /* navigationbar_corss_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCD91A71E22800C90C90 /* navigationbar_corss_highlighted.png */; };
@@ -310,8 +309,6 @@
 		18CAFCC21A70E45A00C90C90 /* QSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseModel.m; sourceTree = "<group>"; };
 		18CAFCC51A70E45A00C90C90 /* QSConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSConfigurationReturnData.h; sourceTree = "<group>"; };
 		18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSConfigurationReturnData.m; sourceTree = "<group>"; };
-		18CAFCC91A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCDLocalSearchHistoryDataModel.h; sourceTree = "<group>"; };
-		18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDLocalSearchHistoryDataModel.m; sourceTree = "<group>"; };
 		18CAFCCC1A70E45A00C90C90 /* QSRequestTaskDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRequestTaskDataModel.h; sourceTree = "<group>"; };
 		18CAFCCD1A70E45A00C90C90 /* QSRequestTaskDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRequestTaskDataModel.m; sourceTree = "<group>"; };
 		18CAFCD71A71E21800C90C90 /* seach_seachstatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seach_seachstatus.png; sourceTree = "<group>"; };
@@ -413,7 +410,6 @@
 				189300851A6902E30081D0AA /* Header */,
 				1893008A1A6902E30081D0AA /* Images */,
 				189300931A6902E30081D0AA /* Lib */,
-				189300941A6902E30081D0AA /* Model */,
 				189300951A6902E30081D0AA /* Plist */,
 				189300971A6902E30081D0AA /* View */,
 				183CC6661A68FC8800B8F97D /* House */,
@@ -813,14 +809,6 @@
 			);
 			name = Lib;
 			path = House/Lib;
-			sourceTree = "<group>";
-		};
-		189300941A6902E30081D0AA /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
-			path = House/Model;
 			sourceTree = "<group>";
 		};
 		189300951A6902E30081D0AA /* Plist */ = {
@@ -1308,18 +1296,8 @@
 		18CAFCC71A70E45A00C90C90 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				18CAFCC81A70E45A00C90C90 /* SearchHistory */,
 			);
 			path = CoreData;
-			sourceTree = "<group>";
-		};
-		18CAFCC81A70E45A00C90C90 /* SearchHistory */ = {
-			isa = PBXGroup;
-			children = (
-				18CAFCC91A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.h */,
-				18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */,
-			);
-			path = SearchHistory;
 			sourceTree = "<group>";
 		};
 		18CAFCCB1A70E45A00C90C90 /* Handler */ = {
@@ -1732,7 +1710,6 @@
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
-				18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,

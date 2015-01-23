@@ -8,6 +8,7 @@
 
 #import "QSHouseKeySearchViewController.h"
 #import "ColorHeader.h"
+#import "ImageHeader.h"
 #import "QSCoreDataManager+SearchHistory.h"
 
 @interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
@@ -18,9 +19,11 @@
 
 @implementation QSHouseKeySearchViewController
 
-#pragma mark -添加导航栏视图
+#pragma mark -重写数据源
 -(void)setDataSource:(NSMutableArray *)dataSource
 {
+    
+//    [QSCoreDataManager addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)]
     
     ///获取本地搜索历史
     self.localSearchHistoryDataSource = [[NSMutableArray alloc] initWithArray:[QSCoreDataManager getLocalSearchHistory]];
@@ -28,6 +31,7 @@
 }
 
 
+#pragma mark -添加导航栏视图
 -(void)createNavigationBarUI
 {
     [super createNavigationBarUI];
@@ -66,7 +70,7 @@
         
     }];
    
-    [corssButton setImage:[UIImage imageNamed:@"navigationbar_corss_normal"] forState:UIControlStateNormal];
+    [corssButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_CORSS_NORMAL] forState:UIControlStateNormal];
     
     //添加导航栏右边图片
     [self setNavigationBarRightView:corssButton];
@@ -80,11 +84,18 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    ///加载没有搜索历史记录界面
-//    [self setupHistoryView];
     
-    ///加载有搜索历史界面
-    [self setupTableView];
+    if (self.localSearchHistoryDataSource) {
+        
+        ///加载有搜索历史界面
+        [self setupTableView];
+        
+    }
+    
+    ///加载没有搜索历史记录界面
+    [self setupHistoryView];
+    
+   
    
 }
 
@@ -94,7 +105,7 @@
     
     ///添加没有搜索历史记录图片
     UIImageView *seachImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH *0.5 -40.0f, 150.0f, 75.0f, 85.0f)];
-    seachImageView.image=[UIImage imageNamed:@"seach_seachstatus"];
+    seachImageView.image=[UIImage imageNamed:IMAGE_SEARCH_SEARCHSTATUS];
     [self.view addSubview:seachImageView];
     
     
@@ -142,6 +153,8 @@
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:acell];
         
         cell.textLabel.text=@"历史搜索关键词";
+        
+        cell.textLabel.text=_localSearchHistoryDataSource[0];
     }
     return cell;
 }

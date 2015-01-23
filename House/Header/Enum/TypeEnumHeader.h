@@ -39,7 +39,7 @@ typedef enum
     bBuildingStructureTypeBoard,        //!<板楼
     bBuildingStructureTypeBungalow      //!<平房
 
-}BUILDING_STRUCTURE_TYPE;       //!建筑结构
+}BUILDING_STRUCTURE_TYPE;               //!建筑结构
 
 /*
  *  //装修类型
