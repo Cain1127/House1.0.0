@@ -52,6 +52,10 @@
 #define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
 #define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
 
+///<搜索>清除返回按钮
+#define IMAGE_NAVIGATIONBAR_CORSS_NORMAL @"navigationbar_corss_normal"
+#define IMAGE_NAVIGATIONBAR_CORSS_HIGHLIGHTED @"navigationbar_corss_highlighted"
+
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03
  *
@@ -74,6 +78,17 @@
 
 ///指引页房客数人头图片
 #define IMAGE_GUIDE_TENANT_PERSION @"guide_tenant_haved"
+
+/*!
+ *  @author wangshupeng, 15-01-23 10:01:16
+ *
+ *  @brief  搜索页相关图片资源
+ *
+ *  @since 1.0
+ */
+
+///搜索页无搜索历史记录图片
+#define IMAGE_SEARCH_SEARCHSTATUS @"seach_seachstatus"
 
 ///找房指引页-大圆
 #define IMAGE_GUIDE_HEADER_BIG_CIRCLE @"guide_big_circle"
