@@ -64,4 +64,16 @@
 ///指引页房客数人头图片
 #define IMAGE_GUIDE_TENANT_PERSION @"guide_tenant_haved"
 
+///找房指引页-大圆
+#define IMAGE_GUIDE_HEADER_BIG_CIRCLE @"guide_big_circle"
+
+///找房指引页-小圆
+#define IMAGE_GUIDE_HOUSES_INNER_CIRCLE @"guide_houses_haved_circle_tip"
+
+///找房指引页-小圆
+#define IMAGE_GUIDE_TENANT_INNER_CIRCLE @"guide_tenant_haved_circle_tip"
+
+///指引页-中间提示信息划线
+#define IMAGE_GUIDE_INNER_TIP @"guide_middle_tip"
+
 #endif

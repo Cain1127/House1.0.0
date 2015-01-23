@@ -20,12 +20,25 @@
 ///将十六进制颜色转化为RGB颜色
 #define COLOR_HEXCOLOR(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+///十六进制颜色转为半透明RGB颜色
 #define COLOR_HEXCOLORH(rgbValue,a) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0f green:((float)((rgbValue & 0xFF00) >> 8))/255.0f blue:((float)(rgbValue & 0xFF))/255.0f alpha:a]
 
-///普通文本颜色
-#define COLOR_CHARACTERS_NORMAL COLOR_HEXCOLOR(0x898b8a)
+///黑色
+#define COLOR_CHARACTERS_BLACK COLOR_HEXCOLOR(0x000000)
 
-///黄色文本
+///黑色半透明
+#define COLOR_CHARACTERS_BLACKH COLOR_HEXCOLORH(0x000000,0.5)
+
+///深灰
+#define COLOR_CHARACTERS_GRAY COLOR_HEXCOLOR(0x898b8a)
+
+///浅灰
+#define COLOR_CHARACTERS_LIGHTGRAY COLOR_HEXCOLOR(0xb2b2b2)
+
+///黄色
 #define COLOR_CHARACTERS_YELLOW COLOR_HEXCOLOR(0xffcd0e)
+
+///浅黄色
+#define COLOR_CHARACTERS_LIGHTYELLOW COLOR_HEXCOLOR(0xfef200)
 
 #endif

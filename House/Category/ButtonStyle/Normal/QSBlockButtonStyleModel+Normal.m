@@ -92,7 +92,7 @@
     buttonStyle.titleNormalColor = [UIColor blackColor];
     buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
     buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
-    buttonStyle.borderColor = COLOR_CHARACTERS_NORMAL;
+    buttonStyle.borderColor = COLOR_CHARACTERS_GRAY;
     buttonStyle.borderWith = 0.5f;
     return buttonStyle;
     

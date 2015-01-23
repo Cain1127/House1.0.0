@@ -14,6 +14,10 @@
 
 #define FONT_BODY_14 14.0f
 
+#define FONT_BODY_16 16.0f
+
+#define FONT_BODY_18 18.0f
+
 #define FONT_BODY_25 25.0f
 
 #define FONT_BODY_35 35.0f

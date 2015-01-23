@@ -116,6 +116,7 @@
 		18CAFCDE1A71E22800C90C90 /* navigationbar_corss_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCDA1A71E22800C90C90 /* navigationbar_corss_normal.png */; };
 		18CAFCDF1A71E22800C90C90 /* navigationbar_deploy_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCDB1A71E22800C90C90 /* navigationbar_deploy_arrow_highlighted.png */; };
 		18CAFCE01A71E22800C90C90 /* navigationbar_deploy_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCDC1A71E22800C90C90 /* navigationbar_deploy_arrow_normal.png */; };
+		18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
 		18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801EF1A6F8D3800CA21D4 /* MJRefreshBaseView.m */; };
 		18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801F11A6F8D3800CA21D4 /* MJRefreshConst.m */; };
@@ -319,6 +320,8 @@
 		18CAFCDA1A71E22800C90C90 /* navigationbar_corss_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_corss_normal.png; sourceTree = "<group>"; };
 		18CAFCDB1A71E22800C90C90 /* navigationbar_deploy_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_deploy_arrow_highlighted.png; sourceTree = "<group>"; };
 		18CAFCDC1A71E22800C90C90 /* navigationbar_deploy_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_deploy_arrow_normal.png; sourceTree = "<group>"; };
+		18CAFCE21A720B5000C90C90 /* NSObject+Calculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Calculate.h"; path = "Normal/NSObject+Calculate.h"; sourceTree = "<group>"; };
+		18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Calculate.m"; path = "Normal/NSObject+Calculate.m"; sourceTree = "<group>"; };
 		18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18E801ED1A6F8D3800CA21D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18E801EE1A6F8D3800CA21D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -576,6 +579,7 @@
 		1893007B1A6902E30081D0AA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				18CAFCE11A720AF800C90C90 /* Normal */,
 				18E802271A6FD38D00CA21D4 /* Date */,
 				18C8A1381A6CA3C500BB9611 /* AutoScroll */,
 				CE8F125C1A6B92BB005ECB65 /* Tool */,
@@ -1331,6 +1335,15 @@
 			path = Handler;
 			sourceTree = "<group>";
 		};
+		18CAFCE11A720AF800C90C90 /* Normal */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCE21A720B5000C90C90 /* NSObject+Calculate.h */,
+				18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */,
+			);
+			name = Normal;
+			sourceTree = "<group>";
+		};
 		18E801EB1A6F8D3800CA21D4 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1716,6 +1729,7 @@
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
+				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
 				CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,

@@ -74,7 +74,7 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     
     ///底部划分线
     UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.frame.size.height - 0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
-    lineLabel.backgroundColor = COLOR_CHARACTERS_NORMAL;
+    lineLabel.backgroundColor = COLOR_CHARACTERS_GRAY;
     lineLabel.alpha = 0.5f;
     [self addSubview:lineLabel];
 
@@ -134,7 +134,7 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     titleLabel.text = title;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont boldSystemFontOfSize:FONT_NAVIGATIONBAR_TITLE];
-    titleLabel.textColor = COLOR_CHARACTERS_NORMAL;
+    titleLabel.textColor = COLOR_CHARACTERS_GRAY;
     
     [middleRootView addSubview:titleLabel];
 

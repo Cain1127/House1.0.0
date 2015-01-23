@@ -8,10 +8,136 @@
 
 #import "QSGuideLookingforRoomView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSCoreDataManager+User.h"
+
+#import <objc/runtime.h>
+
+///关联
+static char HousesSumCountKey;          //!<房源总数
+static char HousesTypeOneCountKey;      //!<一房房型的统计数量
+static char HousesTypeTwoCountKey;      //!<一房房型的统计数量
+static char HousesTypeThreeCountKey;    //!<一房房型的统计数量
 
 @implementation QSGuideLookingforRoomView
 
 #pragma mark - UI搭建
+- (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
+{
+    
+    ///让超出父视图的图片不显示
+    view.clipsToBounds = YES;
+    
+    ///外层大圈
+    QSImageView *bigCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(-10.0f, (view.frame.size.height - view.frame.size.width - 20.0f) / 2.0f, view.frame.size.width + 20.0f, view.frame.size.width + 20.0f)];
+    bigCircleImageView.image = [UIImage imageNamed:IMAGE_GUIDE_HEADER_BIG_CIRCLE];
+    [view addSubview:bigCircleImageView];
+    
+    ///小圆:511 x 520
+    QSImageView *innerCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake((view.frame.size.width - 255.5f) / 2.0f, (view.frame.size.height - 260.0f) / 2.0f, 255.5f, 260.0f)];
+    innerCircleImageView.image = [UIImage imageNamed:IMAGE_GUIDE_TENANT_INNER_CIRCLE];
+    [view addSubview:innerCircleImageView];
+    
+    ///中间信息圆:
+    UIView *middleInfoRootView = [[UIView alloc] initWithFrame:CGRectMake((view.frame.size.width - 125.0f) / 2.0f, (view.frame.size.height - 125.0f) / 2.0f, 125.0f, 125.0f)];
+    middleInfoRootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+    middleInfoRootView.layer.cornerRadius = 125.0f / 2.0f;
+    [self createFindHouseGuideMiddleTipsUI:middleInfoRootView];
+    [view addSubview:middleInfoRootView];
+    
+    ///一房源数据
+    CGFloat xpontOfOneHouseRootView = SIZE_DEVICE_WIDTH > 320.0f ? (innerCircleImageView.frame.origin.x - 40.0f) : (innerCircleImageView.frame.origin.x - 30.0f);
+    UIView *oneHouseInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(xpontOfOneHouseRootView, view.frame.size.height / 2.0f - 40.0f, 80.0f, 80.0f)];
+    oneHouseInfoRootView.backgroundColor = [UIColor whiteColor];
+    oneHouseInfoRootView.layer.cornerRadius = 40.0f;
+    oneHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    oneHouseInfoRootView.layer.borderWidth = 0.5f;
+    [self createHouseTypeInfoUI:oneHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_ONE_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [view addSubview:oneHouseInfoRootView];
+    
+    ///二房源数据
+    CGPoint twoHousePoint = CenterRadiusPoint(CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height / 2.0f), -45.0f, innerCircleImageView.frame.size.width / 2.0f);
+    UIView *twoHouseInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(twoHousePoint.x - 40.0f, twoHousePoint.y - 40.0f, 80.0f, 80.0f)];
+    twoHouseInfoRootView.backgroundColor = [UIColor whiteColor];
+    twoHouseInfoRootView.layer.cornerRadius = 40.0f;
+    twoHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    twoHouseInfoRootView.layer.borderWidth = 0.5f;
+    [self createHouseTypeInfoUI:twoHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [view addSubview:twoHouseInfoRootView];
+    
+    ///三房房源数据
+    CGPoint threeHousePoint = CenterRadiusPoint(CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height / 2.0f), 45.0f, innerCircleImageView.frame.size.width / 2.0f);
+    UIView *threeHouseInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(threeHousePoint.x - 40.0f, threeHousePoint.y - 40.0f, 80.0f, 80.0f)];
+    threeHouseInfoRootView.backgroundColor = [UIColor whiteColor];
+    threeHouseInfoRootView.layer.cornerRadius = 40.0f;
+    threeHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    threeHouseInfoRootView.layer.borderWidth = 0.5f;
+    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [view addSubview:threeHouseInfoRootView];
+    
+}
+
+///创建不同户型的统计信息UI
+- (void)createHouseTypeInfoUI:(UIView *)view andTitle:(NSString *)title andAssociatinKey:(char)key
+{
+
+    ///标题
+    QSLabel *titleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f - 20.0f, view.frame.size.width - 20.0f, 20.0f)];
+    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.text = title;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:titleLabel];
+    
+    ///数据
+    QSLabel *dataLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f, view.frame.size.width - 20.0f, 30.0f)];
+    dataLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    dataLabel.textColor = COLOR_CHARACTERS_BLACK;
+    dataLabel.text = @"24,234";
+    dataLabel.textAlignment = NSTextAlignmentCenter;
+    dataLabel.adjustsFontSizeToFitWidth = YES;
+    [view addSubview:dataLabel];
+    
+    objc_setAssociatedObject(self, &key, dataLabel, OBJC_ASSOCIATION_ASSIGN);
+
+}
+
+///找房指引页中间提示信息UI
+- (void)createFindHouseGuideMiddleTipsUI:(UIView *)view
+{
+
+    ///划线图片
+    QSImageView *tipImageView = [[QSImageView alloc] initWithFrame:CGRectMake((view.frame.size.width - 115.0f) / 2.0f, (view.frame.size.height - 5.0f) / 2.0f, 115.0f, 5.0f)];
+    tipImageView.image = [UIImage imageNamed:IMAGE_GUIDE_INNER_TIP];
+    [view addSubview:tipImageView];
+    
+    ///显示当前城市
+    QSLabel *cityLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f - 32.0f, 60.0f, 30.0f)];
+    cityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    cityLabel.textColor = [UIColor blackColor];
+    cityLabel.textAlignment = NSTextAlignmentLeft;
+    cityLabel.text = [QSCoreDataManager getCurrentUserCity];
+    [view addSubview:cityLabel];
+    
+    ///正在出售
+    QSLabel *tipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 130.0f, view.frame.size.height / 2.0f - 22.0f, 120.0f, 20.0f)];
+    tipLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    tipLabel.textColor = [UIColor blackColor];
+    tipLabel.textAlignment = NSTextAlignmentRight;
+    tipLabel.text = TITLE_GUIDE_FINDHOUSE_MIDDLE_TIP;
+    [view addSubview:tipLabel];
+    
+    ///当前城市相关统计数据
+    QSLabel *dataLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f + 2.0f, view.frame.size.width - 20.0f, 30.0f)];
+    dataLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    dataLabel.textColor = [UIColor blackColor];
+    dataLabel.textAlignment = NSTextAlignmentLeft;
+    dataLabel.text = @"234,234,343";
+    [view addSubview:dataLabel];
+    
+    objc_setAssociatedObject(self, &HousesSumCountKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
+
+}
+
 /**
  *  @author     yangshengmeng, 15-01-20 14:01:51
  *
@@ -93,6 +219,21 @@
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_skipButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_all options:NSLayoutFormatAlignAllCenterX metrics:___VFLSizeDict views:___VFLViewsDict]];
     
+}
+
+#pragma mark - 更新数据
+
+///更新房源总数统计
+- (void)updateHousesSumCount:(NSString *)count
+{
+
+    UILabel *sumCountLabel = objc_getAssociatedObject(self, &HousesSumCountKey);
+    if (sumCountLabel && count) {
+        
+        sumCountLabel.text = count;
+        
+    }
+
 }
 
 @end

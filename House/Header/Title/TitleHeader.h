@@ -56,8 +56,28 @@
 ///指引页<跳过>按钮标题
 #define TITLE_GUIDE_SKIP_BUTTON @"跳过，我先随便看看"
 
+///找房指引页
+#define TITLE_GUIDE_FINDHOUSE_MIDDLE_TIP @"正在出售"
 
+///出售物业指引页
+#define TITLE_GUIDE_SALEHOUSE_MIDDLE_TIP @"房客总数"
 
+///出售物业指引页
+#define TITLE_GUIDE_SALEHOUSE_TENANT_TIP @"租客"
 
+///出售物业指引页
+#define TITLE_GUIDE_SALEHOUSE_BUYER_TIP @"购房客"
+
+///找房指引页
+#define TITLE_GUIDE_FINDHOUSE_HOUSETYPE_ONE_TIP @"一房房源"
+
+///找房指引页
+#define TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP @"二房房源"
+
+///找房指引页
+#define TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP @"三房房源"
+
+///出售物业指引页
+#define TITLE_GUIDE_SALEHOUSE_HEADER_TIP @"发布您的物业，马上成为房当家!"
 
 #endif
