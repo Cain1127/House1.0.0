@@ -146,6 +146,7 @@
                                 <constraint firstItem="OJ7-0d-uGE" firstAttribute="leading" secondItem="Km9-Bf-dpv" secondAttribute="trailing" constant="40" id="Rb8-Nt-eNr"/>
                                 <constraint firstItem="K4k-ac-8CY" firstAttribute="centerX" secondItem="dlL-bU-hw1" secondAttribute="centerX" id="TAD-2N-Hat"/>
                                 <constraint firstAttribute="centerX" secondItem="Km9-Bf-dpv" secondAttribute="centerX" id="bUr-JQ-BeH"/>
+                                <constraint firstItem="XCp-vg-Adg" firstAttribute="top" secondItem="OJ7-0d-uGE" secondAttribute="bottom" constant="-25" id="hJO-s1-6ES"/>
                                 <constraint firstItem="Km9-Bf-dpv" firstAttribute="centerY" secondItem="Tnp-Ld-xZl" secondAttribute="centerY" constant="-25" id="yAT-og-BKn"/>
                             </constraints>
                         </view>
