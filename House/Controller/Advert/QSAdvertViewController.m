@@ -58,8 +58,8 @@
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
     
-//    [self gotoGuideIndexViewController];
-//    return;
+    [self gotoGuideIndexViewController];
+    return;
     
     ///如果是第一次运行，直接显示指引页，暂不显示广告页
     if (gGuideStatusNoRecord == self.isShowGuideIndex) {

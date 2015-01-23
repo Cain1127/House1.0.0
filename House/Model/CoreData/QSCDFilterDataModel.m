@@ -8,7 +8,6 @@
 
 #import "QSCDFilterDataModel.h"
 
-
 @implementation QSCDFilterDataModel
 
 @dynamic filter_id;
