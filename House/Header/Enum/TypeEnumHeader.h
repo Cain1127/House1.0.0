@@ -24,7 +24,91 @@ typedef enum
     uUserCountTypeAgency,       //!<中介
     uUserCountTypeDeveloper     //!<开发商
 
-}USER_COUNT_TYPE;
+}USER_COUNT_TYPE;               //!<用户账号类型
+
+/*
+ *   //建筑结构
+ *  building_structure : "1" "塔楼";
+ *  building_structure : "2" "板楼";
+ *  building_structure : "3" "平房";
+ */
+typedef enum
+{
+
+    bBuildingStructureTypeTower = 1,    //!<塔楼
+    bBuildingStructureTypeBoard,        //!<板楼
+    bBuildingStructureTypeBungalow      //!<平房
+
+}BUILDING_STRUCTURE_TYPE;       //!建筑结构
+
+/*
+ *  //装修类型
+ *  decoration_type : "1" "豪华装修";
+ *  decoration_type : "2" "精装修";
+ *  decoration_type : "3" "中等装修";
+ *  decoration_type : "4" "简装修";
+ *  decoration_type : "5" "毛坯";
+ */
+typedef enum
+{
+
+    hHouseDecorationTypeLuxurious = 1,  //!<豪华装修
+    hHouseDecorationTypeRefined,        //!<精装修
+    hHouseDecorationTypeMedium,         //!<中等装修
+    hHouseDecorationTypeSimple,         //!<简装修
+    hHouseDecorationTypeRough           //!<毛坯
+
+}HOUSE_DECORATION_TYPE;                 //!<房子装修类型
+
+/*
+ *  //特色标签
+ *  features : "1" "地铁房";
+ *  features : "2" "学位房";
+ *  features : "3" "满五唯一";
+ *  features : "4" "商住两用";
+ *  features : "5" "交通便利";
+ *  features : "6" "不限购";
+ *  features : "7" "房东急售";
+ *  features : "8" "免税房";
+ */
+typedef enum
+{
+
+    hHouseFeatureTypeMetro = 1,     //!<地铁房
+    hHouseFeatureTypeDegree,        //!<学位房
+    hHouseFeatureTypeOverFiveOnly,  //!<满五唯一:满五年，唯一一套房
+    hHouseFeatureTypeDualUse,       //!<商住两用
+    hHouseFeatureTypeConveniently,  //!<交通便利
+    hHouseFeatureTypeNotPurchase,   //!<不限购
+    hHouseFeatureTypeEmergencySale, //!<房东急售
+    hHouseFeatureTypeTaxFree        //!<免税房
+
+}HOUSE_FEATURE_TYPE;                //!<房子的特色标签
+
+/*
+ *  //配套设施
+ *  installation : "1" "燃气/天然气";
+ *  installation : "2" "暖气";
+ *  installation : "3" "电梯";
+ *  installation : "4" "车位";
+ *  installation : "5" "车库";
+ *  installation : "6" "花园";
+ *  installation : "7" "露台";
+ *  installation : "8" "阁楼";
+ */
+typedef enum
+{
+
+    hHouseInstallationTypeGas = 1,  //!<燃气/天燃气
+    hHouseInstallationTypeHeating,  //!<暖气
+    hHouseInstallationTypeLift,     //!<电梯
+    hHouseInstallationTypePark,     //!<车位
+    hHouseInstallationTypeGarage,   //!<车库
+    hHouseInstallationTypeGarden,   //!<花园
+    hHouseInstallationTypeTerrace,  //!<露台
+    hHouseInstallationTypeLoft      //!<阁楼
+
+}HOUSE_INSTALLATION_TYPE;
 
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
