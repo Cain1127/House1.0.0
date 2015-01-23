@@ -136,6 +136,7 @@
 		CE000DD51A6FB06F008FD309 /* QSWDeveloperActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DD31A6FB06F008FD309 /* QSWDeveloperActivityCell.xib */; };
 		CE000DD81A708A09008FD309 /* navigationbar_corss_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DD61A708A09008FD309 /* navigationbar_corss_highlighted.png */; };
 		CE000DD91A708A09008FD309 /* navigationbar_corss_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DD71A708A09008FD309 /* navigationbar_corss_normal.png */; };
+		CE000DEE1A70B430008FD309 /* seach_seachstatus.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DED1A70B430008FD309 /* seach_seachstatus.png */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
@@ -349,6 +350,7 @@
 		CE000DD31A6FB06F008FD309 /* QSWDeveloperActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityCell.xib; sourceTree = "<group>"; };
 		CE000DD61A708A09008FD309 /* navigationbar_corss_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_corss_highlighted.png; sourceTree = "<group>"; };
 		CE000DD71A708A09008FD309 /* navigationbar_corss_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_corss_normal.png; sourceTree = "<group>"; };
+		CE000DED1A70B430008FD309 /* seach_seachstatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seach_seachstatus.png; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
 		CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 		1893008A1A6902E30081D0AA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CE000DEC1A70B411008FD309 /* Seach */,
 				CE000DBA1A6E5451008FD309 /* Developer */,
 				18C8A2551A6E1DB100BB9611 /* Guide */,
 				18C8A1591A6CBEBD00BB9611 /* Share */,
@@ -688,7 +691,6 @@
 				1893008E1A6902E30081D0AA /* MyZone */,
 				1893008F1A6902E30081D0AA /* NavigationBar */,
 				189300901A6902E30081D0AA /* Public */,
-				189300911A6902E30081D0AA /* Search */,
 				189300921A6902E30081D0AA /* Tabbar */,
 			);
 			name = Images;
@@ -762,13 +764,6 @@
 				18C8A1571A6CBBEB00BB9611 /* public_row_arrow.png */,
 			);
 			path = Public;
-			sourceTree = "<group>";
-		};
-		189300911A6902E30081D0AA /* Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		189300921A6902E30081D0AA /* Tabbar */ = {
@@ -849,6 +844,7 @@
 		189300991A6902E30081D0AA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CE000DDD1A709AC4008FD309 /* TextField */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1383,6 +1379,22 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		CE000DDD1A709AC4008FD309 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TextField;
+			path = House/View/TextField;
+			sourceTree = SOURCE_ROOT;
+		};
+		CE000DEC1A70B411008FD309 /* Seach */ = {
+			isa = PBXGroup;
+			children = (
+				CE000DED1A70B430008FD309 /* seach_seachstatus.png */,
+			);
+			path = Seach;
+			sourceTree = "<group>";
+		};
 		CE2B43141A6E2AD2006B9F8E /* Developer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1565,6 +1577,7 @@
 				18C8A2681A6E1DB100BB9611 /* guide_tenant_haved_circle_tip.png in Resources */,
 				18C8A2611A6E1DB100BB9611 /* guide_filter_header.png in Resources */,
 				18C8A1501A6CBA2F00BB9611 /* home_bridalchamber_normal.png in Resources */,
+				CE000DEE1A70B430008FD309 /* seach_seachstatus.png in Resources */,
 				18C8A0F01A6A883900BB9611 /* tabbar_home_normal.png in Resources */,
 				18C8A1631A6CBEBD00BB9611 /* share_wechat_normal.png in Resources */,
 				18C8A1621A6CBEBD00BB9611 /* share_wechat_highlighted.png in Resources */,

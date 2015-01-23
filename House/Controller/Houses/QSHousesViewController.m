@@ -8,7 +8,7 @@
 
 #import "QSHousesViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
-
+#import "QSHouseKeySearchViewController.h"
 @interface QSHousesViewController ()
 
 @end
@@ -53,7 +53,10 @@
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController
 {
-
+  
+    QSHouseKeySearchViewController *searchVC=[[QSHouseKeySearchViewController alloc]init];
+    
+    [self.navigationController pushViewController:searchVC animated:YES];
     
 
 }

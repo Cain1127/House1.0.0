@@ -53,12 +53,14 @@
     self.houseTypeCountOtherLabel.textColor = COLOR_CHARACTERS_YELLOW;
     
     ///设置房源主view背景图片
-    UIImageView *backgroundImage=[[UIImageView alloc]init];
-    backgroundImage.image=[UIImage imageNamed:@"home_background.png"];
+    UIImageView *backgroundImage=[[UIImageView alloc]initWithFrame:CGRectMake(self.houseTypeView.frame.origin.x,self.houseTypeView.frame.origin.y,self.houseTypeView.frame.size.width,self.houseTypeView.frame.size.height)];
+    backgroundImage.image=[UIImage imageNamed:@"nil"];
     [self.houseTypeView addSubview:backgroundImage];
     [self.houseTypeView sendSubviewToBack:backgroundImage];
     
 }
+
+
 
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController
