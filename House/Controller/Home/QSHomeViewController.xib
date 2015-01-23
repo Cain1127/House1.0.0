@@ -59,34 +59,16 @@
                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Km-AE-cDA">
-                                    <rect key="frame" x="139" y="44" width="16" height="21"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="2" id="0X7-hV-A2Q"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="WaH-JS-r60" firstAttribute="centerY" secondItem="0XJ-Kc-4P3" secondAttribute="centerY" constant="35" id="0A5-wC-yMD"/>
-                                <constraint firstAttribute="bottom" secondItem="5Km-AE-cDA" secondAttribute="bottom" id="Esg-HL-Mib"/>
                                 <constraint firstItem="UKL-c5-RYZ" firstAttribute="centerY" secondItem="dI9-ht-BpW" secondAttribute="centerY" constant="35" id="Gcw-mQ-Chz"/>
                                 <constraint firstAttribute="centerX" secondItem="0XJ-Kc-4P3" secondAttribute="centerX" constant="-70" id="Hxr-fo-goX"/>
-<<<<<<< HEAD
                                 <constraint firstItem="UKL-c5-RYZ" firstAttribute="leading" secondItem="dI9-ht-BpW" secondAttribute="trailing" constant="-42" id="ILw-mP-zf8"/>
                                 <constraint firstItem="WaH-JS-r60" firstAttribute="leading" secondItem="0XJ-Kc-4P3" secondAttribute="trailing" constant="-43" id="NTn-bg-9OY"/>
                                 <constraint firstItem="WaH-JS-r60" firstAttribute="centerX" secondItem="0XJ-Kc-4P3" secondAttribute="centerX" id="UOE-an-ogg"/>
                                 <constraint firstItem="UKL-c5-RYZ" firstAttribute="centerX" secondItem="dI9-ht-BpW" secondAttribute="centerX" id="ee9-lZ-E51"/>
-=======
-                                <constraint firstAttribute="centerX" secondItem="5Km-AE-cDA" secondAttribute="centerX" id="Iys-NW-Tfw"/>
-                                <constraint firstItem="WaH-JS-r60" firstAttribute="bottom" secondItem="UKL-c5-RYZ" secondAttribute="bottom" id="ify-Nt-BGr"/>
-                                <constraint firstItem="5Km-AE-cDA" firstAttribute="top" secondItem="F2Q-VU-NmZ" secondAttribute="top" id="ilb-Hz-A0a"/>
-                                <constraint firstItem="WaH-JS-r60" firstAttribute="centerX" secondItem="0XJ-Kc-4P3" secondAttribute="centerX" id="j52-6O-kBY"/>
->>>>>>> FETCH_HEAD
                                 <constraint firstAttribute="centerX" secondItem="dI9-ht-BpW" secondAttribute="centerX" constant="70" id="od9-t3-Hvb"/>
                                 <constraint firstItem="dI9-ht-BpW" firstAttribute="top" secondItem="F2Q-VU-NmZ" secondAttribute="top" constant="60" id="qiH-X7-Fg7"/>
                                 <constraint firstItem="0XJ-Kc-4P3" firstAttribute="top" secondItem="F2Q-VU-NmZ" secondAttribute="top" constant="60" id="u5e-Pf-xdr"/>
@@ -194,12 +176,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-<<<<<<< HEAD
-=======
-                                        <constraint firstItem="Q2O-Ij-TAc" firstAttribute="top" secondItem="Q3Y-Nf-a7z" secondAttribute="bottom" constant="1" id="0KH-zc-vhC"/>
-                                        <constraint firstAttribute="centerX" secondItem="Q2O-Ij-TAc" secondAttribute="centerX" id="0oY-hc-l4b"/>
-                                        <constraint firstItem="Q3Y-Nf-a7z" firstAttribute="top" secondItem="uuR-vk-9jP" secondAttribute="bottom" constant="5" id="FbR-hH-O2H"/>
->>>>>>> FETCH_HEAD
                                         <constraint firstAttribute="height" constant="68" id="b3C-MS-ODb"/>
                                         <constraint firstAttribute="width" constant="80" id="oB1-xh-94r"/>
                                     </constraints>
@@ -229,18 +205,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="CMo-Ux-khX"/>
-<<<<<<< HEAD
                                         <constraint firstAttribute="height" constant="68" id="iEN-LA-lqg"/>
-=======
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="1" id="Cbt-5a-nug"/>
-                                        <constraint firstAttribute="centerX" secondItem="ZyF-7A-iWE" secondAttribute="centerX" id="Dfd-oN-ncm"/>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="68" id="T18-5h-blj"/>
-                                        <constraint firstAttribute="centerX" secondItem="y4a-nL-js5" secondAttribute="centerX" id="XtV-Qc-deb"/>
-                                        <constraint firstAttribute="height" constant="68" id="iEN-LA-lqg"/>
-                                        <constraint firstAttribute="centerX" secondItem="NcL-rV-ATO" secondAttribute="centerX" id="oEj-lW-XKY"/>
-                                        <constraint firstItem="ZyF-7A-iWE" firstAttribute="top" secondItem="y4a-nL-js5" secondAttribute="bottom" constant="1" id="wez-H1-CqA"/>
-                                        <constraint firstItem="y4a-nL-js5" firstAttribute="top" secondItem="NcL-rV-ATO" secondAttribute="bottom" constant="5" id="yvq-Ct-u7C"/>
->>>>>>> FETCH_HEAD
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-0H-Vp3">
@@ -268,11 +233,6 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="MXF-9S-fhR"/>
-<<<<<<< HEAD
-=======
-                                        <constraint firstItem="fJP-nQ-0G0" firstAttribute="top" secondItem="mIy-ca-qB2" secondAttribute="bottom" constant="1" id="PNQ-vi-yXd"/>
-                                        <constraint firstItem="mIy-ca-qB2" firstAttribute="top" secondItem="YBK-qd-tkJ" secondAttribute="bottom" constant="5" id="Z1s-Bd-D1Y"/>
->>>>>>> FETCH_HEAD
                                         <constraint firstAttribute="height" constant="68" id="edt-6j-axu"/>
                                     </constraints>
                                 </view>
@@ -302,13 +262,6 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="68" id="2EM-Of-zZd"/>
                                         <constraint firstAttribute="width" constant="80" id="5sk-O2-yjb"/>
-<<<<<<< HEAD
-=======
-                                        <constraint firstItem="956-YE-Ash" firstAttribute="centerX" secondItem="V4u-cp-FJO" secondAttribute="centerX" id="aMf-n2-jJd"/>
-                                        <constraint firstItem="956-YE-Ash" firstAttribute="top" secondItem="V4u-cp-FJO" secondAttribute="bottom" constant="1" id="kR9-Ix-S5K"/>
-                                        <constraint firstItem="956-YE-Ash" firstAttribute="centerX" secondItem="262-Kl-UhJ" secondAttribute="centerX" id="ptL-aM-AYl"/>
-                                        <constraint firstItem="V4u-cp-FJO" firstAttribute="top" secondItem="AaL-UT-vGx" secondAttribute="bottom" constant="5" id="rDk-EF-e9H"/>
->>>>>>> FETCH_HEAD
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="veu-CE-jkS">
@@ -335,49 +288,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-<<<<<<< HEAD
-=======
-                                        <constraint firstAttribute="centerX" secondItem="JcW-ug-YWt" secondAttribute="centerX" id="5g3-WL-X3C"/>
-                                        <constraint firstItem="7wY-Tu-9Ge" firstAttribute="top" secondItem="wEc-Tf-Vyl" secondAttribute="bottom" constant="1" id="J4N-uy-NLK"/>
-                                        <constraint firstItem="wEc-Tf-Vyl" firstAttribute="top" secondItem="JcW-ug-YWt" secondAttribute="bottom" constant="5" id="RIg-ev-p7P"/>
->>>>>>> FETCH_HEAD
                                         <constraint firstAttribute="height" constant="68" id="XqI-7Y-jGR"/>
                                         <constraint firstAttribute="width" constant="80" id="i9R-gB-8sy"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwA-86-Ah8">
-                                    <rect key="frame" x="148" y="160" width="20" height="21"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="60" id="Gzi-hk-ckj"/>
-                                        <constraint firstAttribute="width" constant="1" id="tdb-o1-kId"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBu-aw-JR2">
-                                    <rect key="frame" x="109" y="82" width="16" height="21"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="68" id="bye-QJ-Jqs"/>
-                                        <constraint firstAttribute="width" constant="1" id="mEM-F2-fI4"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZv-bD-AYX">
-                                    <rect key="frame" x="208" y="81" width="16" height="21"/>
-                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="1" id="cl4-Af-xEu"/>
-                                        <constraint firstAttribute="height" constant="60" id="eXm-ra-hX1"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" none="YES" image="YES"/>
@@ -385,25 +299,16 @@
                             </accessibility>
                             <constraints>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="width" secondItem="262-Kl-UhJ" secondAttribute="width" id="0rz-AO-jqf"/>
-                                <constraint firstItem="cmK-db-cQO" firstAttribute="centerX" secondItem="mZv-bD-AYX" secondAttribute="centerX" constant="-55" id="1cK-MI-eM1"/>
                                 <constraint firstItem="cmK-db-cQO" firstAttribute="leading" secondItem="Vav-2t-Nbz" secondAttribute="trailing" constant="30" id="8Wh-vL-OrZ"/>
                                 <constraint firstAttribute="centerX" secondItem="262-Kl-UhJ" secondAttribute="centerX" constant="-55" id="DMg-0H-C2I"/>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="width" secondItem="bRE-0H-Vp3" secondAttribute="width" id="QEb-Wl-of4"/>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="height" secondItem="262-Kl-UhJ" secondAttribute="height" id="RFR-j9-Z73"/>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="width" secondItem="cmK-db-cQO" secondAttribute="width" id="VNr-ff-1lq"/>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="height" secondItem="bRE-0H-Vp3" secondAttribute="height" id="WEf-ck-sda"/>
-<<<<<<< HEAD
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="top" secondItem="cmK-db-cQO" secondAttribute="bottom" constant="20" id="aZy-cl-zyU"/>
                                 <constraint firstItem="262-Kl-UhJ" firstAttribute="top" secondItem="bRE-0H-Vp3" secondAttribute="bottom" constant="20" id="b90-bc-35f"/>
-=======
-                                <constraint firstAttribute="centerX" secondItem="VwA-86-Ah8" secondAttribute="centerX" id="Zmy-Z3-d8g"/>
-                                <constraint firstItem="veu-CE-jkS" firstAttribute="top" secondItem="cmK-db-cQO" secondAttribute="bottom" constant="15" id="aZy-cl-zyU"/>
-                                <constraint firstItem="262-Kl-UhJ" firstAttribute="top" secondItem="bRE-0H-Vp3" secondAttribute="bottom" constant="15" id="b90-bc-35f"/>
-                                <constraint firstItem="vBu-aw-JR2" firstAttribute="centerX" secondItem="cmK-db-cQO" secondAttribute="centerX" constant="55" id="bDX-HP-34w"/>
->>>>>>> FETCH_HEAD
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="height" secondItem="Vav-2t-Nbz" secondAttribute="height" id="g1z-zH-zgo"/>
                                 <constraint firstItem="veu-CE-jkS" firstAttribute="width" secondItem="Vav-2t-Nbz" secondAttribute="width" id="j5b-Y3-Igo"/>
-                                <constraint firstItem="cmK-db-cQO" firstAttribute="centerY" secondItem="mZv-bD-AYX" secondAttribute="centerY" id="jf9-92-Ujx"/>
                                 <constraint firstItem="bRE-0H-Vp3" firstAttribute="leading" secondItem="cmK-db-cQO" secondAttribute="trailing" constant="30" id="kmR-7n-YdV"/>
                                 <constraint firstAttribute="centerX" secondItem="veu-CE-jkS" secondAttribute="centerX" constant="55" id="nYW-VC-7fP"/>
                                 <constraint firstAttribute="centerX" secondItem="cmK-db-cQO" secondAttribute="centerX" id="pdP-lN-ayg"/>
@@ -417,7 +322,6 @@
                         <constraint firstAttribute="centerX" secondItem="Yld-LZ-vZQ" secondAttribute="centerX" id="7gh-b9-Lkg"/>
                         <constraint firstAttribute="centerX" secondItem="oYY-aX-I1S" secondAttribute="centerX" id="9CK-3E-h8L"/>
                         <constraint firstAttribute="centerX" secondItem="oYY-aX-I1S" secondAttribute="centerX" id="AgH-xH-wNb"/>
-                        <constraint firstAttribute="centerX" secondItem="F2Q-VU-NmZ" secondAttribute="centerX" id="DcI-So-BqZ"/>
                         <constraint firstAttribute="centerX" secondItem="F2Q-VU-NmZ" secondAttribute="centerX" id="FfD-eC-6NY"/>
                         <constraint firstAttribute="centerX" secondItem="oYY-aX-I1S" secondAttribute="centerX" id="OIN-Mn-Vdz"/>
                         <constraint firstAttribute="centerX" secondItem="Yld-LZ-vZQ" secondAttribute="centerX" id="WUb-O7-UfM"/>
