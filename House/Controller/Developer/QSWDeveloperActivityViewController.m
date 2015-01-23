@@ -14,7 +14,6 @@
 
 @implementation QSWDeveloperActivityViewController
 
-#pragma mark -添加导航栏
 -(void)createNavigationBarUI
 {
   
@@ -22,20 +21,11 @@
     
     ///设置导航栏标题
     [self setNavigationBarTitle:@"活动"];
-    
-}
-
-#pragma mark -添加中间视图
--(void)createMainShowUI
-{
-    
-    [super createMainShowUI];
-  
 }
 
 
 #pragma mark -UITableView代理方法
-///返回一组数据
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
  
@@ -43,38 +33,26 @@
     
 }
 
-///返回行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
     return 3;
     
+    
 }
 
-///返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     return 60;
-    
 }
 
-#pragma mark -返回每一行的活动
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    static NSString *indentifier=@"cellidentifier";
-    
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:indentifier];
-    
-    if (cell) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:indentifier];
-    }
 
-    return cell;
-}
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//}
 
-///UITableView头部事件
+///UITableView头部
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 
@@ -97,7 +75,6 @@
     return view;
 }
 
-///每行的点击事件
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
