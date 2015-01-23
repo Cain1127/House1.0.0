@@ -20,13 +20,13 @@
         <attribute name="renant_price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="renant_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sale_price" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="decoration_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterDecorationDataModel" syncable="YES"/>
-        <relationship name="district_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterDistrictDataModel" syncable="YES"/>
-        <relationship name="features_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterFeaturesDataModel" syncable="YES"/>
-        <relationship name="housetype_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterHouseTypeDataModel" syncable="YES"/>
-        <relationship name="installation_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterInstallationDataModel" syncable="YES"/>
-        <relationship name="orientation_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterOrientationsDataModel" syncable="YES"/>
-        <relationship name="tradetype_list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDFilterTradeTypeDataModel" syncable="YES"/>
+        <relationship name="decoration_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterDecorationDataModel" syncable="YES"/>
+        <relationship name="district_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterDistrictDataModel" syncable="YES"/>
+        <relationship name="features_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterFeaturesDataModel" syncable="YES"/>
+        <relationship name="housetype_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterHouseTypeDataModel" syncable="YES"/>
+        <relationship name="installation_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterInstallationDataModel" syncable="YES"/>
+        <relationship name="orientation_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterOrientationsDataModel" syncable="YES"/>
+        <relationship name="tradetype_list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDFilterTradeTypeDataModel" syncable="YES"/>
     </entity>
     <entity name="QSCDFilterDecorationDataModel" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -63,8 +63,6 @@
         <attribute name="search_type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QSCDUserDataModel" syncable="YES">
-        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -72,20 +70,15 @@
     <elements>
         <element name="QSCDAdvertHeaderDataModel" positionX="-146" positionY="45" width="128" height="43"/>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="133"/>
-<<<<<<< HEAD
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
-        <element name="QSCDUserDataModel" positionX="-441" positionY="45" width="128" height="118"/>
-=======
->>>>>>> FETCH_HEAD
-        <element name="QSCDFilterDataModel" positionX="-587" positionY="207" width="128" height="298"/>
-        <element name="QSCDFilterDecorationDataModel" positionX="-389" positionY="207" width="128" height="73"/>
-        <element name="QSCDFilterDistrictDataModel" positionX="-783" positionY="207" width="128" height="73"/>
-        <element name="QSCDFilterFeaturesDataModel" positionX="-846" positionY="396" width="128" height="73"/>
-        <element name="QSCDFilterHouseTypeDataModel" positionX="-794" positionY="515" width="128" height="73"/>
-        <element name="QSCDFilterInstallationDataModel" positionX="-326" positionY="416" width="128" height="73"/>
-        <element name="QSCDFilterOrientationsDataModel" positionX="-387" positionY="533" width="128" height="73"/>
-        <element name="QSCDFilterTradeTypeDataModel" positionX="-585" positionY="558" width="128" height="73"/>
-        <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="105"/>
         <element name="QSCDUserDataModel" positionX="-441" positionY="45" width="128" height="88"/>
+        <element name="QSCDFilterDataModel" positionX="-587" positionY="207" width="128" height="298"/>
+        <element name="QSCDFilterDistrictDataModel" positionX="-783" positionY="207" width="128" height="73"/>
+        <element name="QSCDFilterHouseTypeDataModel" positionX="-794" positionY="515" width="128" height="73"/>
+        <element name="QSCDFilterOrientationsDataModel" positionX="-387" positionY="533" width="128" height="73"/>
+        <element name="QSCDFilterDecorationDataModel" positionX="-389" positionY="207" width="128" height="73"/>
+        <element name="QSCDFilterFeaturesDataModel" positionX="-846" positionY="396" width="128" height="73"/>
+        <element name="QSCDFilterInstallationDataModel" positionX="-326" positionY="416" width="128" height="73"/>
+        <element name="QSCDFilterTradeTypeDataModel" positionX="-585" positionY="558" width="128" height="73"/>
     </elements>
 </model>

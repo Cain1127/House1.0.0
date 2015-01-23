@@ -102,6 +102,15 @@
 		18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */; };
 		18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */; };
 		18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCA31A70DEFC00C90C90 /* QSCoreDataManager+User.m */; };
+		18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCB31A70E45A00C90C90 /* QSAdvertReturnData.m */; };
+		18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCB71A70E45A00C90C90 /* QSAdvertInfoDataModel.m */; };
+		18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCBA1A70E45A00C90C90 /* QSConfigurationDataModel.m */; };
+		18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCBD1A70E45A00C90C90 /* QSHeaderDataModel.m */; };
+		18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC01A70E45A00C90C90 /* QSMSGBaseDataModel.m */; };
+		18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC21A70E45A00C90C90 /* QSBaseModel.m */; };
+		18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */; };
+		18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */; };
+		18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCCD1A70E45A00C90C90 /* QSRequestTaskDataModel.m */; };
 		18CAFCD81A71E21800C90C90 /* seach_seachstatus.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCD71A71E21800C90C90 /* seach_seachstatus.png */; };
 		18CAFCDD1A71E22800C90C90 /* navigationbar_corss_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCD91A71E22800C90C90 /* navigationbar_corss_highlighted.png */; };
 		18CAFCDE1A71E22800C90C90 /* navigationbar_corss_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCDA1A71E22800C90C90 /* navigationbar_corss_normal.png */; };
@@ -110,7 +119,7 @@
 		18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */; };
 		18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */; };
 		18CAFCEB1A72240200C90C90 /* UITextField+RightArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */; };
-		18CAFCF81A72455500C90C90 /* QSCDFilterDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCF71A72455500C90C90 /* QSCDFilterDataModel.m */; };
+		18CAFCEF1A723B2500C90C90 /* QSCDFilterDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
 		18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801EF1A6F8D3800CA21D4 /* MJRefreshBaseView.m */; };
 		18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801F11A6F8D3800CA21D4 /* MJRefreshConst.m */; };
@@ -138,15 +147,6 @@
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
-		CE8C4D0A1A723ECB00269758 /* QSAdvertReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CF01A723ECB00269758 /* QSAdvertReturnData.m */; };
-		CE8C4D0B1A723ECB00269758 /* QSAdvertInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CF41A723ECB00269758 /* QSAdvertInfoDataModel.m */; };
-		CE8C4D0C1A723ECB00269758 /* QSConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CF71A723ECB00269758 /* QSConfigurationDataModel.m */; };
-		CE8C4D0D1A723ECB00269758 /* QSHeaderDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CFA1A723ECB00269758 /* QSHeaderDataModel.m */; };
-		CE8C4D0E1A723ECB00269758 /* QSMSGBaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CFD1A723ECB00269758 /* QSMSGBaseDataModel.m */; };
-		CE8C4D0F1A723ECB00269758 /* QSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4CFF1A723ECB00269758 /* QSBaseModel.m */; };
-		CE8C4D101A723ECB00269758 /* QSConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4D021A723ECB00269758 /* QSConfigurationReturnData.m */; };
-		CE8C4D111A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4D061A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.m */; };
-		CE8C4D121A723ECB00269758 /* QSRequestTaskDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8C4D091A723ECB00269758 /* QSRequestTaskDataModel.m */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
 		CE8F12671A6CACB0005ECB65 /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8F12661A6CACB0005ECB65 /* QSHomeViewController.xib */; };
@@ -174,7 +174,7 @@
 		183CC66E1A68FC8800B8F97D /* House-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "House-Prefix.pch"; sourceTree = "<group>"; };
 		183CC66F1A68FC8800B8F97D /* QSYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSYAppDelegate.h; sourceTree = "<group>"; };
 		183CC6701A68FC8800B8F97D /* QSYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSYAppDelegate.m; sourceTree = "<group>"; };
-		183CC6731A68FC8800B8F97D /* House.xcdatamodel */ = {isa = PBXFileReference; explicitFileType = wrapper.xcdatamodel; path = House.xcdatamodel; sourceTree = "<group>"; };
+		183CC6731A68FC8800B8F97D /* House.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = House.xcdatamodel; sourceTree = "<group>"; };
 		183CC67B1A68FC8800B8F97D /* HouseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HouseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC67C1A68FC8800B8F97D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		183CC6851A68FC8800B8F97D /* HouseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HouseTests-Info.plist"; sourceTree = "<group>"; };
@@ -300,6 +300,24 @@
 		18CAFCA01A70953E00C90C90 /* QueueHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueHeader.h; path = Queue/QueueHeader.h; sourceTree = "<group>"; };
 		18CAFCA21A70DEFC00C90C90 /* QSCoreDataManager+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+User.h"; path = "User/QSCoreDataManager+User.h"; sourceTree = "<group>"; };
 		18CAFCA31A70DEFC00C90C90 /* QSCoreDataManager+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+User.m"; path = "User/QSCoreDataManager+User.m"; sourceTree = "<group>"; };
+		18CAFCB21A70E45A00C90C90 /* QSAdvertReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvertReturnData.h; sourceTree = "<group>"; };
+		18CAFCB31A70E45A00C90C90 /* QSAdvertReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvertReturnData.m; sourceTree = "<group>"; };
+		18CAFCB61A70E45A00C90C90 /* QSAdvertInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvertInfoDataModel.h; sourceTree = "<group>"; };
+		18CAFCB71A70E45A00C90C90 /* QSAdvertInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvertInfoDataModel.m; sourceTree = "<group>"; };
+		18CAFCB91A70E45A00C90C90 /* QSConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSConfigurationDataModel.h; sourceTree = "<group>"; };
+		18CAFCBA1A70E45A00C90C90 /* QSConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSConfigurationDataModel.m; sourceTree = "<group>"; };
+		18CAFCBC1A70E45A00C90C90 /* QSHeaderDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHeaderDataModel.h; sourceTree = "<group>"; };
+		18CAFCBD1A70E45A00C90C90 /* QSHeaderDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHeaderDataModel.m; sourceTree = "<group>"; };
+		18CAFCBF1A70E45A00C90C90 /* QSMSGBaseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMSGBaseDataModel.h; sourceTree = "<group>"; };
+		18CAFCC01A70E45A00C90C90 /* QSMSGBaseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMSGBaseDataModel.m; sourceTree = "<group>"; };
+		18CAFCC11A70E45A00C90C90 /* QSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseModel.h; sourceTree = "<group>"; };
+		18CAFCC21A70E45A00C90C90 /* QSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseModel.m; sourceTree = "<group>"; };
+		18CAFCC51A70E45A00C90C90 /* QSConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSConfigurationReturnData.h; sourceTree = "<group>"; };
+		18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSConfigurationReturnData.m; sourceTree = "<group>"; };
+		18CAFCC91A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCDLocalSearchHistoryDataModel.h; sourceTree = "<group>"; };
+		18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDLocalSearchHistoryDataModel.m; sourceTree = "<group>"; };
+		18CAFCCC1A70E45A00C90C90 /* QSRequestTaskDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRequestTaskDataModel.h; sourceTree = "<group>"; };
+		18CAFCCD1A70E45A00C90C90 /* QSRequestTaskDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRequestTaskDataModel.m; sourceTree = "<group>"; };
 		18CAFCD71A71E21800C90C90 /* seach_seachstatus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = seach_seachstatus.png; sourceTree = "<group>"; };
 		18CAFCD91A71E22800C90C90 /* navigationbar_corss_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_corss_highlighted.png; sourceTree = "<group>"; };
 		18CAFCDA1A71E22800C90C90 /* navigationbar_corss_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_corss_normal.png; sourceTree = "<group>"; };
@@ -311,8 +329,8 @@
 		18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSFilterViewController.m; path = Filter/QSFilterViewController.m; sourceTree = "<group>"; };
 		18CAFCE91A72240200C90C90 /* UITextField+RightArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RightArrow.h"; sourceTree = "<group>"; };
 		18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RightArrow.m"; sourceTree = "<group>"; };
-		18CAFCF61A72455500C90C90 /* QSCDFilterDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCDFilterDataModel.h; sourceTree = "<group>"; };
-		18CAFCF71A72455500C90C90 /* QSCDFilterDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDFilterDataModel.m; sourceTree = "<group>"; };
+		18CAFCED1A723B2500C90C90 /* QSCDFilterDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDFilterDataModel.h; path = Filter/QSCDFilterDataModel.h; sourceTree = "<group>"; };
+		18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDFilterDataModel.m; path = Filter/QSCDFilterDataModel.m; sourceTree = "<group>"; };
 		18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18E801ED1A6F8D3800CA21D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18E801EE1A6F8D3800CA21D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -360,24 +378,6 @@
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
 		CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
-		CE8C4CEF1A723ECB00269758 /* QSAdvertReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvertReturnData.h; sourceTree = "<group>"; };
-		CE8C4CF01A723ECB00269758 /* QSAdvertReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvertReturnData.m; sourceTree = "<group>"; };
-		CE8C4CF31A723ECB00269758 /* QSAdvertInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvertInfoDataModel.h; sourceTree = "<group>"; };
-		CE8C4CF41A723ECB00269758 /* QSAdvertInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvertInfoDataModel.m; sourceTree = "<group>"; };
-		CE8C4CF61A723ECB00269758 /* QSConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSConfigurationDataModel.h; sourceTree = "<group>"; };
-		CE8C4CF71A723ECB00269758 /* QSConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSConfigurationDataModel.m; sourceTree = "<group>"; };
-		CE8C4CF91A723ECB00269758 /* QSHeaderDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHeaderDataModel.h; sourceTree = "<group>"; };
-		CE8C4CFA1A723ECB00269758 /* QSHeaderDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHeaderDataModel.m; sourceTree = "<group>"; };
-		CE8C4CFC1A723ECB00269758 /* QSMSGBaseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMSGBaseDataModel.h; sourceTree = "<group>"; };
-		CE8C4CFD1A723ECB00269758 /* QSMSGBaseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMSGBaseDataModel.m; sourceTree = "<group>"; };
-		CE8C4CFE1A723ECB00269758 /* QSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseModel.h; sourceTree = "<group>"; };
-		CE8C4CFF1A723ECB00269758 /* QSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseModel.m; sourceTree = "<group>"; };
-		CE8C4D011A723ECB00269758 /* QSConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSConfigurationReturnData.h; sourceTree = "<group>"; };
-		CE8C4D021A723ECB00269758 /* QSConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSConfigurationReturnData.m; sourceTree = "<group>"; };
-		CE8C4D051A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCDLocalSearchHistoryDataModel.h; sourceTree = "<group>"; };
-		CE8C4D061A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDLocalSearchHistoryDataModel.m; sourceTree = "<group>"; };
-		CE8C4D081A723ECB00269758 /* QSRequestTaskDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRequestTaskDataModel.h; sourceTree = "<group>"; };
-		CE8C4D091A723ECB00269758 /* QSRequestTaskDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRequestTaskDataModel.m; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
 		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
@@ -416,10 +416,10 @@
 		183CC6521A68FC8800B8F97D = {
 			isa = PBXGroup;
 			children = (
-				CE8C4CED1A723ECB00269758 /* Model */,
 				1893009A1A6903540081D0AA /* Readme.rtf */,
 				189300721A6902E30081D0AA /* Category */,
 				1893007A1A6902E30081D0AA /* Controller */,
+				18CAFCB01A70E45A00C90C90 /* Model */,
 				1893007B1A6902E30081D0AA /* Core */,
 				1893007F1A6902E30081D0AA /* Handler */,
 				189300851A6902E30081D0AA /* Header */,
@@ -1224,6 +1224,121 @@
 			name = User;
 			sourceTree = "<group>";
 		};
+		18CAFCB01A70E45A00C90C90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCB11A70E45A00C90C90 /* Advert */,
+				18CAFCB41A70E45A00C90C90 /* Base */,
+				18CAFCC31A70E45A00C90C90 /* Chat */,
+				18CAFCC41A70E45A00C90C90 /* Configuration */,
+				18CAFCC71A70E45A00C90C90 /* CoreData */,
+				18CAFCCB1A70E45A00C90C90 /* Handler */,
+			);
+			name = Model;
+			path = House/Model;
+			sourceTree = "<group>";
+		};
+		18CAFCB11A70E45A00C90C90 /* Advert */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCB21A70E45A00C90C90 /* QSAdvertReturnData.h */,
+				18CAFCB31A70E45A00C90C90 /* QSAdvertReturnData.m */,
+			);
+			path = Advert;
+			sourceTree = "<group>";
+		};
+		18CAFCB41A70E45A00C90C90 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCB51A70E45A00C90C90 /* Advert */,
+				18CAFCB81A70E45A00C90C90 /* Configuration */,
+				18CAFCBB1A70E45A00C90C90 /* Header */,
+				18CAFCBE1A70E45A00C90C90 /* MsgBase */,
+				18CAFCC11A70E45A00C90C90 /* QSBaseModel.h */,
+				18CAFCC21A70E45A00C90C90 /* QSBaseModel.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		18CAFCB51A70E45A00C90C90 /* Advert */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCB61A70E45A00C90C90 /* QSAdvertInfoDataModel.h */,
+				18CAFCB71A70E45A00C90C90 /* QSAdvertInfoDataModel.m */,
+			);
+			path = Advert;
+			sourceTree = "<group>";
+		};
+		18CAFCB81A70E45A00C90C90 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCB91A70E45A00C90C90 /* QSConfigurationDataModel.h */,
+				18CAFCBA1A70E45A00C90C90 /* QSConfigurationDataModel.m */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		18CAFCBB1A70E45A00C90C90 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCBC1A70E45A00C90C90 /* QSHeaderDataModel.h */,
+				18CAFCBD1A70E45A00C90C90 /* QSHeaderDataModel.m */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		18CAFCBE1A70E45A00C90C90 /* MsgBase */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCBF1A70E45A00C90C90 /* QSMSGBaseDataModel.h */,
+				18CAFCC01A70E45A00C90C90 /* QSMSGBaseDataModel.m */,
+			);
+			path = MsgBase;
+			sourceTree = "<group>";
+		};
+		18CAFCC31A70E45A00C90C90 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		18CAFCC41A70E45A00C90C90 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCC51A70E45A00C90C90 /* QSConfigurationReturnData.h */,
+				18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		18CAFCC71A70E45A00C90C90 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCEC1A723B0600C90C90 /* Filter */,
+				18CAFCC81A70E45A00C90C90 /* SearchHistory */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		18CAFCC81A70E45A00C90C90 /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCC91A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.h */,
+				18CAFCCA1A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m */,
+			);
+			path = SearchHistory;
+			sourceTree = "<group>";
+		};
+		18CAFCCB1A70E45A00C90C90 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				18CAFCCC1A70E45A00C90C90 /* QSRequestTaskDataModel.h */,
+				18CAFCCD1A70E45A00C90C90 /* QSRequestTaskDataModel.m */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
 		18CAFCE11A720AF800C90C90 /* Normal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,8 +1360,8 @@
 		18CAFCEC1A723B0600C90C90 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				18CAFCF61A72455500C90C90 /* QSCDFilterDataModel.h */,
-				18CAFCF71A72455500C90C90 /* QSCDFilterDataModel.m */,
+				18CAFCED1A723B2500C90C90 /* QSCDFilterDataModel.h */,
+				18CAFCEE1A723B2500C90C90 /* QSCDFilterDataModel.m */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -1370,112 +1485,6 @@
 				CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */,
 			);
 			path = Developer;
-			sourceTree = "<group>";
-		};
-		CE8C4CED1A723ECB00269758 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CEE1A723ECB00269758 /* Advert */,
-				CE8C4CF11A723ECB00269758 /* Base */,
-				CE8C4D001A723ECB00269758 /* Configuration */,
-				CE8C4D031A723ECB00269758 /* CoreData */,
-				CE8C4D071A723ECB00269758 /* Handler */,
-			);
-			name = Model;
-			path = House/Model;
-			sourceTree = "<group>";
-		};
-		CE8C4CEE1A723ECB00269758 /* Advert */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CEF1A723ECB00269758 /* QSAdvertReturnData.h */,
-				CE8C4CF01A723ECB00269758 /* QSAdvertReturnData.m */,
-			);
-			path = Advert;
-			sourceTree = "<group>";
-		};
-		CE8C4CF11A723ECB00269758 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CF21A723ECB00269758 /* Advert */,
-				CE8C4CF51A723ECB00269758 /* Configuration */,
-				CE8C4CF81A723ECB00269758 /* Header */,
-				CE8C4CFB1A723ECB00269758 /* MsgBase */,
-				CE8C4CFE1A723ECB00269758 /* QSBaseModel.h */,
-				CE8C4CFF1A723ECB00269758 /* QSBaseModel.m */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		CE8C4CF21A723ECB00269758 /* Advert */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CF31A723ECB00269758 /* QSAdvertInfoDataModel.h */,
-				CE8C4CF41A723ECB00269758 /* QSAdvertInfoDataModel.m */,
-			);
-			path = Advert;
-			sourceTree = "<group>";
-		};
-		CE8C4CF51A723ECB00269758 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CF61A723ECB00269758 /* QSConfigurationDataModel.h */,
-				CE8C4CF71A723ECB00269758 /* QSConfigurationDataModel.m */,
-			);
-			path = Configuration;
-			sourceTree = "<group>";
-		};
-		CE8C4CF81A723ECB00269758 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CF91A723ECB00269758 /* QSHeaderDataModel.h */,
-				CE8C4CFA1A723ECB00269758 /* QSHeaderDataModel.m */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		CE8C4CFB1A723ECB00269758 /* MsgBase */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4CFC1A723ECB00269758 /* QSMSGBaseDataModel.h */,
-				CE8C4CFD1A723ECB00269758 /* QSMSGBaseDataModel.m */,
-			);
-			path = MsgBase;
-			sourceTree = "<group>";
-		};
-		CE8C4D001A723ECB00269758 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4D011A723ECB00269758 /* QSConfigurationReturnData.h */,
-				CE8C4D021A723ECB00269758 /* QSConfigurationReturnData.m */,
-			);
-			path = Configuration;
-			sourceTree = "<group>";
-		};
-		CE8C4D031A723ECB00269758 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4D041A723ECB00269758 /* SearchHistory */,
-			);
-			path = CoreData;
-			sourceTree = "<group>";
-		};
-		CE8C4D041A723ECB00269758 /* SearchHistory */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4D051A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.h */,
-				CE8C4D061A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.m */,
-			);
-			path = SearchHistory;
-			sourceTree = "<group>";
-		};
-		CE8C4D071A723ECB00269758 /* Handler */ = {
-			isa = PBXGroup;
-			children = (
-				CE8C4D081A723ECB00269758 /* QSRequestTaskDataModel.h */,
-				CE8C4D091A723ECB00269758 /* QSRequestTaskDataModel.m */,
-			);
-			path = Handler;
 			sourceTree = "<group>";
 		};
 		CE8F125C1A6B92BB005ECB65 /* Tool */ = {
@@ -1706,24 +1715,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */,
-				CE8C4D0B1A723ECB00269758 /* QSAdvertInfoDataModel.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
+				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
 				18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */,
 				18C8A2201A6DFF0D00BB9611 /* QSGuideSummaryView.m in Sources */,
+				18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */,
 				18CAFCEB1A72240200C90C90 /* UITextField+RightArrow.m in Sources */,
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
+				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
-				18CAFCF81A72455500C90C90 /* QSCDFilterDataModel.m in Sources */,
+				18CAFCEF1A723B2500C90C90 /* QSCDFilterDataModel.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,
@@ -1731,10 +1742,11 @@
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				18C8A26D1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
-				CE8C4D101A723ECB00269758 /* QSConfigurationReturnData.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				CE000DCA1A6E60D6008FD309 /* QSGuideSaleHouseView.m in Sources */,
+				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
+				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				18C8A21C1A6DFBD900BB9611 /* QSGuideViewController.m in Sources */,
@@ -1743,27 +1755,24 @@
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
+				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
 				CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
-				CE8C4D0D1A723ECB00269758 /* QSHeaderDataModel.m in Sources */,
 				18C8A2241A6E01CA00BB9611 /* QSGuideHeaderView.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
-				CE8C4D111A723ECB00269758 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
-				CE8C4D0F1A723ECB00269758 /* QSBaseModel.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
-				CE8C4D0C1A723ECB00269758 /* QSConfigurationDataModel.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
-				CE8C4D121A723ECB00269758 /* QSRequestTaskDataModel.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
+				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
-				CE8C4D0A1A723ECB00269758 /* QSAdvertReturnData.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
-				CE8C4D0E1A723ECB00269758 /* QSMSGBaseDataModel.m in Sources */,
+				18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
+				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				18C8A2191A6DFB3900BB9611 /* QSHeaderViewController.m in Sources */,
