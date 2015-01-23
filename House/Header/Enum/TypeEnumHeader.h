@@ -108,7 +108,7 @@ typedef enum
     hHouseInstallationTypeTerrace,  //!<露台
     hHouseInstallationTypeLoft      //!<阁楼
 
-}HOUSE_INSTALLATION_TYPE;
+}HOUSE_INSTALLATION_TYPE;           //!<配套设施
 
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
