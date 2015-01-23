@@ -23,7 +23,7 @@
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     
     ///添加中间view
