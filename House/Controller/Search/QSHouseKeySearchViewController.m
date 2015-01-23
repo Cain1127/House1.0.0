@@ -46,6 +46,8 @@
     
     ///设置键盘的返回按钮点击类型
     seachTextField.returnKeyType=UIReturnKeySearch;
+    
+    ///关闭方法错误提示
     seachTextField.autocorrectionType=UITextAutocorrectionTypeNo;
     
     seachTextField.delegate=self;
@@ -181,8 +183,8 @@
     
     [textField resignFirstResponder];
     
-    NSLog(@"搜索内容%@",textField.text);
-    NSLog(@"搜索返回的内容%@",self.localSearchHistoryDataSource);
+    NSLog(@"======搜索内容:%====@",textField.text);
+    NSLog(@"======搜索返回的内容%@====",self.localSearchHistoryDataSource);
     
     return YES;
     
