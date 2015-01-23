@@ -3,6 +3,8 @@
     <entity name="QSCDAdvertHeaderDataModel" syncable="YES"/>
     <entity name="QSCDApplicationInfoDataModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="app_token" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="app_token_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_new_guide_index" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -12,9 +14,15 @@
         <attribute name="search_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="search_type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QSCDUserDataModel" syncable="YES">
+        <attribute name="user_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="QSCDAdvertHeaderDataModel" positionX="-27" positionY="72" width="128" height="45"/>
+        <element name="QSCDAdvertHeaderDataModel" positionX="-27" positionY="72" width="128" height="43"/>
+        <element name="QSCDApplicationInfoDataModel" positionX="-9" positionY="90" width="128" height="118"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-18" positionY="81" width="128" height="103"/>
-        <element name="QSCDApplicationInfoDataModel" positionX="-9" positionY="90" width="128" height="88"/>
+        <element name="QSCDUserDataModel" positionX="-18" positionY="117" width="128" height="88"/>
     </elements>
 </model>
