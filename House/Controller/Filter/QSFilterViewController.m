@@ -9,7 +9,7 @@
 #import "QSFilterViewController.h"
 #import "QSCoreDataManager+App.h"
 #import "QSBlockButtonStyleModel+Normal.h"
-#import "UITextField+RightArrow.h"
+#import "UITextField+CustomField.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -174,7 +174,7 @@ typedef enum
         [view addSubview:tempTextField];
         
         ///分隔线
-        UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(tempTextField.frame.origin.x, tempTextField.frame.origin.y + tempTextField.frame.size.height + 3.5f, tempTextField.frame.size.width, 0.5f)];
+        UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(tempTextField.frame.origin.x + 5.0f, tempTextField.frame.origin.y + tempTextField.frame.size.height + 3.5f, tempTextField.frame.size.width, 0.5f)];
         sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [view addSubview:sepLineLabel];
         
@@ -198,20 +198,10 @@ typedef enum
     int index = [orderString intValue];
     
     ///显示信息栏
-    UITextField *tempTextField = [UITextField createRightArrowTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f)];
+    UITextField *tempTextField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:nil andLeftTipsInfo:[tempDict valueForKey:@"left_title"] andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsLightGray];
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
-    
-    ///右侧显示信息
-    UILabel *leftLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, 44.0f) andTopGap:2.0f andBottomGap:2.0f andLeftGap:2.0f andRightGap:20.0f];
-    leftLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    leftLabel.text = [tempDict valueForKey:@"left_title"];
-    leftLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-    leftLabel.textAlignment = NSTextAlignmentCenter;
-    
-    tempTextField.leftViewMode = UITextFieldViewModeAlways;
-    tempTextField.leftView = leftLabel;
     
     return tempTextField;
 
@@ -253,6 +243,8 @@ typedef enum
 #pragma mark - 点击textField时的事件：不进入编辑模式，只跳转
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    
+    return YES;
 
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];

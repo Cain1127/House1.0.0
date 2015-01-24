@@ -118,7 +118,6 @@
 		18CAFCE01A71E22800C90C90 /* navigationbar_deploy_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFCDC1A71E22800C90C90 /* navigationbar_deploy_arrow_normal.png */; };
 		18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */; };
 		18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */; };
-		18CAFCEB1A72240200C90C90 /* UITextField+RightArrow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
 		18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801EF1A6F8D3800CA21D4 /* MJRefreshBaseView.m */; };
 		18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801F11A6F8D3800CA21D4 /* MJRefreshConst.m */; };
@@ -142,6 +141,9 @@
 		18F99ADD1A7345B100098FD6 /* public_choice_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F99AD91A7345B100098FD6 /* public_choice_arrow.png */; };
 		18F99ADE1A7345B100098FD6 /* public_shake.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F99ADA1A7345B100098FD6 /* public_shake.png */; };
 		18F99AE31A73490900098FD6 /* QSCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE21A73490900098FD6 /* QSCityPickerView.m */; };
+		18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE61A73511C00098FD6 /* QSLoginViewController.m */; };
+		18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */; };
+		18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		CE000DC11A6E5451008FD309 /* developer_actives.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBB1A6E5451008FD309 /* developer_actives.png */; };
 		CE000DC21A6E5451008FD309 /* developer_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBC1A6E5451008FD309 /* developer_chat.png */; };
@@ -334,8 +336,6 @@
 		18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Calculate.m"; path = "Normal/NSObject+Calculate.m"; sourceTree = "<group>"; };
 		18CAFCE61A720EEE00C90C90 /* QSFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSFilterViewController.h; path = Filter/QSFilterViewController.h; sourceTree = "<group>"; };
 		18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSFilterViewController.m; path = Filter/QSFilterViewController.m; sourceTree = "<group>"; };
-		18CAFCE91A72240200C90C90 /* UITextField+RightArrow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RightArrow.h"; sourceTree = "<group>"; };
-		18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RightArrow.m"; sourceTree = "<group>"; };
 		18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18E801ED1A6F8D3800CA21D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18E801EE1A6F8D3800CA21D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -377,6 +377,12 @@
 		18F99ADA1A7345B100098FD6 /* public_shake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_shake.png; sourceTree = "<group>"; };
 		18F99AE11A73490900098FD6 /* QSCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCityPickerView.h; path = Picker/City/QSCityPickerView.h; sourceTree = "<group>"; };
 		18F99AE21A73490900098FD6 /* QSCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCityPickerView.m; path = Picker/City/QSCityPickerView.m; sourceTree = "<group>"; };
+		18F99AE51A73511C00098FD6 /* QSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSLoginViewController.h; path = Login/QSLoginViewController.h; sourceTree = "<group>"; };
+		18F99AE61A73511C00098FD6 /* QSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSLoginViewController.m; path = Login/QSLoginViewController.m; sourceTree = "<group>"; };
+		18F99AE81A735CA500098FD6 /* UITextField+CustomField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CustomField.h"; sourceTree = "<group>"; };
+		18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CustomField.m"; sourceTree = "<group>"; };
+		18F99AEB1A735D8B00098FD6 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
+		18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE000DBB1A6E5451008FD309 /* developer_actives.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_actives.png; sourceTree = "<group>"; };
@@ -540,6 +546,8 @@
 		189300741A6902E30081D0AA /* NSString */ = {
 			isa = PBXGroup;
 			children = (
+				18F99AEB1A735D8B00098FD6 /* NSString+Calculation.h */,
+				18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -563,8 +571,8 @@
 		189300771A6902E30081D0AA /* UITextField */ = {
 			isa = PBXGroup;
 			children = (
-				18CAFCE91A72240200C90C90 /* UITextField+RightArrow.h */,
-				18CAFCEA1A72240200C90C90 /* UITextField+RightArrow.m */,
+				18F99AE81A735CA500098FD6 /* UITextField+CustomField.h */,
+				18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */,
 			);
 			path = UITextField;
 			sourceTree = "<group>";
@@ -586,6 +594,7 @@
 		1893007A1A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18F99AE41A7350EA00098FD6 /* Login */,
 				18CAFCE51A720E9000C90C90 /* Filter */,
 				CE2B43141A6E2AD2006B9F8E /* Developer */,
 				18C8A1DA1A6D1D7900BB9611 /* Advert */,
@@ -1507,6 +1516,15 @@
 			name = City;
 			sourceTree = "<group>";
 		};
+		18F99AE41A7350EA00098FD6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				18F99AE51A73511C00098FD6 /* QSLoginViewController.h */,
+				18F99AE61A73511C00098FD6 /* QSLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		CE000DBA1A6E5451008FD309 /* Developer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1781,14 +1799,15 @@
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
+				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
 				18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */,
 				18C8A2201A6DFF0D00BB9611 /* QSGuideSummaryView.m in Sources */,
 				18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */,
-				18CAFCEB1A72240200C90C90 /* UITextField+RightArrow.m in Sources */,
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
+				18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
@@ -1836,6 +1855,7 @@
 				18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
+				18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				18C8A2191A6DFB3900BB9611 /* QSHeaderViewController.m in Sources */,
 			);

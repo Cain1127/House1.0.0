@@ -11,8 +11,8 @@
 #import "QSGuideSummaryView.h"
 #import "QSGuideLookingforRoomView.h"
 #import "QSGuideSaleHouseView.h"
-#import "QSWDeveloperHomeViewController.h"
 #import "QSFilterViewController.h"
+#import "QSLoginViewController.h"
 
 @interface QSGuideViewController ()
 
@@ -32,6 +32,7 @@
         [self guideButtonActionCallBack:guideButtonActionType];
         
     };
+    
     [self.view addSubview:sumaryView];
 
 }
@@ -90,8 +91,8 @@
         case gGuideButtonActionTypeSaleHouseRentalHouse:
         {
          
-            QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
-            [self changeWindowRootViewController:developerVC];
+            QSLoginViewController *loginVC = [[QSLoginViewController alloc] init];
+            [self.navigationController pushViewController:loginVC animated:YES];
             
         }
             break;
