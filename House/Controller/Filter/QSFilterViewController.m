@@ -169,24 +169,7 @@ typedef enum
         
         NSDictionary *tempDict = tempInfoArray[i];
         
-        NSString *orderString = [tempDict valueForKey:@"order"];
-        int index = [orderString intValue];
-        
-        ///显示信息栏
-        UITextField *tempTextField = [UITextField createRightArrowTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f)];
-        tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
-        tempTextField.delegate = self;
-        [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
-        
-        ///右侧显示信息
-        UILabel *leftLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, 44.0f) andTopGap:2.0f andBottomGap:2.0f andLeftGap:2.0f andRightGap:20.0f];
-        leftLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-        leftLabel.text = [tempDict valueForKey:@"left_title"];
-        leftLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-        leftLabel.textAlignment = NSTextAlignmentCenter;
-        
-        tempTextField.leftViewMode = UITextFieldViewModeAlways;
-        tempTextField.leftView = leftLabel;
+        UIView *tempTextField = [self createRightArrowSubviewWithViewInfo:tempDict];
         
         [view addSubview:tempTextField];
         
@@ -204,6 +187,33 @@ typedef enum
 {
 
     
+
+}
+
+#pragma mark - 创建右剪头控制
+- (UIView *)createRightArrowSubviewWithViewInfo:(NSDictionary *)tempDict
+{
+
+    NSString *orderString = [tempDict valueForKey:@"order"];
+    int index = [orderString intValue];
+    
+    ///显示信息栏
+    UITextField *tempTextField = [UITextField createRightArrowTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f)];
+    tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    tempTextField.delegate = self;
+    [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    
+    ///右侧显示信息
+    UILabel *leftLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, 44.0f) andTopGap:2.0f andBottomGap:2.0f andLeftGap:2.0f andRightGap:20.0f];
+    leftLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    leftLabel.text = [tempDict valueForKey:@"left_title"];
+    leftLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    leftLabel.textAlignment = NSTextAlignmentCenter;
+    
+    tempTextField.leftViewMode = UITextFieldViewModeAlways;
+    tempTextField.leftView = leftLabel;
+    
+    return tempTextField;
 
 }
 
@@ -244,6 +254,113 @@ typedef enum
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
 
+    ///分发事件
+    int actionType = [[textField valueForKey:@"customFlag"] intValue];
+    
+    switch (actionType) {
+            
+            ///选择区域
+        case fFilterSettingFieldActionTypeDistrict:
+            
+            NSLog(@"================区域选择==================");
+            
+            break;
+            
+            ///选择户型
+        case fFilterSettingFieldActionTypeHouseType:
+            
+            NSLog(@"================户型选择==================");
+            
+            break;
+            
+            ///购房目的
+        case fFilterSettingFieldActionTypePurposePurchase:
+            
+            NSLog(@"================购房目的选择==================");
+            
+            break;
+            
+            ///出售价格
+        case fFilterSettingFieldActionTypeSalePrice:
+            
+            NSLog(@"================价格==================");
+            
+            break;
+            
+            ///房子面积
+        case fFilterSettingFieldActionTypeArea:
+            
+            NSLog(@"================住房面积==================");
+            
+            break;
+            
+            ///出租方式：整租...
+        case fFilterSettingFieldActionTypeRenantType:
+            
+            NSLog(@"================出租方式选择==================");
+            
+            break;
+            
+            ///租金
+        case fFilterSettingFieldActionTypeRenantPrice:
+            
+            NSLog(@"================租金选择==================");
+            
+            break;
+            
+            ///租金支付方式：押二付一
+        case fFilterSettingFieldActionTypeRenantPayType:
+            
+            NSLog(@"================租金支付方式选择==================");
+            
+            break;
+            
+            ///房子的物业类型：普通住宅...
+        case fFilterSettingFieldActionTypeHouseTradeType:
+            
+            NSLog(@"================房子物业类型选择==================");
+            
+            break;
+            
+            ///房子的使用年限
+        case fFilterSettingFieldActionTypeHouseUsedYear:
+            
+            NSLog(@"================使用选择==================");
+            
+            break;
+            
+            ///楼层
+        case fFilterSettingFieldActionTypeHouseFloor:
+            
+            NSLog(@"================楼层选择==================");
+            
+            break;
+            
+            ///朝向：朝南...
+        case fFilterSettingFieldActionTypeHouseOrientations:
+            
+            NSLog(@"================朝向选择==================");
+            
+            break;
+            
+            ///装修：精装修...
+        case fFilterSettingFieldActionTypeHouseDecoration:
+            
+            NSLog(@"================装修选择==================");
+            
+            break;
+            
+            ///配套：暖气....
+        case fFilterSettingFieldActionTypeHouseInstallation:
+            
+            NSLog(@"================配套选择==================");
+            
+            break;
+            
+        default:
+            break;
+    }
+    
     return NO;
 
 }

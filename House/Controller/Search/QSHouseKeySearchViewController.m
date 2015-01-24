@@ -58,11 +58,16 @@
     __weak UIViewController *weakSelf = self;
     UIButton *corssButton=[UIButton createBlockButtonWithButtonStyle:nil andCallBack:^(UIButton *button) {
         
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        
         if ([weakSelf respondsToSelector:@selector(gotoTurnBackAction)]) {
             
             [weakSelf performSelector:@selector(gotoTurnBackAction)];
             
         }
+        
+#pragma clang diagnostic pop
         
     }];
    

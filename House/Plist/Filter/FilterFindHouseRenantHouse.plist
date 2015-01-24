@@ -20,7 +20,7 @@
 	<key>house_type</key>
 	<dict>
 		<key>action_type</key>
-		<string>0</string>
+		<string>1</string>
 		<key>type</key>
 		<string>0</string>
 		<key>order</key>
@@ -35,7 +35,7 @@
 	<key>renant_type</key>
 	<dict>
 		<key>action_type</key>
-		<string>0</string>
+		<string>5</string>
 		<key>type</key>
 		<string>0</string>
 		<key>order</key>
@@ -50,7 +50,7 @@
 	<key>renant_price</key>
 	<dict>
 		<key>action_type</key>
-		<string>0</string>
+		<string>6</string>
 		<key>type</key>
 		<string>0</string>
 		<key>order</key>
@@ -65,7 +65,7 @@
 	<key>area</key>
 	<dict>
 		<key>action_type</key>
-		<string>0</string>
+		<string>4</string>
 		<key>type</key>
 		<string>0</string>
 		<key>order</key>
