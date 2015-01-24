@@ -153,10 +153,10 @@
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
-		CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
-		CE8F12671A6CACB0005ECB65 /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE8F12661A6CACB0005ECB65 /* QSHomeViewController.xib */; };
+		CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */; };
+		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,11 +392,11 @@
 		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
-		CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
 		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
-		CE8F12661A6CACB0005ECB65 /* QSHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSHomeViewController.xib; sourceTree = "<group>"; };
+		CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSHomeViewController.xib; sourceTree = "<group>"; };
+		CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -912,7 +912,7 @@
 			children = (
 				18C8A0E01A6A825C00BB9611 /* QSHomeViewController.h */,
 				18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */,
-				CE8F12661A6CACB0005ECB65 /* QSHomeViewController.xib */,
+				CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1534,7 +1534,7 @@
 			children = (
 				CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */,
 				CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */,
-				CE2B431C1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib */,
+				CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */,
 				CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */,
 				CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */,
 				CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */,
@@ -1674,7 +1674,6 @@
 				18C8A2621A6E1DB100BB9611 /* guide_header_backgroud.png in Resources */,
 				18C8A11F1A6AACCA00BB9611 /* navigationbar_message_normal.png in Resources */,
 				18C8A0F41A6A883900BB9611 /* tabbar_myzone_normal.png in Resources */,
-				CE8F12671A6CACB0005ECB65 /* QSHomeViewController.xib in Resources */,
 				18CAFCDF1A71E22800C90C90 /* navigationbar_deploy_arrow_highlighted.png in Resources */,
 				18C8A1091A6A99C200BB9611 /* navigationbar_search_highlighted.png in Resources */,
 				18C8A1351A6CA0F400BB9611 /* Images.xcassets in Resources */,
@@ -1683,6 +1682,7 @@
 				18F99ADD1A7345B100098FD6 /* public_choice_arrow.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18C8A1641A6CBEBD00BB9611 /* share_weibo_highlighted.png in Resources */,
+				CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */,
 				CE000DC51A6E5451008FD309 /* developer_setting.png in Resources */,
 				18C8A2691A6E1DB100BB9611 /* guide_tenant_haved_tip.png in Resources */,
 				18C8A1161A6AA3BC00BB9611 /* navigationbar_turnback_highlighted.png in Resources */,
@@ -1704,6 +1704,7 @@
 				18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */,
 				18C8A11E1A6AACCA00BB9611 /* navigationbar_message_highlighted.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
+				CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */,
 				18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */,
 				18C8A1211A6AACCA00BB9611 /* navigationbar_setting_normal.png in Resources */,
 				18C8A1511A6CBA2F00BB9611 /* home_salehouse_highlighted.png in Resources */,
@@ -1714,7 +1715,6 @@
 				18C8A1651A6CBEBD00BB9611 /* share_weibo_normal.png in Resources */,
 				18CAFCDE1A71E22800C90C90 /* navigationbar_corss_normal.png in Resources */,
 				18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */,
-				CE2B431D1A6E3581006B9F8E /* QSWDeveloperHomeViewController.xib in Resources */,
 				18C8A2681A6E1DB100BB9611 /* guide_tenant_haved_circle_tip.png in Resources */,
 				18C8A2611A6E1DB100BB9611 /* guide_filter_header.png in Resources */,
 				18C8A1501A6CBA2F00BB9611 /* home_bridalchamber_normal.png in Resources */,

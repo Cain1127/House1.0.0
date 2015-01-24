@@ -16,25 +16,25 @@
 @interface QSHomeViewController ()
 @property (weak, nonatomic) IBOutlet UIView *houseTypeView;//!< 房源view
 
-@property (weak, nonatomic) IBOutlet UIView *houseTypeViewOne;
-
-@property (weak, nonatomic) IBOutlet UIView *houseTypeViewTwo;
-
-@property (weak, nonatomic) IBOutlet UIView *houseTypeViewThree;
-
-@property (weak, nonatomic) IBOutlet UIView *houseTypeViewFour;
-
-@property (weak, nonatomic) IBOutlet UIView *houseTypeViewFive;
-
-@property (weak, nonatomic) IBOutlet UIButton *oneHouseButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *secondHouseButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *threeHouseButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *salingButton;
-
-@property (weak, nonatomic) IBOutlet UIButton *bambooplateButton;
+//@property (weak, nonatomic) IBOutlet UIView *houseTypeViewOne;
+//
+//@property (weak, nonatomic) IBOutlet UIView *houseTypeViewTwo;
+//
+//@property (weak, nonatomic) IBOutlet UIView *houseTypeViewThree;
+//
+//@property (weak, nonatomic) IBOutlet UIView *houseTypeViewFour;
+//
+//@property (weak, nonatomic) IBOutlet UIView *houseTypeViewFive;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *oneHouseButton;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *secondHouseButton;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *threeHouseButton;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *salingButton;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *bambooplateButton;
 
 
 @end
@@ -61,23 +61,24 @@
 -(void)createMainShowUI
 {
     
+    [super createMainShowUI];
+    
     ///设置中间view
     ///顶部5个view宽高比例
-    _houseTypeViewOne.bounds = CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH*0.20);
-    _houseTypeViewTwo.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH *0.20);
-    _houseTypeViewThree.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH*0.20);
-    _houseTypeViewFour.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH*0.20);
-    _houseTypeViewFive.bounds=_houseTypeViewFour.bounds;
-    
-    ///中间3个按钮宽高比例
-    _oneHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.18, SIZE_DEVICE_WIDTH*0.21);
-    _secondHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.18, SIZE_DEVICE_WIDTH*0.21);
-    _threeHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.18, SIZE_DEVICE_WIDTH*0.21);
-    
-    ///底部两按钮宽高比例
-    _salingButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.16, SIZE_DEVICE_WIDTH*0.16);
-    _bambooplateButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.16, SIZE_DEVICE_WIDTH*0.16);
-    [super createMainShowUI];
+//    _houseTypeViewOne.bounds = CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.35, SIZE_DEVICE_WIDTH*0.20);
+//    _houseTypeViewTwo.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH *0.20);
+//    _houseTypeViewThree.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH*0.20);
+//    _houseTypeViewFour.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.25, SIZE_DEVICE_WIDTH*0.20);
+//    _houseTypeViewFive.bounds=_houseTypeViewFour.bounds;
+//    
+//    ///中间3个按钮宽高比例
+//    _oneHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.28, SIZE_DEVICE_WIDTH*0.21);
+//    _secondHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.18, SIZE_DEVICE_WIDTH*0.21);
+//    _threeHouseButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.18, SIZE_DEVICE_WIDTH*0.21);
+//    
+//    ///底部两按钮宽高比例
+//    _salingButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.16, SIZE_DEVICE_WIDTH*0.16);
+//    _bambooplateButton.bounds=CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.16, SIZE_DEVICE_WIDTH*0.16);
 
     ///设置房源Label颜色
     self.houseTypeCountOneLabel.textColor = COLOR_CHARACTERS_YELLOW;
