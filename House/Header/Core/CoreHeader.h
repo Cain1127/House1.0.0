@@ -15,5 +15,6 @@
     #import "QSTabbar.h"            //!<自定义的tabbar
     #import "QSNavigationBar.h"     //!<自定义的导航栏
     #import "NSObject+Calculate.h"  //!<在NSObject的基础上添加计算类型
+    #import "QSTextField.h"         //!<自定义带有标识符的输入框
 
 #endif

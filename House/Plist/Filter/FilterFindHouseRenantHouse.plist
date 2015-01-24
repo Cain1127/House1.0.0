@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>district</key>
+	<dict>
+		<key>action_type</key>
+		<string>0</string>
+		<key>type</key>
+		<string>0</string>
+		<key>order</key>
+		<string>0</string>
+		<key>text</key>
+		<string></string>
+		<key>left_title</key>
+		<string>区      域</string>
+		<key>place_hold</key>
+		<string></string>
+	</dict>
+	<key>house_type</key>
+	<dict>
+		<key>action_type</key>
+		<string>1</string>
+		<key>type</key>
+		<string>0</string>
+		<key>order</key>
+		<string>1</string>
+		<key>text</key>
+		<string></string>
+		<key>left_title</key>
+		<string>户      型</string>
+		<key>place_hold</key>
+		<string></string>
+	</dict>
+	<key>renant_type</key>
+	<dict>
+		<key>action_type</key>
+		<string>5</string>
+		<key>type</key>
+		<string>0</string>
+		<key>order</key>
+		<string>2</string>
+		<key>text</key>
+		<string></string>
+		<key>left_title</key>
+		<string>出租方式</string>
+		<key>place_hold</key>
+		<string></string>
+	</dict>
+	<key>renant_price</key>
+	<dict>
+		<key>action_type</key>
+		<string>6</string>
+		<key>type</key>
+		<string>0</string>
+		<key>order</key>
+		<string>3</string>
+		<key>text</key>
+		<string></string>
+		<key>left_title</key>
+		<string>租      金</string>
+		<key>place_hold</key>
+		<string></string>
+	</dict>
+	<key>area</key>
+	<dict>
+		<key>action_type</key>
+		<string>4</string>
+		<key>type</key>
+		<string>0</string>
+		<key>order</key>
+		<string>4</string>
+		<key>text</key>
+		<string></string>
+		<key>left_title</key>
+		<string>面      积</string>
+		<key>place_hold</key>
+		<string></string>
+	</dict>
+</dict>
+</plist>

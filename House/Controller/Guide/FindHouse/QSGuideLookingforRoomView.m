@@ -18,6 +18,7 @@ static char HousesSumCountKey;          //!<房源总数
 static char HousesTypeOneCountKey;      //!<一房房型的统计数量
 static char HousesTypeTwoCountKey;      //!<二房房型的统计数量
 static char HousesTypeThreeCountKey;    //!<三房房型的统计数量
+static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 
 @implementation QSGuideLookingforRoomView
 
@@ -74,6 +75,16 @@ static char HousesTypeThreeCountKey;    //!<三房房型的统计数量
     threeHouseInfoRootView.layer.borderWidth = 0.5f;
     [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:HousesTypeTwoCountKey];
     [view addSubview:threeHouseInfoRootView];
+    
+    ///四房房源数据
+    CGPoint fourHousePoint = CenterRadiusPoint(CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height / 2.0f), (SIZE_DEVICE_HEIGHT > 480.0f ? ((SIZE_DEVICE_HEIGHT > 568.0f ? 125.0f : 120.0f)) : 134.0f), bigCircleImageView.frame.size.width / 2.0f);
+    UIView *fourHouseInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(fourHousePoint.x - 40.0f, fourHousePoint.y - 40.0f, 80.0f, 80.0f)];
+    fourHouseInfoRootView.backgroundColor = [UIColor whiteColor];
+    fourHouseInfoRootView.layer.cornerRadius = 40.0f;
+    fourHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    fourHouseInfoRootView.layer.borderWidth = 0.5f;
+    [self createHouseTypeInfoUI:fourHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_FOUR_TIP andAssociatinKey:HousesTypeFourCountKey];
+    [view addSubview:fourHouseInfoRootView];
     
 }
 
