@@ -74,7 +74,7 @@
 - (void)addRightArrow
 {
 
-    QSImageView *rightArrowView = [[QSImageView alloc] init];
+    QSImageView *rightArrowView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 13.0f, 23.0f)];
     rightArrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     self.rightViewMode = UITextFieldViewModeAlways;
     self.rightView = rightArrowView;

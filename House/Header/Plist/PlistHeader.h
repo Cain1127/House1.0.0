@@ -18,4 +18,10 @@
 ///网络请求相关的配置
 #define PLIST_FILE_NAME_REQUEST @"RequestInfo"
 
+///过滤器：第一次运行应用：二手房过滤配置
+#define PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE @"FilterFindHouseSecondHouse"
+
+///过滤器：第一次运行应用：出租房过滤配置
+#define PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE @"FilterFindHouseRenantHouse"
+
 #endif

@@ -41,6 +41,6 @@
  *
  *  @since  1.0.0
  */
-@interface QSRightArrowTextField : UITextField
+@interface QSRightArrowTextField : QSTextField
 
 @end

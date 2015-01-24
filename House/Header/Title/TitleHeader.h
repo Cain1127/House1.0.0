@@ -77,6 +77,9 @@
 ///找房指引页
 #define TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP @"三房房源"
 
+///找房指引页
+#define TITLE_GUIDE_FINDHOUSE_HOUSETYPE_FOUR_TIP @"四房房源"
+
 ///出售物业指引页
 #define TITLE_GUIDE_SALEHOUSE_HEADER_TIP @"发布您的物业，马上成为房当家!"
 
