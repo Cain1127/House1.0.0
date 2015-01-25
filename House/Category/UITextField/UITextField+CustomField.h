@@ -14,9 +14,11 @@ typedef enum
     
     cCustomTextFieldStyleRightArrow = 0,                //!<纯右侧剪头输入框
     cCustomTextFieldStyleRightArrowLeftTipsLightGray,   //!<右箭头+左提示信息(浅灰)
-    cCustomTextFieldStyleRightArrowLeftTipsGray,        //!<右箭头+左提示(深灰)
+    cCustomTextFieldStyleRightArrowLeftTipsBlack,       //!<右箭头+左提示(黑色)
+    cCustomTextFieldStyleRightArrowLeftTipsGray,        //!<右箭头+左提示(灰色)
     cCustomTextFieldStyleLeftTipsLightGray,             //!<左提示(浅灰)
-    cCustomTextFieldStyleLeftTipsGray                   //!<左提示(深灰)
+    cCustomTextFieldStyleLeftTipsGray,                  //!<左提示(深灰)
+    cCustomTextFieldStyleLeftTipsBlack                  //!<左提示(黑色)
     
 }CUSTOM_TEXTFIELD_STLYE;                                //!<自定义输入框的几种常用风格
 

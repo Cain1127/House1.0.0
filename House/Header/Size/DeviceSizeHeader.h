@@ -21,4 +21,10 @@
 ///默认的总宽
 #define SIZE_DEFAULT_MAX_WIDTH (SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT)
 
+///默认的顶部导航栏高度
+#define SIZE_DEFAULT_NAVIGATIONBAR_HEIGHT 64.0f
+
+///默认的tabbar高度
+#define SIZE_DEFAULT_TABBAR_HEIGHT 49.0f
+
 #endif
