@@ -1,14 +1,14 @@
 //
-//  QSHeaderDataModel.m
+//  QSBaseConfigurationDataModel.m
 //  House
 //
-//  Created by ysmeng on 15/1/21.
+//  Created by ysmeng on 15/1/26.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSHeaderDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
-@implementation QSHeaderDataModel
+@implementation QSBaseConfigurationDataModel
 
 ///解析规则
 + (RKObjectMapping *)objectMapping
@@ -18,9 +18,8 @@
     
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     [shared_mapping addAttributeMappingsFromArray:@[
-                                                    @"type",
-                                                    @"info",
-                                                    @"code"
+                                                    @"key",
+                                                    @"val"
                                                     ]];
     
     return shared_mapping;

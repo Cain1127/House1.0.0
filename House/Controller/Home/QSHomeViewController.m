@@ -63,6 +63,8 @@
     
     [super createMainShowUI];
     
+    ///关注小区
+    
     ///设置中间view
     ///顶部5个view宽高比例
 //    _houseTypeViewOne.bounds = CGRectMake(0, 0, SIZE_DEVICE_WIDTH*0.35, SIZE_DEVICE_WIDTH*0.20);
@@ -94,8 +96,6 @@
     [self.houseTypeView sendSubviewToBack:backgroundImage];
     
 }
-
-
 
 #pragma mark - 进入搜索页面
 - (void)gotoSearchViewController

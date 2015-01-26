@@ -194,7 +194,17 @@
     }
     
     ///如若还有请求任务，取第一个任务执行
-    [self startRequestDataWithRequestTaskModel:self.taskPool[0]];
+    QSRequestTaskDataModel *requestTask = self.taskPool[0];
+    if (requestTask.isCurrentRequest) {
+        
+        NSLog(@"====================当前请请任务正在处理中==========");
+        
+    } else {
+    
+        requestTask.isCurrentRequest = YES;
+        [self startRequestDataWithRequestTaskModel:requestTask];
+    
+    }
 
 }
 
@@ -202,6 +212,10 @@
 ///开始请求数据
 - (void)startRequestDataWithRequestTaskModel:(QSRequestTaskDataModel *)taskModel
 {
+    
+    NSLog(@"==============开始请求==============");
+    NSLog(@"maping class : %@,request url%@",taskModel.dataMappingClass,taskModel.requestURL);
+    NSLog(@"==============开始请求==============");
     
     ///根据请求任务中的请求类型，使用不同的请求
     if (rRequestHttpRequestTypeGet == taskModel.httpRequestType) {
@@ -246,53 +260,76 @@
 - (void)handleRequestSuccess:(id)responseObject andRespondData:(NSData *)respondData andTaskModel:(QSRequestTaskDataModel *)taskModel
 {
     
-    ///先获取响应结果
-    BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
+    ///重新持有任务模型
+    __block QSRequestTaskDataModel *tempTaskModel = taskModel;
     
-    if (isServerRespondSuccess) {
+    NSLog(@"==============开始解析数据==============");
+    NSLog(@"maping class : %@,request url%@",tempTaskModel.dataMappingClass,tempTaskModel.requestURL);
+    NSLog(@"==============开始解析数据==============");
+    
+    dispatch_sync(self.requestOperationQueue, ^{
         
-        ///解析数据
-        id analyzeResult = [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:taskModel.dataMappingClass];
+        ///先获取响应结果
+        BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
         
-        ///判断解析结果
-        if (analyzeResult && taskModel.requestCallBack) {
+        if (isServerRespondSuccess) {
             
-            taskModel.requestCallBack(rRequestResultTypeSuccess,analyzeResult,nil,nil);
+            ///解析数据
+            [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:tempTaskModel.dataMappingClass andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
+                
+                ///判断解析结果
+                if (mappingStatus && mappingResult && taskModel.requestCallBack) {
+                    
+                    NSLog(@"===============数据解析成功===================");
+                    NSLog(@"mapping class : %@",[mappingResult class]);
+                    NSLog(@"===============数据解析成功===================");
+                    tempTaskModel.requestCallBack(rRequestResultTypeSuccess,mappingResult,nil,nil);
+                    
+                    [self removeFirstObjectFromTaskPool];
+                    
+                } else {
+                    
+                    ///数据解析失败回调
+                    tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+                    [self removeFirstObjectFromTaskPool];
+                    
+                }
+                
+            }];
+            
             
             
         } else {
             
-            ///数据解析失败回调
-            taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+            ///解析数据
+            [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:@"QSHeaderDataModel" andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
+                
+                ///判断解析结果
+                if (mappingStatus && mappingResult && taskModel.requestCallBack) {
+                    
+                    tempTaskModel.requestCallBack(rRequestResultTypeFail,mappingResult,nil,nil);
+                    [self removeFirstObjectFromTaskPool];
+                    
+                } else {
+                    
+                    ///数据解析失败回调
+                    tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+                    [self removeFirstObjectFromTaskPool];
+                    
+                }
+                
+            }];
             
         }
-        
-    } else {
-        
-        ///解析数据
-        id analyzeResult = [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:@"QSHeaderDataModel"];
-        
-        ///判断解析结果
-        if (analyzeResult && taskModel.requestCallBack) {
-            
-            taskModel.requestCallBack(rRequestResultTypeFail,analyzeResult,nil,nil);
-            
-            
-        } else {
-            
-            ///数据解析失败回调
-            taskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-            
-        }
-        
-    }
-    
-    ///开启下一次的请求
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self removeFirstObjectFromTaskPool];
         
     });
+    
+//    ///开启下一次的请求
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        [self removeFirstObjectFromTaskPool];
+//        
+//    });
     
 }
 
@@ -308,7 +345,7 @@
     }
     
     ///开启下一次的请求
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self removeFirstObjectFromTaskPool];
         
@@ -543,6 +580,11 @@
     
     ///返回请求类型
     requestTask.httpRequestType = [self getHttpRequestTypeWithType:requestType];
+    requestTask.isCurrentRequest = NO;
+    
+    NSLog(@"==============添加请求任务=================");
+    NSLog(@"mapping class : %@,request url : %@",requestTask.dataMappingClass,requestTask.requestURL);
+    NSLog(@"==============添加请求任务=================");
     
     ///添加请求任务
     [[self shareRequestManager] addRequestTaskToPool:requestTask];

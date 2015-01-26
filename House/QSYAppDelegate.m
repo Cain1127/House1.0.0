@@ -39,8 +39,12 @@
     QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
     self.window.rootViewController = advertVC;
     
-    ///下载配置信息
-//    [self downloadApplicationBasInfo];
+    dispatch_async(self.appDelegateOperationQueue, ^{
+        
+        ///下载配置信息
+        [self downloadApplicationBasInfo];
+        
+    });
     
     return YES;
     
@@ -51,32 +55,33 @@
 {
 
     ///放在后台运行
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    
-        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-            
-            ///转换模型
-            QSConfigurationReturnData *configModel = resultData;
-            
-            ///更新token信息
-            [QSCoreDataManager updateApplicationCurrentToken:configModel.configurationHeaderData.t];
-            [QSCoreDataManager updateApplicationCurrentTokenID:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.t_id]];
-            
-            ///更新版本信息
-            [QSCoreDataManager updateApplicationCurrentVersion:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.version]];
-            
-            ///配置信息检测
-            [self checkConfigurationInfo:configModel.configurationHeaderData.configurationList];
-            
-        }];
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-    });
-
+        ///转换模型
+        QSConfigurationReturnData *configModel = resultData;
+        
+        ///更新token信息
+        [QSCoreDataManager updateApplicationCurrentToken:configModel.configurationHeaderData.t];
+        [QSCoreDataManager updateApplicationCurrentTokenID:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.t_id]];
+        
+        ///更新版本信息
+        [QSCoreDataManager updateApplicationCurrentVersion:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.version]];
+        
+        ///配置信息检测
+        [self checkConfigurationInfo:configModel.configurationHeaderData.configurationList];
+        
+    }];
+    
 }
 
 ///检测基本信息的版本：本操作要求处于子线程中，不允许在主线程里操作
 - (void)checkConfigurationInfo:(NSArray *)configurationList
 {
+    
+    NSLog(@"==================================================");
+    NSLog(@"配置信息：%@",configurationList);
+    NSLog(@"==================================================");
+    return;
 
     ///暂时保存配置版本信息
     NSArray *tempConfigurationArray = [NSArray arrayWithArray:configurationList];

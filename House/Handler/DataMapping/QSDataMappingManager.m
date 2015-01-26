@@ -25,7 +25,7 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)analyzeDataWithData:(NSData *)data andMappingClass:(NSString *)mappingClassString
++ (void)analyzeDataWithData:(NSData *)data andMappingClass:(NSString *)mappingClassString andMappingCallBack:(void(^)(BOOL mappingStatus,id mappingResult))mappingCallBack
 {
 
     ///判断给定的对象是否已实现对应的数据mapping接口
@@ -34,25 +34,27 @@
     ///如若无法查找到此对象的类，直接返回nil
     if (nil == mappingTempObject) {
         
-        return nil;
+        mappingCallBack(NO,nil);
+        return;
         
     }
     
     ///如若未实现mapping接口，直接返回nil
     if (![mappingTempObject respondsToSelector:@selector(objectMapping)]) {
         
-        return nil;
+        mappingCallBack(NO,nil);
+        return;
         
     }
     
     ///使用协议指针指向mapping对象
     id<QSDataMappingProtocol> mappingObject = (id<QSDataMappingProtocol>)mappingTempObject;
     
-    return [self analyzeDataWithMapping:[mappingObject objectMapping] andData:data];;
+    [self analyzeDataWithMapping:[mappingObject objectMapping] andData:data andMappingCallBack:mappingCallBack];
 
 }
 
-+ (instancetype)analyzeDataWithMapping:(RKObjectMapping *)mapping andData:(NSData *)data
++ (void)analyzeDataWithMapping:(RKObjectMapping *)mapping andData:(NSData *)data andMappingCallBack:(void(^)(BOOL mappingStatus,id mappingResult))mappingCallBack
 {
     
     ///数据检测
@@ -60,6 +62,9 @@
     NSParameterAssert(mapping);
     
     NSDictionary *mappingDictionary = @{[NSNull null] : mapping};
+    NSLog(@"==================正在解析数据======================");
+    NSLog(@"mapping %@",mapping);
+    NSLog(@"==================正在解析数据======================");
     
     ///数据序列化错信息
     NSError *error = nil;
@@ -70,7 +75,8 @@
     ///判断是否序列化成功
     if (error) {
         
-        return nil;
+        mappingCallBack(NO,nil);
+        return;
         
     }
     
@@ -78,7 +84,9 @@
     [mapperOperation execute:&error];
     [mapperOperation waitUntilFinished];
     
-    return mapperOperation.mappingResult.dictionary[[NSNull null]];
+    NSLog(@"================mapping成功====================");
+    
+    mappingCallBack(YES,mapperOperation.mappingResult.dictionary[[NSNull null]]);
     
 }
 

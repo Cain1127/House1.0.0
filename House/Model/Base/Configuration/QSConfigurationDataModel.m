@@ -14,18 +14,12 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    static dispatch_once_t pred = 0;
-    static RKObjectMapping *shared_mapping = nil;
-    
-    dispatch_once(&pred, ^{
-        
-        shared_mapping = [RKObjectMapping mappingForClass:[self class]];
-        [shared_mapping addAttributeMappingsFromArray:@[
-                                                        @"conf",
-                                                        @"c_v"
-                                                        ]];
-        
-    });
+    RKObjectMapping *shared_mapping = nil;
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    [shared_mapping addAttributeMappingsFromArray:@[
+                                                    @"conf",
+                                                    @"c_v"
+                                                    ]];
     
     return shared_mapping;
     

@@ -9,6 +9,154 @@
 #ifndef House_TypeEnumHeader_h
 #define House_TypeEnumHeader_h
 
+/**
+ *  //用户10  ，房源20， 聊天30 ，订单50 ，公共99
+ //用户类型
+ $enums["user_type"]["100101"]='房客';
+ $enums["user_type"]["100102"]='业主';
+ $enums["user_type"]["100103"]='中介';
+ $enums["user_type"]["100104"]='开发商';
+ 
+ //-------------->楼盘使用的字段
+ //楼盘均价
+ $enums["price_avg"]["10000"]='一万元以下';
+ $enums["price_avg"]["10000-15000"]='1万-1.5万';
+ $enums["price_avg"]["15000-20000"]='1.5万-2万';
+ $enums["price_avg"]["20000-30000"]='2万-3万';
+ $enums["price_avg"]["30000-40000"]='3万-4万';
+ $enums["price_avg"]["40000-50000"]='4万-5万';
+ $enums["price_avg"]["50000"]='5万以上';
+ 
+ //建筑结构
+ $enums['building_structure']['200101']='塔楼';
+ $enums['building_structure']['200102']='板楼';
+ $enums['building_structure']['200103']='平房';
+ 
+ //使用年限
+ $enums['used_year']['40']='40年';
+ $enums['used_year']['50']='50年';
+ //$enums['used_year']['60']='60年';
+ $enums['used_year']['70']='70年';
+ 
+ //装修类型
+ $enums['decoration_type']['200201']='豪华装修';
+ $enums['decoration_type']['200202']='精装修';
+ $enums['decoration_type']['200203']='中等装修';
+ $enums['decoration_type']['200204']='简装修';
+ $enums['decoration_type']['200205']='无坯';
+ 
+ //特色标签
+ $enums['features']['200301']='地铁房';
+ $enums['features']['200302']='学位房';
+ $enums['features']['200303']='满五唯一';
+ $enums['features']['200304']='商住两用';
+ $enums['features']['200305']='交通便利';
+ $enums['features']['200306']='不限购';
+ $enums['features']['200307']='房东急售';
+ $enums['features']['200308']='免税房';
+ 
+ //水电
+ $enums['water']['40']='40年';
+ $enums['water']['50']='50年';
+ //$enums['water']['60']='60年';
+ $enums['water']['70']='70年';
+ 
+ //采暖
+ $enums['heating']['40']='40年';
+ $enums['heating']['50']='50年';
+ //$enums['heating']['60']='60年';
+ $enums['heating']['70']='70年';
+ 
+ //添加小区的
+ //建筑年代
+ $enums['building_year']['1990']='1990年';
+ $enums['building_year']['1991']='1991年';
+ $enums['building_year']['1992']='1992年';
+ $enums['building_year']['1993']='1993年';
+ $enums['building_year']['1994']='1994年';
+ 
+ //installation配套设施 小区
+ $enums['installation']['200401']='燃气/天然气';
+ $enums['installation']['200402']='暖气';
+ $enums['installation']['200403']='电梯';
+ $enums['installation']['200404']='车位';
+ $enums['installation']['200405']='车库';
+ $enums['installation']['200406']='花园';
+ $enums['installation']['200407']='露台';
+ $enums['installation']['200408']='阁楼';
+ 
+ //类型
+ $enums['type']['200501']='楼盘';
+ $enums['type']['200502']='新房';
+ $enums['type']['200503']='小区';
+ $enums['type']['200504']='二手房';
+ $enums['type']['200505']='出租房';
+ 
+ //房屋性质
+ $enums['house_nature']['200601']='满五';
+ $enums['house_nature']['200602']='免税';
+ //出租性质
+ $enums['rent_property']['200701']='整租';
+ $enums['rent_property']['200702']='合租';
+ //付款方式
+ $enums['payment']['200801']='一押一付';
+ $enums['payment']['200802']='二押一付';
+ //户型结构-室
+ $enums['house_shi']['200901']='一';
+ $enums['house_shi']['200902']='二';
+ $enums['house_shi']['200903']='三';
+ $enums['house_shi']['200904']='四';
+ //户型结构-厅
+ $enums['house_ting']['201001']='一';
+ $enums['house_ting']['201002']='二';
+ $enums['house_ting']['201003']='三';
+ $enums['house_ting']['201004']='四';
+ //户型结构-位
+ $enums['house_wei']['201101']='一';
+ $enums['house_wei']['201102']='二';
+ $enums['house_wei']['201103']='三';
+ $enums['house_wei']['201104']='四';
+ //户型结构-厨
+ $enums['house_chufang']['201201']='一';
+ $enums['house_chufang']['201202']='二';
+ $enums['house_chufang']['201203']='三';
+ $enums['house_chufang']['201204']='四';
+ //户型结构-阳台
+ $enums['house_yangtai']['201301']='一';
+ $enums['house_yangtai']['201302']='二';
+ $enums['house_yangtai']['201303']='三';
+ $enums['house_yangtai']['201304']='四';
+ //购房目的
+ $enums['intent']['201401']='刚需房';
+ $enums['intent']['201402']='改善房';
+ $enums['intent']['201403']='婚房';
+ $enums['intent']['201404']='学位房';
+ $enums['intent']['201405']='养老房';
+ $enums['intent']['201406']='投资房';
+ 
+ //朝向
+ $enums['house_face']['201501']='朝东';
+ $enums['house_face']['201502']='东南';
+ $enums['house_face']['201503']='朝南';
+ $enums['house_face']['201504']='西南';
+ $enums['house_face']['201505']='朝西';
+ $enums['house_face']['201506']='西北';
+ $enums['house_face']['201507']='朝北';
+ $enums['house_face']['201508']='东北';
+ $enums['house_face']['201509']='朝东';
+ $enums['house_face']['201510']='朝东';
+ 
+ //配套设施  求租
+ $enums['installation']['201601']='拎包入住';
+ $enums['installation']['201602']='家电齐全';
+ $enums['installation']['201603']='可上网';
+ $enums['installation']['201604']='可洗澡';
+ $enums['installation']['201605']='可做饭';
+ $enums['installation']['201606']='空调房';
+ $enums['installation']['201607']='有暖气';
+ $enums['installation']['201608']='带车位';
+ */
+
 /*
  *  //用户类型
  *  user_type : "0" "房客";
