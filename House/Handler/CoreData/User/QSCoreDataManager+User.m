@@ -17,7 +17,7 @@
 + (NSString *)getUserID
 {
 
-    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_id"];
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_id"];
 
 }
 

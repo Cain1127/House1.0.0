@@ -110,8 +110,12 @@
             
             QSRequestTaskDataModel *tempTaskModel = _taskPool[i];
             
+            ///参数标识
+            BOOL isParamsSame = tempTaskModel.requestParams == taskModel.requestParams;
+            
             ///如果原来已有对应的消息，则不再添加
-            if ((tempTaskModel.requestType == taskModel.requestType) &&
+            if (isParamsSame &&
+                (tempTaskModel.requestType == taskModel.requestType) &&
                 ([tempTaskModel.requestURL isEqualToString:taskModel.requestURL]) &&
                 (tempTaskModel.requestCallBack == taskModel.requestCallBack) &&
                 ([tempTaskModel.dataMappingClass isEqualToString:taskModel.dataMappingClass])) {
@@ -197,7 +201,7 @@
     QSRequestTaskDataModel *requestTask = self.taskPool[0];
     if (requestTask.isCurrentRequest) {
         
-        NSLog(@"====================当前请请任务正在处理中==========");
+        NSLog(@"====================当前网络请求请任务正在处理中==========");
         
     } else {
     
@@ -212,10 +216,6 @@
 ///开始请求数据
 - (void)startRequestDataWithRequestTaskModel:(QSRequestTaskDataModel *)taskModel
 {
-    
-    NSLog(@"==============开始请求==============");
-    NSLog(@"maping class : %@,request url%@",taskModel.dataMappingClass,taskModel.requestURL);
-    NSLog(@"==============开始请求==============");
     
     ///根据请求任务中的请求类型，使用不同的请求
     if (rRequestHttpRequestTypeGet == taskModel.httpRequestType) {
@@ -238,7 +238,10 @@
     ///POST请求
     if (rRequestHttpRequestTypePost == taskModel.httpRequestType) {
         
-        [self.httpRequestManager POST:taskModel.requestURL parameters:[self postDefaultParams] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        ///请求参数
+        NSDictionary *postParams = taskModel.requestParams ? [self postUserInfoParams:taskModel.requestParams] : [self postUserInfoParams];
+        
+        [self.httpRequestManager POST:taskModel.requestURL parameters:postParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             ///请求成功
             [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
@@ -263,73 +266,55 @@
     ///重新持有任务模型
     __block QSRequestTaskDataModel *tempTaskModel = taskModel;
     
-    NSLog(@"==============开始解析数据==============");
-    NSLog(@"maping class : %@,request url%@",tempTaskModel.dataMappingClass,tempTaskModel.requestURL);
-    NSLog(@"==============开始解析数据==============");
+    ///先获取响应结果
+    BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
     
-    dispatch_sync(self.requestOperationQueue, ^{
+    if (isServerRespondSuccess) {
         
-        ///先获取响应结果
-        BOOL isServerRespondSuccess = [[responseObject valueForKey:@"type"] boolValue];
+        ///解析数据
+        [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:tempTaskModel.dataMappingClass andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
+            
+            ///判断解析结果
+            if (mappingStatus && mappingResult && taskModel.requestCallBack) {
+                
+                tempTaskModel.requestCallBack(rRequestResultTypeSuccess,mappingResult,nil,nil);
+                
+                [self removeFirstObjectFromTaskPool];
+                
+            } else {
+                
+                ///数据解析失败回调
+                tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+                [self removeFirstObjectFromTaskPool];
+                
+            }
+            
+        }];
         
-        if (isServerRespondSuccess) {
-            
-            ///解析数据
-            [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:tempTaskModel.dataMappingClass andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
-                
-                ///判断解析结果
-                if (mappingStatus && mappingResult && taskModel.requestCallBack) {
-                    
-                    NSLog(@"===============数据解析成功===================");
-                    NSLog(@"mapping class : %@",[mappingResult class]);
-                    NSLog(@"===============数据解析成功===================");
-                    tempTaskModel.requestCallBack(rRequestResultTypeSuccess,mappingResult,nil,nil);
-                    
-                    [self removeFirstObjectFromTaskPool];
-                    
-                } else {
-                    
-                    ///数据解析失败回调
-                    tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                    [self removeFirstObjectFromTaskPool];
-                    
-                }
-                
-            }];
-            
-            
-            
-        } else {
-            
-            ///解析数据
-            [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:@"QSHeaderDataModel" andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
-                
-                ///判断解析结果
-                if (mappingStatus && mappingResult && taskModel.requestCallBack) {
-                    
-                    tempTaskModel.requestCallBack(rRequestResultTypeFail,mappingResult,nil,nil);
-                    [self removeFirstObjectFromTaskPool];
-                    
-                } else {
-                    
-                    ///数据解析失败回调
-                    tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                    [self removeFirstObjectFromTaskPool];
-                    
-                }
-                
-            }];
-            
-        }
         
-    });
-    
-//    ///开启下一次的请求
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        
-//        [self removeFirstObjectFromTaskPool];
-//        
-//    });
+        
+    } else {
+        
+        ///解析数据
+        [QSDataMappingManager analyzeDataWithData:respondData andMappingClass:@"QSHeaderDataModel" andMappingCallBack:^(BOOL mappingStatus, id mappingResult) {
+            
+            ///判断解析结果
+            if (mappingStatus && mappingResult && taskModel.requestCallBack) {
+                
+                tempTaskModel.requestCallBack(rRequestResultTypeFail,mappingResult,nil,nil);
+                [self removeFirstObjectFromTaskPool];
+                
+            } else {
+                
+                ///数据解析失败回调
+                tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
+                [self removeFirstObjectFromTaskPool];
+                
+            }
+            
+        }];
+        
+    }
     
 }
 
@@ -515,6 +500,24 @@
 + (void)requestDataWithType:(REQUEST_TYPE)requestType andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack
 {
     
+    [self requestDataWithType:requestType andParams:nil andCallBack:callBack];
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-01-26 14:01:24
+ *
+ *  @brief              根据不同的请求类型和参数，进行网络请求
+ *
+ *  @param requestType  请求类型
+ *  @param params       请求参数
+ *  @param callBack     回调
+ *
+ *  @since              1.0.0
+ */
++ (void)requestDataWithType:(REQUEST_TYPE)requestType andParams:(NSDictionary *)params andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack
+{
+
     ///判断类型是否准确
     if ((rRequestTypeAdvert > requestType) || (rRequestTypeImage < requestType)) {
         
@@ -582,9 +585,12 @@
     requestTask.httpRequestType = [self getHttpRequestTypeWithType:requestType];
     requestTask.isCurrentRequest = NO;
     
-    NSLog(@"==============添加请求任务=================");
-    NSLog(@"mapping class : %@,request url : %@",requestTask.dataMappingClass,requestTask.requestURL);
-    NSLog(@"==============添加请求任务=================");
+    ///是否有请求参数
+    if (params) {
+        
+        requestTask.requestParams = params;
+        
+    }
     
     ///添加请求任务
     [[self shareRequestManager] addRequestTaskToPool:requestTask];
@@ -628,6 +634,9 @@
             
             ///配置信息
         case rRequestTypeAppBaseInfo:
+            
+            ///具体某个配置信息的请求
+        case rRequestTypeAppBaseInfoConfiguration:
             
             ///默认返回Post
         default:

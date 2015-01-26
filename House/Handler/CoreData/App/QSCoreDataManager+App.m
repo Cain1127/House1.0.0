@@ -7,11 +7,56 @@
 //
 
 #import "QSCoreDataManager+App.h"
+#import "QSCDConfigurationDataModel.h"
+#import "QSConfigurationDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
+#import "QSYAppDelegate.h"
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_APPLICATION_INFO @"QSCDApplicationInfoDataModel"
+#define COREDATA_ENTITYNAME_CONFIGURATION_INFO @"QSCDConfigurationDataModel"
+#define COREDATA_ENTITYNAME_BASECONFIGURATION_INFO @"QSCDBaseConfigurationDataModel"
 
 @implementation QSCoreDataManager (App)
+
+#pragma mark - 返回是否第一次运行应用
+/**
+ *  @author yangshengmeng, 15-01-26 12:01:37
+ *
+ *  @brief  获取当前应用是否第一次进入的状态：YES-第一次进入
+ *
+ *  @return 返回状态
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)getApplicationIsFirstLaunchStatus
+{
+
+    NSString *isFirstLaunchStatus = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_first_launch"];
+    
+    if (nil == isFirstLaunchStatus) {
+        
+        return YES;
+        
+    }
+         
+    if (0 == [isFirstLaunchStatus intValue]) {
+        
+        return YES;
+        
+    }
+    
+    return NO;
+
+}
+
++ (BOOL)updateApplicationIsFirstLaunchStatus:(NSString *)netStatus
+{
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"is_first_launch" andFieldNewValue:(netStatus ? netStatus : @"0")];
+
+}
 
 #pragma mark - 返回token相关信息
 /**
@@ -26,7 +71,7 @@
 + (NSString *)getApplicationCurrentToken
 {
 
-    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"app_token"];
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"app_token"];
 
 }
 
@@ -48,7 +93,7 @@
         
     }
     
-    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"app_token" andFieldNewValue:token];
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"app_token" andFieldNewValue:token];
 
 }
 
@@ -64,7 +109,7 @@
 + (NSString *)getApplicationCurrentTokenID
 {
 
-    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"app_token_id"];
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"app_token_id"];
 
 }
 
@@ -86,7 +131,7 @@
         
     }
     
-    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"app_token_id" andFieldNewValue:tokenID];
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"app_token_id" andFieldNewValue:tokenID];
 
 }
 
@@ -106,7 +151,7 @@
 {
 
     ///先获取原版本，如果版本相同，则不更新
-    NSString *localVersion = [self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"version"];
+    NSString *localVersion = [self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"version"];
     
     ///如果原版本和新版本相一致，则直接返回YES
     if (localVersion && [localVersion isEqualToString:version]) {
@@ -116,7 +161,7 @@
     }
     
     ///如果原来没有版本信息，或者原来版本信息和最新版本不致，则更新版本
-    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"version" andFieldNewValue:version];
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"version" andFieldNewValue:version];
 
 }
 
@@ -163,7 +208,7 @@
 + (NSArray *)getConfigurationList
 {
 
-    return nil;
+    return [self getEntityListWithKey:COREDATA_ENTITYNAME_CONFIGURATION_INFO];
 
 }
 
@@ -180,7 +225,129 @@
  */
 + (BOOL)updateConfigurationList:(NSArray *)conList
 {
+    
+    for (QSConfigurationDataModel *obj in conList) {
+        
+        BOOL isInsertFlag = [self updateConfigurationWithModel:obj];
+        if (!isInsertFlag) {
+            
+            return NO;
+            
+        }
+        
+    }
+    
+    return YES;
 
+}
+
+/**
+ *  @author                 yangshengmeng, 15-01-26 15:01:28
+ *
+ *  @brief                  根据配置说明模型更新一个配置信息项，如若没有，则插入
+ *
+ *  @param confDataModel    配置说明信息的数据模型
+ *
+ *  @return                 返回更新标识：YES-更新成功
+ *
+ *  @since                  1.0.0
+ */
++ (BOOL)updateConfigurationWithModel:(QSConfigurationDataModel *)confDataModel
+{
+
+    if (nil == confDataModel) {
+        
+        return NO;
+        
+    }
+    
+    ///获取上下文
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    
+    ///先查，是否存在对应的数据
+    QSCDConfigurationDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_CONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:confDataModel.conf];
+    
+    ///错误信息
+    NSError *error = nil;
+    
+    if (nil == localModel) {
+        
+        ///插入数据
+        QSCDConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_CONFIGURATION_INFO inManagedObjectContext:mOContext];
+        insertModel.conf = confDataModel.conf;
+        insertModel.c_v = confDataModel.c_v;
+        [mOContext save:&error];
+        
+    } else {
+    
+        localModel.c_v = confDataModel.c_v;
+        [mOContext save:&error];
+    
+    }
+    
+    if (error) {
+        
+        return NO;
+        
+    }
+    
+    return YES;
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-01-26 16:01:06
+ *
+ *  @brief              更新基础配置信息
+ *
+ *  @param BaseConList  配置数组
+ *
+ *  @return             返回是否配置成功
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)updateBaseConfigurationList:(NSArray *)baseConList andKey:(NSString *)key
+{
+
+    ///删除原来对应配置项的配置信息
+    BOOL isDeleteOldSuccess = [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andDeleteKey:key];
+    
+    if (!isDeleteOldSuccess) {
+        
+        return isDeleteOldSuccess;
+        
+    }
+    
+    ///获取上下文
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    
+    NSError *error = nil;
+    
+    for (QSBaseConfigurationDataModel *obj in baseConList) {
+        
+        ///重新添加基本配置信息
+        QSCDBaseConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO inManagedObjectContext:mOContext];
+        insertModel.conf = key;
+        insertModel.key = obj.key;
+        insertModel.val = obj.val;
+        [mOContext save:&error];
+        
+        if (error) {
+            
+            break;
+            
+        }
+        
+    }
+    
+    if (error) {
+        
+        return NO;
+        
+    }
+    
     return YES;
 
 }
@@ -198,7 +365,7 @@
 + (BOOL)getLocalFilterSettingFlag
 {
 
-    NSString *isSettingFilter = (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_setting_filter"];
+    NSString *isSettingFilter = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_setting_filter"];
     
     if (nil == isSettingFilter) {
         

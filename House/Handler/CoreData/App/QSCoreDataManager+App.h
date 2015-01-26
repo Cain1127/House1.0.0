@@ -15,7 +15,21 @@
  *
  *  @since  1.0.0
  */
+@class QSConfigurationDataModel;
 @interface QSCoreDataManager (App)
+
+/**
+ *  @author yangshengmeng, 15-01-26 12:01:37
+ *
+ *  @brief  获取当前应用是否第一次进入的状态：YES-第一次进入
+ *
+ *  @return 返回状态
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)getApplicationIsFirstLaunchStatus;
+///更新是否第一次运行的状态
++ (BOOL)updateApplicationIsFirstLaunchStatus:(NSString *)netStatus;
 
 /**
  *  @author yangshengmeng, 15-01-22 15:01:26
@@ -115,6 +129,32 @@
  *  @since          1.0.0
  */
 + (BOOL)updateConfigurationList:(NSArray *)conList;
+
+/**
+ *  @author                 yangshengmeng, 15-01-26 15:01:28
+ *
+ *  @brief                  根据配置说明模型更新一个配置信息项，如若没有，则插入
+ *
+ *  @param confDataModel    配置说明信息的数据模型
+ *
+ *  @return                 返回更新标识：YES-更新成功
+ *
+ *  @since                  1.0.0
+ */
++ (BOOL)updateConfigurationWithModel:(QSConfigurationDataModel *)confDataModel;
+
+/**
+ *  @author             yangshengmeng, 15-01-26 16:01:06
+ *
+ *  @brief              更新基础配置信息
+ *
+ *  @param BaseConList  配置数组
+ *
+ *  @return             返回是否配置成功
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)updateBaseConfigurationList:(NSArray *)baseConList andKey:(NSString *)key;
 
 /**
  *  @author yangshengmeng, 15-01-23 14:01:22

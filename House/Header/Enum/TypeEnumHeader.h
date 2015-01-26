@@ -187,7 +187,7 @@ typedef enum
     bBuildingStructureTypeBoard,        //!<板楼
     bBuildingStructureTypeBungalow      //!<平房
 
-}BUILDING_STRUCTURE_TYPE;       //!建筑结构
+}BUILDING_STRUCTURE_TYPE;               //!建筑结构
 
 /*
  *  //装修类型
@@ -324,10 +324,10 @@ typedef enum
 
     rRequestTypeAdvert = 999,            //!<广告信息请求：此类型为首类型，请新添加的类型不要放在这个类型之前
     rRequestTypeAppBaseInfo = 1000,      //!<应用中的基本信息版本请求：如可选城市
-    rRequestTypeAppBaseInfoConfiguration,//!<具体某个配置信息的请求
+    rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
     
     rRequestTypeImage                    //!<图片请求：此类型为尾类型，请新添加的类型不要放在这个类型之后
 
-}REQUEST_TYPE;
+}REQUEST_TYPE;                           //!<请求类型
 
 #endif

@@ -10,7 +10,9 @@
 #import "QSRequestManager.h"
 #import "QSAdvertViewController.h"
 #import "QSConfigurationReturnData.h"
+#import "QSBaseConfigurationReturnData.h"
 #import "QSCoreDataManager+App.h"
+#import "QSAlertMessageViewController.h"
 
 @interface QSYAppDelegate ()
 
@@ -78,11 +80,6 @@
 - (void)checkConfigurationInfo:(NSArray *)configurationList
 {
     
-    NSLog(@"==================================================");
-    NSLog(@"配置信息：%@",configurationList);
-    NSLog(@"==================================================");
-    return;
-
     ///暂时保存配置版本信息
     NSArray *tempConfigurationArray = [NSArray arrayWithArray:configurationList];
     
@@ -98,13 +95,6 @@
             [self updateConfigurationInfoWithModel:obj];
             
         }
-        return;
-        
-    }
-    
-    ///检测本地版本总数是否和新的版本总数一致
-    if ([tempConfigurationArray count] != [localConfigurationArray count]) {
-        
         
         return;
         
@@ -123,13 +113,23 @@
         ///本地配置模型
         QSConfigurationDataModel *localConfDataModel = [localConfigurationDictionary valueForKey:newKey];
         
-        ///检测版本
-        if (([newConfDataModel.conf isEqualToString:localConfDataModel.conf]) &&
-            (!([newConfDataModel.c_v isEqualToString:localConfDataModel.c_v]))) {
+        ///如果原来没有，则添加
+        if (nil == localConfDataModel) {
             
             ///版本不致，则更新对应的配置信息
             [self updateConfigurationInfoWithModel:newConfDataModel];
             
+        } else {
+        
+            ///检测版本
+            if (([newConfDataModel.conf isEqualToString:localConfDataModel.conf]) &&
+                (!([newConfDataModel.c_v isEqualToString:localConfDataModel.c_v]))) {
+                
+                ///版本不致，则更新对应的配置信息
+                [self updateConfigurationInfoWithModel:newConfDataModel];
+                
+            }
+        
         }
         
     }
@@ -161,9 +161,16 @@
     ///在子线程中执行网络请求
     dispatch_sync(self.appDelegateOperationQueue, ^{
         
-        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:confModel.getBaseConfigurationRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
+            ///模型转换
+            QSBaseConfigurationReturnData *dataModel = resultData;
             
+            ///保存配置信息
+            [QSCoreDataManager updateConfigurationWithModel:confModel];
+            
+            ///将对应的版本信息插入配置库中
+            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
             
         }];
         

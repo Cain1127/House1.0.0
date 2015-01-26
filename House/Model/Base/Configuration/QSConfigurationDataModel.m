@@ -25,4 +25,20 @@
     
 }
 
+/**
+ *  @author yangshengmeng, 15-01-26 14:01:39
+ *
+ *  @brief  基础配置信息请求时返回的参数
+ *
+ *  @since  1.0.0
+ */
+- (NSDictionary *)getBaseConfigurationRequestParams
+{
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:self.conf forKey:@"conf"];
+    return [NSDictionary dictionaryWithDictionary:params];
+
+}
+
 @end

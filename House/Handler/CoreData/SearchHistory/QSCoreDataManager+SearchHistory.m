@@ -7,6 +7,7 @@
 //
 
 #import "QSCoreDataManager+SearchHistory.h"
+#import "QSYAppDelegate.h"
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO @"QSCDLocalSearchHistoryDataModel"
@@ -26,7 +27,7 @@
 + (NSArray *)getLocalSearchHistory
 {
     
-    return [self getDataListWithKey:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andSortKeyWord:@"search_time" andAscend:YES];
+    return [self getEntityListWithKey:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andSortKeyWord:@"search_time" andAscend:YES];
     
 }
 
@@ -34,7 +35,34 @@
 + (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model
 {
     
-    return [self insertEntityWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andCoreDataModel:model];
+    if (nil == model) {
+        
+        return NO;
+        
+    }
+    
+    ///获取上下文
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    
+    ///错误信息
+    NSError *error = nil;
+    
+    ///插入数据
+    QSCDLocalSearchHistoryDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:mOContext];
+    insertModel.search_keywork = model.search_keywork;
+    insertModel.search_sub_type = model.search_sub_type;
+    insertModel.search_time = model.search_time;
+    insertModel.search_type = model.search_type;
+    [mOContext save:&error];
+    
+    if (error) {
+        
+        return NO;
+        
+    }
+    
+    return YES;
     
 }
 
@@ -42,7 +70,7 @@
 + (BOOL)clearLocalSearchHistory
 {
     
-    return [self clearDataListWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO];
+    return [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO];
     
 }
 

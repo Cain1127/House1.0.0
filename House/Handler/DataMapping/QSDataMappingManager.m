@@ -62,9 +62,6 @@
     NSParameterAssert(mapping);
     
     NSDictionary *mappingDictionary = @{[NSNull null] : mapping};
-    NSLog(@"==================正在解析数据======================");
-    NSLog(@"mapping %@",mapping);
-    NSLog(@"==================正在解析数据======================");
     
     ///数据序列化错信息
     NSError *error = nil;
@@ -83,9 +80,7 @@
     RKMapperOperation *mapperOperation = [[RKMapperOperation alloc] initWithRepresentation:parsedData mappingsDictionary:mappingDictionary];
     [mapperOperation execute:&error];
     [mapperOperation waitUntilFinished];
-    
-    NSLog(@"================mapping成功====================");
-    
+        
     mappingCallBack(YES,mapperOperation.mappingResult.dictionary[[NSNull null]]);
     
 }
