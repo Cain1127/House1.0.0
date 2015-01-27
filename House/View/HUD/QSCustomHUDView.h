@@ -1,5 +1,5 @@
 //
-//  QSCustomHUDViewController.h
+//  QSCustomHUDView.h
 //  House
 //
 //  Created by ysmeng on 15/1/27.
@@ -15,7 +15,7 @@
  *
  *  @since  1.0.0
  */
-@interface QSCustomHUDViewController : UIViewController
+@interface QSCustomHUDView : UIView
 
 /**
  *  @author yangshengmeng, 15-01-27 12:01:41
@@ -56,19 +56,13 @@
 + (instancetype)showCustomHUDWithTips:(NSString *)tips andHeaderTips:(NSString *)headerTips;
 
 /**
- *  @author yangshengmeng, 15-01-27 13:01:40
+ *  @author yangshengmeng, 15-01-27 14:01:58
  *
- *  @brief              显示一个有前置提示信息、中间主要提示信息及移聊时的提示信息HUD
+ *  @brief  开始自定义HUD的动画
  *
- *  @param tips         主要提示信息
- *  @param headerTips   前置显示信息
- *  @param footerTips   后置提示信息
- *
- *  @return             返回当前显示的HUD
- *
- *  @since              1.0.0
+ *  @since  1.0.0
  */
-+ (instancetype)showCustomHUDWithTips:(NSString *)tips andHeaderTips:(NSString *)headerTips andFooterTips:(NSString *)footerTips;
+- (void)startCustomHUDAnimination;
 
 /**
  *  @author yangshengmeng, 15-01-27 13:01:17

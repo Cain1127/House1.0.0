@@ -20,6 +20,9 @@
 ///右侧大剪头
 #define IMAGE_PUBLIC_RIGHT_ARROW @"public_row_arrow"
 
+///loading图片
+#define IMAGE_PUBLIC_LOADING @"public_loading"
+
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
  *

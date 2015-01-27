@@ -12,6 +12,7 @@
 #import "QSHouseKeySearchViewController.h"
 #import "QSNetworkingStatus.h"
 #import "ColorHeader.h"
+#import "QSCustomHUDView.h"
 
 @interface QSHomeViewController ()
 @property (weak, nonatomic) IBOutlet UIView *houseTypeView;//!< 房源view
@@ -94,6 +95,8 @@
     backgroundImage.image=[UIImage imageNamed:@"nil"];
     [self.houseTypeView addSubview:backgroundImage];
     [self.houseTypeView sendSubviewToBack:backgroundImage];
+    
+    [QSCustomHUDView showCustomHUDWithTips:@"努力加载中……" andHeaderTips:@"准备加载"];
     
 }
 

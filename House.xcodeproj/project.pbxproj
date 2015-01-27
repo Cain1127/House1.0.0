@@ -153,9 +153,15 @@
 		18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */; };
 		18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */; };
 		18F99AF91A75FFFF00098FD6 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF81A75FFFF00098FD6 /* QSAlertMessageViewController.m */; };
-		18FABCFA1A7751CF007AC345 /* QSCustomHUDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FABCF91A7751CF007AC345 /* QSCustomHUDViewController.m */; };
 		18FABCFF1A775E55007AC345 /* libPushSDK-1.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */; };
 		18FABD001A775E55007AC345 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FABCFE1A775E55007AC345 /* PushConfig.plist */; };
+		18FABD031A7760C2007AC345 /* QSCustomHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FABD021A7760C2007AC345 /* QSCustomHUDView.m */; };
+		18FABD051A776551007AC345 /* public_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FABD041A776551007AC345 /* public_loading.png */; };
+		18FABD071A776D07007AC345 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD061A776D07007AC345 /* CFNetwork.framework */; };
+		18FABD091A776D20007AC345 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD081A776D20007AC345 /* CoreFoundation.framework */; };
+		18FABD0B1A776D2D007AC345 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */; };
+		18FABD0D1A776D57007AC345 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD0C1A776D57007AC345 /* Security.framework */; };
+		18FABD0F1A776D60007AC345 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD0E1A776D60007AC345 /* libz.1.1.3.dylib */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		CE000DC11A6E5451008FD309 /* developer_actives.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBB1A6E5451008FD309 /* developer_actives.png */; };
 		CE000DC21A6E5451008FD309 /* developer_chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CE000DBC1A6E5451008FD309 /* developer_chat.png */; };
@@ -409,11 +415,17 @@
 		18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationReturnData.m; sourceTree = "<group>"; };
 		18F99AF71A75FFFF00098FD6 /* QSAlertMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSAlertMessageViewController.h; path = Alert/QSAlertMessageViewController.h; sourceTree = "<group>"; };
 		18F99AF81A75FFFF00098FD6 /* QSAlertMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSAlertMessageViewController.m; path = Alert/QSAlertMessageViewController.m; sourceTree = "<group>"; };
-		18FABCF81A7751CF007AC345 /* QSCustomHUDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomHUDViewController.h; path = HUD/QSCustomHUDViewController.h; sourceTree = "<group>"; };
-		18FABCF91A7751CF007AC345 /* QSCustomHUDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomHUDViewController.m; path = HUD/QSCustomHUDViewController.m; sourceTree = "<group>"; };
 		18FABCFC1A775E55007AC345 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
 		18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.2.a"; sourceTree = "<group>"; };
 		18FABCFE1A775E55007AC345 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		18FABD011A7760C2007AC345 /* QSCustomHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomHUDView.h; path = HUD/QSCustomHUDView.h; sourceTree = "<group>"; };
+		18FABD021A7760C2007AC345 /* QSCustomHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomHUDView.m; path = HUD/QSCustomHUDView.m; sourceTree = "<group>"; };
+		18FABD041A776551007AC345 /* public_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_loading.png; sourceTree = "<group>"; };
+		18FABD061A776D07007AC345 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		18FABD081A776D20007AC345 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		18FABD0C1A776D57007AC345 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		18FABD0E1A776D60007AC345 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE000DBB1A6E5451008FD309 /* developer_actives.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_actives.png; sourceTree = "<group>"; };
@@ -442,8 +454,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */,
+				18FABD0F1A776D60007AC345 /* libz.1.1.3.dylib in Frameworks */,
+				18FABD0D1A776D57007AC345 /* Security.framework in Frameworks */,
 				183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */,
+				CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */,
+				18FABD0B1A776D2D007AC345 /* CoreTelephony.framework in Frameworks */,
+				18FABD091A776D20007AC345 /* CoreFoundation.framework in Frameworks */,
+				18FABD071A776D07007AC345 /* CFNetwork.framework in Frameworks */,
 				183CC6651A68FC8800B8F97D /* CoreData.framework in Frameworks */,
 				183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */,
 				183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */,
@@ -500,6 +517,11 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18FABD0E1A776D60007AC345 /* libz.1.1.3.dylib */,
+				18FABD0C1A776D57007AC345 /* Security.framework */,
+				18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */,
+				18FABD081A776D20007AC345 /* CoreFoundation.framework */,
+				18FABD061A776D07007AC345 /* CFNetwork.framework */,
 				CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */,
 				183CC65E1A68FC8800B8F97D /* Foundation.framework */,
 				183CC6601A68FC8800B8F97D /* CoreGraphics.framework */,
@@ -850,6 +872,7 @@
 		189300901A6902E30081D0AA /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				18FABD041A776551007AC345 /* public_loading.png */,
 				18E9323D1A761B6A00927DF2 /* public_multiple_selected_highlighted.png */,
 				18E9323E1A761B6A00927DF2 /* public_multiple_selected_normal.png */,
 				18E9323F1A761B6A00927DF2 /* public_single_selected_highlighted.png */,
@@ -1600,8 +1623,8 @@
 		18F99AFA1A76000F00098FD6 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				18FABCF81A7751CF007AC345 /* QSCustomHUDViewController.h */,
-				18FABCF91A7751CF007AC345 /* QSCustomHUDViewController.m */,
+				18FABD011A7760C2007AC345 /* QSCustomHUDView.h */,
+				18FABD021A7760C2007AC345 /* QSCustomHUDView.m */,
 			);
 			name = HUD;
 			sourceTree = "<group>";
@@ -1806,6 +1829,7 @@
 				18C8A1541A6CBA2F00BB9611 /* home_secondhandhouse_normal.png in Resources */,
 				18F99ADE1A7345B100098FD6 /* public_shake.png in Resources */,
 				18C8A2671A6E1DB100BB9611 /* guide_tenant_haved.png in Resources */,
+				18FABD051A776551007AC345 /* public_loading.png in Resources */,
 				18CAFCD81A71E21800C90C90 /* seach_seachstatus.png in Resources */,
 				18C8A1561A6CBA2F00BB9611 /* home_tenement_normal.png in Resources */,
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
@@ -1904,11 +1928,11 @@
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
 				18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */,
+				18FABD031A7760C2007AC345 /* QSCustomHUDView.m in Sources */,
 				18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
-				18FABCFA1A7751CF007AC345 /* QSCustomHUDViewController.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
