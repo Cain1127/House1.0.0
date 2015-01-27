@@ -11,252 +11,440 @@
 
 /**
  *  //用户10  ，房源20， 聊天30 ，订单50 ，公共99
- //用户类型
- $enums["user_type"]["100101"]='房客';
- $enums["user_type"]["100102"]='业主';
- $enums["user_type"]["100103"]='中介';
- $enums["user_type"]["100104"]='开发商';
- 
- //-------------->楼盘使用的字段
- //楼盘均价
- $enums["price_avg"]["10000"]='一万元以下';
- $enums["price_avg"]["10000-15000"]='1万-1.5万';
- $enums["price_avg"]["15000-20000"]='1.5万-2万';
- $enums["price_avg"]["20000-30000"]='2万-3万';
- $enums["price_avg"]["30000-40000"]='3万-4万';
- $enums["price_avg"]["40000-50000"]='4万-5万';
- $enums["price_avg"]["50000"]='5万以上';
- 
- //建筑结构
- $enums['building_structure']['200101']='塔楼';
- $enums['building_structure']['200102']='板楼';
- $enums['building_structure']['200103']='平房';
- 
- //使用年限
- $enums['used_year']['40']='40年';
- $enums['used_year']['50']='50年';
- //$enums['used_year']['60']='60年';
- $enums['used_year']['70']='70年';
- 
- //装修类型
- $enums['decoration_type']['200201']='豪华装修';
- $enums['decoration_type']['200202']='精装修';
- $enums['decoration_type']['200203']='中等装修';
- $enums['decoration_type']['200204']='简装修';
- $enums['decoration_type']['200205']='无坯';
- 
- //特色标签
- $enums['features']['200301']='地铁房';
- $enums['features']['200302']='学位房';
- $enums['features']['200303']='满五唯一';
- $enums['features']['200304']='商住两用';
- $enums['features']['200305']='交通便利';
- $enums['features']['200306']='不限购';
- $enums['features']['200307']='房东急售';
- $enums['features']['200308']='免税房';
- 
- //水电
- $enums['water']['40']='40年';
- $enums['water']['50']='50年';
- //$enums['water']['60']='60年';
- $enums['water']['70']='70年';
- 
- //采暖
- $enums['heating']['40']='40年';
- $enums['heating']['50']='50年';
- //$enums['heating']['60']='60年';
- $enums['heating']['70']='70年';
- 
- //添加小区的
- //建筑年代
- $enums['building_year']['1990']='1990年';
- $enums['building_year']['1991']='1991年';
- $enums['building_year']['1992']='1992年';
- $enums['building_year']['1993']='1993年';
- $enums['building_year']['1994']='1994年';
- 
- //installation配套设施 小区
- $enums['installation']['200401']='燃气/天然气';
- $enums['installation']['200402']='暖气';
- $enums['installation']['200403']='电梯';
- $enums['installation']['200404']='车位';
- $enums['installation']['200405']='车库';
- $enums['installation']['200406']='花园';
- $enums['installation']['200407']='露台';
- $enums['installation']['200408']='阁楼';
- 
- //类型
- $enums['type']['200501']='楼盘';
- $enums['type']['200502']='新房';
- $enums['type']['200503']='小区';
- $enums['type']['200504']='二手房';
- $enums['type']['200505']='出租房';
- 
- //房屋性质
- $enums['house_nature']['200601']='满五';
- $enums['house_nature']['200602']='免税';
- //出租性质
- $enums['rent_property']['200701']='整租';
- $enums['rent_property']['200702']='合租';
- //付款方式
- $enums['payment']['200801']='一押一付';
- $enums['payment']['200802']='二押一付';
- //户型结构-室
- $enums['house_shi']['200901']='一';
- $enums['house_shi']['200902']='二';
- $enums['house_shi']['200903']='三';
- $enums['house_shi']['200904']='四';
- //户型结构-厅
- $enums['house_ting']['201001']='一';
- $enums['house_ting']['201002']='二';
- $enums['house_ting']['201003']='三';
- $enums['house_ting']['201004']='四';
- //户型结构-位
- $enums['house_wei']['201101']='一';
- $enums['house_wei']['201102']='二';
- $enums['house_wei']['201103']='三';
- $enums['house_wei']['201104']='四';
- //户型结构-厨
- $enums['house_chufang']['201201']='一';
- $enums['house_chufang']['201202']='二';
- $enums['house_chufang']['201203']='三';
- $enums['house_chufang']['201204']='四';
- //户型结构-阳台
- $enums['house_yangtai']['201301']='一';
- $enums['house_yangtai']['201302']='二';
- $enums['house_yangtai']['201303']='三';
- $enums['house_yangtai']['201304']='四';
- //购房目的
- $enums['intent']['201401']='刚需房';
- $enums['intent']['201402']='改善房';
- $enums['intent']['201403']='婚房';
- $enums['intent']['201404']='学位房';
- $enums['intent']['201405']='养老房';
- $enums['intent']['201406']='投资房';
- 
- //朝向
- $enums['house_face']['201501']='朝东';
- $enums['house_face']['201502']='东南';
- $enums['house_face']['201503']='朝南';
- $enums['house_face']['201504']='西南';
- $enums['house_face']['201505']='朝西';
- $enums['house_face']['201506']='西北';
- $enums['house_face']['201507']='朝北';
- $enums['house_face']['201508']='东北';
- $enums['house_face']['201509']='朝东';
- $enums['house_face']['201510']='朝东';
- 
- //配套设施  求租
- $enums['installation']['201601']='拎包入住';
- $enums['installation']['201602']='家电齐全';
- $enums['installation']['201603']='可上网';
- $enums['installation']['201604']='可洗澡';
- $enums['installation']['201605']='可做饭';
- $enums['installation']['201606']='空调房';
- $enums['installation']['201607']='有暖气';
- $enums['installation']['201608']='带车位';
  */
 
 /*
  *  //用户类型
- *  user_type : "0" "房客";
- *  user_type : "1" "业主";
- *  user_type : "2" "中介";
- *  user_type : "3" "开发商";
+ *  user_type : "100101" "房客";
+ *  user_type : "100102" "业主";
+ *  user_type : "100103" "中介";
+ *  user_type : "100104" "开发商";
  */
 typedef enum
 {
 
-    uUserCountTypeTenant = 0,   //!<房客
-    uUserCountTypeOwner,        //!<业主
-    uUserCountTypeAgency,       //!<中介
-    uUserCountTypeDeveloper     //!<开发商
+    uUserCountTypeTenant = 100101,  //!<房客
+    uUserCountTypeOwner,            //!<业主
+    uUserCountTypeAgency,           //!<中介
+    uUserCountTypeDeveloper         //!<开发商
 
-}USER_COUNT_TYPE;               //!<用户账号类型
+}USER_COUNT_TYPE;                   //!<用户账号权限类型
+
+/*
+ *  //楼盘均价
+ *  price_avg : "10000"         "一万元以下";
+ *  price_avg : "10000-15000"   "1万-1.5万";
+ *  price_avg : "15000-20000"   "1.5万-2万";
+ *  price_avg : "20000-30000"   "2万-3万";
+ *  price_avg : "30000-40000"   "3万-4万"
+ *  price_avg : "40000-50000"   "4万-5万"
+ *  price_avg : "50000"         "5万以上"
+ */
+typedef enum
+{
+
+    hHouseAveragerPriceTypeBelowTenThousand = 10000,//!<1万元以下
+    hHouseAveragerPriceTypeBelowFifteenThousand,    //!<1万-1.5万
+    hHouseAveragerPriceTypeBelowTwentyThousand,     //!<1.5万-2万
+    hHouseAveragerPriceTypeBelowThirtyThousand,     //!<2万-3万
+    hHouseAveragerPriceTypeBelowFortyThousand,      //!<3万-4万
+    hHouseAveragerPriceTypeBelowFiftyThousand,      //!<4万-5万
+    hHouseAveragerPriceTypeOverFiftyThousand        //!<5万以上
+
+}HOUSE_AVERAGEPRICE_TYPE;                           //!<房源均价
 
 /*
  *   //建筑结构
- *  building_structure : "1" "塔楼";
- *  building_structure : "2" "板楼";
- *  building_structure : "3" "平房";
+ *  building_structure : "200101" "塔楼";
+ *  building_structure : "200102" "板楼";
+ *  building_structure : "200103" "平房";
  */
 typedef enum
 {
 
-    bBuildingStructureTypeTower = 1,    //!<塔楼
-    bBuildingStructureTypeBoard,        //!<板楼
-    bBuildingStructureTypeBungalow      //!<平房
+    bBuildingStructureTypeTower = 200101,   //!<塔楼
+    bBuildingStructureTypeBoard,            //!<板楼
+    bBuildingStructureTypeBungalow          //!<平房
 
-}BUILDING_STRUCTURE_TYPE;               //!建筑结构
+}BUILDING_STRUCTURE_TYPE;                   //!建筑结构
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:49
+ *
+ *  @brief  使用年限：used_year
+ *
+ *  @since  1.0.0
+ */
 
 /*
  *  //装修类型
- *  decoration_type : "1" "豪华装修";
- *  decoration_type : "2" "精装修";
- *  decoration_type : "3" "中等装修";
- *  decoration_type : "4" "简装修";
- *  decoration_type : "5" "毛坯";
+ *  decoration_type : "200201" "豪华装修";
+ *  decoration_type : "200202" "精装修";
+ *  decoration_type : "200203" "中等装修";
+ *  decoration_type : "200204" "简装修";
+ *  decoration_type : "200205" "毛坯";
  */
 typedef enum
 {
 
-    hHouseDecorationTypeLuxurious = 1,  //!<豪华装修
-    hHouseDecorationTypeRefined,        //!<精装修
-    hHouseDecorationTypeMedium,         //!<中等装修
-    hHouseDecorationTypeSimple,         //!<简装修
-    hHouseDecorationTypeRough           //!<毛坯
+    hHouseDecorationTypeLuxurious = 200201, //!<豪华装修
+    hHouseDecorationTypeRefined,            //!<精装修
+    hHouseDecorationTypeMedium,             //!<中等装修
+    hHouseDecorationTypeSimple,             //!<简装修
+    hHouseDecorationTypeRough               //!<毛坯
 
-}HOUSE_DECORATION_TYPE;                 //!<房子装修类型
+}HOUSE_DECORATION_TYPE;                     //!<房子装修类型
 
 /*
  *  //特色标签
- *  features : "1" "地铁房";
- *  features : "2" "学位房";
- *  features : "3" "满五唯一";
- *  features : "4" "商住两用";
- *  features : "5" "交通便利";
- *  features : "6" "不限购";
- *  features : "7" "房东急售";
- *  features : "8" "免税房";
+ *  features : "200301" "地铁房";
+ *  features : "200302" "学位房";
+ *  features : "200303" "满五唯一";
+ *  features : "200304" "商住两用";
+ *  features : "200305" "交通便利";
+ *  features : "200306" "不限购";
+ *  features : "200307" "房东急售";
+ *  features : "200308" "免税房";
  */
 typedef enum
 {
 
-    hHouseFeatureTypeMetro = 1,     //!<地铁房
-    hHouseFeatureTypeDegree,        //!<学位房
-    hHouseFeatureTypeOverFiveOnly,  //!<满五唯一:满五年，唯一一套房
-    hHouseFeatureTypeDualUse,       //!<商住两用
-    hHouseFeatureTypeConveniently,  //!<交通便利
-    hHouseFeatureTypeNotPurchase,   //!<不限购
-    hHouseFeatureTypeEmergencySale, //!<房东急售
-    hHouseFeatureTypeTaxFree        //!<免税房
+    hHouseFeatureTypeMetro = 200301,    //!<地铁房
+    hHouseFeatureTypeDegree,            //!<学位房
+    hHouseFeatureTypeOverFiveOnly,      //!<满五唯一:满五年，唯一一套房
+    hHouseFeatureTypeDualUse,           //!<商住两用
+    hHouseFeatureTypeConveniently,      //!<交通便利
+    hHouseFeatureTypeNotPurchase,       //!<不限购
+    hHouseFeatureTypeEmergencySale,     //!<房东急售
+    hHouseFeatureTypeTaxFree            //!<免税房
 
-}HOUSE_FEATURE_TYPE;                //!<房子的特色标签
+}HOUSE_FEATURE_TYPE;                    //!<房子的特色标签
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:56
+ *
+ *  @brief  水电年限：water
+ *
+ *  @since  1.0.0
+ */
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:22
+ *
+ *  @brief  采暖年限：heating
+ *
+ *  @since  1.0.0
+ */
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:23
+ *
+ *  @brief  建筑年代：building_year
+ *
+ *  @since  1.0.0
+ */
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:29
+ *
+ *  @brief  小区配套
+ *
+ *  installation : "200401" : "燃气/天然气"
+ *  installation : "200402" : "暖气";
+ *  installation : "200403" : "电梯";
+ *  installation : "200404" : "车位";
+ *  installation : "200405" : "车库";
+ *  installation : "200406" : "花园";
+ *  installation : "200407" : "露台";
+ *  installation : "200408" : "阁楼";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    cCommunityInstallationTypeGas = 200401, //!<燃气/天然气
+    cCommunityInstallationTypeHeating,      //!<暖气
+    cCommunityInstallationTypeLift,         //!<电梯
+    cCommunityInstallationTypeParking,      //!<车位
+    cCommunityInstallationTypeCarbarn,      //!<车库
+    cCommunityInstallationTypeGarden,       //!<花园
+    cCommunityInstallationTypeTerrace,      //!<露台
+    cCommunityInstallationTypeLoft          //!<阁台
+
+}COMMUNITY_INSTALLATION_TYPE;
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:58
+ *
+ *  @brief  应用中使用的过滤类型：搜索时的头部过滤
+ *
+ *  //类型
+ *  type : "200501" : "楼盘";
+ *  type : "200502" : "新房";
+ *  type : "200503" : "小区";
+ *  type : "200504" : "二手房";
+ *  type : "200505" : "出租房";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    fFilterMainTypeBuilding = 200501,   //!<楼盘
+    fFilterMainTypeNewHouse,            //!<新房
+    fFilterMainTypeCommunity,           //!<小区
+    fFilterMainTypeSecondHouse,         //!<二手房
+    fFilterMainTypeRenant               //!<出租房
+
+}FILTER_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
+
+/**
+ *  @author     yangshengmeng, 15-01-27 10:01:06
+ *
+ *  @brief      房屋性质
+ *
+ *  house_nature : "200601" : "满五";
+ *  house_nature : "200602" : "免税";
+ *
+ *  @since      1.0.0
+ */
+typedef enum
+{
+
+    hHouseNatureTypeOverFiveYear = 200601,  //!<满五年
+    hHouseNatureTypeFreeDuty                //!<免税
+
+}HOUSE_NATURE_TYPE;                         //!<房屋性质
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:17
+ *
+ *  @brief  出租性质
+ *
+ *  //出租性质
+ *  rent_property : "200701" "整租";
+ *  rent_property : "200702" "合租";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseRenantPropertyTypeEntire = 200701,//!<出租性质
+    hHouseRenantPropertyTypeJoint           //!<合租
+
+}HOUSE_RENANT_PROPERTY_TYPE;                //!<出租性质
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:49
+ *
+ *  @brief  出租方式
+ *
+ *  //付款方式
+ *  payment : "200801" "一押一付";
+ *  payment : "200802" "二押一付";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseRenantPaymentStyleAA = 200801,    //!<押一付一
+    hHouseRenantPaymentStyleTA              //!<押二付一
+
+}HOUSE_RENANT_PAYMENT_STYLE;                //!<出租房的租金支付方式
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:35
+ *
+ *  @brief  有多少个房间的类型
+ *
+ *  house_shi : "200901" "一";
+ *  house_shi : "200902" "二";
+ *  house_shi : "200903" "三";
+ *  house_shi : "200904" "四";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseRoomNumberTypeOne = 200901,   //!<一房
+    hHouseRoomNumberTypeTwo,            //!<二房
+    hHouseRoomNumberTypeThree,          //!<三房
+    hHouseRoomNumberTypeFour,           //!<四房
+    hHouseRoomNumberTypeFive            //!<五房
+
+}HOUSE_ROOM_NUMBER_TYPE;                //!<房子的房间数量类型
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:41
+ *
+ *  @brief  房子的厅数量类型
+ *
+ *  //户型结构-厅
+ *  house_ting" : "201001']='一';
+ *  house_ting" : "201002']='二';
+ *  house_ting" : "201003']='三';
+ *  house_ting" : "201004']='四';
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseHallNumberTypeOne = 201001,   //!<一厅
+    hHouseHallNumberTypeTwo,            //!<二厅
+    hHouseHallNumberTypeThree,          //!<三厅
+    hHouseHallNumberTypeFour            //!<四厅
+
+}HOUSE_HALL_NUMBER_TYPE;                //!<房子厅数量类型
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:28
+ *
+ *  @brief  房子的卫生间数量类型
+ *  
+ *  //户型结构-卫 生间
+ *  house_wei" : "201101" "一";
+ *  house_wei" : "201102" "二";
+ *  house_wei" : "201103" "三";
+ *  house_wei" : "201104" "四";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseToiletNumberTypeOne = 201101, //!<一卫
+    hHouseToiletNumberTypeTwo,          //!<二卫
+    hHouseToiletNumberTypeThree,        //!<三卫
+    hHouseToiletNumberTypeFour          //!<四卫
+
+}HOUSE_TOILET_NUMBER_TYPE;              //!<房子卫生间的数量类型
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:31
+ *
+ *  @brief  房子的厨房数量类型
+ *
+ *  //户型结构-厨
+ *  house_chufang" : "201201" "一";
+ *  house_chufang" : "201202" "二";
+ *  house_chufang" : "201203" "三";
+ *  house_chufang" : "201204" "四";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseKitchenNumberTypeOne = 201201,//!<一厨
+    hHouseKitchenNumberTypeTwo,         //!<二厨
+    hHouseKitchenNumberTypeThree,       //!<三厨
+    hHouseKitchenNumberTypeFour         //!<四厨
+
+}HOUSE_KITCHEN_NUMBER_TYPE;             //!<厨房的数量类型
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:34
+ *
+ *  @brief  房子的阳台类型
+ *
+ *  //户型结构-阳台
+ *  house_yangtai" : "201301" "一";
+ *  house_yangtai" : "201302" "二";
+ *  house_yangtai" : "201303" "三";
+ *  house_yangtai" : "201304" "四";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseTerraceNumberTypeOne = 201301,//!<一阳台
+    hHouseTerraceNumberTypeTwo,         //!<二阳台
+    hHouseTerraceNumberTypeThree,       //!<三阳台
+    hHouseTerraceNumberTypeFour         //!<四阳台
+
+}HOUSE_TERRACE_NUMBER_TYPE;             //!<房子的阳台数量类型
+
+/**
+ *  @author yangshengmeng, 15-01-27 11:01:55
+ *
+ *  @brief  购房目的
+ *
+ *  //购房目的
+ *  intent" : "201401" "刚需房";
+ *  intent" : "201402" "改善房";
+ *  intent" : "201403" "婚房";
+ *  intent" : "201404" "学位房";
+ *  intent" : "201405" "养老房";
+ *  intent" : "201406" "投资房";
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    pPurpostPerchaseTypeJust = 201401,  //!<刚需房
+    pPurpostPerchaseTypeImprove,        //!<改善房
+    pPurpostPerchaseTypeMarriage,       //!<婚房
+    pPurpostPerchaseTypeDegree,         //!<学位房
+    pPurpostPerchaseTypeEndowment,      //!<养老房
+    pPurpostPerchaseTypeInvestment      //!<投资房
+
+}PURPOSE_PERCHASE_TYPE;                 //!<购房目的类型
+
+/**
+ *  house_face : "201501" "朝东";
+ *  house_face : "201502" "东南";
+ *  house_face : "201503" "朝南";
+ *  house_face : "201504" "西南";
+ *  house_face : "201505" "朝西";
+ *  house_face : "201506" "西北";
+ *  house_face : "201507" "朝北";
+ *  house_face : "201508" "东北";
+ */
+typedef enum
+{
+
+    hHouseFaceTypeEast = 201501,    //!<朝东
+    hHouseFaceTypeSoutheast,        //!<东南
+    hHouseFaceTypeSouth,            //!<朝南
+    hHouseFaceTypeSouthwest,        //!<西南
+    hHouseFaceTypeWest,             //!<朝西
+    hHouseFaceTypeNorthwest,        //!<西北
+    hHouseFaceTypeNorth,            //!<朝北
+    hHouseFaceTypeNortheast         //!<东北
+
+}HOUSE_FACE_TYPE;                   //!<房子朝向类型
 
 /*
- *  //配套设施
- *  installation : "1" "燃气/天然气";
- *  installation : "2" "暖气";
- *  installation : "3" "电梯";
- *  installation : "4" "车位";
- *  installation : "5" "车库";
- *  installation : "6" "花园";
- *  installation : "7" "露台";
- *  installation : "8" "阁楼";
+ *  //出租-配套设施
+ *  installation : "201601" "拎包入住";
+ *  installation : "201602" "家电齐全";
+ *  installation : "201603" "可上网";
+ *  installation : "201604" "可洗澡";
+ *  installation : "201605" "可做饭";
+ *  installation : "201606" "空调房";
+ *  installation : "201607" "有暖气";
+ *  installation : "201608" "带车位";
  */
 typedef enum
 {
 
-    hHouseInstallationTypeGas = 1,  //!<燃气/天燃气
-    hHouseInstallationTypeHeating,  //!<暖气
-    hHouseInstallationTypeLift,     //!<电梯
-    hHouseInstallationTypePark,     //!<车位
-    hHouseInstallationTypeGarage,   //!<车库
-    hHouseInstallationTypeGarden,   //!<花园
-    hHouseInstallationTypeTerrace,  //!<露台
-    hHouseInstallationTypeLoft      //!<阁楼
+    hHouseRenantInstallationTypeTheBag = 201601,    //!<拎包入住
+    hHouseRenantInstallationTypeAppliance,          //!<家电齐全
+    hHouseRenantInstallationTypeNetworking,         //!<可上网
+    hHouseRenantInstallationTypeBath,               //!<可洗澡
+    hHouseRenantInstallationTypeCook,               //!<可做饭
+    hHouseRenantInstallationTypeAirCondiction,      //!<空调房
+    hHouseRenantInstallationTypeHeating = 201607,   //!<有暖气
+    hHouseRenantInstallationTypeParking             //!<带车位
 
-}HOUSE_INSTALLATION_TYPE;
+}HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02

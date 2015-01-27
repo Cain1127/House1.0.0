@@ -100,7 +100,7 @@
             ///我要放盘：跳过
         case gGuideButtonActionTypeSaleHouseSkip:
             
-            
+            ///给定一个默认的用户类型
             
             break;
             
