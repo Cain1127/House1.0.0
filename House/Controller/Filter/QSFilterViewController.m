@@ -282,7 +282,7 @@ typedef enum
             }
             
             ///显示购房目的选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:@[@"hello",@"world",@"selected",@"item"] andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 ///回调选择项
                 NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);

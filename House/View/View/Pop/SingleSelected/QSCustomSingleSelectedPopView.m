@@ -51,12 +51,9 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     QSCustomSelectedView *unlimitedView = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:@"不限" andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
         
         ///如果不限当前为选择状态，则将所有选择项的选择状态置为NO
-        if (currentStatus) {
-            
-            [self setSelectedItemViewStatus];
-            self.isUnlimited = YES;
-            
-        }
+        [self setSelectedItemViewStatus];
+        self.isUnlimited = YES;
+        
         
     }];
     unlimitedView.selectedStatus = YES;
@@ -121,7 +118,8 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     selectedItemRootView.showsHorizontalScrollIndicator = NO;
     selectedItemRootView.showsVerticalScrollIndicator = NO;
     [rootView addSubview:selectedItemRootView];
-    objc_setAssociatedObject(selectedItemRootView, &SelectedItemRootViewKey, selectedItemRootView, OBJC_ASSOCIATION_ASSIGN);
+    [rootView sendSubviewToBack:selectedItemRootView];
+    objc_setAssociatedObject(self, &SelectedItemRootViewKey, selectedItemRootView, OBJC_ASSOCIATION_ASSIGN);
 
 }
 
@@ -132,14 +130,15 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     ///获取选择项的底view
     UIView *rootView = objc_getAssociatedObject(self, &SelectedItemRootViewKey);
     
-    for (QSCustomSelectedView *obj in [rootView subviews]) {
+    for (UIView *obj in [rootView subviews]) {
         
-        obj.selectedStatus = NO;
+        if ([obj isKindOfClass:[QSCustomSelectedView class]]) {
+            
+            ((QSCustomSelectedView *)obj).selectedStatus = NO;
+            
+        }
         
     }
-    
-    ///重置是否不限状态为真
-    self.isUnlimited = YES;
 
 }
 
@@ -176,15 +175,21 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     ///循环创建选择项
     for (int i = 0; i < [dataSource count]; i++) {
         
-        QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:dataSource[i] andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
+        __block QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:dataSource[i] andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
             
             ///如果选择一项单选，则将不限的选择状态取消
             QSCustomSelectedView *unlimitedView = objc_getAssociatedObject(self, &UnlimitedSelectedViewKey);
             unlimitedView.selectedStatus = NO;
+            self.isUnlimited = NO;
+            
+            ///让所有单选项处于非选择状态
+            [self setSelectedItemViewStatus];
             
             ///保存选择信息
             self.currentSelectedInfo = dataSource[i];
             self.currentSelectedIndex = i;
+            
+            tempSelectedItem.selectedStatus = YES;
             
         }];
         [rootView addSubview:tempSelectedItem];
@@ -233,7 +238,11 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     }
     
     ///搭建选择数据的UI
-    [singleSelectedView createSingleSelectedInfoUI:dataSource andCurrentIndex:currentIndex];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [singleSelectedView createSingleSelectedInfoUI:dataSource andCurrentIndex:currentIndex];
+        
+    });
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"

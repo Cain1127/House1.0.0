@@ -149,15 +149,26 @@ static char SelectedBoxKey; //!<选择框的关联
             
             return;
             
+        } else {
+        
+            self.selectedStatus = YES;
+            if (self.selectedBoxCallBack) {
+                
+                self.selectedBoxCallBack(YES);
+                
+            }
+        
         }
         
-    }
+    } else {
     
-    self.selectedStatus = !self.selectedStatus;
-    if (self.selectedBoxCallBack) {
-        
-        self.selectedBoxCallBack(self.selectedStatus);
-        
+        self.selectedStatus = !self.selectedStatus;
+        if (self.selectedBoxCallBack) {
+            
+            self.selectedBoxCallBack(self.selectedStatus);
+            
+        }
+    
     }
 
 }
