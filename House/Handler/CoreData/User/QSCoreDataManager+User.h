@@ -39,4 +39,28 @@
  */
 + (NSString *)getCurrentUserCity;
 
+/**
+ *  @author yangshengmeng, 15-01-27 12:01:42
+ *
+ *  @brief  返回当前用户的权限类型
+ *
+ *  @return 返回用户权限类型
+ *
+ *  @since  1.0.0
+ */
++ (USER_COUNT_TYPE)getCurrentUserCountType;
+
+/**
+ *  @author         yangshengmeng, 15-01-27 12:01:41
+ *
+ *  @brief          更新当前用户的类型
+ *
+ *  @param userType 用户类型
+ *
+ *  @return         返回更新是否成功
+ *
+ *  @since          1.0.0
+ */
++ (BOOL)updateCurrentUserCountType:(USER_COUNT_TYPE)userType;
+
 @end

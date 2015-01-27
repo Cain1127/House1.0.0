@@ -37,4 +37,55 @@
 
 }
 
+/**
+ *  @author yangshengmeng, 15-01-27 12:01:42
+ *
+ *  @brief  返回当前用户的权限类型
+ *
+ *  @return 返回用户权限类型
+ *
+ *  @since  1.0.0
+ */
++ (USER_COUNT_TYPE)getCurrentUserCountType
+{
+
+    NSString *userCountTypeString = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_count_type"];
+    
+    ///如果没有配置，默认返回普通客户
+    if (nil == userCountTypeString) {
+        
+        return uUserCountTypeTenant;
+        
+    }
+    
+    int userCountType = [userCountTypeString intValue];
+    
+    return userCountType;
+    
+}
+
+/**
+ *  @author         yangshengmeng, 15-01-27 12:01:41
+ *
+ *  @brief          更新当前用户的类型
+ *
+ *  @param userType 用户类型
+ *
+ *  @return         返回更新是否成功
+ *
+ *  @since          1.0.0
+ */
++ (BOOL)updateCurrentUserCountType:(USER_COUNT_TYPE)userType
+{
+
+    if (uUserCountTypeTenant > userType || uUserCountTypeDeveloper < userType) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count_type" andFieldNewValue:[NSString stringWithFormat:@"%d",userType]];
+
+}
+
 @end

@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// ASDepthModal
+#define COCOAPODS_POD_AVAILABLE_ASDepthModal
+#define COCOAPODS_VERSION_MAJOR_ASDepthModal 1
+#define COCOAPODS_VERSION_MINOR_ASDepthModal 0
+#define COCOAPODS_VERSION_PATCH_ASDepthModal 0
+
 // ISO8601DateFormatterValueTransformer
 #define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
 #define COCOAPODS_VERSION_MAJOR_ISO8601DateFormatterValueTransformer 0

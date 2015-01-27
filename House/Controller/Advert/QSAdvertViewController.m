@@ -60,9 +60,6 @@
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
     
-//    [self gotoGuideIndexViewController];
-//    return;
-    
     ///判断是否第一次运行
     BOOL launchStatus = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
     if (launchStatus) {

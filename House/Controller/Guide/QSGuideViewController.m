@@ -13,6 +13,9 @@
 #import "QSGuideSaleHouseView.h"
 #import "QSFilterViewController.h"
 #import "QSLoginViewController.h"
+#import "QSCoreDataManager+User.h"
+#import "QSTabBarViewController.h"
+#import "QSYAppDelegate.h"
 
 @interface QSGuideViewController ()
 
@@ -80,7 +83,11 @@
             ///找房：跳过
         case gGuideButtonActionTypeFindHouseSkip:
             
+            ///给定一个默认的用户类型
+            [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
             
+            ///进入主页面
+            [self gotoAppMainViewController];
             
             break;
             
@@ -101,6 +108,10 @@
         case gGuideButtonActionTypeSaleHouseSkip:
             
             ///给定一个默认的用户类型
+            [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
+            
+            ///进入主页面
+            [self gotoAppMainViewController];
             
             break;
             
@@ -184,6 +195,19 @@
         
     }];
 
+}
+
+#pragma mark - 进入主显示页面
+- (void)gotoAppMainViewController
+{
+    
+    ///加载tabbar控制器
+    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+    
+    ///加载到rootViewController上
+    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.rootViewController = tabbarVC;
+    
 }
 
 @end
