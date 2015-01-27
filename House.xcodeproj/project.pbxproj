@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182C2ABF1A77762D00591F02 /* QSCustomPopRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */; };
+		182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */; };
+		182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */; };
+		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -190,6 +194,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		182C2ABD1A77762D00591F02 /* QSCustomPopRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPopRootView.h; path = Pop/QSCustomPopRootView.h; sourceTree = "<group>"; };
+		182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPopRootView.m; path = Pop/QSCustomPopRootView.m; sourceTree = "<group>"; };
+		182C2AC21A777BD100591F02 /* QSCustomSingleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomSingleSelectedPopView.h; path = Pop/SingleSelected/QSCustomSingleSelectedPopView.h; sourceTree = "<group>"; };
+		182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSingleSelectedPopView.m; path = Pop/SingleSelected/QSCustomSingleSelectedPopView.m; sourceTree = "<group>"; };
+		182C2AC61A7780B500591F02 /* QSCustomSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomSelectedView.h; path = Selected/QSCustomSelectedView.h; sourceTree = "<group>"; };
+		182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSelectedView.m; path = Selected/QSCustomSelectedView.m; sourceTree = "<group>"; };
+		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
+		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -483,6 +495,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		182C2ABC1A77761900591F02 /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				182C2AC11A777B8100591F02 /* MultipleSelected */,
+				182C2AC01A777B7700591F02 /* SingleSelected */,
+				182C2ABD1A77762D00591F02 /* QSCustomPopRootView.h */,
+				182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */,
+			);
+			name = Pop;
+			sourceTree = "<group>";
+		};
+		182C2AC01A777B7700591F02 /* SingleSelected */ = {
+			isa = PBXGroup;
+			children = (
+				182C2AC21A777BD100591F02 /* QSCustomSingleSelectedPopView.h */,
+				182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */,
+			);
+			name = SingleSelected;
+			sourceTree = "<group>";
+		};
+		182C2AC11A777B8100591F02 /* MultipleSelected */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MultipleSelected;
+			sourceTree = "<group>";
+		};
+		182C2AC51A77809300591F02 /* Selected */ = {
+			isa = PBXGroup;
+			children = (
+				182C2AC61A7780B500591F02 /* QSCustomSelectedView.h */,
+				182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */,
+			);
+			name = Selected;
+			sourceTree = "<group>";
+		};
+		182C2AC91A7795C300591F02 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */,
+				182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */,
+			);
+			name = House;
+			sourceTree = "<group>";
+		};
 		183CC6521A68FC8800B8F97D = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +790,7 @@
 		189300811A6902E30081D0AA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				182C2AC91A7795C300591F02 /* House */,
 				18CAFCA11A70DEDB00C90C90 /* User */,
 				18E802231A6FD05800CA21D4 /* App */,
 				18E8021F1A6FD00E00CA21D4 /* Guide */,
@@ -964,6 +1022,8 @@
 		189300991A6902E30081D0AA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				182C2AC51A77809300591F02 /* Selected */,
+				182C2ABC1A77761900591F02 /* Pop */,
 				18F99ADF1A7348A500098FD6 /* Picker */,
 			);
 			path = View;
@@ -1916,6 +1976,7 @@
 				18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
+				182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
@@ -1950,6 +2011,7 @@
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
 				18E9324B1A764E8200927DF2 /* QSCDBaseConfigurationDataModel.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
+				182C2ABF1A77762D00591F02 /* QSCustomPopRootView.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				18F99AE31A73490900098FD6 /* QSCityPickerView.m in Sources */,
 				18C8A21C1A6DFBD900BB9611 /* QSGuideViewController.m in Sources */,
@@ -1957,6 +2019,7 @@
 				18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */,
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
+				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
@@ -1965,6 +2028,7 @@
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
 				18C8A2241A6E01CA00BB9611 /* QSGuideHeaderView.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
+				182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,

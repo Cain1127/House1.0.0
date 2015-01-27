@@ -96,8 +96,6 @@
     [self.houseTypeView addSubview:backgroundImage];
     [self.houseTypeView sendSubviewToBack:backgroundImage];
     
-    [QSCustomHUDView showCustomHUDWithTips:@"努力加载中……" andHeaderTips:@"准备加载"];
-    
 }
 
 #pragma mark - 进入搜索页面
@@ -129,7 +127,6 @@
 }
 
 #pragma mark -按钮点击事件
-
 ///新房按钮点击事件
 - (IBAction)newHouseButton:(id)sender
 {

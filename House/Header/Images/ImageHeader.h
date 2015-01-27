@@ -23,6 +23,14 @@
 ///loading图片
 #define IMAGE_PUBLIC_LOADING @"public_loading"
 
+///单选框相关图片
+#define IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL @"public_single_selected_normal"
+#define IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED @"public_single_selected_highlighted"
+
+///复选框相关图片
+#define IMAGE_PUBLIC_MULTIPLE_SELECTED_NORMAL @"public_multiple_selected_normal"
+#define IMAGE_PUBLIC_MULTIPLE_SELECTED_HIGHLIGHTED @"public_multiple_selected_highlighted"
+
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
  *

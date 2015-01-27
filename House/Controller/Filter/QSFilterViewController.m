@@ -10,6 +10,9 @@
 #import "QSCoreDataManager+App.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
+#import "QSCustomSingleSelectedPopView.h"
+#import "QSCoreDataManager+House.h"
+#import "QSCDBaseConfigurationDataModel.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -244,8 +247,6 @@ typedef enum
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     
-    return YES;
-
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
     
@@ -267,9 +268,30 @@ typedef enum
             
             ///购房目的
         case fFilterSettingFieldActionTypePurposePurchase:
+        {
+         
+            ///获取购房目的数据
+            NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
             
-            NSLog(@"================购房目的选择==================");
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                [tempArray addObject:obj.val];
+                
+            }
             
+            ///显示购房目的选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///出售价格
