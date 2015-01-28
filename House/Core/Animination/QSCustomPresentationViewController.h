@@ -1,8 +1,8 @@
 //
-//  QSPresentationController.h
+//  QSCustomPresentationViewController.h
 //  House
 //
-//  Created by ysmeng on 15/1/27.
+//  Created by ysmeng on 15/1/28.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
@@ -11,23 +11,13 @@
 ///自定义动画类型
 typedef enum
 {
-
+    
     cCustomModalPresentationDefault = 0,//!<默认的动画类型
+    
+}CUSTOM_POPVIEW_ANIMINATION_STYLE;
 
-}CUSTOM_MODALPRESENTATION_STYLE;
-
-/**
- *  @author yangshengmeng, 15-01-27 21:01:59
- *
- *  @brief  自定义动画切换VC容器
- *
- *  @since  1.0.0
- */
-@interface QSPresentationController : UIPresentationController
-
-@end
-
-@interface QSCustomPresentationViewController : UIViewController <UIViewControllerTransitioningDelegate>
+///自定义的view弹出效果父viewController
+@interface QSCustomPresentationViewController : UIViewController
 
 /**
  *  @author     yangshengmeng, 15-01-27 22:01:32
@@ -38,7 +28,7 @@ typedef enum
  *
  *  @since      1.0.0
  */
-+ (void)presentedView:(UIView *)view;
++ (instancetype)presentedView:(UIView *)view;
 
 /**
  *  @author                     yangshengmeng, 15-01-27 22:01:58
@@ -50,6 +40,15 @@ typedef enum
  *
  *  @since                      1.0.0
  */
-+ (void)presentedView:(UIView *)view andCustomModalType:(CUSTOM_MODALPRESENTATION_STYLE)modalPresentation;
++ (instancetype)presentedView:(UIView *)view andCustomModalType:(CUSTOM_POPVIEW_ANIMINATION_STYLE)modalPresentation;
+
+/**
+ *  @author yangshengmeng, 15-01-28 10:01:44
+ *
+ *  @brief  自定义弹出框的消失事件
+ *
+ *  @since  1.0.0
+ */
+- (void)customPopviewDismiss;
 
 @end

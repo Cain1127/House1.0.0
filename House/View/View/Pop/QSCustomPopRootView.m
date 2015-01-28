@@ -7,10 +7,16 @@
 //
 
 #import "QSCustomPopRootView.h"
-#import "ASDepthModalViewController.h"
-#import "QSPresentationController.h"
+#import "QSCustomPresentationViewController.h"
+
+#import <objc/runtime.h>
+
+///关联
+static char CustomPresentationVCKey;//!<弹框使用的对象
 
 @interface QSCustomPopRootView ()
+
+@property (nonatomic,retain) QSCustomPresentationViewController *customPresantationVC;//!<弹框使用的对象
 
 @end
 
@@ -30,7 +36,7 @@
     if (self = [super initWithFrame:frame]) {
         
         ///背景颜色
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = COLOR_CHARACTERS_BLACKH;
         
         ///添加点击事件
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popViewTapAction:)];
@@ -97,61 +103,15 @@
 - (void)hiddenCustomPopview
 {
 
-#if 0
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        self.frame = CGRectMake(0.0f, SIZE_DEVICE_HEIGHT, self.frame.size.width, self.frame.size.height);
-        self.alpha = 0.0f;
-        
-    } completion:^(BOOL finished) {
-        
-        [self removeFromSuperview];
-        
-    }];
-#endif
+    [self.customPresantationVC customPopviewDismiss];
     
-#if 1
-    
-    [ASDepthModalViewController dismiss];
-    
-#endif
-
 }
 
 #pragma mark - 显示事件
 - (void)showCustomPopview
 {
-
-#if 0
-    ///先把frame置为全窗口
-    self.frame = CGRectMake(0.0f, SIZE_DEVICE_HEIGHT, SIZE_DEVICE_HEIGHT, SIZE_DEVICE_WIDTH);
-    self.alpha = 0.0f;
     
-    ///加载到最顶层窗口上
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self];
-    
-    ///动画显示
-    [UIView animateWithDuration:0.3 animations:^{
-        
-        self.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
-        self.alpha = 1.0f;
-        
-    }];
-#endif
-    
-#if 0
-    
-    [ASDepthModalViewController presentView:self backgroundColor:[UIColor clearColor] options:ASDepthModalOptionTapOutsideInactive completionHandler:^{
-        
-    }];
-    
-#endif
-    
-#if 1
-    
-    [QSCustomPresentationViewController presentedView:self];
-    
-#endif
+    self.customPresantationVC = [QSCustomPresentationViewController presentedView:self];
 
 }
 
