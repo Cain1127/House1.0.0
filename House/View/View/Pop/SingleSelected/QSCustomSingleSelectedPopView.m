@@ -47,6 +47,9 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     rootView.backgroundColor = [UIColor whiteColor];
     [self addSubview:rootView];
     
+    ///在底view上添加单击事件
+    [self addSingleTapActionForRootView:rootView];
+    
     ///不限
     QSCustomSelectedView *unlimitedView = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:@"不限" andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
         
@@ -157,6 +160,25 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     }
     
 #pragma clang diagnostic pop
+
+}
+
+#pragma mark - 在显示的底view上添加单击事件
+- (void)addSingleTapActionForRootView:(UIView *)view
+{
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleSelectedViewRootViewTapAction:)];
+    tap.numberOfTapsRequired = 1;
+    tap.numberOfTouchesRequired = 1;
+    [view addGestureRecognizer:tap];
+
+}
+
+///底view的单击手势：为了屏蔽单击事件往上往递
+- (void)singleSelectedViewRootViewTapAction:(UITapGestureRecognizer *)tap
+{
+
+    
 
 }
 

@@ -12,7 +12,7 @@
 #import "QSAutoScrollView.h"
 #import "QSTabBarViewController.h"
 #import "QSYAppDelegate.h"
-#import "QSGuideViewController.h"
+#import "QSGuideSummaryViewController.h"
 #import "QSAdvertReturnData.h"
 #import "NSDate+Formatter.h"
 #import "QSCoreDataManager+App.h"
@@ -195,7 +195,7 @@
 - (void)gotoGuideIndexViewController
 {
 
-    QSGuideViewController *guideView = [[QSGuideViewController alloc] init];
+    QSGuideSummaryViewController *guideView = [[QSGuideSummaryViewController alloc] init];
     
     ///套navigation
     UINavigationController *guideNavigationVC = [[UINavigationController alloc] initWithRootViewController:guideView];

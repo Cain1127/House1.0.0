@@ -108,12 +108,7 @@
     newVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     
-    ///先添加
-    [appDelegate.window.rootViewController presentViewController:newVC animated:YES completion:^{
-        
-        appDelegate.window.rootViewController = newVC;
-        
-    }];
+    appDelegate.window.rootViewController = newVC;
     
 }
 

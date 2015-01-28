@@ -7,6 +7,8 @@
 //
 
 #import "QSCustomPopRootView.h"
+#import "ASDepthModalViewController.h"
+#import "QSPresentationController.h"
 
 @interface QSCustomPopRootView ()
 
@@ -28,7 +30,7 @@
     if (self = [super initWithFrame:frame]) {
         
         ///背景颜色
-        self.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        self.backgroundColor = [UIColor clearColor];
         
         ///添加点击事件
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popViewTapAction:)];
@@ -95,6 +97,7 @@
 - (void)hiddenCustomPopview
 {
 
+#if 0
     [UIView animateWithDuration:0.3 animations:^{
         
         self.frame = CGRectMake(0.0f, SIZE_DEVICE_HEIGHT, self.frame.size.width, self.frame.size.height);
@@ -105,6 +108,13 @@
         [self removeFromSuperview];
         
     }];
+#endif
+    
+#if 1
+    
+    [ASDepthModalViewController dismiss];
+    
+#endif
 
 }
 
@@ -112,13 +122,13 @@
 - (void)showCustomPopview
 {
 
+#if 0
     ///先把frame置为全窗口
     self.frame = CGRectMake(0.0f, SIZE_DEVICE_HEIGHT, SIZE_DEVICE_HEIGHT, SIZE_DEVICE_WIDTH);
     self.alpha = 0.0f;
     
     ///加载到最顶层窗口上
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self];
-    [[UIApplication sharedApplication].keyWindow.rootViewController.view bringSubviewToFront:self];
     
     ///动画显示
     [UIView animateWithDuration:0.3 animations:^{
@@ -127,6 +137,21 @@
         self.alpha = 1.0f;
         
     }];
+#endif
+    
+#if 0
+    
+    [ASDepthModalViewController presentView:self backgroundColor:[UIColor clearColor] options:ASDepthModalOptionTapOutsideInactive completionHandler:^{
+        
+    }];
+    
+#endif
+    
+#if 1
+    
+    [QSCustomPresentationViewController presentedView:self];
+    
+#endif
 
 }
 

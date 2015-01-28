@@ -1,15 +1,16 @@
 //
-//  QSGuideLookingforRoomView.m
+//  QSGuideLookingforRoomViewController.m
 //  House
 //
-//  Created by ysmeng on 15/1/20.
+//  Created by ysmeng on 15/1/28.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSGuideLookingforRoomView.h"
+#import "QSGuideLookingforRoomViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCoreDataManager+User.h"
 #import "QSFilterViewController.h"
+#import "QSTabBarViewController.h"
 
 #import <objc/runtime.h>
 
@@ -20,7 +21,11 @@ static char HousesTypeTwoCountKey;      //!<二房房型的统计数量
 static char HousesTypeThreeCountKey;    //!<三房房型的统计数量
 static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 
-@implementation QSGuideLookingforRoomView
+@interface QSGuideLookingforRoomViewController ()
+
+@end
+
+@implementation QSGuideLookingforRoomViewController
 
 #pragma mark - UI搭建
 - (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
@@ -91,7 +96,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 ///创建不同户型的统计信息UI
 - (void)createHouseTypeInfoUI:(UIView *)view andTitle:(NSString *)title andAssociatinKey:(char)key
 {
-
+    
     ///标题
     QSLabel *titleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f - 20.0f, view.frame.size.width - 20.0f, 20.0f)];
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -110,13 +115,13 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     [view addSubview:dataLabel];
     
     objc_setAssociatedObject(self, &key, dataLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
 }
 
 ///找房指引页中间提示信息UI
 - (void)createFindHouseGuideMiddleTipsUI:(UIView *)view
 {
-
+    
     ///划线图片
     QSImageView *tipImageView = [[QSImageView alloc] initWithFrame:CGRectMake((view.frame.size.width - 115.0f) / 2.0f, (view.frame.size.height - 5.0f) / 2.0f, 115.0f, 5.0f)];
     tipImageView.image = [UIImage imageNamed:IMAGE_GUIDE_INNER_TIP];
@@ -147,7 +152,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     [view addSubview:dataLabel];
     
     objc_setAssociatedObject(self, &HousesSumCountKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
 }
 
 /**
@@ -167,12 +172,8 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseSecondHouse);
-            
-        }
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeSecondHandHouse];
+        [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
     secondHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -183,12 +184,8 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseRentalHouse);
-            
-        }
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeRenantHouse];
+        [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
     rentalHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -199,12 +196,11 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouseSkip);
-            
-        }
+        ///更新用户类型
+        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
+        
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
+        [self changeWindowRootViewController:homePageVC];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -238,14 +234,14 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 ///更新房源总数统计
 - (void)updateHousesSumCount:(NSString *)count
 {
-
+    
     UILabel *sumCountLabel = objc_getAssociatedObject(self, &HousesSumCountKey);
     if (sumCountLabel && count) {
         
         sumCountLabel.text = count;
         
     }
-
+    
 }
 
 ///更新一房房源总数统计

@@ -1,13 +1,16 @@
 //
-//  QSGuideSaleHouseView.m
+//  QSGuideSaleHouseViewController.m
 //  House
 //
-//  Created by ysmeng on 15/1/20.
+//  Created by ysmeng on 15/1/28.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSGuideSaleHouseView.h"
+#import "QSGuideSaleHouseViewController.h"
+#import "QSLoginViewController.h"
+#import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSCoreDataManager+User.h"
 
 #import <objc/runtime.h>
 
@@ -16,7 +19,11 @@ static char TenantSumCountDataKey;  //!<当前房客总数
 static char TenantCountDataKey;     //!<当前房客总数
 static char BuyerCountDataKey;      //!<当前房客总数
 
-@implementation QSGuideSaleHouseView
+@interface QSGuideSaleHouseViewController ()
+
+@end
+
+@implementation QSGuideSaleHouseViewController
 
 #pragma mark - UI搭建
 - (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
@@ -68,7 +75,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
 ///租客信息
 - (void)createTenantInfoUI:(UIView *)view
 {
-
+    
     ///标题
     QSLabel *titleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(10.0f, view.frame.size.height / 2.0f - 20.0f, view.frame.size.width - 20.0f, 20.0f)];
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
@@ -87,7 +94,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
     [view addSubview:dataLabel];
     
     objc_setAssociatedObject(self, &TenantCountDataKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
 }
 
 ///购房客信息
@@ -156,12 +163,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseSaleHouse);
-            
-        }
+        [self gotoLoginViewController];
         
     }];
     saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -172,12 +174,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseRentalHouse);
-            
-        }
+        [self gotoLoginViewController];
         
     }];
     rentalHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -188,12 +185,11 @@ static char BuyerCountDataKey;      //!<当前房客总数
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///回调
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouseSkip);
-            
-        }
+        ///更新用户类型
+        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
+        
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
+        [self changeWindowRootViewController:homePageVC];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -222,31 +218,40 @@ static char BuyerCountDataKey;      //!<当前房客总数
     
 }
 
+#pragma mark - 进入登录页面
+- (void)gotoLoginViewController
+{
+
+    QSLoginViewController *loginVC = [[QSLoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVC animated:YES];
+
+}
+
 #pragma mark - 更新统计数据
 ///更新中间当前总的租客信息
 - (void)updateTenantSumCount:(NSString *)sumCount
 {
-
+    
     UILabel *sumCountLabel = objc_getAssociatedObject(self, &TenantSumCountDataKey);
     if (sumCountLabel && sumCount) {
         
         sumCountLabel.text = sumCount;
         
     }
-
+    
 }
 
 ///更新租客统计数量
 - (void)updateTenantCount:(NSString *)tenantCount
 {
-
+    
     UILabel *tenantLabel = objc_getAssociatedObject(self, &TenantCountDataKey);
     if (tenantLabel && tenantCount) {
         
         tenantLabel.text = tenantCount;
         
     }
-
+    
 }
 
 ///更新购房客统计数量

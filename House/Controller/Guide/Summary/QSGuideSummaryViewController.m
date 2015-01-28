@@ -1,20 +1,26 @@
 //
-//  QSGuideSummaryView.m
+//  QSGuideSummaryViewController.m
 //  House
 //
-//  Created by ysmeng on 15/1/20.
+//  Created by ysmeng on 15/1/28.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSGuideSummaryView.h"
+#import "QSGuideSummaryViewController.h"
+#import "QSGuideLookingforRoomViewController.h"
+#import "QSGuideSaleHouseViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
-@implementation QSGuideSummaryView
+@interface QSGuideSummaryViewController ()
+
+@end
+
+@implementation QSGuideSummaryViewController
 
 #pragma mark - UI搭建
 - (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
 {
-
+    
     ///头信息按上下两半切分：上面是房源，下面是房客
     UIView *housesView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, view.frame.size.height/2.0f)];
     housesView.backgroundColor = [UIColor clearColor];
@@ -25,13 +31,13 @@
     tenantView.backgroundColor = [UIColor clearColor];
     [self createTenantSubviews:tenantView];
     [view addSubview:tenantView];
-
+    
 }
 
 ///添加房源信息展示view
 - (void)createHousesSubviews:(UIView *)view
 {
-
+    
     ///房源:173 x 200
     UIImageView *houseHavedTipsImageView = [[UIImageView alloc] init];
     houseHavedTipsImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -66,7 +72,7 @@
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_havedTip options:NSLayoutFormatAlignAllCenterY metrics:nil views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_havedImageAndCountLabel options:NSLayoutFormatAlignAllLeft metrics:nil views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_countLabel options:0 metrics:nil views:___VFLViewsDict]];
-
+    
 }
 
 ///添加房客信息展示view
@@ -127,26 +133,20 @@
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON;
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeFindHouse);
-            
-        }
+        QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
+        [self.navigationController pushViewController:findHouseVC animated:YES];
         
     }];
     findHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:findHouseButton];
     
-    ///我要找房
+    ///我要放盘
     QSBlockButtonStyleModel *whiteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        if (self.guideButtonCallBack) {
-            
-            self.guideButtonCallBack(gGuideButtonActionTypeSaleHouse);
-            
-        }
+        QSGuideSaleHouseViewController *saleHouseVC = [QSGuideSaleHouseViewController alloc];
+        [self.navigationController pushViewController:saleHouseVC animated:YES];
         
     }];
     saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
