@@ -12,8 +12,11 @@
 typedef enum
 {
 
-    cCustomPopviewActionTypeDefault = 0,//!<默认事件：点击灰色地区时
-    cCustomPopviewActionTypeUnLimited,  //!<不限
+    cCustomPopviewActionTypeDefault = 0,        //!<默认事件：点击灰色地区时
+    cCustomPopviewActionTypeUnLimited,          //!<不限
+    cCustomPopviewActionTypeSingleSelected,     //!<单选
+    cCustomPopviewActionTypeSelectedAll,        //!<全选
+    cCustomPopviewActionTypeMultipleSelected    //!<多选
 
 }CUSTOM_POPVIEW_ACTION_TYPE;
 

@@ -130,7 +130,7 @@
     [request setEntity:enty];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == %@",keyword,searchKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
     [request setPredicate:predicate];
     
     ///设置排序

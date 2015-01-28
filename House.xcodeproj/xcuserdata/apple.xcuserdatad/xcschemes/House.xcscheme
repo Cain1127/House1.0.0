@@ -67,6 +67,7 @@
             ReferencedContainer = "container:House.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+         <CommandLineArgument
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

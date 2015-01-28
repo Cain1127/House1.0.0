@@ -52,7 +52,7 @@ static char SelectedBoxKey; //!<选择框的关联
         ///保存参数
         self.choiceInfo = info;
         
-        self.selectedBoxType = NO;
+        self.selectedBoxType = selectedType;
         
         ///保存回调
         if (selectedBoxCallBack) {
@@ -162,18 +162,31 @@ static char SelectedBoxKey; //!<选择框的关联
         
     } else {
     
-        self.selectedStatus = !self.selectedStatus;
-        if (self.selectedBoxCallBack) {
+        if (self.selectedStatus) {
             
-            self.selectedBoxCallBack(self.selectedStatus);
+            self.selectedStatus = NO;
+            if (self.selectedBoxCallBack) {
+                
+                self.selectedBoxCallBack(NO);
+                
+            }
             
+        } else {
+        
+            self.selectedStatus = YES;
+            if (self.selectedBoxCallBack) {
+                
+                self.selectedBoxCallBack(YES);
+                
+            }
+        
         }
     
     }
 
 }
 
-#pragma mark - 更换选择view的状态状态
+#pragma mark - 更换选择view的状态
 - (void)setSelectedStatus:(BOOL)selectedStatus
 {
 
@@ -187,6 +200,7 @@ static char SelectedBoxKey; //!<选择框的关联
         selectedBoxView.image = [UIImage imageNamed:[self getSelectedBoxNormalImage]];
     
     }
+    _selectedStatus = selectedStatus;
 
 }
 

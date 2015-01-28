@@ -11,6 +11,7 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 #import "QSCustomSingleSelectedPopView.h"
+#import "QSMultipleSelectedPopView.h"
 #import "QSCoreDataManager+House.h"
 #import "QSCDBaseConfigurationDataModel.h"
 
@@ -277,12 +278,16 @@ typedef enum
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
             for (QSCDBaseConfigurationDataModel *obj in intentArray) {
                 
-                [tempArray addObject:obj.val];
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
                 
             }
             
             ///显示购房目的选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:@[@"hello",@"world",@"selected",@"item"] andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 ///回调选择项
                 NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
@@ -310,9 +315,32 @@ typedef enum
             
             ///出租方式：整租...
         case fFilterSettingFieldActionTypeRenantType:
+        {
             
-            NSLog(@"================出租方式选择==================");
+            ///获取购房目的数据
+            NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (int i = 0;i < [intentArray count];i++) {
+                
+                QSCDBaseConfigurationDataModel *obj = intentArray[i];
+                if (obj.val) {
+                    
+                    NSDictionary *tempDict = @{@"info" : obj.val,@"selected" : @"0"};
+                    [tempArray addObject:tempDict];
+                    
+                }
+                
+            }
+            
+            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:tempArray andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                
+                
+            }];
+            
+        }
             break;
             
             ///租金
