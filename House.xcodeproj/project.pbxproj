@@ -11,6 +11,7 @@
 		182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */; };
 		182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
+		182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -172,7 +173,6 @@
 		18FBA69C1A79BDF2001372B3 /* navigationbar_maplist_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6351A79BDF2001372B3 /* navigationbar_maplist_normal.png */; };
 		18FBA69D1A79BDF2001372B3 /* navigationbar_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6361A79BDF2001372B3 /* navigationbar_message_highlighted.png */; };
 		18FBA69E1A79BDF2001372B3 /* navigationbar_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6371A79BDF2001372B3 /* navigationbar_message_normal.png */; };
-		18FBA69F1A79BDF2001372B3 /* navigationbar_middle_local.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6381A79BDF2001372B3 /* navigationbar_middle_local.png */; };
 		18FBA6A01A79BDF2001372B3 /* navigationbar_search_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6391A79BDF2001372B3 /* navigationbar_search_highlighted.png */; };
 		18FBA6A11A79BDF2001372B3 /* navigationbar_search_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA63A1A79BDF2001372B3 /* navigationbar_search_normal.png */; };
 		18FBA6A21A79BDF2001372B3 /* navigationbar_setting_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA63B1A79BDF2001372B3 /* navigationbar_setting_highlighted.png */; };
@@ -181,8 +181,6 @@
 		18FBA6A51A79BDF2001372B3 /* navigationbar_tool_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA63E1A79BDF2001372B3 /* navigationbar_tool_normal.png */; };
 		18FBA6A61A79BDF2001372B3 /* navigationbar_turnback_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA63F1A79BDF2001372B3 /* navigationbar_turnback_highlighted.png */; };
 		18FBA6A71A79BDF2001372B3 /* navigationbar_turnback_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6401A79BDF2001372B3 /* navigationbar_turnback_normal.png */; };
-		18FBA6A81A79BDF2001372B3 /* public_bodylocal_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6421A79BDF2001372B3 /* public_bodylocal_highlighted.png */; };
-		18FBA6A91A79BDF2001372B3 /* public_bodylocal_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6431A79BDF2001372B3 /* public_bodylocal_normal.png */; };
 		18FBA6AA1A79BDF2001372B3 /* public_choice_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6441A79BDF2001372B3 /* public_choice_arrow.png */; };
 		18FBA6AB1A79BDF2001372B3 /* public_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6451A79BDF2001372B3 /* public_loading.png */; };
 		18FBA6AC1A79BDF2001372B3 /* public_multiple_selected_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6461A79BDF2001372B3 /* public_multiple_selected_highlighted.png */; };
@@ -208,13 +206,15 @@
 		18FBA6C01A79BDF2001372B3 /* tabbar_myzone_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA65D1A79BDF2001372B3 /* tabbar_myzone_selected.png */; };
 		18FBA6C31A79BF04001372B3 /* channelbar_deploy_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6C11A79BF04001372B3 /* channelbar_deploy_arrow_highlighted.png */; };
 		18FBA6C41A79BF04001372B3 /* channelbar_deploy_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6C21A79BF04001372B3 /* channelbar_deploy_arrow_normal.png */; };
+		18FBA6CE1A79DE8C001372B3 /* public_local_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6CB1A79DE8C001372B3 /* public_local_gray.png */; };
+		18FBA6CF1A79DE8C001372B3 /* public_local_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6CC1A79DE8C001372B3 /* public_local_highlighted.png */; };
+		18FBA6D01A79DE8C001372B3 /* public_local_lightyellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6CD1A79DE8C001372B3 /* public_local_lightyellow.png */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
-		CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */; };
 		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +237,8 @@
 		182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSelectedView.m; path = Selected/QSCustomSelectedView.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
+		182C88101A7A0EF500DA64E9 /* QSNavigationBarPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNavigationBarPickerView.h; path = NavigationBar/Picker/QSNavigationBarPickerView.h; sourceTree = "<group>"; };
+		182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNavigationBarPickerView.m; path = NavigationBar/Picker/QSNavigationBarPickerView.m; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -484,7 +486,6 @@
 		18FBA6351A79BDF2001372B3 /* navigationbar_maplist_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_maplist_normal.png; sourceTree = "<group>"; };
 		18FBA6361A79BDF2001372B3 /* navigationbar_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_message_highlighted.png; sourceTree = "<group>"; };
 		18FBA6371A79BDF2001372B3 /* navigationbar_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_message_normal.png; sourceTree = "<group>"; };
-		18FBA6381A79BDF2001372B3 /* navigationbar_middle_local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_middle_local.png; sourceTree = "<group>"; };
 		18FBA6391A79BDF2001372B3 /* navigationbar_search_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_search_highlighted.png; sourceTree = "<group>"; };
 		18FBA63A1A79BDF2001372B3 /* navigationbar_search_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_search_normal.png; sourceTree = "<group>"; };
 		18FBA63B1A79BDF2001372B3 /* navigationbar_setting_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_setting_highlighted.png; sourceTree = "<group>"; };
@@ -493,8 +494,6 @@
 		18FBA63E1A79BDF2001372B3 /* navigationbar_tool_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_tool_normal.png; sourceTree = "<group>"; };
 		18FBA63F1A79BDF2001372B3 /* navigationbar_turnback_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_turnback_highlighted.png; sourceTree = "<group>"; };
 		18FBA6401A79BDF2001372B3 /* navigationbar_turnback_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_turnback_normal.png; sourceTree = "<group>"; };
-		18FBA6421A79BDF2001372B3 /* public_bodylocal_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_bodylocal_highlighted.png; sourceTree = "<group>"; };
-		18FBA6431A79BDF2001372B3 /* public_bodylocal_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_bodylocal_normal.png; sourceTree = "<group>"; };
 		18FBA6441A79BDF2001372B3 /* public_choice_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_choice_arrow.png; sourceTree = "<group>"; };
 		18FBA6451A79BDF2001372B3 /* public_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_loading.png; sourceTree = "<group>"; };
 		18FBA6461A79BDF2001372B3 /* public_multiple_selected_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_multiple_selected_highlighted.png; sourceTree = "<group>"; };
@@ -520,6 +519,9 @@
 		18FBA65D1A79BDF2001372B3 /* tabbar_myzone_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_myzone_selected.png; sourceTree = "<group>"; };
 		18FBA6C11A79BF04001372B3 /* channelbar_deploy_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_deploy_arrow_highlighted.png; sourceTree = "<group>"; };
 		18FBA6C21A79BF04001372B3 /* channelbar_deploy_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_deploy_arrow_normal.png; sourceTree = "<group>"; };
+		18FBA6CB1A79DE8C001372B3 /* public_local_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_local_gray.png; sourceTree = "<group>"; };
+		18FBA6CC1A79DE8C001372B3 /* public_local_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_local_highlighted.png; sourceTree = "<group>"; };
+		18FBA6CD1A79DE8C001372B3 /* public_local_lightyellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_local_lightyellow.png; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
@@ -530,7 +532,6 @@
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
 		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
-		CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSHomeViewController.xib; sourceTree = "<group>"; };
 		CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -615,6 +616,15 @@
 				182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */,
 			);
 			name = House;
+			sourceTree = "<group>";
+		};
+		182C880F1A7A0EB800DA64E9 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				182C88101A7A0EF500DA64E9 /* QSNavigationBarPickerView.h */,
+				182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */,
+			);
+			name = Picker;
 			sourceTree = "<group>";
 		};
 		183CC6521A68FC8800B8F97D = {
@@ -990,6 +1000,7 @@
 		189300971A6902E30081D0AA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18FBA6C61A79C53A001372B3 /* NavigationBar */,
 				18FBA5C31A78B838001372B3 /* Picker */,
 				18F99AFA1A76000F00098FD6 /* HUD */,
 				18F99AF51A75FF9800098FD6 /* Alert */,
@@ -1034,7 +1045,6 @@
 			children = (
 				18C8A0E01A6A825C00BB9611 /* QSHomeViewController.h */,
 				18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */,
-				CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1807,7 +1817,6 @@
 				18FBA6351A79BDF2001372B3 /* navigationbar_maplist_normal.png */,
 				18FBA6361A79BDF2001372B3 /* navigationbar_message_highlighted.png */,
 				18FBA6371A79BDF2001372B3 /* navigationbar_message_normal.png */,
-				18FBA6381A79BDF2001372B3 /* navigationbar_middle_local.png */,
 				18FBA6391A79BDF2001372B3 /* navigationbar_search_highlighted.png */,
 				18FBA63A1A79BDF2001372B3 /* navigationbar_search_normal.png */,
 				18FBA63B1A79BDF2001372B3 /* navigationbar_setting_highlighted.png */,
@@ -1823,8 +1832,9 @@
 		18FBA6411A79BDF2001372B3 /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				18FBA6421A79BDF2001372B3 /* public_bodylocal_highlighted.png */,
-				18FBA6431A79BDF2001372B3 /* public_bodylocal_normal.png */,
+				18FBA6CB1A79DE8C001372B3 /* public_local_gray.png */,
+				18FBA6CC1A79DE8C001372B3 /* public_local_highlighted.png */,
+				18FBA6CD1A79DE8C001372B3 /* public_local_lightyellow.png */,
 				18FBA6441A79BDF2001372B3 /* public_choice_arrow.png */,
 				18FBA6451A79BDF2001372B3 /* public_loading.png */,
 				18FBA6461A79BDF2001372B3 /* public_multiple_selected_highlighted.png */,
@@ -1871,6 +1881,14 @@
 				18FBA65D1A79BDF2001372B3 /* tabbar_myzone_selected.png */,
 			);
 			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		18FBA6C61A79C53A001372B3 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				182C880F1A7A0EB800DA64E9 /* Picker */,
+			);
+			name = NavigationBar;
 			sourceTree = "<group>";
 		};
 		CE000DC71A6E60D6008FD309 /* SaleHouse */ = {
@@ -2029,17 +2047,15 @@
 				18FBA6921A79BDF2001372B3 /* 320X480.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18FBA6BF1A79BDF2001372B3 /* tabbar_myzone_normal.png in Resources */,
+				18FBA6D01A79DE8C001372B3 /* public_local_lightyellow.png in Resources */,
 				18FBA66F1A79BDF2001372B3 /* guide_tenant_haved_circle_tip.png in Resources */,
-				18FBA69F1A79BDF2001372B3 /* navigationbar_middle_local.png in Resources */,
 				18FBA6641A79BDF2001372B3 /* developer_saling_house.png in Resources */,
 				18FBA67A1A79BDF2001372B3 /* home_tenement_highlighted.png in Resources */,
-				CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */,
 				18FBA6651A79BDF2001372B3 /* developer_setting.png in Resources */,
 				18FBA6A51A79BDF2001372B3 /* navigationbar_tool_normal.png in Resources */,
 				18FBA66A1A79BDF2001372B3 /* guide_houses_haved.png in Resources */,
 				18FBA6AC1A79BDF2001372B3 /* public_multiple_selected_highlighted.png in Resources */,
 				18FBA6891A79BDF2001372B3 /* icon180.png in Resources */,
-				18FBA6A91A79BDF2001372B3 /* public_bodylocal_normal.png in Resources */,
 				18FBA6AA1A79BDF2001372B3 /* public_choice_arrow.png in Resources */,
 				18FBA6771A79BDF2001372B3 /* home_salehouse_normal.png in Resources */,
 				18FBA69A1A79BDF2001372B3 /* navigationbar_deploy_arrow_normal.png in Resources */,
@@ -2071,6 +2087,7 @@
 				18FBA66B1A79BDF2001372B3 /* guide_houses_haved_circle_tip.png in Resources */,
 				18FBA6701A79BDF2001372B3 /* guide_tenant_haved_tip.png in Resources */,
 				18FBA6B71A79BDF2001372B3 /* share_weibo_highlighted.png in Resources */,
+				18FBA6CE1A79DE8C001372B3 /* public_local_gray.png in Resources */,
 				18FBA6761A79BDF2001372B3 /* home_salehouse_highlighted.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
 				18FBA6731A79BDF2001372B3 /* home_bambooplate_normal.png in Resources */,
@@ -2091,6 +2108,7 @@
 				18FBA6681A79BDF2001372B3 /* guide_filter_header.png in Resources */,
 				18FBA6811A79BDF2001372B3 /* houses_sixform.png in Resources */,
 				18FBA6B11A79BDF2001372B3 /* public_single_selected_normal.png in Resources */,
+				18FBA6CF1A79DE8C001372B3 /* public_local_highlighted.png in Resources */,
 				18FBA66E1A79BDF2001372B3 /* guide_tenant_haved.png in Resources */,
 				18FBA6B91A79BDF2001372B3 /* tabbar_chat_normal.png in Resources */,
 				18FBA67D1A79BDF2001372B3 /* houses_detail_activity_right.png in Resources */,
@@ -2104,7 +2122,6 @@
 				18FBA6941A79BDF2001372B3 /* 640X960.png in Resources */,
 				18FBA6751A79BDF2001372B3 /* home_bridalchamber_normal.png in Resources */,
 				18FBA6741A79BDF2001372B3 /* home_bridalchamber_highlighted.png in Resources */,
-				18FBA6A81A79BDF2001372B3 /* public_bodylocal_highlighted.png in Resources */,
 				18FBA6791A79BDF2001372B3 /* home_secondhandhouse_normal.png in Resources */,
 				18FBA6BC1A79BDF2001372B3 /* tabbar_home_selected.png in Resources */,
 				18FBA67F1A79BDF2001372B3 /* home_features_mianshui.png in Resources */,
@@ -2172,6 +2189,7 @@
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
+				182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
 				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,

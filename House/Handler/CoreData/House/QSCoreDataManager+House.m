@@ -30,6 +30,22 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-01-29 15:01:06
+ *
+ *  @brief  返回房子列表中主要过滤类型
+ *
+ *  @return 返回类型数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseListMainType
+{
+
+    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"type"];
+
+}
+
+/**
  *  @author yangshengmeng, 15-01-27 17:01:23
  *
  *  @brief  返回购房目的数组

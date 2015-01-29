@@ -156,9 +156,17 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     UIView *middleRootView = objc_getAssociatedObject(self, &NavigationBarMiddleKey);
     [self removeSubviewsWithView:middleRootView];
     
+    NSLog(@"===================中间控件原frame=========================");
+    NSLog(@"frame = %@",NSStringFromCGRect(view.frame));
+    NSLog(@"===================中间控件原frame=========================");
+    
     ///重置frame
     CGRect newFrame = [self resetSubviewFrameWithView:middleRootView andSubview:view];
     view.frame = newFrame;
+    
+    NSLog(@"===================中间控件新frame=========================");
+    NSLog(@"frame = %@",NSStringFromCGRect(view.frame));
+    NSLog(@"===================中间控件新frame=========================");
     
     ///加载
     [middleRootView addSubview:view];

@@ -31,6 +31,11 @@
 #define IMAGE_PUBLIC_MULTIPLE_SELECTED_NORMAL @"public_multiple_selected_normal"
 #define IMAGE_PUBLIC_MULTIPLE_SELECTED_HIGHLIGHTED @"public_multiple_selected_highlighted"
 
+///定位按钮
+#define IMAGE_PUBLIC_LOCAL_GRAY @"public_local_gray"
+#define IMAGE_PUBLIC_LOCAL_LIGHYELLOW @"public_local_lightyellow"
+#define IMAGE_PUBLIC_LOCAL_HIGHLIGHTED @"public_local_highlighted"
+
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
  *
@@ -62,6 +67,9 @@
 ///<找房>地图列表按钮
 #define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
 #define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
+
+#define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
+#define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03

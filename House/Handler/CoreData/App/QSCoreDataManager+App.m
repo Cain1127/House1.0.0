@@ -230,8 +230,8 @@
 {
     
     NSMutableArray *cityList = [[NSMutableArray alloc] init];
-    NSArray *cityTempArray = @[@"广州",@"深圳",@"北京",@"上海"];
-    for (int i = 0; i < 4; i++) {
+    NSArray *cityTempArray = @[@"广州",@"深圳",@"北京",@"上海",@"乌鲁木齐"];
+    for (int i = 0; i < [cityTempArray count]; i++) {
         
         QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
         tempModel.key = [NSNumber numberWithInt:1001 + i];
