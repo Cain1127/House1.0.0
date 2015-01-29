@@ -38,6 +38,31 @@
  *  @since  1.0.0
  */
 + (NSString *)getCurrentUserCity;
++ (BOOL)updateCurrentUserCity:(NSString *)city;
+
+/**
+ *  @author yangshengmeng, 15-01-23 10:01:47
+ *
+ *  @brief  返回当前用户当前所在的区
+ *
+ *  @return 返回区
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserDistrict;
++ (BOOL)updateCurrentUserDistrict:(NSString *)district;
+
+/**
+ *  @author yangshengmeng, 15-01-28 17:01:56
+ *
+ *  @brief  获取当前用户当前所在的街道
+ *
+ *  @return 返回街道
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserStreet;
++ (BOOL)updateCurrentUserStreet:(NSString *)street;
 
 /**
  *  @author yangshengmeng, 15-01-27 12:01:42

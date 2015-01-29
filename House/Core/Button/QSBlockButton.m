@@ -71,6 +71,14 @@
 
 @end
 
+@interface QSBlockButton ()
+
+@property (nonatomic,retain) UIColor *defaultBGColor;       //!<默认的背景颜色
+@property (nonatomic,retain) UIColor *highlightedBGColor;   //!<高亮时的背景颜色
+@property (nonatomic,retain) UIColor *selectedBGColor;      //!选择状态时的背景颜色
+
+@end
+
 @implementation QSBlockButton
 
 #pragma mark - 初始化
@@ -162,6 +170,13 @@
         
     }
     
+    if (buttonStyle.bgColorSelected) {
+        
+        self.defaultBGColor = self.backgroundColor;
+        self.selectedBGColor = buttonStyle.bgColorSelected;
+        
+    }
+    
     if (buttonStyle.titleNormalColor) {
         
         [self setTitleColor:buttonStyle.titleNormalColor
@@ -226,6 +241,24 @@
         
         self.titleLabel.font = buttonStyle.titleFont;
         
+    }
+
+}
+
+///重写选择状态的事件，修改背景颜色
+- (void)setSelected:(BOOL)selected
+{
+
+    [super setSelected:selected];
+    
+    if (selected) {
+        
+        self.backgroundColor = self.selectedBGColor;
+        
+    } else {
+    
+        self.backgroundColor = self.defaultBGColor;
+    
     }
 
 }

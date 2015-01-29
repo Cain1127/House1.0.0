@@ -260,7 +260,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
     [fetchRequest setEntity:entity];
     
-    //查询条件
+    ///查询条件
     NSPredicate* predicate = [NSPredicate predicateWithValue:YES];
     [fetchRequest setPredicate:predicate];
     
@@ -388,7 +388,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询条件
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == %@",fieldKey,deleteKey];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",fieldKey] stringByAppendingString:@"%@"],deleteKey];
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;

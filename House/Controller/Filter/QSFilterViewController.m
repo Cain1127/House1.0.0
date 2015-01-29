@@ -14,6 +14,7 @@
 #import "QSMultipleSelectedPopView.h"
 #import "QSCoreDataManager+House.h"
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSCustomDistrictSelectedPopView.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -255,9 +256,17 @@ typedef enum
             
             ///选择区域
         case fFilterSettingFieldActionTypeDistrict:
+        {
             
-            NSLog(@"================区域选择==================");
+            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithDistrictPickerLevelType:cCustomDistrictPickerLevelTypeStreet andSelectedCityKey:nil andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_LEVEL_TYPE pickerLevelType, CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, id pikeredInfo) {
+                
+                NSLog(@"==================当前选择地区=====================");
+                NSLog(@"地区：%@",pikeredInfo);
+                NSLog(@"==================当前选择地区=====================");
+                
+            }];
             
+        }
             break;
             
             ///选择户型

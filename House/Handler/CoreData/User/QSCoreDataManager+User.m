@@ -33,7 +33,81 @@
 + (NSString *)getCurrentUserCity
 {
 
-    return @"广州";
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_city"];
+
+}
+
+///更新当前用户的所在城市
++ (BOOL)updateCurrentUserCity:(NSString *)city
+{
+
+    if (nil == city) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:city];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-23 10:01:47
+ *
+ *  @brief  返回当前用户当前所在的区
+ *
+ *  @return 返回区
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserDistrict
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_district"];
+
+}
+
+///更新当前用户所在区
++ (BOOL)updateCurrentUserDistrict:(NSString *)district
+{
+
+    if (nil == district) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_district" andFieldNewValue:district];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-28 17:01:56
+ *
+ *  @brief  获取当前用户当前所在的街道
+ *
+ *  @return 返回街道
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserStreet
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_street"];
+
+}
+
+///更新当前用户所在的街道
++ (BOOL)updateCurrentUserStreet:(NSString *)street
+{
+
+    if (nil == street) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_street" andFieldNewValue:street];
 
 }
 

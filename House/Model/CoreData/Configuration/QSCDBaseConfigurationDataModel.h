@@ -18,8 +18,8 @@
  */
 @interface QSCDBaseConfigurationDataModel : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * key;   //!<回传服务端的key
-@property (nonatomic, retain) NSString * val;   //!<页面端显示的类型名字
-@property (nonatomic, retain) NSString * conf;  //!<配置项对应的配置关键字
+@property (nonatomic, retain) NSNumber *key;   //!<回传服务端的key
+@property (nonatomic, retain) NSString *val;   //!<页面端显示的类型名字
+@property (nonatomic, retain) NSString *conf;  //!<配置项对应的配置关键字
 
 @end

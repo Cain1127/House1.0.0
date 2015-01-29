@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDAdvertHeaderDataModel" syncable="YES">
         <attribute name="advert_id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -85,7 +85,11 @@
         <attribute name="user_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_current_city_key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_current_district_key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_current_street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_current_street_key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="user_longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -105,6 +109,6 @@
         <element name="QSCDFilterOrientationsDataModel" positionX="-387" positionY="533" width="128" height="88"/>
         <element name="QSCDFilterTradeTypeDataModel" positionX="-585" positionY="558" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
-        <element name="QSCDUserDataModel" positionX="-441" positionY="45" width="128" height="165"/>
+        <element name="QSCDUserDataModel" positionX="-441" positionY="45" width="128" height="225"/>
     </elements>
 </model>

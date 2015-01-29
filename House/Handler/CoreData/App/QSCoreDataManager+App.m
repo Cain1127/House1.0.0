@@ -165,6 +165,34 @@
 
 }
 
+/**
+ *  @author             yangshengmeng, 15-01-28 16:01:46
+ *
+ *  @brief              获取给定区中的街道列表
+ *
+ *  @param districtKey  区的关键字
+ *
+ *  @return             返回街道选择列表
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getStreetListWithDistrictKey:(NSString *)districtKey
+{
+
+    NSMutableArray *streetList = [[NSMutableArray alloc] init];
+    NSArray *streetTempArray = @[@"五山",@"员村",@"车陂",@"沙河",@"石牌",@"兴华",@"沙东",@"林和",@"棠下",@"猎德",@"冼村",@"天园",@"天河南",@"元岗",@"黄村",@"龙洞",@"长兴",@"凤凰",@"前进",@"珠吉",@"新塘",@"登峰"];
+    for (int i = 0; i < [streetTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = [NSNumber numberWithInt:1001 + i];
+        tempModel.val = streetTempArray[i];
+        [streetList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:streetList];
+
+}
+
 #pragma mark - 返回指定城市可选区域列表
 /**
  *  @author yangshengmeng, 15-01-20 10:01:58
@@ -173,10 +201,20 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getDistrictWithCity:(NSString *)city
++ (NSArray *)getDistrictListWithCityKey:(NSString *)cityKey
 {
     
-    return @[@"天河区",@"荔湾区",@"越秀区",@"海珠区",@"番禺区",@"白云区",@"黄埔区",@"花都区",@"南沙区",@"萝岗区",@"增城区"];
+    NSMutableArray *districtList = [[NSMutableArray alloc] init];
+    NSArray *districtTempArray = @[@"天河区",@"荔湾区",@"越秀区",@"海珠区",@"番禺区",@"白云区",@"黄埔区",@"花都区",@"南沙区",@"萝岗区",@"增城区"];
+    for (int i = 0; i < 11; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = [NSNumber numberWithInt:1001 + i];
+        tempModel.val = districtTempArray[i];
+        [districtList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:districtList];
     
 }
 
@@ -191,7 +229,17 @@
 + (NSArray *)getCityList
 {
     
-    return @[@"广州"];
+    NSMutableArray *cityList = [[NSMutableArray alloc] init];
+    NSArray *cityTempArray = @[@"广州",@"深圳",@"北京",@"上海"];
+    for (int i = 0; i < 4; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = [NSNumber numberWithInt:1001 + i];
+        tempModel.val = cityTempArray[i];
+        [cityList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:cityList];
     
 }
 

@@ -89,13 +89,26 @@
 + (BOOL)updateApplicationCurrentVersion:(NSString *)version;
 
 /**
+ *  @author             yangshengmeng, 15-01-28 16:01:46
+ *
+ *  @brief              获取给定区中的街道列表
+ *
+ *  @param districtKey  区的关键字
+ *
+ *  @return             返回街道选择列表
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getStreetListWithDistrictKey:(NSString *)districtKey;
+
+/**
  *  @author yangshengmeng, 15-01-20 10:01:58
  *
  *  @brief  返回指定城市的可选区域列表
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getDistrictWithCity:(NSString *)city;
++ (NSArray *)getDistrictListWithCityKey:(NSString *)cityKey;
 
 /**
  *  @author yangshengmeng, 15-01-20 10:01:47
