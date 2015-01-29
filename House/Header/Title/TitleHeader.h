@@ -100,4 +100,33 @@
 ///第一次设置过滤时的子标题提示
 #define TITLE_FILTER_FIRSTSETTING_COMMITBUTTON @"看看运气如何"
 
+/**
+ *  @author yangshengmeng, 15-01-25 11:01:05
+ *
+ *  @brief  登录页面相关标题提示
+ *
+ *  @since  1.0.0
+ */
+
+///输入手机号
+#define TITLE_LOGIN_INPUTCOUNT_TIP @"手 机 号 ："
+#define TITLE_LOGIN_INPUTCOUNT_PLACEHOLD @"输入您的手机号码"
+
+///输入密码
+#define TITLE_LOGIN_INPUTPASSWORD_TIP @"登录密码："
+#define TITLE_LOGIN_INPUTPASSWORD_PLACEHOLD @"请输入登录密码"
+
+///验证码
+#define TITLE_LOGIN_INPUTVERTIFICATIONCODE_TIP @"验 证 码 ："
+#define TITLE_LOGIN_INPUTVERTIFICATIONCODE_PLACEHOLD @"请输入短信验证码"
+
+///登录按钮标题
+#define TITLE_LOGIN_BUTTON @"登录"
+
+///普通用户注册
+#define TITLE_LOGIN_NORMALUSER_REGIST_BUTTON @"普通用户注册"
+
+///忘记密码
+#define TITLE_LOGIN_FORGETPASSWORD_BUTTON @"忘记密码？"
+
 #endif

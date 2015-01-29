@@ -14,22 +14,17 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    static dispatch_once_t pred = 0;
-    static RKObjectMapping *shared_mapping = nil;
+    RKObjectMapping *shared_mapping = nil;
     
-    dispatch_once(&pred, ^{
-        
-        shared_mapping = [RKObjectMapping mappingForClass:[self class]];
-        [shared_mapping addAttributeMappingsFromArray:@[
-                                                        @"total_page",
-                                                        @"total_num",
-                                                        @"page_num",
-                                                        @"before_page",
-                                                        @"per_page",
-                                                        @"next_page"
-                                                        ]];
-        
-    });
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    [shared_mapping addAttributeMappingsFromArray:@[
+                                                    @"total_page",
+                                                    @"total_num",
+                                                    @"page_num",
+                                                    @"before_page",
+                                                    @"per_page",
+                                                    @"next_page"
+                                                    ]];
     
     return shared_mapping;
     

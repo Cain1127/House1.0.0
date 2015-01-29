@@ -10,8 +10,9 @@
 #import "QSRequestManager.h"
 #import "QSAdvertViewController.h"
 #import "QSConfigurationReturnData.h"
+#import "QSBaseConfigurationReturnData.h"
 #import "QSCoreDataManager+App.h"
-#import "QSMapManager.h"
+#import "QSAlertMessageViewController.h"
 
 @interface QSYAppDelegate ()
 
@@ -40,11 +41,12 @@
     QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
     self.window.rootViewController = advertVC;
     
-    ///下载配置信息
-//    [self downloadApplicationBasInfo];
-    
-    ///开始定位个人位置信息
-    [QSMapManager getUserLocation];
+    dispatch_async(self.appDelegateOperationQueue, ^{
+        
+        ///下载配置信息
+        [self downloadApplicationBasInfo];
+        
+    });
     
     return YES;
     
@@ -55,33 +57,29 @@
 {
 
     ///放在后台运行
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    
-        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-            
-            ///转换模型
-            QSConfigurationReturnData *configModel = resultData;
-            
-            ///更新token信息
-            [QSCoreDataManager updateApplicationCurrentToken:configModel.configurationHeaderData.t];
-            [QSCoreDataManager updateApplicationCurrentTokenID:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.t_id]];
-            
-            ///更新版本信息
-            [QSCoreDataManager updateApplicationCurrentVersion:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.version]];
-            
-            ///配置信息检测
-            [self checkConfigurationInfo:configModel.configurationHeaderData.configurationList];
-            
-        }];
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-    });
-
+        ///转换模型
+        QSConfigurationReturnData *configModel = resultData;
+        
+        ///更新token信息
+        [QSCoreDataManager updateApplicationCurrentToken:configModel.configurationHeaderData.t];
+        [QSCoreDataManager updateApplicationCurrentTokenID:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.t_id]];
+        
+        ///更新版本信息
+        [QSCoreDataManager updateApplicationCurrentVersion:[NSString stringWithFormat:@"%@",configModel.configurationHeaderData.version]];
+        
+        ///配置信息检测
+        [self checkConfigurationInfo:configModel.configurationHeaderData.configurationList];
+        
+    }];
+    
 }
 
 ///检测基本信息的版本：本操作要求处于子线程中，不允许在主线程里操作
 - (void)checkConfigurationInfo:(NSArray *)configurationList
 {
-
+    
     ///暂时保存配置版本信息
     NSArray *tempConfigurationArray = [NSArray arrayWithArray:configurationList];
     
@@ -97,13 +95,6 @@
             [self updateConfigurationInfoWithModel:obj];
             
         }
-        return;
-        
-    }
-    
-    ///检测本地版本总数是否和新的版本总数一致
-    if ([tempConfigurationArray count] != [localConfigurationArray count]) {
-        
         
         return;
         
@@ -122,13 +113,23 @@
         ///本地配置模型
         QSConfigurationDataModel *localConfDataModel = [localConfigurationDictionary valueForKey:newKey];
         
-        ///检测版本
-        if (([newConfDataModel.conf isEqualToString:localConfDataModel.conf]) &&
-            (!([newConfDataModel.c_v isEqualToString:localConfDataModel.c_v]))) {
+        ///如果原来没有，则添加
+        if (nil == localConfDataModel) {
             
             ///版本不致，则更新对应的配置信息
             [self updateConfigurationInfoWithModel:newConfDataModel];
             
+        } else {
+        
+            ///检测版本
+            if (([newConfDataModel.conf isEqualToString:localConfDataModel.conf]) &&
+                (!([newConfDataModel.c_v isEqualToString:localConfDataModel.c_v]))) {
+                
+                ///版本不致，则更新对应的配置信息
+                [self updateConfigurationInfoWithModel:newConfDataModel];
+                
+            }
+        
         }
         
     }
@@ -160,9 +161,16 @@
     ///在子线程中执行网络请求
     dispatch_sync(self.appDelegateOperationQueue, ^{
         
-        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:confModel.getBaseConfigurationRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
+            ///模型转换
+            QSBaseConfigurationReturnData *dataModel = resultData;
             
+            ///保存配置信息
+            [QSCoreDataManager updateConfigurationWithModel:confModel];
+            
+            ///将对应的版本信息插入配置库中
+            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
             
         }];
         
@@ -249,7 +257,11 @@
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"House.sqlite"];
-        
+    
+    NSLog(@"=======================================");
+    NSLog(@"CoreData储值路径：%@",storeURL);
+    NSLog(@"=======================================");
+    
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
@@ -272,48 +284,6 @@
     
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     
-}
-
-#pragma mark -百度地图联网与授权情况
-- (void)onGetNetworkState:(int)iError
-{
-    if (0 == iError) {
-        NSLog(@"联网成功");
-    }
-    
-//    else if(2==iError)
-//    {
-//        NSLog(@"网络连接错误");
-//    }
-    
-    else {
-        NSLog(@"onGetNetworkState %d",iError);
-    }
-    
-}
-
-- (void)onGetPermissionState:(int)iError
-{
-    if (0 == iError) {
-        
-        NSLog(@"授权成功");
-        
-    }
-    
-//    else if(-300 ==iError)
-//    {
-//        
-//        NSLog(@"百度地图服务器连接错误");
-//        
-//    }
-//    else if(-200==iError){
-//    
-//        NSLog(@"百度地图服务返回数据异常");
-//    
-//    }
-    else {
-        NSLog(@"onGetPermissionState %d",iError);
-    }
 }
 
 @end

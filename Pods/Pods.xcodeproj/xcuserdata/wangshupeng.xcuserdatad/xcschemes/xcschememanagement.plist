@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Pods-ASDepthModal.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Pods-ISO8601DateFormatterValueTransformer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -37,7 +42,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>06993D5C34820DE1216109D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1AA4204B599D07258EAA82DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1EE62E9C3ADB402E4DDA2D05</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>33F4AD9778692F24BDAD58AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FEFA37A27EC631F2215C599</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5D593ECA80C31FBF88B0B4E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -68,6 +98,16 @@
 			<true/>
 		</dict>
 		<key>D9EB9716FBD9827CDF054CD2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E18A7E0596342347ADCFFD1B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E62B3B0586D79506A64E9FF4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

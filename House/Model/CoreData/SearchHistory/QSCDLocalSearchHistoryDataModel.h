@@ -18,9 +18,9 @@
  */
 @interface QSCDLocalSearchHistoryDataModel : NSManagedObject
 
-@property (nonatomic, retain) NSString * search_keywork;
-@property (nonatomic, retain) NSString * search_sub_type;
-@property (nonatomic, retain) NSString * search_time;
-@property (nonatomic, retain) NSString * search_type;
+@property (nonatomic, retain) NSString * search_keywork;    //!<搜索关键字
+@property (nonatomic, retain) NSString * search_sub_type;   //!<搜索子类
+@property (nonatomic, retain) NSString * search_time;       //!<搜索时间戳
+@property (nonatomic, retain) NSString * search_type;       //!<搜索类型
 
 @end

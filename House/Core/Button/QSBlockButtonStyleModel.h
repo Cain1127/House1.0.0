@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *title;                 //!<按钮标题
 @property (nonatomic,retain) UIColor *bgColor;              //!<按钮背景颜色
 @property (nonatomic,retain) UIColor *bgColorHighlighted;   //!<按钮高亮时的背景颜色
+@property (nonatomic,retain) UIColor *bgColorSelected;      //!<按钮选择状态时的背景颜色
 @property (nonatomic,retain) UIColor *titleNormalColor;     //!<标题普通状态的颜色
 @property (nonatomic,retain) UIColor *titleHightedColor;    //!<标题高亮状态时的颜色
 @property (nonatomic,retain) UIColor *titleSelectedColor;   //!<标题选择状态时的颜色

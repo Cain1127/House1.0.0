@@ -11,19 +11,39 @@
 
 @implementation QSCoreDataManager
 
-#pragma mark - 返回指定实体所有数据
+#pragma mark - 返回指定实体数据
 /**
- *  @author             yangshengmeng, 15-01-21 18:01:56
+ *  @author             yangshengmeng, 15-01-26 16:01:28
  *
- *  @brief              返回指定实体所有数据数组
+ *  @brief              返回某个实体中的所有数据
  *
  *  @param entityName   实体名
  *
- *  @return             返回实体数组
+ *  @return             返回对应实体中所有数据的数组
  *
  *  @since              1.0.0
  */
-+ (NSArray *)getDataListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend
++ (NSArray *)getEntityListWithKey:(NSString *)entityName
+{
+
+    return [self getEntityListWithKey:entityName andSortKeyWord:nil andAscend:YES];
+    
+}
+
+/**
+ *  @author             yangshengmeng, 15-01-26 16:01:08
+ *
+ *  @brief              返回指定实体中的所有数据，并按给定的字段排序查询
+ *
+ *  @param entityName   实体名
+ *  @param keyword      需要排序的字段
+ *  @param isAscend     排序：YES-升序,NO-降序
+ *
+ *  @return             返回查询的数据
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getEntityListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -33,6 +53,85 @@
     ///设置查找
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:enty];
+    
+    if (keyword) {
+        
+        ///设置排序
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
+        [request setSortDescriptors:@[sort]];
+        
+    }
+    
+    NSError *error;
+    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
+    
+    ///判断是否查询失败
+    if (error) {
+        
+        return nil;
+        
+    }
+    
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    ///查询成功
+    return resultList;
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-01-26 16:01:48
+ *
+ *  @brief              查询给定实体中，指定关键字的数据，并返回
+ *
+ *  @param entityName   指定实体名
+ *  @param keyword      需要搜索的字段名
+ *  @param searchKey    字段中的内容
+ *
+ *  @return             返回查询结果
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey
+{
+
+    return [self searchEntityListWithKey:entityName andFieldKey:keyword andSearchKey:searchKey andAscend:YES];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-26 16:01:59
+ *
+ *  @brief              查询指定实体中，指定字段满足指定查询条件的数据集合
+ *
+ *  @param entityName   实体名
+ *  @param keyword      字段名
+ *  @param searchKey    查询关键字
+ *  @param isAscend     排序：YES-升序
+ *
+ *  @return             返回查询的结果集
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey andAscend:(BOOL)isAscend
+{
+
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    
+    ///设置查找
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:enty];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
+    [request setPredicate:predicate];
     
     ///设置排序
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
@@ -60,37 +159,27 @@
 
 }
 
-#pragma mark - 返回coreData中的指定表中的某字段信息
+#pragma mark - 查询某实体中给定关键的第一个实体
 /**
- *  @author             yangshengmeng, 15-01-20 09:01:45
+ *  @author             yangshengmeng, 15-01-26 15:01:31
  *
- *  @brief              查询指定表中的某字段信息
+ *  @brief              根据给定的关键字，在指定的实体中查询数据并返回
  *
- *  @param entityName   实体名
- *  @param keyword      字段名
+ *  @param entityname   实体名称
+ *  @param fieldName    字段名
+ *  @param searchKey    关键字
+ *
+ *  @return             返回搜索的结果
  *
  *  @since              1.0.0
  */
-+ (instancetype)getDataWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
++ (instancetype)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey
 {
-
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
     
-    ///设置查找
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:enty];
-    
-    ///设置排序
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:YES];
-    [request setSortDescriptors:@[sort]];
-    
-    NSError *error;
-    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
+    NSArray *resultList = [self searchEntityListWithKey:entityName andFieldKey:fieldName andSearchKey:searchKey];
     
     ///判断是否查询失败
-    if (error) {
+    if (nil == resultList) {
         
         return nil;
         
@@ -104,25 +193,64 @@
     }
     
     ///查询成功
-    NSObject *resultModel = resultList[0];
+    id resultModel = [resultList firstObject];
+    return resultModel ? resultModel : nil;
+    
+}
+
+#pragma mark - 返回coreData中指定的单表中的某字段信息
+/**
+ *  @author             yangshengmeng, 15-01-26 17:01:37
+ *
+ *  @brief              获取单记录实体数据中指定的字段信息
+ *
+ *  @param entityName   实体名
+ *  @param keyword      字段名
+ *
+ *  @return             返回给定字段的信息
+ *
+ *  @since              1.0.0
+ */
++ (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
+{
+
+    NSArray *resultList = [self getEntityListWithKey:entityName];
+    
+    ///判断是否查询失败
+    if (nil == resultList) {
+        
+        return nil;
+        
+    }
+    
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    ///查询成功
+    NSObject *resultModel = [resultList firstObject];
     return resultModel ? ([resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil) : nil;
 
 }
 
 #pragma mark - 单条数据的表更新数据
 /**
- *  @author             yangshengmeng, 15-01-21 21:01:57
+ *  @author             yangshengmeng, 15-01-26 17:01:36
  *
- *  @brief              根据给定的字段和字段新内容更新CoreData数据
+ *  @brief              更新单记录表中，指定字段的信息
  *
  *  @param entityName   实体名
  *  @param fieldName    字段名
+ *  @param newValue     对应字段的新值
  *
- *  @return             更新结果：YES-更新成功，NO-更新失败
+ *  @return             返回更新是否成功
  *
  *  @since              1.0.0
  */
-+ (BOOL)updateFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue
++ (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -132,7 +260,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
     [fetchRequest setEntity:entity];
     
-    //查询条件
+    ///查询条件
     NSPredicate* predicate = [NSPredicate predicateWithValue:YES];
     [fetchRequest setPredicate:predicate];
     
@@ -155,68 +283,22 @@
         [model setValue:newValue forKey:fieldName];
         [mOContext save:&error];
         
-        if (error) {
-            
-            return NO;
-            
-        }
-        
-        return YES;
-        
     } else {
     
         ///获取模型后更新保存
         NSObject *model = fetchResultArray[0];
         [model setValue:newValue forKey:fieldName];
         [mOContext save:&error];
-        
-        if (error) {
-            
-            return NO;
-            
-        }
-        
-        return YES;
     
     }
     
-    return NO;
-
-}
-
-#pragma mark - 在给定的实体中插入一条数据
-/**
- *  @author                 yangshengmeng, 15-01-21 23:01:37
- *
- *  @brief                  根据给定的实例名和实体对象，插入一条数据
- *
- *  @param entityName       实体名
- *  @param coreDataModel    实体对象
- *
- *  @return                 返回是否插入成功：YES-插入成功，NO-插入失败
- *
- *  @since                  1.0.0
- */
-+ (BOOL)insertEntityWithEntityName:(NSString *)entityName andCoreDataModel:(NSManagedObject *)coreDataModel
-{
-
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    
-    [mOContext insertObject:coreDataModel];
-    
-    ///保存
-    NSError *error;
-    BOOL isInsertSuccess = [mOContext save:&error];
-    
-    ///判断插入结果
-    if (!isInsertSuccess) {
+    if (error) {
         
-        NSLog(@"CoreData.Insert.Error:%@",error);
+        return NO;
         
     }
     
-    return isInsertSuccess;
+    return YES;
 
 }
 
@@ -232,7 +314,7 @@
  *
  *  @since              1.0.0
  */
-+ (BOOL)clearDataListWithEntityName:(NSString *)entityName
++ (BOOL)clearEntityListWithEntityName:(NSString *)entityName
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -242,6 +324,72 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setIncludesPropertyValues:NO];
     [fetchRequest setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    
+    ///查询失败
+    if (error) {
+        
+        NSLog(@"CoreData.GetData.Error:%@",error);
+        return NO;
+        
+    }
+    
+    ///如果本身数据就为0，则直接返回YES
+    if (0 >= [resultArray count]) {
+        
+        return YES;
+        
+    }
+    
+    ///遍历删除
+    for (NSManagedObject *obj in resultArray) {
+        
+        [mOContext deleteObject:obj];
+        
+    }
+    
+    ///确认删除结果
+    BOOL isChangeSuccess = [mOContext save:&error];
+    if (!isChangeSuccess) {
+        
+        NSLog(@"CoreData.DeleteData.Error:%@",error);
+        
+    }
+    
+    return isChangeSuccess;
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-01-26 18:01:50
+ *
+ *  @brief              删除给定实体中对应字段为特定关键字的所有记录
+ *
+ *  @param entityName   实体名
+ *  @param fieldKey     字段名
+ *  @param deleteKey    字段的内容
+ *
+ *  @return             返回删除是否成功
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)clearEntityListWithEntityName:(NSString *)entityName andFieldKey:(NSString *)fieldKey andDeleteKey:(NSString *)deleteKey
+{
+
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setIncludesPropertyValues:NO];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询条件
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",fieldKey] stringByAppendingString:@"%@"],deleteKey];
+    [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
     NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];

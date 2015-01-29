@@ -23,4 +23,7 @@
 ///默认的圆角
 #define VIEW_SIZE_NORMAL_CORNERADIO 6.0f
 
+///默认的纵向view间隙
+#define VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP 8.0f
+
 #endif

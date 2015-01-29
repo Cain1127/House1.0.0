@@ -10,6 +10,11 @@
 #import "QSCoreDataManager+App.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
+#import "QSCustomSingleSelectedPopView.h"
+#import "QSMultipleSelectedPopView.h"
+#import "QSCoreDataManager+House.h"
+#import "QSCDBaseConfigurationDataModel.h"
+#import "QSCustomDistrictSelectedPopView.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -244,8 +249,6 @@ typedef enum
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     
-    return YES;
-
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
     
@@ -253,9 +256,17 @@ typedef enum
             
             ///选择区域
         case fFilterSettingFieldActionTypeDistrict:
+        {
             
-            NSLog(@"================区域选择==================");
+            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithDistrictPickerLevelType:cCustomDistrictPickerLevelTypeStreet andSelectedCityKey:nil andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_LEVEL_TYPE pickerLevelType, CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, id pikeredInfo) {
+                
+                NSLog(@"==================当前选择地区=====================");
+                NSLog(@"地区：%@",pikeredInfo);
+                NSLog(@"==================当前选择地区=====================");
+                
+            }];
             
+        }
             break;
             
             ///选择户型
@@ -267,9 +278,34 @@ typedef enum
             
             ///购房目的
         case fFilterSettingFieldActionTypePurposePurchase:
+        {
+         
+            ///获取购房目的数据
+            NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
             
-            NSLog(@"================购房目的选择==================");
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
             
+            ///显示购房目的选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///出售价格
@@ -288,9 +324,32 @@ typedef enum
             
             ///出租方式：整租...
         case fFilterSettingFieldActionTypeRenantType:
+        {
             
-            NSLog(@"================出租方式选择==================");
+            ///获取购房目的数据
+            NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (int i = 0;i < [intentArray count];i++) {
+                
+                QSCDBaseConfigurationDataModel *obj = intentArray[i];
+                if (obj.val) {
+                    
+                    NSDictionary *tempDict = @{@"info" : obj.val,@"selected" : @"0"};
+                    [tempArray addObject:tempDict];
+                    
+                }
+                
+            }
+            
+            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:tempArray andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                
+                
+            }];
+            
+        }
             break;
             
             ///租金

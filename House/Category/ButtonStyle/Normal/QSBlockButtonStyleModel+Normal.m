@@ -54,12 +54,50 @@
             
             break;
             
+            ///黑字白底按钮
+        case nNormalButtonTypeClearGray:
+            
+            return [self createNormalClearGrayButton];
+            
+            break;
+            
+            ///黑字白底按钮
+        case nNormalButtonTypeClearLightGray:
+            
+            return [self createNormalClearLightGrayButton];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
 
+}
+
++ (QSBlockButtonStyleModel *)createNormalClearGrayButton
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = [UIColor whiteColor];
+    buttonStyle.titleNormalColor = COLOR_CHARACTERS_GRAY;
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    return buttonStyle;
+
+}
+
++ (QSBlockButtonStyleModel *)createNormalClearLightGrayButton
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = [UIColor whiteColor];
+    buttonStyle.titleNormalColor = COLOR_CHARACTERS_LIGHTGRAY;
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    return buttonStyle;
+    
 }
 
 + (QSBlockButtonStyleModel *)ceateNormalCornerLightYellowButton

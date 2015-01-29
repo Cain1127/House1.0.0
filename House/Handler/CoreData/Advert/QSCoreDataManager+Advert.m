@@ -26,7 +26,7 @@
 + (NSString *)getAdvertLastShowTime
 {
     
-    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"advert_last_show_time"];
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"advert_last_show_time"];
     
 }
 
@@ -49,8 +49,8 @@
         
     }
     
-    return [self updateFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"advert_last_show_time" andFieldNewValue:timeStamp];
-
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"advert_last_show_time" andFieldNewValue:timeStamp];
+    
 }
 
 @end

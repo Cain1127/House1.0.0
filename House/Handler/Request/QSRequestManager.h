@@ -40,7 +40,17 @@
  */
 + (void)requestDataWithType:(REQUEST_TYPE)requestType andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack;
 
-
-//+ (void)requestDataWithType:(REQUEST_TYPE)requestType and andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack;
+/**
+ *  @author             yangshengmeng, 15-01-26 14:01:24
+ *
+ *  @brief              根据不同的请求类型和参数，进行网络请求
+ *
+ *  @param requestType  请求类型
+ *  @param params       请求参数
+ *  @param callBack     回调
+ *
+ *  @since              1.0.0
+ */
++ (void)requestDataWithType:(REQUEST_TYPE)requestType andParams:(NSDictionary *)params andCallBack:(void(^)(REQUEST_RESULT_STATUS resultStatus,id resultData,NSString *errorInfo,NSString *errorCode))callBack;
 
 @end

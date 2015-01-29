@@ -7,14 +7,13 @@
 //
 
 #import "QSWDeveloperHomeViewController.h"
-#import "QSGuideViewController.h"
 #import "QSWDeveloperActivityViewController.h"
 
 @interface QSWDeveloperHomeViewController ()
 
-@property (weak, nonatomic) IBOutlet UIButton *salingButton; //!<
+@property (weak, nonatomic) IBOutlet UIButton *salingButton;//!<
 
-@property (weak, nonatomic) IBOutlet UIButton *activeButton;  //!<
+@property (weak, nonatomic) IBOutlet UIButton *activeButton;//!<
 
 @end
 
@@ -28,7 +27,6 @@
     
     [self setNavigationBarTitle:@"开发商名称"];
     
-    
 }
 
 ///添加中间view
@@ -39,17 +37,7 @@
 
 }
 
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 #pragma mark -按钮事件
-
 ///在售楼盘按钮点击事件
 - (IBAction)salingButton:(id)sender {
     
@@ -63,12 +51,21 @@
     QSWDeveloperActivityViewController *VC=[[QSWDeveloperActivityViewController alloc]init];
     
     [self.navigationController pushViewController:VC animated:YES];
+    
 }
 
 ///设置按钮点击事件
 - (IBAction)settingButton:(id)sender {
+    
+    
+    
 }
 
 ///消息按钮点击事件
 - (IBAction)messageButton:(id)sender {
-}@end
+    
+    
+    
+}
+
+@end

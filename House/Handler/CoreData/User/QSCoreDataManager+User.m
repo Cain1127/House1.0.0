@@ -17,7 +17,7 @@
 + (NSString *)getUserID
 {
 
-    return (NSString *)[self getDataWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_id"];
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_id"];
 
 }
 
@@ -33,7 +33,132 @@
 + (NSString *)getCurrentUserCity
 {
 
-    return @"广州";
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_city"];
+
+}
+
+///更新当前用户的所在城市
++ (BOOL)updateCurrentUserCity:(NSString *)city
+{
+
+    if (nil == city) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:city];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-23 10:01:47
+ *
+ *  @brief  返回当前用户当前所在的区
+ *
+ *  @return 返回区
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserDistrict
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_district"];
+
+}
+
+///更新当前用户所在区
++ (BOOL)updateCurrentUserDistrict:(NSString *)district
+{
+
+    if (nil == district) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_district" andFieldNewValue:district];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-28 17:01:56
+ *
+ *  @brief  获取当前用户当前所在的街道
+ *
+ *  @return 返回街道
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserStreet
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_street"];
+
+}
+
+///更新当前用户所在的街道
++ (BOOL)updateCurrentUserStreet:(NSString *)street
+{
+
+    if (nil == street) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_street" andFieldNewValue:street];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-01-27 12:01:42
+ *
+ *  @brief  返回当前用户的权限类型
+ *
+ *  @return 返回用户权限类型
+ *
+ *  @since  1.0.0
+ */
++ (USER_COUNT_TYPE)getCurrentUserCountType
+{
+
+    NSString *userCountTypeString = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_count_type"];
+    
+    ///如果没有配置，默认返回普通客户
+    if (nil == userCountTypeString) {
+        
+        return uUserCountTypeTenant;
+        
+    }
+    
+    int userCountType = [userCountTypeString intValue];
+    
+    return userCountType;
+    
+}
+
+/**
+ *  @author         yangshengmeng, 15-01-27 12:01:41
+ *
+ *  @brief          更新当前用户的类型
+ *
+ *  @param userType 用户类型
+ *
+ *  @return         返回更新是否成功
+ *
+ *  @since          1.0.0
+ */
++ (BOOL)updateCurrentUserCountType:(USER_COUNT_TYPE)userType
+{
+
+    if (uUserCountTypeTenant > userType || uUserCountTypeDeveloper < userType) {
+        
+        return NO;
+        
+    }
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count_type" andFieldNewValue:[NSString stringWithFormat:@"%d",userType]];
 
 }
 

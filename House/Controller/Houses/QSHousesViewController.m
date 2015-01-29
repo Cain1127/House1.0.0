@@ -9,8 +9,8 @@
 #import "QSHousesViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
-#import "QSWHousesMapDistributionViewController.h"
-#import "QSGeocodeViewController.h"
+//#import "QSWHousesMapDistributionViewController.h"
+
 @interface QSHousesViewController ()
 
 @end
@@ -69,10 +69,6 @@
     
 //    QSWHousesMapDistributionViewController *VC=[[QSWHousesMapDistributionViewController alloc]init];
 //    [self.navigationController pushViewController:VC animated:YES];
-    
-    QSGeocodeViewController *VC1=[[QSGeocodeViewController alloc]init];
-    
-    [self.navigationController pushViewController:VC1 animated:YES];
 
 }
 

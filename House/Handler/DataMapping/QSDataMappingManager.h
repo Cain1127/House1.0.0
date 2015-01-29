@@ -46,6 +46,6 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)analyzeDataWithData:(NSData *)data andMappingClass:(NSString *)mappingClass;
++ (void)analyzeDataWithData:(NSData *)data andMappingClass:(NSString *)mappingClass andMappingCallBack:(void(^)(BOOL mappingStatus,id mappingResult))mappingCallBack;
 
 @end

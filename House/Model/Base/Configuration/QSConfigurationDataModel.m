@@ -14,21 +14,31 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    static dispatch_once_t pred = 0;
-    static RKObjectMapping *shared_mapping = nil;
-    
-    dispatch_once(&pred, ^{
-        
-        shared_mapping = [RKObjectMapping mappingForClass:[self class]];
-        [shared_mapping addAttributeMappingsFromArray:@[
-                                                        @"conf",
-                                                        @"c_v"
-                                                        ]];
-        
-    });
+    RKObjectMapping *shared_mapping = nil;
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    [shared_mapping addAttributeMappingsFromArray:@[
+                                                    @"conf",
+                                                    @"c_v"
+                                                    ]];
     
     return shared_mapping;
     
+}
+
+/**
+ *  @author yangshengmeng, 15-01-26 14:01:39
+ *
+ *  @brief  基础配置信息请求时返回的参数
+ *
+ *  @since  1.0.0
+ */
+- (NSDictionary *)getBaseConfigurationRequestParams
+{
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:self.conf forKey:@"conf"];
+    return [NSDictionary dictionaryWithDictionary:params];
+
 }
 
 @end

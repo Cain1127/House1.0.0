@@ -14,19 +14,14 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    static dispatch_once_t pred = 0;
-    static RKObjectMapping *shared_mapping = nil;
+    RKObjectMapping *shared_mapping = nil;
     
-    dispatch_once(&pred, ^{
-        
-        shared_mapping = [RKObjectMapping mappingForClass:[self class]];
-        [shared_mapping addAttributeMappingsFromArray:@[
-                                                        @"type",
-                                                        @"info",
-                                                        @"code"
-                                                        ]];
-        
-    });
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    [shared_mapping addAttributeMappingsFromArray:@[
+                                                    @"type",
+                                                    @"info",
+                                                    @"code"
+                                                    ]];
     
     return shared_mapping;
     
