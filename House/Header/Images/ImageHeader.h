@@ -9,6 +9,7 @@
 #ifndef House_ImageHeader_h
 #define House_ImageHeader_h
 
+#pragma mark - 公共使用图片资源
 /**
  *  @author yangshengmeng, 15-01-23 14:01:28
  *
@@ -36,6 +37,7 @@
 #define IMAGE_PUBLIC_LOCAL_LIGHYELLOW @"public_local_lightyellow"
 #define IMAGE_PUBLIC_LOCAL_HIGHLIGHTED @"public_local_highlighted"
 
+#pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
  *
@@ -71,6 +73,7 @@
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
+#pragma mark - 指引页图片资源
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03
  *
@@ -106,6 +109,7 @@
 ///指引页-中间提示信息划线
 #define IMAGE_GUIDE_INNER_TIP @"guide_middle_tip"
 
+#pragma mark - 过滤器图片资源
 /**
  *  @author yangshengmeng, 15-01-23 14:01:41
  *
@@ -116,5 +120,37 @@
 
 ///指引页-中间提示信息划线
 #define IMAGE_FILTER_DEFAULT_HEADER @"guide_filter_header"
+
+#pragma mark - 首页图片资源
+/**
+ *  @author yangshengmeng, 15-01-29 15:01:42
+ *
+ *  @brief  首页相关图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///背景图片
+#define IMAGE_HOME_BACKGROUD @"home_background"
+
+///新房按钮图片
+#define IMAGE_HOME_NEWHOUSEBUTTON_NORMAL @"home_bridalchamber_normal"
+#define IMAGE_HOME_NEWHOUSEBUTTON_HIGHLIGHTED @"home_bridalchamber_highlighted"
+
+///二手房
+#define IMAGE_HOME_SECONDEHOUSEBUTTON_NORMAL @"home_secondhandhouse_normal"
+#define IMAGE_HOME_SECONDEHOUSEBUTTON_HIGHLIGHTED @"home_secondhandhouse_highlighted"
+
+///出租房
+#define IMAGE_HOME_RENANTHOUSEBUTTON_NORMAL @"home_tenement_normal"
+#define IMAGE_HOME_RENANTHOUSEBUTTON_HIGHLIGHTED @"home_tenement_highlighted"
+
+///我要放盘
+#define IMAGE_HOME_SALEHOUSE_NORMAL @"home_salehouse_normal"
+#define IMAGE_HOME_SALEHOUSE_HIGHLIGHTED @"home_salehouse_highlighted"
+
+///笋盘推荐
+#define IMAGE_HOME_COMMUNITYRECOMMAND_NORMAL @"home_bambooplate_normal"
+#define IMAGE_HOME_COMMUNITYRECOMMAND_HIGHLIGHTED @"home_bambooplate_highlighted"
 
 #endif
