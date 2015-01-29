@@ -16,6 +16,15 @@
 #import "QSImageView+Block.h"
 #import "UIButton+Factory.h"
 
+#import <objc/runtime.h>
+
+///关联
+static char OneHouseTypeDataKey;    //!<一房房源关联
+static char TwoHouseTypeDataKey;    //!<一房房源关联
+static char ThreeHouseTypeDataKey;  //!<一房房源关联
+static char FourHouseTypeDataKey;   //!<一房房源关联
+static char FiveHouseTypeDataKey;   //!<一房房源关联
+
 @interface QSHomeViewController ()
 
 @end
@@ -96,7 +105,7 @@
     [self.view addSubview:saleHouseButton];
     
     ///分隔线
-    UILabel *bottomMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 0.25f, SIZE_DEVICE_HEIGHT - bottomHeight - 49.0f, 0.25f, bottomHeight)];
+    UILabel *bottomMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 0.25f, SIZE_DEVICE_HEIGHT - bottomHeight - 49.0f, 0.5f, bottomHeight)];
     bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:bottomMiddelLineLabel];
     
@@ -118,7 +127,80 @@
 - (void)createHeaderInfoUI:(UIView *)view
 {
 
+    ///计算相关尺寸
+    CGFloat ypoint = SIZE_DEVICE_HEIGHT > 480.5f ? (view.frame.size.height * 50.0f / 320.0f) : 10.0f;
+    CGFloat middleGap = view.frame.size.height * 30.0f / 320.0f;
+    CGFloat height = 75.0f;
+    CGFloat width = (view.frame.size.width - 10.0f) / 3.0f;
     
+    ///一房房源
+    UIView *oneHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, width, height)];
+    [self createHouseTypeInfoViewUI:oneHouseTypeRootView andHouseTypeTitle:@"一房房源" andDataKey:OneHouseTypeDataKey];
+    [view addSubview:oneHouseTypeRootView];
+    
+    ///分隔线
+    UILabel *oneMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(oneHouseTypeRootView.frame.origin.x + oneHouseTypeRootView.frame.size.width + 2.25f, ypoint, 0.5f, height)];
+    oneMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:oneMiddelLineLabel];
+    
+    ///二房房源
+    UIView *twoHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - width / 2.0f, ypoint, width, height)];
+    [self createHouseTypeInfoViewUI:twoHouseTypeRootView andHouseTypeTitle:@"二房房源" andDataKey:TwoHouseTypeDataKey];
+    [view addSubview:twoHouseTypeRootView];
+    
+    UILabel *twoMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + width / 2.0f + 2.25f, ypoint, 0.5f, height)];
+    twoMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:twoMiddelLineLabel];
+    
+    ///三房房源
+    UIView *threeHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width - width, ypoint, width, height)];
+    [self createHouseTypeInfoViewUI:threeHouseTypeRootView andHouseTypeTitle:@"三房房源" andDataKey:ThreeHouseTypeDataKey];
+    [view addSubview:threeHouseTypeRootView];
+    
+    ///四房房源
+    UIView *foutHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 10.0f - width, ypoint + middleGap + height, width, height)];
+    [self createHouseTypeInfoViewUI:foutHouseTypeRootView andHouseTypeTitle:@"四房房源" andDataKey:FourHouseTypeDataKey];
+    [view addSubview:foutHouseTypeRootView];
+    
+    UILabel *fourMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 0.25f, foutHouseTypeRootView.frame.origin.y, 0.5f, height)];
+    fourMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:fourMiddelLineLabel];
+    
+    ///五房房源
+    UIView *fiveHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + 10.0f, foutHouseTypeRootView.frame.origin.y, width, height)];
+    [self createHouseTypeInfoViewUI:fiveHouseTypeRootView andHouseTypeTitle:@"五房房源" andDataKey:FiveHouseTypeDataKey];
+    [view addSubview:fiveHouseTypeRootView];
+
+}
+
+///创建房源信息UI
+- (void)createHouseTypeInfoViewUI:(UIView *)view andHouseTypeTitle:(NSString *)title andDataKey:(char)dataKey
+{
+
+    ///标题
+    UILabel *titleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 15.0f)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    titleLabel.text = title;
+    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:titleLabel];
+    
+    ///统计数量
+    UILabel *dataLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, titleLabel.frame.size.height + 10.0f, view.frame.size.width, 30.0f)];
+    dataLabel.textAlignment = NSTextAlignmentCenter;
+    dataLabel.font = [UIFont systemFontOfSize:FONT_BODY_25];
+    dataLabel.text = @"38234";
+    dataLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    [view addSubview:dataLabel];
+    objc_setAssociatedObject(self, &dataKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///单位
+    UILabel *subTitleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 15.0f, view.frame.size.width, 15.0f)];
+    subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    subTitleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    subTitleLabel.text = @"套";
+    subTitleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:subTitleLabel];
 
 }
 
@@ -263,6 +345,72 @@
 {
     
     
+    
+}
+
+#pragma mark - 更新数据
+///更新一房房源数据
+- (void)updateOneHouseTypeData:(NSString *)count
+{
+
+    UILabel *dataLabel = objc_getAssociatedObject(self, &OneHouseTypeDataKey);
+    if (dataLabel && count) {
+        
+        dataLabel.text = count;
+        
+    }
+
+}
+
+///更新二房房源数据
+- (void)updateTwoHouseTypeData:(NSString *)count
+{
+    
+    UILabel *dataLabel = objc_getAssociatedObject(self, &TwoHouseTypeDataKey);
+    if (dataLabel && count) {
+        
+        dataLabel.text = count;
+        
+    }
+    
+}
+
+///更新三房房源数据
+- (void)updateThreeHouseTypeData:(NSString *)count
+{
+    
+    UILabel *dataLabel = objc_getAssociatedObject(self, &ThreeHouseTypeDataKey);
+    if (dataLabel && count) {
+        
+        dataLabel.text = count;
+        
+    }
+    
+}
+
+///更新四房房源数据
+- (void)updateFourHouseTypeData:(NSString *)count
+{
+    
+    UILabel *dataLabel = objc_getAssociatedObject(self, &FourHouseTypeDataKey);
+    if (dataLabel && count) {
+        
+        dataLabel.text = count;
+        
+    }
+    
+}
+
+///更新五房房源数据
+- (void)updateFiveHouseTypeData:(NSString *)count
+{
+    
+    UILabel *dataLabel = objc_getAssociatedObject(self, &FiveHouseTypeDataKey);
+    if (dataLabel && count) {
+        
+        dataLabel.text = count;
+        
+    }
     
 }
 
