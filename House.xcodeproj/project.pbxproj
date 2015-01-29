@@ -33,7 +33,6 @@
 		18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0D61A6A756F00BB9611 /* QSMasterViewController.m */; };
 		18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0DB1A6A823300BB9611 /* QSMyZoneViewController.m */; };
 		18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0DE1A6A824B00BB9611 /* QSHousesViewController.m */; };
-		18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */; };
 		18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0E41A6A826D00BB9611 /* QSChatViewController.m */; };
 		18C8A0EE1A6A883900BB9611 /* tabbar_chat_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0E61A6A883900BB9611 /* tabbar_chat_normal.png */; };
 		18C8A0EF1A6A883900BB9611 /* tabbar_chat_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0E71A6A883900BB9611 /* tabbar_chat_selected.png */; };
@@ -155,9 +154,18 @@
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
+		CE4377C51A77803300339B26 /* QSWDeveloperActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4377C31A77803300339B26 /* QSWDeveloperActivityCell.m */; };
+		CE4377C61A77803300339B26 /* QSWDeveloperActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4377C41A77803300339B26 /* QSWDeveloperActivityCell.xib */; };
+		CE63666F1A7678B30021CB25 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBFF8041A7651F40014250B /* CoreLocation.framework */; };
+		CE6366711A767AA60021CB25 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE6366701A767AA60021CB25 /* mapapi.bundle */; };
+		CE6366731A767AB40021CB25 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6366721A767AB40021CB25 /* libbaidumapapi.a */; };
+		CE6366761A76893F0021CB25 /* QSUserLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6366751A76893F0021CB25 /* QSUserLocationViewController.m */; };
+		CE7BF42C1A7A45B30022A132 /* QSMapManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF42B1A7A45B30022A132 /* QSMapManager.mm */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
-		CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */; };
+		CEBFF7F71A7608970014250B /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEBFF7F51A7608970014250B /* QSWHousesMapDistributionViewController.mm */; };
+		CEBFF7F81A7608970014250B /* QSWHousesMapDistributionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBFF7F61A7608970014250B /* QSWHousesMapDistributionViewController.xib */; };
+		CED4087B1A7A1DC500A6CD8E /* QSGeocodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CED408791A7A1DC500A6CD8E /* QSGeocodeViewController.mm */; };
 		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -211,8 +219,6 @@
 		18C8A0DB1A6A823300BB9611 /* QSMyZoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMyZoneViewController.m; sourceTree = "<group>"; };
 		18C8A0DD1A6A824B00BB9611 /* QSHousesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHousesViewController.h; sourceTree = "<group>"; };
 		18C8A0DE1A6A824B00BB9611 /* QSHousesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHousesViewController.m; sourceTree = "<group>"; };
-		18C8A0E01A6A825C00BB9611 /* QSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHomeViewController.h; sourceTree = "<group>"; };
-		18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHomeViewController.m; sourceTree = "<group>"; };
 		18C8A0E31A6A826D00BB9611 /* QSChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSChatViewController.h; sourceTree = "<group>"; };
 		18C8A0E41A6A826D00BB9611 /* QSChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSChatViewController.m; sourceTree = "<group>"; };
 		18C8A0E61A6A883900BB9611 /* tabbar_chat_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_chat_normal.png; sourceTree = "<group>"; };
@@ -393,15 +399,90 @@
 		CE000DC01A6E5451008FD309 /* developer_setting_hightlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_setting_hightlight.png; sourceTree = "<group>"; };
 		CE000DC81A6E60D6008FD309 /* QSGuideSaleHouseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGuideSaleHouseView.h; sourceTree = "<group>"; };
 		CE000DC91A6E60D6008FD309 /* QSGuideSaleHouseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGuideSaleHouseView.m; sourceTree = "<group>"; };
-		CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
-		CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperActivityViewController.m; sourceTree = "<group>"; };
-		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
+		CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSWDeveloperActivityViewController.h; path = ../QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
+		CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSWDeveloperActivityViewController.m; path = ../QSWDeveloperActivityViewController.m; sourceTree = "<group>"; };
+		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = QSWDeveloperActivityViewController.xib; path = ../QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
+		CE4377C21A77803300339B26 /* QSWDeveloperActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityCell.h; sourceTree = "<group>"; };
+		CE4377C31A77803300339B26 /* QSWDeveloperActivityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperActivityCell.m; sourceTree = "<group>"; };
+		CE4377C41A77803300339B26 /* QSWDeveloperActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityCell.xib; sourceTree = "<group>"; };
+		CE6366321A7676860021CB25 /* BMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMapKit.h; sourceTree = "<group>"; };
+		CE6366331A7676860021CB25 /* BMKActionPaopaoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKActionPaopaoView.h; sourceTree = "<group>"; };
+		CE6366341A7676860021CB25 /* BMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKAnnotation.h; sourceTree = "<group>"; };
+		CE6366351A7676860021CB25 /* BMKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKAnnotationView.h; sourceTree = "<group>"; };
+		CE6366361A7676860021CB25 /* BMKArcline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKArcline.h; sourceTree = "<group>"; };
+		CE6366371A7676860021CB25 /* BMKArclineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKArclineView.h; sourceTree = "<group>"; };
+		CE6366381A7676860021CB25 /* BMKBaseComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKBaseComponent.h; sourceTree = "<group>"; };
+		CE6366391A7676860021CB25 /* BMKBusLineSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKBusLineSearch.h; sourceTree = "<group>"; };
+		CE63663A1A7676860021CB25 /* BMKBusLineSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKBusLineSearchOption.h; sourceTree = "<group>"; };
+		CE63663B1A7676860021CB25 /* BMKCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCircle.h; sourceTree = "<group>"; };
+		CE63663C1A7676860021CB25 /* BMKCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCircleView.h; sourceTree = "<group>"; };
+		CE63663D1A7676860021CB25 /* BMKCloudPOIList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCloudPOIList.h; sourceTree = "<group>"; };
+		CE63663E1A7676860021CB25 /* BMKCloudSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCloudSearch.h; sourceTree = "<group>"; };
+		CE63663F1A7676860021CB25 /* BMKCloudSearchComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCloudSearchComponent.h; sourceTree = "<group>"; };
+		CE6366401A7676860021CB25 /* BMKCloudSearchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKCloudSearchInfo.h; sourceTree = "<group>"; };
+		CE6366411A7676860021CB25 /* BMKGeneralDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGeneralDelegate.h; sourceTree = "<group>"; };
+		CE6366421A7676860021CB25 /* BMKGeocodeSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGeocodeSearch.h; sourceTree = "<group>"; };
+		CE6366431A7676860021CB25 /* BMKGeocodeSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGeocodeSearchOption.h; sourceTree = "<group>"; };
+		CE6366441A7676860021CB25 /* BMKGeocodeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGeocodeType.h; sourceTree = "<group>"; };
+		CE6366451A7676860021CB25 /* BMKGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGeometry.h; sourceTree = "<group>"; };
+		CE6366461A7676860021CB25 /* BMKGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGradient.h; sourceTree = "<group>"; };
+		CE6366471A7676860021CB25 /* BMKGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGroundOverlay.h; sourceTree = "<group>"; };
+		CE6366481A7676860021CB25 /* BMKGroundOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKGroundOverlayView.h; sourceTree = "<group>"; };
+		CE6366491A7676860021CB25 /* BMKHeatMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKHeatMap.h; sourceTree = "<group>"; };
+		CE63664A1A7676860021CB25 /* BMKLocationComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLocationComponent.h; sourceTree = "<group>"; };
+		CE63664B1A7676870021CB25 /* BMKLocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLocationService.h; sourceTree = "<group>"; };
+		CE63664C1A7676870021CB25 /* BMKLocationViewDisplayParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKLocationViewDisplayParam.h; sourceTree = "<group>"; };
+		CE63664D1A7676870021CB25 /* BMKMapComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKMapComponent.h; sourceTree = "<group>"; };
+		CE63664E1A7676870021CB25 /* BMKMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKMapManager.h; sourceTree = "<group>"; };
+		CE63664F1A7676870021CB25 /* BMKMapStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKMapStatus.h; sourceTree = "<group>"; };
+		CE6366501A7676870021CB25 /* BMKMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKMapView.h; sourceTree = "<group>"; };
+		CE6366511A7676870021CB25 /* BMKMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKMultiPoint.h; sourceTree = "<group>"; };
+		CE6366521A7676870021CB25 /* BMKNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKNavigation.h; sourceTree = "<group>"; };
+		CE6366531A7676870021CB25 /* BMKOfflineMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOfflineMap.h; sourceTree = "<group>"; };
+		CE6366541A7676870021CB25 /* BMKOfflineMapType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOfflineMapType.h; sourceTree = "<group>"; };
+		CE6366551A7676870021CB25 /* BMKOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOverlay.h; sourceTree = "<group>"; };
+		CE6366561A7676870021CB25 /* BMKOverlayGLBasicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOverlayGLBasicView.h; sourceTree = "<group>"; };
+		CE6366571A7676870021CB25 /* BMKOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOverlayPathView.h; sourceTree = "<group>"; };
+		CE6366581A7676870021CB25 /* BMKOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKOverlayView.h; sourceTree = "<group>"; };
+		CE6366591A7676870021CB25 /* BMKPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPinAnnotationView.h; sourceTree = "<group>"; };
+		CE63665A1A7676870021CB25 /* BMKPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPointAnnotation.h; sourceTree = "<group>"; };
+		CE63665B1A7676870021CB25 /* BMKPoiSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPoiSearch.h; sourceTree = "<group>"; };
+		CE63665C1A7676870021CB25 /* BMKPoiSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPoiSearchOption.h; sourceTree = "<group>"; };
+		CE63665D1A7676870021CB25 /* BMKPoiSearchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPoiSearchType.h; sourceTree = "<group>"; };
+		CE63665E1A7676870021CB25 /* BMKPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPolygon.h; sourceTree = "<group>"; };
+		CE63665F1A7676870021CB25 /* BMKPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPolygonView.h; sourceTree = "<group>"; };
+		CE6366601A7676870021CB25 /* BMKPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPolyline.h; sourceTree = "<group>"; };
+		CE6366611A7676870021CB25 /* BMKPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKPolylineView.h; sourceTree = "<group>"; };
+		CE6366621A7676870021CB25 /* BMKRouteSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKRouteSearch.h; sourceTree = "<group>"; };
+		CE6366631A7676870021CB25 /* BMKRouteSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKRouteSearchOption.h; sourceTree = "<group>"; };
+		CE6366641A7676870021CB25 /* BMKRouteSearchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKRouteSearchType.h; sourceTree = "<group>"; };
+		CE6366651A7676870021CB25 /* BMKSearchComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKSearchComponent.h; sourceTree = "<group>"; };
+		CE6366661A7676870021CB25 /* BMKShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKShape.h; sourceTree = "<group>"; };
+		CE6366671A7676870021CB25 /* BMKShareURLSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKShareURLSearch.h; sourceTree = "<group>"; };
+		CE6366681A7676870021CB25 /* BMKShareUrlSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKShareUrlSearchOption.h; sourceTree = "<group>"; };
+		CE6366691A7676870021CB25 /* BMKSuggestionSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKSuggestionSearch.h; sourceTree = "<group>"; };
+		CE63666A1A7676870021CB25 /* BMKSuggestionSearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKSuggestionSearchOption.h; sourceTree = "<group>"; };
+		CE63666B1A7676870021CB25 /* BMKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKTypes.h; sourceTree = "<group>"; };
+		CE63666C1A7676870021CB25 /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
+		CE63666D1A7676870021CB25 /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
+		CE63666E1A7676870021CB25 /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
+		CE6366701A767AA60021CB25 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = ../../../../BaiduMap_IOSSDK_v2.6.0_All/BaiduMap_IOSSDK_v2.6.0_Lib/mapapi.bundle; sourceTree = "<group>"; };
+		CE6366721A767AB40021CB25 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = ../../../../BaiduMap_IOSSDK_v2.6.0_All/BaiduMap_IOSSDK_v2.6.0_Lib/libbaidumapapi.a; sourceTree = "<group>"; };
+		CE6366741A76893F0021CB25 /* QSUserLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserLocationViewController.h; sourceTree = SOURCE_ROOT; };
+		CE6366751A76893F0021CB25 /* QSUserLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserLocationViewController.m; sourceTree = SOURCE_ROOT; };
+		CE7BF42A1A7A45B30022A132 /* QSMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMapManager.h; sourceTree = "<group>"; };
+		CE7BF42B1A7A45B30022A132 /* QSMapManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSMapManager.mm; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
 		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
-		CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSHomeViewController.xib; sourceTree = "<group>"; };
+		CEBFF7F41A7608970014250B /* QSWHousesMapDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWHousesMapDistributionViewController.h; sourceTree = "<group>"; };
+		CEBFF7F51A7608970014250B /* QSWHousesMapDistributionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSWHousesMapDistributionViewController.mm; sourceTree = "<group>"; };
+		CEBFF7F61A7608970014250B /* QSWHousesMapDistributionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWHousesMapDistributionViewController.xib; sourceTree = "<group>"; };
+		CEBFF8041A7651F40014250B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CED408781A7A1DC500A6CD8E /* QSGeocodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGeocodeViewController.h; sourceTree = "<group>"; };
+		CED408791A7A1DC500A6CD8E /* QSGeocodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSGeocodeViewController.mm; sourceTree = "<group>"; };
 		CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -411,8 +492,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE63666F1A7678B30021CB25 /* CoreLocation.framework in Frameworks */,
 				CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */,
 				183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */,
+				CE6366731A767AB40021CB25 /* libbaidumapapi.a in Frameworks */,
 				183CC6651A68FC8800B8F97D /* CoreData.framework in Frameworks */,
 				183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */,
 				183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */,
@@ -468,6 +551,7 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEBFF8041A7651F40014250B /* CoreLocation.framework */,
 				CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */,
 				183CC65E1A68FC8800B8F97D /* Foundation.framework */,
 				183CC6601A68FC8800B8F97D /* CoreGraphics.framework */,
@@ -693,6 +777,12 @@
 		189300821A6902E30081D0AA /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				CED408781A7A1DC500A6CD8E /* QSGeocodeViewController.h */,
+				CED408791A7A1DC500A6CD8E /* QSGeocodeViewController.mm */,
+				CE6366741A76893F0021CB25 /* QSUserLocationViewController.h */,
+				CE6366751A76893F0021CB25 /* QSUserLocationViewController.m */,
+				CE7BF42A1A7A45B30022A132 /* QSMapManager.h */,
+				CE7BF42B1A7A45B30022A132 /* QSMapManager.mm */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -853,6 +943,7 @@
 		189300931A6902E30081D0AA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				CE6366301A7673D80021CB25 /* Map */,
 				18E801EB1A6F8D3800CA21D4 /* MJRefresh */,
 			);
 			name = Lib;
@@ -919,9 +1010,6 @@
 		189300AC1A690C880081D0AA /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				18C8A0E01A6A825C00BB9611 /* QSHomeViewController.h */,
-				18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */,
-				CED4EFF41A74050C00979C1C /* QSHomeViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1012,6 +1100,7 @@
 		18C8A1291A6AB4E400BB9611 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				CEBFF7F31A7608600014250B /* MapSearch */,
 				18C8A1311A6AB73E00BB9611 /* QSHouseKeySearchViewController.h */,
 				18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */,
 			);
@@ -1550,14 +1639,113 @@
 		CE2B43141A6E2AD2006B9F8E /* Developer */ = {
 			isa = PBXGroup;
 			children = (
+				CE4377C01A777FF200339B26 /* Activity */,
 				CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */,
 				CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */,
 				CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */,
+			);
+			path = Developer;
+			sourceTree = "<group>";
+		};
+		CE4377C01A777FF200339B26 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				CE4377C11A77803300339B26 /* Cell */,
 				CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */,
 				CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */,
 				CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */,
 			);
-			path = Developer;
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		CE4377C11A77803300339B26 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE4377C21A77803300339B26 /* QSWDeveloperActivityCell.h */,
+				CE4377C31A77803300339B26 /* QSWDeveloperActivityCell.m */,
+				CE4377C41A77803300339B26 /* QSWDeveloperActivityCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CE6366301A7673D80021CB25 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				CE6366721A767AB40021CB25 /* libbaidumapapi.a */,
+				CE6366701A767AA60021CB25 /* mapapi.bundle */,
+				CE6366311A7676860021CB25 /* inc */,
+			);
+			name = Map;
+			path = ../../Pods/Map;
+			sourceTree = "<group>";
+		};
+		CE6366311A7676860021CB25 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				CE6366321A7676860021CB25 /* BMapKit.h */,
+				CE6366331A7676860021CB25 /* BMKActionPaopaoView.h */,
+				CE6366341A7676860021CB25 /* BMKAnnotation.h */,
+				CE6366351A7676860021CB25 /* BMKAnnotationView.h */,
+				CE6366361A7676860021CB25 /* BMKArcline.h */,
+				CE6366371A7676860021CB25 /* BMKArclineView.h */,
+				CE6366381A7676860021CB25 /* BMKBaseComponent.h */,
+				CE6366391A7676860021CB25 /* BMKBusLineSearch.h */,
+				CE63663A1A7676860021CB25 /* BMKBusLineSearchOption.h */,
+				CE63663B1A7676860021CB25 /* BMKCircle.h */,
+				CE63663C1A7676860021CB25 /* BMKCircleView.h */,
+				CE63663D1A7676860021CB25 /* BMKCloudPOIList.h */,
+				CE63663E1A7676860021CB25 /* BMKCloudSearch.h */,
+				CE63663F1A7676860021CB25 /* BMKCloudSearchComponent.h */,
+				CE6366401A7676860021CB25 /* BMKCloudSearchInfo.h */,
+				CE6366411A7676860021CB25 /* BMKGeneralDelegate.h */,
+				CE6366421A7676860021CB25 /* BMKGeocodeSearch.h */,
+				CE6366431A7676860021CB25 /* BMKGeocodeSearchOption.h */,
+				CE6366441A7676860021CB25 /* BMKGeocodeType.h */,
+				CE6366451A7676860021CB25 /* BMKGeometry.h */,
+				CE6366461A7676860021CB25 /* BMKGradient.h */,
+				CE6366471A7676860021CB25 /* BMKGroundOverlay.h */,
+				CE6366481A7676860021CB25 /* BMKGroundOverlayView.h */,
+				CE6366491A7676860021CB25 /* BMKHeatMap.h */,
+				CE63664A1A7676860021CB25 /* BMKLocationComponent.h */,
+				CE63664B1A7676870021CB25 /* BMKLocationService.h */,
+				CE63664C1A7676870021CB25 /* BMKLocationViewDisplayParam.h */,
+				CE63664D1A7676870021CB25 /* BMKMapComponent.h */,
+				CE63664E1A7676870021CB25 /* BMKMapManager.h */,
+				CE63664F1A7676870021CB25 /* BMKMapStatus.h */,
+				CE6366501A7676870021CB25 /* BMKMapView.h */,
+				CE6366511A7676870021CB25 /* BMKMultiPoint.h */,
+				CE6366521A7676870021CB25 /* BMKNavigation.h */,
+				CE6366531A7676870021CB25 /* BMKOfflineMap.h */,
+				CE6366541A7676870021CB25 /* BMKOfflineMapType.h */,
+				CE6366551A7676870021CB25 /* BMKOverlay.h */,
+				CE6366561A7676870021CB25 /* BMKOverlayGLBasicView.h */,
+				CE6366571A7676870021CB25 /* BMKOverlayPathView.h */,
+				CE6366581A7676870021CB25 /* BMKOverlayView.h */,
+				CE6366591A7676870021CB25 /* BMKPinAnnotationView.h */,
+				CE63665A1A7676870021CB25 /* BMKPointAnnotation.h */,
+				CE63665B1A7676870021CB25 /* BMKPoiSearch.h */,
+				CE63665C1A7676870021CB25 /* BMKPoiSearchOption.h */,
+				CE63665D1A7676870021CB25 /* BMKPoiSearchType.h */,
+				CE63665E1A7676870021CB25 /* BMKPolygon.h */,
+				CE63665F1A7676870021CB25 /* BMKPolygonView.h */,
+				CE6366601A7676870021CB25 /* BMKPolyline.h */,
+				CE6366611A7676870021CB25 /* BMKPolylineView.h */,
+				CE6366621A7676870021CB25 /* BMKRouteSearch.h */,
+				CE6366631A7676870021CB25 /* BMKRouteSearchOption.h */,
+				CE6366641A7676870021CB25 /* BMKRouteSearchType.h */,
+				CE6366651A7676870021CB25 /* BMKSearchComponent.h */,
+				CE6366661A7676870021CB25 /* BMKShape.h */,
+				CE6366671A7676870021CB25 /* BMKShareURLSearch.h */,
+				CE6366681A7676870021CB25 /* BMKShareUrlSearchOption.h */,
+				CE6366691A7676870021CB25 /* BMKSuggestionSearch.h */,
+				CE63666A1A7676870021CB25 /* BMKSuggestionSearchOption.h */,
+				CE63666B1A7676870021CB25 /* BMKTypes.h */,
+				CE63666C1A7676870021CB25 /* BMKUserLocation.h */,
+				CE63666D1A7676870021CB25 /* BMKUtilsComponent.h */,
+				CE63666E1A7676870021CB25 /* BMKVersion.h */,
+			);
+			name = inc;
+			path = ../../../../BaiduMap_IOSSDK_v2.6.0_All/BaiduMap_IOSSDK_v2.6.0_Lib/inc;
 			sourceTree = "<group>";
 		};
 		CE8F125C1A6B92BB005ECB65 /* Tool */ = {
@@ -1575,6 +1763,17 @@
 				CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		CEBFF7F31A7608600014250B /* MapSearch */ = {
+			isa = PBXGroup;
+			children = (
+				CEBFF7F41A7608970014250B /* QSWHousesMapDistributionViewController.h */,
+				CEBFF7F51A7608970014250B /* QSWHousesMapDistributionViewController.mm */,
+				CEBFF7F61A7608970014250B /* QSWHousesMapDistributionViewController.xib */,
+			);
+			name = MapSearch;
+			path = Search/MapSearch;
 			sourceTree = "<group>";
 		};
 		F4AD990E4AF8F9F85ED4C216 /* Pods */ = {
@@ -1700,11 +1899,12 @@
 				18F99ADD1A7345B100098FD6 /* public_choice_arrow.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18C8A1641A6CBEBD00BB9611 /* share_weibo_highlighted.png in Resources */,
-				CED4EFF51A74050C00979C1C /* QSHomeViewController.xib in Resources */,
+				CE6366711A767AA60021CB25 /* mapapi.bundle in Resources */,
 				CE000DC51A6E5451008FD309 /* developer_setting.png in Resources */,
 				18C8A2691A6E1DB100BB9611 /* guide_tenant_haved_tip.png in Resources */,
 				18C8A1161A6AA3BC00BB9611 /* navigationbar_turnback_highlighted.png in Resources */,
 				CE000DC61A6E5451008FD309 /* developer_setting_hightlight.png in Resources */,
+				CEBFF7F81A7608970014250B /* QSWHousesMapDistributionViewController.xib in Resources */,
 				CE000DC41A6E5451008FD309 /* developer_saling_house.png in Resources */,
 				18C8A2661A6E1DB100BB9611 /* guide_middle_tip.png in Resources */,
 				18C8A0F21A6A883900BB9611 /* tabbar_houses_normal.png in Resources */,
@@ -1738,6 +1938,7 @@
 				18C8A1501A6CBA2F00BB9611 /* home_bridalchamber_normal.png in Resources */,
 				18C8A0F01A6A883900BB9611 /* tabbar_home_normal.png in Resources */,
 				18C8A1631A6CBEBD00BB9611 /* share_wechat_normal.png in Resources */,
+				CE4377C61A77803300339B26 /* QSWDeveloperActivityCell.xib in Resources */,
 				18C8A1621A6CBEBD00BB9611 /* share_wechat_highlighted.png in Resources */,
 				18C8A1171A6AA3BC00BB9611 /* navigationbar_turnback_normal.png in Resources */,
 				18C8A2651A6E1DB100BB9611 /* guide_houses_haved_tip.png in Resources */,
@@ -1800,7 +2001,9 @@
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
 				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
+				CED4087B1A7A1DC500A6CD8E /* QSGeocodeViewController.mm in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
+				CEBFF7F71A7608970014250B /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */,
 				18C8A2201A6DFF0D00BB9611 /* QSGuideSummaryView.m in Sources */,
 				18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */,
@@ -1815,9 +2018,11 @@
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
+				CE6366761A76893F0021CB25 /* QSUserLocationViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
+				CE7BF42C1A7A45B30022A132 /* QSMapManager.mm in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				18C8A26D1A6E4A3900BB9611 /* QSGuideLookingforRoomView.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
@@ -1842,6 +2047,7 @@
 				18C8A2241A6E01CA00BB9611 /* QSGuideHeaderView.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
+				CE4377C51A77803300339B26 /* QSWDeveloperActivityCell.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
@@ -1850,7 +2056,6 @@
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
-				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
 				18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
@@ -1915,7 +2120,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1931,9 +2137,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.1;
 			};
 			name = Debug;
 		};
@@ -1953,7 +2159,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1963,8 +2170,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				SDKROOT = iphoneos;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				SDKROOT = iphoneos8.1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1976,11 +2183,32 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit/ObjectMapping\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit/Support\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Vendor/LibComponentLogging/Core\"",
+					"\"${PODS_ROOT}/Headers/Public/Vendor/LibComponentLogging/NSLog\"",
+				);
 				INFOPLIST_FILE = "House/House-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/House/Lib/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphoneos",
+					"$(PROJECT_DIR)/House/Lib/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphonesimulator",
+					/Users/wangshupeng/BaiduMap_IOSSDK_v2.6.0_All/BaiduMap_IOSSDK_v2.6.0_Lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos8.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1992,11 +2220,32 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
+					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit/ObjectMapping\"",
+					"\"${PODS_ROOT}/Headers/Public/RestKit/Support\"",
+					"\"${PODS_ROOT}/Headers/Public/TransitionKit\"",
+					"\"${PODS_ROOT}/Headers/Public/Vendor/LibComponentLogging/Core\"",
+					"\"${PODS_ROOT}/Headers/Public/Vendor/LibComponentLogging/NSLog\"",
+				);
 				INFOPLIST_FILE = "House/House-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/House/Lib/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphoneos",
+					"$(PROJECT_DIR)/House/Lib/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphonesimulator",
+					/Users/wangshupeng/BaiduMap_IOSSDK_v2.6.0_All/BaiduMap_IOSSDK_v2.6.0_Lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos8.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2018,6 +2267,7 @@
 				);
 				INFOPLIST_FILE = "HouseTests/HouseTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos8.1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2027,6 +2277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/House.app/House";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2036,6 +2287,7 @@
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "HouseTests/HouseTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos8.1;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

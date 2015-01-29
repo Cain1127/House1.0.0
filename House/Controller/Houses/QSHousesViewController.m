@@ -9,6 +9,8 @@
 #import "QSHousesViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
+#import "QSWHousesMapDistributionViewController.h"
+#import "QSGeocodeViewController.h"
 @interface QSHousesViewController ()
 
 @end
@@ -58,14 +60,19 @@
     
     [self.navigationController pushViewController:searchVC animated:YES];
     
-
+    
 }
 
 #pragma mark - 进入地图列表
 - (void)gotoMapListViewController
 {
-
     
+//    QSWHousesMapDistributionViewController *VC=[[QSWHousesMapDistributionViewController alloc]init];
+//    [self.navigationController pushViewController:VC animated:YES];
+    
+    QSGeocodeViewController *VC1=[[QSGeocodeViewController alloc]init];
+    
+    [self.navigationController pushViewController:VC1 animated:YES];
 
 }
 

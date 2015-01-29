@@ -11,6 +11,7 @@
 #import "QSAdvertViewController.h"
 #import "QSConfigurationReturnData.h"
 #import "QSCoreDataManager+App.h"
+#import "QSMapManager.h"
 
 @interface QSYAppDelegate ()
 
@@ -41,6 +42,9 @@
     
     ///下载配置信息
 //    [self downloadApplicationBasInfo];
+    
+    ///开始定位个人位置信息
+    [QSMapManager getUserLocation];
     
     return YES;
     
@@ -268,6 +272,48 @@
     
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     
+}
+
+#pragma mark -百度地图联网与授权情况
+- (void)onGetNetworkState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"联网成功");
+    }
+    
+//    else if(2==iError)
+//    {
+//        NSLog(@"网络连接错误");
+//    }
+    
+    else {
+        NSLog(@"onGetNetworkState %d",iError);
+    }
+    
+}
+
+- (void)onGetPermissionState:(int)iError
+{
+    if (0 == iError) {
+        
+        NSLog(@"授权成功");
+        
+    }
+    
+//    else if(-300 ==iError)
+//    {
+//        
+//        NSLog(@"百度地图服务器连接错误");
+//        
+//    }
+//    else if(-200==iError){
+//    
+//        NSLog(@"百度地图服务返回数据异常");
+//    
+//    }
+    else {
+        NSLog(@"onGetPermissionState %d",iError);
+    }
 }
 
 @end
