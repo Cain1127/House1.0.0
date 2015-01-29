@@ -9,7 +9,7 @@
 #import "QSHousesViewController.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
-//#import "QSWHousesMapDistributionViewController.h"
+#import "QSWHousesMapDistributionViewController.h"
 
 @interface QSHousesViewController ()
 
@@ -67,8 +67,8 @@
 - (void)gotoMapListViewController
 {
     
-//    QSWHousesMapDistributionViewController *VC=[[QSWHousesMapDistributionViewController alloc]init];
-//    [self.navigationController pushViewController:VC animated:YES];
+    QSWHousesMapDistributionViewController *VC=[[QSWHousesMapDistributionViewController alloc]init];
+    [self.navigationController pushViewController:VC animated:YES];
 
 }
 

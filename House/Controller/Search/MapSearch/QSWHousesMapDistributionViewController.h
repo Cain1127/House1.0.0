@@ -8,7 +8,7 @@
 
 #import "QSTurnBackViewController.h"
 #import "BMapKit.h"
-//#import "BMKUserLocation.h"
+
 @interface QSWHousesMapDistributionViewController : QSTurnBackViewController<BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate>
 
 @property(nonatomic,strong) BMKLocationService * locService;
