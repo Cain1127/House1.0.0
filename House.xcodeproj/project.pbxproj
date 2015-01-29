@@ -12,6 +12,7 @@
 		182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */; };
+		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -245,6 +246,8 @@
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		182C88101A7A0EF500DA64E9 /* QSNavigationBarPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNavigationBarPickerView.h; path = NavigationBar/Picker/QSNavigationBarPickerView.h; sourceTree = "<group>"; };
 		182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNavigationBarPickerView.m; path = NavigationBar/Picker/QSNavigationBarPickerView.m; sourceTree = "<group>"; };
+		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
+		182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSImageView+Block.m"; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -854,6 +857,8 @@
 		189300761A6902E30081D0AA /* UIImageView */ = {
 			isa = PBXGroup;
 			children = (
+				182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */,
+				182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */,
 			);
 			path = UIImageView;
 			sourceTree = "<group>";
@@ -2421,6 +2426,7 @@
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
+				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,

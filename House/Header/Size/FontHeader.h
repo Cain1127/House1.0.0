@@ -12,6 +12,8 @@
 ///默认的导航栏标题字体
 #define FONT_NAVIGATIONBAR_TITLE 20.0f
 
+#define FONT_BODY_12 12.0f
+
 #define FONT_BODY_14 14.0f
 
 #define FONT_BODY_16 16.0f
