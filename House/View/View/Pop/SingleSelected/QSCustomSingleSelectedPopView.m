@@ -75,6 +75,11 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     CGFloat widthOfButton = (rootView.frame.size.width - 28.0f) / 2.0f;
     UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(10.0f, rootView.frame.size.height - 69.0f, widthOfButton, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        if (self.customPopviewTapCallBack) {
+            
+            self.customPopviewTapCallBack(cCustomPopviewActionTypeCancel,nil,-2);
+            
+        }
         [self hiddenCustomSingleSelectedPopview];
         
     }];

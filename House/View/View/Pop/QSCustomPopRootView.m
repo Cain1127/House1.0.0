@@ -12,7 +12,6 @@
 #import <objc/runtime.h>
 
 ///关联
-static char CustomPresentationVCKey;//!<弹框使用的对象
 
 @interface QSCustomPopRootView ()
 

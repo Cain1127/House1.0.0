@@ -13,6 +13,7 @@
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
+		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -248,6 +249,8 @@
 		182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNavigationBarPickerView.m; path = NavigationBar/Picker/QSNavigationBarPickerView.m; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
 		182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSImageView+Block.m"; sourceTree = "<group>"; };
+		182C881B1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSSecondHandHouseListReturnData.h; path = House/Second/QSSecondHandHouseListReturnData.h; sourceTree = "<group>"; };
+		182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSecondHandHouseListReturnData.m; path = House/Second/QSSecondHandHouseListReturnData.m; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -706,6 +709,23 @@
 				182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */,
 			);
 			name = Picker;
+			sourceTree = "<group>";
+		};
+		182C88191A7B0F0A00DA64E9 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				182C881A1A7B0F1000DA64E9 /* Second */,
+			);
+			name = House;
+			sourceTree = "<group>";
+		};
+		182C881A1A7B0F1000DA64E9 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				182C881B1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.h */,
+				182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */,
+			);
+			name = Second;
 			sourceTree = "<group>";
 		};
 		183CC6521A68FC8800B8F97D = {
@@ -1439,6 +1459,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				182C88191A7B0F0A00DA64E9 /* House */,
 				18CAFCB11A70E45A00C90C90 /* Advert */,
 				18CAFCB41A70E45A00C90C90 /* Base */,
 				18CAFCC31A70E45A00C90C90 /* Chat */,
@@ -2412,6 +2433,7 @@
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
+				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
