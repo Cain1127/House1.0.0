@@ -23,10 +23,10 @@ static char LeftArrowViewKey;//!<左侧箭头
 
 ///选择完成后的回调
 @property (nonatomic,copy) void(^pickedCallBack)(NSString *pickedKey,NSString *pickedVal);
-@property (nonatomic,assign) NAVIGATIONBAR_PICKER_TYPE pickerType;      //!<选择器类型
-@property (nonatomic,assign) NAVIGATIONBAR_PICKER_STYLE pickerStyle;    //!<城市选择风格
-@property (nonatomic,assign) BOOL isPicking;                            //!<选择view的状态
-@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentCity; //!<当前选择项模型
+@property (nonatomic,assign) NAVIGATIONBAR_PICKER_TYPE pickerType;          //!<选择器类型
+@property (nonatomic,assign) NAVIGATIONBAR_PICKER_STYLE pickerStyle;        //!<选择风格
+@property (nonatomic,assign) BOOL isPicking;                                //!<选择view的状态
+@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentCity;   //!<当前选择项模型
 
 @end
 
@@ -91,7 +91,7 @@ static char LeftArrowViewKey;//!<左侧箭头
     ///中间信息
     UILabel *tipsLabel = [[QSLabel alloc] initWithGap:2.0f];
     tipsLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    tipsLabel.text = [QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州";
+    tipsLabel.text = [self getDefaultTypeInfo];
     tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_NAVIGATIONBAR_TITLE];
     tipsLabel.textColor = COLOR_CHARACTERS_GRAY;
     tipsLabel.textAlignment = NSTextAlignmentLeft;
@@ -147,6 +147,28 @@ static char LeftArrowViewKey;//!<左侧箭头
     
 }
 
+#pragma mark - 返回当前选择器的默认选择项
+- (NSString *)getDefaultTypeInfo
+{
+    
+    ///城市选择：返回当前用户的位置
+    if (nNavigationBarPickerStyleTypeCity == self.pickerType) {
+        
+        return ([QSCoreDataManager getCurrentUserCity]) ? ([QSCoreDataManager getCurrentUserCity]) : @"广州";
+        
+    }
+    
+    ///房子列表类型选择：返回上次的选择，或者默认二手房
+    if (nNavigationBarPickerStyleTypeHouseMainType == self.pickerType) {
+        
+        return @"二手房";
+        
+    }
+    
+    return nil;
+
+}
+
 #pragma mark - 为选择器添加单击事件
 ///为导航栏选择器添加单击事件
 - (void)addNavigationBarPickerSingleTap
@@ -168,7 +190,7 @@ static char LeftArrowViewKey;//!<左侧箭头
     self.isPicking = YES;
     
     ///获取城市列表
-    NSArray *cityList = [QSCoreDataManager getCityList];
+    NSArray *cityList = [self getPickerListDataSource];
     
     ///转换
     NSMutableArray *tempCityList = [[NSMutableArray alloc] init];
@@ -193,6 +215,16 @@ static char LeftArrowViewKey;//!<左侧箭头
         ///更换状态
         self.isPicking = NO;
         
+        ///如果是左侧带有三角图片的选择框，则还原图片
+        if (nNavigationBarPickerStyleLeftArrow == self.pickerStyle) {
+            
+            ///旋转三角形
+            UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
+            arrowImageView.image = [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL];
+            arrowImageView.transform = CGAffineTransformIdentity;
+            
+        }
+        
         if (cCustomPopviewActionTypeSingleSelected == actionType) {
             
             ///更换状态
@@ -208,16 +240,6 @@ static char LeftArrowViewKey;//!<左侧箭头
                 self.pickedCallBack([NSString stringWithFormat:@"%@",self.currentCity.key],self.currentCity.val);
                 
             }
-            
-        }
-        
-        ///如果是左侧带有三角图片的选择框，则还原图片
-        if (nNavigationBarPickerStyleLeftArrow == self.pickerStyle) {
-            
-            ///旋转三角形
-            UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
-            arrowImageView.image = [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL];
-            arrowImageView.transform = CGAffineTransformIdentity;
             
         }
         
