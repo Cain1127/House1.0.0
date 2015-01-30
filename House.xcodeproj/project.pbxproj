@@ -17,6 +17,7 @@
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
 		182C88241A7B2F8D00DA64E9 /* QSCustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */; };
 		182C88281A7B326300DA64E9 /* QSDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */; };
+		182C882A1A7B664600DA64E9 /* channelbar_indicate_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 182C88291A7B664600DA64E9 /* channelbar_indicate_arrow.png */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -256,6 +257,7 @@
 		182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPickerView.m; path = Picker/QSCustomPickerView.m; sourceTree = "<group>"; };
 		182C88261A7B326300DA64E9 /* QSDistrictPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDistrictPickerView.h; sourceTree = "<group>"; };
 		182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDistrictPickerView.m; sourceTree = "<group>"; };
+		182C88291A7B664600DA64E9 /* channelbar_indicate_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_indicate_arrow.png; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1786,6 +1788,7 @@
 		18FBA5EC1A79BDF2001372B3 /* ChannelBar */ = {
 			isa = PBXGroup;
 			children = (
+				182C88291A7B664600DA64E9 /* channelbar_indicate_arrow.png */,
 				18FBA6C11A79BF04001372B3 /* channelbar_deploy_arrow_highlighted.png */,
 				18FBA6C21A79BF04001372B3 /* channelbar_deploy_arrow_normal.png */,
 				18FBA5ED1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png */,
@@ -2250,6 +2253,7 @@
 				18FBA6841A79BDF2001372B3 /* icon114.png in Resources */,
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
 				18FBA6A31A79BDF2001372B3 /* navigationbar_setting_normal.png in Resources */,
+				182C882A1A7B664600DA64E9 /* channelbar_indicate_arrow.png in Resources */,
 				18FBA68A1A79BDF2001372B3 /* icon240.png in Resources */,
 				18FBA6A01A79BDF2001372B3 /* navigationbar_search_highlighted.png in Resources */,
 				18FBA66C1A79BDF2001372B3 /* guide_houses_haved_tip.png in Resources */,

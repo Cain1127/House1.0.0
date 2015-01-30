@@ -54,7 +54,7 @@
     [super createNavigationBarUI];
     
     ///中间选择城市按钮
-    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *houseTypeKey, NSString *houseTypeVal) {
+    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *houseTypeKey, NSString *houseTypeVal) {
         
         NSLog(@"====================列表类型选择====================");
         NSLog(@"当前选择城市：%@,%@",houseTypeKey,houseTypeVal);
@@ -112,26 +112,52 @@
     CGFloat gap = SIZE_DEVICE_WIDTH > 568.0f ? 25.0f : 15.0f;
     CGFloat width = (view.frame.size.width - gap * 3.0f - 49.0f) / 3.0f;
     
+    ///三个选择框的指针
+    __block QSCustomPickerView *distictPickerView;
+    __block QSCustomPickerView *houseTypePickerView;
+    __block QSCustomPickerView *pricePickerView;
+    
     ///区域
-    QSCustomPickerView *distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+    distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
-        
+        ///判断是否是弹出回调
+        if (pPickerCallBackActionTypeShow == callBackType) {
+            
+            ///回收其他弹出框
+            [houseTypePickerView removePickerView];
+            [pricePickerView removePickerView];
+            
+        }
         
     }];
     [view addSubview:distictPickerView];
     
     ///户型
-    QSCustomPickerView *houseTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 2.0f + width, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarHouseType andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+    houseTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 2.0f + width, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarHouseType andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap * 2.0f + width + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
-        
+        ///判断是否是弹出回调
+        if (pPickerCallBackActionTypeShow == callBackType) {
+            
+            ///回收其他弹出框
+            [distictPickerView removePickerView];
+            [pricePickerView removePickerView];
+            
+        }
         
     }];
     [view addSubview:houseTypePickerView];
     
     ///总价
-    QSCustomPickerView *pricePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 3.0f + width * 2.0f, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarTotalPrice andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+    pricePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 3.0f + width * 2.0f, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarTotalPrice andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap * 3.0f + width * 2.0f + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
-        
+        ///判断是否是弹出回调
+        if (pPickerCallBackActionTypeShow == callBackType) {
+            
+            ///回收其他弹出框
+            [houseTypePickerView removePickerView];
+            [distictPickerView removePickerView];
+            
+        }
         
     }];
     [view addSubview:pricePickerView];

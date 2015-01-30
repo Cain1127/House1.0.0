@@ -90,6 +90,9 @@
 #define IMAGE_CHANNELBAR_ARROW_NORMAL @"channelbar_deploy_arrow_normal"
 #define IMAGE_CHANNELBAR_ARROW_HIGHLIGHTED @"channelbar_deploy_arrow_highlighted"
 
+///筛选框的指示三角
+#define IMAGE_CHANNELBAR_INDICATE_ARROW @"channelbar_indicate_arrow"
+
 #pragma mark - 指引页图片资源
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03

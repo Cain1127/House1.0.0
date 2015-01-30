@@ -24,11 +24,12 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 @interface QSCustomPickerView ()
 
 ///选择完成后的回调
-@property (nonatomic,copy) void(^pickedCallBack)(NSString *pickedKey,NSString *pickedVal);
+@property (nonatomic,copy) void(^pickedCallBack)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal);
 @property (nonatomic,assign) CUSTOM_PICKER_TYPE pickerType;                         //!<选择器类型
 @property (nonatomic,assign) CUSTOM_PICKER_STYLE pickerStyle;                       //!<选择风格
 @property (nonatomic,assign) BOOL isPicking;                                        //!<选择view的状态
 @property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentPickedModel;    //!<当前选择项模型
+@property (nonatomic,assign) CGFloat indicatorCenterXPoint;                         //!<指示三角中心x
 
 @end
 
@@ -48,7 +49,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle andPickedCallBack:(void(^)(NSString *pickedKey,NSString *pickedVal))callBack
+- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle  andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -61,6 +62,9 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         
         ///保存风格
         self.pickerStyle = pickerStyle;
+        
+        ///保存指示器的中心x坐标
+        self.indicatorCenterXPoint = xpoint;
         
         ///初始化状态
         self.isPicking = NO;
@@ -100,12 +104,16 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     [self addSubview:tipsLabel];
     objc_setAssociatedObject(self, &InfoLabelKey, tipsLabel, OBJC_ASSOCIATION_ASSIGN);
     
+    ///获取最小的长度
+    CGFloat mixWidth = (self.pickerType >= cCustomPickerTypeChannelBarDistrict) ? 32.0f : 45.0f;
+    NSDictionary *___sizeVFL_info = @{@"mixWidth" : [NSString stringWithFormat:@"%.2f",mixWidth]};
+    
     ///约束
-    NSString *___HVFL_tipsLabel = @"H:|-(>=5)-[tipsLabel(>=45,<=125)]-(>=5)-|";
+    NSString *___HVFL_tipsLabel = @"H:|-(>=5)-[tipsLabel(>=mixWidth,<=125)]-(>=5)-|";
     NSString *___vVFL_tipsLabel = @"V:|-[tipsLabel]-|";
     
     ///将信息放在中间
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___HVFL_tipsLabel options:NSLayoutFormatAlignAllCenterX metrics:nil views:NSDictionaryOfVariableBindings(tipsLabel)]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___HVFL_tipsLabel options:NSLayoutFormatAlignAllCenterX metrics:___sizeVFL_info views:NSDictionaryOfVariableBindings(tipsLabel)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_tipsLabel options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(tipsLabel)]];
     //水平居中
     [self addConstraint:[NSLayoutConstraint constraintWithItem:tipsLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
@@ -137,12 +145,16 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         [self addSubview:arrowImageView];
         objc_setAssociatedObject(self, &LeftArrowViewKey, arrowImageView, OBJC_ASSOCIATION_ASSIGN);
         
+        ///默认高度
+        CGFloat height = self.frame.size.height;
+        NSDictionary *___sizeVFL_arrow = @{@"height" : [NSString stringWithFormat:@"%.2f",height]};
+        
         ///添加约束
         NSString *___hVFL_local = @"H:[tipsLabel][arrowImageView(14)]";
-        NSString *___vVFL_local = @"V:[arrowImageView(40)]";
+        NSString *___vVFL_local = @"V:[arrowImageView(height)]";
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_local options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(arrowImageView,tipsLabel)]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_local options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(arrowImageView)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_local options:0 metrics:___sizeVFL_arrow views:NSDictionaryOfVariableBindings(arrowImageView)]];
         
     }
     
@@ -378,7 +390,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 - (void)addCustomPickerSingleTap
 {
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(navigationBarCityPickerSingleTapAction:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(customPickerSingleTapAction:)];
     tap.numberOfTapsRequired = 1;
     tap.numberOfTouchesRequired = 1;
     [self addGestureRecognizer:tap];
@@ -386,10 +398,35 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 }
 
 #pragma mark - 点击选择器弹出选择项
-///点击城市选择
-- (void)navigationBarCityPickerSingleTapAction:(UITapGestureRecognizer *)tap
+///点击选择按钮时回收/弹出选择框
+- (void)customPickerSingleTapAction:(UITapGestureRecognizer *)tap
 {
     
+    ///判断当前的弹出状态
+    if (self.isPicking) {
+        
+        ///回调
+        if (self.pickedCallBack) {
+            
+            self.pickedCallBack(pPickerCallBackActionTypeUnPickedHidden,nil,nil);
+            
+        }
+        
+        ///移除弹出框
+        [self removePickerView];
+        
+        return;
+        
+    }
+    
+    ///回调
+    if (self.pickedCallBack) {
+        
+        self.pickedCallBack(pPickerCallBackActionTypeShow,nil,nil);
+        
+    }
+    
+    ///当前未弹出，则弹出对应的视图
     switch (self.pickerType) {
             ///导航栏城市选择窗口
         case cCustomPickerTypeNavigationBarCity:
@@ -475,7 +512,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             ///回调
             if (self.pickedCallBack) {
                 
-                self.pickedCallBack([NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
                 
             }
             
@@ -503,20 +540,26 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     UIView *popView = [self createHorizontalLeftToRightAniminationView];
     
     ///弹出时的底view
-    UIView *popRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 104.0f)];
+    UIView *popRootView = [[UIView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 104.0f)];
     popRootView.alpha = 0.0f;
     popRootView.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [popRootView addSubview:popView];
     objc_setAssociatedObject(self, &CurrentPopViewKey, popRootView, OBJC_ASSOCIATION_ASSIGN);
     
+    ///指示三角形
+    QSImageView *indicateArrow = [[QSImageView alloc] initWithFrame:CGRectMake(self.indicatorCenterXPoint - 15.0f, 0.0f, 30.0f, 10.0f)];
+    indicateArrow.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
+    [popRootView addSubview:indicateArrow];
+    
     ///获取当前底viewController
     UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     [rootVC.view addSubview:popRootView];
+    [rootVC.view bringSubviewToFront:popRootView];
     
     ///动画推出选择框
     [UIView animateWithDuration:0.3 animations:^{
         
-        popRootView.frame = CGRectMake(SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 104.0f);
+        popRootView.frame = CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 104.0f);
         popRootView.alpha = 1.0f;
         
     }];
@@ -527,13 +570,12 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 - (UIView *)createHorizontalLeftToRightAniminationView
 {
 
-    
     switch (self.pickerType) {
             ///地区选择
         case cCustomPickerTypeChannelBarDistrict:
         {
         
-            QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 124.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 124.0f) andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
+            QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
                 
                 ///更换状态
                 self.isPicking = NO;
@@ -548,7 +590,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                 ///回调
                 if (self.pickedCallBack) {
                     
-                    self.pickedCallBack([NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                    self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
                     
                 }
                 
@@ -580,6 +622,12 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
  */
 - (void)removePickerView
 {
+    
+    if (!self.isPicking) {
+        
+        return;
+        
+    }
 
     ///更换状态
     self.isPicking = NO;
