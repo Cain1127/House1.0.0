@@ -73,6 +73,23 @@
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
+#pragma mark - 频道栏图片资源
+/**
+ *  @author yangshengmeng, 15-01-30 10:01:10
+ *
+ *  @brief  频道栏图片资源宏定义
+ *
+ *  @since  1.0.0
+ */
+
+///高级筛选按钮
+#define IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL @"channelbar_advancedfilter_normal"
+#define IMAGE_CHANNELBAR_ADVANCEFILTER_HIGHLIGHTED @"channelbar_advancedfilter_highlighted"
+
+///筛选按钮的左三角
+#define IMAGE_CHANNELBAR_ARROW_NORMAL @"channelbar_deploy_arrow_normal"
+#define IMAGE_CHANNELBAR_ARROW_HIGHLIGHTED @"channelbar_deploy_arrow_highlighted"
+
 #pragma mark - 指引页图片资源
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03

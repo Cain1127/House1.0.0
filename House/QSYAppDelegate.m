@@ -168,14 +168,25 @@
         
         [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:confModel.getBaseConfigurationRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            ///模型转换
-            QSBaseConfigurationReturnData *dataModel = resultData;
+            ///判断是否请求成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///模型转换
+                QSBaseConfigurationReturnData *dataModel = resultData;
+                
+                ///保存配置信息
+                [QSCoreDataManager updateConfigurationWithModel:confModel];
+                
+                ///将对应的版本信息插入配置库中
+                [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
+                
+            } else {
             
-            ///保存配置信息
-            [QSCoreDataManager updateConfigurationWithModel:confModel];
+                NSLog(@"==================请求配置信息失败=======================");
+                NSLog(@"当前配置信息项为：conf : %@,error : %@",confModel.conf,errorInfo);
+                NSLog(@"==================请求配置信息失败=======================");
             
-            ///将对应的版本信息插入配置库中
-            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
+            }
             
         }];
         

@@ -38,6 +38,7 @@
  *  @since  1.0.0
  */
 + (NSString *)getCurrentUserCity;
++ (NSString *)getCurrentUserCityKey;
 + (BOOL)updateCurrentUserCity:(NSString *)city;
 
 /**

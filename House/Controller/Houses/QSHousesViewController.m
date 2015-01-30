@@ -10,7 +10,7 @@
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSHouseKeySearchViewController.h"
 #import "QSWHousesMapDistributionViewController.h"
-#import "QSNavigationBarPickerView.h"
+#import "QSCustomPickerView.h"
 
 @interface QSHousesViewController ()
 
@@ -54,10 +54,10 @@
     [super createNavigationBarUI];
     
     ///中间选择城市按钮
-    QSNavigationBarPickerView *houseListTypePickerView = [[QSNavigationBarPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:nNavigationBarPickerStyleTypeHouseMainType andPickerViewStyle:nNavigationBarPickerStyleLeftArrow andPickedCallBack:^(NSString *cityKey, NSString *cityVal) {
+    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *houseTypeKey, NSString *houseTypeVal) {
         
         NSLog(@"====================列表类型选择====================");
-        NSLog(@"当前选择城市：%@,%@",cityKey,cityVal);
+        NSLog(@"当前选择城市：%@,%@",houseTypeKey,houseTypeVal);
         NSLog(@"====================列表类型选择====================");
         
     }];
@@ -87,8 +87,59 @@
 - (void)createMainShowUI
 {
     
-    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
-//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
+    ///频道栏底view
+    UIView *channelBarRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 40.0f)];
+    [self createChannelBarUI:channelBarRootView];
+    [self.view addSubview:channelBarRootView];
+    
+}
+
+///搭建频道栏的UI
+- (void)createChannelBarUI:(UIView *)view
+{
+    
+    ///高级筛选按钮
+    UIButton *advanceFilterButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width - 49.0f, 0.0f, 49.0f, 40.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        
+        
+    }];
+    [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL] forState:UIControlStateNormal];
+    [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [view addSubview:advanceFilterButton];
+    
+    ///计算每个按钮的间隙
+    CGFloat gap = SIZE_DEVICE_WIDTH > 568.0f ? 25.0f : 15.0f;
+    CGFloat width = (view.frame.size.width - gap * 3.0f - 49.0f) / 3.0f;
+    
+    ///区域
+    QSCustomPickerView *distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+        
+        
+        
+    }];
+    [view addSubview:distictPickerView];
+    
+    ///户型
+    QSCustomPickerView *houseTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 2.0f + width, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarHouseType andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+        
+        
+        
+    }];
+    [view addSubview:houseTypePickerView];
+    
+    ///总价
+    QSCustomPickerView *pricePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 3.0f + width * 2.0f, (view.frame.size.height - 30.0f) / 2.0f, width, 30.0f) andPickerType:cCustomPickerTypeChannelBarTotalPrice andPickerViewStyle:cCustomPickerStyleLeftArrow andPickedCallBack:^(NSString *pickedKey, NSString *pickedVal) {
+        
+        
+        
+    }];
+    [view addSubview:pricePickerView];
+
+    ///底部分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 0.5f, view.frame.size.width, 0.5f)];
+    bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:bottomLineLabel];
     
 }
 

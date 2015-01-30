@@ -68,6 +68,11 @@ static QSMapManager *mapManager;//!<地图管理器指针
         return;
         
     }
+    
+    ///设置定位精确度，默认：kCLLocationAccuracyBest
+    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+    ///指定最小距离更新(米)，默认：kCLDistanceFilterNone
+    [BMKLocationService setLocationDistanceFilter:100.0f];
 
     ///定位服务初始化
     self.locationService = [[BMKLocationService alloc] init];

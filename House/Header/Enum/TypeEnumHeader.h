@@ -472,7 +472,7 @@ typedef enum
 {
 
     rRequestResultTypeSuccess = 99,     //!<请求成功,服务端返回成功
-    rRequestResultTypeFail,             //!<请求成功，服务端返回失败
+    rRequestResultTypeFail,             //!<请求失败，服务端返回失败
     
     rRequestResultTypeDataAnalyzeFail,  //!<数据解析失败
     

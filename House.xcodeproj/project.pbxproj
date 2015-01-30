@@ -11,9 +11,12 @@
 		182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */; };
 		182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
-		182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
+		182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C881E1A7B244000DA64E9 /* QuartzCore.framework */; };
+		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
+		182C88241A7B2F8D00DA64E9 /* QSCustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */; };
+		182C88281A7B326300DA64E9 /* QSDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -109,7 +112,6 @@
 		18FBA5BB1A7871F8001372B3 /* QSGuideSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BA1A7871F8001372B3 /* QSGuideSummaryViewController.m */; };
 		18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */; };
 		18FBA5C11A789D13001372B3 /* QSMultipleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5C01A789D13001372B3 /* QSMultipleSelectedPopView.m */; };
-		18FBA5CA1A78B89F001372B3 /* QSDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5C91A78B89F001372B3 /* QSDistrictPickerView.m */; };
 		18FBA5CE1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5CD1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m */; };
 		18FBA65E1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA5ED1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png */; };
 		18FBA65F1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA5EE1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png */; };
@@ -219,7 +221,6 @@
 		CE7BF4781A7A6FEB0022A132 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */; };
 		CE7BF4791A7A6FEB0022A132 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF4771A7A6FEB0022A132 /* mapapi.bundle */; };
 		CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF47A1A7A70080022A132 /* CoreLocation.framework */; };
-		CE7BF4801A7A703E0022A132 /* QSGeocodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */; };
 		CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
@@ -245,12 +246,16 @@
 		182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSelectedView.m; path = Selected/QSCustomSelectedView.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
-		182C88101A7A0EF500DA64E9 /* QSNavigationBarPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNavigationBarPickerView.h; path = NavigationBar/Picker/QSNavigationBarPickerView.h; sourceTree = "<group>"; };
-		182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNavigationBarPickerView.m; path = NavigationBar/Picker/QSNavigationBarPickerView.m; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
 		182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSImageView+Block.m"; sourceTree = "<group>"; };
 		182C881B1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSSecondHandHouseListReturnData.h; path = House/Second/QSSecondHandHouseListReturnData.h; sourceTree = "<group>"; };
 		182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSecondHandHouseListReturnData.m; path = House/Second/QSSecondHandHouseListReturnData.m; sourceTree = "<group>"; };
+		182C881E1A7B244000DA64E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		182C88201A7B244E00DA64E9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		182C88221A7B2F8D00DA64E9 /* QSCustomPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPickerView.h; path = Picker/QSCustomPickerView.h; sourceTree = "<group>"; };
+		182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPickerView.m; path = Picker/QSCustomPickerView.m; sourceTree = "<group>"; };
+		182C88261A7B326300DA64E9 /* QSDistrictPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDistrictPickerView.h; sourceTree = "<group>"; };
+		182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDistrictPickerView.m; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -430,8 +435,6 @@
 		18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPresentationViewController.m; path = Animination/QSCustomPresentationViewController.m; sourceTree = "<group>"; };
 		18FBA5BF1A789D13001372B3 /* QSMultipleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMultipleSelectedPopView.h; path = Pop/MultipleSelected/QSMultipleSelectedPopView.h; sourceTree = "<group>"; };
 		18FBA5C01A789D13001372B3 /* QSMultipleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMultipleSelectedPopView.m; path = Pop/MultipleSelected/QSMultipleSelectedPopView.m; sourceTree = "<group>"; };
-		18FBA5C81A78B89F001372B3 /* QSDistrictPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSDistrictPickerView.h; path = Picker/District/QSDistrictPickerView.h; sourceTree = "<group>"; };
-		18FBA5C91A78B89F001372B3 /* QSDistrictPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSDistrictPickerView.m; path = Picker/District/QSDistrictPickerView.m; sourceTree = "<group>"; };
 		18FBA5CC1A78E825001372B3 /* QSCustomDistrictSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomDistrictSelectedPopView.h; path = Pop/District/QSCustomDistrictSelectedPopView.h; sourceTree = "<group>"; };
 		18FBA5CD1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomDistrictSelectedPopView.m; path = Pop/District/QSCustomDistrictSelectedPopView.m; sourceTree = "<group>"; };
 		18FBA5ED1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_advancedfilter_highlighted.png; sourceTree = "<group>"; };
@@ -607,8 +610,6 @@
 		CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		CE7BF4771A7A6FEB0022A132 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		CE7BF47A1A7A70080022A132 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		CE7BF47C1A7A703E0022A132 /* QSGeocodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGeocodeViewController.h; sourceTree = "<group>"; };
-		CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSGeocodeViewController.mm; sourceTree = "<group>"; };
 		CE7BF47E1A7A703E0022A132 /* QSMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMapManager.h; sourceTree = "<group>"; };
 		CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSMapManager.mm; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -623,6 +624,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */,
+				182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */,
 				CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */,
 				18FABD0F1A776D60007AC345 /* libz.1.1.3.dylib in Frameworks */,
 				18FABD0D1A776D57007AC345 /* Security.framework in Frameworks */,
@@ -702,15 +705,6 @@
 			name = House;
 			sourceTree = "<group>";
 		};
-		182C880F1A7A0EB800DA64E9 /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-				182C88101A7A0EF500DA64E9 /* QSNavigationBarPickerView.h */,
-				182C88111A7A0EF500DA64E9 /* QSNavigationBarPickerView.m */,
-			);
-			name = Picker;
-			sourceTree = "<group>";
-		};
 		182C88191A7B0F0A00DA64E9 /* House */ = {
 			isa = PBXGroup;
 			children = (
@@ -726,6 +720,15 @@
 				182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */,
 			);
 			name = Second;
+			sourceTree = "<group>";
+		};
+		182C88251A7B326300DA64E9 /* District */ = {
+			isa = PBXGroup;
+			children = (
+				182C88261A7B326300DA64E9 /* QSDistrictPickerView.h */,
+				182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */,
+			);
+			path = District;
 			sourceTree = "<group>";
 		};
 		183CC6521A68FC8800B8F97D = {
@@ -762,6 +765,8 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				182C88201A7B244E00DA64E9 /* OpenGLES.framework */,
+				182C881E1A7B244000DA64E9 /* QuartzCore.framework */,
 				CE7BF47A1A7A70080022A132 /* CoreLocation.framework */,
 				18FABD0E1A776D60007AC345 /* libz.1.1.3.dylib */,
 				18FABD0C1A776D57007AC345 /* Security.framework */,
@@ -1010,8 +1015,6 @@
 		189300821A6902E30081D0AA /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				CE7BF47C1A7A703E0022A132 /* QSGeocodeViewController.h */,
-				CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */,
 				CE7BF47E1A7A703E0022A132 /* QSMapManager.h */,
 				CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */,
 			);
@@ -1109,7 +1112,7 @@
 		189300971A6902E30081D0AA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18FBA6C61A79C53A001372B3 /* NavigationBar */,
+				182C88251A7B326300DA64E9 /* District */,
 				18FBA5C31A78B838001372B3 /* Picker */,
 				18F99AFA1A76000F00098FD6 /* HUD */,
 				18F99AF51A75FF9800098FD6 /* Alert */,
@@ -1765,18 +1768,10 @@
 		18FBA5C31A78B838001372B3 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
-				18FBA5C41A78B83E001372B3 /* District */,
+				182C88221A7B2F8D00DA64E9 /* QSCustomPickerView.h */,
+				182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */,
 			);
 			name = Picker;
-			sourceTree = "<group>";
-		};
-		18FBA5C41A78B83E001372B3 /* District */ = {
-			isa = PBXGroup;
-			children = (
-				18FBA5C81A78B89F001372B3 /* QSDistrictPickerView.h */,
-				18FBA5C91A78B89F001372B3 /* QSDistrictPickerView.m */,
-			);
-			name = District;
 			sourceTree = "<group>";
 		};
 		18FBA5CB1A78E7E1001372B3 /* District */ = {
@@ -1992,14 +1987,6 @@
 				18FBA65D1A79BDF2001372B3 /* tabbar_myzone_selected.png */,
 			);
 			path = Tabbar;
-			sourceTree = "<group>";
-		};
-		18FBA6C61A79C53A001372B3 /* NavigationBar */ = {
-			isa = PBXGroup;
-			children = (
-				182C880F1A7A0EB800DA64E9 /* Picker */,
-			);
-			name = NavigationBar;
 			sourceTree = "<group>";
 		};
 		CE000DC71A6E60D6008FD309 /* SaleHouse */ = {
@@ -2389,7 +2376,6 @@
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
-				182C88121A7A0EF500DA64E9 /* QSNavigationBarPickerView.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
 				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
@@ -2416,7 +2402,6 @@
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
-				18FBA5CA1A78B89F001372B3 /* QSDistrictPickerView.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
@@ -2434,6 +2419,7 @@
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
+				182C88241A7B2F8D00DA64E9 /* QSCustomPickerView.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
@@ -2452,8 +2438,8 @@
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
-				CE7BF4801A7A703E0022A132 /* QSGeocodeViewController.mm in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
+				182C88281A7B326300DA64E9 /* QSDistrictPickerView.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
