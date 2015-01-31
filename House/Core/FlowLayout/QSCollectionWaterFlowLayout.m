@@ -316,14 +316,6 @@
     
     for (int i = 0;i < self.totalSection; i++) {
         
-        ///获取最大的尺寸
-        CGFloat defaultSize = [self.defaultSizeInSection[i] floatValue];
-        if (maxSize < defaultSize) {
-            
-            maxSize = defaultSize;
-            
-        }
-        
         ///遍历获取最大的坐标
         for (int j = 0; j < [self.numberOfRowsInSection[i] intValue]; j++) {
             
@@ -332,17 +324,33 @@
             ///判断不同的布局方向
             if (UICollectionViewScrollDirectionVertical == self.scrollDirection) {
                 
+                ///找最大y坐标
                 if (maxPoint < attributes.frame.origin.y) {
                     
                     maxPoint = attributes.frame.origin.y;
                     
                 }
                 
+                ///找最大的cell高
+                if (maxSize < attributes.frame.size.height) {
+                    
+                    maxSize = attributes.frame.size.height;
+                    
+                }
+                
             } else {
             
+                ///找最大x坐标
                 if (maxPoint < attributes.frame.origin.x) {
                     
                     maxPoint = attributes.frame.origin.x;
+                    
+                }
+                
+                ///找最大的cell宽度
+                if (maxSize < attributes.frame.size.width) {
+                    
+                    maxSize = attributes.frame.size.width;
                     
                 }
             

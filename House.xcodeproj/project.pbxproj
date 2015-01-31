@@ -32,6 +32,15 @@
 		183CC6801A68FC8800B8F97D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6641A68FC8800B8F97D /* CoreData.framework */; };
 		183CC6881A68FC8800B8F97D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 183CC6861A68FC8800B8F97D /* InfoPlist.strings */; };
 		183CC68A1A68FC8800B8F97D /* HouseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 183CC6891A68FC8800B8F97D /* HouseTests.m */; };
+		184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */; };
+		184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */; };
+		1849509D1A7CB66000CC00F7 /* houses_detail_activity_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 184950961A7CB66000CC00F7 /* houses_detail_activity_left.png */; };
+		1849509E1A7CB66000CC00F7 /* houses_detail_activity_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 184950971A7CB66000CC00F7 /* houses_detail_activity_right.png */; };
+		1849509F1A7CB66000CC00F7 /* houses_features_hezu.png in Resources */ = {isa = PBXBuildFile; fileRef = 184950981A7CB66000CC00F7 /* houses_features_hezu.png */; };
+		184950A01A7CB66000CC00F7 /* houses_features_mianshui.png in Resources */ = {isa = PBXBuildFile; fileRef = 184950991A7CB66000CC00F7 /* houses_features_mianshui.png */; };
+		184950A11A7CB66000CC00F7 /* houses_features_zhengzu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849509A1A7CB66000CC00F7 /* houses_features_zhengzu.png */; };
+		184950A21A7CB66000CC00F7 /* houses_list_load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849509B1A7CB66000CC00F7 /* houses_list_load_fail.png */; };
+		184950A31A7CB66000CC00F7 /* houses_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 1849509C1A7CB66000CC00F7 /* houses_sixform.png */; };
 		186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */; };
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
@@ -144,12 +153,6 @@
 		18FBA6791A79BDF2001372B3 /* home_secondhandhouse_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA60C1A79BDF2001372B3 /* home_secondhandhouse_normal.png */; };
 		18FBA67A1A79BDF2001372B3 /* home_tenement_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA60D1A79BDF2001372B3 /* home_tenement_highlighted.png */; };
 		18FBA67B1A79BDF2001372B3 /* home_tenement_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA60E1A79BDF2001372B3 /* home_tenement_normal.png */; };
-		18FBA67C1A79BDF2001372B3 /* houses_detail_activity_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6111A79BDF2001372B3 /* houses_detail_activity_left.png */; };
-		18FBA67D1A79BDF2001372B3 /* houses_detail_activity_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6121A79BDF2001372B3 /* houses_detail_activity_right.png */; };
-		18FBA67E1A79BDF2001372B3 /* home_features_hezu.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6131A79BDF2001372B3 /* home_features_hezu.png */; };
-		18FBA67F1A79BDF2001372B3 /* home_features_mianshui.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6141A79BDF2001372B3 /* home_features_mianshui.png */; };
-		18FBA6801A79BDF2001372B3 /* home_features_zhengzu.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6151A79BDF2001372B3 /* home_features_zhengzu.png */; };
-		18FBA6811A79BDF2001372B3 /* houses_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6161A79BDF2001372B3 /* houses_sixform.png */; };
 		18FBA6821A79BDF2001372B3 /* icon100.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6181A79BDF2001372B3 /* icon100.png */; };
 		18FBA6831A79BDF2001372B3 /* icon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA6191A79BDF2001372B3 /* icon1024.png */; };
 		18FBA6841A79BDF2001372B3 /* icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA61A1A79BDF2001372B3 /* icon114.png */; };
@@ -276,6 +279,17 @@
 		183CC6851A68FC8800B8F97D /* HouseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HouseTests-Info.plist"; sourceTree = "<group>"; };
 		183CC6871A68FC8800B8F97D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		183CC6891A68FC8800B8F97D /* HouseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HouseTests.m; sourceTree = "<group>"; };
+		1849508F1A7CAD6800CC00F7 /* QSHouseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseCollectionViewCell.h; path = Cell/QSHouseCollectionViewCell.h; sourceTree = "<group>"; };
+		184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseCollectionViewCell.m; path = Cell/QSHouseCollectionViewCell.m; sourceTree = "<group>"; };
+		184950921A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseListTitleCollectionViewCell.h; sourceTree = "<group>"; };
+		184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseListTitleCollectionViewCell.m; sourceTree = "<group>"; };
+		184950961A7CB66000CC00F7 /* houses_detail_activity_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_activity_left.png; sourceTree = "<group>"; };
+		184950971A7CB66000CC00F7 /* houses_detail_activity_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_activity_right.png; sourceTree = "<group>"; };
+		184950981A7CB66000CC00F7 /* houses_features_hezu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_features_hezu.png; sourceTree = "<group>"; };
+		184950991A7CB66000CC00F7 /* houses_features_mianshui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_features_mianshui.png; sourceTree = "<group>"; };
+		1849509A1A7CB66000CC00F7 /* houses_features_zhengzu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_features_zhengzu.png; sourceTree = "<group>"; };
+		1849509B1A7CB66000CC00F7 /* houses_list_load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_list_load_fail.png; sourceTree = "<group>"; };
+		1849509C1A7CB66000CC00F7 /* houses_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_sixform.png; sourceTree = "<group>"; };
 		186F73C41A77CD1D0078DAE9 /* QSPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPresentationController.h; path = Animination/QSPresentationController.h; sourceTree = "<group>"; };
 		186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSPresentationController.m; path = Animination/QSPresentationController.m; sourceTree = "<group>"; };
 		186F73C71A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSViewControllerAnimatedTransitioning.h; path = Animination/QSViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -471,12 +485,6 @@
 		18FBA60C1A79BDF2001372B3 /* home_secondhandhouse_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_secondhandhouse_normal.png; sourceTree = "<group>"; };
 		18FBA60D1A79BDF2001372B3 /* home_tenement_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tenement_highlighted.png; sourceTree = "<group>"; };
 		18FBA60E1A79BDF2001372B3 /* home_tenement_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tenement_normal.png; sourceTree = "<group>"; };
-		18FBA6111A79BDF2001372B3 /* houses_detail_activity_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_activity_left.png; sourceTree = "<group>"; };
-		18FBA6121A79BDF2001372B3 /* houses_detail_activity_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_activity_right.png; sourceTree = "<group>"; };
-		18FBA6131A79BDF2001372B3 /* home_features_hezu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_features_hezu.png; sourceTree = "<group>"; };
-		18FBA6141A79BDF2001372B3 /* home_features_mianshui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_features_mianshui.png; sourceTree = "<group>"; };
-		18FBA6151A79BDF2001372B3 /* home_features_zhengzu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_features_zhengzu.png; sourceTree = "<group>"; };
-		18FBA6161A79BDF2001372B3 /* houses_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_sixform.png; sourceTree = "<group>"; };
 		18FBA6181A79BDF2001372B3 /* icon100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon100.png; sourceTree = "<group>"; };
 		18FBA6191A79BDF2001372B3 /* icon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1024.png; sourceTree = "<group>"; };
 		18FBA61A1A79BDF2001372B3 /* icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114.png; sourceTree = "<group>"; };
@@ -830,6 +838,33 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		184950871A7CACF300CC00F7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1849508F1A7CAD6800CC00F7 /* QSHouseCollectionViewCell.h */,
+				184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		1849508B1A7CAD3500CC00F7 /* Title */ = {
+			isa = PBXGroup;
+			children = (
+				184950921A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.h */,
+				184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */,
+			);
+			path = Title;
+			sourceTree = "<group>";
+		};
+		184950951A7CB66000CC00F7 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				184950961A7CB66000CC00F7 /* houses_detail_activity_left.png */,
+				184950971A7CB66000CC00F7 /* houses_detail_activity_right.png */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		186F73C31A77CCC10078DAE9 /* Animination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1205,8 @@
 		189300AD1A690C880081D0AA /* Houses */ = {
 			isa = PBXGroup;
 			children = (
+				1849508B1A7CAD3500CC00F7 /* Title */,
+				184950871A7CACF300CC00F7 /* Cell */,
 				18C8A0DD1A6A824B00BB9611 /* QSHousesViewController.h */,
 				18C8A0DE1A6A824B00BB9611 /* QSHousesViewController.m */,
 			);
@@ -1868,22 +1905,14 @@
 		18FBA60F1A79BDF2001372B3 /* Houses */ = {
 			isa = PBXGroup;
 			children = (
-				18FBA6101A79BDF2001372B3 /* Detail */,
-				18FBA6131A79BDF2001372B3 /* home_features_hezu.png */,
-				18FBA6141A79BDF2001372B3 /* home_features_mianshui.png */,
-				18FBA6151A79BDF2001372B3 /* home_features_zhengzu.png */,
-				18FBA6161A79BDF2001372B3 /* houses_sixform.png */,
+				184950951A7CB66000CC00F7 /* Detail */,
+				184950981A7CB66000CC00F7 /* houses_features_hezu.png */,
+				184950991A7CB66000CC00F7 /* houses_features_mianshui.png */,
+				1849509A1A7CB66000CC00F7 /* houses_features_zhengzu.png */,
+				1849509B1A7CB66000CC00F7 /* houses_list_load_fail.png */,
+				1849509C1A7CB66000CC00F7 /* houses_sixform.png */,
 			);
 			path = Houses;
-			sourceTree = "<group>";
-		};
-		18FBA6101A79BDF2001372B3 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				18FBA6111A79BDF2001372B3 /* houses_detail_activity_left.png */,
-				18FBA6121A79BDF2001372B3 /* houses_detail_activity_right.png */,
-			);
-			path = Detail;
 			sourceTree = "<group>";
 		};
 		18FBA6171A79BDF2001372B3 /* Icon */ = {
@@ -2240,7 +2269,6 @@
 				18FBA6A41A79BDF2001372B3 /* navigationbar_tool_highlighted.png in Resources */,
 				18FBA6AF1A79BDF2001372B3 /* public_shake.png in Resources */,
 				1893009B1A6903540081D0AA /* Readme.rtf in Resources */,
-				18FBA67E1A79BDF2001372B3 /* home_features_hezu.png in Resources */,
 				18FBA6B51A79BDF2001372B3 /* share_wechat_highlighted.png in Resources */,
 				18C8A1351A6CA0F400BB9611 /* Images.xcassets in Resources */,
 				18FBA66D1A79BDF2001372B3 /* guide_middle_tip.png in Resources */,
@@ -2252,6 +2280,7 @@
 				18FBA6BF1A79BDF2001372B3 /* tabbar_myzone_normal.png in Resources */,
 				18FBA6D01A79DE8C001372B3 /* public_local_lightyellow.png in Resources */,
 				18FBA66F1A79BDF2001372B3 /* guide_tenant_haved_circle_tip.png in Resources */,
+				184950A11A7CB66000CC00F7 /* houses_features_zhengzu.png in Resources */,
 				18FBA6641A79BDF2001372B3 /* developer_saling_house.png in Resources */,
 				18FBA67A1A79BDF2001372B3 /* home_tenement_highlighted.png in Resources */,
 				18FBA6651A79BDF2001372B3 /* developer_setting.png in Resources */,
@@ -2263,23 +2292,24 @@
 				18FBA6771A79BDF2001372B3 /* home_salehouse_normal.png in Resources */,
 				18FBA69A1A79BDF2001372B3 /* navigationbar_deploy_arrow_normal.png in Resources */,
 				18FBA69E1A79BDF2001372B3 /* navigationbar_message_normal.png in Resources */,
+				184950A31A7CB66000CC00F7 /* houses_sixform.png in Resources */,
 				18FBA6841A79BDF2001372B3 /* icon114.png in Resources */,
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
 				18FBA6A31A79BDF2001372B3 /* navigationbar_setting_normal.png in Resources */,
 				182C882A1A7B664600DA64E9 /* channelbar_indicate_arrow.png in Resources */,
 				18FBA68A1A79BDF2001372B3 /* icon240.png in Resources */,
+				1849509D1A7CB66000CC00F7 /* houses_detail_activity_left.png in Resources */,
 				18FBA6A01A79BDF2001372B3 /* navigationbar_search_highlighted.png in Resources */,
 				18FBA66C1A79BDF2001372B3 /* guide_houses_haved_tip.png in Resources */,
 				18FBA67B1A79BDF2001372B3 /* home_tenement_normal.png in Resources */,
 				18FBA6711A79BDF2001372B3 /* home_background.png in Resources */,
-				18FBA67C1A79BDF2001372B3 /* houses_detail_activity_left.png in Resources */,
 				18FBA6881A79BDF2001372B3 /* icon152.png in Resources */,
 				18FBA6B41A79BDF2001372B3 /* share_friends_normal.png in Resources */,
 				18FBA6A71A79BDF2001372B3 /* navigationbar_turnback_normal.png in Resources */,
 				18FBA68B1A79BDF2001372B3 /* icon29.png in Resources */,
-				18FBA6801A79BDF2001372B3 /* home_features_zhengzu.png in Resources */,
 				18FBA65F1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png in Resources */,
 				18FBA6A61A79BDF2001372B3 /* navigationbar_turnback_highlighted.png in Resources */,
+				184950A01A7CB66000CC00F7 /* houses_features_mianshui.png in Resources */,
 				18FBA6BA1A79BDF2001372B3 /* tabbar_chat_selected.png in Resources */,
 				18FBA6B01A79BDF2001372B3 /* public_single_selected_highlighted.png in Resources */,
 				18FBA6B81A79BDF2001372B3 /* share_weibo_normal.png in Resources */,
@@ -2293,6 +2323,7 @@
 				18FBA6B71A79BDF2001372B3 /* share_weibo_highlighted.png in Resources */,
 				18FBA6CE1A79DE8C001372B3 /* public_local_gray.png in Resources */,
 				18FBA6761A79BDF2001372B3 /* home_salehouse_highlighted.png in Resources */,
+				1849509F1A7CB66000CC00F7 /* houses_features_hezu.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
 				18FBA6731A79BDF2001372B3 /* home_bambooplate_normal.png in Resources */,
 				18FBA65E1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png in Resources */,
@@ -2310,12 +2341,12 @@
 				18FBA6BB1A79BDF2001372B3 /* tabbar_home_normal.png in Resources */,
 				18FBA6C41A79BF04001372B3 /* channelbar_deploy_arrow_normal.png in Resources */,
 				18FBA6681A79BDF2001372B3 /* guide_filter_header.png in Resources */,
-				18FBA6811A79BDF2001372B3 /* houses_sixform.png in Resources */,
+				1849509E1A7CB66000CC00F7 /* houses_detail_activity_right.png in Resources */,
 				18FBA6B11A79BDF2001372B3 /* public_single_selected_normal.png in Resources */,
 				18FBA6CF1A79DE8C001372B3 /* public_local_highlighted.png in Resources */,
+				184950A21A7CB66000CC00F7 /* houses_list_load_fail.png in Resources */,
 				18FBA66E1A79BDF2001372B3 /* guide_tenant_haved.png in Resources */,
 				18FBA6B91A79BDF2001372B3 /* tabbar_chat_normal.png in Resources */,
-				18FBA67D1A79BDF2001372B3 /* houses_detail_activity_right.png in Resources */,
 				18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */,
 				18FBA68E1A79BDF2001372B3 /* icon80.png in Resources */,
 				18FBA6661A79BDF2001372B3 /* developer_setting_hightlight.png in Resources */,
@@ -2328,7 +2359,6 @@
 				18FBA6741A79BDF2001372B3 /* home_bridalchamber_highlighted.png in Resources */,
 				18FBA6791A79BDF2001372B3 /* home_secondhandhouse_normal.png in Resources */,
 				18FBA6BC1A79BDF2001372B3 /* tabbar_home_selected.png in Resources */,
-				18FBA67F1A79BDF2001372B3 /* home_features_mianshui.png in Resources */,
 				18FBA6B21A79BDF2001372B3 /* seach_seachstatus.png in Resources */,
 				18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */,
 				18FBA6671A79BDF2001372B3 /* guide_big_circle.png in Resources */,
@@ -2390,6 +2420,7 @@
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */,
+				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
@@ -2408,6 +2439,7 @@
 				18FBA5B81A787013001372B3 /* QSGuideHeaderViewController.m in Sources */,
 				CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
+				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,

@@ -12,6 +12,8 @@
 #import "QSWHousesMapDistributionViewController.h"
 #import "QSCustomPickerView.h"
 #import "QSCollectionWaterFlowLayout.h"
+#import "QSHouseCollectionViewCell.h"
+#import "QSHouseListTitleCollectionViewCell.h"
 
 @interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
@@ -104,7 +106,8 @@
     collectionView.dataSource = self;
     collectionView.showsHorizontalScrollIndicator = NO;
     collectionView.showsVerticalScrollIndicator = NO;
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"normalCell"];
+    [collectionView registerClass:[QSHouseListTitleCollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
+    [collectionView registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
     [self.view addSubview:collectionView];
     
 }
@@ -230,11 +233,14 @@
 
     if (0 == indexPath.row) {
         
-        return 90.0f;
+        return 80.0f;
         
     }
     
-    return 240.0f;
+    CGFloat width = (SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT * 3.0f) / 2.0f;
+    CGFloat height = 139.5f + width * 247.0f / 330.0f;
+    
+    return height;
 
 }
 
@@ -272,16 +278,26 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    ///cell的复用标签
-    static NSString *CellIdentifier = @"normalCell";
+    ///判断是否标题栏
+    if (0 == indexPath.row) {
+        
+        ///复用标识
+        static NSString *titleCellIndentify = @"titleCell";
+        
+        ///从复用队列中获取cell
+        QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
+        
+        return cellTitle;
+        
+    }
     
-    ///从复用队列中获取cell
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    ///复用标识
+    static NSString *houseCellIndentify = @"houseCell";
     
-    ///设置cell的背景颜色
-    cell.backgroundColor = [UIColor colorWithRed:((10 * indexPath.row) / 255.0) green:((20 * indexPath.row)/255.0) blue:((30 * indexPath.row)/255.0) alpha:1.0f];
+    ///从复用队列中获取房子信息的cell
+    QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
-    return cell;
+    return cellHouse;
 
 }
 

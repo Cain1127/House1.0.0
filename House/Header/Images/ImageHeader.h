@@ -173,4 +173,28 @@
 #define IMAGE_HOME_COMMUNITYRECOMMAND_NORMAL @"home_bambooplate_normal"
 #define IMAGE_HOME_COMMUNITYRECOMMAND_HIGHLIGHTED @"home_bambooplate_highlighted"
 
+#pragma mark - 找房页相关图片资源
+/**
+ *  @author yangshengmeng, 15-01-31 15:01:21
+ *
+ *  @brief  找房模块相关的图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///房子默认背景图片
+#define IMAGE_HOUSES_LOADING_FAIL @"houses_list_load_fail"
+
+///中间六角形
+#define IMAGE_HOUSES_LIST_SIXFORM @"houses_sixform"
+
+///免税标签
+#define IMAGE_HOUSES_LIST_TAXFREE @"houses_features_mianshui"
+
+///整租标签
+#define IMAGE_HOUSES_LIST_ENTIRERENT @"houses_features_zhengzu"
+
+///合租标签
+#define IMAGE_HOUSES_LIST_JOINTRENT @"houses_features_hezu"
+
 #endif
