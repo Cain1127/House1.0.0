@@ -11,8 +11,9 @@
 #import "QSHouseKeySearchViewController.h"
 #import "QSWHousesMapDistributionViewController.h"
 #import "QSCustomPickerView.h"
+#import "QSCollectionWaterFlowLayout.h"
 
-@interface QSHousesViewController ()
+@interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;//!<列表类型
 
@@ -91,6 +92,20 @@
     UIView *channelBarRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 40.0f)];
     [self createChannelBarUI:channelBarRootView];
     [self.view addSubview:channelBarRootView];
+    
+    ///瀑布流布局器
+    QSCollectionWaterFlowLayout *defaultLayout = [[QSCollectionWaterFlowLayout alloc] initWithScrollDirection:UICollectionViewScrollDirectionVertical];
+    defaultLayout.delegate = self;
+    
+    ///瀑布流父视图
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, channelBarRootView.frame.origin.y + channelBarRootView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - channelBarRootView.frame.size.height) collectionViewLayout:defaultLayout];
+    collectionView.backgroundColor = [UIColor whiteColor];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    collectionView.showsHorizontalScrollIndicator = NO;
+    collectionView.showsVerticalScrollIndicator = NO;
+    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"normalCell"];
+    [self.view addSubview:collectionView];
     
 }
 
@@ -188,6 +203,96 @@
     
     QSWHousesMapDistributionViewController *VC=[[QSWHousesMapDistributionViewController alloc]init];
     [self.navigationController pushViewController:VC animated:YES];
+
+}
+
+#pragma mark - 列表房源的个数
+///返回当前显示的cell个数
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+
+    return 25;
+
+}
+
+#pragma mark - 返回每一个cell的固定宽度
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultSizeOfItemInSection:(NSInteger)section
+{
+
+    return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
+
+}
+
+#pragma mark - 返回不同的cell的高度
+///返回不同的cell的高度
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (0 == indexPath.row) {
+        
+        return 90.0f;
+        
+    }
+    
+    return 240.0f;
+
+}
+
+#pragma mark - 返回cell的上间隙
+///返回cell的上间隙
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSpaceOfItemInSection:(NSInteger)section
+{
+    
+    return (SIZE_DEVICE_WIDTH > 320.0f ? 20.0f : 15.0f);
+    
+}
+
+#pragma mark - 返回当前的section数量
+///返回当前的section数量
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+
+    return 1;
+
+}
+
+#pragma mark - 返回每一个房子的信息展示cell
+/**
+ *  @author                 yangshengmeng, 15-01-30 16:01:04
+ *
+ *  @brief                  返回每一个房子信息的cell
+ *
+ *  @param collectionView   当前的瀑布流管理器
+ *  @param indexPath        当前下标
+ *
+ *  @return                 返回当前创建的房子信息cell
+ *
+ *  @since                  1.0.0
+ */
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    ///cell的复用标签
+    static NSString *CellIdentifier = @"normalCell";
+    
+    ///从复用队列中获取cell
+    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    ///设置cell的背景颜色
+    cell.backgroundColor = [UIColor colorWithRed:((10 * indexPath.row) / 255.0) green:((20 * indexPath.row)/255.0) blue:((30 * indexPath.row)/255.0) alpha:1.0f];
+    
+    return cell;
+
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    NSLog(@"===============点击cell=====================");
+    NSLog(@"坐标：section : %d row : %d",(int)indexPath.section,(int)indexPath.row);
+    NSLog(@"===============点击cell=====================");
 
 }
 
