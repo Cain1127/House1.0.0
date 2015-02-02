@@ -14,6 +14,7 @@
 #import "QSCoreDataManager+App.h"
 #import "QSAlertMessageViewController.h"
 #import "QSMapManager.h"
+#import "QSCityInfoReturnData.h"
 
 @interface QSYAppDelegate ()
 
@@ -51,10 +52,48 @@
         ///下载配置信息
         [self downloadApplicationBasInfo];
         
+        ///第一次运行时，下载城市信息
+        BOOL isFirstLaunch = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
+        if (isFirstLaunch) {
+            
+            [self downloadApplicationCityInfo];
+            
+        }
+        
     });
     
     return YES;
     
+}
+
+#pragma mark - 请求城市信息
+- (void)downloadApplicationCityInfo
+{
+
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseCityInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSCityInfoReturnData *headerModel = resultData;
+            
+            ///保存省份信息
+            [QSCoreDataManager updateBaseConfigurationList:headerModel.cityInfoHeaderData.provinceList andKey:@"province"];
+            
+            ///保存城市信息
+            for (QSProvinceDataModel *provinceModel in headerModel.cityInfoHeaderData.provinceList) {
+                
+                [QSCoreDataManager updateBaseConfigurationList:provinceModel.cityList andKey:[NSString stringWithFormat:@"city%@",provinceModel.key]];
+                
+            }
+            
+            ///更改应用进入状态
+            [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"1"];
+            
+        }
+        
+    }];
+
 }
 
 #pragma mark - 请求应用配置信息

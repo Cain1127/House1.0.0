@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "11BAA4C18D20D11CC2042B3A"
-               BuildableName = "libPods-ASDepthModal.a"
-               BlueprintName = "Pods-ASDepthModal"
+               BlueprintIdentifier = "3EF10397C02A9BD78281DFFE"
+               BuildableName = "libPods-Reachability.a"
+               BlueprintName = "Pods-Reachability"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

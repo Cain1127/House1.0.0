@@ -44,6 +44,7 @@
 		186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */; };
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
+		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -228,7 +229,6 @@
 		CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF47A1A7A70080022A132 /* CoreLocation.framework */; };
 		CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
-		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
 		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -295,6 +295,8 @@
 		186F73C71A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSViewControllerAnimatedTransitioning.h; path = Animination/QSViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
 		186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSViewControllerAnimatedTransitioning.m; path = Animination/QSViewControllerAnimatedTransitioning.m; sourceTree = "<group>"; };
 		1893009A1A6903540081D0AA /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
+		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
+		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -626,8 +628,6 @@
 		CE7BF47E1A7A703E0022A132 /* QSMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMapManager.h; sourceTree = "<group>"; };
 		CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSMapManager.mm; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkingStatus.h; sourceTree = "<group>"; };
-		CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkingStatus.m; sourceTree = "<group>"; };
 		CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1591,6 +1591,8 @@
 				18CAFCC61A70E45A00C90C90 /* QSConfigurationReturnData.m */,
 				18F99AF21A75DA0D00098FD6 /* QSBaseConfigurationReturnData.h */,
 				18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */,
+				18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */,
+				18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -2147,18 +2149,8 @@
 		CE8F125C1A6B92BB005ECB65 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				CE8F125D1A6B92BB005ECB65 /* Networking */,
 			);
 			path = Tool;
-			sourceTree = "<group>";
-		};
-		CE8F125D1A6B92BB005ECB65 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				CE8F125E1A6B92DE005ECB65 /* QSNetworkingStatus.h */,
-				CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		F4AD990E4AF8F9F85ED4C216 /* Pods */ = {
@@ -2222,6 +2214,11 @@
 				TargetAttributes = {
 					183CC65A1A68FC8800B8F97D = {
 						DevelopmentTeam = EVE58S56QZ;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					183CC67A1A68FC8800B8F97D = {
 						TestTargetID = 183CC65A1A68FC8800B8F97D;
@@ -2443,6 +2440,7 @@
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
+				18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
@@ -2473,7 +2471,6 @@
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
-				CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
 				182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */,
@@ -2560,7 +2557,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2576,7 +2574,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -2598,7 +2596,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2608,7 +2607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2620,17 +2619,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 					"$(PROJECT_DIR)/House/Lib/BaiduMapLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2641,17 +2642,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 					"$(PROJECT_DIR)/House/Lib/BaiduMapLib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -2682,6 +2685,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/House.app/House";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

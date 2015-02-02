@@ -7,7 +7,6 @@
 //
 
 #import "QSHeaderViewController.h"
-#import "QSNetworkingStatus.h"
 #import "QSYAppDelegate.h"
 
 @interface QSHeaderViewController ()
@@ -69,25 +68,6 @@
     
     
     
-}
-
-#pragma mark - 检测网络
-/**
- *  @author yangshengmeng, 15-01-20 12:01:16
- *
- *  @brief  判断当前网络状态是否可用，是wifi还是3G/4G
- *
- *  @return 返回网络状态
- *
- *  @since  1.0.0
- */
-- (NETWORK_STATUS)currentReachabilityStatus
-{
-
-    QSNetworkingStatus *reach=[QSNetworkingStatus reachabilityWithHostName:@"www.baidu.com"];
-    ///返回网络状态的判断
-    return [reach currentReachabilityStatus];
-
 }
 
 #pragma mark - window加载临时VC

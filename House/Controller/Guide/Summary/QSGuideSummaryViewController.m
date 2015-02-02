@@ -145,7 +145,7 @@
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        QSGuideSaleHouseViewController *saleHouseVC = [QSGuideSaleHouseViewController alloc];
+        QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
         [self.navigationController pushViewController:saleHouseVC animated:YES];
         
     }];

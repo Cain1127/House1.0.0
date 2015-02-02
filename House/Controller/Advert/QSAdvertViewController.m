@@ -60,33 +60,6 @@
     rightInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:rightInfoLabel];
     
-    ///判断是否第一次运行
-    BOOL launchStatus = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
-    if (launchStatus) {
-        
-        ///返回网络状态的判断
-        NETWORK_STATUS currentNetWorkStatus = [self currentReachabilityStatus];
-        
-        ///如果没网则弹出说明
-        if (NotReachable == currentNetWorkStatus) {
-            
-            [QSAlertMessageViewController showAlertMessage:@"第一次运行，请在有网络的情况下运行，谢谢！" andCallBack:^(void){
-                
-                [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"0"];
-                abort();
-                
-            }];
-            
-            return;
-            
-        } else {
-            
-            [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"1"];
-            
-        }
-        
-    }
-    
     ///如果是第一次运行，直接显示指引页，暂不显示广告页
     if (gGuideStatusNoRecord == self.isShowGuideIndex) {
         

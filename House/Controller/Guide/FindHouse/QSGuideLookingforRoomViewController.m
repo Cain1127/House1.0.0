@@ -32,7 +32,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 {
     
     ///让超出父视图的图片不显示
-    view.clipsToBounds = YES;
+//    view.clipsToBounds = YES;
     
     ///外层大圈
     QSImageView *bigCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(-10.0f, (view.frame.size.height - view.frame.size.width - 20.0f) / 2.0f, view.frame.size.width + 20.0f, view.frame.size.width + 20.0f)];
@@ -44,13 +44,16 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     innerCircleImageView.image = [UIImage imageNamed:IMAGE_GUIDE_TENANT_INNER_CIRCLE];
     [view addSubview:innerCircleImageView];
     
+#if 1
     ///中间信息圆:
     UIView *middleInfoRootView = [[UIView alloc] initWithFrame:CGRectMake((view.frame.size.width - 125.0f) / 2.0f, (view.frame.size.height - 125.0f) / 2.0f, 125.0f, 125.0f)];
     middleInfoRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     middleInfoRootView.layer.cornerRadius = 125.0f / 2.0f;
     [self createFindHouseGuideMiddleTipsUI:middleInfoRootView];
     [view addSubview:middleInfoRootView];
+#endif
     
+#if 0
     ///一房源数据
     CGFloat xpontOfOneHouseRootView = SIZE_DEVICE_WIDTH > 320.0f ? (innerCircleImageView.frame.origin.x - 40.0f) : (innerCircleImageView.frame.origin.x - 30.0f);
     UIView *oneHouseInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(xpontOfOneHouseRootView, view.frame.size.height / 2.0f - 40.0f, 80.0f, 80.0f)];
@@ -90,6 +93,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     fourHouseInfoRootView.layer.borderWidth = 0.5f;
     [self createHouseTypeInfoUI:fourHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_FOUR_TIP andAssociatinKey:HousesTypeFourCountKey];
     [view addSubview:fourHouseInfoRootView];
+#endif
     
 }
 

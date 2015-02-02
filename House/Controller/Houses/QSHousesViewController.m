@@ -14,6 +14,7 @@
 #import "QSCollectionWaterFlowLayout.h"
 #import "QSHouseCollectionViewCell.h"
 #import "QSHouseListTitleCollectionViewCell.h"
+#import "MJRefresh.h"
 
 @interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
@@ -110,6 +111,10 @@
     [collectionView registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
     [self.view addSubview:collectionView];
     
+    ///添加头部刷新
+    [collectionView addHeaderWithTarget:self action:@selector(houseListHeaderRequest)];
+    [collectionView addFooterWithTarget:self action:@selector(houseListFooterRequest)];
+    
 }
 
 ///搭建频道栏的UI
@@ -184,6 +189,23 @@
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 0.5f, view.frame.size.width, 0.5f)];
     bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:bottomLineLabel];
+    
+}
+
+#pragma mark - 请求数据
+///请求第一页的数据
+- (void)houseListHeaderRequest
+{
+
+    
+
+}
+
+///请求更多数据
+- (void)houseListFooterRequest
+{
+    
+    
     
 }
 

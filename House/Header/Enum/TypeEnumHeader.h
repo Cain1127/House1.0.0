@@ -449,21 +449,6 @@ typedef enum
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *
- *  @brief  当前客户端是否联网，联网的类型
- *
- *  @since  1.0.0
- */
-typedef enum : NSInteger {
-    
-    NotReachable = 0,   //!<当前网络不可用
-    ReachableViaWiFi,   //!<wifi
-    ReachableViaWWAN    //!<3G
-    
-}NETWORK_STATUS;        //!<网络状态
-
-/**
- *  @author yangshengmeng, 15-01-20 21:01:02
- *
  *  @brief  网络请求返回的结果标识
  *
  *  @since  1.0.0
@@ -510,12 +495,15 @@ typedef enum
 typedef enum
 {
 
-    rRequestTypeAdvert = 999,            //!<广告信息请求：此类型为首类型，请新添加的类型不要放在这个类型之前
-    rRequestTypeAppBaseInfo = 1000,      //!<应用中的基本信息版本请求：如可选城市
+    rRequestTypeAdvert = 999,                   //!<广告信息请求：第一个请求
+    rRequestTypeAppBaseInfo = 1000,             //!<应用中的基本信息版本请求：如可选城市
     rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
+    rRequestTypeAppBaseCityInfo = 1002,         //!<城市信息
     
-    rRequestTypeImage                    //!<图片请求：此类型为尾类型，请新添加的类型不要放在这个类型之后
+    rRequestTypeSecondHandHouseList = 2000,     //!<二手房列表请求
+    
+    rRequestTypeImage                           //!<图片请求：末尾请求
 
-}REQUEST_TYPE;                           //!<请求类型
+}REQUEST_TYPE;                                  //!<请求类型
 
 #endif

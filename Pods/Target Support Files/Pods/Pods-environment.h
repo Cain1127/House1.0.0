@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_RKValueTransformers 1
 #define COCOAPODS_VERSION_PATCH_RKValueTransformers 0
 
+// Reachability
+#define COCOAPODS_POD_AVAILABLE_Reachability
+#define COCOAPODS_VERSION_MAJOR_Reachability 3
+#define COCOAPODS_VERSION_MINOR_Reachability 1
+#define COCOAPODS_VERSION_PATCH_Reachability 1
+
 // RestKit/ObjectMapping
 #define COCOAPODS_POD_AVAILABLE_RestKit_ObjectMapping
 #define COCOAPODS_VERSION_MAJOR_RestKit_ObjectMapping 0
