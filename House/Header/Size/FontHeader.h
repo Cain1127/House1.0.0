@@ -24,6 +24,8 @@
 
 #define FONT_BODY_25 25.0f
 
+#define FONT_BODY_30 30.0f
+
 #define FONT_BODY_35 35.0f
 
 #endif

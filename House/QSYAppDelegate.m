@@ -14,6 +14,7 @@
 #import "QSCoreDataManager+App.h"
 #import "QSAlertMessageViewController.h"
 #import "QSMapManager.h"
+#import "QSCityInfoReturnData.h"
 
 @interface QSYAppDelegate ()
 
@@ -48,6 +49,14 @@
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
         
+        ///第一次运行时，下载城市信息
+        BOOL isFirstLaunch = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
+        if (isFirstLaunch) {
+            
+            [self downloadApplicationCityInfo];
+            
+        }
+        
         ///下载配置信息
         [self downloadApplicationBasInfo];
         
@@ -55,6 +64,36 @@
     
     return YES;
     
+}
+
+#pragma mark - 请求城市信息
+- (void)downloadApplicationCityInfo
+{
+
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseCityInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSCityInfoReturnData *headerModel = resultData;
+            
+            ///保存省份信息
+            [QSCoreDataManager updateBaseConfigurationList:headerModel.cityInfoHeaderData.provinceList andKey:@"province"];
+            
+            ///保存城市信息
+            for (QSProvinceDataModel *provinceModel in headerModel.cityInfoHeaderData.provinceList) {
+                
+                [QSCoreDataManager updateBaseConfigurationList:provinceModel.cityList andKey:[NSString stringWithFormat:@"city%@",provinceModel.key]];
+                
+            }
+            
+            ///更改应用进入状态
+            [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"1"];
+            
+        }
+        
+    }];
+
 }
 
 #pragma mark - 请求应用配置信息
@@ -168,14 +207,25 @@
         
         [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:confModel.getBaseConfigurationRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            ///模型转换
-            QSBaseConfigurationReturnData *dataModel = resultData;
+            ///判断是否请求成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///模型转换
+                QSBaseConfigurationReturnData *dataModel = resultData;
+                
+                ///保存配置信息
+                [QSCoreDataManager updateConfigurationWithModel:confModel];
+                
+                ///将对应的版本信息插入配置库中
+                [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
+                
+            } else {
             
-            ///保存配置信息
-            [QSCoreDataManager updateConfigurationWithModel:confModel];
+                NSLog(@"==================请求配置信息失败=======================");
+                NSLog(@"当前配置信息项为：conf : %@,error : %@",confModel.conf,errorInfo);
+                NSLog(@"==================请求配置信息失败=======================");
             
-            ///将对应的版本信息插入配置库中
-            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:confModel.conf];
+            }
             
         }];
         

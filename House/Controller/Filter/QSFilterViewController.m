@@ -258,10 +258,10 @@ typedef enum
         case fFilterSettingFieldActionTypeDistrict:
         {
             
-            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithDistrictPickerLevelType:cCustomDistrictPickerLevelTypeStreet andSelectedCityKey:nil andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_LEVEL_TYPE pickerLevelType, CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, id pikeredInfo) {
+            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithDistrictSelectedKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel, QSCDBaseConfigurationDataModel *streetModel) {
                 
                 NSLog(@"==================当前选择地区=====================");
-                NSLog(@"地区：%@",pikeredInfo);
+                NSLog(@"地区：%@   街道：%@",distictModel.val,streetModel.val);
                 NSLog(@"==================当前选择地区=====================");
                 
             }];
@@ -271,9 +271,34 @@ typedef enum
             
             ///选择户型
         case fFilterSettingFieldActionTypeHouseType:
+        {
             
-            NSLog(@"================户型选择==================");
+            ///获取户型的数据
+            NSArray *intentArray = [QSCoreDataManager getHouseType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示户型的选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///购房目的
@@ -310,102 +335,354 @@ typedef enum
             
             ///出售价格
         case fFilterSettingFieldActionTypeSalePrice:
+        {
             
-            NSLog(@"================价格==================");
+            ///获取出售价格的数据
+            NSArray *intentArray = [QSCoreDataManager getHouseSalePriceType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子售价选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///房子面积
         case fFilterSettingFieldActionTypeArea:
+        {
             
-            NSLog(@"================住房面积==================");
+            ///获取房子面积的数据
+            NSArray *intentArray = [QSCoreDataManager getHouseAreaType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子面积选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///出租方式：整租...
         case fFilterSettingFieldActionTypeRenantType:
         {
             
-            ///获取购房目的数据
-            NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
+            ///获取出租方式选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseRentType];
             
             ///转换数组
             NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (int i = 0;i < [intentArray count];i++) {
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
                 
-                QSCDBaseConfigurationDataModel *obj = intentArray[i];
                 if (obj.val) {
                     
-                    NSDictionary *tempDict = @{@"info" : obj.val,@"selected" : @"0"};
-                    [tempArray addObject:tempDict];
+                    [tempArray addObject:obj.val];
                     
                 }
                 
             }
             
-            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:tempArray andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            ///显示出租方式选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
                 
             }];
+            
+            return NO;
             
         }
             break;
             
             ///租金
         case fFilterSettingFieldActionTypeRenantPrice:
+        {
             
-            NSLog(@"================租金选择==================");
+            ///获取租金选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseRentPriceType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示租金选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///租金支付方式：押二付一
         case fFilterSettingFieldActionTypeRenantPayType:
+        {
             
-            NSLog(@"================租金支付方式选择==================");
+            ///获取租金支付方式选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示租金支付方式选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///房子的物业类型：普通住宅...
         case fFilterSettingFieldActionTypeHouseTradeType:
+        {
             
-            NSLog(@"================房子物业类型选择==================");
+            ///获取房子的物业类型选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseTradeType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子的物业类型选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
-            ///房子的使用年限
+            ///房子的使用年限:房子产权
         case fFilterSettingFieldActionTypeHouseUsedYear:
+        {
             
-            NSLog(@"================使用选择==================");
+            ///获取房子产权选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子产权选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///楼层
         case fFilterSettingFieldActionTypeHouseFloor:
+        {
             
-            NSLog(@"================楼层选择==================");
+            ///获取房子楼层选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseFloorType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子楼层选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///朝向：朝南...
         case fFilterSettingFieldActionTypeHouseOrientations:
+        {
             
-            NSLog(@"================朝向选择==================");
+            ///获取房子朝向选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseFaceType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子朝向选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///装修：精装修...
         case fFilterSettingFieldActionTypeHouseDecoration:
+        {
             
-            NSLog(@"================装修选择==================");
+            ///获取房子装修类型选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseDecorationType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示房子装修类型选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
             ///配套：暖气....
         case fFilterSettingFieldActionTypeHouseInstallation:
+        {
             
-            NSLog(@"================配套选择==================");
+            ///获取租金支付方式选择项数据
+            NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
             
+            ///转换数组
+            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
+                
+                if (obj.val) {
+                    
+                    [tempArray addObject:obj.val];
+                    
+                }
+                
+            }
+            
+            ///显示租金支付方式选择窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///回调选择项
+                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                
+            }];
+            
+            return NO;
+            
+        }
             break;
             
         default:

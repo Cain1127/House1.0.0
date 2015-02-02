@@ -73,6 +73,26 @@
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
+#pragma mark - 频道栏图片资源
+/**
+ *  @author yangshengmeng, 15-01-30 10:01:10
+ *
+ *  @brief  频道栏图片资源宏定义
+ *
+ *  @since  1.0.0
+ */
+
+///高级筛选按钮
+#define IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL @"channelbar_advancedfilter_normal"
+#define IMAGE_CHANNELBAR_ADVANCEFILTER_HIGHLIGHTED @"channelbar_advancedfilter_highlighted"
+
+///筛选按钮的左三角
+#define IMAGE_CHANNELBAR_ARROW_NORMAL @"channelbar_deploy_arrow_normal"
+#define IMAGE_CHANNELBAR_ARROW_HIGHLIGHTED @"channelbar_deploy_arrow_highlighted"
+
+///筛选框的指示三角
+#define IMAGE_CHANNELBAR_INDICATE_ARROW @"channelbar_indicate_arrow"
+
 #pragma mark - 指引页图片资源
 /**
  *  @author yangshengmeng, 15-01-20 13:01:03
@@ -152,5 +172,29 @@
 ///笋盘推荐
 #define IMAGE_HOME_COMMUNITYRECOMMAND_NORMAL @"home_bambooplate_normal"
 #define IMAGE_HOME_COMMUNITYRECOMMAND_HIGHLIGHTED @"home_bambooplate_highlighted"
+
+#pragma mark - 找房页相关图片资源
+/**
+ *  @author yangshengmeng, 15-01-31 15:01:21
+ *
+ *  @brief  找房模块相关的图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///房子默认背景图片
+#define IMAGE_HOUSES_LOADING_FAIL @"houses_list_load_fail"
+
+///中间六角形
+#define IMAGE_HOUSES_LIST_SIXFORM @"houses_sixform"
+
+///免税标签
+#define IMAGE_HOUSES_LIST_TAXFREE @"houses_features_mianshui"
+
+///整租标签
+#define IMAGE_HOUSES_LIST_ENTIRERENT @"houses_features_zhengzu"
+
+///合租标签
+#define IMAGE_HOUSES_LIST_JOINTRENT @"houses_features_hezu"
 
 #endif

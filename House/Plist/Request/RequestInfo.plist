@@ -5,6 +5,13 @@
 	<key>1002</key>
 	<dict>
 		<key>class</key>
+		<string>QSCityInfoReturnData</string>
+		<key>url</key>
+		<string>config/CityList?d</string>
+	</dict>
+	<key>2000</key>
+	<dict>
+		<key>class</key>
 		<string>QSSecondHandHouseListReturnData</string>
 		<key>url</key>
 		<string>secondHouse/list</string>

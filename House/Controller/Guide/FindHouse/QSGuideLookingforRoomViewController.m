@@ -32,7 +32,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 {
     
     ///让超出父视图的图片不显示
-    view.clipsToBounds = YES;
+//    view.clipsToBounds = YES;
     
     ///外层大圈
     QSImageView *bigCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(-10.0f, (view.frame.size.height - view.frame.size.width - 20.0f) / 2.0f, view.frame.size.width + 20.0f, view.frame.size.width + 20.0f)];
@@ -132,7 +132,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     cityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     cityLabel.textColor = [UIColor blackColor];
     cityLabel.textAlignment = NSTextAlignmentLeft;
-    cityLabel.text = [QSCoreDataManager getCurrentUserCity];
+    cityLabel.text = [QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州";
     [view addSubview:cityLabel];
     
     ///正在出售

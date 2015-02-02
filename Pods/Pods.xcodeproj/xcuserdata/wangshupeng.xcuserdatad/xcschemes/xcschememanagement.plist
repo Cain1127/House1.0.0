@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>Pods-Reachability.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>Pods-RestKit.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -47,6 +52,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>10452048FDF0EE6F653AED45</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11BAA4C18D20D11CC2042B3A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>1AA4204B599D07258EAA82DC</key>
 		<dict>
 			<key>primary</key>
@@ -57,7 +72,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>267BEA1183B75BE89C5330F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>27D468ED2D778DBC21DFCDBF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>33F4AD9778692F24BDAD58AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3EF10397C02A9BD78281DFFE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,7 +127,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BB538003168B19787278EDB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C2A246AFE595FE207EDC2D45</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D9EB9716FBD9827CDF054CD2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC12DCBB8D92EE1456B804CA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

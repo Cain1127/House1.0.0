@@ -214,7 +214,7 @@
 + (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
 {
 
-    NSArray *resultList = [self getEntityListWithKey:entityName];
+    NSArray *resultList = [self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES];
     
     ///判断是否查询失败
     if (nil == resultList) {

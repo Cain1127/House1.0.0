@@ -37,6 +37,14 @@
 
 }
 
+///获取当前城市的key
++ (NSString *)getCurrentUserCityKey
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_current_city_key"];
+
+}
+
 ///更新当前用户的所在城市
 + (BOOL)updateCurrentUserCity:(NSString *)city
 {

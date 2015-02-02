@@ -9,6 +9,8 @@
 #import "QSMapManager.h"
 #import "BMapKit.h"
 
+#import <CoreLocation/CoreLocation.h>
+
 @interface QSMapManager () <BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKGeneralDelegate>
 
 @property (nonatomic,strong) BMKMapManager *mapManager;             //!<百度地图管理器
@@ -68,6 +70,11 @@ static QSMapManager *mapManager;//!<地图管理器指针
         return;
         
     }
+    
+    ///设置定位精确度，默认：kCLLocationAccuracyBest
+    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+    ///指定最小距离更新(米)，默认：kCLDistanceFilterNone
+    [BMKLocationService setLocationDistanceFilter:100.0f];
 
     ///定位服务初始化
     self.locationService = [[BMKLocationService alloc] init];
@@ -76,6 +83,21 @@ static QSMapManager *mapManager;//!<地图管理器指针
     ///地址编码管理器初始化
     self.geoCodeManager = [[BMKGeoCodeSearch alloc] init];
     self.geoCodeManager.delegate = self;
+
+}
+
+#pragma mark - 判断是否允许定位
++ (BOOL)checkLocationService
+{
+
+    ///定位服务
+    if (![CLLocationManager locationServicesEnabled]) {
+        
+        return YES;
+        
+    }
+    
+    return NO;
 
 }
 
@@ -89,6 +111,13 @@ static QSMapManager *mapManager;//!<地图管理器指针
  */
 + (void)getUserLocation
 {
+    
+    ///判断是否允许定位
+    if (![self checkLocationService]) {
+        
+        ///弹出说明
+        
+    }
 
     ///获取地图管理器
     QSMapManager *manager = [QSMapManager shareMapManager];
@@ -103,10 +132,6 @@ static QSMapManager *mapManager;//!<地图管理器指针
             return;
             
         }
-        
-        NSLog(@"================获取用户经伟度成功====================");
-        NSLog(@"用户经纬度：%.2f,%.2f",longitude,latitude);
-        NSLog(@"================获取用户经伟度成功====================");
         
         ///如果定位成功，则开始地址反编码
         CLLocationCoordinate2D pt = (CLLocationCoordinate2D){latitude,longitude};
@@ -159,16 +184,17 @@ static QSMapManager *mapManager;//!<地图管理器指针
 - (void)didFailToLocateUserWithError:(NSError *)error
 {
 
-//    ///回调定位失败
-//    if (self.userLocationCallBack) {
-//        
-//        self.userLocationCallBack(NO,0.0f,0.0f);
-//        
-//    }
+    ///回调定位失败
+    if (self.userLocationCallBack) {
+        
+        self.userLocationCallBack(NO,0.0f,0.0f);
+        
+    }
     
 }
 
 #pragma mark - 获取反地址编码信息
+///获取反地址编码信息
 - (void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
 {
 
