@@ -215,11 +215,11 @@
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
+		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
 		CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */; };
 		CE7BF4781A7A6FEB0022A132 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */; };
 		CE7BF4791A7A6FEB0022A132 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF4771A7A6FEB0022A132 /* mapapi.bundle */; };
 		CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF47A1A7A70080022A132 /* CoreLocation.framework */; };
-		CE7BF4801A7A703E0022A132 /* QSGeocodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */; };
 		CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */; };
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CE8F12601A6B92DE005ECB65 /* QSNetworkingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F125F1A6B92DE005ECB65 /* QSNetworkingStatus.m */; };
@@ -541,6 +541,8 @@
 		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
+		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
+		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE7BF4341A7A6E810022A132 /* QSWHousesMapDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWHousesMapDistributionViewController.h; sourceTree = "<group>"; };
 		CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSWHousesMapDistributionViewController.mm; sourceTree = "<group>"; };
 		CE7BF4391A7A6FEB0022A132 /* BMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMapKit.h; sourceTree = "<group>"; };
@@ -607,8 +609,6 @@
 		CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbaidumapapi.a; sourceTree = "<group>"; };
 		CE7BF4771A7A6FEB0022A132 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		CE7BF47A1A7A70080022A132 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		CE7BF47C1A7A703E0022A132 /* QSGeocodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSGeocodeViewController.h; sourceTree = "<group>"; };
-		CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSGeocodeViewController.mm; sourceTree = "<group>"; };
 		CE7BF47E1A7A703E0022A132 /* QSMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMapManager.h; sourceTree = "<group>"; };
 		CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSMapManager.mm; sourceTree = "<group>"; };
 		CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -859,6 +859,8 @@
 		189300741A6902E30081D0AA /* NSString */ = {
 			isa = PBXGroup;
 			children = (
+				CE5341871A7FBE89002BA188 /* NSString+Calculation.h */,
+				CE5341881A7FBE89002BA188 /* NSString+Calculation.m */,
 				18F99AEB1A735D8B00098FD6 /* NSString+Calculation.h */,
 				18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */,
 			);
@@ -1010,8 +1012,6 @@
 		189300821A6902E30081D0AA /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				CE7BF47C1A7A703E0022A132 /* QSGeocodeViewController.h */,
-				CE7BF47D1A7A703E0022A132 /* QSGeocodeViewController.mm */,
 				CE7BF47E1A7A703E0022A132 /* QSMapManager.h */,
 				CE7BF47F1A7A703E0022A132 /* QSMapManager.mm */,
 			);
@@ -2406,6 +2406,7 @@
 				CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
+				CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
@@ -2452,7 +2453,6 @@
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
-				CE7BF4801A7A703E0022A132 /* QSGeocodeViewController.mm in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,

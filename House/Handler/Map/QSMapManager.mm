@@ -173,7 +173,7 @@ static QSMapManager *mapManager;//!<地图管理器指针
 {
 
     NSLog(@"===============反地址编码成功===============");
-    NSLog(@"地址信息：%@",result);
+    NSLog(@"地址信息：%@",result.address);
     NSLog(@"===============反地址编码成功===============");
 
 }

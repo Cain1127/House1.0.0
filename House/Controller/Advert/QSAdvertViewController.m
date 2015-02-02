@@ -73,7 +73,6 @@
             [QSAlertMessageViewController showAlertMessage:@"第一次运行，请在有网络的情况下运行，谢谢！" andCallBack:^(void){
                 
                 [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"0"];
-                abort();
                 
             }];
             
