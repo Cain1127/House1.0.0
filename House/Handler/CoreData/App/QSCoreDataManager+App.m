@@ -382,6 +382,10 @@
         insertModel.val = obj.val;
         [mOContext save:&error];
         
+        NSLog(@"==================正在保存配置========================");
+        NSLog(@"conf : %@,key : %@,val : %@",key,obj.key,obj.val);
+        NSLog(@"==================正在保存配置========================");
+        
         if (error) {
             
             ///打印错误

@@ -49,9 +49,6 @@
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
         
-        ///下载配置信息
-        [self downloadApplicationBasInfo];
-        
         ///第一次运行时，下载城市信息
         BOOL isFirstLaunch = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
         if (isFirstLaunch) {
@@ -59,6 +56,9 @@
             [self downloadApplicationCityInfo];
             
         }
+        
+        ///下载配置信息
+        [self downloadApplicationBasInfo];
         
     });
     
