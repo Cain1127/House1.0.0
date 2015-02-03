@@ -40,7 +40,7 @@
  */
 + (NSString *)getCurrentUserCity;
 + (NSString *)getCurrentUserCityKey;
-+ (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)provinceModel andCity:(QSCDBaseConfigurationDataModel *)cityModel;
++ (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)cityModel;
 
 /**
  *  @author yangshengmeng, 15-01-23 10:01:47

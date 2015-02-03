@@ -11,6 +11,7 @@
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_USER_INFO @"QSCDUserDataModel"
+#define COREDATA_ENTITYNAME_BASECONFIGURATION_INFO @"QSCDBaseConfigurationDataModel"
 
 @implementation QSCoreDataManager (User)
 
@@ -46,6 +47,36 @@
 
 }
 
+///更新当前用户所有城市
++ (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)cityModel
+{
+
+    ///查找城市对应的省
+    if (!cityModel) {
+        
+        return NO;
+        
+    }
+    
+    ///conf
+    NSString *cityConf = cityModel.conf;
+    
+    ///省的key
+    NSString *provinceKey = [cityConf substringFromIndex:4];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *provinceModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:provinceKey];
+    
+    if (!provinceModel) {
+        
+        return nil;
+        
+    }
+    
+    return [self updateCurrentUserCity:provinceModel andCity:cityModel];
+
+}
+
 ///更新当前用户的所在城市
 + (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)provinceModel andCity:(QSCDBaseConfigurationDataModel *)cityModel
 {
@@ -58,11 +89,11 @@
     
     [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_province" andFieldNewValue:provinceModel.val];
     
-    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_province_key" andFieldNewValue:[NSString stringWithFormat:@"%@",provinceModel.key]];
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_province_key" andFieldNewValue:provinceModel.key];
     
-    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:cityModel.key];
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:cityModel.val];
     
-    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city_key" andFieldNewValue:[NSString stringWithFormat:@"%@",cityModel.val]];
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city_key" andFieldNewValue:cityModel.key];
 
 }
 

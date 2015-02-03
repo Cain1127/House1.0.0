@@ -136,10 +136,10 @@
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
         ///弹出省份选择窗口
-        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithProvinceSelectedKey:nil andSelectedCityKey:nil andCityPickeredCallBack:^(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *provinceModel, QSCDBaseConfigurationDataModel *cityModel) {
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
             ///保存当前城市
-            [QSCoreDataManager updateCurrentUserCity:provinceModel andCity:cityModel];
+            [QSCoreDataManager updateCurrentUserCity:params];
             
             ///跳转到我要找房指引界面
             QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
@@ -157,10 +157,10 @@
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
         ///弹出省份选择窗口
-        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithProvinceSelectedKey:nil andSelectedCityKey:nil andCityPickeredCallBack:^(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *provinceModel, QSCDBaseConfigurationDataModel *cityModel) {
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
             ///保存当前城市
-            [QSCoreDataManager updateCurrentUserCity:provinceModel andCity:cityModel];
+            [QSCoreDataManager updateCurrentUserCity:params];
             
             ///跳转到出售物业界面
             QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];

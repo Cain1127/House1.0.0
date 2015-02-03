@@ -43,6 +43,6 @@ typedef enum
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSelectedProvinceKey:(NSString *)selectedProvinceKey andSelectedCityKey:(NSString *)selectedCityKey andDistrictPickeredCallBack:(void(^)(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *provincetModel,QSCDBaseConfigurationDataModel *cityModel))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andSelectedCityKey:(NSString *)selectedCityKey andDistrictPickeredCallBack:(void(^)(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *provincetModel,QSCDBaseConfigurationDataModel *cityModel))callBack;
 
 @end

@@ -480,7 +480,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     ///如果是城市选择窗口，则直接弹出城市选择窗口
     if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
         
-        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithProvinceSelectedKey:nil andSelectedCityKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
             ///更换状态
             self.isPicking = NO;
@@ -601,7 +601,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         case cCustomPickerTypeChannelBarDistrict:
         {
         
-            QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
+            QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
                 
                 ///更换状态
                 self.isPicking = NO;
@@ -619,6 +619,9 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
                     
                 }
+                
+                ///隐藏
+                [self removePickerView];
                 
             }];
             

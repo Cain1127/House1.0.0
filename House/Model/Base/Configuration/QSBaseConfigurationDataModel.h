@@ -17,7 +17,7 @@
  */
 @interface QSBaseConfigurationDataModel : QSBaseModel
 
-@property (nonatomic,retain) NSNumber *key; //!<类型编码
+@property (nonatomic,retain) NSString *key; //!<类型编码
 @property (nonatomic,copy) NSString *val;   //!<每个类型的显示说明
 
 @end

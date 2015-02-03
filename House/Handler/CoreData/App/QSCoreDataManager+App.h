@@ -121,7 +121,33 @@
  *
  *  @since          1.0.0
  */
-+ (NSArray *)getCityListWithProvinceKey:(NSString *)cityKey;
++ (NSArray *)getCityListWithProvinceKey:(NSString *)provinceKey;
+
+/**
+ *  @author         yangshengmeng, 15-02-03 14:02:39
+ *
+ *  @brief          根据城市的key，返回省份的key
+ *
+ *  @param cityKey  城市key
+ *
+ *  @return         返回对应的省份key
+ *
+ *  @since          1.0.0
+ */
++ (NSString *)getCityProvinceWithCityKey:(NSString *)cityKey;
+
+/**
+ *  @author             yangshengmeng, 15-02-03 15:02:21
+ *
+ *  @brief              根据给定的街道key获取所在的区key
+ *
+ *  @param streetKey    街道key
+ *
+ *  @return             返回街道所在的区key
+ *
+ *  @since              1.0.0
+ */
++ (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey;
 
 /**
  *  @author yangshengmeng, 15-02-03 11:02:55

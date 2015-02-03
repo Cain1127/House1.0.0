@@ -100,7 +100,7 @@
 - (void)downloadApplicationBasInfo
 {
 
-    ///放在后台运行
+    ///下载配置信息
     [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型

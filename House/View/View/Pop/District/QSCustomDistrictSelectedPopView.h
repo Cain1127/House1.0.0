@@ -7,23 +7,21 @@
 //
 
 #import "QSCustomPopRootView.h"
-#import "QSDistrictPickerView.h"
 
 @interface QSCustomDistrictSelectedPopView : QSCustomPopRootView
 
 /**
- *  @author                     yangshengmeng, 15-01-30 14:01:47
+ *  @author                     yangshengmeng, 15-02-03 14:02:48
  *
- *  @brief                      从下往上弹出一个地区选择框
+ *  @brief                      从下往上弹出一个地区选择窗口
  *
- *  @param selectedDistrictKey  当前选择状态的地区key
- *  @param selectedStreetKey    当前选择状态的街道key
+ *  @param selectedStreetKey    当前选择状态的街道
  *  @param callBack             选择后的回调
  *
  *  @return                     返回当前弹出框
  *
  *  @since                      1.0.0
  */
-+ (instancetype)showCustomDistrictSelectedPopviewWithDistrictSelectedKey:(NSString *)selectedDistrictKey andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack;
++ (instancetype)showCustomDistrictSelectedPopviewWithSteetSelectedKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))callBack;
 
 @end

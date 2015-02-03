@@ -24,6 +24,7 @@ static char SubViewKey;     //!<第二栏view的关联
 @property (nonatomic,copy) void(^cityPickedCallBack)(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *provincetModel,QSCDBaseConfigurationDataModel *cityModel);
 
 ///当前选择的城市模型
+@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentSelectedProvinceModel;
 @property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentSelectedCityModel;
 
 @end
@@ -44,7 +45,7 @@ static char SubViewKey;     //!<第二栏view的关联
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSelectedProvinceKey:(NSString *)selectedProvinceKey andSelectedCityKey:(NSString *)selectedCityKey andDistrictPickeredCallBack:(void(^)(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack
+- (instancetype)initWithFrame:(CGRect)frame andSelectedCityKey:(NSString *)selectedCityKey andDistrictPickeredCallBack:(void(^)(CUSTOM_CITY_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -60,7 +61,7 @@ static char SubViewKey;     //!<第二栏view的关联
         }
         
         ///UI搭建
-        [self createCityPickerUI:selectedProvinceKey andSelectedCityKey:selectedCityKey];
+        [self createCityPickerUIWithCityKey:selectedCityKey];
         
     }
     
@@ -70,8 +71,11 @@ static char SubViewKey;     //!<第二栏view的关联
 
 #pragma mark - UI搭建
 ///UI搭建
-- (void)createCityPickerUI:(NSString *)selectedProvinceKey andSelectedCityKey:(NSString *)selectedCityKey
+- (void)createCityPickerUIWithCityKey:(NSString *)selectedCityKey
 {
+    
+    ///获取对应省的key
+    NSString *selectedProvinceKey = [QSCoreDataManager getCityProvinceWithCityKey:selectedCityKey];
     
     ///当前选择状态的省key
     __block NSString *currentSelectedCityKey;
@@ -133,7 +137,7 @@ static char SubViewKey;     //!<第二栏view的关联
         
         if (self.cityPickedCallBack) {
             
-            self.cityPickedCallBack(cCustomCityPickerActionTypePickedCity,nil,self.currentSelectedCityModel);
+            self.cityPickedCallBack(cCustomCityPickerActionTypePickedCity,self.currentSelectedProvinceModel,self.currentSelectedCityModel);
             
         }
         
@@ -185,7 +189,10 @@ static char SubViewKey;     //!<第二栏view的关联
             
             ///刷新城市数据
             UIScrollView *view = objc_getAssociatedObject(self, &SubViewKey);
-            [self createCitySelectedItemWithView:view andProvinceKey:[NSString stringWithFormat:@"%@",tempModel.key] andSelectedCityKey:nil];
+            [self createCitySelectedItemWithView:view andProvinceKey:tempModel.key andSelectedCityKey:nil];
+            
+            ///保存当前选择的省
+            self.currentSelectedProvinceModel = tempModel;
             
         }];
         
@@ -205,6 +212,9 @@ static char SubViewKey;     //!<第二栏view的关联
                 
                 tempButton.selected = YES;
                 
+                ///保存当前选择的省
+                self.currentSelectedProvinceModel = tempModel;
+                
                 ///判断是否需要滚动
                 if (tempButton.frame.origin.y > selectedRootView.frame.size.height -20.0f) {
                     
@@ -219,7 +229,10 @@ static char SubViewKey;     //!<第二栏view的关联
         } else if (0 == i) {
             
             tempButton.selected = YES;
-            currentSelectedProvinceKey = [tempModel.key stringValue];
+            currentSelectedProvinceKey = tempModel.key;
+            
+            ///保存当前选择的省
+            self.currentSelectedProvinceModel = tempModel;
             
         }
         

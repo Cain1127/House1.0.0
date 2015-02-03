@@ -7,7 +7,6 @@
 //
 
 #import "QSCustomPopRootView.h"
-#import "QSCityPickerView.h"
 
 /**
  *  @author yangshengmeng, 15-02-03 11:02:32
@@ -31,6 +30,6 @@
  *
  *  @since                      1.0.0
  */
-+ (instancetype)showCustomCitySelectedPopviewWithProvinceSelectedKey:(NSString *)selectedProvinceKey andSelectedCityKey:(NSString *)selectedCityKey andCityPickeredCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))callBack;
++ (instancetype)showCustomCitySelectedPopviewWithCitySelectedKey:(NSString *)selectedCityKey andCityPickeredCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))callBack;
 
 @end
