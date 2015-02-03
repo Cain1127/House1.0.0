@@ -7,6 +7,7 @@
 //
 
 #import "QSCoreDataManager+User.h"
+#import "QSCDBaseConfigurationDataModel.h"
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_USER_INFO @"QSCDUserDataModel"
@@ -46,16 +47,22 @@
 }
 
 ///更新当前用户的所在城市
-+ (BOOL)updateCurrentUserCity:(NSString *)city
++ (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)provinceModel andCity:(QSCDBaseConfigurationDataModel *)cityModel
 {
 
-    if (nil == city) {
+    if (nil == provinceModel || nil == cityModel) {
         
         return NO;
         
     }
     
-    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:city];
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_province" andFieldNewValue:provinceModel.val];
+    
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_province_key" andFieldNewValue:[NSString stringWithFormat:@"%@",provinceModel.key]];
+    
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city" andFieldNewValue:cityModel.key];
+    
+    return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_current_city_key" andFieldNewValue:[NSString stringWithFormat:@"%@",cityModel.val]];
 
 }
 

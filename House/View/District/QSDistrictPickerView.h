@@ -30,10 +30,10 @@ typedef enum
  *
  *  @brief                      根据给定的大小的位置，初始化一个地区选择view，同时只展现到给定的选择级别
  *
- *  @param frame               大小位置
- *  @param selectedDistrictKey 当前处于选择状态的区key
- *  @param selectedStreetKey   当前处于选择状态的街道key
- *  @param callBack            选择地点后的回调
+ *  @param frame                大小位置
+ *  @param selectedDistrictKey  当前处于选择状态的区key
+ *  @param selectedStreetKey    当前处于选择状态的街道key
+ *  @param callBack             选择地点后的回调
  *
  *  @return                     返回当前创建的地区选择窗口对象
  *

@@ -13,6 +13,7 @@
 #import "QSCDBaseConfigurationDataModel.h"
 #import "QSCoreDataManager+House.h"
 #import "QSDistrictPickerView.h"
+#import "QSCustomCitySelectedView.h"
 
 #import <objc/runtime.h>
 
@@ -451,13 +452,6 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 - (NSArray *)getPickerListDataSource
 {
     
-    ///房子的列表主要类型
-    if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
-        
-        return [QSCoreDataManager getCityList];
-        
-    }
-    
     ///城市选择类型
     if (cCustomPickerTypeNavigationBarHouseMainType == self.pickerType) {
         
@@ -482,6 +476,38 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 
     ///更换状态
     self.isPicking = YES;
+    
+    ///如果是城市选择窗口，则直接弹出城市选择窗口
+    if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
+        
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithProvinceSelectedKey:nil andSelectedCityKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            ///更换状态
+            self.isPicking = NO;
+            
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///更换当前选择模型
+                self.currentPickedModel = params;
+                
+                ///更换显示信息
+                UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                infoLabel.text = self.currentPickedModel.val;
+                
+                ///回调
+                if (self.pickedCallBack) {
+                    
+                    self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                    
+                }
+                
+            }
+            
+        }];
+        
+        return;
+        
+    }
     
     ///获取列表源
     NSArray *dataSource = [self getPickerListDataSource];

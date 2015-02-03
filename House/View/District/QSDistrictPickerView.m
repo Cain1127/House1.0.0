@@ -80,7 +80,7 @@
     ///街道选择列
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        UIView *streetPickerRootView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width - 20.0f - (self.frame.size.width - 70.0f) / 3.0f, 0.0f, (self.frame.size.width - 70.0f) / 3.0f, self.frame.size.height)];
+        UIView *streetPickerRootView = [[UIView alloc] initWithFrame:CGRectMake(districtPickerRootView.frame.origin.x + districtPickerRootView.frame.size.width + 25.0f, 0.0f, (self.frame.size.width - 70.0f) / 3.0f, self.frame.size.height)];
         [self createStreetSelectedItemUI:streetPickerRootView andDistrictKey:currentSelectedDistrictKey andSelectedStreetKey:selectedStreetKey];
         streetPickerRootView.backgroundColor = [UIColor clearColor];
         [self addSubview:streetPickerRootView];

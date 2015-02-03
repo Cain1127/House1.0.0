@@ -111,13 +111,28 @@
 + (NSArray *)getDistrictListWithCityKey:(NSString *)cityKey;
 
 /**
- *  @author yangshengmeng, 15-01-20 10:01:47
+ *  @author         yangshengmeng, 15-02-03 11:02:42
  *
- *  @brief  返回城市列表
+ *  @brief          获取对应省份的城市数据
+ *
+ *  @param cityKey  省份的key
+ *
+ *  @return         返回城市列表数组
+ *
+ *  @since          1.0.0
+ */
++ (NSArray *)getCityListWithProvinceKey:(NSString *)cityKey;
+
+/**
+ *  @author yangshengmeng, 15-02-03 11:02:55
+ *
+ *  @brief  获取省份列表数据
+ *
+ *  @return 返回所有省的数组
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getCityList;
++ (NSArray *)getProvinceList;
 
 /**
  *  @author yangshengmeng, 15-01-22 16:01:34
