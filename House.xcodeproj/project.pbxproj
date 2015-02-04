@@ -7,16 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		182C2ABF1A77762D00591F02 /* QSCustomPopRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */; };
-		182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */; };
-		182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
 		182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C881E1A7B244000DA64E9 /* QuartzCore.framework */; };
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
-		182C88241A7B2F8D00DA64E9 /* QSCustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */; };
-		182C88281A7B326300DA64E9 /* QSDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */; };
 		182C882A1A7B664600DA64E9 /* channelbar_indicate_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 182C88291A7B664600DA64E9 /* channelbar_indicate_arrow.png */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
@@ -45,9 +40,24 @@
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
-		18B562E31A805A93009779A0 /* QSCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E21A805A93009779A0 /* QSCityPickerView.m */; };
-		18B562E61A8076DC009779A0 /* QSCustomCitySelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E51A8076DC009779A0 /* QSCustomCitySelectedView.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
+		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
+		18B563161A81AA40009779A0 /* QSHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562F11A81AA40009779A0 /* QSHeaderViewController.m */; };
+		18B563171A81AA40009779A0 /* QSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562F41A81AA40009779A0 /* QSMasterViewController.m */; };
+		18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562F71A81AA40009779A0 /* QSTurnBackViewController.m */; };
+		18B563191A81AA40009779A0 /* QSCustomHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562FA1A81AA40009779A0 /* QSCustomHUDView.m */; };
+		18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562FE1A81AA40009779A0 /* QSCityPickerView.m */; };
+		18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563001A81AA40009779A0 /* QSDistrictPickerView.m */; };
+		18B5631C1A81AA40009779A0 /* QSCustomPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563021A81AA40009779A0 /* QSCustomPickerView.m */; };
+		18B5631D1A81AA40009779A0 /* QSCustomCitySelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563071A81AA40009779A0 /* QSCustomCitySelectedView.m */; };
+		18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563091A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m */; };
+		18B5631F1A81AA40009779A0 /* QSMultipleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5630C1A81AA40009779A0 /* QSMultipleSelectedPopView.m */; };
+		18B563201A81AA40009779A0 /* QSCustomPopRootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5630E1A81AA40009779A0 /* QSCustomPopRootView.m */; };
+		18B563211A81AA40009779A0 /* QSCustomSingleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563111A81AA40009779A0 /* QSCustomSingleSelectedPopView.m */; };
+		18B563221A81AA40009779A0 /* QSCustomSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563141A81AA40009779A0 /* QSCustomSelectedView.m */; };
+		18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5632E1A81ADD9009779A0 /* QSMultiplePickerView.m */; };
+		18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563311A81ADF8009779A0 /* QSSinglePickerView.m */; };
+		18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563351A81C7B5009779A0 /* QSDistrictListView.m */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -56,20 +66,17 @@
 		18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0CB1A6A4D3400BB9611 /* QSTabbar.m */; };
 		18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0CF1A6A68CF00BB9611 /* QSBlockButton.m */; };
 		18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0D21A6A696200BB9611 /* QSBlockButtonStyleModel.m */; };
-		18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0D61A6A756F00BB9611 /* QSMasterViewController.m */; };
 		18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0DB1A6A823300BB9611 /* QSMyZoneViewController.m */; };
 		18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0DE1A6A824B00BB9611 /* QSHousesViewController.m */; };
 		18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0E11A6A825C00BB9611 /* QSHomeViewController.m */; };
 		18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0E41A6A826D00BB9611 /* QSChatViewController.m */; };
 		18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0F91A6A96DA00BB9611 /* UIButton+Factory.m */; };
 		18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A1041A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m */; };
-		18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */; };
 		18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */; };
 		18C8A1351A6CA0F400BB9611 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A1341A6CA0F400BB9611 /* Images.xcassets */; };
 		18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A13A1A6CA3ED00BB9611 /* QSAutoScrollView.m */; };
 		18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A1DC1A6D1D9C00BB9611 /* QSAdvertViewController.m */; };
 		18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2141A6D622000BB9611 /* QSCoreDataManager.m */; };
-		18C8A2191A6DFB3900BB9611 /* QSHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2181A6DFB3900BB9611 /* QSHeaderViewController.m */; };
 		18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2281A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m */; };
 		18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2761A6E904C00BB9611 /* QSRequestManager.m */; };
 		18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */; };
@@ -111,10 +118,8 @@
 		18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */; };
 		18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */; };
 		18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */; };
-		18F99AF91A75FFFF00098FD6 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF81A75FFFF00098FD6 /* QSAlertMessageViewController.m */; };
 		18FABCFF1A775E55007AC345 /* libPushSDK-1.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */; };
 		18FABD001A775E55007AC345 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FABCFE1A775E55007AC345 /* PushConfig.plist */; };
-		18FABD031A7760C2007AC345 /* QSCustomHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FABD021A7760C2007AC345 /* QSCustomHUDView.m */; };
 		18FABD071A776D07007AC345 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD061A776D07007AC345 /* CFNetwork.framework */; };
 		18FABD091A776D20007AC345 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD081A776D20007AC345 /* CoreFoundation.framework */; };
 		18FABD0B1A776D2D007AC345 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */; };
@@ -125,8 +130,6 @@
 		18FBA5B81A787013001372B3 /* QSGuideHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5B71A787013001372B3 /* QSGuideHeaderViewController.m */; };
 		18FBA5BB1A7871F8001372B3 /* QSGuideSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BA1A7871F8001372B3 /* QSGuideSummaryViewController.m */; };
 		18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */; };
-		18FBA5C11A789D13001372B3 /* QSMultipleSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5C01A789D13001372B3 /* QSMultipleSelectedPopView.m */; };
-		18FBA5CE1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5CD1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m */; };
 		18FBA65E1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA5ED1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png */; };
 		18FBA65F1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA5EE1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png */; };
 		18FBA6611A79BDF2001372B3 /* developer_actives.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FBA5F21A79BDF2001372B3 /* developer_actives.png */; };
@@ -245,12 +248,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		182C2ABD1A77762D00591F02 /* QSCustomPopRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPopRootView.h; path = Pop/QSCustomPopRootView.h; sourceTree = "<group>"; };
-		182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPopRootView.m; path = Pop/QSCustomPopRootView.m; sourceTree = "<group>"; };
-		182C2AC21A777BD100591F02 /* QSCustomSingleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomSingleSelectedPopView.h; path = Pop/SingleSelected/QSCustomSingleSelectedPopView.h; sourceTree = "<group>"; };
-		182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSingleSelectedPopView.m; path = Pop/SingleSelected/QSCustomSingleSelectedPopView.m; sourceTree = "<group>"; };
-		182C2AC61A7780B500591F02 /* QSCustomSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomSelectedView.h; path = Selected/QSCustomSelectedView.h; sourceTree = "<group>"; };
-		182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomSelectedView.m; path = Selected/QSCustomSelectedView.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
@@ -259,10 +256,6 @@
 		182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSecondHandHouseListReturnData.m; path = House/Second/QSSecondHandHouseListReturnData.m; sourceTree = "<group>"; };
 		182C881E1A7B244000DA64E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		182C88201A7B244E00DA64E9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		182C88221A7B2F8D00DA64E9 /* QSCustomPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPickerView.h; path = Picker/QSCustomPickerView.h; sourceTree = "<group>"; };
-		182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPickerView.m; path = Picker/QSCustomPickerView.m; sourceTree = "<group>"; };
-		182C88261A7B326300DA64E9 /* QSDistrictPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDistrictPickerView.h; sourceTree = "<group>"; };
-		182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDistrictPickerView.m; sourceTree = "<group>"; };
 		182C88291A7B664600DA64E9 /* channelbar_indicate_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_indicate_arrow.png; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -299,12 +292,42 @@
 		1893009A1A6903540081D0AA /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
-		18B562E11A805A93009779A0 /* QSCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityPickerView.h; sourceTree = "<group>"; };
-		18B562E21A805A93009779A0 /* QSCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityPickerView.m; sourceTree = "<group>"; };
-		18B562E41A8076DC009779A0 /* QSCustomCitySelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomCitySelectedView.h; path = Pop/District/QSCustomCitySelectedView.h; sourceTree = "<group>"; };
-		18B562E51A8076DC009779A0 /* QSCustomCitySelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomCitySelectedView.m; path = Pop/District/QSCustomCitySelectedView.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
 		18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDBaseConfigurationDataModel.m; path = Configuration/QSCDBaseConfigurationDataModel.m; sourceTree = "<group>"; };
+		18B562EB1A81AA40009779A0 /* QSAlertMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAlertMessageViewController.h; sourceTree = "<group>"; };
+		18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAlertMessageViewController.m; sourceTree = "<group>"; };
+		18B562F01A81AA40009779A0 /* QSHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHeaderViewController.h; sourceTree = "<group>"; };
+		18B562F11A81AA40009779A0 /* QSHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHeaderViewController.m; sourceTree = "<group>"; };
+		18B562F31A81AA40009779A0 /* QSMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMasterViewController.h; sourceTree = "<group>"; };
+		18B562F41A81AA40009779A0 /* QSMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMasterViewController.m; sourceTree = "<group>"; };
+		18B562F61A81AA40009779A0 /* QSTurnBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTurnBackViewController.h; sourceTree = "<group>"; };
+		18B562F71A81AA40009779A0 /* QSTurnBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTurnBackViewController.m; sourceTree = "<group>"; };
+		18B562F91A81AA40009779A0 /* QSCustomHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomHUDView.h; sourceTree = "<group>"; };
+		18B562FA1A81AA40009779A0 /* QSCustomHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomHUDView.m; sourceTree = "<group>"; };
+		18B562FD1A81AA40009779A0 /* QSCityPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityPickerView.h; sourceTree = "<group>"; };
+		18B562FE1A81AA40009779A0 /* QSCityPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityPickerView.m; sourceTree = "<group>"; };
+		18B562FF1A81AA40009779A0 /* QSDistrictPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDistrictPickerView.h; sourceTree = "<group>"; };
+		18B563001A81AA40009779A0 /* QSDistrictPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDistrictPickerView.m; sourceTree = "<group>"; };
+		18B563011A81AA40009779A0 /* QSCustomPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomPickerView.h; sourceTree = "<group>"; };
+		18B563021A81AA40009779A0 /* QSCustomPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomPickerView.m; sourceTree = "<group>"; };
+		18B563061A81AA40009779A0 /* QSCustomCitySelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomCitySelectedView.h; sourceTree = "<group>"; };
+		18B563071A81AA40009779A0 /* QSCustomCitySelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomCitySelectedView.m; sourceTree = "<group>"; };
+		18B563081A81AA40009779A0 /* QSCustomDistrictSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomDistrictSelectedPopView.h; sourceTree = "<group>"; };
+		18B563091A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomDistrictSelectedPopView.m; sourceTree = "<group>"; };
+		18B5630B1A81AA40009779A0 /* QSMultipleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMultipleSelectedPopView.h; sourceTree = "<group>"; };
+		18B5630C1A81AA40009779A0 /* QSMultipleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMultipleSelectedPopView.m; sourceTree = "<group>"; };
+		18B5630D1A81AA40009779A0 /* QSCustomPopRootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomPopRootView.h; sourceTree = "<group>"; };
+		18B5630E1A81AA40009779A0 /* QSCustomPopRootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomPopRootView.m; sourceTree = "<group>"; };
+		18B563101A81AA40009779A0 /* QSCustomSingleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomSingleSelectedPopView.h; sourceTree = "<group>"; };
+		18B563111A81AA40009779A0 /* QSCustomSingleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomSingleSelectedPopView.m; sourceTree = "<group>"; };
+		18B563131A81AA40009779A0 /* QSCustomSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomSelectedView.h; sourceTree = "<group>"; };
+		18B563141A81AA40009779A0 /* QSCustomSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomSelectedView.m; sourceTree = "<group>"; };
+		18B5632D1A81ADD9009779A0 /* QSMultiplePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMultiplePickerView.h; path = Multiple/QSMultiplePickerView.h; sourceTree = "<group>"; };
+		18B5632E1A81ADD9009779A0 /* QSMultiplePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMultiplePickerView.m; path = Multiple/QSMultiplePickerView.m; sourceTree = "<group>"; };
+		18B563301A81ADF8009779A0 /* QSSinglePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSSinglePickerView.h; path = Single/QSSinglePickerView.h; sourceTree = "<group>"; };
+		18B563311A81ADF8009779A0 /* QSSinglePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSinglePickerView.m; path = Single/QSSinglePickerView.m; sourceTree = "<group>"; };
+		18B563341A81C7B5009779A0 /* QSDistrictListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSDistrictListView.h; path = District/QSDistrictListView.h; sourceTree = "<group>"; };
+		18B563351A81C7B5009779A0 /* QSDistrictListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSDistrictListView.m; path = District/QSDistrictListView.m; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -320,8 +343,6 @@
 		18C8A0CF1A6A68CF00BB9611 /* QSBlockButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBlockButton.m; sourceTree = "<group>"; };
 		18C8A0D11A6A696200BB9611 /* QSBlockButtonStyleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBlockButtonStyleModel.h; sourceTree = "<group>"; };
 		18C8A0D21A6A696200BB9611 /* QSBlockButtonStyleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBlockButtonStyleModel.m; sourceTree = "<group>"; };
-		18C8A0D51A6A756F00BB9611 /* QSMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMasterViewController.h; path = Master/QSMasterViewController.h; sourceTree = "<group>"; };
-		18C8A0D61A6A756F00BB9611 /* QSMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMasterViewController.m; path = Master/QSMasterViewController.m; sourceTree = "<group>"; };
 		18C8A0DA1A6A823300BB9611 /* QSMyZoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMyZoneViewController.h; sourceTree = "<group>"; };
 		18C8A0DB1A6A823300BB9611 /* QSMyZoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMyZoneViewController.m; sourceTree = "<group>"; };
 		18C8A0DD1A6A824B00BB9611 /* QSHousesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHousesViewController.h; sourceTree = "<group>"; };
@@ -334,8 +355,6 @@
 		18C8A0F91A6A96DA00BB9611 /* UIButton+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Factory.m"; sourceTree = "<group>"; };
 		18C8A1031A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSBlockButtonStyleModel+NavigationBar.h"; sourceTree = "<group>"; };
 		18C8A1041A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSBlockButtonStyleModel+NavigationBar.m"; sourceTree = "<group>"; };
-		18C8A12E1A6AB6E600BB9611 /* QSTurnBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSTurnBackViewController.h; path = TurnBack/QSTurnBackViewController.h; sourceTree = "<group>"; };
-		18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSTurnBackViewController.m; path = TurnBack/QSTurnBackViewController.m; sourceTree = "<group>"; };
 		18C8A1311A6AB73E00BB9611 /* QSHouseKeySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseKeySearchViewController.h; path = Search/QSHouseKeySearchViewController.h; sourceTree = "<group>"; };
 		18C8A1321A6AB73E00BB9611 /* QSHouseKeySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseKeySearchViewController.m; path = Search/QSHouseKeySearchViewController.m; sourceTree = "<group>"; };
 		18C8A1341A6CA0F400BB9611 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -345,8 +364,6 @@
 		18C8A1DC1A6D1D9C00BB9611 /* QSAdvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvertViewController.m; sourceTree = "<group>"; };
 		18C8A2131A6D622000BB9611 /* QSCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCoreDataManager.h; sourceTree = "<group>"; };
 		18C8A2141A6D622000BB9611 /* QSCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCoreDataManager.m; sourceTree = "<group>"; };
-		18C8A2171A6DFB3900BB9611 /* QSHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHeaderViewController.h; path = Header/QSHeaderViewController.h; sourceTree = "<group>"; };
-		18C8A2181A6DFB3900BB9611 /* QSHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHeaderViewController.m; path = Header/QSHeaderViewController.m; sourceTree = "<group>"; };
 		18C8A2271A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSBlockButtonStyleModel+Normal.h"; path = "Normal/QSBlockButtonStyleModel+Normal.h"; sourceTree = "<group>"; };
 		18C8A2281A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSBlockButtonStyleModel+Normal.m"; path = "Normal/QSBlockButtonStyleModel+Normal.m"; sourceTree = "<group>"; };
 		18C8A2411A6E188600BB9611 /* ColorHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHeader.h; sourceTree = "<group>"; };
@@ -438,13 +455,9 @@
 		18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationDataModel.m; sourceTree = "<group>"; };
 		18F99AF21A75DA0D00098FD6 /* QSBaseConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseConfigurationReturnData.h; sourceTree = "<group>"; };
 		18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationReturnData.m; sourceTree = "<group>"; };
-		18F99AF71A75FFFF00098FD6 /* QSAlertMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSAlertMessageViewController.h; path = Alert/QSAlertMessageViewController.h; sourceTree = "<group>"; };
-		18F99AF81A75FFFF00098FD6 /* QSAlertMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSAlertMessageViewController.m; path = Alert/QSAlertMessageViewController.m; sourceTree = "<group>"; };
 		18FABCFC1A775E55007AC345 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
 		18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.2.a"; sourceTree = "<group>"; };
 		18FABCFE1A775E55007AC345 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
-		18FABD011A7760C2007AC345 /* QSCustomHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomHUDView.h; path = HUD/QSCustomHUDView.h; sourceTree = "<group>"; };
-		18FABD021A7760C2007AC345 /* QSCustomHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomHUDView.m; path = HUD/QSCustomHUDView.m; sourceTree = "<group>"; };
 		18FABD061A776D07007AC345 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18FABD081A776D20007AC345 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -460,10 +473,6 @@
 		18FBA5BA1A7871F8001372B3 /* QSGuideSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSGuideSummaryViewController.m; path = Summary/QSGuideSummaryViewController.m; sourceTree = "<group>"; };
 		18FBA5BC1A7879D2001372B3 /* QSCustomPresentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPresentationViewController.h; path = Animination/QSCustomPresentationViewController.h; sourceTree = "<group>"; };
 		18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPresentationViewController.m; path = Animination/QSCustomPresentationViewController.m; sourceTree = "<group>"; };
-		18FBA5BF1A789D13001372B3 /* QSMultipleSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMultipleSelectedPopView.h; path = Pop/MultipleSelected/QSMultipleSelectedPopView.h; sourceTree = "<group>"; };
-		18FBA5C01A789D13001372B3 /* QSMultipleSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMultipleSelectedPopView.m; path = Pop/MultipleSelected/QSMultipleSelectedPopView.m; sourceTree = "<group>"; };
-		18FBA5CC1A78E825001372B3 /* QSCustomDistrictSelectedPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomDistrictSelectedPopView.h; path = Pop/District/QSCustomDistrictSelectedPopView.h; sourceTree = "<group>"; };
-		18FBA5CD1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomDistrictSelectedPopView.m; path = Pop/District/QSCustomDistrictSelectedPopView.m; sourceTree = "<group>"; };
 		18FBA5ED1A79BDF2001372B3 /* channelbar_advancedfilter_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_advancedfilter_highlighted.png; sourceTree = "<group>"; };
 		18FBA5EE1A79BDF2001372B3 /* channelbar_advancedfilter_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = channelbar_advancedfilter_normal.png; sourceTree = "<group>"; };
 		18FBA5F21A79BDF2001372B3 /* developer_actives.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = developer_actives.png; sourceTree = "<group>"; };
@@ -676,45 +685,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		182C2ABC1A77761900591F02 /* Pop */ = {
-			isa = PBXGroup;
-			children = (
-				18FBA5CB1A78E7E1001372B3 /* District */,
-				182C2AC11A777B8100591F02 /* MultipleSelected */,
-				182C2AC01A777B7700591F02 /* SingleSelected */,
-				182C2ABD1A77762D00591F02 /* QSCustomPopRootView.h */,
-				182C2ABE1A77762D00591F02 /* QSCustomPopRootView.m */,
-			);
-			name = Pop;
-			sourceTree = "<group>";
-		};
-		182C2AC01A777B7700591F02 /* SingleSelected */ = {
-			isa = PBXGroup;
-			children = (
-				182C2AC21A777BD100591F02 /* QSCustomSingleSelectedPopView.h */,
-				182C2AC31A777BD100591F02 /* QSCustomSingleSelectedPopView.m */,
-			);
-			name = SingleSelected;
-			sourceTree = "<group>";
-		};
-		182C2AC11A777B8100591F02 /* MultipleSelected */ = {
-			isa = PBXGroup;
-			children = (
-				18FBA5BF1A789D13001372B3 /* QSMultipleSelectedPopView.h */,
-				18FBA5C01A789D13001372B3 /* QSMultipleSelectedPopView.m */,
-			);
-			name = MultipleSelected;
-			sourceTree = "<group>";
-		};
-		182C2AC51A77809300591F02 /* Selected */ = {
-			isa = PBXGroup;
-			children = (
-				182C2AC61A7780B500591F02 /* QSCustomSelectedView.h */,
-				182C2AC71A7780B500591F02 /* QSCustomSelectedView.m */,
-			);
-			name = Selected;
-			sourceTree = "<group>";
-		};
 		182C2AC91A7795C300591F02 /* House */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,17 +709,6 @@
 				182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */,
 			);
 			name = Second;
-			sourceTree = "<group>";
-		};
-		182C88251A7B326300DA64E9 /* District */ = {
-			isa = PBXGroup;
-			children = (
-				182C88261A7B326300DA64E9 /* QSDistrictPickerView.h */,
-				182C88271A7B326300DA64E9 /* QSDistrictPickerView.m */,
-				18B562E11A805A93009779A0 /* QSCityPickerView.h */,
-				18B562E21A805A93009779A0 /* QSCityPickerView.m */,
-			);
-			path = District;
 			sourceTree = "<group>";
 		};
 		183CC6521A68FC8800B8F97D = {
@@ -1161,35 +1120,15 @@
 		189300971A6902E30081D0AA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				182C88251A7B326300DA64E9 /* District */,
-				18FBA5C31A78B838001372B3 /* Picker */,
-				18F99AFA1A76000F00098FD6 /* HUD */,
-				18F99AF51A75FF9800098FD6 /* Alert */,
-				18C8A0F71A6A967800BB9611 /* Button */,
-				189300981A6902E30081D0AA /* Controller */,
-				189300991A6902E30081D0AA /* View */,
+				18B562EA1A81AA40009779A0 /* Alert */,
+				18B562ED1A81AA40009779A0 /* Button */,
+				18B562EE1A81AA40009779A0 /* Controller */,
+				18B562F81A81AA40009779A0 /* HUD */,
+				18B562FB1A81AA40009779A0 /* Picker */,
+				18B563031A81AA40009779A0 /* View */,
 			);
 			name = View;
 			path = House/View;
-			sourceTree = "<group>";
-		};
-		189300981A6902E30081D0AA /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				18C8A2161A6DFB1800BB9611 /* Header */,
-				18C8A12D1A6AB6CA00BB9611 /* TurnBack */,
-				18C8A0D41A6A753B00BB9611 /* Master */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		189300991A6902E30081D0AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				182C2AC51A77809300591F02 /* Selected */,
-				182C2ABC1A77761900591F02 /* Pop */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		189300AB1A690C880081D0AA /* Chat */ = {
@@ -1230,6 +1169,178 @@
 			path = MyZone;
 			sourceTree = "<group>";
 		};
+		18B562EA1A81AA40009779A0 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				18B562EB1A81AA40009779A0 /* QSAlertMessageViewController.h */,
+				18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		18B562ED1A81AA40009779A0 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		18B562EE1A81AA40009779A0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18B562EF1A81AA40009779A0 /* Header */,
+				18B562F21A81AA40009779A0 /* Master */,
+				18B562F51A81AA40009779A0 /* TurnBack */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		18B562EF1A81AA40009779A0 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				18B562F01A81AA40009779A0 /* QSHeaderViewController.h */,
+				18B562F11A81AA40009779A0 /* QSHeaderViewController.m */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		18B562F21A81AA40009779A0 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				18B562F31A81AA40009779A0 /* QSMasterViewController.h */,
+				18B562F41A81AA40009779A0 /* QSMasterViewController.m */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		18B562F51A81AA40009779A0 /* TurnBack */ = {
+			isa = PBXGroup;
+			children = (
+				18B562F61A81AA40009779A0 /* QSTurnBackViewController.h */,
+				18B562F71A81AA40009779A0 /* QSTurnBackViewController.m */,
+			);
+			path = TurnBack;
+			sourceTree = "<group>";
+		};
+		18B562F81A81AA40009779A0 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				18B562F91A81AA40009779A0 /* QSCustomHUDView.h */,
+				18B562FA1A81AA40009779A0 /* QSCustomHUDView.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
+		18B562FB1A81AA40009779A0 /* Picker */ = {
+			isa = PBXGroup;
+			children = (
+				18B5632C1A81ADB5009779A0 /* Multiple */,
+				18B5632B1A81ADAF009779A0 /* Single */,
+				18B562FC1A81AA40009779A0 /* District */,
+				18B563011A81AA40009779A0 /* QSCustomPickerView.h */,
+				18B563021A81AA40009779A0 /* QSCustomPickerView.m */,
+			);
+			path = Picker;
+			sourceTree = "<group>";
+		};
+		18B562FC1A81AA40009779A0 /* District */ = {
+			isa = PBXGroup;
+			children = (
+				18B563331A81C785009779A0 /* District */,
+				18B562FD1A81AA40009779A0 /* QSCityPickerView.h */,
+				18B562FE1A81AA40009779A0 /* QSCityPickerView.m */,
+				18B562FF1A81AA40009779A0 /* QSDistrictPickerView.h */,
+				18B563001A81AA40009779A0 /* QSDistrictPickerView.m */,
+			);
+			path = District;
+			sourceTree = "<group>";
+		};
+		18B563031A81AA40009779A0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18B563041A81AA40009779A0 /* Pop */,
+				18B563121A81AA40009779A0 /* Selected */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18B563041A81AA40009779A0 /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				18B563051A81AA40009779A0 /* District */,
+				18B5630A1A81AA40009779A0 /* MultipleSelected */,
+				18B5630D1A81AA40009779A0 /* QSCustomPopRootView.h */,
+				18B5630E1A81AA40009779A0 /* QSCustomPopRootView.m */,
+				18B5630F1A81AA40009779A0 /* SingleSelected */,
+			);
+			path = Pop;
+			sourceTree = "<group>";
+		};
+		18B563051A81AA40009779A0 /* District */ = {
+			isa = PBXGroup;
+			children = (
+				18B563061A81AA40009779A0 /* QSCustomCitySelectedView.h */,
+				18B563071A81AA40009779A0 /* QSCustomCitySelectedView.m */,
+				18B563081A81AA40009779A0 /* QSCustomDistrictSelectedPopView.h */,
+				18B563091A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m */,
+			);
+			path = District;
+			sourceTree = "<group>";
+		};
+		18B5630A1A81AA40009779A0 /* MultipleSelected */ = {
+			isa = PBXGroup;
+			children = (
+				18B5630B1A81AA40009779A0 /* QSMultipleSelectedPopView.h */,
+				18B5630C1A81AA40009779A0 /* QSMultipleSelectedPopView.m */,
+			);
+			path = MultipleSelected;
+			sourceTree = "<group>";
+		};
+		18B5630F1A81AA40009779A0 /* SingleSelected */ = {
+			isa = PBXGroup;
+			children = (
+				18B563101A81AA40009779A0 /* QSCustomSingleSelectedPopView.h */,
+				18B563111A81AA40009779A0 /* QSCustomSingleSelectedPopView.m */,
+			);
+			path = SingleSelected;
+			sourceTree = "<group>";
+		};
+		18B563121A81AA40009779A0 /* Selected */ = {
+			isa = PBXGroup;
+			children = (
+				18B563131A81AA40009779A0 /* QSCustomSelectedView.h */,
+				18B563141A81AA40009779A0 /* QSCustomSelectedView.m */,
+			);
+			path = Selected;
+			sourceTree = "<group>";
+		};
+		18B5632B1A81ADAF009779A0 /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				18B563301A81ADF8009779A0 /* QSSinglePickerView.h */,
+				18B563311A81ADF8009779A0 /* QSSinglePickerView.m */,
+			);
+			name = Single;
+			sourceTree = "<group>";
+		};
+		18B5632C1A81ADB5009779A0 /* Multiple */ = {
+			isa = PBXGroup;
+			children = (
+				18B5632D1A81ADD9009779A0 /* QSMultiplePickerView.h */,
+				18B5632E1A81ADD9009779A0 /* QSMultiplePickerView.m */,
+			);
+			name = Multiple;
+			sourceTree = "<group>";
+		};
+		18B563331A81C785009779A0 /* District */ = {
+			isa = PBXGroup;
+			children = (
+				18B563341A81C7B5009779A0 /* QSDistrictListView.h */,
+				18B563351A81C7B5009779A0 /* QSDistrictListView.m */,
+			);
+			name = District;
+			sourceTree = "<group>";
+		};
 		18C8A0BA1A6A36E300BB9611 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,22 +1368,6 @@
 				18C8A0CF1A6A68CF00BB9611 /* QSBlockButton.m */,
 				18C8A0D11A6A696200BB9611 /* QSBlockButtonStyleModel.h */,
 				18C8A0D21A6A696200BB9611 /* QSBlockButtonStyleModel.m */,
-			);
-			path = Button;
-			sourceTree = "<group>";
-		};
-		18C8A0D41A6A753B00BB9611 /* Master */ = {
-			isa = PBXGroup;
-			children = (
-				18C8A0D51A6A756F00BB9611 /* QSMasterViewController.h */,
-				18C8A0D61A6A756F00BB9611 /* QSMasterViewController.m */,
-			);
-			name = Master;
-			sourceTree = "<group>";
-		};
-		18C8A0F71A6A967800BB9611 /* Button */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -1305,15 +1400,6 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		18C8A12D1A6AB6CA00BB9611 /* TurnBack */ = {
-			isa = PBXGroup;
-			children = (
-				18C8A12E1A6AB6E600BB9611 /* QSTurnBackViewController.h */,
-				18C8A12F1A6AB6E600BB9611 /* QSTurnBackViewController.m */,
-			);
-			name = TurnBack;
-			sourceTree = "<group>";
-		};
 		18C8A1371A6CA2FC00BB9611 /* Guide */ = {
 			isa = PBXGroup;
 			children = (
@@ -1341,15 +1427,6 @@
 				18C8A1DC1A6D1D9C00BB9611 /* QSAdvertViewController.m */,
 			);
 			path = Advert;
-			sourceTree = "<group>";
-		};
-		18C8A2161A6DFB1800BB9611 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				18C8A2171A6DFB3900BB9611 /* QSHeaderViewController.h */,
-				18C8A2181A6DFB3900BB9611 /* QSHeaderViewController.m */,
-			);
-			name = Header;
 			sourceTree = "<group>";
 		};
 		18C8A21D1A6DFEAB00BB9611 /* Summary */ = {
@@ -1791,32 +1868,6 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		18F99AF51A75FF9800098FD6 /* Alert */ = {
-			isa = PBXGroup;
-			children = (
-				18F99AF61A75FFA000098FD6 /* Normal */,
-			);
-			name = Alert;
-			sourceTree = "<group>";
-		};
-		18F99AF61A75FFA000098FD6 /* Normal */ = {
-			isa = PBXGroup;
-			children = (
-				18F99AF71A75FFFF00098FD6 /* QSAlertMessageViewController.h */,
-				18F99AF81A75FFFF00098FD6 /* QSAlertMessageViewController.m */,
-			);
-			name = Normal;
-			sourceTree = "<group>";
-		};
-		18F99AFA1A76000F00098FD6 /* HUD */ = {
-			isa = PBXGroup;
-			children = (
-				18FABD011A7760C2007AC345 /* QSCustomHUDView.h */,
-				18FABD021A7760C2007AC345 /* QSCustomHUDView.m */,
-			);
-			name = HUD;
-			sourceTree = "<group>";
-		};
 		18FABCFB1A775E55007AC345 /* JPush1_8_2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1825,26 +1876,6 @@
 				18FABCFE1A775E55007AC345 /* PushConfig.plist */,
 			);
 			path = JPush1_8_2;
-			sourceTree = "<group>";
-		};
-		18FBA5C31A78B838001372B3 /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-				182C88221A7B2F8D00DA64E9 /* QSCustomPickerView.h */,
-				182C88231A7B2F8D00DA64E9 /* QSCustomPickerView.m */,
-			);
-			name = Picker;
-			sourceTree = "<group>";
-		};
-		18FBA5CB1A78E7E1001372B3 /* District */ = {
-			isa = PBXGroup;
-			children = (
-				18FBA5CC1A78E825001372B3 /* QSCustomDistrictSelectedPopView.h */,
-				18FBA5CD1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m */,
-				18B562E41A8076DC009779A0 /* QSCustomCitySelectedView.h */,
-				18B562E51A8076DC009779A0 /* QSCustomCitySelectedView.m */,
-			);
-			name = District;
 			sourceTree = "<group>";
 		};
 		18FBA5EC1A79BDF2001372B3 /* ChannelBar */ = {
@@ -2423,18 +2454,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18C8A1301A6AB6E600BB9611 /* QSTurnBackViewController.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
-				182C2AC41A777BD100591F02 /* QSCustomSingleSelectedPopView.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
+				18B563191A81AA40009779A0 /* QSCustomHUDView.m in Sources */,
 				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
 				18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */,
+				18B5631F1A81AA40009779A0 /* QSMultipleSelectedPopView.m in Sources */,
 				18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */,
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
@@ -2442,9 +2473,9 @@
 				18FBA5BB1A7871F8001372B3 /* QSGuideSummaryViewController.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
 				18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */,
-				18FABD031A7760C2007AC345 /* QSCustomHUDView.m in Sources */,
 				18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */,
 				18FBA5B81A787013001372B3 /* QSGuideHeaderViewController.m in Sources */,
+				18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */,
 				CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
@@ -2452,45 +2483,51 @@
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */,
+				18B563171A81AA40009779A0 /* QSMasterViewController.m in Sources */,
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
+				18B563161A81AA40009779A0 /* QSHeaderViewController.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
-				18C8A0D71A6A756F00BB9611 /* QSMasterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
+				18B5631C1A81AA40009779A0 /* QSCustomPickerView.m in Sources */,
+				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
 				CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */,
+				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,
+				18B563211A81AA40009779A0 /* QSCustomSingleSelectedPopView.m in Sources */,
+				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
-				18B562E31A805A93009779A0 /* QSCityPickerView.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
-				182C2ABF1A77762D00591F02 /* QSCustomPopRootView.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
+				18B5631D1A81AA40009779A0 /* QSCustomCitySelectedView.m in Sources */,
 				18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */,
+				18B563201A81AA40009779A0 /* QSCustomPopRootView.m in Sources */,
 				18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */,
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
+				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
+				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
-				182C88241A7B2F8D00DA64E9 /* QSCustomPickerView.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
-				18B562E61A8076DC009779A0 /* QSCustomCitySelectedView.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
-				182C2AC81A7780B500591F02 /* QSCustomSelectedView.m in Sources */,
 				186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
+				18B563221A81AA40009779A0 /* QSCustomSelectedView.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
@@ -2498,20 +2535,17 @@
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
 				18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */,
-				182C88281A7B326300DA64E9 /* QSDistrictPickerView.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
-				18FBA5C11A789D13001372B3 /* QSMultipleSelectedPopView.m in Sources */,
-				18F99AF91A75FFFF00098FD6 /* QSAlertMessageViewController.m in Sources */,
+				18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */,
 				18CAFCD51A70E45A00C90C90 /* QSCDLocalSearchHistoryDataModel.m in Sources */,
 				18FBA5B51A786F63001372B3 /* QSGuideSaleHouseViewController.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
-				18FBA5CE1A78E825001372B3 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */,
+				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
-				18C8A2191A6DFB3900BB9611 /* QSHeaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

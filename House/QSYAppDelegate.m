@@ -15,6 +15,7 @@
 #import "QSAlertMessageViewController.h"
 #import "QSMapManager.h"
 #import "QSCityInfoReturnData.h"
+#import "QSCustomHUDView.h"
 
 @interface QSYAppDelegate ()
 
@@ -49,6 +50,16 @@
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
         
+        ///HUD
+        __block QSCustomHUDView *hud;
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            ///显示HUD
+            hud = [QSCustomHUDView showCustomHUDWithTips:@"努力加载基础数据中……"];
+            
+        });
+        
         ///第一次运行时，下载城市信息
         BOOL isFirstLaunch = [QSCoreDataManager getApplicationIsFirstLaunchStatus];
         if (isFirstLaunch) {
@@ -59,6 +70,12 @@
         
         ///下载配置信息
         [self downloadApplicationBasInfo];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [hud hiddenCustomHUD];
+            
+        });
         
     });
     

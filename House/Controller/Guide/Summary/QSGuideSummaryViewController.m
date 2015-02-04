@@ -138,12 +138,16 @@
         ///弹出省份选择窗口
         [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
-            ///保存当前城市
-            [QSCoreDataManager updateCurrentUserCity:params];
-            
-            ///跳转到我要找房指引界面
-            QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
-            [self.navigationController pushViewController:findHouseVC animated:YES];
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///保存当前城市
+                [QSCoreDataManager updateCurrentUserCity:params];
+                
+                ///跳转到我要找房指引界面
+                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
+                [self.navigationController pushViewController:findHouseVC animated:YES];
+                
+            }
             
         }];
         
@@ -159,12 +163,16 @@
         ///弹出省份选择窗口
         [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
-            ///保存当前城市
-            [QSCoreDataManager updateCurrentUserCity:params];
-            
-            ///跳转到出售物业界面
-            QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
-            [self.navigationController pushViewController:saleHouseVC animated:YES];
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///保存当前城市
+                [QSCoreDataManager updateCurrentUserCity:params];
+                
+                ///跳转到出售物业界面
+                QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
+                [self.navigationController pushViewController:saleHouseVC animated:YES];
+                
+            }
             
         }];
         
