@@ -58,6 +58,7 @@
 		18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B5632E1A81ADD9009779A0 /* QSMultiplePickerView.m */; };
 		18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563311A81ADF8009779A0 /* QSSinglePickerView.m */; };
 		18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563351A81C7B5009779A0 /* QSDistrictListView.m */; };
+		18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B563391A81F7D0009779A0 /* QSCoreDataManager+Filter.m */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -328,6 +329,8 @@
 		18B563311A81ADF8009779A0 /* QSSinglePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSinglePickerView.m; path = Single/QSSinglePickerView.m; sourceTree = "<group>"; };
 		18B563341A81C7B5009779A0 /* QSDistrictListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSDistrictListView.h; path = District/QSDistrictListView.h; sourceTree = "<group>"; };
 		18B563351A81C7B5009779A0 /* QSDistrictListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSDistrictListView.m; path = District/QSDistrictListView.m; sourceTree = "<group>"; };
+		18B563381A81F7D0009779A0 /* QSCoreDataManager+Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+Filter.h"; path = "Filter/QSCoreDataManager+Filter.h"; sourceTree = "<group>"; };
+		18B563391A81F7D0009779A0 /* QSCoreDataManager+Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+Filter.m"; path = "Filter/QSCoreDataManager+Filter.m"; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -1008,6 +1011,7 @@
 		189300811A6902E30081D0AA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				18B563371A81F7A4009779A0 /* Filter */,
 				182C2AC91A7795C300591F02 /* House */,
 				18CAFCA11A70DEDB00C90C90 /* User */,
 				18E802231A6FD05800CA21D4 /* App */,
@@ -1339,6 +1343,15 @@
 				18B563351A81C7B5009779A0 /* QSDistrictListView.m */,
 			);
 			name = District;
+			sourceTree = "<group>";
+		};
+		18B563371A81F7A4009779A0 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				18B563381A81F7D0009779A0 /* QSCoreDataManager+Filter.h */,
+				18B563391A81F7D0009779A0 /* QSCoreDataManager+Filter.m */,
+			);
+			name = Filter;
 			sourceTree = "<group>";
 		};
 		18C8A0BA1A6A36E300BB9611 /* ImageView */ = {
@@ -2514,6 +2527,7 @@
 				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
+				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,

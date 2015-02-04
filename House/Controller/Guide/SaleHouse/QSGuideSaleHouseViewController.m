@@ -11,6 +11,7 @@
 #import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
 
@@ -264,6 +265,36 @@ static char BuyerCountDataKey;      //!<当前房客总数
         buyerCountLabel.text = tenantCount;
         
     }
+    
+}
+
+#pragma mark - 已经显示找房指引页时，下载统计数据
+/**
+ *  @author         yangshengmeng, 15-02-04 14:02:33
+ *
+ *  @brief          找房指引页将要出现时，下载统计数据
+ *
+ *  @param animated 出现的动画
+ *
+ *  @since          1.0.0
+ */
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    ///下载统计数据
+    
+    
+    ///隐藏HUD
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [hud hiddenCustomHUD];
+        
+    });
     
 }
 

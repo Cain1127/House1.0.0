@@ -56,7 +56,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^{
             
             ///显示HUD
-            hud = [QSCustomHUDView showCustomHUDWithTips:@"努力加载基础数据中……"];
+            hud = [QSCustomHUDView showCustomHUDWithTips:@"爷爷...爷爷，我正在努力加载基础数据中……" andHeaderTips:@"准备下载配置信息"];
             
         });
         
@@ -71,7 +71,7 @@
         ///下载配置信息
         [self downloadApplicationBasInfo];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [hud hiddenCustomHUD];
             

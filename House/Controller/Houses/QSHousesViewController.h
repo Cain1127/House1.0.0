@@ -24,6 +24,6 @@
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithHouseMainType:(FILTER_MAIN_TYPE)mainType;
+- (instancetype)initWithHouseMainType:(HOUSE_LIST_MAIN_TYPE)mainType;
 
 @end

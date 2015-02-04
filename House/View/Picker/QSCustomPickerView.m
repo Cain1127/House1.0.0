@@ -509,7 +509,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     ///如果是城市选择窗口，则直接弹出城市选择窗口
     if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
         
-        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
             ///更换状态
             self.isPicking = NO;
@@ -526,7 +526,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                 ///回调
                 if (self.pickedCallBack) {
                     
-                    self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                    self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
                     
                 }
                 
@@ -567,7 +567,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             ///回调
             if (self.pickedCallBack) {
                 
-                self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
                 
             }
             

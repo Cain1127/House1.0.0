@@ -191,13 +191,13 @@ typedef enum
 typedef enum
 {
 
-    fFilterMainTypeBuilding = 200501,   //!<楼盘
-    fFilterMainTypeNewHouse,            //!<新房
-    fFilterMainTypeCommunity,           //!<小区
-    fFilterMainTypeSecondHouse,         //!<二手房
-    fFilterMainTypeRenant               //!<出租房
+    hHouseListMainTypeBuilding = 200501,   //!<楼盘
+    hHouseListMainTypeNewHouse,            //!<新房
+    hHouseListMainTypeCommunity,           //!<小区
+    hHouseListMainTypeSecondHouse,         //!<二手房
+    hHouseListMainTypeRenant               //!<出租房
 
-}FILTER_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
+}HOUSE_LIST_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
 
 /**
  *  @author     yangshengmeng, 15-01-27 10:01:06

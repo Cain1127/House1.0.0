@@ -143,9 +143,13 @@
                 ///保存当前城市
                 [QSCoreDataManager updateCurrentUserCity:params];
                 
-                ///跳转到我要找房指引界面
-                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
-                [self.navigationController pushViewController:findHouseVC animated:YES];
+                ///延迟0.2秒再进入我要找房指引界面
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
+                    [self.navigationController pushViewController:findHouseVC animated:YES];
+                    
+                });
                 
             }
             
@@ -168,9 +172,13 @@
                 ///保存当前城市
                 [QSCoreDataManager updateCurrentUserCity:params];
                 
-                ///跳转到出售物业界面
-                QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
-                [self.navigationController pushViewController:saleHouseVC animated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    ///跳转到出售物业界面
+                    QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
+                    [self.navigationController pushViewController:saleHouseVC animated:YES];
+                    
+                });
                 
             }
             

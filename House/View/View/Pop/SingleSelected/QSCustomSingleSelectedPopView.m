@@ -9,6 +9,7 @@
 #import "QSCustomSingleSelectedPopView.h"
 #import "QSCustomSelectedView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSCDBaseConfigurationDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -19,7 +20,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
 @interface QSCustomSingleSelectedPopView ()
 
 @property (nonatomic,assign) BOOL isUnlimited;              //!<是否不限
-@property (nonatomic,retain) NSString *currentSelectedInfo; //!<当前选择的项
+@property (nonatomic,retain) id currentSelectedInfo;        //!<当前选择的项
 @property (nonatomic,assign) int currentSelectedIndex;      //!<当前选择项的下标
 
 /**
@@ -32,7 +33,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
  *
  *  @since              1.0.0
  */
-- (void)createSingleSelectedInfoUI:(NSArray *)dataSource andCurrentIndex:(int)index;
+- (void)createSingleSelectedInfoUI:(NSArray *)dataSource andCurrentSelectedKey:(NSString *)selectedKey;
 
 @end
 
@@ -189,7 +190,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
 }
 
 #pragma mark - 根据数据源搭建选择项UI
-- (void)createSingleSelectedInfoUI:(NSArray *)dataSource andCurrentIndex:(int)index
+- (void)createSingleSelectedInfoUI:(NSArray *)dataSource andCurrentSelectedKey:(NSString *)selectedKey
 {
 
     ///获取选择项的底view
@@ -203,7 +204,10 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     ///循环创建选择项
     for (int i = 0; i < [dataSource count]; i++) {
         
-        __block QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:dataSource[i] andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
+        ///临时模型
+        QSCDBaseConfigurationDataModel *tempModel = dataSource[i];
+        
+        __block QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:tempModel.val andSelectedType:cCustomSelectedViewTypeSingle andSelectedBoxTapCallBack:^(BOOL currentStatus) {
             
             ///如果选择一项单选，则将不限的选择状态取消
             QSCustomSelectedView *unlimitedView = objc_getAssociatedObject(self, &UnlimitedSelectedViewKey);
@@ -214,7 +218,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
             [self setSelectedItemViewStatus];
             
             ///保存选择信息
-            self.currentSelectedInfo = dataSource[i];
+            self.currentSelectedInfo = tempModel;
             self.currentSelectedIndex = i;
             
             tempSelectedItem.selectedStatus = YES;
@@ -228,13 +232,13 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
         [rootView addSubview:buttonLineLable];
         
         ///是否存在选择状态的下标
-        if (index >= 0 && i == index) {
+        if ([selectedKey isEqualToString:tempModel.key]) {
             
             tempSelectedItem.selectedStatus = YES;
             self.isUnlimited = NO;
             QSCustomSelectedView *unlimitedView = objc_getAssociatedObject(self, &UnlimitedSelectedViewKey);
             unlimitedView.selectedStatus = NO;
-            self.currentSelectedInfo = dataSource[i];
+            self.currentSelectedInfo = tempModel;
             self.currentSelectedIndex = i;
             
         }
@@ -265,7 +269,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
  *
  *  @since                  1.0.0
  */
-+ (instancetype)showSingleSelectedViewWithDataSource:(NSArray *)dataSource andCurrentSelectedIndex:(int)currentIndex andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack
++ (instancetype)showSingleSelectedViewWithDataSource:(NSArray *)dataSource andCurrentSelectedKey:(NSString *)selectedKey andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int index))selectedCallBack
 {
 
     QSCustomSingleSelectedPopView *singleSelectedView = [[QSCustomSingleSelectedPopView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
@@ -280,7 +284,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     ///搭建选择数据的UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [singleSelectedView createSingleSelectedInfoUI:dataSource andCurrentIndex:currentIndex];
+        [singleSelectedView createSingleSelectedInfoUI:dataSource andCurrentSelectedKey:selectedKey];
         
     });
     

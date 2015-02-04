@@ -18,7 +18,7 @@
 
 @interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
-@property (nonatomic,assign) FILTER_MAIN_TYPE listType;//!<列表类型
+@property (nonatomic,assign) HOUSE_LIST_MAIN_TYPE listType;//!<列表类型
 
 @end
 
@@ -36,7 +36,7 @@
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithHouseMainType:(FILTER_MAIN_TYPE)mainType
+- (instancetype)initWithHouseMainType:(HOUSE_LIST_MAIN_TYPE)mainType
 {
 
     if (self = [super init]) {

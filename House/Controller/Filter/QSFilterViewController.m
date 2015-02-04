@@ -15,6 +15,7 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCDBaseConfigurationDataModel.h"
 #import "QSCustomDistrictSelectedPopView.h"
+#import "QSCoreDataManager+Filter.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -207,6 +208,7 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    tempTextField.placeholder = [tempDict valueForKey:@"placehold"];
     
     return tempTextField;
 
@@ -278,23 +280,13 @@ typedef enum
             ///获取户型的数据
             NSArray *intentArray = [QSCoreDataManager getHouseType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示户型的选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -310,23 +302,13 @@ typedef enum
             ///获取购房目的数据
             NSArray *intentArray = [QSCoreDataManager getPurpostPerchaseType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示购房目的选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -342,23 +324,13 @@ typedef enum
             ///获取出售价格的数据
             NSArray *intentArray = [QSCoreDataManager getHouseSalePriceType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子售价选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -374,23 +346,13 @@ typedef enum
             ///获取房子面积的数据
             NSArray *intentArray = [QSCoreDataManager getHouseAreaType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子面积选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -406,23 +368,13 @@ typedef enum
             ///获取出租方式选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseRentType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示出租方式选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -438,23 +390,13 @@ typedef enum
             ///获取租金选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseRentPriceType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示租金选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -470,23 +412,13 @@ typedef enum
             ///获取租金支付方式选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示租金支付方式选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -502,23 +434,13 @@ typedef enum
             ///获取房子的物业类型选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseTradeType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子的物业类型选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -534,23 +456,13 @@ typedef enum
             ///获取房子产权选择项数据
             NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子产权选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -566,23 +478,13 @@ typedef enum
             ///获取房子楼层选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseFloorType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子楼层选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -598,23 +500,13 @@ typedef enum
             ///获取房子朝向选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseFaceType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子朝向选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -630,23 +522,13 @@ typedef enum
             ///获取房子装修类型选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseDecorationType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示房子装修类型选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
@@ -662,23 +544,13 @@ typedef enum
             ///获取租金支付方式选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
             
-            ///转换数组
-            NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-            for (QSCDBaseConfigurationDataModel *obj in intentArray) {
-                
-                if (obj.val) {
-                    
-                    [tempArray addObject:obj.val];
-                    
-                }
-                
-            }
-            
             ///显示租金支付方式选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempArray andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///回调选择项
-                NSLog(@"=================当前选择的是：%@,%d=====================",params,selectedIndex);
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                textField.text = tempModel.val;
                 
             }];
             
