@@ -27,6 +27,7 @@ typedef enum
 
     pPickerCallBackActionTypeShow = 99,     //!<显示时的回调
     pPickerCallBackActionTypeUnPickedHidden,//!<未选择时隐藏回调
+    pPickerCallBackActionTypeUnLimited,     //!<不选择
     pPickerCallBackActionTypePicked         //!<已选择
 
 }PICKER_CALLBACK_ACTION_TYPE;
@@ -65,6 +66,6 @@ typedef enum
  *
  *  @since  1.0.0
  */
-- (void)removePickerView;
+- (void)removePickerView:(BOOL)animination;
 
 @end

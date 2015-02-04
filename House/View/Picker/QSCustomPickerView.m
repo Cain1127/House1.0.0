@@ -12,7 +12,9 @@
 #import "QSCoreDataManager+App.h"
 #import "QSCDBaseConfigurationDataModel.h"
 #import "QSCoreDataManager+House.h"
-#import "QSDistrictPickerView.h"
+#import "QSCustomCitySelectedView.h"
+#import "QSSinglePickerView.h"
+#import "QSDistrictListView.h"
 
 #import <objc/runtime.h>
 
@@ -28,6 +30,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 @property (nonatomic,assign) CUSTOM_PICKER_TYPE pickerType;                         //!<选择器类型
 @property (nonatomic,assign) CUSTOM_PICKER_STYLE pickerStyle;                       //!<选择风格
 @property (nonatomic,assign) BOOL isPicking;                                        //!<选择view的状态
+@property (nonatomic,assign) BOOL isSelected;                                       //!<是否已选择
 @property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentPickedModel;    //!<当前选择项模型
 @property (nonatomic,assign) CGFloat indicatorCenterXPoint;                         //!<指示三角中心x
 
@@ -68,6 +71,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         
         ///初始化状态
         self.isPicking = NO;
+        self.isSelected = NO;
         
         ///保存回调
         if (callBack) {
@@ -345,6 +349,35 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     ///更新当前的选择状态
     if (isPicking) {
         
+        ///旋转三角形
+        UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
+        if (arrowImageView) {
+            
+            arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
+            
+        }
+        
+    } else {
+        
+        ///旋转三角形
+        UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
+        if (arrowImageView) {
+            
+            arrowImageView.transform = CGAffineTransformIdentity;
+            
+        }
+    
+    }
+
+}
+
+- (void)setIsSelected:(BOOL)isSelected
+{
+
+    _isSelected = isSelected;
+    
+    if (isSelected) {
+        
         ///修改字段颜色
         UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
         if (infoLabel) {
@@ -353,17 +386,16 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             
         }
         
-        ///旋转三角形
+        ///更换图片
         UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
         if (arrowImageView) {
             
             arrowImageView.image = [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED];
-            arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
             
         }
         
     } else {
-        
+    
         ///修改字段颜色
         UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
         if (infoLabel) {
@@ -371,13 +403,11 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             infoLabel.textColor = [self getInfoTextColor];
             
         }
-    
-        ///旋转三角形
+        
         UIImageView *arrowImageView = objc_getAssociatedObject(self, &LeftArrowViewKey);
         if (arrowImageView) {
             
             arrowImageView.image = [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL];
-            arrowImageView.transform = CGAffineTransformIdentity;
             
         }
     
@@ -413,7 +443,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         }
         
         ///移除弹出框
-        [self removePickerView];
+        [self removePickerView:YES];
         
         return;
         
@@ -451,13 +481,6 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 - (NSArray *)getPickerListDataSource
 {
     
-    ///房子的列表主要类型
-    if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
-        
-        return [QSCoreDataManager getCityList];
-        
-    }
-    
     ///城市选择类型
     if (cCustomPickerTypeNavigationBarHouseMainType == self.pickerType) {
         
@@ -482,6 +505,38 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 
     ///更换状态
     self.isPicking = YES;
+    
+    ///如果是城市选择窗口，则直接弹出城市选择窗口
+    if (cCustomPickerTypeNavigationBarCity == self.pickerType) {
+        
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            ///更换状态
+            self.isPicking = NO;
+            
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///更换当前选择模型
+                self.currentPickedModel = params;
+                
+                ///更换显示信息
+                UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                infoLabel.text = self.currentPickedModel.val;
+                
+                ///回调
+                if (self.pickedCallBack) {
+                    
+                    self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
+                    
+                }
+                
+            }
+            
+        }];
+        
+        return;
+        
+    }
     
     ///获取列表源
     NSArray *dataSource = [self getPickerListDataSource];
@@ -575,28 +630,180 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         case cCustomPickerTypeChannelBarDistrict:
         {
         
-            QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedDistrcitKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
+            QSDistrictListView *districtPickerView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedStreetKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
+                
+                ///判断是否选择有内容
+                if (cCustomDistrictPickerActionTypePickedStreet == pickedActionType) {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = streetModel;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = self.currentPickedModel.val;
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
+                        
+                    }
+                    
+                    ///显示选择状态
+                    self.isSelected = YES;
+                    
+                } else {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = nil;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = @"不限";
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypeUnPickedHidden,nil,nil);
+                        
+                    }
+                
+                    ///取消选择状态
+                    self.isSelected = NO;
+                
+                }
+                
+                ///隐藏
+                [self removePickerView:YES];
                 
                 ///更换状态
                 self.isPicking = NO;
                 
-                ///保存当前选择模型
-                self.currentPickedModel = distictModel;
-                
-                ///更换显示信息
-                UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
-                infoLabel.text = self.currentPickedModel.val;
-                
-                ///回调
-                if (self.pickedCallBack) {
-                    
-                    self.pickedCallBack(pPickerCallBackActionTypePicked,[NSString stringWithFormat:@"%@",self.currentPickedModel.key],self.currentPickedModel.val);
-                    
-                }
-                
             }];
             
             return districtPickerView;
+        
+        }
+            break;
+            
+            ///户型选择
+        case cCustomPickerTypeChannelBarHouseType:
+        {
+        
+            ///户型数据
+            NSArray *houseTypeList = [QSCoreDataManager getHouseType];
+            
+            return [[QSSinglePickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andDataSource:houseTypeList andSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andPickedCallBack:^(SINGLE_PICKVIEW_PICKEDTYPE pickedType, id params) {
+                
+                ///判断回调
+                if (sSinglePickviewPickedTypePicked == pickedType) {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = params;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = self.currentPickedModel.val;
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
+                        
+                    }
+                    
+                    ///选择状态
+                    self.isSelected = YES;
+                    
+                } else {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = nil;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = @"不限";
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypeUnLimited,nil,nil);
+                        
+                    }
+                    
+                    ///取消选择状态
+                    self.isSelected = NO;
+                    
+                }
+                
+                ///隐藏
+                [self removePickerView:YES];
+                
+                ///更换状态
+                self.isPicking = NO;
+                
+            }];
+        
+        }
+            break;
+            
+            ///户型选择
+        case cCustomPickerTypeChannelBarTotalPrice:
+        {
+        
+            ///户型数据
+            NSArray *houseSalePrictList = [QSCoreDataManager getHouseSalePriceType];
+            
+            return [[QSSinglePickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andDataSource:houseSalePrictList andSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andPickedCallBack:^(SINGLE_PICKVIEW_PICKEDTYPE pickedType, id params) {
+                
+                ///判断回调
+                if (sSinglePickviewPickedTypePicked == pickedType) {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = params;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = self.currentPickedModel.val;
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
+                        
+                    }
+                    
+                    ///选择状态
+                    self.isSelected = YES;
+                    
+                } else {
+                
+                    ///保存当前选择模型
+                    self.currentPickedModel = nil;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = @"不限";
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypeUnLimited,nil,nil);
+                        
+                    }
+                    
+                    ///取消选择状态
+                    self.isSelected = NO;
+                
+                }
+                
+                ///隐藏
+                [self removePickerView:YES];
+                
+                ///更换状态
+                self.isPicking = NO;
+                
+            }];
         
         }
             break;
@@ -620,7 +827,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
  *
  *  @since  1.0.0
  */
-- (void)removePickerView
+- (void)removePickerView:(BOOL)animination
 {
     
     if (!self.isPicking) {
@@ -636,7 +843,24 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     UIView *currentPopView = objc_getAssociatedObject(self, &CurrentPopViewKey);
     if (currentPopView) {
         
-        [currentPopView removeFromSuperview];
+        ///判断是否动画隐藏
+        if (animination) {
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                currentPopView.frame = CGRectMake(-currentPopView.frame.size.width, currentPopView.frame.origin.y, currentPopView.frame.size.width, currentPopView.frame.size.height);
+                
+            } completion:^(BOOL finished) {
+                
+                [currentPopView removeFromSuperview];
+                
+            }];
+            
+        } else {
+        
+            [currentPopView removeFromSuperview];
+        
+        }
         
     }
 

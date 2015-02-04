@@ -147,8 +147,8 @@
         if (pPickerCallBackActionTypeShow == callBackType) {
             
             ///回收其他弹出框
-            [houseTypePickerView removePickerView];
-            [pricePickerView removePickerView];
+            [houseTypePickerView removePickerView:NO];
+            [pricePickerView removePickerView:NO];
             
         }
         
@@ -162,8 +162,8 @@
         if (pPickerCallBackActionTypeShow == callBackType) {
             
             ///回收其他弹出框
-            [distictPickerView removePickerView];
-            [pricePickerView removePickerView];
+            [distictPickerView removePickerView:NO];
+            [pricePickerView removePickerView:NO];
             
         }
         
@@ -177,8 +177,8 @@
         if (pPickerCallBackActionTypeShow == callBackType) {
             
             ///回收其他弹出框
-            [houseTypePickerView removePickerView];
-            [distictPickerView removePickerView];
+            [houseTypePickerView removePickerView:NO];
+            [distictPickerView removePickerView:NO];
             
         }
         

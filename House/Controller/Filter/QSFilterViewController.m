@@ -258,11 +258,13 @@ typedef enum
         case fFilterSettingFieldActionTypeDistrict:
         {
             
-            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithDistrictSelectedKey:nil andSelectedStreetKey:nil andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel, QSCDBaseConfigurationDataModel *streetModel) {
+            [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithSteetSelectedKey:nil andDistrictPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                NSLog(@"==================当前选择地区=====================");
-                NSLog(@"地区：%@   街道：%@",distictModel.val,streetModel.val);
-                NSLog(@"==================当前选择地区=====================");
+                ///转模型
+                QSCDBaseConfigurationDataModel *tempModel = params;
+                
+                ///显示当前位置信息
+                textField.text = tempModel.val;
                 
             }];
             

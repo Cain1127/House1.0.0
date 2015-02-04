@@ -10,6 +10,8 @@
 #import "QSGuideLookingforRoomViewController.h"
 #import "QSGuideSaleHouseViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSCustomCitySelectedView.h"
+#import "QSCoreDataManager+User.h"
 
 @interface QSGuideSummaryViewController ()
 
@@ -133,8 +135,21 @@
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON;
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
-        [self.navigationController pushViewController:findHouseVC animated:YES];
+        ///弹出省份选择窗口
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///保存当前城市
+                [QSCoreDataManager updateCurrentUserCity:params];
+                
+                ///跳转到我要找房指引界面
+                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
+                [self.navigationController pushViewController:findHouseVC animated:YES];
+                
+            }
+            
+        }];
         
     }];
     findHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -145,8 +160,21 @@
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
-        [self.navigationController pushViewController:saleHouseVC animated:YES];
+        ///弹出省份选择窗口
+        [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                
+                ///保存当前城市
+                [QSCoreDataManager updateCurrentUserCity:params];
+                
+                ///跳转到出售物业界面
+                QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
+                [self.navigationController pushViewController:saleHouseVC animated:YES];
+                
+            }
+            
+        }];
         
     }];
     saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
