@@ -189,6 +189,33 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-02-05 14:02:40
+ *
+ *  @brief  获取房子的房龄类型数组
+ *
+ *  @return 返回房龄数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseUsedYearType
+{
+
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"2年以下",@"2-5年",@"5-10年",@"10年以上"];
+    NSArray *houseUsedYearTypeKeyArray = @[@"2-under",@"2-5",@"5-10",@"10-over"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
+/**
  *  @author yangshengmeng, 15-01-29 15:01:06
  *
  *  @brief  返回房子列表中主要过滤类型
@@ -201,6 +228,14 @@
 {
 
     return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"type"];
+
+}
+
+///查询主列表类型的对象
++ (id)getHouseListMainTypeModelWithID:(NSString *)typeID
+{
+
+    return [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"type" andSecondFieldName:@"key" andSecndFieldValue:typeID];
 
 }
 

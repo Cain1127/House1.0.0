@@ -450,10 +450,13 @@ typedef enum
 typedef enum
 {
     
-    fFilterMainTypeRentalHouse = 99,//!<找出租房的过滤器
-    fFilterMainTypeSecondHouse,     //!<二手房的过滤器
+    fFilterMainTypeBuilding = 200501,   //!<楼盘
+    fFilterMainTypeNewHouse,            //!<新房
+    fFilterMainTypeCommunity,           //!<小区
+    fFilterMainTypeSecondHouse,         //!<二手房
+    fFilterMainTypeRentalHouse          //!<出租房
     
-}FILTER_MAIN_TYPE;                  //!<过滤器的类型
+}FILTER_MAIN_TYPE;                      //!<过滤器的类型
 
 ///过滤器的状态
 typedef enum

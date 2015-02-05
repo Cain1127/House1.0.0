@@ -81,6 +81,7 @@
         <attribute name="user_current_province_key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_street" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_street_key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_default_filter_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="user_longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -94,6 +95,6 @@
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="583"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
-        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="255"/>
+        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="268"/>
     </elements>
 </model>

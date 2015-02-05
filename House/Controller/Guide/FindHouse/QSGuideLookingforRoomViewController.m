@@ -175,9 +175,14 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        ///创建一个出租房的过滤器
-        [QSCoreDataManager initSecondHandHouseFilter];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
+        ///进入过滤器页面
         QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
@@ -190,9 +195,14 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        ///创建一个出租房的过滤器
-        [QSCoreDataManager initRentalHouseFilter];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
+        ///进入过滤器设置页面
         QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
@@ -205,21 +215,16 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///更新用户类型
-        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
-        ///将过滤器状态修改为等设置状态
-        [QSCoreDataManager updateFilterStatusWithFilterType:fFilterMainTypeSecondHouse andFilterNewStatus:fFilterStatusTypeWaitSetting andUpdateCallBack:^(BOOL isSuccess) {
-            
-            ///更新成功后进入主页
-            if (isSuccess) {
-                
-                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
-                [self changeWindowRootViewController:homePageVC];
-                
-            }
-            
-        }];
+        ///进入主页
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+        [self changeWindowRootViewController:homePageVC];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;

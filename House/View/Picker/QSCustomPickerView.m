@@ -7,14 +7,19 @@
 //
 
 #import "QSCustomPickerView.h"
+
 #import "QSCoreDataManager+User.h"
-#import "QSCustomSingleSelectedPopView.h"
 #import "QSCoreDataManager+App.h"
-#import "QSCDBaseConfigurationDataModel.h"
 #import "QSCoreDataManager+House.h"
+#import "QSCoreDataManager+Filter.h"
+
+#import "QSCustomSingleSelectedPopView.h"
 #import "QSCustomCitySelectedView.h"
 #import "QSSinglePickerView.h"
 #import "QSDistrictListView.h"
+
+#import "QSBaseConfigurationDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -31,7 +36,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 @property (nonatomic,assign) CUSTOM_PICKER_STYLE pickerStyle;                       //!<选择风格
 @property (nonatomic,assign) BOOL isPicking;                                        //!<选择view的状态
 @property (nonatomic,assign) BOOL isSelected;                                       //!<是否已选择
-@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentPickedModel;    //!<当前选择项模型
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentPickedModel;      //!<当前选择项模型
 @property (nonatomic,assign) CGFloat indicatorCenterXPoint;                         //!<指示三角中心x
 
 @end
@@ -297,16 +302,55 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     switch (self.pickerType) {
             ///城市选择：返回当前用户的位置
         case cCustomPickerTypeNavigationBarCity:
+        {
             
-            return ([QSCoreDataManager getCurrentUserCity]) ? ([QSCoreDataManager getCurrentUserCity]) : @"广州";
+            NSString *userCurrentCity = [QSCoreDataManager getCurrentUserCity];
             
+            ///初始化一个当前城市的选择模型
+            if (userCurrentCity) {
+                
+                QSBaseConfigurationDataModel *userCurrentCityModel = [[QSBaseConfigurationDataModel alloc] init];
+                userCurrentCityModel.val = userCurrentCity;
+                userCurrentCityModel.key = [QSCoreDataManager getCurrentUserCityKey];
+                self.currentPickedModel = userCurrentCityModel;
+                
+            } else {
+            
+                QSBaseConfigurationDataModel *userCurrentCityModel = [[QSBaseConfigurationDataModel alloc] init];
+                userCurrentCityModel.val = @"广州";
+                userCurrentCityModel.key = @"4401";
+                self.currentPickedModel = userCurrentCityModel;
+            
+            }
+            
+            return userCurrentCity ? userCurrentCity : @"广州";
+            
+        }
             break;
             
             ///房子列表类型选择：返回上次的选择，或者默认二手房
         case cCustomPickerTypeNavigationBarHouseMainType:
+        {
             
-            return @"二手房";
+            NSString *userDefaultHouseTypeID = [QSCoreDataManager getCurrentUserDefaultFilterID];
+            QSBaseConfigurationDataModel *filterModel;
+            if (userDefaultHouseTypeID) {
+                
+                ///获取默认过滤器
+                filterModel = [QSCoreDataManager getHouseListMainTypeModelWithID:userDefaultHouseTypeID];
+                self.currentPickedModel = filterModel;
+                
+            } else {
             
+                filterModel = [[QSBaseConfigurationDataModel alloc] init];
+                filterModel.val = @"二手房";
+                filterModel.key = @"200504";
+                self.currentPickedModel = filterModel;
+            
+            }
+            return filterModel.val;
+            
+        }
             break;
             
             ///频道栏-区域选择
@@ -541,16 +585,8 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     ///获取列表源
     NSArray *dataSource = [self getPickerListDataSource];
     
-    ///转换
-    NSMutableArray *tempDataSource = [[NSMutableArray alloc] init];
-    for (QSCDBaseConfigurationDataModel *obj in dataSource) {
-        
-        [tempDataSource addObject:obj.val];
-        
-    }
-    
     ///弹出选择窗口
-    [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempDataSource andCurrentSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+    [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:dataSource andCurrentSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
         
         ///更换状态
         self.isPicking = NO;
@@ -558,11 +594,11 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         if (cCustomPopviewActionTypeSingleSelected == actionType) {
             
             ///更换状态
-            self.currentPickedModel = dataSource[selectedIndex];
+            self.currentPickedModel = params;
             
             ///更换显示信息
             UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
-            infoLabel.text = params;
+            infoLabel.text = self.currentPickedModel.val;
             
             ///回调
             if (self.pickedCallBack) {
@@ -636,7 +672,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                 if (cCustomDistrictPickerActionTypePickedStreet == pickedActionType) {
                     
                     ///保存当前选择模型
-                    self.currentPickedModel = streetModel;
+                    self.currentPickedModel = (QSBaseConfigurationDataModel *)streetModel;
                     
                     ///更换显示信息
                     UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
@@ -659,7 +695,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     
                     ///更换显示信息
                     UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
-                    infoLabel.text = @"不限";
+                    infoLabel.text = [self getDefaultTypeInfo];
                     
                     ///回调
                     if (self.pickedCallBack) {
@@ -722,7 +758,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     
                     ///更换显示信息
                     UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
-                    infoLabel.text = @"不限";
+                    infoLabel.text = [self getDefaultTypeInfo];
                     
                     ///回调
                     if (self.pickedCallBack) {
@@ -783,7 +819,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     
                     ///更换显示信息
                     UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
-                    infoLabel.text = @"不限";
+                    infoLabel.text = [self getDefaultTypeInfo];
                     
                     ///回调
                     if (self.pickedCallBack) {

@@ -128,6 +128,17 @@
 + (NSArray *)getHousePropertyRightType;
 
 /**
+ *  @author yangshengmeng, 15-02-05 14:02:40
+ *
+ *  @brief  获取房子的房龄类型数组
+ *
+ *  @return 返回房龄数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseUsedYearType;
+
+/**
  *  @author yangshengmeng, 15-01-29 15:01:06
  *
  *  @brief  返回房子列表中主要过滤类型
@@ -137,6 +148,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseListMainType;
++ (id)getHouseListMainTypeModelWithID:(NSString *)typeID;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:31

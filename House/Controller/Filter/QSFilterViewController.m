@@ -19,6 +19,7 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+User.h"
 
 #import "QSFilterDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
@@ -80,15 +81,9 @@ typedef enum
 ///初始化过滤器的数据模型
 - (void)createFilterDataModel
 {
-
-    if (fFilterStatusTypeWorking == self.filterStatus) {
-        
-        self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
-        
-    }
     
-    self.filterModel = [[QSFilterDataModel alloc] init];
-
+    self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
+    
 }
 
 #pragma mark - UI搭建
@@ -311,12 +306,6 @@ typedef enum
                     
                     ///保存位置信息
                     QSCDBaseConfigurationDataModel *districtModel = [QSCoreDataManager getDistrictModelWithStreetKey:tempModel.key];
-                    QSCDBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:districtModel.key];
-                    QSCDBaseConfigurationDataModel *provinceModel = [QSCoreDataManager getProvinceModelWithCityKey:cityModel.key];
-                    self.filterModel.province_key = provinceModel.key;
-                    self.filterModel.province_val = provinceModel.val;
-                    self.filterModel.city_key = cityModel.key;
-                    self.filterModel.city_val = cityModel.val;
                     self.filterModel.district_key = districtModel.key;
                     self.filterModel.district_val = districtModel.val;
                     self.filterModel.street_key = tempModel.key;
@@ -328,10 +317,6 @@ typedef enum
                     textField.text = nil;
                     
                     ///将过滤器中的位置信息清空
-                    self.filterModel.province_key = nil;
-                    self.filterModel.province_val = nil;
-                    self.filterModel.city_key = nil;
-                    self.filterModel.city_val = nil;
                     self.filterModel.district_key = nil;
                     self.filterModel.district_val = nil;
                     self.filterModel.street_key = nil;
@@ -639,7 +624,7 @@ typedef enum
         {
             
             ///获取房子房龄选择项数据
-            NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
+            NSArray *intentArray = [QSCoreDataManager getHouseUsedYearType];
             
             ///显示房龄选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {

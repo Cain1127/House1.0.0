@@ -165,6 +165,13 @@ static char BuyerCountDataKey;      //!<当前房客总数
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
+        
         [self gotoLoginViewController];
         
     }];
@@ -175,6 +182,13 @@ static char BuyerCountDataKey;      //!<当前房客总数
     QSBlockButtonStyleModel *whiteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
+        
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
         [self gotoLoginViewController];
         
@@ -187,21 +201,16 @@ static char BuyerCountDataKey;      //!<当前房客总数
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///更新用户类型
-        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
-        ///将过滤器状态修改为等设置状态
-        [QSCoreDataManager updateFilterStatusWithFilterType:fFilterMainTypeSecondHouse andFilterNewStatus:fFilterStatusTypeWaitSetting andUpdateCallBack:^(BOOL isSuccess) {
-            
-            ///更新成功后进入主页
-            if (isSuccess) {
-                
-                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
-                [self changeWindowRootViewController:homePageVC];
-                
-            }
-            
-        }];
+        ///进入主页
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+        [self changeWindowRootViewController:homePageVC];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;

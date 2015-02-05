@@ -16,6 +16,11 @@
 #import "QSImageView+Block.h"
 #import "UIButton+Factory.h"
 
+#import "QSBaseConfigurationDataModel.h"
+
+#import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+User.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -41,9 +46,19 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     ///中间选择城市按钮
     QSCustomPickerView *cityPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarCity andPickerViewStyle:cCustomPickerStyleRightLocal andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *cityKey, NSString *cityVal) {
         
-        NSLog(@"====================首页城市选择====================");
-        NSLog(@"当前选择城市：%@,%@",cityKey,cityVal);
-        NSLog(@"====================首页城市选择====================");
+        ///判断选择
+        if (pPickerCallBackActionTypePicked == callBackType) {
+            
+            ///更新当前用户的城市
+            QSCDBaseConfigurationDataModel *tempCityModel = [QSCoreDataManager getCityModelWithCityKey:cityKey];
+            [QSCoreDataManager updateCurrentUserCity:tempCityModel];
+            
+            ///更新当前过滤器
+            
+            ///刷新统计数据
+            
+        }
+        
         
     }];
     [self setNavigationBarMiddleView:cityPickerView];

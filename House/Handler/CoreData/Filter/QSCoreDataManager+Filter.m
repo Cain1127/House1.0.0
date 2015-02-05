@@ -8,25 +8,108 @@
 
 #import "QSCoreDataManager+Filter.h"
 #import "QSYAppDelegate.h"
+
 #import "QSCDFilterDataModel.h"
 #import "QSFilterDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
+
+#import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+User.h"
 
 ///过滤器信息的CoreData模型
 #define COREDATA_ENTITYNAME_FILTER @"QSCDFilterDataModel"
 
 @implementation QSCoreDataManager (Filter)
 
+#pragma mark - 过滤器创建
+
 /**
- *  @author yangshengmeng, 15-02-04 15:02:25
+ *  @author             yangshengmeng, 15-02-05 12:02:17
  *
- *  @brief  初始化一个出租房的过滤器
+ *  @brief              创建一个过滤器，必须要传类型，并且创建后将创建结果标识回调，可以创建给定城市的过滤器
  *
- *  @return 返回初始化是否成功
+ *  @param filterType   过滤器类型
+ *  @param callBack     创建后的回调
  *
- *  @since  1.0.0
+ *  @since              1.0.0
  */
-+ (BOOL)initRentalHouseFilter
++ (void)createFilter
 {
+
+    ///获取当前用户城市信息
+    NSString *userCityKey = [QSCoreDataManager getCurrentUserCityKey];
+    [self createFilterWithCityKey:userCityKey];
+
+}
+
+///创建给定城市的过滤器
++ (void)createFilterWithCityKey:(NSString *)cityKey
+{
+
+    ///楼盘过滤器
+    [self createFilterWithFilterType:fFilterMainTypeBuilding andCityKey:cityKey andCallBack:^(FILTER_CREATE_RESULT_STATUS resultStauts) {}];
+    
+    ///新房过滤器
+    [self createFilterWithFilterType:fFilterMainTypeNewHouse andCityKey:cityKey andCallBack:^(FILTER_CREATE_RESULT_STATUS resultStauts) {}];
+    
+    ///小区过滤器
+    [self createFilterWithFilterType:fFilterMainTypeCommunity andCityKey:cityKey andCallBack:^(FILTER_CREATE_RESULT_STATUS resultStauts) {}];
+    
+    ///二手房过滤器
+    [self createFilterWithFilterType:fFilterMainTypeSecondHouse andCityKey:cityKey andCallBack:^(FILTER_CREATE_RESULT_STATUS resultStauts) {}];
+    
+    ///出租房过滤器
+    [self createFilterWithFilterType:fFilterMainTypeRentalHouse andCityKey:cityKey andCallBack:^(FILTER_CREATE_RESULT_STATUS resultStauts) {}];
+
+}
+
+///创建一个特定类型的过滤器，同时创建完成后回调
++ (void)createFilterWithFilterType:(FILTER_MAIN_TYPE)filterType andCallBack:(void(^)(FILTER_CREATE_RESULT_STATUS resultStauts))callBack
+{
+    
+    ///获取当前用户城市信息
+    NSString *userCityKey = [QSCoreDataManager getCurrentUserCityKey];
+    
+    ///进入按城市创建过滤器方法
+    [self createFilterWithFilterType:filterType andCityKey:userCityKey andCallBack:callBack];
+    
+}
+
+///创建一个特定类型和城市的过滤器，创建完成后回调
++ (void)createFilterWithFilterType:(FILTER_MAIN_TYPE)filterType andCityKey:(NSString *)cityKey andCallBack:(void(^)(FILTER_CREATE_RESULT_STATUS resultStauts))callBack
+{
+    
+    ///判断城市key
+    if (!cityKey) {
+        
+        if (callBack) {
+            
+            callBack(fFilterCreateResultStatusFail);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///转换参数
+    NSString *filterID = [NSString stringWithFormat:@"%d",filterType];
+    
+    ///先查询原来是否已存在重复的过滤器
+    QSCDBaseConfigurationDataModel *tempFilterModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_FILTER andFieldName:@"filter_id" andFieldSearchKey:filterID andSecondFieldName:@"city_key" andSecndFieldValue:cityKey];
+    
+    if (tempFilterModel) {
+        
+        ///回调告知，原来已有相同过滤器
+        if (callBack) {
+            
+            callBack(fFilterCreateResultStatusExist);
+            
+        }
+        
+        return;
+        
+    }
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
@@ -35,53 +118,40 @@
     
     ///插入数据
     QSCDFilterDataModel *model = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:mOContext];
-    model.filter_id = [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse];
+    model.filter_id = filterID;
     model.filter_status = @"0";
+    
+    ///保存初始化的过滤器信息
+    QSCDBaseConfigurationDataModel *provinceModel = [QSCoreDataManager getProvinceModelWithCityKey:cityKey];
+    
+    model.city_key = cityKey;
+    model.city_val = [QSCoreDataManager getCityValWithCityKey:cityKey];
+    model.province_key = provinceModel.key;
+    model.province_val = provinceModel.val;
+    
     [mOContext save:&error];
     
     if (error) {
         
-        return NO;
+        if (callBack) {
+            
+            callBack(fFilterCreateResultStatusFail);
+            
+        }
         
-    }
+    } else {
     
-    return YES;
+        if (callBack) {
+            
+            callBack(fFilterCreateResultStatusSuccess);
+            
+        }
+    
+    }
 
 }
 
-/**
- *  @author yangshengmeng, 15-02-04 15:02:02
- *
- *  @brief  初始化一个二手房的过滤器
- *
- *  @return 返回是否初始化成功
- *
- *  @since  1.0.0
- */
-+ (BOOL)initSecondHandHouseFilter
-{
-
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    
-    NSError *error = nil;
-    
-    ///插入数据
-    QSCDFilterDataModel *model = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:mOContext];
-    model.filter_id = [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse];
-    model.filter_status = @"0";
-    [mOContext save:&error];
-    
-    if (error) {
-        
-        return NO;
-        
-    }
-    
-    return YES;
-
-}
-
+#pragma mark - 查找过滤器的当前状态
 /**
  *  @author             yangshengmeng, 15-02-04 16:02:24
  *
@@ -95,19 +165,74 @@
  */
 + (FILTER_STATUS_TYPE)getFilterStatusWithType:(FILTER_MAIN_TYPE)filteType
 {
-
-    NSString *filterStatus = [self searchEntityWithKey:COREDATA_ENTITYNAME_FILTER andFieldName:@"filter_status" andFieldSearchKey:[NSString stringWithFormat:@"%d",filteType]];
     
-    if (nil == filterStatus) {
+    ///获取当前用户城市信息
+    NSString *userCityKey = [QSCoreDataManager getCurrentUserCityKey];
+    
+    return [self getFilterStatusWithType:filteType andCityKey:userCityKey];
+
+}
+
+///查找给定类型和城市过滤器的状态
++ (FILTER_STATUS_TYPE)getFilterStatusWithType:(FILTER_MAIN_TYPE)filteType andCityKey:(NSString *)cityKey
+{
+
+    QSCDFilterDataModel *filterModel = [self getLocalFilterWithType:filteType andCityKey:cityKey];
+    
+    if (nil == filterModel) {
         
         return fFilterStatusTypeNoRecord;
         
     }
     
-    return [filterStatus intValue];
+    return [filterModel.filter_status intValue];
 
 }
 
+#pragma mark - 更新过滤器状态
+/**
+ *  @author             yangshengmeng, 15-02-04 18:02:19
+ *
+ *  @brief              更新过滤器的状态
+ *
+ *  @param filterStatus 给定的状态
+ *  @param callBack     更新后的回调
+ *
+ *  @since              1.0.0
+ */
++ (void)updateFilterStatusWithFilterType:(FILTER_MAIN_TYPE)filterType andFilterNewStatus:(FILTER_STATUS_TYPE)filterStatus andUpdateCallBack:(void(^)(BOOL isSuccess))callBack
+{
+    
+    ///获取当前用户城市信息
+    NSString *userCityKey = [QSCoreDataManager getCurrentUserCityKey];
+    
+    [self updateFilterStatusWithFilterType:filterType andCityKey:userCityKey andFilterNewStatus:filterStatus andUpdateCallBack:callBack];
+    
+}
+
+///更新指定类型和城市的过滤器
++ (void)updateFilterStatusWithFilterType:(FILTER_MAIN_TYPE)filterType andCityKey:(NSString *)cityKey andFilterNewStatus:(FILTER_STATUS_TYPE)filterStatus andUpdateCallBack:(void(^)(BOOL isSuccess))callBack
+{
+
+    ///过滤器ID
+    NSString *filterID = [NSString stringWithFormat:@"%d",filterType];
+    
+    ///定制过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"filter_id = %@ AND city_key = %@",filterID,cityKey];
+    
+    ///更新对应过滤器的状态
+    BOOL isUpdateSuccess = [self updateFieldWithKey:COREDATA_ENTITYNAME_FILTER andPredicate:predicate andUpdateFieldName:@"filter_status" andNewValue:[NSString stringWithFormat:@"%d",filterStatus]];
+    
+    ///回调
+    if (callBack) {
+        
+        callBack(isUpdateSuccess);
+        
+    }
+
+}
+
+#pragma mark - 获取过滤器
 /**
  *  @author             yangshengmeng, 15-02-04 16:02:05
  *
@@ -121,8 +246,43 @@
  */
 + (id)getLocalFilterWithType:(FILTER_MAIN_TYPE)filterType
 {
+    
+    ///获取用户当前城市
+    NSString *cityKey = [QSCoreDataManager getCurrentUserCityKey];
+    return [self getLocalFilterWithType:filterType andCityKey:cityKey];
 
-    QSCDFilterDataModel *cdFilterModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_FILTER andFieldName:@"filter_id" andFieldSearchKey:[NSString stringWithFormat:@"%d",filterType]];
+}
+
+///获取指定类型和城市的过滤器
++ (id)getLocalFilterWithType:(FILTER_MAIN_TYPE)filterType andCityKey:(NSString *)cityKey
+{
+
+    return [self getLocalFilterWithFilterID:[NSString stringWithFormat:@"%d",filterType] andCityKey:cityKey];
+
+}
+
+///根据过滤器ID获取过滤器
++ (id)getLocalFilterWithFilterID:(NSString *)filterID
+{
+    
+    ///获取用户当前城市
+    NSString *cityKey = [QSCoreDataManager getCurrentUserCityKey];
+    
+    return [self getLocalFilterWithFilterID:filterID andCityKey:cityKey];
+
+}
+
+///根据给定的类型和城市，返回过滤器
++ (id)getLocalFilterWithFilterID:(NSString *)filterID andCityKey:(NSString *)cityKey
+{
+
+    if (nil == filterID) {
+        
+        return nil;
+        
+    }
+    
+    QSCDFilterDataModel *cdFilterModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_FILTER andFieldName:@"filter_id" andFieldSearchKey:filterID andSecondFieldName:@"city_key" andSecndFieldValue:cityKey];
     
     if (nil == cdFilterModel) {
         
@@ -175,32 +335,6 @@
 
 }
 
-#pragma mark - 更新过滤器状态
-/**
- *  @author             yangshengmeng, 15-02-04 18:02:19
- *
- *  @brief              更新过滤器的状态
- *
- *  @param filterStatus 给定的状态
- *  @param callBack     更新后的回调
- *
- *  @since              1.0.0
- */
-+ (void)updateFilterStatusWithFilterType:(FILTER_MAIN_TYPE)filterType andFilterNewStatus:(FILTER_STATUS_TYPE)filterStatus andUpdateCallBack:(void(^)(BOOL isSuccess))callBack
-{
-    
-    ///更新对应过滤器的状态
-    BOOL isUpdateSuccess = [self updateFieldWithKey:COREDATA_ENTITYNAME_FILTER andFilterFieldName:@"filter_id" andFilterFieldValue:[NSString stringWithFormat:@"%d",filterType] andUpdateFieldName:@"filter_status" andUpdateFieldNewValue:[NSString stringWithFormat:@"%d",filterStatus]];
-    
-    ///回调
-    if (callBack) {
-        
-        callBack(isUpdateSuccess);
-        
-    }
-
-}
-
 #pragma mar - 更新过滤器
 /**
  *  @author             yangshengmeng, 15-02-04 18:02:24
@@ -223,7 +357,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"filter_id == %@",[NSString stringWithFormat:@"%d",filterType]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"filter_id == %@ AND city_key == %@",[NSString stringWithFormat:@"%d",filterType],filterModel.city_key];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -306,6 +440,38 @@
         
     }
     
+}
+
+#pragma mark - 获取指定过滤器的请求参数
+/**
+ *  @author             yangshengmeng, 15-02-05 10:02:49
+ *
+ *  @brief              返回给定房子列表类型的请求参数
+ *
+ *  @param filterType   过滤器的类型
+ *
+ *  @return             返回指定类型的房子列表请求参数字典
+ *
+ *  @since              1.0.0
+ */
++ (NSDictionary *)getHouseListRequestParams:(FILTER_MAIN_TYPE)filterType
+{
+
+    ///首先获取对应的过滤器模型
+    QSFilterDataModel *filterModel = [self getLocalFilterWithType:filterType];
+    
+    ///推荐房源列表:commend
+    if (fFilterStatusTypeWorking != [filterModel.filter_status intValue]) {
+        
+        return @{@"commend" : @"Y"};
+        
+    }
+    
+    ///封装参数
+    
+    
+    return nil;
+
 }
 
 @end

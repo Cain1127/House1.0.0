@@ -12,7 +12,7 @@
 
 @implementation QSCoreDataManager
 
-#pragma mark - 返回指定实体数据
+#pragma mark - 实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 16:01:28
  *
@@ -31,20 +31,51 @@
     
 }
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:08
- *
- *  @brief              返回指定实体中的所有数据，并按给定的字段排序查询
- *
- *  @param entityName   实体名
- *  @param keyword      需要排序的字段
- *  @param isAscend     排序：YES-升序,NO-降序
- *
- *  @return             返回查询的数据
- *
- *  @since              1.0.0
- */
+///返回指定实体中的所有数据，并按给定的字段排序查询
 + (NSArray *)getEntityListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend
+{
+    
+    ///查询成功
+    return [self searchEntityListWithKey:entityName andFieldKey:keyword andSearchKey:nil andAscend:isAscend];
+
+}
+
+///查询给定实体中，指定关键字的数据，并返回
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey
+{
+
+    return [self searchEntityListWithKey:entityName andFieldKey:keyword andSearchKey:searchKey andAscend:YES];
+
+}
+
+///查询指定实体中，指定字段满足指定查询条件的数据集合
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey andAscend:(BOOL)isAscend
+{
+    
+    ///设置查询过滤
+    NSPredicate *predicate = nil;
+    NSSortDescriptor *sort = nil;
+    
+    if (keyword) {
+        
+        if (searchKey) {
+            
+            ///过滤条件
+            predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
+            
+        }
+        
+        ///排序
+        sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
+        
+    }
+    
+    return [self searchEntityListWithKey:entityName andCustomPredicate:predicate andCustomSort:sort];
+
+}
+
+///根据给定的predicate和排序，查找实体中的对应数据，并以数组返回
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate andCustomSort:(NSSortDescriptor *)sort
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -55,10 +86,16 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:enty];
     
-    if (keyword) {
+    ///设置查询过滤
+    if (predicate) {
         
-        ///设置排序
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
+        [request setPredicate:predicate];
+        
+    }
+    
+    ///设置排序
+    if (sort) {
+        
         [request setSortDescriptors:@[sort]];
         
     }
@@ -85,82 +122,7 @@
 
 }
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:48
- *
- *  @brief              查询给定实体中，指定关键字的数据，并返回
- *
- *  @param entityName   指定实体名
- *  @param keyword      需要搜索的字段名
- *  @param searchKey    字段中的内容
- *
- *  @return             返回查询结果
- *
- *  @since              1.0.0
- */
-+ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey
-{
-
-    return [self searchEntityListWithKey:entityName andFieldKey:keyword andSearchKey:searchKey andAscend:YES];
-
-}
-
-/**
- *  @author yangshengmeng, 15-01-26 16:01:59
- *
- *  @brief              查询指定实体中，指定字段满足指定查询条件的数据集合
- *
- *  @param entityName   实体名
- *  @param keyword      字段名
- *  @param searchKey    查询关键字
- *  @param isAscend     排序：YES-升序
- *
- *  @return             返回查询的结果集
- *
- *  @since              1.0.0
- */
-+ (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey andAscend:(BOOL)isAscend
-{
-
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
-    
-    ///设置查找
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:enty];
-    
-    ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
-    [request setPredicate:predicate];
-    
-    ///设置排序
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
-    [request setSortDescriptors:@[sort]];
-    
-    NSError *error;
-    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
-    
-    ///判断是否查询失败
-    if (error) {
-        
-        return nil;
-        
-    }
-    
-    ///如果获取返回的个数为0也直接返回nil
-    if (0 >= [resultList count]) {
-        
-        return nil;
-        
-    }
-    
-    ///查询成功
-    return resultList;
-
-}
-
-#pragma mark - 查询某实体中给定关键的第一个实体
+#pragma mark - 单个实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 15:01:31
  *
@@ -174,7 +136,7 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey
 {
     
     NSArray *resultList = [self searchEntityListWithKey:entityName andFieldKey:fieldName andSearchKey:searchKey];
@@ -195,34 +157,26 @@
     
     ///查询成功
     id resultModel = [resultList firstObject];
-    return resultModel ? resultModel : nil;
+    return resultModel;
     
 }
 
-#pragma mark - 返回coreData中指定的单表中的某字段信息
-/**
- *  @author             yangshengmeng, 15-01-26 17:01:37
- *
- *  @brief              获取单记录实体数据中指定的字段信息
- *
- *  @param entityName   实体名
- *  @param keyword      字段名
- *
- *  @return             返回给定字段的信息
- *
- *  @since              1.0.0
- */
-+ (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
+///按给定的两个条件查询对应记录
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey andSecondFieldName:(NSString *)secondFieldName andSecndFieldValue:(NSString *)secondFieldValue
+{
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[[NSString stringWithFormat:@"%@ == ",fieldName] stringByAppendingString:@"%@ AND "] stringByAppendingString:[[NSString stringWithFormat:@"%@ == ",secondFieldName] stringByAppendingString:@"%@"]],searchKey,secondFieldValue];
+    
+    return [self searchEntityWithKey:entityName andCustomPredicate:predicate];
+
+}
+
+///根据给定的predecate查询对应的实体
++ (id)searchEntityWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate
 {
 
-    NSArray *resultList = [self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES];
-    
-    ///判断是否查询失败
-    if (nil == resultList) {
-        
-        return nil;
-        
-    }
+    NSArray *resultList = [self searchEntityListWithKey:entityName andCustomPredicate:predicate andCustomSort:nil];
     
     ///如果获取返回的个数为0也直接返回nil
     if (0 >= [resultList count]) {
@@ -231,13 +185,11 @@
         
     }
     
-    ///查询成功
-    NSObject *resultModel = [resultList firstObject];
-    return resultModel ? ([resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil) : nil;
+    return [resultList firstObject];
 
 }
 
-#pragma mark - 更新指定表中符合指定条件的记录某个字段信息
+#pragma mark - 更新操作
 /**
  *  @author                     yangshengmeng, 15-02-05 09:02:15
  *
@@ -255,6 +207,17 @@
  */
 + (BOOL)updateFieldWithKey:(NSString *)entityName andFilterFieldName:(NSString *)filterFieldName andFilterFieldValue:(NSString *)filterValue andUpdateFieldName:(NSString *)updateFieldName andUpdateFieldNewValue:(NSString *)updateFieldNewValue
 {
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",filterFieldName] stringByAppendingString:@"%@"],filterValue];
+    
+    return [self updateFieldWithKey:entityName andPredicate:predicate andUpdateFieldName:updateFieldName andNewValue:updateFieldNewValue];
+    
+}
+
+///根据给定的查询条件，更新指定字段信息
++ (BOOL)updateFieldWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andUpdateFieldName:(NSString *)fieldName andNewValue:(NSString *)newValue
+{
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
@@ -263,9 +226,12 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
     [fetchRequest setEntity:entity];
     
-    ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",filterFieldName] stringByAppendingString:@"%@"],filterValue];
-    [fetchRequest setPredicate:predicate];
+    ///判断是否存在过滤器
+    if (predicate) {
+        
+        [fetchRequest setPredicate:predicate];
+        
+    }
     
     NSError *error=nil;
     NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
@@ -285,7 +251,7 @@
             
             ///获取模型后更新保存
             QSCDFilterDataModel *model = fetchResultArray[i];
-            [model setValue:updateFieldNewValue forKey:updateFieldName];
+            [model setValue:newValue forKey:fieldName];
             [mOContext save:&error];
             
             ///判断保存是否成功
@@ -312,20 +278,45 @@
 
 }
 
-#pragma mark - 单条数据的表更新数据
+#pragma mark - 单记录的实体数据操作
 /**
- *  @author             yangshengmeng, 15-01-26 17:01:36
+ *  @author             yangshengmeng, 15-01-26 17:01:37
  *
- *  @brief              更新单记录表中，指定字段的信息
+ *  @brief              获取单记录实体数据中指定的字段信息
  *
  *  @param entityName   实体名
- *  @param fieldName    字段名
- *  @param newValue     对应字段的新值
+ *  @param keyword      字段名
  *
- *  @return             返回更新是否成功
+ *  @return             返回给定字段的信息
  *
  *  @since              1.0.0
  */
++ (id)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
+{
+
+    NSArray *resultList = [self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES];
+    
+    ///判断是否查询失败
+    if (nil == resultList) {
+        
+        return nil;
+        
+    }
+    
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    ///查询成功
+    NSObject *resultModel = [resultList firstObject];
+    return [resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil;
+
+}
+
+///更新单记录表中，指定字段的信息
 + (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue
 {
 
@@ -378,7 +369,7 @@
 
 }
 
-#pragma mark - 清空给定实体中所有的数据
+#pragma mark - 清空实体记录API
 /**
  *  @author             yangshengmeng, 15-01-21 23:01:28
  *

@@ -67,6 +67,18 @@
 + (BOOL)updateCurrentUserStreet:(NSString *)street;
 
 /**
+ *  @author yangshengmeng, 15-02-05 10:02:10
+ *
+ *  @brief  获取当前用户默认过滤器:user_default_filter_id
+ *
+ *  @return 返回默认过滤器的ID
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserDefaultFilterID;
++ (void)updateCurrentUserDefaultFilter:(NSString *)filterID andCallBack:(void(^)(BOOL isSuccess))callBack;
+
+/**
  *  @author yangshengmeng, 15-01-27 12:01:42
  *
  *  @brief  返回当前用户的权限类型

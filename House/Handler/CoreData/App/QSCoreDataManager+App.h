@@ -150,6 +150,8 @@
 + (id)getProvinceModelWithCityKey:(NSString *)cityKey;
 + (NSString *)getProvinceKeyWithCityKey:(NSString *)cityKey;
 + (NSString *)getProvinceValWithCityKey:(NSString *)cityKey;
++ (id)getProvinceModelWithProvinceKey:(NSString *)provinceKey;
++ (NSString *)getProvinceValWithLProvinceKey:(NSString *)provinceKey;
 
 /**
  *  @author             yangshengmeng, 15-02-04 17:02:31
@@ -165,6 +167,8 @@
 + (id)getCityModelWithDitrictKey:(NSString *)districtKey;
 + (NSString *)getCityKeyWithDitrictKey:(NSString *)districtKey;
 + (NSString *)getCityValWithDitrictKey:(NSString *)districtKey;
++ (id)getCityModelWithCityKey:(NSString *)districtKey;
++ (NSString *)getCityValWithCityKey:(NSString *)districtKey;
 
 /**
  *  @author             yangshengmeng, 15-02-04 17:02:59
@@ -180,6 +184,8 @@
 + (id)getDistrictModelWithStreetKey:(NSString *)streetKey;
 + (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey;
 + (NSString *)getDistrictValWithStreetKey:(NSString *)streetKey;
++ (id)getDistrictModelWithDistrictKey:(NSString *)streetKey;
++ (NSString *)getDistrictValWithDistrictKey:(NSString *)streetKey;
 
 /**
  *  @author             yangshengmeng, 15-02-04 17:02:09
