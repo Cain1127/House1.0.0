@@ -13,6 +13,8 @@
 #import "QSTabBarViewController.h"
 #import "QSCustomHUDView.h"
 
+#import "QSCoreDataManager+Filter.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -173,7 +175,10 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeSecondHandHouse];
+        ///创建一个出租房的过滤器
+        [QSCoreDataManager initSecondHandHouseFilter];
+        
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -186,8 +191,9 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
         ///创建一个出租房的过滤器
+        [QSCoreDataManager initRentalHouseFilter];
         
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeRenantHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -202,8 +208,18 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         ///更新用户类型
         [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
         
-        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
-        [self changeWindowRootViewController:homePageVC];
+        ///将过滤器状态修改为等设置状态
+        [QSCoreDataManager updateFilterStatusWithFilterType:fFilterMainTypeSecondHouse andFilterNewStatus:fFilterStatusTypeWaitSetting andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///更新成功后进入主页
+            if (isSuccess) {
+                
+                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                [self changeWindowRootViewController:homePageVC];
+                
+            }
+            
+        }];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;

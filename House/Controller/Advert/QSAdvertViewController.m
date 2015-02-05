@@ -188,7 +188,7 @@
 {
 
     ///加载tabbar控制器
-    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
     
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;

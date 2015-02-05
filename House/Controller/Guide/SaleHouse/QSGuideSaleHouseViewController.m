@@ -11,6 +11,7 @@
 #import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Filter.h"
 #import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
@@ -189,8 +190,18 @@ static char BuyerCountDataKey;      //!<当前房客总数
         ///更新用户类型
         [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
         
-        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
-        [self changeWindowRootViewController:homePageVC];
+        ///将过滤器状态修改为等设置状态
+        [QSCoreDataManager updateFilterStatusWithFilterType:fFilterMainTypeSecondHouse andFilterNewStatus:fFilterStatusTypeWaitSetting andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///更新成功后进入主页
+            if (isSuccess) {
+                
+                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                [self changeWindowRootViewController:homePageVC];
+                
+            }
+            
+        }];
         
     }];
     skipButton.translatesAutoresizingMaskIntoConstraints = NO;

@@ -446,6 +446,27 @@ typedef enum
 
 }HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
+///初始化时，过滤器类型
+typedef enum
+{
+    
+    fFilterMainTypeRentalHouse = 99,//!<找出租房的过滤器
+    fFilterMainTypeSecondHouse,     //!<二手房的过滤器
+    
+}FILTER_MAIN_TYPE;                  //!<过滤器的类型
+
+///过滤器的状态
+typedef enum
+{
+    
+    fFilterStatusTypeNoRecord = -1, //!<未有相关的过滤器
+    fFilterStatusTypeInit = 0,      //!<刚初始化
+    fFilterStatusTypeWaitSetting,   //!<等待设置
+    fFilterStatusTypeWorking,       //!<正在使用中
+    fFilterStatusTypeCancel         //!<已弃用
+    
+}FILTER_STATUS_TYPE;                //!<过滤器的状态
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *

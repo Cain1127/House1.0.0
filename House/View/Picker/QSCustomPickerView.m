@@ -550,7 +550,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     }
     
     ///弹出选择窗口
-    [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempDataSource andCurrentSelectedIndex:0 andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+    [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:tempDataSource andCurrentSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
         
         ///更换状态
         self.isPicking = NO;

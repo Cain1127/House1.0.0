@@ -18,6 +18,19 @@
 @interface QSTabBarViewController : UITabBarController
 
 /**
+ *  @author         yangshengmeng, 15-02-04 18:02:39
+ *
+ *  @brief          根据给定的下标初始化主页面，并且首先显示指定的下标VC
+ *
+ *  @param index    当前显示的下标
+ *
+ *  @return         返回当前创建的tabbar控制器
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithCurrentIndex:(int)index;
+
+/**
  *  @author     yangshengmeng, 15-01-17 23:01:01
  *
  *  @brief      隐藏/显示tabbar：flag：YES-隐藏 NO-显示

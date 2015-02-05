@@ -8,15 +8,6 @@
 
 #import "QSTurnBackViewController.h"
 
-///过滤器类型
-typedef enum
-{
-
-    applicationFileterTypeSecondHandHouse = 0,  //!<二手房过滤器
-    applicationFileterTypeRenantHouse           //!<出租房过滤器
-
-}APPLICATION_FILTER_TYPE;                       //!<个人过滤器类型
-
 /**
  *  @brief  过滤器集中创建类
  */
@@ -33,6 +24,6 @@ typedef enum
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFilterType:(APPLICATION_FILTER_TYPE)filterType;
+- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType;
 
 @end

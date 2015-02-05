@@ -236,38 +236,4 @@
 
 }
 
-#pragma mark - 房子列表相关的过滤
-/**
- *  @author yangshengmeng, 15-01-31 17:01:37
- *
- *  @brief  获取当前过滤器
- *
- *  @return 返回当前过滤器对象
- *
- *  @since  1.0.0
- */
-+ (instancetype)getHouseListFilter
-{
-
-    return nil;
-
-}
-
-/**
- *  @author yangshengmeng, 15-01-31 17:01:16
- *
- *  @brief  获取房子列表的当前请求参数
- *
- *  @return 返回参数字黄
- *
- *  @since  1.0.0
- */
-+ (NSDictionary *)getHouseListRequestParams
-{
-
-    
-    return nil;
-
-}
-
 @end

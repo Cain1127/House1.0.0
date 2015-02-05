@@ -106,6 +106,23 @@
 + (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
 
 /**
+ *  @author                     yangshengmeng, 15-02-05 09:02:15
+ *
+ *  @brief                      更新指定记录中的指定字段信息
+ *
+ *  @param entityName           实体名
+ *  @param filterFieldName      指定记录的指定字段
+ *  @param filterValue          指定字段的值
+ *  @param updateFieldName      需要更新的字段名
+ *  @param updateFieldNewValue  需要更新的字段新值
+ *
+ *  @return                     返回是否更新成功
+ *
+ *  @since                      1.0.0
+ */
++ (BOOL)updateFieldWithKey:(NSString *)entityName andFilterFieldName:(NSString *)filterFieldName andFilterFieldValue:(NSString *)filterValue andUpdateFieldName:(NSString *)updateFieldName andUpdateFieldNewValue:(NSString *)updateFieldNewValue;
+
+/**
  *  @author             yangshengmeng, 15-01-26 17:01:36
  *
  *  @brief              更新单记录表中，指定字段的信息

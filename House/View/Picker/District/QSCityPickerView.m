@@ -75,7 +75,7 @@ static char SubViewKey;     //!<第二栏view的关联
 {
     
     ///获取对应省的key
-    NSString *selectedProvinceKey = [QSCoreDataManager getCityProvinceWithCityKey:selectedCityKey];
+    NSString *selectedProvinceKey = [QSCoreDataManager getProvinceKeyWithCityKey:selectedCityKey];
     
     ///当前选择状态的省key
     __block NSString *currentSelectedCityKey;

@@ -8,6 +8,7 @@
 
 #import "QSCoreDataManager.h"
 #import "QSYAppDelegate.h"
+#import "QSCDFilterDataModel.h"
 
 @implementation QSCoreDataManager
 
@@ -233,6 +234,81 @@
     ///查询成功
     NSObject *resultModel = [resultList firstObject];
     return resultModel ? ([resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil) : nil;
+
+}
+
+#pragma mark - 更新指定表中符合指定条件的记录某个字段信息
+/**
+ *  @author                     yangshengmeng, 15-02-05 09:02:15
+ *
+ *  @brief                      更新指定记录中的指定字段信息
+ *
+ *  @param entityName           实体名
+ *  @param filterFieldName      指定记录的指定字段
+ *  @param filterValue          指定字段的值
+ *  @param updateFieldName      需要更新的字段名
+ *  @param updateFieldNewValue  需要更新的字段新值
+ *
+ *  @return                     返回是否更新成功
+ *
+ *  @since                      1.0.0
+ */
++ (BOOL)updateFieldWithKey:(NSString *)entityName andFilterFieldName:(NSString *)filterFieldName andFilterFieldValue:(NSString *)filterValue andUpdateFieldName:(NSString *)updateFieldName andUpdateFieldNewValue:(NSString *)updateFieldNewValue
+{
+
+    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",filterFieldName] stringByAppendingString:@"%@"],filterValue];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    
+    ///判断读取出来的原数据
+    if (nil == fetchResultArray) {
+        
+        NSLog(@"CoreData.GetData.Error:%@",error);
+        return NO;
+        
+    }
+    
+    ///遍历更新
+    if ([fetchResultArray count] > 0) {
+        
+        for (int i = 0; i < [fetchResultArray count]; i++) {
+            
+            ///获取模型后更新保存
+            QSCDFilterDataModel *model = fetchResultArray[i];
+            [model setValue:updateFieldNewValue forKey:updateFieldName];
+            [mOContext save:&error];
+            
+            ///判断保存是否成功
+            if (error) {
+                
+                break;
+                
+            }
+            
+        }
+        
+    }
+    
+    if (error) {
+        
+        NSLog(@"=====================更新指定记录某字段信息出错========================");
+        NSLog(@"entity anme : %@    error:%@",entityName,error);
+        NSLog(@"=====================更新指定记录某字段信息出错========================");
+        return NO;
+        
+    }
+    
+    return YES;
 
 }
 

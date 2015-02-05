@@ -7,15 +7,21 @@
 //
 
 #import "QSFilterViewController.h"
-#import "QSCoreDataManager+App.h"
+#import "QSTabBarViewController.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
+
 #import "QSCustomSingleSelectedPopView.h"
-#import "QSMultipleSelectedPopView.h"
-#import "QSCoreDataManager+House.h"
-#import "QSCDBaseConfigurationDataModel.h"
 #import "QSCustomDistrictSelectedPopView.h"
+#import "QSMultipleSelectedPopView.h"
+
+#import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+App.h"
+
+#import "QSFilterDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -42,24 +48,28 @@ typedef enum
 
 @interface QSFilterViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,assign) BOOL isSettingFilter;              //!<本地过滤器是否已配置标识:YES-已配置
-@property (nonatomic,assign) APPLICATION_FILTER_TYPE filterType;//!<过滤器类型
+@property (nonatomic,assign) FILTER_STATUS_TYPE filterStatus;   //!<本地过滤器的状态
+@property (nonatomic,assign) FILTER_MAIN_TYPE filterType;       //!<过滤器类型
+@property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
 
 @end
 
 @implementation QSFilterViewController
 
 #pragma mark - 初始化
-- (instancetype)initWithFilterType:(APPLICATION_FILTER_TYPE)filterType
+- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType
 {
 
     if (self = [super init]) {
         
-        ///获取过滤器是否已配置标识
-        self.isSettingFilter = [QSCoreDataManager getLocalFilterSettingFlag];
-        
         ///保存过滤器类型
         self.filterType = filterType;
+        
+        ///获取过滤器是否已配置标识
+        self.filterStatus = [QSCoreDataManager getFilterStatusWithType:filterType];
+        
+        ///初始化过滤器模型
+        [self createFilterDataModel];
         
     }
     
@@ -67,12 +77,26 @@ typedef enum
 
 }
 
+///初始化过滤器的数据模型
+- (void)createFilterDataModel
+{
+
+    if (fFilterStatusTypeWorking == self.filterStatus) {
+        
+        self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
+        
+    }
+    
+    self.filterModel = [[QSFilterDataModel alloc] init];
+
+}
+
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
 
-    ///如果未配置过滤器，则不创建导航栏
-    if (self.isSettingFilter) {
+    ///判断是否是第一次运行的
+    if (fFilterStatusTypeInit < self.filterStatus) {
         
         [super createNavigationBarUI];
         
@@ -84,7 +108,7 @@ typedef enum
 {
 
     ///两种情况：已配置有过滤器时，存在导航栏，未配置时，是没有导航栏的
-    if (self.isSettingFilter) {
+    if (fFilterStatusTypeInit < self.filterStatus) {
         
         [self createUpdateFilterSettingPage];
         
@@ -128,7 +152,21 @@ typedef enum
     ///看看运气如何按钮
     UIButton *commitFilterButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 54.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:[QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow] andCallBack:^(UIButton *button) {
         
+        ///设置当前状态
+        self.filterModel.filter_status = @"2";
         
+        ///保存过滤器
+        [QSCoreDataManager updateFilterWithType:self.filterType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///保存成功后进入房子列表
+            if (isSuccess) {
+                
+                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                [self changeWindowRootViewController:homePageVC];
+                
+            }
+            
+        }];
         
     }];
     [commitFilterButton setTitle:TITLE_FILTER_FIRSTSETTING_COMMITBUTTON forState:UIControlStateNormal];
@@ -215,7 +253,7 @@ typedef enum
 }
 
 #pragma mark - 根据不同的类型返回对应的配置文件
-- (NSDictionary *)getFilterSettingInfoWithType:(APPLICATION_FILTER_TYPE)filterType
+- (NSDictionary *)getFilterSettingInfoWithType:(FILTER_MAIN_TYPE)filterType
 {
 
     NSString *infoFileName = nil;
@@ -223,14 +261,14 @@ typedef enum
     switch (filterType) {
             
             ///二手房
-        case applicationFileterTypeSecondHandHouse:
+        case fFilterMainTypeSecondHouse:
             
             infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE;
             
             break;
             
-            ///二手房
-        case applicationFileterTypeRenantHouse:
+            ///出租房
+        case fFilterMainTypeRentalHouse:
             
             infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE;
             
@@ -262,11 +300,44 @@ typedef enum
             
             [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithSteetSelectedKey:nil andDistrictPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                ///判断选择
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    ///显示当前位置信息
+                    textField.text = tempModel.val;
+                    
+                    ///保存位置信息
+                    QSCDBaseConfigurationDataModel *districtModel = [QSCoreDataManager getDistrictModelWithStreetKey:tempModel.key];
+                    QSCDBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:districtModel.key];
+                    QSCDBaseConfigurationDataModel *provinceModel = [QSCoreDataManager getProvinceModelWithCityKey:cityModel.key];
+                    self.filterModel.province_key = provinceModel.key;
+                    self.filterModel.province_val = provinceModel.val;
+                    self.filterModel.city_key = cityModel.key;
+                    self.filterModel.city_val = cityModel.val;
+                    self.filterModel.district_key = districtModel.key;
+                    self.filterModel.district_val = districtModel.val;
+                    self.filterModel.street_key = tempModel.key;
+                    self.filterModel.street_val = [QSCoreDataManager getStreetValWithStreetKey:tempModel.key];
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                ///显示当前位置信息
-                textField.text = tempModel.val;
+                    ///显示当前位置信息
+                    textField.text = nil;
+                    
+                    ///将过滤器中的位置信息清空
+                    self.filterModel.province_key = nil;
+                    self.filterModel.province_val = nil;
+                    self.filterModel.city_key = nil;
+                    self.filterModel.city_val = nil;
+                    self.filterModel.district_key = nil;
+                    self.filterModel.district_val = nil;
+                    self.filterModel.street_key = nil;
+                    self.filterModel.street_val = nil;
+                
+                }
                 
             }];
             
@@ -283,10 +354,26 @@ typedef enum
             ///显示户型的选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.house_type_key = tempModel.key;
+                    self.filterModel.house_type_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                textField.text = tempModel.val;
+                    ///显示当前位置信息
+                    textField.text = nil;
+                    
+                    ///清空原数据
+                    self.filterModel.house_type_key = nil;
+                    self.filterModel.house_type_val = nil;
+                
+                }
                 
             }];
             
@@ -305,10 +392,24 @@ typedef enum
             ///显示购房目的选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.buy_purpose_key = tempModel.key;
+                    self.filterModel.buy_purpose_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                textField.text = tempModel.val;
+                    textField.text = nil;
+                    
+                    self.filterModel.buy_purpose_key = nil;
+                    self.filterModel.buy_purpose_val = nil;
+                
+                }
                 
             }];
             
@@ -327,10 +428,24 @@ typedef enum
             ///显示房子售价选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.sale_price_key = tempModel.key;
+                    self.filterModel.sale_price_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                textField.text = tempModel.val;
+                    textField.text = nil;
+                    
+                    self.filterModel.sale_price_key = nil;
+                    self.filterModel.sale_price_val = nil;
+                
+                }
                 
             }];
             
@@ -349,10 +464,24 @@ typedef enum
             ///显示房子面积选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.house_area_key = tempModel.key;
+                    self.filterModel.house_area_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                textField.text = tempModel.val;
+                    textField.text = nil;
+                    
+                    self.filterModel.house_area_key = nil;
+                    self.filterModel.house_area_val = nil;
+                
+                }
                 
             }];
             
@@ -371,10 +500,24 @@ typedef enum
             ///显示出租方式选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.rent_type_key = tempModel.key;
+                    self.filterModel.rent_type_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
-                textField.text = tempModel.val;
+                    textField.text = nil;
+                    
+                    self.filterModel.rent_type_key = nil;
+                    self.filterModel.rent_type_val = nil;
+                    
+                }
                 
             }];
             
@@ -393,10 +536,24 @@ typedef enum
             ///显示租金选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.rent_price_key = tempModel.key;
+                    self.filterModel.rent_price_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.rent_price_key = nil;
+                    self.filterModel.rent_price_val = nil;
+                    
+                }
                 
             }];
             
@@ -415,10 +572,24 @@ typedef enum
             ///显示租金支付方式选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.rent_pay_type_key = tempModel.key;
+                    self.filterModel.rent_pay_type_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.rent_pay_type_key = nil;
+                    self.filterModel.rent_pay_type_val = nil;
+                    
+                }
                 
             }];
             
@@ -437,10 +608,24 @@ typedef enum
             ///显示房子的物业类型选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.trade_type_key = tempModel.key;
+                    self.filterModel.trade_type_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.trade_type_key = nil;
+                    self.filterModel.trade_type_val = nil;
+                    
+                }
                 
             }];
             
@@ -449,20 +634,34 @@ typedef enum
         }
             break;
             
-            ///房子的使用年限:房子产权
+            ///房龄
         case fFilterSettingFieldActionTypeHouseUsedYear:
         {
             
-            ///获取房子产权选择项数据
+            ///获取房子房龄选择项数据
             NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
             
-            ///显示房子产权选择窗口
+            ///显示房龄选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.used_year_key = tempModel.key;
+                    self.filterModel.used_year_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.used_year_key = nil;
+                    self.filterModel.used_year_val = nil;
+                    
+                }
                 
             }];
             
@@ -481,10 +680,24 @@ typedef enum
             ///显示房子楼层选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.floor_key = tempModel.key;
+                    self.filterModel.floor_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.floor_key = nil;
+                    self.filterModel.floor_val = nil;
+                    
+                }
                 
             }];
             
@@ -503,10 +716,24 @@ typedef enum
             ///显示房子朝向选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.house_face_key = tempModel.key;
+                    self.filterModel.house_face_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.house_face_key = nil;
+                    self.filterModel.house_face_val = nil;
+                    
+                }
                 
             }];
             
@@ -525,10 +752,24 @@ typedef enum
             ///显示房子装修类型选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                ///转模型
-                QSCDBaseConfigurationDataModel *tempModel = params;
-                
-                textField.text = tempModel.val;
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    
+                    self.filterModel.decoration_key = tempModel.key;
+                    self.filterModel.decoration_val = tempModel.val;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    
+                    self.filterModel.decoration_key = nil;
+                    self.filterModel.decoration_val = nil;
+                    
+                }
                 
             }];
             
@@ -541,10 +782,10 @@ typedef enum
         case fFilterSettingFieldActionTypeHouseInstallation:
         {
             
-            ///获取租金支付方式选择项数据
+            ///获取配套选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
             
-            ///显示租金支付方式选择窗口
+            ///显示配套选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 ///转模型

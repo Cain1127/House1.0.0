@@ -8,15 +8,6 @@
 
 #import "QSCoreDataManager.h"
 
-///初始化时，过滤器类型
-typedef enum
-{
-
-    fFilterMainTypeRentalHouse = 99,//!<找出租房的过滤器
-    fFilterMainTypeSecondHouse,     //!<二手房的过滤器
-
-}FILTER_MAIN_TYPE;
-
 /**
  *  @author yangshengmeng, 15-02-04 14:02:50
  *
@@ -24,6 +15,7 @@ typedef enum
  *
  *  @since  1.0.0
  */
+@class QSFilterDataModel;
 @interface QSCoreDataManager (Filter)
 
 /**
@@ -47,5 +39,55 @@ typedef enum
  *  @since  1.0.0
  */
 + (BOOL)initSecondHandHouseFilter;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 16:02:24
+ *
+ *  @brief              返回当前类型的过滤器状态
+ *
+ *  @param filteType    过滤器的类型
+ *
+ *  @return             返回过滤器的状态
+ *
+ *  @since              1.0.0
+ */
++ (FILTER_STATUS_TYPE)getFilterStatusWithType:(FILTER_MAIN_TYPE)filteType;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 16:02:05
+ *
+ *  @brief              返回当前的过滤器信息
+ *
+ *  @param filterType   过滤器类型
+ *
+ *  @return             返回一个普通的过滤器数据模型
+ *
+ *  @since              1.0.0
+ */
++ (id)getLocalFilterWithType:(FILTER_MAIN_TYPE)filterType;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 18:02:19
+ *
+ *  @brief              更新所有过滤器的状态
+ *
+ *  @param filterStatus 给定的状态
+ *  @param callBack     更新后的回调
+ *
+ *  @since              1.0.0
+ */
++ (void)updateFilterStatusWithFilterType:(FILTER_MAIN_TYPE)filterType andFilterNewStatus:(FILTER_STATUS_TYPE)filterStatus andUpdateCallBack:(void(^)(BOOL isSuccess))callBack;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 18:02:24
+ *
+ *  @brief              根据给定的过滤模型和过滤器类型，更新过滤器
+ *
+ *  @param filterType   过滤器类型
+ *  @param filterModel  过滤器数据模型
+ *
+ *  @since              1.0.0
+ */
++ (void)updateFilterWithType:(FILTER_MAIN_TYPE)filterType andFilterDataModel:(QSFilterDataModel *)filterModel andUpdateCallBack:(void(^)(BOOL isSuccess))callBack;
 
 @end
