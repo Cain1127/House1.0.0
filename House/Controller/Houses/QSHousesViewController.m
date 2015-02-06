@@ -11,14 +11,23 @@
 #import "QSHouseKeySearchViewController.h"
 #import "QSWHousesMapDistributionViewController.h"
 #import "QSCustomPickerView.h"
+
 #import "QSCollectionWaterFlowLayout.h"
 #import "QSHouseCollectionViewCell.h"
 #import "QSHouseListTitleCollectionViewCell.h"
+
+#import "QSRequestManager.h"
+
 #import "MJRefresh.h"
+
+#import "QSFilterDataModel.h"
+
+#import "QSCoreDataManager+Filter.h"
 
 @interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
-@property (nonatomic,assign) HOUSE_LIST_MAIN_TYPE listType;//!<列表类型
+@property (nonatomic,assign) FILTER_MAIN_TYPE listType;     //!<列表类型
+@property (nonatomic,retain) QSFilterDataModel *filterModel;//!<过滤模型
 
 @end
 
@@ -36,13 +45,16 @@
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithHouseMainType:(HOUSE_LIST_MAIN_TYPE)mainType
+- (instancetype)initWithHouseMainType:(FILTER_MAIN_TYPE)mainType
 {
 
     if (self = [super init]) {
         
         ///保存列表类型
         self.listType = mainType;
+        
+        ///获取过滤器模型
+        self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
         
     }
     
@@ -197,7 +209,11 @@
 - (void)houseListHeaderRequest
 {
 
-    
+    [QSRequestManager requestDataWithType:[self getRequestType] andParams:[QSCoreDataManager getHouseListRequestParams:self.listType] andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        
+        
+    }];
 
 }
 
@@ -331,6 +347,54 @@
     NSLog(@"===============点击cell=====================");
     NSLog(@"坐标：section : %d row : %d",(int)indexPath.section,(int)indexPath.row);
     NSLog(@"===============点击cell=====================");
+
+}
+
+#pragma mark - 根据不同的列表类型返回不同的请求类型
+- (REQUEST_TYPE)getRequestType
+{
+
+    switch (self.listType) {
+            ///楼盘
+        case fFilterMainTypeBuilding:
+            
+            return rRequestTypeSecondHandBuilding;
+            
+            break;
+            
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return rRequestTypeSecondHandNewHouse;
+            
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+            
+            return rRequestTypeSecondHandCommunity;
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            return rRequestTypeSecondHandHouseList;
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            return rRequestTypeSecondHandRentalHouse;
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return rRequestTypeSecondHandHouseList;
 
 }
 

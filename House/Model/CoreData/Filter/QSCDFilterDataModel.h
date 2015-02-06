@@ -45,6 +45,8 @@
 @property (nonatomic, retain) NSString * rent_type_val;     //!<出租方式
 @property (nonatomic, retain) NSString * sale_price_key;    //!<售价key
 @property (nonatomic, retain) NSString * sale_price_val;    //!<售价
+@property (nonatomic, retain) NSString * avg_price_key;     //!<均价key
+@property (nonatomic, retain) NSString * avg_price_val;     //!<均价
 @property (nonatomic, retain) NSString * street_key;        //!<所在街道key
 @property (nonatomic, retain) NSString * street_val;        //!<所在街道
 @property (nonatomic, retain) NSString * trade_type_key;    //!<房子的物业类型key

@@ -38,6 +38,8 @@
 @dynamic rent_type_val;
 @dynamic sale_price_key;
 @dynamic sale_price_val;
+@dynamic avg_price_key;
+@dynamic avg_price_val;
 @dynamic street_key;
 @dynamic street_val;
 @dynamic trade_type_key;

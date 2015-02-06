@@ -17,11 +17,19 @@
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="val" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="QSCDCollectedCommunityDataModel" syncable="YES">
+        <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collectid_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="QSCDConfigurationDataModel" representedClassName="QSCDConfigurationDataModel" syncable="YES">
         <attribute name="c_v" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conf" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QSCDFilterDataModel" representedClassName="QSCDFilterDataModel" syncable="YES">
+        <attribute name="avg_price_key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avg_price_val" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="buy_purpose_key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="buy_purpose_val" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="city_key" optional="YES" attributeType="String" syncable="YES"/>
@@ -92,9 +100,10 @@
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-146" positionY="270" width="128" height="90"/>
         <element name="QSCDConfigurationDataModel" positionX="-146" positionY="180" width="128" height="75"/>
-        <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="583"/>
+        <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="268"/>
+        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="105"/>
     </elements>
 </model>

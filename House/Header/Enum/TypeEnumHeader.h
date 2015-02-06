@@ -446,6 +446,18 @@ typedef enum
 
 }HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
+///房子的状态类型
+typedef enum
+{
+
+    hHouseStatusTypeDeleted = -1,   //!<已删除
+    hHouseStatusTypeUnRelease = 0,  //!<未发布
+    hHouseStatusTypeReleased = 1,   //!<已发布
+    hHouseStatusTypeRented = 2,     //!<已出租
+    hHouseStatusTypeSaled = 3       //!<已出售
+
+}HOUSE_STASUTS_TYPE;
+
 ///初始化时，过滤器类型
 typedef enum
 {
@@ -524,7 +536,11 @@ typedef enum
     rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
     rRequestTypeAppBaseCityInfo = 1002,         //!<城市信息
     
-    rRequestTypeSecondHandHouseList = 2000,     //!<二手房列表请求
+    rRequestTypeSecondHandBuilding = 2000,      //!<楼盘列表请求
+    rRequestTypeSecondHandNewHouse,             //!<新房列表请求
+    rRequestTypeSecondHandCommunity,            //!<小区列表请求
+    rRequestTypeSecondHandHouseList,            //!<二手房列表请求
+    rRequestTypeSecondHandRentalHouse,          //!<出租房列表请求
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

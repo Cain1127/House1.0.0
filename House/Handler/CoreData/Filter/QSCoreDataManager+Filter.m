@@ -320,6 +320,8 @@
     filterModel.rent_type_val = cdFilterModel.rent_type_val;
     filterModel.sale_price_key = cdFilterModel.sale_price_key;
     filterModel.sale_price_val = cdFilterModel.sale_price_val;
+    filterModel.avg_price_key = cdFilterModel.avg_price_key;
+    filterModel.avg_price_val = cdFilterModel.avg_price_val;
     filterModel.street_key = cdFilterModel.street_key;
     filterModel.street_val = cdFilterModel.street_val;
     filterModel.trade_type_key = cdFilterModel.trade_type_key;
@@ -407,6 +409,8 @@
         cdfilterModel.rent_type_val = filterModel.rent_type_val;
         cdfilterModel.sale_price_key = filterModel.sale_price_key;
         cdfilterModel.sale_price_val = filterModel.sale_price_val;
+        cdfilterModel.avg_price_key = filterModel.avg_price_key;
+        cdfilterModel.avg_price_val = filterModel.avg_price_val;
         cdfilterModel.street_key = filterModel.street_key;
         cdfilterModel.street_val = filterModel.street_val;
         cdfilterModel.trade_type_key = filterModel.trade_type_key;
@@ -468,9 +472,102 @@
     }
     
     ///封装参数
+    return [self getHouseListRequestParams:filterType andCityKey:[QSCoreDataManager getCurrentUserCityKey]];
+
+}
+
+///根据过滤器的类型和城市，创建过滤的请求参数
++ (NSDictionary *)getHouseListRequestParams:(FILTER_MAIN_TYPE)filterType andCityKey:(NSString *)cityKey
+{
     
+    if (!cityKey) {
+        
+        return nil;
+        
+    }
+
+    ///首先获取对应的过滤器模型
+    QSFilterDataModel *filterModel = [self getLocalFilterWithType:filterType andCityKey:cityKey];
     
-    return nil;
+    ///推荐房源列表:commend
+    if (fFilterStatusTypeWorking != [filterModel.filter_status intValue]) {
+        
+        return @{@"commend" : @"Y"};
+        
+    }
+    
+    ///封装参数
+    NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
+    
+    ///城市信息
+    [tempDictionary setObject:(filterModel.province_key ? filterModel.province_key : @"") forKey:@"provinceid"];
+    [tempDictionary setObject:(filterModel.city_key ? filterModel.city_key : @"") forKey:@"cityid"];
+    [tempDictionary setObject:(filterModel.district_key ? filterModel.district_key : @"") forKey:@"areaid"];
+    [tempDictionary setObject:(filterModel.street_key ? filterModel.street_key : @"") forKey:@"street"];
+    
+    ///配套
+    [tempDictionary setObject:@"" forKey:@"installation"];
+    
+    ///期望售价
+    [tempDictionary setObject:(filterModel.sale_price_key ? filterModel.sale_price_key : @"") forKey:@"house_price"];
+    
+    ///房子性质
+    [tempDictionary setObject:@"" forKey:@"house_nature"];
+    
+    ///朝向
+    [tempDictionary setObject:(filterModel.house_face_key ? filterModel.house_face_key : @"") forKey:@"house_face"];
+    
+    ///户型
+    [tempDictionary setObject:(filterModel.house_type_key ? filterModel.house_type_key : @"") forKey:@"house_shi"];
+    
+    ///厅
+    [tempDictionary setObject:@"" forKey:@"house_ting"];
+    
+    ///卫
+    [tempDictionary setObject:@"" forKey:@"house_wei"];
+    
+    ///厨房
+    [tempDictionary setObject:@"" forKey:@"house_chufang"];
+    
+    ///阳台
+    [tempDictionary setObject:@"" forKey:@"house_yangtai"];
+    
+    ///面积
+    [tempDictionary setObject:(filterModel.house_area_key ? filterModel.house_area_key : @"") forKey:@"house_area"];
+    
+    ///电梯
+    [tempDictionary setObject:@"" forKey:@"elevator"];
+    
+    ///是否推荐
+    [tempDictionary setObject:@"N" forKey:@"commend"];
+    
+    ///楼盘的总楼层数量
+    [tempDictionary setObject:@"" forKey:@"floor_num"];
+    
+    ///意向的楼层
+    [tempDictionary setObject:(filterModel.floor_key ? filterModel.floor_key : @"") forKey:@"floor_which"];
+    
+    ///特色标签
+    if ([filterModel.features_list count] > 0) {
+        
+        NSMutableString *featuresString = [[NSMutableString alloc] init];
+        for (QSCDBaseConfigurationDataModel *obj in filterModel.features_list) {
+            
+            [featuresString appendString:obj.key];
+            [featuresString appendString:@","];
+            
+        }
+        
+        ///将最后一个<,>去掉
+        [tempDictionary setObject:[NSString stringWithString:[featuresString substringToIndex:(featuresString.length - 1)]] forKey:@"features"];
+        
+    } else {
+    
+        [tempDictionary setObject:@"" forKey:@"features"];
+    
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:tempDictionary];
 
 }
 

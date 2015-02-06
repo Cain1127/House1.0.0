@@ -44,6 +44,8 @@
 @property (nonatomic, copy) NSString * rent_type_val;       //!<出租方式
 @property (nonatomic, copy) NSString * sale_price_key;      //!<售价key
 @property (nonatomic, copy) NSString * sale_price_val;      //!<售价
+@property (nonatomic, copy) NSString * avg_price_key;       //!<均价key
+@property (nonatomic, copy) NSString * avg_price_val;       //!<均价
 @property (nonatomic, copy) NSString * street_key;          //!<所在街道key
 @property (nonatomic, copy) NSString * street_val;          //!<所在街道
 @property (nonatomic, copy) NSString * trade_type_key;      //!<房子的物业类型key
@@ -51,7 +53,7 @@
 @property (nonatomic, copy) NSString * used_year_val;       //!<房龄
 @property (nonatomic, copy) NSString * rent_price_val;      //!<租金
 @property (nonatomic, copy) NSString * used_year_key;       //!<房龄key
-@property (nonatomic, copy) NSString * filter_status;       //!<过滤器的当前状态:1-正在使用
+@property (nonatomic, copy) NSString * filter_status;       //!<过滤器的当前状态:2-正在使用
 @property (nonatomic, retain) NSArray *features_list;       //!<特色标签
 
 @end

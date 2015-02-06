@@ -133,4 +133,7 @@ typedef enum
  */
 + (NSDictionary *)getHouseListRequestParams:(FILTER_MAIN_TYPE)filterType;
 
+///根据过滤器的类型和城市，创建过滤的请求参数
++ (NSDictionary *)getHouseListRequestParams:(FILTER_MAIN_TYPE)filterType andCityKey:(NSString *)cityKey;
+
 @end
