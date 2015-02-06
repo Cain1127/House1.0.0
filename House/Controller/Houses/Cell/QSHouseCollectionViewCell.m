@@ -8,6 +8,10 @@
 
 #import "QSHouseCollectionViewCell.h"
 
+#import "NSString+Calculation.h"
+
+#import "QSHouseInfoDataModel.h"
+
 #include <objc/runtime.h>
 
 ///关联
@@ -182,6 +186,40 @@ static char CommunityKey;   //!<所在小区
 }
 
 #pragma mark - 更新数据
+/**
+ *  @author             yangshengmeng, 15-02-06 10:02:42
+ *
+ *  @brief              根据请求返回的数据模型更新房子信息cell
+ *
+ *  @param dataModel    数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel
+{
+
+    ///数据模型转换
+    QSHouseInfoDataModel *tempModel = dataModel;
+    
+    ///更新小区
+    [self updateHouseCommunityInfo:tempModel.village_title];
+    
+    ///更新详细街道信息
+    [self updateHouseStreetInfo:tempModel.address];
+    
+    ///更新房子面积信息
+    [self updateHouseAreaInfo:tempModel.house_area];
+    
+    ///更新房子户型信息
+    [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
+    
+    ///更新中间标题
+    [self updateTitleWithTitle:tempModel.house_price];
+    
+    ///更新背景图片
+    [self updateHouseImage:tempModel.attach_thumb];
+
+}
 
 ///更新房子所在的小区信息
 - (void)updateHouseCommunityInfo:(NSString *)info
@@ -229,7 +267,14 @@ static char CommunityKey;   //!<所在小区
     UILabel *label = objc_getAssociatedObject(self, &HouseTypeKey);
     if (label) {
         
+        NSString *shiString = [NSString stringWithFormat:@"%@室",houseCount];
+        if (hallCount) {
+            
+            [shiString stringByAppendingString:[NSString stringWithFormat:@"%@厅",hallCount]];
+            
+        }
         
+        label.text = shiString;
         
     }
 
@@ -242,7 +287,7 @@ static char CommunityKey;   //!<所在小区
     UILabel *label = objc_getAssociatedObject(self, &TitleLabelKey);
     if (label && title) {
         
-        
+        label.text = title;
         
     }
 
@@ -281,7 +326,7 @@ static char CommunityKey;   //!<所在小区
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseImageKey);
     if (imageView && urlString) {
         
-        
+        [imageView loadImageWithURL:[urlString getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL]];
         
     }
 

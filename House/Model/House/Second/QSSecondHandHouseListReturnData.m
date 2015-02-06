@@ -14,17 +14,11 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    static dispatch_once_t pred = 0;
-    
     ///先获取超类的mapping规则
     RKObjectMapping *shared_mapping = [super objectMapping];
     
-    dispatch_once(&pred, ^{
-        
-        ///在超类的mapping规则之上添加子类mapping
-        [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"secondHandHouseHeaderData" withMapping:[QSSecondHandHouseHeaderData objectMapping]]];
-        
-    });
+    ///在超类的mapping规则之上添加子类mapping
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"secondHandHouseHeaderData" withMapping:[QSSecondHandHouseHeaderData objectMapping]]];
     
     return shared_mapping;
     

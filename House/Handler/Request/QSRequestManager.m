@@ -291,8 +291,6 @@
             
         }];
         
-        
-        
     } else {
         
         ///解析数据
@@ -643,6 +641,9 @@
             
             ///具体某个配置信息的请求
         case rRequestTypeAppBaseInfoConfiguration:
+        
+            ///二手房列表请求
+        case rRequestTypeSecondHandHouseList:
             
             ///默认返回Post
         default:

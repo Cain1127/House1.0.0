@@ -471,6 +471,8 @@
         
     }
     
+    return @{@"commend" : @"Y"};
+    
     ///封装参数
     return [self getHouseListRequestParams:filterType andCityKey:[QSCoreDataManager getCurrentUserCityKey]];
 

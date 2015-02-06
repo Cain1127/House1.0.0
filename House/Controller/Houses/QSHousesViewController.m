@@ -21,19 +21,37 @@
 #import "MJRefresh.h"
 
 #import "QSFilterDataModel.h"
+#import "QSSecondHandHouseListReturnData.h"
 
 #import "QSCoreDataManager+Filter.h"
+
+#import <objc/runtime.h>
+
+///关联
+static char CollectionViewKey;//!<collectionView的关联
 
 @interface QSHousesViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QSCollectionWaterFlowLayoutDelegate>
 
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;     //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;//!<过滤模型
 
+@property (nonatomic,assign) int currentPage;               //!<当前页
+
+//!<数据源模型
+@property (nonatomic,retain) QSSecondHandHouseListReturnData *dataSourceModel;
+
 @end
 
 @implementation QSHousesViewController
 
 #pragma mark - 初始化
+- (instancetype)init
+{
+
+    return [self initWithHouseMainType:fFilterMainTypeSecondHouse];
+
+}
+
 /**
  *  @author         yangshengmeng, 15-01-30 08:01:06
  *
@@ -52,6 +70,9 @@
         
         ///保存列表类型
         self.listType = mainType;
+        
+        ///初始化参数
+        self.currentPage = 1;
         
         ///获取过滤器模型
         self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
@@ -122,10 +143,14 @@
     [collectionView registerClass:[QSHouseListTitleCollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
     [collectionView registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
     [self.view addSubview:collectionView];
+    objc_setAssociatedObject(self, &CollectionViewKey, collectionView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
     [collectionView addHeaderWithTarget:self action:@selector(houseListHeaderRequest)];
     [collectionView addFooterWithTarget:self action:@selector(houseListFooterRequest)];
+    
+    ///开始就进行头部请求
+    [collectionView headerBeginRefreshing];
     
 }
 
@@ -209,9 +234,60 @@
 - (void)houseListHeaderRequest
 {
 
-    [QSRequestManager requestDataWithType:[self getRequestType] andParams:[QSCoreDataManager getHouseListRequestParams:self.listType] andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    ///封装参数：主要是添加页码控制
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    [temParams setObject:@"1" forKey:@"now_page"];
+    [temParams setObject:@"10" forKey:@"page_num"];
+    
+    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///请求成功后，转换模型
+            QSSecondHandHouseListReturnData *resultDataModel = resultData;
+            
+            ///修改当前页码
+            self.currentPage = 1;
+            
+            ///将数据模型置为nil
+            self.dataSourceModel = nil;
+            
+            ///判断是否有房子数据
+            if ([resultDataModel.secondHandHouseHeaderData.houseList count] <= 0) {
+                
+                ///没有记录，显示暂无记录提示
+                [self showNoRecordTips:YES];
+                
+            } else {
+            
+                ///移除暂无记录
+                [self showNoRecordTips:NO];
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+            
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+            });
+            
+            ///结束刷新动画
+            [self endRefreshAnimination];
+            
+        } else {
+         
+            ///结束刷新动画
+            [self endRefreshAnimination];
+            
+            ///由于是第一页，请求失败，显示暂无记录
+            [self showNoRecordTips:YES];
+            
+        }
         
     }];
 
@@ -223,6 +299,27 @@
     
     
     
+}
+
+#pragma mark - 主动让CollectionView刷新数据
+///主动让CollectionView刷新数据
+- (void)reloadData
+{
+
+    UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+    [collectionView reloadData];
+
+}
+
+#pragma mark - 结束刷新动画
+///结束刷新动画
+- (void)endRefreshAnimination
+{
+
+    UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+    [collectionView headerEndRefreshing];
+    [collectionView footerEndRefreshing];
+
 }
 
 #pragma mark - 进入搜索页面
@@ -252,7 +349,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 
-    return 25;
+    return ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) ? ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] + 1) : 0;
 
 }
 
@@ -325,6 +422,9 @@
         ///从复用队列中获取cell
         QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
         
+        ///更新数据
+        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.secondHandHouseHeaderData.total_num stringValue] andSubTitle:@"套二手房信息"];
+        
         return cellTitle;
         
     }
@@ -334,6 +434,9 @@
     
     ///从复用队列中获取房子信息的cell
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
+    
+    ///刷新数据
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1]];
     
     return cellHouse;
 
@@ -351,6 +454,7 @@
 }
 
 #pragma mark - 根据不同的列表类型返回不同的请求类型
+///根据不同的列表类型返回不同的请求类型
 - (REQUEST_TYPE)getRequestType
 {
 
@@ -358,21 +462,21 @@
             ///楼盘
         case fFilterMainTypeBuilding:
             
-            return rRequestTypeSecondHandBuilding;
+            return rRequestTypeBuilding;
             
             break;
             
             ///新房
         case fFilterMainTypeNewHouse:
             
-            return rRequestTypeSecondHandNewHouse;
+            return rRequestTypeNewHouse;
             
             break;
             
             ///小区
         case fFilterMainTypeCommunity:
             
-            return rRequestTypeSecondHandCommunity;
+            return rRequestTypeCommunity;
             
             break;
             
@@ -386,7 +490,7 @@
             ///出租房
         case fFilterMainTypeRentalHouse:
             
-            return rRequestTypeSecondHandRentalHouse;
+            return rRequestTypeRentalHouse;
             
             break;
             

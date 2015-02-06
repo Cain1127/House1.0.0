@@ -536,11 +536,11 @@ typedef enum
     rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
     rRequestTypeAppBaseCityInfo = 1002,         //!<城市信息
     
-    rRequestTypeSecondHandBuilding = 2000,      //!<楼盘列表请求
-    rRequestTypeSecondHandNewHouse,             //!<新房列表请求
-    rRequestTypeSecondHandCommunity,            //!<小区列表请求
+    rRequestTypeBuilding = 2000,                //!<楼盘列表请求
+    rRequestTypeNewHouse,                       //!<新房列表请求
+    rRequestTypeCommunity,                      //!<小区列表请求
     rRequestTypeSecondHandHouseList,            //!<二手房列表请求
-    rRequestTypeSecondHandRentalHouse,          //!<出租房列表请求
+    rRequestTypeRentalHouse,                    //!<出租房列表请求
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

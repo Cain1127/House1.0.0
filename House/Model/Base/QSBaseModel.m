@@ -14,7 +14,11 @@
 + (RKObjectMapping *)objectMapping
 {
 
-    return nil;
+    RKObjectMapping *shared_mapping = nil;
+    
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    
+    return shared_mapping;
 
 }
 

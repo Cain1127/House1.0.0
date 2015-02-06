@@ -77,4 +77,15 @@
  */
 - (void)setNavigationBarLeftView:(UIView *)view;
 
+/**
+ *  @author     yangshengmeng, 15-02-06 10:02:20
+ *
+ *  @brief      显示暂无记录提示框
+ *
+ *  @param flag 是否显示：YES-显示,NO-移除
+ *
+ *  @since      1.0.0
+ */
+- (void)showNoRecordTips:(BOOL)flag;
+
 @end

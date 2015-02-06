@@ -17,4 +17,15 @@
  */
 @interface QSHouseCollectionViewCell : UICollectionViewCell
 
+/**
+ *  @author             yangshengmeng, 15-02-06 10:02:42
+ *
+ *  @brief              根据请求返回的数据模型更新房子信息cell
+ *
+ *  @param dataModel    数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel;
+
 @end

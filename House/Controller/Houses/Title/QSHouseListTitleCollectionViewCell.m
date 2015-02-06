@@ -11,7 +11,8 @@
 #import <objc/runtime.h>
 
 ///关联
-static char TitleLabelKey;//!<标题关联key
+static char TitleLabelKey;      //!<标题关联key
+static char SubTitleLabelKey;   //!<子标题key
 
 @implementation QSHouseListTitleCollectionViewCell
 
@@ -65,6 +66,7 @@ static char TitleLabelKey;//!<标题关联key
     subTitleLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     subTitleLabel.text = @"套二手房信息";
     [self.contentView addSubview:subTitleLabel];
+    objc_setAssociatedObject(self, &SubTitleLabelKey, subTitleLabel, OBJC_ASSOCIATION_ASSIGN);
 
 }
 
@@ -78,7 +80,7 @@ static char TitleLabelKey;//!<标题关联key
  *
  *  @since          1.0.0
  */
-- (void)updateTitleInfoWithTitle:(NSString *)title
+- (void)updateTitleInfoWithTitle:(NSString *)title andSubTitle:(NSString *)subTitle
 {
 
     ///更新标题
@@ -86,6 +88,14 @@ static char TitleLabelKey;//!<标题关联key
     if (titleLabel && title) {
         
         titleLabel.text = title;
+        
+    }
+    
+    ///更新副标题
+    UILabel *subTitleLabel = objc_getAssociatedObject(self, &SubTitleLabelKey);
+    if (subTitleLabel && subTitle) {
+        
+        subTitleLabel.text = subTitle;
         
     }
 

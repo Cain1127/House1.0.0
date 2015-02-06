@@ -43,7 +43,7 @@
 @property (nonatomic,copy) NSString *used_year;             //!<房龄
 @property (nonatomic,copy) NSString *installation;          //!<配套：按英文<,>分开
 @property (nonatomic,copy) NSString *features;              //!<标签：按英文<,>分开
-@property (nonatomic,copy) NSString *house_area;            //!<面积类型
+@property (nonatomic,copy) NSString *house_area;            //!<面积类型(返回的是val)
 
 @property (nonatomic,copy) NSString *house_shi;             //!<户型
 @property (nonatomic,copy) NSString *house_ting;            //!<厅数量

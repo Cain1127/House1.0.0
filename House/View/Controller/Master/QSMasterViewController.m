@@ -11,7 +11,8 @@
 #import <objc/runtime.h>
 
 ///关联
-static char NavigationBarKey;//!<导航栏的关联key
+static char NavigationBarKey;       //!<导航栏的关联key
+static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 
 @interface QSMasterViewController ()
 
@@ -155,6 +156,57 @@ static char NavigationBarKey;//!<导航栏的关联key
         [navigationBar setNavigationBarLeftView:view];
         
     });
+
+}
+
+#pragma mark - 显示暂无记录
+/**
+ *  @author     yangshengmeng, 15-02-06 10:02:20
+ *
+ *  @brief      显示暂无记录提示框
+ *
+ *  @param flag 是否显示：YES-显示,NO-移除
+ *
+ *  @since      1.0.0
+ */
+- (void)showNoRecordTips:(BOOL)flag
+{
+
+    ///从关联中获取label
+    UILabel *noRecordLabel = objc_getAssociatedObject(self, &NoRecordTipsLabelKey);
+    
+    ///判断是否需要显示
+    if (flag) {
+        
+        ///判断原来是否已有
+        if (noRecordLabel) {
+            
+            ///将提示移前
+            [self.view bringSubviewToFront:noRecordLabel];
+            return;
+            
+        }
+        
+        ///没有则创建显示
+        noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 140.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
+        noRecordLabel.text = @"暂无记录";
+        noRecordLabel.textAlignment = NSTextAlignmentCenter;
+        noRecordLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+        noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+        [self.view addSubview:noRecordLabel];
+        [self.view bringSubviewToFront:noRecordLabel];
+        objc_setAssociatedObject(self, &NoRecordTipsLabelKey, noRecordLabel, OBJC_ASSOCIATION_ASSIGN);
+        
+    } else {
+    
+        ///不需要显示则移除
+        if (noRecordLabel) {
+            
+            [noRecordLabel removeFromSuperview];
+            
+        }
+    
+    }
 
 }
 
