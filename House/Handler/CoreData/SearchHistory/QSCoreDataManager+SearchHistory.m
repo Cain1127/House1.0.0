@@ -41,20 +41,24 @@
         
     }
     
-    ///获取上下文
+    ///获取主上下文
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     ///错误信息
     NSError *error = nil;
     
     ///插入数据
-    QSCDLocalSearchHistoryDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:mOContext];
+    QSCDLocalSearchHistoryDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:tempContext];
     insertModel.search_keywork = model.search_keywork;
     insertModel.search_sub_type = model.search_sub_type;
     insertModel.search_time = model.search_time;
     insertModel.search_type = model.search_type;
-    [mOContext save:&error];
+    [tempContext save:&error];
     
     if (error) {
         

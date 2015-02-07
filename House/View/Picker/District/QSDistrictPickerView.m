@@ -7,10 +7,9 @@
 //
 
 #import "QSDistrictPickerView.h"
-#import "QSCoreDataManager+App.h"
-#import "QSCDBaseConfigurationDataModel.h"
 #import "QSBlockButtonStyleModel+Normal.h"
-#import "QSCoreDataManager+User.h"
+
+#import "QSCDBaseConfigurationDataModel.h"
 
 @interface QSDistrictPickerView ()
 

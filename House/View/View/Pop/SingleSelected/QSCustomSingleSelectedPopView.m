@@ -227,7 +227,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
         [rootView addSubview:tempSelectedItem];
         
         ///分隔线
-        UILabel *buttonLineLable = [[UILabel alloc] initWithFrame:CGRectMake(tempSelectedItem.frame.origin.x + 10.0f, tempSelectedItem.frame.origin.y + tempSelectedItem.frame.size.height - 0.25f, tempSelectedItem.frame.size.width - 20.0f, 0.5f)];
+        UILabel *buttonLineLable = [[UILabel alloc] initWithFrame:CGRectMake(tempSelectedItem.frame.origin.x + 10.0f, tempSelectedItem.frame.origin.y + tempSelectedItem.frame.size.height - 0.5f, tempSelectedItem.frame.size.width - 20.0f, 0.5f)];
         buttonLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [rootView addSubview:buttonLineLable];
         

@@ -12,6 +12,8 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCustomCitySelectedView.h"
 
+#import "QSCDBaseConfigurationDataModel.h"
+
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
 
@@ -142,6 +144,9 @@
             
             if (cCustomPopviewActionTypeSingleSelected == actionType) {
                 
+                ///转换城市模型
+                __block QSCDBaseConfigurationDataModel *cityModel = params;
+                
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     
                     ///保存当前城市
@@ -155,13 +160,9 @@
                     
                 });
                 
-                ///延迟0.3秒再进入我要找房指引界面
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
-                    [self.navigationController pushViewController:findHouseVC animated:YES];
-                    
-                });
+                ///进入找房指引页
+                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] initWithCityKey:cityModel.key andCityVal:cityModel.val];
+                [self.navigationController pushViewController:findHouseVC animated:YES];
                 
             }
             
@@ -194,14 +195,9 @@
                     
                 });
                 
-                ///0.3秒后进入出售物业指引页
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    ///跳转到出售物业界面
-                    QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
-                    [self.navigationController pushViewController:saleHouseVC animated:YES];
-                    
-                });
+                ///跳转到出售物业界面
+                QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
+                [self.navigationController pushViewController:saleHouseVC animated:YES];
                 
             }
             

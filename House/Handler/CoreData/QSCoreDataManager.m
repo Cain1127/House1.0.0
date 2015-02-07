@@ -79,8 +79,9 @@
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mainContext];
     
     ///设置查找
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -101,7 +102,9 @@
     }
     
     NSError *error;
-    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
+    NSArray *resultList = nil;
+    
+    resultList = [mainContext executeFetchRequest:request error:&error];
     
     ///判断是否查询失败
     if (error) {
@@ -220,10 +223,14 @@
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     [fetchRequest setEntity:entity];
     
     ///判断是否存在过滤器
@@ -234,7 +241,7 @@
     }
     
     NSError *error=nil;
-    NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///判断读取出来的原数据
     if (nil == fetchResultArray) {
@@ -252,7 +259,7 @@
             ///获取模型后更新保存
             QSCDFilterDataModel *model = fetchResultArray[i];
             [model setValue:newValue forKey:fieldName];
-            [mOContext save:&error];
+            [tempContext save:&error];
             
             ///判断保存是否成功
             if (error) {
@@ -293,8 +300,8 @@
  */
 + (id)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
 {
-
-    NSArray *resultList = [self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES];
+    
+    NSArray *resultList = [NSArray arrayWithArray:[self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES]];
     
     ///判断是否查询失败
     if (nil == resultList) {
@@ -311,8 +318,9 @@
     }
     
     ///查询成功
-    NSObject *resultModel = [resultList firstObject];
-    return [resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil;
+    NSManagedObject *resultModel = [resultList firstObject];
+    id tempResult = [resultModel valueForKey:keyword];
+    return tempResult ? tempResult : nil;
 
 }
 
@@ -321,10 +329,14 @@
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     [fetchRequest setEntity:entity];
     
     ///查询条件
@@ -332,7 +344,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
-    NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///判断读取出来的原数据
     if (nil == fetchResultArray) {
@@ -346,16 +358,16 @@
     if (0 >= [fetchResultArray count]) {
         
         ///插入数据
-        NSObject *model = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:mOContext];
+        NSObject *model = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:tempContext];
         [model setValue:newValue forKey:fieldName];
-        [mOContext save:&error];
+        [tempContext save:&error];
         
     } else {
     
         ///获取模型后更新保存
         NSObject *model = fetchResultArray[0];
         [model setValue:newValue forKey:fieldName];
-        [mOContext save:&error];
+        [tempContext save:&error];
     
     }
     
@@ -385,15 +397,19 @@
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setIncludesPropertyValues:NO];
     [fetchRequest setEntity:entity];
     
     NSError *error = nil;
-    NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *resultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///查询失败
     if (error) {
@@ -413,12 +429,12 @@
     ///遍历删除
     for (NSManagedObject *obj in resultArray) {
         
-        [mOContext deleteObject:obj];
+        [tempContext deleteObject:obj];
         
     }
     
     ///确认删除结果
-    BOOL isChangeSuccess = [mOContext save:&error];
+    BOOL isChangeSuccess = [tempContext save:&error];
     if (!isChangeSuccess) {
         
         NSLog(@"CoreData.DeleteData.Error:%@",error);
@@ -445,10 +461,15 @@
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName andFieldKey:(NSString *)fieldKey andDeleteKey:(NSString *)deleteKey
 {
 
+    ///获取主线程上下文
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setIncludesPropertyValues:NO];
@@ -459,7 +480,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
-    NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *resultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///查询失败
     if (error) {
@@ -479,12 +500,12 @@
     ///遍历删除
     for (NSManagedObject *obj in resultArray) {
         
-        [mOContext deleteObject:obj];
+        [tempContext deleteObject:obj];
         
     }
     
     ///确认删除结果
-    BOOL isChangeSuccess = [mOContext save:&error];
+    BOOL isChangeSuccess = [tempContext save:&error];
     if (!isChangeSuccess) {
         
         NSLog(@"CoreData.DeleteData.Error:%@",error);

@@ -112,12 +112,16 @@
     }
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSError *error = nil;
     
     ///插入数据
-    QSCDFilterDataModel *model = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:mOContext];
+    QSCDFilterDataModel *model = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:tempContext];
     model.filter_id = filterID;
     model.filter_status = @"0";
     
@@ -129,7 +133,7 @@
     model.province_key = provinceModel.key;
     model.province_val = provinceModel.val;
     
-    [mOContext save:&error];
+    [tempContext save:&error];
     
     if (error) {
         
@@ -352,10 +356,14 @@
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:mOContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_FILTER inManagedObjectContext:tempContext];
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
@@ -363,7 +371,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
-    NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResultArray = fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///更新结果
     BOOL isUpdateSuccess = NO;
@@ -422,7 +430,7 @@
         
         cdfilterModel.features_list = [NSSet setWithArray:filterModel.features_list];
         
-        [mOContext save:&error];
+        [tempContext save:&error];
         
     }
     

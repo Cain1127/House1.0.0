@@ -66,9 +66,6 @@ typedef enum
         ///保存过滤器类型
         self.filterType = filterType;
         
-        ///获取过滤器是否已配置标识
-        self.filterStatus = [QSCoreDataManager getFilterStatusWithType:filterType];
-        
         ///初始化过滤器模型
         [self createFilterDataModel];
         
@@ -83,6 +80,9 @@ typedef enum
 {
     
     self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
+    
+    ///获取过滤器是否已配置标识
+    self.filterStatus = [self.filterModel.filter_status intValue];
     
 }
 

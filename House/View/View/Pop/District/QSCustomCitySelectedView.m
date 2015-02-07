@@ -42,15 +42,15 @@
         ///选择一个城市
         if (cCustomCityPickerActionTypePickedCity == pickedActionType) {
             
-            ///回调
-            cityPopView.customPopviewTapCallBack(cCustomPopviewActionTypeSingleSelected,cityModel,-1);
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                
                 ///下载对应城市的区和街道信息
                 [cityPopView downloadDistrictInfoWithCityKey:[NSString stringWithFormat:@"%@",cityModel.key]];
                 
             });
+            
+            ///回调
+            cityPopView.customPopviewTapCallBack(cCustomPopviewActionTypeSingleSelected,cityModel,-1);
             
         } else {
         

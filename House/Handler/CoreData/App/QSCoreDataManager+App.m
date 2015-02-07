@@ -180,7 +180,20 @@
 + (NSArray *)getStreetListWithDistrictKey:(NSString *)districtKey
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"street%@",districtKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"street%@",districtKey]]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -195,7 +208,20 @@
 + (NSArray *)getDistrictListWithCityKey:(NSString *)cityKey
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"district%@",cityKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"district%@",cityKey]]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
     
 }
 
@@ -214,7 +240,20 @@
 + (NSArray *)getCityListWithProvinceKey:(NSString *)cityKey
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"city%@",cityKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"city%@",cityKey]]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
     
 }
 
@@ -231,7 +270,20 @@
 + (NSArray *)getProvinceList
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"province"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"province"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+       
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
     
 }
 
@@ -868,7 +920,11 @@
     
     ///获取上下文
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     ///先查，是否存在对应的数据
     QSCDConfigurationDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_CONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:confDataModel.conf];
@@ -879,15 +935,15 @@
     if (nil == localModel) {
         
         ///插入数据
-        QSCDConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_CONFIGURATION_INFO inManagedObjectContext:mOContext];
+        QSCDConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_CONFIGURATION_INFO inManagedObjectContext:tempContext];
         insertModel.conf = confDataModel.conf;
         insertModel.c_v = confDataModel.c_v;
-        [mOContext save:&error];
+        [tempContext save:&error];
         
     } else {
     
         localModel.c_v = confDataModel.c_v;
-        [mOContext save:&error];
+        [tempContext save:&error];
     
     }
     
@@ -926,18 +982,23 @@
     
     ///获取上下文
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSError *error = nil;
     
     for (QSBaseConfigurationDataModel *obj in baseConList) {
         
         ///重新添加基本配置信息
-        QSCDBaseConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO inManagedObjectContext:mOContext];
+        QSCDBaseConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO inManagedObjectContext:tempContext];
         insertModel.conf = key;
         insertModel.key = obj.key;
         insertModel.val = obj.val;
-        [mOContext save:&error];
+        
+        [tempContext save:&error];
         
         if (error) {
             

@@ -22,11 +22,17 @@
 ///非主线程任务处理使用的自定义线程
 @property (nonatomic, strong) dispatch_queue_t appDelegateOperationQueue;
 
+///CoreData相关的对象
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
 @end
 
 @implementation QSYAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize mainObjectContext = _mainObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
@@ -255,32 +261,109 @@
 {
     
     ///应用退出前进行保存动作
-    [self saveContext];
+    [self saveContextWithWait:YES];
     
 }
 
-- (void)saveContext
+///AppDelegate中saveContext方法，每次privateContext调用save方法成功之后都要call这个方法
+- (void)saveContextWithWait:(BOOL)needWait
 {
     
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
+    ///中间管理器
+    __block NSManagedObjectContext *mainSaveObjectContext = [self mainObjectContext];
+    
+    if (nil == mainSaveObjectContext) {
         
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+        return;
+    
+    }
+    
+    ///如果主管理器已有改变，则保存
+    if ([mainSaveObjectContext hasChanges]) {
+        
+        NSLog(@"====================CoreData开始暂存数据====================");
+        
+        [mainSaveObjectContext performBlockAndWait:^{
             
-             ///应用退出时的相关操作
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            NSError *error = nil;
+            if (![mainSaveObjectContext save:&error]) {
+                
+                NSLog(@"====================CoreData暂存数据失败====================");
+                NSLog(@"Save main context failed and error is %@", error);
+                NSLog(@"====================CoreData暂存数据失败====================");
+            
+            } else {
+            
+                NSLog(@"====================CoreData暂存数据成功====================");
+            
+            }
+        
+        }];
+    
+    }
+    
+    ///根管理器
+    __block NSManagedObjectContext *rootSaveObjectContext = [self managedObjectContext];
+    
+    ///判断根CoreData上下文管理器
+    if (nil == rootSaveObjectContext) {
+        
+        return;
+    
+    }
+    
+    if ([rootSaveObjectContext hasChanges]) {
+        
+        NSLog(@"====================CoreData真正开始保存数据====================");
+        
+        if (needWait) {
+            
+            [rootSaveObjectContext performBlockAndWait:^{
+                
+                NSError *error = nil;
+                if (![rootSaveObjectContext save:&error]) {
+                    
+                    NSLog(@"======================CoreData数据更新失败========================");
+                    NSLog(@"Save root context failed and error is %@", error);
+                    NSLog(@"======================CoreData数据更新失败========================");
+                    
+                } else {
+                    
+                    NSLog(@"======================CoreData数据更新成功========================");
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            [rootSaveObjectContext performBlock:^{
+                
+                NSError *error = nil;
+                if (![rootSaveObjectContext save:&error]) {
+                    
+                    NSLog(@"======================CoreData数据更新失败========================");
+                    NSLog(@"Save root context failed and error is %@", error);
+                    NSLog(@"======================CoreData数据更新失败========================");
+                    
+                } else {
+                
+                    NSLog(@"======================CoreData数据更新成功========================");
+                
+                }
+                
+            }];
             
         }
         
     }
-    
+
 }
+
 
 #pragma mark - CoreData相关操作
 
-///返回CoreData操作的上下文
+///返回CoreData操作的根上下文
 - (NSManagedObjectContext *)managedObjectContext
 {
     
@@ -293,13 +376,30 @@
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
         
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
         
     }
     
     return _managedObjectContext;
     
+}
+
+///返回CoreData操作的main上下文
+- (NSManagedObjectContext *)mainObjectContext
+{
+
+    if (_mainObjectContext != nil) {
+        
+        return _mainObjectContext;
+        
+    }
+    
+    _mainObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    _mainObjectContext.parentContext = [self managedObjectContext];
+    
+    return _mainObjectContext;
+
 }
 
 ///返回CoreData数据管理模型

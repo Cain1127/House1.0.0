@@ -69,7 +69,7 @@
     
     if (!provinceModel) {
         
-        return nil;
+        return NO;
         
     }
     

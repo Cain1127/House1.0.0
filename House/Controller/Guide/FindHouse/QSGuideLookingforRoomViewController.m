@@ -26,16 +26,44 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 
 @interface QSGuideLookingforRoomViewController ()
 
+@property (nonatomic,copy) NSString *cityVal;//!<城市val
+@property (nonatomic,copy) NSString *cityKey;//!<城市key
+
 @end
 
 @implementation QSGuideLookingforRoomViewController
 
+#pragma mark - 初始化
+/**
+ *  @author         yangshengmeng, 15-02-06 14:02:29
+ *
+ *  @brief          根据给定的城市创建找房指引页
+ *
+ *  @param cityKey  城市key
+ *  @param cityVal  城市val
+ *
+ *  @return         返回找房指引页
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithCityKey:(NSString *)cityKey andCityVal:(NSString *)cityVal
+{
+
+    if (self = [super init]) {
+        
+        ///获取基本信息
+        self.cityVal = cityVal ? cityVal : ([QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州");
+        self.cityKey = cityKey ? cityKey : ([QSCoreDataManager getCurrentUserCityKey] ? [QSCoreDataManager getCurrentUserCityKey] : @"4401");
+        
+    }
+    
+    return self;
+
+}
+
 #pragma mark - UI搭建
 - (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
 {
-    
-    ///让超出父视图的图片不显示
-//    view.clipsToBounds = YES;
     
     ///外层大圈
     QSImageView *bigCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(-10.0f, (view.frame.size.height - view.frame.size.width - 20.0f) / 2.0f, view.frame.size.width + 20.0f, view.frame.size.width + 20.0f)];
@@ -135,7 +163,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     cityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     cityLabel.textColor = [UIColor blackColor];
     cityLabel.textAlignment = NSTextAlignmentLeft;
-    cityLabel.text = [QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州";
+    cityLabel.text = self.cityVal;
     [view addSubview:cityLabel];
     
     ///正在出售
