@@ -219,6 +219,9 @@
 ///推荐房源消息图标
 #define IMAGE_CHAT_RECOMMEND @"chat_message_recommend"
 
+///暂无联系人图标
+#define IMAGE_CHAT_NOCONTACTS @"chat_contact_nocontacts"
+
 #pragma mark - 个人中心相关图片
 
 /**

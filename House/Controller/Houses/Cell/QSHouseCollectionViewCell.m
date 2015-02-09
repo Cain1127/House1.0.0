@@ -139,7 +139,7 @@ static char CommunityKey;   //!<所在小区
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel]-5-[communityLabel]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=40)]|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束

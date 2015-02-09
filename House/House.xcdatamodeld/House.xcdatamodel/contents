@@ -79,6 +79,7 @@
         <attribute name="search_type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="QSCDUserDataModel" syncable="YES">
+        <attribute name="is_login" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_city" optional="YES" attributeType="String" syncable="YES"/>
@@ -99,11 +100,11 @@
         <element name="QSCDAdvertHeaderDataModel" positionX="-146" positionY="45" width="128" height="58"/>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-146" positionY="270" width="128" height="90"/>
+        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="105"/>
         <element name="QSCDConfigurationDataModel" positionX="-146" positionY="180" width="128" height="75"/>
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
-        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="268"/>
-        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="105"/>
+        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="285"/>
     </elements>
 </model>

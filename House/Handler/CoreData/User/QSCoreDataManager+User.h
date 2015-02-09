@@ -19,6 +19,17 @@
 @interface QSCoreDataManager (User)
 
 /**
+ *  @author yangshengmeng, 15-02-09 16:02:21
+ *
+ *  @brief  判断是否已剑灵
+ *
+ *  @return 返回当前登录状态
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)isLogin;
+
+/**
  *  @author yangshengmeng, 15-01-22 15:01:25
  *
  *  @brief  获取当前用户ID

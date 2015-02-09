@@ -15,6 +15,37 @@
 
 @implementation QSCoreDataManager (User)
 
+/**
+ *  @author yangshengmeng, 15-02-09 16:02:21
+ *
+ *  @brief  判断是否已剑灵
+ *
+ *  @return 返回当前登录状态
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)isLogin
+{
+
+    ///获取本地配置信息
+    NSString *loginStatus = [self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"is_login"];
+    
+    if (nil == loginStatus) {
+        
+        return NO;
+        
+    }
+    
+    if (0 == [loginStatus intValue]) {
+        
+        return NO;
+        
+    }
+    
+    return YES;
+
+}
+
 ///获取当前用户ID
 + (NSString *)getUserID
 {

@@ -119,11 +119,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     saleHouseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:saleHouseButton];
     
-    ///分隔线
-    UILabel *bottomMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 0.25f, SIZE_DEVICE_HEIGHT - bottomHeight - 49.0f, 0.5f, bottomHeight)];
-    bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:bottomMiddelLineLabel];
-    
     ///笋盘推荐
     buttonStyle.title = @"笋盘推荐";
     buttonStyle.imagesNormal = IMAGE_HOME_COMMUNITYRECOMMAND_NORMAL;
@@ -135,6 +130,11 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     }];
     recommandHouseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:recommandHouseButton];
+    
+    ///分隔线
+    UILabel *bottomMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 0.25f, SIZE_DEVICE_HEIGHT - bottomHeight - 49.0f, 0.5f, bottomHeight)];
+    bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:bottomMiddelLineLabel];
     
 }
 
@@ -177,6 +177,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [self createHouseTypeInfoViewUI:foutHouseTypeRootView andHouseTypeTitle:@"四房房源" andDataKey:FourHouseTypeDataKey];
     [view addSubview:foutHouseTypeRootView];
     
+    ///分隔线
     UILabel *fourMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 0.25f, foutHouseTypeRootView.frame.origin.y, 0.5f, height)];
     fourMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:fourMiddelLineLabel];

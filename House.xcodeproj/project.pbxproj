@@ -210,6 +210,7 @@
 		18BE124D1A8893670036245A /* chat_message_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124B1A8893670036245A /* chat_message_recommend.png */; };
 		18BE124E1A8893670036245A /* chat_message_system.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124C1A8893670036245A /* chat_message_system.png */; };
 		18BE12501A8894E20036245A /* public_vip_tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124F1A8894E20036245A /* public_vip_tag.png */; };
+		18BE12521A88BDAC0036245A /* chat_contact_nocontacts.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12511A88BDAC0036245A /* chat_contact_nocontacts.png */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -546,6 +547,7 @@
 		18BE124B1A8893670036245A /* chat_message_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_recommend.png; sourceTree = "<group>"; };
 		18BE124C1A8893670036245A /* chat_message_system.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_system.png; sourceTree = "<group>"; };
 		18BE124F1A8894E20036245A /* public_vip_tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_vip_tag.png; sourceTree = "<group>"; };
+		18BE12511A88BDAC0036245A /* chat_contact_nocontacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_contact_nocontacts.png; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -1496,6 +1498,7 @@
 		18B563501A8366A4009779A0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18BE12511A88BDAC0036245A /* chat_contact_nocontacts.png */,
 				18BE124B1A8893670036245A /* chat_message_recommend.png */,
 				18BE124C1A8893670036245A /* chat_message_system.png */,
 			);
@@ -2644,6 +2647,7 @@
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18B5641C1A8366A4009779A0 /* houses_detail_school_normal.png in Resources */,
+				18BE12521A88BDAC0036245A /* chat_contact_nocontacts.png in Resources */,
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
 				18B564441A8366A4009779A0 /* navigationbar_collect_highlighted.png in Resources */,
 				18B563FA1A8366A4009779A0 /* guide_header_backgroud.png in Resources */,
