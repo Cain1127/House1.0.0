@@ -62,10 +62,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 {
 
     if (self = [super initWithFrame:frame]) {
-        
-        ///背景颜色
-        self.backgroundColor = [UIColor clearColor];
-        
+                
         ///保存类型
         self.pickerType = pickerType;
         
@@ -126,14 +123,16 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     NSDictionary *___sizeVFL_info = @{@"mixWidth" : [NSString stringWithFormat:@"%.2f",mixWidth]};
     
     ///约束
-    NSString *___HVFL_tipsLabel = @"H:|-(>=5)-[tipsLabel(>=mixWidth,<=125)]-(>=5)-|";
-    NSString *___vVFL_tipsLabel = @"V:|-[tipsLabel]-|";
+    NSString *___HVFL_tipsLabel = @"H:|-(>=1)-[tipsLabel(>=mixWidth,<=125)]-(>=1)-|";
+    NSString *___vVFL_tipsLabel = @"V:|-(>=1)-[tipsLabel(>=15)]-(>=1)-|";
     
     ///将信息放在中间
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___HVFL_tipsLabel options:NSLayoutFormatAlignAllCenterX metrics:___sizeVFL_info views:NSDictionaryOfVariableBindings(tipsLabel)]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_tipsLabel options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(tipsLabel)]];
     //水平居中
     [self addConstraint:[NSLayoutConstraint constraintWithItem:tipsLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    ///垂直居中
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:tipsLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
     ///图片
     if (cCustomPickerStyleRightLocal == self.pickerStyle) {
