@@ -201,6 +201,15 @@
 		18BE12321A8869760036245A /* calendar_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122F1A8869760036245A /* calendar_sixform.png */; };
 		18BE12361A8869850036245A /* comparison_appointment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12341A8869850036245A /* comparison_appointment.png */; };
 		18BE12371A8869850036245A /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12351A8869850036245A /* comparison_sixform.png */; };
+		18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */; };
+		18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */; };
+		18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12431A88934F0036245A /* icon_default_80x80.png */; };
+		18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12441A88934F0036245A /* icon_default_100x100.png */; };
+		18BE12481A88934F0036245A /* icon_default_158x158.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12451A88934F0036245A /* icon_default_158x158.png */; };
+		18BE124A1A88935C0036245A /* public_sixform_hollow_80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12491A88935C0036245A /* public_sixform_hollow_80x80.png */; };
+		18BE124D1A8893670036245A /* chat_message_recommend.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124B1A8893670036245A /* chat_message_recommend.png */; };
+		18BE124E1A8893670036245A /* chat_message_system.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124C1A8893670036245A /* chat_message_system.png */; };
+		18BE12501A8894E20036245A /* public_vip_tag.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE124F1A8894E20036245A /* public_vip_tag.png */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -526,6 +535,17 @@
 		18BE122F1A8869760036245A /* calendar_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_sixform.png; sourceTree = "<group>"; };
 		18BE12341A8869850036245A /* comparison_appointment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_appointment.png; sourceTree = "<group>"; };
 		18BE12351A8869850036245A /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
+		18BE123B1A8877FF0036245A /* QSChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessageTableViewCell.h; path = Cell/Message/QSChatMessageTableViewCell.h; sourceTree = "<group>"; };
+		18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatMessageTableViewCell.m; path = Cell/Message/QSChatMessageTableViewCell.m; sourceTree = "<group>"; };
+		18BE123E1A8878420036245A /* QSChatMessageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessageListTableViewCell.h; path = Message/QSChatMessageListTableViewCell.h; sourceTree = "<group>"; };
+		18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatMessageListTableViewCell.m; path = Message/QSChatMessageListTableViewCell.m; sourceTree = "<group>"; };
+		18BE12431A88934F0036245A /* icon_default_80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_default_80x80.png; sourceTree = "<group>"; };
+		18BE12441A88934F0036245A /* icon_default_100x100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_default_100x100.png; sourceTree = "<group>"; };
+		18BE12451A88934F0036245A /* icon_default_158x158.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_default_158x158.png; sourceTree = "<group>"; };
+		18BE12491A88935C0036245A /* public_sixform_hollow_80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_sixform_hollow_80x80.png; sourceTree = "<group>"; };
+		18BE124B1A8893670036245A /* chat_message_recommend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_recommend.png; sourceTree = "<group>"; };
+		18BE124C1A8893670036245A /* chat_message_system.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_message_system.png; sourceTree = "<group>"; };
+		18BE124F1A8894E20036245A /* public_vip_tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_vip_tag.png; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -1232,6 +1252,7 @@
 		189300AB1A690C880081D0AA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18BE12381A8877C40036245A /* Cell */,
 				18BE12251A8862710036245A /* Contact */,
 				18BE12241A8862690036245A /* Message */,
 				18C8A0E31A6A826D00BB9611 /* QSChatViewController.h */,
@@ -1475,6 +1496,8 @@
 		18B563501A8366A4009779A0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18BE124B1A8893670036245A /* chat_message_recommend.png */,
+				18BE124C1A8893670036245A /* chat_message_system.png */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1614,6 +1637,9 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				18BE12431A88934F0036245A /* icon_default_80x80.png */,
+				18BE12441A88934F0036245A /* icon_default_100x100.png */,
+				18BE12451A88934F0036245A /* icon_default_158x158.png */,
 			);
 			path = MyZone;
 			sourceTree = "<group>";
@@ -1651,6 +1677,8 @@
 		18B563C61A8366A4009779A0 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				18BE124F1A8894E20036245A /* public_vip_tag.png */,
+				18BE12491A88935C0036245A /* public_sixform_hollow_80x80.png */,
 				18B563C71A8366A4009779A0 /* public_appointment_commited.png */,
 				18B563C81A8366A4009779A0 /* public_appointment_success.png */,
 				18B563C91A8366A4009779A0 /* public_choice_arrow.png */,
@@ -1749,6 +1777,33 @@
 				18BE12351A8869850036245A /* comparison_sixform.png */,
 			);
 			path = Comparison;
+			sourceTree = "<group>";
+		};
+		18BE12381A8877C40036245A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18BE123A1A8877D50036245A /* Contact */,
+				18BE12391A8877CA0036245A /* Message */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		18BE12391A8877CA0036245A /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				18BE123B1A8877FF0036245A /* QSChatMessageTableViewCell.h */,
+				18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */,
+				18BE123E1A8878420036245A /* QSChatMessageListTableViewCell.h */,
+				18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		18BE123A1A8877D50036245A /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Contact;
 			sourceTree = "<group>";
 		};
 		18C8A0BA1A6A36E300BB9611 /* ImageView */ = {
@@ -2513,14 +2568,17 @@
 				18B5643B1A8366A4009779A0 /* icon80.png in Resources */,
 				18B564491A8366A4009779A0 /* navigationbar_corss_highlighted.png in Resources */,
 				18B564591A8366A4009779A0 /* navigationbar_turnback_highlighted.png in Resources */,
+				18BE12501A8894E20036245A /* public_vip_tag.png in Resources */,
 				1893009B1A6903540081D0AA /* Readme.rtf in Resources */,
 				18B564391A8366A4009779A0 /* icon57.png in Resources */,
 				18B564631A8366A4009779A0 /* public_multiple_selected_highlighted.png in Resources */,
 				18C8A1351A6CA0F400BB9611 /* Images.xcassets in Resources */,
 				18B564081A8366A4009779A0 /* home_salehouse_normal.png in Resources */,
 				18B564181A8366A4009779A0 /* houses_detail_metro_normal.png in Resources */,
+				18BE124E1A8893670036245A /* chat_message_system.png in Resources */,
 				18B5644B1A8366A4009779A0 /* navigationbar_deploy_arrow_highlighted.png in Resources */,
 				18B5645D1A8366A4009779A0 /* public_choice_arrow.png in Resources */,
+				18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */,
 				18B563F21A8366A4009779A0 /* developer_actives.png in Resources */,
 				18B563FB1A8366A4009779A0 /* guide_houses_haved.png in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
@@ -2559,6 +2617,7 @@
 				18B564221A8366A4009779A0 /* houses_detail_user_icon_sixform.png in Resources */,
 				18B5640F1A8366A4009779A0 /* houses_detail_bus_highlighted.png in Resources */,
 				18B5640D1A8366A4009779A0 /* houses_detail_activity_left.png in Resources */,
+				18BE124D1A8893670036245A /* chat_message_recommend.png in Resources */,
 				18B564731A8366A4009779A0 /* tabbar_home_selected.png in Resources */,
 				18B5644E1A8366A4009779A0 /* navigationbar_maplist_normal.png in Resources */,
 				18B564551A8366A4009779A0 /* navigationbar_share_highlighted.png in Resources */,
@@ -2601,6 +2660,7 @@
 				18B5646D1A8366A4009779A0 /* share_wechat_normal.png in Resources */,
 				18B564121A8366A4009779A0 /* houses_detail_calculate_normal.png in Resources */,
 				18B5641A1A8366A4009779A0 /* houses_detail_refresh_normal.png in Resources */,
+				18BE124A1A88935C0036245A /* public_sixform_hollow_80x80.png in Resources */,
 				18B564721A8366A4009779A0 /* tabbar_home_normal.png in Resources */,
 				18B5645A1A8366A4009779A0 /* navigationbar_turnback_normal.png in Resources */,
 				18BE12361A8869850036245A /* comparison_appointment.png in Resources */,
@@ -2623,6 +2683,7 @@
 				18B564651A8366A4009779A0 /* public_row_arrow.png in Resources */,
 				18B564251A8366A4009779A0 /* houses_appliance.png in Resources */,
 				18B5645C1A8366A4009779A0 /* public_appointment_success.png in Resources */,
+				18BE12481A88934F0036245A /* icon_default_158x158.png in Resources */,
 				18B564281A8366A4009779A0 /* houses_features_hezu.png in Resources */,
 				18FABD001A775E55007AC345 /* PushConfig.plist in Resources */,
 				18B564101A8366A4009779A0 /* houses_detail_bus_normal.png in Resources */,
@@ -2661,6 +2722,7 @@
 				18B5646F1A8366A4009779A0 /* share_weibo_normal.png in Resources */,
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
+				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2713,10 +2775,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
+				18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
+				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
 				18B563191A81AA40009779A0 /* QSCustomHUDView.m in Sources */,

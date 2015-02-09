@@ -37,6 +37,9 @@
 #define IMAGE_PUBLIC_LOCAL_LIGHYELLOW @"public_local_lightyellow"
 #define IMAGE_PUBLIC_LOCAL_HIGHLIGHTED @"public_local_highlighted"
 
+///vip标识图片
+#define IMAGE_PUBLIC_VIP @"public_vip_tag"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
@@ -196,5 +199,39 @@
 
 ///合租标签
 #define IMAGE_HOUSES_LIST_JOINTRENT @"houses_features_hezu"
+
+#pragma mark - 发现模块相关图片资源
+
+/**
+ *  @author yangshengmeng, 15-02-09 14:02:53
+ *
+ *  @brief  发现模块相关图片资源
+ *
+ *  @since  1.0.0
+ */
+
+///消息列表，头像六角底图
+#define IMAGE_CHAT_SIXFORM_HOLLOW @"public_sixform_hollow_80x80"
+
+///房当家团队消息图标
+#define IMAGE_CHAT_SYSTEMINFO @"chat_message_system"
+
+///推荐房源消息图标
+#define IMAGE_CHAT_RECOMMEND @"chat_message_recommend"
+
+#pragma mark - 个人中心相关图片
+
+/**
+ *  @author yangshengmeng, 15-02-09 15:02:20
+ *
+ *  @brief  个人中心相关图片
+ *
+ *  @since  1.0.0
+ */
+
+///默认的头像图片
+#define IMAGE_USERICON_DEFAULT_80 @"icon_default_80x80"
+#define IMAGE_USERICON_DEFAULT_100 @"icon_default_100x100"
+#define IMAGE_USERICON_DEFAULT_158 @"icon_default_158x158"
 
 #endif
