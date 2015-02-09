@@ -101,10 +101,22 @@
         
     }
     
-    NSError *error;
-    NSArray *resultList = nil;
+    __block NSError *error;
+    __block NSArray *resultList = nil;
     
-    resultList = [mainContext executeFetchRequest:request error:&error];
+    if ([NSThread isMainThread]) {
+        
+        resultList = [mainContext executeFetchRequest:request error:&error];
+        
+    } else {
+    
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            resultList = [mainContext executeFetchRequest:request error:&error];
+            
+        });
+    
+    }
     
     ///判断是否查询失败
     if (error) {
@@ -222,7 +234,7 @@
 + (BOOL)updateFieldWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andUpdateFieldName:(NSString *)fieldName andNewValue:(NSString *)newValue
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -281,6 +293,21 @@
         
     }
     
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
     return YES;
 
 }
@@ -328,7 +355,7 @@
 + (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -377,6 +404,21 @@
         
     }
     
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+    
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+    
+    }
+    
     return YES;
 
 }
@@ -396,7 +438,7 @@
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -441,6 +483,21 @@
         
     }
     
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
     return isChangeSuccess;
 
 }
@@ -462,7 +519,7 @@
 {
 
     ///获取主线程上下文
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -509,6 +566,21 @@
     if (!isChangeSuccess) {
         
         NSLog(@"CoreData.DeleteData.Error:%@",error);
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     

@@ -22,8 +22,10 @@
 
 #import "QSFilterDataModel.h"
 #import "QSSecondHandHouseListReturnData.h"
+#import "QSBaseConfigurationDataModel.h"
 
 #import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+House.h"
 
 #import <objc/runtime.h>
 
@@ -91,7 +93,8 @@ static char CollectionViewKey;//!<collectionView的关联
     [super createNavigationBarUI];
     
     ///中间选择城市按钮
-    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *houseTypeKey, NSString *houseTypeVal) {
+    QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:self.filterModel.filter_id];
+    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *houseTypeKey, NSString *houseTypeVal) {
         
         NSLog(@"====================列表类型选择====================");
         NSLog(@"当前选择城市：%@,%@",houseTypeKey,houseTypeVal);
@@ -178,7 +181,10 @@ static char CollectionViewKey;//!<collectionView的关联
     __block QSCustomPickerView *pricePickerView;
     
     ///区域
-    distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
+    QSBaseConfigurationDataModel *districtCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    districtCurrentModel.key = self.filterModel.street_key;
+    districtCurrentModel.val = self.filterModel.street_val;
+    distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:districtCurrentModel andIndicaterCenterXPoint:gap + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
         ///判断是否是弹出回调
         if (pPickerCallBackActionTypeShow == callBackType) {
@@ -193,7 +199,10 @@ static char CollectionViewKey;//!<collectionView的关联
     [view addSubview:distictPickerView];
     
     ///户型
-    houseTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 2.0f + width, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarHouseType andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap * 2.0f + width + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
+    QSBaseConfigurationDataModel *houseTypeCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    houseTypeCurrentModel.key = self.filterModel.house_type_key;
+    houseTypeCurrentModel.val = self.filterModel.house_type_val;
+    houseTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 2.0f + width, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarHouseType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:houseTypeCurrentModel andIndicaterCenterXPoint:gap * 2.0f + width + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
         ///判断是否是弹出回调
         if (pPickerCallBackActionTypeShow == callBackType) {
@@ -208,7 +217,10 @@ static char CollectionViewKey;//!<collectionView的关联
     [view addSubview:houseTypePickerView];
     
     ///总价
-    pricePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 3.0f + width * 2.0f, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarTotalPrice andPickerViewStyle:cCustomPickerStyleLeftArrow andIndicaterCenterXPoint:gap * 3.0f + width * 2.0f + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
+    QSBaseConfigurationDataModel *totalPriceCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    totalPriceCurrentModel.key = self.filterModel.sale_price_key;
+    totalPriceCurrentModel.val = self.filterModel.sale_price_val;
+    pricePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap * 3.0f + width * 2.0f, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarTotalPrice andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:totalPriceCurrentModel andIndicaterCenterXPoint:gap * 3.0f + width * 2.0f + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
         
         ///判断是否是弹出回调
         if (pPickerCallBackActionTypeShow == callBackType) {

@@ -51,13 +51,14 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
  *  @param frame        大小和位置
  *  @param pickerType   选择器的类型
  *  @param pickerStyle  选择器的风格
+ *  @param currentModel 当前选择的模型
  *  @param callBack     选择内容后的回调
  *
  *  @return             返回当前创建的选择view
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle  andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack
+- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle andCurrentSelectedModel:(QSBaseConfigurationDataModel *)currentModel andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -73,6 +74,13 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         
         ///保存指示器的中心x坐标
         self.indicatorCenterXPoint = xpoint;
+        
+        ///保存当前选择的模型
+        if (currentModel) {
+            
+            self.currentPickedModel = currentModel;
+            
+        }
         
         ///初始化状态
         self.isPicking = NO;
@@ -164,6 +172,13 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_local options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(arrowImageView,tipsLabel)]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_local options:0 metrics:___sizeVFL_arrow views:NSDictionaryOfVariableBindings(arrowImageView)]];
+        
+    }
+    
+    ///判断是否需要重设选择状态
+    if ((self.currentPickedModel) && (cCustomPickerTypeChannelBarDistrict <= self.pickerType)) {
+        
+        self.isSelected = YES;
         
     }
     
@@ -298,6 +313,13 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 ///返回选择器当前默认显示信息
 - (NSString *)getDefaultTypeInfo
 {
+    
+    ///如果当前已有选择的模型，则显示模型信息
+    if (self.currentPickedModel) {
+        
+        return self.currentPickedModel.val;
+        
+    }
     
     switch (self.pickerType) {
             ///城市选择：返回当前用户的位置

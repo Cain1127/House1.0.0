@@ -44,7 +44,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [super createNavigationBarUI];
     
     ///中间选择城市按钮
-    QSCustomPickerView *cityPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarCity andPickerViewStyle:cCustomPickerStyleRightLocal andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *cityKey, NSString *cityVal) {
+    QSCustomPickerView *cityPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarCity andPickerViewStyle:cCustomPickerStyleRightLocal andCurrentSelectedModel:nil andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *cityKey, NSString *cityVal) {
         
         ///判断选择
         if (pPickerCallBackActionTypePicked == callBackType) {

@@ -111,7 +111,7 @@
         
     }
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有context
@@ -144,6 +144,21 @@
         }
         
     } else {
+        
+        ///保存数据到本地
+        if ([NSThread isMainThread]) {
+            
+            [appDelegate saveContextWithWait:YES];
+            
+        } else {
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                [appDelegate saveContextWithWait:NO];
+                
+            });
+            
+        }
     
         if (callBack) {
             
@@ -355,7 +370,7 @@
 + (void)updateFilterWithType:(FILTER_MAIN_TYPE)filterType andFilterDataModel:(QSFilterDataModel *)filterModel andUpdateCallBack:(void(^)(BOOL isSuccess))callBack
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有context
@@ -444,6 +459,21 @@
     
         isUpdateSuccess = YES;
     
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
     }
     
     if (callBack) {

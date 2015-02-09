@@ -41,6 +41,10 @@ typedef enum
     
 }CUSTOM_PICKER_STYLE;                //!<选择器风格
 
+/**
+ *  @brief  选择视图
+ */
+@class QSBaseConfigurationDataModel;
 @interface QSCustomPickerView : UIView
 
 /**
@@ -51,13 +55,14 @@ typedef enum
  *  @param frame        大小和位置
  *  @param pickerType   选择器的类型
  *  @param pickerStyle  选择器的风格
+ *  @param currentModel 当前选择的模型
  *  @param callBack     选择内容后的回调
  *
  *  @return             返回当前创建的选择view
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle andCurrentSelectedModel:(QSBaseConfigurationDataModel *)currentModel andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack;
 
 /**
  *  @author yangshengmeng, 15-01-30 13:01:48

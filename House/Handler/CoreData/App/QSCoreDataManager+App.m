@@ -919,7 +919,7 @@
     }
     
     ///获取上下文
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -953,6 +953,21 @@
         
     }
     
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
     return YES;
 
 }
@@ -981,7 +996,7 @@
     }
     
     ///获取上下文
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
     ///创建私有上下文
@@ -1015,6 +1030,21 @@
         NSLog(@"配置类型：%@,错误：%@",key,error);
         NSLog(@"====================配置信息插入失败====================");
         return NO;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     
