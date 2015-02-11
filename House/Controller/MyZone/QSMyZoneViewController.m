@@ -8,6 +8,7 @@
 
 #import "QSMyZoneViewController.h"
 #import "QSMyZoneTenantView.h"
+#import "QSMyZoneOwnerView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -78,9 +79,6 @@ static char UserIconKey;//!<用户头像
 - (void)createMainShowUI
 {
     
-    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
-//    CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f - 49.0f;
-    
     ///头像背景
     QSImageView *iconRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 106.0f)];
     iconRootView.backgroundColor = COLOR_NAVIGATIONBAR_LIGHTGRAY;
@@ -92,12 +90,8 @@ static char UserIconKey;//!<用户头像
     arrowImageView.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowImageView];
     
-    ///根据用户类型，添加按钮
-    if (uUserCountTypeTenant == self.userType) {
-        
-        
-        
-    }
+    ///功能UI
+    [self createMyZoneFunctionUI];
     
 }
 
@@ -117,36 +111,86 @@ static char UserIconKey;//!<用户头像
     QSImageView *iconSixformImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconImageView.frame.size.width, iconImageView.frame.size.height)];
     iconImageView.image = [UIImage imageNamed:IMAGE_USERICON_HOLLOW_158];
     [iconImageView addSubview:iconSixformImageView];
-    
-    if (uUserCountTypeTenant == self.userType) {
-        
-        [self createRenantMyZoneUI];
-        
-    }
-    
-    if (uUserCountTypeOwner == self.userType) {
-        
-        [self createHouseOwnerUI];
-        
-    }
 
 }
 
-#pragma mark - 创建租客个人中心UI
+#pragma mark - 创建个人中心功能UI
 ///创建租客个人中心UI
-- (void)createRenantMyZoneUI
+- (void)createMyZoneFunctionUI
 {
     
     ///按钮风格
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     buttonStyle.title = @"房客";
+    buttonStyle.titleSelectedColor = COLOR_CHARACTERS_BLACK;
+    
+    ///指示labe指针
+    __block UILabel *indicatLabel;
+    
+    ///房客页面指针
+    __block QSMyZoneTenantView *myZoneView;
+    
+    ///业主页面指针
+    __block QSMyZoneOwnerView *ownerView;
+    
+    ///房客按钮指针
+    __block UIButton *renantButton;
+    
+    ///业主按钮指针
+    __block UIButton *ownerButton;
 
-    UIButton *renantButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 170.0f, SIZE_DEVICE_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    ///房客按钮
+    renantButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 170.0f, SIZE_DEVICE_WIDTH / 2.0f, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///如果当前处于选择状态，则不执行
+        if (button.selected) {
+            
+            return;
+            
+        }
         
+        ///设置按钮处于选择状态
+        button.selected = YES;
+        ownerButton.selected = NO;
+        
+        ///动画显示房客页面
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            myZoneView.frame = CGRectMake(0.0f, myZoneView.frame.origin.y, myZoneView.frame.size.width, myZoneView.frame.size.height);
+            indicatLabel.frame = CGRectMake(0.0f, indicatLabel.frame.origin.y, indicatLabel.frame.size.width, indicatLabel.frame.size.height);
+            
+        }];
         
     }];
+    renantButton.selected = YES;
     [self.view addSubview:renantButton];
+    
+    ///业主按钮
+    buttonStyle.title = @"业主";
+    ownerButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f, 170.0f, SIZE_DEVICE_WIDTH / 2.0f, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///如果当前处于选择状态，则不执行
+        if (button.selected) {
+            
+            return;
+            
+        }
+        
+        ///设置按钮处于选择状态
+        button.selected = YES;
+        renantButton.selected = NO;
+        
+        ///动画显示房客页面
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            myZoneView.frame = CGRectMake(-myZoneView.frame.size.width, myZoneView.frame.origin.y, myZoneView.frame.size.width, myZoneView.frame.size.height);
+            indicatLabel.frame = CGRectMake(indicatLabel.frame.size.width, indicatLabel.frame.origin.y, indicatLabel.frame.size.width, indicatLabel.frame.size.height);
+            
+        }];
+        
+    }];
+    [self.view addSubview:ownerButton];
     
     ///个人主要功能项的开始坐标
     CGFloat ypoint = renantButton.frame.origin.y + renantButton.frame.size.height;
@@ -156,22 +200,27 @@ static char UserIconKey;//!<用户头像
     sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:sepLabel];
     
+    ///黄色提示
+    indicatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, ypoint - 5.0f, SIZE_DEVICE_WIDTH / 2.0f, 5.0f)];
+    indicatLabel.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    [self.view addSubview:indicatLabel];
+    
     ///加载房客主页
-    QSMyZoneTenantView *myZoneView = [[QSMyZoneTenantView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 49.0f) andCallBack:^(TENANT_ZONE_ACTION_TYPE actionType, id params) {
+    CGFloat tenantViewHeight = SIZE_DEVICE_HEIGHT - ypoint - 49.0f;
+    myZoneView = [[QSMyZoneTenantView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andCallBack:^(TENANT_ZONE_ACTION_TYPE actionType, id params) {
         
         
         
     }];
     [self.view addSubview:myZoneView];
-
-}
-
-#pragma mark - 创建业主个人中心UI
-///创建业主个人中心UI
-- (void)createHouseOwnerUI
-{
-
     
+    ///业主页面
+    ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
+        
+        
+        
+    }];
+    [self.view addSubview:ownerView];
 
 }
 

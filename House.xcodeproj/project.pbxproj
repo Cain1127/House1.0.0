@@ -227,6 +227,8 @@
 		18BE12741A8A133D0036245A /* myzone_renant_order_appointed_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12661A8A133D0036245A /* myzone_renant_order_appointed_normal.png */; };
 		18BE12751A8A133D0036245A /* myzone_renant_order_deal_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12671A8A133D0036245A /* myzone_renant_order_deal_highlighted.png */; };
 		18BE12761A8A133D0036245A /* myzone_renant_order_deal_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12681A8A133D0036245A /* myzone_renant_order_deal_normal.png */; };
+		18BE12791A8AE4160036245A /* MyZoneInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12781A8AE4160036245A /* MyZoneInfo.plist */; };
+		18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE127C1A8B579A0036245A /* QSMyZoneOwnerView.m */; };
 		18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */; };
 		18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */; };
 		18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A0BC1A6A373A00BB9611 /* QSImageView.m */; };
@@ -581,6 +583,9 @@
 		18BE12661A8A133D0036245A /* myzone_renant_order_appointed_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_renant_order_appointed_normal.png; sourceTree = "<group>"; };
 		18BE12671A8A133D0036245A /* myzone_renant_order_deal_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_renant_order_deal_highlighted.png; sourceTree = "<group>"; };
 		18BE12681A8A133D0036245A /* myzone_renant_order_deal_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_renant_order_deal_normal.png; sourceTree = "<group>"; };
+		18BE12781A8AE4160036245A /* MyZoneInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MyZoneInfo.plist; path = MyZone/MyZoneInfo.plist; sourceTree = "<group>"; };
+		18BE127B1A8B579A0036245A /* QSMyZoneOwnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMyZoneOwnerView.h; path = Owner/QSMyZoneOwnerView.h; sourceTree = "<group>"; };
+		18BE127C1A8B579A0036245A /* QSMyZoneOwnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMyZoneOwnerView.m; path = Owner/QSMyZoneOwnerView.m; sourceTree = "<group>"; };
 		18C8A0B41A6A310400BB9611 /* QSTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTabBarViewController.h; sourceTree = "<group>"; };
 		18C8A0B51A6A310400BB9611 /* QSTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTabBarViewController.m; sourceTree = "<group>"; };
 		18C8A0B71A6A32A400BB9611 /* AppTabbarInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppTabbarInfo.plist; sourceTree = "<group>"; };
@@ -1254,6 +1259,7 @@
 		189300951A6902E30081D0AA /* Plist */ = {
 			isa = PBXGroup;
 			children = (
+				18BE12771A8AE3DF0036245A /* MyZone */,
 				18F99ACE1A731DD600098FD6 /* Filter */,
 				18CAFC9C1A70913500C90C90 /* Request */,
 				189300961A6902E30081D0AA /* Home */,
@@ -1319,6 +1325,7 @@
 		189300AE1A690C880081D0AA /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				18BE127A1A8B56DA0036245A /* Owner */,
 				18BE12571A89FC160036245A /* Tenant */,
 				18C8A0DA1A6A823300BB9611 /* QSMyZoneViewController.h */,
 				18C8A0DB1A6A823300BB9611 /* QSMyZoneViewController.m */,
@@ -1865,6 +1872,23 @@
 				18BE12591A89FC620036245A /* QSMyZoneTenantView.m */,
 			);
 			name = Tenant;
+			sourceTree = "<group>";
+		};
+		18BE12771A8AE3DF0036245A /* MyZone */ = {
+			isa = PBXGroup;
+			children = (
+				18BE12781A8AE4160036245A /* MyZoneInfo.plist */,
+			);
+			name = MyZone;
+			sourceTree = "<group>";
+		};
+		18BE127A1A8B56DA0036245A /* Owner */ = {
+			isa = PBXGroup;
+			children = (
+				18BE127B1A8B579A0036245A /* QSMyZoneOwnerView.h */,
+				18BE127C1A8B579A0036245A /* QSMyZoneOwnerView.m */,
+			);
+			name = Owner;
 			sourceTree = "<group>";
 		};
 		18C8A0BA1A6A36E300BB9611 /* ImageView */ = {
@@ -2641,6 +2665,7 @@
 				18B5644B1A8366A4009779A0 /* navigationbar_deploy_arrow_highlighted.png in Resources */,
 				18B5645D1A8366A4009779A0 /* public_choice_arrow.png in Resources */,
 				18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */,
+				18BE12791A8AE4160036245A /* MyZoneInfo.plist in Resources */,
 				18B563F21A8366A4009779A0 /* developer_actives.png in Resources */,
 				18B563FB1A8366A4009779A0 /* guide_houses_haved.png in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
@@ -2899,6 +2924,7 @@
 				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
+				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
 				CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */,
 				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,

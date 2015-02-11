@@ -1,0 +1,46 @@
+//
+//  QSMyZoneOwnerView.h
+//  House
+//
+//  Created by ysmeng on 15/2/11.
+//  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+///业主页面功能回调类型
+typedef enum
+{
+
+    oOwnerZoneActionTypeSaleHouse = 99,//!<出售物业
+
+}OWNER_ZONE_ACTION_TYPE;
+
+///业主页面回调block
+typedef void(^BLOCK_OWNER_ZONE_CALLBACK)(OWNER_ZONE_ACTION_TYPE actionType,id params);
+
+/**
+ *  @author yangshengmeng, 15-02-10 17:02:10
+ *
+ *  @brief  业主
+ *
+ *  @since  1.0.0
+ */
+@interface QSMyZoneOwnerView : UIView
+
+/**
+ *  @author         yangshengmeng, 15-02-11 17:02:00
+ *
+ *  @brief          创建一个给定用户类型的业主页面UI
+ *
+ *  @param frame    大小的位置
+ *  @param userType 用户类型
+ *  @param callBack 业主页面功能回调
+ *
+ *  @return         返回当前创建的业主功能UI
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType andCallBack:(BLOCK_OWNER_ZONE_CALLBACK)callBack;
+
+@end

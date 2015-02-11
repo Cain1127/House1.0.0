@@ -418,7 +418,7 @@
     
 }
 
-//返回CoreData操作的NSPersistentStoreCoordinator
+///返回CoreData操作的NSPersistentStoreCoordinator
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     
