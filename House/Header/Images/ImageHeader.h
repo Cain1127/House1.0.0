@@ -237,4 +237,36 @@
 #define IMAGE_USERICON_DEFAULT_100 @"icon_default_100x100"
 #define IMAGE_USERICON_DEFAULT_158 @"icon_default_158x158"
 
+///头像的六角形镂空图片
+#define IMAGE_USERICON_HOLLOW_80 @"public_sixform_hollow_80x80"
+#define IMAGE_USERICON_HOLLOW_158 @"public_sixform_hollow_158x158"
+
+///预约订单图片
+#define IMAGE_ZONE_ORDER_APPOINTED_NORMAL @"myzone_renant_order_appointed_normal"
+#define IMAGE_ZONE_ORDER_APPOINTED_HIGHLIGHTED @"myzone_renant_order_appointed_highlighted"
+
+///成交订单图片
+#define IMAGE_ZONE_ORDER_DEAL_NORMAL @"myzone_renant_order_deal_normal"
+#define IMAGE_ZONE_ORDER_DEAL_HIGHLIGHTED @"myzone_renant_order_deal_highlighted"
+
+///求租求购图片
+#define IMAGE_ZONE_ORDER_BEG_NORMAL @"myzone_renant_beg_normal"
+#define IMAGE_ZONE_ORDER_BEG_HIGHLIGHTED @"myzone_renant_beg_highlighted"
+
+///收藏房源图片
+#define IMAGE_ZONE_COLLECT_NORMAL @"myzone_renant_collect_normal"
+#define IMAGE_ZONE_COLLECT_HIGHLIGHTED @"myzone_renant_collect_highlighted"
+
+///关注小区图片
+#define IMAGE_ZONE_COMMUNITY_NORMAL @"myzone_renant_community_normal"
+#define IMAGE_ZONE_COMMUNITY_HIGHLIGHTED @"myzone_renant_community_highlighted"
+
+///浏览足迹图片
+#define IMAGE_ZONE_HISTORY_NORMAL @"myzone_renant_history_normal"
+#define IMAGE_ZONE_HISTORY_HIGHLIGHTED @"myzone_renant_history_highlighted"
+
+///推荐房客图片
+#define IMAGE_ZONE_RECOMMEND_RENANT_NORMAL @"myzone_owner_recommend_renant_normal"
+#define IMAGE_ZONE_RECOMMEND_RENANT_HIGHLIGHTED @"myzone_owner_recommend_renant_highlighted"
+
 #endif

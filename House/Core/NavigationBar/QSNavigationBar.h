@@ -92,4 +92,15 @@ typedef enum
  */
 - (void)setNavigationBarLeftView:(UIView *)view;
 
+/**
+ *  @author     yangshengmeng, 15-02-10 15:02:45
+ *
+ *  @brief      底部分隔线是否添加
+ *
+ *  @param flag 标识：YES-显示，NO-添加
+ *
+ *  @since      1.0.0
+ */
+- (void)showBottomSeperationLine:(BOOL)flag;
+
 @end

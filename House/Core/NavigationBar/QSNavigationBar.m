@@ -14,6 +14,7 @@
 static char NavigationBarLeftKey;   //!<左侧视图的关联key
 static char NavigationBarRightKey;  //!<右侧视图的关联key
 static char NavigationBarMiddleKey; //!<右侧视图的关联key
+static char BottomSeperationLineKey;//!<分隔线关联key
 
 @implementation QSNavigationBar
 
@@ -77,6 +78,7 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     lineLabel.backgroundColor = COLOR_CHARACTERS_GRAY;
     lineLabel.alpha = 0.5f;
     [self addSubview:lineLabel];
+    objc_setAssociatedObject(self, &BottomSeperationLineKey, lineLabel, OBJC_ASSOCIATION_ASSIGN);
 
 }
 
@@ -285,6 +287,29 @@ static char NavigationBarMiddleKey; //!<右侧视图的关联key
     subviewFrame = CGRectMake((superFrame.size.width - subviewFrame.size.width) / 2.0f, (superFrame.size.height - subviewFrame.size.height) / 2.0f, subviewFrame.size.width, subviewFrame.size.height);
     
     return subviewFrame;
+
+}
+
+/**
+ *  @author     yangshengmeng, 15-02-10 15:02:45
+ *
+ *  @brief      底部分隔线是否添加
+ *
+ *  @param flag 标识：YES-显示，NO-添加
+ *
+ *  @since      1.0.0
+ */
+- (void)showBottomSeperationLine:(BOOL)flag
+{
+
+    if (flag) {
+        
+        return;
+        
+    }
+    
+    UILabel *sepLabel = objc_getAssociatedObject(self, &BottomSeperationLineKey);
+    [sepLabel removeFromSuperview];
 
 }
 

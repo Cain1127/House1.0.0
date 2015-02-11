@@ -21,6 +21,7 @@
  *  @since              1.0.0
  */
 - (void)setNavigationBarBackgroudImageWithImageName:(NSString *)imageName;
+- (void)setNavigationBarBackgroudColor:(UIColor *)color;
 
 /**
  *  @author         yangshengmeng, 15-01-17 14:01:57
@@ -76,6 +77,17 @@
  *  @since      1.0.0
  */
 - (void)setNavigationBarLeftView:(UIView *)view;
+
+/**
+ *  @author     yangshengmeng, 15-02-10 15:02:45
+ *
+ *  @brief      底部分隔线是否添加
+ *
+ *  @param flag 标识：YES-显示，NO-添加
+ *
+ *  @since      1.0.0
+ */
+- (void)showBottomSeperationLine:(BOOL)flag;
 
 /**
  *  @author     yangshengmeng, 15-02-06 10:02:20

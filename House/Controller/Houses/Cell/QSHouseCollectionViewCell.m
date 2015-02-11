@@ -139,7 +139,7 @@ static char CommunityKey;   //!<所在小区
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=40)]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束
@@ -218,6 +218,9 @@ static char CommunityKey;   //!<所在小区
     
     ///更新背景图片
     [self updateHouseImage:tempModel.attach_thumb];
+    
+    ///更新左上角标签
+    [self updateHouseTagImage:tempModel.house_nature];
 
 }
 
@@ -313,7 +316,13 @@ static char CommunityKey;   //!<所在小区
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseTagKey);
     if (imageView && tag) {
         
-        
+        ///判断是否满足两个条件
+        BOOL isFree = [tag containsString:@","];
+        if (isFree) {
+            
+            imageView.hidden = NO;
+            
+        }
         
     }
 

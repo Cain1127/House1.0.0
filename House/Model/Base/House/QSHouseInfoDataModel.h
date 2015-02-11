@@ -36,7 +36,7 @@
 @property (nonatomic,copy) NSString *building_year;         //!<建筑所在年
 
 @property (nonatomic,copy) NSString *house_price;           //!<售价(返回的是val)
-@property (nonatomic,copy) NSString *house_nature;          //!<房子性质：满五/免税
+@property (nonatomic,copy) NSString *house_nature;          //!<房子性质：满五/唯一
 @property (nonatomic,copy) NSString *house_face;            //!<房子朝向
 @property (nonatomic,copy) NSString *decoration_type;       //!<装修类型
 @property (nonatomic,copy) NSString *building_structure;    //!<建筑结构:塔楼/平房等

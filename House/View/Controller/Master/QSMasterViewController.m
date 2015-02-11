@@ -54,6 +54,19 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 
 }
 
+///设置导航栏背景颜色
+- (void)setNavigationBarBackgroudColor:(UIColor *)color
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
+        navigationBar.backgroundColor = color;
+        
+    });
+
+}
+
 /**
  *  @author         yangshengmeng, 15-01-17 14:01:57
  *
@@ -154,6 +167,27 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
         
         QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
         [navigationBar setNavigationBarLeftView:view];
+        
+    });
+
+}
+
+/**
+ *  @author     yangshengmeng, 15-02-10 15:02:45
+ *
+ *  @brief      底部分隔线是否添加
+ *
+ *  @param flag 标识：YES-显示，NO-添加
+ *
+ *  @since      1.0.0
+ */
+- (void)showBottomSeperationLine:(BOOL)flag
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
+        [navigationBar showBottomSeperationLine:flag];
         
     });
 
