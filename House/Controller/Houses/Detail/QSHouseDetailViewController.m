@@ -7,8 +7,14 @@
 //
 
 #import "QSHouseDetailViewController.h"
+#import "MJRefresh.h"
 
-@interface QSHouseDetailViewController ()
+#import <objc/runtime.h>
+
+///关联
+static char RootTableViewKey;//!<底view的关联key
+
+@interface QSHouseDetailViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -56,6 +62,140 @@
     [super createNavigationBarUI];
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+
+}
+
+///主展示信息
+- (void)createMainShowUI
+{
+
+    ///所有信息放在一个TabelView上
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) style:UITableViewStyleGrouped];
+    
+    ///取消滚动条
+    tableView.showsHorizontalScrollIndicator = NO;
+    tableView.showsVerticalScrollIndicator = NO;
+    
+    ///透明背影
+    tableView.backgroundColor = [UIColor clearColor];
+    
+    ///取消分隔状态
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    ///设置数据源和代理
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    
+    ///添加头部刷新
+    [tableView addHeaderWithTarget:self action:@selector(getDetailInfo)];
+    [tableView headerBeginRefreshing];
+    
+    [self.view addSubview:tableView];
+    objc_setAssociatedObject(self, &RootTableViewKey, tableView, OBJC_ASSOCIATION_ASSIGN);
+
+}
+
+#pragma mark - 结束刷新动画
+///结束刷新动画
+- (void)endRefreshAnimination
+{
+
+    UITableView *tableView = objc_getAssociatedObject(self, &RootTableViewKey);
+    [tableView headerEndRefreshing];
+
+}
+
+#pragma mark - 请求详情信息
+/**
+ *  @author yangshengmeng, 15-02-12 14:02:44
+ *
+ *  @brief  请求详情信息
+ *
+ *  @since  1.0.0
+ */
+- (void)getDetailInfo
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self endRefreshAnimination];
+        
+    });
+
+}
+
+#pragma mark - 返回有多少个区
+///返回有多少个区
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+
+    return 1;
+
+}
+
+#pragma mark - 返回有多少行
+///返回有多少行
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    return 3;
+
+}
+
+#pragma mark - 返回行高
+///返回行高
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 44.0f;
+
+}
+
+#pragma mark - 返回每一行的cell
+///返回每一行的cell
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    static NSString *normalCell = @"normalCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:normalCell];
+    
+    if (nil == cell) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+        
+    }
+    
+    cell.backgroundColor = [UIColor redColor];
+    
+    return cell;
+
+}
+
+#pragma mark - 是否显示活动
+///活动栏的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+
+    return 44.0f;
+
+}
+
+///活动信息view
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+
+    static NSString *headerViewName = @"headerView";
+    UIView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerViewName];
+    
+    if (nil == headerView) {
+        
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 44.0f)];
+        
+    }
+    
+    headerView.backgroundColor = [UIColor orangeColor];
+    
+    return headerView;
 
 }
 

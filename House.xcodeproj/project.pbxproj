@@ -32,6 +32,9 @@
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
 		18A88E451A8C5E2700596E11 /* QSHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88E441A8C5E2700596E11 /* QSHouseDetailViewController.m */; };
+		18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EB51A8CA8AA00596E11 /* QSHouseDetailReturnData.m */; };
+		18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EB91A8CA94100596E11 /* QSUserDataModel.m */; };
+		18A88EBD1A8CA96B00596E11 /* QSUserSimpleDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EBC1A8CA96B00596E11 /* QSUserSimpleDataModel.m */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -363,6 +366,12 @@
 		1893009A1A6903540081D0AA /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
 		18A88E431A8C5E2700596E11 /* QSHouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseDetailViewController.h; path = Detail/QSHouseDetailViewController.h; sourceTree = "<group>"; };
 		18A88E441A8C5E2700596E11 /* QSHouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseDetailViewController.m; path = Detail/QSHouseDetailViewController.m; sourceTree = "<group>"; };
+		18A88EB41A8CA8AA00596E11 /* QSHouseDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseDetailReturnData.h; sourceTree = "<group>"; };
+		18A88EB51A8CA8AA00596E11 /* QSHouseDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseDetailReturnData.m; sourceTree = "<group>"; };
+		18A88EB81A8CA94100596E11 /* QSUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSUserDataModel.h; path = User/QSUserDataModel.h; sourceTree = "<group>"; };
+		18A88EB91A8CA94100596E11 /* QSUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSUserDataModel.m; path = User/QSUserDataModel.m; sourceTree = "<group>"; };
+		18A88EBB1A8CA96B00596E11 /* QSUserSimpleDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSUserSimpleDataModel.h; path = User/QSUserSimpleDataModel.h; sourceTree = "<group>"; };
+		18A88EBC1A8CA96B00596E11 /* QSUserSimpleDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSUserSimpleDataModel.m; path = User/QSUserSimpleDataModel.m; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -867,6 +876,7 @@
 		182C88191A7B0F0A00DA64E9 /* House */ = {
 			isa = PBXGroup;
 			children = (
+				18A88EB31A8CA8AA00596E11 /* Detail */,
 				182C881A1A7B0F1000DA64E9 /* Second */,
 			);
 			name = House;
@@ -1349,6 +1359,27 @@
 				18A88E441A8C5E2700596E11 /* QSHouseDetailViewController.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		18A88EB31A8CA8AA00596E11 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				18A88EB41A8CA8AA00596E11 /* QSHouseDetailReturnData.h */,
+				18A88EB51A8CA8AA00596E11 /* QSHouseDetailReturnData.m */,
+			);
+			name = Detail;
+			path = House/Detail;
+			sourceTree = "<group>";
+		};
+		18A88EB71A8CA91F00596E11 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				18A88EB81A8CA94100596E11 /* QSUserDataModel.h */,
+				18A88EB91A8CA94100596E11 /* QSUserDataModel.m */,
+				18A88EBB1A8CA96B00596E11 /* QSUserSimpleDataModel.h */,
+				18A88EBC1A8CA96B00596E11 /* QSUserSimpleDataModel.m */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -2182,6 +2213,7 @@
 		18CAFCB41A70E45A00C90C90 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				18A88EB71A8CA91F00596E11 /* User */,
 				18B564781A8380CA009779A0 /* House */,
 				18B5633B1A820380009779A0 /* Filter */,
 				18CAFCB51A70E45A00C90C90 /* Advert */,
@@ -2902,6 +2934,7 @@
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
+				18A88EBD1A8CA96B00596E11 /* QSUserSimpleDataModel.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
 				18B563191A81AA40009779A0 /* QSCustomHUDView.m in Sources */,
 				18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */,
@@ -2944,6 +2977,7 @@
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
+				18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */,
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
 				CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */,
 				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,
@@ -2973,6 +3007,7 @@
 				186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
+				18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				18BE125A1A89FC620036245A /* QSMyZoneTenantView.m in Sources */,

@@ -27,7 +27,7 @@
 @property (nonatomic,copy) NSString *address;               //!<详细地址
 
 @property (nonatomic,copy) NSString *village_id;            //!<小区ID
-@property (nonatomic,copy) NSString *village_title;         //!<小区名称
+@property (nonatomic,copy) NSString *village_name;         //!<小区名称
 
 @property (nonatomic,copy) NSString *content;               //!<描述
 @property (nonatomic,copy) NSString *introduce;             //!<房子所有内容的缩略说明：是服务端将所有信息合并后缩略的说明

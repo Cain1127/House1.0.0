@@ -26,7 +26,7 @@
                                                     @"title_second",
                                                     @"address",
                                                     @"village_id",
-                                                    @"village_title",
+                                                    @"village_name",
                                                     @"content",
                                                     @"introduce",
                                                     @"floor_num",

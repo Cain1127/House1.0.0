@@ -205,7 +205,7 @@ static char FeaturesKey;    //!<特色标签
     QSHouseInfoDataModel *tempModel = dataModel;
     
     ///更新小区
-    [self updateHouseCommunityInfo:tempModel.village_title];
+    [self updateHouseCommunityInfo:tempModel.village_name];
     
     ///更新详细街道信息
     [self updateHouseStreetInfo:tempModel.address];

@@ -466,7 +466,7 @@ static char CollectionViewKey;//!<collectionView的关联
     QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
     
     ///进入详情页面
-    QSHouseDetailViewController *detailVC = [[QSHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+    QSHouseDetailViewController *detailVC = [[QSHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
     detailVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:detailVC animated:YES];
