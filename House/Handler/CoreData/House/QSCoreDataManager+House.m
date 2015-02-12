@@ -415,4 +415,23 @@
 
 }
 
+/**
+ *  @author     yangshengmeng, 15-02-12 13:02:13
+ *
+ *  @brief      查询对应特色标签的值
+ *
+ *  @param key  标签的key
+ *
+ *  @return     返回对应标签的值
+ *
+ *  @since      1.0.0
+ */
++ (NSString *)getHouseFeatureWithKey:(NSString *)key
+{
+    
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+    return tempModel.val;
+
+}
+
 @end

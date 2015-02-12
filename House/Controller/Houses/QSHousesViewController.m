@@ -7,10 +7,13 @@
 //
 
 #import "QSHousesViewController.h"
-#import "QSBlockButtonStyleModel+NavigationBar.h"
+
 #import "QSHouseKeySearchViewController.h"
+#import "QSHouseDetailViewController.h"
 #import "QSWHousesMapDistributionViewController.h"
 #import "QSCustomPickerView.h"
+
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSCollectionWaterFlowLayout.h"
 #import "QSHouseCollectionViewCell.h"
@@ -459,9 +462,14 @@ static char CollectionViewKey;//!<collectionView的关联
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    NSLog(@"===============点击cell=====================");
-    NSLog(@"坐标：section : %d row : %d",(int)indexPath.section,(int)indexPath.row);
-    NSLog(@"===============点击cell=====================");
+    ///获取房子模型
+    QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    
+    ///进入详情页面
+    QSHouseDetailViewController *detailVC = [[QSHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+    detailVC.hiddenCustomTabbarWhenPush = YES;
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:detailVC animated:YES];
 
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "QSMasterViewController.h"
+#import "QSTabBarViewController.h"
 
 #import <objc/runtime.h>
 
@@ -241,6 +242,24 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
         }
     
     }
+
+}
+
+#pragma mark - 显示或者隐藏tabbar
+/**
+ *  @author     yangshengmeng, 15-01-17 23:01:01
+ *
+ *  @brief      隐藏/显示tabbar：flag：YES-隐藏 NO-显示
+ *
+ *  @param flag YES-隐藏，NO-显示
+ *
+ *  @since      1.0.0
+ */
+- (void)hiddenBottomTabbar:(BOOL)flag
+{
+
+    QSTabBarViewController *tabbarVC = (QSTabBarViewController *)self.tabBarController;
+    [tabbarVC hiddenBottomTabbar:flag];
 
 }
 
