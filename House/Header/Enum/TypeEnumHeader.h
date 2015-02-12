@@ -191,13 +191,13 @@ typedef enum
 typedef enum
 {
 
-    fFilterMainTypeBuilding = 200501,   //!<楼盘
-    fFilterMainTypeNewHouse,            //!<新房
-    fFilterMainTypeCommunity,           //!<小区
-    fFilterMainTypeSecondHouse,         //!<二手房
-    fFilterMainTypeRenant               //!<出租房
+    hHouseListMainTypeBuilding = 200501,   //!<楼盘
+    hHouseListMainTypeNewHouse,            //!<新房
+    hHouseListMainTypeCommunity,           //!<小区
+    hHouseListMainTypeSecondHouse,         //!<二手房
+    hHouseListMainTypeRenant               //!<出租房
 
-}FILTER_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
+}HOUSE_LIST_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
 
 /**
  *  @author     yangshengmeng, 15-01-27 10:01:06
@@ -446,6 +446,42 @@ typedef enum
 
 }HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
+///房子的状态类型
+typedef enum
+{
+
+    hHouseStatusTypeDeleted = -1,   //!<已删除
+    hHouseStatusTypeUnRelease = 0,  //!<未发布
+    hHouseStatusTypeReleased = 1,   //!<已发布
+    hHouseStatusTypeRented = 2,     //!<已出租
+    hHouseStatusTypeSaled = 3       //!<已出售
+
+}HOUSE_STASUTS_TYPE;
+
+///初始化时，过滤器类型
+typedef enum
+{
+    
+    fFilterMainTypeBuilding = 200501,   //!<楼盘
+    fFilterMainTypeNewHouse,            //!<新房
+    fFilterMainTypeCommunity,           //!<小区
+    fFilterMainTypeSecondHouse,         //!<二手房
+    fFilterMainTypeRentalHouse          //!<出租房
+    
+}FILTER_MAIN_TYPE;                      //!<过滤器的类型
+
+///过滤器的状态
+typedef enum
+{
+    
+    fFilterStatusTypeNoRecord = -1, //!<未有相关的过滤器
+    fFilterStatusTypeInit = 0,      //!<刚初始化
+    fFilterStatusTypeWaitSetting,   //!<等待设置
+    fFilterStatusTypeWorking,       //!<正在使用中
+    fFilterStatusTypeCancel         //!<已弃用
+    
+}FILTER_STATUS_TYPE;                //!<过滤器的状态
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *
@@ -500,7 +536,11 @@ typedef enum
     rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
     rRequestTypeAppBaseCityInfo = 1002,         //!<城市信息
     
-    rRequestTypeSecondHandHouseList = 2000,     //!<二手房列表请求
+    rRequestTypeBuilding = 2000,                //!<楼盘列表请求
+    rRequestTypeNewHouse,                       //!<新房列表请求
+    rRequestTypeCommunity,                      //!<小区列表请求
+    rRequestTypeSecondHandHouseList,            //!<二手房列表请求
+    rRequestTypeRentalHouse,                    //!<出租房列表请求
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

@@ -8,10 +8,11 @@
 
 #import "QSCoreDataManager.h"
 #import "QSYAppDelegate.h"
+#import "QSCDFilterDataModel.h"
 
 @implementation QSCoreDataManager
 
-#pragma mark - 返回指定实体数据
+#pragma mark - 实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 16:01:28
  *
@@ -30,73 +31,16 @@
     
 }
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:08
- *
- *  @brief              返回指定实体中的所有数据，并按给定的字段排序查询
- *
- *  @param entityName   实体名
- *  @param keyword      需要排序的字段
- *  @param isAscend     排序：YES-升序,NO-降序
- *
- *  @return             返回查询的数据
- *
- *  @since              1.0.0
- */
+///返回指定实体中的所有数据，并按给定的字段排序查询
 + (NSArray *)getEntityListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend
 {
-
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
-    
-    ///设置查找
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:enty];
-    
-    if (keyword) {
-        
-        ///设置排序
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
-        [request setSortDescriptors:@[sort]];
-        
-    }
-    
-    NSError *error;
-    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
-    
-    ///判断是否查询失败
-    if (error) {
-        
-        return nil;
-        
-    }
-    
-    ///如果获取返回的个数为0也直接返回nil
-    if (0 >= [resultList count]) {
-        
-        return nil;
-        
-    }
     
     ///查询成功
-    return resultList;
+    return [self searchEntityListWithKey:entityName andFieldKey:keyword andSearchKey:nil andAscend:isAscend];
 
 }
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:48
- *
- *  @brief              查询给定实体中，指定关键字的数据，并返回
- *
- *  @param entityName   指定实体名
- *  @param keyword      需要搜索的字段名
- *  @param searchKey    字段中的内容
- *
- *  @return             返回查询结果
- *
- *  @since              1.0.0
- */
+///查询给定实体中，指定关键字的数据，并返回
 + (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey
 {
 
@@ -104,41 +48,75 @@
 
 }
 
-/**
- *  @author yangshengmeng, 15-01-26 16:01:59
- *
- *  @brief              查询指定实体中，指定字段满足指定查询条件的数据集合
- *
- *  @param entityName   实体名
- *  @param keyword      字段名
- *  @param searchKey    查询关键字
- *  @param isAscend     排序：YES-升序
- *
- *  @return             返回查询的结果集
- *
- *  @since              1.0.0
- */
+///查询指定实体中，指定字段满足指定查询条件的数据集合
 + (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey andAscend:(BOOL)isAscend
+{
+    
+    ///设置查询过滤
+    NSPredicate *predicate = nil;
+    NSSortDescriptor *sort = nil;
+    
+    if (keyword) {
+        
+        if (searchKey) {
+            
+            ///过滤条件
+            predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
+            
+        }
+        
+        ///排序
+        sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
+        
+    }
+    
+    return [self searchEntityListWithKey:entityName andCustomPredicate:predicate andCustomSort:sort];
+
+}
+
+///根据给定的predicate和排序，查找实体中的对应数据，并以数组返回
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate andCustomSort:(NSSortDescriptor *)sort
 {
 
     QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
-    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    NSEntityDescription *enty = [NSEntityDescription entityForName:entityName inManagedObjectContext:mainContext];
     
     ///设置查找
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:enty];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",keyword] stringByAppendingString:@"%@"],searchKey];
-    [request setPredicate:predicate];
+    if (predicate) {
+        
+        [request setPredicate:predicate];
+        
+    }
     
     ///设置排序
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:keyword ascending:isAscend];
-    [request setSortDescriptors:@[sort]];
+    if (sort) {
+        
+        [request setSortDescriptors:@[sort]];
+        
+    }
     
-    NSError *error;
-    NSArray *resultList = [mOContext executeFetchRequest:request error:&error];
+    __block NSError *error;
+    __block NSArray *resultList = nil;
+    
+    if ([NSThread isMainThread]) {
+        
+        resultList = [mainContext executeFetchRequest:request error:&error];
+        
+    } else {
+    
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            resultList = [mainContext executeFetchRequest:request error:&error];
+            
+        });
+    
+    }
     
     ///判断是否查询失败
     if (error) {
@@ -159,7 +137,7 @@
 
 }
 
-#pragma mark - 查询某实体中给定关键的第一个实体
+#pragma mark - 单个实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 15:01:31
  *
@@ -173,7 +151,7 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey
 {
     
     NSArray *resultList = [self searchEntityListWithKey:entityName andFieldKey:fieldName andSearchKey:searchKey];
@@ -194,11 +172,147 @@
     
     ///查询成功
     id resultModel = [resultList firstObject];
-    return resultModel ? resultModel : nil;
+    return resultModel;
     
 }
 
-#pragma mark - 返回coreData中指定的单表中的某字段信息
+///按给定的两个条件查询对应记录
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey andSecondFieldName:(NSString *)secondFieldName andSecndFieldValue:(NSString *)secondFieldValue
+{
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[[NSString stringWithFormat:@"%@ == ",fieldName] stringByAppendingString:@"%@ AND "] stringByAppendingString:[[NSString stringWithFormat:@"%@ == ",secondFieldName] stringByAppendingString:@"%@"]],searchKey,secondFieldValue];
+    
+    return [self searchEntityWithKey:entityName andCustomPredicate:predicate];
+
+}
+
+///根据给定的predecate查询对应的实体
++ (id)searchEntityWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate
+{
+
+    NSArray *resultList = [self searchEntityListWithKey:entityName andCustomPredicate:predicate andCustomSort:nil];
+    
+    ///如果获取返回的个数为0也直接返回nil
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    return [resultList firstObject];
+
+}
+
+#pragma mark - 更新操作
+/**
+ *  @author                     yangshengmeng, 15-02-05 09:02:15
+ *
+ *  @brief                      更新指定记录中的指定字段信息
+ *
+ *  @param entityName           实体名
+ *  @param filterFieldName      指定记录的指定字段
+ *  @param filterValue          指定字段的值
+ *  @param updateFieldName      需要更新的字段名
+ *  @param updateFieldNewValue  需要更新的字段新值
+ *
+ *  @return                     返回是否更新成功
+ *
+ *  @since                      1.0.0
+ */
++ (BOOL)updateFieldWithKey:(NSString *)entityName andFilterFieldName:(NSString *)filterFieldName andFilterFieldValue:(NSString *)filterValue andUpdateFieldName:(NSString *)updateFieldName andUpdateFieldNewValue:(NSString *)updateFieldNewValue
+{
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",filterFieldName] stringByAppendingString:@"%@"],filterValue];
+    
+    return [self updateFieldWithKey:entityName andPredicate:predicate andUpdateFieldName:updateFieldName andNewValue:updateFieldNewValue];
+    
+}
+
+///根据给定的查询条件，更新指定字段信息
++ (BOOL)updateFieldWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andUpdateFieldName:(NSString *)fieldName andNewValue:(NSString *)newValue
+{
+
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
+    
+    ///判断是否存在过滤器
+    if (predicate) {
+        
+        [fetchRequest setPredicate:predicate];
+        
+    }
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    ///判断读取出来的原数据
+    if (nil == fetchResultArray) {
+        
+        NSLog(@"CoreData.GetData.Error:%@",error);
+        return NO;
+        
+    }
+    
+    ///遍历更新
+    if ([fetchResultArray count] > 0) {
+        
+        for (int i = 0; i < [fetchResultArray count]; i++) {
+            
+            ///获取模型后更新保存
+            QSCDFilterDataModel *model = fetchResultArray[i];
+            [model setValue:newValue forKey:fieldName];
+            [tempContext save:&error];
+            
+            ///判断保存是否成功
+            if (error) {
+                
+                break;
+                
+            }
+            
+        }
+        
+    }
+    
+    if (error) {
+        
+        NSLog(@"=====================更新指定记录某字段信息出错========================");
+        NSLog(@"entity anme : %@    error:%@",entityName,error);
+        NSLog(@"=====================更新指定记录某字段信息出错========================");
+        return NO;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    return YES;
+
+}
+
+#pragma mark - 单记录的实体数据操作
 /**
  *  @author             yangshengmeng, 15-01-26 17:01:37
  *
@@ -211,10 +325,10 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
++ (id)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword
 {
-
-    NSArray *resultList = [self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES];
+    
+    NSArray *resultList = [NSArray arrayWithArray:[self getEntityListWithKey:entityName andSortKeyWord:keyword andAscend:YES]];
     
     ///判断是否查询失败
     if (nil == resultList) {
@@ -231,33 +345,25 @@
     }
     
     ///查询成功
-    NSObject *resultModel = [resultList firstObject];
-    return resultModel ? ([resultModel valueForKey:keyword] ? [resultModel valueForKey:keyword] : nil) : nil;
+    NSManagedObject *resultModel = [resultList firstObject];
+    id tempResult = [resultModel valueForKey:keyword];
+    return tempResult ? tempResult : nil;
 
 }
 
-#pragma mark - 单条数据的表更新数据
-/**
- *  @author             yangshengmeng, 15-01-26 17:01:36
- *
- *  @brief              更新单记录表中，指定字段的信息
- *
- *  @param entityName   实体名
- *  @param fieldName    字段名
- *  @param newValue     对应字段的新值
- *
- *  @return             返回更新是否成功
- *
- *  @since              1.0.0
- */
+///更新单记录表中，指定字段的信息
 + (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     [fetchRequest setEntity:entity];
     
     ///查询条件
@@ -265,7 +371,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
-    NSArray *fetchResultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///判断读取出来的原数据
     if (nil == fetchResultArray) {
@@ -279,16 +385,16 @@
     if (0 >= [fetchResultArray count]) {
         
         ///插入数据
-        NSObject *model = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:mOContext];
+        NSObject *model = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:tempContext];
         [model setValue:newValue forKey:fieldName];
-        [mOContext save:&error];
+        [tempContext save:&error];
         
     } else {
     
         ///获取模型后更新保存
         NSObject *model = fetchResultArray[0];
         [model setValue:newValue forKey:fieldName];
-        [mOContext save:&error];
+        [tempContext save:&error];
     
     }
     
@@ -298,11 +404,26 @@
         
     }
     
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+    
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+    
+    }
+    
     return YES;
 
 }
 
-#pragma mark - 清空给定实体中所有的数据
+#pragma mark - 清空实体记录API
 /**
  *  @author             yangshengmeng, 15-01-21 23:01:28
  *
@@ -317,16 +438,20 @@
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setIncludesPropertyValues:NO];
     [fetchRequest setEntity:entity];
     
     NSError *error = nil;
-    NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *resultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///查询失败
     if (error) {
@@ -346,15 +471,30 @@
     ///遍历删除
     for (NSManagedObject *obj in resultArray) {
         
-        [mOContext deleteObject:obj];
+        [tempContext deleteObject:obj];
         
     }
     
     ///确认删除结果
-    BOOL isChangeSuccess = [mOContext save:&error];
+    BOOL isChangeSuccess = [tempContext save:&error];
     if (!isChangeSuccess) {
         
         NSLog(@"CoreData.DeleteData.Error:%@",error);
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     
@@ -378,10 +518,15 @@
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName andFieldKey:(NSString *)fieldKey andDeleteKey:(NSString *)deleteKey
 {
 
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    ///获取主线程上下文
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:mOContext];
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setIncludesPropertyValues:NO];
@@ -392,7 +537,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error = nil;
-    NSArray *resultArray = [mOContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *resultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     ///查询失败
     if (error) {
@@ -412,15 +557,30 @@
     ///遍历删除
     for (NSManagedObject *obj in resultArray) {
         
-        [mOContext deleteObject:obj];
+        [tempContext deleteObject:obj];
         
     }
     
     ///确认删除结果
-    BOOL isChangeSuccess = [mOContext save:&error];
+    BOOL isChangeSuccess = [tempContext save:&error];
     if (!isChangeSuccess) {
         
         NSLog(@"CoreData.DeleteData.Error:%@",error);
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     

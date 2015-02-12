@@ -10,8 +10,8 @@
 		<string>0</string>
 		<key>order</key>
 		<string>0</string>
-		<key>text</key>
-		<string></string>
+		<key>placehold</key>
+		<string>不限</string>
 		<key>left_title</key>
 		<string>区      域</string>
 		<key>place_hold</key>
@@ -25,8 +25,8 @@
 		<string>0</string>
 		<key>order</key>
 		<string>1</string>
-		<key>text</key>
-		<string></string>
+		<key>placehold</key>
+		<string>不限</string>
 		<key>left_title</key>
 		<string>户      型</string>
 		<key>place_hold</key>
@@ -40,8 +40,8 @@
 		<string>0</string>
 		<key>order</key>
 		<string>2</string>
-		<key>text</key>
-		<string></string>
+		<key>placehold</key>
+		<string>不限</string>
 		<key>left_title</key>
 		<string>出租方式</string>
 		<key>place_hold</key>
@@ -70,8 +70,8 @@
 		<string>0</string>
 		<key>order</key>
 		<string>4</string>
-		<key>text</key>
-		<string></string>
+		<key>placehold</key>
+		<string>不限</string>
 		<key>left_title</key>
 		<string>面      积</string>
 		<key>place_hold</key>

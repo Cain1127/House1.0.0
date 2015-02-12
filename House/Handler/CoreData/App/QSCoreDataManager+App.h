@@ -18,6 +18,7 @@
 @class QSConfigurationDataModel;
 @interface QSCoreDataManager (App)
 
+#pragma mark - 基本配置信息获取/更新
 /**
  *  @author yangshengmeng, 15-01-26 12:01:37
  *
@@ -88,6 +89,7 @@
  */
 + (BOOL)updateApplicationCurrentVersion:(NSString *)version;
 
+#pragma mark - 省市区街道信息的区查询
 /**
  *  @author             yangshengmeng, 15-01-28 16:01:46
  *
@@ -124,32 +126,6 @@
 + (NSArray *)getCityListWithProvinceKey:(NSString *)provinceKey;
 
 /**
- *  @author         yangshengmeng, 15-02-03 14:02:39
- *
- *  @brief          根据城市的key，返回省份的key
- *
- *  @param cityKey  城市key
- *
- *  @return         返回对应的省份key
- *
- *  @since          1.0.0
- */
-+ (NSString *)getCityProvinceWithCityKey:(NSString *)cityKey;
-
-/**
- *  @author             yangshengmeng, 15-02-03 15:02:21
- *
- *  @brief              根据给定的街道key获取所在的区key
- *
- *  @param streetKey    街道key
- *
- *  @return             返回街道所在的区key
- *
- *  @since              1.0.0
- */
-+ (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey;
-
-/**
  *  @author yangshengmeng, 15-02-03 11:02:55
  *
  *  @brief  获取省份列表数据
@@ -160,6 +136,72 @@
  */
 + (NSArray *)getProvinceList;
 
+/**
+ *  @author         yangshengmeng, 15-02-04 17:02:27
+ *
+ *  @brief          根据城市的key返回不同的省份信息
+ *
+ *  @param cityKey  key
+ *
+ *  @return         返回需求信息
+ *
+ *  @since          1.0.0
+ */
++ (id)getProvinceModelWithCityKey:(NSString *)cityKey;
++ (NSString *)getProvinceKeyWithCityKey:(NSString *)cityKey;
++ (NSString *)getProvinceValWithCityKey:(NSString *)cityKey;
++ (id)getProvinceModelWithProvinceKey:(NSString *)provinceKey;
++ (NSString *)getProvinceValWithLProvinceKey:(NSString *)provinceKey;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 17:02:31
+ *
+ *  @brief              根据区的key返回对应城市的信息
+ *
+ *  @param districtKey  区key
+ *
+ *  @return             返回城市信息
+ *
+ *  @since              1.0.0
+ */
++ (id)getCityModelWithDitrictKey:(NSString *)districtKey;
++ (NSString *)getCityKeyWithDitrictKey:(NSString *)districtKey;
++ (NSString *)getCityValWithDitrictKey:(NSString *)districtKey;
++ (id)getCityModelWithCityKey:(NSString *)districtKey;
++ (NSString *)getCityValWithCityKey:(NSString *)districtKey;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 17:02:59
+ *
+ *  @brief              根据街道的key，查找所在区的信息
+ *
+ *  @param streetKey    街道key
+ *
+ *  @return             返回区信息
+ *
+ *  @since              1.0.0
+ */
++ (id)getDistrictModelWithStreetKey:(NSString *)streetKey;
++ (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey;
++ (NSString *)getDistrictValWithStreetKey:(NSString *)streetKey;
++ (id)getDistrictModelWithDistrictKey:(NSString *)streetKey;
++ (NSString *)getDistrictValWithDistrictKey:(NSString *)streetKey;
+
+/**
+ *  @author             yangshengmeng, 15-02-04 17:02:09
+ *
+ *  @brief              根据街道的key查询街道相关的信息
+ *
+ *  @param streetKey    街道的key
+ *
+ *  @return             返回街道相关信息
+ *
+ *  @since              1.0.0
+ */
++ (id)getStreetModelWithStreetKey:(NSString *)streetKey;
++ (NSString *)getStreetValWithStreetKey:(NSString *)streetKey;
+
+#pragma mark - 配置项信息的查询/更新
 /**
  *  @author yangshengmeng, 15-01-22 16:01:34
  *
@@ -209,16 +251,5 @@
  *  @since              1.0.0
  */
 + (BOOL)updateBaseConfigurationList:(NSArray *)baseConList andKey:(NSString *)key;
-
-/**
- *  @author yangshengmeng, 15-01-23 14:01:22
- *
- *  @brief  获取本地是否已配置有过滤器
- *
- *  @return 返回配置情况：YES-已配置
- *
- *  @since  1.0.0
- */
-+ (BOOL)getLocalFilterSettingFlag;
 
 @end

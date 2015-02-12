@@ -43,9 +43,9 @@
  */
 - (instancetype)initWithScrollDirection:(UICollectionViewScrollDirection)direction
 {
-
+    
     if (self = [super init]) {
-     
+        
         ///保存相关参数
         self.scrollDirection = direction;
         
@@ -60,96 +60,91 @@
     }
     
     return self;
-
+    
 }
 
 #pragma mark - 布局参数初始化
 ///布局参数初始化
 - (BOOL)initLayoutParams
 {
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    
+    ///获取section总数
+    self.totalSection = [self.collectionView numberOfSections] > 0 ? [self.collectionView numberOfSections] : 1;
+    
+    ///获取默认方向的最大尺寸
+    self.defaultMaxSize = 0.0f;
+    if (UICollectionViewScrollDirectionVertical == self.scrollDirection) {
         
-        ///获取section总数
-        self.totalSection = [self.collectionView numberOfSections] > 0 ? [self.collectionView numberOfSections] : 1;
+        self.defaultMaxSize = self.collectionView.frame.size.width;
         
-        ///获取默认方向的最大尺寸
-        self.defaultMaxSize = 0.0f;
-        if (UICollectionViewScrollDirectionVertical == self.scrollDirection) {
+    }
+    
+    if (UICollectionViewScrollDirectionHorizontal == self.scrollDirection) {
+        
+        self.defaultMaxSize = self.collectionView.frame.size.height;
+        
+    }
+    
+    ///获取默认参数
+    for (int i = 0; i < self.totalSection; i++) {
+        
+        ///清空原每一个section的列头列数数据
+        [self.numberOfColumnInSection removeAllObjects];
+        ///清空原每一个section对应的行数
+        [self.numberOfRowsInSection removeAllObjects];
+        ///清空原每一个section中布局方向的间隙
+        [self.defaultSpaceInSection removeAllObjects];
+        ///清空原每一个section中非布局方向的默认间隙
+        [self.defaultScrollSpace removeAllObjects];
+        
+        ///从代理中获取列头数量
+        if ([self.delegate respondsToSelector:@selector(numberOfColumnInSection:)]) {
             
-            self.defaultMaxSize = self.collectionView.frame.size.width;
+            [self.numberOfColumnInSection addObject:[NSNumber numberWithInteger:[self.delegate numberOfColumnInSection:i]]];
+            
+        } else {
+            
+            ///如若代理中没有配置列头数量，默认为2列
+            [self.numberOfColumnInSection addObject:[NSNumber numberWithInt:2]];
             
         }
         
-        if (UICollectionViewScrollDirectionHorizontal == self.scrollDirection) {
-            
-            self.defaultMaxSize = self.collectionView.frame.size.height;
-            
-        }
+        ///从代理中获取每一个section的行数
+        NSInteger delegateRows = [self.collectionView numberOfItemsInSection:i];
+        [self.numberOfRowsInSection addObject:[NSNumber numberWithInteger:(delegateRows >= 0 ? delegateRows : 0)]];
         
-        ///获取默认参数
-        for (int i = 0; i < self.totalSection; i++) {
-            
-            ///清空原每一个section的列头列数数据
-            [self.numberOfColumnInSection removeAllObjects];
-            ///清空原每一个section对应的行数
-            [self.numberOfRowsInSection removeAllObjects];
-            ///清空原每一个section中布局方向的间隙
-            [self.defaultSpaceInSection removeAllObjects];
-            ///清空原每一个section中非布局方向的默认间隙
-            [self.defaultScrollSpace removeAllObjects];
-            
-            ///从代理中获取列头数量
-            if ([self.delegate respondsToSelector:@selector(numberOfColumnInSection:)]) {
-                
-                [self.numberOfColumnInSection addObject:[NSNumber numberWithInteger:[self.delegate numberOfColumnInSection:i]]];
-                
-            } else {
-                
-                ///如若代理中没有配置列头数量，默认为2列
-                [self.numberOfColumnInSection addObject:[NSNumber numberWithInt:2]];
-                
-            }
-            
-            ///从代理中获取每一个section的行数
-            NSInteger delegateRows = [self.collectionView numberOfItemsInSection:i];
-            [self.numberOfRowsInSection addObject:[NSNumber numberWithInteger:(delegateRows >= 0 ? delegateRows : 0)]];
-            
-            ///获取每一个section中的布局方向固定宽度/高度
-            CGFloat defaultSize = [self.delegate customWaterFlowLayout:self collectionView:self.collectionView defaultSizeOfItemInSection:i];
-            
-            ///计算当前的默认尺寸是否超出范围
-            CGFloat calculateDefaultSize = self.defaultMaxSize / [self.numberOfColumnInSection[i] intValue];
-            
-            ///保存默认的宽/高
-            [self.defaultSizeInSection addObject:[NSNumber numberWithFloat:((defaultSize <= calculateDefaultSize && defaultSize > 0.0f) ? defaultSize : calculateDefaultSize)]];
-            
-            ///按给定的默认宽/高计算布局方向间隙
-            CGFloat calculateDefaultSpace = (self.defaultMaxSize - [self.defaultSizeInSection[i] floatValue] * [self.numberOfColumnInSection[i] integerValue]) / ([self.numberOfColumnInSection[i] intValue] + 1);
-            
-            ///保存布局方向的默认间隙
-            [self.defaultSpaceInSection addObject:[NSNumber numberWithFloat:(calculateDefaultSpace > 0.0f ? calculateDefaultSpace : 0.0f)]];
-            
-            ///非布局方向的间隙
-            CGFloat defaultScrollSpace = [self.delegate customWaterFlowLayout:self collectionView:self.collectionView defaultScrollSpaceOfItemInSection:i];
-            
-            ///保存非布局方向的默认间隙
-            [self.defaultScrollSpace addObject:[NSNumber numberWithFloat:(defaultScrollSpace >= 0.0f ? defaultScrollSpace : 0.0f)]];
-            
-        }
+        ///获取每一个section中的布局方向固定宽度/高度
+        CGFloat defaultSize = [self.delegate customWaterFlowLayout:self collectionView:self.collectionView defaultSizeOfItemInSection:i];
         
-    });
+        ///计算当前的默认尺寸是否超出范围
+        CGFloat calculateDefaultSize = self.defaultMaxSize / [self.numberOfColumnInSection[i] intValue];
+        
+        ///保存默认的宽/高
+        [self.defaultSizeInSection addObject:[NSNumber numberWithFloat:((defaultSize <= calculateDefaultSize && defaultSize > 0.0f) ? defaultSize : calculateDefaultSize)]];
+        
+        ///按给定的默认宽/高计算布局方向间隙
+        CGFloat calculateDefaultSpace = (self.defaultMaxSize - [self.defaultSizeInSection[i] floatValue] * [self.numberOfColumnInSection[i] integerValue]) / ([self.numberOfColumnInSection[i] intValue] + 1);
+        
+        ///保存布局方向的默认间隙
+        [self.defaultSpaceInSection addObject:[NSNumber numberWithFloat:(calculateDefaultSpace > 0.0f ? calculateDefaultSpace : 0.0f)]];
+        
+        ///非布局方向的间隙
+        CGFloat defaultScrollSpace = [self.delegate customWaterFlowLayout:self collectionView:self.collectionView defaultScrollSpaceOfItemInSection:i];
+        
+        ///保存非布局方向的默认间隙
+        [self.defaultScrollSpace addObject:[NSNumber numberWithFloat:(defaultScrollSpace >= 0.0f ? defaultScrollSpace : 0.0f)]];
+        
+    }
     
     return YES;
-
+    
 }
 
 #pragma mark - 准备布局时数据处理
 ///准备布局时数据处理
 - (void)prepareLayout
 {
-
+    
     [super prepareLayout];
     
     if (!self.delegate) {
@@ -202,7 +197,7 @@
         }
         
     }
-
+    
 }
 
 #pragma mark - 计算给定section的给定row坐标系
@@ -219,7 +214,7 @@
     
     ///获取当前布局的默认尺寸
     CGFloat defaultSize = [self.defaultSizeInSection[section] floatValue];
-
+    
     ///判断是否第一个元素：是则返回第一个属性
     if (0 == row) {
         
@@ -237,7 +232,7 @@
         }
         
     } else {
-    
+        
         ///计算出当前需要布局cell的上一个布局cell属性坐标
         int column = [self.numberOfColumnInSection[section] intValue];
         
@@ -261,7 +256,7 @@
             }
             
         } else {
-        
+            
             ///现在的行，正好是每一行的第一个元素
             UICollectionViewLayoutAttributes *attributs = self.layoutAttributes[section][row - column];
             CGRect aboveFrame = attributs.frame;
@@ -278,36 +273,36 @@
                 tempFrame = CGRectMake(aboveFrame.origin.x + aboveFrame.size.width + defaultScrollSpace, aboveFrame.origin.y, scrollSize, defaultSize);
                 
             }
-        
+            
         }
         
     }
     
     return tempFrame;
-
+    
 }
 
 #pragma mark - 设置collectionView的ContentSize
 ///设置collectionView的ContentSize
 - (CGSize)collectionViewContentSize
 {
-
+    
     if (UICollectionViewScrollDirectionVertical == self.scrollDirection) {
         
         return CGSizeMake(self.collectionView.frame.size.width, [self getMaxContentSize]);
         
     } else {
-    
+        
         return CGSizeMake([self getMaxContentSize], self.collectionView.frame.size.height);
-    
+        
     }
-
+    
 }
 
 ///返回当前最大的滚动尺寸
 - (CGFloat)getMaxContentSize
 {
-
+    
     ///默认最大的坐标
     CGFloat maxPoint = 0.0f;
     
@@ -339,7 +334,7 @@
                 }
                 
             } else {
-            
+                
                 ///找最大x坐标
                 if (maxPoint < attributes.frame.origin.x) {
                     
@@ -353,7 +348,7 @@
                     maxSize = attributes.frame.size.width;
                     
                 }
-            
+                
             }
             
         }
@@ -361,7 +356,7 @@
     }
     
     return maxSize + maxPoint + 10.0f;
-
+    
 }
 
 #pragma mark - 返回对应cell的Attributs
@@ -392,14 +387,6 @@
     }
     
     return attributes;
-    
-}
-
-///到边缘是否重新布局
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-    
-    return NO;
     
 }
 

@@ -61,7 +61,7 @@
     [self.view addSubview:rightInfoLabel];
     
     ///如果是第一次运行，直接显示指引页，暂不显示广告页
-    if (gGuideStatusNoRecord == self.isShowGuideIndex) {
+    if ((gGuideStatusNoRecord == self.isShowGuideIndex) || (gGuideStatusNeedDispay == self.isShowGuideIndex)) {
         
         [self gotoGuideIndexViewController];
         return;
@@ -174,13 +174,13 @@
     UINavigationController *guideNavigationVC = [[UINavigationController alloc] initWithRootViewController:guideView];
     guideView.navigationController.navigationBarHidden = YES;
     
+    ///修改指引状态
+    [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
+    
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = guideNavigationVC;
     
-    ///修改指引状态
-    [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
-
 }
 
 #pragma mark - 进入主显示页面
@@ -188,7 +188,7 @@
 {
 
     ///加载tabbar控制器
-    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] init];
+    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
     
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;

@@ -11,6 +11,7 @@
 
 @interface QSTabBarViewController ()
 
+@property (nonatomic,assign) int intCurrentIndex;           //!<初始化时的显示页下标
 @property (nonatomic,retain) NSArray *tabbarButtonInfoArray;//!<tabbar按钮相关信息数组
 @property (nonatomic,strong) QSTabbar *customTabbarView;    //!<自定义的tabbar
 
@@ -20,21 +21,25 @@
 
 #pragma mark - tabbar初始化
 /**
- *  @author yangshengmeng, 15-01-17 13:01:49
+ *  @author         yangshengmeng, 15-02-04 18:02:39
  *
- *  @brief  初始化：tabbar初始化时添加配置的VC
+ *  @brief          根据给定的下标初始化主页面，并且首先显示指定的下标VC
  *
- *  @return 返回初始化后的tabbar控制器
+ *  @param index    当前显示的下标
  *
- *  @since  1.0.0
+ *  @return         返回当前创建的tabbar控制器
+ *
+ *  @since          1.0.0
  */
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithCurrentIndex:(int)index
 {
 
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    if (self = [super init]) {
         
         ///隐藏自身的tabbar
         self.tabBar.hidden = YES;
+        
+        self.intCurrentIndex = index;
         
     }
     
@@ -43,6 +48,7 @@
 }
 
 #pragma mark - 获取本地tabbar的配置信息
+///获取tabbar配置信息
 - (void)getTabbarSettingPlistFile
 {
 
@@ -100,7 +106,7 @@
     
     ///加载VC数组
     self.viewControllers = tempViewControllers;
-    self.selectedIndex = 0;
+    self.selectedIndex = (self.intCurrentIndex >= 0 < [self.tabbarButtonInfoArray count]) ? self.intCurrentIndex : 0;
     
     ///创建自定义tabbar
     self.customTabbarView = [[QSTabbar alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 49.0f, SIZE_DEVICE_WIDTH, 49.0f) andTabbarButtonArray:self.tabbarButtonInfoArray andTabbarTapCallBack:^(int index) {

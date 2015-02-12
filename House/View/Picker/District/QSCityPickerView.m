@@ -7,9 +7,16 @@
 //
 
 #import "QSCityPickerView.h"
-#import "QSCoreDataManager+App.h"
+#import "QSCustomHUDView.h"
+
+#import "QSRequestManager.h"
+
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSCityInfoReturnData.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
+
+#import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
 
 #import <objc/runtime.h>
@@ -75,7 +82,7 @@ static char SubViewKey;     //!<第二栏view的关联
 {
     
     ///获取对应省的key
-    NSString *selectedProvinceKey = [QSCoreDataManager getCityProvinceWithCityKey:selectedCityKey];
+    NSString *selectedProvinceKey = [QSCoreDataManager getProvinceKeyWithCityKey:selectedCityKey];
     
     ///当前选择状态的省key
     __block NSString *currentSelectedCityKey;
@@ -155,11 +162,34 @@ static char SubViewKey;     //!<第二栏view的关联
 - (NSString *)createProvinceSelectedItemUI:(UIScrollView *)selectedRootView andSelectedProvinceKey:(NSString *)selectedKey
 {
     
+    ///获取省列表
+    __block NSArray *provinceList = [QSCoreDataManager getProvinceList];
+    
+    ///判断是否是没下载省份和城市信息
+    if ([provinceList count] <= 0) {
+        
+        ///先下载城市信息
+        [self downloadApplicationCityInfo:^(BOOL isSuccess) {
+            
+            if (isSuccess) {
+                
+                provinceList = [QSCoreDataManager getProvinceList];
+                
+            }
+            
+        }];
+        
+    }
+    
+    return [self createProvinceSelectedItemWithDataSource:provinceList andRootView:selectedRootView andSelectedProvinceKey:selectedKey];
+    
+}
+
+- (NSString *)createProvinceSelectedItemWithDataSource:(NSArray *)provinceList andRootView:(UIScrollView *)selectedRootView andSelectedProvinceKey:(NSString *)selectedKey
+{
+    
     ///当前选择状态的省key
     NSString *currentSelectedProvinceKey;
-    
-    ///获取省列表
-    NSArray *provinceList = [QSCoreDataManager getProvinceList];
     
     ///按钮风格
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
@@ -399,6 +429,53 @@ static char SubViewKey;     //!<第二栏view的关联
     
     button.selected = YES;
 
+}
+
+#pragma mark - 第一次运行时未下载城市信息，再次下载
+- (void)downloadApplicationCityInfo:(void(^)(BOOL isSuccess))downloadCallBack
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在下载城市信息……" andHeaderTips:@"准备下载城市信息……"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseCityInfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSCityInfoReturnData *headerModel = resultData;
+            
+            ///保存省份信息
+            [QSCoreDataManager updateBaseConfigurationList:headerModel.cityInfoHeaderData.provinceList andKey:@"province"];
+            
+            ///保存城市信息
+            for (QSProvinceDataModel *provinceModel in headerModel.cityInfoHeaderData.provinceList) {
+                
+                [QSCoreDataManager updateBaseConfigurationList:provinceModel.cityList andKey:[NSString stringWithFormat:@"city%@",provinceModel.key]];
+                
+            }
+            
+            ///更改应用进入状态
+            [QSCoreDataManager updateApplicationIsFirstLaunchStatus:@"1"];
+            
+            ///延迟3秒后回调
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                if (downloadCallBack) {
+                    
+                    downloadCallBack(YES);
+                    
+                }
+                
+                ///移除HUD
+                [hud hiddenCustomHUD];
+                
+            });
+            
+        }
+        
+    }];
+    
 }
 
 @end

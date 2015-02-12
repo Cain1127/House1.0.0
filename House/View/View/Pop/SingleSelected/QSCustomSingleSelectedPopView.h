@@ -30,6 +30,6 @@
  *
  *  @since                  1.0.0
  */
-+ (instancetype)showSingleSelectedViewWithDataSource:(NSArray *)dataSource andCurrentSelectedIndex:(int)currentIndex andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack;
++ (instancetype)showSingleSelectedViewWithDataSource:(NSArray *)dataSource andCurrentSelectedKey:(NSString *)selectedKey andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int index))selectedCallBack;
 
 @end

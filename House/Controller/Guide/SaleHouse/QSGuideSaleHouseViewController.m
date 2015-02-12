@@ -11,6 +11,8 @@
 #import "QSTabBarViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Filter.h"
+#import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
 
@@ -163,6 +165,13 @@ static char BuyerCountDataKey;      //!<当前房客总数
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
+        
         [self gotoLoginViewController];
         
     }];
@@ -173,6 +182,13 @@ static char BuyerCountDataKey;      //!<当前房客总数
     QSBlockButtonStyleModel *whiteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
+        
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
         [self gotoLoginViewController];
         
@@ -185,10 +201,15 @@ static char BuyerCountDataKey;      //!<当前房客总数
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///更新用户类型
-        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
-        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
+        ///进入主页
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
         [self changeWindowRootViewController:homePageVC];
         
     }];
@@ -264,6 +285,36 @@ static char BuyerCountDataKey;      //!<当前房客总数
         buyerCountLabel.text = tenantCount;
         
     }
+    
+}
+
+#pragma mark - 已经显示找房指引页时，下载统计数据
+/**
+ *  @author         yangshengmeng, 15-02-04 14:02:33
+ *
+ *  @brief          找房指引页将要出现时，下载统计数据
+ *
+ *  @param animated 出现的动画
+ *
+ *  @since          1.0.0
+ */
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    ///下载统计数据
+    
+    
+    ///隐藏HUD
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [hud hiddenCustomHUD];
+        
+    });
     
 }
 

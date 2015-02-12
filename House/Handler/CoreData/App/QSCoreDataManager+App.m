@@ -165,6 +165,7 @@
 
 }
 
+#pragma mark - 返回对应区以下的所有街道
 /**
  *  @author             yangshengmeng, 15-01-28 16:01:46
  *
@@ -179,7 +180,20 @@
 + (NSArray *)getStreetListWithDistrictKey:(NSString *)districtKey
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"street%@",districtKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"street%@",districtKey]]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -194,25 +208,21 @@
 + (NSArray *)getDistrictListWithCityKey:(NSString *)cityKey
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"district%@",cityKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"district%@",cityKey]]];
     
-}
-
-#pragma mark - 获取省份列表
-/**
- *  @author yangshengmeng, 15-02-03 11:02:55
- *
- *  @brief  获取省份列表数据
- *
- *  @return 返回所有省的数组
- *
- *  @since  1.0.0
- */
-+ (NSArray *)getProvinceList
-{
-
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"province"];
-
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+    
 }
 
 #pragma mark - 返回当前可选的城市列表
@@ -230,22 +240,104 @@
 + (NSArray *)getCityListWithProvinceKey:(NSString *)cityKey
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"city%@",cityKey]];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:[NSString stringWithFormat:@"city%@",cityKey]]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
     
 }
 
+#pragma mark - 获取省份列表
 /**
- *  @author         yangshengmeng, 15-02-03 14:02:39
+ *  @author yangshengmeng, 15-02-03 11:02:55
  *
- *  @brief          根据城市的key，返回省份的key
+ *  @brief  获取省份列表数据
  *
- *  @param cityKey  城市key
+ *  @return 返回所有省的数组
  *
- *  @return         返回对应的省份key
+ *  @since  1.0.0
+ */
++ (NSArray *)getProvinceList
+{
+    
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"province"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+       
+        ///转换模型
+        QSCDBaseConfigurationDataModel *obj1Model = obj1;
+        QSCDBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+    
+}
+
+#pragma mark - 地区相关信息的查询
+/**
+ *  @author         yangshengmeng, 15-02-04 17:02:27
+ *
+ *  @brief          根据城市的key返回不同的省份信息
+ *
+ *  @param cityKey  key
+ *
+ *  @return         返回需求信息
  *
  *  @since          1.0.0
  */
-+ (NSString *)getCityProvinceWithCityKey:(NSString *)cityKey
++ (id)getProvinceModelWithCityKey:(NSString *)cityKey
+{
+
+    if (!cityKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询城市自身的conf
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:cityKey];
+    
+    ///判断是否存在
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *cityConf = cityModel.conf;
+    
+    ///省的key
+    NSString *provinceKey = [cityConf substringFromIndex:4];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *provinceModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:provinceKey];
+    
+    if (!provinceModel) {
+        
+        return nil;
+        
+    }
+    
+    return provinceModel;
+
+}
+
++ (NSString *)getProvinceKeyWithCityKey:(NSString *)cityKey
 {
 
     if (!cityKey) {
@@ -283,18 +375,269 @@
 
 }
 
++ (NSString *)getProvinceValWithCityKey:(NSString *)cityKey
+{
+
+    if (!cityKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询城市自身的conf
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:cityKey];
+    
+    ///判断是否存在
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *cityConf = cityModel.conf;
+    
+    ///省的key
+    NSString *provinceKey = [cityConf substringFromIndex:4];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *provinceModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:provinceKey];
+    
+    if (!provinceModel) {
+        
+        return nil;
+        
+    }
+    
+    return provinceModel.val;
+
+}
+
++ (id)getProvinceModelWithProvinceKey:(NSString *)provinceKey
+{
+
+    if (!provinceKey) {
+        
+        return nil;
+        
+    }
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *provinceModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:provinceKey];
+    
+    if (!provinceModel) {
+        
+        return nil;
+        
+    }
+    
+    return provinceModel;
+
+}
+
++ (NSString *)getProvinceValWithLProvinceKey:(NSString *)provinceKey
+{
+
+    if (!provinceKey) {
+        
+        return nil;
+        
+    }
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *provinceModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:provinceKey];
+    
+    if (!provinceModel) {
+        
+        return nil;
+        
+    }
+    
+    return provinceModel.val;
+
+}
+
 /**
- *  @author             yangshengmeng, 15-02-03 15:02:21
+ *  @author             yangshengmeng, 15-02-04 17:02:31
  *
- *  @brief              根据给定的街道key获取所在的区key
+ *  @brief              根据区的key返回对应城市的信息
  *
- *  @param streetKey    街道key
+ *  @param districtKey  区key
  *
- *  @return             返回街道所在的区key
+ *  @return             返回城市信息
  *
  *  @since              1.0.0
  */
-+ (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey
++ (id)getCityModelWithDitrictKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询区自身的conf
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    ///判断是否存在
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *districtConf = districtModel.conf;
+    
+    ///省的key
+    NSString *cityKey = [districtConf substringFromIndex:8];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:cityKey];
+    
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    return cityModel;
+
+}
+
++ (NSString *)getCityKeyWithDitrictKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询区自身的conf
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    ///判断是否存在
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *districtConf = districtModel.conf;
+    
+    ///省的key
+    NSString *cityKey = [districtConf substringFromIndex:8];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:cityKey];
+    
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    return cityModel.key;
+
+}
+
++ (NSString *)getCityValWithDitrictKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询区自身的conf
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    ///判断是否存在
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *districtConf = districtModel.conf;
+    
+    ///省的key
+    NSString *cityKey = [districtConf substringFromIndex:8];
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:cityKey];
+    
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    return cityModel.val;
+
+}
+
++ (id)getCityModelWithCityKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    return cityModel;
+
+}
+
++ (NSString *)getCityValWithCityKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///省的模型
+    QSCDBaseConfigurationDataModel *cityModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!cityModel) {
+        
+        return nil;
+        
+    }
+    
+    return cityModel.val;
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-02-04 17:02:59
+ *
+ *  @brief              根据街道的key，查找所在区的信息
+ *
+ *  @param streetKey    街道key
+ *
+ *  @return             返回区信息
+ *
+ *  @since              1.0.0
+ */
++ (id)getDistrictModelWithStreetKey:(NSString *)streetKey
 {
 
     if (!streetKey) {
@@ -303,7 +646,7 @@
         
     }
     
-    ///查询城市自身的conf
+    ///查询街道自身的conf
     QSCDBaseConfigurationDataModel *streetModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:streetKey];
     
     ///判断是否存在
@@ -316,10 +659,48 @@
     ///conf
     NSString *streetConf = streetModel.conf;
     
-    ///省的key
+    ///区的key
     NSString *districtKey = [streetConf substringFromIndex:6];
     
-    ///省的模型
+    ///区的模型
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    return districtModel;
+
+}
+
++ (NSString *)getDistrictKeyWithStreetKey:(NSString *)streetKey
+{
+
+    if (!streetKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询街道自身的conf
+    QSCDBaseConfigurationDataModel *streetModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:streetKey];
+    
+    ///判断是否存在
+    if (!streetModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *streetConf = streetModel.conf;
+    
+    ///区的key
+    NSString *districtKey = [streetConf substringFromIndex:6];
+    
+    ///区的模型
     QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
     
     if (!districtModel) {
@@ -330,6 +711,145 @@
     
     return districtModel.key;
 
+}
+
++ (NSString *)getDistrictValWithStreetKey:(NSString *)streetKey
+{
+
+    if (!streetKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询街道自身的conf
+    QSCDBaseConfigurationDataModel *streetModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:streetKey];
+    
+    ///判断是否存在
+    if (!streetModel) {
+        
+        return nil;
+        
+    }
+    
+    ///conf
+    NSString *streetConf = streetModel.conf;
+    
+    ///区的key
+    NSString *districtKey = [streetConf substringFromIndex:6];
+    
+    ///区的模型
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    return districtModel.val;
+
+}
+
++ (id)getDistrictModelWithDistrictKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///区的模型
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    return districtModel;
+
+}
+
++ (NSString *)getDistrictValWithDistrictKey:(NSString *)districtKey
+{
+
+    if (!districtKey) {
+        
+        return nil;
+        
+    }
+    
+    ///区的模型
+    QSCDBaseConfigurationDataModel *districtModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:districtKey];
+    
+    if (!districtModel) {
+        
+        return nil;
+        
+    }
+    
+    return districtModel.val;
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-02-04 17:02:09
+ *
+ *  @brief              根据街道的key查询街道相关的信息
+ *
+ *  @param streetKey    街道的key
+ *
+ *  @return             返回街道相关信息
+ *
+ *  @since              1.0.0
+ */
++ (id)getStreetModelWithStreetKey:(NSString *)streetKey
+{
+
+    if (!streetKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询街道自身的conf
+    QSCDBaseConfigurationDataModel *streetModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:streetKey];
+    
+    ///判断是否存在
+    if (!streetModel) {
+        
+        return nil;
+        
+    }
+    
+    return streetModel;
+
+}
+
++ (NSString *)getStreetValWithStreetKey:(NSString *)streetKey
+{
+
+    if (!streetKey) {
+        
+        return nil;
+        
+    }
+    
+    ///查询街道自身的conf
+    QSCDBaseConfigurationDataModel *streetModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"key" andFieldSearchKey:streetKey];
+    
+    ///判断是否存在
+    if (!streetModel) {
+        
+        return nil;
+        
+    }
+    
+    return streetModel.val;
+    
 }
 
 #pragma mark - 应用中的基本配置信息获取/更新
@@ -399,8 +919,12 @@
     }
     
     ///获取上下文
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     ///先查，是否存在对应的数据
     QSCDConfigurationDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_CONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:confDataModel.conf];
@@ -411,21 +935,36 @@
     if (nil == localModel) {
         
         ///插入数据
-        QSCDConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_CONFIGURATION_INFO inManagedObjectContext:mOContext];
+        QSCDConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_CONFIGURATION_INFO inManagedObjectContext:tempContext];
         insertModel.conf = confDataModel.conf;
         insertModel.c_v = confDataModel.c_v;
-        [mOContext save:&error];
+        [tempContext save:&error];
         
     } else {
     
         localModel.c_v = confDataModel.c_v;
-        [mOContext save:&error];
+        [tempContext save:&error];
     
     }
     
     if (error) {
         
         return NO;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     
@@ -457,19 +996,24 @@
     }
     
     ///获取上下文
-    QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *mOContext = appDelegate.managedObjectContext;
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
     
     NSError *error = nil;
     
     for (QSBaseConfigurationDataModel *obj in baseConList) {
         
         ///重新添加基本配置信息
-        QSCDBaseConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO inManagedObjectContext:mOContext];
+        QSCDBaseConfigurationDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO inManagedObjectContext:tempContext];
         insertModel.conf = key;
         insertModel.key = obj.key;
         insertModel.val = obj.val;
-        [mOContext save:&error];
+        
+        [tempContext save:&error];
         
         if (error) {
             
@@ -489,34 +1033,18 @@
         
     }
     
-    return YES;
-
-}
-
-#pragma mark - 进入应用时的过滤器标识
-/**
- *  @author yangshengmeng, 15-01-23 14:01:22
- *
- *  @brief  获取本地是否已配置有过滤器
- *
- *  @return 返回配置情况：YES-已配置
- *
- *  @since  1.0.0
- */
-+ (BOOL)getLocalFilterSettingFlag
-{
-
-    NSString *isSettingFilter = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"is_setting_filter"];
-    
-    if (nil == isSettingFilter) {
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
         
-        return NO;
+        [appDelegate saveContextWithWait:YES];
         
-    }
-    
-    if (0 == [isSettingFilter intValue]) {
+    } else {
         
-        return NO;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
         
     }
     

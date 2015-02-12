@@ -8,6 +8,12 @@
 
 #import "QSHouseCollectionViewCell.h"
 
+#import "NSString+Calculation.h"
+
+#import "QSHouseInfoDataModel.h"
+
+#import "QSCoreDataManager+House.h"
+
 #include <objc/runtime.h>
 
 ///关联
@@ -19,6 +25,7 @@ static char HouseTypeKey;   //!<户型关联key
 static char HouseAreaKey;   //!<面积
 static char HouseStreetKey; //!<房子所在街道
 static char CommunityKey;   //!<所在小区
+static char FeaturesKey;    //!<特色标签
 
 @implementation QSHouseCollectionViewCell
 
@@ -102,8 +109,8 @@ static char CommunityKey;   //!<所在小区
     
     ///特色标签的底view
     UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, streetRootView.frame.origin.y + streetRootView.frame.size.height + 10.0f, self.frame.size.width, 20.0)];
-    featuresRootView.backgroundColor = [UIColor orangeColor];
     [self.contentView addSubview:featuresRootView];
+    objc_setAssociatedObject(self, &FeaturesKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
     
 }
 
@@ -135,7 +142,7 @@ static char CommunityKey;   //!<所在小区
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel]-5-[communityLabel]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束
@@ -182,6 +189,46 @@ static char CommunityKey;   //!<所在小区
 }
 
 #pragma mark - 更新数据
+/**
+ *  @author             yangshengmeng, 15-02-06 10:02:42
+ *
+ *  @brief              根据请求返回的数据模型更新房子信息cell
+ *
+ *  @param dataModel    数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel
+{
+
+    ///数据模型转换
+    QSHouseInfoDataModel *tempModel = dataModel;
+    
+    ///更新小区
+    [self updateHouseCommunityInfo:tempModel.village_title];
+    
+    ///更新详细街道信息
+    [self updateHouseStreetInfo:tempModel.address];
+    
+    ///更新房子面积信息
+    [self updateHouseAreaInfo:tempModel.house_area];
+    
+    ///更新房子户型信息
+    [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
+    
+    ///更新中间标题
+    [self updateTitleWithTitle:tempModel.house_price];
+    
+    ///更新背景图片
+    [self updateHouseImage:tempModel.attach_thumb];
+    
+    ///更新左上角标签
+    [self updateHouseTagImage:tempModel.house_nature];
+    
+    ///更新房子特色标签
+    [self updateHouseFeatures:tempModel.features];
+
+}
 
 ///更新房子所在的小区信息
 - (void)updateHouseCommunityInfo:(NSString *)info
@@ -229,7 +276,14 @@ static char CommunityKey;   //!<所在小区
     UILabel *label = objc_getAssociatedObject(self, &HouseTypeKey);
     if (label) {
         
+        NSString *shiString = [NSString stringWithFormat:@"%@室",houseCount];
+        if (hallCount) {
+            
+            [shiString stringByAppendingString:[NSString stringWithFormat:@"%@厅",hallCount]];
+            
+        }
         
+        label.text = shiString;
         
     }
 
@@ -242,7 +296,7 @@ static char CommunityKey;   //!<所在小区
     UILabel *label = objc_getAssociatedObject(self, &TitleLabelKey);
     if (label && title) {
         
-        
+        label.text = title;
         
     }
 
@@ -261,14 +315,66 @@ static char CommunityKey;   //!<所在小区
 
 }
 
-///更新房子标签图片
+///更新房子左上角标签图片
 - (void)updateHouseTagImage:(NSString *)tag
 {
 
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseTagKey);
     if (imageView && tag) {
         
+        ///判断是否满足两个条件
+        NSRange isFreeRange = [tag rangeOfString:@","];
+        if (isFreeRange.length == 1) {
+            
+            imageView.hidden = NO;
+            imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_TAXFREE];
+            
+        }
         
+    }
+
+}
+
+///更新房子的特色标签
+- (void)updateHouseFeatures:(NSString *)featureString
+{
+
+    UIView *view = objc_getAssociatedObject(self, &FeaturesKey);
+    if (featureString && view) {
+        
+        ///清空原标签
+        for (UIView *obj in [view subviews]) {
+            
+            [obj removeFromSuperview];
+            
+        }
+        
+        ///将标签信息转为数组
+        NSArray *featuresList = [featureString componentsSeparatedByString:@","];
+        
+        ///标签宽度
+        CGFloat width = (view.frame.size.width - 12.0f) / 3.0f;
+        
+        ///循环创建特色标签
+        for (int i = 0; i < [featuresList count] && i < 3;i++) {
+            
+            ///标签项
+            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(3.0f + i * (width + 3.0f), 0.0f, width, view.frame.size.height)];
+            
+            ///根据特色标签，查询标签内容
+            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i]];
+            
+            tempLabel.text = featureVal;
+            tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+            tempLabel.textAlignment = NSTextAlignmentCenter;
+            tempLabel.backgroundColor = COLOR_CHARACTERS_BLACK;
+            tempLabel.textColor = [UIColor whiteColor];
+            tempLabel.layer.cornerRadius = 4.0f;
+            tempLabel.layer.masksToBounds = YES;
+            tempLabel.adjustsFontSizeToFitWidth = YES;
+            [view addSubview:tempLabel];
+            
+        }
         
     }
 
@@ -279,9 +385,9 @@ static char CommunityKey;   //!<所在小区
 {
 
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseImageKey);
-    if (imageView && urlString) {
+    if (imageView && urlString && ([urlString length] > 1)) {
         
-        
+        [imageView loadImageWithURL:[urlString getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL]];
         
     }
 

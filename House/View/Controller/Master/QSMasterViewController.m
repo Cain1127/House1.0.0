@@ -7,11 +7,13 @@
 //
 
 #import "QSMasterViewController.h"
+#import "QSTabBarViewController.h"
 
 #import <objc/runtime.h>
 
 ///关联
-static char NavigationBarKey;//!<导航栏的关联key
+static char NavigationBarKey;       //!<导航栏的关联key
+static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 
 @interface QSMasterViewController ()
 
@@ -48,6 +50,19 @@ static char NavigationBarKey;//!<导航栏的关联key
         
         QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
         [navigationBar setNavigationBarBackgroudImageWithImageName:imageName];
+        
+    });
+
+}
+
+///设置导航栏背景颜色
+- (void)setNavigationBarBackgroudColor:(UIColor *)color
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
+        navigationBar.backgroundColor = color;
         
     });
 
@@ -155,6 +170,96 @@ static char NavigationBarKey;//!<导航栏的关联key
         [navigationBar setNavigationBarLeftView:view];
         
     });
+
+}
+
+/**
+ *  @author     yangshengmeng, 15-02-10 15:02:45
+ *
+ *  @brief      底部分隔线是否添加
+ *
+ *  @param flag 标识：YES-显示，NO-添加
+ *
+ *  @since      1.0.0
+ */
+- (void)showBottomSeperationLine:(BOOL)flag
+{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        QSNavigationBar *navigationBar = objc_getAssociatedObject(self, &NavigationBarKey);
+        [navigationBar showBottomSeperationLine:flag];
+        
+    });
+
+}
+
+#pragma mark - 显示暂无记录
+/**
+ *  @author     yangshengmeng, 15-02-06 10:02:20
+ *
+ *  @brief      显示暂无记录提示框
+ *
+ *  @param flag 是否显示：YES-显示,NO-移除
+ *
+ *  @since      1.0.0
+ */
+- (void)showNoRecordTips:(BOOL)flag
+{
+
+    ///从关联中获取label
+    UILabel *noRecordLabel = objc_getAssociatedObject(self, &NoRecordTipsLabelKey);
+    
+    ///判断是否需要显示
+    if (flag) {
+        
+        ///判断原来是否已有
+        if (noRecordLabel) {
+            
+            ///将提示移前
+            [self.view bringSubviewToFront:noRecordLabel];
+            return;
+            
+        }
+        
+        ///没有则创建显示
+        noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 140.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
+        noRecordLabel.text = @"暂无记录";
+        noRecordLabel.textAlignment = NSTextAlignmentCenter;
+        noRecordLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+        noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+        [self.view addSubview:noRecordLabel];
+        [self.view bringSubviewToFront:noRecordLabel];
+        objc_setAssociatedObject(self, &NoRecordTipsLabelKey, noRecordLabel, OBJC_ASSOCIATION_ASSIGN);
+        
+    } else {
+    
+        ///不需要显示则移除
+        if (noRecordLabel) {
+            
+            [noRecordLabel removeFromSuperview];
+            
+        }
+    
+    }
+
+}
+
+#pragma mark - 显示或者隐藏tabbar
+/**
+ *  @author     yangshengmeng, 15-01-17 23:01:01
+ *
+ *  @brief      隐藏/显示tabbar：flag：YES-隐藏 NO-显示
+ *
+ *  @param flag YES-隐藏，NO-显示
+ *
+ *  @since      1.0.0
+ */
+- (void)hiddenBottomTabbar:(BOOL)flag
+{
+
+    QSTabBarViewController *tabbarVC = (QSTabBarViewController *)self.tabBarController;
+    [tabbarVC hiddenBottomTabbar:flag];
 
 }
 

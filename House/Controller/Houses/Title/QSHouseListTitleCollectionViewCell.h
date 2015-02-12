@@ -26,6 +26,6 @@
  *
  *  @since          1.0.0
  */
-- (void)updateTitleInfoWithTitle:(NSString *)title;
+- (void)updateTitleInfoWithTitle:(NSString *)title andSubTitle:(NSString *)subTitle;
 
 @end

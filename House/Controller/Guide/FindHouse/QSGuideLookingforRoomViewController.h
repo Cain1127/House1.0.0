@@ -17,4 +17,18 @@
  */
 @interface QSGuideLookingforRoomViewController : QSGuideHeaderViewController
 
+/**
+ *  @author         yangshengmeng, 15-02-06 14:02:29
+ *
+ *  @brief          根据给定的城市创建找房指引页
+ *
+ *  @param cityKey  城市key
+ *  @param cityVal  城市val
+ *
+ *  @return         返回找房指引页
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithCityKey:(NSString *)cityKey andCityVal:(NSString *)cityVal;
+
 @end

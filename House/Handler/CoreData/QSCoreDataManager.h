@@ -17,6 +17,7 @@
  */
 @interface QSCoreDataManager : NSObject
 
+#pragma mark - 实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 16:01:28
  *
@@ -30,52 +31,19 @@
  */
 + (NSArray *)getEntityListWithKey:(NSString *)entityName;
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:08
- *
- *  @brief              返回指定实体中的所有数据，并按给定的字段排序查询
- *
- *  @param entityName   实体名
- *  @param keyword      需要排序的字段
- *  @param isAscend     排序：YES-升序,NO-降序
- *
- *  @return             返回查询的数据
- *
- *  @since              1.0.0
- */
+///返回指定实体中的所有数据，并按给定的字段排序查询
 + (NSArray *)getEntityListWithKey:(NSString *)entityName andSortKeyWord:(NSString *)keyword andAscend:(BOOL)isAscend;
 
-/**
- *  @author             yangshengmeng, 15-01-26 16:01:48
- *
- *  @brief              查询给定实体中，指定关键字的数据，并返回
- *
- *  @param entityName   指定实体名
- *  @param keyword      需要搜索的字段名
- *  @param searchKey    字段中的内容
- *
- *  @return             返回查询结果
- *
- *  @since              1.0.0
- */
+///查询给定实体中，指定关键字的数据，并返回
 + (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey;
 
-/**
- *  @author yangshengmeng, 15-01-26 16:01:59
- *
- *  @brief              查询指定实体中，指定字段满足指定查询条件的数据集合
- *
- *  @param entityName   实体名
- *  @param keyword      字段名
- *  @param searchKey    查询关键字
- *  @param isAscend     排序：YES-升序
- *
- *  @return             返回查询的结果集
- *
- *  @since              1.0.0
- */
+///查询指定实体中，指定字段满足指定查询条件的数据集合
 + (NSArray *)searchEntityListWithKey:(NSString *)entityName andFieldKey:(NSString *)keyword andSearchKey:(NSString *)searchKey andAscend:(BOOL)isAscend;
 
+///根据给定的predicate和排序，查找实体中的对应数据，并以数组返回
++ (NSArray *)searchEntityListWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate andCustomSort:(NSSortDescriptor *)sort;
+
+#pragma mark - 单个实体数据查询
 /**
  *  @author             yangshengmeng, 15-01-26 15:01:31
  *
@@ -89,8 +57,36 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey;
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey;
 
+///根据限定的两个字段信息，查询结果
++ (id)searchEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldSearchKey:(NSString *)searchKey andSecondFieldName:(NSString *)secondFieldName andSecndFieldValue:(NSString *)secondFieldValue;
+
+///根据给定的predecate查询对应的实体
++ (id)searchEntityWithKey:(NSString *)entityName andCustomPredicate:(NSPredicate *)predicate;
+
+#pragma mark - 更新操作
+/**
+ *  @author                     yangshengmeng, 15-02-05 15:02:46
+ *
+ *  @brief                      更新数据
+ *
+ *  @param entityName           实体名
+ *  @param filterFieldName      第一过滤条件
+ *  @param filterValue          第一过滤条件的值
+ *  @param updateFieldName      需要更新的字段字
+ *  @param updateFieldNewValue  需要更新的字段新值
+ *
+ *  @return                     返回是否更新成功
+ *
+ *  @since                      1.0.0
+ */
++ (BOOL)updateFieldWithKey:(NSString *)entityName andFilterFieldName:(NSString *)filterFieldName andFilterFieldValue:(NSString *)filterValue andUpdateFieldName:(NSString *)updateFieldName andUpdateFieldNewValue:(NSString *)updateFieldNewValue;
+
+///根据给定的查询条件，更新指定字段信息
++ (BOOL)updateFieldWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andUpdateFieldName:(NSString *)fieldName andNewValue:(NSString *)newValue;
+
+#pragma mark - 单记录的实体数据操作
 /**
  *  @author             yangshengmeng, 15-01-26 17:01:37
  *
@@ -103,23 +99,12 @@
  *
  *  @since              1.0.0
  */
-+ (instancetype)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
++ (id)getUnirecordFieldWithKey:(NSString *)entityName andKeyword:(NSString *)keyword;
 
-/**
- *  @author             yangshengmeng, 15-01-26 17:01:36
- *
- *  @brief              更新单记录表中，指定字段的信息
- *
- *  @param entityName   实体名
- *  @param fieldName    字段名
- *  @param newValue     对应字段的新值
- *
- *  @return             返回更新是否成功
- *
- *  @since              1.0.0
- */
+///更新单记录表中，指定字段的信息
 + (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue;
 
+#pragma mark - 清空实体记录API
 /**
  *  @author             yangshengmeng, 15-01-21 23:01:28
  *
@@ -133,19 +118,7 @@
  */
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName;
 
-/**
- *  @author             yangshengmeng, 15-01-26 18:01:50
- *
- *  @brief              删除给定实体中对应字段为特定关键字的所有记录
- *
- *  @param entityName   实体名
- *  @param fieldKey     字段名
- *  @param deleteKey    字段的内容
- *
- *  @return             返回删除是否成功
- *
- *  @since              1.0.0
- */
+///删除给定实体中对应字段为特定关键字的所有记录
 + (BOOL)clearEntityListWithEntityName:(NSString *)entityName andFieldKey:(NSString *)fieldKey andDeleteKey:(NSString *)deleteKey;
 
 @end

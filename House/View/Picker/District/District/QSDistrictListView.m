@@ -7,10 +7,15 @@
 //
 
 #import "QSDistrictListView.h"
-#import "QSCoreDataManager+App.h"
-#import "QSCDBaseConfigurationDataModel.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+
+#import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationReturnData.h"
+
+#import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
+
+#import "QSRequestManager.h"
 
 #import <objc/runtime.h>
 
@@ -104,9 +109,6 @@ static char StreetRootViewKey;              //!<街道的底view
 - (NSString *)createDistrictSelectedItemUI:(UIView *)view andSelectedDistrictKey:(NSString *)selectedKey
 {
     
-    ///当前选择状态的区
-    NSString *currentSelectedDistrictKey;
-    
     ///不限按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
     buttonStyle.title = @"不限";
@@ -143,8 +145,22 @@ static char StreetRootViewKey;              //!<街道的底view
     unlimitedButton.selected = YES;
     [view addSubview:unlimitedButton];
     
+    ///城市
+    NSString *cityKey = [QSCoreDataManager getCurrentUserCityKey];
+    
     ///获取区列表
-    NSArray *districtList = [QSCoreDataManager getDistrictListWithCityKey:[QSCoreDataManager getCurrentUserCityKey]];
+    __block NSArray *districtList = [QSCoreDataManager getDistrictListWithCityKey:cityKey];
+    
+    ///判断区是否有数据
+    if ([districtList count] <= 0) {
+        
+        [self downloadDistrictInfoWithCityKey:cityKey andCallBack:^(BOOL isSuccess) {
+            
+            districtList = [QSCoreDataManager getDistrictListWithCityKey:cityKey];
+            
+        }];
+        
+    }
     
     ///选择项的底view
     UIScrollView *selectedRootView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, unlimitedButton.frame.size.height, view.frame.size.width, view.frame.size.height - unlimitedButton.frame.size.height - 15.0f)];
@@ -153,6 +169,21 @@ static char StreetRootViewKey;              //!<街道的底view
     [view addSubview:selectedRootView];
     objc_setAssociatedObject(self, &DistrictSelectedItemRootViewKey, selectedRootView, OBJC_ASSOCIATION_ASSIGN);
     
+    return [self createDistrictSelectedItemUI:selectedRootView andDataSource:districtList andSelectedKey:selectedKey andUnLimitedButton:unlimitedButton];
+    
+}
+
+- (NSString *)createDistrictSelectedItemUI:(UIScrollView *)selectedRootView andDataSource:(NSArray *)districtList andSelectedKey:(NSString *)selectedKey andUnLimitedButton:(UIButton *)unlimitedButton
+{
+    
+    ///当前选择状态的区
+    NSString *currentSelectedDistrictKey;
+    
+    ///按钮风格
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
+    buttonStyle.titleFont = [UIFont systemFontOfSize:(SIZE_DEVICE_WIDTH > 320.0f ? FONT_BODY_20 : FONT_BODY_16)];
+    buttonStyle.titleSelectedColor = COLOR_CHARACTERS_YELLOW;
+
     ///循环创建选择项
     for (int i = 0; i < [districtList count]; i++) {
         
@@ -225,7 +256,7 @@ static char StreetRootViewKey;              //!<街道的底view
     }
     
     return currentSelectedDistrictKey;
-    
+
 }
 
 ///创建街道选择列
@@ -425,6 +456,101 @@ static char StreetRootViewKey;              //!<街道的底view
     }
     
     button.selected = YES;
+    
+}
+
+#pragma mark - 下载给定城市的区和街道信息
+///下载给定城市的区和街道信息
+- (void)downloadDistrictInfoWithCityKey:(NSString *)cityKey andCallBack:(void(^)(BOOL isSuccess))callBack
+{
+    
+    /**
+     *  @brief  原来没有区信息，则下载
+     */
+    
+    ///请求参数
+    NSDictionary *districtRequestParams = @{@"conf" : @"AREA",
+                                            @"parent" : cityKey};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:districtRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断是否请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///模型转换
+            QSBaseConfigurationReturnData *dataModel = resultData;
+            
+            ///将对应的区信息插入配置库中
+            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:[NSString stringWithFormat:@"district%@",cityKey]];
+            
+            ///下载对应区的街道信息
+            for (int i = 0; i < [dataModel.baseConfigurationHeaderData.baseConfigurationList count]; i++) {
+                
+                ///获取模型
+                QSBaseConfigurationDataModel *tempDistrictModel = dataModel.baseConfigurationHeaderData.baseConfigurationList[i];
+                
+                ///判断是否最后一个
+                if (i < [dataModel.baseConfigurationHeaderData.baseConfigurationList count] - 1) {
+                    
+                    [self downloadStreetInfoWithStreetKey:tempDistrictModel.key andFinishCallBack:nil];
+                    
+                } else {
+                    
+                    [self downloadStreetInfoWithStreetKey:tempDistrictModel.key andFinishCallBack:callBack];
+                    
+                }
+                
+            }
+            
+        } else {
+            
+            NSLog(@"==================请求城市区信息失败=======================");
+            NSLog(@"当前配置信息项为：conf : %@,error : %@",cityKey,errorInfo);
+            NSLog(@"==================请求城市区信息失败=======================");
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 下载对应区的街道信息
+///下载对应街道信息
+- (void)downloadStreetInfoWithStreetKey:(NSString *)districtKey andFinishCallBack:(void(^)(BOOL isSuccess))callBack
+{
+    
+    ///请求参数
+    NSDictionary *streetRequestParams = @{@"conf" : @"STREET",
+                                          @"parent" : districtKey};
+    
+    ///下载对应区的街道信息
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:streetRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断是否请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///模型转换
+            QSBaseConfigurationReturnData *dataModel = resultData;
+            
+            ///将对应的街道信息插入配置库中
+            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:[NSString stringWithFormat:@"street%@",districtKey]];
+            
+            ///回调
+            if (callBack) {
+                
+                callBack(YES);
+                
+            }
+            
+        } else {
+            
+            NSLog(@"==================请求街道信息失败=======================");
+            NSLog(@"当前配置信息项为：conf : %@,error : %@",districtKey,errorInfo);
+            NSLog(@"==================请求街道信息失败=======================");
+            
+        }
+        
+    }];
     
 }
 

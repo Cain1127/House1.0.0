@@ -11,7 +11,11 @@
 #import "QSGuideSaleHouseViewController.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCustomCitySelectedView.h"
+
+#import "QSCDBaseConfigurationDataModel.h"
+
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Filter.h"
 
 @interface QSGuideSummaryViewController ()
 
@@ -140,11 +144,24 @@
             
             if (cCustomPopviewActionTypeSingleSelected == actionType) {
                 
-                ///保存当前城市
-                [QSCoreDataManager updateCurrentUserCity:params];
+                ///转换城市模型
+                __block QSCDBaseConfigurationDataModel *cityModel = params;
                 
-                ///跳转到我要找房指引界面
-                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] init];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    ///保存当前城市
+                    [QSCoreDataManager updateCurrentUserCity:params];
+                    
+                    ///初始化过滤器
+                    [QSCoreDataManager createFilter];
+                    
+                    ///更新用户类型
+                    [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
+                    
+                });
+                
+                ///进入找房指引页
+                QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] initWithCityKey:cityModel.key andCityVal:cityModel.val];
                 [self.navigationController pushViewController:findHouseVC animated:YES];
                 
             }
@@ -165,8 +182,18 @@
             
             if (cCustomPopviewActionTypeSingleSelected == actionType) {
                 
-                ///保存当前城市
-                [QSCoreDataManager updateCurrentUserCity:params];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    ///保存当前城市
+                    [QSCoreDataManager updateCurrentUserCity:params];
+                    
+                    ///初始化过滤器
+                    [QSCoreDataManager createFilter];
+                    
+                    ///更新用户类型
+                    [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeOwner];
+                    
+                });
                 
                 ///跳转到出售物业界面
                 QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];

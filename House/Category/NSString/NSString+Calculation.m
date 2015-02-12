@@ -58,4 +58,21 @@
 
 }
 
+#pragma mark - 根据给定的图片后缀url生成请求图片的url
+/**
+ *  @author yangshengmeng, 15-02-06 10:02:43
+ *
+ *  @brief  根据给定的图片后缀url生成请求图片的url
+ *
+ *  @return 返回图片的绝对路径
+ *
+ *  @since  1.0.0
+ */
+- (NSURL *)getImageURL
+{
+
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,self]];
+
+}
+
 @end

@@ -56,7 +56,19 @@
 + (NSArray *)getHouseSalePriceType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_price"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_price"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -72,7 +84,19 @@
 + (NSArray *)getHouseAreaType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_area"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_area"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -88,7 +112,19 @@
 + (NSArray *)getHouseRentType
 {
     
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"rent_property"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"rent_property"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
     
 }
 
@@ -104,7 +140,19 @@
 + (NSArray *)getHouseRentPriceType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"rent_price"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"rent_price"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -120,7 +168,19 @@
 + (NSArray *)getHouseRentPayType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"payment"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"payment"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -136,7 +196,19 @@
 + (NSArray *)getHouseDecorationType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"decoration_type"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"decoration_type"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -152,7 +224,19 @@
 + (NSArray *)getHouseFaceType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_face"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_face"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -168,7 +252,19 @@
 + (NSArray *)getHouseFloorType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"floor_which"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"floor_which"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -184,7 +280,46 @@
 + (NSArray *)getHousePropertyRightType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"used_year"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"used_year"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-02-05 14:02:40
+ *
+ *  @brief  获取房子的房龄类型数组
+ *
+ *  @return 返回房龄数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseUsedYearType
+{
+
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"2年以下",@"2-5年",@"5-10年",@"10年以上"];
+    NSArray *houseUsedYearTypeKeyArray = @[@"2-under",@"2-5",@"5-10",@"10-over"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
 
 }
 
@@ -200,7 +335,27 @@
 + (NSArray *)getHouseListMainType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"type"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"type"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+///查询主列表类型的对象
++ (id)getHouseListMainTypeModelWithID:(NSString *)typeID
+{
+
+    return [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"type" andSecondFieldName:@"key" andSecndFieldValue:typeID];
 
 }
 
@@ -216,7 +371,19 @@
 + (NSArray *)getHouseTradeType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"property_type"];
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"property_type"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
 
 }
 
@@ -232,41 +399,38 @@
 + (NSArray *)getPurpostPerchaseType
 {
 
-    return [self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"intent"];
-
-}
-
-#pragma mark - 房子列表相关的过滤
-/**
- *  @author yangshengmeng, 15-01-31 17:01:37
- *
- *  @brief  获取当前过滤器
- *
- *  @return 返回当前过滤器对象
- *
- *  @since  1.0.0
- */
-+ (instancetype)getHouseListFilter
-{
-
-    return nil;
-
-}
-
-/**
- *  @author yangshengmeng, 15-01-31 17:01:16
- *
- *  @brief  获取房子列表的当前请求参数
- *
- *  @return 返回参数字黄
- *
- *  @since  1.0.0
- */
-+ (NSDictionary *)getHouseListRequestParams
-{
-
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"intent"]];
     
-    return nil;
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+/**
+ *  @author     yangshengmeng, 15-02-12 13:02:13
+ *
+ *  @brief      查询对应特色标签的值
+ *
+ *  @param key  标签的key
+ *
+ *  @return     返回对应标签的值
+ *
+ *  @since      1.0.0
+ */
++ (NSString *)getHouseFeatureWithKey:(NSString *)key
+{
+    
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+    return tempModel.val;
 
 }
 

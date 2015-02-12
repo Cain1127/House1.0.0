@@ -184,7 +184,8 @@
 {
     
     ///沙盒目录
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"/imageCache"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/imageCache"];
     
     ///判断文件夹是否存在，存在直接返回，不存在则创建
     BOOL isDir = NO;

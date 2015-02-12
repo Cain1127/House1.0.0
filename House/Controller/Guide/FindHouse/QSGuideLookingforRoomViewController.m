@@ -11,6 +11,9 @@
 #import "QSCoreDataManager+User.h"
 #import "QSFilterViewController.h"
 #import "QSTabBarViewController.h"
+#import "QSCustomHUDView.h"
+
+#import "QSCoreDataManager+Filter.h"
 
 #import <objc/runtime.h>
 
@@ -23,16 +26,44 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 
 @interface QSGuideLookingforRoomViewController ()
 
+@property (nonatomic,copy) NSString *cityVal;//!<城市val
+@property (nonatomic,copy) NSString *cityKey;//!<城市key
+
 @end
 
 @implementation QSGuideLookingforRoomViewController
 
+#pragma mark - 初始化
+/**
+ *  @author         yangshengmeng, 15-02-06 14:02:29
+ *
+ *  @brief          根据给定的城市创建找房指引页
+ *
+ *  @param cityKey  城市key
+ *  @param cityVal  城市val
+ *
+ *  @return         返回找房指引页
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithCityKey:(NSString *)cityKey andCityVal:(NSString *)cityVal
+{
+
+    if (self = [super init]) {
+        
+        ///获取基本信息
+        self.cityVal = cityVal ? cityVal : ([QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州");
+        self.cityKey = cityKey ? cityKey : ([QSCoreDataManager getCurrentUserCityKey] ? [QSCoreDataManager getCurrentUserCityKey] : @"4401");
+        
+    }
+    
+    return self;
+
+}
+
 #pragma mark - UI搭建
 - (void)createCustomGuideHeaderSubviewsUI:(UIView *)view
 {
-    
-    ///让超出父视图的图片不显示
-//    view.clipsToBounds = YES;
     
     ///外层大圈
     QSImageView *bigCircleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(-10.0f, (view.frame.size.height - view.frame.size.width - 20.0f) / 2.0f, view.frame.size.width + 20.0f, view.frame.size.width + 20.0f)];
@@ -132,7 +163,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     cityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     cityLabel.textColor = [UIColor blackColor];
     cityLabel.textAlignment = NSTextAlignmentLeft;
-    cityLabel.text = [QSCoreDataManager getCurrentUserCity] ? [QSCoreDataManager getCurrentUserCity] : @"广州";
+    cityLabel.text = self.cityVal;
     [view addSubview:cityLabel];
     
     ///正在出售
@@ -172,7 +203,15 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeSecondHandHouse];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
+        
+        ///进入过滤器页面
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -184,7 +223,15 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_RENTAL_BUTTON;
     UIButton *rentalHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:applicationFileterTypeRenantHouse];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
+        
+        ///进入过滤器设置页面
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -196,10 +243,15 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     clearButtonStyle.title = TITLE_GUIDE_SKIP_BUTTON;
     UIButton *skipButton = [UIButton createBlockButtonWithButtonStyle:clearButtonStyle andCallBack:^(UIButton *button) {
         
-        ///更新用户类型
-        [QSCoreDataManager updateCurrentUserCountType:uUserCountTypeTenant];
+        ///设置用户的默认过滤器
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+        });
         
-        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] init];
+        ///进入主页
+        QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
         [self changeWindowRootViewController:homePageVC];
         
     }];
@@ -281,6 +333,36 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         
     }
     
+}
+
+#pragma mark - 已经显示找房指引页时，下载统计数据
+/**
+ *  @author         yangshengmeng, 15-02-04 14:02:33
+ *
+ *  @brief          找房指引页将要出现时，下载统计数据
+ *
+ *  @param animated 出现的动画
+ *
+ *  @since          1.0.0
+ */
+- (void)viewDidAppear:(BOOL)animated
+{
+
+    [super viewDidAppear:animated];
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    ///下载统计数据
+    
+    
+    ///隐藏HUD
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [hud hiddenCustomHUD];
+        
+    });
+
 }
 
 @end

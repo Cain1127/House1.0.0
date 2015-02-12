@@ -42,11 +42,15 @@
         ///选择一个城市
         if (cCustomCityPickerActionTypePickedCity == pickedActionType) {
             
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+               
+                ///下载对应城市的区和街道信息
+                [cityPopView downloadDistrictInfoWithCityKey:[NSString stringWithFormat:@"%@",cityModel.key]];
+                
+            });
+            
             ///回调
             cityPopView.customPopviewTapCallBack(cCustomPopviewActionTypeSingleSelected,cityModel,-1);
-            
-            ///下载对应城市的区和街道信息
-            [cityPopView downloadDistrictInfoWithCityKey:[NSString stringWithFormat:@"%@",cityModel.key]];
             
         } else {
         
@@ -90,45 +94,44 @@
         
     }
     
-    ///原来没有区信息，则下载
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-       
-        ///请求参数
-        NSDictionary *districtRequestParams = @{@"conf" : @"AREA",
-                                                @"parent" : cityKey};
+    /**
+     *  @brief  原来没有区信息，则下载
+     */
+    
+    ///请求参数
+    NSDictionary *districtRequestParams = @{@"conf" : @"AREA",
+                                            @"parent" : cityKey};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:districtRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [QSRequestManager requestDataWithType:rRequestTypeAppBaseInfoConfiguration andParams:districtRequestParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        ///判断是否请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
             
-            ///判断是否请求成功
-            if (rRequestResultTypeSuccess == resultStatus) {
+            ///模型转换
+            QSBaseConfigurationReturnData *dataModel = resultData;
+            
+            ///将对应的区信息插入配置库中
+            [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:[NSString stringWithFormat:@"district%@",cityKey]];
+            
+            ///下载对应区的街道信息
+            for (int i = 0; i < [dataModel.baseConfigurationHeaderData.baseConfigurationList count]; i++) {
                 
-                ///模型转换
-                QSBaseConfigurationReturnData *dataModel = resultData;
-                
-                ///将对应的区信息插入配置库中
-                [QSCoreDataManager updateBaseConfigurationList:dataModel.baseConfigurationHeaderData.baseConfigurationList andKey:[NSString stringWithFormat:@"district%@",cityKey]];
-                
-                ///下载对应区的街道信息
-                for (int i = 0; i < [dataModel.baseConfigurationHeaderData.baseConfigurationList count]; i++) {
-                    
-                    ///获取模型
-                    QSBaseConfigurationDataModel *tempDistrictModel = dataModel.baseConfigurationHeaderData.baseConfigurationList[i];
-                    [self downloadStreetInfoWithStreetKey:tempDistrictModel.key];
-                    
-                }
-                
-            } else {
-                
-                NSLog(@"==================请求城市区信息失败=======================");
-                NSLog(@"当前配置信息项为：conf : %@,error : %@",cityKey,errorInfo);
-                NSLog(@"==================请求城市区信息失败=======================");
+                ///获取模型
+                QSBaseConfigurationDataModel *tempDistrictModel = dataModel.baseConfigurationHeaderData.baseConfigurationList[i];
+                [self downloadStreetInfoWithStreetKey:tempDistrictModel.key];
                 
             }
             
-        }];
+        } else {
+            
+            NSLog(@"==================请求城市区信息失败=======================");
+            NSLog(@"当前配置信息项为：conf : %@,error : %@",cityKey,errorInfo);
+            NSLog(@"==================请求城市区信息失败=======================");
+            
+        }
         
-    });
-
+    }];
+    
 }
 
 #pragma mark - 下载对应区的街道信息

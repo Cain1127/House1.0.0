@@ -15,6 +15,7 @@
 {
     
     RKObjectMapping *shared_mapping = nil;
+    
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     [shared_mapping addAttributeMappingsFromArray:@[
                                                     @"conf",

@@ -128,6 +128,17 @@
 + (NSArray *)getHousePropertyRightType;
 
 /**
+ *  @author yangshengmeng, 15-02-05 14:02:40
+ *
+ *  @brief  获取房子的房龄类型数组
+ *
+ *  @return 返回房龄数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseUsedYearType;
+
+/**
  *  @author yangshengmeng, 15-01-29 15:01:06
  *
  *  @brief  返回房子列表中主要过滤类型
@@ -137,6 +148,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseListMainType;
++ (id)getHouseListMainTypeModelWithID:(NSString *)typeID;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:31
@@ -161,25 +173,16 @@
 + (NSArray *)getPurpostPerchaseType;
 
 /**
- *  @author yangshengmeng, 15-01-31 17:01:37
+ *  @author     yangshengmeng, 15-02-12 13:02:13
  *
- *  @brief  获取当前过滤器
+ *  @brief      查询对应特色标签的值
  *
- *  @return 返回当前过滤器对象
+ *  @param key  标签的key
  *
- *  @since  1.0.0
+ *  @return     返回对应标签的值
+ *
+ *  @since      1.0.0
  */
-+ (instancetype)getHouseListFilter;
-
-/**
- *  @author yangshengmeng, 15-01-31 17:01:16
- *
- *  @brief  获取房子列表的当前请求参数
- *
- *  @return 返回参数字黄
- *
- *  @since  1.0.0
- */
-+ (NSDictionary *)getHouseListRequestParams;
++ (NSString *)getHouseFeatureWithKey:(NSString *)key;
 
 @end

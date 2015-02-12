@@ -15,6 +15,37 @@
 
 @implementation QSCoreDataManager (User)
 
+/**
+ *  @author yangshengmeng, 15-02-09 16:02:21
+ *
+ *  @brief  判断是否已剑灵
+ *
+ *  @return 返回当前登录状态
+ *
+ *  @since  1.0.0
+ */
++ (BOOL)isLogin
+{
+
+    ///获取本地配置信息
+    NSString *loginStatus = [self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"is_login"];
+    
+    if (nil == loginStatus) {
+        
+        return NO;
+        
+    }
+    
+    if (0 == [loginStatus intValue]) {
+        
+        return NO;
+        
+    }
+    
+    return YES;
+
+}
+
 ///获取当前用户ID
 + (NSString *)getUserID
 {
@@ -69,7 +100,7 @@
     
     if (!provinceModel) {
         
-        return nil;
+        return NO;
         
     }
     
@@ -157,6 +188,41 @@
 
 }
 
+#pragma mark - 用户默认过滤器获取
+/**
+ *  @author yangshengmeng, 15-02-05 10:02:10
+ *
+ *  @brief  获取当前用户默认过滤器:user_default_filter_id
+ *
+ *  @return 返回默认过滤器的ID
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserDefaultFilterID
+{
+
+    return [self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_default_filter_id"];
+
+}
+
+///更新用户默认过滤器
++ (void)updateCurrentUserDefaultFilter:(NSString *)filterID andCallBack:(void(^)(BOOL isSuccess))callBack
+{
+
+    if (nil == filterID) {
+        
+        callBack(NO);
+        return;
+        
+    }
+    
+    BOOL isUpdateSuccess = [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_default_filter_id" andFieldNewValue:filterID];
+    
+    callBack(isUpdateSuccess);
+
+}
+
+#pragma mark - 用户的类型获取
 /**
  *  @author yangshengmeng, 15-01-27 12:01:42
  *
