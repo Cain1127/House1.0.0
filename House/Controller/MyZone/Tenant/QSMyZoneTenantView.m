@@ -93,6 +93,8 @@ static char HistoryKey;     //!<浏览足迹
     
     ///其他信息项底view
     UIScrollView *mainRootView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, channelButtonRootView.frame.size.height, self.frame.size.width, self.frame.size.height - channelButtonRootView.frame.size.height)];
+    mainRootView.showsHorizontalScrollIndicator = NO;
+    mainRootView.showsVerticalScrollIndicator = NO;
     [self createMainFunctionButton:mainRootView];
     [self addSubview:mainRootView];
 
@@ -470,7 +472,7 @@ static char HistoryKey;     //!<浏览足迹
 
 }
 
-///更新待看房数量
+///更新已看房数量
 - (void)updateHavedAroundCount:(NSString *)newInfo
 {
     
@@ -500,7 +502,7 @@ static char HistoryKey;     //!<浏览足迹
     
 }
 
-///更新待看房数量
+///更新待成交数量
 - (void)updateWaitCommitAroundCount:(NSString *)newInfo
 {
     
@@ -530,7 +532,7 @@ static char HistoryKey;     //!<浏览足迹
     
 }
 
-///更新待看房数量
+///更新已成交数量
 - (void)updateCommitedCount:(NSString *)newInfo
 {
     

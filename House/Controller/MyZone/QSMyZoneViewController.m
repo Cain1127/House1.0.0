@@ -158,6 +158,7 @@ static char UserIconKey;//!<用户头像
         [UIView animateWithDuration:0.3f animations:^{
             
             myZoneView.frame = CGRectMake(0.0f, myZoneView.frame.origin.y, myZoneView.frame.size.width, myZoneView.frame.size.height);
+            ownerView.frame = CGRectMake(ownerView.frame.size.width, ownerView.frame.origin.y, ownerView.frame.size.width, ownerView.frame.size.height);
             indicatLabel.frame = CGRectMake(0.0f, indicatLabel.frame.origin.y, indicatLabel.frame.size.width, indicatLabel.frame.size.height);
             
         }];
@@ -185,6 +186,7 @@ static char UserIconKey;//!<用户头像
         [UIView animateWithDuration:0.3f animations:^{
             
             myZoneView.frame = CGRectMake(-myZoneView.frame.size.width, myZoneView.frame.origin.y, myZoneView.frame.size.width, myZoneView.frame.size.height);
+            ownerView.frame = CGRectMake(0.0f, ownerView.frame.origin.y, ownerView.frame.size.width, ownerView.frame.size.height);
             indicatLabel.frame = CGRectMake(indicatLabel.frame.size.width, indicatLabel.frame.origin.y, indicatLabel.frame.size.width, indicatLabel.frame.size.height);
             
         }];

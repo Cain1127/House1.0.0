@@ -14,8 +14,8 @@ typedef enum
 
     tTenantZoneActionTypeStayAround = 99,   //!<待看房
     tTenantZoneActionTypeHavedAround,       //!<已看房
-    tTenantZoneActionTypeWaitCommit,        //!<等成交
-    tTenantZoneActionTypeCommited,          //!<已成功
+    tTenantZoneActionTypeWaitCommit,        //!<待成交
+    tTenantZoneActionTypeCommited,          //!<已成交
     tTenantZoneActionTypeAppointed,         //!<预约订单
     tTenantZoneActionTypeDeal,              //!<已成交
     tTenantZoneActionTypeBeg,               //!<求租求购
