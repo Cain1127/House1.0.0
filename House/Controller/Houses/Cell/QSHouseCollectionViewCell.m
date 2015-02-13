@@ -340,7 +340,7 @@ static char FeaturesKey;    //!<特色标签
 {
 
     UIView *view = objc_getAssociatedObject(self, &FeaturesKey);
-    if (featureString && view) {
+    if (featureString && view && ([featureString length] > 0)) {
         
         ///清空原标签
         for (UIView *obj in [view subviews]) {
