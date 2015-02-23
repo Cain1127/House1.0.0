@@ -291,7 +291,6 @@
 		18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AD51A733AA000098FD6 /* QSTextField.m */; };
 		18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE61A73511C00098FD6 /* QSLoginViewController.m */; };
 		18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */; };
-		18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */; };
 		18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */; };
 		18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */; };
 		18FABCFF1A775E55007AC345 /* libPushSDK-1.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */; };
@@ -723,8 +722,6 @@
 		18F99AE61A73511C00098FD6 /* QSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSLoginViewController.m; path = Login/QSLoginViewController.m; sourceTree = "<group>"; };
 		18F99AE81A735CA500098FD6 /* UITextField+CustomField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CustomField.h"; sourceTree = "<group>"; };
 		18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CustomField.m"; sourceTree = "<group>"; };
-		18F99AEB1A735D8B00098FD6 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
-		18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		18F99AEF1A75D95200098FD6 /* QSBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseConfigurationDataModel.h; sourceTree = "<group>"; };
 		18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationDataModel.m; sourceTree = "<group>"; };
 		18F99AF21A75DA0D00098FD6 /* QSBaseConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseConfigurationReturnData.h; sourceTree = "<group>"; };
@@ -1049,8 +1046,6 @@
 			children = (
 				CE5341871A7FBE89002BA188 /* NSString+Calculation.h */,
 				CE5341881A7FBE89002BA188 /* NSString+Calculation.m */,
-				18F99AEB1A735D8B00098FD6 /* NSString+Calculation.h */,
-				18F99AEC1A735D8B00098FD6 /* NSString+Calculation.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -3035,7 +3030,6 @@
 				18FBA5B51A786F63001372B3 /* QSGuideSaleHouseViewController.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
-				18F99AED1A735D8B00098FD6 /* NSString+Calculation.m in Sources */,
 				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				18A88E451A8C5E2700596E11 /* QSHouseDetailViewController.m in Sources */,
