@@ -7,7 +7,32 @@
 //
 
 #import "QSHeaderDataModel.h"
+#import "QSMSGBaseDataModel.h"
 
+/**
+ *  @author yangshengmeng, 15-02-27 17:02:23
+ *
+ *  @brief  小区或者新房返回的数据
+ *
+ *  @since  1.0.0
+ */
+@class QSCommunityListHeaderData;
 @interface QSCommunityListReturnData : QSHeaderDataModel
+
+///小区、新房返回数据的msg信息模型
+@property (nonatomic,retain) QSCommunityListHeaderData *communityListHeaderData;
+
+@end
+
+/**
+ *  @author yangshengmeng, 15-02-27 17:02:37
+ *
+ *  @brief  小区或者新房msg数据
+ *
+ *  @since  1.0.0
+ */
+@interface QSCommunityListHeaderData : QSMSGBaseDataModel
+
+@property (nonatomic,retain) NSArray *communityList;//!<列表数组
 
 @end

@@ -12,6 +12,7 @@
 		18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AEF1AA00BA600F35DEB /* QSHouseListView.m */; };
 		18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF21AA0449200F35DEB /* QSCommunityListView.m */; };
 		18018AF71AA05D7200F35DEB /* QSCommunityListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */; };
+		18018AFA1AA0752D00F35DEB /* QSCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF91AA0752D00F35DEB /* QSCommunityDataModel.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
@@ -342,6 +343,8 @@
 		18018AF21AA0449200F35DEB /* QSCommunityListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListView.m; path = List/QSCommunityListView.m; sourceTree = "<group>"; };
 		18018AF51AA05D7200F35DEB /* QSCommunityListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityListReturnData.h; path = House/Community/QSCommunityListReturnData.h; sourceTree = "<group>"; };
 		18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListReturnData.m; path = House/Community/QSCommunityListReturnData.m; sourceTree = "<group>"; };
+		18018AF81AA0752D00F35DEB /* QSCommunityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDataModel.h; path = House/QSCommunityDataModel.h; sourceTree = "<group>"; };
+		18018AF91AA0752D00F35DEB /* QSCommunityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDataModel.m; path = House/QSCommunityDataModel.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
@@ -1880,6 +1883,8 @@
 			children = (
 				18B564791A838133009779A0 /* QSHouseInfoDataModel.h */,
 				18B5647A1A838133009779A0 /* QSHouseInfoDataModel.m */,
+				18018AF81AA0752D00F35DEB /* QSCommunityDataModel.h */,
+				18018AF91AA0752D00F35DEB /* QSCommunityDataModel.m */,
 			);
 			name = House;
 			sourceTree = "<group>";
@@ -3048,6 +3053,7 @@
 				18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
+				18018AFA1AA0752D00F35DEB /* QSCommunityDataModel.m in Sources */,
 				18BE125A1A89FC620036245A /* QSMyZoneTenantView.m in Sources */,
 				18B563221A81AA40009779A0 /* QSCustomSelectedView.m in Sources */,
 				18B5633E1A8203BA009779A0 /* QSFilterDataModel.m in Sources */,

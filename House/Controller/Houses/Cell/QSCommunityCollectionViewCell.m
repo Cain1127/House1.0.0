@@ -10,6 +10,8 @@
 
 #import "NSString+Calculation.h"
 
+#import "QSCommunityDataModel.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -129,21 +131,24 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
  */
 - (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel
 {
+    
+    ///模型转换
+    QSCommunityDataModel *tempModel = dataModel;
 
     ///更新地址信息
-    [self updateAddressInfo:nil];
+    [self updateAddressInfo:tempModel.address];
     
     ///更新标题信息
-    [self updateTitleInfo:nil];
+    [self updateTitleInfo:tempModel.price_avg];
     
     ///更新小区信息
-    [self updateCommunityInfo:nil];
+    [self updateCommunityInfo:tempModel.title];
     
     ///更新特色标签
-    [self updateFeaturesWithArray:nil];
+//    [self updateFeaturesWithArray:nil];
     
     ///更新背景图片
-    [self updateBackgroudImage:nil];
+    [self updateBackgroudImage:tempModel.attach_thumb];
 
 }
 

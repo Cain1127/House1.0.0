@@ -12,6 +12,10 @@
 #import "QSFilterDataModel.h"
 #import "QSCommunityListReturnData.h"
 
+#import "QSRequestManager.h"
+#import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+House.h"
+
 #import "MJRefresh.h"
 
 @interface QSCommunityListView () <UICollectionViewDataSource,UICollectionViewDelegate>
@@ -95,12 +99,74 @@
 ///请求小区列表头数据
 - (void)communityListHeaderRequest
 {
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
+    ///封装参数：主要是添加页码控制
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    [temParams setObject:@"1" forKey:@"now_page"];
+    [temParams setObject:@"10" forKey:@"page_num"];
+    
+    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [self headerEndRefreshing];
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///请求成功后，转换模型
+            QSCommunityListReturnData *resultDataModel = resultData;
+            
+            ///将数据模型置为nil
+            self.dataSourceModel = nil;
+            
+            ///判断是否有房子数据
+            if ([resultDataModel.communityListHeaderData.communityList count] <= 0) {
+                
+                ///没有记录，显示暂无记录提示
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+                
+            } else {
+                
+                ///移除暂无记录
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                    
+                }
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+            });
+            
+            ///结束刷新动画
+            [self headerEndRefreshing];
+            [self footerEndRefreshing];
+            
+        } else {
+            
+            ///结束刷新动画
+            [self headerEndRefreshing];
+            [self footerEndRefreshing];
+            
+            ///由于是第一页，请求失败，显示暂无记录
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
+            
+        }
         
-    });
+    }];
 
 }
 
@@ -108,11 +174,57 @@
 - (void)communityListFooterRequest
 {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///判断是否最大页码
+    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
         
+        ///结束刷新动画
+        [self headerEndRefreshing];
         [self footerEndRefreshing];
+        return;
         
-    });
+    }
+    
+    ///封装参数：主要是添加页码控制
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    [temParams setObject:[NSString stringWithFormat:@"%@",self.dataSourceModel.communityListHeaderData.next_page] forKey:@"now_page"];
+    [temParams setObject:@"10" forKey:@"page_num"];
+    
+    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///请求成功后，转换模型
+            QSCommunityListReturnData *resultDataModel = resultData;
+            
+            ///更改房子数据
+            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.communityListHeaderData.communityList];
+            
+            ///更新数据源
+            self.dataSourceModel = resultDataModel;
+            [localArray addObjectsFromArray:resultDataModel.communityListHeaderData.communityList];
+            self.dataSourceModel.communityListHeaderData.communityList = localArray;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+            });
+            
+            ///结束刷新动画
+            [self headerEndRefreshing];
+            [self footerEndRefreshing];
+            
+        } else {
+            
+            ///结束刷新动画
+            [self headerEndRefreshing];
+            [self footerEndRefreshing];
+            
+        }
+        
+    }];
     
 }
 
@@ -126,17 +238,69 @@
     ///从复用队列中返回cell
     QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
     
+    ///刷新数据
+    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row]];
+    
     return cellNormal;
 
 }
 
-#pragma mark - ///返回一共有多少个小区/新房项
+#pragma mark - 返回一共有多少个小区/新房项
 ///返回一共有多少个小区/新房项
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 
-    return 6;
+    return [self.dataSourceModel.communityListHeaderData.communityList count];
 
+}
+
+#pragma mark - 根据不同的列表类型返回不同的请求类型
+///根据不同的列表类型返回不同的请求类型
+- (REQUEST_TYPE)getRequestType
+{
+    
+    switch (self.listType) {
+            ///楼盘
+        case fFilterMainTypeBuilding:
+            
+            return rRequestTypeBuilding;
+            
+            break;
+            
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return rRequestTypeNewHouse;
+            
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+            
+            return rRequestTypeCommunity;
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            return rRequestTypeSecondHandHouseList;
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            return rRequestTypeRentalHouse;
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return rRequestTypeSecondHandHouseList;
+    
 }
 
 @end

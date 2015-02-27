@@ -19,9 +19,9 @@
 	<key>2002</key>
 	<dict>
 		<key>class</key>
-		<string>QSSecondHandHouseListReturnData</string>
+		<string>QSCommunityListReturnData</string>
 		<key>url</key>
-		<string>secondHouse/list</string>
+		<string>village/list</string>
 	</dict>
 	<key>2003</key>
 	<dict>
