@@ -165,7 +165,57 @@
 - (void)houseListFooterRequest
 {
     
+    ///判断是否最大页码
+    if (self.currentPage == [self.dataSourceModel.secondHandHouseHeaderData.total_page intValue]) {
+        
+        ///结束刷新动画
+        [self endRefreshAnimination];
+        return;
+        
+    }
     
+    ///封装参数：主要是添加页码控制
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    [temParams setObject:[NSString stringWithFormat:@"%d",self.currentPage + 1] forKey:@"now_page"];
+    [temParams setObject:@"10" forKey:@"page_num"];
+    
+    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///请求成功后，转换模型
+            QSSecondHandHouseListReturnData *resultDataModel = resultData;
+            
+            ///修改当前页码
+            self.currentPage = [resultDataModel.secondHandHouseHeaderData.per_page intValue];
+            
+            ///更改房子数据
+            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.secondHandHouseHeaderData.houseList];
+            
+            ///更新数据源
+            self.dataSourceModel = resultDataModel;
+            [localArray addObjectsFromArray:resultDataModel.secondHandHouseHeaderData.houseList];
+            self.dataSourceModel.secondHandHouseHeaderData.houseList = localArray;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+            });
+            
+            ///结束刷新动画
+            [self endRefreshAnimination];
+            
+        } else {
+            
+            ///结束刷新动画
+            [self endRefreshAnimination];
+            
+        }
+        
+    }];
     
 }
 

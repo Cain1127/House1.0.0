@@ -8,16 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-///瀑布流列表的回调类型
-typedef enum
-{
-
-    hHouseListActionTypeNoRecord = 99,  //!<无记录
-    hHouseListActionTypeHaveRecord,     //!<有记录
-    hHouseListActionTypeGotoDetail      //!<点击进入详情页
-
-}HOUSE_LIST_ACTION_TYPE;
-
 /**
  *  @author yangshengmeng, 15-02-27 10:02:35
  *

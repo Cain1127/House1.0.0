@@ -482,6 +482,16 @@ typedef enum
     
 }FILTER_STATUS_TYPE;                //!<过滤器的状态
 
+///瀑布流列表的回调类型
+typedef enum
+{
+    
+    hHouseListActionTypeNoRecord = 99,  //!<无记录
+    hHouseListActionTypeHaveRecord,     //!<有记录
+    hHouseListActionTypeGotoDetail      //!<点击进入详情页
+    
+}HOUSE_LIST_ACTION_TYPE;
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *

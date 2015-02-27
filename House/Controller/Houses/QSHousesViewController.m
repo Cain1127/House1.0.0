@@ -82,13 +82,16 @@ static char CollectionViewKey;//!<collectionView的关联
 
     [super createNavigationBarUI];
     
-    ///中间选择城市按钮
+    ///中间选择列表类型按钮
     QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:self.filterModel.filter_id];
-    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *houseTypeKey, NSString *houseTypeVal) {
+    QSCustomPickerView *houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *selectedKey, NSString *selectedVal) {
         
-        NSLog(@"====================列表类型选择====================");
-        NSLog(@"当前选择城市：%@,%@",houseTypeKey,houseTypeVal);
-        NSLog(@"====================列表类型选择====================");
+        ///选择不同的列表类型，事件处理
+        if (pPickerCallBackActionTypePicked == callBackType) {
+            
+            [self houseListTypeChangeAction:selectedKey];
+            
+        }
         
     }];
     [self setNavigationBarMiddleView:houseListTypePickerView];
@@ -122,40 +125,7 @@ static char CollectionViewKey;//!<collectionView的关联
     [self createChannelBarUI:channelBarRootView];
     [self.view addSubview:channelBarRootView];
     
-    ///瀑布流布局器
-    QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, channelBarRootView.frame.origin.y + channelBarRootView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
-        
-        ///过滤回调类型
-        switch (actionType) {
-                ///进入详情页
-            case hHouseListActionTypeGotoDetail:
-                
-                [self gotoHouseDetail:tempModel];
-                
-                break;
-                
-                ///显示暂无记录
-            case hHouseListActionTypeNoRecord:
-                
-                [self showNoRecordTips:YES];
-                
-                break;
-                
-                ///移除暂无记录
-            case hHouseListActionTypeHaveRecord:
-                
-                [self showNoRecordTips:NO];
-                
-                break;
-                
-            default:
-                break;
-        }
-        
-    }];
-    
-    [self.view addSubview:listView];
-    objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+    [self createListView];
     
 }
 
@@ -241,6 +211,118 @@ static char CollectionViewKey;//!<collectionView的关联
     bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:bottomLineLabel];
     
+}
+
+///搭建列表的UI
+- (void)createListView
+{
+    
+    ///先清除原列表
+    UIView *localListView = objc_getAssociatedObject(self, &CollectionViewKey);
+    if (localListView) {
+        
+        [localListView removeFromSuperview];
+        
+    }
+
+    ///根据不同的类型，创建不同的列表UI
+    switch (self.listType) {
+            ///楼盘列表
+        case fFilterMainTypeBuilding:
+            
+            break;
+            
+            ///新房列表
+        case fFilterMainTypeNewHouse:
+                        
+            ///小区列表
+        case fFilterMainTypeCommunity:
+        {
+        
+            ///创建小区/新房的列表UI
+            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+        
+        }
+            break;
+            
+            ///二手房列表
+        case fFilterMainTypeSecondHouse:
+        {
+        
+            ///瀑布流布局器
+            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                        ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                        
+                        [self gotoHouseDetail:tempModel];
+                        
+                        break;
+                        
+                        ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                        
+                        [self showNoRecordTips:YES];
+                        
+                        break;
+                        
+                        ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                        
+                        [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+        
+        }
+            break;
+            
+            ///出租房列表
+        case fFilterMainTypeRentalHouse:
+            
+            break;
+            
+        default:
+            break;
+    }
+
+}
+
+#pragma mark - 更换列表类型处理
+///更换列表类型处理
+- (void)houseListTypeChangeAction:(NSString *)selectedKey
+{
+
+    ///更新当前保存的列表类型
+    self.listType = [selectedKey intValue];
+    
+    ///更新过滤器
+    self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
+    
+    ///加载不同的UI
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self createListView];
+        
+    });
+
 }
 
 #pragma mark - 进入搜索页面

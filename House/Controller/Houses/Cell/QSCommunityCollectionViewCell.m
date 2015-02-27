@@ -69,7 +69,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     objc_setAssociatedObject(self, &AddressInfoKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///中间标题信息
-    QSImageView *titleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 35.0f, bgImageView.frame.size.height - 79.0f, 70.0f, 79.0f)];
+    QSImageView *titleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 35.0f, bgImageView.frame.size.height - 39.5f, 70.0f, 79.0f)];
     titleImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
     [self createCommunityTitleInfoUI:titleImageView];
     [self.contentView addSubview:titleImageView];
@@ -86,6 +86,11 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     communityNameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [self.contentView addSubview:communityNameLabel];
     objc_setAssociatedObject(self, &CommunityInfoKey, communityNameLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///分隔线
+    UILabel *sepLine = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.frame.size.height - 0.5f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
+    sepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.contentView addSubview:sepLine];
 
 }
 
