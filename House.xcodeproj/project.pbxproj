@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18018AEB1A9FFF5800F35DEB /* houses_list_load_fail330x250.png in Resources */ = {isa = PBXBuildFile; fileRef = 18018AE91A9FFF5800F35DEB /* houses_list_load_fail330x250.png */; };
+		18018AEC1A9FFF5800F35DEB /* houses_list_load_fail690x350.png in Resources */ = {isa = PBXBuildFile; fileRef = 18018AEA1A9FFF5800F35DEB /* houses_list_load_fail690x350.png */; };
+		18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AEF1AA00BA600F35DEB /* QSHouseListView.m */; };
+		18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF21AA0449200F35DEB /* QSCommunityListView.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
@@ -122,7 +126,6 @@
 		18B564291A8366A4009779A0 /* houses_features_mianshui.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563901A8366A4009779A0 /* houses_features_mianshui.png */; };
 		18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563911A8366A4009779A0 /* houses_features_zhengzu.png */; };
 		18B5642B1A8366A4009779A0 /* houses_linegas.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563921A8366A4009779A0 /* houses_linegas.png */; };
-		18B5642C1A8366A4009779A0 /* houses_list_load_fail.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563931A8366A4009779A0 /* houses_list_load_fail.png */; };
 		18B5642D1A8366A4009779A0 /* houses_mud.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563941A8366A4009779A0 /* houses_mud.png */; };
 		18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563951A8366A4009779A0 /* houses_sixform.png */; };
 		18B5642F1A8366A4009779A0 /* icon100.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B563971A8366A4009779A0 /* icon100.png */; };
@@ -330,6 +333,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18018AE91A9FFF5800F35DEB /* houses_list_load_fail330x250.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_list_load_fail330x250.png; sourceTree = "<group>"; };
+		18018AEA1A9FFF5800F35DEB /* houses_list_load_fail690x350.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_list_load_fail690x350.png; sourceTree = "<group>"; };
+		18018AEE1AA00BA600F35DEB /* QSHouseListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseListView.h; path = List/QSHouseListView.h; sourceTree = "<group>"; };
+		18018AEF1AA00BA600F35DEB /* QSHouseListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseListView.m; path = List/QSHouseListView.m; sourceTree = "<group>"; };
+		18018AF11AA0449200F35DEB /* QSCommunityListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityListView.h; path = List/QSCommunityListView.h; sourceTree = "<group>"; };
+		18018AF21AA0449200F35DEB /* QSCommunityListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListView.m; path = List/QSCommunityListView.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
@@ -482,7 +491,6 @@
 		18B563901A8366A4009779A0 /* houses_features_mianshui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_features_mianshui.png; sourceTree = "<group>"; };
 		18B563911A8366A4009779A0 /* houses_features_zhengzu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_features_zhengzu.png; sourceTree = "<group>"; };
 		18B563921A8366A4009779A0 /* houses_linegas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_linegas.png; sourceTree = "<group>"; };
-		18B563931A8366A4009779A0 /* houses_list_load_fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_list_load_fail.png; sourceTree = "<group>"; };
 		18B563941A8366A4009779A0 /* houses_mud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_mud.png; sourceTree = "<group>"; };
 		18B563951A8366A4009779A0 /* houses_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_sixform.png; sourceTree = "<group>"; };
 		18B563971A8366A4009779A0 /* icon100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon100.png; sourceTree = "<group>"; };
@@ -864,6 +872,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18018AED1AA00B6A00F35DEB /* List */ = {
+			isa = PBXGroup;
+			children = (
+				18018AEE1AA00BA600F35DEB /* QSHouseListView.h */,
+				18018AEF1AA00BA600F35DEB /* QSHouseListView.m */,
+				18018AF11AA0449200F35DEB /* QSCommunityListView.h */,
+				18018AF21AA0449200F35DEB /* QSCommunityListView.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
 		182C2AC91A7795C300591F02 /* House */ = {
 			isa = PBXGroup;
 			children = (
@@ -1332,6 +1351,7 @@
 		189300AD1A690C880081D0AA /* Houses */ = {
 			isa = PBXGroup;
 			children = (
+				18018AED1AA00B6A00F35DEB /* List */,
 				18A88E421A8C5AF100596E11 /* Detail */,
 				1849508B1A7CAD3500CC00F7 /* Title */,
 				184950871A7CACF300CC00F7 /* Cell */,
@@ -1646,6 +1666,8 @@
 		18B563721A8366A4009779A0 /* Houses */ = {
 			isa = PBXGroup;
 			children = (
+				18018AE91A9FFF5800F35DEB /* houses_list_load_fail330x250.png */,
+				18018AEA1A9FFF5800F35DEB /* houses_list_load_fail690x350.png */,
 				18B563731A8366A4009779A0 /* Detail */,
 				18B5638C1A8366A4009779A0 /* houses_appliance.png */,
 				18B5638D1A8366A4009779A0 /* houses_bag.png */,
@@ -1654,7 +1676,6 @@
 				18B563901A8366A4009779A0 /* houses_features_mianshui.png */,
 				18B563911A8366A4009779A0 /* houses_features_zhengzu.png */,
 				18B563921A8366A4009779A0 /* houses_linegas.png */,
-				18B563931A8366A4009779A0 /* houses_list_load_fail.png */,
 				18B563941A8366A4009779A0 /* houses_mud.png */,
 				18B563951A8366A4009779A0 /* houses_sixform.png */,
 			);
@@ -2696,6 +2717,7 @@
 			files = (
 				18B564701A8366A4009779A0 /* tabbar_chat_normal.png in Resources */,
 				CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */,
+				18018AEB1A9FFF5800F35DEB /* houses_list_load_fail330x250.png in Resources */,
 				18B563F31A8366A4009779A0 /* developer_chat.png in Resources */,
 				18B564741A8366A4009779A0 /* tabbar_houses_normal.png in Resources */,
 				18B5646E1A8366A4009779A0 /* share_weibo_highlighted.png in Resources */,
@@ -2749,7 +2771,6 @@
 				18B5642B1A8366A4009779A0 /* houses_linegas.png in Resources */,
 				18B563EA1A8366A4009779A0 /* channelbar_advancedfilter_highlighted.png in Resources */,
 				18B5642F1A8366A4009779A0 /* icon100.png in Resources */,
-				18B5642C1A8366A4009779A0 /* houses_list_load_fail.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */,
@@ -2872,6 +2893,7 @@
 				18B5641D1A8366A4009779A0 /* houses_detail_score.png in Resources */,
 				18B564381A8366A4009779A0 /* icon29.png in Resources */,
 				18B5646F1A8366A4009779A0 /* share_weibo_normal.png in Resources */,
+				18018AEC1A9FFF5800F35DEB /* houses_list_load_fail690x350.png in Resources */,
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
 				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
@@ -2933,6 +2955,7 @@
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
+				18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
 				18A88EBD1A8CA96B00596E11 /* QSUserSimpleDataModel.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
@@ -3030,6 +3053,7 @@
 				18FBA5B51A786F63001372B3 /* QSGuideSaleHouseViewController.m in Sources */,
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
+				18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */,
 				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				18A88E451A8C5E2700596E11 /* QSHouseDetailViewController.m in Sources */,

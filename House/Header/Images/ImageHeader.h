@@ -186,7 +186,8 @@
  */
 
 ///房子默认背景图片
-#define IMAGE_HOUSES_LOADING_FAIL @"houses_list_load_fail"
+#define IMAGE_HOUSES_LOADING_FAIL330x250 @"houses_list_load_fail330x250"
+#define IMAGE_HOUSES_LOADING_FAIL690x350 @"houses_list_load_fail690x350"
 
 ///中间六角形
 #define IMAGE_HOUSES_LIST_SIXFORM @"houses_sixform"

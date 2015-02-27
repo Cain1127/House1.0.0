@@ -67,7 +67,7 @@ static char FeaturesKey;    //!<特色标签
 
     ///图片框
     QSImageView *houseImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.width * 247.0f / 330.0f)];
-    houseImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL];
+    houseImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL330x250];
     [self.contentView addSubview:houseImageView];
     objc_setAssociatedObject(self, &HouseImageKey, houseImageView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -387,7 +387,7 @@ static char FeaturesKey;    //!<特色标签
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseImageKey);
     if (imageView && urlString && ([urlString length] > 1)) {
         
-        [imageView loadImageWithURL:[urlString getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL]];
+        [imageView loadImageWithURL:[urlString getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL330x250]];
         
     }
 
