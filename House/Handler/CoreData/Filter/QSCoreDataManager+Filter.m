@@ -545,18 +545,6 @@
     [tempDictionary setObject:(filterModel.district_key ? filterModel.district_key : @"") forKey:@"areaid"];
     [tempDictionary setObject:(filterModel.street_key ? filterModel.street_key : @"") forKey:@"street"];
     
-    ///配套
-    [tempDictionary setObject:@"" forKey:@"installation"];
-    
-    ///期望售价
-    [tempDictionary setObject:(filterModel.sale_price_key ? filterModel.sale_price_key : @"") forKey:@"house_price"];
-    
-    ///房子性质
-    [tempDictionary setObject:@"" forKey:@"house_nature"];
-    
-    ///朝向
-    [tempDictionary setObject:(filterModel.house_face_key ? filterModel.house_face_key : @"") forKey:@"house_face"];
-    
     ///户型
     [tempDictionary setObject:(filterModel.house_type_key ? filterModel.house_type_key : @"") forKey:@"house_shi"];
     
@@ -572,6 +560,50 @@
     ///阳台
     [tempDictionary setObject:@"" forKey:@"house_yangtai"];
     
+    ///添加均价
+    [tempDictionary setObject:(filterModel.avg_price_key ? filterModel.avg_price_key : @"") forKey:@"price_avg"];
+    
+    ///如果是小区/新房列表
+    if (fFilterMainTypeCommunity == filterType || fFilterMainTypeNewHouse == filterType) {
+        
+        return [NSDictionary dictionaryWithDictionary:tempDictionary];
+        
+    }
+    
+    ///配套
+    [tempDictionary setObject:@"" forKey:@"installation"];
+    
+    ///朝向
+    [tempDictionary setObject:(filterModel.house_face_key ? filterModel.house_face_key : @"") forKey:@"house_face"];
+    
+    ///意向的楼层
+    [tempDictionary setObject:(filterModel.floor_key ? filterModel.floor_key : @"") forKey:@"floor_which"];
+    
+    ///装修类型
+    [tempDictionary setObject:(filterModel.decoration_key ? filterModel.decoration_key : @"") forKey:@"decoration_type"];
+    
+    ///出租房时，封装的是租金
+    if (fFilterMainTypeRentalHouse == filterType) {
+        
+        ///删除均价
+        [tempDictionary removeObjectForKey:@"price_avg"];
+        
+        ///租金
+        [tempDictionary setObject:(filterModel.rent_price_key ? filterModel.rent_price_key : @"") forKey:@"rent_price"];
+        
+        return [NSDictionary dictionaryWithDictionary:tempDictionary];
+        
+    }
+    
+    ///售价
+    [tempDictionary setObject:(filterModel.sale_price_key ? filterModel.sale_price_key : @"") forKey:@"house_price"];
+    
+    ///房龄
+    [tempDictionary setObject:(filterModel.used_year_key ? filterModel.used_year_key : @"") forKey:@"house_age"];
+    
+    ///房子性质
+    [tempDictionary setObject:@"" forKey:@"house_nature"];
+    
     ///面积
     [tempDictionary setObject:(filterModel.house_area_key ? filterModel.house_area_key : @"") forKey:@"house_area"];
     
@@ -583,9 +615,6 @@
     
     ///楼盘的总楼层数量
     [tempDictionary setObject:@"" forKey:@"floor_num"];
-    
-    ///意向的楼层
-    [tempDictionary setObject:(filterModel.floor_key ? filterModel.floor_key : @"") forKey:@"floor_which"];
     
     ///特色标签
     if ([filterModel.features_list count] > 0) {

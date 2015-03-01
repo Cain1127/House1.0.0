@@ -1,14 +1,14 @@
 //
-//  QSHouseInfoDataModel.m
+//  QSRentHouseInfoDataModel.m
 //  House
 //
-//  Created by ysmeng on 15/2/5.
+//  Created by ysmeng on 15/3/1.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSHouseInfoDataModel.h"
+#import "QSRentHouseInfoDataModel.h"
 
-@implementation QSHouseInfoDataModel
+@implementation QSRentHouseInfoDataModel
 
 ///解析规则
 + (RKObjectMapping *)objectMapping
@@ -22,7 +22,6 @@
                                                     @"content",
                                                     @"village_id",
                                                     @"village_name",
-                                                    @"building_structure",
                                                     @"floor_which",
                                                     @"house_face",
                                                     @"decoration_type",
@@ -32,6 +31,7 @@
                                                     @"house_wei",
                                                     @"house_chufang",
                                                     @"house_yangtai",
+                                                    @"fee",
                                                     @"cycle",
                                                     @"time_interval_start",
                                                     @"time_interval_end",
@@ -41,11 +41,12 @@
                                                     @"negotiated",
                                                     @"reservation_num",
                                                     @"house_no",
-                                                    @"building_year",
-                                                    @"house_price",
-                                                    @"house_nature",
-                                                    @"elevator"]];
-        
+                                                    @"house_status",
+                                                    @"rent_price",
+                                                    @"payment",
+                                                    @"rent_property",
+                                                    @"lead_time"]];
+    
     return shared_mapping;
     
 }

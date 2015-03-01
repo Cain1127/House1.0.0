@@ -14,21 +14,11 @@
 + (RKObjectMapping *)objectMapping
 {
     
-    RKObjectMapping *shared_mapping = nil;
-    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addAttributeMappingsFromArray:@[@"id_",
-                                                    @"title",
-                                                    @"title_second",
-                                                    @"introduce",
-                                                    @"address",
-                                                    @"catalog_id",
-                                                    @"property_type",
+    [shared_mapping addAttributeMappingsFromArray:@[@"catalog_id",
                                                     @"building_structure",
-                                                    @"features",
-                                                    @"used_year",
-                                                    @"decoration_type",
                                                     @"heating",
                                                     @"company_property",
                                                     @"company_developer",
@@ -43,23 +33,11 @@
                                                     @"parking_lot",
                                                     @"checkin_time",
                                                     @"households_num",
-                                                    @"floor_num",
                                                     @"ladder",
                                                     @"ladder_family",
                                                     @"building_year",
-                                                    @"installation",
                                                     @"traffic_bus",
                                                     @"traffic_subway",
-                                                    @"provinceid",
-                                                    @"cityid",
-                                                    @"areaid",
-                                                    @"street",
-                                                    @"view_count",
-                                                    @"commend",
-                                                    @"attach_file",
-                                                    @"attach_thumb",
-                                                    @"favorite_count",
-                                                    @"attention_count",
                                                     @"reply_count",
                                                     @"reply_allow",
                                                     @"buildings_num",
@@ -73,8 +51,7 @@
                                                     @"tj_secondHouse_num",
                                                     @"tj_rentHouse_num",
                                                     @"tj_condition",
-                                                    @"tj_environment",
-                                                    @"user_id"]];
+                                                    @"tj_environment"]];
     
     return shared_mapping;
     

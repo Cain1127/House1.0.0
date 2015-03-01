@@ -14,7 +14,7 @@
 		<key>class</key>
 		<string>QSSecondHandHouseListReturnData</string>
 		<key>url</key>
-		<string>secondHouse/list</string>
+		<string>loupan/list</string>
 	</dict>
 	<key>2002</key>
 	<dict>
@@ -35,7 +35,7 @@
 		<key>class</key>
 		<string>QSSecondHandHouseListReturnData</string>
 		<key>url</key>
-		<string>secondHouse/list</string>
+		<string>rentHouse/list</string>
 	</dict>
 	<key>1002</key>
 	<dict>

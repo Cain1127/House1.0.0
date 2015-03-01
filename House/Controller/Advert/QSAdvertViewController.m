@@ -221,7 +221,10 @@
         ///如果回调的参数有效，跳转链接
         if (params) {
             
-            [[UIApplication sharedApplication] openURL:params];
+            NSLog(@"===================点击广告页======================");
+            NSLog(@"广告跳转内容：%@",params);
+            NSLog(@"===================点击广告页======================");
+//            [[UIApplication sharedApplication] openURL:params];
             
         }
         
