@@ -12,7 +12,7 @@
 	<key>2001</key>
 	<dict>
 		<key>class</key>
-		<string>QSSecondHandHouseListReturnData</string>
+		<string>QSNewHouseListReturnData</string>
 		<key>url</key>
 		<string>loupan/list</string>
 	</dict>
@@ -33,7 +33,7 @@
 	<key>2004</key>
 	<dict>
 		<key>class</key>
-		<string>QSSecondHandHouseListReturnData</string>
+		<string>QSRentHouseListReturnData</string>
 		<key>url</key>
 		<string>rentHouse/list</string>
 	</dict>
