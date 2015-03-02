@@ -28,5 +28,6 @@
  *  @since                  1.0.0
  */
 - (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage;
+- (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag;
 
 @end

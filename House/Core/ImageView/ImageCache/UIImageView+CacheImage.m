@@ -25,6 +25,24 @@
 - (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage
 {
     
+    [self loadImageWithURL:url placeholderImage:placeholderImage isCommpressed:NO];
+    
+}
+
+/**
+ *  @author                 yangshengmeng, 15-03-02 13:03:29
+ *
+ *  @brief                  下载图片，并缓存到本地
+ *
+ *  @param url              图片的地址
+ *  @param placeholderImage 请求失败后的默认图片
+ *  @param flag             是否进行压缩
+ *
+ *  @since                  1.0.0
+ */
+- (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag
+{
+    
     ///基本校验
     if (nil == url) {
         
@@ -37,19 +55,24 @@
         return;
         
     }
-
+    
     ///获取本地图片
     NSString *imageCacheFilePath = [self getCacheImageWithURL:url];
     
     ///本地是否已有缓存
     if (imageCacheFilePath) {
         
-        __block UIImage *tempImage = nil;
+        __block UIImage *tempImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:imageCacheFilePath]];
         
         ///获取image，判断是否需要缩小
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-           
-            tempImage = [self compressedImageFitToSelf:[UIImage imageWithData:[NSData dataWithContentsOfFile:imageCacheFilePath]]];
+            
+            ///判断是否需要压缩
+            if (flag) {
+                
+                tempImage = [self compressedImageFitToSelf:tempImage];
+                
+            }
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
@@ -64,15 +87,15 @@
     }
     
     ///本地没有缓存，进行网络请求
-    [self requestImageDataWithURL:url placeholderImage:placeholderImage];
-
+    [self requestImageDataWithURL:url placeholderImage:placeholderImage isCommpressed:flag];
+    
 }
 
 #pragma mark - 通过网络请求图片
 ///通过网络请求图片
-- (void)requestImageDataWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage
+- (void)requestImageDataWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag
 {
-
+    
     ///异步请求
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -86,7 +109,14 @@
         if (imageData) {
             
             ///压缩图片，并显示
-            UIImage *showImage = [self compressedImageFitToSelf:[UIImage imageWithData:imageData]];
+            __block UIImage *showImage = [UIImage imageWithData:imageData];
+            
+            ///判断是否需要压缩
+            if (flag) {
+                
+                showImage = [self compressedImageFitToSelf:showImage];
+                
+            }
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
@@ -98,7 +128,7 @@
             [self saveImageWithImage:imageData andIndentify:[self getImageCacheIdentifyWithURL:url]];
             
         } else {
-        
+            
             ///加载默认图片
             if (placeholderImage) {
                 
@@ -109,19 +139,19 @@
                 });
                 
             }
-        
+            
         }
         
         
     });
-
+    
 }
 
 #pragma mark - 请求本地缓存图片
 ///根据URL获取本地缓存图片
 - (NSString *)getCacheImageWithURL:(NSURL *)url
 {
-
+    
     ///获取唯一标识
     NSString *indentify = [self getImageCacheIdentifyWithURL:url];
     
@@ -133,14 +163,14 @@
     }
     
     return [self getImageFromCache:indentify];
-
+    
 }
 
 #pragma mark - 获取本地缓存图片
 ///根据唯一标识获取本地缓存图片
 - (NSString *)getImageFromCache:(NSString *)identify
 {
-
+    
     ///获取沙盒缓存地址
     NSString *cacheDirectorPath = [self getImageCacheDirectory];
     
@@ -159,14 +189,14 @@
     }
     
     return nil;
-
+    
 }
 
 #pragma mark - 根据图片请求的url，生成缓存唯一标识
 ///根据URL生成本地缓存的唯一标识
 - (NSString *)getImageCacheIdentifyWithURL:(NSURL *)url
 {
-
+    
     ///url转为string
     NSString *urlString = url.absoluteString;
     
@@ -175,7 +205,7 @@
     
     ///返回最后一项内容
     return [sepArray lastObject];
-
+    
 }
 
 #pragma mark - 图片缓存路径
@@ -208,14 +238,14 @@
     }
     
     return nil;
-
+    
 }
 
 #pragma mark - 将网络请求返回的图片存放本地
 ///将图片信息保存在本地
 - (void)saveImageWithImage:(NSData *)data andIndentify:(NSString *)indentify
 {
-
+    
     ///缓存路径
     NSString *filePath = [[self getImageCacheDirectory] stringByAppendingPathComponent:indentify];
     BOOL isWriteSuccess = [data writeToFile:filePath atomically:YES];
@@ -224,11 +254,11 @@
         NSLog(@"================图片写入本地成功=================");
         
     } else {
-    
+        
         NSLog(@"================图片写入本地失败=================");
-    
+        
     }
-
+    
 }
 
 #pragma mark - 图片按自身大小压缩
@@ -238,7 +268,7 @@
     
     ///图片的大小
     CGSize originalImageSize = CGSizeMake(CGImageGetWidth([image CGImage]), CGImageGetHeight([image CGImage]));
-
+    
     ///初始如果imageView太小，则表示为自适应图片框，不需要压缩
     if (self.frame.size.width < 2.0f && self.frame.size.height < 2.0f) {
         
@@ -274,7 +304,7 @@
     }
     
     return tempImage;
-
+    
 }
 
 @end
