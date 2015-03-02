@@ -231,7 +231,7 @@ typedef enum
 typedef enum
 {
 
-    hHouseRenantPropertyTypeEntire = 200701,//!<出租性质
+    hHouseRenantPropertyTypeEntire = 200701,//!<整租
     hHouseRenantPropertyTypeJoint           //!<合租
 
 }HOUSE_RENANT_PROPERTY_TYPE;                //!<出租性质

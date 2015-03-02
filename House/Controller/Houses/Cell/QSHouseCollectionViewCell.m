@@ -11,6 +11,7 @@
 #import "NSString+Calculation.h"
 
 #import "QSHouseInfoDataModel.h"
+#import "QSRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 
@@ -195,14 +196,37 @@ static char FeaturesKey;    //!<特色标签
  *  @brief              根据请求返回的数据模型更新房子信息cell
  *
  *  @param dataModel    数据模型
+ *  @param listType     列表的类型
  *
  *  @since              1.0.0
  */
-- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel
+- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
 {
+    
+    switch (listType) {
+            ///二手房列表
+        case fFilterMainTypeSecondHouse:
+            
+            [self updateSecondHandHouseInfoCellUIWithDataModel:dataModel];
+            
+            break;
+            
+            ///出租房列表
+        case fFilterMainTypeRentalHouse:
+            
+            [self updateRentHouseInfoCellUIWithDataModel:dataModel];
+            
+            break;
+            
+        default:
+            break;
+    }
 
-    ///数据模型转换
-    QSHouseInfoDataModel *tempModel = dataModel;
+}
+
+///出租房列表UI更新
+- (void)updateRentHouseInfoCellUIWithDataModel:(QSRentHouseInfoDataModel *)tempModel
+{
     
     ///更新小区
     [self updateHouseCommunityInfo:tempModel.village_name];
@@ -217,16 +241,48 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
     
     ///更新中间标题
-    [self updateTitleWithTitle:tempModel.house_price];
+    [self updateTitleWithTitle:tempModel.rent_price];
+    [self updateTitleUnitWithUnit:@"元/月"];
     
     ///更新背景图片
     [self updateHouseImage:tempModel.attach_thumb];
     
     ///更新左上角标签
-    [self updateHouseTagImage:tempModel.house_nature];
+    [self updateHouseTagImage:tempModel.rent_property andListType:fFilterMainTypeRentalHouse];
     
     ///更新房子特色标签
-    [self updateHouseFeatures:tempModel.features];
+    [self updateHouseFeatures:tempModel.features andListType:fFilterMainTypeRentalHouse];
+    
+}
+
+///二手房列表UI更新
+- (void)updateSecondHandHouseInfoCellUIWithDataModel:(QSHouseInfoDataModel *)tempModel
+{
+
+    ///更新小区
+    [self updateHouseCommunityInfo:tempModel.village_name];
+    
+    ///更新详细街道信息
+    [self updateHouseStreetInfo:tempModel.address];
+    
+    ///更新房子面积信息
+    [self updateHouseAreaInfo:tempModel.house_area];
+    
+    ///更新房子户型信息
+    [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
+    
+    ///更新中间标题
+    [self updateTitleWithTitle:tempModel.house_price];
+    [self updateTitleUnitWithUnit:@"万"];
+    
+    ///更新背景图片
+    [self updateHouseImage:tempModel.attach_thumb];
+    
+    ///更新左上角标签
+    [self updateHouseTagImage:tempModel.house_nature andListType:fFilterMainTypeSecondHouse];
+    
+    ///更新房子特色标签
+    [self updateHouseFeatures:tempModel.features andListType:fFilterMainTypeSecondHouse];
 
 }
 
@@ -309,25 +365,59 @@ static char FeaturesKey;    //!<特色标签
     UILabel *label = objc_getAssociatedObject(self, &TitleUnitKey);
     if (label && unit) {
         
-        
+        label.text = unit;
         
     }
 
 }
 
 ///更新房子左上角标签图片
-- (void)updateHouseTagImage:(NSString *)tag
+- (void)updateHouseTagImage:(NSString *)tag andListType:(FILTER_MAIN_TYPE)listType
 {
 
     UIImageView *imageView = objc_getAssociatedObject(self, &HouseTagKey);
     if (imageView && tag) {
         
-        ///判断是否满足两个条件
-        NSRange isFreeRange = [tag rangeOfString:@","];
-        if (isFreeRange.length == 1) {
+        ///二手房标签
+        if (fFilterMainTypeSecondHouse == listType) {
             
-            imageView.hidden = NO;
-            imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_TAXFREE];
+            ///判断是否满足两个条件
+            NSRange isFreeRange = [tag rangeOfString:@","];
+            if (isFreeRange.length == 1) {
+                
+                imageView.hidden = NO;
+                imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_TAXFREE];
+                
+            } else {
+            
+                imageView.hidden = YES;
+            
+            }
+            
+        } else if (fFilterMainTypeRentalHouse == listType) {
+            
+            ///出租房
+            
+            ///判断是否满足两个条件
+            int isFreeRange = [tag intValue];
+            
+            ///整租
+            if (hHouseRenantPropertyTypeEntire == isFreeRange) {
+                
+                imageView.hidden = NO;
+                imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_ENTIRERENT];
+                
+            } else if (hHouseRenantPropertyTypeEntire == isFreeRange) {
+                
+                ///合租
+                imageView.hidden = NO;
+                imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_JOINTRENT];
+                
+            } else {
+            
+                imageView.hidden = YES;
+            
+            }
             
         }
         
@@ -336,7 +426,7 @@ static char FeaturesKey;    //!<特色标签
 }
 
 ///更新房子的特色标签
-- (void)updateHouseFeatures:(NSString *)featureString
+- (void)updateHouseFeatures:(NSString *)featureString andListType:(FILTER_MAIN_TYPE)listType
 {
 
     UIView *view = objc_getAssociatedObject(self, &FeaturesKey);
@@ -362,7 +452,7 @@ static char FeaturesKey;    //!<特色标签
             UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(3.0f + i * (width + 3.0f), 0.0f, width, view.frame.size.height)];
             
             ///根据特色标签，查询标签内容
-            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i]];
+            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:listType];
             
             tempLabel.text = featureVal;
             tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];

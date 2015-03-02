@@ -33,6 +33,6 @@
  */
 @interface QSNewHouseListHeaderData : QSMSGBaseDataModel
 
-@property (nonatomic,retain) NSArray *newHouseList;//!<新房数组
+@property (nonatomic,retain) NSArray *houseList;//!<新房数组
 
 @end

@@ -23,9 +23,10 @@
  *  @brief              根据请求返回的数据模型更新房子信息cell
  *
  *  @param dataModel    数据模型
+ *  @param listType     列表的类型
  *
  *  @since              1.0.0
  */
-- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel;
+- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType;
 
 @end

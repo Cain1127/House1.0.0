@@ -426,11 +426,55 @@
  *
  *  @since      1.0.0
  */
-+ (NSString *)getHouseFeatureWithKey:(NSString *)key
++ (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType
 {
     
-    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
-    return tempModel.val;
+    switch (listType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel.val;
+            
+        }
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel.val;
+            
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+        
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel.val;
+        
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_rent" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel.val;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
 
 }
 

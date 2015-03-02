@@ -23,9 +23,10 @@
  *  @brief              小区或新房每项信息的刷新
  *
  *  @param dataModel    数据模型
+ *  @param listType     列表类型
  *
  *  @since              1.0.0
  */
-- (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel;
+- (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType;
 
 @end

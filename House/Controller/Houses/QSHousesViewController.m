@@ -17,6 +17,8 @@
 
 #import "QSHouseListView.h"
 #import "QSCommunityListView.h"
+#import "QSRentHouseListView.h"
+#import "QSNewHouseListView.h"
 
 #import "QSFilterDataModel.h"
 #import "QSHouseInfoDataModel.h"
@@ -234,6 +236,19 @@ static char CollectionViewKey;//!<collectionView的关联
             
             ///新房列表
         case fFilterMainTypeNewHouse:
+        {
+        
+            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+        
+        }
+            break;
                         
             ///小区列表
         case fFilterMainTypeCommunity:
@@ -296,7 +311,18 @@ static char CollectionViewKey;//!<collectionView的关联
             
             ///出租房列表
         case fFilterMainTypeRentalHouse:
+        {
+        
+            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                
+                
+            }];
             
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+        
+        }
             break;
             
         default:

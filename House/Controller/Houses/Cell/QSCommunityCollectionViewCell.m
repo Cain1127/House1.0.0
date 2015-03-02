@@ -10,7 +10,10 @@
 
 #import "NSString+Calculation.h"
 
+#import "QSNewHouseInfoDataModel.h"
 #import "QSCommunityDataModel.h"
+
+#import "QSCoreDataManager+House.h"
 
 #import <objc/runtime.h>
 
@@ -126,14 +129,37 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
  *  @brief              小区或新房每项信息的刷新
  *
  *  @param dataModel    数据模型
+ *  @param listType     列表类型
  *
  *  @since              1.0.0
  */
-- (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel
+- (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
 {
     
-    ///模型转换
-    QSCommunityDataModel *tempModel = dataModel;
+    switch (listType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        
+            [self updateNewHouseInfoCellUIWithDataModel:dataModel];
+            
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+            
+            [self updateCommunityInfoCellUIWithDataModel:dataModel];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+///新房cellUI搭建
+- (void)updateNewHouseInfoCellUIWithDataModel:(QSNewHouseInfoDataModel *)tempModel
+{
 
     ///更新地址信息
     [self updateAddressInfo:tempModel.address];
@@ -145,7 +171,25 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateCommunityInfo:tempModel.title];
     
     ///更新特色标签
-//    [self updateFeaturesWithArray:nil];
+    [self updateFeaturesWithArray:tempModel.features];
+    
+    ///更新背景图片
+    [self updateBackgroudImage:tempModel.attach_thumb];
+
+}
+
+///更新小区信息
+- (void)updateCommunityInfoCellUIWithDataModel:(QSCommunityDataModel *)tempModel
+{
+
+    ///更新地址信息
+    [self updateAddressInfo:tempModel.address];
+    
+    ///更新标题信息
+    [self updateTitleInfo:tempModel.price_avg];
+    
+    ///更新小区信息
+    [self updateCommunityInfo:tempModel.title];
     
     ///更新背景图片
     [self updateBackgroudImage:tempModel.attach_thumb];
@@ -153,11 +197,48 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 }
 
 ///更新特色标签
-- (void)updateFeaturesWithArray:(NSArray *)featuresList
+- (void)updateFeaturesWithArray:(NSString *)featureString
 {
 
     ///特色标签的底view
-//    UIView *rootView = objc_getAssociatedObject(self, &FeaturesRootViewKey);
+    UIView *rootView = objc_getAssociatedObject(self, &FeaturesRootViewKey);
+    if (featureString && rootView && ([featureString length] > 0)) {
+        
+        ///清空原标签
+        for (UIView *obj in [rootView subviews]) {
+            
+            [obj removeFromSuperview];
+            
+        }
+        
+        ///将标签信息转为数组
+        NSArray *featuresList = [featureString componentsSeparatedByString:@","];
+        
+        ///标签宽度
+        CGFloat width = (rootView.frame.size.width - 12.0f) / 3.0f;
+        
+        ///循环创建特色标签
+        for (int i = 0; i < [featuresList count] && i < 3;i++) {
+            
+            ///标签项
+            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(3.0f + i * (width + 3.0f), 0.0f, width, rootView.frame.size.height)];
+            
+            ///根据特色标签，查询标签内容
+            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:fFilterMainTypeNewHouse];
+            
+            tempLabel.text = featureVal;
+            tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+            tempLabel.textAlignment = NSTextAlignmentCenter;
+            tempLabel.backgroundColor = COLOR_CHARACTERS_BLACK;
+            tempLabel.textColor = [UIColor whiteColor];
+            tempLabel.layer.cornerRadius = 4.0f;
+            tempLabel.layer.masksToBounds = YES;
+            tempLabel.adjustsFontSizeToFitWidth = YES;
+            [rootView addSubview:tempLabel];
+            
+        }
+        
+    }
 
 }
 

@@ -37,7 +37,7 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"records" toKeyPath:@"newHouseList" withMapping:[QSNewHouseInfoDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"records" toKeyPath:@"houseList" withMapping:[QSNewHouseInfoDataModel objectMapping]]];
     
     return shared_mapping;
     

@@ -1,16 +1,19 @@
 //
-//  QSCommunityListView.m
+//  QSRentHouseListView.m
 //  House
 //
-//  Created by ysmeng on 15/2/27.
+//  Created by ysmeng on 15/3/1.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSCommunityListView.h"
-#import "QSCommunityCollectionViewCell.h"
+#import "QSRentHouseListView.h"
+#import "QSHouseListTitleCollectionViewCell.h"
+#import "QSHouseCollectionViewCell.h"
+
+#import "QSCollectionWaterFlowLayout.h"
 
 #import "QSFilterDataModel.h"
-#import "QSCommunityListReturnData.h"
+#import "QSRentHouseListReturnData.h"
 
 #import "QSRequestManager.h"
 #import "QSCoreDataManager+Filter.h"
@@ -18,7 +21,7 @@
 
 #import "MJRefresh.h"
 
-@interface QSCommunityListView () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface QSRentHouseListView () <QSCollectionWaterFlowLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 ///当前列表类型
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;
@@ -30,39 +33,20 @@
 @property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 ///数据源
-@property (nonatomic,retain) QSCommunityListReturnData *dataSourceModel;
+@property (nonatomic,retain) QSRentHouseListReturnData *dataSourceModel;
 
 @end
 
-@implementation QSCommunityListView
+@implementation QSRentHouseListView
 
-/**
- *  @author             yangshengmeng, 15-02-27 10:02:57
- *
- *  @brief              根据大小、位置、列表类型、当前过滤条件及单击时的回调，创建小区/新房
- *
- *  @param frame        大小和位置
- *  @param listType     列表类型
- *  @param filterModel  当前过滤器
- *  @param callBack     单击时的回调
- *
- *  @return             返回当前创建的房子瀑布流列且
- *
- *  @since              1.0.0
- */
-- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCurrentFilter:(QSFilterDataModel *)filterModel andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
+#pragma mark - 初始化
+///初始化
+- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCurrentFilter:(QSFilterDataModel *)filterModel andCallBack:(void (^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
 {
-
+    
     ///瀑布流布局器
-    UICollectionViewFlowLayout *defaultLayout = [[UICollectionViewFlowLayout alloc] init];
-    defaultLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    
-    ///每个信息项显示大小
-    defaultLayout.itemSize = CGSizeMake(SIZE_DEVICE_WIDTH, 350.0f / 690.0f * SIZE_DEFAULT_MAX_WIDTH + 39.5f + 5.0f + 25.0f + 20.0f);
-    
-    ///每项内容的间隙
-    defaultLayout.minimumLineSpacing = 20.0f;
-    defaultLayout.minimumInteritemSpacing = 0.0f;
+    QSCollectionWaterFlowLayout *defaultLayout = [[QSCollectionWaterFlowLayout alloc] initWithScrollDirection:UICollectionViewScrollDirectionVertical];
+    defaultLayout.delegate = self;
     
     if (self = [super initWithFrame:frame collectionViewLayout:defaultLayout]) {
         
@@ -80,11 +64,12 @@
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"communityCell"];
+        [self registerClass:[QSHouseListTitleCollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
+        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(communityListHeaderRequest)];
-        [self addFooterWithTarget:self action:@selector(communityListFooterRequest)];
+        [self addHeaderWithTarget:self action:@selector(rentHouseListHeaderRequest)];
+        [self addFooterWithTarget:self action:@selector(rentHouseListFooterRequest)];
         
         ///开始就刷新
         [self headerBeginRefreshing];
@@ -92,14 +77,112 @@
     }
     
     return self;
-
+    
 }
 
-#pragma mark - 请求小区列表数据
-///请求小区列表头数据
-- (void)communityListHeaderRequest
+#pragma mark - 列表房源的个数
+///返回当前显示的cell个数
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
+    return ([self.dataSourceModel.headerData.rentHouseList count] > 0) ? ([self.dataSourceModel.headerData.rentHouseList count] + 1) : 0;
+    
+}
+
+#pragma mark - 返回每一个cell的固定宽度
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultSizeOfItemInSection:(NSInteger)section
+{
+    
+    return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
+    
+}
+
+#pragma mark - 返回不同的cell的高度
+///返回不同的cell的高度
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (0 == indexPath.row) {
+        
+        return 80.0f;
+        
+    }
+    
+    CGFloat width = (SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT * 3.0f) / 2.0f;
+    CGFloat height = 139.5f + width * 247.0f / 330.0f;
+    
+    return height;
+    
+}
+
+#pragma mark - 返回cell的上间隙
+///返回cell的上间隙
+- (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSpaceOfItemInSection:(NSInteger)section
+{
+    
+    return (SIZE_DEVICE_WIDTH > 320.0f ? 20.0f : 15.0f);
+    
+}
+
+#pragma mark - 返回当前的section数量
+///返回当前的section数量
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    
+    return 1;
+    
+}
+
+#pragma mark - 返回每一个房子的信息展示cell
+/**
+ *  @author                 yangshengmeng, 15-01-30 16:01:04
+ *
+ *  @brief                  返回每一个房子信息的cell
+ *
+ *  @param collectionView   当前的瀑布流管理器
+ *  @param indexPath        当前下标
+ *
+ *  @return                 返回当前创建的房子信息cell
+ *
+ *  @since                  1.0.0
+ */
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ///判断是否标题栏
+    if (0 == indexPath.row) {
+        
+        ///复用标识
+        static NSString *titleCellIndentify = @"titleCell";
+        
+        ///从复用队列中获取cell
+        QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
+        
+        ///更新数据
+        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.headerData.total_num stringValue] andSubTitle:@"套出租房信息"];
+        
+        return cellTitle;
+        
+    }
+    
+    ///复用标识
+    static NSString *houseCellIndentify = @"houseCell";
+    
+    ///从复用队列中获取房子信息的cell
+    QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
+    
+    ///刷新数据
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1] andListType:self.listType];
+    
+    return cellHouse;
+    
+}
+
+#pragma mark - 请求数据
+///请求数据
+- (void)rentHouseListHeaderRequest
+{
+
     ///封装参数：主要是添加页码控制
     NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
     [temParams setObject:@"1" forKey:@"now_page"];
@@ -111,13 +194,13 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///请求成功后，转换模型
-            QSCommunityListReturnData *resultDataModel = resultData;
+            QSRentHouseListReturnData *resultDataModel = resultData;
             
             ///将数据模型置为nil
             self.dataSourceModel = nil;
             
             ///判断是否有房子数据
-            if ([resultDataModel.communityListHeaderData.communityList count] <= 0) {
+            if ([resultDataModel.headerData.rentHouseList count] <= 0) {
                 
                 ///没有记录，显示暂无记录提示
                 if (self.houseListTapCallBack) {
@@ -170,12 +253,12 @@
 
 }
 
-///获取更多数据
-- (void)communityListFooterRequest
+///请求更多数据
+- (void)rentHouseListFooterRequest
 {
     
     ///判断是否最大页码
-    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
+    if ([self.dataSourceModel.headerData.per_page intValue] == [self.dataSourceModel.headerData.total_page intValue]) {
         
         ///结束刷新动画
         [self headerEndRefreshing];
@@ -186,7 +269,7 @@
     
     ///封装参数：主要是添加页码控制
     NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
-    [temParams setObject:[NSString stringWithFormat:@"%@",self.dataSourceModel.communityListHeaderData.next_page] forKey:@"now_page"];
+    [temParams setObject:[NSString stringWithFormat:@"%@",self.dataSourceModel.headerData.next_page] forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
     [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -195,15 +278,15 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///请求成功后，转换模型
-            QSCommunityListReturnData *resultDataModel = resultData;
+            QSRentHouseListReturnData *resultDataModel = resultData;
             
             ///更改房子数据
-            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.communityListHeaderData.communityList];
+            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.headerData.rentHouseList];
             
             ///更新数据源
             self.dataSourceModel = resultDataModel;
-            [localArray addObjectsFromArray:resultDataModel.communityListHeaderData.communityList];
-            self.dataSourceModel.communityListHeaderData.communityList = localArray;
+            [localArray addObjectsFromArray:resultDataModel.headerData.rentHouseList];
+            self.dataSourceModel.headerData.rentHouseList = localArray;
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
@@ -226,32 +309,6 @@
         
     }];
     
-}
-
-#pragma mark - 返回每一个小区/新房的信息cell
-///返回每一个小区/新房的信息cell
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    static NSString *normalCellName = @"communityCell";
-    
-    ///从复用队列中返回cell
-    QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
-    
-    ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:self.listType];
-    
-    return cellNormal;
-
-}
-
-#pragma mark - 返回一共有多少个小区/新房项
-///返回一共有多少个小区/新房项
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-
-    return [self.dataSourceModel.communityListHeaderData.communityList count];
-
 }
 
 #pragma mark - 根据不同的列表类型返回不同的请求类型

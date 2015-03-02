@@ -183,6 +183,6 @@
  *
  *  @since      1.0.0
  */
-+ (NSString *)getHouseFeatureWithKey:(NSString *)key;
++ (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType;
 
 @end
