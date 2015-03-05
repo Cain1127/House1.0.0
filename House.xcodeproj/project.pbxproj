@@ -1302,6 +1302,7 @@
 		189300851A6902E30081D0AA /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				18EE345A1AA70B360053B909 /* New Group */,
 				18CAFC9F1A70952100C90C90 /* Queue */,
 				18C8A2401A6E188600BB9611 /* Color */,
 				18C8A2421A6E188600BB9611 /* Core */,
@@ -2533,6 +2534,13 @@
 				18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */,
 			);
 			name = Configuration;
+			sourceTree = "<group>";
+		};
+		18EE345A1AA70B360053B909 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		18F99ACE1A731DD600098FD6 /* Filter */ = {
