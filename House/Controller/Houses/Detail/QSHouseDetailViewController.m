@@ -12,7 +12,7 @@
 #import <objc/runtime.h>
 
 ///关联
-static char RootTableViewKey;//!<底view的关联key
+static char RootscrollViewKey;//!<底view的关联key
 
 @interface QSHouseDetailViewController () <UIScrollViewDelegate>
 
@@ -76,10 +76,7 @@ static char RootTableViewKey;//!<底view的关联key
     scrollView.showsVerticalScrollIndicator = NO;
     
     ///透明背影
-    scrollView.backgroundColor = [UIColor clearColor];
-    
-    ///取消分隔状态
-    //scrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    scrollView.backgroundColor=[UIColor redColor];
     
     ///设置数据源和代理
     scrollView.delegate = self;
@@ -89,8 +86,81 @@ static char RootTableViewKey;//!<底view的关联key
     [scrollView headerBeginRefreshing];
     
     [self.view addSubview:scrollView];
-    objc_setAssociatedObject(self, &RootTableViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
+    
 
+}
+
+#pragma mark -添加头部图片
+///添加头部图片
+- (void)createHeaderImageUI:(UIView *)view
+{
+
+
+}
+
+#pragma mark -添加评分view
+///添加评分view
+-(void)createsScoreUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加房子详情view
+///添加房子详情view
+-(void)createHouseDetailViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加房子服务按钮view
+///添加房子服务按钮view
+-(void)createHouseServiceViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加房子价钱变动view
+///添加房子价钱变动view
+-(void)createPriceChangeViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加小区均价view
+///添加小区均价view
+-(void)createDistrictAveragePriceViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加房源关注view
+///添加房源关注view
+-(void)createHouseAttentionViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加评论view
+///添加评论view
+-(void)createCommentViewUI:(UIView *)view
+{
+    
+    
+}
+
+#pragma mark -添加操作view
+///添加操作view
+-(void)createOperateViewUI:(UIView *)view
+{
+    
+    
 }
 
 #pragma mark - 结束刷新动画
@@ -98,8 +168,8 @@ static char RootTableViewKey;//!<底view的关联key
 - (void)endRefreshAnimination
 {
 
-    UIScrollView *tableView = objc_getAssociatedObject(self, &RootTableViewKey);
-    [tableView headerEndRefreshing];
+    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
+    [scrollView headerEndRefreshing];
 
 }
 
