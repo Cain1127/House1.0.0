@@ -17,7 +17,10 @@ typedef enum
     
     cCustomPickerTypeChannelBarDistrict,            //!<频道栏地区选择
     cCustomPickerTypeChannelBarHouseType,           //!<频道栏户型选择
-    cCustomPickerTypeChannelBarTotalPrice           //!<频道栏总价选择
+    cCustomPickerTypeChannelBarTotalPrice,          //!<频道栏总价选择
+    
+    cCustomPickerTypeChannelBarRentPrice,           //!<频道栏租金选择按钮
+    cCustomPickerTypeChannelBarAveragePrice,        //!<频道栏均价选择按钮
     
 }CUSTOM_PICKER_TYPE;                                //!<选择器类型
 

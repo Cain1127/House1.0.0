@@ -40,6 +40,17 @@
 + (NSArray *)getHouseSalePriceType;
 
 /**
+ *  @author yangshengmeng, 15-03-06 15:03:43
+ *
+ *  @brief  返回房子的均价类型数据
+ *
+ *  @return 返回均价数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseAverageSalePriceType;
+
+/**
  *  @author yangshengmeng, 15-02-02 09:02:16
  *
  *  @brief  获取房子面积类型列表数据

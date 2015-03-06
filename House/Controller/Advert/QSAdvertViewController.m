@@ -174,9 +174,6 @@
     UINavigationController *guideNavigationVC = [[UINavigationController alloc] initWithRootViewController:guideView];
     guideView.navigationController.navigationBarHidden = YES;
     
-    ///修改指引状态
-    [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
-    
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = guideNavigationVC;

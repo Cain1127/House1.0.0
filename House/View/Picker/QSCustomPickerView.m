@@ -196,14 +196,20 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             
             break;
             
-            ///频道栏三角图形
+            ///区域-频道栏三角图形
         case cCustomPickerTypeChannelBarDistrict:
             
-            ///频道栏三角图形
+            ///户型-频道栏三角图形
         case cCustomPickerTypeChannelBarHouseType:
             
-            ///频道栏三角图形
+            ///总价-频道栏三角图形
         case cCustomPickerTypeChannelBarTotalPrice:
+            
+            ///租金-频道栏三角图形
+        case cCustomPickerTypeChannelBarRentPrice:
+            
+            ///均价-频道栏三角图形
+        case cCustomPickerTypeChannelBarAveragePrice:
             
             return [UIImage imageNamed:IMAGE_CHANNELBAR_ARROW_NORMAL];
             
@@ -222,21 +228,27 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 {
     
     switch (self.pickerType) {
-            ///导航栏三角图形
+            ///导航栏-城市-三角图形
         case cCustomPickerTypeNavigationBarHouseMainType:
             
             return [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED];
             
             break;
             
-            ///频道栏三角图形
+            ///区域-频道栏三角图形
         case cCustomPickerTypeChannelBarDistrict:
             
-            ///频道栏三角图形
+            ///户型-频道栏三角图形
         case cCustomPickerTypeChannelBarHouseType:
             
-            ///频道栏三角图形
+            ///总价-频道栏三角图形
         case cCustomPickerTypeChannelBarTotalPrice:
+            
+            ///租金-频道栏三角图形
+        case cCustomPickerTypeChannelBarRentPrice:
+            
+            ///均价-频道栏三角图形
+        case cCustomPickerTypeChannelBarAveragePrice:
             
             return [UIImage imageNamed:IMAGE_CHANNELBAR_ARROW_HIGHLIGHTED];
             
@@ -392,6 +404,20 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         case cCustomPickerTypeChannelBarTotalPrice:
             
             return @"总价";
+            
+            break;
+            
+            ///频道栏-租金选择
+        case cCustomPickerTypeChannelBarRentPrice:
+            
+            return @"租金";
+            
+            break;
+            
+            ///频道栏-均价选择
+        case cCustomPickerTypeChannelBarAveragePrice:
+            
+            return @"均价";
             
             break;
             
@@ -840,7 +866,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         }
             break;
             
-            ///户型选择
+            ///总价选择
         case cCustomPickerTypeChannelBarTotalPrice:
         {
         
@@ -898,6 +924,128 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                 
             }];
         
+        }
+            break;
+            
+            ///租金选择
+        case cCustomPickerTypeChannelBarRentPrice:
+        {
+        
+            ///户型数据
+            NSArray *houseSalePrictList = [QSCoreDataManager getHouseRentPriceType];
+            
+            return [[QSSinglePickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andDataSource:houseSalePrictList andSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andPickedCallBack:^(SINGLE_PICKVIEW_PICKEDTYPE pickedType, id params) {
+                
+                ///判断回调
+                if (sSinglePickviewPickedTypePicked == pickedType) {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = params;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = self.currentPickedModel.val;
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
+                        
+                    }
+                    
+                    ///选择状态
+                    self.isSelected = YES;
+                    
+                } else {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = nil;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = [self getDefaultTypeInfo];
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypeUnLimited,nil,nil);
+                        
+                    }
+                    
+                    ///取消选择状态
+                    self.isSelected = NO;
+                    
+                }
+                
+                ///隐藏
+                [self removePickerView:YES];
+                
+                ///更换状态
+                self.isPicking = NO;
+                
+            }];
+        
+        }
+            break;
+            
+            ///均价选择
+        case cCustomPickerTypeChannelBarAveragePrice:
+        {
+            
+            ///户型数据
+            NSArray *houseSalePrictList = [QSCoreDataManager getHouseAverageSalePriceType];
+            
+            return [[QSSinglePickerView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andDataSource:houseSalePrictList andSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andPickedCallBack:^(SINGLE_PICKVIEW_PICKEDTYPE pickedType, id params) {
+                
+                ///判断回调
+                if (sSinglePickviewPickedTypePicked == pickedType) {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = params;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = self.currentPickedModel.val;
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypePicked,self.currentPickedModel.key,self.currentPickedModel.val);
+                        
+                    }
+                    
+                    ///选择状态
+                    self.isSelected = YES;
+                    
+                } else {
+                    
+                    ///保存当前选择模型
+                    self.currentPickedModel = nil;
+                    
+                    ///更换显示信息
+                    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+                    infoLabel.text = [self getDefaultTypeInfo];
+                    
+                    ///回调
+                    if (self.pickedCallBack) {
+                        
+                        self.pickedCallBack(pPickerCallBackActionTypeUnLimited,nil,nil);
+                        
+                    }
+                    
+                    ///取消选择状态
+                    self.isSelected = NO;
+                    
+                }
+                
+                ///隐藏
+                [self removePickerView:YES];
+                
+                ///更换状态
+                self.isPicking = NO;
+                
+            }];
+            
         }
             break;
             

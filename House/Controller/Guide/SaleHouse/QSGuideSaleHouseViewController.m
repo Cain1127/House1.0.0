@@ -9,9 +9,13 @@
 #import "QSGuideSaleHouseViewController.h"
 #import "QSLoginViewController.h"
 #import "QSTabBarViewController.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
+
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+Guide.h"
+
 #import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
@@ -170,6 +174,9 @@ static char BuyerCountDataKey;      //!<当前房客总数
             
             [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
             
+            ///修改指引状态
+            [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
+            
         });
         
         [self gotoLoginViewController];
@@ -186,7 +193,10 @@ static char BuyerCountDataKey;      //!<当前房客总数
         ///设置用户的默认过滤器
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse] andCallBack:^(BOOL isSuccess) {}];
+            
+            ///修改指引状态
+            [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusUnneedDisplay];
             
         });
         

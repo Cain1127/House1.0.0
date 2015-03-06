@@ -73,6 +73,34 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-03-06 15:03:43
+ *
+ *  @brief  返回房子的均价类型数据
+ *
+ *  @return 返回均价数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseAverageSalePriceType
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"price_avg"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+/**
  *  @author yangshengmeng, 15-02-02 09:02:16
  *
  *  @brief  获取房子面积类型列表数据

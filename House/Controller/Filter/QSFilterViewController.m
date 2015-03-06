@@ -419,14 +419,12 @@ typedef enum
                     QSCDBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
-                    
                     self.filterModel.sale_price_key = tempModel.key;
                     self.filterModel.sale_price_val = tempModel.val;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                 
                     textField.text = nil;
-                    
                     self.filterModel.sale_price_key = nil;
                     self.filterModel.sale_price_val = nil;
                 
