@@ -165,7 +165,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
 {
     
     ///出售物业
-    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_SECOND_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         

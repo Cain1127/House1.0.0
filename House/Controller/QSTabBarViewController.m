@@ -9,6 +9,8 @@
 #import "QSTabBarViewController.h"
 #import "QSMasterViewController.h"
 
+#import "QSCoreDataManager+User.h"
+
 @interface QSTabBarViewController ()
 
 @property (nonatomic,assign) int intCurrentIndex;           //!<初始化时的显示页下标

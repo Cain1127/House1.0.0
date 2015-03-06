@@ -200,7 +200,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
 {
     
     ///二手房
-    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_SECOND_BUTTON;
     UIButton *secondHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         

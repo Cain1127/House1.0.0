@@ -85,7 +85,7 @@
 - (void)createTenantSubviews:(UIView *)view
 {
     
-    ///房客:173 x 200
+    ///房客
     UIImageView *tenantHavedTipsImageView = [[UIImageView alloc] init];
     tenantHavedTipsImageView.translatesAutoresizingMaskIntoConstraints = NO;
     tenantHavedTipsImageView.image = [UIImage imageNamed:IMAGE_GUIDE_TENANTTIP];
@@ -135,7 +135,7 @@
 {
     
     ///我要找房
-    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON;
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
         

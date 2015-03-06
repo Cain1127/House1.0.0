@@ -34,6 +34,8 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
 
+#import "MJRefresh.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -58,7 +60,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (instancetype)init
 {
 
-    return [self initWithHouseMainType:fFilterMainTypeSecondHouse];
+    ///获取本地默认配置的过滤器
+    NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
+    return [self initWithHouseMainType:((filterID && [filterID length] > 0) ? [filterID intValue] : fFilterMainTypeSecondHouse)];
 
 }
 
@@ -200,7 +204,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     CGFloat width = (view.frame.size.width - gap * 3.0f - isAdvanceWith) / 3.0f;
     
     ///区域
-    QSBaseConfigurationDataModel *districtCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    __block QSBaseConfigurationDataModel *districtCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
     districtCurrentModel.key = (self.filterModel.street_key && ([self.filterModel.street_key length] > 0)) ? self.filterModel.street_key : nil;
     districtCurrentModel.val = self.filterModel.street_val;
     self.distictPickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(gap, 0.0f, width, view.frame.size.height) andPickerType:cCustomPickerTypeChannelBarDistrict andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:(districtCurrentModel.key ? districtCurrentModel : nil) andIndicaterCenterXPoint:gap + width / 2.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey, NSString *pickedVal) {
@@ -213,18 +217,32 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.pricePickerView removePickerView:NO];
             [self.houseListTypePickerView removePickerView:NO];
             
+        } else {
+            
+            if (districtCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
+                
+            } else {
+            
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
+            
+            }
+            
         }
         
     }];
     [view addSubview:self.distictPickerView];
     
-    ///户型
-    QSBaseConfigurationDataModel *houseTypeCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    ///中间选择按钮
+    __block QSBaseConfigurationDataModel *houseTypeCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    __block NSString *houseTypeSetKey = @"avg_price_key";
+    __block NSString *houseTypeSetVal = @"avg_price_val";
     
     ///根据类型设置选择类型
     CUSTOM_PICKER_TYPE houseType = cCustomPickerTypeChannelBarHouseType;
     
-    ///新房/小区时，最后一个选择项为户型选择
+    ///新房/小区时，中间选择项为<均价选择>
     if (fFilterMainTypeNewHouse == self.listType ||
         fFilterMainTypeCommunity == self.listType) {
         
@@ -233,16 +251,20 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///设置当前选择信息
         houseTypeCurrentModel.key = (self.filterModel.avg_price_key && ([self.filterModel.avg_price_key length] > 0)) ? self.filterModel.avg_price_key : nil;
         houseTypeCurrentModel.val = self.filterModel.avg_price_val;
+        houseTypeSetKey = @"avg_price_key";
+        houseTypeSetVal = @"avg_price_val";
         
     } else if (fFilterMainTypeSecondHouse == self.listType ||
                fFilterMainTypeRentalHouse == self.listType) {
         
-        ///二手房，弹出总价选择窗口
+        ///二手房/出租房，弹出户型价选择窗口
         houseType = cCustomPickerTypeChannelBarHouseType;
         
         ///设置当前选择信息
         houseTypeCurrentModel.key = (self.filterModel.house_type_key && ([self.filterModel.house_type_key length] > 0)) ? self.filterModel.house_type_key : nil;
         houseTypeCurrentModel.val = self.filterModel.house_type_val;
+        houseTypeSetKey = @"house_type_key";
+        houseTypeSetVal = @"house_type_val";
         
     }
     
@@ -256,13 +278,27 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.pricePickerView removePickerView:NO];
             [self.houseListTypePickerView removePickerView:NO];
             
+        } else {
+            
+            if (houseTypeCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:YES];
+                
+            } else {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:NO];
+                
+            }
+            
         }
         
     }];
     [view addSubview:self.houseTypePickerView];
     
-    ///总价/租金
-    QSBaseConfigurationDataModel *totalPriceCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    ///频道栏第三个按钮
+    __block QSBaseConfigurationDataModel *totalPriceCurrentModel = [[QSBaseConfigurationDataModel alloc] init];
+    __block NSString *totalPriceSetKey = @"house_type_key";
+    __block NSString *totalPriceSetVal = @"house_type_val";
     
     ///样式
     CUSTOM_PICKER_TYPE priceType = cCustomPickerTypeChannelBarTotalPrice;
@@ -276,6 +312,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///设置当前选择信息
         totalPriceCurrentModel.key = (self.filterModel.house_type_key && ([self.filterModel.house_type_key length] > 0)) ? self.filterModel.house_type_key : nil;
         totalPriceCurrentModel.val = self.filterModel.house_type_val;
+        totalPriceSetKey = @"house_type_key";
+        totalPriceSetVal = @"house_type_val";
         
     } else if (fFilterMainTypeSecondHouse == self.listType) {
         
@@ -285,6 +323,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///设置当前选择信息
         totalPriceCurrentModel.key = (self.filterModel.sale_price_key && ([self.filterModel.sale_price_key length] > 0)) ? self.filterModel.sale_price_key : nil;
         totalPriceCurrentModel.val = self.filterModel.sale_price_val;
+        totalPriceSetKey = @"sale_price_key";
+        totalPriceSetVal = @"sale_price_val";
         
     } else if (fFilterMainTypeRentalHouse == self.listType) {
         
@@ -294,6 +334,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///设置当前选择信息
         totalPriceCurrentModel.key = (self.filterModel.rent_price_key && ([self.filterModel.rent_price_key length] > 0)) ? self.filterModel.rent_price_key : nil;
         totalPriceCurrentModel.val = self.filterModel.rent_price_val;
+        totalPriceSetKey = @"rent_price_key";
+        totalPriceSetVal = @"rent_price_val";
         
     }
     
@@ -306,6 +348,18 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.houseTypePickerView removePickerView:NO];
             [self.houseListTypePickerView removePickerView:NO];
             [self.distictPickerView removePickerView:NO];
+            
+        } else {
+            
+            if (totalPriceCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:YES];
+                
+            } else {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:NO];
+                
+            }
             
         }
         
@@ -540,6 +594,87 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     if (self.pricePickerView) {
         
         [self.pricePickerView removePickerView:NO];
+        
+    }
+
+}
+
+#pragma mark - 频道栏过滤后事件统一处理
+- (void)channelBarButtonAction:(PICKER_CALLBACK_ACTION_TYPE)callBackType andPickedKey:(NSString *)pickedKey andPickedVal:(NSString *)pickedVal andResetKey:(NSString *)setKey andResetVal:(NSString *)setVal isCurrentModel:(BOOL)isCurrentModel
+{
+
+    ///不限
+    if (pPickerCallBackActionTypeUnLimited == callBackType) {
+        
+        ///判断原来是否已有选择，如果原来就不限，则不刷新，如果原来有选择项，现在重新不限，则刷新
+        if (isCurrentModel) {
+            
+            ///更新过滤器
+            [self.filterModel setValue:@"" forKey:setKey];
+            [self.filterModel setValue:@"" forKey:setVal];
+            
+            ///更新本地对应的过滤器
+            self.filterModel.filter_status = @"2";
+            
+            ///刷新数据
+            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+            [collectionView headerBeginRefreshing];
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///保存成功后进入房子列表
+                if (isSuccess) {
+                    
+                    NSLog(@"====================过滤器保存成功=====================");
+                    
+                } else {
+                    
+                    NSLog(@"====================过滤器保存失败=====================");
+                    
+                }
+                
+            }];
+            
+            ///将过滤器设置为当前用户的默认过滤器
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+            
+        }
+        
+    }
+    
+    ///选择了内容
+    if (pPickerCallBackActionTypePicked == callBackType) {
+        
+        ///更新过滤器
+        [self.filterModel setValue:pickedKey ? pickedKey : @"" forKey:setKey];
+        [self.filterModel setValue:pickedVal ? pickedVal : @"" forKey:setVal];
+        
+        ///更新本地对应的过滤器
+        self.filterModel.filter_status = @"2";
+        
+        ///刷新数据
+        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        [collectionView headerBeginRefreshing];
+        
+        ///保存过滤器
+        [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///保存成功后进入房子列表
+            if (isSuccess) {
+                
+                NSLog(@"====================过滤器保存成功=====================");
+                
+            } else {
+                
+                NSLog(@"====================过滤器保存失败=====================");
+                
+            }
+            
+        }];
+        
+        ///将过滤器设置为当前用户的默认过滤器
+        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
         
     }
 
