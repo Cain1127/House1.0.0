@@ -298,6 +298,9 @@
 		18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E802251A6FD07B00CA21D4 /* QSCoreDataManager+App.m */; };
 		18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E8022C1A6FD44400CA21D4 /* NSDate+Formatter.m */; };
 		18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E932471A762C7000927DF2 /* QSCDConfigurationDataModel.m */; };
+		18EE345D1AA94AAC0053B909 /* QSNewHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE345C1AA94AAC0053B909 /* QSNewHouseDetailViewController.m */; };
+		18EE34601AA94AC70053B909 /* QSCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE345F1AA94AC70053B909 /* QSCommunityDetailViewController.m */; };
+		18EE34631AA94B330053B909 /* QSRentHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34621AA94B330053B909 /* QSRentHouseDetailViewController.m */; };
 		18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18F99ACF1A731E3500098FD6 /* FilterFindHouseSecondHouse.plist */; };
 		18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18F99AD11A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist */; };
 		18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AD51A733AA000098FD6 /* QSTextField.m */; };
@@ -749,6 +752,12 @@
 		18E8022E1A6FD69100CA21D4 /* TipsHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsHeader.h; sourceTree = "<group>"; };
 		18E932461A762C7000927DF2 /* QSCDConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDConfigurationDataModel.h; path = Configuration/QSCDConfigurationDataModel.h; sourceTree = "<group>"; };
 		18E932471A762C7000927DF2 /* QSCDConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDConfigurationDataModel.m; path = Configuration/QSCDConfigurationDataModel.m; sourceTree = "<group>"; };
+		18EE345B1AA94AAC0053B909 /* QSNewHouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNewHouseDetailViewController.h; path = Detail/QSNewHouseDetailViewController.h; sourceTree = "<group>"; };
+		18EE345C1AA94AAC0053B909 /* QSNewHouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNewHouseDetailViewController.m; path = Detail/QSNewHouseDetailViewController.m; sourceTree = "<group>"; };
+		18EE345E1AA94AC70053B909 /* QSCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDetailViewController.h; path = Detail/QSCommunityDetailViewController.h; sourceTree = "<group>"; };
+		18EE345F1AA94AC70053B909 /* QSCommunityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDetailViewController.m; path = Detail/QSCommunityDetailViewController.m; sourceTree = "<group>"; };
+		18EE34611AA94B330053B909 /* QSRentHouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSRentHouseDetailViewController.h; path = Detail/QSRentHouseDetailViewController.h; sourceTree = "<group>"; };
+		18EE34621AA94B330053B909 /* QSRentHouseDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSRentHouseDetailViewController.m; path = Detail/QSRentHouseDetailViewController.m; sourceTree = "<group>"; };
 		18F99ACF1A731E3500098FD6 /* FilterFindHouseSecondHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseSecondHouse.plist; path = Filter/FilterFindHouseSecondHouse.plist; sourceTree = "<group>"; };
 		18F99AD11A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseRenantHouse.plist; path = Filter/FilterFindHouseRenantHouse.plist; sourceTree = "<group>"; };
 		18F99AD41A733AA000098FD6 /* QSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSTextField.h; path = TextField/QSTextField.h; sourceTree = "<group>"; };
@@ -1439,6 +1448,12 @@
 			children = (
 				18A88E431A8C5E2700596E11 /* QSHouseDetailViewController.h */,
 				18A88E441A8C5E2700596E11 /* QSHouseDetailViewController.m */,
+				18EE345B1AA94AAC0053B909 /* QSNewHouseDetailViewController.h */,
+				18EE345C1AA94AAC0053B909 /* QSNewHouseDetailViewController.m */,
+				18EE345E1AA94AC70053B909 /* QSCommunityDetailViewController.h */,
+				18EE345F1AA94AC70053B909 /* QSCommunityDetailViewController.m */,
+				18EE34611AA94B330053B909 /* QSRentHouseDetailViewController.h */,
+				18EE34621AA94B330053B909 /* QSRentHouseDetailViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -3102,6 +3117,7 @@
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,
+				18EE34601AA94AC70053B909 /* QSCommunityDetailViewController.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
@@ -3132,6 +3148,7 @@
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
+				18EE345D1AA94AAC0053B909 /* QSNewHouseDetailViewController.m in Sources */,
 				187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */,
 				18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */,
 				18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */,
@@ -3140,6 +3157,7 @@
 				18CAFCD21A70E45A00C90C90 /* QSMSGBaseDataModel.m in Sources */,
 				18C8A0D01A6A68CF00BB9611 /* QSBlockButton.m in Sources */,
 				18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */,
+				18EE34631AA94B330053B909 /* QSRentHouseDetailViewController.m in Sources */,
 				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				18A88E451A8C5E2700596E11 /* QSHouseDetailViewController.m in Sources */,

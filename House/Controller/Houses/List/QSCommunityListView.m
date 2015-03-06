@@ -11,6 +11,7 @@
 
 #import "QSFilterDataModel.h"
 #import "QSCommunityListReturnData.h"
+#import "QSCommunityDataModel.h"
 
 #import "QSRequestManager.h"
 #import "QSCoreDataManager+Filter.h"
@@ -252,6 +253,23 @@
 
     return [self.dataSourceModel.communityListHeaderData.communityList count];
 
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ///获取房子模型
+    QSCommunityDataModel *houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row ];
+    
+    ///回调
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
+        
+    }
+    
 }
 
 #pragma mark - 根据不同的列表类型返回不同的请求类型

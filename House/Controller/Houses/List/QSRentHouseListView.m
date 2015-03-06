@@ -14,6 +14,7 @@
 
 #import "QSFilterDataModel.h"
 #import "QSRentHouseListReturnData.h"
+#import "QSRentHouseInfoDataModel.h"
 
 #import "QSRequestManager.h"
 #import "QSCoreDataManager+Filter.h"
@@ -77,6 +78,23 @@
     }
     
     return self;
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ///获取房子模型
+    QSRentHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1];
+    
+    ///回调
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
+        
+    }
     
 }
 

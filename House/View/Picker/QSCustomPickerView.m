@@ -549,7 +549,43 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     ///城市选择类型
     if (cCustomPickerTypeNavigationBarHouseMainType == self.pickerType) {
         
-        return [QSCoreDataManager getHouseListMainType];
+        NSArray *tempArray = [QSCoreDataManager getHouseListMainType];
+        
+        ///过滤掉楼盘和楼栋
+        NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:0];
+        for (QSBaseConfigurationDataModel *obj in tempArray) {
+            
+            ///新房
+            if (fFilterMainTypeNewHouse == [obj.key intValue]) {
+             
+                [resultArray addObject:obj];
+                
+            }
+            
+            ///小区
+            if (fFilterMainTypeCommunity == [obj.key intValue]) {
+                
+                [resultArray addObject:obj];
+                
+            }
+            
+            ///二手房
+            if (fFilterMainTypeSecondHouse == [obj.key intValue]) {
+                
+                [resultArray addObject:obj];
+                
+            }
+            
+            ///出租房
+            if (fFilterMainTypeRentalHouse == [obj.key intValue]) {
+                
+                [resultArray addObject:obj];
+                
+            }
+            
+        }
+        
+        return [NSArray arrayWithArray:resultArray];
         
     }
     

@@ -11,6 +11,7 @@
 
 #import "QSFilterDataModel.h"
 #import "QSNewHouseListReturnData.h"
+#import "QSNewHouseInfoDataModel.h"
 
 #import "QSRequestManager.h"
 #import "QSCoreDataManager+Filter.h"
@@ -119,6 +120,23 @@
 {
     
     return [self.dataSourceModel.headerData.houseList count];
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ///获取房子模型
+    QSNewHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.houseList[indexPath.row];
+    
+    ///回调
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
+        
+    }
     
 }
 
