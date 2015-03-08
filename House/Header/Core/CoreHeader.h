@@ -16,5 +16,7 @@
     #import "QSNavigationBar.h"     //!<自定义的导航栏
     #import "NSObject+Calculate.h"  //!<在NSObject的基础上添加计算类型
     #import "QSTextField.h"         //!<自定义带有标识符的输入框
+    #import "QSScrollView.h"        //!<自定义取消滚动条的scrollView
+    #import "QSBlockView.h"         //!<自定义带回调的UIView
 
 #endif

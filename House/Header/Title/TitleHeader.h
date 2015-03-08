@@ -129,4 +129,19 @@
 ///忘记密码
 #define TITLE_LOGIN_FORGETPASSWORD_BUTTON @"忘记密码？"
 
+#pragma mark - 房子详情相关标题信息
+/**
+ *  @author yangshengmeng, 15-03-08 11:03:29
+ *
+ *  @brief  房子详情相关标题信息
+ *
+ *  @since  1.0.0
+ */
+
+///免费看房
+#define TITLE_HOUSES_DETAIL_NEW_FREECALL @"免费通话"
+
+///看房
+#define TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE @"我要看房"
+
 #endif

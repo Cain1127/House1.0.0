@@ -47,4 +47,17 @@
  */
 + (NSString *)formatNSDateToTimeStamp:(NSDate *)date;
 
+/**
+ *  @author             yangshengmeng, 15-03-08 14:03:53
+ *
+ *  @brief              根据时间戳，转成时间字符串，时间格式为yyyy-dd-mm hh:mm:ss
+ *
+ *  @param timeStamp    时间戳
+ *
+ *  @return             返回日期字符串
+ *
+ *  @since              1.0.0
+ */
++ (NSString *)formatNSTimeToNSDateString:(NSString *)timeStamp;
+
 @end

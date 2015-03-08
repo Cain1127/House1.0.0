@@ -240,6 +240,15 @@
 
 }
 
+///根据装修的key，获取装修描述
++ (NSString *)getHouseDecorationTypeWithKey:(NSString *)decorationKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"decoration_type" andSecondFieldName:@"key" andSecndFieldValue:decorationKey];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 10:02:15
  *
@@ -415,6 +424,15 @@
 
 }
 
+///根据物业类型的key，返回物业类型描述
++ (NSString *)getHouseTradeTypeWithKey:(NSString *)tradeKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"property_type" andSecondFieldName:@"key" andSecndFieldValue:tradeKey];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-01-27 17:01:23
  *
@@ -440,6 +458,15 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
+///根据给定的key，查找对应的购房目的
++ (NSString *)getPerpostPerchaseTypeWithKey:(NSString *)perpostKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"intent" andSecondFieldName:@"key" andSecndFieldValue:perpostKey];
+    return tempModel.val;
 
 }
 

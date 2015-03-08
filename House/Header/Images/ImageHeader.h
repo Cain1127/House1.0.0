@@ -37,8 +37,16 @@
 #define IMAGE_PUBLIC_LOCAL_LIGHYELLOW @"public_local_lightyellow"
 #define IMAGE_PUBLIC_LOCAL_HIGHLIGHTED @"public_local_highlighted"
 
+///计算器图标
+#define IMAGE_PUBLIC_CALCULATOR_NORMAL @"houses_detail_calculate_normal"
+#define IMAGE_PUBLIC_CALCULATOR_HIGHLIGHTED @"houses_detail_calculate_highlighted"
+
 ///vip标识图片
 #define IMAGE_PUBLIC_VIP @"public_vip_tag"
+
+///60x60的三角提示
+#define IMAGE_PUBLIC_ARROW_60X60_NORMAL @"public_arrow_normal60x60"
+#define IMAGE_PUBLIC_ARROW_60X60_HIGHLIGHTED @"public_arrow_highlighted60x60"
 
 #pragma mark - 导航栏图片资源
 /**
@@ -200,6 +208,20 @@
 
 ///合租标签
 #define IMAGE_HOUSES_LIST_JOINTRENT @"houses_features_hezu"
+
+///新房详情页左右提示图片
+#define IMAGE_HOUSES_DETAIL_NEW_ACTIVITY_LEFT @"houses_detail_activity_left"
+#define IMAGE_HOUSES_DETAIL_NEW_ACTIVITY_RIGHT @"houses_detail_activity_right"
+
+///新房详情页，中间总评分图片
+#define IMAGE_HOUSES_DETAIL_MAIN_SCORE @"houses_detail_sizeform_totalscore"
+
+///新房详情页，左右评分的头图片
+#define IMAGE_HOUSES_DETAIL_DETAIL_SCORE @"houses_detail_score"
+
+///星级
+#define IMAGE_HOUSES_DETAIL_STAR_GRAY @"houses_detail_starlevel_gray"
+#define IMAGE_HOUSES_DETAIL_STAR_YELLOW @"houses_detail_starlevel_yellow"
 
 #pragma mark - 发现模块相关图片资源
 

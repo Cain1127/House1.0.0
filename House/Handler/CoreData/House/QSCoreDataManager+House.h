@@ -104,6 +104,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseDecorationType;
++ (NSString *)getHouseDecorationTypeWithKey:(NSString *)decorationKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 10:02:15
@@ -171,6 +172,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseTradeType;
++ (NSString *)getHouseTradeTypeWithKey:(NSString *)tradeKey;
 
 /**
  *  @author yangshengmeng, 15-01-27 17:01:23
@@ -182,6 +184,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getPurpostPerchaseType;
++ (NSString *)getPerpostPerchaseTypeWithKey:(NSString *)perpostKey;
 
 /**
  *  @author     yangshengmeng, 15-02-12 13:02:13

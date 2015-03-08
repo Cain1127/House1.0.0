@@ -38,7 +38,7 @@
  *
  *  @since  1.0.0
  */
-@interface QSBlockImageView : UIImageView
+@interface QSBlockImageView : QSImageView
 
 /**
  *  @author         yangshengmeng, 15-01-29 15:01:40
