@@ -9,6 +9,7 @@
 #import "QSHouseDetailViewController.h"
 #import "MJRefresh.h"
 
+
 #import <objc/runtime.h>
 
 ///关联
@@ -68,18 +69,66 @@ static char RootscrollViewKey;//!<底view的关联key
 ///主展示信息
 - (void)createMainShowUI
 {
+    ///主题图片
+    UIImageView *headerImageView=[[UIImageView alloc] init];
+    headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
+    headerImageView.image=[UIImage imageNamed:@"houses_list_load_fail690x350"];
     
-    UIScrollView *scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) ];
+    ///分数view
+    UIView *scoreView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)];
+    [self createScoreUI:scoreView];
+    
+    ///房子统计view
+    UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseTotalUI:houseTotalView];
+    
+    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseDetailViewUI:houseDetailView];
+    //houseDetailView.backgroundColor = [UIColor blueColor];
+    
+     UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
+    [self createHouseServiceViewUI:houseServiceView];
+    
+     UIView *priceChangeView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createPriceChangeViewUI:priceChangeView];
+    
+     UIView *districtAveragePriceView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
+    
+     UIView *houseAttentionView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseAttentionViewUI:houseAttentionView];
+    
+     UIView *commentView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createCommentViewUI:commentView];
+
+    UIView *operateView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, 20.0f*2.0f+5.0f+35.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createOperateViewUI:operateView];
+    
+    UIScrollView *scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, headerImageView.frame.size.height+scoreView.frame.size.height+houseTotalView.frame.size.height+houseDetailView.frame.size.height+houseServiceView.frame.size.height+priceChangeView.frame.size.height+districtAveragePriceView.frame.size.height+houseAttentionView.frame.size.height+commentView.frame.size.height+ operateView.frame.size.height)];
+    
+    [scrollView addSubview:headerImageView];
+    [scrollView addSubview:scoreView];
+    [scrollView addSubview:houseTotalView];
+    [scrollView addSubview:houseDetailView];
+    [scrollView addSubview:houseServiceView];
+    [scrollView addSubview:priceChangeView];
+    [scrollView addSubview:districtAveragePriceView];
+    [scrollView addSubview:houseAttentionView];
+    [scrollView addSubview:commentView];
+    [scrollView addSubview:operateView];
+    
     
     ///取消滚动条
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
     
     ///透明背影
-    scrollView.backgroundColor=[UIColor redColor];
+    scrollView.backgroundColor=[UIColor clearColor];
     
     ///设置数据源和代理
     scrollView.delegate = self;
+    scrollView.scrollEnabled=YES;
+    scrollView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,2000.0f);
     
     ///添加头部刷新
     [scrollView addHeaderWithTarget:self action:@selector(getDetailInfo)];
@@ -87,6 +136,7 @@ static char RootscrollViewKey;//!<底view的关联key
     
     [self.view addSubview:scrollView];
     objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
+
     
 
 }
@@ -95,15 +145,111 @@ static char RootscrollViewKey;//!<底view的关联key
 ///添加头部图片
 - (void)createHeaderImageUI:(UIView *)view
 {
+    
 
+   
 
 }
 
 #pragma mark -添加评分view
 ///添加评分view
--(void)createsScoreUI:(UIView *)view
+-(void)createScoreUI:(UIView *)view
 {
     
+    ///左边六角形图标
+    QSImageView *leftImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH*120.0f/750.0f, SIZE_DEVICE_WIDTH*120.0f/750.0f+7.0f)];
+    leftImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
+    leftImageView.center = CGPointMake(SIZE_DEVICE_WIDTH*120.0f/750.0f/ 2.0f, view.frame.size.height/2.0f);
+    [view addSubview:leftImageView];
+    
+    ///中间六角形图标
+    QSImageView *middleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH*160.0f/750.0f, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)];
+    middleImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
+    middleImageView.center = CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f);
+    [view addSubview:middleImageView];
+    
+    ///右边六角形图标
+    QSImageView *rightImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH*120.0f/750.0f, SIZE_DEVICE_WIDTH*120.0f/750.0f+7.0f)];
+    rightImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
+    rightImageView.center = CGPointMake(view.frame.size.width-SIZE_DEVICE_WIDTH*120.0f/750.0f/ 2.0f, view.frame.size.height/2.0f);
+    [view addSubview:rightImageView];
+    
+}
+
+#pragma mark -添加物业总价view
+///添加物业总价
+- (void)createHouseTotalUI:(UIView *)view
+{
+    
+    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, 100.0f, 20.0f)];
+    hoeseTotalLabel.text=@"物业总价";
+    hoeseTotalLabel.textAlignment=NSTextAlignmentLeft;
+    [view addSubview:hoeseTotalLabel];
+    
+    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-100.0f, 10.0f, 100.0f, 20.0f)];
+    areaSizeLabel.text=@"面积大小";
+    areaSizeLabel.textAlignment=NSTextAlignmentRight;
+    [view addSubview:areaSizeLabel];
+    
+    UILabel *priceLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height+10.0f, view.frame.size.width/2.0f-3.0f, 44.0f)];
+    priceLabel.textAlignment=NSTextAlignmentCenter;
+    priceLabel.text=@"340万";
+    priceLabel.font=[UIFont systemFontOfSize:25.0f];
+    priceLabel.layer.cornerRadius=6.0f;
+    priceLabel.backgroundColor=COLOR_CHARACTERS_YELLOW;
+    [view addSubview:priceLabel];
+    
+    UILabel *areaLabel=[[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+6.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height+10.0f, priceLabel.frame.size.width, 44.0f)];
+    areaLabel.textAlignment=NSTextAlignmentCenter;
+    areaLabel.text=@"124/m";
+    areaLabel.font=[UIFont systemFontOfSize:25.0f];
+    areaLabel.layer.cornerRadius=6.0f;
+    areaLabel.backgroundColor=COLOR_CHARACTERS_YELLOW;
+    [view addSubview:areaLabel];
+    
+    UILabel *onlyHouseLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+10.0f, 65.0f, 20.0f)];
+    onlyHouseLabel.textAlignment=NSTextAlignmentCenter;
+    onlyHouseLabel.text=@"唯一房产";
+    onlyHouseLabel.font=[UIFont systemFontOfSize:14.0f];
+    onlyHouseLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
+    onlyHouseLabel.textColor=[UIColor whiteColor];
+    [view addSubview:onlyHouseLabel];
+    
+    UILabel *fiveYearLabel=[[UILabel alloc] initWithFrame:CGRectMake(onlyHouseLabel.frame.origin.x+onlyHouseLabel.frame.size.width+5.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+10.0f, 65.0f, 20.0f)];
+    fiveYearLabel.textAlignment=NSTextAlignmentCenter;
+    fiveYearLabel.text=@"满五年";
+    fiveYearLabel.font=[UIFont systemFontOfSize:14.0f];
+    fiveYearLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
+    fiveYearLabel.textColor=[UIColor whiteColor];
+    [view addSubview:fiveYearLabel];
+    
+    UILabel *degreeHouseLabel=[[UILabel alloc] initWithFrame:CGRectMake(fiveYearLabel.frame.origin.x+fiveYearLabel.frame.size.width+5.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+10.0f, 65.0f, 20.0f)];
+    degreeHouseLabel.textAlignment=NSTextAlignmentCenter;
+    degreeHouseLabel.font=[UIFont systemFontOfSize:14.0f];
+    degreeHouseLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
+    degreeHouseLabel.textColor=[UIColor whiteColor];
+    degreeHouseLabel.text=@"学位房";
+    
+    [view addSubview:degreeHouseLabel];
+    
+    UILabel *downPaymentLabel=[[UILabel alloc] initWithFrame:CGRectMake(degreeHouseLabel.frame.origin.x+degreeHouseLabel.frame.size.width+5.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+10.0f, 65.0f, 20.0f)];
+    downPaymentLabel.textAlignment=NSTextAlignmentCenter;
+    downPaymentLabel.text=@"低首付";
+    downPaymentLabel.font=[UIFont systemFontOfSize:14.0f];
+    downPaymentLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
+    downPaymentLabel.textColor=[UIColor whiteColor];
+    [view addSubview:downPaymentLabel];
+    
+    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, downPaymentLabel.frame.origin.y+downPaymentLabel.frame.size.height+10.0f, SIZE_DEFAULT_MAX_WIDTH-100.0f, 20.0f)];
+    addressLabel.textAlignment=NSTextAlignmentCenter;
+    addressLabel.text=@"番禺/大石/大石海滨花园 西槎路粤西南路";
+    addressLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:addressLabel];
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
@@ -112,6 +258,58 @@ static char RootscrollViewKey;//!<底view的关联key
 -(void)createHouseDetailViewUI:(UIView *)view
 {
     
+    UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    houseTypeLabel.text=@"户型:一室一厅";
+    houseTypeLabel.textAlignment=NSTextAlignmentLeft;
+    houseTypeLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:houseTypeLabel];
+    
+    UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    typeLabel.text=@"类型:公寓";
+    typeLabel.textAlignment=NSTextAlignmentLeft;
+    typeLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:typeLabel];
+    
+    UILabel *orientationsLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    orientationsLabel.textAlignment=NSTextAlignmentLeft;
+      orientationsLabel.font=[UIFont systemFontOfSize:14.0f];
+    orientationsLabel.text=@"朝向:东南西北中";
+    [view addSubview:orientationsLabel];
+    
+    UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    layerCountLabel.text=@"层数:23/38层";
+    layerCountLabel.textAlignment=NSTextAlignmentLeft;
+      layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:layerCountLabel];
+    
+    UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    decoreteLabel.textAlignment=NSTextAlignmentLeft;
+      decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
+    decoreteLabel.text=@"装修:精装修";
+    [view addSubview:decoreteLabel];
+    
+    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    timeLabel.text=@"年代:2008年";
+    timeLabel.textAlignment=NSTextAlignmentLeft;
+    timeLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:timeLabel];
+    
+    UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    structureLabel.textAlignment=NSTextAlignmentLeft;
+    structureLabel.font=[UIFont systemFontOfSize:14.0f];
+    structureLabel.text=@"结构:混合";
+    [view addSubview:structureLabel];
+    
+    UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    propertyLabel.text=@"产权:50年使用权";
+    propertyLabel.font=[UIFont systemFontOfSize:14.0f];
+    propertyLabel.textAlignment=NSTextAlignmentLeft;
+    [view addSubview:propertyLabel];
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
@@ -120,6 +318,71 @@ static char RootscrollViewKey;//!<底view的关联key
 -(void)createHouseServiceViewUI:(UIView *)view
 {
     
+    CGFloat imageW = (view.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 5.0f;
+    CGFloat imageH = imageW +5.0f;
+    CGFloat imageY = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
+    
+    CGFloat labelW = imageW;
+    CGFloat labelY = imageY+imageH+8.0f;
+    
+    QSImageView *bagStay=[[QSImageView alloc] initWithFrame:CGRectMake(0.0f, imageY, imageW,imageH )];
+    bagStay.image=[UIImage imageNamed:@"houses_bag"];
+    [view addSubview:bagStay];
+    
+    QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(0.0f, labelY, labelW,20.0f)];
+    bagStayLabel.text=@"拎包入住";
+    bagStayLabel.textAlignment=NSTextAlignmentCenter;
+    bagStayLabel.font=[UIFont systemFontOfSize:12.0f];
+    [view addSubview:bagStayLabel];
+    
+    
+    QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    appliance.image=[UIImage imageNamed:@"houses_appliance"];
+    [view addSubview:appliance];
+    
+    QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, imageW,20.0f)];
+    applianceLabel.text=@"家电齐全";
+    applianceLabel.textAlignment=NSTextAlignmentCenter;
+    applianceLabel.font=[UIFont systemFontOfSize:12.0f];
+    [view addSubview:applianceLabel];
+    
+    
+    QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    broadband.image=[UIImage imageNamed:@"houses_broadband"];
+    [view addSubview:broadband];
+    
+    QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, imageW,20.0f)];
+    broadbandLabel.text=@"宽带网络";
+    broadbandLabel.textAlignment=NSTextAlignmentCenter;
+    broadbandLabel.font=[UIFont systemFontOfSize:12.0f];
+    [view addSubview:broadbandLabel];
+    
+    
+    QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    linegas.image=[UIImage imageNamed:@"houses_linegas"];
+    [view addSubview:linegas];
+    
+    QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, imageW,20.0f)];
+    linegasLabel.text=@"管着煤气";
+    linegasLabel.textAlignment=NSTextAlignmentCenter;
+    linegasLabel.font=[UIFont systemFontOfSize:12.0f];
+    [view addSubview:linegasLabel];
+    
+    
+    QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    mud.image=[UIImage imageNamed:@"houses_mud"];
+    [view addSubview:mud];
+    
+    QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, imageW,20.0f)];
+    mudLabel.text=@"硅藻泥墙";
+    mudLabel.textAlignment=NSTextAlignmentCenter;
+    mudLabel.font=[UIFont systemFontOfSize:12.0f];
+    [view addSubview:mudLabel];
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
@@ -128,6 +391,16 @@ static char RootscrollViewKey;//!<底view的关联key
 -(void)createPriceChangeViewUI:(UIView *)view
 {
     
+//    UILabel *changeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+//    propertyLabel.text=@"产权:50年使用权";
+//    propertyLabel.font=[UIFont systemFontOfSize:14.0f];
+//    propertyLabel.textAlignment=NSTextAlignmentLeft;
+//    [view addSubview:propertyLabel];
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
@@ -135,7 +408,12 @@ static char RootscrollViewKey;//!<底view的关联key
 ///添加小区均价view
 -(void)createDistrictAveragePriceViewUI:(UIView *)view
 {
+   
     
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
@@ -145,6 +423,11 @@ static char RootscrollViewKey;//!<底view的关联key
 {
     
     
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
+    
 }
 
 #pragma mark -添加评论view
@@ -152,6 +435,11 @@ static char RootscrollViewKey;//!<底view的关联key
 -(void)createCommentViewUI:(UIView *)view
 {
     
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
