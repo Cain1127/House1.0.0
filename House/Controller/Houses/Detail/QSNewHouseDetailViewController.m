@@ -289,16 +289,471 @@ static char LeftStarKey;            //!<左侧星级
     ///另起底view，方便详情信息展开与收缩
     UIView *secondRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, openRootView.frame.origin.y + openRootView.frame.size.height, mainInfoWidth, 60.0f)];
     
+    ///户型信息
+    QSScrollView *houseTypeRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, mainInfoWidth, 75.0f)];
+    [self createHouseTypeInfoUI:houseTypeRootView];
+    
+    ///分隔线
+    UILabel *houseTypeSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeRootView.frame.origin.y + houseTypeRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
+    houseTypeSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    
+    ///贷款说明信息
+    QSBlockView *provideRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, houseTypeRootView.frame.origin.y + houseTypeRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入计算器页面
+        NSLog(@"月供参考");
+        
+    }];
+    [self createProvideInfoUI:provideRootView];
+    
+    ///分隔线
+    UILabel *provideSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, provideRootView.frame.origin.y + provideRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
+    provideSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    
+    ///税金参考
+    QSBlockView *taxRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, provideRootView.frame.origin.y + provideRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入税金计算页面
+        NSLog(@"税金参考");
+        
+    }];
+    [self createTaxInfoUI:taxRootView];
+    
+    ///分隔线
+    UILabel *taxSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
+    taxSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    
+    ///价格走向
+    UIView *priceLineRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 40.0f, mainInfoWidth, 185.0f)];
+    [self createPriceTrendInfoUI:priceLineRootView];
+    
+    ///分隔线
+    UILabel *priceLineSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, priceLineRootView.frame.origin.y + priceLineRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
+    priceLineSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    
+    ///其他信息
+    QSBlockView *otherInfoRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, priceLineRootView.frame.origin.y + priceLineRootView.frame.size.height + 40.0f, mainInfoWidth, 65.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入更多配套信息页面
+        NSLog(@"配套信息");
+        
+    }];
+    [self createOtherInstallationInfoUI:otherInfoRootView];
+    
     ///将其他信息view加载到第二底view上
     [secondRootView addSubview:openSepLine];
+    [secondRootView addSubview:houseTypeRootView];
+    [secondRootView addSubview:houseTypeSepLine];
+    [secondRootView addSubview:provideRootView];
+    [secondRootView addSubview:provideSepLine];
+    [secondRootView addSubview:taxRootView];
+    [secondRootView addSubview:taxSepLine];
+    [secondRootView addSubview:priceLineRootView];
+    [secondRootView addSubview:priceLineSepLine];
+    [secondRootView addSubview:otherInfoRootView];
     
     [infoRootView addSubview:secondRootView];
     objc_setAssociatedObject(self, &SecondInfoRootViewKey, secondRootView, OBJC_ASSOCIATION_ASSIGN);
     
+    ///第二个view的总高
+    CGFloat secondViewHeight = otherInfoRootView.frame.origin.y + otherInfoRootView.frame.size.height;
+    secondRootView.frame = CGRectMake(secondRootView.frame.origin.x, secondRootView.frame.origin.y, secondRootView.frame.size.width, secondViewHeight);
+    
     ///判断滚动尺寸
-    if ((secondRootView.frame.origin.y + secondRootView.frame.size.height + 10.0f) > infoRootView.frame.size.height) {
+    if ((secondRootView.frame.origin.y + secondViewHeight + 10.0f) > infoRootView.frame.size.height) {
         
-        infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondRootView.frame.size.height + 10.0f));
+        infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondViewHeight + 10.0f));
+        
+    }
+
+}
+
+#pragma mark - 其他配套信息的UI
+///其他配套信息的UI
+- (void)createOtherInstallationInfoUI:(UIView *)view
+{
+    
+    ///间隙
+    CGFloat width = 60.0f;
+    CGFloat gap = (view.frame.size.width - width * 4.0f - 26.0f) / 3.0f;
+
+    ///公交路线
+    UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 30.0f, width, 15.0f)];
+    busLabel.text = @"公交线路";
+    busLabel.textAlignment = NSTextAlignmentCenter;
+    busLabel.textColor = COLOR_CHARACTERS_GRAY;
+    busLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:busLabel];
+    
+    UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
+    busCountLable.text = @"28";
+    busCountLable.textAlignment = NSTextAlignmentRight;
+    busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    busCountLable.textColor = COLOR_CHARACTERS_YELLOW;
+    [view addSubview:busCountLable];
+    
+    UILabel *busCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(busCountLable.frame.origin.x + busCountLable.frame.size.width, 9.0f, 15.0f, 10.0f)];
+    busCountUnitLabel.text = @"条";
+    busCountUnitLabel.textAlignment = NSTextAlignmentLeft;
+    busCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    busCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [view addSubview:busCountUnitLabel];
+    
+    ///分隔线
+    UILabel *busSepLine = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x + busLabel.frame.size.width + gap / 2.0f, 0.0f, 0.25f, view.frame.size.height - 20.0f)];
+    busSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:busSepLine];
+    
+    ///教育机构
+    UILabel *techLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + gap, 30.0f, width, 15.0f)];
+    techLabel.text = @"教育机构";
+    techLabel.textAlignment = NSTextAlignmentCenter;
+    techLabel.textColor = COLOR_CHARACTERS_GRAY;
+    techLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:techLabel];
+    
+    UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
+    techCountLable.text = @"28";
+    techCountLable.textAlignment = NSTextAlignmentRight;
+    techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    techCountLable.textColor = COLOR_CHARACTERS_YELLOW;
+    [view addSubview:techCountLable];
+    
+    UILabel *techCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(techCountLable.frame.origin.x + techCountLable.frame.size.width, 9.0f, 15.0f, 10.0f)];
+    techCountUnitLabel.text = @"间";
+    techCountUnitLabel.textAlignment = NSTextAlignmentLeft;
+    techCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    techCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [view addSubview:techCountUnitLabel];
+    
+    ///分隔线
+    UILabel *techSepLine = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x + techLabel.frame.size.width + gap / 2.0f, 0.0f, 0.25f, view.frame.size.height - 20.0f)];
+    techSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:techSepLine];
+    
+    ///医疗机构
+    UILabel *medicalLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), 30.0f, width, 15.0f)];
+    medicalLabel.text = @"医疗机构";
+    medicalLabel.textAlignment = NSTextAlignmentCenter;
+    medicalLabel.textColor = COLOR_CHARACTERS_GRAY;
+    medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:medicalLabel];
+    
+    UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
+    medicalCountLable.text = @"28";
+    medicalCountLable.textAlignment = NSTextAlignmentRight;
+    medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    medicalCountLable.textColor = COLOR_CHARACTERS_YELLOW;
+    [view addSubview:medicalCountLable];
+    
+    UILabel *medicalCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(medicalCountLable.frame.origin.x + medicalCountLable.frame.size.width, 9.0f, 15.0f, 10.0f)];
+    medicalCountUnitLabel.text = @"间";
+    medicalCountUnitLabel.textAlignment = NSTextAlignmentLeft;
+    medicalCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    medicalCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [view addSubview:medicalCountUnitLabel];
+    
+    ///分隔线
+    UILabel *medicalSepLine = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x + medicalLabel.frame.size.width + gap / 2.0f, 0.0f, 0.25f, view.frame.size.height - 20.0f)];
+    medicalSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:medicalSepLine];
+    
+    ///餐饮娱乐
+    UILabel *foodLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f * (width + gap), 30.0f, width, 15.0f)];
+    foodLabel.text = @"餐饮娱乐";
+    foodLabel.textAlignment = NSTextAlignmentCenter;
+    foodLabel.textColor = COLOR_CHARACTERS_GRAY;
+    foodLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:foodLabel];
+    
+    UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
+    foodCountLable.text = @"128";
+    foodCountLable.textAlignment = NSTextAlignmentRight;
+    foodCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    foodCountLable.textColor = COLOR_CHARACTERS_YELLOW;
+    [view addSubview:foodCountLable];
+    
+    UILabel *foodCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(foodCountLable.frame.origin.x + foodCountLable.frame.size.width, 9.0f, 15.0f, 10.0f)];
+    foodCountUnitLabel.text = @"个";
+    foodCountUnitLabel.textAlignment = NSTextAlignmentLeft;
+    foodCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    foodCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [view addSubview:foodCountUnitLabel];
+    
+    ///右侧箭头
+    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [view addSubview:arrowView];
+
+}
+
+#pragma mark - 价格走向图UI
+///价格走向图UI
+- (void)createPriceTrendInfoUI:(UIView *)view
+{
+
+    ///标题
+    UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 85.0f, 15.0f)];
+    consultLabel.text = @"小区房价走势";
+    consultLabel.textColor = COLOR_CHARACTERS_BLACK;
+    consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:consultLabel];
+    
+    ///最新价格
+    UILabel *newPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 95.0f - 35.0f - 60.0f, 8.0f, 60.0f, 15.0f)];
+    newPriceLabel.text = @"最新均价";
+    newPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+    newPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:newPriceLabel];
+    
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 95.0f - 35.0f, 0.0f, 95.0f, 25.0f)];
+    priceLabel.text = @"122451.45";
+    priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:priceLabel];
+    
+    ///单位
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 30.0f, 9.0f, 35.0f, 10.0f)];
+    unitLabel.text = [NSString stringWithFormat:@"元/%@",APPLICATION_AREAUNIT];
+    unitLabel.textAlignment = NSTextAlignmentLeft;
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitLabel];
+
+}
+
+#pragma mark - 税金信息UI
+///税金信息UI
+- (void)createTaxInfoUI:(UIView *)view
+{
+
+    ///税金参考
+    UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 70.0f, 15.0f)];
+    consultLabel.text = @"税金参考：";
+    consultLabel.textColor = COLOR_CHARACTERS_BLACK;
+    consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:consultLabel];
+    
+    ///税金
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, 0.0f, 95.0f, 25.0f)];
+    priceLabel.text = @"122451.45";
+    priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:priceLabel];
+    
+    ///单位
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width + 2.0f, 9.0f, 15.0f, 10.0f)];
+    unitLabel.text = @"元";
+    unitLabel.textAlignment = NSTextAlignmentLeft;
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitLabel];
+    
+    ///最长宽度
+    CGFloat width = (view.frame.size.width - 10.0f - 26.0f) / 2.0f;
+    
+    ///契税
+    UILabel *referencePriceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y + priceLabel.frame.size.height + 10.0f, 50.0f, 15.0f)];
+    referencePriceTipsLabel.text = @"契税：";
+    referencePriceTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    referencePriceTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:referencePriceTipsLabel];
+    
+    UILabel *referencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceTipsLabel.frame.origin.x + referencePriceTipsLabel.frame.size.width, referencePriceTipsLabel.frame.origin.y, width - referencePriceTipsLabel.frame.size.width, 15.0f)];
+    referencePriceLabel.text = @"3200元";
+    referencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+    referencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:referencePriceLabel];
+    
+    ///公证费
+    UILabel *priovideTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, referencePriceTipsLabel.frame.origin.y, 60.0f, 15.0f)];
+    priovideTipsLabel.text = @"公证费：";
+    priovideTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    priovideTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:priovideTipsLabel];
+    
+    UILabel *priovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideTipsLabel.frame.origin.x + priovideTipsLabel.frame.size.width, priovideTipsLabel.frame.origin.y, width - priovideTipsLabel.frame.size.width, 15.0f)];
+    priovideLabel.text = @"320元";
+    priovideLabel.textColor = COLOR_CHARACTERS_BLACK;
+    priovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:priovideLabel];
+    
+    ///印花税
+    UILabel *rateTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, referencePriceTipsLabel.frame.origin.y + referencePriceTipsLabel.frame.size.height + 5.0f, 60.0f, 15.0f)];
+    rateTipsLabel.text = @"印花税：";
+    rateTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    rateTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:rateTipsLabel];
+    
+    UILabel *rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(rateTipsLabel.frame.origin.x + rateTipsLabel.frame.size.width, rateTipsLabel.frame.origin.y, width - rateTipsLabel.frame.size.width, 15.0f)];
+    rateLabel.text = @"876元";
+    rateLabel.textColor = COLOR_CHARACTERS_BLACK;
+    rateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:rateLabel];
+    
+    ///产权手续
+    UILabel *downPayTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, rateTipsLabel.frame.origin.y, 70.0f, 15.0f)];
+    downPayTipsLabel.text = @"产权手续：";
+    downPayTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    downPayTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:downPayTipsLabel];
+    
+    UILabel *downPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayTipsLabel.frame.origin.x + downPayTipsLabel.frame.size.width, downPayTipsLabel.frame.origin.y, width - downPayTipsLabel.frame.size.width, 15.0f)];
+    downPayLabel.text = @"3600元";
+    downPayLabel.textColor = COLOR_CHARACTERS_BLACK;
+    downPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:downPayLabel];
+    
+    ///右侧箭头
+    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [view addSubview:arrowView];
+
+}
+
+#pragma mark - 代款信息UI
+///代款信息UI
+- (void)createProvideInfoUI:(UIView *)view
+{
+
+    ///月供参考
+    UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 70.0f, 15.0f)];
+    consultLabel.text = @"月供参考：";
+    consultLabel.textColor = COLOR_CHARACTERS_BLACK;
+    consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:consultLabel];
+    
+    ///月供
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, 0.0f, 95.0f, 25.0f)];
+    priceLabel.text = @"122451.45";
+    priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:priceLabel];
+    
+    ///单位
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width + 2.0f, 9.0f, 15.0f, 10.0f)];
+    unitLabel.text = @"元";
+    unitLabel.textAlignment = NSTextAlignmentLeft;
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitLabel];
+    
+    ///最长宽度
+    CGFloat width = (view.frame.size.width - 10.0f - 26.0f) / 2.0f;
+    
+    ///参考格价
+    UILabel *referencePriceTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y + priceLabel.frame.size.height + 10.0f, 70.0f, 15.0f)];
+    referencePriceTipsLabel.text = @"参考价格：";
+    referencePriceTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    referencePriceTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:referencePriceTipsLabel];
+    
+    UILabel *referencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceTipsLabel.frame.origin.x + referencePriceTipsLabel.frame.size.width, referencePriceTipsLabel.frame.origin.y, width - referencePriceTipsLabel.frame.size.width, 15.0f)];
+    referencePriceLabel.text = @"1200万";
+    referencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+    referencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:referencePriceLabel];
+    
+    ///贷款七成
+    UILabel *priovideTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, referencePriceTipsLabel.frame.origin.y, 70.0f, 15.0f)];
+    priovideTipsLabel.text = @"代款7成：";
+    priovideTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    priovideTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:priovideTipsLabel];
+    
+    UILabel *priovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideTipsLabel.frame.origin.x + priovideTipsLabel.frame.size.width, priovideTipsLabel.frame.origin.y, width - priovideTipsLabel.frame.size.width, 15.0f)];
+    priovideLabel.text = @"840万";
+    priovideLabel.textColor = COLOR_CHARACTERS_BLACK;
+    priovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:priovideLabel];
+    
+    ///利率
+    UILabel *rateTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, referencePriceTipsLabel.frame.origin.y + referencePriceTipsLabel.frame.size.height + 5.0f, 72.0f, 15.0f)];
+    rateTipsLabel.text = @"利       率：";
+    rateTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    rateTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:rateTipsLabel];
+    
+    UILabel *rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(rateTipsLabel.frame.origin.x + rateTipsLabel.frame.size.width, rateTipsLabel.frame.origin.y, width - rateTipsLabel.frame.size.width, 15.0f)];
+    rateLabel.text = @"6.15%";
+    rateLabel.textColor = COLOR_CHARACTERS_BLACK;
+    rateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:rateLabel];
+    
+    ///参考格价
+    UILabel *downPayTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, rateTipsLabel.frame.origin.y, 70.0f, 15.0f)];
+    downPayTipsLabel.text = @"首付3成：";
+    downPayTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+    downPayTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:downPayTipsLabel];
+    
+    UILabel *downPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayTipsLabel.frame.origin.x + downPayTipsLabel.frame.size.width, downPayTipsLabel.frame.origin.y, width - downPayTipsLabel.frame.size.width, 15.0f)];
+    downPayLabel.text = @"360万";
+    downPayLabel.textColor = COLOR_CHARACTERS_BLACK;
+    downPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:downPayLabel];
+    
+    ///右侧箭头
+    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [view addSubview:arrowView];
+
+}
+
+#pragma mark - 户型信息UI
+///户型信息UI
+- (void)createHouseTypeInfoUI:(QSScrollView *)view
+{
+    
+    ///每个控件的宽度
+    CGFloat width = 50.0f;
+    ///每个户型信息项之间的间隙
+    CGFloat gap = 30.0f;
+    ///总的户型信息个数
+    int sum = 6;
+    
+    ///循环创建户型信息
+    for (int i = 0; i < sum; i++) {
+        
+        ///底图
+        QSImageView *sixFormImage = [[QSImageView alloc] initWithFrame:CGRectMake(i * (width + gap), 0.0f, width, 55.0f)];
+        sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
+        [view addSubview:sixFormImage];
+        
+        ///主标题信息
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 12.5f, sixFormImage.frame.size.width - 6.0f - 15.0f, 30.0f)];
+        titleLabel.text = @"124";
+        titleLabel.textAlignment = NSTextAlignmentRight;
+        titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+        titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+        [sixFormImage addSubview:titleLabel];
+        
+        ///单位
+        UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.frame.origin.x + titleLabel.frame.size.width, titleLabel.frame.origin.y + titleLabel.frame.size.height - 19.0f, 15.0f, 10.0f)];
+        unitLabel.text = APPLICATION_AREAUNIT;
+        unitLabel.textAlignment = NSTextAlignmentLeft;
+        unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+        unitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [sixFormImage addSubview:unitLabel];
+        
+        ///说明信息
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(sixFormImage.frame.origin.x, sixFormImage.frame.origin.y + sixFormImage.frame.size.height + 5.0f, sixFormImage.frame.size.width, 15.0f)];
+        infoLabel.textAlignment = NSTextAlignmentCenter;
+        infoLabel.text = @"3室2厅";
+        infoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        infoLabel.adjustsFontSizeToFitWidth = YES;
+        infoLabel.textColor = COLOR_CHARACTERS_GRAY;
+        [view addSubview:infoLabel];
+        
+    }
+    
+    ///判断是否需要开启滚动
+    if ((width * sum + gap * (sum - 1)) > view.frame.size.width) {
+        
+        view.contentSize = CGSizeMake((width * sum + gap * (sum - 1)) + 10.0f, view.frame.size.height);
         
     }
 
@@ -313,7 +768,7 @@ static char LeftStarKey;            //!<左侧星级
     __block UIView *tempRootView = view;
     
     ///最大宽度
-    CGFloat infoWidth = (view.frame.size.width - 45.0f) / 2.0f;
+    CGFloat infoWidth = (view.frame.size.width - 50.0f) / 2.0f;
     CGFloat width = 45.0f;
     CGFloat height = 15.0f;
 
@@ -324,20 +779,20 @@ static char LeftStarKey;            //!<左侧星级
     openTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:openTipsLabel];
     
-    UILabel *openTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(width, 0.0f, infoWidth - width, height)];
+    UILabel *openTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(width, 0.0f, infoWidth - width - 5.0f, height)];
     openTimeLabel.text = [[NSDate formatNSTimeToNSDateString:openedTime] substringToIndex:10];
     openTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     openTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:openTimeLabel];
     
     ///入住日期
-    UILabel *checkInTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth, 0.0f, width, height)];
+    UILabel *checkInTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth + 5.0f, 0.0f, width, height)];
     checkInTipsLabel.text = @"入住：";
     checkInTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     checkInTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:checkInTipsLabel];
     
-    UILabel *checkInTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkInTipsLabel.frame.origin.x + checkInTipsLabel.frame.size.width, checkInTipsLabel.frame.origin.y, infoWidth - width, height)];
+    UILabel *checkInTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkInTipsLabel.frame.origin.x + checkInTipsLabel.frame.size.width, checkInTipsLabel.frame.origin.y, infoWidth - width - 5.0f, height)];
     checkInTimeLabel.text = [[NSDate formatNSTimeToNSDateString:checkInData] substringToIndex:10];
     checkInTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     checkInTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -350,20 +805,20 @@ static char LeftStarKey;            //!<左侧星级
     tradeTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:tradeTipsLabel];
     
-    UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width, tradeTipsLabel.frame.size.height)];
+    UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
     tradeTimeLabel.text = @"商用/住宅";
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:tradeTimeLabel];
     
     ///装修类型
-    UILabel *decoratorTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth, tradeTipsLabel.frame.origin.y, width, height)];
+    UILabel *decoratorTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth + 5.0f, tradeTipsLabel.frame.origin.y, width, height)];
     decoratorTipsLabel.text = @"装修：";
     decoratorTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     decoratorTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:decoratorTipsLabel];
     
-    UILabel *decoratorTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(decoratorTipsLabel.frame.origin.x + decoratorTipsLabel.frame.size.width, decoratorTipsLabel.frame.origin.y, infoWidth - decoratorTipsLabel.frame.size.width, decoratorTipsLabel.frame.size.height)];
+    UILabel *decoratorTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(decoratorTipsLabel.frame.origin.x + decoratorTipsLabel.frame.size.width, decoratorTipsLabel.frame.origin.y, infoWidth - decoratorTipsLabel.frame.size.width - 5.0f, decoratorTipsLabel.frame.size.height)];
     decoratorTimeLabel.text = [QSCoreDataManager getHouseDecorationTypeWithKey:decType];
     decoratorTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     decoratorTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -381,6 +836,9 @@ static char LeftStarKey;            //!<左侧星级
     ///展开标记
     __block BOOL isShowMore = NO;
     
+    ///更多信息的底view指针
+    __block UIView *moreInfoRootView = nil;
+    
     ///展开按钮
     UIButton *moreButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width / 2.0f - 15.0f, view.frame.size.height - 30.0f, 30.0f, 30.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
@@ -393,18 +851,23 @@ static char LeftStarKey;            //!<左侧星级
         if (isShowMore) {
             
             ///收缩
+            if (moreInfoRootView) {
+                
+                [moreInfoRootView removeFromSuperview];
+                
+            }
             
             ///修改滚动尺寸
-            infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height - 115.0f);
+            infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height - 130.0f);
             
             ///动画收缩
             [UIView animateWithDuration:0.3f animations:^{
                 
-                secondRootView.frame = CGRectMake(secondRootView.frame.origin.x, secondRootView.frame.origin.y - 115.0f, secondRootView.frame.size.width, secondRootView.frame.size.height);
-                tempRootView.frame = CGRectMake(tempRootView.frame.origin.x, tempRootView.frame.origin.y, tempRootView.frame.size.width, tempRootView.frame.size.height - 115.0f);
+                secondRootView.frame = CGRectMake(secondRootView.frame.origin.x, secondRootView.frame.origin.y - 130.0f, secondRootView.frame.size.width, secondRootView.frame.size.height);
+                tempRootView.frame = CGRectMake(tempRootView.frame.origin.x, tempRootView.frame.origin.y, tempRootView.frame.size.width, tempRootView.frame.size.height - 130.0f);
                 
                 ///按钮也同步位置
-                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y - 115.0f, button.frame.size.width, button.frame.size.height);
+                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y - 130.0f, button.frame.size.width, button.frame.size.height);
                 
                 ///恢复按钮
                 button.transform = CGAffineTransformIdentity;
@@ -423,18 +886,27 @@ static char LeftStarKey;            //!<左侧星级
         } else {
             
             ///展开
+            if (moreInfoRootView) {
+            
+                [moreInfoRootView removeFromSuperview];
+                
+            }
+            
+            moreInfoRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 55.0f, tempRootView.frame.size.width, 90.0f)];
+            [self createMoreDetailInfo:moreInfoRootView];
+            [tempRootView addSubview:moreInfoRootView];
             
             ///修改滚动尺寸
-            infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height + 115.0f);
+            infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height + 130.0f);
             
             ///动画展开
             [UIView animateWithDuration:0.3f animations:^{
                 
-                secondRootView.frame = CGRectMake(secondRootView.frame.origin.x, secondRootView.frame.origin.y + 115.0f, secondRootView.frame.size.width, secondRootView.frame.size.height);
-                tempRootView.frame = CGRectMake(tempRootView.frame.origin.x, tempRootView.frame.origin.y, tempRootView.frame.size.width, tempRootView.frame.size.height + 115.0f);
+                secondRootView.frame = CGRectMake(secondRootView.frame.origin.x, secondRootView.frame.origin.y + 130.0f, secondRootView.frame.size.width, secondRootView.frame.size.height);
+                tempRootView.frame = CGRectMake(tempRootView.frame.origin.x, tempRootView.frame.origin.y, tempRootView.frame.size.width, tempRootView.frame.size.height + 130.0f);
                 
                 ///按钮也同步位置
-                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y + 115.0f, button.frame.size.width, button.frame.size.height);
+                button.frame = CGRectMake(button.frame.origin.x, button.frame.origin.y + 130.0f, button.frame.size.width, button.frame.size.height);
                 
                 ///按钮旋转180
                 button.transform = CGAffineTransformMakeRotation(M_PI);
@@ -457,6 +929,107 @@ static char LeftStarKey;            //!<左侧星级
     [moreButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_ARROW_60X60_HIGHLIGHTED] forState:UIControlStateHighlighted];
     [view addSubview:moreButton];
 
+}
+
+///更多详情信息
+- (void)createMoreDetailInfo:(UIView *)view
+{
+    
+    CGFloat infoWidth = (view.frame.size.width - 50.0f) / 2.0f;
+    CGFloat height = 15.0f;
+
+    ///占地面积
+    UILabel *areaTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 70.0f, height)];
+    areaTipsLabel.text = @"占地面积：";
+    areaTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    areaTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:areaTipsLabel];
+    
+    UILabel *areaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(areaTipsLabel.frame.origin.x + areaTipsLabel.frame.size.width, areaTipsLabel.frame.origin.y, infoWidth - areaTipsLabel.frame.size.width - 5.0f, areaTipsLabel.frame.size.height)];
+    areaInfoLabel.text = [NSString stringWithFormat:@"1.7万/%@",APPLICATION_AREAUNIT];
+    areaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    areaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:areaInfoLabel];
+    
+    ///建筑面积
+    UILabel *buildAreaTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth + 5.0f, 0.0f, 70.0f, height)];
+    buildAreaTipsLabel.text = @"建筑面积：";
+    buildAreaTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    buildAreaTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:buildAreaTipsLabel];
+    
+    UILabel *buildAreaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildAreaTipsLabel.frame.origin.x + buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.origin.y, infoWidth - 5.0f - buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.size.height)];
+    buildAreaInfoLabel.text = [NSString stringWithFormat:@"1.7万/%@",APPLICATION_AREAUNIT];
+    buildAreaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    buildAreaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:buildAreaInfoLabel];
+    
+    ///住户数
+    UILabel *housesNumTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, areaTipsLabel.frame.origin.y + areaTipsLabel.frame.size.height + 5.0f, 60.0f, height)];
+    housesNumTipsLabel.text = @"住户数：";
+    housesNumTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    housesNumTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:housesNumTipsLabel];
+    
+    UILabel *housesNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(housesNumTipsLabel.frame.origin.x + housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.origin.y, infoWidth - 5.0f - housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.size.height)];
+    housesNumInfoLabel.text = @"1555户";
+    housesNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    housesNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:housesNumInfoLabel];
+    
+    ///停车位
+    UILabel *partNumTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth + 5.0f, housesNumInfoLabel.frame.origin.y, 60.0f, height)];
+    partNumTipsLabel.text = @"停车位：";
+    partNumTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    partNumTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:partNumTipsLabel];
+    
+    UILabel *partNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(partNumTipsLabel.frame.origin.x + partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.origin.y, infoWidth - 5.0f - partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.size.height)];
+    partNumInfoLabel.text = @"555位";
+    partNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    partNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:partNumInfoLabel];
+    
+    ///容积率
+    UILabel *volumeTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, housesNumTipsLabel.frame.origin.y + housesNumTipsLabel.frame.size.height + 5.0f, 60.0f, height)];
+    volumeTipsLabel.text = @"容积率：";
+    volumeTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    volumeTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:volumeTipsLabel];
+    
+    UILabel *volumeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(volumeTipsLabel.frame.origin.x + volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.origin.y, infoWidth - 5.0f - volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.size.height)];
+    volumeInfoLabel.text = @"3%";
+    volumeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    volumeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:volumeInfoLabel];
+    
+    ///绿化率
+    UILabel *greenTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoWidth + 5.0f, volumeTipsLabel.frame.origin.y, 60.0f, height)];
+    greenTipsLabel.text = @"绿化率：";
+    greenTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    greenTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:greenTipsLabel];
+    
+    UILabel *greenInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(greenTipsLabel.frame.origin.x + greenTipsLabel.frame.size.width, greenTipsLabel.frame.origin.y, infoWidth - 5.0f - greenTipsLabel.frame.size.width, greenTipsLabel.frame.size.height)];
+    greenInfoLabel.text = @"60%";
+    greenInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
+    greenInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:greenInfoLabel];
+    
+    ///开发商信息
+    UILabel *developLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, volumeTipsLabel.frame.origin.y + volumeTipsLabel.frame.size.height + 20.0f, view.frame.size.width, height)];
+    developLabel.text = @"深圳市万科房地产有限公司(许可证号20140307)";
+    developLabel.textColor = COLOR_CHARACTERS_BLACK;
+    developLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:developLabel];
+    
+    ///物业管理公司
+    UILabel *estateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, developLabel.frame.origin.y + developLabel.frame.size.height + 5.0f, view.frame.size.width, height)];
+    estateLabel.text = @"万科物业管理有限公司 | 2.2元/月 物业费";
+    estateLabel.textColor = COLOR_CHARACTERS_BLACK;
+    estateLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [view addSubview:estateLabel];
+    
 }
 
 #pragma mark - 搭建地址信息UI
