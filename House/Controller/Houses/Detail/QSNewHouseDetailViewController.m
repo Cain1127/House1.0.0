@@ -39,7 +39,8 @@ static char LeftStarKey;            //!<左侧星级
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
-@property (nonatomic,copy) NSString *detailID;              //!<详情的ID
+@property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
+@property (nonatomic,copy) NSString *buildingID;            //!<楼栋ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 @end
@@ -48,26 +49,28 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-02-12 12:02:39
+ *  @author             yangshengmeng, 15-03-09 09:03:30
  *
- *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
+ *  @brief              根据楼盘ID和楼栋ID，创建新房详情页面
  *
  *  @param title        标题
- *  @param detailID     详情的ID
- *  @param detailType   详情的类型：房子/小区等
+ *  @param loupanID     楼盘ID
+ *  @param buildingID   楼栋ID
+ *  @param detailType   房子的类型
  *
- *  @return             返回当前创建的详情页指针
+ *  @return             返回新房详情页
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType
+- (instancetype)initWithTitle:(NSString *)title andLoupanID:(NSString *)loupanID andLoupanBuildingID:(NSString *)buildingID andDetailType:(FILTER_MAIN_TYPE)detailType
 {
     
     if (self = [super init]) {
         
         ///保存相关参数
         self.title = title;
-        self.detailID = detailID;
+        self.loupanID = loupanID;
+        self.buildingID = buildingID;
         self.detailType = detailType;
         
     }
