@@ -20,6 +20,8 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 
+#import "QSRequestManager.h"
+
 #import "MJRefresh.h"
 
 #import <objc/runtime.h>
@@ -39,7 +41,8 @@ static char LeftStarKey;            //!<左侧星级
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
-@property (nonatomic,copy) NSString *detailID;              //!<详情的ID
+@property (nonatomic,copy) NSString *loupanID;              //!<楼盘的ID
+@property (nonatomic,copy) NSString *loupanBuildingID;      //!<楼栋的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 @end
@@ -48,26 +51,28 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-02-12 12:02:39
+ *  @author             yangshengmeng, 15-03-09 09:03:33
  *
- *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
+ *  @brief              根据新房的楼盘ID，请求新房的详情信息，并生成VC
  *
  *  @param title        标题
- *  @param detailID     详情的ID
- *  @param detailType   详情的类型：房子/小区等
+ *  @param loupanID     楼盘ID
+ *  @param buildingID   楼栋ID
+ *  @param detailType   详情的类型
  *
- *  @return             返回当前创建的详情页指针
+ *  @return             返回新房详情页
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType
+- (instancetype)initWithTitle:(NSString *)title andLoupanID:(NSString *)loupanID andLoupanBuildingID:(NSString *)buildingID andDetailType:(FILTER_MAIN_TYPE)detailType
 {
     
     if (self = [super init]) {
         
         ///保存相关参数
         self.title = title;
-        self.detailID = detailID;
+        self.loupanID = loupanID;
+        self.loupanBuildingID = buildingID;
         self.detailType = detailType;
         
     }
@@ -1284,6 +1289,17 @@ static char LeftStarKey;            //!<左侧星级
 ///请求新房详情信息
 - (void)getNewHouseDetailInfo
 {
+    
+//    ///封装参数
+//    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
+//                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
+//    
+//    ///进行请求
+//    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+//        
+//        
+//        
+//    }];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
