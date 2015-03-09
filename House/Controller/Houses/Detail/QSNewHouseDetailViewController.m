@@ -1290,16 +1290,19 @@ static char LeftStarKey;            //!<左侧星级
 - (void)getNewHouseDetailInfo
 {
     
-//    ///封装参数
-//    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
-//                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
-//    
-//    ///进行请求
-//    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-//        
-//        
-//        
-//    }];
+    ///封装参数
+    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
+                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
+    
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///请求成功
+        if (<#condition#>) {
+            <#statements#>
+        }
+        
+    }];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
