@@ -138,7 +138,7 @@ static char LeftStarKey;            //!<左侧星级
     if (isLooked) {
         
         ///按钮风格
-        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
         
         ///停止出售按钮
         buttonStyle.title = TITLE_HOUSES_DETAIL_SECOND_STOPSALE;
@@ -152,13 +152,14 @@ static char LeftStarKey;            //!<左侧星级
             
             
         }];
+        stopSaleButton.backgroundColor=[UIColor grayColor];
         [view addSubview:stopSaleButton];
         
         ///按钮风格
         QSBlockButtonStyleModel *editButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
         ///编辑按钮
         editButtonStyle.title = TITLE_HOUSES_DETAIL_SECOND_EDIT;
-        UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-44.0f-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
+        UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-30.0f-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
             
                 NSLog(@"点击编辑按钮事件");
             
@@ -171,7 +172,7 @@ static char LeftStarKey;            //!<左侧星级
         ///刷新按钮
        refreshButtonStyle.imagesNormal=@"houses_detail_refresh_normal";
         refreshButtonStyle.imagesHighted=@"houses_detail_refresh_highlighted";
-        UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-44.0f, editButton.frame.origin.y, 44.0f, stopSaleButton.frame.size.height) andButtonStyle:refreshButtonStyle andCallBack:^(UIButton *button) {
+        UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-30.0f, editButton.frame.origin.y+7.0f, 30.0f, 30.0f) andButtonStyle:refreshButtonStyle andCallBack:^(UIButton *button) {
             
             NSLog(@"点击刷新按钮事件");
             

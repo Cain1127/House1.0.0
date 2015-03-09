@@ -138,7 +138,7 @@ static char LeftStarKey;            //!<左侧星级
     if (isLooked) {
         
         ///按钮风格
-        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
         
         ///停止出售按钮
         buttonStyle.title = TITLE_HOUSES_DETAIL_RENT_ORDER;

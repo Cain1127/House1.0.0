@@ -47,6 +47,14 @@
             
             break;
             
+            
+            ///白字灰底圆角按钮
+        case nNormalButtonTypeCornerWhiteGray:
+            
+            return [self ceateNormalCornerWhiteGrayButton];
+            
+            break;
+            
             ///黑字白底按钮
         case nNormalButtonTypeClear:
             
@@ -112,6 +120,20 @@
     return buttonStyle;
 
 }
+///创建普通白字灰底圆角按钮
++ (QSBlockButtonStyleModel *)ceateNormalCornerWhiteGrayButton
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = COLOR_CHARACTERS_GRAY;
+    buttonStyle.cornerRadio = VIEW_SIZE_NORMAL_CORNERADIO;
+    buttonStyle.titleNormalColor = [UIColor whiteColor];
+    buttonStyle.titleHightedColor = [UIColor whiteColor];
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
+    return buttonStyle;
+    
+}
+
 
 ///创建普通黑字白底按钮
 + (QSBlockButtonStyleModel *)createNormalClearButton
