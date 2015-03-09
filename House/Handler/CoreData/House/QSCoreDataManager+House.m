@@ -489,7 +489,7 @@
         case fFilterMainTypeNewHouse:
         {
             
-            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_loupan" andSecondFieldName:@"key" andSecndFieldValue:key];
             return tempModel.val;
             
         }
@@ -499,7 +499,7 @@
         case fFilterMainTypeCommunity:
         {
             
-            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_loupan" andSecondFieldName:@"key" andSecndFieldValue:key];
             return tempModel.val;
             
         }

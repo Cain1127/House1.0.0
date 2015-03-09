@@ -11,11 +11,22 @@
 #import "QSAutoScrollView.h"
 
 #import "QSImageView+Block.h"
+#import "UIImageView+CacheImage.h"
+#import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
 #import "QSNewHouseDetailDataModel.h"
+#import "QSNewHousesDetailReturnData.h"
+
+#import "QSLoupanInfoDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
+#import "QSUserBaseInfoDataModel.h"
+#import "QSRateDataModel.h"
+#import "QSPhotoDataModel.h"
+#import "QSActivityDataModel.h"
+#import "QSHouseTypeDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
@@ -42,6 +53,9 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
 @property (nonatomic,copy) NSString *buildingID;            //!<楼栋ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
+
+///详情信息的数据模型
+@property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo;
 
 @end
 
@@ -228,21 +242,29 @@ static char LeftStarKey;            //!<左侧星级
     }
     
     ///信息的起始y坐标，如果有广告，则会下移
-    CGFloat startYPoint = SIZE_DEVICE_WIDTH * 253.0f / 750.0f;
+    CGFloat startYPoint = 0.0f;
     
-    ///活动栏
-    QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+    ///判断是否有广告
+    if ([self.detailInfo.loupan_activity count] > 0) {
         
-        NSLog(@"========================================");
-        NSLog(@"点击活动:%@",params);
-        NSLog(@"========================================");
+        ///更新以下UI的起始Y坐标
+        startYPoint = SIZE_DEVICE_WIDTH * 253.0f / 750.0f;
         
-    }];
-    [infoRootView addSubview:activityRootView];
+        ///活动栏
+        QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+            
+            NSLog(@"========================================");
+            NSLog(@"点击活动:%@",params);
+            NSLog(@"========================================");
+            
+        }];
+        [infoRootView addSubview:activityRootView];
+        
+    }
     
     ///头图片
     QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f)];
-    headerImageView.backgroundColor = [UIColor orangeColor];
+    [headerImageView loadImageWithURL:[self.detailInfo.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     [infoRootView addSubview:headerImageView];
     
     ///主信息边框
@@ -257,12 +279,12 @@ static char LeftStarKey;            //!<左侧星级
     
     ///均价栏
     UIView *avgPriceRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, scoreRootView.frame.origin.y + scoreRootView.frame.size.height + 15.0f, mainInfoWidth, 60.0f)];
-    [self createAveragePriceSubviews:avgPriceRootView andAveragePrice:nil];
+    [self createAveragePriceSubviews:avgPriceRootView andAveragePrice:self.detailInfo.loupan_building.price_avg];
     [infoRootView addSubview:avgPriceRootView];
     
     ///特色标签
     UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, avgPriceRootView.frame.origin.y + avgPriceRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f)];
-    [self createFeaturesSubviews:featuresRootView andDataSource:@"200301,200302,200303"];
+    [self createFeaturesSubviews:featuresRootView andDataSource:self.detailInfo.loupan.features];
     [infoRootView addSubview:featuresRootView];
     
     ///地址信息
@@ -272,7 +294,7 @@ static char LeftStarKey;            //!<左侧星级
         NSLog(@"点击定位");
         
     }];
-    [self createAddressSubviewsUI:addressRootView andDistriceID:@"" andStreetID:@"" andDetailAddress:@"城建大厦5楼" andCommunityInfo:@"碧桂园清泉城"];
+    [self createAddressSubviewsUI:addressRootView andDistriceID:self.detailInfo.loupan.areaid andStreetID:self.detailInfo.loupan.street andDetailAddress:self.detailInfo.loupan.address andCommunityInfo:self.detailInfo.loupan.title];
     [infoRootView addSubview:addressRootView];
     
     ///分隔线
@@ -281,8 +303,10 @@ static char LeftStarKey;            //!<左侧星级
     [infoRootView addSubview:addressSepLine];
     
     ///开盘信息
+    CGFloat totalMiniPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue];
+    NSString *totalMiniPriceString = [NSString stringWithFormat:@"%f",totalMiniPrice];
     UIView *openRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, addressRootView.frame.origin.y + addressRootView.frame.size.height + 40.0f, mainInfoWidth, 65.0f)];
-    [self createOpenedSubviewsUI:openRootView andOpenedType:[NSDate currentDateTimeStamp] andCheckInDate:[NSDate currentDateTimeStamp] andTradeType:@"" andDecoratorType:@"200202" andTotalPrice:@"3000000"];
+    [self createOpenedSubviewsUI:openRootView andOpenedType:self.detailInfo.loupan_building.open_time andCheckInDate:self.detailInfo.loupan_building.checkin_time andTradeType:self.detailInfo.loupan.property_type andDecoratorType:self.detailInfo.loupan.decoration_type andTotalPrice:totalMiniPriceString];
     [infoRootView addSubview:openRootView];
     
     ///分隔线
@@ -809,7 +833,7 @@ static char LeftStarKey;            //!<左侧星级
     [tempRootView addSubview:tradeTipsLabel];
     
     UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
-    tradeTimeLabel.text = @"商用/住宅";
+    tradeTimeLabel.text = [QSCoreDataManager getHouseTradeTypeWithKey:tradeType];
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:tradeTimeLabel];
@@ -949,7 +973,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:areaTipsLabel];
     
     UILabel *areaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(areaTipsLabel.frame.origin.x + areaTipsLabel.frame.size.width, areaTipsLabel.frame.origin.y, infoWidth - areaTipsLabel.frame.size.width - 5.0f, areaTipsLabel.frame.size.height)];
-    areaInfoLabel.text = [NSString stringWithFormat:@"1.7万/%@",APPLICATION_AREAUNIT];
+    areaInfoLabel.text = [NSString stringWithFormat:@"%.1f万%@",[self.detailInfo.loupan.area_covered floatValue] / 10000,APPLICATION_AREAUNIT];
     areaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     areaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:areaInfoLabel];
@@ -962,7 +986,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:buildAreaTipsLabel];
     
     UILabel *buildAreaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildAreaTipsLabel.frame.origin.x + buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.origin.y, infoWidth - 5.0f - buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.size.height)];
-    buildAreaInfoLabel.text = [NSString stringWithFormat:@"1.7万/%@",APPLICATION_AREAUNIT];
+    buildAreaInfoLabel.text = [NSString stringWithFormat:@"%.1f万%@",[self.detailInfo.loupan.areabuilt floatValue] / 10000,APPLICATION_AREAUNIT];
     buildAreaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     buildAreaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:buildAreaInfoLabel];
@@ -975,7 +999,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:housesNumTipsLabel];
     
     UILabel *housesNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(housesNumTipsLabel.frame.origin.x + housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.origin.y, infoWidth - 5.0f - housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.size.height)];
-    housesNumInfoLabel.text = @"1555户";
+    housesNumInfoLabel.text = [NSString stringWithFormat:@"%@户",self.detailInfo.loupan_building.households_num];
     housesNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     housesNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:housesNumInfoLabel];
@@ -988,7 +1012,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:partNumTipsLabel];
     
     UILabel *partNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(partNumTipsLabel.frame.origin.x + partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.origin.y, infoWidth - 5.0f - partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.size.height)];
-    partNumInfoLabel.text = @"555位";
+    partNumInfoLabel.text = [NSString stringWithFormat:@"%@位",self.detailInfo.loupan.parking_lot];
     partNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     partNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:partNumInfoLabel];
@@ -1001,7 +1025,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:volumeTipsLabel];
     
     UILabel *volumeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(volumeTipsLabel.frame.origin.x + volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.origin.y, infoWidth - 5.0f - volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.size.height)];
-    volumeInfoLabel.text = @"3%";
+    volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue] * 100.0f] stringByAppendingString:@"%"];
     volumeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     volumeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:volumeInfoLabel];
@@ -1014,21 +1038,21 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:greenTipsLabel];
     
     UILabel *greenInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(greenTipsLabel.frame.origin.x + greenTipsLabel.frame.size.width, greenTipsLabel.frame.origin.y, infoWidth - 5.0f - greenTipsLabel.frame.size.width, greenTipsLabel.frame.size.height)];
-    greenInfoLabel.text = @"60%";
+    greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue] * 100.0f] stringByAppendingString:@"%"];
     greenInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     greenInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:greenInfoLabel];
     
     ///开发商信息
     UILabel *developLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, volumeTipsLabel.frame.origin.y + volumeTipsLabel.frame.size.height + 20.0f, view.frame.size.width, height)];
-    developLabel.text = @"深圳市万科房地产有限公司(许可证号20140307)";
+    developLabel.text = [NSString stringWithFormat:@"%@(许可证号%@)",self.detailInfo.user.developer_name,self.detailInfo.loupan.licence];
     developLabel.textColor = COLOR_CHARACTERS_BLACK;
     developLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:developLabel];
     
     ///物业管理公司
     UILabel *estateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, developLabel.frame.origin.y + developLabel.frame.size.height + 5.0f, view.frame.size.width, height)];
-    estateLabel.text = @"万科物业管理有限公司 | 2.2元/月 物业费";
+    estateLabel.text = [NSString stringWithFormat:@"%@ | %@元/%@/月 物业费",self.detailInfo.loupan.company_property,self.detailInfo.loupan.fee,APPLICATION_AREAUNIT];
     estateLabel.textColor = COLOR_CHARACTERS_BLACK;
     estateLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:estateLabel];
@@ -1247,7 +1271,7 @@ static char LeftStarKey;            //!<左侧星级
 - (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
 {
 
-    return 2;
+    return (int)[self.detailInfo.loupan_activity count];
 
 }
 
@@ -1279,7 +1303,9 @@ static char LeftStarKey;            //!<左侧星级
 - (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
 
-    return [NSString stringWithFormat:@"第%d活动页",index];
+    ///获取模型
+    QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
+    return activityModel.id_;
 
 }
 
@@ -1289,29 +1315,48 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     ///封装参数
-//    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
-//                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
-//    
-//    ///进行请求
-//    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-//        
-//        ///请求成功
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
-//        
-//    }];
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
+                             @"loupan_building_id" : self.buildingID ? self.buildingID : @""};
+    
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-        [rootView headerEndRefreshing];
-        [self showInfoUI:YES];
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSNewHousesDetailReturnData *tempModel = resultData;
+            
+            ///保存数据模型
+            self.detailInfo = tempModel.detailInfo;
+            
+            ///创建详情UI
+            [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
+            ///1秒后停止动画，并显示界面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                [rootView headerEndRefreshing];
+                [self showInfoUI:YES];
+                
+            });
+            
+        } else {
+                    
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView headerEndRefreshing];
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+            
+                ///推回上一页
+                [self.navigationController popViewControllerAnimated:YES];
+            
+            })
         
-        ///创建详情UI
-        [self createNewDetailInfoViewUI:nil];
+        }
         
-    });
+    }];
     
 }
 

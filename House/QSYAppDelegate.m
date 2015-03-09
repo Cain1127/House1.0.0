@@ -12,7 +12,6 @@
 #import "QSConfigurationReturnData.h"
 #import "QSBaseConfigurationReturnData.h"
 #import "QSCoreDataManager+App.h"
-#import "QSAlertMessageViewController.h"
 #import "QSMapManager.h"
 #import "QSCityInfoReturnData.h"
 #import "QSCustomHUDView.h"

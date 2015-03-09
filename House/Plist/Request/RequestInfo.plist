@@ -2,6 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>2053</key>
+	<dict>
+		<key>class</key>
+		<string>QSNewHousesDetailReturnData</string>
+		<key>url</key>
+		<string>loupan/view</string>
+	</dict>
+	<key>2052</key>
+	<dict>
+		<key>class</key>
+		<string>QSNewHousesDetailReturnData</string>
+		<key>url</key>
+		<string>loupan/view</string>
+	</dict>
+	<key>2051</key>
+	<dict>
+		<key>class</key>
+		<string>QSNewHousesDetailReturnData</string>
+		<key>url</key>
+		<string>loupan/view</string>
+	</dict>
+	<key>2050</key>
+	<dict>
+		<key>class</key>
+		<string>QSNewHousesDetailReturnData</string>
+		<key>url</key>
+		<string>loupan/view</string>
+	</dict>
 	<key>3001</key>
 	<dict>
 		<key>url</key>

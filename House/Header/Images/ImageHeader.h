@@ -223,7 +223,11 @@
 #define IMAGE_HOUSES_DETAIL_STAR_GRAY @"houses_detail_starlevel_gray"
 #define IMAGE_HOUSES_DETAIL_STAR_YELLOW @"houses_detail_starlevel_yellow"
 
+///房子详情中，户型信息的六角形
 #define IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM @"houses_detail_sizeform_housetype"
+
+///房子详情，头图片的默认图片
+#define IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG @"houses_detail_header_load_fail750x562"
 
 #pragma mark - 发现模块相关图片资源
 

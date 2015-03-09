@@ -21,9 +21,3 @@
 @property (nonatomic,retain) QSHouseDetailHeaderData *houseDetailHeaderData;//!<房子详情信息的msg头信息
 
 @end
-
-@interface QSHouseDetailHeaderData : QSBaseModel
-
-
-
-@end
