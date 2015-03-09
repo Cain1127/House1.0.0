@@ -1284,7 +1284,6 @@ static char LeftStarKey;            //!<左侧星级
 ///请求新房详情信息
 - (void)getNewHouseDetailInfo
 {
-<<<<<<< HEAD
     
     ///封装参数
 //    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
@@ -1299,8 +1298,6 @@ static char LeftStarKey;            //!<左侧星级
 //        }
 //        
 //    }];
-=======
->>>>>>> parent of c6f8615... 添加详情的请求类型-杨声孟
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
