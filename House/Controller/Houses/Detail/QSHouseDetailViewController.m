@@ -25,12 +25,9 @@
 #import <objc/runtime.h>
 
 ///关联
-static char RootscrollViewKey;//!<底view的关联key
 static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
 static char MainInfoRootViewKey;    //!<主信息的底view关联
-
-static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view关联Key
 
 static char RightScoreKey;          //!<右侧评分
 static char RightStarKey;           //!<右侧星级
@@ -97,86 +94,112 @@ static char LeftStarKey;            //!<左侧星级
     [self.view addSubview:rootView];
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
-    ///添加刷新
+    ///添加头部刷新
     [rootView addHeaderWithTarget:self action:@selector(getDetailInfo)];
     
-    ///主题图片
-    UIImageView *headerImageView=[[UIImageView alloc] init];
-    headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image=[UIImage imageNamed:@"houses_list_load_fail690x350"];
-    
-    ///分数view
-    UIView *scoreView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)];
-    [self createScoreUI:scoreView];
-    
-    ///房子统计view
-    UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseTotalUI:houseTotalView];
-    
-    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseDetailViewUI:houseDetailView];
-    
-     UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
-    [self createHouseServiceViewUI:houseServiceView];
-    
-     UIView *priceChangeView=[[UIView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createPriceChangeViewUI:priceChangeView];
-    
-     UIView *districtAveragePriceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
-    
-     UIView *houseAttentionView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseAttentionViewUI:houseAttentionView];
-    
-     UIView *commentView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createCommentViewUI:commentView];
-
-    UIView *operateView=[[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT-44.0f-10.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f+10.0f)];
-    operateView.backgroundColor=[UIColor whiteColor];
-    [self.view bringSubviewToFront:operateView];
-    [self createOperateViewUI:operateView];
-    
-    UIScrollView *scrollView=[[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, headerImageView.frame.size.height+scoreView.frame.size.height+houseTotalView.frame.size.height+houseDetailView.frame.size.height+houseServiceView.frame.size.height+priceChangeView.frame.size.height+districtAveragePriceView.frame.size.height+houseAttentionView.frame.size.height+commentView.frame.size.height+ operateView.frame.size.height)];
-    
-    [scrollView addSubview:headerImageView];
-    [scrollView addSubview:scoreView];
-    [scrollView addSubview:houseTotalView];
-    [scrollView addSubview:houseDetailView];
-    [scrollView addSubview:houseServiceView];
-    [scrollView addSubview:priceChangeView];
-    [scrollView addSubview:districtAveragePriceView];
-    [scrollView addSubview:houseAttentionView];
-    [scrollView addSubview:commentView];
-    
-    [self.view addSubview:operateView];
-    
-    ///取消滚动条
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.showsVerticalScrollIndicator = NO;
-    
-    ///透明背影
-    scrollView.backgroundColor=[UIColor clearColor];
-    
-    ///设置数据源和代理
-    scrollView.delegate = self;
-    scrollView.scrollEnabled=YES;
-    scrollView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,2000.0f);
-    
-    [self.view addSubview:scrollView];
-    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
+    ///其他信息底view
+    QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
+    [rootView addSubview:infoRootView];
+    infoRootView.hidden = YES;
+    objc_setAssociatedObject(self, &MainInfoRootViewKey, infoRootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///底部按钮
-    UIView *bottomRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT-64.0f-60.0f, SIZE_DEFAULT_MAX_WIDTH, 60.0f)];
+    UIView *bottomRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT-60.0f, SIZE_DEFAULT_MAX_WIDTH, 60.0f)];
     [self.view addSubview:bottomRootView];
     bottomRootView.hidden = YES;
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
     [self createBottomButtonViewUI:YES];
     
-    ///添加头部刷新
-    [scrollView addHeaderWithTarget:self action:@selector(getDetailInfo)];
-    [scrollView headerBeginRefreshing];
+    [rootView headerBeginRefreshing];
 
 }
+
+#pragma mark - 搭建底部按钮
+///创建底部按钮
+- (void)createBottomButtonViewUI:(BOOL)isLooked
+{
+    
+    ///获取底view
+    UIView *view = objc_getAssociatedObject(self, &BottomButtonRootViewKey);
+    
+    ///清空原数据
+    for (UIView *obj in [view subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
+    
+    ///分隔线
+    UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 0.25f)];
+    sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:sepLabel];
+    
+    ///根据是否已看房，创建不同的功能按钮
+    if (isLooked) {
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        
+        ///停止出售按钮
+        buttonStyle.title = TITLE_HOUSES_DETAIL_SECOND_STOPSALE;
+        UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+            
+                NSLog(@"点击停止出售按钮事件");
+            ///判断是否已登录
+            
+            
+            ///已登录重新刷新数据
+            
+            
+        }];
+        [view addSubview:stopSaleButton];
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *editButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        ///编辑按钮
+        editButtonStyle.title = TITLE_HOUSES_DETAIL_SECOND_EDIT;
+        UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-44.0f-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
+            
+                NSLog(@"点击编辑按钮事件");
+            
+            
+        }];
+        [view addSubview:editButton];
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *refreshButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClear];
+        ///刷新按钮
+       refreshButtonStyle.imagesNormal=@"houses_detail_refresh_normal";
+        refreshButtonStyle.imagesHighted=@"houses_detail_refresh_highlighted";
+        UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-44.0f, editButton.frame.origin.y, 44.0f, stopSaleButton.frame.size.height) andButtonStyle:refreshButtonStyle andCallBack:^(UIButton *button) {
+            
+            NSLog(@"点击刷新按钮事件");
+            
+        }];
+        [view addSubview:refreshButton];
+        
+    } else {
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        
+        ///免费通话按钮
+        buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
+        UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
+            
+            ///判断是否已登录
+            
+            
+            ///已登录重新刷新数据
+            
+            
+        }];
+        [view addSubview:callFreeButton];
+        
+    }
+    
+}
+
 
 #pragma mark - 显示信息UI:网络请求成功后才显示UI
 ///显示信息UI:网络请求成功后才显示UI
@@ -199,6 +222,116 @@ static char LeftStarKey;            //!<左侧星级
     }
     
 }
+
+#pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
+///创建数据UI：网络请求后，按数据创建不同的UI
+- (void)createNewDetailInfoViewUI:(QSNewHouseDetailDataModel *)dataModel
+{
+    
+    ///信息底view
+    UIScrollView *infoRootView = objc_getAssociatedObject(self, &MainInfoRootViewKey);
+    
+    ///清空原UI
+    for (UIView *obj in [infoRootView subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
+    
+    ///主题图片
+    UIImageView *headerImageView=[[UIImageView alloc] init];
+    headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
+    headerImageView.image=[UIImage imageNamed:@"houses_list_load_fail690x350"];
+    
+    ///分数view
+    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入地图：需要传经纬度
+        NSLog(@"");
+        
+    }];
+    [self createScoreUI:scoreView];
+    
+    ///房子统计view
+    UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseTotalUI:houseTotalView];
+    
+    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseDetailViewUI:houseDetailView];
+    
+    UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
+    [self createHouseServiceViewUI:houseServiceView];
+    
+    QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入地图：需要传经纬度
+        NSLog(@"点击进入价格变动");
+        
+    }];
+    
+    [self createPriceChangeViewUI:priceChangeView];
+    
+    QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入地图：需要传经纬度
+        NSLog(@"点击进入均价详情");
+        
+    }];
+    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
+    
+    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入地图：需要传经纬度
+        NSLog(@"点击进入关注");
+        
+    }];
+    
+    [self createHouseAttentionViewUI:houseAttentionView];
+    
+    QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
+        
+        ///进入地图：需要传经纬度
+        NSLog(@"点击进入评论");
+        
+    }];
+    
+    [self createCommentViewUI:commentView];
+
+    [infoRootView addSubview:headerImageView];
+    [infoRootView addSubview:scoreView];
+    [infoRootView addSubview:houseTotalView];
+    [infoRootView addSubview:houseDetailView];
+    [infoRootView addSubview:houseServiceView];
+    [infoRootView addSubview:priceChangeView];
+    [infoRootView addSubview:districtAveragePriceView];
+    [infoRootView addSubview:houseAttentionView];
+    [infoRootView addSubview:commentView];
+    
+    ///透明背影
+    infoRootView.backgroundColor=[UIColor clearColor];
+    
+    ///设置数据源和代理
+    infoRootView.delegate = self;
+    infoRootView.scrollEnabled=YES;
+    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,commentView.frame.origin.y+commentView.frame.size.height+130.0f);
+    
+    //[self.view addSubview:scrollView];
+//    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
+
+    
+    ///判断滚动尺寸
+//    if ((secondRootView.frame.origin.y + secondViewHeight + 10.0f) > infoRootView.frame.size.height) {
+//        
+//        infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondViewHeight + 10.0f));
+//        
+//    }
+    
+    ///修改滚动尺寸
+//    infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height + 130.0f);
+    
+}
+
+
 
 #pragma mark -添加评分view
 ///添加评分view
@@ -494,7 +627,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:linegas];
     
     QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, imageW,20.0f)];
-    linegasLabel.text=@"管着煤气";
+    linegasLabel.text=@"管道煤气";
     linegasLabel.textAlignment=NSTextAlignmentCenter;
     linegasLabel.font=[UIFont systemFontOfSize:12.0f];
     [view addSubview:linegasLabel];
@@ -516,77 +649,6 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:bottomLineLabel];
     
 }
-
-#pragma mark - 搭建底部按钮
-///创建底部按钮
-- (void)createBottomButtonViewUI:(BOOL)isLooked
-{
-    
-    ///获取底view
-    UIView *view = objc_getAssociatedObject(self, &BottomButtonRootViewKey);
-    
-    ///清空原数据
-    for (UIView *obj in [view subviews]) {
-        
-        [obj removeFromSuperview];
-        
-    }
-    
-    ///分隔线
-    UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 0.25f)];
-    sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [view addSubview:sepLabel];
-    
-    ///根据是否已看房，创建不同的功能按钮
-    if (isLooked) {
-        
-        ///按钮风格
-        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-        
-        ///免费通话按钮
-        buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
-        UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-            
-            ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
-            
-            
-        }];
-        [view addSubview:callFreeButton];
-        
-        ///我要看房按钮
-        buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE;
-        UIButton *lookHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(callFreeButton.frame.origin.x + callFreeButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, callFreeButton.frame.origin.y, callFreeButton.frame.size.width, callFreeButton.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-            
-            
-            
-        }];
-        [view addSubview:lookHouseButton];
-        
-    } else {
-        
-        ///按钮风格
-        QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-        
-        ///免费通话按钮
-        buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
-        UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
-            
-            ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
-            
-            
-        }];
-        [view addSubview:callFreeButton];
-        
-    }
-    
-}
-
 
 #pragma mark -添加房子价钱变动view
 ///添加房子价钱变动view
@@ -708,14 +770,14 @@ static char LeftStarKey;            //!<左侧星级
     
     ///公交路线
     UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+15.0f+5.0f, width, 15.0f)];
-    busLabel.text = @"公交线路";
+    busLabel.text = @"房源浏览量";
     busLabel.textAlignment = NSTextAlignmentCenter;
     busLabel.textColor = COLOR_CHARACTERS_GRAY;
     busLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:busLabel];
     
     UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
-    busCountLable.text = @"28";
+    busCountLable.text = @"980";
     busCountLable.textAlignment = NSTextAlignmentRight;
     busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     busCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -735,14 +797,14 @@ static char LeftStarKey;            //!<左侧星级
     
     ///教育机构
     UILabel *techLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + gap, busLabel.frame.origin.y, width, 15.0f)];
-    techLabel.text = @"教育机构";
+    techLabel.text = @"房客关注";
     techLabel.textAlignment = NSTextAlignmentCenter;
     techLabel.textColor = COLOR_CHARACTERS_GRAY;
     techLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:techLabel];
     
     UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, busCountLable.frame.origin.y, width / 2.0f + 5.0f, 25.0f)];
-    techCountLable.text = @"28";
+    techCountLable.text = @"120";
     techCountLable.textAlignment = NSTextAlignmentRight;
     techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     techCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -762,7 +824,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///医疗机构
     UILabel *medicalLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), busLabel.frame.origin.y, width, 15.0f)];
-    medicalLabel.text = @"医疗机构";
+    medicalLabel.text = @"待看房预约";
     medicalLabel.textAlignment = NSTextAlignmentCenter;
     medicalLabel.textColor = COLOR_CHARACTERS_GRAY;
     medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -789,14 +851,14 @@ static char LeftStarKey;            //!<左侧星级
     
     ///餐饮娱乐
     UILabel *foodLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f * (width + gap), busLabel.frame.origin.y, width, 15.0f)];
-    foodLabel.text = @"餐饮娱乐";
+    foodLabel.text = @"看房预约";
     foodLabel.textAlignment = NSTextAlignmentCenter;
     foodLabel.textColor = COLOR_CHARACTERS_GRAY;
     foodLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:foodLabel];
     
     UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
-    foodCountLable.text = @"128";
+    foodCountLable.text = @"28";
     foodCountLable.textAlignment = NSTextAlignmentRight;
     foodCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     foodCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -909,15 +971,15 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:refreshButton];
 }
 
-#pragma mark - 结束刷新动画
-///结束刷新动画
-- (void)endRefreshAnimination
-{
-
-    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
-    [scrollView headerEndRefreshing];
-
-}
+//#pragma mark - 结束刷新动画
+/////结束刷新动画
+//- (void)endRefreshAnimination
+//{
+//
+//    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
+//    [scrollView headerEndRefreshing];
+//
+//}
 
 #pragma mark - 请求详情信息
 /**
@@ -930,9 +992,28 @@ static char LeftStarKey;            //!<左侧星级
 - (void)getDetailInfo
 {
 
+    ///封装参数
+    //    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
+    //                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
+    //
+    //    ///进行请求
+    //    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    //
+    //        ///请求成功
+    //        if (<#condition#>) {
+    //            <#statements#>
+    //        }
+    //
+    //    }];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self endRefreshAnimination];
+        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+        [rootView headerEndRefreshing];
+        [self showInfoUI:YES];
+        
+        ///创建详情UI
+        [self createNewDetailInfoViewUI:nil];
         
     });
 

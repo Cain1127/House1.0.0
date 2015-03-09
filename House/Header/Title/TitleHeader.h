@@ -144,4 +144,19 @@
 ///看房
 #define TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE @"我要看房"
 
+///停止出售
+#define TITLE_HOUSES_DETAIL_SECOND_STOPSALE @"停止出售"
+
+///编辑
+#define TITLE_HOUSES_DETAIL_SECOND_EDIT @"编辑"
+
+///联系业主
+#define TITLE_HOUSES_DETAIL_RENT_CONNECT @"联系业主"
+
+///联系业主
+#define TITLE_HOUSES_DETAIL_RENT_ORDER @"预约"
+
+///联系业主
+#define TITLE_HOUSES_DETAIL_RENT_CONSULT @"立即咨询"
+
 #endif
