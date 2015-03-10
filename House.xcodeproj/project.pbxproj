@@ -331,6 +331,14 @@
 		18FBA5BB1A7871F8001372B3 /* QSGuideSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BA1A7871F8001372B3 /* QSGuideSummaryViewController.m */; };
 		18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
+		47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */; };
+		47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */; };
+		47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */; };
+		47E0D4D91AAECDD700B5C42A /* QSPBookingOrderCancelListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D81AAECDD700B5C42A /* QSPBookingOrderCancelListView.m */; };
+		47E0D4DD1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4DC1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m */; };
+		47E0D4E11AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47E0D4DE1AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png */; };
+		47E0D4E21AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47E0D4DF1AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png */; };
+		47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47E0D4E01AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png */; };
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
@@ -821,6 +829,19 @@
 		18FBA5BA1A7871F8001372B3 /* QSGuideSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSGuideSummaryViewController.m; path = Summary/QSGuideSummaryViewController.m; sourceTree = "<group>"; };
 		18FBA5BC1A7879D2001372B3 /* QSCustomPresentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCustomPresentationViewController.h; path = Animination/QSCustomPresentationViewController.h; sourceTree = "<group>"; };
 		18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPresentationViewController.m; path = Animination/QSCustomPresentationViewController.m; sourceTree = "<group>"; };
+		47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrdersListsViewController.h; sourceTree = "<group>"; };
+		47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrdersListsViewController.m; sourceTree = "<group>"; };
+		47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderBookingListView.h; sourceTree = "<group>"; };
+		47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrderBookingListView.m; sourceTree = "<group>"; };
+		47E0D4D41AAECDC400B5C42A /* QSPBookingOrderCompletedListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderCompletedListView.h; sourceTree = "<group>"; };
+		47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrderCompletedListView.m; sourceTree = "<group>"; };
+		47E0D4D71AAECDD700B5C42A /* QSPBookingOrderCancelListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderCancelListView.h; sourceTree = "<group>"; };
+		47E0D4D81AAECDD700B5C42A /* QSPBookingOrderCancelListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrderCancelListView.m; sourceTree = "<group>"; };
+		47E0D4DB1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderListsTableViewCell.h; sourceTree = "<group>"; };
+		47E0D4DC1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrderListsTableViewCell.m; sourceTree = "<group>"; };
+		47E0D4DE1AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_community_nocollected_data_icon.png; sourceTree = "<group>"; };
+		47E0D4DF1AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_community_noorderList_data_icon.png; sourceTree = "<group>"; };
+		47E0D4E01AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_community_novisit_data_icon.png; sourceTree = "<group>"; };
 		8DC7EE35972F87DBF30D83E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		98AAD2983A901C3518338D05 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE000DCB1A6F8064008FD309 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
@@ -1481,6 +1502,7 @@
 		189300AE1A690C880081D0AA /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				47E0D4C91AAE9CE600B5C42A /* BookingOrders */,
 				18BE127A1A8B56DA0036245A /* Owner */,
 				18BE12571A89FC160036245A /* Tenant */,
 				18C8A0DA1A6A823300BB9611 /* QSMyZoneViewController.h */,
@@ -1882,6 +1904,9 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				47E0D4DE1AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png */,
+				47E0D4DF1AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png */,
+				47E0D4E01AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png */,
 				18BE125B1A8A133D0036245A /* myzone_owner_recommend_renant_highlighted.png */,
 				18BE125C1A8A133D0036245A /* myzone_owner_recommend_renant_normal.png */,
 				18BE125D1A8A133D0036245A /* myzone_renant_beg_highlighted.png */,
@@ -2753,6 +2778,55 @@
 			path = JPush1_8_2;
 			sourceTree = "<group>";
 		};
+		47E0D4C91AAE9CE600B5C42A /* BookingOrders */ = {
+			isa = PBXGroup;
+			children = (
+				47E0D4DA1AAECE0500B5C42A /* Cell */,
+				47E0D4CE1AAECD6200B5C42A /* Booked */,
+				47E0D4D01AAECD6200B5C42A /* Complete */,
+				47E0D4CF1AAECD6200B5C42A /* Cancel */,
+				47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */,
+				47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */,
+			);
+			path = BookingOrders;
+			sourceTree = "<group>";
+		};
+		47E0D4CE1AAECD6200B5C42A /* Booked */ = {
+			isa = PBXGroup;
+			children = (
+				47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */,
+				47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */,
+			);
+			path = Booked;
+			sourceTree = "<group>";
+		};
+		47E0D4CF1AAECD6200B5C42A /* Cancel */ = {
+			isa = PBXGroup;
+			children = (
+				47E0D4D71AAECDD700B5C42A /* QSPBookingOrderCancelListView.h */,
+				47E0D4D81AAECDD700B5C42A /* QSPBookingOrderCancelListView.m */,
+			);
+			path = Cancel;
+			sourceTree = "<group>";
+		};
+		47E0D4D01AAECD6200B5C42A /* Complete */ = {
+			isa = PBXGroup;
+			children = (
+				47E0D4D41AAECDC400B5C42A /* QSPBookingOrderCompletedListView.h */,
+				47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */,
+			);
+			path = Complete;
+			sourceTree = "<group>";
+		};
+		47E0D4DA1AAECE0500B5C42A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				47E0D4DB1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.h */,
+				47E0D4DC1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		CE000DC71A6E60D6008FD309 /* SaleHouse */ = {
 			isa = PBXGroup;
 			children = (
@@ -3000,6 +3074,7 @@
 				18B564601A8366A4009779A0 /* public_local_gray.png in Resources */,
 				18B564711A8366A4009779A0 /* tabbar_chat_selected.png in Resources */,
 				18BE12311A8869760036245A /* calendar_right_arrow.png in Resources */,
+				47E0D4E11AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png in Resources */,
 				18B563FF1A8366A4009779A0 /* guide_tenant_haved.png in Resources */,
 				18B564691A8366A4009779A0 /* seach_seachstatus.png in Resources */,
 				18BE126E1A8A133D0036245A /* myzone_renant_collect_normal.png in Resources */,
@@ -3023,6 +3098,7 @@
 				18B5642B1A8366A4009779A0 /* houses_linegas.png in Resources */,
 				18B563EA1A8366A4009779A0 /* channelbar_advancedfilter_highlighted.png in Resources */,
 				18B5642F1A8366A4009779A0 /* icon100.png in Resources */,
+				47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */,
@@ -3117,6 +3193,7 @@
 				18B564201A8366A4009779A0 /* houses_detail_starlevel_gray.png in Resources */,
 				18B564761A8366A4009779A0 /* tabbar_myzone_normal.png in Resources */,
 				18B563FE1A8366A4009779A0 /* guide_middle_tip.png in Resources */,
+				47E0D4E21AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png in Resources */,
 				18B5646B1A8366A4009779A0 /* share_friends_normal.png in Resources */,
 				18B564531A8366A4009779A0 /* navigationbar_setting_highlighted.png in Resources */,
 				18BE12691A8A133D0036245A /* myzone_owner_recommend_renant_highlighted.png in Resources */,
@@ -3204,11 +3281,13 @@
 			files = (
 				18EE34771AABFD3F0053B909 /* QSHouseInfoDataModel.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
+				47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */,
 				18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
+				47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
 				18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
@@ -3233,6 +3312,7 @@
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
 				18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */,
 				18EE34781AABFD3F0053B909 /* QSNewHouseInfoDataModel.m in Sources */,
+				47E0D4DD1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m in Sources */,
 				18DABAB01AAD4E1B00647E7C /* QSRateDataModel.m in Sources */,
 				18EE34761AABFD3F0053B909 /* QSCommunityDataModel.m in Sources */,
 				18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */,
@@ -3260,9 +3340,11 @@
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
+				47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
+				47E0D4D91AAECDD700B5C42A /* QSPBookingOrderCancelListView.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				18B5631C1A81AA40009779A0 /* QSCustomPickerView.m in Sources */,
 				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,

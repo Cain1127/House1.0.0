@@ -12,6 +12,7 @@
 
 #import <objc/runtime.h>
 
+
 ///功能按钮的起始tag
 #define TAG_RENANT_ROOT 99
 
@@ -419,6 +420,9 @@ static char HistoryKey;     //!<浏览足迹
             break;
     }
 
+    if (self.tenantCallBack) {
+        self.tenantCallBack(actionTag,nil);
+    }
 }
 
 #pragma mark - 返回房客的基本功能配置信息

@@ -17,6 +17,8 @@
 
 #import <objc/runtime.h>
 
+#import "QSPBookingOrdersListsViewController.h"
+
 ///关联
 static char UserIconKey;//!<用户头像
 
@@ -211,14 +213,101 @@ static char UserIconKey;//!<用户头像
     CGFloat tenantViewHeight = SIZE_DEVICE_HEIGHT - ypoint - 49.0f;
     myZoneView = [[QSMyZoneTenantView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andCallBack:^(TENANT_ZONE_ACTION_TYPE actionType, id params) {
         
-        
+        switch (actionType) {
+                ///待看房点击
+            case tTenantZoneActionTypeStayAround:
+                
+                NSLog(@"==================待看房======================");
+                
+                break;
+                
+                ///已看房点击
+            case tTenantZoneActionTypeHavedAround:
+                
+                NSLog(@"==================已看房======================");
+                
+                break;
+                
+                ///待成交点击
+            case tTenantZoneActionTypeWaitCommit:
+                
+                NSLog(@"==================待成交======================");
+                
+                break;
+                
+                ///已成交点击
+            case tTenantZoneActionTypeCommited:
+                
+                NSLog(@"==================已成交======================");
+                
+                break;
+                
+                ///预约订单击
+            case tTenantZoneActionTypeAppointed:
+                
+                NSLog(@"==================预约订单======================");
+                {
+                    
+                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+                break;
+                
+                ///已成交订单点击
+            case tTenantZoneActionTypeDeal:
+                
+                NSLog(@"==================已成交订单======================");
+                {
+                    
+                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+                break;
+                
+                ///求租求购点击
+            case tTenantZoneActionTypeBeg:
+                
+                NSLog(@"==================求租求购======================");
+                
+                break;
+                
+                ///收藏房源
+            case tTenantZoneActionTypeCollected:
+                
+                NSLog(@"==================收藏房源======================");
+                
+                break;
+                
+                ///关注小区
+            case tTenantZoneActionTypeCommunity:
+                
+                NSLog(@"==================关注小区======================");
+                
+                break;
+                
+                ///浏览记录
+            case tTenantZoneActionTypeHistory:
+                
+                NSLog(@"==================浏览记录======================");
+                
+                break;
+                
+            default:
+                break;
+                
+        }
         
     }];
     [self.view addSubview:myZoneView];
     
     ///业主页面
     ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
-        
         
         
     }];

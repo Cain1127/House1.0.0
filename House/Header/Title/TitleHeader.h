@@ -27,6 +27,9 @@
 #define TITLE_VIEWCONTROLLER_TITLE_DEVELOPERACTIVITY @"活动"
 
 
+///<预约订单>页面的默认标题
+#define TITLE_VIEWCONTROLLER_TITLE_BOOKINGORDERSLIST @"预约订单"
+
 /**
  *  @author yangshengmeng, 15-01-20 12:01:30
  *
@@ -158,5 +161,17 @@
 
 ///联系业主
 #define TITLE_HOUSES_DETAIL_RENT_CONSULT @"立即咨询"
+
+
+#pragma mark - 我的预约订单相关标题信息
+
+///无待看房订单提示
+#define TITLE_MYZONE_BOOKING_ORDER_NODATA_TIP       @"您暂无待看房的订单"
+
+///无已看房订单提示
+#define TITLE_MYZONE_COMPLETE_ORDER_NODATA_TIP      @"您暂无已看房的订单"
+
+///无已取消订单提示
+#define TITLE_MYZONE_CANCEL_ORDER_NODATA_TIP        @"您暂无已取消的订单"
 
 #endif
