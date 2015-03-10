@@ -375,11 +375,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     CGFloat buttonH = buttonW;
     CGFloat buttonY = 0.0f;
     QSBlockButtonStyleModel *buttonStyle=[QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
-    buttonStyle.bgColor=[UIColor clearColor];
-    buttonStyle.titleNormalColor=[UIColor grayColor];
-    buttonStyle.titleSelectedColor=[UIColor blackColor];
-    buttonStyle.bgColorSelected=[UIColor yellowColor];
-    buttonStyle.bgColorHighlighted=[UIColor yellowColor];
+//    buttonStyle.bgColor=[UIColor clearColor];
+//    buttonStyle.titleNormalColor=[UIColor grayColor];
+//    buttonStyle.titleSelectedColor=[UIColor blackColor];
+//    buttonStyle.bgColorSelected=[UIColor yellowColor];
+//    buttonStyle.bgColorHighlighted=[UIColor yellowColor];
     
     UIButton *bushButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(0.0f, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
@@ -387,8 +387,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     [bushButton setTitle:@"公交" forState:UIControlStateNormal];
-   // [bushButton setBackgroundImage:[UIImage imageNamed:nil] forState:UIControlStateSelected]
-    //[bushButton setBackgroundImage:[UIImage imageNamed:@"public_choice_arrow"] forState:UIControlStateSelected];
+    [bushButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateHighlighted];
+    [bushButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
 
     [view addSubview:bushButton];
     
@@ -403,6 +403,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     [subwayButton setTitle:@"地铁" forState:UIControlStateNormal];
+     [subwayButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateSelected];
     [view addSubview:subwayButton];
     
     ///分隔线
@@ -416,6 +417,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     [hospitalButton setTitle:@"医院" forState:UIControlStateNormal];
+    [hospitalButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateSelected];
+
     [view addSubview:hospitalButton];
     
     ///分隔线
@@ -429,6 +432,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     [schoolButton setTitle:@"学校" forState:UIControlStateNormal];
+    [schoolButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateSelected];
+
     [view addSubview:schoolButton];
     
     ///分隔线
@@ -442,6 +447,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     [cateringButton setTitle:@"餐饮" forState:UIControlStateNormal];
+    [cateringButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateSelected];
+
     [view addSubview:cateringButton];
     
 }

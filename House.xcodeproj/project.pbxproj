@@ -336,6 +336,7 @@
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
 		CE3C897A1AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */; };
 		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
+		CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */; };
 		CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */; };
 		CE7BF4781A7A6FEB0022A132 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */; };
 		CE7BF4791A7A6FEB0022A132 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE7BF4771A7A6FEB0022A132 /* mapapi.bundle */; };
@@ -831,6 +832,7 @@
 		CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommunityDetailViewCell.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
+		CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_busbutton_highlighted.png; sourceTree = "<group>"; };
 		CE7BF4341A7A6E810022A132 /* QSWHousesMapDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWHousesMapDistributionViewController.h; sourceTree = "<group>"; };
 		CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSWHousesMapDistributionViewController.mm; sourceTree = "<group>"; };
 		CE7BF4391A7A6FEB0022A132 /* BMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMapKit.h; sourceTree = "<group>"; };
@@ -1817,6 +1819,7 @@
 				18B563751A8366A4009779A0 /* houses_detail_activity_right.png */,
 				18B563761A8366A4009779A0 /* houses_detail_bus_highlighted.png */,
 				18B563771A8366A4009779A0 /* houses_detail_bus_normal.png */,
+				CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */,
 				18B563781A8366A4009779A0 /* houses_detail_calculate_highlighted.png */,
 				18B563791A8366A4009779A0 /* houses_detail_calculate_normal.png */,
 				18B5637A1A8366A4009779A0 /* houses_detail_catering_highlighted.png */,
@@ -3060,6 +3063,7 @@
 				18B5641C1A8366A4009779A0 /* houses_detail_school_normal.png in Resources */,
 				18BE12521A88BDAC0036245A /* chat_contact_nocontacts.png in Resources */,
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
+				CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */,
 				18B564441A8366A4009779A0 /* navigationbar_collect_highlighted.png in Resources */,
 				18BE12711A8A133D0036245A /* myzone_renant_history_highlighted.png in Resources */,
 				18B563FA1A8366A4009779A0 /* guide_header_backgroud.png in Resources */,

@@ -14,7 +14,16 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
-#import "QSNewHouseDetailDataModel.h"
+#import "QSRentHouseListReturnData.h"
+#import "QSRentHouseInfoDataModel.h"
+
+#import "QSLoupanInfoDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
+#import "QSUserBaseInfoDataModel.h"
+#import "QSRateDataModel.h"
+#import "QSPhotoDataModel.h"
+#import "QSActivityDataModel.h"
+#import "QSHouseTypeDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
@@ -40,6 +49,9 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
+///详情信息的数据模型
+@property (nonatomic,retain) QSRentHouseInfoDataModel *detailInfo;
+@property (nonatomic,retain) NSArray *detaiInfoArray;
 @end
 
 @implementation QSRentHouseDetailViewController
@@ -214,7 +226,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
-- (void)createNewDetailInfoViewUI:(QSNewHouseDetailDataModel *)dataModel
+- (void)createNewDetailInfoViewUI:(QSRentHouseInfoDataModel *)dataModel
 {
     
     ///信息底view
@@ -502,7 +514,7 @@ static char LeftStarKey;            //!<左侧星级
     addressLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:addressLabel];
     
-    ///补充信息
+    ///查看地图信息
     UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabel.frame.origin.x + addressLabel.frame.size.width, addressLabel.frame.origin.y, 70.0f, 20.0f)];
     tipsLabel.text = @"(查看地图)";
     tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -672,14 +684,13 @@ static char LeftStarKey;            //!<左侧星级
     newlyChangeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:newlyChangeLabel];
     
-    //    ///税金参考
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, newlyChangeLabel.frame.origin.y+newlyChangeLabel.frame.size.height+5.0f, 70.0f, 15.0f)];
     consultLabel.text = @"价格变动：";
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
     
-    ///税金
+    ///金额
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, consultLabel.frame.origin.y-5.0f, 25.0f, 25.0f)];
     priceLabel.text = @"9";
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
@@ -738,14 +749,13 @@ static char LeftStarKey;            //!<左侧星级
 -(void)createDistrictAveragePriceViewUI:(UIView *)view
 {
     
-    ///税金参考
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
     consultLabel.text = @"XXX小区均价";
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
     
-    ///税金
+    ///价钱
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, consultLabel.frame.origin.y+consultLabel.frame.size.height+5.0f, 55.0f, 25.0f)];
     priceLabel.text = @"99999";
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
@@ -774,14 +784,14 @@ static char LeftStarKey;            //!<左侧星级
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
     
-    ///税金参考
+    ///小区
     UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-30.0f, arrowView.frame.origin.y-4.0f, 30.0f, 12.0f)];
     houseCommentLabel.text = @"小区";
     houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
     houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
     [view addSubview:houseCommentLabel];
     
-    ///税金参考
+    ///详情
     UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 30.0f, 12.0f)];
     commentCountLabel.text = @"详情";
     commentCountLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -804,7 +814,6 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat width = 60.0f;
     CGFloat gap = (view.frame.size.width - width * 4.0f - 26.0f) / 3.0f;
     
-    ///公交路线
     UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+15.0f+5.0f, width, 15.0f)];
     busLabel.text = @"房源浏览量";
     busLabel.textAlignment = NSTextAlignmentCenter;
@@ -831,7 +840,6 @@ static char LeftStarKey;            //!<左侧星级
     busSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:busSepLine];
     
-    ///教育机构
     UILabel *techLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + gap, busLabel.frame.origin.y, width, 15.0f)];
     techLabel.text = @"房客关注";
     techLabel.textAlignment = NSTextAlignmentCenter;
@@ -858,7 +866,6 @@ static char LeftStarKey;            //!<左侧星级
     techSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:techSepLine];
     
-    ///医疗机构
     UILabel *medicalLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), busLabel.frame.origin.y, width, 15.0f)];
     medicalLabel.text = @"待看房预约";
     medicalLabel.textAlignment = NSTextAlignmentCenter;
@@ -885,7 +892,6 @@ static char LeftStarKey;            //!<左侧星级
     medicalSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:medicalSepLine];
     
-    ///餐饮娱乐
     UILabel *foodLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f * (width + gap), busLabel.frame.origin.y, width, 15.0f)];
     foodLabel.text = @"看房预约";
     foodLabel.textAlignment = NSTextAlignmentCenter;
@@ -1061,5 +1067,6 @@ static char LeftStarKey;            //!<左侧星级
     });
     
 }
+
 
 @end

@@ -25,5 +25,4 @@
  *  @since              1.0.0
  */
 - (instancetype)initWithTitle:(NSString *)title andLoupanID:(NSString *)loupanID andLoupanBuildingID:(NSString *)buildingID andDetailType:(FILTER_MAIN_TYPE)detailType;
-
 @end
