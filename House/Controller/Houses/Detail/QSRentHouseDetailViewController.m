@@ -230,7 +230,7 @@ static char LeftStarKey;            //!<左侧星级
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image=[UIImage imageNamed:@"houses_list_load_fail690x350"];
+    headerImageView.image=[UIImage imageNamed:@"houses_detail_header_load_fail750x562"];
     
     ///分数view
     QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {

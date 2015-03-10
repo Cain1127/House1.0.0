@@ -149,7 +149,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image=[UIImage imageNamed:@"houses_list_load_fail690x350"];
+    headerImageView.image=[UIImage imageNamed:@"houses_detail_header_load_fail750x562"];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView];
@@ -176,10 +176,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [self createHouseTotalUI:houseTotalView];
     
     ///交通路线与统计view
-    UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
+    UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f)];
     [self createHouseServiceViewUI:houseServiceView];
     
-    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
         NSLog(@"点击进入关注");
@@ -301,7 +301,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 {
     
     ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
     userLabel.text = @"小区二手房(28)";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
@@ -325,7 +325,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 {
     
     ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
     userLabel.text = @"小区出租房(99)";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
@@ -348,12 +348,12 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (void)createHouseTotalUI:(UIView *)view
 {
     
-    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, 100.0f, 20.0f)];
+    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
     hoeseTotalLabel.text=@"小区房价走势";
     hoeseTotalLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:hoeseTotalLabel];
     
-    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-100.0f, 10.0f, 100.0f, 20.0f)];
+    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-100.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
     areaSizeLabel.text=@"最新均价";
     areaSizeLabel.textAlignment=NSTextAlignmentRight;
     [view addSubview:areaSizeLabel];
@@ -371,71 +371,78 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 -(void)createHouseServiceViewUI:(UIView *)view
 {
     
-    CGFloat imageW = (view.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 5.0f;
-    CGFloat imageH = imageW +5.0f;
-    CGFloat imageY = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
+    CGFloat buttonW = view.frame.size.width / 5.0f;
+    CGFloat buttonH = buttonW;
+    CGFloat buttonY = 0.0f;
+    QSBlockButtonStyleModel *buttonStyle=[QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
+    buttonStyle.bgColor=[UIColor clearColor];
+    buttonStyle.titleNormalColor=[UIColor grayColor];
+    buttonStyle.titleSelectedColor=[UIColor blackColor];
+    buttonStyle.bgColorSelected=[UIColor yellowColor];
+    buttonStyle.bgColorHighlighted=[UIColor yellowColor];
     
-    CGFloat labelW = imageW;
-    CGFloat labelY = imageY+imageH+8.0f;
-    
-    QSImageView *bagStay=[[QSImageView alloc] initWithFrame:CGRectMake(0.0f, imageY, imageW,imageH )];
-    bagStay.image=[UIImage imageNamed:@"houses_bag"];
-    [view addSubview:bagStay];
-    
-    QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(0.0f, labelY, labelW,20.0f)];
-    bagStayLabel.text=@"拎包入住";
-    bagStayLabel.textAlignment=NSTextAlignmentCenter;
-    bagStayLabel.font=[UIFont systemFontOfSize:12.0f];
-    [view addSubview:bagStayLabel];
-    
-    
-    QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
-    appliance.image=[UIImage imageNamed:@"houses_appliance"];
-    [view addSubview:appliance];
-    
-    QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, imageW,20.0f)];
-    applianceLabel.text=@"家电齐全";
-    applianceLabel.textAlignment=NSTextAlignmentCenter;
-    applianceLabel.font=[UIFont systemFontOfSize:12.0f];
-    [view addSubview:applianceLabel];
-    
-    
-    QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
-    broadband.image=[UIImage imageNamed:@"houses_broadband"];
-    [view addSubview:broadband];
-    
-    QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, imageW,20.0f)];
-    broadbandLabel.text=@"宽带网络";
-    broadbandLabel.textAlignment=NSTextAlignmentCenter;
-    broadbandLabel.font=[UIFont systemFontOfSize:12.0f];
-    [view addSubview:broadbandLabel];
-    
-    
-    QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
-    linegas.image=[UIImage imageNamed:@"houses_linegas"];
-    [view addSubview:linegas];
-    
-    QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, imageW,20.0f)];
-    linegasLabel.text=@"管道煤气";
-    linegasLabel.textAlignment=NSTextAlignmentCenter;
-    linegasLabel.font=[UIFont systemFontOfSize:12.0f];
-    [view addSubview:linegasLabel];
-    
-    
-    QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
-    mud.image=[UIImage imageNamed:@"houses_mud"];
-    [view addSubview:mud];
-    
-    QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, imageW,20.0f)];
-    mudLabel.text=@"硅藻泥墙";
-    mudLabel.textAlignment=NSTextAlignmentCenter;
-    mudLabel.font=[UIFont systemFontOfSize:12.0f];
-    [view addSubview:mudLabel];
+    UIButton *bushButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(0.0f, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"点击公交按钮事件");
+        
+    }];
+    [bushButton setTitle:@"公交" forState:UIControlStateNormal];
+   // [bushButton setBackgroundImage:[UIImage imageNamed:nil] forState:UIControlStateSelected]
+    //[bushButton setBackgroundImage:[UIImage imageNamed:@"public_choice_arrow"] forState:UIControlStateSelected];
+
+    [view addSubview:bushButton];
     
     ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
-    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
-    [view addSubview:bottomLineLabel];
+    UILabel *lineLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(bushButton.frame.origin.x+bushButton.frame.size.width-0.25f,SIZE_DEFAULT_HEIGHTTAP, 0.25,  view.frame.size.height-2.0f*SIZE_DEFAULT_HEIGHTTAP)];
+    lineLabel0.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:lineLabel0];
+    
+    UIButton *subwayButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(bushButton.frame.origin.x+bushButton.frame.size.width, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"点击地铁按钮事件");
+        
+    }];
+    [subwayButton setTitle:@"地铁" forState:UIControlStateNormal];
+    [view addSubview:subwayButton];
+    
+    ///分隔线
+    UILabel *lineLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(subwayButton.frame.origin.x+subwayButton.frame.size.width-0.25f,SIZE_DEFAULT_HEIGHTTAP, 0.25,  view.frame.size.height-2.0f*SIZE_DEFAULT_HEIGHTTAP)];
+    lineLabel1.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:lineLabel1];
+    
+    UIButton *hospitalButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(subwayButton.frame.origin.x+subwayButton.frame.size.width, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"点击医院按钮事件");
+        
+    }];
+    [hospitalButton setTitle:@"医院" forState:UIControlStateNormal];
+    [view addSubview:hospitalButton];
+    
+    ///分隔线
+    UILabel *lineLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(hospitalButton.frame.origin.x+hospitalButton.frame.size.width-0.25f,SIZE_DEFAULT_HEIGHTTAP, 0.25, view.frame.size.height-2.0f*SIZE_DEFAULT_HEIGHTTAP)];
+    lineLabel2.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:lineLabel2];
+    
+    UIButton *schoolButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(hospitalButton.frame.origin.x+hospitalButton.frame.size.width, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"点击学校按钮事件");
+        
+    }];
+    [schoolButton setTitle:@"学校" forState:UIControlStateNormal];
+    [view addSubview:schoolButton];
+    
+    ///分隔线
+    UILabel *lineLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(schoolButton.frame.origin.x+schoolButton.frame.size.width-0.25f,SIZE_DEFAULT_HEIGHTTAP, 0.25,  view.frame.size.height-2.0f*SIZE_DEFAULT_HEIGHTTAP)];
+    lineLabel3.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:lineLabel3];
+    
+    UIButton *cateringButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(schoolButton.frame.origin.x+schoolButton.frame.size.width, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"点击餐饮按钮事件");
+        
+    }];
+    [cateringButton setTitle:@"餐饮" forState:UIControlStateNormal];
+    [view addSubview:cateringButton];
     
 }
 
@@ -445,25 +452,25 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 {
     
     ///间隙
-    CGFloat width = 1.0f/3.0f*view.frame.size.width-2.0f*25.0f;
+    CGFloat width = 1.0f/3.0f*view.frame.size.width-2.0f*10.0f;
     CGFloat gap = (view.frame.size.width - width * 3.0f) / 6.0f;
     
     ///公交路线
-    UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(gap, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+15.0f+5.0f, width, 15.0f)];
+    UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(gap, SIZE_DEFAULT_HEIGHTTAP+25.0f+5.0f, width, 15.0f)];
     busLabel.text = @"地铁";
     busLabel.textAlignment = NSTextAlignmentCenter;
     busLabel.textColor = COLOR_CHARACTERS_GRAY;
     busLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:busLabel];
     
-    UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(gap, SIZE_DEFAULT_HEIGHTTAP, 25.0f, 25.0f)];
     busCountLable.text = @"2";
     busCountLable.textAlignment = NSTextAlignmentRight;
-    busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     busCountLable.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:busCountLable];
     
-    UILabel *busCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(busCountLable.frame.origin.x + busCountLable.frame.size.width, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+7.5f, 15.0f, 10.0f)];
+    UILabel *busCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(busCountLable.frame.origin.x + busCountLable.frame.size.width+2.0f, SIZE_DEFAULT_HEIGHTTAP+5.0f,width-busCountLable.frame.size.width, 15.0f)];
     busCountUnitLabel.text = @"条线路";
     busCountUnitLabel.textAlignment = NSTextAlignmentLeft;
     busCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -471,26 +478,26 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:busCountUnitLabel];
     
     ///分隔线
-    UILabel *busSepLine = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x + busLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f, view.frame.size.height - 2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UILabel *busSepLine = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x + busLabel.frame.size.width + gap, SIZE_DEFAULT_HEIGHTTAP, 0.25f, view.frame.size.height - 2.0f*SIZE_DEFAULT_HEIGHTTAP)];
     busSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:busSepLine];
     
     ///教育机构
-    UILabel *techLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + gap, busLabel.frame.origin.y, width, 15.0f)];
+    UILabel *techLabel = [[UILabel alloc] initWithFrame:CGRectMake(width+3.0f*gap, SIZE_DEFAULT_HEIGHTTAP+25.0f+5.0f, width, 15.0f)];
     techLabel.text = @"公交";
     techLabel.textAlignment = NSTextAlignmentCenter;
     techLabel.textColor = COLOR_CHARACTERS_GRAY;
     techLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:techLabel];
     
-    UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, busCountLable.frame.origin.y, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, SIZE_DEFAULT_HEIGHTTAP, 25.0f, 25.0f)];
     techCountLable.text = @"12";
     techCountLable.textAlignment = NSTextAlignmentRight;
-    techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     techCountLable.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:techCountLable];
     
-    UILabel *techCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(techCountLable.frame.origin.x + techCountLable.frame.size.width, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+7.5f, 15.0f, 10.0f)];
+    UILabel *techCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(techCountLable.frame.origin.x + techCountLable.frame.size.width, SIZE_DEFAULT_HEIGHTTAP+5.0f, width-techCountLable.frame.size.width, 15.0f)];
     techCountUnitLabel.text = @"条线路";
     techCountUnitLabel.textAlignment = NSTextAlignmentLeft;
     techCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -498,26 +505,26 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:techCountUnitLabel];
     
     ///分隔线
-    UILabel *techSepLine = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x + techLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f, view.frame.size.height - 2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UILabel *techSepLine = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x + techLabel.frame.size.width + gap, SIZE_DEFAULT_HEIGHTTAP, 0.25f, view.frame.size.height - 2.0*SIZE_DEFAULT_HEIGHTTAP)];
     techSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:techSepLine];
     
     ///医疗机构
-    UILabel *medicalLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), busLabel.frame.origin.y, width, 15.0f)];
+    UILabel *medicalLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f*width+5.0f*gap, SIZE_DEFAULT_HEIGHTTAP+25.0f+5.0f, width, 15.0f)];
     medicalLabel.text = @"其他";
     medicalLabel.textAlignment = NSTextAlignmentCenter;
     medicalLabel.textColor = COLOR_CHARACTERS_GRAY;
     medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:medicalLabel];
     
-    UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_HEIGHTTAP, 25.0f, 25.0f)];
     medicalCountLable.text = @"28";
     medicalCountLable.textAlignment = NSTextAlignmentRight;
-    medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     medicalCountLable.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:medicalCountLable];
     
-    UILabel *medicalCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(medicalCountLable.frame.origin.x + medicalCountLable.frame.size.width, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+7.5f, 15.0f, 10.0f)];
+    UILabel *medicalCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(medicalCountLable.frame.origin.x + medicalCountLable.frame.size.width+2.0f, SIZE_DEFAULT_HEIGHTTAP+5.0f, width-medicalCountLable.frame.size.width, 15.0f)];
     medicalCountUnitLabel.text = @"条线路";
     medicalCountUnitLabel.textAlignment = NSTextAlignmentLeft;
     medicalCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];

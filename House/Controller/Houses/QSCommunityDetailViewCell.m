@@ -64,16 +64,20 @@ static char FeaturesKey;    //!<特色标签
     
     ///价钱按钮
      QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
-    UIButton *button=[QSBlockButton createBlockButtonWithFrame:CGRectMake(houseTagImageView.frame.origin.x+houseImageView.frame.size.width+8.0f,10.0f, 44.0f , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    UIButton *button=[QSBlockButton createBlockButtonWithFrame:CGRectMake(houseTagImageView.frame.origin.x+houseImageView.frame.size.width+8.0f,10.0f, 50.0f , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+//        button.titleLabel.text=@"340万";
+//        button.titleLabel.textAlignment=NSTextAlignmentCenter;
         
     }];
+    [self createTitleInfoUI:button];
     [self.contentView addSubview:button];
     
     ///户型
-    UILabel *houseTypeLabel = [[QSLabel alloc] initWithFrame:CGRectMake(button.frame.origin.x+button.frame.size.width+3.0f, button.frame.origin.y+5.0f,44.0f, 20.0f)];
+    UILabel *houseTypeLabel = [[QSLabel alloc] initWithFrame:CGRectMake(button.frame.origin.x+button.frame.size.width+3.0f, button.frame.origin.y+5.0f,50.0f, 20.0f)];
     houseTypeLabel.text = @"3房1厅";
-    houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    houseTypeLabel.textAlignment = NSTextAlignmentLeft;
+    houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    houseTypeLabel.textAlignment = NSTextAlignmentCenter;
     houseTypeLabel.textColor = COLOR_CHARACTERS_BLACK;
     [self.contentView addSubview:houseTypeLabel];
     objc_setAssociatedObject(self, &HouseTypeKey, houseTypeLabel, OBJC_ASSOCIATION_ASSIGN);
@@ -84,10 +88,10 @@ static char FeaturesKey;    //!<特色标签
     [self.contentView addSubview:bottomLineLabel];
     
     ///面积
-    UILabel *areaLabel = [[QSLabel alloc] initWithFrame:CGRectMake(bottomLineLabel.frame.origin.x+bottomLineLabel.frame.size.width+3.0f, houseTypeLabel.frame.origin.y, houseTypeLabel.frame.size.width, houseTypeLabel.frame.size.height)];
+    UILabel *areaLabel = [[QSLabel alloc] initWithFrame:CGRectMake(bottomLineLabel.frame.origin.x+bottomLineLabel.frame.size.width+3.0f, houseTypeLabel.frame.origin.y, 50.0f, houseTypeLabel.frame.size.height)];
     areaLabel.text = @"128/㎡";
-    areaLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    areaLabel.textAlignment = NSTextAlignmentRight;
+    areaLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    areaLabel.textAlignment = NSTextAlignmentCenter;
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;
     [self.contentView addSubview:areaLabel];
     objc_setAssociatedObject(self, &HouseAreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
@@ -132,7 +136,7 @@ static char FeaturesKey;    //!<特色标签
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]-(>=2)-|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束
@@ -148,7 +152,7 @@ static char FeaturesKey;    //!<特色标签
     ///标题
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.text = @"340";
-    titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.textAlignment = NSTextAlignmentRight;
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -169,8 +173,8 @@ static char FeaturesKey;    //!<特色标签
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(titleLabel,titleUnitLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|-(>=2)-[titleLabel]-0-[titleUnitLabel(22)]-(>=2)-|";
-    NSString *___vVFL_title = @"V:|-29.5-[titleLabel(20)]-29.5-|";
+    NSString *___hVFL_all = @"H:|-(>=2)-[titleLabel]-0-[titleUnitLabel(15)]-(>=2)-|";
+    NSString *___vVFL_title = @"V:|-5-[titleLabel(20)]-5-|";
     
     ///添加约束
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllBottom metrics:nil views:___viewsVFL]];
