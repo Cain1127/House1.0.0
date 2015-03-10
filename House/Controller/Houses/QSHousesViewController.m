@@ -713,11 +713,11 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)gotoSearchViewController
 {
   
-//    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] init];
-//    [self.navigationController pushViewController:searchVC animated:YES];
+    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] init];
+    [self.navigationController pushViewController:searchVC animated:YES];
     
-    QSHouseDetailViewController *detailVC=[[QSHouseDetailViewController alloc] init];
-    [self.navigationController pushViewController:detailVC animated:YES];
+//    QSHouseDetailViewController *detailVC=[[QSHouseDetailViewController alloc] init];
+//    [self.navigationController pushViewController:detailVC animated:YES];
     
 }
 

@@ -334,7 +334,7 @@
 		CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE000DCC1A6F8064008FD309 /* QSWDeveloperActivityViewController.m */; };
 		CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */; };
 		CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */; };
-		CE3C897A1AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C89791AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.m */; };
+		CE3C897A1AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */; };
 		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
 		CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */; };
 		CE7BF4781A7A6FEB0022A132 /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF4761A7A6FEB0022A132 /* libbaidumapapi.a */; };
@@ -827,8 +827,8 @@
 		CE000DCD1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperActivityViewController.xib; sourceTree = "<group>"; };
 		CE2B43151A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE2B43161A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
-		CE3C89781AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHouseDetailViewCell.h; sourceTree = "<group>"; };
-		CE3C89791AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRentHouseDetailViewCell.m; sourceTree = "<group>"; };
+		CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCommunityDetailViewCell.h; sourceTree = "<group>"; };
+		CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommunityDetailViewCell.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE7BF4341A7A6E810022A132 /* QSWHousesMapDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWHousesMapDistributionViewController.h; sourceTree = "<group>"; };
@@ -1492,14 +1492,14 @@
 			children = (
 				CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */,
 				CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */,
+				CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */,
+				CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */,
 				CEFA4DF01AAD2F010018C8F9 /* QSHouseDetailViewController.h */,
 				CEFA4DF11AAD2F010018C8F9 /* QSHouseDetailViewController.m */,
 				CEFA4DF21AAD2F010018C8F9 /* QSNewHouseDetailViewController.h */,
 				CEFA4DF31AAD2F010018C8F9 /* QSNewHouseDetailViewController.m */,
 				CEFA4DF41AAD2F010018C8F9 /* QSRentHouseDetailViewController.h */,
 				CEFA4DF51AAD2F010018C8F9 /* QSRentHouseDetailViewController.m */,
-				CE3C89781AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.h */,
-				CE3C89791AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -3289,7 +3289,7 @@
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
-				CE3C897A1AADA7BE008B2BF7 /* QSRentHouseDetailViewCell.m in Sources */,
+				CE3C897A1AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,

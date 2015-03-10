@@ -1,5 +1,5 @@
 //
-//  QSRentHouseDetailViewCell.h
+//  QSCommunityDetailViewCell.h
 //  House
 //
 //  Created by 王树朋 on 15/3/9.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSRentHouseDetailViewCell : UITableViewCell
+@interface QSCommunityDetailViewCell : UITableViewCell
 
 @end
