@@ -207,6 +207,9 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         ///设置用户的默认过滤器
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
+            ///修改过滤器的状态
+            
+            ///当二手房设置为当前用户的默认过滤器
             [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
             
             ///修改指引状态
@@ -215,7 +218,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         });
         
         ///进入过滤器页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse andIsShowNavigation:NO];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -238,7 +241,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         });
         
         ///进入过滤器设置页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse andIsShowNavigation:NO];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];

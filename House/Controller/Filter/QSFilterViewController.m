@@ -49,7 +49,7 @@ typedef enum
 
 @interface QSFilterViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,assign) FILTER_STATUS_TYPE filterStatus;   //!<本地过滤器的状态
+@property (nonatomic,assign) BOOL isShowNavigation;             //!<是否显示导航栏
 @property (nonatomic,assign) FILTER_MAIN_TYPE filterType;       //!<过滤器类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
 
@@ -58,13 +58,13 @@ typedef enum
 @implementation QSFilterViewController
 
 #pragma mark - 初始化
-- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType
+- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType andIsShowNavigation:(BOOL)isShowNavigation
 {
 
     if (self = [super init]) {
         
         ///保存过滤器类型
-        self.filterType = filterType;
+        self.isShowNavigation = isShowNavigation;
         
         ///初始化过滤器模型
         [self createFilterDataModel];
@@ -81,9 +81,6 @@ typedef enum
     
     self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
     
-    ///获取过滤器是否已配置标识
-    self.filterStatus = [self.filterModel.filter_status intValue];
-    
 }
 
 #pragma mark - UI搭建
@@ -91,7 +88,7 @@ typedef enum
 {
 
     ///判断是否是第一次运行的
-    if (fFilterStatusTypeInit < self.filterStatus) {
+    if (self.isShowNavigation) {
         
         [super createNavigationBarUI];
         
@@ -103,7 +100,7 @@ typedef enum
 {
 
     ///两种情况：已配置有过滤器时，存在导航栏，未配置时，是没有导航栏的
-    if (fFilterStatusTypeInit < self.filterStatus) {
+    if (self.isShowNavigation) {
         
         [self createUpdateFilterSettingPage];
         

@@ -1219,6 +1219,26 @@ static char LeftStarKey;            //!<左侧星级
     mainScoreRootView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_MAIN_SCORE];
     [view addSubview:mainScoreRootView];
     
+    ///中间评分
+    UILabel *titleScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 15.0f, mainScoreRootView.frame.size.width - 10.0f - 15.0f, 30.0f)];
+    titleScoreLabel.text = @"6.0";
+    titleScoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    titleScoreLabel.textAlignment = NSTextAlignmentRight;
+    [mainScoreRootView addSubview:titleScoreLabel];
+    
+    ///中间评分单位
+    UILabel *titleUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleScoreLabel.frame.origin.x + titleScoreLabel.frame.size.width, titleScoreLabel.frame.origin.y + 12.0f, 15.0f, 15.0f)];
+    titleUnitLabel.text = @"分";
+    titleUnitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [mainScoreRootView addSubview:titleUnitLabel];
+    
+    ///超值盘
+    UILabel *titleTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleScoreLabel.frame.origin.x, titleScoreLabel.frame.origin.y + titleScoreLabel.frame.size.height, mainScoreRootView.frame.size.width - 10.0f, 20.0f)];
+    titleTipsLabel.text = @"超值盘";
+    titleTipsLabel.textAlignment = NSTextAlignmentCenter;
+    titleTipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    [mainScoreRootView addSubview:titleTipsLabel];
+    
     ///右侧评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
     [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:RightScoreKey andStarKey:RightStarKey];

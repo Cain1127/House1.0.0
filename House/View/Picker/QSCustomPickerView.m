@@ -43,6 +43,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 
 @implementation QSCustomPickerView
 
+#pragma mark - 初始化
 /**
  *  @author             yangshengmeng, 15-01-30 11:01:11
  *
@@ -617,6 +618,28 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     
     return nil;
     
+}
+
+#pragma mark - 重置当前的选择项
+/**
+ *  @author         yangshengmeng, 15-03-11 16:03:07
+ *
+ *  @brief          重置选择按钮的当前选择项
+ *
+ *  @param model    当前选择项的数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)resetPickerViewCurrentPickedModel:(QSBaseConfigurationDataModel *)model
+{
+
+    ///更换当前选择模型
+    self.currentPickedModel = model;
+    
+    ///更换显示信息
+    UILabel *infoLabel = objc_getAssociatedObject(self, &InfoLabelKey);
+    infoLabel.text = self.currentPickedModel.val;
+
 }
 
 #pragma mark - 从下往上弹出一个选择窗框

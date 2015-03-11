@@ -63,6 +63,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///获取本地默认配置的过滤器
     NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
     return [self initWithHouseMainType:((filterID && [filterID length] > 0) ? [filterID intValue] : fFilterMainTypeSecondHouse)];
+    
+    ///注册通知
+    [self registLocalHomePageActionNotification];
 
 }
 
@@ -88,9 +91,79 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///获取过滤器模型
         self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
         
+        ///注册通知
+        [self registLocalHomePageActionNotification];
+        
     }
     
     return self;
+
+}
+
+#pragma mark - 注册首页不同事件的通知
+///注册首页不同事件的通知
+- (void)registLocalHomePageActionNotification
+{
+
+    ///显示新房通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeNewHouseActionNotification object:@"1"];
+    
+    ///显示出租房通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeRentHouseActionNotification object:@"2"];
+    
+    ///显示二手房通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeSecondHandHouseActionNotification object:@"3"];
+
+}
+
+///处理首页的不同按钮事件
+- (void)homePageNotificationAction:(NSNotification *)notification
+{
+
+    ///获取参数
+    int params = [notification.object intValue];
+    
+    switch (params) {
+        case 1:
+        {
+            
+            ///修改导航栏文字
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]];
+            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+            
+            ///列出新房
+            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]];
+            
+        }
+            break;
+            
+        case 2:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]];
+            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+            
+            ///列出出租房
+            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]];
+            
+        }
+            break;
+            
+        case 3:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
+            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+            
+            ///列出二手房
+            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
 
 }
 
@@ -715,9 +788,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
   
     QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:YES];
-    
-//    QSHouseDetailViewController *detailVC=[[QSHouseDetailViewController alloc] init];
-//    [self.navigationController pushViewController:detailVC animated:YES];
     
 }
 

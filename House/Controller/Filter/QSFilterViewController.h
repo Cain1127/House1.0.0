@@ -14,16 +14,17 @@
 @interface QSFilterViewController : QSTurnBackViewController
 
 /**
- *  @author             yangshengmeng, 15-01-23 13:01:52
+ *  @author                 yangshengmeng, 15-01-23 13:01:52
  *
- *  @brief              根据过滤器类型创建不同的过滤设置器
+ *  @brief                  根据过滤器类型创建不同的过滤设置器
  *
- *  @param filterType   过滤类型：二手器、出租房等
+ *  @param filterType       过滤类型：二手器、出租房等
+ *  @param isShowNavigation 是否显示导航栏
  *
- *  @return             返回过滤器对象
+ *  @return                 返回过滤器对象
  *
- *  @since              1.0.0
+ *  @since                  1.0.0
  */
-- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType;
+- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType andIsShowNavigation:(BOOL)isShowNavigation;
 
 @end

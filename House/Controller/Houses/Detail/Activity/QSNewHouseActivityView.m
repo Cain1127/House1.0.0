@@ -224,7 +224,7 @@ static char CommitedCountKey;   //!<已报名人数关联
         self.totalTime = timeStampGap;
         
         ///开始倒计时
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateCountdownInfo:) userInfo:nil repeats:YES];
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(updateCountdownInfo:) userInfo:nil repeats:YES];
         [timer fire];
         
     } else {
