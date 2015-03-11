@@ -108,7 +108,6 @@
     
     ///加载VC数组
     self.viewControllers = tempViewControllers;
-    self.selectedIndex = (self.intCurrentIndex >= 0 < [self.tabbarButtonInfoArray count]) ? self.intCurrentIndex : 0;
     
     ///创建自定义tabbar
     self.customTabbarView = [[QSTabbar alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 49.0f, SIZE_DEVICE_WIDTH, 49.0f) andTabbarButtonArray:self.tabbarButtonInfoArray andTabbarTapCallBack:^(int index) {
@@ -118,6 +117,8 @@
         
     }];
     [self.view addSubview:self.customTabbarView];
+    
+    self.selectedIndex = (self.intCurrentIndex >= 0 && self.intCurrentIndex < [self.tabbarButtonInfoArray count]) ? self.intCurrentIndex : 0;
     
 }
 

@@ -8,6 +8,11 @@
 
 #import "QSHeaderViewController.h"
 
+///首页不同功能按钮的事件通知
+static NSString *nHomeNewHouseActionNotification = @"nHomeNewHouseActionNotification";
+static NSString *nHomeRentHouseActionNotification = @"nHomeRentHouseActionNotification";
+static NSString *nHomeSecondHandHouseActionNotification = @"nHomeSecondHandHouseActionNotification";
+
 @interface QSMasterViewController : QSHeaderViewController
 
 #pragma mark - 导航栏设置

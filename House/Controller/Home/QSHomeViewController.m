@@ -8,18 +8,22 @@
 
 #import "QSHomeViewController.h"
 #import "QSTabBarViewController.h"
-#import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "QSFilterViewController.h"
 #import "QSHouseKeySearchViewController.h"
-#import "ColorHeader.h"
+
+#import "QSBlockButtonStyleModel+NavigationBar.h"
+
 #import "QSCustomHUDView.h"
 #import "QSCustomPickerView.h"
 #import "QSImageView+Block.h"
 #import "UIButton+Factory.h"
 
 #import "QSBaseConfigurationDataModel.h"
+#import "QSFilterDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Filter.h"
 
 #import <objc/runtime.h>
 
@@ -323,8 +327,28 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 ///点击新房
 - (void)newHouseButtonAction
 {
-
     
+    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeNewHouse];
+    
+    ///获取过滤器是否已配置标识
+    FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
+    
+    ///判断当前过滤器的状态
+    if (fFilterStatusTypeWorking == filterStatus) {
+        
+        ///发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeNewHouseActionNotification object:@"1"];
+        
+        ///进入新房列表
+        self.tabBarController.selectedIndex = 1;
+        
+    } else {
+    
+        ///弹出新房设置过滤的页面
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeNewHouse];
+        [self.navigationController pushViewController:filterVC animated:YES];
+    
+    }
 
 }
 
@@ -333,7 +357,27 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 - (void)secondHandHouseButtonAction
 {
 
+    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
     
+    ///获取过滤器是否已配置标识
+    FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
+    
+    ///判断当前过滤器的状态
+    if (fFilterStatusTypeWorking == filterStatus) {
+        
+        ///发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeSecondHandHouseActionNotification object:@"3"];
+        
+        ///进入二手房列表
+        self.tabBarController.selectedIndex = 1;
+        
+    } else {
+        
+        ///弹出二手房设置过滤的页面
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
+        [self.navigationController pushViewController:filterVC animated:YES];
+        
+    }
 
 }
 
@@ -342,7 +386,27 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 - (void)rentalHouseButtonAction
 {
 
+    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
     
+    ///获取过滤器是否已配置标识
+    FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
+    
+    ///判断当前过滤器的状态
+    if (fFilterStatusTypeWorking == filterStatus) {
+        
+        ///发送通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeSecondHandHouseActionNotification object:@"2"];
+        
+        ///进入出租房列表
+        self.tabBarController.selectedIndex = 1;
+        
+    } else {
+        
+        ///弹出出租房设置过滤的页面
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
+        [self.navigationController pushViewController:filterVC animated:YES];
+        
+    }
 
 }
 

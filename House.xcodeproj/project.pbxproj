@@ -285,6 +285,7 @@
 		18DABAAF1AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABAA91AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m */; };
 		18DABAB01AAD4E1B00647E7C /* QSRateDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABAAC1AAD4E1B00647E7C /* QSRateDataModel.m */; };
 		18DABAB41AAD4E5E00647E7C /* QSHouseTypeDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABAB31AAD4E5E00647E7C /* QSHouseTypeDataModel.m */; };
+		18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
 		18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801EF1A6F8D3800CA21D4 /* MJRefreshBaseView.m */; };
 		18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E801F11A6F8D3800CA21D4 /* MJRefreshConst.m */; };
@@ -753,6 +754,8 @@
 		18DABAAC1AAD4E1B00647E7C /* QSRateDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRateDataModel.m; sourceTree = "<group>"; };
 		18DABAB21AAD4E5E00647E7C /* QSHouseTypeDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseTypeDataModel.h; path = House/HouseType/QSHouseTypeDataModel.h; sourceTree = "<group>"; };
 		18DABAB31AAD4E5E00647E7C /* QSHouseTypeDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseTypeDataModel.m; path = House/HouseType/QSHouseTypeDataModel.m; sourceTree = "<group>"; };
+		18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNewHouseActivityView.h; path = Detail/Activity/QSNewHouseActivityView.h; sourceTree = "<group>"; };
+		18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNewHouseActivityView.m; path = Detail/Activity/QSNewHouseActivityView.m; sourceTree = "<group>"; };
 		18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		18E801ED1A6F8D3800CA21D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		18E801EE1A6F8D3800CA21D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -1529,6 +1532,7 @@
 		18A88E421A8C5AF100596E11 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				18E2023C1AAFFA4900577872 /* Activity */,
 				CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */,
 				CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */,
 				CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */,
@@ -2611,6 +2615,15 @@
 			name = HouseType;
 			sourceTree = "<group>";
 		};
+		18E2023C1AAFFA4900577872 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */,
+				18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
 		18E801EB1A6F8D3800CA21D4 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -3447,6 +3460,7 @@
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				18BE125A1A89FC620036245A /* QSMyZoneTenantView.m in Sources */,
 				18B563221A81AA40009779A0 /* QSCustomSelectedView.m in Sources */,
+				18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */,
 				18DABA951AAD405D00647E7C /* QSUserBaseInfoDataModel.m in Sources */,
 				18EE347C1AABFD610053B909 /* QSNewHouseDetailDataModel.m in Sources */,
 				18B5633E1A8203BA009779A0 /* QSFilterDataModel.m in Sources */,
@@ -3591,8 +3605,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
@@ -3614,8 +3628,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";

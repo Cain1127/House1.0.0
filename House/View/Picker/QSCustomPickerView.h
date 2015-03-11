@@ -68,6 +68,17 @@ typedef enum
 - (instancetype)initWithFrame:(CGRect)frame andPickerType:(CUSTOM_PICKER_TYPE)pickerType andPickerViewStyle:(CUSTOM_PICKER_STYLE)pickerStyle andCurrentSelectedModel:(QSBaseConfigurationDataModel *)currentModel andIndicaterCenterXPoint:(CGFloat)xpoint andPickedCallBack:(void(^)(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *pickedKey,NSString *pickedVal))callBack;
 
 /**
+ *  @author         yangshengmeng, 15-03-11 16:03:07
+ *
+ *  @brief          重置选择按钮的当前选择项
+ *
+ *  @param model    当前选择项的数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)resetPickerViewCurrentPickedModel:(QSBaseConfigurationDataModel *)model;
+
+/**
  *  @author yangshengmeng, 15-01-30 13:01:48
  *
  *  @brief  移聊当前弹出的选择框
