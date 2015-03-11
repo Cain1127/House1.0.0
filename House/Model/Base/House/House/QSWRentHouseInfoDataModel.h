@@ -1,5 +1,5 @@
 //
-//  QSRentHouseInfoDataModel.h
+//  QSWRentHouseInfoDataModel.h
 //  House
 //
 //  Created by 王树朋 on 15/3/11.
@@ -8,14 +8,7 @@
 
 #import "QSBaseModel.h"
 
-/*!
- *  @author wangshupeng, 15-03-11 12:03:51
- *
- *  @brief  出租房信息基本数据模型
- *
- *  @since 1.0.0
- */
-@interface QSRentHouseInfoDataModel : QSBaseModel
+@interface QSWRentHouseInfoDataModel : QSBaseModel
 
 @property (nonatomic,copy) NSString *id_;               //!<户型ID
 @property (nonatomic,copy) NSString *user_id;           //!<用户ID

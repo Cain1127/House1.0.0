@@ -19,7 +19,7 @@
 
 #import "QSHousePriceChangesDataModel.h"
 #import "QSHouseCommentDataModel.h"
-#import "QSRentHouseInfoDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSHouseTypeDataModel.h"
 
