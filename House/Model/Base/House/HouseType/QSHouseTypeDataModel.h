@@ -38,4 +38,5 @@
 @property (nonatomic,copy) NSString *attach_thumb;      //!<小图
 @property (nonatomic,copy) NSString *room_features;     //!<标签信息：非key，直接显示
 
+
 @end

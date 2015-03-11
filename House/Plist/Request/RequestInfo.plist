@@ -5,9 +5,9 @@
 	<key>2053</key>
 	<dict>
 		<key>class</key>
-		<string>QSNewHousesDetailReturnData</string>
+		<string>QSRentHousesDetailReturnData</string>
 		<key>url</key>
-		<string>loupan/view</string>
+		<string>rentHouse/view</string>
 	</dict>
 	<key>2052</key>
 	<dict>

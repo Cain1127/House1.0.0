@@ -14,15 +14,13 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
-#import "QSRentHouseListReturnData.h"
-#import "QSRentHouseInfoDataModel.h"
+#import "QSRentHousesDetailReturnData.h"
+#import "QSRentHouseDetailDataModel.h"
 
-#import "QSLoupanInfoDataModel.h"
-#import "QSLoupanPhaseDataModel.h"
-#import "QSUserBaseInfoDataModel.h"
-#import "QSRateDataModel.h"
+#import "QSHousePriceChangesDataModel.h"
+#import "QSHouseCommentDataModel.h"
+#import "QSRentHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
-#import "QSActivityDataModel.h"
 #import "QSHouseTypeDataModel.h"
 
 #import "QSCoreDataManager+House.h"
@@ -50,7 +48,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 ///详情信息的数据模型
-@property (nonatomic,retain) QSRentHouseInfoDataModel *detailInfo;
+@property (nonatomic,retain) QSRentHouseDetailDataModel *detailInfo;
 @property (nonatomic,retain) NSArray *detaiInfoArray;
 @end
 
@@ -107,7 +105,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getDetailInfo)];
+    [rootView addHeaderWithTarget:self action:@selector(getRentHouseDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
@@ -226,7 +224,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
-- (void)createNewDetailInfoViewUI:(QSRentHouseInfoDataModel *)dataModel
+- (void)createNewDetailInfoViewUI:(QSRentHouseDetailDataModel *)dataModel
 {
     
     ///信息底view
@@ -1031,40 +1029,52 @@ static char LeftStarKey;            //!<左侧星级
 //}
 
 #pragma mark - 请求详情信息
-/**
- *  @author yangshengmeng, 15-02-12 14:02:44
- *
- *  @brief  请求详情信息
- *
- *  @since  1.0.0
- */
-- (void)getDetailInfo
+- (void)getRentHouseDetailInfo
 {
     
     ///封装参数
-    //    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
-    //                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
-    //
-    //    ///进行请求
-    //    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-    //
-    //        ///请求成功
-    //        if (<#condition#>) {
-    //            <#statements#>
-    //        }
-    //
-    //    }];
+    NSDictionary *params = @{@"id_" : self.detailID ? self.detailID : @""};
+    ///
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-        [rootView headerEndRefreshing];
-        [self showInfoUI:YES];
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSRentHousesDetailReturnData *tempModel = resultData;
+            
+            ///保存数据模型
+            self.detailInfo = tempModel.detailInfo;
+            
+            ///创建详情UI
+            [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
+            ///1秒后停止动画，并显示界面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                [rootView headerEndRefreshing];
+                [self showInfoUI:YES];
+                
+            });
+            
+        } else {
+            
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView headerEndRefreshing];
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+                
+                ///推回上一页
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            })
+            
+        }
         
-        ///创建详情UI
-        [self createNewDetailInfoViewUI:nil];
-        
-    });
+    }];
     
 }
 
