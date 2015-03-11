@@ -345,7 +345,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     } else {
     
         ///弹出新房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeNewHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeNewHouse andIsShowNavigation:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
     
     }
@@ -374,7 +374,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     } else {
         
         ///弹出二手房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse andIsShowNavigation:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }
@@ -403,7 +403,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     } else {
         
         ///弹出出租房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse andIsShowNavigation:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }
