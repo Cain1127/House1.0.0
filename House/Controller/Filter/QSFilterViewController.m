@@ -156,7 +156,8 @@ typedef enum
             ///保存成功后进入房子列表
             if (isSuccess) {
                 
-                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:1];
+                homePageVC.selectedIndex = 1;
                 [self changeWindowRootViewController:homePageVC];
                 
             }

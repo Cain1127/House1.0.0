@@ -1083,10 +1083,10 @@ static char LeftStarKey;            //!<左侧星级
     }
     
     ///拼装小区信息
-    [allAddress appendString:comunity];
+    [allAddress appendString:([comunity length] > 0 ? comunity : @"")];
     
     ///拼装详情地址
-    [allAddress appendString:[NSString stringWithFormat:@" %@",address]];
+    [allAddress appendString:[NSString stringWithFormat:@" %@",([address length] > 0 ? address : @"")]];
     
     ///创建UI
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width - 100.0f, view.frame.size.height)];

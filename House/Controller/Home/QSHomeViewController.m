@@ -17,9 +17,11 @@
 #import "UIButton+Factory.h"
 
 #import "QSBaseConfigurationDataModel.h"
+#import "QSFilterDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Filter.h"
 
 #import <objc/runtime.h>
 
@@ -323,8 +325,24 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 ///点击新房
 - (void)newHouseButtonAction
 {
-
     
+    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeNewHouse];
+    
+    ///获取过滤器是否已配置标识
+    FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
+    
+    ///判断当前过滤器的状态
+    if (fFilterStatusTypeWorking == filterStatus) {
+        
+        ///进入新房列表
+        
+        
+    } else {
+    
+        ///弹出新房设置过滤的页面
+        
+    
+    }
 
 }
 

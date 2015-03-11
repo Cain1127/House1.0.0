@@ -255,6 +255,9 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
             
             [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
             
+            ///修改指引状态
+            [QSCoreDataManager updateAppGuideIndexStatus:gGuideStatusNeedDispay];
+            
         });
         
         ///进入主页
