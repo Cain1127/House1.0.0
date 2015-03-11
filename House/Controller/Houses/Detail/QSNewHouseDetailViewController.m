@@ -296,8 +296,8 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
-//    [self createAddressSubviewsUI:addressRootView andDistriceID:self.detailInfo.loupan.areaid andStreetID:self.detailInfo.loupan.street andDetailAddress:self.detailInfo.loupan.address andCommunityInfo:self.detailInfo.loupan.title];
-//    [infoRootView addSubview:addressRootView];
+    [self createAddressSubviewsUI:addressRootView andDistriceID:self.detailInfo.loupan.areaid andStreetID:self.detailInfo.loupan.street andDetailAddress:self.detailInfo.loupan.address andCommunityInfo:self.detailInfo.loupan.title];
+    [infoRootView addSubview:addressRootView];
     
     ///分隔线
     UILabel *addressSepLine = [[UILabel alloc] initWithFrame:CGRectMake(leftGap, addressRootView.frame.origin.y + addressRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];

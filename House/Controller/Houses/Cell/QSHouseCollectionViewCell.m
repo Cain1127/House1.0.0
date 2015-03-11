@@ -235,13 +235,13 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseStreetInfo:tempModel.address];
     
     ///更新房子面积信息
-    [self updateHouseAreaInfo:tempModel.house_area];
+    [self updateHouseAreaInfo:[NSString stringWithFormat:@"%d",[tempModel.house_area intValue]]];
     
     ///更新房子户型信息
     [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
     
     ///更新中间标题
-    [self updateTitleWithTitle:tempModel.rent_price];
+    [self updateTitleWithTitle:[NSString stringWithFormat:@"%d",[tempModel.rent_price intValue]] andListType:fFilterMainTypeRentalHouse];
     [self updateTitleUnitWithUnit:@"元/月"];
     
     ///更新背景图片
@@ -266,13 +266,13 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseStreetInfo:tempModel.address];
     
     ///更新房子面积信息
-    [self updateHouseAreaInfo:tempModel.house_area];
+    [self updateHouseAreaInfo:[NSString stringWithFormat:@"%d",[tempModel.house_area intValue]]];
     
     ///更新房子户型信息
     [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
     
     ///更新中间标题
-    [self updateTitleWithTitle:tempModel.house_price];
+    [self updateTitleWithTitle:[NSString stringWithFormat:@"%d",[tempModel.house_price intValue] / 10000] andListType:fFilterMainTypeSecondHouse];
     [self updateTitleUnitWithUnit:@"万"];
     
     ///更新背景图片
@@ -346,10 +346,44 @@ static char FeaturesKey;    //!<特色标签
 }
 
 ///更新中间标题
-- (void)updateTitleWithTitle:(NSString *)title
+- (void)updateTitleWithTitle:(NSString *)title andListType:(FILTER_MAIN_TYPE)listType
 {
-
+    
     UILabel *label = objc_getAssociatedObject(self, &TitleLabelKey);
+    
+    ///出租房重新修改标题UI
+    if (fFilterMainTypeRentalHouse == listType) {
+        
+        ///如果是出租房，改变标题和单位信息
+        UILabel *unitLabel = objc_getAssociatedObject(self, &TitleUnitKey);
+        
+        ///获取背景view
+        UIView *rootView = [label superview];
+        
+        ///删除原UI
+        [label removeFromSuperview];
+        [unitLabel removeFromSuperview];
+        
+        ///重新创建UI
+        label = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 25.0f, rootView.frame.size.width - 4.0f, 20.0f)];
+        label.text = @"340";
+        label.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = COLOR_CHARACTERS_BLACK;
+        [rootView addSubview:label];
+        objc_setAssociatedObject(self, &TitleLabelKey, label, OBJC_ASSOCIATION_ASSIGN);
+        
+        unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, label.frame.origin.y + label.frame.size.height, label.frame.size.width, 14.0f)];
+        unitLabel.text = @"万";
+        unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        unitLabel.textAlignment = NSTextAlignmentCenter;
+        unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+        [rootView addSubview:unitLabel];
+        objc_setAssociatedObject(self, &TitleUnitKey, unitLabel, OBJC_ASSOCIATION_ASSIGN);
+        
+    }
+
+    ///更新标题信息
     if (label && title) {
         
         label.text = title;
