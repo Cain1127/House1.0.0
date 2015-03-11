@@ -328,28 +328,12 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 - (void)newHouseButtonAction
 {
     
-    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeNewHouse];
+    ///发送通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:nHomeNewHouseActionNotification object:@"1"];
     
-    ///获取过滤器是否已配置标识
-    FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
+    ///进入新房列表
+    self.tabBarController.selectedIndex = 1;
     
-    ///判断当前过滤器的状态
-    if (fFilterStatusTypeWorking == filterStatus) {
-        
-        ///发送通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeNewHouseActionNotification object:@"1"];
-        
-        ///进入新房列表
-        self.tabBarController.selectedIndex = 1;
-        
-    } else {
-    
-        ///弹出新房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeNewHouse andIsShowNavigation:YES];
-        [self.navigationController pushViewController:filterVC animated:YES];
-    
-    }
-
 }
 
 #pragma mark - 二手房按钮点击
@@ -386,7 +370,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 - (void)rentalHouseButtonAction
 {
 
-    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+    QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeRentalHouse];
     
     ///获取过滤器是否已配置标识
     FILTER_STATUS_TYPE filterStatus = [filterModel.filter_status intValue];
@@ -395,7 +379,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     if (fFilterStatusTypeWorking == filterStatus) {
         
         ///发送通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeSecondHandHouseActionNotification object:@"2"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHomeRentHouseActionNotification object:@"2"];
         
         ///进入出租房列表
         self.tabBarController.selectedIndex = 1;

@@ -127,6 +127,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case 1:
         {
             
+            ///判断是否当前已是相同的列表
+            if (fFilterMainTypeNewHouse == self.listType) {
+                
+                return;
+                
+            }
+            
             ///修改导航栏文字
             QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]];
             [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
@@ -140,6 +147,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case 2:
         {
             
+            ///判断是否当前已是相同的列表
+            if (fFilterMainTypeRentalHouse == self.listType) {
+                
+                return;
+                
+            }
+            
             QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]];
             [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
             
@@ -151,6 +165,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         case 3:
         {
+            
+            ///判断是否当前已是相同的列表
+            if (fFilterMainTypeSecondHouse == self.listType) {
+                
+                return;
+                
+            }
             
             QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
             [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
