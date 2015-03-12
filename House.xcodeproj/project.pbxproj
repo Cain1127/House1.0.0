@@ -34,9 +34,9 @@
 		184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */; };
 		184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */; };
 		1865E3BA1AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1865E3B91AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist */; };
-		1865E3BE1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3BD1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.m */; };
 		1865E3C21AB1644000FAEC9E /* QSCDCollectedCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3C11AB1644000FAEC9E /* QSCDCollectedCommunityDataModel.m */; };
 		1865E3C61AB165A100FAEC9E /* QSCollectedCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3C51AB165A100FAEC9E /* QSCollectedCommunityDataModel.m */; };
+		1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3C81AB168DB00FAEC9E /* QSCoreDataManager+Collected.m */; };
 		186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */; };
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		187CA8C81AA2FD7200841A7E /* QSNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CA8C71AA2FD7200841A7E /* QSNewHouseListReturnData.m */; };
@@ -422,12 +422,12 @@
 		184950921A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseListTitleCollectionViewCell.h; sourceTree = "<group>"; };
 		184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseListTitleCollectionViewCell.m; sourceTree = "<group>"; };
 		1865E3B91AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseRenantHouseReset.plist; path = Filter/FilterFindHouseRenantHouseReset.plist; sourceTree = "<group>"; };
-		1865E3BC1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+QSCollectedManager.h"; path = "Collected/QSCoreDataManager+QSCollectedManager.h"; sourceTree = "<group>"; };
-		1865E3BD1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+QSCollectedManager.m"; path = "Collected/QSCoreDataManager+QSCollectedManager.m"; sourceTree = "<group>"; };
 		1865E3C01AB1644000FAEC9E /* QSCDCollectedCommunityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedCommunityDataModel.h; path = Collected/QSCDCollectedCommunityDataModel.h; sourceTree = "<group>"; };
 		1865E3C11AB1644000FAEC9E /* QSCDCollectedCommunityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedCommunityDataModel.m; path = Collected/QSCDCollectedCommunityDataModel.m; sourceTree = "<group>"; };
 		1865E3C41AB165A100FAEC9E /* QSCollectedCommunityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectedCommunityDataModel.h; path = Collected/QSCollectedCommunityDataModel.h; sourceTree = "<group>"; };
 		1865E3C51AB165A100FAEC9E /* QSCollectedCommunityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectedCommunityDataModel.m; path = Collected/QSCollectedCommunityDataModel.m; sourceTree = "<group>"; };
+		1865E3C71AB168DB00FAEC9E /* QSCoreDataManager+Collected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+Collected.h"; path = "Collected/QSCoreDataManager+Collected.h"; sourceTree = "<group>"; };
+		1865E3C81AB168DB00FAEC9E /* QSCoreDataManager+Collected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+Collected.m"; path = "Collected/QSCoreDataManager+Collected.m"; sourceTree = "<group>"; };
 		186F73C41A77CD1D0078DAE9 /* QSPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPresentationController.h; path = Animination/QSPresentationController.h; sourceTree = "<group>"; };
 		186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSPresentationController.m; path = Animination/QSPresentationController.m; sourceTree = "<group>"; };
 		186F73C71A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSViewControllerAnimatedTransitioning.h; path = Animination/QSViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -1187,8 +1187,8 @@
 		1865E3BB1AB15E0C00FAEC9E /* Collected */ = {
 			isa = PBXGroup;
 			children = (
-				1865E3BC1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.h */,
-				1865E3BD1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.m */,
+				1865E3C71AB168DB00FAEC9E /* QSCoreDataManager+Collected.h */,
+				1865E3C81AB168DB00FAEC9E /* QSCoreDataManager+Collected.m */,
 			);
 			name = Collected;
 			sourceTree = "<group>";
@@ -3413,6 +3413,7 @@
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */,
 				18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */,
+				1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
@@ -3512,7 +3513,6 @@
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
-				1865E3BE1AB15E3C00FAEC9E /* QSCoreDataManager+QSCollectedManager.m in Sources */,
 				CE8927011AB12823005D97D4 /* QSSecondHouseDetailDataModel.m in Sources */,
 				CE3C897A1AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m in Sources */,
 				CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */,

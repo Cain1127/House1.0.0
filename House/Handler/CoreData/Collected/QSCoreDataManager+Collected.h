@@ -1,20 +1,22 @@
 //
-//  QSCoreDataManager+QSCollectedManager.m
+//  QSCoreDataManager+Collected.h
 //  House
 //
 //  Created by ysmeng on 15/3/12.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSCoreDataManager+QSCollectedManager.h"
+#import "QSCoreDataManager.h"
 
-#import "QSCollectedCommunityDataModel.h"
-#import "QSCDCollectedCommunityDataModel.h"
-
-///收藏CoreData实体名
-#define COREDATA_ENTITYNAME_COLLECTED @"QSCDCollectedCommunityDataModel"
-
-@implementation QSCoreDataManager (QSCollectedManager)
+/**
+ *  @author yangshengmeng, 15-03-12 13:03:24
+ *
+ *  @brief  收藏小区的处理器
+ *
+ *  @since  1.0.0
+ */
+@class QSCollectedCommunityDataModel;
+@interface QSCoreDataManager (Collected)
 
 /**
  *  @author yangshengmeng, 15-03-12 14:03:09
@@ -25,12 +27,7 @@
  *
  *  @since  1.0.0
  */
-- (NSArray *)getLocalCollectedDataSource
-{
-
-    return nil;
-
-}
++ (NSArray *)getLocalCollectedDataSource;
 
 /**
  *  @author yangshengmeng, 15-03-12 14:03:30
@@ -41,12 +38,7 @@
  *
  *  @since  1.0.0
  */
-- (NSArray *)getUncommitedCollectedDataSource
-{
-
-    return nil;
-
-}
++ (NSArray *)getUncommitedCollectedDataSource;
 
 /**
  *  @author             yangshengmeng, 15-03-12 14:03:24
@@ -59,12 +51,7 @@
  *
  *  @since              1.0.0
  */
-- (BOOL)saveCollectedDataSource:(NSArray *)dataSource
-{
-
-    return YES;
-
-}
++ (BOOL)saveCollectedDataSource:(NSArray *)dataSource;
 
 /**
  *  @author                 yangshengmeng, 15-03-12 14:03:28
@@ -77,11 +64,6 @@
  *
  *  @since                  1.0.0
  */
-- (BOOL)saveCollectedDataWithModel:(QSCollectedCommunityDataModel *)collectedModel
-{
-
-    return YES;
-
-}
++ (BOOL)saveCollectedDataWithModel:(QSCollectedCommunityDataModel *)collectedModel;
 
 @end
