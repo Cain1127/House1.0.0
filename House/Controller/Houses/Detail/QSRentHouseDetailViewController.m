@@ -20,6 +20,7 @@
 #import "QSHousePriceChangesDataModel.h"
 #import "QSHouseCommentDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
+#import "QSUserSimpleDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSHouseTypeDataModel.h"
 
@@ -276,7 +277,7 @@ static char LeftStarKey;            //!<左侧星级
     [self createHouseTotalUI:houseTotalView];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*5.0f+4.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseDetailViewUI:houseDetailView];
+    [self createHouseDetailViewUI:houseDetailView andHousesInfo:self.houseInfo];
     
     UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
     [self createHouseServiceViewUI:houseServiceView];
@@ -288,7 +289,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
-    [self createPriceChangeViewUI:priceChangeView];
+    [self createPriceChangeViewUI:priceChangeView andPriceChanges:self.priceChangesInfo];
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
@@ -296,7 +297,7 @@ static char LeftStarKey;            //!<左侧星级
         NSLog(@"点击进入均价详情");
         
     }];
-    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
+    [self createDistrictAveragePriceViewUI:districtAveragePriceView andTitle:self.houseInfo.village_name andAveragePrice:self.houseInfo.price_avg];
     
     QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
@@ -314,7 +315,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
-    [self createCommentViewUI:commentView];
+    [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
     QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
@@ -323,7 +324,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
-    [self createOwnerViewUI:ownerView];
+    [self createOwnerViewUI:ownerView andUserInfo:self.userInfo];
     
     [infoRootView addSubview:headerImageView];
     [infoRootView addSubview:scoreView];
@@ -548,7 +549,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加房子详情view
 ///添加房子详情view
--(void)createHouseDetailViewUI:(UIView *)view
+-(void)createHouseDetailViewUI:(UIView *)view andHousesInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
@@ -558,7 +559,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:houseTypeLabel];
     
     UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    typeLabel.text=@"类型:公寓";
+    typeLabel.text=[NSString stringWithFormat:@"类型:%@",houseInfoModel.decoration_type];
     typeLabel.textAlignment=NSTextAlignmentLeft;
     typeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:typeLabel];
@@ -693,24 +694,27 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加房子价钱变动view
 ///添加房子价钱变动view
--(void)createPriceChangeViewUI:(UIView *)view
+-(void)createPriceChangeViewUI:(UIView *)view andPriceChanges:(QSHousePriceChangesDataModel *)priceChangesModel
 {
     
+    ///最近变价
     UILabel *newlyChangeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 15.0f)];
-    newlyChangeLabel.text=@"最近变价:2014-9-9";
+    newlyChangeLabel.text=[NSString stringWithFormat:@"最近变价:%@",priceChangesModel.update_time];
     newlyChangeLabel.font=[UIFont systemFontOfSize:14.0f];
     newlyChangeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:newlyChangeLabel];
     
+    ///价格变动label
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, newlyChangeLabel.frame.origin.y+newlyChangeLabel.frame.size.height+5.0f, 70.0f, 15.0f)];
-    consultLabel.text = @"价格变动：";
+    consultLabel.text = @"价格变动:";
+
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
     
-    ///金额
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, consultLabel.frame.origin.y-5.0f, 25.0f, 25.0f)];
-    priceLabel.text = @"9";
+    ///变动次数label
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, consultLabel.frame.origin.y-5.0f, 44.0f, 25.0f)];
+    priceLabel.text = [NSString stringWithFormat:@"%@",priceChangesModel.price_changes_num];
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
@@ -764,18 +768,18 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加小区均价view
 ///添加小区均价view
--(void)createDistrictAveragePriceViewUI:(UIView *)view
+-(void)createDistrictAveragePriceViewUI:(UIView *)view andTitle:(NSString *)Districttitle andAveragePrice:(NSString *)averagePrice
 {
-    
+    ///小区名
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    consultLabel.text = @"XXX小区均价";
+    consultLabel.text = [NSString stringWithFormat:@"%@小区均价",Districttitle];
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
     
-    ///价钱
+    ///均价
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, consultLabel.frame.origin.y+consultLabel.frame.size.height+5.0f, 55.0f, 25.0f)];
-    priceLabel.text = @"99999";
+    priceLabel.text = [NSString stringWithFormat:@"%@",averagePrice];
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.textAlignment = NSTextAlignmentLeft;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
@@ -946,24 +950,30 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加评论view
 ///添加评论view
--(void)createCommentViewUI:(UIView *)view
+-(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSHouseCommentDataModel *) commentModel
 {
     
-    ///税金参考
+    ///用户头像
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 33.0f, 33.0f)];
     userImageView.backgroundColor=[UIColor yellowColor];
     [view addSubview:userImageView];
     
-    ///税金参考
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    userLabel.text = @"长江一号：2014-9-9";
+    ///用户名
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 70.0f, 15.0f)];
+    userLabel.text = commentModel.title ? commentModel.title : @"暂无";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:userLabel];
     
-    ///税金参考
+    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 100.0f, 15.0f)];
+    timeLabel.text = commentModel.update_time;
+    timeLabel.textColor = COLOR_CHARACTERS_BLACK;
+    timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:timeLabel];
+    
+    ///评论内容
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    commentLabel.text = @"这个小区有小偷";
+    commentLabel.text = commentModel.content ? commentModel.content : @"暂无";
     commentLabel.textColor = COLOR_CHARACTERS_BLACK;
     commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:commentLabel];
@@ -982,7 +992,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///税金参考
     UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 30.0f, 12.0f)];
-    commentCountLabel.text = @"(28)";
+    commentCountLabel.text = commentModel.num ? commentModel.num : @"暂无";
     commentCountLabel.textColor = COLOR_CHARACTERS_BLACK;
     commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
     [view addSubview:commentCountLabel];
@@ -995,8 +1005,8 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 #pragma mark -添加业主view
-///添加评论view
--(void)createOwnerViewUI:(UIView *)view
+///添加业主view
+-(void)createOwnerViewUI:(UIView *)view andUserInfo:(QSUserSimpleDataModel *)userInfoModel
 {
     
     ///业主
@@ -1006,7 +1016,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///业主名称
     UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    userLabel.text = @"业主：王树朋";
+    userLabel.text = [NSString stringWithFormat:@"业主:%@",userInfoModel.username ? userInfoModel.username :@"暂无"];
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:userLabel];
