@@ -123,7 +123,6 @@ static char LeftStarKey;            //!<左侧星级
     [self.view addSubview:bottomRootView];
     bottomRootView.hidden = YES;
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
-    [self createBottomButtonViewUI:self.detailInfo.user.id_];
     
     [rootView headerBeginRefreshing];
 
@@ -150,8 +149,8 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:sepLabel];
     
     NSString *localUserID=[QSCoreDataManager getUserID];
-    ///根据是房客还是业主，创建不同的功能按钮
-    if (![localUserID isEqualToString:userID]) {
+    ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
+    if ([localUserID isEqualToString:userID]) {
         
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
@@ -337,7 +336,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///判断是进业主界面还是房客界面
     NSString *localUserID=[QSCoreDataManager getUserID];
-    if(![localUserID isEqualToString:self.userInfo.id_]){
+    if([localUserID isEqualToString:self.userInfo.id_]){
     QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
@@ -1051,7 +1050,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockButtonStyleModel *connectButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
     ///编辑按钮
     connectButtonStyle.title = TITLE_HOUSES_DETAIL_RENT_CONNECT;
-    UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,30.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
+    UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击联系业主按钮事件");
         
@@ -1096,6 +1095,8 @@ static char LeftStarKey;            //!<左侧星级
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            [self createBottomButtonViewUI:tempModel.detailInfo.user.id_];
+
             
             
             ///1秒后停止动画，并显示界面

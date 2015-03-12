@@ -256,7 +256,6 @@ static char LeftStarKey;            //!<左侧星级
     self.photoArray=dataModel.rentHouse_photo;
     NSLog(@"图片数组集数量--%ld",self.photoArray.count);
 //    self.photoInfo=self.photoArray[0];
-//    NSLog(@"图片集标题--%@",self.photoInfo.title);
     
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
@@ -1032,7 +1031,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockButtonStyleModel *connectButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
     ///编辑按钮
     connectButtonStyle.title = TITLE_HOUSES_DETAIL_RENT_CONNECT;
-    UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,30.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
+    UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击联系业主按钮事件");
         

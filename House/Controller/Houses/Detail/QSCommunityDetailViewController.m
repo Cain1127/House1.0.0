@@ -430,6 +430,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         NSLog(@"点击学校按钮事件");
         
+        ///
+        
     }];
     [schoolButton setTitle:@"学校" forState:UIControlStateNormal];
     [schoolButton setBackgroundImage:[UIImage imageNamed:@"houses_detail_busbutton_highlighted"] forState:UIControlStateSelected];
