@@ -35,12 +35,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,copy) NSString *title;                 //!<标题
-@property (nonatomic,copy) NSString *detailID;              //!<详情的ID
-@property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
+@property (nonatomic,copy) NSString *title;                         //!<标题
+@property (nonatomic,copy) NSString *communityID;                   //!<小区的ID
+@property (nonatomic,copy) NSString *commendNum;                    //!<推荐房源的个数
+@property (nonatomic,copy) NSString *houseType;                     //!<推荐房源的类型：出租/二手
 
 @property (nonatomic, strong) UITableView *tabbleView;              //!<小区信息view
-@property (nonatomic, retain) NSMutableArray *communityDataSource; //!<小区信息数据源
+@property (nonatomic, retain) NSMutableArray *communityDataSource;  //!<小区信息数据源
 
 @end
 
@@ -48,27 +49,29 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-02-12 12:02:39
+ *  @author             yangshengmeng, 15-03-12 16:03:11
  *
- *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
+ *  @brief              创建小区详情页面
  *
  *  @param title        标题
- *  @param detailID     详情的ID
- *  @param detailType   详情的类型：房子/小区等
+ *  @param communityID  小区ID
+ *  @param commendNum   小区详情中，推荐房源的个数
+ *  @param houseType    是推荐二手房/出租房
  *
- *  @return             返回当前创建的详情页指针
+ *  @return             返回小区详情页面
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType
+- (instancetype)initWithTitle:(NSString *)title andCommunityID:(NSString *)communityID andCommendNum:(NSString *)commendNum andHouseType:(NSString *)houseType
 {
     
     if (self = [super init]) {
         
         ///保存相关参数
         self.title = title;
-        self.detailID = detailID;
-        self.detailType = detailType;
+        self.communityID = communityID;
+        self.commendNum = commendNum;
+        self.houseType = houseType;
         
     }
     
