@@ -10,6 +10,8 @@
 #import "QSTabBarViewController.h"
 #import "QSFilterViewController.h"
 #import "QSHouseKeySearchViewController.h"
+#import "QSAutoScrollView.h"
+#import "QSCollectedInfoView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -20,11 +22,13 @@
 
 #import "QSBaseConfigurationDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSCollectedCommunityDataModel.h"
 #import "QSFilterDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import <objc/runtime.h>
 
@@ -35,7 +39,7 @@ static char ThreeHouseTypeDataKey;  //!<一房房源关联
 static char FourHouseTypeDataKey;   //!<一房房源关联
 static char FiveHouseTypeDataKey;   //!<一房房源关联
 
-@interface QSHomeViewController ()
+@interface QSHomeViewController () <QSAutoScrollViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *collectedDataSource;//!<收藏的数据源
 
@@ -65,7 +69,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
     if (nil == _collectedDataSource) {
         
-        
+        _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSource]];
         
     }
     
@@ -131,6 +135,30 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 {
     
     [super createMainShowUI];
+    
+    ///收藏滚动条
+    QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+        
+        ///判断是否是有效收藏
+        if ([@"default" isEqualToString:params]) {
+            
+            ///进入选择小区收藏的页面
+            
+            
+        } else {
+        
+            ///模型转换
+            QSCollectedCommunityDataModel *model = params;
+        
+        }
+        
+    }];
+    [self.view addSubview:colledtedView];
+    
+    ///分隔线
+    UILabel *collectedLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, colledtedView.frame.origin.y + colledtedView.frame.size.height - 0.25f, SIZE_DEVICE_WIDTH, 0.25f)];
+    collectedLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:collectedLineLabel];
     
     ///放盘按钮的区域高度
     CGFloat bottomHeight = SIZE_DEVICE_HEIGHT >= 667.0f ? (SIZE_DEVICE_HEIGHT >= 736.0f ? 110.0f : 90.0f) : (SIZE_DEVICE_HEIGHT >= 568.0f ? 70.0f : 60.0f);
@@ -339,6 +367,59 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     renantTipsLabel.textAlignment = NSTextAlignmentCenter;
     renantTipsLabel.center = CGPointMake(renantHouse.frame.size.width / 2.0f, renantHouse.frame.size.height / 2.0f + 12.0f);
     [renantHouse addSubview:renantTipsLabel];
+
+}
+
+#pragma mark - 收藏滚动页相关配置
+///返回一共有多少个收藏项，如果没有收藏，则返回一个默认的添加收藏的view
+- (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        return [self.collectedDataSource count];
+        
+    }
+    
+    return 1;
+
+}
+
+///返回当前的滚动view
+- (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        QSCollectedCommunityDataModel *model = self.collectedDataSource[index];
+        QSCollectedInfoView *defaultView = [[QSCollectedInfoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andViewType:cCollectedInfoViewTypeAcivity];
+        [defaultView updateCollectedInfoViewUI:model];
+        
+        return defaultView;
+        
+    } else {
+    
+        QSCollectedInfoView *defaultView = [[QSCollectedInfoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andViewType:cCollectedInfoViewTypeDefault];
+        
+        return defaultView;
+    
+    }
+
+}
+
+///返回当前页点击时的回调参数
+- (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        return self.collectedDataSource[index];
+        
+    } else {
+    
+        return @"default";
+        
+    }
 
 }
 
