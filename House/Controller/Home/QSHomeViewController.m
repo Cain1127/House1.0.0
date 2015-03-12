@@ -37,9 +37,41 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 @interface QSHomeViewController ()
 
+@property (nonatomic,retain) NSMutableArray *collectedDataSource;//!<收藏的数据源
+
 @end
 
 @implementation QSHomeViewController
+
+#pragma mark - 初始化
+///初始化：获取本地收藏列表
+- (instancetype)init
+{
+
+    if (self = [super init]) {
+        
+        ///获取本地的收藏列表
+        [self collectedDataSource];
+        
+    }
+    
+    return self;
+
+}
+
+///返回本地收藏信息
+- (NSMutableArray *)collectedDataSource
+{
+
+    if (nil == _collectedDataSource) {
+        
+        
+        
+    }
+    
+    return _collectedDataSource;
+
+}
 
 #pragma mark - UI搭建
 ///导航栏UI创建

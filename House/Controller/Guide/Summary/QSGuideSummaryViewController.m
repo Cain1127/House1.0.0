@@ -13,6 +13,7 @@
 #import "QSCustomCitySelectedView.h"
 
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
@@ -138,6 +139,17 @@
     QSBlockButtonStyleModel *yellowButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
     yellowButtonStyle.title = TITLE_GUIDE_SUMMARY_FINDHOUSE_BUTTON;
     UIButton *findHouseButton = [UIButton createBlockButtonWithButtonStyle:yellowButtonStyle andCallBack:^(UIButton *button) {
+        
+        ///判断本地是否已有默认城市：已经设置过默认城市，则不再弹出城市选择
+        QSBaseConfigurationDataModel *userDefaultCity = [QSCoreDataManager getCurrentUserCityModel];
+        if (userDefaultCity.key && [userDefaultCity.key length] > 0) {
+            
+            ///进入找房指引页
+            QSGuideLookingforRoomViewController *findHouseVC = [[QSGuideLookingforRoomViewController alloc] initWithCityKey:userDefaultCity.key andCityVal:userDefaultCity.val];
+            [self.navigationController pushViewController:findHouseVC animated:YES];
+            return;
+            
+        }
         
         ///弹出省份选择窗口
         [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
