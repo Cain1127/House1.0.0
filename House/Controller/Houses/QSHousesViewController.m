@@ -113,6 +113,22 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     ///显示二手房通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeSecondHandHouseActionNotification object:@"3"];
+    
+    ///用户更换默认城市通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChangeCityInfo) name:nUserDefaultCityChanged object:nil];
+
+}
+
+///用户修改默认城市后的处理
+- (void)userChangeCityInfo
+{
+
+    ///修改导航栏的显示
+    QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
+    [self.houseListTypePickerView resetPickerViewCurrentPickedModel:userCityModel];
+    
+    ///刷新数据
+    [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
 
 }
 

@@ -19,6 +19,7 @@
 #import "UIButton+Factory.h"
 
 #import "QSBaseConfigurationDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
 #import "QSFilterDataModel.h"
 
 #import "QSCoreDataManager+App.h"
@@ -53,13 +54,28 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         ///判断选择
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///获取本地用户的默认城市信息
+            QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
+            
+            ///判断是否相同
+            if ([userCityModel.key isEqualToString:cityKey]) {
+                
+                return;
+                
+            }
+                        
             ///更新当前用户的城市
             QSCDBaseConfigurationDataModel *tempCityModel = [QSCoreDataManager getCityModelWithCityKey:cityKey];
             [QSCoreDataManager updateCurrentUserCity:tempCityModel];
             
             ///更新当前过滤器
+            [QSCoreDataManager createFilterWithCityKey:tempCityModel.key];
             
             ///刷新统计数据
+            [self loadStatisticsData];
+            
+            ///发送用户默认城市变更的通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:nUserDefaultCityChanged object:nil];
             
         }
         
@@ -428,6 +444,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     
     
+}
+
+#pragma mark - 刷新数据
+- (void)loadStatisticsData
+{
+
+    ///显示HUD
+
 }
 
 #pragma mark - 更新数据

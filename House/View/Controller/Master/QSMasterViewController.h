@@ -13,6 +13,9 @@ static NSString *nHomeNewHouseActionNotification = @"nHomeNewHouseActionNotifica
 static NSString *nHomeRentHouseActionNotification = @"nHomeRentHouseActionNotification";
 static NSString *nHomeSecondHandHouseActionNotification = @"nHomeSecondHandHouseActionNotification";
 
+///用户默认城市修改
+static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
+
 @interface QSMasterViewController : QSHeaderViewController
 
 #pragma mark - 导航栏设置

@@ -670,14 +670,17 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat minTotalPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue];
     
     ///月供计算
-    CGFloat rateBase = pow(1.0f + [self.detailInfo.loan.base_rate floatValue], [self.detailInfo.loan.loan_year floatValue]);
-    CGFloat mortgagePayment = (minTotalPrice * 0.7f * rateBase) / (rateBase - 1.0f);
+    CGFloat monthRate = [self.detailInfo.loan.base_rate floatValue] / 100;
+    int allMonth = [self.detailInfo.loan.loan_year intValue] * 12;
+    CGFloat rateBase = pow(1.0f + monthRate, allMonth * 1.0);
+    CGFloat mortgagePayment = minTotalPrice * 0.7f * monthRate * rateBase / (rateBase - 1.0f);
     
     ///月供
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(consultLabel.frame.size.width, 0.0f, 95.0f, 25.0f)];
     priceLabel.text = [NSString stringWithFormat:@"%.2f",mortgagePayment];
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.adjustsFontSizeToFitWidth = YES;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [view addSubview:priceLabel];
     
@@ -699,11 +702,18 @@ static char LeftStarKey;            //!<左侧星级
     referencePriceTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:referencePriceTipsLabel];
     
-    UILabel *referencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceTipsLabel.frame.origin.x + referencePriceTipsLabel.frame.size.width, referencePriceTipsLabel.frame.origin.y, width - referencePriceTipsLabel.frame.size.width, 15.0f)];
-    referencePriceLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice];
+    UILabel *referencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceTipsLabel.frame.origin.x + referencePriceTipsLabel.frame.size.width, referencePriceTipsLabel.frame.origin.y, width - referencePriceTipsLabel.frame.size.width - 25.0f, 15.0f)];
+    referencePriceLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice / 10000];
     referencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     referencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:referencePriceLabel];
+    
+    UILabel *unitReferencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceLabel.frame.origin.x + referencePriceLabel.frame.size.width + 2.0f, referencePriceLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
+    unitReferencePriceLabel.text = @"万";
+    unitReferencePriceLabel.textAlignment = NSTextAlignmentLeft;
+    unitReferencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitReferencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitReferencePriceLabel];
     
     ///贷款七成
     UILabel *priovideTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, referencePriceTipsLabel.frame.origin.y, 70.0f, 15.0f)];
@@ -712,11 +722,18 @@ static char LeftStarKey;            //!<左侧星级
     priovideTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:priovideTipsLabel];
     
-    UILabel *priovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideTipsLabel.frame.origin.x + priovideTipsLabel.frame.size.width, priovideTipsLabel.frame.origin.y, width - priovideTipsLabel.frame.size.width, 15.0f)];
-    priovideLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.7f];
+    UILabel *priovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideTipsLabel.frame.origin.x + priovideTipsLabel.frame.size.width, priovideTipsLabel.frame.origin.y, width - priovideTipsLabel.frame.size.width - 25.0f, 15.0f)];
+    priovideLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.7f / 10000];
     priovideLabel.textColor = COLOR_CHARACTERS_BLACK;
     priovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:priovideLabel];
+    
+    UILabel *unitPriovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideLabel.frame.origin.x + priovideLabel.frame.size.width + 2.0f, priovideLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
+    unitPriovideLabel.text = @"万";
+    unitPriovideLabel.textAlignment = NSTextAlignmentLeft;
+    unitPriovideLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitPriovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitPriovideLabel];
     
     ///利率
     UILabel *rateTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, referencePriceTipsLabel.frame.origin.y + referencePriceTipsLabel.frame.size.height + 5.0f, 72.0f, 15.0f)];
@@ -738,11 +755,18 @@ static char LeftStarKey;            //!<左侧星级
     downPayTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:downPayTipsLabel];
     
-    UILabel *downPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayTipsLabel.frame.origin.x + downPayTipsLabel.frame.size.width, downPayTipsLabel.frame.origin.y, width - downPayTipsLabel.frame.size.width, 15.0f)];
-    downPayLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.3f];
+    UILabel *downPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayTipsLabel.frame.origin.x + downPayTipsLabel.frame.size.width, downPayTipsLabel.frame.origin.y, width - downPayTipsLabel.frame.size.width - 25.0f, 15.0f)];
+    downPayLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.3f / 10000];
     downPayLabel.textColor = COLOR_CHARACTERS_BLACK;
     downPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:downPayLabel];
+    
+    UILabel *unitDownPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayLabel.frame.origin.x + downPayLabel.frame.size.width + 2.0f, downPayLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
+    unitDownPayLabel.text = @"万";
+    unitDownPayLabel.textAlignment = NSTextAlignmentLeft;
+    unitDownPayLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitDownPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitDownPayLabel];
     
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
@@ -761,10 +785,13 @@ static char LeftStarKey;            //!<左侧星级
     ///每个户型信息项之间的间隙
     CGFloat gap = 30.0f;
     ///总的户型信息个数
-    int sum = 6;
+    int sum = (int)[self.detailInfo.loupanHouse count];
     
     ///循环创建户型信息
     for (int i = 0; i < sum; i++) {
+        
+        ///获取模型
+        QSHouseTypeDataModel *houseTypeModel = self.detailInfo.loupanHouse[i];
         
         ///底图
         QSImageView *sixFormImage = [[QSImageView alloc] initWithFrame:CGRectMake(i * (width + gap), 0.0f, width, 55.0f)];
@@ -773,7 +800,7 @@ static char LeftStarKey;            //!<左侧星级
         
         ///主标题信息
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 12.5f, sixFormImage.frame.size.width - 6.0f - 15.0f, 30.0f)];
-        titleLabel.text = @"124";
+        titleLabel.text = [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
         titleLabel.textAlignment = NSTextAlignmentRight;
         titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
         titleLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -790,7 +817,7 @@ static char LeftStarKey;            //!<左侧星级
         ///说明信息
         UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(sixFormImage.frame.origin.x, sixFormImage.frame.origin.y + sixFormImage.frame.size.height + 5.0f, sixFormImage.frame.size.width, 15.0f)];
         infoLabel.textAlignment = NSTextAlignmentCenter;
-        infoLabel.text = @"3室2厅";
+        infoLabel.text = [NSString stringWithFormat:@"%d室%d厅",[houseTypeModel.house_shi intValue],[houseTypeModel.house_ting intValue]];
         infoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
         infoLabel.adjustsFontSizeToFitWidth = YES;
         infoLabel.textColor = COLOR_CHARACTERS_GRAY;
