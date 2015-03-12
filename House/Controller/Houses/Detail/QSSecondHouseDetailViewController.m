@@ -1,12 +1,12 @@
 //
-//  QSHouseDetailViewController.m
+//  QSSecondHouseDetailViewController.m
 //  House
 //
 //  Created by ysmeng on 15/2/12.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSHouseDetailViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 #import "QSAutoScrollView.h"
 
 #import "QSImageView+Block.h"
@@ -14,7 +14,12 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
-#import "QSNewHouseDetailDataModel.h"
+#import "QSHousePriceChangesDataModel.h"
+#import "QSHouseCommentDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
+#import "QSPhotoDataModel.h"
+#import "QSSecondHousesDetailReturnData.h"
+#import "QSSecondHouseDetailDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
@@ -34,15 +39,25 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSHouseDetailViewController () <UIScrollViewDelegate>
+@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
+///详情信息的数据模型
+@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
+@property (nonatomic,retain) QSWRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
+@property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
+@property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
+@property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
+
+@property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
+@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
+
 @end
 
-@implementation QSHouseDetailViewController
+@implementation QSSecondHouseDetailViewController
 
 #pragma mark - 初始化
 /**
@@ -95,7 +110,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getDetailInfo)];
+    [rootView addHeaderWithTarget:self action:@selector(getSecondHouseDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
@@ -226,7 +241,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
-- (void)createNewDetailInfoViewUI:(QSNewHouseDetailDataModel *)dataModel
+- (void)createNewDetailInfoViewUI:(QSSecondHouseDetailDataModel *)dataModel
 {
     
     ///信息底view
@@ -983,41 +998,58 @@ static char LeftStarKey;            //!<左侧星级
 //}
 
 #pragma mark - 请求详情信息
-/**
- *  @author yangshengmeng, 15-02-12 14:02:44
- *
- *  @brief  请求详情信息
- *
- *  @since  1.0.0
- */
-- (void)getDetailInfo
+- (void)getSecondHouseDetailInfo
 {
-
-    ///封装参数
-    //    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
-    //                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
-    //
-    //    ///进行请求
-    //    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-    //
-    //        ///请求成功
-    //        if (<#condition#>) {
-    //            <#statements#>
-    //        }
-    //
-    //    }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///封装参数
+    NSDictionary *params = @{@"id_" : self.detailID ? self.detailID : @""};
+    ///
+    
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-        [rootView headerEndRefreshing];
-        [self showInfoUI:YES];
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSSecondHousesDetailReturnData *tempModel = resultData;
+            
+            ///保存返回的数据模型
+            self.detailInfo = tempModel.detailInfo;
+            self.houseInfo=self.detailInfo.house;
+            NSLog(@"二手房详情数据请求成功%@",tempModel.detailInfo);
+            NSLog(@"参数id%@",params);
+            NSLog(@"地址%@",self.houseInfo.address);
+            
+            ///创建详情UI
+            [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
+            
+            ///1秒后停止动画，并显示界面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                [rootView headerEndRefreshing];
+                [self showInfoUI:YES];
+                
+            });
+            
+        } else {
+            
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView headerEndRefreshing];
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+                
+                ///推回上一页
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            })
+            
+        }
         
-        ///创建详情UI
-        [self createNewDetailInfoViewUI:nil];
-        
-    });
-
+    }];
+    
 }
 
 @end
