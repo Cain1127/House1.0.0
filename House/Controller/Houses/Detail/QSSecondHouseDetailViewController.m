@@ -1032,7 +1032,7 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 33.0f, 33.0f)];
     userImageView.backgroundColor=[UIColor yellowColor];
     [view addSubview:userImageView];
-    
+        
     ///业主名称
     UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
     userLabel.text = [NSString stringWithFormat:@"业主:%@",userInfoModel.username ? userInfoModel.username :@"暂无"];
