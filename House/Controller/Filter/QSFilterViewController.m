@@ -66,6 +66,9 @@ typedef enum
         ///保存过滤器类型
         self.isShowNavigation = isShowNavigation;
         
+        ///保存过滤器类型
+        self.filterType = filterType;
+        
         ///初始化过滤器模型
         [self createFilterDataModel];
         
@@ -91,6 +94,19 @@ typedef enum
     if (self.isShowNavigation) {
         
         [super createNavigationBarUI];
+        
+        ///设置标题
+        if (fFilterMainTypeSecondHouse == self.filterType) {
+            
+            [self setNavigationBarTitle:@"二手房"];
+            
+        }
+        
+        if (fFilterMainTypeRentalHouse == self.filterType) {
+            
+            [self setNavigationBarTitle:@"出租房"];
+            
+        }
         
     }
     
