@@ -9,7 +9,7 @@
 #import "QSHousesViewController.h"
 
 #import "QSHouseKeySearchViewController.h"
-#import "QSHouseDetailViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 #import "QSWHousesMapDistributionViewController.h"
 #import "QSRentHouseDetailViewController.h"
 #import "QSNewHouseDetailViewController.h"
@@ -850,7 +850,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             QSHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSHouseDetailViewController *detailVC = [[QSHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];

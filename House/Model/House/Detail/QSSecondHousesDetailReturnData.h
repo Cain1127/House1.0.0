@@ -7,7 +7,17 @@
 //
 
 #import "QSHeaderDataModel.h"
+#import "QSSecondHouseDetailDataModel.h"
 
+/*!
+ *  @author wangshupeng, 15-03-12 09:03:24
+ *
+ *  @brief  二手房详情返回数据
+ *
+ *  @since 1.0.0
+ */
 @interface QSSecondHousesDetailReturnData : QSHeaderDataModel
+
+@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;  //!<详情数据模型
 
 @end

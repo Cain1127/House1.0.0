@@ -1,5 +1,5 @@
 //
-//  QSHouseDetailViewController.h
+//  QSSecondHouseDetailViewController.h
 //  House
 //
 //  Created by ysmeng on 15/2/12.
@@ -15,11 +15,11 @@
  *
  *  @since  1.0.0
  */
-@interface QSHouseDetailViewController : QSTurnBackViewController
+@interface QSSecondHouseDetailViewController : QSTurnBackViewController
 
 /**
  *  @author             yangshengmeng, 15-02-12 12:02:39
- *
+ *f
  *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
  *
  *  @param title        标题

@@ -48,8 +48,14 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 ///详情信息的数据模型
-@property (nonatomic,retain) QSRentHouseDetailDataModel *detailInfo;
-@property (nonatomic,retain) NSArray *detaiInfoArray;
+@property (nonatomic,retain) QSRentHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
+@property (nonatomic,retain) QSWRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
+@property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
+@property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
+@property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
+
+@property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
+@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
 @end
 
 @implementation QSRentHouseDetailViewController
@@ -236,6 +242,20 @@ static char LeftStarKey;            //!<左侧星级
         [obj removeFromSuperview];
         
     }
+    ///保存房子基本数据
+    self.houseInfo=dataModel.house;
+    ///保存用户信息
+    self.userInfo=dataModel.user;
+    ///保存价钱变动信息
+    self.priceChangesInfo=dataModel.price_changes;
+    ///保存评论信息
+    self.commentInfo=dataModel.comment;
+    
+    ///保存图片信息
+    self.photoArray=dataModel.rentHouse_photo;
+    NSLog(@"图片数组集数量--%ld",self.photoArray.count);
+//    self.photoInfo=self.photoArray[0];
+//    NSLog(@"图片集标题--%@",self.photoInfo.title);
     
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
@@ -1045,11 +1065,19 @@ static char LeftStarKey;            //!<左侧星级
             ///转换模型
             QSRentHousesDetailReturnData *tempModel = resultData;
             
-            ///保存数据模型
+            ///保存返回的数据模型
             self.detailInfo = tempModel.detailInfo;
+            self.houseInfo=self.detailInfo.house;
+            NSLog(@"出租房详情数据请求成功%@",tempModel.detailInfo);
+            NSLog(@"参数id%@",params);
+            NSLog(@"地址%@",self.houseInfo.address);
+            NSLog(@"小区名%@",self.houseInfo.village_name);
+            NSLog(@"出租价格%@",self.houseInfo.rent_price);
+            
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
             
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

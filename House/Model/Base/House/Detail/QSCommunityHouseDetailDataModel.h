@@ -8,6 +8,17 @@
 
 #import "QSBaseModel.h"
 
+/*!
+ *  @author wangshupeng, 15-03-11 11:03:59
+ *
+ *  @brief  二手房详情界面基本数据模型
+ *
+ *  @since 1.0.0
+ */
+@class QSWRentHouseInfoDataModel;
+@class QSUserSimpleDataModel;
+@class QSHousePriceChangesDataModel;
+@class QSHouseCommentDataModel;
 @interface QSCommunityHouseDetailDataModel : QSBaseModel
 
 @end
