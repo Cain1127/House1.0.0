@@ -19,6 +19,7 @@
 #import "UIButton+Factory.h"
 
 #import "QSBaseConfigurationDataModel.h"
+#import "QSCDBaseConfigurationDataModel.h"
 #import "QSFilterDataModel.h"
 
 #import "QSCoreDataManager+App.h"
@@ -53,13 +54,28 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         ///判断选择
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///获取本地用户的默认城市信息
+            QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
+            
+            ///判断是否相同
+            if ([userCityModel.key isEqualToString:cityKey]) {
+                
+                return;
+                
+            }
+                        
             ///更新当前用户的城市
             QSCDBaseConfigurationDataModel *tempCityModel = [QSCoreDataManager getCityModelWithCityKey:cityKey];
             [QSCoreDataManager updateCurrentUserCity:tempCityModel];
             
             ///更新当前过滤器
+            [QSCoreDataManager createFilterWithCityKey:tempCityModel.key];
             
             ///刷新统计数据
+            [self loadStatisticsData];
+            
+            ///发送用户默认城市变更的通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:nUserDefaultCityChanged object:nil];
             
         }
         
@@ -359,6 +375,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         
         ///弹出二手房设置过滤的页面
         QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse andIsShowNavigation:YES];
+        filterVC.hiddenCustomTabbarWhenPush = YES;
+        [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }
@@ -388,6 +406,22 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         
         ///弹出出租房设置过滤的页面
         QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse andIsShowNavigation:YES];
+        filterVC.resetFilterCallBack = ^(BOOL flag){
+        
+            ///出租房过滤设置成功
+            if (flag) {
+                
+                ///发送通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHomeRentHouseActionNotification object:@"2"];
+                
+                ///进入出租房列表
+                self.tabBarController.selectedIndex = 1;
+                
+            }
+        
+        };
+        filterVC.hiddenCustomTabbarWhenPush = YES;
+        [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }
@@ -410,6 +444,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     
     
+}
+
+#pragma mark - 刷新数据
+- (void)loadStatisticsData
+{
+
+    ///显示HUD
+
 }
 
 #pragma mark - 更新数据

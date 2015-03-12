@@ -13,6 +13,8 @@
  */
 @interface QSFilterViewController : QSTurnBackViewController
 
+@property (nonatomic,copy) void(^resetFilterCallBack)(BOOL flag);//!<重置过滤器时的回调
+
 /**
  *  @author                 yangshengmeng, 15-01-23 13:01:52
  *
