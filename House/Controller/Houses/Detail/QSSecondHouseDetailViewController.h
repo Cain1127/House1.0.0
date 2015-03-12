@@ -11,7 +11,7 @@
 /**
  *  @author yangshengmeng, 15-01-31 14:01:36
  *
- *  @brief  房子/小区详情
+ *  @brief  二手房详情
  *
  *  @since  1.0.0
  */
