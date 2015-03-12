@@ -905,8 +905,8 @@
 		CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHousePriceChangesDataModel.m; sourceTree = "<group>"; };
 		CE2E0FC21AAFF75A004DEE1E /* QSHouseCommentDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseCommentDataModel.h; sourceTree = "<group>"; };
 		CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseCommentDataModel.m; sourceTree = "<group>"; };
-		CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCommunityDetailViewCell.h; sourceTree = "<group>"; };
-		CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommunityDetailViewCell.m; sourceTree = "<group>"; };
+		CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDetailViewCell.h; path = ../../QSCommunityDetailViewCell.h; sourceTree = "<group>"; };
+		CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDetailViewCell.m; path = ../../QSCommunityDetailViewCell.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_busbutton_highlighted.png; sourceTree = "<group>"; };
@@ -1616,11 +1616,10 @@
 		18A88E421A8C5AF100596E11 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CE145A8D1AB18D1500075D88 /* Cell */,
 				18E2023C1AAFFA4900577872 /* Activity */,
 				CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */,
 				CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */,
-				CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */,
-				CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */,
 				CEFA4DF01AAD2F010018C8F9 /* QSSecondHouseDetailViewController.h */,
 				CEFA4DF11AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m */,
 				CEFA4DF21AAD2F010018C8F9 /* QSNewHouseDetailViewController.h */,
@@ -2974,6 +2973,16 @@
 				18FBA5B41A786F63001372B3 /* QSGuideSaleHouseViewController.m */,
 			);
 			path = SaleHouse;
+			sourceTree = "<group>";
+		};
+		CE145A8D1AB18D1500075D88 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CE3C89781AADA7BE008B2BF7 /* QSCommunityDetailViewCell.h */,
+				CE3C89791AADA7BE008B2BF7 /* QSCommunityDetailViewCell.m */,
+			);
+			name = Cell;
+			path = Detail/Cell;
 			sourceTree = "<group>";
 		};
 		CE2B43141A6E2AD2006B9F8E /* Developer */ = {

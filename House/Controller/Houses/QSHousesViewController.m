@@ -871,7 +871,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             QSCommunityDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
