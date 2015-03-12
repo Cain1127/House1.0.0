@@ -842,4 +842,19 @@
     
 }
 
+#pragma mark - 重新加载滚动视图
+/**
+ *  @author yangshengmeng, 15-03-12 17:03:15
+ *
+ *  @brief  重新加载滚动视图
+ *
+ *  @since  1.0.0
+ */
+- (void)reloadAutoScrollView
+{
+
+    [self createAutoShowViewUI];
+
+}
+
 @end

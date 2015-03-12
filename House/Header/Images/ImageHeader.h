@@ -184,6 +184,10 @@
 #define IMAGE_HOME_COMMUNITYRECOMMAND_NORMAL @"home_bambooplate_normal"
 #define IMAGE_HOME_COMMUNITYRECOMMAND_HIGHLIGHTED @"home_bambooplate_highlighted"
 
+///收藏小区的涨幅指示
+#define IMAGE_HOME_COLLECTED_INCREASE_UP @"home_collected_increase_up"
+#define IMAGE_HOME_COLLECTED_INCREASE_DOWN @"home_collected_increase_down"
+
 #pragma mark - 找房页相关图片资源
 /**
  *  @author yangshengmeng, 15-01-31 15:01:21
