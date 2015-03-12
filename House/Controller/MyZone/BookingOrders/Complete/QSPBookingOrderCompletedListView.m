@@ -27,13 +27,15 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 
 @implementation QSPBookingOrderCompletedListView
 
+@synthesize parentViewController;
+
 - (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType
 {
     
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.completeListDataSource = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", nil];
+        self.completeListDataSource = [NSMutableArray arrayWithCapacity:0];
         
         ///UI搭建
         [self createCompleteListUI];
@@ -49,11 +51,8 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 - (void)createCompleteListUI
 {
     
-    ///间隙
-    CGFloat gap = SIZE_DEVICE_WIDTH > 320.0f ? 25.0f : 15.0f;
-    
     ///订单记录列表
-    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(gap, 0.0f, self.frame.size.width - 2.0f * gap, self.frame.size.height)];
+    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
     
     ///取消滚动条
     bookingListTableView.showsHorizontalScrollIndicator = NO;
@@ -86,7 +85,6 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, noDataView.frame.origin.y, noDataView.frame.size.width, nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height)];
     
     [bookingListTableView addSubview:noDataView];
-    [bookingListTableView setBackgroundColor:[UIColor yellowColor]];
     [noDataView setHidden:YES];
     
     ///添加刷新事件
@@ -145,8 +143,12 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     [tableView reloadData];
     
     //没有数据时
-    UIView *nodataView = objc_getAssociatedObject(self, &CompleteListNoDataViewKey);
-    [nodataView setHidden:NO];
+    if ([_completeListDataSource count]==0) {
+        UIView *nodataView = objc_getAssociatedObject(self, &CompleteListNoDataViewKey);
+        if (nodataView) {
+            [nodataView setHidden:NO];
+        }
+    }
     
 }
 
@@ -168,10 +170,11 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
         
         ///取消选择状态
         cellSystem.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cellSystem setParentViewController:parentViewController];
         
     }
     
-    [cellSystem.textLabel setText:[_completeListDataSource objectAtIndex:indexPath.row]];
+    [cellSystem updateCellWith:[_completeListDataSource objectAtIndex:indexPath.row]];
     
     return cellSystem;
     
@@ -191,7 +194,7 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return 115.0f;
+    return MY_ZONE_ORDER_LIST_CELL_HEIGHT;
     
 }
 

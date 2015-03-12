@@ -10,6 +10,8 @@
 
 @interface QSPBookingOrderCompletedListView : UIView
 
+@property (nonatomic, strong) UIViewController *parentViewController;
+
 - (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType;
 
 @end

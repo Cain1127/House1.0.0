@@ -250,6 +250,7 @@ static char UserIconKey;//!<用户头像
                     
                     QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mOrderListTypeBooked];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                     
@@ -264,6 +265,7 @@ static char UserIconKey;//!<用户头像
                     
                     QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mOrderListTypeCompleted];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                     
