@@ -11,6 +11,9 @@
 #import "QSFilterViewController.h"
 #import "QSHouseKeySearchViewController.h"
 #import "QSCommunityDetailViewController.h"
+#import "QSYSearchCommunityViewController.h"
+
+#import "NSDate+Formatter.h"
 
 #import "QSAutoScrollView.h"
 #import "QSCollectedInfoView.h"
@@ -26,6 +29,7 @@
 #import "QSCDBaseConfigurationDataModel.h"
 #import "QSCollectedCommunityDataModel.h"
 #import "QSFilterDataModel.h"
+#import "QSCommunityDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
@@ -139,19 +143,46 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [super createMainShowUI];
     
     ///收藏滚动条
-    QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+    __block QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
         
         ///判断是否是有效收藏
         if ([@"default" isEqualToString:params]) {
             
             ///进入选择小区收藏的页面
-            
+            QSYSearchCommunityViewController *searchCommunityVC = [[QSYSearchCommunityViewController alloc] initWithPickedCallBack:^(BOOL flag, QSCommunityDataModel *communityModel) {
+                
+                ///已选择
+                if (flag) {
+                    
+                    ///转换模型
+                    QSCollectedCommunityDataModel *tempModel = [[QSCollectedCommunityDataModel alloc] init];
+                    
+                    tempModel.collected_id = communityModel.id_;
+                    tempModel.collected_time = [NSDate currentDateTimeStamp];
+                    tempModel.collected_type = [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity];
+                    tempModel.collectid_title = communityModel.title;
+                    tempModel.collected_status = @"0";
+                    tempModel.collected_old_price = communityModel.price_avg;
+                    tempModel.collected_new_price = communityModel.tj_last_month_price_avg;
+                    
+                    ///添加数据源
+                    [self.collectedDataSource addObject:tempModel];
+                    
+                    ///刷新数据
+                    [colledtedView reloadAutoScrollView];
+                    
+                }
+                
+            }];
+            [self.navigationController pushViewController:searchCommunityVC animated:YES];
             
         } else {
         
             ///模型转换
             QSCollectedCommunityDataModel *model = params;
             QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:model.collectid_title andCommunityID:model.collected_id andCommendNum:@"10" andHouseType:@"second"];
+            communityDetail.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:communityDetail animated:YES];
         
         }
