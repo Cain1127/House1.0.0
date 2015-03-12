@@ -10,6 +10,8 @@
 #import "QSTabBarViewController.h"
 #import "QSFilterViewController.h"
 #import "QSHouseKeySearchViewController.h"
+#import "QSCommunityDetailViewController.h"
+
 #import "QSAutoScrollView.h"
 #import "QSCollectedInfoView.h"
 
@@ -149,6 +151,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         
             ///模型转换
             QSCollectedCommunityDataModel *model = params;
+            QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:model.collectid_title andCommunityID:model.collected_id andCommendNum:@"10" andHouseType:@"second"];
+            [self.navigationController pushViewController:communityDetail animated:YES];
         
         }
         
