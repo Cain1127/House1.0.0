@@ -14,6 +14,7 @@
 
 #import "QSCustomSingleSelectedPopView.h"
 #import "QSCustomDistrictSelectedPopView.h"
+#import "QSCustomCitySelectedView.h"
 #import "QSMultipleSelectedPopView.h"
 
 #import "QSCoreDataManager+House.h"
@@ -23,6 +24,7 @@
 
 #import "QSFilterDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
 ///过滤器每一项输入框的事件类型
 typedef enum
@@ -43,7 +45,9 @@ typedef enum
     fFilterSettingFieldActionTypeHouseFloor = 10,           //!<楼层
     fFilterSettingFieldActionTypeHouseOrientations = 11,    //!<朝向：朝南...
     fFilterSettingFieldActionTypeHouseDecoration = 12,      //!<装修：精装修...
-    fFilterSettingFieldActionTypeHouseInstallation = 13     //!<配套：暖气...
+    fFilterSettingFieldActionTypeHouseInstallation = 13,    //!<配套：暖气...
+    
+    fFilterSettingFieldActionTypeCity = 14                  //!<城市选择
 
 }FILTER_SETTINGFIELD_ACTION_TYPE;
 
@@ -236,10 +240,70 @@ typedef enum
 }
 
 #pragma mark - 创建重新设置过滤器的页面
+///创建重新设置过滤器的页面
 - (void)createUpdateFilterSettingPage
 {
-
     
+    ///其他选择项的底view起始y坐标
+    CGFloat ypoint = 64.0f;
+    
+#if 0
+    ///如果是二手房，需要额外添加一个城市选择框
+    if (fFilterMainTypeSecondHouse == self.filterType) {
+        
+        ///重置其他选择项的起始y坐标
+        ypoint = 64.0f + 44.0f + 8.0f;
+        
+        ///城市选择框
+        UITextField *cityField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"城      市" andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsLightGray];
+        cityField.font = [UIFont systemFontOfSize:FONT_BODY_16];
+        cityField.delegate = self;
+        [cityField setValue:[NSString stringWithFormat:@"%d",fFilterSettingFieldActionTypeCity] forKey:@"customFlag"];
+        cityField.placeholder = @"不限";
+        
+        ///显示默认的用户城市信息
+        QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
+        cityField.text = userCityModel.val;
+        
+        ///加载到视图中
+        [self.view addSubview:cityField];
+        
+    }
+#endif
+
+    ///过滤条件的底view
+    UIView *pickedRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
+    [self createSettingInputUI:pickedRootView];
+    [self.view addSubview:pickedRootView];
+    
+    ///底部确定按钮
+    UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///设置当前状态
+        self.filterModel.filter_status = @"2";
+        
+        ///保存过滤器
+        [QSCoreDataManager updateFilterWithType:self.filterType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///回调
+            if (self.resetFilterCallBack) {
+                
+                self.resetFilterCallBack(isSuccess);
+                
+            }
+            
+            ///返回上一页
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        }];
+        
+    }];
+    [commitButton setTitle:@"确定" forState:UIControlStateNormal];
+    [commitButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [commitButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    commitButton.layer.cornerRadius = 6.0f;
+    commitButton.backgroundColor = COLOR_CHARACTERS_YELLOW;
+    [self.view addSubview:commitButton];
 
 }
 
@@ -271,16 +335,36 @@ typedef enum
             
             ///二手房
         case fFilterMainTypeSecondHouse:
+        {
+         
+            if (self.isShowNavigation) {
+                
+                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE_RESET;
+                
+            } else {
+                
+                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE;
+                
+            }
             
-            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE;
-            
+        }
             break;
             
             ///出租房
         case fFilterMainTypeRentalHouse:
+        {
             
-            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE;
+            if (self.isShowNavigation) {
+                
+                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE_RESET;
+                
+            } else {
+                
+                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE;
+                
+            }
             
+        }
             break;
             
         default:
@@ -794,6 +878,38 @@ typedef enum
             
             return NO;
             
+        }
+            break;
+            
+            ///城市选择
+        case fFilterSettingFieldActionTypeCity:
+        {
+        
+            [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                ///判断选择
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSCDBaseConfigurationDataModel *tempModel = params;
+                    
+                    ///显示当前位置信息
+                    textField.text = tempModel.val;
+                    
+                    ///更新用户默认城市：必须更新，影响地区选择，如若无城市，将会导致地区选择无数据
+                    [QSCoreDataManager updateCurrentUserCity:params];
+                    
+                    ///保存位置信息
+                    QSCDBaseConfigurationDataModel *provinceModel = [QSCoreDataManager getProvinceModelWithCityKey:tempModel.key];
+                    self.filterModel.city_key = tempModel.key;
+                    self.filterModel.city_val = tempModel.val;
+                    self.filterModel.province_key = provinceModel.key;
+                    self.filterModel.province_val = provinceModel.val;
+                    
+                }
+                
+            }];
+        
         }
             break;
             

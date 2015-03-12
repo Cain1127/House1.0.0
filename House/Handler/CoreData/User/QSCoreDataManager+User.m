@@ -8,6 +8,9 @@
 
 #import "QSCoreDataManager+User.h"
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
+
+#import "QSCoreDataManager+App.h"
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_USER_INFO @"QSCDUserDataModel"
@@ -63,6 +66,14 @@
  *
  *  @since  1.0.0
  */
++ (QSBaseConfigurationDataModel *)getCurrentUserCityModel
+{
+
+    QSBaseConfigurationDataModel *cityKey = [QSCoreDataManager getCityModelWithCityKey:[self getCurrentUserCityKey]];
+    return cityKey;
+
+}
+
 + (NSString *)getCurrentUserCity
 {
 

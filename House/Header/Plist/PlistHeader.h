@@ -21,7 +21,13 @@
 ///过滤器：第一次运行应用：二手房过滤配置
 #define PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE @"FilterFindHouseSecondHouse"
 
+///过滤器：首面进入二手房过滤配置
+#define PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE_RESET @"FilterFindHouseSecondHouseReset"
+
 ///过滤器：第一次运行应用：出租房过滤配置
 #define PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE @"FilterFindHouseRenantHouse"
+
+///过滤器：首页进入出租房过滤配置
+#define PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE_RESET @"FilterFindHouseRenantHouseReset"
 
 #endif

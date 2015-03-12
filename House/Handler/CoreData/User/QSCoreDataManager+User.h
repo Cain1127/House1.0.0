@@ -16,6 +16,7 @@
  *  @since  1.0.0
  */
 @class QSCDBaseConfigurationDataModel;
+@class QSBaseConfigurationDataModel;
 @interface QSCoreDataManager (User)
 
 /**
@@ -49,6 +50,7 @@
  *
  *  @since  1.0.0
  */
++ (QSBaseConfigurationDataModel *)getCurrentUserCityModel;
 + (NSString *)getCurrentUserCity;
 + (NSString *)getCurrentUserCityKey;
 + (BOOL)updateCurrentUserCity:(QSCDBaseConfigurationDataModel *)cityModel;
