@@ -136,12 +136,12 @@ static char FeaturesKey;    //!<特色标签
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]-(>=2)-|";
-    NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
+    NSString *___hVFL_all = @"H:[streetLabel(>=40)]-5-[communityLabel(>=80)]-(>=2)-|";
+    NSString *___vVFL_street = @"V:[streetLabel(15)]";
     
     ///添加约束
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllCenterY metrics:nil views:___viewsVFL]];
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_street options:NSLayoutFormatAlignAllCenterY metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_street options:NSLayoutFormatAlignAllTop metrics:nil views:___viewsVFL]];
     
 }
 

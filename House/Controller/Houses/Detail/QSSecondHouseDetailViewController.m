@@ -10,13 +10,15 @@
 #import "QSAutoScrollView.h"
 
 #import "QSImageView+Block.h"
+#import "UIImageView+CacheImage.h"
+#import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
 #import "QSHousePriceChangesDataModel.h"
 #import "QSHouseCommentDataModel.h"
-#import "QSWRentHouseInfoDataModel.h"
+#import "QSHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSSecondHousesDetailReturnData.h"
 #import "QSSecondHouseDetailDataModel.h"
@@ -48,7 +50,7 @@ static char LeftStarKey;            //!<左侧星级
 
 ///详情信息的数据模型
 @property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
-@property (nonatomic,retain) QSWRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
+@property (nonatomic,retain) QSHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
@@ -278,7 +280,7 @@ static char LeftStarKey;            //!<左侧星级
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image=[UIImage imageNamed:@"houses_detail_header_load_fail750x562"];
+    [headerImageView loadImageWithURL:[dataModel.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
     ///分数view
     QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
@@ -293,10 +295,12 @@ static char LeftStarKey;            //!<左侧星级
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseTotalUI:houseTotalView];
     
+    ///房子详情
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView];
     
-    UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-6.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f+20.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+8.0f+5.0f)];
+    ///房子服务
+    UIScrollView *houseServiceView=[[UIScrollView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+52.0f+8.0f+20.0f)];
     [self createHouseServiceViewUI:houseServiceView];
     
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
@@ -630,14 +634,15 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加房子服务按钮view
 ///添加房子服务按钮view
--(void)createHouseServiceViewUI:(UIView *)view
+-(void)createHouseServiceViewUI:(UIScrollView *)view
 {
     
-    CGFloat imageW = (view.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 5.0f;
-    CGFloat imageH = imageW +5.0f;
+    CGFloat imageW = 48.0f;
+    CGFloat imageH = 52.0f;
     CGFloat imageY = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
+    CGFloat gap = 20.0f;
     
-    CGFloat labelW = imageW;
+    CGFloat labelW = 60.0f;
     CGFloat labelY = imageY+imageH+8.0f;
     
     QSImageView *bagStay=[[QSImageView alloc] initWithFrame:CGRectMake(0.0f, imageY, imageW,imageH )];
@@ -646,58 +651,60 @@ static char LeftStarKey;            //!<左侧星级
     
     QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(0.0f, labelY, labelW,20.0f)];
     bagStayLabel.text=@"拎包入住";
-    bagStayLabel.textAlignment=NSTextAlignmentCenter;
-    bagStayLabel.font=[UIFont systemFontOfSize:12.0f];
+    bagStayLabel.textAlignment=NSTextAlignmentLeft;
+    bagStayLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:bagStayLabel];
     
     
-    QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+gap, imageY, imageW, imageH)];
     appliance.image=[UIImage imageNamed:@"houses_appliance"];
     [view addSubview:appliance];
     
-    QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, imageW,20.0f)];
+    QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, labelW,20.0f)];
     applianceLabel.text=@"家电齐全";
-    applianceLabel.textAlignment=NSTextAlignmentCenter;
-    applianceLabel.font=[UIFont systemFontOfSize:12.0f];
+    applianceLabel.textAlignment=NSTextAlignmentLeft;
+    applianceLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:applianceLabel];
     
     
-    QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+gap, imageY, imageW, imageH)];
     broadband.image=[UIImage imageNamed:@"houses_broadband"];
     [view addSubview:broadband];
     
-    QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, imageW,20.0f)];
+    QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, labelW,20.0f)];
     broadbandLabel.text=@"宽带网络";
-    broadbandLabel.textAlignment=NSTextAlignmentCenter;
-    broadbandLabel.font=[UIFont systemFontOfSize:12.0f];
+    broadbandLabel.textAlignment=NSTextAlignmentLeft;
+    broadbandLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:broadbandLabel];
     
     
-    QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+gap, imageY, imageW, imageH)];
     linegas.image=[UIImage imageNamed:@"houses_linegas"];
     [view addSubview:linegas];
     
-    QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, imageW,20.0f)];
+    QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, labelW,20.0f)];
     linegasLabel.text=@"管道煤气";
-    linegasLabel.textAlignment=NSTextAlignmentCenter;
-    linegasLabel.font=[UIFont systemFontOfSize:12.0f];
+    linegasLabel.textAlignment=NSTextAlignmentLeft;
+    linegasLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:linegasLabel];
     
     
-    QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+SIZE_DEFAULT_MARGIN_LEFT_RIGHT, imageY, imageW, imageH)];
+    QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+gap, imageY, imageW, imageH)];
     mud.image=[UIImage imageNamed:@"houses_mud"];
     [view addSubview:mud];
     
-    QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, imageW,20.0f)];
+    QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, labelW,20.0f)];
     mudLabel.text=@"硅藻泥墙";
-    mudLabel.textAlignment=NSTextAlignmentCenter;
-    mudLabel.font=[UIFont systemFontOfSize:12.0f];
+    mudLabel.textAlignment=NSTextAlignmentLeft;
+    mudLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:mudLabel];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
     [view addSubview:bottomLineLabel];
+    
+    view.contentSize = CGSizeMake(mud.frame.origin.x+mud.frame.size.width, view.frame.size.height);
     
 }
 

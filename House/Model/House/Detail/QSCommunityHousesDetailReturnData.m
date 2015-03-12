@@ -7,7 +7,21 @@
 //
 
 #import "QSCommunityHousesDetailReturnData.h"
+#import "QSCommunityHouseDetailDataModel.h"
 
 @implementation QSCommunityHousesDetailReturnData
+
+///解析规则
++ (RKObjectMapping *) objectMapping
+{
+    
+    ///先获取超类的mapping规则
+   RKObjectMapping *shared_mapping = [super objectMapping];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"detailInfo" withMapping:[QSCommunityHouseDetailDataModel objectMapping]]];
+
+    return shared_mapping;
+
+}
+
 
 @end
