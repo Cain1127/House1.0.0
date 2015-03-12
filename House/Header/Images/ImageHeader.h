@@ -307,6 +307,25 @@
 ///暂无关注小区图片
 #define IMAGE_ZONE_COLLECTED_NODATA_CION @"myzone_community_nocollected_data_icon"
 
+///预约订单列表小区覆盖图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_COVER_FRAME      @"myzone_oorderlist_cell_cover_frame"
+
+///预约订单列表@“购”图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_BUY_CION         @"myzone_oorderlist_cell_buy_mark_tip"
+///预约订单列表@“租”图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_RENT_CION        @"myzone_oorderlist_cell_rent_mark_tip"
+///预约订单列表@“新”图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION         @"myzone_oorderlist_cell_new_mark_tip"
+
+///预约订单列表电话按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL   @"myzone_oorderlist_cell_call_bt_normal"
+///预约订单列表电话按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED @"myzone_oorderlist_cell_call_bt_selected"
+
+///预约订单列表咨询按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL    @"myzone_oorderlist_cell_ask_bt_normal"
+///预约订单列表咨询按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED  @"myzone_oorderlist_cell_ask_bt_selected"
 
 
 #endif
