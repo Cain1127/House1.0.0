@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDAdvertHeaderDataModel" syncable="YES">
         <attribute name="advert_id" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -17,8 +17,11 @@
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="val" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="QSCDCollectedCommunityDataModel" syncable="YES">
+    <entity name="QSCDCollectedCommunityDataModel" representedClassName="QSCDCollectedCommunityDataModel" syncable="YES">
         <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_new_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_old_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="collected_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="collected_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="collectid_title" optional="YES" attributeType="String" syncable="YES"/>
@@ -100,7 +103,7 @@
         <element name="QSCDAdvertHeaderDataModel" positionX="-146" positionY="45" width="128" height="58"/>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-146" positionY="270" width="128" height="90"/>
-        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="105"/>
+        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="150"/>
         <element name="QSCDConfigurationDataModel" positionX="-146" positionY="180" width="128" height="75"/>
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>

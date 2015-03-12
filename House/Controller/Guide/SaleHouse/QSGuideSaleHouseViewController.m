@@ -214,7 +214,13 @@ static char BuyerCountDataKey;      //!<当前房客总数
         ///设置用户的默认过滤器
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+            ///判断是否设置过，设置过，就不再设置
+             NSString *defaultFilterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
+             if (nil == defaultFilterID || 0 >= [defaultFilterID length]) {
+                 
+                 [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] andCallBack:^(BOOL isSuccess) {}];
+                 
+             }
             
         });
         
