@@ -15,14 +15,14 @@
  *
  *  @since 1.0.0
  */
-@class QSWRentHouseInfoDataModel;
+@class QSRentHouseInfoDataModel;
 @class QSUserSimpleDataModel;
 @class QSHousePriceChangesDataModel;
 @class QSHouseCommentDataModel;
 
 @interface QSRentHouseDetailDataModel : QSBaseModel
 
-@property (nonatomic,retain) QSWRentHouseInfoDataModel *house;               //!<出租房基本数据
+@property (nonatomic,retain) QSRentHouseInfoDataModel *house;               //!<出租房基本数据
 @property (nonatomic,retain) QSUserSimpleDataModel *user;                 //!<业主信息
 @property (nonatomic,retain) QSHousePriceChangesDataModel *price_changes;   //!<钱价变动
 @property (nonatomic,retain) QSHouseCommentDataModel *comment;              //!<评论

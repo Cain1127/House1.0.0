@@ -7,7 +7,10 @@
 //
 
 #import "QSHeaderDataModel.h"
+#import "QSCommunityHouseDetailDataModel.h"
 
 @interface QSCommunityHousesDetailReturnData : QSHeaderDataModel
+
+@property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;//!<小区基本模型
 
 @end

@@ -1,50 +1,40 @@
 //
-//  QSCommunityCollectionViewCell.m
+//  QSYSelectedCommunityTableViewCell.m
 //  House
 //
-//  Created by ysmeng on 15/2/12.
+//  Created by ysmeng on 15/3/13.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSCommunityCollectionViewCell.h"
+#import "QSYSelectedCommunityTableViewCell.h"
+
+#import "QSCommunityDataModel.h"
 
 #import "NSString+Calculation.h"
-
-#import "QSNewHouseInfoDataModel.h"
-#import "QSCommunityDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 
 #import <objc/runtime.h>
 
 ///关联
+static char SelectedTipsKey;    //!<选择状态指示图片关联
 static char AddressInfoKey;     //!<地址信息关联
 static char BackgroudImageKey;  //!<背景图片关联
 static char TitleInfoKey;       //!<标题信息关联
 static char CommunityInfoKey;   //!<小区信息关联
 static char FeaturesRootViewKey;//!<特色标签的底view关联
 
-@implementation QSCommunityCollectionViewCell
+@implementation QSYSelectedCommunityTableViewCell
 
 #pragma mark - 初始化
-/**
- *  @author         yangshengmeng, 15-02-27 09:02:14
- *
- *  @brief          初始化
- *
- *  @param frame    大小和位置
- *
- *  @return         返回小区/新房的cell
- *
- *  @since          1.0.0
- */
-- (instancetype)initWithFrame:(CGRect)frame
+///初始化
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
 
-    if (self = [super initWithFrame:frame]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        ///UI搭建
-        [self createCommunityCellUI];
+        ///搭建UI
+        [self createSelectedCommunityCellUI];
         
     }
     
@@ -52,9 +42,9 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 
 }
 
-#pragma mark - UI搭建
-///UI搭建
-- (void)createCommunityCellUI
+#pragma mark - 搭建UI
+///搭建UI
+- (void)createSelectedCommunityCellUI
 {
 
     ///背景图片
@@ -72,6 +62,13 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     addressLabel.text = @"越秀区|北京路";
     [self.contentView addSubview:addressLabel];
     objc_setAssociatedObject(self, &AddressInfoKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///选择状态
+    UIButton *selectedTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(bgImageView.frame.size.width - 15.0f, 15.0f, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {}];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
+    [bgImageView addSubview:selectedTipsButton];
+    objc_setAssociatedObject(self, &SelectedTipsKey, selectedTipsButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///中间标题信息
     QSImageView *titleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 35.0f, bgImageView.frame.size.height - 39.5f, 70.0f, 79.0f)];
@@ -102,7 +99,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 ///搭建中间标题信息的UI
 - (void)createCommunityTitleInfoUI:(UIView *)view
 {
-
+    
     ///主标题
     UILabel *titleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(3.0f, 9.0f, view.frame.size.width - 6.0f, 40.0f)];
     titleLabel.text = @"3.12";
@@ -119,87 +116,53 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     subTitleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     subTitleLabel.text = [NSString stringWithFormat:@"万/%@",APPLICATION_AREAUNIT];
     [view addSubview:subTitleLabel];
-
+    
 }
 
 #pragma mark - 刷新UI
-/**
- *  @author             yangshengmeng, 15-02-12 18:02:39
- *
- *  @brief              小区或新房每项信息的刷新
- *
- *  @param dataModel    数据模型
- *  @param listType     列表类型
- *
- *  @since              1.0.0
- */
-- (void)updateCommunityInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
+///刷新UI
+- (void)updateSelectedCommunityCellUI:(QSCommunityDataModel *)tempModel
 {
+
+    ///更新地址信息
+    [self updateAddressInfo:tempModel.address];
     
-    switch (listType) {
-            ///新房
-        case fFilterMainTypeNewHouse:
+    ///更新标题信息
+    [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];
+    
+    ///更新小区信息
+    [self updateCommunityInfo:tempModel.title];
+    
+    ///更新背景图片
+    [self updateBackgroudImage:tempModel.attach_thumb];
+    
+    ///更新选择状态
+    [self updateSelectedTipsStatus:tempModel.isSelected];
+
+}
+
+///更新选择状态
+- (void)updateSelectedTipsStatus:(int)isSelected
+{
+
+    ///将勾选框设置为选择状态
+    UIButton *tipsButton = objc_getAssociatedObject(self, &SelectedTipsKey);
+    if (1 == isSelected) {
         
-            [self updateNewHouseInfoCellUIWithDataModel:dataModel];
-            
-            break;
-            
-            ///小区
-        case fFilterMainTypeCommunity:
-            
-            [self updateCommunityInfoCellUIWithDataModel:dataModel];
-            
-            break;
-            
-        default:
-            break;
+        tipsButton.selected = YES;
+        
+    } else {
+    
+        tipsButton.selected = NO;
+    
     }
-    
-}
-
-///新房cellUI搭建
-- (void)updateNewHouseInfoCellUIWithDataModel:(QSNewHouseInfoDataModel *)tempModel
-{
-
-    ///更新地址信息
-    [self updateAddressInfo:tempModel.address];
-    
-    ///更新标题信息
-    [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];
-    
-    ///更新小区信息
-    [self updateCommunityInfo:tempModel.title];
-    
-    ///更新特色标签
-    [self updateFeaturesWithArray:tempModel.features];
-    
-    ///更新背景图片
-    [self updateBackgroudImage:tempModel.attach_thumb];
-
-}
-
-///更新小区信息
-- (void)updateCommunityInfoCellUIWithDataModel:(QSCommunityDataModel *)tempModel
-{
-
-    ///更新地址信息
-    [self updateAddressInfo:tempModel.address];
-    
-    ///更新标题信息
-    [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];
-    
-    ///更新小区信息
-    [self updateCommunityInfo:tempModel.title];
-    
-    ///更新背景图片
-    [self updateBackgroudImage:tempModel.attach_thumb];
 
 }
 
 ///更新特色标签
 - (void)updateFeaturesWithArray:(NSString *)featureString
 {
-
+    
     ///特色标签的底view
     UIView *rootView = objc_getAssociatedObject(self, &FeaturesRootViewKey);
     if (featureString && rootView && ([featureString length] > 0)) {
@@ -224,7 +187,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
             UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(3.0f + i * (width + 3.0f), 0.0f, width, rootView.frame.size.height)];
             
             ///根据特色标签，查询标签内容
-            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:fFilterMainTypeNewHouse];
+            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:fFilterMainTypeCommunity];
             
             tempLabel.text = featureVal;
             tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
@@ -239,59 +202,59 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
         }
         
     }
-
+    
 }
 
 ///更新小区信息
 - (void)updateCommunityInfo:(NSString *)info
 {
-
+    
     UILabel *communityLabel = objc_getAssociatedObject(self, &CommunityInfoKey);
     if (communityLabel && info) {
         
         communityLabel.text = info;
         
     }
-
+    
 }
 
 ///更新中间标题信息
 - (void)updateTitleInfo:(NSString *)title
 {
-
+    
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleInfoKey);
     if (titleLabel && title) {
         
         titleLabel.text = title;
         
     }
-
+    
 }
 
 ///更新地址信息
 - (void)updateAddressInfo:(NSString *)address
 {
-
+    
     UILabel *label = objc_getAssociatedObject(self, &AddressInfoKey);
     if (label && address) {
         
         label.text = address;
         
     }
-
+    
 }
 
 ///更新小区/新房的大图
 - (void)updateBackgroudImage:(NSString *)imgUrl
 {
-
+    
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
     if (bgImageView && imgUrl) {
         
         [bgImageView loadImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
     }
-
+    
 }
 
 @end

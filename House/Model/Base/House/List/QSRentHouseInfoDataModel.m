@@ -23,9 +23,11 @@
                                                     @"village_id",
                                                     @"village_name",
                                                     @"floor_which",
+                                                    
                                                     @"house_face",
                                                     @"decoration_type",
                                                     @"house_area",
+                                                    @"elevator",
                                                     @"house_shi",
                                                     @"house_ting",
                                                     @"house_wei",
@@ -35,6 +37,7 @@
                                                     @"cycle",
                                                     @"time_interval_start",
                                                     @"time_interval_end",
+                                                    
                                                     @"entrust",
                                                     @"entrust_company",
                                                     @"video_url",
@@ -45,7 +48,9 @@
                                                     @"rent_price",
                                                     @"payment",
                                                     @"rent_property",
-                                                    @"lead_time"]];
+                                                    @"lead_time"
+                                                    @"price_avg"
+                                                    ]];
     
     return shared_mapping;
     

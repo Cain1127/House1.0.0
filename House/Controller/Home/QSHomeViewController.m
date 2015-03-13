@@ -10,6 +10,13 @@
 #import "QSTabBarViewController.h"
 #import "QSFilterViewController.h"
 #import "QSHouseKeySearchViewController.h"
+#import "QSCommunityDetailViewController.h"
+#import "QSYSearchCommunityViewController.h"
+
+#import "NSDate+Formatter.h"
+
+#import "QSAutoScrollView.h"
+#import "QSCollectedInfoView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -18,13 +25,19 @@
 #import "QSImageView+Block.h"
 #import "UIButton+Factory.h"
 
+#import "QSYHomeReturnData.h"
 #import "QSBaseConfigurationDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
+#import "QSCollectedCommunityDataModel.h"
 #import "QSFilterDataModel.h"
+#import "QSCommunityDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
+#import "QSCoreDataManager+Collected.h"
+
+#import "QSRequestManager.h"
 
 #import <objc/runtime.h>
 
@@ -35,7 +48,7 @@ static char ThreeHouseTypeDataKey;  //!<一房房源关联
 static char FourHouseTypeDataKey;   //!<一房房源关联
 static char FiveHouseTypeDataKey;   //!<一房房源关联
 
-@interface QSHomeViewController ()
+@interface QSHomeViewController () <QSAutoScrollViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *collectedDataSource;//!<收藏的数据源
 
@@ -43,29 +56,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 @implementation QSHomeViewController
 
-#pragma mark - 初始化
-///初始化：获取本地收藏列表
-- (instancetype)init
-{
-
-    if (self = [super init]) {
-        
-        ///获取本地的收藏列表
-        [self collectedDataSource];
-        
-    }
-    
-    return self;
-
-}
-
+#pragma mark - 获取本地收藏数据
 ///返回本地收藏信息
 - (NSMutableArray *)collectedDataSource
 {
 
     if (nil == _collectedDataSource) {
         
-        
+        _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSource]];
         
     }
     
@@ -104,13 +102,12 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
             [QSCoreDataManager createFilterWithCityKey:tempCityModel.key];
             
             ///刷新统计数据
-            [self loadStatisticsData];
+            [self requestHomeCountData];
             
             ///发送用户默认城市变更的通知
             [[NSNotificationCenter defaultCenter] postNotificationName:nUserDefaultCityChanged object:nil];
             
         }
-        
         
     }];
     [self setNavigationBarMiddleView:cityPickerView];
@@ -131,6 +128,64 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 {
     
     [super createMainShowUI];
+    
+    ///收藏滚动条
+    __block QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeTopToBottom andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+        
+        ///判断是否是有效收藏
+        if ([@"default" isEqualToString:params]) {
+            
+            ///进入选择小区收藏的页面
+            QSYSearchCommunityViewController *searchCommunityVC = [[QSYSearchCommunityViewController alloc] initWithPickedCallBack:^(BOOL flag, QSCommunityDataModel *communityModel) {
+                
+                ///已选择
+                if (flag) {
+                    
+                    ///转换模型
+                    QSCollectedCommunityDataModel *tempModel = [[QSCollectedCommunityDataModel alloc] init];
+                    
+                    tempModel.collected_id = communityModel.id_;
+                    tempModel.collected_time = [NSDate currentDateTimeStamp];
+                    tempModel.collected_type = [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity];
+                    tempModel.collectid_title = communityModel.title;
+                    tempModel.collected_status = @"0";
+                    tempModel.collected_old_price = communityModel.tj_last_month_price_avg;
+                    tempModel.collected_new_price = communityModel.price_avg;
+                    
+                    ///添加数据源
+                    [self.collectedDataSource addObject:tempModel];
+                    
+                    ///刷新数据
+                    [colledtedView reloadAutoScrollView];
+                    
+                    ///保存数据
+                    [QSCoreDataManager saveCollectedDataWithModel:tempModel];
+                    
+                }
+                
+            }];
+            searchCommunityVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:searchCommunityVC animated:YES];
+            
+        } else {
+        
+            ///模型转换
+            QSCollectedCommunityDataModel *model = params;
+            QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:model.collectid_title andCommunityID:model.collected_id andCommendNum:@"10" andHouseType:@"second"];
+            communityDetail.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:communityDetail animated:YES];
+        
+        }
+        
+    }];
+    [self.view addSubview:colledtedView];
+    
+    ///分隔线
+    UILabel *collectedLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, colledtedView.frame.origin.y + colledtedView.frame.size.height - 0.25f, SIZE_DEVICE_WIDTH, 0.25f)];
+    collectedLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:collectedLineLabel];
     
     ///放盘按钮的区域高度
     CGFloat bottomHeight = SIZE_DEVICE_HEIGHT >= 667.0f ? (SIZE_DEVICE_HEIGHT >= 736.0f ? 110.0f : 90.0f) : (SIZE_DEVICE_HEIGHT >= 568.0f ? 70.0f : 60.0f);
@@ -188,6 +243,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:bottomMiddelLineLabel];
     
+    ///请求数据
+    [self requestHomeCountData];
+    
 }
 
 ///创建统计信息展现UI
@@ -202,8 +260,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     ///一房房源
     UIView *oneHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, width, height)];
-    [self createHouseTypeInfoViewUI:oneHouseTypeRootView andHouseTypeTitle:@"一房房源" andDataKey:OneHouseTypeDataKey];
+    UIView *oneLabel = [self createHouseTypeInfoViewUI:oneHouseTypeRootView andHouseTypeTitle:@"一房房源"];
     [view addSubview:oneHouseTypeRootView];
+    objc_setAssociatedObject(self, &OneHouseTypeDataKey, oneLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
     UILabel *oneMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(oneHouseTypeRootView.frame.origin.x + oneHouseTypeRootView.frame.size.width + 2.25f, ypoint, 0.5f, height)];
@@ -212,8 +271,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     ///二房房源
     UIView *twoHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - width / 2.0f, ypoint, width, height)];
-    [self createHouseTypeInfoViewUI:twoHouseTypeRootView andHouseTypeTitle:@"二房房源" andDataKey:TwoHouseTypeDataKey];
+    UIView *twoLabel = [self createHouseTypeInfoViewUI:twoHouseTypeRootView andHouseTypeTitle:@"二房房源"];
     [view addSubview:twoHouseTypeRootView];
+    objc_setAssociatedObject(self, &TwoHouseTypeDataKey, twoLabel, OBJC_ASSOCIATION_ASSIGN);
     
     UILabel *twoMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + width / 2.0f + 2.25f, ypoint, 0.5f, height)];
     twoMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
@@ -221,13 +281,15 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     ///三房房源
     UIView *threeHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width - width, ypoint, width, height)];
-    [self createHouseTypeInfoViewUI:threeHouseTypeRootView andHouseTypeTitle:@"三房房源" andDataKey:ThreeHouseTypeDataKey];
+    UIView *threeLabel = [self createHouseTypeInfoViewUI:threeHouseTypeRootView andHouseTypeTitle:@"三房房源"];
     [view addSubview:threeHouseTypeRootView];
+    objc_setAssociatedObject(self, &ThreeHouseTypeDataKey, threeLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///四房房源
     UIView *foutHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 10.0f - width, ypoint + middleGap + height, width, height)];
-    [self createHouseTypeInfoViewUI:foutHouseTypeRootView andHouseTypeTitle:@"四房房源" andDataKey:FourHouseTypeDataKey];
+    UIView *fourLabel = [self createHouseTypeInfoViewUI:foutHouseTypeRootView andHouseTypeTitle:@"四房房源"];
     [view addSubview:foutHouseTypeRootView];
+    objc_setAssociatedObject(self, &FourHouseTypeDataKey, fourLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
     UILabel *fourMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 0.25f, foutHouseTypeRootView.frame.origin.y, 0.5f, height)];
@@ -236,13 +298,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     ///五房房源
     UIView *fiveHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + 10.0f, foutHouseTypeRootView.frame.origin.y, width, height)];
-    [self createHouseTypeInfoViewUI:fiveHouseTypeRootView andHouseTypeTitle:@"五房房源" andDataKey:FiveHouseTypeDataKey];
+    UIView *fiveLabel = [self createHouseTypeInfoViewUI:fiveHouseTypeRootView andHouseTypeTitle:@"五房房源"];
     [view addSubview:fiveHouseTypeRootView];
+    objc_setAssociatedObject(self, &FiveHouseTypeDataKey, fiveLabel, OBJC_ASSOCIATION_ASSIGN);
 
 }
 
 ///创建房源信息UI
-- (void)createHouseTypeInfoViewUI:(UIView *)view andHouseTypeTitle:(NSString *)title andDataKey:(char)dataKey
+- (UIView *)createHouseTypeInfoViewUI:(UIView *)view andHouseTypeTitle:(NSString *)title
 {
 
     ///标题
@@ -257,10 +320,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     UILabel *dataLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, titleLabel.frame.size.height + 10.0f, view.frame.size.width, 30.0f)];
     dataLabel.textAlignment = NSTextAlignmentCenter;
     dataLabel.font = [UIFont systemFontOfSize:FONT_BODY_25];
-    dataLabel.text = @"38234";
+    dataLabel.text = @"0";
     dataLabel.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:dataLabel];
-    objc_setAssociatedObject(self, &dataKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///单位
     UILabel *subTitleLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 15.0f, view.frame.size.width, 15.0f)];
@@ -269,6 +331,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     subTitleLabel.text = @"套";
     subTitleLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:subTitleLabel];
+    
+    return dataLabel;
 
 }
 
@@ -339,6 +403,59 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     renantTipsLabel.textAlignment = NSTextAlignmentCenter;
     renantTipsLabel.center = CGPointMake(renantHouse.frame.size.width / 2.0f, renantHouse.frame.size.height / 2.0f + 12.0f);
     [renantHouse addSubview:renantTipsLabel];
+
+}
+
+#pragma mark - 收藏滚动页相关配置
+///返回一共有多少个收藏项，如果没有收藏，则返回一个默认的添加收藏的view
+- (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        return (int)[self.collectedDataSource count];
+        
+    }
+    
+    return 1;
+
+}
+
+///返回当前的滚动view
+- (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        QSCollectedCommunityDataModel *model = self.collectedDataSource[index];
+        QSCollectedInfoView *defaultView = [[QSCollectedInfoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andViewType:cCollectedInfoViewTypeAcivity];
+        [defaultView updateCollectedInfoViewUI:model];
+        
+        return defaultView;
+        
+    } else {
+    
+        QSCollectedInfoView *defaultView = [[QSCollectedInfoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andViewType:cCollectedInfoViewTypeDefault];
+        
+        return defaultView;
+    
+    }
+
+}
+
+///返回当前页点击时的回调参数
+- (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+
+    if ([self.collectedDataSource count] > 0) {
+        
+        return self.collectedDataSource[index];
+        
+    } else {
+    
+        return @"default";
+        
+    }
 
 }
 
@@ -479,11 +596,25 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 }
 
 #pragma mark - 刷新数据
-- (void)loadStatisticsData
+///刷新UI
+- (void)updateHouseCountData:(QSYHomeReturnData *)model
 {
-
-    ///显示HUD
-
+    
+    ///一房房源
+    [self updateOneHouseTypeData:model.headerData.house_shi_1];
+    
+    ///二房房源
+    [self updateTwoHouseTypeData:model.headerData.house_shi_2];
+    
+    ///三房房源
+    [self updateThreeHouseTypeData:model.headerData.house_shi_3];
+    
+    ///四房房源
+    [self updateFourHouseTypeData:model.headerData.house_shi_4];
+    
+    ///五房房源
+    [self updateFiveHouseTypeData:model.headerData.house_shi_5];
+    
 }
 
 #pragma mark - 更新数据
@@ -549,6 +680,46 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         dataLabel.text = count;
         
     }
+    
+}
+
+#pragma mark - 请求数据
+///请求数据
+- (void)requestHomeCountData
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    ///获取城市信息
+    NSString *cityID = [QSCoreDataManager getCurrentUserCityKey];
+    NSDictionary *params = @{@"cityid" : cityID ? cityID : @""};
+    
+    ///请求数据
+    [QSRequestManager requestDataWithType:rRequestTypeHomeCountData andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYHomeReturnData *tempModel = resultData;
+            ///刷新UI
+            [self updateHouseCountData:tempModel];
+            
+            ///移除HUD
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [hud hiddenCustomHUD];
+                
+            });
+            
+        } else {
+        
+            ///显示提示信息
+            [hud hiddenCustomHUDWithFooterTips:@"您的网络不给力哦"];
+        
+        }
+        
+    }];
     
 }
 

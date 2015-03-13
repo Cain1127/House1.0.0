@@ -66,8 +66,7 @@ static char FeaturesKey;    //!<特色标签
      QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     UIButton *button=[QSBlockButton createBlockButtonWithFrame:CGRectMake(houseTagImageView.frame.origin.x+houseImageView.frame.size.width+8.0f,10.0f, 50.0f , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-//        button.titleLabel.text=@"340万";
-//        button.titleLabel.textAlignment=NSTextAlignmentCenter;
+
         
     }];
     [self createTitleInfoUI:button];
@@ -136,12 +135,12 @@ static char FeaturesKey;    //!<特色标签
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]-(>=2)-|";
-    NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
+    NSString *___hVFL_all = @"H:|-0-[streetLabel(>=40)]-5-[communityLabel(>=80)]-(>=2)-|";
+    NSString *___vVFL_street = @"V:|-2.5-[streetLabel(15)]-2.5-|";
     
     ///添加约束
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllCenterY metrics:nil views:___viewsVFL]];
-    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_street options:NSLayoutFormatAlignAllCenterY metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_street options:NSLayoutFormatAlignAllTop metrics:nil views:___viewsVFL]];
     
 }
 
@@ -194,27 +193,27 @@ static char FeaturesKey;    //!<特色标签
  *
  *  @since              1.0.0
  */
-- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
-{
-    
-    switch (listType) {
-            ///二手房列表
-        case fFilterMainTypeSecondHouse:
-            
-            [self updateSecondHandHouseInfoCellUIWithDataModel:dataModel];
-            
-            break;
-            
-            
-        default:
-            break;
-    }
-    
-}
+//- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
+//{
+//    
+//    switch (listType) {
+//            ///二手房列表
+//        case fFilterMainTypeSecondHouse:
+//            
+//            [self updateSecondHandHouseInfoCellUIWithDataModel:dataModel];
+//            
+//            break;
+//            
+//            
+//        default:
+//            break;
+//    }
+//    
+//}
 
 
-///二手房列表UI更新
-- (void)updateSecondHandHouseInfoCellUIWithDataModel:(QSHouseInfoDataModel *)tempModel
+///小区列表UI更新
+- (void)updateCommunityInfoCellUIWithDataModel:(QSHouseInfoDataModel *)tempModel
 {
     
     ///更新小区

@@ -7,7 +7,35 @@
 //
 
 #import "QSCommunityHouseDetailDataModel.h"
+#import "QSCommunityDataModel.h"
+#import "QSPhotoDataModel.h"
+#import "QSHouseInfoDataModel.h"
 
 @implementation QSCommunityHouseDetailDataModel
+
+///解析规则
++ (RKObjectMapping *)objectMapping
+{
+    
+    RKObjectMapping *shared_mapping = nil;
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    
+    ///房子信息
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village" toKeyPath:@"village" withMapping:[QSCommunityDataModel objectMapping]]];
+    
+    ///业主
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"user" toKeyPath:@"user" withMapping:[QSCommunityDataModel objectMapping]]];
+    
+    
+    ///图片
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village_photo" toKeyPath:@"village_photo" withMapping:[QSPhotoDataModel objectMapping]]];
+    
+    /// 推荐
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend" toKeyPath:@"house_commend" withMapping:[QSHouseInfoDataModel objectMapping]]];
+    
+    return shared_mapping;
+    
+}
+
 
 @end

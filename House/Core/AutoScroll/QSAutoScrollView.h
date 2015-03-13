@@ -81,4 +81,13 @@ typedef enum
  */
 - (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andShowPageIndex:(BOOL)pageIndexFlag andShowTime:(CGFloat)showTime andTapCallBack:(void(^)(id params))callBack;
 
+/**
+ *  @author yangshengmeng, 15-03-12 17:03:15
+ *
+ *  @brief  重新加载滚动视图
+ *
+ *  @since  1.0.0
+ */
+- (void)reloadAutoScrollView;
+
 @end

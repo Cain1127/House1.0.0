@@ -12,16 +12,25 @@
 #import "QSAutoScrollView.h"
 
 #import "QSImageView+Block.h"
+#import "UIImageView+CacheImage.h"
+#import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
 
-#import "QSNewHouseDetailDataModel.h"
+#import "QSCommunityHousesDetailReturnData.h"
+#import "QSCommunityHouseDetailDataModel.h"
+#import "QSHouseInfoDataModel.h"
+
+#import "QSCommunityDataModel.h"
+#import "QSPhotoDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 
 #import "MJRefresh.h"
+
+
 
 ///左右限隙宏
 #define SIZE_DEFAULT_HEIGHTTAP (SIZE_DEVICE_WIDTH >= 375.0f ? 20.0f : 15.0f)
@@ -35,12 +44,23 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,copy) NSString *title;                 //!<标题
-@property (nonatomic,copy) NSString *detailID;              //!<详情的ID
-@property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
+@property (nonatomic,copy) NSString *title;                         //!<标题
+@property (nonatomic,copy) NSString *communityID;                   //!<小区的ID
+@property (nonatomic,copy) NSString *commendNum;                    //!<推荐房源的个数
+@property (nonatomic,copy) NSString *houseType;                     //!<推荐房源的类型：出租/二手
+
+///详情信息的数据模型
+@property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有2个基本模型，2个数组模型
+@property (nonatomic,retain) QSCommunityDataModel *houseInfo;          //!<基本模型数据
+
+@property (nonatomic,retain) NSArray *photoArray;                      //!<图集数组
+@property (nonatomic,retain) QSPhotoDataModel *village_photo;          //!<图片模型
+
+@property (nonatomic,retain) NSArray *houseCommendArray;                   //!<推荐数组
+@property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;       //!<推荐模型
 
 @property (nonatomic, strong) UITableView *tabbleView;              //!<小区信息view
-@property (nonatomic, retain) NSMutableArray *communityDataSource; //!<小区信息数据源
+//@property (nonatomic, retain) NSMutableArray *communityDataSource;  //!<小区推荐数据源
 
 @end
 
@@ -48,27 +68,29 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-02-12 12:02:39
+ *  @author             yangshengmeng, 15-03-12 16:03:11
  *
- *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
+ *  @brief              创建小区详情页面
  *
  *  @param title        标题
- *  @param detailID     详情的ID
- *  @param detailType   详情的类型：房子/小区等
+ *  @param communityID  小区ID
+ *  @param commendNum   小区详情中，推荐房源的个数
+ *  @param houseType    是推荐二手房/出租房
  *
- *  @return             返回当前创建的详情页指针
+ *  @return             返回小区详情页面
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType
+- (instancetype)initWithTitle:(NSString *)title andCommunityID:(NSString *)communityID andCommendNum:(NSString *)commendNum andHouseType:(NSString *)houseType
 {
     
     if (self = [super init]) {
         
         ///保存相关参数
         self.title = title;
-        self.detailID = detailID;
-        self.detailType = detailType;
+        self.communityID = communityID;
+        self.commendNum = commendNum;
+        self.houseType = houseType;
         
     }
     
@@ -97,7 +119,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getDetailInfo)];
+    [rootView addHeaderWithTarget:self action:@selector(getCommunityDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height)];
@@ -133,7 +155,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
-- (void)createNewDetailInfoViewUI:(QSNewHouseDetailDataModel *)dataModel
+- (void)createNewDetailInfoViewUI:(QSCommunityHouseDetailDataModel *)dataModel
 {
     
     ///信息底view
@@ -149,10 +171,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image=[UIImage imageNamed:@"houses_detail_header_load_fail750x562"];
+    [headerImageView loadImageWithURL:[dataModel.village.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseDetailViewUI:houseDetailView];
+    [self createHouseDetailViewUI:houseDetailView andHouseInfo:dataModel.village];
     
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2.0f*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
@@ -161,7 +183,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     
-    [self createPriceChangeViewUI:priceChangeView];
+    [self createPriceChangeViewUI:priceChangeView andSecondHouseNum:dataModel.village.tj_secondHouse_num];
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
@@ -169,7 +191,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         NSLog(@"点击进入小区出租房");
         
     }];
-    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
+    [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     
     ///小区房价走势view
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
@@ -179,25 +201,18 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f)];
     [self createHouseServiceViewUI:houseServiceView];
     
-    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
-        
-        ///进入地图：需要传经纬度
-        NSLog(@"点击进入关注");
-        
-    }];
-
-    
+    UIView *houseAttentionView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_HEIGHTTAP)];
     [self createHouseAttentionViewUI:houseAttentionView];
     
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP)andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
-        NSLog(@"点击进入评论");
+        NSLog(@"点击进入更多配套");
         
     }];
     [self createCommentViewUI:commentView];
     
-    self.tabbleView=[[UITableView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 5.0f*100.0f)];
+    self.tabbleView=[[UITableView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.houseCommendArray.count*100.0f)];
     self.tabbleView.delegate=self;
     self.tabbleView.dataSource=self;
     
@@ -217,7 +232,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///设置数据源和代理
     infoRootView.delegate = self;
     infoRootView.scrollEnabled=YES;
-    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,_tabbleView.frame.origin.y+_tabbleView.frame.size.height+130.0f);
+    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,_tabbleView.frame.origin.y+_tabbleView.frame.size.height);
     
     //[self.view addSubview:scrollView];
     //    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
@@ -237,17 +252,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -添加房子详情view
 ///添加房子详情view
--(void)createHouseDetailViewUI:(UIView *)view
+-(void)createHouseDetailViewUI:(UIView *)view andHouseInfo:(QSCommunityDataModel *)houseInfo
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    houseTypeLabel.text=@"物业费:1.6元/m/月";
+    houseTypeLabel.text=[NSString stringWithFormat:@"物业费:%@",houseInfo.fee];
     houseTypeLabel.textAlignment=NSTextAlignmentLeft;
     houseTypeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:houseTypeLabel];
     
     UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    typeLabel.text=@"房屋总数:208";
+    typeLabel.text=[NSString stringWithFormat:@"房屋总数:%@",houseInfo.households_num];
     typeLabel.textAlignment=NSTextAlignmentLeft;
     typeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:typeLabel];
@@ -255,11 +270,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *orientationsLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     orientationsLabel.textAlignment=NSTextAlignmentLeft;
     orientationsLabel.font=[UIFont systemFontOfSize:14.0f];
-    orientationsLabel.text=@"楼栋总数:2";
+    orientationsLabel.text=[NSString stringWithFormat:@"楼栋总数:%@",houseInfo.buildings_num];
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=@"绿化率:30.00%";
+    layerCountLabel.text=[NSString stringWithFormat:@"绿化率:%@",houseInfo.green_rate];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
     layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
@@ -267,11 +282,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     decoreteLabel.textAlignment=NSTextAlignmentLeft;
     decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
-    decoreteLabel.text=@"容积率:3.3";
+    decoreteLabel.text=[NSString stringWithFormat:@"容积率:%@",houseInfo.volume_rate];
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    timeLabel.text=@"建筑年代:2014";
+    timeLabel.text=[NSString stringWithFormat:@"建筑年代:%@",houseInfo.building_year];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];
@@ -279,11 +294,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     structureLabel.textAlignment=NSTextAlignmentLeft;
     structureLabel.font=[UIFont systemFontOfSize:14.0f];
-    structureLabel.text=@"房屋类型:公寓";
+    structureLabel.text=[NSString stringWithFormat:@"房屋类型:%@",houseInfo.building_structure];
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=@"产权:50年使用权";
+    propertyLabel.text=[NSString stringWithFormat:@"产权:%@",houseInfo.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];
@@ -296,16 +311,38 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 }
 
 #pragma mark -小区二手房view
-///添加房子价钱变动view
--(void)createPriceChangeViewUI:(UIView *)view
+///小区二手房view
+-(void)createPriceChangeViewUI:(UIView *)view andSecondHouseNum:(NSString *)secondHouseNum
 {
     
-    ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
-    userLabel.text = @"小区二手房(28)";
+    ///二手房label
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 80.0f, 15.0f)];
+    userLabel.text = @"小区二手房";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [view addSubview:userLabel];
+    
+    ///括号
+    UILabel *unit1=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit1.text=@"(";
+    unit1.font=[UIFont systemFontOfSize:20.0f];
+    unit1.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit1];
+    
+    ///二手房数量
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(unit1.frame.origin.x+unit1.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 25.0f, 25.0f)];
+    countLabel.text = [NSString stringWithFormat:@"%@",secondHouseNum];
+    countLabel.textAlignment=NSTextAlignmentCenter;
+    countLabel.textColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:countLabel];
+    
+    ///括号
+    UILabel *unit2=[[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit2.text=@")";
+    unit2.font=[UIFont systemFontOfSize:20.0f];
+    unit2.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit2];
     
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
@@ -321,15 +358,37 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -添加小区出租房view
 ///添加小区均价view
--(void)createDistrictAveragePriceViewUI:(UIView *)view
+-(void)createDistrictAveragePriceViewUI:(UIView *)view andRentHouseNum:(NSString *)rentHouseNum
 {
     
-    ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
-    userLabel.text = @"小区出租房(99)";
+    ///小区出租房
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 80.0f, 15.0f)];
+    userLabel.text = @"小区出租房";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [view addSubview:userLabel];
+    
+    ///括号
+    UILabel *unit1=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit1.text=@"(";
+    unit1.font=[UIFont systemFontOfSize:20.0f];
+    unit1.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit1];
+    
+    ///二手房数量
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(unit1.frame.origin.x+unit1.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 25.0f, 25.0f)];
+    countLabel.text = [NSString stringWithFormat:@"%@",rentHouseNum];
+    countLabel.textAlignment=NSTextAlignmentCenter;
+    countLabel.textColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:countLabel];
+    
+    ///括号
+    UILabel *unit2=[[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit2.text=@")";
+    unit2.font=[UIFont systemFontOfSize:20.0f];
+    unit2.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit2];
     
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
@@ -429,6 +488,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UIButton *schoolButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(hospitalButton.frame.origin.x+hospitalButton.frame.size.width, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击学校按钮事件");
+        
+        ///
         
     }];
     [schoolButton setTitle:@"学校" forState:UIControlStateNormal];
@@ -585,13 +646,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     ///获取模型
-    //QSStoredCardDataModel *tempModel = self.storedCardDataSource[indexPath.row];
+     self.houseCommendModel = self.houseCommendArray[indexPath.row];
     
-    
-    //cell.cBalanceLabel.text=tempModel.historybalance;
-    
+    [cell updateCommunityInfoCellUIWithDataModel:self.houseCommendModel];
     ///取消选择样式
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
     
 }
@@ -606,7 +665,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 3.0f;
+    return self.houseCommendArray.count;
 
 }
 
@@ -624,41 +683,61 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 //
 //}
 
-#pragma mark - 请求详情信息
-/**
- *  @author yangshengmeng, 15-02-12 14:02:44
- *
- *  @brief  请求详情信息
- *
- *  @since  1.0.0
- */
-- (void)getDetailInfo
+#pragma mark - 请求小区详情信息
+///请求新房详情信息
+- (void)getCommunityDetailInfo
 {
     
     ///封装参数
-    //    NSDictionary *params = @{@"loupan_id" : self.loupanID ? self.loupanID : @"",
-    //                             @"loupan_building_id" : self.loupanBuildingID ? self.loupanBuildingID : @""};
-    //
-    //    ///进行请求
-    //    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-    //
-    //        ///请求成功
-    //        if (<#condition#>) {
-    //            <#statements#>
-    //        }
-    //
-    //    }];
+    NSDictionary *params = @{@"id_" : self.communityID ? self.communityID : @"",
+                             @"house_commend_num" : self.commendNum ? self.commendNum : @"",
+                             @"house_second_or_rent" : self.houseType ? self.houseType : @""};
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeCommunityDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-        [rootView headerEndRefreshing];
-        [self showInfoUI:YES];
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSCommunityHousesDetailReturnData *tempModel = resultData;
+            
+            ///保存数据模型
+            self.detailInfo = tempModel.detailInfo;
+            
+            self.houseInfo=tempModel.detailInfo.village;
+            self.houseCommendArray=tempModel.detailInfo.house_commend;
+            NSLog(@"出租房详情数据请求成功%@",tempModel.detailInfo.village);
+            NSLog(@"参数id%@",params);
+            NSLog(@"地址%@",self.houseInfo.address);
+            
+            ///创建详情UI
+            [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
+            ///1秒后停止动画，并显示界面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                [rootView headerEndRefreshing];
+                [self showInfoUI:YES];
+                
+            });
+            
+        } else {
+            
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView headerEndRefreshing];
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+                
+                ///推回上一页
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            })
+            
+        }
         
-        ///创建详情UI
-        [self createNewDetailInfoViewUI:nil];
-        
-    });
+    }];
     
 }
 

@@ -18,9 +18,31 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 @interface QSLoginViewController ()<UITextFieldDelegate>
 
+@property (nonatomic,copy) void(^loginCallBack)(BOOL flag);//!<登录后的回调
+
 @end
 
 @implementation QSLoginViewController
+
+#pragma mark - 初始化
+///初始化
+- (instancetype)initWithCallBack:(void (^)(BOOL))loginCallBack
+{
+
+    if (self = [super init]) {
+        
+        ///保存回调
+        if (loginCallBack) {
+            
+            self.loginCallBack = loginCallBack;
+            
+        }
+        
+    }
+    
+    return self;
+
+}
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI

@@ -11,18 +11,19 @@
 @interface QSCommunityDetailViewController : QSTurnBackViewController
 
 /**
- *  @author             yangshengmeng, 15-02-12 12:02:39
+ *  @author             yangshengmeng, 15-03-12 16:03:11
  *
- *  @brief              根据标题、ID创建详情页面，可以是房子详情，或者小区详情
+ *  @brief              创建小区详情页面
  *
  *  @param title        标题
- *  @param detailID     详情的ID
- *  @param detailType   详情的类型：房子/小区等
+ *  @param communityID  小区ID
+ *  @param commendNum   小区详情中，推荐房源的个数
+ *  @param houseType    是推荐二手房/出租房
  *
- *  @return             返回当前创建的详情页指针
+ *  @return             返回小区详情页面
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType;
+- (instancetype)initWithTitle:(NSString *)title andCommunityID:(NSString *)communityID andCommendNum:(NSString *)commendNum andHouseType:(NSString *)houseType;
 
 @end

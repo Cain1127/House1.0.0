@@ -44,6 +44,8 @@
         tempModel.collected_old_price = obj.collected_old_price;
         tempModel.collected_new_price = obj.collected_new_price;
         
+        [tempResultArray addObject:tempModel];
+        
     }
     
     return [NSArray arrayWithArray:tempResultArray];
@@ -76,6 +78,8 @@
         tempModel.collected_status = obj.collected_status;
         tempModel.collected_old_price = obj.collected_old_price;
         tempModel.collected_new_price = obj.collected_new_price;
+        
+        [tempResultArray addObject:tempModel];
         
     }
     
@@ -155,7 +159,7 @@
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
-    NSArray *fetchResultArray = fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     if (error) {
         
@@ -199,11 +203,24 @@
         NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
         return NO;
         
-    } else {
-    
-        return YES;
-    
     }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    return YES;
     
 }
 
