@@ -13,6 +13,10 @@
 
 #import <objc/runtime.h>
 
+#import "QSBlockButtonStyleModel+Normal.h"
+
+#import "QSPOrderDetailBookedViewController.h"
+
 ///关联
 static char BookingListTableViewKey;    //!<待看房列表关联
 static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
@@ -35,7 +39,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.bookingListDataSource = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", nil];
+        self.bookingListDataSource = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
         
         ///UI搭建
         [self createBookingListUI];
@@ -52,7 +56,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 {
     
     ///订单记录列表
-    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
+    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
     
     ///取消滚动条
     bookingListTableView.showsHorizontalScrollIndicator = NO;
@@ -73,7 +77,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, bookingListTableView.frame.size.width, 0)];
     
     UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_COMMUNITY_NODATA_CION]];
-    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-(150.f/750.f * SIZE_DEVICE_WIDTH))/2, 0, 150.f/750.f * SIZE_DEVICE_WIDTH, 170.f/1332.f*SIZE_DEVICE_HEIGHT)];
+    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-75.0f)/2.0f, 0, 75.f, 85.f)];
     [noDataView addSubview:nodataImgView];
     
     QSLabel *nodataTipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0, nodataImgView.frame.origin.y+nodataImgView.frame.size.height, noDataView.frame.size.width, 30)];
@@ -82,9 +86,39 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     objc_setAssociatedObject(self, &BookingListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
     [noDataView addSubview:nodataTipLabel];
     
-    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, noDataView.frame.origin.y, noDataView.frame.size.width, nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height)];
+    ///按钮的宽度
+    CGFloat width = (noDataView.frame.size.width - 35.0f * 2.0f - 8.0f) / 2.0f;
+    
+    ///按钮风格
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
+    buttonStyle.title = @"看看二手房";
+    
+    ///出售物业按钮
+    UIButton *secondHandHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(35.0f, nodataTipLabel.frame.origin.y + nodataTipLabel.frame.size.height + 12.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"secondHandHouseButton");
+        
+    }];
+    [noDataView addSubview:secondHandHouseButton];
+    
+    buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
+    buttonStyle.title = @"看看出租房";
+    
+    ///出租物业
+    UIButton *renantHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(secondHandHouseButton.frame.origin.x + secondHandHouseButton.frame.size.width + 8.0f, secondHandHouseButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"renantHouseButton");
+        
+    }];
+    [noDataView addSubview:renantHouseButton];
+
+    CGFloat noDataViewHeight = secondHandHouseButton.frame.origin.y+secondHandHouseButton.frame.size.height;
+    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, (bookingListTableView.frame.size.height-noDataViewHeight)/2, noDataView.frame.size.width, noDataViewHeight)];
     
     [bookingListTableView addSubview:noDataView];
+    
     [noDataView setHidden:YES];
     
     ///添加刷新事件
@@ -195,6 +229,19 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 {
     
     return MY_ZONE_ORDER_LIST_CELL_HEIGHT;
+    
+}
+
+#pragma mark - 响应点击订单操作
+///响应点击订单操作
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"bookingList didSelectRowAtIndexPath:%d",indexPath.row);
+    
+    if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
+        QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+        [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
+    }
     
 }
 

@@ -26,4 +26,8 @@
 ///默认的纵向view间隙
 #define VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP 8.0f
 
+//内容区域距离屏幕左右边距
+#define CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP         (SIZE_DEVICE_WIDTH > 320.0f ? 25.0f : 15.0f)
+
+
 #endif

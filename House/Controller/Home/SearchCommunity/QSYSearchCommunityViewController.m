@@ -180,7 +180,7 @@ static char ListViewKey;//!<列表的关联
 {
 
     ///重置选择状态
-    [self setCommunitySelectedStatus:indexPath.row];
+    [self setCommunitySelectedStatus:(int)indexPath.row];
     
     ///刷新数据
     [self reloadData];
@@ -190,6 +190,13 @@ static char ListViewKey;//!<列表的关联
     if (self.pickedCommunityCallBack) {
         
         self.pickedCommunityCallBack(YES,tempModel);
+        
+    }
+    
+    ///显示tabbar
+    if (self.hiddenCustomTabbarWhenPush) {
+        
+        [self hiddenBottomTabbar:NO];
         
     }
     

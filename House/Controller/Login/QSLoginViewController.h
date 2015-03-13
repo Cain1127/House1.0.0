@@ -17,4 +17,17 @@
  */
 @interface QSLoginViewController : QSTurnBackViewController
 
+/**
+ *  @author                 yangshengmeng, 15-03-13 14:03:11
+ *
+ *  @brief                  根据登录的回调，创建一个登录窗口
+ *
+ *  @param loginCallBack    登录成功后的回调
+ *
+ *  @return                 返回当前创建的登录窗口
+ *
+ *  @since                  1.0.0
+ */
+- (instancetype)initWithCallBack:(void(^)(BOOL flag))loginCallBack;
+
 @end

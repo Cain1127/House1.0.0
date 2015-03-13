@@ -52,28 +52,28 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     
     ///订单记录列表
-    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
+    UITableView *cancelListTableView = [[UITableView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
     
     ///取消滚动条
-    bookingListTableView.showsHorizontalScrollIndicator = NO;
-    bookingListTableView.showsVerticalScrollIndicator = NO;
+    cancelListTableView.showsHorizontalScrollIndicator = NO;
+    cancelListTableView.showsVerticalScrollIndicator = NO;
     
     ///数据源
-    bookingListTableView.dataSource = self;
-    bookingListTableView.delegate = self;
+    cancelListTableView.dataSource = self;
+    cancelListTableView.delegate = self;
     
     ///取消选择状态
-    bookingListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    cancelListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self addSubview:bookingListTableView];
+    [self addSubview:cancelListTableView];
     
-    objc_setAssociatedObject(self, &CancelListTableViewKey, bookingListTableView, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &CancelListTableViewKey, cancelListTableView, OBJC_ASSOCIATION_ASSIGN);
     
     ///没有数据时显示
-    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, bookingListTableView.frame.size.width, 0)];
+    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, cancelListTableView.frame.size.width, 0)];
     
     UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_COMMUNITY_NODATA_CION]];
-    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-(150.f/750.f * SIZE_DEVICE_WIDTH))/2, 0, 150.f/750.f * SIZE_DEVICE_WIDTH, 170.f/1332.f*SIZE_DEVICE_HEIGHT)];
+    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-75.0f)/2.0f, 0, 75.f, 85.f)];
     [noDataView addSubview:nodataImgView];
     
     QSLabel *nodataTipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0, nodataImgView.frame.origin.y+nodataImgView.frame.size.height, noDataView.frame.size.width, 30)];
@@ -82,17 +82,18 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     objc_setAssociatedObject(self, &CancelListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
     [noDataView addSubview:nodataTipLabel];
     
-    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, noDataView.frame.origin.y, noDataView.frame.size.width, nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height)];
+    CGFloat noDataViewHeight = nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height;
+    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, (cancelListTableView.frame.size.height-noDataViewHeight)/2, noDataView.frame.size.width, noDataViewHeight)];
     
-    [bookingListTableView addSubview:noDataView];
+    [cancelListTableView addSubview:noDataView];
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [bookingListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [bookingListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [cancelListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
+    [cancelListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [bookingListTableView headerBeginRefreshing];
+    [cancelListTableView headerBeginRefreshing];
     
 }
 
@@ -196,6 +197,13 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     
     return MY_ZONE_ORDER_LIST_CELL_HEIGHT;
     
+}
+
+#pragma mark - 响应点击订单操作
+///响应点击订单操作
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"cancelList didSelectRowAtIndexPath:%d",indexPath.row);
 }
 
 @end

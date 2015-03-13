@@ -17,6 +17,8 @@
 
 #import "QSAutoScrollView.h"
 #import "QSCollectedInfoView.h"
+#import "QSYPopCustomView.h"
+#import "QSYSaleOrRentHouseTipsView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -220,7 +222,42 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     buttonStyle.imagesHighted = IMAGE_HOME_SALEHOUSE_HIGHLIGHTED;
     UIButton *saleHouseButton = [UIButton createCustomStyleButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 4.0f - 30.0f, bottomLineLabel.frame.origin.y + (bottomHeight - 47.0f) / 2.0f, 80.0f, 47.0f) andButtonStyle:buttonStyle andCustomButtonStyle:cCustomButtonStyleBottomTitle andTitleSize:15.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
         
-        
+        ///登录检测
+        [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+            
+            ///登录后，进入发布出租/出售页面提示
+            if (flag) {
+                
+                ///弹出窗口的指针
+                __block QSYPopCustomView *popView = nil;
+                
+                ///提示选择窗口
+                QSYSaleOrRentHouseTipsView *saleTipsView = [[QSYSaleOrRentHouseTipsView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 134.0f) andCallBack:^(SALE_RENT_HOUSE_TIPS_ACTION_TYPE actionType) {
+                    
+                    ///加收弹出窗口
+                    [popView hiddenCustomPopview];
+                    
+                    ///进入发布物业的窗口
+                    if (sSaleRentHouseTipsActionTypeSale == actionType) {
+                        
+                        
+                        
+                    }
+                    
+                    if (sSaleRentHouseTipsActionTypeRent == actionType) {
+                        
+                        
+                        
+                    }
+                    
+                }];
+                
+                ///弹出窗口
+                popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+                
+            }
+            
+        }];
         
     }];
     saleHouseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -242,6 +279,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     UILabel *bottomMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 0.25f, SIZE_DEVICE_HEIGHT - bottomHeight - 49.0f, 0.5f, bottomHeight)];
     bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:bottomMiddelLineLabel];
+    
+    ///请求数据
+    [self requestHomeCountData];
     
 }
 
@@ -410,7 +450,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
     if ([self.collectedDataSource count] > 0) {
         
-        return [self.collectedDataSource count];
+        return (int)[self.collectedDataSource count];
         
     }
     
@@ -678,17 +718,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         
     }
     
-}
-
-#pragma mark - 视图出现后，请求数据
-- (void)viewDidAppear:(BOOL)animated
-{
-
-    [super viewDidAppear:animated];
-    
-    ///请求数据
-    [self requestHomeCountData];
-
 }
 
 #pragma mark - 请求数据

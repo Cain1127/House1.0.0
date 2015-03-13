@@ -18,5 +18,6 @@
     #import "QSTextField.h"         //!<自定义带有标识符的输入框
     #import "QSScrollView.h"        //!<自定义取消滚动条的scrollView
     #import "QSBlockView.h"         //!<自定义带回调的UIView
+    #import "NSString+Format.h"     //!<字符串格式化
 
 #endif

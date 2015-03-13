@@ -120,4 +120,36 @@ static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
  */
 - (void)hiddenBottomTabbar:(BOOL)flag;
 
+#pragma mark - 登录检测
+/**
+ *  @author yangshengmeng, 15-03-13 14:03:28
+ *
+ *  @brief  返回应用当前是否已登录
+ *
+ *  @return 已登录-YES
+ *
+ *  @since  1.0.0
+ */
+- (BOOL)checkLogin;
+
+/**
+ *  @author yangshengmeng, 15-03-13 14:03:46
+ *
+ *  @brief  检测当前登录状态，如若未登录，则进入登录页面
+ *
+ *  @since  1.0.0
+ */
+- (void)checkLoginAndShowLogin;
+
+/**
+ *  @author                 yangshengmeng, 15-03-13 14:03:05
+ *
+ *  @brief                  检测当前登录状态，如若未登录，进入登录页面，并且在登录成功后执行对应的回调block
+ *
+ *  @param loginCallBack    登录成功后的回调block
+ *
+ *  @since                  1.0.0
+ */
+- (void)checkLoginAndShowLoginWithBlock:(void(^)(BOOL flag))loginCallBack;
+
 @end
