@@ -188,6 +188,18 @@
 + (NSString *)getPerpostPerchaseTypeWithKey:(NSString *)perpostKey;
 
 /**
+ *  @author yangshengmeng, 15-03-13 18:03:26
+ *
+ *  @brief  返回建筑结构信息
+ *
+ *  @return 所有建筑类型数据
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseBuildingStructureType;
++ (NSString *)getHouseBuildingStructureTypeWithKey:(NSString *)key;
+
+/**
  *  @author     yangshengmeng, 15-02-12 13:02:13
  *
  *  @brief      查询对应特色标签的值

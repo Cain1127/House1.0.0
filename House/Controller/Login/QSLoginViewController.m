@@ -7,7 +7,10 @@
 //
 
 #import "QSLoginViewController.h"
+#import "QSYRegistViewController.h"
+
 #import "QSCoreDataManager+User.h"
+
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
