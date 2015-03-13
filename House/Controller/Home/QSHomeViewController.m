@@ -53,31 +53,12 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 @implementation QSHomeViewController
 
-#pragma mark - 初始化
-///初始化：获取本地收藏列表
-- (instancetype)init
-{
-
-    if (self = [super init]) {
-        
-        ///获取本地的收藏列表
-        [self collectedDataSource];
-        
-    }
-    
-    return self;
-
-}
-
+#pragma mark - 获取本地收藏数据
 ///返回本地收藏信息
 - (NSMutableArray *)collectedDataSource
 {
 
-    if (nil == _collectedDataSource) {
-        
-        _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSource]];
-        
-    }
+    _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSource]];
     
     return _collectedDataSource;
 
@@ -120,7 +101,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
             [[NSNotificationCenter defaultCenter] postNotificationName:nUserDefaultCityChanged object:nil];
             
         }
-        
         
     }];
     [self setNavigationBarMiddleView:cityPickerView];
@@ -170,6 +150,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                     
                     ///刷新数据
                     [colledtedView reloadAutoScrollView];
+                    
+                    ///保存数据
+                    [QSCoreDataManager saveCollectedDataWithModel:tempModel];
                     
                 }
                 

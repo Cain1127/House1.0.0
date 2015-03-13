@@ -259,7 +259,8 @@ static char ListViewKey;//!<列表的关联
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"commend" : @"Y",
                                 @"now_page" : @"1",
-                                @"page_num" : @"10"};
+                                @"page_num" : @"10",
+                                @"title" : (([self.searchKey length] > 0) ? self.searchKey : @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -328,7 +329,8 @@ static char ListViewKey;//!<列表的关联
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"commend" : @"Y",
                                 @"now_page" : [NSString stringWithFormat:@"%@",self.dataSourceModel.communityListHeaderData.next_page],
-                                @"page_num" : @"10"};
+                                @"page_num" : @"10",
+                                @"title" : (([self.searchKey length] > 0) ? self.searchKey : @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
