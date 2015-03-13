@@ -10,7 +10,7 @@
 #import "QSHouseCommentDataModel.h"
 #import "QSHousePriceChangesDataModel.h"
 #import "QSUserSimpleDataModel.h"
-#import "QSRentHouseInfoDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
 
 @implementation QSRentHouseDetailDataModel
@@ -23,7 +23,7 @@
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     
     ///房子信息
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house" toKeyPath:@"house" withMapping:[QSRentHouseInfoDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house" toKeyPath:@"house" withMapping:[QSWRentHouseInfoDataModel objectMapping]]];
    
     ///业主
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"user" toKeyPath:@"user" withMapping:[QSUserSimpleDataModel objectMapping]]];

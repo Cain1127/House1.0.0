@@ -13,10 +13,13 @@
 ///解析规则
 + (RKObjectMapping *)objectMapping
 {
-    
+    ///非继承
     RKObjectMapping *shared_mapping = nil;
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     
+    ///继承
+   // RKObjectMapping *shared_mapping = [super objectMapping];
+
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"id_",
                                                     @"user_id",

@@ -22,7 +22,7 @@
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSHouseInfoDataModel.h"
 
-#import "QSCommunityDataModel.h"
+#import "QSWCommunityDataModel.h"
 #import "QSPhotoDataModel.h"
 
 #import "QSCoreDataManager+House.h"
@@ -51,7 +51,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 ///详情信息的数据模型
 @property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有2个基本模型，2个数组模型
-@property (nonatomic,retain) QSCommunityDataModel *houseInfo;          //!<基本模型数据
+@property (nonatomic,retain) QSWCommunityDataModel *houseInfo;          //!<基本模型数据
 
 @property (nonatomic,retain) NSArray *photoArray;                      //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *village_photo;          //!<图片模型
@@ -252,7 +252,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -添加房子详情view
 ///添加房子详情view
--(void)createHouseDetailViewUI:(UIView *)view andHouseInfo:(QSCommunityDataModel *)houseInfo
+-(void)createHouseDetailViewUI:(UIView *)view andHouseInfo:(QSWCommunityDataModel *)houseInfo
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];

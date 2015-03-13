@@ -15,16 +15,16 @@
  *
  *  @since 1.0.0
  */
-@class QSHouseInfoDataModel;
+@class QSWSecondHouseInfoDataModel;
 @class QSUserSimpleDataModel;
 @class QSHousePriceChangesDataModel;
 @class QSHouseCommentDataModel;
 @interface QSSecondHouseDetailDataModel : QSBaseModel
 
-@property (nonatomic,retain) QSHouseInfoDataModel *house;               //!<出租房基本数据
-@property (nonatomic,retain) QSUserSimpleDataModel *user;                 //!<业主信息
+@property (nonatomic,retain) QSWSecondHouseInfoDataModel *house;            //!<二手房基本数据
+@property (nonatomic,retain) QSUserSimpleDataModel *user;                   //!<业主信息
 @property (nonatomic,retain) QSHousePriceChangesDataModel *price_changes;   //!<钱价变动
 @property (nonatomic,retain) QSHouseCommentDataModel *comment;              //!<评论
-@property (nonatomic,retain) NSArray *secondHouse_photo;                      //!<图集信息
+@property (nonatomic,retain) NSArray *secondHouse_photo;                    //!<图集信息
 
 @end

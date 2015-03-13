@@ -19,7 +19,6 @@
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"name",
                                                     @"tel",
-                                                    @"content",
                                                     @"village_id",
                                                     @"village_name",
                                                     @"floor_which",
@@ -45,11 +44,11 @@
                                                     @"reservation_num",
                                                     @"house_no",
                                                     @"house_status",
+                                                    
                                                     @"rent_price",
                                                     @"payment",
                                                     @"rent_property",
                                                     @"lead_time"
-                                                    @"price_avg"
                                                     ]];
     
     return shared_mapping;

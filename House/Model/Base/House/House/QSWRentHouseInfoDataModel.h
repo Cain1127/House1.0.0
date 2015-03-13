@@ -7,27 +7,28 @@
 //
 
 #import "QSBaseModel.h"
+#import "QSRentHouseInfoDataModel.h"
 
-@interface QSWRentHouseInfoDataModel : QSBaseModel
+@interface QSWRentHouseInfoDataModel : QSRentHouseInfoDataModel
 
 @property (nonatomic,copy) NSString *id_;               //!<户型ID
 @property (nonatomic,copy) NSString *user_id;           //!<用户ID
-@property (nonatomic,copy) NSString *house_no;
+@property (nonatomic,copy) NSString *house_no;          //1<房源号
 @property (nonatomic,copy) NSString *title;             //!<标题
 @property (nonatomic,copy) NSString *title_second;      //!<副标题
 @property (nonatomic,copy) NSString *address;           //!<地址
-@property (nonatomic,copy) NSString *village_id;        //!<村庄ID
-@property (nonatomic,copy) NSString *village_name;      //!<村名
+@property (nonatomic,copy) NSString *village_id;        //!<小区ID
+@property (nonatomic,copy) NSString *village_name;      //!<小区名
 @property (nonatomic,copy) NSString *content;           //!<简述
 
 @property (nonatomic,copy) NSString *floor_num;         //!<层数
-@property (nonatomic,copy) NSString *floor_which;       //!<
+@property (nonatomic,copy) NSString *floor_which;       //!<第几层
 @property (nonatomic,copy) NSString *house_face;        //!<朝向
 @property (nonatomic,copy) NSString *decoration;        //!<装饰
-@property (nonatomic,copy) NSString *decoration_type;   //!<类型
-@property (nonatomic,copy) NSString *used_year;         //!<年代
+@property (nonatomic,copy) NSString *decoration_type;   //!<装修类型
+@property (nonatomic,copy) NSString *used_year;         //!<产权
 @property (nonatomic,copy) NSString *installation;      //!<结构
-@property (nonatomic,copy) NSString *rent_property;     //!<产权
+@property (nonatomic,copy) NSString *rent_property;     //!<出租方式
 @property (nonatomic,copy) NSString *lead_time;         //!<入住时间
 
 @property (nonatomic,copy) NSString *features;          //!<特色标签

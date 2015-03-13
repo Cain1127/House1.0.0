@@ -13,7 +13,6 @@
 @property (nonatomic,copy) NSString *name;                  //!<业主姓名
 @property (nonatomic,copy) NSString *tel;                   //!<业主联系电话
 
-@property (nonatomic,copy) NSString *content;               //!<内容
 @property (nonatomic,copy) NSString *village_id;            //!<小区ID
 @property (nonatomic,copy) NSString *village_name;          //!<小区名称
 @property (nonatomic,copy) NSString *floor_which;           //!<房子所在楼层
@@ -48,5 +47,4 @@
 @property (nonatomic,copy) NSString *rent_property;         //!<出租方式
 @property (nonatomic,copy) NSString *lead_time;             //!<房子的交付时间
 
-@property (nonatomic,copy) NSString *price_avg;             //!<平均价钱
 @end

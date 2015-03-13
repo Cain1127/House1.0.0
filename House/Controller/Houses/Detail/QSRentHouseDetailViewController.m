@@ -21,7 +21,7 @@
 
 #import "QSHousePriceChangesDataModel.h"
 #import "QSHouseCommentDataModel.h"
-#import "QSRentHouseInfoDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 #import "QSUserSimpleDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSHouseTypeDataModel.h"
@@ -52,7 +52,7 @@ static char LeftStarKey;            //!<左侧星级
 
 ///详情信息的数据模型
 @property (nonatomic,retain) QSRentHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
-@property (nonatomic,retain) QSRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
+@property (nonatomic,retain) QSWRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
@@ -275,7 +275,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///房子统计view
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseTotalUI:houseTotalView];
+    [self createHouseTotalUI:houseTotalView andTotalModel:dataModel.house];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*5.0f+4.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHousesInfo:self.houseInfo];
@@ -438,7 +438,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加物业总价view
 ///添加物业总价
-- (void)createHouseTotalUI:(UIView *)view
+- (void)createHouseTotalUI:(UIView *)view andTotalModel:(QSWRentHouseInfoDataModel *)houseInfo
 {
     
     UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, 100.0f, 20.0f)];
@@ -458,18 +458,18 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:rootView];
     
     ///价钱信息
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView.frame.size.width / 2.0f, rootView.frame.size.height)];
-    priceLabel.text = @"340";
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView.frame.size.width / 2.0f+10.0f, rootView.frame.size.height)];
+    priceLabel.text = houseInfo.rent_price;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
     
     ///单位
-    UILabel *unitPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+11.0f, 20.0f, 20.0f)];
-    unitPriceLabel.text = [NSString stringWithFormat:@"万/%@",APPLICATION_AREAUNIT];
+    UILabel *unitPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+13.0f, 20.0f, 20.0f)];
+    unitPriceLabel.text = @"元/月";
     unitPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    unitPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     unitPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:unitPriceLabel];
     
@@ -481,17 +481,17 @@ static char LeftStarKey;            //!<左侧星级
     
     ///面积信息
     UILabel *areaLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView1.frame.size.width / 2.0f, rootView1.frame.size.height)];
-    areaLabel.text = @"340";
+    areaLabel.text = houseInfo.house_area;
     areaLabel.textAlignment = NSTextAlignmentRight;
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView1 addSubview:areaLabel];
     
     ///单位
-    UILabel *unitPriceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+11.0f, 20.0f, 20.0f)];
-    unitPriceLabel1.text = [NSString stringWithFormat:@"万/%@",APPLICATION_AREAUNIT];
+    UILabel *unitPriceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+13.0f, 20.0f, 20.0f)];
+    unitPriceLabel1.text = [NSString stringWithFormat:@"/%@",APPLICATION_AREAUNIT];
     unitPriceLabel1.textAlignment = NSTextAlignmentLeft;
-    unitPriceLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    unitPriceLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     unitPriceLabel1.textColor = COLOR_CHARACTERS_BLACK;
     [rootView1 addSubview:unitPriceLabel1];
     
@@ -528,11 +528,15 @@ static char LeftStarKey;            //!<左侧星级
     downPaymentLabel.textColor=[UIColor whiteColor];
     [view addSubview:downPaymentLabel];
     
-    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height+10.0f, view.frame.size.width-100.0f, 20.0f)];
+    QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
+        NSLog(@"点击定位");
+    }];
+    
+    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, view.frame.size.width-100.0f, 20.0f)];
     addressLabel.textAlignment=NSTextAlignmentCenter;
-    addressLabel.text=@"番禺/大石/大石海滨花园 西槎路粤西南路";
+    addressLabel.text=houseInfo.address;
     addressLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:addressLabel];
+    [mapView addSubview:addressLabel];
     
     ///查看地图信息
     UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-30.0f-70.0f, addressLabel.frame.origin.y, 70.0f, 20.0f)];
@@ -540,12 +544,16 @@ static char LeftStarKey;            //!<左侧星级
     tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     tipsLabel.textAlignment=NSTextAlignmentCenter;
     tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-    [view addSubview:tipsLabel];
+    [mapView addSubview:tipsLabel];
     
     ///定位按钮
     QSImageView *localImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, tipsLabel.frame.origin.y-5.0f, 30.0f, 30.0f)];
     localImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_LOCAL_LIGHYELLOW];
-    [view addSubview:localImageView];
+    [mapView addSubview:localImageView];
+    
+    [view addSubview:mapView];
+    
+
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -556,7 +564,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加房子详情view
 ///添加房子详情view
--(void)createHouseDetailViewUI:(UIView *)view andHousesInfo:(QSRentHouseInfoDataModel *)houseInfoModel
+-(void)createHouseDetailViewUI:(UIView *)view andHousesInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
