@@ -42,6 +42,7 @@
 		1865E3D51AB1A47C00FAEC9E /* home_collected_increase_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 1865E3D31AB1A47C00FAEC9E /* home_collected_increase_down.png */; };
 		1865E3D61AB1A47C00FAEC9E /* home_collected_increase_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 1865E3D41AB1A47C00FAEC9E /* home_collected_increase_up.png */; };
 		1865E3DA1AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3D91AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m */; };
+		1865E3DE1AB2979500FAEC9E /* QSYHomeReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1865E3DD1AB2979500FAEC9E /* QSYHomeReturnData.m */; };
 		186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */; };
 		186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F73C81A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m */; };
 		187CA8C81AA2FD7200841A7E /* QSNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CA8C71AA2FD7200841A7E /* QSNewHouseListReturnData.m */; };
@@ -450,6 +451,8 @@
 		1865E3D41AB1A47C00FAEC9E /* home_collected_increase_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_collected_increase_up.png; sourceTree = "<group>"; };
 		1865E3D81AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSelectedCommunityTableViewCell.h; path = SearchCommunity/Cell/QSYSelectedCommunityTableViewCell.h; sourceTree = "<group>"; };
 		1865E3D91AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSelectedCommunityTableViewCell.m; path = SearchCommunity/Cell/QSYSelectedCommunityTableViewCell.m; sourceTree = "<group>"; };
+		1865E3DC1AB2979500FAEC9E /* QSYHomeReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHomeReturnData.h; path = Home/QSYHomeReturnData.h; sourceTree = "<group>"; };
+		1865E3DD1AB2979500FAEC9E /* QSYHomeReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHomeReturnData.m; path = Home/QSYHomeReturnData.m; sourceTree = "<group>"; };
 		186F73C41A77CD1D0078DAE9 /* QSPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPresentationController.h; path = Animination/QSPresentationController.h; sourceTree = "<group>"; };
 		186F73C51A77CD1D0078DAE9 /* QSPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSPresentationController.m; path = Animination/QSPresentationController.m; sourceTree = "<group>"; };
 		186F73C71A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSViewControllerAnimatedTransitioning.h; path = Animination/QSViewControllerAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -1268,6 +1271,15 @@
 				1865E3D91AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		1865E3DB1AB2976D00FAEC9E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1865E3DC1AB2979500FAEC9E /* QSYHomeReturnData.h */,
+				1865E3DD1AB2979500FAEC9E /* QSYHomeReturnData.m */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		186F73C31A77CCC10078DAE9 /* Animination */ = {
@@ -2525,6 +2537,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1865E3DB1AB2976D00FAEC9E /* Home */,
 				182C88191A7B0F0A00DA64E9 /* House */,
 				18CAFCB11A70E45A00C90C90 /* Advert */,
 				18CAFCB41A70E45A00C90C90 /* Base */,
@@ -3641,6 +3654,7 @@
 				18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
+				1865E3DE1AB2979500FAEC9E /* QSYHomeReturnData.m in Sources */,
 				18DABAAD1AAD4E1B00647E7C /* QSActivityDataModel.m in Sources */,
 				CE2E0FC41AAFF75A004DEE1E /* QSHouseCommentDataModel.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,

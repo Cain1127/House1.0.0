@@ -30,12 +30,12 @@
 		<key>url</key>
 		<string>loupan/view</string>
 	</dict>
-	<key>3001</key>
+	<key>3000</key>
 	<dict>
 		<key>url</key>
-		<string>secondHouse/view</string>
+		<string>village/tj</string>
 		<key>class</key>
-		<string></string>
+		<string>QSYHomeReturnData</string>
 	</dict>
 	<key>2001</key>
 	<dict>
