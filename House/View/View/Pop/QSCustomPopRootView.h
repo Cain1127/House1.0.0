@@ -32,4 +32,13 @@ typedef enum
 
 @property (nonatomic,copy) void(^customPopviewTapCallBack)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex);//!<自定义弹框的回调事件
 
+/**
+ *  @author yangshengmeng, 15-03-13 14:03:24
+ *
+ *  @brief  隐藏弹出窗口
+ *
+ *  @since  1.0.0
+ */
+- (void)hiddenCustomPopview;
+
 @end

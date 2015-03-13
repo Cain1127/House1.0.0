@@ -11,6 +11,8 @@
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
+#import "QSVerticalCodeView.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -18,7 +20,8 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 @interface QSLoginViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,copy) void(^loginCallBack)(BOOL flag);//!<登录后的回调
+@property (nonatomic,copy) void(^loginCallBack)(BOOL flag); //!<登录后的回调
+@property (nonatomic,copy) NSString *verCode;               //!<生成的本地验证码
 
 @end
 
@@ -65,7 +68,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     objc_setAssociatedObject(self, &InputLoginInfoRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
 
     ///手机
-    UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTCOUNT_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTCOUNT_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    __block UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTCOUNT_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTCOUNT_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     phoneField.delegate = self;
     phoneField.keyboardType = UIKeyboardTypeNumberPad;
     [rootView addSubview:phoneField];
@@ -76,7 +79,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:phoneLineLable];
     
     ///密码
-    UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTPASSWORD_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTPASSWORD_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    __block UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTPASSWORD_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTPASSWORD_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     passwordField.delegate = self;
     passwordField.keyboardType = UIKeyboardTypeASCIICapable;
     passwordField.secureTextEntry = YES;
@@ -88,10 +91,24 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:passwordLineLable];
     
     ///验证码
-    UITextField *vertificationCodeField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, passwordField.frame.origin.y + passwordField.frame.size.height + 8.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTVERTIFICATIONCODE_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTVERTIFICATIONCODE_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    __block UITextField *vertificationCodeField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, passwordField.frame.origin.y + passwordField.frame.size.height + 8.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTVERTIFICATIONCODE_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTVERTIFICATIONCODE_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     vertificationCodeField.delegate = self;
     phoneField.keyboardType = UIKeyboardTypeASCIICapable;
     [rootView addSubview:vertificationCodeField];
+    
+    ///验证码生成view
+    QSVerticalCodeView *verInfoView = [[QSVerticalCodeView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f) andVercodeNum:6 andBackgroudColor:COLOR_HEXCOLOR(0xEBEBEB) andTextColor:COLOR_HEXCOLOR(0xFB7503) andTextFont:16.0f andVerCodeChangeCallBack:^(NSString *verCode) {
+        
+        ///保存验证码
+        if ([verCode length] > 0) {
+            
+            self.verCode = verCode;
+            
+        }
+        
+    }];
+    vertificationCodeField.rightViewMode = UITextFieldViewModeAlways;
+    vertificationCodeField.rightView = verInfoView;
     
     ///分隔线
     UILabel *vertificationCodeLineLable = [[UILabel alloc] initWithFrame:CGRectMake(vertificationCodeField.frame.origin.x + 5.0f, vertificationCodeField.frame.origin.y + vertificationCodeField.frame.size.height + 3.5f, vertificationCodeField.frame.size.width, 0.5f)];
@@ -99,11 +116,75 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:vertificationCodeLineLable];
     
     ///登录按钮
-    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     buttonStyle.title = TITLE_LOGIN_BUTTON;
     UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, vertificationCodeField.frame.origin.y + vertificationCodeField.frame.size.height + 6.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///手机有效性数据
+        NSString *phoneString = phoneField.text;
+        if ([phoneString length] <= 0) {
+            
+            [phoneField becomeFirstResponder];
+            return;
+            
+        }
         
+        if (![NSString isValidateMobile:phoneString]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"手机号码应为11位数字，以13/14/15/17/18开头", 1.0f, ^(){
+            
+                [phoneField becomeFirstResponder];
+            
+            })
+            return;
+        }
+        
+        ///密码有效性校验
+        NSString *psw = passwordField.text;
+        if ([psw length] <= 0) {
+            
+            [passwordField becomeFirstResponder];
+            return;
+        }
+        
+        if ([psw length] < 6) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入6位有效密码", 1.0f, ^(){
+            
+                [passwordField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        ///验证码有效性检测
+        NSString *verCode = vertificationCodeField.text;
+        if ([verCode length] <= 0) {
+            
+            [vertificationCodeField becomeFirstResponder];
+            return;
+            
+        }
+        
+        if (![verCode isEqualToString:self.verCode]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的验证码", 1.0f, ^(){
+                
+                [passwordField becomeFirstResponder];
+                
+            })
+            return;
+            
+        }
+        
+        ///回收键盘
+        [phoneField resignFirstResponder];
+        [passwordField resignFirstResponder];
+        [vertificationCodeField resignFirstResponder];
+        
+        ///登录事件
+        [self beginLoginAction:phoneString andPassword:psw];
         
     }];
     [rootView addSubview:loginButton];
@@ -154,6 +235,15 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }
         
     }
+
+}
+
+#pragma mark - 开始登录
+///开始登录
+- (void)beginLoginAction:(NSString *)count andPassword:(NSString *)password
+{
+
+    ///显示HUD
 
 }
 

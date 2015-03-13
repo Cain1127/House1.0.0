@@ -11,6 +11,8 @@
 
 #import "QSLoginViewController.h"
 
+#import "QSCoreDataManager+User.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -278,7 +280,7 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 - (BOOL)checkLogin
 {
 
-    return NO;
+    return [QSCoreDataManager isLogin];
 
 }
 
@@ -314,6 +316,10 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
         QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:loginCallBack];
         [self.navigationController pushViewController:loginVC animated:YES];
         
+    } else {
+    
+        loginCallBack(isLogin);
+    
     }
 
 }

@@ -21,7 +21,7 @@
 /**
  *  @author yangshengmeng, 15-02-09 16:02:21
  *
- *  @brief  判断是否已剑灵
+ *  @brief  判断是否已登录
  *
  *  @return 返回当前登录状态
  *
