@@ -294,7 +294,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     structureLabel.textAlignment=NSTextAlignmentLeft;
     structureLabel.font=[UIFont systemFontOfSize:14.0f];
-    structureLabel.text=[NSString stringWithFormat:@"房屋类型:%@",houseInfo.building_structure];
+    structureLabel.text=[NSString stringWithFormat:@"房屋类型:%@",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfo.property_type]];
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];

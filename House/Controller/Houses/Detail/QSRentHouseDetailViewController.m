@@ -458,20 +458,34 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:rootView];
     
     ///价钱信息
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView.frame.size.width / 2.0f+10.0f, rootView.frame.size.height)];
+    UILabel *priceLabel=[[UILabel alloc] init];
+    priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
+    priceLabel.textAlignment=NSTextAlignmentRight;
     priceLabel.text = houseInfo.rent_price;
-    priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
     
     ///单位
-    UILabel *unitPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+13.0f, 20.0f, 20.0f)];
+    UILabel *unitPriceLabel=[[UILabel alloc] init];
+    unitPriceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     unitPriceLabel.text = @"元/月";
-    unitPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    unitPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     unitPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:unitPriceLabel];
+    
+    ///约束参数
+    NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(priceLabel,unitPriceLabel);
+    
+    ///约束
+    NSString *___hVFL_all = @"H:|-(>=2)-[priceLabel(>=80)]-2-[unitPriceLabel(50)]-(>=2)-|";
+    NSString *___vVFL_priceLabel = @"V:|-0-[priceLabel(44)]";
+    NSString *___vVFL_unitPriceLabel = @"V:|-13-[unitPriceLabel(20)]";
+    
+    ///添加约束
+    [rootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:0 metrics:nil views:___viewsVFL]];
+    [rootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_priceLabel options:0 metrics:nil views:___viewsVFL]];
+    [rootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_unitPriceLabel options:0 metrics:nil views:___viewsVFL]];
     
     ///面积底view
     UIView *rootView1 = [[UIView alloc] initWithFrame:CGRectMake(rootView.frame.size.width+6.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height+5.0f, view.frame.size.width/2.0f-3.0f, 44.0f)];
@@ -480,60 +494,46 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:rootView1];
     
     ///面积信息
-    UILabel *areaLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, rootView1.frame.size.width / 2.0f, rootView1.frame.size.height)];
+    UILabel *areaLabel = [[UILabel alloc] init];
+    areaLabel.translatesAutoresizingMaskIntoConstraints=NO;
+    areaLabel.textAlignment=NSTextAlignmentRight;
     areaLabel.text = houseInfo.house_area;
-    areaLabel.textAlignment = NSTextAlignmentRight;
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView1 addSubview:areaLabel];
     
     ///单位
-    UILabel *unitPriceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.size.width+3.0f, priceLabel.frame.origin.y+13.0f, 20.0f, 20.0f)];
+    UILabel *unitPriceLabel1 = [[UILabel alloc] init];
+    unitPriceLabel1.translatesAutoresizingMaskIntoConstraints=NO;
     unitPriceLabel1.text = [NSString stringWithFormat:@"/%@",APPLICATION_AREAUNIT];
-    unitPriceLabel1.textAlignment = NSTextAlignmentLeft;
-    unitPriceLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    unitPriceLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     unitPriceLabel1.textColor = COLOR_CHARACTERS_BLACK;
     [rootView1 addSubview:unitPriceLabel1];
     
-    UILabel *onlyHouseLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, rootView.frame.origin.y+rootView.frame.size.height+10.0f, 65.0f, 20.0f)];
-    onlyHouseLabel.textAlignment=NSTextAlignmentCenter;
-    onlyHouseLabel.text=@"唯一房产";
-    onlyHouseLabel.font=[UIFont systemFontOfSize:14.0f];
-    onlyHouseLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
-    onlyHouseLabel.textColor=[UIColor whiteColor];
-    [view addSubview:onlyHouseLabel];
+    ///约束参数
+    NSDictionary *___viewsVFL1 = NSDictionaryOfVariableBindings(areaLabel,unitPriceLabel1);
     
-    UILabel *fiveYearLabel=[[UILabel alloc] initWithFrame:CGRectMake(onlyHouseLabel.frame.origin.x+onlyHouseLabel.frame.size.width+5.0f, onlyHouseLabel.frame.origin.y, 65.0f, 20.0f)];
-    fiveYearLabel.textAlignment=NSTextAlignmentCenter;
-    fiveYearLabel.text=@"满五年";
-    fiveYearLabel.font=[UIFont systemFontOfSize:14.0f];
-    fiveYearLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
-    fiveYearLabel.textColor=[UIColor whiteColor];
-    [view addSubview:fiveYearLabel];
+    ///约束
+    NSString *___hVFL_all1 = @"H:|-(>=2)-[areaLabel(>=80)]-2-[unitPriceLabel1(30)]-(>=2)-|";
+    NSString *___vVFL_areaLabel = @"V:|-0-[areaLabel(44)]";
+    NSString *___vVFL_unitPriceLabel1 = @"V:|-13-[unitPriceLabel1(20)]";
     
-    UILabel *degreeHouseLabel=[[UILabel alloc] initWithFrame:CGRectMake(fiveYearLabel.frame.origin.x+fiveYearLabel.frame.size.width+5.0f, onlyHouseLabel.frame.origin.y, 65.0f, 20.0f)];
-    degreeHouseLabel.textAlignment=NSTextAlignmentCenter;
-    degreeHouseLabel.font=[UIFont systemFontOfSize:14.0f];
-    degreeHouseLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
-    degreeHouseLabel.textColor=[UIColor whiteColor];
-    degreeHouseLabel.text=@"学位房";
+    ///添加约束
+    [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all1 options:0 metrics:nil views:___viewsVFL1]];
+    [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_areaLabel options:0 metrics:nil views:___viewsVFL1]];
+    [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_unitPriceLabel1 options:0 metrics:nil views:___viewsVFL1]];
     
-    [view addSubview:degreeHouseLabel];
+    ///特色标签
+    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, rootView.frame.origin.y+rootView.frame.size.height, view.frame.size.width, 30.0f)];
+    [view addSubview:featuresRootView];
+    [self createFeaturesSubviews:featuresRootView andDataSource:houseInfo.features];
     
-    UILabel *downPaymentLabel=[[UILabel alloc] initWithFrame:CGRectMake(degreeHouseLabel.frame.origin.x+degreeHouseLabel.frame.size.width+5.0f, onlyHouseLabel.frame.origin.y, 65.0f, 20.0f)];
-    downPaymentLabel.textAlignment=NSTextAlignmentCenter;
-    downPaymentLabel.text=@"低首付";
-    downPaymentLabel.font=[UIFont systemFontOfSize:14.0f];
-    downPaymentLabel.backgroundColor=COLOR_CHARACTERS_BLACK;
-    downPaymentLabel.textColor=[UIColor whiteColor];
-    [view addSubview:downPaymentLabel];
-    
-    QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
     }];
     
     UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, view.frame.size.width-100.0f, 20.0f)];
-    addressLabel.textAlignment=NSTextAlignmentCenter;
+    addressLabel.textAlignment=NSTextAlignmentLeft;
     addressLabel.text=houseInfo.address;
     addressLabel.font=[UIFont systemFontOfSize:14.0f];
     [mapView addSubview:addressLabel];
@@ -562,19 +562,65 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+#pragma mark - 创建特色标签
+///创建特色标签
+- (void)createFeaturesSubviews:(UIView *)view andDataSource:(NSString *)featuresString
+{
+    
+    if (featuresString && ([featuresString length] > 0)) {
+        
+        ///清空原标签
+        for (UIView *obj in [view subviews]) {
+            
+            [obj removeFromSuperview];
+            
+        }
+        
+        ///将标签信息转为数组
+        NSArray *featuresList = [featuresString componentsSeparatedByString:@","];
+        
+        ///标签宽度
+        CGFloat width = 55.0f;
+        
+        ///循环创建特色标签
+        for (int i = 0; i < [featuresList count];i++) {
+            
+            ///标签项
+            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(i * (width + 3.0f), 10.0f, width, 20.0f)];
+            
+            ///根据特色标签，查询标签内容
+            NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:fFilterMainTypeRentalHouse];
+            
+            tempLabel.text = featureVal;
+            tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+            tempLabel.textAlignment = NSTextAlignmentCenter;
+            tempLabel.backgroundColor = COLOR_CHARACTERS_BLACK;
+            tempLabel.textColor = [UIColor whiteColor];
+            tempLabel.layer.cornerRadius = 4.0f;
+            tempLabel.layer.masksToBounds = YES;
+            tempLabel.adjustsFontSizeToFitWidth = YES;
+            [view addSubview:tempLabel];
+            
+        }
+        
+    }
+    
+}
+
+
 #pragma mark -添加房子详情view
 ///添加房子详情view
 -(void)createHouseDetailViewUI:(UIView *)view andHousesInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    houseTypeLabel.text=@"户型:一室一厅";
+     houseTypeLabel.text=[NSString stringWithFormat:@"户型:%@室%@厅%@卫",houseInfoModel.house_shi,houseInfoModel.house_ting ? houseInfoModel.house_ting : @"0",houseInfoModel.house_wei ? houseInfoModel.house_wei : @"0"];
     houseTypeLabel.textAlignment=NSTextAlignmentLeft;
     houseTypeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:houseTypeLabel];
     
     UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    typeLabel.text=[NSString stringWithFormat:@"类型:%@",houseInfoModel.decoration_type];
+    typeLabel.text = [NSString stringWithFormat:@"类型:%@",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type]];
     typeLabel.textAlignment=NSTextAlignmentLeft;
     typeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:typeLabel];
@@ -586,7 +632,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@",houseInfoModel.floor_which];
+    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@/%@",houseInfoModel.floor_which,houseInfoModel.floor_num];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
     layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
@@ -610,7 +656,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=[NSString stringWithFormat:@"产权:%@",houseInfoModel.used_year];
+    propertyLabel.text=[NSString stringWithFormat:@"产权:%@年",houseInfoModel.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];
