@@ -610,7 +610,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=[NSString stringWithFormat:@"%@/%@",houseInfoModel.floor_which,houseInfoModel.floor_num];
+    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@/%@",houseInfoModel.floor_which,houseInfoModel.floor_num];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
       layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
