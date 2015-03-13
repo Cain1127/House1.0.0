@@ -480,6 +480,42 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-03-13 18:03:26
+ *
+ *  @brief  返回建筑结构信息
+ *
+ *  @return 所有建筑类型数据
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseBuildingStructureType
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"building_structure"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseBuildingStructureTypeWithKey:(NSString *)key
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"building_structure" andSecondFieldName:@"key" andSecndFieldValue:key];
+    return tempModel.val;
+    
+}
+
+/**
  *  @author     yangshengmeng, 15-02-12 13:02:13
  *
  *  @brief      查询对应特色标签的值
