@@ -37,6 +37,7 @@
 
 @implementation QSCommunityListView
 
+#pragma mark - 初始化
 /**
  *  @author             yangshengmeng, 15-02-27 10:02:57
  *

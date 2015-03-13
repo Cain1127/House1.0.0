@@ -557,6 +557,8 @@ typedef enum
     rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
     rRequestTypeRentalHouseDetail,              //!<出租房详情请求
     
+    rRequestTypeHomeCountData = 3000,           //!<首页统计数据
+    
     rRequestTypeImage                           //!<图片请求：末尾请求
 
 }REQUEST_TYPE;                                  //!<请求类型

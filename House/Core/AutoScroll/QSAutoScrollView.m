@@ -852,6 +852,13 @@
  */
 - (void)reloadAutoScrollView
 {
+    
+    ///先清空原UI
+    for (UIView *obj in [self subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
 
     [self createAutoShowViewUI];
 

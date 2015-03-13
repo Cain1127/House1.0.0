@@ -66,40 +66,42 @@ static char IncreaseUnitKey;//!<涨幅单位关联
 {
 
     ///小区信息
-    UILabel *titlaLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, 120.0f, self.frame.size.height)];
+    UILabel *titlaLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, 90.0f, self.frame.size.height)];
     titlaLabel.textAlignment = NSTextAlignmentLeft;
     titlaLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     titlaLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titlaLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:titlaLabel];
     objc_setAssociatedObject(self, &CommunityKey, titlaLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///现价
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(titlaLabel.frame.origin.x + titlaLabel.frame.size.width + 15.0f, 0.0f, 40.0f, self.frame.size.height)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(titlaLabel.frame.origin.x + titlaLabel.frame.size.width + 10.0f, 0.0f, 40.0f, self.frame.size.height)];
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    priceLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///现价单位
-    UILabel *priceUnitLable = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width, 0.0f, 30.0f, self.frame.size.height)];
+    UILabel *priceUnitLable = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width, 0.0f, 40.0f, self.frame.size.height)];
     priceUnitLable.text = [NSString stringWithFormat:@"万/%@",APPLICATION_AREAUNIT];
     priceUnitLable.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [self addSubview:priceUnitLable];
     
     ///上涨或下调提示
-    QSImageView *tipsImage = [[QSImageView alloc] initWithFrame:CGRectMake(priceUnitLable.frame.origin.x + priceUnitLable.frame.size.width + 15.0f, 0.0f, 10.0f, self.frame.size.height)];
-    tipsImage.backgroundColor = [UIColor orangeColor];
+    QSImageView *tipsImage = [[QSImageView alloc] initWithFrame:CGRectMake(priceUnitLable.frame.origin.x + priceUnitLable.frame.size.width + 5.0f, (self.frame.size.height - 22.0f) / 2.0f, 10.0f, 22.0f)];
     tipsImage.hidden = YES;
     [self addSubview:tipsImage];
     objc_setAssociatedObject(self, &TipsImageKey, tipsImage, OBJC_ASSOCIATION_ASSIGN);
     
     ///涨幅
-    UILabel *increaseInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceUnitLable.frame.origin.x + priceUnitLable.frame.size.width + 5.0f, 0.0f, 40.0f, self.frame.size.height)];
-    increaseInfoLabel.textAlignment = NSTextAlignmentRight;
+    UILabel *increaseInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipsImage.frame.origin.x + tipsImage.frame.size.width + 5.0f, 0.0f, 40.0f, self.frame.size.height)];
+    increaseInfoLabel.textAlignment = NSTextAlignmentLeft;
     increaseInfoLabel.textColor = COLOR_CHARACTERS_YELLOW;
     increaseInfoLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     increaseInfoLabel.hidden = YES;
+    increaseInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:increaseInfoLabel];
     objc_setAssociatedObject(self, &IncreaseKey, increaseInfoLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -110,6 +112,11 @@ static char IncreaseUnitKey;//!<涨幅单位关联
     increaseUnitLable.hidden = YES;
     [self addSubview:increaseUnitLable];
     objc_setAssociatedObject(self, &IncreaseUnitKey, increaseUnitLable, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///右箭头
+    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(self.frame.size.width - 13.0f - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [self addSubview:arrowView];
 
 }
 
@@ -155,24 +162,31 @@ static char IncreaseUnitKey;//!<涨幅单位关联
     
     ///更新现价
     UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
-    if (PriceKey && model.collected_new_price) {
+    if (priceLabel && model.collected_new_price) {
         
-        priceLabel.text = [NSString stringWithFormat:@"%.2f",[model.collected_new_price floatValue]];
+        priceLabel.text = [NSString stringWithFormat:@"%.2f",[model.collected_new_price floatValue] / 10000];
         
     }
     
     ///判断是否存在涨幅
     CGFloat newPrice = [model.collected_new_price floatValue];
     CGFloat oldPrice = [model.collected_old_price floatValue];
+    CGFloat increasePrice = newPrice - oldPrice;
+    CGFloat isChange = newPrice - oldPrice;
     
-    if (((newPrice - oldPrice) < 1.0f) || ((oldPrice - newPrice) < 1.0f)) {
+    if (isChange < 0.0) {
+        
+        isChange = isChange * (-1.0f);
+        
+    }
+    
+    if (isChange < 1.0f) {
         
         return;
         
     }
     
     ///计算涨幅
-    CGFloat increasePrice = newPrice - oldPrice;
     CGFloat increase = 0.0f;
     
     ///指示图片
@@ -197,7 +211,7 @@ static char IncreaseUnitKey;//!<涨幅单位关联
     imageView.hidden = NO;
     
     UILabel *increaseLabel = objc_getAssociatedObject(self, &IncreaseKey);
-    increaseLabel.text = [NSString stringWithFormat:@"%.2f",increasePrice];
+    increaseLabel.text = [NSString stringWithFormat:@"%.2f",increase];
     increaseLabel.hidden = NO;
     
     UILabel *unitLabel = objc_getAssociatedObject(self, &IncreaseUnitKey);

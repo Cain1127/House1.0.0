@@ -10,6 +10,10 @@
 
 #import <objc/runtime.h>
 
+///指示器使用自定义或者系统指示控制宏
+#define ___USE_SYSTEM_INDICATOR___
+//#define ___USE_CUSTOM_INDICATOR___
+
 ///关联
 static char LoadingImageViewKey;//!<转动图片关联key
 static char TipsLabelKey;       //!<提示信息的关联Key
@@ -143,8 +147,14 @@ static char TipsLabelKey;       //!<提示信息的关联Key
 {
     
     ///停止动画
-    UIImageView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
+    UIView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
+#ifdef ___USE_SYSTEM_INDICATOR___
+    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)loadingImageView;
+    [indicatorView stopAnimating];
+#endif
+#ifdef ___USE_CUSTOM_INDICATOR___
     [self.loadingTimer invalidate];
+#endif
 
     ///判断是否有退出时的提示信息
     if (footerTips) {
@@ -208,7 +218,7 @@ static char TipsLabelKey;       //!<提示信息的关联Key
 {
     
     ///图片框
-    UIImageView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
+    UIView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
     
     ///提示信息框
     UILabel *tipsLabel = nil;
@@ -243,9 +253,17 @@ static char TipsLabelKey;       //!<提示信息的关联Key
         
     }
     
+#ifdef ___USE_CUSTOM_INDICATOR___
     ///开启转动
     self.loadingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(loadingAniminationAction:) userInfo:nil repeats:YES];
     [self.loadingTimer fire];
+#endif
+    
+#ifdef ___USE_SYSTEM_INDICATOR___
+    ///转为系统指示
+    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)loadingImageView;
+    [indicator startAnimating];
+#endif
 
 }
 
@@ -286,12 +304,22 @@ static char TipsLabelKey;       //!<提示信息的关联Key
     ///背景颜色
     self.backgroundColor = COLOR_CHARACTERS_BLACKH;
     
+#ifdef ___USE_SYSTEM_INDICATOR___
+    ///系统指示
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicatorView.frame = CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 30.0f, SIZE_DEVICE_HEIGHT / 2.0f - 42.0f, 60.0f, 60.0f);
+    [self addSubview:indicatorView];
+    objc_setAssociatedObject(self, &LoadingImageViewKey, indicatorView, OBJC_ASSOCIATION_ASSIGN);
+#endif
+    
+#ifdef ___USE_CUSTOM_INDICATOR___
     ///中间转动指示
     QSImageView *loadingImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 20.0f, SIZE_DEVICE_HEIGHT / 2.0f - 42.0f, 40.0f, 40.0f)];
     loadingImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_LOADING];
     [self addSubview:loadingImageView];
     
     objc_setAssociatedObject(self, &LoadingImageViewKey, loadingImageView, OBJC_ASSOCIATION_ASSIGN);
+#endif
 
 }
 
