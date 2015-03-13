@@ -174,4 +174,17 @@
 ///无已取消订单提示
 #define TITLE_MYZONE_CANCEL_ORDER_NODATA_TIP        @"您暂无已取消的订单"
 
+///订单详情待确认标题
+#define TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP      @"待确认"
+
+///订单详情看房时间控件标题
+#define TITLE_MYZONE_ORDER_DETAIL_SHOWINGS_TITLE_TIP        @"看房时间"
+
+///订单详情房源控件标题
+#define TITLE_MYZONE_ORDER_DETAIL_HOUSE_ID_TITLE_TIP        @"房源编号"
+
+///修改订单
+#define TITLE_MYZONE_ORDER_DETAIL_CHANGE_ORDER_TITLE_TIP    @"修改订单"
+
+
 #endif

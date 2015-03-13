@@ -18,7 +18,7 @@
  *  @since  1.0.0
  */
 
-///右侧大剪头
+///右侧大箭头
 #define IMAGE_PUBLIC_RIGHT_ARROW @"public_row_arrow"
 
 ///loading图片
@@ -326,6 +326,18 @@
 #define IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL    @"myzone_oorderlist_cell_ask_bt_normal"
 ///预约订单列表咨询按钮选中图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED  @"myzone_oorderlist_cell_ask_bt_selected"
+
+///订单详情看房时间按钮下箭头图片
+#define IMAGE_ZONE_ORDER_DETAIL_DOWN_ARROW_BT   @"myzone_oorderdetail_down_bt"
+///订单详情看房时间按钮上箭头图片
+#define IMAGE_ZONE_ORDER_DETAIL_UP_ARROW_BT     @"myzone_oorderdetail_up_bt"
+
+
+///订单详情地址栏地图定位按钮默认图片
+#define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_NORMAL   @"myzone_oorderdetail_map_bt_normal"
+///订单详情地址栏地图定位按钮按下图片
+#define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED  @"myzone_oorderdetail_map_bt_pressed"
+
 
 
 #endif

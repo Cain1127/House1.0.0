@@ -52,28 +52,28 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 {
     
     ///订单记录列表
-    UITableView *bookingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
+    UITableView *completeListTableView = [[UITableView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
     
     ///取消滚动条
-    bookingListTableView.showsHorizontalScrollIndicator = NO;
-    bookingListTableView.showsVerticalScrollIndicator = NO;
+    completeListTableView.showsHorizontalScrollIndicator = NO;
+    completeListTableView.showsVerticalScrollIndicator = NO;
     
     ///数据源
-    bookingListTableView.dataSource = self;
-    bookingListTableView.delegate = self;
+    completeListTableView.dataSource = self;
+    completeListTableView.delegate = self;
     
     ///取消选择状态
-    bookingListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    completeListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self addSubview:bookingListTableView];
+    [self addSubview:completeListTableView];
     
-    objc_setAssociatedObject(self, &CompleteListTableViewKey, bookingListTableView, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &CompleteListTableViewKey, completeListTableView, OBJC_ASSOCIATION_ASSIGN);
     
     ///没有数据时显示
-    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, bookingListTableView.frame.size.width, 0)];
+    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, completeListTableView.frame.size.width, 0)];
     
     UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_COMMUNITY_NODATA_CION]];
-    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-(150.f/750.f * SIZE_DEVICE_WIDTH))/2, 0, 150.f/750.f * SIZE_DEVICE_WIDTH, 170.f/1332.f*SIZE_DEVICE_HEIGHT)];
+    [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-75.0f)/2.0f, 0, 75.f, 85.f)];
     [noDataView addSubview:nodataImgView];
     
     QSLabel *nodataTipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0, nodataImgView.frame.origin.y+nodataImgView.frame.size.height, noDataView.frame.size.width, 30)];
@@ -82,17 +82,18 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     objc_setAssociatedObject(self, &CompleteListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
     [noDataView addSubview:nodataTipLabel];
     
-    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, noDataView.frame.origin.y, noDataView.frame.size.width, nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height)];
+    CGFloat noDataViewHeight = nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height;
+    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, (completeListTableView.frame.size.height-noDataViewHeight)/2, noDataView.frame.size.width, noDataViewHeight)];
     
-    [bookingListTableView addSubview:noDataView];
+    [completeListTableView addSubview:noDataView];
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [bookingListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [bookingListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [completeListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
+    [completeListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [bookingListTableView headerBeginRefreshing];
+    [completeListTableView headerBeginRefreshing];
     
 }
 
@@ -196,6 +197,13 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     
     return MY_ZONE_ORDER_LIST_CELL_HEIGHT;
     
+}
+
+#pragma mark - 响应点击订单操作
+///响应点击订单操作
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"completeList didSelectRowAtIndexPath:%d",indexPath.row);
 }
 
 @end
