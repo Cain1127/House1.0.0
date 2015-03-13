@@ -162,8 +162,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                     tempModel.collected_type = [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity];
                     tempModel.collectid_title = communityModel.title;
                     tempModel.collected_status = @"0";
-                    tempModel.collected_old_price = communityModel.price_avg;
-                    tempModel.collected_new_price = communityModel.tj_last_month_price_avg;
+                    tempModel.collected_old_price = communityModel.tj_last_month_price_avg;
+                    tempModel.collected_new_price = communityModel.price_avg;
                     
                     ///添加数据源
                     [self.collectedDataSource addObject:tempModel];
@@ -174,6 +174,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                 }
                 
             }];
+            searchCommunityVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:searchCommunityVC animated:YES];
             
         } else {
