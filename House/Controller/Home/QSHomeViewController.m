@@ -317,7 +317,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     UILabel *dataLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, titleLabel.frame.size.height + 10.0f, view.frame.size.width, 30.0f)];
     dataLabel.textAlignment = NSTextAlignmentCenter;
     dataLabel.font = [UIFont systemFontOfSize:FONT_BODY_25];
-    dataLabel.text = @"38234";
+    dataLabel.text = @"0";
     dataLabel.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:dataLabel];
     
