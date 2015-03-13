@@ -9,6 +9,7 @@
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSCommunityDataModel.h"
 #import "QSPhotoDataModel.h"
+#import "QSHouseInfoDataModel.h"
 
 @implementation QSCommunityHouseDetailDataModel
 
@@ -30,7 +31,7 @@
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village_photo" toKeyPath:@"village_photo" withMapping:[QSPhotoDataModel objectMapping]]];
     
     /// 推荐
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend" toKeyPath:@"house_commend" withMapping:[QSCommunityDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend" toKeyPath:@"house_commend" withMapping:[QSHouseInfoDataModel objectMapping]]];
     
     return shared_mapping;
     

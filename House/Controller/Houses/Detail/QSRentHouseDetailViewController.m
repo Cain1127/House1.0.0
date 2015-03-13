@@ -528,18 +528,24 @@ static char LeftStarKey;            //!<左侧星级
     downPaymentLabel.textColor=[UIColor whiteColor];
     [view addSubview:downPaymentLabel];
     
-    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height+10.0f, SIZE_DEFAULT_MAX_WIDTH-100.0f, 20.0f)];
+    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height+10.0f, view.frame.size.width-100.0f, 20.0f)];
     addressLabel.textAlignment=NSTextAlignmentCenter;
     addressLabel.text=@"番禺/大石/大石海滨花园 西槎路粤西南路";
     addressLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:addressLabel];
     
     ///查看地图信息
-    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabel.frame.origin.x + addressLabel.frame.size.width, addressLabel.frame.origin.y, 70.0f, 20.0f)];
+    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-30.0f-70.0f, addressLabel.frame.origin.y, 70.0f, 20.0f)];
     tipsLabel.text = @"(查看地图)";
     tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    tipsLabel.textAlignment=NSTextAlignmentCenter;
     tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     [view addSubview:tipsLabel];
+    
+    ///定位按钮
+    QSImageView *localImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, tipsLabel.frame.origin.y-5.0f, 30.0f, 30.0f)];
+    localImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_LOCAL_LIGHYELLOW];
+    [view addSubview:localImageView];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -568,11 +574,11 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *orientationsLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     orientationsLabel.textAlignment=NSTextAlignmentLeft;
     orientationsLabel.font=[UIFont systemFontOfSize:14.0f];
-    orientationsLabel.text=@"朝向:东南西北中";
+    orientationsLabel.text=[NSString stringWithFormat:@"朝向:%@",[QSCoreDataManager getHouseFaceTypeWithKey:houseInfoModel.house_face]];
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=@"层数:23/38层";
+    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@",houseInfoModel.floor_which];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
     layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
@@ -580,11 +586,11 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     decoreteLabel.textAlignment=NSTextAlignmentLeft;
     decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
-    decoreteLabel.text=@"装修:精装修";
+    decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    timeLabel.text=@"年代:2008年";
+    timeLabel.text=[NSString stringWithFormat:@"年代:%@",@"需要问接口"];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];
@@ -592,11 +598,11 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     structureLabel.textAlignment=NSTextAlignmentLeft;
     structureLabel.font=[UIFont systemFontOfSize:14.0f];
-    structureLabel.text=@"结构:混合";
+    structureLabel.text=[NSString stringWithFormat:@"结构:%@",@"接口暂无字段"];
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=@"产权:50年使用权";
+    propertyLabel.text=[NSString stringWithFormat:@"产权:%@",houseInfoModel.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];
@@ -604,11 +610,11 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, structureLabel.frame.origin.y+structureLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     stateLabel.textAlignment=NSTextAlignmentLeft;
     stateLabel.font=[UIFont systemFontOfSize:14.0f];
-    stateLabel.text=@"状态:在租中";
+    stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status];
     [view addSubview:stateLabel];
     
     UILabel *intakeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, structureLabel.frame.origin.y+structureLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    intakeLabel.text=@"入住:2014年12月";
+    intakeLabel.text=[NSString stringWithFormat:@"入住:%@",houseInfoModel.lead_time];
     intakeLabel.font=[UIFont systemFontOfSize:14.0f];
     intakeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:intakeLabel];

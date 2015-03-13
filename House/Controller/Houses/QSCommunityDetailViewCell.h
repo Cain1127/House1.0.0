@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QSHouseInfoDataModel.h"
 
 @interface QSCommunityDetailViewCell : UITableViewCell
+
+/*!
+ *  @author wangshupeng, 15-03-13 12:03:14
+ *
+ *  @brief  小区推荐列表刷新
+ *
+ *  @param tempModel cell数据
+ *
+ *  @since 1.0.0
+ */
+- (void)updateCommunityInfoCellUIWithDataModel:(QSHouseInfoDataModel *)tempModel;
+
 
 @end

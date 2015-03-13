@@ -20,6 +20,7 @@
 
 #import "QSCommunityHousesDetailReturnData.h"
 #import "QSCommunityHouseDetailDataModel.h"
+#import "QSHouseInfoDataModel.h"
 
 #import "QSCommunityDataModel.h"
 #import "QSPhotoDataModel.h"
@@ -55,8 +56,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (nonatomic,retain) NSArray *photoArray;                      //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *village_photo;          //!<图片模型
 
-@property (nonatomic,retain) NSArray *house_commend;                   //!<推荐数组
-@property (nonatomic,retain) QSCommunityDataModel *houseCommend;       //!<推荐模型
+@property (nonatomic,retain) NSArray *houseCommendArray;                   //!<推荐数组
+@property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;       //!<推荐模型
 
 @property (nonatomic, strong) UITableView *tabbleView;              //!<小区信息view
 //@property (nonatomic, retain) NSMutableArray *communityDataSource;  //!<小区推荐数据源
@@ -182,7 +183,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     
-    [self createPriceChangeViewUI:priceChangeView];
+    [self createPriceChangeViewUI:priceChangeView andSecondHouseNum:dataModel.village.tj_secondHouse_num];
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
@@ -190,7 +191,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         NSLog(@"点击进入小区出租房");
         
     }];
-    [self createDistrictAveragePriceViewUI:districtAveragePriceView];
+    [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     
     ///小区房价走势view
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
@@ -211,7 +212,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }];
     [self createCommentViewUI:commentView];
     
-    self.tabbleView=[[UITableView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 10.0f*100.0f)];
+    self.tabbleView=[[UITableView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.houseCommendArray.count*100.0f)];
     self.tabbleView.delegate=self;
     self.tabbleView.dataSource=self;
     
@@ -311,15 +312,37 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -小区二手房view
 ///小区二手房view
--(void)createPriceChangeViewUI:(UIView *)view
+-(void)createPriceChangeViewUI:(UIView *)view andSecondHouseNum:(NSString *)secondHouseNum
 {
     
-    ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
-    userLabel.text = @"小区二手房(28)";
+    ///二手房label
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 80.0f, 15.0f)];
+    userLabel.text = @"小区二手房";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [view addSubview:userLabel];
+    
+    ///括号
+    UILabel *unit1=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit1.text=@"(";
+    unit1.font=[UIFont systemFontOfSize:20.0f];
+    unit1.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit1];
+    
+    ///二手房数量
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(unit1.frame.origin.x+unit1.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 25.0f, 25.0f)];
+    countLabel.text = [NSString stringWithFormat:@"%@",secondHouseNum];
+    countLabel.textAlignment=NSTextAlignmentCenter;
+    countLabel.textColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:countLabel];
+    
+    ///括号
+    UILabel *unit2=[[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit2.text=@")";
+    unit2.font=[UIFont systemFontOfSize:20.0f];
+    unit2.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit2];
     
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
@@ -335,15 +358,37 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -添加小区出租房view
 ///添加小区均价view
--(void)createDistrictAveragePriceViewUI:(UIView *)view
+-(void)createDistrictAveragePriceViewUI:(UIView *)view andRentHouseNum:(NSString *)rentHouseNum
 {
     
-    ///更多配套
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
-    userLabel.text = @"小区出租房(99)";
+    ///小区出租房
+    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 80.0f, 15.0f)];
+    userLabel.text = @"小区出租房";
     userLabel.textColor = COLOR_CHARACTERS_BLACK;
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [view addSubview:userLabel];
+    
+    ///括号
+    UILabel *unit1=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit1.text=@"(";
+    unit1.font=[UIFont systemFontOfSize:20.0f];
+    unit1.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit1];
+    
+    ///二手房数量
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(unit1.frame.origin.x+unit1.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 25.0f, 25.0f)];
+    countLabel.text = [NSString stringWithFormat:@"%@",rentHouseNum];
+    countLabel.textAlignment=NSTextAlignmentCenter;
+    countLabel.textColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:countLabel];
+    
+    ///括号
+    UILabel *unit2=[[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+3.0f, SIZE_DEFAULT_HEIGHTTAP-5.0f, 10.0f, 25.0f)];
+    unit2.text=@")";
+    unit2.font=[UIFont systemFontOfSize:20.0f];
+    unit2.textAlignment=NSTextAlignmentCenter;
+    [view addSubview:unit2];
     
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
@@ -601,13 +646,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     ///获取模型
-    //QSStoredCardDataModel *tempModel = self.storedCardDataSource[indexPath.row];
+     self.houseCommendModel = self.houseCommendArray[indexPath.row];
     
-    
-    //cell.cBalanceLabel.text=tempModel.historybalance;
-    
+    [cell updateCommunityInfoCellUIWithDataModel:self.houseCommendModel];
     ///取消选择样式
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
     
 }
@@ -622,7 +665,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 10.0f;
+    return self.houseCommendArray.count;
 
 }
 
@@ -663,6 +706,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             self.detailInfo = tempModel.detailInfo;
             
             self.houseInfo=tempModel.detailInfo.village;
+            self.houseCommendArray=tempModel.detailInfo.house_commend;
             NSLog(@"出租房详情数据请求成功%@",tempModel.detailInfo.village);
             NSLog(@"参数id%@",params);
             NSLog(@"地址%@",self.houseInfo.address);

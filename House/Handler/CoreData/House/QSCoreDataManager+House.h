@@ -116,6 +116,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseFaceType;
++ (NSString *)getHouseFaceTypeWithKey:(NSString *)decorationKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 10:02:25

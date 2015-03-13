@@ -277,6 +277,15 @@
 
 }
 
+///查找朝向
++ (NSString *)getHouseFaceTypeWithKey:(NSString *)decorationKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_face" andSecondFieldName:@"key" andSecndFieldValue:decorationKey];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 10:02:25
  *

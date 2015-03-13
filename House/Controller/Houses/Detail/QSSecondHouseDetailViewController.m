@@ -49,8 +49,8 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 ///详情信息的数据模型
-@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
-@property (nonatomic,retain) QSHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
+@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;      //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
+@property (nonatomic,retain) QSHouseInfoDataModel *houseInfo;               //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
@@ -552,18 +552,24 @@ static char LeftStarKey;            //!<左侧星级
     downPaymentLabel.textColor=[UIColor whiteColor];
     [view addSubview:downPaymentLabel];
     
-    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height+10.0f, SIZE_DEFAULT_MAX_WIDTH-100.0f, 20.0f)];
+    UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, onlyHouseLabel.frame.origin.y+onlyHouseLabel.frame.size.height+10.0f, view.frame.size.width-100.0f, 20.0f)];
     addressLabel.textAlignment=NSTextAlignmentCenter;
     addressLabel.text=@"番禺/大石/大石海滨花园 西槎路粤西南路";
     addressLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:addressLabel];
     
-    ///补充信息
-    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabel.frame.origin.x + addressLabel.frame.size.width, addressLabel.frame.origin.y, 70.0f, 20.0f)];
+    ///查看地图信息
+    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-30.0f-70.0f, addressLabel.frame.origin.y, 70.0f, 20.0f)];
     tipsLabel.text = @"(查看地图)";
     tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    tipsLabel.textAlignment=NSTextAlignmentCenter;
     tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     [view addSubview:tipsLabel];
+    
+    ///定位按钮
+    QSImageView *localImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, tipsLabel.frame.origin.y-5.0f, 30.0f, 30.0f)];
+    localImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_LOCAL_LIGHYELLOW];
+    [view addSubview:localImageView];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
