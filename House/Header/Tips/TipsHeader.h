@@ -28,6 +28,7 @@
 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(b * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{\
     \
     c();\
+    [alertMessage dismissWithClickedButtonIndex:0 animated:YES];\
     \
 });
 
