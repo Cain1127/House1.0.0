@@ -77,7 +77,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:phoneField];
     
     ///分隔线
-    UILabel *phoneLineLable = [[UILabel alloc] initWithFrame:CGRectMake(phoneField.frame.origin.x + 5.0f, phoneField.frame.origin.y + phoneField.frame.size.height + 3.5f, phoneField.frame.size.width, 0.5f)];
+    UILabel *phoneLineLable = [[UILabel alloc] initWithFrame:CGRectMake(phoneField.frame.origin.x + 5.0f, phoneField.frame.origin.y + phoneField.frame.size.height + 3.5f, phoneField.frame.size.width - 10.0f, 0.5f)];
     phoneLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [rootView addSubview:phoneLineLable];
     
@@ -89,7 +89,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:passwordField];
     
     ///分隔线
-    UILabel *passwordLineLable = [[UILabel alloc] initWithFrame:CGRectMake(passwordField.frame.origin.x + 5.0f, passwordField.frame.origin.y + passwordField.frame.size.height + 3.5f, passwordField.frame.size.width, 0.5f)];
+    UILabel *passwordLineLable = [[UILabel alloc] initWithFrame:CGRectMake(passwordField.frame.origin.x + 5.0f, passwordField.frame.origin.y + passwordField.frame.size.height + 3.5f, passwordField.frame.size.width - 10.0f, 0.5f)];
     passwordLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [rootView addSubview:passwordLineLable];
     
@@ -114,7 +114,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     vertificationCodeField.rightView = verInfoView;
     
     ///分隔线
-    UILabel *vertificationCodeLineLable = [[UILabel alloc] initWithFrame:CGRectMake(vertificationCodeField.frame.origin.x + 5.0f, vertificationCodeField.frame.origin.y + vertificationCodeField.frame.size.height + 3.5f, vertificationCodeField.frame.size.width, 0.5f)];
+    UILabel *vertificationCodeLineLable = [[UILabel alloc] initWithFrame:CGRectMake(vertificationCodeField.frame.origin.x + 5.0f, vertificationCodeField.frame.origin.y + vertificationCodeField.frame.size.height + 3.5f, vertificationCodeField.frame.size.width - 10.0f, 0.5f)];
     vertificationCodeLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [rootView addSubview:vertificationCodeLineLable];
     
@@ -197,7 +197,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     buttonStyle.title = TITLE_LOGIN_NORMALUSER_REGIST_BUTTON;
     UIButton *normalUserRegistButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, loginButton.frame.origin.y + loginButton.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        
+        ///进入注册页面
+        QSYRegistViewController *registVC = [[QSYRegistViewController alloc] initWithRegistCallBack:^(BOOL flag, NSString *count, NSString *psw) {
+            
+           ///注册成功
+            if (flag) {
+                
+                
+                
+            }
+            
+        }];
+        [self.navigationController pushViewController:registVC animated:YES];
         
     }];
     [rootView addSubview:normalUserRegistButton];

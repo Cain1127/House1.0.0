@@ -559,6 +559,8 @@ typedef enum
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
+    rRequestTypeSendPhoneVertical = 9000,       //!<发送手机验证码
+    
     rRequestTypeImage                           //!<图片请求：末尾请求
 
 }REQUEST_TYPE;                                  //!<请求类型
