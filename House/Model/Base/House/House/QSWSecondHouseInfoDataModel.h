@@ -14,4 +14,7 @@
 @property (nonatomic,copy) NSString *coordinate_x;               //!<经度
 @property (nonatomic,copy) NSString *coordinate_y;               //!<纬度
 
+@property (nonatomic,copy) NSString *tj_look_house_num;          //!<已看房人数
+@property (nonatomic,copy) NSString *tj_wait_look_house_people;  //!<待看房数
+
 @end

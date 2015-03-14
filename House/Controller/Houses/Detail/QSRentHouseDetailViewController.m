@@ -307,7 +307,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
-    [self createHouseAttentionViewUI:houseAttentionView];
+    [self createHouseAttentionViewUI:houseAttentionView andHouseInfo:dataModel.house];
     
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
@@ -859,7 +859,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///单位
     UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel.frame.origin.x + unitLabel.frame.size.width + 2.0f,priceLabel.frame.origin.y+7.5f , 25.0f, 10.0f)];
-    unitLabel1.text = @"/m";
+    unitLabel1.text = [NSString stringWithFormat:@"/%@",APPLICATION_AREAUNIT];
     unitLabel1.textAlignment = NSTextAlignmentLeft;
     unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
     unitLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -893,7 +893,8 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加房源关注view
 ///添加房源关注view
--(void)createHouseAttentionViewUI:(UIView *)view
+-(void)createHouseAttentionViewUI:(UIView *)view andHouseInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
+
 {
     
     ///间隙
@@ -908,7 +909,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:busLabel];
     
     UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
-    busCountLable.text = @"980";
+    busCountLable.text = houseInfoModel.view_count ? houseInfoModel.view_count : @"0";
     busCountLable.textAlignment = NSTextAlignmentRight;
     busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     busCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -934,7 +935,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:techLabel];
     
     UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, busCountLable.frame.origin.y, width / 2.0f + 5.0f, 25.0f)];
-    techCountLable.text = @"120";
+    techCountLable.text = houseInfoModel.attention_count ? houseInfoModel.attention_count : @"0";
     techCountLable.textAlignment = NSTextAlignmentRight;
     techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     techCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -960,7 +961,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:medicalLabel];
     
     UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
-    medicalCountLable.text = @"28";
+    medicalCountLable.text = houseInfoModel.tj_wait_look_house_people ? houseInfoModel.tj_wait_look_house_people : @"0";
     medicalCountLable.textAlignment = NSTextAlignmentRight;
     medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     medicalCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -986,7 +987,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:foodLabel];
     
     UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
-    foodCountLable.text = @"28";
+    foodCountLable.text = houseInfoModel.reservation_num ? houseInfoModel.reservation_num : @"0";
     foodCountLable.textAlignment = NSTextAlignmentRight;
     foodCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     foodCountLable.textColor = COLOR_CHARACTERS_YELLOW;

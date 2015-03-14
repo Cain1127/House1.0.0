@@ -19,7 +19,9 @@
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"coordinate_x",
                                                     @"coordinate_y",
-                                                    @"price_avg"
+                                                    @"price_avg",
+                                                    @"tj_look_house_num",
+                                                    @"tj_wait_look_house_people"
                                                     ]];
     
     return shared_mapping;

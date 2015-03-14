@@ -35,7 +35,27 @@
                                                     @"update_time",
                                                     @"status",
                                                     @"create_time",
-                                                    @"num"]];
+                                                    @"num",
+                                                    
+                                                    @"user_type",
+                                                    @"email",
+                                                    @"mobile",
+                                                    @"realname",
+                                                    @"sex",
+                                                    @"avatar",
+                                                    
+                                                    @"nickname",
+                                                    @"username",
+                                                    @"sign",
+                                                    @"web",
+                                                    @"qq",
+                                                    @"age",
+                                                    @"idcard",
+                                                    @"vocation",
+                                                    @"tj_secondHouse_num",
+                                                    @"tj_rentHouse_num"
+                                                    ]];
+
     
     return shared_mapping;
     
