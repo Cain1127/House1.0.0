@@ -62,6 +62,9 @@
 		18AFA9CE1AB2EC9700681071 /* QSYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9CD1AB2EC9700681071 /* QSYRegistViewController.m */; };
 		18AFA9D11AB2F4C300681071 /* QSNetworkVerticalCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D01AB2F4C300681071 /* QSNetworkVerticalCodeView.m */; };
 		18AFA9D51AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D41AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m */; };
+		18AFA9D81AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */; };
+		18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9DB1AB3E84F00681071 /* QSYLoginReturnData.m */; };
+		18AFA9E01AB3F07D00681071 /* QSCDUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -509,6 +512,12 @@
 		18AFA9D01AB2F4C300681071 /* QSNetworkVerticalCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkVerticalCodeView.m; sourceTree = "<group>"; };
 		18AFA9D31AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSendVerticalCodeReturnData.h; path = SendVerticalCode/QSYSendVerticalCodeReturnData.h; sourceTree = "<group>"; };
 		18AFA9D41AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSendVerticalCodeReturnData.m; path = SendVerticalCode/QSYSendVerticalCodeReturnData.m; sourceTree = "<group>"; };
+		18AFA9D61AB3CD3E00681071 /* QSYRegistSetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRegistSetPasswordViewController.h; path = Login/Login/QSYRegistSetPasswordViewController.h; sourceTree = "<group>"; };
+		18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRegistSetPasswordViewController.m; path = Login/Login/QSYRegistSetPasswordViewController.m; sourceTree = "<group>"; };
+		18AFA9DA1AB3E84F00681071 /* QSYLoginReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYLoginReturnData.h; path = Login/QSYLoginReturnData.h; sourceTree = "<group>"; };
+		18AFA9DB1AB3E84F00681071 /* QSYLoginReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYLoginReturnData.m; path = Login/QSYLoginReturnData.m; sourceTree = "<group>"; };
+		18AFA9DE1AB3F07D00681071 /* QSCDUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDUserDataModel.h; path = User/QSCDUserDataModel.h; sourceTree = "<group>"; };
+		18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDUserDataModel.m; path = User/QSCDUserDataModel.m; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1813,6 +1822,8 @@
 			children = (
 				18AFA9CC1AB2EC9700681071 /* QSYRegistViewController.h */,
 				18AFA9CD1AB2EC9700681071 /* QSYRegistViewController.m */,
+				18AFA9D61AB3CD3E00681071 /* QSYRegistSetPasswordViewController.h */,
+				18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */,
 			);
 			name = Regist;
 			sourceTree = "<group>";
@@ -1824,6 +1835,24 @@
 				18AFA9D41AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m */,
 			);
 			name = SendVerticalCode;
+			sourceTree = "<group>";
+		};
+		18AFA9D91AB3E83000681071 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9DA1AB3E84F00681071 /* QSYLoginReturnData.h */,
+				18AFA9DB1AB3E84F00681071 /* QSYLoginReturnData.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		18AFA9DD1AB3F06200681071 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9DE1AB3F07D00681071 /* QSCDUserDataModel.h */,
+				18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -2665,6 +2694,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18AFA9D91AB3E83000681071 /* Login */,
 				18AFA9D21AB2FF0C00681071 /* SendVerticalCode */,
 				1865E3DB1AB2976D00FAEC9E /* Home */,
 				182C88191A7B0F0A00DA64E9 /* House */,
@@ -2767,6 +2797,7 @@
 		18CAFCC71A70E45A00C90C90 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				18AFA9DD1AB3F06200681071 /* User */,
 				1865E3BF1AB1640C00FAEC9E /* Collected */,
 				18E932451A762C4B00927DF2 /* Configuration */,
 				18CAFCEC1A723B0600C90C90 /* Filter */,
@@ -3728,6 +3759,7 @@
 				18FBA5B81A787013001372B3 /* QSGuideHeaderViewController.m in Sources */,
 				18018AF71AA05D7200F35DEB /* QSCommunityListReturnData.m in Sources */,
 				18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */,
+				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
 				CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
@@ -3810,6 +3842,7 @@
 				475C3D811AB272B00028608F /* QSPOrderDetailTitleLabel.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
+				18AFA9E01AB3F07D00681071 /* QSCDUserDataModel.m in Sources */,
 				18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */,
 				18AFA9D51AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m in Sources */,
 				186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */,
@@ -3834,6 +3867,7 @@
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
+				18AFA9D81AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m in Sources */,
 				18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
@@ -3972,8 +4006,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
@@ -3995,8 +4029,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";

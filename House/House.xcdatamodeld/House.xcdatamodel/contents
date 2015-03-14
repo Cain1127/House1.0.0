@@ -81,8 +81,25 @@
         <attribute name="search_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="search_type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="QSCDUserDataModel" syncable="YES">
+    <entity name="QSCDUserDataModel" representedClassName="QSCDUserDataModel" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="developer_intro" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="developer_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idcard" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="is_login" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ischeck_mail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ischeck_mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_login_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nick_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="qq" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_count_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user_current_city" optional="YES" attributeType="String" syncable="YES"/>
@@ -98,6 +115,8 @@
         <attribute name="user_latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="user_longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="user_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="web" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="QSCDAdvertHeaderDataModel" positionX="-146" positionY="45" width="128" height="58"/>
@@ -108,6 +127,6 @@
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
-        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="285"/>
+        <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="570"/>
     </elements>
 </model>

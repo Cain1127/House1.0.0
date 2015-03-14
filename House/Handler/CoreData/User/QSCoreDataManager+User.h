@@ -17,6 +17,7 @@
  */
 @class QSCDBaseConfigurationDataModel;
 @class QSBaseConfigurationDataModel;
+@class QSUserDataModel;
 @interface QSCoreDataManager (User)
 
 /**
@@ -29,6 +30,30 @@
  *  @since  1.0.0
  */
 + (BOOL)isLogin;
+
+/**
+ *  @author     yangshengmeng, 15-03-14 12:03:47
+ *
+ *  @brief      更新用户登录状态
+ *
+ *  @param flag YES-已登录
+ *
+ *  @return     返回更新是否成功
+ *
+ *  @since      1.0.0
+ */
++ (void)updateLoginStatus:(BOOL)flag andCallBack:(void(^)(BOOL flag))callBack;
+
+/**
+ *  @author             yangshengmeng, 15-03-14 12:03:48
+ *
+ *  @brief              保存当前用户登录的基本信息
+ *
+ *  @param userModel    用户数据模型
+ *
+ *  @since              1.0.0
+ */
++ (void)saveLoginUserData:(QSUserDataModel *)userModel andCallBack:(void(^)(BOOL flag))callBack;
 
 /**
  *  @author yangshengmeng, 15-01-22 15:01:25

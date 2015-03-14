@@ -7,6 +7,7 @@
 //
 
 #import "QSYRegistViewController.h"
+#import "QSYRegistSetPasswordViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
@@ -83,7 +84,6 @@
     __block UITextField *vertificationCodeField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTVERTIFICATIONCODE_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTVERTIFICATIONCODE_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     vertificationCodeField.delegate = self;
     vertificationCodeField.keyboardType = UIKeyboardTypeASCIICapable;
-    vertificationCodeField.secureTextEntry = YES;
     [self.view addSubview:vertificationCodeField];
     
     ///获取验证码的UI
@@ -127,6 +127,7 @@
             self.verCode = verCode;
             [phoneField resignFirstResponder];
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码已发到你手机，请注意查收", 1.0f, ^(){})
+            APPLICATION_LOG_INFO(@"手机验证码",verCode)
             return;
             
         }
@@ -141,9 +142,9 @@
     vercodeLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:vercodeLineLable];
     
-    ///登录按钮
+    ///注册按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
-    buttonStyle.title = TITLE_LOGIN_BUTTON;
+    buttonStyle.title = @"下一步";
     UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, vertificationCodeField.frame.origin.y + vertificationCodeField.frame.size.height + 6.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///手机有效性数据
@@ -203,6 +204,8 @@
 {
 
     ///进入用户密码设置页面
+    QSYRegistSetPasswordViewController *setPassword = [[QSYRegistSetPasswordViewController alloc] initWithRegistPhone:count andVercode:verCode andRegistCallBack:self.registCallBack];
+    [self.navigationController pushViewController:setPassword animated:YES];
 
 }
 

@@ -146,6 +146,27 @@ static char TipsLabelKey;       //!<提示信息的关联Key
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips
 {
     
+    [self hiddenCustomHUDWithFooterTips:footerTips andCallBack:nil];
+
+}
+
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:1.0f andCallBack:callBack];
+
+}
+
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)time
+{
+
+    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:time andCallBack:nil];
+
+}
+
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
+{
+
     ///停止动画
     UIView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
 #ifdef ___USE_SYSTEM_INDICATOR___
@@ -155,7 +176,7 @@ static char TipsLabelKey;       //!<提示信息的关联Key
 #ifdef ___USE_CUSTOM_INDICATOR___
     [self.loadingTimer invalidate];
 #endif
-
+    
     ///判断是否有退出时的提示信息
     if (footerTips) {
         
@@ -165,14 +186,21 @@ static char TipsLabelKey;       //!<提示信息的关联Key
             [loadingImageView removeFromSuperview];
             tipsLabel.text = footerTips;
             
-            ///0.5秒后移除
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            ///按给定的时间显示后移除
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [UIView animateWithDuration:0.3 animations:^{
                     
                     self.alpha = 0.0f;
                     
                 } completion:^(BOOL finished) {
+                    
+                    ///判断是否有回调
+                    if (callBack) {
+                        
+                        callBack(YES);
+                        
+                    }
                     
                     [self removeFromSuperview];
                     
@@ -181,7 +209,7 @@ static char TipsLabelKey;       //!<提示信息的关联Key
             });
             
         } else {
-        
+            
             tipsLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, loadingImageView.frame.origin.y + loadingImageView.frame.size.width + 5.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT)];
             tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
             tipsLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -193,7 +221,7 @@ static char TipsLabelKey;       //!<提示信息的关联Key
             tipsLabel.text = footerTips;
             
             ///0.5秒后移除
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [UIView animateWithDuration:0.3 animations:^{
                     
@@ -201,12 +229,19 @@ static char TipsLabelKey;       //!<提示信息的关联Key
                     
                 } completion:^(BOOL finished) {
                     
+                    ///判断是否有回调
+                    if (callBack) {
+                        
+                        callBack(YES);
+                        
+                    }
+                    
                     [self removeFromSuperview];
                     
                 }];
                 
             });
-        
+            
         }
         
     }
@@ -216,6 +251,12 @@ static char TipsLabelKey;       //!<提示信息的关联Key
 #pragma mark - 开启自定义HUD动画
 - (void)startCustomHUDAnimination
 {
+    
+    if (nil == self) {
+        
+        return;
+        
+    }
     
     ///图片框
     UIView *loadingImageView = objc_getAssociatedObject(self, &LoadingImageViewKey);
