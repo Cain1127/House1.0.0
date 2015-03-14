@@ -10,6 +10,7 @@
 #import "UIKit+AFNetworking.h"
 #import "CoreHeader.h"
 #include <objc/runtime.h>
+#import "QSOrderListReturnData.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -101,6 +102,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+20.0f, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
+        if (self.parentViewController) {
+            
+        }
         
     }];
     [self.contentView addSubview:leftBt];
@@ -114,6 +118,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
+        if (self.parentViewController) {
+            
+        }
         
     }];
     [self.contentView addSubview:rightBt];
@@ -129,11 +136,42 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 
 - (void)updateCellWith:(id)Data
 {
-    
     UIImageView *leftIconImgView = objc_getAssociatedObject(self, &leftTopTipViewKey);
     if (leftIconImgView) {
-        
         [leftIconImgView setImage:nil];
+    }
+    
+    UILabel *nameLabel = objc_getAssociatedObject(self, &nameLabelKey);
+    if (nameLabel) {
+        [nameLabel setText:@""];
+    }
+    
+    UILabel *stateLabel = objc_getAssociatedObject(self, &stateLabelKey);
+    if (stateLabel) {
+        [stateLabel setText:@""];
+    }
+    
+    UIImageView *contentImgView = objc_getAssociatedObject(self, &contentImgViewKey);
+    if (contentImgView) {
+        [contentImgView setImage:nil];
+    }
+    
+    UILabel *personNameLabel = objc_getAssociatedObject(self, &personNameLabelKey);
+    if (personNameLabel) {
+        [personNameLabel setText:@""];
+    }
+    
+    UILabel *timeLabel = objc_getAssociatedObject(self, &timeLabelKey);
+    if (timeLabel) {
+        [timeLabel setText:@""];
+    }
+    
+//    QSOrderListItemData
+    if (!Data) {
+        return;
+    }
+    
+    if (leftIconImgView) {
         
         //TODO: 图标逻辑
         //“购”图标
@@ -147,46 +185,31 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
     }
     
-    UILabel *nameLabel = objc_getAssociatedObject(self, &nameLabelKey);
     if (nameLabel) {
-        
-        [nameLabel setText:@""];
         
         [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
         
     }
     
-    UILabel *stateLabel = objc_getAssociatedObject(self, &stateLabelKey);
     if (stateLabel) {
-        
-        [stateLabel setText:@""];
         
         [stateLabel setText:@"预约待确认"];
         
     }
     
-    UIImageView *contentImgView = objc_getAssociatedObject(self, &contentImgViewKey);
     if (contentImgView) {
-        
-        [contentImgView setImage:nil];
         
         [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
         
     }
     
-    UILabel *personNameLabel = objc_getAssociatedObject(self, &personNameLabelKey);
     if (personNameLabel) {
-        
-        [personNameLabel setText:@""];
         
         [personNameLabel setText:@"业主：奥巴马"];
         
     }
     
-    UILabel *timeLabel = objc_getAssociatedObject(self, &timeLabelKey);
     if (timeLabel) {
-        
-        [timeLabel setText:@""];
         
         [timeLabel setText:@"时间：2015-03-11 12：29"];
         

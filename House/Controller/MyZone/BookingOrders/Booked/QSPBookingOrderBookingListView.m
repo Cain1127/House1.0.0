@@ -17,6 +17,8 @@
 
 #import "QSPOrderDetailBookedViewController.h"
 
+#import "QSOrderListReturnData.h"
+
 ///关联
 static char BookingListTableViewKey;    //!<待看房列表关联
 static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
@@ -25,7 +27,9 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 
 @property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
 
-@property (nonatomic,retain) NSMutableArray *bookingListDataSource; //!待看房列表数据源
+@property (nonatomic,strong) NSMutableArray *bookingListDataSource;     //!待看房列表数据源
+
+@property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
 
 @end
 
@@ -39,7 +43,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.bookingListDataSource = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];
+        self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
         
         ///UI搭建
         [self createBookingListUI];
@@ -137,9 +141,9 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
+        self.loadNextPage = [NSNumber numberWithInt:0];
         
-        
-        [self endRefreshAnimination];
+        [self getOrderListData];
         
     });
     
@@ -150,7 +154,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self endRefreshAnimination];
+        [self getOrderListData];
         
     });
     
@@ -165,7 +169,6 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     [tableView headerEndRefreshing];
     [tableView footerEndRefreshing];
     
-    [self reloadData];
 }
 
 #pragma mark - 刷新数据
@@ -236,7 +239,6 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 ///响应点击订单操作
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"bookingList didSelectRowAtIndexPath:%d",indexPath.row);
     
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
@@ -244,5 +246,87 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     }
     
 }
+
+#pragma mark - 响应点击订单操作
+///响应点击订单操作
+- (void)getOrderListData
+{
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    //        请求参数
+    //        必选	类型及范围	说明
+    //        key	true	string	要模糊搜索的字符
+    //        user_id	true	int	用户id
+    //        page_num	true	int	每页的数量,默认为10
+    //        now_page	true	int	当前获取第几页的数据，默认为1
+    //        order	true	string	以什么排序，默认为空
+    //        order_status	true	string	获取什么状态下的订单，具体看配置项:ORDERSTATUS 如果是多个状态下的订单用逗号隔开，eg:500201,500202
+    //        list_type	true	enum	只能传递 BUYER 或者 SALER 两个值中的一个，BUYER表示买家列表(房客)，SALER表示卖家的列表(业主)
+    //        order_list_type	true	string(6)	顶单列表类型,具体看配置项:ORDERLISTTYPE, 500401:待看房，500402:已看房, 500403:已成交,500404:已取消
+    
+    if (!self.loadNextPage) {
+        
+        self.loadNextPage = [NSNumber numberWithInt:0];
+        
+    }
+    
+    [tempParam setObject:@"" forKey:@"key"];
+    //TODO:
+    [tempParam setObject:@"1" forKey:@"user_id"];
+    [tempParam setObject:@"20" forKey:@"page_num"];
+    [tempParam setObject:[self.loadNextPage isEqualToValue:[NSNumber numberWithInt:0]]?@"1":self.loadNextPage forKey:@"now_page"];
+    [tempParam setObject:@"" forKey:@"order"];
+    [tempParam setObject:@"" forKey:@"order_status"];
+    [tempParam setObject:@"BUYER" forKey:@"list_type"];
+    [tempParam setObject:@"500401" forKey:@"order_list_type"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSOrderListReturnData *headerModel = resultData;
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSOrderListHeaderData class]]) {
+                
+                NSNumber *nextPage = headerModel.orderListHeaderData.next_page;
+                
+                if (nextPage&&[self.loadNextPage isEqualToValue:nextPage]) {
+                    //没有更多了
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"没有更多订单记录了", 1.0f, ^(){})
+                    
+                }else{
+                    
+                    if ([self.loadNextPage isEqualToValue:[NSNumber numberWithInt:0]]) {
+                        
+                        [self.bookingListDataSource removeAllObjects];
+                        
+                    }
+                    
+                    [self.bookingListDataSource addObjectsFromArray:[NSMutableArray arrayWithArray:headerModel.orderListHeaderData.orderList]];
+                    
+                    self.loadNextPage = nextPage;
+                    
+                    [self reloadData];
+                    
+                }
+                
+            }
+        }else{
+            
+            QSHeaderDataModel *headerModel = resultData;
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                NSLog(@"%@ Error:%@",headerModel.code,headerModel.info);
+            }
+            
+        }
+        
+        [self endRefreshAnimination];
+        
+    }];
+    
+}
+
 
 @end

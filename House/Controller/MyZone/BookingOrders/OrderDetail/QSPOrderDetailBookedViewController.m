@@ -35,8 +35,7 @@
 - (void)createMainShowUI
 {
     ///头部标题
-    QSPOrderDetailTitleLabel *titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44)];
-    
+    QSPOrderDetailTitleLabel *titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP];
     [self.view addSubview:titleTipLabel];
     
     //底部按钮

@@ -10,6 +10,6 @@
 
 @interface QSPOrderDetailTitleLabel : QSLabel
 
-- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString*)titleStr;
 
 @end
