@@ -559,6 +559,8 @@ typedef enum
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
+    rRequestTypeOrderListData = 8003,           //!<订单列表数据
+    
     rRequestTypeSendPhoneVertical = 9000,       //!<发送手机验证码
     rRequestTypeRegistPhone,                    //!<普通的手机注册
     rRequestTypeLogin,                          //!<登录

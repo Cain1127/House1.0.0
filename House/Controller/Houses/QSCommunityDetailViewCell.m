@@ -62,48 +62,76 @@ static char FeaturesKey;    //!<特色标签
     [self.contentView addSubview:houseTagImageView];
     objc_setAssociatedObject(self, &HouseTagKey, houseTagImageView, OBJC_ASSOCIATION_ASSIGN);
     
-    ///价钱按钮
-     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
-    UIButton *button=[QSBlockButton createBlockButtonWithFrame:CGRectMake(houseTagImageView.frame.origin.x+houseImageView.frame.size.width+8.0f,10.0f, 50.0f , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        
-
-        
-    }];
-    [self createTitleInfoUI:button];
-    [self.contentView addSubview:button];
-    
-    ///户型
-    UILabel *houseTypeLabel = [[QSLabel alloc] initWithFrame:CGRectMake(button.frame.origin.x+button.frame.size.width+3.0f, button.frame.origin.y+5.0f,50.0f, 20.0f)];
-    houseTypeLabel.text = @"3房1厅";
-    houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    houseTypeLabel.textAlignment = NSTextAlignmentCenter;
-    houseTypeLabel.textColor = COLOR_CHARACTERS_BLACK;
-    [self.contentView addSubview:houseTypeLabel];
-    objc_setAssociatedObject(self, &HouseTypeKey, houseTypeLabel, OBJC_ASSOCIATION_ASSIGN);
-    
-    ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseTypeLabel.frame.origin.x+houseTypeLabel.frame.size.width+3.0f, houseTypeLabel.frame.origin.y, 0.25f,   houseTypeLabel.frame.size.height)];
-    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
-    [self.contentView addSubview:bottomLineLabel];
-    
-    ///面积
-    UILabel *areaLabel = [[QSLabel alloc] initWithFrame:CGRectMake(bottomLineLabel.frame.origin.x+bottomLineLabel.frame.size.width+3.0f, houseTypeLabel.frame.origin.y, 50.0f, houseTypeLabel.frame.size.height)];
-    areaLabel.text = @"128/㎡";
-    areaLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    areaLabel.textAlignment = NSTextAlignmentCenter;
-    areaLabel.textColor = COLOR_CHARACTERS_BLACK;
-    [self.contentView addSubview:areaLabel];
-    objc_setAssociatedObject(self, &HouseAreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
+    ///价钱与面积一排的信息UI
+    UIView *topRootView=[[UIView alloc] initWithFrame:CGRectMake(houseTagImageView.frame.origin.x+houseImageView.frame.size.width+8.0f, 10.0f, self.contentView.frame.size.width-houseImageView.frame.size.width-8.0f, 30.0f)];
+    [self createPriceAndAreaUI:topRootView];
+    [self.contentView addSubview:topRootView];
     
     ///街道和小区信息的底view，方便自适应
-    UIView *streetRootView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.origin.x, button.frame.origin.y + button.frame.size.height + 5.0f, self.contentView.frame.size.width-houseImageView.frame.size.width-5.0f, 20.0f)];
+    UIView *streetRootView = [[UIView alloc] initWithFrame:CGRectMake(topRootView.frame.origin.x, topRootView.frame.origin.y + topRootView.frame.size.height + 5.0f, self.contentView.frame.size.width-houseImageView.frame.size.width-5.0f, 20.0f)];
     [self createStreetAndCommunityUI:streetRootView];
     [self.contentView addSubview:streetRootView];
     
     ///特色标签的底view
-    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.origin.x, streetRootView.frame.origin.y + streetRootView.frame.size.height + 5.0f, self.contentView.frame.size.width-houseImageView.frame.size.width-5.0f, 20.0f)];
+    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(topRootView.frame.origin.x, streetRootView.frame.origin.y + streetRootView.frame.size.height + 5.0f, self.contentView.frame.size.width-houseImageView.frame.size.width-5.0f, 20.0f)];
     [self.contentView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+}
+
+///搭建价钱与面积的信息UI
+-(void)createPriceAndAreaUI:(UIView *)view
+{
+    
+    ///价钱按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    QSBlockButton *button=[[QSBlockButton alloc] initWithButtonStyle:buttonStyle];
+    button.translatesAutoresizingMaskIntoConstraints=NO;
+    [self createTitleInfoUI:button];
+    [view addSubview:button];
+    
+    ///户型
+    QSLabel *houseTypeLabel = [[QSLabel alloc] init];
+    houseTypeLabel.translatesAutoresizingMaskIntoConstraints=NO;
+    houseTypeLabel.text = @"3房1厅";
+    houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    houseTypeLabel.textAlignment = NSTextAlignmentCenter;
+    houseTypeLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:houseTypeLabel];
+    objc_setAssociatedObject(self, &HouseTypeKey, houseTypeLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] init];
+    bottomLineLabel.translatesAutoresizingMaskIntoConstraints=NO;
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
+    
+    ///面积
+    UILabel *areaLabel = [[QSLabel alloc] init];
+    areaLabel.translatesAutoresizingMaskIntoConstraints=NO;
+    areaLabel.text = @"128/㎡";
+    areaLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    areaLabel.textAlignment = NSTextAlignmentCenter;
+    areaLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:areaLabel];
+    objc_setAssociatedObject(self, &HouseAreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///约束参数
+    NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(button,houseTypeLabel,bottomLineLabel,areaLabel);
+    
+    ///约束
+    NSString *___hVFL_all = @"H:|-0-[button(>=60)]-0-[houseTypeLabel(>=40)]-0-[bottomLineLabel(0.25)]-0-[areaLabel(>=60)]-(>=0)-|";
+    NSString *___vVFL_button = @"V:|-0-[button(30)]";
+    NSString *___vVFL_houseTypeLabel = @"V:|-5-[houseTypeLabel(20)]";
+    NSString *___vVFL_bottomLineLabel = @"V:|-5-[bottomLineLabel(20)]";
+    NSString *___vVFL_areaLabel = @"V:|-5-[areaLabel(20)]";
+    
+    ///添加约束
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:0 metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_button options:0 metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_houseTypeLabel options:0 metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_bottomLineLabel options:0 metrics:nil views:___viewsVFL]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_areaLabel options:0 metrics:nil views:___viewsVFL]];
     
 }
 
@@ -125,7 +153,7 @@ static char FeaturesKey;    //!<特色标签
     UILabel *communityLabel = [[UILabel alloc] init];
     communityLabel.text = @"科城山庄峻森园";
     communityLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    communityLabel.textAlignment = NSTextAlignmentRight;
+    communityLabel.textAlignment = NSTextAlignmentLeft;
     communityLabel.textColor = COLOR_CHARACTERS_GRAY;
     communityLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:communityLabel];
@@ -195,20 +223,20 @@ static char FeaturesKey;    //!<特色标签
  */
 //- (void)updateHouseInfoCellUIWithDataModel:(id)dataModel andListType:(FILTER_MAIN_TYPE)listType
 //{
-//    
+//
 //    switch (listType) {
 //            ///二手房列表
 //        case fFilterMainTypeSecondHouse:
-//            
+//
 //            [self updateSecondHandHouseInfoCellUIWithDataModel:dataModel];
-//            
+//
 //            break;
-//            
-//            
+//
+//
 //        default:
 //            break;
 //    }
-//    
+//
 //}
 
 
@@ -419,7 +447,7 @@ static char FeaturesKey;    //!<特色标签
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

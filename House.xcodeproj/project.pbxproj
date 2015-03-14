@@ -373,6 +373,9 @@
 		475C3D921AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 475C3D901AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png */; };
 		475C3D951AB2D0EC0028608F /* QSPOrderDetailPersonInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3D941AB2D0EC0028608F /* QSPOrderDetailPersonInfoView.m */; };
 		475C3D981AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3D971AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m */; };
+		475C3D9C1AB3D58A0028608F /* QSOrderListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3D9B1AB3D58A0028608F /* QSOrderListReturnData.m */; };
+		475C3DA01AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3D9F1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m */; };
+		475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */; };
 		47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */; };
 		47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */; };
 		47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */; };
@@ -949,6 +952,12 @@
 		475C3D941AB2D0EC0028608F /* QSPOrderDetailPersonInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailPersonInfoView.m; sourceTree = "<group>"; };
 		475C3D961AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetalBottomButtonView.h; sourceTree = "<group>"; };
 		475C3D971AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetalBottomButtonView.m; sourceTree = "<group>"; };
+		475C3D9A1AB3D58A0028608F /* QSOrderListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderListReturnData.h; sourceTree = "<group>"; };
+		475C3D9B1AB3D58A0028608F /* QSOrderListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListReturnData.m; sourceTree = "<group>"; };
+		475C3D9E1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderListHouseInfoDataModel.h; sourceTree = "<group>"; };
+		475C3D9F1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListHouseInfoDataModel.m; sourceTree = "<group>"; };
+		475C3DA11AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderListOrderInfoDataModel.h; sourceTree = "<group>"; };
+		475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListOrderInfoDataModel.m; sourceTree = "<group>"; };
 		47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrdersListsViewController.h; sourceTree = "<group>"; };
 		47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrdersListsViewController.m; sourceTree = "<group>"; };
 		47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderBookingListView.h; sourceTree = "<group>"; };
@@ -2695,6 +2704,7 @@
 			isa = PBXGroup;
 			children = (
 				18AFA9D91AB3E83000681071 /* Login */,
+				475C3D991AB3D5330028608F /* Order */,
 				18AFA9D21AB2FF0C00681071 /* SendVerticalCode */,
 				1865E3DB1AB2976D00FAEC9E /* Home */,
 				182C88191A7B0F0A00DA64E9 /* House */,
@@ -2721,6 +2731,7 @@
 		18CAFCB41A70E45A00C90C90 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				475C3D9D1AB3D9300028608F /* Order */,
 				1865E3C31AB1655100FAEC9E /* Collected */,
 				18DABA871AAD3B9500647E7C /* Photo */,
 				18A88EB71A8CA91F00596E11 /* User */,
@@ -3150,6 +3161,26 @@
 				475C3D971AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		475C3D991AB3D5330028608F /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				475C3D9A1AB3D58A0028608F /* QSOrderListReturnData.h */,
+				475C3D9B1AB3D58A0028608F /* QSOrderListReturnData.m */,
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		475C3D9D1AB3D9300028608F /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				475C3D9E1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.h */,
+				475C3D9F1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m */,
+				475C3DA11AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.h */,
+				475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		47E0D4C91AAE9CE600B5C42A /* BookingOrders */ = {
@@ -3740,6 +3771,7 @@
 				18B563441A82063E009779A0 /* QSCDFilterDataModel.m in Sources */,
 				187CA8C81AA2FD7200841A7E /* QSNewHouseListReturnData.m in Sources */,
 				18DABAAE1AAD4E1B00647E7C /* QSLoupanInfoDataModel.m in Sources */,
+				475C3DA01AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m in Sources */,
 				18CAFCD01A70E45A00C90C90 /* QSConfigurationDataModel.m in Sources */,
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
@@ -3762,6 +3794,7 @@
 				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
 				CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
+				475C3D9C1AB3D58A0028608F /* QSOrderListReturnData.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
 				18DABAAF1AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m in Sources */,
 				CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */,
@@ -3799,6 +3832,7 @@
 				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,
 				CE172FAE1AB03CC8002A245C /* QSWRentHouseInfoDataModel.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
+				475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
 				18AFA9B91AB2BED200681071 /* QSYPopCustomView.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,

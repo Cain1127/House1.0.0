@@ -187,4 +187,7 @@
 #define TITLE_MYZONE_ORDER_DETAIL_CHANGE_ORDER_TITLE_TIP    @"修改订单"
 
 
+///订单详情已取消标题
+#define TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP      @"已取消"
+
 #endif
