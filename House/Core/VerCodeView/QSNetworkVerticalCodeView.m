@@ -123,8 +123,8 @@
     
     ///指示器
     CGFloat width = self.frame.size.height >= 30.0f ? 30.0f : self.frame.size.height;
-    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.indicatorView.frame = CGRectMake(self.frame.size.width - 15.0f, self.frame.size.height - width / 2.0f, width, width);
+    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    self.indicatorView.frame = CGRectMake(self.frame.size.width / 2.0f - 15.0f, (self.frame.size.height - width) / 2.0f, width, width);
     self.indicatorView.hidden = YES;
     [self addSubview:self.indicatorView];
     
@@ -190,7 +190,9 @@
 {
 
     ///封装参数
-    NSDictionary *params = @{@"mobile" : phone};
+    NSDictionary *params = @{@"mobile" : phone,
+                             @"sign" : @"1"};
+    ///1是表示注册验证码，2是表示找回登录密码，3是找回支付密码验证码
     
     ///网络请求
     [QSRequestManager requestDataWithType:self.requestType andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -252,7 +254,8 @@
     self.indicatorView.hidden = YES;
     
     ///显示信息
-    self.infoLabel.text = [NSString stringWithFormat:@"%d",self.limitedTimaGap];
+    self.infoLabel.hidden = NO;
+    self.infoLabel.text = [NSString stringWithFormat:@"%d秒",self.limitedTimaGap];
     self.countDown = self.limitedTimaGap;
     
     ///开启定时器
@@ -276,7 +279,7 @@
     }
 
     self.countDown = self.countDown - 1;
-    self.infoLabel.text = [NSString stringWithFormat:@"%d",self.countDown];
+    self.infoLabel.text = [NSString stringWithFormat:@"%d秒",self.countDown];
     
 
 }

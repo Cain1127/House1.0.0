@@ -15,6 +15,10 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 
 #import "QSVerticalCodeView.h"
+#import "QSCustomHUDView.h"
+
+#import "QSYLoginReturnData.h"
+#import "QSUserDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -170,11 +174,11 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             
         }
         
-        if (![verCode isEqualToString:self.verCode]) {
+        if (!(NSOrderedSame == [verCode compare:self.verCode options:NSCaseInsensitiveSearch])) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的验证码", 1.0f, ^(){
                 
-                [passwordField becomeFirstResponder];
+                [vertificationCodeField becomeFirstResponder];
                 
             })
             return;
@@ -203,7 +207,8 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
            ///注册成功
             if (flag) {
                 
-                
+                phoneField.text = count;
+                passwordField.text = psw;
                 
             }
             
@@ -258,6 +263,52 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 {
 
     ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在登录"];
+    
+    ///参数
+    NSDictionary *params = @{@"mobile" : count,
+                             @"password" : password};
+    
+    ///登录
+    [QSRequestManager requestDataWithType:rRequestTypeLogin andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///登录成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改用户登录状态
+            [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
+                
+                ///保存用户信息
+                QSYLoginReturnData *tempModel = resultData;
+                QSUserDataModel *userModel = tempModel.userInfo;
+                
+                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                    
+                    ///提示
+                    [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                        
+                        ///返回
+                        [self.navigationController popViewControllerAnimated:YES];
+                        
+                    }];
+                    
+                }];
+                
+            }];
+            
+        } else {
+        
+            NSString *tips = @"注册失败，请稍后再试";
+            if (resultData) {
+                
+                tips = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tips];
+            
+        }
+        
+    }];
 
 }
 

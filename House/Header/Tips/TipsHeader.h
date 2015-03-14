@@ -32,6 +32,37 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(b * NSEC_PER_SEC)), di
     \
 });
 
+/**
+ *  @author yangshengmeng, 15-03-14 10:03:51
+ *
+ *  @brief  返回某个间隔前的VC
+ *
+ *  @since  1.0.0
+ */
+#define APPLICATION_JUMP_BACK_STEPVC(a) NSInteger sumPage = [self.navigationController.viewControllers count];\
+    NSInteger customTurnBackIndex = sumPage - a;\
+    UIViewController *targetVC = self.navigationController.viewControllers[customTurnBackIndex];\
+    if (targetVC) {\
+    \
+        [self.navigationController popToViewController:targetVC animated:YES];\
+    \
+    } else {\
+    \
+        [self.navigationController popViewControllerAnimated:YES];\
+    \
+    }
+
+/**
+ *  @author yangshengmeng, 15-03-14 10:03:36
+ *
+ *  @brief  打印规范日志
+ *
+ *  @since  1.0.0
+ */
+#define APPLICATION_LOG_INFO(a,b) NSLog(@"====================%@====================",a);\
+    NSLog(@"%@：%@",a,b);\
+    NSLog(@"====================%@====================",a);
+
 ///版本信息
 #define APPLICATION_RIGHT_INFO @"Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved."
 

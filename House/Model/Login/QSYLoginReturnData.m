@@ -1,14 +1,15 @@
 //
-//  QSYSendVerticalCodeReturnData.m
+//  QSYLoginReturnData.m
 //  House
 //
-//  Created by ysmeng on 15/3/13.
+//  Created by ysmeng on 15/3/14.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSYSendVerticalCodeReturnData.h"
+#import "QSYLoginReturnData.h"
+#import "QSUserDataModel.h"
 
-@implementation QSYSendVerticalCodeReturnData
+@implementation QSYLoginReturnData
 
 ///解析规则
 + (RKObjectMapping *)objectMapping
@@ -18,7 +19,7 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addAttributeMappingsFromArray:@[@"msg"]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"userInfo" withMapping:[QSUserDataModel objectMapping]]];
     
     return shared_mapping;
     

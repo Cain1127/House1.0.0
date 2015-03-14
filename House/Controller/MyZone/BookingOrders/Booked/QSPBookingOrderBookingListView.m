@@ -43,7 +43,8 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
+//        self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
+        self.bookingListDataSource  = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
         
         ///UI搭建
         [self createBookingListUI];
@@ -143,7 +144,9 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
         
         self.loadNextPage = [NSNumber numberWithInt:0];
         
-        [self getOrderListData];
+//        [self getOrderListData];
+        [self endRefreshAnimination];
+        [self reloadData];
         
     });
     
@@ -154,7 +157,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self getOrderListData];
+//        [self getOrderListData];
         
     });
     

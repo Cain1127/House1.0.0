@@ -83,5 +83,8 @@
  *  @since              1.0.0
  */
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips;
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andCallBack:(void(^)(BOOL flag))callBack;
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)time;
+- (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)time andCallBack:(void(^)(BOOL flag))callBack;
 
 @end
