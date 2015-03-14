@@ -271,7 +271,7 @@ static char LeftStarKey;            //!<左侧星级
         NSLog(@"");
         
     }];
-    [self createScoreUI:scoreView];
+    [self createScoreUI:scoreView andInsideScore:@"4.2" andOverflowScore:@"8.7" andAroundScore:@"1.9"];
     
     ///房子统计view
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
@@ -366,29 +366,61 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark -添加评分view
 ///添加评分view
--(void)createScoreUI:(UIView *)view
+-(void)createScoreUI:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
 {
     
     ///中间六角形图标
     QSImageView *middleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH*160.0f/750.0f, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)];
     middleImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
     middleImageView.center = CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f);
+    [self createOverflowScoreInfoUI:middleImageView andScore:overflowScore];
     [view addSubview:middleImageView];
     
     ///右侧评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"周边条件" andScoreKey:RightScoreKey andStarKey:RightStarKey];
+    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"周边条件" andScoreKey:RightScoreKey andStarKey:RightStarKey andScore:aroundScore];
     [view addSubview:rightScoreRootView];
     
     ///左侧评分底view
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"内部条件" andScoreKey:LeftScoreKey andStarKey:LeftStarKey];
+    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"内部条件" andScoreKey:LeftScoreKey andStarKey:LeftStarKey andScore:insideScore];
     [view addSubview:leftScoreRootView];
     
 }
 
+///创建详情超值评分UI
+- (void)createOverflowScoreInfoUI:(UIView *)view andScore:(NSString *)score
+{
+    
+    ///超值盘评分
+    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
+    scoreLabel.text = score;
+    scoreLabel.textAlignment = NSTextAlignmentRight;
+    scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
+    scoreLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:scoreLabel];
+    
+    ///超值盘单位
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(scoreLabel.frame.origin.x + scoreLabel.frame.size.width, scoreLabel.frame.origin.y + scoreLabel.frame.size.height - 20.0f, 20.0f, 20.0f)];
+    unitLabel.text = @"分";
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+    [view addSubview:unitLabel];
+    
+    ///说明文字
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
+    titleLabel.text = @"超值盘";
+    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    [view addSubview:titleLabel];
+    [view addSubview:unitLabel];
+    
+}
+
 ///创建详情评分UI
-- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(char)scoreKey andStarKey:(char)starKey
+- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(char)scoreKey andStarKey:(char)starKey andScore:(NSString *)score
 {
     
     ///头图片
@@ -398,7 +430,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评分
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f, 5.0f, view.frame.size.width - 8.0f - 15.0f, 25.0f)];
-    scoreLabel.text = @"4.5";
+    scoreLabel.text = score;
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     scoreLabel.textColor = COLOR_CHARACTERS_YELLOW;
@@ -407,7 +439,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///单位
     UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(scoreLabel.frame.origin.x + scoreLabel.frame.size.width, scoreLabel.frame.origin.y + scoreLabel.frame.size.height - 20.0f, 20.0f, 20.0f)];
-    unitLabel.text = @"分";
+    unitLabel.text = score;
     unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     unitLabel.textColor = COLOR_CHARACTERS_GRAY;
     [view addSubview:unitLabel];

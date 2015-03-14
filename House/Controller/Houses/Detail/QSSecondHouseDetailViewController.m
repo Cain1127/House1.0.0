@@ -417,27 +417,27 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     ///超值盘评分
-    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.origin.x+5.0f, view.frame.origin.y+10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
+    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
     scoreLabel.text = score;
     scoreLabel.textAlignment = NSTextAlignmentRight;
-    scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
-    scoreLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
+    scoreLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:scoreLabel];
     
     ///超值盘单位
     UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(scoreLabel.frame.origin.x + scoreLabel.frame.size.width, scoreLabel.frame.origin.y + scoreLabel.frame.size.height - 20.0f, 20.0f, 20.0f)];
     unitLabel.text = @"分";
-    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
-    unitLabel.textColor = COLOR_CHARACTERS_GRAY;
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:unitLabel];
     
     ///说明文字
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
     titleLabel.text = @"超值盘";
-    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+5.0f);
+    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [view addSubview:titleLabel];
     [view addSubview:unitLabel];
     
