@@ -107,7 +107,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"collected_id == %@",userModel.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithValue:YES];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -228,6 +228,54 @@
 {
 
     return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_id"];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-16 10:03:37
+ *
+ *  @brief  返回登录账号
+ *
+ *  @return 返回当前保存的登录账号
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getLoginCount
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_count"];
+
+}
+
+///更新登录账号
++ (void)saveLoginCount:(NSString *)count andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-16 10:03:56
+ *
+ *  @brief  返回当前保存的登录密码
+ *
+ *  @return 返回登录密码
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getLoginPassword
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"password"];
+
+}
+
+///更新登录密码
++ (void)saveLoginPassword:(NSString *)psw andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    
 
 }
 

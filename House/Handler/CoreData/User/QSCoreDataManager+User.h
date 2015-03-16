@@ -67,6 +67,30 @@
 + (NSString *)getUserID;
 
 /**
+ *  @author yangshengmeng, 15-03-16 10:03:37
+ *
+ *  @brief  返回登录账号
+ *
+ *  @return 返回当前保存的登录账号
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getLoginCount;
++ (void)saveLoginCount:(NSString *)count andCallBack:(void(^)(BOOL flag))callBack;
+
+/**
+ *  @author yangshengmeng, 15-03-16 10:03:56
+ *
+ *  @brief  返回当前保存的登录密码
+ *
+ *  @return 返回登录密码
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getLoginPassword;
++ (void)saveLoginPassword:(NSString *)psw andCallBack:(void(^)(BOOL flag))callBack;
+
+/**
  *  @author yangshengmeng, 15-01-23 10:01:47
  *
  *  @brief  返回当前用户所在的城市

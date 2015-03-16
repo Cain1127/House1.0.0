@@ -46,6 +46,7 @@
 @property (nonatomic, retain) NSString * developer_intro;           //!<开发商简介
 @property (nonatomic, retain) NSString * ischeck_mail;              //!<当前邮箱是否已验证
 @property (nonatomic, retain) NSString * ischeck_mobile;            //!<当前手机是否已验证
-@property (nonatomic,retain) NSString *last_login_time;             //!<上次登录时间
+@property (nonatomic, retain) NSString *last_login_time;            //!<上次登录时间
+@property (nonatomic, retain) NSString *password;                   //!<登录密码
 
 @end

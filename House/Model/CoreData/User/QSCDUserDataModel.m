@@ -46,5 +46,6 @@
 @dynamic ischeck_mail;
 @dynamic ischeck_mobile;
 @dynamic last_login_time;
+@dynamic password;
 
 @end

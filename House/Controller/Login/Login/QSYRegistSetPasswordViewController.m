@@ -183,6 +183,9 @@
     ///网络注册
     [QSRequestManager requestDataWithType:rRequestTypeRegistPhone andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"正在注册"];
+        
         ///注册成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
@@ -194,12 +197,12 @@
             }
             
             ///显示提示信息
-            [hud hiddenCustomHUDWithFooterTips:@"注册成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
-                
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"注册成功", 1.5f, ^(){
+            
                 ///返回登录页面
                 APPLICATION_JUMP_BACK_STEPVC(3)
-                
-            }];
+            
+            })
             
         } else {
         
@@ -210,7 +213,7 @@
                 
             }
             
-            [hud hiddenCustomHUDWithFooterTips:tips];
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tips, 1.5f, ^(){})
         
         }
         
