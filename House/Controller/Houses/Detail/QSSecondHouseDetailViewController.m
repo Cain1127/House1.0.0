@@ -32,6 +32,9 @@
 
 #import <objc/runtime.h>
 
+#define kCallAlertViewTag 111
+
+
 ///关联
 static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
@@ -56,6 +59,8 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
 @property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
+
+@property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
 
 @end
 
@@ -1152,6 +1157,7 @@ static char LeftStarKey;            //!<左侧星级
     UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击联系业主按钮事件");
+        [self customButtonClick:userInfoModel.mobile];
         
         
     }];
@@ -1166,6 +1172,45 @@ static char LeftStarKey;            //!<左侧星级
 //    [scrollView headerEndRefreshing];
 //
 //}
+
+#pragma mark - 联系业主
+///客服热线
+- (void)customButtonClick:(id)sender
+{
+    
+    [self makeCall:sender];
+    
+}
+
+#pragma mark - 打电话事件
+- (void)makeCall:(NSString *)number
+{
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
+                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
+                                              cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
+    alertView.tag = kCallAlertViewTag;
+    self.phoneNumber = number;
+    [alertView show];
+    return;
+    
+}
+
+#pragma mark - 打电话代理事件
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (alertView.tag == kCallAlertViewTag) {
+        
+        if (buttonIndex == 1) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.phoneNumber]]];
+            
+        }
+        
+    }
+    
+}
 
 #pragma mark - 请求详情信息
 - (void)getSecondHouseDetailInfo

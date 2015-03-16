@@ -36,6 +36,9 @@
 
 #import <objc/runtime.h>
 
+#define kCallAlertViewTag 111
+
+
 ///关联
 static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
@@ -55,8 +58,11 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSString *buildingID;            //!<楼栋ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
-///详情信息的数据模型
-@property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo;
+@property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo; //!<详情信息的数据模型
+
+
+@property (nonatomic, copy) NSString *phoneNumber;                  //!<电话号码
+
 
 
 @end
@@ -168,7 +174,7 @@ static char LeftStarKey;            //!<左侧星级
             
             ///判断是否已登录
             
-            
+            [self customButtonClick:@"0201304545"];
             ///已登录重新刷新数据
             
             
@@ -205,6 +211,47 @@ static char LeftStarKey;            //!<左侧星级
     }
 
 }
+
+#pragma mark - 联系业主
+///客服热线
+- (void)customButtonClick:(id)sender
+{
+    
+    [self makeCall:sender];
+    
+}
+
+#pragma mark - 打电话事件
+- (void)makeCall:(NSString *)number
+{
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
+                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
+                                              cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
+    alertView.tag = kCallAlertViewTag;
+    self.phoneNumber = number;
+    [alertView show];
+    return;
+    
+}
+
+#pragma mark - 打电话代理事件
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (alertView.tag == kCallAlertViewTag) {
+        
+        if (buttonIndex == 1) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.phoneNumber]]];
+            
+        }
+        
+    }
+    
+}
+
+
 
 #pragma mark - 显示信息UI:网络请求成功后才显示UI
 ///显示信息UI:网络请求成功后才显示UI
