@@ -7,13 +7,21 @@
 //
 
 #import "QSYAppDelegate.h"
-#import "QSRequestManager.h"
+
 #import "QSAdvertViewController.h"
+
+#import "QSCityInfoReturnData.h"
 #import "QSConfigurationReturnData.h"
 #import "QSBaseConfigurationReturnData.h"
+#import "QSYLoginReturnData.h"
+#import "QSUserDataModel.h"
+
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+User.h"
+
 #import "QSMapManager.h"
-#import "QSCityInfoReturnData.h"
+#import "QSRequestManager.h"
+
 #import "QSCustomHUDView.h"
 
 @interface QSYAppDelegate ()
@@ -48,6 +56,15 @@
     ///显示广告页
     QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
     self.window.rootViewController = advertVC;
+    
+    ///开始自登录
+    NSString *localCount = [QSCoreDataManager getLoginCount];
+    NSString *psw = [QSCoreDataManager getLoginPassword];
+    if ([localCount length] > 0 && [psw length] >= 6) {
+        
+        [self autoLoginAction:localCount andPassword:psw];
+        
+    }
     
     ///开始定位用户当前位置
     [QSMapManager getUserLocation];
@@ -85,6 +102,55 @@
     });
     
     return YES;
+    
+}
+
+#pragma mark - 开始登录
+///开始登录
+- (void)autoLoginAction:(NSString *)count andPassword:(NSString *)password
+{
+    
+    ///参数
+    NSDictionary *params = @{@"mobile" : count,
+                             @"password" : password};
+    
+    ///登录
+    [QSRequestManager requestDataWithType:rRequestTypeLogin andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///登录成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改用户登录状态
+            [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
+                
+                ///保存用户信息
+                QSYLoginReturnData *tempModel = resultData;
+                QSUserDataModel *userModel = tempModel.userInfo;
+                
+                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                    
+                    ///打印提示信息
+                    APPLICATION_LOG_INFO(@"登录", @"登录成功")
+                    
+                }];
+                
+            }];
+            
+        } else {
+            
+            NSString *tips = @"登录失败，请稍后再试";
+            if (resultData) {
+                
+                tips = [resultData valueForKey:@"info"];
+                
+            }
+            
+            ///打印提示信息
+            APPLICATION_LOG_INFO(@"登录", tips)
+            
+        }
+        
+    }];
     
 }
 
@@ -261,6 +327,15 @@
     
     ///应用退出前进行保存动作
     [self saveContextWithWait:YES];
+    
+    ///退出登录状态
+    [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
+            
+        }];
+        
+    }];
     
 }
 

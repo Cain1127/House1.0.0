@@ -614,15 +614,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 }
 
-#pragma mark - 我要放盘
-///我要放盘按钮点击
-- (void)saleHouseButtonAction
-{
-    
-    
-    
-}
-
 #pragma mark - 笋盘推荐
 ///笋盘推荐按钮点击
 - (void)communityRecommendHouseButtonAction

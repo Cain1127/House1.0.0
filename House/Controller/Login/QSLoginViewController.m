@@ -8,6 +8,7 @@
 
 #import "QSLoginViewController.h"
 #import "QSYRegistViewController.h"
+#import "QSYForgetPasswordViewController.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -224,7 +225,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_14];
     UIButton *forgetPasswordButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, normalUserRegistButton.frame.origin.y + normalUserRegistButton.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 80.0f, 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        
+        ///进入根据手机设置密码页面
+        QSYForgetPasswordViewController *forgetPasswordVC = [[QSYForgetPasswordViewController alloc] init];
+        [self.navigationController pushViewController:forgetPasswordVC animated:YES];
         
     }];
     [rootView addSubview:forgetPasswordButton];
@@ -272,6 +275,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     ///登录
     [QSRequestManager requestDataWithType:rRequestTypeLogin andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"正在登录"];
+        
         ///登录成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
@@ -284,13 +290,13 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 
                 [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                     
-                    ///提示
-                    [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
-                        
-                        ///返回
+                    
+                    ///显示提示信息
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
+                    
                         [self.navigationController popViewControllerAnimated:YES];
-                        
-                    }];
+                    
+                    })
                     
                 }];
                 
@@ -298,13 +304,15 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             
         } else {
         
-            NSString *tips = @"注册失败，请稍后再试";
+            NSString *tips = @"登录失败，请稍后再试";
             if (resultData) {
                 
                 tips = [resultData valueForKey:@"info"];
                 
             }
-            [hud hiddenCustomHUDWithFooterTips:tips];
+            
+            ///显示提示信息
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tips, 1.5f, ^(){})
             
         }
         

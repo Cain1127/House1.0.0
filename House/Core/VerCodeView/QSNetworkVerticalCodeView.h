@@ -47,6 +47,6 @@ typedef enum
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andVerticalSendNetworkType:(REQUEST_TYPE)sendCodeType andPhoneField:(UITextField *)textField andImageName:(NSString *)imageName andBackgroudColor:(UIColor *)bgColor andTextColor:(UIColor *)textColor andTextFontSize:(CGFloat)textSize andGapSecond:(int)gapSecond andSendResultCallBack:(void(^)(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType,NSString *verCode))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andVerticalSendNetworkType:(REQUEST_TYPE)sendCodeType andPhoneField:(UITextField *)textField andAttachParams:(NSDictionary *)attachParams andImageName:(NSString *)imageName andBackgroudColor:(UIColor *)bgColor andTextColor:(UIColor *)textColor andTextFontSize:(CGFloat)textSize andGapSecond:(int)gapSecond andSendResultCallBack:(void(^)(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType,NSString *verCode))callBack;
 
 @end

@@ -27,6 +27,7 @@
 @property (nonatomic,strong) UILabel *infoLabel;                    //!<信息展示
 @property (nonatomic,strong) UIActivityIndicatorView *indicatorView;//!<指示器
 @property (nonatomic,assign) BOOL isCanSend;                        //!<当前是否可以发送
+@property (nonatomic,retain) NSDictionary *attachParams;            //!<附加请求参数
 
 @end
 
@@ -41,6 +42,7 @@
  *  @param frame        大小和位置
  *  @param sendCodeType 对应的请求枚举类型，需要配合QSRequestManager使用
  *  @param textField    绑定的手机号码输入框，用以判断当前手机号码是否有效
+ *  @param andAttachParams 附加请求参数
  *  @param imageName    背景图片
  *  @param bgColor      背景颜色
  *  @param textColor    文本的颜色
@@ -52,7 +54,7 @@
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andVerticalSendNetworkType:(REQUEST_TYPE)sendCodeType andPhoneField:(UITextField *)textField andImageName:(NSString *)imageName andBackgroudColor:(UIColor *)bgColor andTextColor:(UIColor *)textColor andTextFontSize:(CGFloat)textSize andGapSecond:(int)gapSecond andSendResultCallBack:(void(^)(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType,NSString *verCode))callBack
+- (instancetype)initWithFrame:(CGRect)frame andVerticalSendNetworkType:(REQUEST_TYPE)sendCodeType andPhoneField:(UITextField *)textField andAttachParams:(NSDictionary *)attachParams andImageName:(NSString *)imageName andBackgroudColor:(UIColor *)bgColor andTextColor:(UIColor *)textColor andTextFontSize:(CGFloat)textSize andGapSecond:(int)gapSecond andSendResultCallBack:(void(^)(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType,NSString *verCode))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -77,6 +79,9 @@
         
         ///初始化时，发送状态可以发送
         self.isCanSend = YES;
+        
+        ///保存附加参数
+        self.attachParams = attachParams;
         
         ///设置背景颜色
         if (bgColor) {
@@ -190,9 +195,21 @@
 {
 
     ///封装参数
-    NSDictionary *params = @{@"mobile" : phone,
-                             @"sign" : @"1"};
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:phone forKey:@"mobile"];
+    [params setObject:@"1" forKey:@"sign"];
     ///1是表示注册验证码，2是表示找回登录密码，3是找回支付密码验证码
+    
+    ///添加附加参数
+    if (self.attachParams) {
+        
+        for (NSString *obj in self.attachParams) {
+            
+            [params setObject:[self.attachParams objectForKey:obj] forKey:obj];
+            
+        }
+        
+    }
     
     ///网络请求
     [QSRequestManager requestDataWithType:self.requestType andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -280,7 +297,6 @@
 
     self.countDown = self.countDown - 1;
     self.infoLabel.text = [NSString stringWithFormat:@"%d秒",self.countDown];
-    
 
 }
 
