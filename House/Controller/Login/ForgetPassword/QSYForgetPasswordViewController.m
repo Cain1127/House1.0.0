@@ -1,59 +1,28 @@
 //
-//  QSYRegistViewController.m
+//  QSYForgetPasswordViewController.m
 //  House
 //
-//  Created by ysmeng on 15/3/13.
+//  Created by ysmeng on 15/3/16.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSYRegistViewController.h"
-#import "QSYRegistSetPasswordViewController.h"
+#import "QSYForgetPasswordViewController.h"
+#import "QSYForgetPasswordResetPasswordViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 
 #import "QSNetworkVerticalCodeView.h"
 
-@interface QSYRegistViewController () <UITextFieldDelegate>
+#import "QSCoreDataManager+User.h"
 
-///注册请求完成后的回调
-@property (nonatomic,copy) void(^registCallBack)(BOOL flag,NSString *count,NSString *psw);
+@interface QSYForgetPasswordViewController () <UITextFieldDelegate>
 
-@property (nonatomic,copy) NSString *verCode;               //!<网络验证码
+@property (nonatomic,copy) NSString *verCode;//!<手机验证码
 
 @end
 
-@implementation QSYRegistViewController
-
-#pragma mark - 初始化
-/**
- *  @author         yangshengmeng, 15-03-13 18:03:27
- *
- *  @brief          根据注册的回调，创建注页面
- *
- *  @param callBack 注册后回调block
- *
- *  @return         返回当前创建的注册页面
- *
- *  @since          1.0.0
- */
-- (instancetype)initWithRegistCallBack:(void(^)(BOOL flag,NSString *count,NSString *psw))callBack
-{
-
-    if (self = [super init]) {
-        
-        ///保存回调
-        if (callBack) {
-            
-            self.registCallBack = callBack;
-            
-        }
-        
-    }
-    
-    return self;
-
-}
+@implementation QSYForgetPasswordViewController
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -62,17 +31,25 @@
     [super createNavigationBarUI];
     
     ///设置标题
-    [self setNavigationBarTitle:@"用户注册"];
+    [self setNavigationBarTitle:@"忘记密码"];
     
 }
 
 - (void)createMainShowUI
 {
     
+    ///获取本地用户的手机
+    NSString *localPhone = [QSCoreDataManager getCurrentUserPhone];
+    
     ///手机
     __block UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 64.0f + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTCOUNT_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTCOUNT_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     phoneField.delegate = self;
     phoneField.keyboardType = UIKeyboardTypeNumberPad;
+    if ([localPhone length] == 11) {
+        
+        phoneField.text = localPhone;
+        
+    }
     [self.view addSubview:phoneField];
     
     ///分隔线
@@ -87,7 +64,7 @@
     [self.view addSubview:vertificationCodeField];
     
     ///获取验证码的UI
-    QSNetworkVerticalCodeView *sendVerView = [[QSNetworkVerticalCodeView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 80.0f, 30.0f) andVerticalSendNetworkType:rRequestTypeSendPhoneVertical andPhoneField:phoneField andImageName:nil andBackgroudColor:COLOR_CHARACTERS_LIGHTYELLOW andTextColor:[UIColor blackColor] andTextFontSize:14.0f andGapSecond:60 andSendResultCallBack:^(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType, NSString *verCode) {
+    QSNetworkVerticalCodeView *sendVerView = [[QSNetworkVerticalCodeView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 80.0f, 30.0f) andVerticalSendNetworkType:rRequestTypeSendPhoneVertical andPhoneField:phoneField andAttachParams:@{@"sign" : @"2"} andImageName:nil andBackgroudColor:COLOR_CHARACTERS_LIGHTYELLOW andTextColor:[UIColor blackColor] andTextFontSize:14.0f andGapSecond:60 andSendResultCallBack:^(SEND_PHONE_VERTICALCODE_ACTION_TYPE actionType, NSString *verCode) {
         
         ///手机号码无效
         if (sSendPhoneVerticalCodeActionTypeInvalidPhone == actionType) {
@@ -103,9 +80,9 @@
             
             self.verCode = nil;
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"手机号码应为11位数字，以13/14/15/17/18开头", 1.0f, ^(){
-            
-              [phoneField becomeFirstResponder];
-            
+                
+                [phoneField becomeFirstResponder];
+                
             })
             
             return;
@@ -191,21 +168,19 @@
         [vertificationCodeField resignFirstResponder];
         
         ///登录事件
-        [self beginRegistAction:phoneString andVerCode:verCode];
+        [self gotoResetPasswordAction:phoneString andVerCode:verCode];
         
     }];
     [self.view addSubview:loginButton];
     
 }
 
-#pragma mark - 开始注册
-///开始注册
-- (void)beginRegistAction:(NSString *)count andVerCode:(NSString *)verCode
+#pragma mark - 进入重置密码页面
+- (void)gotoResetPasswordAction:(NSString *)phone andVerCode:(NSString *)verCode
 {
 
-    ///进入用户密码设置页面
-    QSYRegistSetPasswordViewController *setPassword = [[QSYRegistSetPasswordViewController alloc] initWithRegistPhone:count andVercode:verCode andRegistCallBack:self.registCallBack];
-    [self.navigationController pushViewController:setPassword animated:YES];
+    QSYForgetPasswordResetPasswordViewController *resetPasswordVC = [[QSYForgetPasswordResetPasswordViewController alloc] initWithPhone:phone andVerCode:verCode];
+    [self.navigationController pushViewController:resetPasswordVC animated:YES];
 
 }
 

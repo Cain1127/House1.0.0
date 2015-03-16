@@ -90,16 +90,17 @@ static char CommitedCountKey;   //!<已报名人数关联
     [self addSubview:rightImageView];
     
     ///计时信息底view
-    UIView *infoRootView = [[UIView alloc] initWithFrame:CGRectMake(widthOfImage + 15.0f, 15.0f, self.frame.size.width - 2.0f * (widthOfImage + 15.0f), self.frame.size.height - 30.0f)];
+    UIView *infoRootView = [[UIView alloc] initWithFrame:CGRectMake(widthOfImage + 15.0f, (SIZE_DEVICE_WIDTH > 320.0f ? 15.0f : 10.0f), self.frame.size.width - 2.0f * (widthOfImage + 15.0f), self.frame.size.height - 2.0f * (SIZE_DEVICE_WIDTH > 320.0f ? 15.0f : 10.0f))];
     [self addSubview:infoRootView];
     objc_setAssociatedObject(self, &InfoRootViewKey, infoRootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///天数
-    UILabel *dateNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 50.0f, 25.0f)];
+    UILabel *dateNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, (SIZE_DEVICE_WIDTH > 320.0f ? 40.0f : 35.0f), 25.0f)];
     dateNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     dateNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     dateNumLabel.textAlignment = NSTextAlignmentRight;
-    dateNumLabel.text = @"121";
+    dateNumLabel.text = @"21";
+    dateNumLabel.adjustsFontSizeToFitWidth = YES;
     [infoRootView addSubview:dateNumLabel];
     objc_setAssociatedObject(self, &DateLeftKey, dateNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -109,11 +110,12 @@ static char CommitedCountKey;   //!<已报名人数关联
     [infoRootView addSubview:dateUnitLabel];
     
     ///小时
-    UILabel *hourNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(dateUnitLabel.frame.origin.x + dateUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, 40.0f, dateNumLabel.frame.size.height)];
+    UILabel *hourNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(dateUnitLabel.frame.origin.x + dateUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, (SIZE_DEVICE_WIDTH > 320.0f ? 40.0f : 35.0f), dateNumLabel.frame.size.height)];
     hourNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     hourNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     hourNumLabel.textAlignment = NSTextAlignmentRight;
     hourNumLabel.text = @"11";
+    hourNumLabel.adjustsFontSizeToFitWidth = YES;
     [infoRootView addSubview:hourNumLabel];
     objc_setAssociatedObject(self, &HourLeftKey, hourNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -123,11 +125,12 @@ static char CommitedCountKey;   //!<已报名人数关联
     [infoRootView addSubview:hourUnitLabel];
     
     ///分
-    UILabel *miniNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(hourUnitLabel.frame.origin.x + hourUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, 40.0f, dateNumLabel.frame.size.height)];
+    UILabel *miniNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(hourUnitLabel.frame.origin.x + hourUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, (SIZE_DEVICE_WIDTH > 320.0f ? 40.0f : 35.0f), dateNumLabel.frame.size.height)];
     miniNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     miniNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     miniNumLabel.textAlignment = NSTextAlignmentRight;
     miniNumLabel.text = @"30";
+    miniNumLabel.adjustsFontSizeToFitWidth = YES;
     [infoRootView addSubview:miniNumLabel];
     objc_setAssociatedObject(self, &MiniLeftKey, miniNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -137,11 +140,12 @@ static char CommitedCountKey;   //!<已报名人数关联
     [infoRootView addSubview:miniUnitLabel];
     
     ///秒
-    UILabel *secondNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniUnitLabel.frame.origin.x + miniUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, 40.0f, dateNumLabel.frame.size.height)];
+    UILabel *secondNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniUnitLabel.frame.origin.x + miniUnitLabel.frame.size.width, dateNumLabel.frame.origin.y, (SIZE_DEVICE_WIDTH > 320.0f ? 40.0f : 35.0f), dateNumLabel.frame.size.height)];
     secondNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     secondNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     secondNumLabel.textAlignment = NSTextAlignmentRight;
     secondNumLabel.text = @"50";
+    secondNumLabel.adjustsFontSizeToFitWidth = YES;
     [infoRootView addSubview:secondNumLabel];
     objc_setAssociatedObject(self, &SecondLeftKey, secondNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -151,7 +155,7 @@ static char CommitedCountKey;   //!<已报名人数关联
     [infoRootView addSubview:secondUnitLabel];
     
     ///结束提示
-    UILabel *endTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoRootView.frame.size.width - 45.0f, dateUnitLabel.frame.origin.y, 45.0f, 20.0f)];
+    UILabel *endTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoRootView.frame.size.width - 45.0f, dateUnitLabel.frame.origin.y, 45.0f, 15.0f)];
     endTipsLabel.text = @"后结束";
     endTipsLabel.textAlignment = NSTextAlignmentRight;
     endTipsLabel.font =[UIFont systemFontOfSize:FONT_BODY_14];
@@ -180,7 +184,7 @@ static char CommitedCountKey;   //!<已报名人数关联
     objc_setAssociatedObject(self, &CommitedCountKey, havedTipsLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///报名按钮
-    UIButton *signUpButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, infoRootView.frame.size.height - 44.0f, self.frame.size.width - 2.0f * widthOfImage - 30.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *signUpButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, infoRootView.frame.size.height - (SIZE_DEVICE_WIDTH > 320.0f ? 44.0f : 30.0f), self.frame.size.width - 2.0f * widthOfImage - 30.0f, (SIZE_DEVICE_WIDTH > 320.0f ? 44.0f : 30.0f)) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
     }];
     [signUpButton setTitle:@"马上报名" forState:UIControlStateNormal];
