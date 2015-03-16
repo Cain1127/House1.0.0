@@ -12,6 +12,7 @@
 		18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AEF1AA00BA600F35DEB /* QSHouseListView.m */; };
 		18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF21AA0449200F35DEB /* QSCommunityListView.m */; };
 		18018AF71AA05D7200F35DEB /* QSCommunityListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */; };
+		182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
@@ -445,6 +446,8 @@
 		18018AF21AA0449200F35DEB /* QSCommunityListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListView.m; path = List/QSCommunityListView.m; sourceTree = "<group>"; };
 		18018AF51AA05D7200F35DEB /* QSCommunityListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityListReturnData.h; path = House/Community/QSCommunityListReturnData.h; sourceTree = "<group>"; };
 		18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListReturnData.m; path = House/Community/QSCommunityListReturnData.m; sourceTree = "<group>"; };
+		182997A31AB6DA2900705DDB /* QSYMySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMySettingViewController.h; path = Setting/QSYMySettingViewController.h; sourceTree = "<group>"; };
+		182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMySettingViewController.m; path = Setting/QSYMySettingViewController.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
 		182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+House.m"; path = "House/QSCoreDataManager+House.m"; sourceTree = "<group>"; };
 		182C88161A7A1DAB00DA64E9 /* QSImageView+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSImageView+Block.h"; sourceTree = "<group>"; };
@@ -1182,6 +1185,15 @@
 			name = Community;
 			sourceTree = "<group>";
 		};
+		182997A21AB6DA0C00705DDB /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				182997A31AB6DA2900705DDB /* QSYMySettingViewController.h */,
+				182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
 		182C2AC91A7795C300591F02 /* House */ = {
 			isa = PBXGroup;
 			children = (
@@ -1757,6 +1769,7 @@
 		189300AE1A690C880081D0AA /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				182997A21AB6DA0C00705DDB /* Setting */,
 				18AFA9BA1AB2C1FB00681071 /* Pop */,
 				47E0D4C91AAE9CE600B5C42A /* BookingOrders */,
 				18BE127A1A8B56DA0036245A /* Owner */,
@@ -4030,6 +4043,7 @@
 				18AFA9CA1AB2D20600681071 /* NSString+Format.m in Sources */,
 				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
+				182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

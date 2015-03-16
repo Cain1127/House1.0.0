@@ -99,6 +99,10 @@
             leftTipsLabel.text = info;
             leftView = leftTipsLabel;
             
+            ///右箭头
+            rightView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 13.0f, 23.0f)];
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
         }
             break;
             

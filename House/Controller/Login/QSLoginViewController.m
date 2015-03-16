@@ -299,6 +299,14 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             [self hiddenBottomTabbar:NO];
                             
                         }
+                        
+                        ///回调
+                        if (self.loginCallBack) {
+                            
+                            self.loginCallBack(YES);
+                            
+                        }
+                        
                         [self.navigationController popViewControllerAnimated:YES];
                     
                     })

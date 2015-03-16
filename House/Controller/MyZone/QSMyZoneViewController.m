@@ -9,6 +9,7 @@
 #import "QSMyZoneViewController.h"
 #import "QSMyZoneTenantView.h"
 #import "QSMyZoneOwnerView.h"
+#import "QSYMySettingViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -329,7 +330,20 @@ static char UserIconKey;//!<用户头像
 - (void)gotoSettingViewController
 {
 
-    
+    ///判断登录
+    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+        
+        if (flag) {
+            
+            ///进入设置页面
+            QSYMySettingViewController *settingVC = [[QSYMySettingViewController alloc] init];
+            settingVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:settingVC animated:YES];
+            
+        }
+        
+    }];
 
 }
 
