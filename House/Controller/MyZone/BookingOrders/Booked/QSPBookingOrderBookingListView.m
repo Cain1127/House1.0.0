@@ -43,8 +43,8 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-//        self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
-        self.bookingListDataSource  = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+        self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
+//        self.bookingListDataSource  = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
         
         ///UI搭建
         [self createBookingListUI];
@@ -144,9 +144,9 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
         
         self.loadNextPage = [NSNumber numberWithInt:0];
         
-//        [self getOrderListData];
-        [self endRefreshAnimination];
-        [self reloadData];
+        [self getOrderListData];
+//        [self endRefreshAnimination];
+//        [self reloadData];
         
     });
     
@@ -157,7 +157,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-//        [self getOrderListData];
+        [self getOrderListData];
         
     });
     
@@ -291,7 +291,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
             
             QSOrderListReturnData *headerModel = resultData;
             
-            if (headerModel&&[headerModel isKindOfClass:[QSOrderListHeaderData class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSOrderListReturnData class]]) {
                 
                 NSNumber *nextPage = headerModel.orderListHeaderData.next_page;
                 
@@ -330,6 +330,5 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     }];
     
 }
-
 
 @end

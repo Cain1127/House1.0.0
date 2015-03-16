@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TypeEnumHeader.h"
 
 @interface QSPBookingOrderBookingListView : UIView
 

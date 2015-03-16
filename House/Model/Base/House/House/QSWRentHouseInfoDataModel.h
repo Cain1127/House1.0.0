@@ -13,7 +13,7 @@
 
 @property (nonatomic,copy) NSString *id_;               //!<户型ID
 @property (nonatomic,copy) NSString *user_id;           //!<用户ID
-@property (nonatomic,copy) NSString *house_no;          //1<房源号
+@property (nonatomic,copy) NSString *house_no;          //!<房源号
 @property (nonatomic,copy) NSString *title;             //!<标题
 @property (nonatomic,copy) NSString *title_second;      //!<副标题
 @property (nonatomic,copy) NSString *address;           //!<地址

@@ -166,72 +166,192 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         [timeLabel setText:@""];
     }
     
+    UIButton *rightBt = objc_getAssociatedObject(self, &rightActionBtKey);
+    if (rightBt) {
+        [rightBt setTag:0];
+        [rightBt setHidden:YES];
+    }
+    
+    UIButton *leftBt = objc_getAssociatedObject(self, &leftActionBtKey);
+    if (leftBt) {
+        [leftBt setTag:0];
+        [leftBt setHidden:YES];
+    }
+    
 //    QSOrderListItemData
-    if (!Data) {
+    if (!Data || ![Data isKindOfClass:[QSOrderListItemData class]]) {
         return;
     }
     
+    QSOrderListItemData *orderData = (QSOrderListItemData*)Data;
+    
+    
+    
     if (leftIconImgView) {
         
-        //TODO: 图标逻辑
-        //“购”图标
-        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_BUY_CION]];
-        
-        //“租”图标
-        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_RENT_CION]];
-        
-        //“新”图标
-        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION]];
-        
+//        //TODO: 图标逻辑
+//        //“购”图标
+//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_BUY_CION]];
+//        
+//        //“租”图标
+//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_RENT_CION]];
+//        
+//        //“新”图标
+//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION]];
+        [leftIconImgView setImage:[UIImage imageNamed:[orderData getHouseTypeImg]]];
     }
     
     if (nameLabel) {
         
-        [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
+//        [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
+        [nameLabel setText:[orderData getHouseTitle]];
         
     }
     
     if (stateLabel) {
         
-        [stateLabel setText:@"预约待确认"];
+//        [stateLabel setText:@"预约待确认"];
+        
+        if ([orderData getUserIsOwnerFlag]) {
+            //非房客
+            
+        }else{
+            //房客
+            if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+                
+                QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
+                if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    
+                    [stateLabel setText:[orderInfoData getStatusStr]];
+                    
+                }
+            }
+        }
         
     }
     
     if (contentImgView) {
         
-        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
+//        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
+        [contentImgView setImageWithURL:[NSURL URLWithString:[orderData getHouseSmallImgUrl]]];
         
     }
     
     if (personNameLabel) {
         
-        [personNameLabel setText:@"业主：奥巴马"];
+//        [personNameLabel setText:@"业主：奥巴马"];
+        
+        if ([orderData getUserIsOwnerFlag]) {
+            
+            
+        }else{
+            //房客
+            if (orderData.ownerData) {
+                [personNameLabel setText:[NSString stringWithFormat:@"%@:%@",[orderData.ownerData getUserTypeStr],orderData.ownerData.username]];
+            }
+            
+        }
         
     }
     
     if (timeLabel) {
         
-        [timeLabel setText:@"时间：2015-03-11 12：29"];
+//        [timeLabel setText:@"时间：2015-03-11 12：29"];
+        if ([orderData getUserIsOwnerFlag]) {
+            
+            
+        }else{
+            //房客
+            if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+                
+                QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
+                if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    
+                    [timeLabel setText:[orderInfoData getTimeStr]];
+                    
+                }
+            }
+            
+        }
         
     }
     
-    UIButton *leftBt = objc_getAssociatedObject(self, &leftActionBtKey);
-    if (leftBt) {
+    if ([orderData getUserIsOwnerFlag]) {
         
-        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL] forState:UIControlStateNormal];
-        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateHighlighted];
-        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateSelected];
+        
+    }else{
+        //房客
+        if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+            
+            QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
+            if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                
+                NSArray *btList = [orderInfoData getButtonAction];
+                
+                if (btList&&[btList isKindOfClass:[NSArray class]]&&[btList count]>0) {
+                    
+                    if ([btList count]==1) {
+                        
+                        QSOrderButtonActionModel *rightBtAction = [btList objectAtIndex:0];
+                        
+                        if (rightBtAction&&[rightBtAction isKindOfClass:[QSOrderButtonActionModel class]]&&rightBt) {
+                            
+                            [rightBt setTag:rightBtAction.bottionActionTag];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.normalImg] forState:UIControlStateNormal];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateHighlighted];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateSelected];
+                        
+                        }
+                        
+                    }else if ([btList count]==2) {
+                        
+                        QSOrderButtonActionModel *rightBtAction = [btList objectAtIndex:0];
+                        
+                        if (rightBtAction&&[rightBtAction isKindOfClass:[QSOrderButtonActionModel class]]&&rightBt) {
+                            
+                            [rightBt setTag:rightBtAction.bottionActionTag];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.normalImg] forState:UIControlStateNormal];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateHighlighted];
+                            [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateSelected];
+                            [rightBt setHidden:NO];
+                            
+                        }
+                        
+                        QSOrderButtonActionModel *leftBtAction = [btList objectAtIndex:1];
+                        
+                        if (leftBtAction&&[leftBtAction isKindOfClass:[QSOrderButtonActionModel class]]&&leftBt) {
+                            
+                            [leftBt setTag:leftBtAction.bottionActionTag];
+                            [leftBt setImage:[UIImage imageNamed:leftBtAction.normalImg] forState:UIControlStateNormal];
+                            [leftBt setImage:[UIImage imageNamed:leftBtAction.highLightImg] forState:UIControlStateHighlighted];
+                            [leftBt setImage:[UIImage imageNamed:leftBtAction.highLightImg] forState:UIControlStateSelected];
+                            [leftBt setHidden:NO];
+                            
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
         
     }
     
-    UIButton *rightBt = objc_getAssociatedObject(self, &rightActionBtKey);
-    if (rightBt) {
-        
-        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL] forState:UIControlStateNormal];
-        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateHighlighted];
-        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateSelected];
-        
-    }
+//    if (leftBt) {
+//        
+//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL] forState:UIControlStateNormal];
+//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateHighlighted];
+//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateSelected];
+//        
+//    }
+//    
+//    if (rightBt) {
+//        
+//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL] forState:UIControlStateNormal];
+//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateHighlighted];
+//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateSelected];
+//        
+//    }
     
 }
 
