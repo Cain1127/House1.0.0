@@ -717,7 +717,7 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat minTotalPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue];
     
     ///月供计算
-    CGFloat monthRate = [self.detailInfo.loan.base_rate floatValue] / 100;
+    CGFloat monthRate = [self.detailInfo.loan.base_rate floatValue] / 100.0f / 12.0f;
     int allMonth = [self.detailInfo.loan.loan_year intValue] * 12;
     CGFloat rateBase = pow(1.0f + monthRate, allMonth * 1.0);
     CGFloat mortgagePayment = minTotalPrice * 0.7f * monthRate * rateBase / (rateBase - 1.0f);
