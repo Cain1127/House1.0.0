@@ -177,7 +177,7 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 
 - (BOOL) hasResult;
 - (NSString*) result;
-- (Answer_Builder*) setResult:(NSString*) value;
+- (void) setResult:(NSString*) value;
 - (Answer_Builder*) clearResult;
 
 - (BOOL) hasType;

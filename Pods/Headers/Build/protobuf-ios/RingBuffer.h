@@ -1,0 +1,1 @@
+../../../protobuf-ios/runtime/protobuf-ios/Classes/RingBuffer.h

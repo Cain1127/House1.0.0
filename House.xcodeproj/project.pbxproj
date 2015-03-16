@@ -73,7 +73,7 @@
 		18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */; };
 		18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA031AB6B79600681071 /* AsyncSocket.m */; };
 		18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */; };
-		18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */; };
+		18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -385,6 +385,7 @@
 		475C3DA01AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3D9F1AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m */; };
 		475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */; };
 		475C3DA61AB679F50028608F /* QSOrderListOwnerMsgDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */; };
+		475C3DAA1AB6D5480028608F /* QSPOrderBookTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */; };
 		47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */; };
 		47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */; };
 		47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */; };
@@ -987,6 +988,8 @@
 		475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListOrderInfoDataModel.m; sourceTree = "<group>"; };
 		475C3DA41AB679F50028608F /* QSOrderListOwnerMsgDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderListOwnerMsgDataModel.h; sourceTree = "<group>"; };
 		475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListOwnerMsgDataModel.m; sourceTree = "<group>"; };
+		475C3DA81AB6D5480028608F /* QSPOrderBookTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderBookTimeViewController.h; sourceTree = "<group>"; };
+		475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderBookTimeViewController.m; sourceTree = "<group>"; };
 		47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrdersListsViewController.h; sourceTree = "<group>"; };
 		47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrdersListsViewController.m; sourceTree = "<group>"; };
 		47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderBookingListView.h; sourceTree = "<group>"; };
@@ -3285,6 +3288,8 @@
 				47E0D4CF1AAECD6200B5C42A /* Cancel */,
 				47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */,
 				47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */,
+				475C3DA81AB6D5480028608F /* QSPOrderBookTimeViewController.h */,
+				475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */,
 			);
 			path = BookingOrders;
 			sourceTree = "<group>";
@@ -3976,6 +3981,7 @@
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
+				475C3DAA1AB6D5480028608F /* QSPOrderBookTimeViewController.m in Sources */,
 				475C3D811AB272B00028608F /* QSPOrderDetailTitleLabel.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
 				18E802031A6F8D3800CA21D4 /* UIView+MJExtension.m in Sources */,
