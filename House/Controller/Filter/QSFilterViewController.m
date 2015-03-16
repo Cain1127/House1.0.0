@@ -246,30 +246,6 @@ typedef enum
     
     ///其他选择项的底view起始y坐标
     CGFloat ypoint = 64.0f;
-    
-#if 0
-    ///如果是二手房，需要额外添加一个城市选择框
-    if (fFilterMainTypeSecondHouse == self.filterType) {
-        
-        ///重置其他选择项的起始y坐标
-        ypoint = 64.0f + 44.0f + 8.0f;
-        
-        ///城市选择框
-        UITextField *cityField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"城      市" andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsLightGray];
-        cityField.font = [UIFont systemFontOfSize:FONT_BODY_16];
-        cityField.delegate = self;
-        [cityField setValue:[NSString stringWithFormat:@"%d",fFilterSettingFieldActionTypeCity] forKey:@"customFlag"];
-        cityField.placeholder = @"不限";
-        
-        ///显示默认的用户城市信息
-        QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
-        cityField.text = userCityModel.val;
-        
-        ///加载到视图中
-        [self.view addSubview:cityField];
-        
-    }
-#endif
 
     ///过滤条件的底view
     UIView *pickedRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
@@ -293,6 +269,11 @@ typedef enum
             }
             
             ///返回上一页
+            if (self.hiddenCustomTabbarWhenPush) {
+                
+                [self hiddenBottomTabbar:NO];
+                
+            }
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         }];

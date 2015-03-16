@@ -69,6 +69,11 @@
 		18AFA9F31AB687A100681071 /* QSYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9EF1AB687A100681071 /* QSYRegistViewController.m */; };
 		18AFA9F61AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9F51AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m */; };
 		18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */; };
+		18AFAA061AB6B79600681071 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9FE1AB6B79600681071 /* GCDAsyncSocket.m */; };
+		18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */; };
+		18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA031AB6B79600681071 /* AsyncSocket.m */; };
+		18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */; };
+		18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -535,6 +540,16 @@
 		18AFA9F51AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYForgetPasswordResetPasswordViewController.m; sourceTree = "<group>"; };
 		18AFA9F81AB69B6500681071 /* QSYAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAgreementViewController.h; path = Agreement/QSYAgreementViewController.h; sourceTree = "<group>"; };
 		18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAgreementViewController.m; path = Agreement/QSYAgreementViewController.m; sourceTree = "<group>"; };
+		18AFA9FD1AB6B79600681071 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		18AFA9FE1AB6B79600681071 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		18AFA9FF1AB6B79600681071 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		18AFAA021AB6B79600681071 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		18AFAA031AB6B79600681071 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		18AFAA041AB6B79600681071 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		18AFAA0B1AB6C5DA00681071 /* Chat.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.pb.h; sourceTree = "<group>"; };
+		18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.pb.m; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1198,6 +1213,7 @@
 			isa = PBXGroup;
 			children = (
 				1893009A1A6903540081D0AA /* Readme.rtf */,
+				18AFAA0A1AB6C5DA00681071 /* Protocol */,
 				189300721A6902E30081D0AA /* Category */,
 				1893007A1A6902E30081D0AA /* Controller */,
 				18CAFCB01A70E45A00C90C90 /* Model */,
@@ -1612,7 +1628,6 @@
 		189300851A6902E30081D0AA /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				18EE345A1AA70B360053B909 /* New Group */,
 				18CAFC9F1A70952100C90C90 /* Queue */,
 				18C8A2401A6E188600BB9611 /* Color */,
 				18C8A2421A6E188600BB9611 /* Core */,
@@ -1657,6 +1672,7 @@
 		189300931A6902E30081D0AA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				18AFA9FB1AB6B79600681071 /* AsyncSocket */,
 				CE7BF4371A7A6FEB0022A132 /* BaiduMapLib */,
 				18FABCFB1A775E55007AC345 /* JPush1_8_2 */,
 				18E801EB1A6F8D3800CA21D4 /* MJRefresh */,
@@ -1910,6 +1926,47 @@
 				18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */,
 			);
 			name = Agreement;
+			sourceTree = "<group>";
+		};
+		18AFA9FB1AB6B79600681071 /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9FC1AB6B79600681071 /* GCD */,
+				18AFAA011AB6B79600681071 /* RunLoop */,
+			);
+			path = AsyncSocket;
+			sourceTree = "<group>";
+		};
+		18AFA9FC1AB6B79600681071 /* GCD */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9FD1AB6B79600681071 /* GCDAsyncSocket.h */,
+				18AFA9FE1AB6B79600681071 /* GCDAsyncSocket.m */,
+				18AFA9FF1AB6B79600681071 /* GCDAsyncUdpSocket.h */,
+				18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */,
+			);
+			path = GCD;
+			sourceTree = "<group>";
+		};
+		18AFAA011AB6B79600681071 /* RunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				18AFAA021AB6B79600681071 /* AsyncSocket.h */,
+				18AFAA031AB6B79600681071 /* AsyncSocket.m */,
+				18AFAA041AB6B79600681071 /* AsyncUdpSocket.h */,
+				18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */,
+			);
+			path = RunLoop;
+			sourceTree = "<group>";
+		};
+		18AFAA0A1AB6C5DA00681071 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				18AFAA0B1AB6C5DA00681071 /* Chat.pb.h */,
+				18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */,
+			);
+			name = Protocol;
+			path = House/Protocol;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -3085,13 +3142,6 @@
 			name = Configuration;
 			sourceTree = "<group>";
 		};
-		18EE345A1AA70B360053B909 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		18EE34641AABEE120053B909 /* ScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3864,6 +3914,7 @@
 				18B563161A81AA40009779A0 /* QSHeaderViewController.m in Sources */,
 				18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */,
 				1865E3C21AB1644000FAEC9E /* QSCDCollectedCommunityDataModel.m in Sources */,
+				18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
@@ -3882,15 +3933,18 @@
 				475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
 				18AFA9B91AB2BED200681071 /* QSYPopCustomView.m in Sources */,
+				18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
 				18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */,
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
 				CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */,
 				1865E3CD1AB17EBD00FAEC9E /* QSCollectedInfoView.m in Sources */,
+				18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */,
 				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,
 				18B563211A81AA40009779A0 /* QSCustomSingleSelectedPopView.m in Sources */,
 				475C3D981AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m in Sources */,
 				CE8927041AB1284A005D97D4 /* QSCommunityHouseDetailDataModel.m in Sources */,
+				18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */,
 				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
@@ -3909,6 +3963,7 @@
 				18EE34791AABFD3F0053B909 /* QSRentHouseInfoDataModel.m in Sources */,
 				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
+				18AFAA061AB6B79600681071 /* GCDAsyncSocket.m in Sources */,
 				18AFA9F01AB687A100681071 /* QSYForgetPasswordViewController.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,

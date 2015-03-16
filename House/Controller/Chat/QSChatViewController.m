@@ -10,9 +10,15 @@
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
 
+#import "AsyncSocket.h"
+
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-@interface QSChatViewController ()
+@interface QSChatViewController () {
+
+    AsyncSocket *_tcpSocket;//!<套接字
+
+}
 
 @end
 
@@ -159,8 +165,56 @@
 - (void)gotoToolViewController
 {
 
+    ///开始连接socket
+    _tcpSocket = [[AsyncSocket alloc] initWithDelegate:self];
     
+    NSError *error = nil;
+    [_tcpSocket connectToHost:@"117.41.235.107" onPort:8000 withTimeout:-1 error:&error];
+    
+    if (error) {
+        
+        APPLICATION_LOG_INFO(@"TCP连接失败：", error)
+        return;
+        
+    } else {
+    
+        APPLICATION_LOG_INFO(@"TCP连接成功：", @"无错误")
+        ///发送一些测试信息
+        NSData *testData = [@"hello" dataUsingEncoding:NSUTF8StringEncoding];
+        [_tcpSocket writeData:testData withTimeout:-1 tag:300];
+    
+    }
 
+}
+
+#pragma mark - socket调试
+///socket连接到服务器时执行
+- (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    
+    NSLog(@"连接成功");
+    
+}
+
+///准备读取数据
+- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    
+    APPLICATION_LOG_INFO(@"socket调试", @"准备接收数据")
+    
+    ///准备读取数据
+    [_tcpSocket readDataWithTimeout:-1 tag:300];
+    
+}
+
+///接收到数据之后执行
+- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    
+    NSString *resultString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *showString = [NSString stringWithFormat:@"服务器：%@\n返回数据：%@",sock.connectedHost,resultString];
+    APPLICATION_LOG_INFO(@"socket返回信息", showString);
+    
 }
 
 @end
