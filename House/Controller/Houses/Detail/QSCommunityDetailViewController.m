@@ -295,7 +295,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    timeLabel.text=[NSString stringWithFormat:@"建筑年代:%@",houseInfo.building_year];
+    timeLabel.text=[NSString stringWithFormat:@"建筑时间:%@",houseInfo.building_year];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];
@@ -307,7 +307,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=[NSString stringWithFormat:@"产权:%@",houseInfo.used_year];
+    propertyLabel.text=[NSString stringWithFormat:@"使用年限:%@",houseInfo.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];

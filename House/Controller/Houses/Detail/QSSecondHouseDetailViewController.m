@@ -737,7 +737,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
-    timeLabel.text=[NSString stringWithFormat:@"年代:%@年",houseInfoModel.building_year];
+    timeLabel.text=[NSString stringWithFormat:@"建筑时间:%@年",houseInfoModel.building_year];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];
@@ -747,7 +747,7 @@ static char LeftStarKey;            //!<左侧星级
     if (![localUserID isEqualToString:houseInfoModel.user_id]) {
     
     ///计算器
-    UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y-15.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+    UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y, 30.0f, 30.0f) andSingleTapCallBack:^{
         
         NSLog(@"点击计算器");
         
@@ -771,7 +771,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
-    propertyLabel.text=[NSString stringWithFormat:@"产权:%@年使用权",houseInfoModel.used_year];
+    propertyLabel.text=[NSString stringWithFormat:@"使用年限:%@",houseInfoModel.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];
