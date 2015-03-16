@@ -47,7 +47,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSRentHouseDetailViewController () <UIScrollViewDelegate>
+@interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -61,7 +61,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
 
 @property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
-@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
+@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                            //!<图片模型
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
 
@@ -108,11 +108,30 @@ static char LeftStarKey;            //!<左侧星级
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
+    ///收藏按钮
+    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击收藏");
+        
+    } ];
+    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
+    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
+    [self.view addSubview:collectImageView];
+    
+    ///分享按钮
+    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击分享");
+        
+    } ];
+    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
+    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
+    [self.view addSubview:shareImageView];
+    
 }
 
 ///主展示信息
 - (void)createMainShowUI
 {
+    [super createMainShowUI];
     
     ///所有信息的底view
     QSScrollView *rootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
@@ -1138,7 +1157,7 @@ static char LeftStarKey;            //!<左侧星级
     UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击联系业主按钮事件");
-        [self customButtonClick:userInfoModel.mobile];
+        [self makeCall:userInfoModel.mobile andOwer:userInfoModel.nickname];
         
         
     }];
@@ -1162,17 +1181,8 @@ static char LeftStarKey;            //!<左侧星级
 //
 //}
 
-#pragma mark - 联系业主
-///客服热线
-- (void)customButtonClick:(id)sender
-{
-    
-    [self makeCall:sender];
-    
-}
-
-#pragma mark - 打电话事件
-- (void)makeCall:(NSString *)number
+#pragma mark - 联系业主事件
+- (void)makeCall:(NSString *)number andOwer:(NSString *)ower
 {
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"

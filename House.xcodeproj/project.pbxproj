@@ -407,6 +407,8 @@
 		CE8F125A1A6B9189005ECB65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8F12581A6B76CD005ECB65 /* SystemConfiguration.framework */; };
 		CEC659BA1AB2D5ED00CC09E1 /* QSWSecondHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC659B91AB2D5ED00CC09E1 /* QSWSecondHouseInfoDataModel.m */; };
 		CED32B971AB2D9E900F17C26 /* QSWCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CED32B961AB2D9E900F17C26 /* QSWCommunityDataModel.m */; };
+		CED32B9A1AB6830B00F17C26 /* houses_detail_pricedown.png in Resources */ = {isa = PBXBuildFile; fileRef = CED32B981AB6830B00F17C26 /* houses_detail_pricedown.png */; };
+		CED32B9B1AB6830B00F17C26 /* houses_detail_priceup.png in Resources */ = {isa = PBXBuildFile; fileRef = CED32B991AB6830B00F17C26 /* houses_detail_priceup.png */; };
 		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 		CEFA4DF61AAD2F010018C8F9 /* QSCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */; };
 		CEFA4DF71AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DF11AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m */; };
@@ -1074,6 +1076,8 @@
 		CEC659B91AB2D5ED00CC09E1 /* QSWSecondHouseInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWSecondHouseInfoDataModel.m; sourceTree = "<group>"; };
 		CED32B951AB2D9E900F17C26 /* QSWCommunityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWCommunityDataModel.h; sourceTree = "<group>"; };
 		CED32B961AB2D9E900F17C26 /* QSWCommunityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWCommunityDataModel.m; sourceTree = "<group>"; };
+		CED32B981AB6830B00F17C26 /* houses_detail_pricedown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = houses_detail_pricedown.png; path = ../houses_detail_pricedown.png; sourceTree = "<group>"; };
+		CED32B991AB6830B00F17C26 /* houses_detail_priceup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = houses_detail_priceup.png; path = ../houses_detail_priceup.png; sourceTree = "<group>"; };
 		CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWDeveloperHomeViewController.xib; sourceTree = "<group>"; };
 		CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDetailViewController.h; path = Detail/QSCommunityDetailViewController.h; sourceTree = "<group>"; };
 		CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDetailViewController.m; path = Detail/QSCommunityDetailViewController.m; sourceTree = "<group>"; };
@@ -2174,6 +2178,8 @@
 				18B563871A8366A4009779A0 /* houses_detail_starlevel_gray.png */,
 				18B563881A8366A4009779A0 /* houses_detail_starlevel_yellow.png */,
 				18B563891A8366A4009779A0 /* houses_detail_user_icon_sixform.png */,
+				CED32B981AB6830B00F17C26 /* houses_detail_pricedown.png */,
+				CED32B991AB6830B00F17C26 /* houses_detail_priceup.png */,
 				18B5638A1A8366A4009779A0 /* houses_detail_video_highlighted.png */,
 				18B5638B1A8366A4009779A0 /* houses_detail_video_normal.png */,
 			);
@@ -3591,6 +3597,7 @@
 				18B564331A8366A4009779A0 /* icon144.png in Resources */,
 				18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */,
 				18B564351A8366A4009779A0 /* icon152.png in Resources */,
+				CED32B9A1AB6830B00F17C26 /* houses_detail_pricedown.png in Resources */,
 				18B564091A8366A4009779A0 /* home_secondhandhouse_highlighted.png in Resources */,
 				475C3D881AB284A30028608F /* myzone_oorderdetail_up_bt.png in Resources */,
 				18B564171A8366A4009779A0 /* houses_detail_metro_highlighted.png in Resources */,
@@ -3665,6 +3672,7 @@
 				18BE126A1A8A133D0036245A /* myzone_owner_recommend_renant_normal.png in Resources */,
 				18BE12321A8869760036245A /* calendar_sixform.png in Resources */,
 				18B5644F1A8366A4009779A0 /* navigationbar_message_highlighted.png in Resources */,
+				CED32B9B1AB6830B00F17C26 /* houses_detail_priceup.png in Resources */,
 				18B564011A8366A4009779A0 /* guide_tenant_haved_tip.png in Resources */,
 				18B5642D1A8366A4009779A0 /* houses_mud.png in Resources */,
 				18B564541A8366A4009779A0 /* navigationbar_setting_normal.png in Resources */,

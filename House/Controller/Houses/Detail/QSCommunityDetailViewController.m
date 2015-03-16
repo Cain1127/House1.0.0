@@ -107,6 +107,15 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
+    ///收藏按钮
+    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击收藏");
+        
+    } ];
+    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
+    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
+    [self.view addSubview:collectImageView];
+    
 }
 
 ///主展示信息
