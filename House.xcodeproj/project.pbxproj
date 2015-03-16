@@ -73,7 +73,6 @@
 		18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */; };
 		18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA031AB6B79600681071 /* AsyncSocket.m */; };
 		18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */; };
-		18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -548,8 +547,6 @@
 		18AFAA031AB6B79600681071 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		18AFAA041AB6B79600681071 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
 		18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
-		18AFAA0B1AB6C5DA00681071 /* Chat.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.pb.h; sourceTree = "<group>"; };
-		18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.pb.m; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1213,7 +1210,6 @@
 			isa = PBXGroup;
 			children = (
 				1893009A1A6903540081D0AA /* Readme.rtf */,
-				18AFAA0A1AB6C5DA00681071 /* Protocol */,
 				189300721A6902E30081D0AA /* Category */,
 				1893007A1A6902E30081D0AA /* Controller */,
 				18CAFCB01A70E45A00C90C90 /* Model */,
@@ -1957,16 +1953,6 @@
 				18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */,
 			);
 			path = RunLoop;
-			sourceTree = "<group>";
-		};
-		18AFAA0A1AB6C5DA00681071 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				18AFAA0B1AB6C5DA00681071 /* Chat.pb.h */,
-				18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */,
-			);
-			name = Protocol;
-			path = House/Protocol;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -3939,7 +3925,6 @@
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
 				CE7BF4811A7A703E0022A132 /* QSMapManager.mm in Sources */,
 				1865E3CD1AB17EBD00FAEC9E /* QSCollectedInfoView.m in Sources */,
-				18AFAA0D1AB6C5DA00681071 /* Chat.pb.m in Sources */,
 				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,
 				18B563211A81AA40009779A0 /* QSCustomSingleSelectedPopView.m in Sources */,
 				475C3D981AB2D9AA0028608F /* QSPOrderDetalBottomButtonView.m in Sources */,
@@ -4143,8 +4128,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
@@ -4166,8 +4151,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
