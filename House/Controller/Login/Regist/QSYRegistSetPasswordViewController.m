@@ -7,6 +7,7 @@
 //
 
 #import "QSYRegistSetPasswordViewController.h"
+#import "QSYAgreementViewController.h"
 
 #import "QSCustomHUDView.h"
 
@@ -112,13 +113,67 @@
     confirmPswLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:confirmPswLineLable];
     
+    ///登录按钮指针
+    __block UIButton *loginButton = nil;
+    
+    ///协议选择状态提示图片
+    UIButton *protocalButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, confirmPasswordField.frame.origin.y + confirmPasswordField.frame.size.height + 2.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///按钮状态取反
+        if (button.selected) {
+            
+            button.selected = NO;
+            loginButton.userInteractionEnabled = NO;
+            loginButton.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
+            
+        } else {
+        
+            button.selected = YES;
+            loginButton.userInteractionEnabled = YES;
+            loginButton.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+        
+        }
+        
+    }];
+    [protocalButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
+    [protocalButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
+    protocalButton.selected = YES;
+    [self.view addSubview:protocalButton];
+    
+    ///协议说明文字按钮
+    UIButton *protocalTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(protocalButton.frame.origin.x + protocalButton.frame.size.width + 5.0f, protocalButton.frame.origin.y - 4.0f, 160.0f, 30.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///进入协议详情页
+        QSYAgreementViewController *agreementVC = [[QSYAgreementViewController alloc] init];
+        [self.navigationController pushViewController:agreementVC animated:YES];
+        
+    }];
+    [protocalTipsButton setTitle:@"同意用户使用协议" forState:UIControlStateNormal];
+    [protocalTipsButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [protocalTipsButton setTitleColor:COLOR_CHARACTERS_LIGHTYELLOW forState:UIControlStateHighlighted];
+    protocalTipsButton.backgroundColor = [UIColor clearColor];
+    protocalTipsButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [self.view addSubview:protocalTipsButton];
+    
     ///注册按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     buttonStyle.title = @"注册";
-    UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, confirmPasswordField.frame.origin.y + confirmPasswordField.frame.size.height + 6.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, protocalButton.frame.origin.y + protocalButton.frame.size.height + 6.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///密码有效性数据
+        ///有户名有效性数据
         NSString *nameString = nameField.text;
+        if ([nameString length] > 0 && [nameString length] < 4) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-11个字符", 1.0f, ^(){
+            
+                [nameField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        ///密码有效性检测
         NSString *pswString = passwordField.text;
         if ([pswString length] <= 0) {
             
@@ -129,7 +184,7 @@
         
         if ([pswString length] < 6) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码是6位数字，请重新输入", 1.0f, ^(){
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入6-16位数字、字母或常用符合，字母区分大小写", 1.0f, ^(){
                 
                 [passwordField becomeFirstResponder];
                 

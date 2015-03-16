@@ -280,6 +280,22 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-03-16 11:03:21
+ *
+ *  @brief  查询当前用户的手机号码
+ *
+ *  @return 返回当前查询的手机号码结果
+ *
+ *  @since  1.0.0
+ */
++ (NSString *)getCurrentUserPhone
+{
+
+    return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"mobile"];
+
+}
+
+/**
  *  @author yangshengmeng, 15-01-23 10:01:47
  *
  *  @brief  返回当前用户所在的城市

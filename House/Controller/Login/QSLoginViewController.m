@@ -8,6 +8,7 @@
 
 #import "QSLoginViewController.h"
 #import "QSYRegistViewController.h"
+#import "QSYForgetPasswordViewController.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -224,7 +225,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_14];
     UIButton *forgetPasswordButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, normalUserRegistButton.frame.origin.y + normalUserRegistButton.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 80.0f, 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        
+        ///进入根据手机设置密码页面
+        QSYForgetPasswordViewController *forgetPasswordVC = [[QSYForgetPasswordViewController alloc] init];
+        [self.navigationController pushViewController:forgetPasswordVC animated:YES];
         
     }];
     [rootView addSubview:forgetPasswordButton];

@@ -314,6 +314,8 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
     if (!isLogin) {
         
         QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:loginCallBack];
+        loginVC.hiddenCustomTabbarWhenPush = YES;
+        [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:loginVC animated:YES];
         
     } else {

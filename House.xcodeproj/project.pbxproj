@@ -59,12 +59,16 @@
 		18AFA9BE1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9BD1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.m */; };
 		18AFA9C21AB2C9B900681071 /* QSVerticalCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9C11AB2C9B900681071 /* QSVerticalCodeView.m */; };
 		18AFA9CA1AB2D20600681071 /* NSString+Format.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9C91AB2D20600681071 /* NSString+Format.m */; };
-		18AFA9CE1AB2EC9700681071 /* QSYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9CD1AB2EC9700681071 /* QSYRegistViewController.m */; };
 		18AFA9D11AB2F4C300681071 /* QSNetworkVerticalCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D01AB2F4C300681071 /* QSNetworkVerticalCodeView.m */; };
 		18AFA9D51AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D41AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m */; };
-		18AFA9D81AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */; };
 		18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9DB1AB3E84F00681071 /* QSYLoginReturnData.m */; };
 		18AFA9E01AB3F07D00681071 /* QSCDUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */; };
+		18AFA9F01AB687A100681071 /* QSYForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9E81AB687A100681071 /* QSYForgetPasswordViewController.m */; };
+		18AFA9F11AB687A100681071 /* QSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9EA1AB687A100681071 /* QSLoginViewController.m */; };
+		18AFA9F21AB687A100681071 /* QSYRegistSetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9ED1AB687A100681071 /* QSYRegistSetPasswordViewController.m */; };
+		18AFA9F31AB687A100681071 /* QSYRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9EF1AB687A100681071 /* QSYRegistViewController.m */; };
+		18AFA9F61AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9F51AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m */; };
+		18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -336,7 +340,6 @@
 		18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18F99ACF1A731E3500098FD6 /* FilterFindHouseSecondHouse.plist */; };
 		18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18F99AD11A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist */; };
 		18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AD51A733AA000098FD6 /* QSTextField.m */; };
-		18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE61A73511C00098FD6 /* QSLoginViewController.m */; };
 		18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */; };
 		18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */; };
 		18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */; };
@@ -509,18 +512,26 @@
 		18AFA9C11AB2C9B900681071 /* QSVerticalCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSVerticalCodeView.m; sourceTree = "<group>"; };
 		18AFA9C81AB2D20600681071 /* NSString+Format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Format.h"; sourceTree = "<group>"; };
 		18AFA9C91AB2D20600681071 /* NSString+Format.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Format.m"; sourceTree = "<group>"; };
-		18AFA9CC1AB2EC9700681071 /* QSYRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRegistViewController.h; path = Login/Login/QSYRegistViewController.h; sourceTree = "<group>"; };
-		18AFA9CD1AB2EC9700681071 /* QSYRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRegistViewController.m; path = Login/Login/QSYRegistViewController.m; sourceTree = "<group>"; };
 		18AFA9CF1AB2F4C300681071 /* QSNetworkVerticalCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNetworkVerticalCodeView.h; sourceTree = "<group>"; };
 		18AFA9D01AB2F4C300681071 /* QSNetworkVerticalCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNetworkVerticalCodeView.m; sourceTree = "<group>"; };
 		18AFA9D31AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSendVerticalCodeReturnData.h; path = SendVerticalCode/QSYSendVerticalCodeReturnData.h; sourceTree = "<group>"; };
 		18AFA9D41AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSendVerticalCodeReturnData.m; path = SendVerticalCode/QSYSendVerticalCodeReturnData.m; sourceTree = "<group>"; };
-		18AFA9D61AB3CD3E00681071 /* QSYRegistSetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRegistSetPasswordViewController.h; path = Login/Login/QSYRegistSetPasswordViewController.h; sourceTree = "<group>"; };
-		18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRegistSetPasswordViewController.m; path = Login/Login/QSYRegistSetPasswordViewController.m; sourceTree = "<group>"; };
 		18AFA9DA1AB3E84F00681071 /* QSYLoginReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYLoginReturnData.h; path = Login/QSYLoginReturnData.h; sourceTree = "<group>"; };
 		18AFA9DB1AB3E84F00681071 /* QSYLoginReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYLoginReturnData.m; path = Login/QSYLoginReturnData.m; sourceTree = "<group>"; };
 		18AFA9DE1AB3F07D00681071 /* QSCDUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDUserDataModel.h; path = User/QSCDUserDataModel.h; sourceTree = "<group>"; };
 		18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDUserDataModel.m; path = User/QSCDUserDataModel.m; sourceTree = "<group>"; };
+		18AFA9E71AB687A100681071 /* QSYForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYForgetPasswordViewController.h; sourceTree = "<group>"; };
+		18AFA9E81AB687A100681071 /* QSYForgetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYForgetPasswordViewController.m; sourceTree = "<group>"; };
+		18AFA9E91AB687A100681071 /* QSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSLoginViewController.h; sourceTree = "<group>"; };
+		18AFA9EA1AB687A100681071 /* QSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLoginViewController.m; sourceTree = "<group>"; };
+		18AFA9EC1AB687A100681071 /* QSYRegistSetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYRegistSetPasswordViewController.h; sourceTree = "<group>"; };
+		18AFA9ED1AB687A100681071 /* QSYRegistSetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYRegistSetPasswordViewController.m; sourceTree = "<group>"; };
+		18AFA9EE1AB687A100681071 /* QSYRegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYRegistViewController.h; sourceTree = "<group>"; };
+		18AFA9EF1AB687A100681071 /* QSYRegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYRegistViewController.m; sourceTree = "<group>"; };
+		18AFA9F41AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYForgetPasswordResetPasswordViewController.h; sourceTree = "<group>"; };
+		18AFA9F51AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYForgetPasswordResetPasswordViewController.m; sourceTree = "<group>"; };
+		18AFA9F81AB69B6500681071 /* QSYAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAgreementViewController.h; path = Agreement/QSYAgreementViewController.h; sourceTree = "<group>"; };
+		18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAgreementViewController.m; path = Agreement/QSYAgreementViewController.m; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -899,8 +910,6 @@
 		18F99AD11A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseRenantHouse.plist; path = Filter/FilterFindHouseRenantHouse.plist; sourceTree = "<group>"; };
 		18F99AD41A733AA000098FD6 /* QSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSTextField.h; path = TextField/QSTextField.h; sourceTree = "<group>"; };
 		18F99AD51A733AA000098FD6 /* QSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSTextField.m; path = TextField/QSTextField.m; sourceTree = "<group>"; };
-		18F99AE51A73511C00098FD6 /* QSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSLoginViewController.h; path = Login/QSLoginViewController.h; sourceTree = "<group>"; };
-		18F99AE61A73511C00098FD6 /* QSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSLoginViewController.m; path = Login/QSLoginViewController.m; sourceTree = "<group>"; };
 		18F99AE81A735CA500098FD6 /* UITextField+CustomField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CustomField.h"; sourceTree = "<group>"; };
 		18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CustomField.m"; sourceTree = "<group>"; };
 		18F99AEF1A75D95200098FD6 /* QSBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1463,7 +1472,7 @@
 		1893007A1A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				18F99AE41A7350EA00098FD6 /* Login */,
+				18AFA9E51AB687A100681071 /* Login */,
 				18CAFCE51A720E9000C90C90 /* Filter */,
 				CE2B43141A6E2AD2006B9F8E /* Developer */,
 				18C8A1DA1A6D1D7900BB9611 /* Advert */,
@@ -1826,17 +1835,6 @@
 			path = String;
 			sourceTree = "<group>";
 		};
-		18AFA9CB1AB2EC6200681071 /* Regist */ = {
-			isa = PBXGroup;
-			children = (
-				18AFA9CC1AB2EC9700681071 /* QSYRegistViewController.h */,
-				18AFA9CD1AB2EC9700681071 /* QSYRegistViewController.m */,
-				18AFA9D61AB3CD3E00681071 /* QSYRegistSetPasswordViewController.h */,
-				18AFA9D71AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m */,
-			);
-			name = Regist;
-			sourceTree = "<group>";
-		};
 		18AFA9D21AB2FF0C00681071 /* SendVerticalCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -1862,6 +1860,49 @@
 				18AFA9DF1AB3F07D00681071 /* QSCDUserDataModel.m */,
 			);
 			name = User;
+			sourceTree = "<group>";
+		};
+		18AFA9E51AB687A100681071 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9F71AB69B4900681071 /* Agreement */,
+				18AFA9E61AB687A100681071 /* ForgetPassword */,
+				18AFA9E91AB687A100681071 /* QSLoginViewController.h */,
+				18AFA9EA1AB687A100681071 /* QSLoginViewController.m */,
+				18AFA9EB1AB687A100681071 /* Regist */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		18AFA9E61AB687A100681071 /* ForgetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9E71AB687A100681071 /* QSYForgetPasswordViewController.h */,
+				18AFA9E81AB687A100681071 /* QSYForgetPasswordViewController.m */,
+				18AFA9F41AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.h */,
+				18AFA9F51AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m */,
+			);
+			path = ForgetPassword;
+			sourceTree = "<group>";
+		};
+		18AFA9EB1AB687A100681071 /* Regist */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9EC1AB687A100681071 /* QSYRegistSetPasswordViewController.h */,
+				18AFA9ED1AB687A100681071 /* QSYRegistSetPasswordViewController.m */,
+				18AFA9EE1AB687A100681071 /* QSYRegistViewController.h */,
+				18AFA9EF1AB687A100681071 /* QSYRegistViewController.m */,
+			);
+			path = Regist;
+			sourceTree = "<group>";
+		};
+		18AFA9F71AB69B4900681071 /* Agreement */ = {
+			isa = PBXGroup;
+			children = (
+				18AFA9F81AB69B6500681071 /* QSYAgreementViewController.h */,
+				18AFA9F91AB69B6500681071 /* QSYAgreementViewController.m */,
+			);
+			name = Agreement;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -3114,16 +3155,6 @@
 			name = TextField;
 			sourceTree = "<group>";
 		};
-		18F99AE41A7350EA00098FD6 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				18AFA9CB1AB2EC6200681071 /* Regist */,
-				18F99AE51A73511C00098FD6 /* QSLoginViewController.h */,
-				18F99AE61A73511C00098FD6 /* QSLoginViewController.m */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
 		18FABCFB1A775E55007AC345 /* JPush1_8_2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3779,7 +3810,6 @@
 				18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */,
 				18FBA5BB1A7871F8001372B3 /* QSGuideSummaryViewController.m in Sources */,
 				18C8A0B61A6A310400BB9611 /* QSTabBarViewController.m in Sources */,
-				18F99AE71A73511C00098FD6 /* QSLoginViewController.m in Sources */,
 				18EE34781AABFD3F0053B909 /* QSNewHouseInfoDataModel.m in Sources */,
 				CEC659BA1AB2D5ED00CC09E1 /* QSWSecondHouseInfoDataModel.m in Sources */,
 				47E0D4DD1AAECEA500B5C42A /* QSPBookingOrderListsTableViewCell.m in Sources */,
@@ -3796,16 +3826,19 @@
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				475C3D9C1AB3D58A0028608F /* QSOrderListReturnData.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
+				18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */,
 				18DABAAF1AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m in Sources */,
 				CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18DABAB41AAD4E5E00647E7C /* QSHouseTypeDataModel.m in Sources */,
 				CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */,
+				18AFA9F31AB687A100681071 /* QSYRegistViewController.m in Sources */,
 				475C3D8E1AB2C8100028608F /* QSPOrderDetailAddressView.m in Sources */,
 				18E802021A6F8D3800CA21D4 /* UIScrollView+MJRefresh.m in Sources */,
 				18E802011A6F8D3800CA21D4 /* UIScrollView+MJExtension.m in Sources */,
 				187CA8CB1AA2FE2A00841A7E /* QSRentHouseListReturnData.m in Sources */,
 				1865E3DA1AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m in Sources */,
+				18AFA9F21AB687A100681071 /* QSYRegistSetPasswordViewController.m in Sources */,
 				18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */,
 				CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */,
 				18B563171A81AA40009779A0 /* QSMasterViewController.m in Sources */,
@@ -3857,10 +3890,12 @@
 				18B563201A81AA40009779A0 /* QSCustomPopRootView.m in Sources */,
 				18DABAA01AAD4B1C00647E7C /* QSNewHousesDetailReturnData.m in Sources */,
 				18E801FE1A6F8D3800CA21D4 /* MJRefreshConst.m in Sources */,
+				18AFA9F61AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m in Sources */,
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				18EE34791AABFD3F0053B909 /* QSRentHouseInfoDataModel.m in Sources */,
 				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
+				18AFA9F01AB687A100681071 /* QSYForgetPasswordViewController.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				18B5633A1A81F7D0009779A0 /* QSCoreDataManager+Filter.m in Sources */,
 				182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */,
@@ -3871,7 +3906,6 @@
 				18AFA9BE1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.m in Sources */,
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
-				18AFA9CE1AB2EC9700681071 /* QSYRegistViewController.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
 				475C3D811AB272B00028608F /* QSPOrderDetailTitleLabel.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
@@ -3901,9 +3935,9 @@
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
-				18AFA9D81AB3CD3E00681071 /* QSYRegistSetPasswordViewController.m in Sources */,
 				18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */,
 				18E8020B1A6FA78F00CA21D4 /* UIImage+Compressed.m in Sources */,
+				18AFA9F11AB687A100681071 /* QSLoginViewController.m in Sources */,
 				18C8A0E21A6A825C00BB9611 /* QSHomeViewController.m in Sources */,
 				1865E3DE1AB2979500FAEC9E /* QSYHomeReturnData.m in Sources */,
 				18DABAAD1AAD4E1B00647E7C /* QSActivityDataModel.m in Sources */,
