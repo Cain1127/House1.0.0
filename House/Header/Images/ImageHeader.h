@@ -65,6 +65,14 @@
 #define IMAGE_NAVIGATIONBAR_SEARCH_NORMAL @"navigationbar_search_normal"
 #define IMAGE_NAVIGATIONBAR_SEARCH_HIGHLIGHTED @"navigationbar_search_highlighted"
 
+///收藏按钮图片
+#define IMAGE_NAVIGATIONBAR_COLLECT_NORMAL @"navigationbar_collect_normal"
+#define IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED @"navigationbar_collect_highlighted"
+
+///分享按钮图片
+#define IMAGE_NAVIGATIONBAR_SHARE_NORMAL @"navigationbar_share_normal"
+#define IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED @"navigationbar_share_highlighted"
+
 ///<我的>消息按钮
 #define IMAGE_NAVIGATIONBAR_MESSAGE_NORMAL @"navigationbar_message_normal"
 #define IMAGE_NAVIGATIONBAR_MESSAGE_HIGHLIGHTED @"navigationbar_message_highlighted"

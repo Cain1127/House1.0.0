@@ -45,7 +45,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate>
+@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -53,7 +53,7 @@ static char LeftStarKey;            //!<左侧星级
 
 ///详情信息的数据模型
 @property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;      //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
-@property (nonatomic,retain) QSWSecondHouseInfoDataModel *houseInfo;               //!<基本列表数据模型
+@property (nonatomic,retain) QSWSecondHouseInfoDataModel *houseInfo;        //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
@@ -104,6 +104,38 @@ static char LeftStarKey;            //!<左侧星级
     [super createNavigationBarUI];
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+    
+    NSString *localUserID=[QSCoreDataManager getUserID];
+    ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
+    if (![localUserID isEqualToString:self.userInfo.id_]) {
+    
+    ///房客收藏按钮
+    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击收藏");
+        
+    } ];
+    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
+    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
+    [self.view addSubview:collectImageView];
+    
+    ///房客分享按钮
+    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击分享");
+        
+    } ];
+    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
+    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
+    [self.view addSubview:shareImageView];
+    }
+    
+    ///业主分享按钮
+    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击分享");
+        
+    } ];
+    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
+    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
+    [self.view addSubview:shareImageView];
 
 }
 
@@ -704,11 +736,33 @@ static char LeftStarKey;            //!<左侧星级
     decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];;
     [view addSubview:decoreteLabel];
     
-    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
     timeLabel.text=[NSString stringWithFormat:@"年代:%@年",houseInfoModel.building_year];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];
+    
+    NSString *localUserID=[QSCoreDataManager getUserID];
+    ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
+    if (![localUserID isEqualToString:houseInfoModel.user_id]) {
+    
+    ///计算器
+    UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y-15.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        
+        NSLog(@"点击计算器");
+        
+    }];
+    calculatorImage.image = [UIImage imageNamed:IMAGE_PUBLIC_CALCULATOR_NORMAL];
+    [view addSubview:calculatorImage];
+    
+    UILabel *calculatorLabel=[[QSLabel alloc] initWithFrame:CGRectMake(calculatorImage.frame.origin.x-7.5f, calculatorImage.frame.origin.y+calculatorImage.frame.size.height, 45.0f, 15.0f)];
+    calculatorLabel.text=@"计算器";
+    calculatorLabel.textAlignment=NSTextAlignmentCenter;
+    calculatorLabel.font=[UIFont systemFontOfSize:12.0f];
+    calculatorLabel.textColor=COLOR_CHARACTERS_LIGHTGRAY;
+    [view addSubview:calculatorLabel];
+        
+    }
     
     UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     structureLabel.textAlignment=NSTextAlignmentLeft;
@@ -716,7 +770,7 @@ static char LeftStarKey;            //!<左侧星级
     structureLabel.text=[NSString stringWithFormat:@"结构:%@",[QSCoreDataManager getHouseBuildingStructureTypeWithKey:houseInfoModel.building_structure]];
     [view addSubview:structureLabel];
     
-    UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
     propertyLabel.text=[NSString stringWithFormat:@"产权:%@年使用权",houseInfoModel.used_year];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
@@ -1157,7 +1211,7 @@ static char LeftStarKey;            //!<左侧星级
     UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"点击联系业主按钮事件");
-        [self customButtonClick:userInfoModel.mobile];
+        [self makeCall:userInfoModel.mobile andOwer:userInfoModel.nickname];
         
         
     }];
@@ -1173,21 +1227,12 @@ static char LeftStarKey;            //!<左侧星级
 //
 //}
 
-#pragma mark - 联系业主
-///客服热线
-- (void)customButtonClick:(id)sender
-{
-    
-    [self makeCall:sender];
-    
-}
 
-#pragma mark - 打电话事件
-- (void)makeCall:(NSString *)number
+#pragma mark - 联系业主事件
+- (void)makeCall:(NSString *)number andOwer:(NSString *)ower
 {
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
-                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"联系业主:%@",ower] message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
                                               cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
     alertView.tag = kCallAlertViewTag;
     self.phoneNumber = number;

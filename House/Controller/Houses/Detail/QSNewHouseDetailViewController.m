@@ -51,7 +51,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate>
+@interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
@@ -59,7 +59,6 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 @property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo; //!<详情信息的数据模型
-
 
 @property (nonatomic, copy) NSString *phoneNumber;                  //!<电话号码
 
@@ -109,6 +108,24 @@ static char LeftStarKey;            //!<左侧星级
     [super createNavigationBarUI];
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+    
+    ///收藏按钮
+    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击收藏");
+        
+    } ];
+    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
+    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
+    [self.view addSubview:collectImageView];
+    
+    ///分享按钮
+    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
+        NSLog(@"点击分享");
+        
+    } ];
+    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
+    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
+    [self.view addSubview:shareImageView];
     
 }
 
@@ -173,7 +190,7 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///判断是否已登录
-            
+            ///免费通话
             [self customButtonClick:@"0201304545"];
             ///已登录重新刷新数据
             
@@ -947,13 +964,20 @@ static char LeftStarKey;            //!<左侧星级
     [tempRootView addSubview:decoratorTimeLabel];
     
     ///计算器
-    UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 35.0f, 0.0f, 35.0f, 35.0f) andSingleTapCallBack:^{
+    UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, 0.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
         
         NSLog(@"点击计算器");
         
     }];
     calculatorImage.image = [UIImage imageNamed:IMAGE_PUBLIC_CALCULATOR_NORMAL];
     [tempRootView addSubview:calculatorImage];
+    
+    UILabel *calculatorLabel=[[QSLabel alloc] initWithFrame:CGRectMake(calculatorImage.frame.origin.x-7.5f, calculatorImage.frame.origin.y+calculatorImage.frame.size.height, 45.0f, 15.0f)];
+    calculatorLabel.text=@"计算器";
+    calculatorLabel.textAlignment=NSTextAlignmentCenter;
+    calculatorLabel.font=[UIFont systemFontOfSize:12.0f];
+    calculatorLabel.textColor=COLOR_CHARACTERS_LIGHTGRAY;
+    [tempRootView addSubview:calculatorLabel];
     
     ///展开标记
     __block BOOL isShowMore = NO;
