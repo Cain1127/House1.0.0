@@ -20,6 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AMap2DMap (2.4.2)
+  - AMapSearch (2.4.1)
   - ASDepthModal (1.0.0)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
@@ -36,6 +38,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.1)
+  - AMap2DMap (~> 2.4.2)
+  - AMapSearch (~> 2.4.1)
   - ASDepthModal (~> 1.0.0)
   - protobuf-ios
   - Reachability (~> 3.1.1)
@@ -43,6 +47,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  AMap2DMap: 582a8ec3aeb5fcce44adfe51f1a458111821fb0b
+  AMapSearch: 1c6a5b217e808a82369070366b323c09e2eb06c5
   ASDepthModal: 643841a570c2e04bb195581dbee0a65ee40c98f3
   ISO8601DateFormatterValueTransformer: a705384ea6531255258e25b6480ba1180db703a0
   protobuf-ios: 16fb51526e3b22d3ce389b9999a9f3d975d65ff3
