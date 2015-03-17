@@ -29,14 +29,11 @@
 }
 
 
-- (NSData*) data
-{
-    
+- (NSData*) data {
   NSMutableData* data = [NSMutableData dataWithLength:self.serializedSize];
   PBCodedOutputStream* stream = [PBCodedOutputStream streamWithData:data];
   [self writeToCodedOutputStream:stream];
   return data;
-    
 }
 
 
