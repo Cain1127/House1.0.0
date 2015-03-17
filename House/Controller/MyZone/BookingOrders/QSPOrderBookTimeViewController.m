@@ -8,6 +8,7 @@
 
 #import "QSPOrderBookTimeViewController.h"
 #import "QSCoreDataManager+User.h"
+#import "QSPCalendarView.h"
 
 @interface QSPOrderBookTimeViewController ()
 
@@ -48,6 +49,9 @@
     ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
     __block CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f;
     
+    QSPCalendarView *calendarView = [[QSPCalendarView alloc] initAtTopLeft:CGPointMake(0, 64)];
+    [self.view addSubview:calendarView];
+ 
 }
 
 @end
