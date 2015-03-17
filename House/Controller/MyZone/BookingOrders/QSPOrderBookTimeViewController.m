@@ -7,31 +7,47 @@
 //
 
 #import "QSPOrderBookTimeViewController.h"
+#import "QSCoreDataManager+User.h"
 
 @interface QSPOrderBookTimeViewController ()
+
+@property (nonatomic,assign) USER_COUNT_TYPE userType;//!<用户类型
 
 @end
 
 @implementation QSPOrderBookTimeViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+#pragma mark - 初始化
+///初始化
+- (instancetype)init
+{
+    
+    if (self = [super init]) {
+        
+        ///获取当前用户类型
+        self.userType = [QSCoreDataManager getCurrentUserCountType];
+    }
+    
+    return self;
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UI搭建
+- (void)createNavigationBarUI
+{
+    
+    [super createNavigationBarUI];
+    
+    [self setNavigationBarTitle:TITLE_VIEWCONTROLLER_TITLE_BOOKTIME];
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+///搭建主展示UI
+- (void)createMainShowUI
+{
+    ///由于此页面是放置在tabbar页面上的，所以中间可用的展示高度是设备高度减去导航栏和底部tabbar的高度
+    __block CGFloat mainHeightFloat = SIZE_DEVICE_HEIGHT - 64.0f;
+    
 }
-*/
 
 @end

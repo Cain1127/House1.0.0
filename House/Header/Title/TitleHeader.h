@@ -26,9 +26,11 @@
 //<开发商>页面的标题
 #define TITLE_VIEWCONTROLLER_TITLE_DEVELOPERACTIVITY @"活动"
 
-
 ///<预约订单>页面的默认标题
 #define TITLE_VIEWCONTROLLER_TITLE_BOOKINGORDERSLIST @"预约订单"
+
+///<预约看房>页面的默认标题
+#define TITLE_VIEWCONTROLLER_TITLE_BOOKTIME @"预约看房"
 
 /**
  *  @author yangshengmeng, 15-01-20 12:01:30

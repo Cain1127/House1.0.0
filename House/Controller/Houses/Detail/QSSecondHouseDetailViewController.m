@@ -32,6 +32,8 @@
 
 #import <objc/runtime.h>
 
+#import "QSPOrderBookTimeViewController.h"
+
 #define kCallAlertViewTag 111
 
 
@@ -247,6 +249,9 @@ static char LeftStarKey;            //!<左侧星级
             
             
             ///已登录重新刷新数据
+            
+            QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
+            [self.navigationController pushViewController:bookTimeVc animated:YES];
             
             
         }];
