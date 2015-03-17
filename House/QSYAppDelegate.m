@@ -19,7 +19,6 @@
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
 
-#import "QSMapManager.h"
 #import "QSRequestManager.h"
 
 #import "QSCustomHUDView.h"
@@ -65,9 +64,6 @@
         [self autoLoginAction:localCount andPassword:psw];
         
     }
-    
-    ///开始定位用户当前位置
-    [QSMapManager getUserLocation];
     
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{

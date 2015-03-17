@@ -7,10 +7,12 @@
 @class Question;
 @class Question_Builder;
 typedef enum {
-  ChatRequestTypeChatTypeSendPtp = 8000,
-  ChatRequestTypeChatTypeSendPtg = 8001,
+    
+  ChatRequestTypeChatTypeSendPtp = 8000,//!<单对单发送消息
+  ChatRequestTypeChatTypeSendPtg = 8001,//!<群发
   ChatRequestTypeChatTypeOnLine = 8002,
   ChatRequestTypeChatTypeOffLine = 8003,
+    
 } ChatRequestType;
 
 BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
