@@ -350,6 +350,9 @@
 ///订单详情地址栏地图定位按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED  @"myzone_oorderdetail_map_bt_pressed"
 
-
+///预约订单选择时间月份选择按钮左箭头图片
+#define IMAGE_ZONE_ORDER_CALENDAR_MONTH_LEFT_BT    @"myzone_calendar_month_bt_left"
+///预约订单选择时间月份选择按钮右箭头图片
+#define IMAGE_ZONE_ORDER_CALENDAR_MONTH_RIGHT_BT   @"myzone_calendar_month_bt_right"
 
 #endif
