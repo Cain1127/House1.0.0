@@ -565,6 +565,7 @@ typedef enum
     rRequestTypeRegistPhone,                    //!<普通的手机注册
     rRequestTypeLogin,                          //!<登录
     rRequestTypeLogout,                         //!<退出登录
+    rRequestTypeForgetPasswordReset,            //!<忘记密码时重置密码
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

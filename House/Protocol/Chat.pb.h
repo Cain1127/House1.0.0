@@ -6,23 +6,34 @@
 @class Answer_Builder;
 @class Question;
 @class Question_Builder;
+
+///网络请求类型
 typedef enum {
-  ChatRequestTypeChatTypeSendPtp = 8000,
-  ChatRequestTypeChatTypeSendPtg = 8001,
+    
+  ChatRequestTypeChatTypeSendPtp = 8000,    //!<单人对话
+  ChatRequestTypeChatTypeSendPtg = 8001,    //!<多从对话
   ChatRequestTypeChatTypeOnLine = 8002,
   ChatRequestTypeChatTypeOffLine = 8003,
+    
 } ChatRequestType;
 
+///当前聊天是否可以进行
 BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 
-
 @interface ChatRoot : NSObject {
+    
+    
+    
 }
+
 + (PBExtensionRegistry*) extensionRegistry;
-+ (void) registerAllExtensions:(PBMutableExtensionRegistry*) registry;
+
++ (void) registerAllExtensions:(PBMutableExtensionRegistry *) registry;
+
 @end
 
 @interface Question : PBGeneratedMessage {
+    
 @private
   BOOL hasMid_:1;
   BOOL hasTid_:1;
@@ -36,13 +47,16 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
   NSData* pic;
   NSData* video;
   ChatRequestType type;
+    
 }
+
 - (BOOL) hasMid;
 - (BOOL) hasTid;
 - (BOOL) hasType;
 - (BOOL) hasMessage;
 - (BOOL) hasPic;
 - (BOOL) hasVideo;
+
 @property (readonly) int64_t mid;
 @property (readonly) int64_t tid;
 @property (readonly) ChatRequestType type;
@@ -50,8 +64,8 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 @property (readonly, retain) NSData* pic;
 @property (readonly, retain) NSData* video;
 
-+ (Question*) defaultInstance;
-- (Question*) defaultInstance;
++ (Question *) defaultInstance;
+- (Question *) defaultInstance;
 
 - (BOOL) isInitialized;
 - (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
@@ -66,11 +80,14 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 + (Question*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 + (Question*) parseFromCodedInputStream:(PBCodedInputStream*) input;
 + (Question*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
 @end
 
 @interface Question_Builder : PBGeneratedMessage_Builder {
+    
 @private
   Question* result;
+    
 }
 
 - (Question*) defaultInstance;
@@ -114,9 +131,11 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 - (NSData*) video;
 - (Question_Builder*) setVideo:(NSData*) value;
 - (Question_Builder*) clearVideo;
+
 @end
 
 @interface Answer : PBGeneratedMessage {
+    
 @private
   BOOL hasResult_:1;
   BOOL hasMessage_:1;
@@ -128,12 +147,14 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
   NSData* pic;
   NSData* video;
   ChatRequestType type;
+    
 }
 - (BOOL) hasResult;
 - (BOOL) hasType;
 - (BOOL) hasMessage;
 - (BOOL) hasPic;
 - (BOOL) hasVideo;
+
 @property (readonly, retain) NSString* result;
 @property (readonly) ChatRequestType type;
 @property (readonly, retain) NSString* message;
@@ -156,11 +177,14 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 + (Answer*) parseFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
 + (Answer*) parseFromCodedInputStream:(PBCodedInputStream*) input;
 + (Answer*) parseFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry;
+
 @end
 
 @interface Answer_Builder : PBGeneratedMessage_Builder {
+    
 @private
   Answer* result;
+    
 }
 
 - (Answer*) defaultInstance;
@@ -199,5 +223,5 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 - (NSData*) video;
 - (Answer_Builder*) setVideo:(NSData*) value;
 - (Answer_Builder*) clearVideo;
-@end
 
+@end
