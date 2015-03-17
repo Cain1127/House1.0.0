@@ -122,7 +122,7 @@
 {
 
     ///动画退出
-    [self hiddenCustomHUDWithFooterTips:(self.footerTips ? self.footerTips : (self.mainTips ? self.mainTips : @"加载成功……"))];
+    [self hiddenCustomHUDWithFooterTips:@"加载成功……"];
 
 }
 

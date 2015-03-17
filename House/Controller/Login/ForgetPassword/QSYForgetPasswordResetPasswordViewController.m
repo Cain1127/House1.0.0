@@ -11,8 +11,6 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 
-#import "QSCustomHUDView.h"
-
 @interface QSYForgetPasswordResetPasswordViewController () <UITextFieldDelegate>
 
 @property (nonatomic,copy) NSString *phone;     //!<手机号码
@@ -143,46 +141,7 @@
 - (void)resetLoginPassword:(NSString *)pswString
 {
     
-    ///显示HUD
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在重置密码"];
     
-    ///封装参数
-    NSDictionary *params = @{@"password" : pswString,
-                             @"mobile" : self.phone,
-                             @"vercode" : self.verCode};
-    
-    [QSRequestManager requestDataWithType:rRequestTypeForgetPasswordReset andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///隐藏HUD
-        [hud hiddenCustomHUDWithFooterTips:@"正在重置密码"];
-        
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"密码重置成功", 1.0f, ^(){
-            
-                ///返回登录页面
-                APPLICATION_JUMP_BACK_STEPVC(3)
-            
-            })
-            
-        } else {
-        
-            NSString *failtTips = @"密码重置失败";
-            if (resultData) {
-                
-                failtTips = [resultData valueForKey:@"info"];
-                
-            }
-            
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(failtTips, 1.0f, ^(){
-            
-                
-            
-            })
-        
-        }
-        
-    }];
 
 }
 
