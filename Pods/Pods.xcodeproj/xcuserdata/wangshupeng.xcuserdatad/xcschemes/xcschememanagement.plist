@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Pods-AMap2DMap.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Pods-AMapSearch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 		<key>Pods-ASDepthModal.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -38,6 +48,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>Pods-protobuf-ios.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
@@ -72,6 +87,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>24F4AC6D09AEE66670D4A343</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>258803837A5D5E9E40868A9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>267BEA1183B75BE89C5330F5</key>
 		<dict>
 			<key>primary</key>
@@ -82,12 +107,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2EE79C0AA601BAC6CC5FC66F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>33F4AD9778692F24BDAD58AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>3EF10397C02A9BD78281DFFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E1A11DAC21E4B2B4A32B833</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4ED0FEFB5C48FF5074C0674D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +152,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>940759B8AB5B666302C7F9ED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>98D4CC16FBBDC6BC21616B67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>98E75F6441E3A74EB03FE8F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9E49B6357F1F1A8F504D45A7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A142B477F26E81BD9777CD7C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,6 +197,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CAA6C2704D4C5FE85DEAC6FE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D9EB9716FBD9827CDF054CD2</key>
 		<dict>
 			<key>primary</key>
@@ -153,6 +218,11 @@
 			<true/>
 		</dict>
 		<key>E62B3B0586D79506A64E9FF4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F45C93B61EFD63B16CDD743A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
