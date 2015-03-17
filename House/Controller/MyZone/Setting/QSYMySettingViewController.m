@@ -11,6 +11,10 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 
+#import "QSCoreDataManager+User.h"
+
+#import "QSCustomHUDView.h"
+
 ///不过的自定义按钮tag
 typedef enum
 {
@@ -121,6 +125,9 @@ typedef enum
     buttonStyle.title = @"退出";
     UIButton *logoutButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - VIEW_SIZE_NORMAL_BUTTON_HEIGHT - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///退出
+        [self logoutAction];
+        
     }];
     [self.view addSubview:logoutButton];
 
@@ -182,6 +189,59 @@ typedef enum
     }
     
     return NO;
+
+}
+
+#pragma mark - 退出登录
+- (void)logoutAction
+{
+    
+    ///判断当前是否已登录
+    BOOL isLogin = [self checkLogin];
+    if (!isLogin) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前并未登录", 1.0f, ^(){
+        
+            
+        
+        })
+        return;
+        
+    }
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在退出"];
+
+    [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUD];
+        
+        ///退出成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///提示
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"退出成功", 1.0f, ^(){})
+            
+            ///保存本地登录状态
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {}];
+            
+            ///删除登录密码
+            [QSCoreDataManager saveLoginPassword:@"" andCallBack:^(BOOL flag) {}];
+            
+        } else {
+        
+            NSString *logoutFailTips = @"退出失败";
+            if (resultData) {
+                
+                logoutFailTips = [resultData valueForKey:@"info"];
+                
+            }
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(logoutFailTips, 1.0, ^(){})
+        
+        }
+        
+    }];
 
 }
 
