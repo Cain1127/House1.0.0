@@ -1610,7 +1610,6 @@
 			children = (
 				18B2CA351AB7FD0A009940CE /* Socket */,
 				18C8A27D1A6EABFF00BB9611 /* DataMapping */,
-				189300801A6902E30081D0AA /* Chat */,
 				189300811A6902E30081D0AA /* CoreData */,
 				189300821A6902E30081D0AA /* Map */,
 				189300831A6902E30081D0AA /* Request */,
@@ -1618,13 +1617,6 @@
 			);
 			name = Handler;
 			path = House/Handler;
-			sourceTree = "<group>";
-		};
-		189300801A6902E30081D0AA /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Chat;
 			sourceTree = "<group>";
 		};
 		189300811A6902E30081D0AA /* CoreData */ = {
