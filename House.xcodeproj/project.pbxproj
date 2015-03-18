@@ -51,6 +51,7 @@
 		187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CA8D01AA3066700841A7E /* QSNewHouseListView.m */; };
 		187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CA8D31AA3067900841A7E /* QSRentHouseListView.m */; };
 		1890B7821AB8475400B94E9B /* QSSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1890B7811AB8475400B94E9B /* QSSocketManager.m */; };
+		1890B7851AB9301F00B94E9B /* chat.proto in Resources */ = {isa = PBXBuildFile; fileRef = 1890B7841AB9301F00B94E9B /* chat.proto */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
 		18983A081AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png in Resources */ = {isa = PBXBuildFile; fileRef = 18983A071AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png */; };
 		18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EB51A8CA8AA00596E11 /* QSHouseDetailReturnData.m */; };
@@ -518,6 +519,7 @@
 		187CA8D31AA3067900841A7E /* QSRentHouseListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSRentHouseListView.m; path = List/QSRentHouseListView.m; sourceTree = "<group>"; };
 		1890B7801AB8475400B94E9B /* QSSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSocketManager.h; sourceTree = "<group>"; };
 		1890B7811AB8475400B94E9B /* QSSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSocketManager.m; sourceTree = "<group>"; };
+		1890B7841AB9301F00B94E9B /* chat.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chat.proto; sourceTree = "<group>"; };
 		1893009A1A6903540081D0AA /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
 		18983A071AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_header_load_fail750x562.png; sourceTree = "<group>"; };
 		18A88EB41A8CA8AA00596E11 /* QSHouseDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseDetailReturnData.h; sourceTree = "<group>"; };
@@ -1999,6 +2001,7 @@
 		18AFAA0A1AB6C5DA00681071 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				1890B7841AB9301F00B94E9B /* chat.proto */,
 				18AFAA0B1AB6C5DA00681071 /* Chat.pb.h */,
 				18AFAA0C1AB6C5DA00681071 /* Chat.pb.m */,
 			);
@@ -3648,6 +3651,7 @@
 				18018AEB1A9FFF5800F35DEB /* houses_list_load_fail330x250.png in Resources */,
 				18B563F31A8366A4009779A0 /* developer_chat.png in Resources */,
 				18B564741A8366A4009779A0 /* tabbar_houses_normal.png in Resources */,
+				1890B7851AB9301F00B94E9B /* chat.proto in Resources */,
 				18B5646E1A8366A4009779A0 /* share_weibo_highlighted.png in Resources */,
 				18BE12751A8A133D0036245A /* myzone_renant_order_deal_highlighted.png in Resources */,
 				CE7BF4791A7A6FEB0022A132 /* mapapi.bundle in Resources */,
