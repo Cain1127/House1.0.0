@@ -51,7 +51,7 @@ typedef enum
 
 }FILTER_SETTINGFIELD_ACTION_TYPE;
 
-@interface QSFilterViewController ()<UITextFieldDelegate>
+@interface QSFilterViewController ()<UITextFieldDelegate,UITextViewDelegate>
 
 @property (nonatomic,assign) FILTER_SETTINGVC_TYPE filterVCType;//!<过滤设置页面的类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
@@ -335,10 +335,130 @@ typedef enum
         
     }
     
-    ///判断是否可滚动
-    if ((44.0f + 8.0f) * [tempInfoArray count] > view.frame.size.height) {
+    ///UI的最大高度记录
+    CGFloat currentHeight = (44.0f + 8.0f) * [tempInfoArray count] + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+    
+    ///特色标签提示信息
+    if (fFilterSettingVCTypeHouseListRentHouse <= self.filterVCType) {
         
-        view.contentSize = CGSizeMake(view.frame.size.width, (44.0f + 8.0f) * [tempInfoArray count] + 10.0f);
+        ///说明信息
+        UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, currentHeight, SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 5.0f, 30.0f)];
+        tipsLabel.text = @"补充信息：(多选项)";
+        tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+        tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+        [view addSubview:tipsLabel];
+        currentHeight = currentHeight + tipsLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///选择标签
+        NSArray *featuresList = [QSCoreDataManager getHouseFeatureListWithType:[self getFilterTypeWithFilterVCType]];
+        
+        ///每个标签的宽度
+        CGFloat widthOfFeatures = 80.0f;
+        CGFloat heightOfFeatures = 30.0f;
+        CGFloat cornerOfFeatures = 3.0f;
+        
+        ///每行放置的个数
+        int numOfFeaturesRow = SIZE_DEVICE_WIDTH > 320.0f ? 4 : 3;
+        CGFloat gapOfFeatures = (SIZE_DEVICE_WIDTH - numOfFeaturesRow * widthOfFeatures) / (numOfFeaturesRow + 1);
+        
+        ///重置滚动页高度
+        int sumRow = (int)([featuresList count] / numOfFeaturesRow + (([featuresList count] % numOfFeaturesRow) > 0 ? 1 : 0));
+        
+        ///创建每一个标签按钮
+        int k = 0;
+        for (int i = 0; i < sumRow; i++) {
+            
+            for (int j = 0; j < numOfFeaturesRow && k < [featuresList count]; j++) {
+                
+                ///标签模型
+                QSBaseConfigurationDataModel *featuresModel = featuresList[k];
+                
+                UIButton *featuresButton = [UIButton createBlockButtonWithFrame:CGRectMake(gapOfFeatures + j * (widthOfFeatures + gapOfFeatures), currentHeight + i * (heightOfFeatures + 5.0f), widthOfFeatures, heightOfFeatures) andButtonStyle:nil andCallBack:^(UIButton *button) {
+                    
+                    if (button.selected) {
+                        
+                        button.selected = NO;
+                        button.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+                        
+                    } else {
+                    
+                        button.selected = YES;
+                        button.layer.borderColor = [COLOR_CHARACTERS_BLACK CGColor];
+                    
+                    }
+                    
+                }];
+                featuresButton.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+                featuresButton.layer.borderWidth = 0.5f;
+                [featuresButton setTitle:featuresModel.val forState:UIControlStateNormal];
+                [featuresButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+                [featuresButton setTitleColor:COLOR_CHARACTERS_BLACK forState:UIControlStateSelected];
+                featuresButton.layer.cornerRadius = cornerOfFeatures;
+                featuresButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+                featuresButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+                [view addSubview:featuresButton];
+                k++;
+                
+            }
+            
+        }
+        
+        ///重置当前高度
+        currentHeight = currentHeight + heightOfFeatures * sumRow + 5.0f * (sumRow - 1) + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///备注信息
+        UITextView *commendField = [[UITextView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, currentHeight, SIZE_DEFAULT_MAX_WIDTH, 160.0f)];
+        commendField.backgroundColor = [UIColor whiteColor];
+        commendField.showsHorizontalScrollIndicator = NO;
+        commendField.showsVerticalScrollIndicator = NO;
+        commendField.delegate = self;
+        commendField.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+        commendField.layer.borderWidth = 0.5f;
+        commendField.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
+        [view addSubview:commendField];
+        currentHeight = currentHeight + commendField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///如果是高级过滤，则显示是否设置为求租求购：需要已登录
+        if (fFilterSettingVCTypeHouseListRentHouse == self.filterVCType ||
+            fFilterSettingVCTypeHouseListSecondHouse == self.filterVCType) {
+            
+            ///判断是否已登录
+            if ([self checkLogin]) {
+                
+                ///提示信息
+                UILabel *setAsAskFilterTips = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, currentHeight, 200.0f, 30.0f)];
+                setAsAskFilterTips.text = @"设为求租求购订阅信息";
+                setAsAskFilterTips.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+                setAsAskFilterTips.font = [UIFont systemFontOfSize:FONT_BODY_16];
+                [view addSubview:setAsAskFilterTips];
+                currentHeight = currentHeight + setAsAskFilterTips.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+                
+                ///设置开关
+                UISwitch *tipsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 60.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, setAsAskFilterTips.frame.origin.y + 3.0f, 60.0f, 30.0f)];
+                tipsSwitch.onTintColor = COLOR_CHARACTERS_LIGHTYELLOW;
+                tipsSwitch.on = YES;
+                [view addSubview:tipsSwitch];
+                
+                ///分隔线
+                UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(setAsAskFilterTips.frame.origin.x, setAsAskFilterTips.frame.origin.y + setAsAskFilterTips.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP - 0.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
+                sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+                [view addSubview:sepLineLabel];
+                
+            } else {
+            
+                [commendField removeFromSuperview];
+                currentHeight = currentHeight - commendField.frame.size.height - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+            
+            }
+            
+        }
+        
+    }
+    
+    ///判断是否可滚动
+    if (currentHeight > view.frame.size.height) {
+        
+        view.contentSize = CGSizeMake(view.frame.size.width, currentHeight + 10.0f);
         
     }
 
