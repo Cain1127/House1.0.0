@@ -10,6 +10,7 @@
 #import "QSMyZoneTenantView.h"
 #import "QSMyZoneOwnerView.h"
 #import "QSYMySettingViewController.h"
+#import "QSYAskSaleAndRentViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -275,9 +276,14 @@ static char UserIconKey;//!<用户头像
                 
                 ///求租求购点击
             case tTenantZoneActionTypeBeg:
+            {
                 
-                NSLog(@"==================求租求购======================");
+                QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
+                askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
                 
+            }
                 break;
                 
                 ///收藏房源

@@ -36,6 +36,7 @@
 		184366971AB9843100A81374 /* FilterAdvanceRentHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 184366961AB9843100A81374 /* FilterAdvanceRentHouse.plist */; };
 		1843669B1AB9845700A81374 /* FilterAskRentHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1843669A1AB9845700A81374 /* FilterAskRentHouse.plist */; };
 		1843669D1AB9847200A81374 /* FilterAskSecondHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1843669C1AB9847200A81374 /* FilterAskSecondHouse.plist */; };
+		184366A31AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184366A21AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m */; };
 		184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */; };
 		184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 184950931A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m */; };
 		1865E3BA1AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1865E3B91AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist */; };
@@ -491,6 +492,8 @@
 		184366961AB9843100A81374 /* FilterAdvanceRentHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterAdvanceRentHouse.plist; path = Filter/FilterAdvanceRentHouse.plist; sourceTree = "<group>"; };
 		1843669A1AB9845700A81374 /* FilterAskRentHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterAskRentHouse.plist; path = Filter/FilterAskRentHouse.plist; sourceTree = "<group>"; };
 		1843669C1AB9847200A81374 /* FilterAskSecondHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterAskSecondHouse.plist; path = Filter/FilterAskSecondHouse.plist; sourceTree = "<group>"; };
+		184366A11AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAskSaleAndRentViewController.h; path = SaleAndRent/Ask/QSYAskSaleAndRentViewController.h; sourceTree = "<group>"; };
+		184366A21AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskSaleAndRentViewController.m; path = SaleAndRent/Ask/QSYAskSaleAndRentViewController.m; sourceTree = "<group>"; };
 		1849508F1A7CAD6800CC00F7 /* QSHouseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseCollectionViewCell.h; path = Cell/QSHouseCollectionViewCell.h; sourceTree = "<group>"; };
 		184950901A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseCollectionViewCell.m; path = Cell/QSHouseCollectionViewCell.m; sourceTree = "<group>"; };
 		184950921A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseListTitleCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1355,6 +1358,31 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1843669E1AB9BD9300A81374 /* SaleAndRent */ = {
+			isa = PBXGroup;
+			children = (
+				184366A01AB9BDA200A81374 /* Release */,
+				1843669F1AB9BD9D00A81374 /* Ask */,
+			);
+			name = SaleAndRent;
+			sourceTree = "<group>";
+		};
+		1843669F1AB9BD9D00A81374 /* Ask */ = {
+			isa = PBXGroup;
+			children = (
+				184366A11AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.h */,
+				184366A21AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m */,
+			);
+			name = Ask;
+			sourceTree = "<group>";
+		};
+		184366A01AB9BDA200A81374 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Release;
+			sourceTree = "<group>";
+		};
 		184950871A7CACF300CC00F7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1798,6 +1826,7 @@
 		189300AE1A690C880081D0AA /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				1843669E1AB9BD9300A81374 /* SaleAndRent */,
 				182997A21AB6DA0C00705DDB /* Setting */,
 				18AFA9BA1AB2C1FB00681071 /* Pop */,
 				47E0D4C91AAE9CE600B5C42A /* BookingOrders */,
@@ -3997,6 +4026,7 @@
 				CE2B43181A6E2B2B006B9F8E /* QSWDeveloperHomeViewController.m in Sources */,
 				CEFA4DF91AAD2F010018C8F9 /* QSRentHouseDetailViewController.m in Sources */,
 				1890B7891AB96E9800B94E9B /* Chat.pb.m in Sources */,
+				184366A31AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m in Sources */,
 				CEFA4DF61AAD2F010018C8F9 /* QSCommunityDetailViewController.m in Sources */,
 				183CC66D1A68FC8800B8F97D /* main.m in Sources */,
 				18B563161A81AA40009779A0 /* QSHeaderViewController.m in Sources */,
