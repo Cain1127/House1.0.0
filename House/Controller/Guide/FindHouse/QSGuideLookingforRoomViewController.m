@@ -218,7 +218,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         });
         
         ///进入过滤器页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse andIsShowNavigation:NO];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeGuideSecondHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -241,7 +241,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         });
         
         ///进入过滤器设置页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse andIsShowNavigation:NO];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeGuideRentHouse];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];

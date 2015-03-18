@@ -560,7 +560,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     } else {
         
         ///弹出二手房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeSecondHouse andIsShowNavigation:YES];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeHomeSecondHouse];
         filterVC.hiddenCustomTabbarWhenPush = YES;
         [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
@@ -591,7 +591,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     } else {
         
         ///弹出出租房设置过滤的页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterMainTypeRentalHouse andIsShowNavigation:YES];
+        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeHomeRentHouse];
         filterVC.resetFilterCallBack = ^(BOOL flag){
         
             ///出租房过滤设置成功
