@@ -1,10 +1,13 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,6 +16,8 @@
 // limitations under the License.
 
 #import "GeneratedMessage.h"
+
+#import "ExtensionField.h"
 
 /**
  * Generated message classes for message types that contain extension ranges
@@ -67,6 +72,15 @@
 - (void) writeExtensionsToCodedOutputStream:(PBCodedOutputStream*) output
                                        from:(int32_t) startInclusive
                                          to:(int32_t) endExclusive;
+- (void) writeExtensionDescriptionToMutableString:(NSMutableString*) output
+                                             from:(int32_t) startInclusive
+                                               to:(int32_t) endExclusive
+                                       withIndent:(NSString*) indent;
+- (BOOL) isEqualExtensionsInOther:(PBExtendableMessage*)otherMessage
+                             from:(int32_t) startInclusive
+                               to:(int32_t) endExclusive;
+- (NSUInteger) hashExtensionsFrom:(int32_t) startInclusive
+                               to:(int32_t) endExclusive;
 
 
 

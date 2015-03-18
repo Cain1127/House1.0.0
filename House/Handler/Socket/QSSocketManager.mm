@@ -87,6 +87,19 @@ static QSSocketManager *_socketManager = nil;
     ///发送消息
     QSSocketManager *socketManager = [self shareSocketManager];
     [socketManager.tcpSocket writeData:sendData withTimeout:-1 tag:300];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"testProtocolBuf"];
+    BOOL isWriteSuccess = [sendData writeToFile:path atomically:YES];
+    if (isWriteSuccess) {
+        
+        APPLICATION_LOG_INFO(@"发送消息写入文件", @"写入成功")
+        
+    } else {
+    
+        APPLICATION_LOG_INFO(@"发送消息写入文件", @"写入失败")
+    
+    }
 
 }
 
@@ -152,8 +165,9 @@ static QSSocketManager *_socketManager = nil;
 {
     
     APPLICATION_LOG_INFO(@"socket返回信息", data)
-    Answer *answer = [Answer parseFromData:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding]];
-    APPLICATION_LOG_INFO(@"socket返回信息", answer.message);
+    NSLog(@"%s",[data bytes]);
+    Answer *answer = [Answer parseFromData:data];
+    APPLICATION_LOG_INFO(@"socket返回信息:模型", answer.message);
     
 }
 

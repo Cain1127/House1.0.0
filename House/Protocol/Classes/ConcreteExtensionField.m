@@ -1,10 +1,13 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,12 +17,20 @@
 
 #import "ConcreteExtensionField.h"
 
+#import "AbstractMessage.h"
+#import "CodedInputStream.h"
+#import "CodedOutputStream.h"
+#import "ExtendableMessage_Builder.h"
+#import "Message_Builder.h"
+#import "Utilities.h"
+#import "WireFormat.h"
+
 @interface PBConcreteExtensionField()
 @property PBExtensionType type;
-@property Class extendedClass;
+@property (assign) Class extendedClass;
 @property int32_t fieldNumber;
 @property (retain) id defaultValue;
-@property Class messageOrGroupClass;
+@property (assign) Class messageOrGroupClass;
 @property BOOL isRepeated;
 @property BOOL isPacked;
 @property BOOL isMessageSetWireFormat;
@@ -149,6 +160,8 @@ int32_t typeSize(PBExtensionType type) {
     case PBExtensionTypeSFixed64:
     case PBExtensionTypeDouble:
       return 8;
+    default:
+      break;
   }
 
   @throw [NSException exceptionWithName:@"InternalError" reason:@"" userInfo:nil];
@@ -342,13 +355,44 @@ int32_t typeSize(PBExtensionType type) {
 }
 
 
+- (void) writeDescriptionOfSingleValue:(id) value
+                                    to:(NSMutableString*) output
+                            withIndent:(NSString*) indent {
+  switch (type) {
+    case PBExtensionTypeBool:
+    case PBExtensionTypeFixed32:
+    case PBExtensionTypeSFixed32:
+    case PBExtensionTypeFloat:
+    case PBExtensionTypeFixed64:
+    case PBExtensionTypeSFixed64:
+    case PBExtensionTypeDouble:
+    case PBExtensionTypeInt32:
+    case PBExtensionTypeInt64:
+    case PBExtensionTypeSInt32:
+    case PBExtensionTypeSInt64:
+    case PBExtensionTypeUInt32:
+    case PBExtensionTypeUInt64:
+    case PBExtensionTypeBytes:
+    case PBExtensionTypeString:
+    case PBExtensionTypeEnum:
+      [output appendFormat:@"%@%@\n", indent, value];
+      return;
+    case PBExtensionTypeGroup:
+    case PBExtensionTypeMessage:
+      [((PBAbstractMessage *)value) writeDescriptionTo:output withIndent:indent];
+      return;
+  }
+  @throw [NSException exceptionWithName:@"InternalError" reason:@"" userInfo:nil];
+}
+
+
 - (void)         writeRepeatedValues:(NSArray*) values
     includingTagsToCodedOutputStream:(PBCodedOutputStream*) output {
   if (isPacked) {
     [output writeTag:fieldNumber format:PBWireFormatLengthDelimited];
     int32_t dataSize = 0;
     if (typeIsFixedSize(type)) {
-      dataSize = values.count * typeSize(type);
+      dataSize = (int32_t)values.count * typeSize(type);
     } else {
       for (id value in values) {
         dataSize += [self computeSingleSerializedSizeNoTag:value];
@@ -379,7 +423,7 @@ int32_t typeSize(PBExtensionType type) {
   if (isPacked) {
     int32_t size = 0;
     if (typeIsFixedSize(type)) {
-      size = values.count * typeSize(type);
+      size = (int32_t)values.count * typeSize(type);
     } else {
       for (id value in values) {
         size += [self computeSingleSerializedSizeNoTag:value];
@@ -404,6 +448,19 @@ int32_t typeSize(PBExtensionType type) {
   }
 }
 
+
+- (void) writeDescriptionOf:(id)value
+                         to:(NSMutableString *)output
+                 withIndent:(NSString *)indent {
+  if (isRepeated) {
+    NSArray* values = value;
+    for (id singleValue in values) {
+      [self writeDescriptionOfSingleValue:singleValue to:output withIndent:indent];
+    }
+  } else {
+    [self writeDescriptionOfSingleValue:value to:output withIndent:indent];
+  }
+}
 
 - (void) mergeMessageSetExtentionFromCodedInputStream:(PBCodedInputStream*) input
                                         unknownFields:(PBUnknownFieldSet_Builder*) unknownFields {

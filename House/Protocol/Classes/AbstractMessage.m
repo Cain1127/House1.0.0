@@ -1,10 +1,13 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -55,6 +58,14 @@
   [codedOutput flush];
 }
 
+- (void) writeDelimitedToOutputStream:(NSOutputStream *)output
+{
+    int serialized = [self serializedSize];
+    PBCodedOutputStream* codedOutput = [PBCodedOutputStream streamWithOutputStream:output];
+    [codedOutput writeRawVarint32:serialized];
+    [self writeToCodedOutputStream:codedOutput];
+    [codedOutput flush];
+}
 
 - (id<PBMessage>) defaultInstance {
   @throw [NSException exceptionWithName:@"ImproperSubclassing" reason:@"" userInfo:nil];
@@ -68,6 +79,24 @@
 
 - (id<PBMessage_Builder>) builder {
   @throw [NSException exceptionWithName:@"ImproperSubclassing" reason:@"" userInfo:nil];
+}
+
+
+- (id<PBMessage_Builder>) toBuilder {
+  @throw [NSException exceptionWithName:@"ImproperSubclassing" reason:@"" userInfo:nil];
+}
+
+
+- (void) writeDescriptionTo:(NSMutableString*) output
+                 withIndent:(NSString*) indent {
+  @throw [NSException exceptionWithName:@"ImproperSubclassing" reason:@"" userInfo:nil];
+}
+
+
+- (NSString*) description {
+  NSMutableString* output = [NSMutableString string];
+  [self writeDescriptionTo:output withIndent:@""];
+  return output;
 }
 
 

@@ -63,18 +63,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @implementation QSWHousesMapDistributionViewController
 
 #pragma mark - 初始化
-//- (instancetype)init
-//{
-//
-//    ///获取本地默认配置的过滤器
-//    NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
-//    return [self initWithHouseMainType:((filterID && [filterID length] > 0) ? [filterID intValue] : fFilterMainTypeSecondHouse)];
-//
-//    ///注册通知
-//    [self registLocalHomePageActionNotification];
-//
-//}
-
 /**
  *  @author         yangshengmeng, 15-01-30 08:01:06
  *

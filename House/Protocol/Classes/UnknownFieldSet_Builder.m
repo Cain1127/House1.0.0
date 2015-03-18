@@ -1,10 +1,13 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -51,7 +54,7 @@
 }
 
 
-+ (PBUnknownFieldSet_Builder*) newBuilder:(PBUnknownFieldSet*) unknownFields {
++ (PBUnknownFieldSet_Builder*) createBuilder:(PBUnknownFieldSet*) unknownFields {
   PBUnknownFieldSet_Builder* builder = [[[PBUnknownFieldSet_Builder alloc] init] autorelease];
   [builder mergeUnknownFields:unknownFields];
   return builder;
@@ -114,6 +117,29 @@
   return result;
 }
 
+- (PBUnknownFieldSet*) buildPartial {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
+
+- (PBUnknownFieldSet*) clone {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
+
+- (BOOL) isInitialized {
+  return YES;
+}
+
+- (PBUnknownFieldSet*) defaultInstance {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
+
+- (PBUnknownFieldSet*) unknownFields {
+  return [self build];
+}
+
+- (id<PBMessage_Builder>) setUnknownFields:(PBUnknownFieldSet*) unknownFields {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
 
 /** Check if the given field number is present in the set. */
 - (BOOL) hasField:(int32_t) number {
@@ -165,10 +191,26 @@
 }
 
 
-- (PBUnknownFieldSet_Builder*) mergeFromInputStream:(NSInputStream*) input {
-  @throw [NSException exceptionWithName:@"" reason:@"" userInfo:nil];
+- (PBUnknownFieldSet_Builder*) mergeFromData:(NSData*) data extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  PBCodedInputStream* input = [PBCodedInputStream streamWithData:data];
+  [self mergeFromCodedInputStream:input extensionRegistry:extensionRegistry];
+  [input checkLastTagWas:0];
+  return self;
 }
 
+
+- (PBUnknownFieldSet_Builder*) mergeFromInputStream:(NSInputStream*) input {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
+
+- (PBUnknownFieldSet_Builder*) mergeFromInputStream:(NSInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
+
+- (PBUnknownFieldSet_Builder*) mergeDelimitedFromInputStream:(NSInputStream*) input
+{
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
 
 - (PBUnknownFieldSet_Builder*) mergeVarintField:(int32_t) number value:(int32_t) value {
   if (number == 0) {
@@ -228,6 +270,9 @@
   return self;
 }
 
+- (PBUnknownFieldSet_Builder*) mergeFromCodedInputStream:(PBCodedInputStream*) input extensionRegistry:(PBExtensionRegistry*) extensionRegistry {
+  @throw [NSException exceptionWithName:@"UnsupportedMethod" reason:@"" userInfo:nil];
+}
 
 - (PBUnknownFieldSet_Builder*) clear {
   self.fields = [NSMutableDictionary dictionary];

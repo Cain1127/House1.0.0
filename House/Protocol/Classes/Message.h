@@ -1,16 +1,23 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+@class PBCodedOutputStream;
+@class PBUnknownFieldSet;
+@protocol PBMessage_Builder;
 
 /**
  * Abstract interface implemented by Protocol Message objects.
@@ -51,6 +58,7 @@
  */
 - (void) writeToCodedOutputStream:(PBCodedOutputStream*) output;
 - (void) writeToOutputStream:(NSOutputStream*) output;
+- (void) writeDelimitedToOutputStream:(NSOutputStream*) output;
 
 /**
  * Serializes the message to a {@code ByteString} and returns it. This is
@@ -63,4 +71,16 @@
  * Constructs a new builder for a message of the same type as this message.
  */
 - (id<PBMessage_Builder>) builder;
+
+/**
+ * Constructs a builder initialized with the current message.  Use this to
+ * derive a new message from the current one.
+ */
+- (id<PBMessage_Builder>) toBuilder;
+
+/**
+ * Returns a string description of the message.
+ */
+- (NSString*) description;
+
 @end

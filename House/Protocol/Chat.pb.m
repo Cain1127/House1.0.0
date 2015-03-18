@@ -688,9 +688,10 @@ static Answer* defaultAnswerInstance = nil;
 - (NSString*) result {
   return result.result;
 }
-- (void) setResult:(NSString*) value {
+- (Answer_Builder*) setResult:(NSString*) value {
   result.hasResult = YES;
   result.result = value;
+  return self;
 }
 - (Answer_Builder*) clearResult {
   result.hasResult = NO;

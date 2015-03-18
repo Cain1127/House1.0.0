@@ -1,10 +1,13 @@
+// Protocol Buffers for Objective C
+//
+// Copyright 2010 Booyah Inc.
 // Copyright 2008 Cyrus Najmabadi
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -53,7 +56,7 @@ const int32_t BUFFER_SIZE = 4096;
 - (id) initWithData:(NSData*) data {
   if ((self = [super init])) {
     self.buffer = [NSMutableData dataWithData:data];
-    bufferSize = buffer.length;
+    bufferSize = (int32_t)buffer.length;
     self.input = nil;
     [self commonInit];
   }
@@ -429,34 +432,6 @@ const int32_t BUFFER_SIZE = 4096;
 
 
 /**
- * Decode a ZigZag-encoded 32-bit value.  ZigZag encodes signed integers
- * into values that can be efficiently encoded with varint.  (Otherwise,
- * negative values must be sign-extended to 64 bits to be varint encoded,
- * thus always taking 10 bytes on the wire.)
- *
- * @param n An unsigned 32-bit integer, stored in a signed int
- * @return A signed 32-bit integer.
- */
-int32_t decodeZigZag32(int32_t n) {
-  return logicalRightShift32(n, 1) ^ -(n & 1);
-}
-
-
-/**
- * Decode a ZigZag-encoded 64-bit value.  ZigZag encodes signed integers
- * into values that can be efficiently encoded with varint.  (Otherwise,
- * negative values must be sign-extended to 64 bits to be varint encoded,
- * thus always taking 10 bytes on the wire.)
- *
- * @param n An unsigned 64-bit integer, stored in a signed int
- * @return A signed 64-bit integer.
- */
-int64_t decodeZigZag64(int64_t n) {
-  return logicalRightShift64(n, 1) ^ -(n & 1);
-}
-
-
-/**
  * Set the maximum message recursion depth.  In order to prevent malicious
  * messages from causing stack overflows, {@code PBCodedInputStream} limits
  * how deeply messages may be nested.  The default limit is 64.
@@ -600,7 +575,7 @@ int64_t decodeZigZag64(int64_t n) {
   bufferPos = 0;
   bufferSize = 0;
   if (input != nil) {
-    bufferSize = [input read:buffer.mutableBytes maxLength:buffer.length];
+    bufferSize = (int32_t)[input read:buffer.mutableBytes maxLength:buffer.length];
   }
 
   if (bufferSize <= 0) {
@@ -715,7 +690,7 @@ int64_t decodeZigZag64(int64_t n) {
       while (pos < chunk.length) {
         int32_t n = 0;
         if (input != nil) {
-          n = [input read:(((uint8_t*) chunk.mutableBytes) + pos) maxLength:chunk.length - pos];
+          n = (int32_t)[input read:(((uint8_t*) chunk.mutableBytes) + pos) maxLength:chunk.length - pos];
         }
         if (n <= 0) {
           @throw [NSException exceptionWithName:@"InvalidProtocolBuffer" reason:@"truncatedMessage" userInfo:nil];
@@ -787,6 +762,40 @@ int64_t decodeZigZag64(int64_t n) {
   }
 }
 
++ (int) readRawVarint32:(int)firstByte withInputStream:(NSInputStream*) input
+{
+    if ((firstByte & 0x80) == 0) {
+        return firstByte;
+    }
+
+    int result = firstByte & 0x7f;
+    int offset = 7;
+    for (; offset < 32; offset += 7) {
+        uint8_t b;
+        if ([input read:&b maxLength:1] <= 0) {
+            @throw [NSException exceptionWithName:@"InvalidProtocolBuffer" reason:@"truncatedMessage" userInfo:nil];
+        }
+
+        result |= (b &0x7f) << offset;
+        if ((b & 0x80) == 0) {
+            return result;
+        }
+    }
+
+    // keep reading up to 64 bits
+    for (; offset < 64; offset += 7) {
+        uint8_t b;
+        if ([input read:&b maxLength:1] <= 0) {
+            @throw [NSException exceptionWithName:@"InvalidProtocolBuffer" reason:@"truncatedMessage" userInfo:nil];
+        }
+
+        if ((b & 0x80) == 0) {
+            return result;
+        }
+    }
+
+    @throw [NSException exceptionWithName:@"InvalidProtocolBuffer" reason:@"mallformedVarint" userInfo:nil];
+}
 
 
 @end

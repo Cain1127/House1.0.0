@@ -7,12 +7,10 @@
 @class Question;
 @class Question_Builder;
 typedef enum {
-    
-  ChatRequestTypeChatTypeSendPtp = 8000,//!<单对单发送消息
-  ChatRequestTypeChatTypeSendPtg = 8001,//!<群发
+  ChatRequestTypeChatTypeSendPtp = 8000,
+  ChatRequestTypeChatTypeSendPtg = 8001,
   ChatRequestTypeChatTypeOnLine = 8002,
   ChatRequestTypeChatTypeOffLine = 8003,
-    
 } ChatRequestType;
 
 BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
@@ -179,6 +177,7 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 
 - (BOOL) hasResult;
 - (NSString*) result;
+///Answer_Builder*
 - (void) setResult:(NSString*) value;
 - (Answer_Builder*) clearResult;
 
@@ -201,5 +200,6 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 - (NSData*) video;
 - (Answer_Builder*) setVideo:(NSData*) value;
 - (Answer_Builder*) clearVideo;
+
 @end
 
