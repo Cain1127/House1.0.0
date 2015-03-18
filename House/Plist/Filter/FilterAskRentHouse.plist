@@ -14,8 +14,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>目标区域</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>district_val</string>
 	</dict>
 	<key>rent_property</key>
 	<dict>
@@ -29,8 +29,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>出租方式</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>rent_type_val</string>
 	</dict>
 	<key>house_type</key>
 	<dict>
@@ -44,8 +44,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>户型结构</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>house_type_val</string>
 	</dict>
 	<key>rent_price</key>
 	<dict>
@@ -58,9 +58,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>租      金</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>租       金</string>
+		<key>filter_key</key>
+		<string>rent_price_val</string>
 	</dict>
 	<key>rent_pay_type</key>
 	<dict>
@@ -74,8 +74,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>支付方式</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>rent_pay_type_val</string>
 	</dict>
 	<key>floor</key>
 	<dict>
@@ -88,9 +88,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>楼      层</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>楼       层</string>
+		<key>filter_key</key>
+		<string>floor_val</string>
 	</dict>
 	<key>face</key>
 	<dict>
@@ -103,9 +103,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>朝      向</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>朝       向</string>
+		<key>filter_key</key>
+		<string>house_face_val</string>
 	</dict>
 	<key>decorator</key>
 	<dict>
@@ -118,9 +118,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>装      修</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>装       修</string>
+		<key>filter_key</key>
+		<string>decoration_val</string>
 	</dict>
 </dict>
 </plist>

@@ -14,8 +14,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>目标区域</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>district_val</string>
 	</dict>
 	<key>house_type</key>
 	<dict>
@@ -29,8 +29,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>户型结构</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>house_type_val</string>
 	</dict>
 	<key>pershase</key>
 	<dict>
@@ -44,8 +44,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>购房目的</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>buy_purpose_val</string>
 	</dict>
 	<key>sale_price</key>
 	<dict>
@@ -58,9 +58,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>售      价</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>售       价</string>
+		<key>filter_key</key>
+		<string>sale_price_val</string>
 	</dict>
 	<key>area</key>
 	<dict>
@@ -73,9 +73,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>面      积</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>面       积</string>
+		<key>filter_key</key>
+		<string>house_area_val</string>
 	</dict>
 	<key>trade_type</key>
 	<dict>
@@ -88,9 +88,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>类      型</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>类       型</string>
+		<key>filter_key</key>
+		<string>trade_type_val</string>
 	</dict>
 	<key>floor</key>
 	<dict>
@@ -103,9 +103,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>楼      层</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>楼       层</string>
+		<key>filter_key</key>
+		<string>floor_val</string>
 	</dict>
 	<key>face</key>
 	<dict>
@@ -118,9 +118,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>朝      向</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>朝       向</string>
+		<key>filter_key</key>
+		<string>house_face_val</string>
 	</dict>
 	<key>decorate</key>
 	<dict>
@@ -133,9 +133,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>装      修</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>装       修</string>
+		<key>filter_key</key>
+		<string>decoration_val</string>
 	</dict>
 	<key>used_year</key>
 	<dict>
@@ -148,9 +148,9 @@
 		<key>placehold</key>
 		<string>不限</string>
 		<key>left_title</key>
-		<string>房      龄</string>
-		<key>place_hold</key>
-		<string></string>
+		<string>房       龄</string>
+		<key>filter_key</key>
+		<string>used_year_val</string>
 	</dict>
 </dict>
 </plist>

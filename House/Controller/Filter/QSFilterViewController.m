@@ -255,7 +255,7 @@ typedef enum
     [headerImageView addSubview:subTitleTipsLabel];
     
     ///过滤器设置底view
-    UIView *filterSettingRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, headerImageView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - headerImageView.frame.size.height)];
+    QSScrollView *filterSettingRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, headerImageView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - headerImageView.frame.size.height)];
     [self createSettingInputUI:filterSettingRootView];
     [self.view addSubview:filterSettingRootView];
     
@@ -286,7 +286,7 @@ typedef enum
 }
 
 ///搭建过滤器设置信息输入栏
-- (void)createSettingInputUI:(UIView *)view
+- (void)createSettingInputUI:(QSScrollView *)view
 {
 
     /**
@@ -334,6 +334,13 @@ typedef enum
         [view addSubview:sepLineLabel];
         
     }
+    
+    ///判断是否可滚动
+    if ((44.0f + 8.0f) * [tempInfoArray count] > view.frame.size.height) {
+        
+        view.contentSize = CGSizeMake(view.frame.size.width, (44.0f + 8.0f) * [tempInfoArray count] + 10.0f);
+        
+    }
 
 }
 
@@ -346,7 +353,7 @@ typedef enum
     CGFloat ypoint = 64.0f;
 
     ///过滤条件的底view
-    UIView *pickedRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
@@ -399,6 +406,12 @@ typedef enum
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
     tempTextField.placeholder = [tempDict valueForKey:@"placehold"];
+    NSString *filterInfo = [self.filterModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     return tempTextField;
 

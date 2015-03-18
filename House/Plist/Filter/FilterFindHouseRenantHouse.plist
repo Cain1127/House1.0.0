@@ -14,8 +14,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>区      域</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>district_val</string>
 	</dict>
 	<key>house_type</key>
 	<dict>
@@ -29,8 +29,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>户      型</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>house_type_val</string>
 	</dict>
 	<key>renant_type</key>
 	<dict>
@@ -44,8 +44,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>出租方式</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>rent_type_val</string>
 	</dict>
 	<key>renant_price</key>
 	<dict>
@@ -59,8 +59,8 @@
 		<string></string>
 		<key>left_title</key>
 		<string>租      金</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>rent_price_val</string>
 	</dict>
 	<key>area</key>
 	<dict>
@@ -74,8 +74,8 @@
 		<string>不限</string>
 		<key>left_title</key>
 		<string>面      积</string>
-		<key>place_hold</key>
-		<string></string>
+		<key>filter_key</key>
+		<string>house_area_val</string>
 	</dict>
 </dict>
 </plist>
