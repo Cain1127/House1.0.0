@@ -185,11 +185,31 @@
 ///订单详情房源控件标题
 #define TITLE_MYZONE_ORDER_DETAIL_HOUSE_ID_TITLE_TIP        @"房源编号"
 
-///修改订单
+///预约看房-选择时间下单 - 提交 按钮标题
+#define TITLE_MYZONE_ORDER_BOOK_TIME_BT_SUBMIT              @"提交"
+
+///修改订单 - 修改订单 按钮标题
 #define TITLE_MYZONE_ORDER_DETAIL_CHANGE_ORDER_TITLE_TIP    @"修改订单"
 
+///修改订单 - 取消 按钮标题
+#define TITLE_MYZONE_ORDER_CHANGE_BT_CANCEl                 @"取消"
+
+///修改订单 - 确定 按钮标题
+#define TITLE_MYZONE_ORDER_CHANGE_BT_SUBMIT                 @"确定"
+
+///预约看房、修改订单   预约时段 输入框提示
+#define TITLE_MYZONE_ORDER_BOOK_TIME_APPOINTMENT_TIP        @"预约时段:"
+
+///预约看房、修改订单   联系人 输入框提示
+#define TITLE_MYZONE_ORDER_BOOK_TIME_PERSON_TIP        @"联系人:"
+
+///预约看房、修改订单   联系电话 输入框提示
+#define TITLE_MYZONE_ORDER_BOOK_TIME_PHONE_TIP        @"联系电话:"
+
+///预约看房、修改订单   取消预约 输入框提示
+#define TITLE_MYZONE_ORDER_BOOK_TIME_CANCEL_APPOINTMENT_TIP        @"取消预约:"
 
 ///订单详情已取消标题
-#define TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP      @"已取消"
+#define TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP          @"已取消"
 
 #endif

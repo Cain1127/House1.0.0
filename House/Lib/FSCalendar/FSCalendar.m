@@ -321,8 +321,10 @@
                 
             }
             
-            NSLog(@"scrollOffsetX :%f",scrollOffset);
-            NSInteger tempOffsetX = (int)(scrollOffset*10)%((int)scrollOffset*10);
+            NSInteger tempOffsetX = 0;
+            if (((int)scrollOffset*10) != 0) {
+                tempOffsetX = (int)(scrollOffset*10)%((int)scrollOffset*10);
+            }
             if (tempOffsetX != 0.0f) {
                 //纠正位置
                 

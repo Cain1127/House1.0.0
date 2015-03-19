@@ -15,7 +15,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
-    #import "ProtocolBuffers.h"
+//    #import "ProtocolBuffers.h"
 
     #import "CoreHeader.h"              //!<使用的自定义视图核心库
     #import "FontHeader.h"              //!<字体大小宏定义

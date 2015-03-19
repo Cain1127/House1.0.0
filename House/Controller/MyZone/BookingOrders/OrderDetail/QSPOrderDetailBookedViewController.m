@@ -12,7 +12,8 @@
 #import "QSPHouseSummaryView.h"
 #import "QSPOrderDetailAddressView.h"
 #import "QSPOrderDetailPersonInfoView.h"
-#import "QSPOrderDetalBottomButtonView.h"
+#import "QSPOrderBottomButtonView.h"
+#import "QSPOrderBookTimeViewController.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -39,9 +40,12 @@
     [self.view addSubview:titleTipLabel];
     
     //底部按钮
-    QSPOrderDetalBottomButtonView *changeOrderButtonView = [[QSPOrderDetalBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+    QSPOrderBottomButtonView *changeOrderButtonView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
         
         NSLog(@"changeOrderButton");
+        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
+        [bookTimeVc setVcType:bBookTypeViewControllerChange];
+        [self.navigationController pushViewController:bookTimeVc animated:YES];
         
     }];
     [changeOrderButtonView setFrame:CGRectMake(changeOrderButtonView.frame.origin.x, SIZE_DEVICE_HEIGHT -changeOrderButtonView.frame.size.height, changeOrderButtonView.frame.size.width, changeOrderButtonView.frame.size.height)];

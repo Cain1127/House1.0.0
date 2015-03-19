@@ -251,6 +251,7 @@ static char LeftStarKey;            //!<左侧星级
             ///已登录重新刷新数据
             
             QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
+            [bookTimeVc setVcType:bBookTypeViewControllerBook];
             [self.navigationController pushViewController:bookTimeVc animated:YES];
             
             
