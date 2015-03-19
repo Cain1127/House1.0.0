@@ -177,6 +177,7 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 
 - (BOOL) hasResult;
 - (NSString*) result;
+///Answer_Builder*
 - (void) setResult:(NSString*) value;
 - (Answer_Builder*) clearResult;
 
@@ -199,5 +200,6 @@ BOOL ChatRequestTypeIsValidValue(ChatRequestType value);
 - (NSData*) video;
 - (Answer_Builder*) setVideo:(NSData*) value;
 - (Answer_Builder*) clearVideo;
+
 @end
 

@@ -27,7 +27,19 @@
 ///过滤器：第一次运行应用：出租房过滤配置
 #define PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE @"FilterFindHouseRenantHouse"
 
-///过滤器：首页进入出租房过滤配置
+///过滤器：首面进入出租房过滤配置
 #define PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE_RESET @"FilterFindHouseRenantHouseReset"
+
+///过滤器：高级筛选-出租房过滤配置
+#define PLIST_FILE_NAME_FILTER_ADVANCE_RENANTHOUSE @"FilterAdvanceRentHouse"
+
+///过滤器：高级筛选-二手房过滤配置
+#define PLIST_FILE_NAME_FILTER_ADVANCE_SECONDHOUSE @"FilterAdvanceSecondHouse"
+
+///过滤器：求租
+#define PLIST_FILE_NAME_FILTER_ASK_RENANTHOUSE @"FilterAskRentHouse"
+
+///过滤器：求购
+#define PLIST_FILE_NAME_FILTER_ASK_SECONDHOUSE @"FilterAskSecondHouse"
 
 #endif

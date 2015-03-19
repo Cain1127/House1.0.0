@@ -526,6 +526,103 @@
  *
  *  @since      1.0.0
  */
++ (NSArray *)getHouseFeatureListWithType:(FILTER_MAIN_TYPE)filterType
+{
+
+    switch (filterType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+        
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"features_loupan"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+        
+        }
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
+            
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"features_loupan"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+            
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"features"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+            
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"features_rent"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+            
+        }
+            break;
+            
+        default:
+            
+            break;
+    }
+    
+    return nil;
+
+}
+
 + (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType
 {
     

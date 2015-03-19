@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A42B7564AC65B345F79642C7"
+               BlueprintIdentifier = "4E1A11DAC21E4B2B4A32B833"
                BuildableName = "libPods-protobuf-ios.a"
                BlueprintName = "Pods-protobuf-ios"
                ReferencedContainer = "container:Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "183CC65A1A68FC8800B8F97D"
+               BuildableName = "House.app"
+               BlueprintName = "House"
+               ReferencedContainer = "container:../House.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +43,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4E1A11DAC21E4B2B4A32B833"
+            BuildableName = "libPods-protobuf-ios.a"
+            BlueprintName = "Pods-protobuf-ios"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -42,10 +65,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A42B7564AC65B345F79642C7"
-            BuildableName = "libPods-protobuf-ios.a"
-            BlueprintName = "Pods-protobuf-ios"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "183CC65A1A68FC8800B8F97D"
+            BuildableName = "House.app"
+            BlueprintName = "House"
+            ReferencedContainer = "container:../House.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,7 +83,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A42B7564AC65B345F79642C7"
+            BlueprintIdentifier = "4E1A11DAC21E4B2B4A32B833"
             BuildableName = "libPods-protobuf-ios.a"
             BlueprintName = "Pods-protobuf-ios"
             ReferencedContainer = "container:Pods.xcodeproj">

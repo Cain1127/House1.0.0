@@ -51,10 +51,9 @@ typedef enum
 
 }FILTER_SETTINGFIELD_ACTION_TYPE;
 
-@interface QSFilterViewController ()<UITextFieldDelegate>
+@interface QSFilterViewController ()<UITextFieldDelegate,UITextViewDelegate>
 
-@property (nonatomic,assign) BOOL isShowNavigation;             //!<是否显示导航栏
-@property (nonatomic,assign) FILTER_MAIN_TYPE filterType;       //!<过滤器类型
+@property (nonatomic,assign) FILTER_SETTINGVC_TYPE filterVCType;//!<过滤设置页面的类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
 
 @end
@@ -62,16 +61,24 @@ typedef enum
 @implementation QSFilterViewController
 
 #pragma mark - 初始化
-- (instancetype)initWithFilterType:(FILTER_MAIN_TYPE)filterType andIsShowNavigation:(BOOL)isShowNavigation
+/**
+ *  @author                 yangshengmeng, 15-01-23 13:01:52
+ *
+ *  @brief                  根据过滤器类型创建不同的过滤设置器
+ *
+ *  @param filterType       过滤类型：二手器、出租房等
+ *
+ *  @return                 返回过滤器对象
+ *
+ *  @since                  1.0.0
+ */
+- (instancetype)initWithFilterType:(FILTER_SETTINGVC_TYPE)filterType
 {
 
     if (self = [super init]) {
         
         ///保存过滤器类型
-        self.isShowNavigation = isShowNavigation;
-        
-        ///保存过滤器类型
-        self.filterType = filterType;
+        self.filterVCType = filterType;
         
         ///初始化过滤器模型
         [self createFilterDataModel];
@@ -86,48 +93,139 @@ typedef enum
 - (void)createFilterDataModel
 {
     
-    self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.filterType];
+    self.filterModel = [QSCoreDataManager getLocalFilterWithType:[self getFilterTypeWithFilterVCType]];
     
+}
+
+#pragma mark - 根据过滤器的类型，返回对应的过滤器类型
+///根据过滤器的类型，返回对应的过滤器类型
+- (FILTER_MAIN_TYPE)getFilterTypeWithFilterVCType
+{
+
+    switch (self.filterVCType) {
+            ///出租房过滤设置
+        case fFilterSettingVCTypeGuideRentHouse:
+                        
+        case fFilterSettingVCTypeHomeRentHouse:
+                        
+        case fFilterSettingVCTypeHouseListRentHouse:
+            
+        case fFilterSettingVCTypeMyZoneAskRentHouse:
+            
+            return fFilterMainTypeRentalHouse;
+            
+            break;
+            
+            ///二手房
+        case fFilterSettingVCTypeGuideSecondHouse:
+            
+        case fFilterSettingVCTypeHomeSecondHouse:
+            
+        case fFilterSettingVCTypeHouseListSecondHouse:
+            
+        case fFilterSettingVCTypeMyZoneAskSecondHouse:
+            
+            return fFilterMainTypeSecondHouse;
+            
+            break;
+            
+        default:
+            break;
+    }
+
 }
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
-
-    ///判断是否是第一次运行的
-    if (self.isShowNavigation) {
-        
-        [super createNavigationBarUI];
-        
-        ///设置标题
-        if (fFilterMainTypeSecondHouse == self.filterType) {
+    
+    switch (self.filterVCType) {
+            ///指引页出租房导航栏UI
+        case fFilterSettingVCTypeGuideRentHouse:
             
-            [self setNavigationBarTitle:@"二手房"];
+            ///指引页二手房导航栏UI
+        case fFilterSettingVCTypeGuideSecondHouse:
             
-        }
+            break;
+            
+            ///首页出租房导航栏UI
+        case fFilterSettingVCTypeHomeRentHouse:
+        {
         
-        if (fFilterMainTypeRentalHouse == self.filterType) {
-            
+            [super createNavigationBarUI];
             [self setNavigationBarTitle:@"出租房"];
+        
+        }
+            
+            break;
+            
+            ///首页二手房导航栏UI
+        case fFilterSettingVCTypeHomeSecondHouse:
+        {
+        
+            [super createNavigationBarUI];
+            [self setNavigationBarTitle:@"二手房"];
+        
+        }
+            
+            break;
+            
+            ///房源列表二手房导航栏UI
+        case fFilterSettingVCTypeHouseListRentHouse:
+            
+        case fFilterSettingVCTypeHouseListSecondHouse:
+        {
+            
+            [super createNavigationBarUI];
+            [self setNavigationBarTitle:@"高级过滤"];
             
         }
-        
+            break;
+            
+        case fFilterSettingVCTypeMyZoneAskRentHouse:
+        {
+            
+            [super createNavigationBarUI];
+            [self setNavigationBarTitle:@"求租"];
+            
+        }
+            break;
+            
+        case fFilterSettingVCTypeMyZoneAskSecondHouse:
+        {
+            
+            [super createNavigationBarUI];
+            [self setNavigationBarTitle:@"求购"];
+            
+        }
+            break;
+            
+        default:
+            break;
     }
     
 }
 
 - (void)createMainShowUI
 {
-
+    
     ///两种情况：已配置有过滤器时，存在导航栏，未配置时，是没有导航栏的
-    if (self.isShowNavigation) {
-        
-        [self createUpdateFilterSettingPage];
-        
-    } else {
-    
-        [self createFirstSettingFilterPage];
-    
+    switch (self.filterVCType) {
+            ///指引页主UI创建
+        case fFilterSettingVCTypeGuideRentHouse:
+            
+        case fFilterSettingVCTypeGuideSecondHouse:
+            
+            [self createFirstSettingFilterPage];
+            
+            break;
+            
+            ///其他过滤器设置页面的UI创建
+        default:
+            
+            [self createUpdateFilterSettingPage];
+            
+            break;
     }
 
 }
@@ -157,7 +255,7 @@ typedef enum
     [headerImageView addSubview:subTitleTipsLabel];
     
     ///过滤器设置底view
-    UIView *filterSettingRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, headerImageView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - headerImageView.frame.size.height)];
+    QSScrollView *filterSettingRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, headerImageView.frame.size.height, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - headerImageView.frame.size.height)];
     [self createSettingInputUI:filterSettingRootView];
     [self.view addSubview:filterSettingRootView];
     
@@ -168,7 +266,7 @@ typedef enum
         self.filterModel.filter_status = @"2";
         
         ///保存过滤器
-        [QSCoreDataManager updateFilterWithType:self.filterType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+        [QSCoreDataManager updateFilterWithType:[self getFilterTypeWithFilterVCType] andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///保存成功后进入房子列表
             if (isSuccess) {
@@ -188,7 +286,7 @@ typedef enum
 }
 
 ///搭建过滤器设置信息输入栏
-- (void)createSettingInputUI:(UIView *)view
+- (void)createSettingInputUI:(QSScrollView *)view
 {
 
     /**
@@ -211,7 +309,7 @@ typedef enum
      */
     
     ///根据类型获取不同的加载plist配置文件信息
-    NSDictionary *infoDict = [self getFilterSettingInfoWithType:self.filterType];
+    NSDictionary *infoDict = [self getFilterSettingInfoWithType];
     
     ///数据无效，则不创建
     if (nil == infoDict || (0 >= [infoDict count])) {
@@ -236,6 +334,133 @@ typedef enum
         [view addSubview:sepLineLabel];
         
     }
+    
+    ///UI的最大高度记录
+    CGFloat currentHeight = (44.0f + 8.0f) * [tempInfoArray count] + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+    
+    ///特色标签提示信息
+    if (fFilterSettingVCTypeHouseListRentHouse <= self.filterVCType) {
+        
+        ///说明信息
+        UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, currentHeight, SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 5.0f, 30.0f)];
+        tipsLabel.text = @"补充信息：(多选项)";
+        tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+        tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+        [view addSubview:tipsLabel];
+        currentHeight = currentHeight + tipsLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///选择标签
+        NSArray *featuresList = [QSCoreDataManager getHouseFeatureListWithType:[self getFilterTypeWithFilterVCType]];
+        
+        ///每个标签的宽度
+        CGFloat widthOfFeatures = 80.0f;
+        CGFloat heightOfFeatures = 30.0f;
+        CGFloat cornerOfFeatures = 3.0f;
+        
+        ///每行放置的个数
+        int numOfFeaturesRow = SIZE_DEVICE_WIDTH > 320.0f ? 4 : 3;
+        CGFloat gapOfFeatures = (SIZE_DEVICE_WIDTH - numOfFeaturesRow * widthOfFeatures) / (numOfFeaturesRow + 1);
+        
+        ///重置滚动页高度
+        int sumRow = (int)([featuresList count] / numOfFeaturesRow + (([featuresList count] % numOfFeaturesRow) > 0 ? 1 : 0));
+        
+        ///创建每一个标签按钮
+        int k = 0;
+        for (int i = 0; i < sumRow; i++) {
+            
+            for (int j = 0; j < numOfFeaturesRow && k < [featuresList count]; j++) {
+                
+                ///标签模型
+                QSBaseConfigurationDataModel *featuresModel = featuresList[k];
+                
+                UIButton *featuresButton = [UIButton createBlockButtonWithFrame:CGRectMake(gapOfFeatures + j * (widthOfFeatures + gapOfFeatures), currentHeight + i * (heightOfFeatures + 5.0f), widthOfFeatures, heightOfFeatures) andButtonStyle:nil andCallBack:^(UIButton *button) {
+                    
+                    if (button.selected) {
+                        
+                        button.selected = NO;
+                        button.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+                        
+                    } else {
+                    
+                        button.selected = YES;
+                        button.layer.borderColor = [COLOR_CHARACTERS_BLACK CGColor];
+                    
+                    }
+                    
+                }];
+                featuresButton.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+                featuresButton.layer.borderWidth = 0.5f;
+                [featuresButton setTitle:featuresModel.val forState:UIControlStateNormal];
+                [featuresButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+                [featuresButton setTitleColor:COLOR_CHARACTERS_BLACK forState:UIControlStateSelected];
+                featuresButton.layer.cornerRadius = cornerOfFeatures;
+                featuresButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+                featuresButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+                [view addSubview:featuresButton];
+                k++;
+                
+            }
+            
+        }
+        
+        ///重置当前高度
+        currentHeight = currentHeight + heightOfFeatures * sumRow + 5.0f * (sumRow - 1) + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///备注信息
+        UITextView *commendField = [[UITextView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, currentHeight, SIZE_DEFAULT_MAX_WIDTH, 160.0f)];
+        commendField.backgroundColor = [UIColor whiteColor];
+        commendField.showsHorizontalScrollIndicator = NO;
+        commendField.showsVerticalScrollIndicator = NO;
+        commendField.delegate = self;
+        commendField.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+        commendField.layer.borderWidth = 0.5f;
+        commendField.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
+        [view addSubview:commendField];
+        currentHeight = currentHeight + commendField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+        
+        ///如果是高级过滤，则显示是否设置为求租求购：需要已登录
+        if (fFilterSettingVCTypeHouseListRentHouse == self.filterVCType ||
+            fFilterSettingVCTypeHouseListSecondHouse == self.filterVCType) {
+            
+            ///判断是否已登录
+            if ([self checkLogin]) {
+                
+                ///提示信息
+                UILabel *setAsAskFilterTips = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, currentHeight, 200.0f, 30.0f)];
+                setAsAskFilterTips.text = @"设为求租求购订阅信息";
+                setAsAskFilterTips.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+                setAsAskFilterTips.font = [UIFont systemFontOfSize:FONT_BODY_16];
+                [view addSubview:setAsAskFilterTips];
+                currentHeight = currentHeight + setAsAskFilterTips.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+                
+                ///设置开关
+                UISwitch *tipsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 60.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, setAsAskFilterTips.frame.origin.y + 3.0f, 60.0f, 30.0f)];
+                tipsSwitch.onTintColor = COLOR_CHARACTERS_LIGHTYELLOW;
+                tipsSwitch.on = YES;
+                [view addSubview:tipsSwitch];
+                
+                ///分隔线
+                UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(setAsAskFilterTips.frame.origin.x, setAsAskFilterTips.frame.origin.y + setAsAskFilterTips.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP - 0.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
+                sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+                [view addSubview:sepLineLabel];
+                
+            } else {
+            
+                [commendField removeFromSuperview];
+                currentHeight = currentHeight - commendField.frame.size.height - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP;
+            
+            }
+            
+        }
+        
+    }
+    
+    ///判断是否可滚动
+    if (currentHeight > view.frame.size.height) {
+        
+        view.contentSize = CGSizeMake(view.frame.size.width, currentHeight + 10.0f);
+        
+    }
 
 }
 
@@ -248,7 +473,7 @@ typedef enum
     CGFloat ypoint = 64.0f;
 
     ///过滤条件的底view
-    UIView *pickedRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
@@ -259,7 +484,7 @@ typedef enum
         self.filterModel.filter_status = @"2";
         
         ///保存过滤器
-        [QSCoreDataManager updateFilterWithType:self.filterType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+        [QSCoreDataManager updateFilterWithType:[self getFilterTypeWithFilterVCType] andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///回调
             if (self.resetFilterCallBack) {
@@ -301,51 +526,83 @@ typedef enum
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
     tempTextField.placeholder = [tempDict valueForKey:@"placehold"];
+    NSString *filterInfo = [self.filterModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     return tempTextField;
 
 }
 
 #pragma mark - 根据不同的类型返回对应的配置文件
-- (NSDictionary *)getFilterSettingInfoWithType:(FILTER_MAIN_TYPE)filterType
+- (NSDictionary *)getFilterSettingInfoWithType
 {
 
     NSString *infoFileName = nil;
     
-    switch (filterType) {
+    switch (self.filterVCType) {
             
-            ///二手房
-        case fFilterMainTypeSecondHouse:
+            ///指引页：二手房
+        case fFilterSettingVCTypeGuideSecondHouse:
         {
          
-            if (self.isShowNavigation) {
+            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE;
                 
-                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE_RESET;
-                
-            } else {
-                
-                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE;
-                
-            }
+        }
+            break;
+            
+            ///指引页出租房
+        case fFilterSettingVCTypeGuideRentHouse:
+        {
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE;
             
         }
             break;
             
-            ///出租房
-        case fFilterMainTypeRentalHouse:
-        {
+            ///首页二手房
+        case fFilterSettingVCTypeHomeSecondHouse:
             
-            if (self.isShowNavigation) {
-                
-                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE_RESET;
-                
-            } else {
-                
-                infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE;
-                
-            }
+            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_SECONDHOUSE_RESET;
             
-        }
+            break;
+            
+            ///首页出租房
+        case fFilterSettingVCTypeHomeRentHouse:
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_FINDHOUSE_RENANTHOUSE_RESET;
+            
+            break;
+            
+            ///高级筛选出租房
+        case fFilterSettingVCTypeHouseListRentHouse:
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_ADVANCE_RENANTHOUSE;
+            
+            break;
+            
+            ///高级筛选二手房
+        case fFilterSettingVCTypeHouseListSecondHouse:
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_ADVANCE_SECONDHOUSE;
+            
+            break;
+            
+            ///求租
+        case fFilterSettingVCTypeMyZoneAskRentHouse:
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_ASK_RENANTHOUSE;
+            
+            break;
+            
+            ///求购
+        case fFilterSettingVCTypeMyZoneAskSecondHouse:
+            
+            infoFileName = PLIST_FILE_NAME_FILTER_ASK_SECONDHOUSE;
+            
             break;
             
         default:

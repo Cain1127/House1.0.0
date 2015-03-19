@@ -210,6 +210,7 @@
  *
  *  @since      1.0.0
  */
++ (NSArray *)getHouseFeatureListWithType:(FILTER_MAIN_TYPE)filterType;
 + (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType;
 
 @end

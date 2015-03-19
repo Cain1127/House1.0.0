@@ -14,6 +14,7 @@
 #import "QSRentHouseDetailViewController.h"
 #import "QSNewHouseDetailViewController.h"
 #import "QSCommunityDetailViewController.h"
+#import "QSFilterViewController.h"
 #import "QSCustomPickerView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -293,11 +294,20 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     if (fFilterMainTypeSecondHouse == self.listType ||
         fFilterMainTypeRentalHouse == self.listType) {
         
+        ///过滤器类型
+        __block FILTER_SETTINGVC_TYPE filterVCType = (self.listType == fFilterMainTypeSecondHouse) ? fFilterSettingVCTypeHouseListSecondHouse : fFilterSettingVCTypeHouseListRentHouse;
+        
         ///高级筛选按钮
         UIButton *advanceFilterButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width - 49.0f, 0.0f, 49.0f, 40.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
             
             ///隐藏所有弹窗
             [self hiddenAllPickerView];
+            
+            ///进入高级筛选窗口
+            QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:filterVCType];
+            filterVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:filterVC animated:YES];
             
         }];
         [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL] forState:UIControlStateNormal];
