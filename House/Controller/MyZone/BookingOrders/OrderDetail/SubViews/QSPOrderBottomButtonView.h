@@ -1,5 +1,5 @@
 //
-//  QSPOrderDetalBottomButtonView.h
+//  QSPOrderBottomButtonView.h
 //  House
 //
 //  Created by CoolTea on 15/3/13.
@@ -17,10 +17,18 @@ typedef enum
     
 }BOTTOM_BUTTON_TYPE;
 
-@interface QSPOrderDetalBottomButtonView : UIView
+@interface QSPOrderBottomButtonView : UIView
 
 @property (nonatomic,copy) void(^blockButtonCallBack)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button);
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withButtonCount:(NSInteger)num andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack;
+
+- (void)setCenterBtBackgroundColor:(UIColor*)color;
+
+- (void)setLeftBtBackgroundColor:(UIColor*)color;
+
+- (void)setRightBtBackgroundColor:(UIColor*)color;
+
+- (void)setCenterBtTitle:(NSString*)title;
 
 @end
