@@ -422,7 +422,6 @@
 		CE51A6AB1AB83A8E0006D5D2 /* QSCustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51A6AA1AB83A8E0006D5D2 /* QSCustomCalloutView.m */; };
 		CE51A6AE1AB914120006D5D2 /* QSCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51A6AD1AB914120006D5D2 /* QSCustomAnnotationView.m */; };
 		CE51A6B31AB971060006D5D2 /* QSAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51A6B01AB971060006D5D2 /* QSAnnotation.m */; };
-		CE51A6B41AB971060006D5D2 /* QSAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE51A6B21AB971060006D5D2 /* QSAnnotationView.m */; };
 		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
 		CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */; };
 		CE7BF4361A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */; };
@@ -1071,8 +1070,6 @@
 		CE51A6AD1AB914120006D5D2 /* QSCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomAnnotationView.m; sourceTree = "<group>"; };
 		CE51A6AF1AB971060006D5D2 /* QSAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAnnotation.h; sourceTree = "<group>"; };
 		CE51A6B01AB971060006D5D2 /* QSAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAnnotation.m; sourceTree = "<group>"; };
-		CE51A6B11AB971060006D5D2 /* QSAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAnnotationView.h; sourceTree = "<group>"; };
-		CE51A6B21AB971060006D5D2 /* QSAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAnnotationView.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_busbutton_highlighted.png; sourceTree = "<group>"; };
@@ -3441,8 +3438,6 @@
 				CE7BF4351A7A6E810022A132 /* QSWHousesMapDistributionViewController.mm */,
 				CE51A6AF1AB971060006D5D2 /* QSAnnotation.h */,
 				CE51A6B01AB971060006D5D2 /* QSAnnotation.m */,
-				CE51A6B11AB971060006D5D2 /* QSAnnotationView.h */,
-				CE51A6B21AB971060006D5D2 /* QSAnnotationView.m */,
 				CE51A6A91AB83A8D0006D5D2 /* QSCustomCalloutView.h */,
 				CE51A6AA1AB83A8E0006D5D2 /* QSCustomCalloutView.m */,
 				CE51A6AC1AB914120006D5D2 /* QSCustomAnnotationView.h */,
@@ -3874,7 +3869,6 @@
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				475C3D9C1AB3D58A0028608F /* QSOrderListReturnData.m in Sources */,
 				CE51A6AB1AB83A8E0006D5D2 /* QSCustomCalloutView.m in Sources */,
-				CE51A6B41AB971060006D5D2 /* QSAnnotationView.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
 				18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */,
 				18DABAAF1AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m in Sources */,

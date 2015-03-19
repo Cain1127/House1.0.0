@@ -124,4 +124,19 @@ static char PriceUnitKey;   //!<价钱单位
     
 }
 
+#pragma mark - Override
+
+- (void)setTitle:(NSString *)title
+{
+    UILabel *titleLabel=objc_getAssociatedObject(self, &TitleLabelKey);
+    titleLabel.text = title;
+}
+
+- (void)setSubtitle:(NSString *)price
+{
+    UILabel *priceLabel=objc_getAssociatedObject(self, &PriceLabelKey);
+    priceLabel.text = price;
+}
+
+
 @end
