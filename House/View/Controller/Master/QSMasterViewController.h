@@ -12,6 +12,7 @@
 static NSString *nHomeNewHouseActionNotification = @"nHomeNewHouseActionNotification";
 static NSString *nHomeRentHouseActionNotification = @"nHomeRentHouseActionNotification";
 static NSString *nHomeSecondHandHouseActionNotification = @"nHomeSecondHandHouseActionNotification";
+static NSString *nHomeCommunityActionNotification = @"nHomeCommunityActionNotification";
 
 ///用户默认城市修改
 static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";

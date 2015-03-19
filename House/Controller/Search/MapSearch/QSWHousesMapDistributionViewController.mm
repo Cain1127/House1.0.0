@@ -2,12 +2,15 @@
 //  QSWHousesMapDistributionViewController.m
 //  House
 //
-//  Created by 王树朋 on 15/1/26.
+//  Created by ysmeng on 15/1/17.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
 #import "QSWHousesMapDistributionViewController.h"
-#import "MAMapKit.h"
+
+#import <MAMapKit/MAMapKit.h>
+#import "QSCustomCalloutView.h"
+#import "QSCustomAnnotationView.h"
 
 #import "QSHouseKeySearchViewController.h"
 #import "QSSecondHouseDetailViewController.h"
@@ -18,6 +21,11 @@
 #import "QSCustomPickerView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+
+#import "QSHouseListView.h"
+#import "QSCommunityListView.h"
+#import "QSRentHouseListView.h"
+#import "QSNewHouseListView.h"
 
 #import "QSFilterDataModel.h"
 #import "QSHouseInfoDataModel.h"
@@ -30,26 +38,23 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
 
-#import "QSHouseListView.h"
-#import "QSCommunityListView.h"
-#import "QSRentHouseListView.h"
-#import "QSNewHouseListView.h"
+#import "QSHousesViewController.h"
 
 #import "MJRefresh.h"
 
 #import <objc/runtime.h>
 
 ///关联
-static char MapDistributionViewKey;      //!<MapDistributionView的关联
+static char CollectionViewKey;      //!<collectionView的关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
-
 
 @interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate>
 {
-    
+
     MAMapView *_mapView;
     
 }
+
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;                 //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;            //!<过滤模型
 
@@ -63,17 +68,17 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @implementation QSWHousesMapDistributionViewController
 
 #pragma mark - 初始化
-//- (instancetype)init
-//{
-//
-//    ///获取本地默认配置的过滤器
-//    NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
-//    return [self initWithHouseMainType:((filterID && [filterID length] > 0) ? [filterID intValue] : fFilterMainTypeSecondHouse)];
-//
-//    ///注册通知
-//    [self registLocalHomePageActionNotification];
-//
-//}
+- (instancetype)init
+{
+    
+    ///获取本地默认配置的过滤器
+    NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
+    return [self initWithHouseMainType:(((FILTER_MAIN_TYPE)[filterID integerValue] && (FILTER_MAIN_TYPE)[filterID length] > 0) ? (FILTER_MAIN_TYPE)[filterID intValue] : fFilterMainTypeSecondHouse)];
+    
+    ///注册通知
+    [self registLocalHomePageActionNotification];
+    
+}
 
 /**
  *  @author         yangshengmeng, 15-01-30 08:01:06
@@ -119,6 +124,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     ///显示二手房通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeSecondHandHouseActionNotification object:@"3"];
+    
+    ///显示小区通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeCommunityActionNotification object:@"4"];
     
     ///用户更换默认城市通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChangeCityInfo) name:nUserDefaultCityChanged object:nil];
@@ -204,16 +212,34 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         }
             break;
             
+        case 4:
+        {
+            
+            ///判断是否当前已是相同的列表
+            if (fFilterMainTypeCommunity == self.listType) {
+                
+                return;
+                
+            }
+            
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
+            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+            
+            ///列出小区
+            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]];
+            
+        }
+            break;
+            
         default:
             break;
     }
     
 }
 
-
-
-
--(void)createNavigationBarUI
+#pragma mark - UI搭建
+///导航栏UI搭建
+- (void)createNavigationBarUI
 {
     
     [super createNavigationBarUI];
@@ -241,16 +267,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
     }];
     [self setNavigationBarMiddleView:self.houseListTypePickerView];
-    
-    
+
     
 }
 
-
--(void)createMainShowUI
+///搭建主展示UI
+- (void)createMainShowUI
 {
-    
-    [super createMainShowUI];
     
     ///频道栏底view
     UIView *channelBarRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 40.0f)];
@@ -258,6 +281,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     [self.view addSubview:channelBarRootView];
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
+    [self createListView];
     
 }
 
@@ -315,15 +339,15 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         } else {
             
-            //            if (districtCurrentModel) {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
-            //
-            //            } else {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
-            //
-            //            }
+            if (districtCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
+                
+            } else {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
+                
+            }
             
         }
         
@@ -376,15 +400,15 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         } else {
             
-            //            if (houseTypeCurrentModel) {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:YES];
-            //
-            //            } else {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:NO];
-            //
-            //            }
+            if (houseTypeCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:YES];
+                
+            } else {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:houseTypeSetKey andResetVal:houseTypeSetVal isCurrentModel:NO];
+                
+            }
             
         }
         
@@ -446,16 +470,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.distictPickerView removePickerView:NO];
             
         } else {
-            //
-            //            if (totalPriceCurrentModel) {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:YES];
-            //
-            //            } else {
-            //
-            //                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:NO];
-            //
-            //            }
+            
+            if (totalPriceCurrentModel) {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:YES];
+                
+            } else {
+                
+                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:totalPriceSetKey andResetVal:totalPriceSetVal isCurrentModel:NO];
+                
+            }
             
         }
         
@@ -466,6 +490,197 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, view.frame.size.height - 0.5f, view.frame.size.width, 0.5f)];
     bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:bottomLineLabel];
+    
+}
+
+///搭建列表的UI
+- (void)createListView
+{
+    
+    ///先清除原列表
+    UIView *localListView = objc_getAssociatedObject(self, &CollectionViewKey);
+    if (localListView) {
+        
+        [localListView removeFromSuperview];
+        
+    }
+    
+    ///根据不同的类型，创建不同的列表UI
+    switch (self.listType) {
+            ///楼盘列表
+        case fFilterMainTypeBuilding:
+            
+            break;
+            
+            ///新房列表
+        case fFilterMainTypeNewHouse:
+        {
+            
+            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                        ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                        
+                        [self gotoHouseDetail:tempModel];
+                        
+                        break;
+                        
+                        ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                        
+                        [self showNoRecordTips:YES];
+                        
+                        break;
+                        
+                        ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                        
+                        [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+            
+        }
+            break;
+            
+            ///小区列表
+        case fFilterMainTypeCommunity:
+        {
+            
+            ///创建小区/新房的列表UI
+            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                        ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                        
+                        [self gotoHouseDetail:tempModel];
+                        
+                        break;
+                        
+                        ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                        
+                        [self showNoRecordTips:YES];
+                        
+                        break;
+                        
+                        ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                        
+                        [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+            
+        }
+            break;
+            
+            ///二手房列表
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            ///瀑布流布局器
+            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                        ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                        
+                        [self gotoHouseDetail:tempModel];
+                        
+                        break;
+                        
+                        ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                        
+                        [self showNoRecordTips:YES];
+                        
+                        break;
+                        
+                        ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                        
+                        [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+            
+        }
+            break;
+            
+            ///出租房列表
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                        ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                        
+                        [self gotoHouseDetail:tempModel];
+                        
+                        break;
+                        
+                        ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                        
+                        [self showNoRecordTips:YES];
+                        
+                        break;
+                        
+                        ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                        
+                        [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
 }
 
@@ -504,13 +719,94 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
+#pragma mark - 频道栏过滤后事件统一处理
+- (void)channelBarButtonAction:(PICKER_CALLBACK_ACTION_TYPE)callBackType andPickedKey:(NSString *)pickedKey andPickedVal:(NSString *)pickedVal andResetKey:(NSString *)setKey andResetVal:(NSString *)setVal isCurrentModel:(BOOL)isCurrentModel
+{
+    
+    ///不限
+    if (pPickerCallBackActionTypeUnLimited == callBackType) {
+        
+        ///判断原来是否已有选择，如果原来就不限，则不刷新，如果原来有选择项，现在重新不限，则刷新
+        if (isCurrentModel) {
+            
+            ///更新过滤器
+            [self.filterModel setValue:@"" forKey:setKey];
+            [self.filterModel setValue:@"" forKey:setVal];
+            
+            ///更新本地对应的过滤器
+            self.filterModel.filter_status = @"2";
+            
+            ///刷新数据
+            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+            [collectionView headerBeginRefreshing];
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///保存成功后进入房子列表
+                if (isSuccess) {
+                    
+                    NSLog(@"====================过滤器保存成功=====================");
+                    
+                } else {
+                    
+                    NSLog(@"====================过滤器保存失败=====================");
+                    
+                }
+                
+            }];
+            
+            ///将过滤器设置为当前用户的默认过滤器
+            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+            
+        }
+        
+    }
+    
+    ///选择了内容
+    if (pPickerCallBackActionTypePicked == callBackType) {
+        
+        ///更新过滤器
+        [self.filterModel setValue:pickedKey ? pickedKey : @"" forKey:setKey];
+        [self.filterModel setValue:pickedVal ? pickedVal : @"" forKey:setVal];
+        
+        ///更新本地对应的过滤器
+        self.filterModel.filter_status = @"2";
+        
+        ///刷新数据
+        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        [collectionView headerBeginRefreshing];
+        
+        ///保存过滤器
+        [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///保存成功后进入房子列表
+            if (isSuccess) {
+                
+                NSLog(@"====================过滤器保存成功=====================");
+                
+            } else {
+                
+                NSLog(@"====================过滤器保存失败=====================");
+                
+            }
+            
+        }];
+        
+        ///将过滤器设置为当前用户的默认过滤器
+        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+        
+    }
+    
+}
+
 #pragma mark - 更换列表类型处理
 ///更换列表类型处理
 - (void)houseListTypeChangeAction:(NSString *)selectedKey
 {
     
     ///更新当前保存的列表类型
-    // self.listType = [selectedKey intValue];
+    self.listType = (FILTER_MAIN_TYPE)[selectedKey intValue];
     
     ///更新过滤器
     self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
@@ -526,25 +822,177 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         [self createChannelBarUI:channelRootView];
         
         ///重新创建列表数据
-        //[self createListView];
+        [self createListView];
         
     });
     
 }
 
+#pragma mark -- 返回事件
+//- (void)gotoTurnBackAction
+//{
+//    
+//    [self.navigationController popViewControllerAnimated:YES];
+//
+//}
+
+
+
+#pragma mark - 点击房源进入房源详情页
+///点击房源
+- (void)gotoHouseDetail:(id)dataModel
+{
+    
+    ///根据不同的列表，进入同的详情页
+    switch (self.listType) {
+            ///进入新房详情
+        case fFilterMainTypeNewHouse:
+        {
+            
+            ///获取房子模型
+            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
+            
+            ///进入详情页面
+            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
+            detailVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+        }
+            break;
+            
+            ///进入小区详情
+        case fFilterMainTypeCommunity:
+        {
+            
+            ///获取房子模型
+            QSCommunityDataModel *houseInfoModel = dataModel;
+            
+            ///进入详情页面
+            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+            detailVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+        }
+            break;
+            
+            ///进入二手房详情
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            ///获取房子模型
+            QSHouseInfoDataModel *houseInfoModel = dataModel;
+            
+            ///进入详情页面
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            detailVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+        }
+            break;
+            
+            ///进入出租房详情
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            ///获取房子模型
+            QSRentHouseInfoDataModel *houseInfoModel = dataModel;
+            
+            ///进入详情页面
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            detailVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark --大头针代理方法
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+
+{
+    
+    if ([annotation isKindOfClass:[MAPointAnnotation class]])
+        
+    {
+        
+        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
+        
+        QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        
+        if (annotationView == nil)
+            
+        {
+            
+            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
+            
+        }
+        
+        
+        
+        //        annotationView.annotation.title=@"111";
+        
+        // 设置为NO，用以调用自定义的calloutView
+        
+        annotationView.canShowCallout = NO;
+        
+        
+        
+        // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
+        
+        annotationView.centerOffset = CGPointMake(0, -18);
+        
+        return annotationView;
+        
+    }
+    
+    return nil;
+    
+}
+
+
 
 -(void) viewDidAppear:(BOOL)animated
+
 {
+    
     [super viewDidAppear:animated];
+    
     //配置用户Key
+    
     [MAMapServices sharedServices].apiKey = @"0f36774bd285a275b3b8e496e45fe6d9";
     
+    
+    
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-104.0f)];
+    
     _mapView.delegate = self;
+    
     //显示交通状况
-    _mapView.showTraffic= YES;
+    
+    //_mapView.showTraffic= YES;
+    
+    CGFloat latitude=23.33;
+    
+    CGFloat longitude=113.33;
+    
+    _mapView.centerCoordinate=CLLocationCoordinate2DMake(latitude,longitude);
+    
+    _mapView.zoomLevel=11.2;
+    
+    
     
     [self.view addSubview:_mapView];
+    
 }
 
 
