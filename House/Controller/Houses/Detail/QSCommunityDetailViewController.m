@@ -731,11 +731,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///判断当前是否已收藏：已收藏则进行删除事件
     if (button.selected) {
         
-        [self addIntentionCommunity:button];
+        [self deleteIntentionCommunity:button];
         
     } else {
     
-        [self deleteIntentionCommunity:button];
+        [self addIntentionCommunity:button];
     
     }
 
@@ -755,6 +755,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
         [self deleteIntentionCommunityWithStatus:YES];
+        button.selected = NO;
         return;
         
     }
@@ -765,6 +766,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
         [self deleteIntentionCommunityWithStatus:NO];
+        button.selected = NO;
         return;
         
     }
@@ -822,6 +824,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
         [self saveIntentionCommunityWithStatus:NO];
         params = nil;
+        button.selected = YES;
         return;
         
     }
