@@ -48,6 +48,14 @@
 #define IMAGE_PUBLIC_ARROW_60X60_NORMAL @"public_arrow_normal60x60"
 #define IMAGE_PUBLIC_ARROW_60X60_HIGHLIGHTED @"public_arrow_highlighted60x60"
 
+///分享相关图片
+#define IMAGE_SHARE_WECHAT_NORMAL @"share_wechat_normal"
+#define IMAGE_SHARE_WECHAT_HIGHLIGHTED @"share_wechat_highlighted"
+#define IMAGE_SHARE_FRIEND_NORMAL @"share_friends_normal"
+#define IMAGE_SHARE_FRIEND_HIGHLIGHTED @"share_friends_highlighted"
+#define IMAGE_SHARE_WEIBO_NORMAL @"share_weibo_normal"
+#define IMAGE_SHARE_WEIBO_HIGHLIGHTED @"share_weibo_highlighted"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26

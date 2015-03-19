@@ -346,6 +346,7 @@
 		18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E802251A6FD07B00CA21D4 /* QSCoreDataManager+App.m */; };
 		18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E8022C1A6FD44400CA21D4 /* NSDate+Formatter.m */; };
 		18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E932471A762C7000927DF2 /* QSCDConfigurationDataModel.m */; };
+		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
 		18EE34761AABFD3F0053B909 /* QSCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346E1AABFD3F0053B909 /* QSCommunityDataModel.m */; };
@@ -956,6 +957,8 @@
 		18E8022E1A6FD69100CA21D4 /* TipsHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipsHeader.h; sourceTree = "<group>"; };
 		18E932461A762C7000927DF2 /* QSCDConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDConfigurationDataModel.h; path = Configuration/QSCDConfigurationDataModel.h; sourceTree = "<group>"; };
 		18E932471A762C7000927DF2 /* QSCDConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDConfigurationDataModel.m; path = Configuration/QSCDConfigurationDataModel.m; sourceTree = "<group>"; };
+		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
+		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
 		18EE34661AABEE300053B909 /* QSScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSScrollView.m; path = ScrollView/QSScrollView.m; sourceTree = "<group>"; };
 		18EE346B1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseHouseInfoDataModel.h; sourceTree = "<group>"; };
@@ -1600,6 +1603,7 @@
 		1893007A1A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18EDA5331ABB226A0024EEAF /* Share */,
 				18AFA9E51AB687A100681071 /* Login */,
 				18CAFCE51A720E9000C90C90 /* Filter */,
 				CE2B43141A6E2AD2006B9F8E /* Developer */,
@@ -3239,6 +3243,15 @@
 			name = Configuration;
 			sourceTree = "<group>";
 		};
+		18EDA5331ABB226A0024EEAF /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */,
+				18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */,
+			);
+			name = Share;
+			sourceTree = "<group>";
+		};
 		18EE34641AABEE120053B909 /* ScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4051,6 +4064,7 @@
 				18C8A0FA1A6A96DA00BB9611 /* UIButton+Factory.m in Sources */,
 				18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
+				18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */,
 				475C3DAA1AB6D5480028608F /* QSPOrderBookTimeViewController.m in Sources */,
 				475C3D811AB272B00028608F /* QSPOrderDetailTitleLabel.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,

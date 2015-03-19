@@ -8,6 +8,8 @@
 
 #import "QSSecondHouseDetailViewController.h"
 #import "QSAutoScrollView.h"
+#import "QSYShareChoicesView.h"
+#import "QSYPopCustomView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -134,7 +136,7 @@ static char LeftStarKey;            //!<左侧星级
             [self collectSecondHouse:button];
             
         }];
-        intentionButton.selected = [QSCoreDataManager searchCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeSecondHouse];
+        intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeSecondHouse];
         [self.view addSubview:intentionButton];
         
     }
@@ -1335,7 +1337,40 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareSecondHouse:(UIButton *)button
 {
     
-    APPLICATION_LOG_INFO(@"分享二手房", @"分享二手房")
+    ///弹出窗口的指针
+    __block QSYPopCustomView *popView = nil;
+    
+    ///提示选择窗口
+    QSYShareChoicesView *saleTipsView = [[QSYShareChoicesView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 150.0f) andShareCallBack:^(SHARE_CHOICES_TYPE actionType) {
+        
+        ///加收弹出窗口
+        [popView hiddenCustomPopview];
+        
+        ///处理不同的分享事件
+        switch (actionType) {
+                ///新浪微博
+            case sShareChoicesTypeXinLang:
+                
+                break;
+                
+                ///朋友圈
+            case sShareChoicesTypeFriends:
+                
+                break;
+                
+                ///微信朋友圈
+            case sShareChoicesTypeWeChat:
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    ///弹出窗口
+    popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
     
 }
 
