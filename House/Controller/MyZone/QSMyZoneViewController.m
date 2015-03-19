@@ -14,6 +14,7 @@
 #import "QSYAttentionCommunityViewController.h"
 #import "QSYCollectedHousesViewController.h"
 #import "QSYMyHistoryViewController.h"
+#import "QSYSystemSettingViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -345,6 +346,19 @@ static char UserIconKey;//!<用户头像
 ///点击设置按钮
 - (void)gotoSettingViewController
 {
+    
+    ///进入设置页面
+    QSYSystemSettingViewController *settingVC = [[QSYSystemSettingViewController alloc] init];
+    settingVC.hiddenCustomTabbarWhenPush = YES;
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:settingVC animated:YES];
+
+}
+
+#pragma mark - 点击消息按钮
+///点击消息按钮
+- (void)gotoMessageViewController
+{
 
     ///判断登录
     [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
@@ -360,15 +374,6 @@ static char UserIconKey;//!<用户头像
         }
         
     }];
-
-}
-
-#pragma mark - 点击消息按钮
-///点击消息按钮
-- (void)gotoMessageViewController
-{
-
-    
 
 }
 
