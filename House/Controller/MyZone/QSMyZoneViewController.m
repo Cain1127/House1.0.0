@@ -11,6 +11,9 @@
 #import "QSMyZoneOwnerView.h"
 #import "QSYMySettingViewController.h"
 #import "QSYAskSaleAndRentViewController.h"
+#import "QSYAttentionCommunityViewController.h"
+#import "QSYCollectedHousesViewController.h"
+#import "QSYMyHistoryViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -261,17 +264,15 @@ static char UserIconKey;//!<用户头像
                 
                 ///已成交订单点击
             case tTenantZoneActionTypeDeal:
+            {
                 
-                NSLog(@"==================已成交订单======================");
-                {
-                    
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
-                    [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                    
-                }
+                QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                [bolVc setHiddenCustomTabbarWhenPush:YES];
+                [bolVc setSelectedType:mOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+                
+            }
                 break;
                 
                 ///求租求购点击
@@ -288,23 +289,32 @@ static char UserIconKey;//!<用户头像
                 
                 ///收藏房源
             case tTenantZoneActionTypeCollected:
+            {
                 
-                NSLog(@"==================收藏房源======================");
+                QSYCollectedHousesViewController *collectedHouseVC = [[QSYCollectedHousesViewController alloc] init];
+                [self.navigationController pushViewController:collectedHouseVC animated:YES];
                 
+            }
                 break;
                 
                 ///关注小区
             case tTenantZoneActionTypeCommunity:
+            {
                 
-                NSLog(@"==================关注小区======================");
+                QSYAttentionCommunityViewController *attentionCommunityVC = [[QSYAttentionCommunityViewController alloc] init];
+                [self.navigationController pushViewController:attentionCommunityVC animated:YES];
                 
+            }
                 break;
                 
                 ///浏览记录
             case tTenantZoneActionTypeHistory:
+            {
                 
-                NSLog(@"==================浏览记录======================");
+                QSYMyHistoryViewController *myHistoryVC = [[QSYMyHistoryViewController alloc] init];
+                [self.navigationController pushViewController:myHistoryVC animated:YES];
                 
+            }
                 break;
                 
             default:
