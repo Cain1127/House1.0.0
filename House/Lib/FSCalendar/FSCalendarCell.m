@@ -30,6 +30,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _titleSelectedBgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [self.contentView addSubview:_titleSelectedBgView];
+        
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont systemFontOfSize:16];
@@ -66,8 +70,10 @@
                                         (titleHeight-diameter)/2,
                                         diameter,
                                         diameter);
-    
     CGFloat eventSize = _backgroundLayer.frame.size.height/6.0;
+    
+    [_titleSelectedBgView setFrame:CGRectMake(0, 0, 41, 45)];
+    
     _eventLayer.frame = CGRectMake((_backgroundLayer.frame.size.width-eventSize)/2+_backgroundLayer.frame.origin.x, CGRectGetMaxY(_backgroundLayer.frame)+eventSize*0.2, eventSize*0.8, eventSize*0.8);
     _eventLayer.path = [UIBezierPath bezierPathWithOvalInRect:_eventLayer.bounds].CGPath;
 }
@@ -147,6 +153,10 @@
         _titleLabel.frame = CGRectMake(0, 0, self.fs_width, floor(self.contentView.fs_height*5.0/6.0));
         _subtitleLabel.hidden = YES;
     }
+    
+    [_titleSelectedBgView setCenter:_titleLabel.center];
+    
+    _titleSelectedBgView.hidden = !self.selected;
     _backgroundLayer.hidden = !self.selected && !self.isToday;
     if (_cellStyle == FSCalendarCellStyleCircle) {
         _backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:_backgroundLayer.bounds].CGPath;
@@ -154,7 +164,10 @@
         _backgroundLayer.path = [UIBezierPath bezierPathWithRect:_backgroundLayer.bounds].CGPath;
     }else if (_cellStyle == FSCalendarCellStyleHexagon) {
         
+        [_titleSelectedBgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_CALENDAR_DAY_SELECTED_BT]];
+        
 //        // step 1: 生成六边形路径
+//        CGFloat SIZE = _backgroundLayer.bounds.size.width;
 //        CGFloat longSide = SIZE * 0.5 * cosf(M_PI * 30 / 180);
 //        CGFloat shortSide = SIZE * 0.5 * sin(M_PI * 30 / 180);
 //        UIBezierPath *path = [UIBezierPath bezierPath];
@@ -176,7 +189,9 @@
 
 - (BOOL)isPlaceholder
 {
-    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month);
+    //    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) ;
+    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) || (_date.fs_month == _currentDate.fs_month && _date.fs_day<_currentDate.fs_day);
+
 }
 
 - (BOOL)isToday
@@ -191,14 +206,14 @@
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
 {
+    if (self.isPlaceholder) {
+        return dictionary[@(FSCalendarCellStatePlaceholder)];
+    }
     if (self.isSelected) {
         return dictionary[@(FSCalendarCellStateSelected)];
     }
     if (self.isToday) {
         return dictionary[@(FSCalendarCellStateToday)];
-    }
-    if (self.isPlaceholder) {
-        return dictionary[@(FSCalendarCellStatePlaceholder)];
     }
     if (self.isWeekend && [[dictionary allKeys] containsObject:@(FSCalendarCellStateWeekend)]) {
         return dictionary[@(FSCalendarCellStateWeekend)];

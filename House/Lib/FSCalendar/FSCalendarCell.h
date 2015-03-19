@@ -12,6 +12,7 @@
 @interface FSCalendarCell : UICollectionViewCell
 
 @property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UIImageView *titleSelectedBgView;
 @property (strong, nonatomic) UILabel *subtitleLabel;
 
 @property (weak, nonatomic) NSDictionary *titleColors;

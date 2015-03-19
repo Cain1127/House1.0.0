@@ -407,6 +407,7 @@
 		47A207731AB7FC3300F51797 /* QSPCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207721AB7FC3300F51797 /* QSPCalendarView.m */; };
 		47A207761AB807D100F51797 /* myzone_calendar_month_bt_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */; };
 		47A207771AB807D100F51797 /* myzone_calendar_month_bt_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */; };
+		47A207791AB9217C00F51797 /* myzone_calendar_day_selected_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */; };
 		47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */; };
 		47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */; };
 		47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */; };
@@ -1048,6 +1049,7 @@
 		47A207721AB7FC3300F51797 /* QSPCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPCalendarView.m; sourceTree = "<group>"; };
 		47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_left.png; sourceTree = "<group>"; };
 		47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_right.png; sourceTree = "<group>"; };
+		47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_day_selected_bt.png; sourceTree = "<group>"; };
 		47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrdersListsViewController.h; sourceTree = "<group>"; };
 		47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrdersListsViewController.m; sourceTree = "<group>"; };
 		47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderBookingListView.h; sourceTree = "<group>"; };
@@ -2398,6 +2400,7 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */,
 				47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */,
 				47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */,
 				475C3D8F1AB2CC240028608F /* myzone_oorderdetail_map_bt_normal.png */,
@@ -3658,6 +3661,7 @@
 				1843669D1AB9847200A81374 /* FilterAskSecondHouse.plist in Resources */,
 				18B564451A8366A4009779A0 /* navigationbar_collect_normal.png in Resources */,
 				18B564501A8366A4009779A0 /* navigationbar_message_normal.png in Resources */,
+				47A207791AB9217C00F51797 /* myzone_calendar_day_selected_bt.png in Resources */,
 				18B5643D1A8366A4009779A0 /* 1240X2208.png in Resources */,
 				475C3D721AB171120028608F /* myzone_oorderlist_cell_call_bt_normal.png in Resources */,
 				18BE12741A8A133D0036245A /* myzone_renant_order_appointed_normal.png in Resources */,

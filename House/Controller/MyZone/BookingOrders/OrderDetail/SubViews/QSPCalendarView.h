@@ -12,4 +12,6 @@
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
 
+@property ( strong, nonatomic ) NSDate *selectedDate;
+
 @end
