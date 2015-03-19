@@ -9,8 +9,9 @@
 #import "QSWHousesMapDistributionViewController.h"
 
 #import <MAMapKit/MAMapKit.h>
-#import "QSCustomCalloutView.h"
+#import <AMapSearchKit/AMapSearchAPI.h>
 #import "QSCustomAnnotationView.h"
+#import "QSAnnotation.h"
 
 #import "QSHouseKeySearchViewController.h"
 #import "QSSecondHouseDetailViewController.h"
@@ -44,14 +45,25 @@
 
 #import <objc/runtime.h>
 
+#define APIKey      @"0f36774bd285a275b3b8e496e45fe6d9"
+
+#define kDefaultLocationZoomLevel       16.1
+#define kDefaultControlMargin           22
+#define kDefaultCalloutViewMargin       -8
+
+
 ///关联
 static char CollectionViewKey;      //!<collectionView的关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
 
-@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate>
+@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate,UITableViewDataSource,UITableViewDelegate>
 {
 
     MAMapView *_mapView;
+    AMapSearchAPI *_search;
+    
+    NSMutableArray *_annotations;
+
     
 }
 
@@ -281,7 +293,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     [self.view addSubview:channelBarRootView];
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
-    [self createListView];
+    ///添加地图列表
+    //[self createListView];
+    [self initMapView];
+    //[self initSearch];
+    //[self initControls];
+    //[self initTableView];
+    [self initAttributes];
     
 }
 
@@ -498,7 +516,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     ///先清除原列表
-    UIView *localListView = objc_getAssociatedObject(self, &CollectionViewKey);
+    MAMapView *localListView = objc_getAssociatedObject(self, &CollectionViewKey);
     if (localListView) {
         
         [localListView removeFromSuperview];
@@ -737,8 +755,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             self.filterModel.filter_status = @"2";
             
             ///刷新数据
-            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            [collectionView headerBeginRefreshing];
+            MAMapView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+            //[collectionView headerBeginRefreshing];
             
             ///保存过滤器
             [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -774,8 +792,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.filterModel.filter_status = @"2";
         
         ///刷新数据
-        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        [collectionView headerBeginRefreshing];
+        MAMapView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        //[collectionView headerBeginRefreshing];
         
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -822,7 +840,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         [self createChannelBarUI:channelRootView];
         
         ///重新创建列表数据
-        [self createListView];
+        //[self createListView];
         
     });
     
@@ -915,71 +933,17 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-#pragma mark --大头针代理方法
-
-- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
-
+#pragma mark--地图相关
+- (void)initMapView
 {
-    
-    if ([annotation isKindOfClass:[MAPointAnnotation class]])
-        
-    {
-        
-        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
-        
-        QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
-        
-        if (annotationView == nil)
-            
-        {
-            
-            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
-            
-        }
-        
-        
-        
-        //        annotationView.annotation.title=@"111";
-        
-        // 设置为NO，用以调用自定义的calloutView
-        
-        annotationView.canShowCallout = NO;
-        
-        
-        
-        // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
-        
-        annotationView.centerOffset = CGPointMake(0, -18);
-        
-        return annotationView;
-        
-    }
-    
-    return nil;
-    
-}
-
-
-
--(void) viewDidAppear:(BOOL)animated
-
-{
-    
-    [super viewDidAppear:animated];
-    
-    //配置用户Key
-    
-    [MAMapServices sharedServices].apiKey = @"0f36774bd285a275b3b8e496e45fe6d9";
-    
-    
-    
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-104.0f)];
+    [MAMapServices sharedServices].apiKey = APIKey;
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104.0f, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-104.0f)];
     
     _mapView.delegate = self;
+    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, kDefaultControlMargin);
+    _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, kDefaultControlMargin);
     
-    //显示交通状况
-    
-    //_mapView.showTraffic= YES;
+    [self.view addSubview:_mapView];
     
     CGFloat latitude=23.33;
     
@@ -987,14 +951,101 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     _mapView.centerCoordinate=CLLocationCoordinate2DMake(latitude,longitude);
     
-    _mapView.zoomLevel=11.2;
-    
-    
-    
-    [self.view addSubview:_mapView];
-    
+    _mapView.showsUserLocation = YES;
 }
 
+- (void)initAttributes
+{
+    
+    _annotations = [NSMutableArray array];
 
+}
+
+#pragma mark --添加大头针气泡
+
+- (void)addAnnotations {
+    
+        CGFloat latitude= 23.5543;
+        CGFloat longitude=113.3333;
+    
+        QSAnnotation *anno0 = [[QSAnnotation alloc] init];
+        anno0.title = @"体育西路";
+        anno0.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    
+        //2.反地理编码
+    AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+    
+    request.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
+    
+    [_search AMapReGoecodeSearch:request];
+    
+
+        
+        [_mapView addAnnotation:anno0];
+        
+        //黙认选中
+        [_mapView selectAnnotation:anno0 animated:YES];
+        
+    }
+
+#pragma mark - MAMapViewDelegate
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{
+    if (![annotation isKindOfClass:[QSAnnotation class]]) return nil;
+    
+        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
+        QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
+        }
+        annotationView.image = [UIImage imageNamed:@"public_local_highlighted"];
+        
+        // 设置为NO，用以调用自定义的calloutView
+        annotationView.canShowCallout = YES;
+    
+    // 传递模型
+    annotationView.annotation = annotation;
+    
+    annotationView.image=[UIImage imageNamed:@"home_carpostion0"];
+    
+        // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
+        annotationView.centerOffset = CGPointMake(0, -18);
+        return annotationView;
+
+}
+
+#pragma mark -点击大头针事件
+//- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+//{
+//    // 选中定位annotation的时候进行逆地理编码查询
+//    if (![view.annotation isKindOfClass:[QSAnnotation class]])
+//    {
+//        return;
+//    }
+//    
+//    // 调整自定义callout的位置，使其可以完全显示
+//    if ([view isKindOfClass:[QSCustomAnnotationView class]]) {
+//        QSCustomAnnotationView *cusView = (QSCustomAnnotationView *)view;
+//        CGRect frame = [cusView convertRect:cusView.calloutView.frame toView:_mapView];
+//        
+//        frame = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin));
+//        
+//        if (!CGRectContainsRect(_mapView.frame, frame))
+//        {
+//            CGSize offset = [self offsetToContainRect:frame inRect:_mapView.frame];
+//            
+//            CGPoint theCenter = _mapView.center;
+//            theCenter = CGPointMake(theCenter.x - offset.width, theCenter.y - offset.height);
+//            
+//            CLLocationCoordinate2D coordinate = [_mapView convertPoint:theCenter toCoordinateFromView:_mapView];
+//            
+//            [_mapView setCenterCoordinate:coordinate animated:YES];
+//        }
+//        
+//    }
+//}
 
 @end
+

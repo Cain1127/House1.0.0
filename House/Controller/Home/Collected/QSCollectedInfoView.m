@@ -10,7 +10,8 @@
 
 #import "TipsHeader.h"
 
-#import "QSCollectedCommunityDataModel.h"
+#import "QSCommunityHouseDetailDataModel.h"
+#import "QSWCommunityDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -149,28 +150,28 @@ static char IncreaseUnitKey;//!<涨幅单位关联
  *
  *  @since          1.0.0
  */
-- (void)updateCollectedInfoViewUI:(QSCollectedCommunityDataModel *)model
+- (void)updateCollectedInfoViewUI:(QSCommunityHouseDetailDataModel *)model
 {
 
     ///更新标题
     UILabel *titleLabel = objc_getAssociatedObject(self, &CommunityKey);
-    if (titleLabel && model.collectid_title) {
+    if (titleLabel && model.village.title) {
         
-        titleLabel.text = model.collectid_title;
+        titleLabel.text = model.village.title;
         
     }
     
     ///更新现价
     UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
-    if (priceLabel && model.collected_new_price) {
+    if (priceLabel && model.village.price_avg) {
         
-        priceLabel.text = [NSString stringWithFormat:@"%.2f",[model.collected_new_price floatValue] / 10000];
+        priceLabel.text = [NSString stringWithFormat:@"%.2f",[model.village.price_avg floatValue] / 10000];
         
     }
     
     ///判断是否存在涨幅
-    CGFloat newPrice = [model.collected_new_price floatValue];
-    CGFloat oldPrice = [model.collected_old_price floatValue];
+    CGFloat newPrice = [model.village.price_avg floatValue];
+    CGFloat oldPrice = [model.village.tj_last_month_price_avg floatValue];
     CGFloat increasePrice = newPrice - oldPrice;
     CGFloat isChange = newPrice - oldPrice;
     

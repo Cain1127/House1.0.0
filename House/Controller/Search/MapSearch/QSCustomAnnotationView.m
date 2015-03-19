@@ -7,6 +7,7 @@
 //
 
 #import "QSCustomAnnotationView.h"
+#import "QSAnnotation.h"
 
 #define kCalloutWidth       200.0
 #define kCalloutHeight      70.0
@@ -32,8 +33,9 @@
             self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
         }
         
-        self.calloutView.title = self.annotation.title;
-        self.calloutView.price = self.annotation.subtitle;
+        QSAnnotation *anno=[[QSAnnotation alloc] init];
+        self.calloutView.title = anno.title;
+        self.calloutView.price = anno.subtitle;
         
         [self addSubview:self.calloutView];
     }
@@ -44,6 +46,17 @@
     
     [super setSelected:selected animated:animated];
 }
+
+//-(void)setAnnotation:(id<MAAnnotation>)annotation
+//{
+//    
+//    [super setAnnotation:annotation];
+//    
+//    QSAnnotation *anno = annotation;
+//    self.calloutView.title = anno.title;
+//    self.calloutView.price = anno.subtitle;
+//
+//}
 
 /// 重写此函数,⽤用以实现点击calloutView判断为点击该annotationView
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {

@@ -10,12 +10,14 @@
 #import "QSCommunityDetailViewCell.h"
 
 #import "QSAutoScrollView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSCommunityHousesDetailReturnData.h"
@@ -27,6 +29,7 @@
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "MJRefresh.h"
 
@@ -107,14 +110,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
-    ///收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
+    ///关注按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
+        ///关注小区
+        [self intentionCommunity:button];
+        
+    }];
+    intentionButton.selected = [QSCoreDataManager searchCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
+    [self.view addSubview:intentionButton];
     
 }
 
@@ -242,20 +248,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     infoRootView.delegate = self;
     infoRootView.scrollEnabled=YES;
     infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,_tabbleView.frame.origin.y+_tabbleView.frame.size.height);
-    
-    //[self.view addSubview:scrollView];
-    //    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
-    
-    
-    ///判断滚动尺寸
-    //    if ((secondRootView.frame.origin.y + secondViewHeight + 10.0f) > infoRootView.frame.size.height) {
-    //
-    //        infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondViewHeight + 10.0f));
-    //
-    //    }
-    
-    ///修改滚动尺寸
-    //    infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height + 130.0f);
     
 }
 
@@ -443,11 +435,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     CGFloat buttonH = buttonW;
     CGFloat buttonY = 0.0f;
     QSBlockButtonStyleModel *buttonStyle=[QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
-//    buttonStyle.bgColor=[UIColor clearColor];
-//    buttonStyle.titleNormalColor=[UIColor grayColor];
-//    buttonStyle.titleSelectedColor=[UIColor blackColor];
-//    buttonStyle.bgColorSelected=[UIColor yellowColor];
-//    buttonStyle.bgColorHighlighted=[UIColor yellowColor];
     
     UIButton *bushButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(0.0f, buttonY, buttonW, buttonH) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
@@ -678,20 +665,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 }
 
-
-#pragma mark -tableview代理方法
-
-
-//#pragma mark - 结束刷新动画
-/////结束刷新动画
-//- (void)endRefreshAnimination
-//{
-//
-//    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
-//    [scrollView headerEndRefreshing];
-//
-//}
-
 #pragma mark - 请求小区详情信息
 ///请求新房详情信息
 - (void)getCommunityDetailInfo
@@ -748,6 +721,83 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     
+}
+
+#pragma mark - 关注小区
+///点击关注小区
+- (void)intentionCommunity:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加关注"];
+
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.village.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeCommunityIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveIntentionCommunityWithStatus:YES];
+                
+            });
+            
+        } else {
+        
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveIntentionCommunityWithStatus:NO];
+                
+            });
+        
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+
+}
+
+#pragma mark - 将收藏信息保存本地
+///将收藏信息保存本地
+- (void)saveIntentionCommunityWithStatus:(BOOL)isSendServer
+{
+
+    ///当前小区是否同步服务端标识
+    if (isSendServer) {
+        
+        self.detailInfo.is_syserver = @"1";
+        
+    } else {
+    
+        self.detailInfo.is_syserver = @"0";
+        
+    }
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager saveCollectedDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"小区关注->保存本地", @"成功")
+            
+        } else {
+        
+            APPLICATION_LOG_INFO(@"小区关注->保存本地", @"失败")
+        
+        }
+        
+    }];
+
 }
 
 @end
