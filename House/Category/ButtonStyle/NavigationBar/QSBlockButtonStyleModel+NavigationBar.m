@@ -109,12 +109,52 @@
             
             break;
             
+        case nNavigationBarButtonTypeCollected:
+            
+            return [self createNavigationBarCollectedButtonStyle];
+            
+            break;
+            
+        case nNavigationBarButtonTypeShare:
+            
+            return [self createNavigationBarShareButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
     
+}
+
+#pragma mark - 分享按钮
++ (QSBlockButtonStyleModel *)createNavigationBarShareButtonStyle
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    
+    ///搜索按钮的普通状态和高亮状态图片
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_SHARE_NORMAL;
+    buttonStyle.imagesSelected = IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED;
+    
+    return buttonStyle;
+
+}
+
+#pragma mark - 收藏按钮
++ (QSBlockButtonStyleModel *)createNavigationBarCollectedButtonStyle
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    
+    ///搜索按钮的普通状态和高亮状态图片
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_COLLECT_NORMAL;
+    buttonStyle.imagesSelected = IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED;
+    
+    return buttonStyle;
+
 }
 
 #pragma mark - 返回按钮

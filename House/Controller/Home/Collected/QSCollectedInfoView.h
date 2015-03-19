@@ -24,7 +24,7 @@ typedef enum
  *
  *  @since  1.0.0
  */
-@class QSCollectedCommunityDataModel;
+@class QSCommunityHouseDetailDataModel;
 @interface QSCollectedInfoView : UIView
 
 /**
@@ -50,6 +50,6 @@ typedef enum
  *
  *  @since          1.0.0
  */
-- (void)updateCollectedInfoViewUI:(QSCollectedCommunityDataModel *)model;
+- (void)updateCollectedInfoViewUI:(QSCommunityHouseDetailDataModel *)model;
 
 @end

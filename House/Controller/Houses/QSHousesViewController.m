@@ -306,6 +306,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///进入高级筛选窗口
             QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:filterVCType];
             filterVC.hiddenCustomTabbarWhenPush = YES;
+            filterVC.resetFilterCallBack = ^(BOOL flag){
+            
+                if (flag) {
+                    
+                    ///重新刷新数据
+                    [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",self.listType]];
+                    
+                }
+            
+            };
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:filterVC animated:YES];
             

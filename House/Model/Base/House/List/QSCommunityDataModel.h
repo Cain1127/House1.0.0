@@ -52,6 +52,8 @@
 @property (nonatomic,copy) NSString *tj_environment;            //!<周边环境评分
 
 ///在小区选择列表中，用于区别当前cell是否处于选择状态:1-选择状态
-@property (nonatomic,assign) int isSelected;
+@property (nonatomic,assign) int isSelectedStatus;
+
+@property (nonatomic,copy) NSString *is_syserver;               //!<是否已同步服务端
 
 @end

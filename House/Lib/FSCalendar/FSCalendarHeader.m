@@ -11,7 +11,7 @@
 #import "UIView+FSExtension.h"
 #import "NSDate+FSExtension.h"
 
-#define kNumberOfItems (2100-1970+1)*12 // From 1970 to 2100
+#define kNumberOfItems 12   //(2100-1970+1)*12 // From 1970 to 2100
 #define kBlueText [UIColor colorWithRed:14/255.0 green:69/255.0 blue:221/255.0 alpha:1.0]
 
 @interface FSCalendarHeader ()<UICollectionViewDataSource,UICollectionViewDelegate>
@@ -109,7 +109,7 @@
     }
     titleLabel.font = self.calendar.headerTitleFont;
     titleLabel.textColor = self.calendar.headerTitleColor;
-    NSDate *date = [[NSDate dateWithTimeIntervalSince1970:0] fs_dateByAddingMonths:indexPath.item];
+    NSDate *date = [[NSDate date] fs_dateByAddingMonths:indexPath.item];
     titleLabel.text = [_dateFormatter stringFromDate:date];
     
     CGFloat position = [cell convertPoint:CGPointMake(CGRectGetMidX(cell.bounds), CGRectGetMidY(cell.bounds)) toView:self].x;

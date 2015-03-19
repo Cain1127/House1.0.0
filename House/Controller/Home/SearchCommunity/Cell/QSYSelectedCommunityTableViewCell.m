@@ -137,7 +137,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateBackgroudImage:tempModel.attach_thumb];
     
     ///更新选择状态
-    [self updateSelectedTipsStatus:tempModel.isSelected];
+    [self updateSelectedTipsStatus:tempModel.isSelectedStatus];
 
 }
 

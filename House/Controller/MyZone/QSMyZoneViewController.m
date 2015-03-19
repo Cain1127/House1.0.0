@@ -11,6 +11,10 @@
 #import "QSMyZoneOwnerView.h"
 #import "QSYMySettingViewController.h"
 #import "QSYAskSaleAndRentViewController.h"
+#import "QSYAttentionCommunityViewController.h"
+#import "QSYCollectedHousesViewController.h"
+#import "QSYMyHistoryViewController.h"
+#import "QSYSystemSettingViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -261,17 +265,15 @@ static char UserIconKey;//!<用户头像
                 
                 ///已成交订单点击
             case tTenantZoneActionTypeDeal:
+            {
                 
-                NSLog(@"==================已成交订单======================");
-                {
-                    
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
-                    [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                    
-                }
+                QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                [bolVc setHiddenCustomTabbarWhenPush:YES];
+                [bolVc setSelectedType:mOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+                
+            }
                 break;
                 
                 ///求租求购点击
@@ -288,23 +290,32 @@ static char UserIconKey;//!<用户头像
                 
                 ///收藏房源
             case tTenantZoneActionTypeCollected:
+            {
                 
-                NSLog(@"==================收藏房源======================");
+                QSYCollectedHousesViewController *collectedHouseVC = [[QSYCollectedHousesViewController alloc] init];
+                [self.navigationController pushViewController:collectedHouseVC animated:YES];
                 
+            }
                 break;
                 
                 ///关注小区
             case tTenantZoneActionTypeCommunity:
+            {
                 
-                NSLog(@"==================关注小区======================");
+                QSYAttentionCommunityViewController *attentionCommunityVC = [[QSYAttentionCommunityViewController alloc] init];
+                [self.navigationController pushViewController:attentionCommunityVC animated:YES];
                 
+            }
                 break;
                 
                 ///浏览记录
             case tTenantZoneActionTypeHistory:
+            {
                 
-                NSLog(@"==================浏览记录======================");
+                QSYMyHistoryViewController *myHistoryVC = [[QSYMyHistoryViewController alloc] init];
+                [self.navigationController pushViewController:myHistoryVC animated:YES];
                 
+            }
                 break;
                 
             default:
@@ -335,6 +346,19 @@ static char UserIconKey;//!<用户头像
 ///点击设置按钮
 - (void)gotoSettingViewController
 {
+    
+    ///进入设置页面
+    QSYSystemSettingViewController *settingVC = [[QSYSystemSettingViewController alloc] init];
+    settingVC.hiddenCustomTabbarWhenPush = YES;
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:settingVC animated:YES];
+
+}
+
+#pragma mark - 点击消息按钮
+///点击消息按钮
+- (void)gotoMessageViewController
+{
 
     ///判断登录
     [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
@@ -350,15 +374,6 @@ static char UserIconKey;//!<用户头像
         }
         
     }];
-
-}
-
-#pragma mark - 点击消息按钮
-///点击消息按钮
-- (void)gotoMessageViewController
-{
-
-    
 
 }
 

@@ -354,5 +354,8 @@
 #define IMAGE_ZONE_ORDER_CALENDAR_MONTH_LEFT_BT    @"myzone_calendar_month_bt_left"
 ///预约订单选择时间月份选择按钮右箭头图片
 #define IMAGE_ZONE_ORDER_CALENDAR_MONTH_RIGHT_BT   @"myzone_calendar_month_bt_right"
+///预约订单选择时间日选择按钮图片
+#define IMAGE_ZONE_ORDER_CALENDAR_DAY_SELECTED_BT    @"myzone_calendar_day_selected_bt"
+
 
 #endif

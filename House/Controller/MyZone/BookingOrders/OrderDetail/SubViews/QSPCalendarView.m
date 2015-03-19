@@ -9,12 +9,13 @@
 #import "QSPCalendarView.h"
 #import "FSCalendar.h"
 
-@interface QSPCalendarView ()<FSCalendarDelegate,FSCalendarDataSource>
+@interface QSPCalendarView ()<FSCalendarDelegate>
 
 @end
 
 
 @implementation QSPCalendarView
+@synthesize selectedDate;
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint
 {
@@ -29,23 +30,19 @@
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
         
-        
         FSCalendarHeader *header = [[FSCalendarHeader alloc] initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44)];
         [self addSubview:header];
         ///分隔线
-        UILabel *bottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, header.frame.origin.y+header.frame.size.height-0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
-        [bottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
+        UILabel *headerBottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, header.frame.origin.y+header.frame.size.height-0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
+        [headerBottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
         
-        FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, 44, SIZE_DEVICE_WIDTH, 510.0f*SIZE_DEVICE_WIDTH/750.0f)];
+        FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, header.frame.origin.y+header.frame.size.height, SIZE_DEVICE_WIDTH, 580.0f*SIZE_DEVICE_WIDTH/750.0f)];
         calendar.header = header;
-        calendar.dataSource = self;
         calendar.delegate = self;
         [self addSubview:calendar];
     
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, calendar.frame.origin.y+calendar.frame.size.height)];
-        
         //上个月按钮
-        UIImageView *leftBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(header.frame.origin.x, header.frame.origin.y, 100.0f, header.frame.size.height)];
+        UIImageView *leftBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(header.frame.origin.x, header.frame.origin.y, 100.0f/375.0f*SIZE_DEVICE_WIDTH, header.frame.size.height)];
         [leftBtBgView setBackgroundColor:COLOR_CHARACTERS_YELLOW];
         [self addSubview:leftBtBgView];
         
@@ -62,7 +59,7 @@
         [self addSubview:leftBt];
         
         //下个月按钮
-        UIImageView *rightBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-100.0f, header.frame.origin.y, 100.0f, header.frame.size.height)];
+        UIImageView *rightBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-leftBtBgView.frame.size.width, header.frame.origin.y, leftBtBgView.frame.size.width, header.frame.size.height)];
         [rightBtBgView setBackgroundColor:COLOR_CHARACTERS_YELLOW];
         [self addSubview:rightBtBgView];
         
@@ -79,8 +76,14 @@
         
         [self addSubview:rightBt];
         
+        [self addSubview:headerBottomLineLablel];
+        
+        ///分隔线
+        UILabel *bottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, calendar.frame.origin.y+calendar.frame.size.height+0.5f + 8.0f, SIZE_DEVICE_WIDTH, 0.5f)];
+        [bottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
         [self addSubview:bottomLineLablel];
         
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomLineLablel.frame.origin.y+bottomLineLablel.frame.size.height)];
         
     }
     
@@ -88,38 +91,10 @@
     
 }
 
-//- (NSString *)calendar:(FSCalendar *)calendar subtitleForDate:(NSDate *)date
-//{
-//    NSString *tempStr = @"测试";
-//    
-//    return tempStr;
-//    
-//}
-
-//- (BOOL)calendar:(FSCalendar *)calendar hasEventForDate:(NSDate *)date
-//{
-//    
-////    NSLog(@"hasEventForDate:%@",date);
-//    return NO;
-//}
-
-
-- (BOOL)calendar:(FSCalendar *)calendar shouldSelectDate:(NSDate *)date
-{
-    NSLog(@"shouldSelectDate:%@",date);
-    return YES;
-}
-
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date
 {
-    
+    selectedDate = date;
     NSLog(@"didSelectDate:%@",date);
 }
-
-//- (void)calendarCurrentMonthDidChange:(FSCalendar *)calendar
-//{
-//    
-//    NSLog(@"calendarCurrentMonthDidChange:%@",calendar);
-//}
 
 @end
