@@ -557,6 +557,11 @@ typedef enum
     rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
     rRequestTypeRentalHouseDetail,              //!<出租房详情请求
     
+    rRequestTypeNewHouseCollected = 2020,       //!<新房收藏
+    rRequestTypeCommunityIntention,             //!<小区关注
+    rRequestTypeSecondHandHouseCollected,       //!<二手房收藏
+    rRequestTypeRentalHouseCollected,           //!<出租房收藏
+    
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
     rRequestTypeOrderListData = 8003,           //!<订单列表数据

@@ -16,6 +16,7 @@
 #import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSCommunityHousesDetailReturnData.h"
@@ -107,14 +108,16 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
-    ///收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
+    ///关注按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
+        ///关注小区
+        [self intentionCommunity];
+        
+    }];
+    [self.view addSubview:intentionButton];
     
 }
 
@@ -748,6 +751,22 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }];
     
+}
+
+#pragma mark - 关注小区
+///点击关注小区
+- (void)intentionCommunity
+{
+
+    ///封装参数
+    NSDictionary *params = @{};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeAdvert andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        
+        
+    }];
+
 }
 
 @end

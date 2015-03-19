@@ -12,10 +12,10 @@
 typedef enum
 {
     
-    nNavigationBarButtonLocalTypeLeft = 0,  //!<导航栏左侧按钮
-    nNavigationBarButtonLocalTypeRight      //!<导航栏右侧按钮
+    nNavigationBarButtonLocalTypeLeft = 0,      //!<导航栏左侧按钮
+    nNavigationBarButtonLocalTypeRight          //!<导航栏右侧按钮
 
-}NAVIGATIONBAR_BUTTON_LOCAL_TYPE;           //!<导航栏按钮位置类型：左右
+}NAVIGATIONBAR_BUTTON_LOCAL_TYPE;               //!<导航栏按钮位置类型：左右
 
 ///不同的页面导航栏类型
 typedef enum
@@ -26,7 +26,9 @@ typedef enum
     nNavigationBarButtonTypeSetting,            //!<我的页面：设置按钮
     nNavigationBarButtonTypeMessage,            //!<我的页面：消息按钮
     nNavigationBarButtonTypeTool,               //!<发现：工具
-    nNavigationBarButtonTypeMapList             //!<找房：地图列表按钮
+    nNavigationBarButtonTypeMapList,            //!<找房：地图列表按钮
+    nNavigationBarButtonTypeCollected,          //!<收藏/关注按钮
+    nNavigationBarButtonTypeShare,              //!<分享按钮
     
 }NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置等等
 
