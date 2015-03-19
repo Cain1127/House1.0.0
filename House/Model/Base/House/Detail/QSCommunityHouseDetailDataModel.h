@@ -7,7 +7,6 @@
 //
 
 #import "QSBaseModel.h"
-#import "QSWCommunityDataModel.h"
 
 /*!
  *  @author wangshupeng, 15-03-11 11:03:59
@@ -16,14 +15,15 @@
  *
  *  @since 1.0.0
  */
-@class QSUserSimpleDataModel;
-@class QSHousePriceChangesDataModel;
-@class QSHouseCommentDataModel;
+@class QSWCommunityDataModel;
+@class QSUserBaseInfoDataModel;
 @interface QSCommunityHouseDetailDataModel : QSBaseModel
 
-@property (nonatomic,retain) QSWCommunityDataModel *village; //!<小区详情基本模型
-@property (nonatomic,retain) QSWCommunityDataModel *user;    //!<小区用户基本模型
+@property (nonatomic,retain) QSWCommunityDataModel *village;//!<小区详情基本模型
+@property (nonatomic,retain) QSUserBaseInfoDataModel *user; //!<小区用户基本模型
 @property (nonatomic,retain) NSArray *village_photo;        //!<小区图片集
 @property (nonatomic,retain) NSArray *house_commend;        //!<小区推荐
+
+@property (nonatomic,copy) NSString *is_syserver;           //!<是否已同步到服务端
 
 @end

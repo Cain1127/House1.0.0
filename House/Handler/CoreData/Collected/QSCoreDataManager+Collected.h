@@ -15,7 +15,6 @@
  *
  *  @since  1.0.0
  */
-@class QSCollectedCommunityDataModel;
 @interface QSCoreDataManager (Collected)
 
 /**
@@ -28,6 +27,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getLocalCollectedDataSource;
++ (NSArray *)getLocalCollectedDataSourceWithType:(FILTER_MAIN_TYPE)type;
 
 /**
  *  @author yangshengmeng, 15-03-12 14:03:30
@@ -39,31 +39,48 @@
  *  @since  1.0.0
  */
 + (NSArray *)getUncommitedCollectedDataSource;
++ (NSArray *)getUncommitedCollectedDataSource:(FILTER_MAIN_TYPE)type;
 
 /**
- *  @author             yangshengmeng, 15-03-12 14:03:24
+ *  @author                 yangshengmeng, 15-03-19 15:03:27
  *
- *  @brief              保存收藏的数据
+ *  @brief                  查询给定类型和ID的收藏/分享是否存在，存在-YES
  *
- *  @param dataSource   内存中的收藏数据
+ *  @param collectedID      收藏/分享的ID
+ *  @param collectedType    收藏/分享类型
  *
- *  @return             返回保存是否成功
- *
- *  @since              1.0.0
- */
-+ (BOOL)saveCollectedDataSource:(NSArray *)dataSource;
-
-/**
- *  @author                 yangshengmeng, 15-03-12 14:03:28
- *
- *  @brief                  保存给定的一个收藏记录
- *
- *  @param collectedModel   收藏记录的数据模型
- *
- *  @return                 返回是否保存成功
+ *  @return                 存在-YES
  *
  *  @since                  1.0.0
  */
-+ (BOOL)saveCollectedDataWithModel:(QSCollectedCommunityDataModel *)collectedModel;
++ (BOOL)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
+
+/**
+ *  @author             yangshengmeng, 15-03-19 11:03:29
+ *
+ *  @brief              保存给定的关注或收藏数据信息
+ *
+ *  @param dataSource   数据的集合
+ *  @param dataType     类型
+ *  @param callBack     保存后的回调
+ *
+ *
+ *  @since              1.0.0
+ */
++ (void)saveCollectedDataSource:(NSArray *)dataSource  andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
+
+/**
+ *  @author                 yangshengmeng, 15-03-19 11:03:24
+ *
+ *  @brief                  保存收藏/关注信息
+ *
+ *  @param collectedModel   数据模型
+ *  @param dataType         数据分类：小区、新房、二手房等
+ *  @param callBack         保存后的回调
+ *
+ *
+ *  @since                  1.0.0
+ */
++ (void)saveCollectedDataWithModel:(id)collectedModel andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
 
 @end

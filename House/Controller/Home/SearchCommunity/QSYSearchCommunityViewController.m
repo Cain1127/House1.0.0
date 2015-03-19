@@ -215,11 +215,11 @@ static char ListViewKey;//!<列表的关联
         
         if (i != index) {
             
-            tempModel.isSelected = 0;
+            tempModel.isSelectedStatus = 0;
             
         } else {
         
-            tempModel.isSelected = 1;
+            tempModel.isSelectedStatus = 1;
         
         }
         

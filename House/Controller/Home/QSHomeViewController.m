@@ -30,9 +30,10 @@
 #import "QSYHomeReturnData.h"
 #import "QSBaseConfigurationDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
-#import "QSCollectedCommunityDataModel.h"
 #import "QSFilterDataModel.h"
 #import "QSCommunityDataModel.h"
+#import "QSWCommunityDataModel.h"
+#import "QSCommunityHouseDetailDataModel.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
@@ -65,7 +66,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
     if (nil == _collectedDataSource) {
         
-        _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSource]];
+        _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeCommunity]];
         
     }
     
@@ -144,24 +145,30 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                 if (flag) {
                     
                     ///转换模型
-                    QSCollectedCommunityDataModel *tempModel = [[QSCollectedCommunityDataModel alloc] init];
-                    
-                    tempModel.collected_id = communityModel.id_;
-                    tempModel.collected_time = [NSDate currentDateTimeStamp];
-                    tempModel.collected_type = [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity];
-                    tempModel.collectid_title = communityModel.title;
-                    tempModel.collected_status = @"0";
-                    tempModel.collected_old_price = communityModel.tj_last_month_price_avg;
-                    tempModel.collected_new_price = communityModel.price_avg;
+                    QSCommunityHouseDetailDataModel *detailModel = [[QSCommunityHouseDetailDataModel alloc] init];
+                    detailModel.village = (QSWCommunityDataModel *)communityModel;
                     
                     ///添加数据源
-                    [self.collectedDataSource addObject:tempModel];
+                    [self.collectedDataSource addObject:detailModel];
                     
                     ///刷新数据
                     [colledtedView reloadAutoScrollView];
                     
                     ///保存数据
-                    [QSCoreDataManager saveCollectedDataWithModel:tempModel];
+                    [QSCoreDataManager saveCollectedDataWithModel:communityModel andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+                        
+                        ///打印保存信息
+                        if (flag) {
+                            
+                            APPLICATION_LOG_INFO(@"分享保存本地", @"成功")
+                            
+                        } else {
+                        
+                            APPLICATION_LOG_INFO(@"分享保存本地", @"失败")
+                        
+                        }
+                        
+                    }];
                     
                 }
                 
@@ -173,8 +180,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         } else {
         
             ///模型转换
-            QSCollectedCommunityDataModel *model = params;
-            QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:model.collectid_title andCommunityID:model.collected_id andCommendNum:@"10" andHouseType:@"second"];
+            QSCommunityHouseDetailDataModel *tempModel = params;
+            QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:tempModel.village.title andCommunityID:tempModel.village.id_ andCommendNum:@"10" andHouseType:@"second"];
             communityDetail.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:communityDetail animated:YES];
@@ -464,7 +471,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
     if ([self.collectedDataSource count] > 0) {
         
-        QSCollectedCommunityDataModel *model = self.collectedDataSource[index];
+        QSCommunityHouseDetailDataModel *model = self.collectedDataSource[index];
         QSCollectedInfoView *defaultView = [[QSCollectedInfoView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andViewType:cCollectedInfoViewTypeAcivity];
         [defaultView updateCollectedInfoViewUI:model];
         

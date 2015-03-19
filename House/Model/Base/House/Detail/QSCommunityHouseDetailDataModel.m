@@ -10,8 +10,26 @@
 #import "QSWCommunityDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSHouseInfoDataModel.h"
+#import "QSUserBaseInfoDataModel.h"
 
 @implementation QSCommunityHouseDetailDataModel
+
+#pragma mark - 初始化时同步初始化对象
+///初始化时同步初始化对象
+- (instancetype)init
+{
+
+    if (self = [super init]) {
+        
+        self.village = [[QSWCommunityDataModel alloc] init];
+        self.user = [[QSUserBaseInfoDataModel alloc] init];
+        self.is_syserver = @"0";
+        
+    }
+    
+    return self;
+
+}
 
 ///解析规则
 + (RKObjectMapping *)objectMapping
@@ -24,8 +42,7 @@
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village" toKeyPath:@"village" withMapping:[QSWCommunityDataModel objectMapping]]];
     
     ///业主
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"user" toKeyPath:@"user" withMapping:[QSWCommunityDataModel objectMapping]]];
-    
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"user" toKeyPath:@"user" withMapping:[QSUserBaseInfoDataModel objectMapping]]];
     
     ///图片
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village_photo" toKeyPath:@"village_photo" withMapping:[QSPhotoDataModel objectMapping]]];

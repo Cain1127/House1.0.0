@@ -54,4 +54,6 @@
 @property (nonatomic,copy) NSString *tj_wait_look_house_people;  //!<待看房数
 @property (nonatomic,copy) NSString *price_avg;                  //!<小区均价
 
+@property (nonatomic,copy) NSString *is_syserver;                //!<是否已同步到服务端:1-已同步
+
 @end
