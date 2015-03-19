@@ -37,32 +37,6 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getLocalCollectedDataSource
-{
-    
-//    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED];
-    
-    ///转换模型
-    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
-//    for (QSCDCollectedCommunityDataModel *obj in tempArray) {
-//        
-//        QSCollectedCommunityDataModel *tempModel = [[QSCollectedCommunityDataModel alloc] init];
-//        tempModel.collected_id = obj.collected_id;
-//        tempModel.collected_time = obj.collected_time;
-//        tempModel.collected_type = obj.collected_type;
-//        tempModel.collectid_title = obj.collectid_title;
-//        tempModel.collected_status = obj.collected_status;
-//        tempModel.collected_old_price = obj.collected_old_price;
-//        tempModel.collected_new_price = obj.collected_new_price;
-//        
-//        [tempResultArray addObject:tempModel];
-//        
-//    }
-    
-    return [NSArray arrayWithArray:tempResultArray];
-    
-}
-
 + (NSArray *)getLocalCollectedDataSourceWithType:(FILTER_MAIN_TYPE)type
 {
 
@@ -109,8 +83,14 @@
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
     for (QSCDCollectedCommunityDataModel *obj in tempArray) {
         
-        QSCommunityHouseDetailDataModel *tempModel = [self changeModel_Community_CDModel_T_DetailMode:obj];
-        [tempResultArray addObject:tempModel];
+        ///只返回可用的数据：is_syserver == 0 || 1
+        if ([obj.is_syserver intValue] == 0 ||
+            [obj.is_syserver intValue] == 1) {
+            
+            QSCommunityHouseDetailDataModel *tempModel = [self changeModel_Community_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
         
     }
     
@@ -127,37 +107,135 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getUncommitedCollectedDataSource
++ (NSArray *)getUncommitedCollectedDataSource:(FILTER_MAIN_TYPE)type
+{
+
+    switch (type) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return nil;
+            
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+            
+            return [self getLocalUnCommitCollectedCommunityWith];
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
+///返回收藏的小区列表
++ (NSArray *)getLocalUnCommitCollectedCommunityWith
 {
     
-//    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"collected_status" andSearchKey:@"0"];
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
-//    for (QSCDCollectedCommunityDataModel *obj in tempArray) {
-//        
-//        QSCollectedCommunityDataModel *tempModel = [[QSCollectedCommunityDataModel alloc] init];
-//        tempModel.collected_id = obj.collected_id;
-//        tempModel.collected_time = obj.collected_time;
-//        tempModel.collected_type = obj.collected_type;
-//        tempModel.collectid_title = obj.collectid_title;
-//        tempModel.collected_status = obj.collected_status;
-//        tempModel.collected_old_price = obj.collected_old_price;
-//        tempModel.collected_new_price = obj.collected_new_price;
-//        
-//        [tempResultArray addObject:tempModel];
-//        
-//    }
+    for (QSCDCollectedCommunityDataModel *obj in tempArray) {
+        
+        ///只返回未上传服务端的数据
+        if ([obj.is_syserver intValue] == 0) {
+            
+            QSCommunityHouseDetailDataModel *tempModel = [self changeModel_Community_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
     
     return [NSArray arrayWithArray:tempResultArray];
     
 }
 
-+ (NSArray *)getUncommitedCollectedDataSource:(FILTER_MAIN_TYPE)type
+/**
+ *  @author     yangshengmeng, 15-03-19 23:03:11
+ *
+ *  @brief      根据类型，查询删除的收藏或/分享，并且未同步服务端的记录
+ *
+ *  @param type 类型
+ *
+ *  @return     返回未同步服务端删除的数据
+ *
+ *  @since      1.0.0
+ */
++ (NSArray *)getDeleteUnCommitedCollectedDataSoucre:(FILTER_MAIN_TYPE)type
 {
-
+    
+    switch (type) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return nil;
+            
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+            
+            return [self getLocalUnCommitDeletedCollectedCommunityList];
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
     return nil;
+    
+}
 
+///返回本地已删除，未同步服务端小区列表
++ (NSArray *)getLocalUnCommitDeletedCollectedCommunityList
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDCollectedCommunityDataModel *obj in tempArray) {
+        
+        ///只返回未上传服务端的数据
+        if ([obj.is_syserver intValue] == 3) {
+            
+            QSCommunityHouseDetailDataModel *tempModel = [self changeModel_Community_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
 }
 
 /**

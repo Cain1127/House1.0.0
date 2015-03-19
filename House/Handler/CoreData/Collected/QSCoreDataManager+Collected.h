@@ -27,7 +27,6 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getLocalCollectedDataSource;
 + (NSArray *)getLocalCollectedDataSourceWithType:(FILTER_MAIN_TYPE)type;
 
 /**
@@ -39,8 +38,20 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getUncommitedCollectedDataSource;
 + (NSArray *)getUncommitedCollectedDataSource:(FILTER_MAIN_TYPE)type;
+
+/**
+ *  @author     yangshengmeng, 15-03-19 23:03:11
+ *
+ *  @brief      根据类型，查询删除的收藏或/分享，并且未同步服务端的记录
+ *
+ *  @param type 类型
+ *
+ *  @return     返回未同步服务端删除的数据
+ *
+ *  @since      1.0.0
+ */
++ (NSArray *)getDeleteUnCommitedCollectedDataSoucre:(FILTER_MAIN_TYPE)type;
 
 /**
  *  @author                 yangshengmeng, 15-03-19 15:03:27
