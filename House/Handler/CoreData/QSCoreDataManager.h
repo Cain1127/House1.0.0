@@ -104,6 +104,21 @@
 ///更新单记录表中，指定字段的信息
 + (BOOL)updateUnirecordFieldWithKey:(NSString *)entityName andUpdateField:(NSString *)fieldName andFieldNewValue:(id)newValue;
 
+#pragma mark - 删除给定条件的记录
+/**
+ *  @author             yangshengmeng, 15-03-19 19:03:44
+ *
+ *  @brief              删除指定实体中，某字段为指定值的记录
+ *
+ *  @param entityName   实体名
+ *  @param fieldName    指定字段的名称
+ *  @param value        指定字段的值
+ *
+ *  @since              1.0.0
+ */
++ (void)deleteEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldValue:(NSString *)value andCallBack:(void(^)(BOOL flag))callBack;
++ (void)deleteEntityWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andCallBack:(void(^)(BOOL flag))callBack;
+
 #pragma mark - 清空实体记录API
 /**
  *  @author             yangshengmeng, 15-01-21 23:01:28

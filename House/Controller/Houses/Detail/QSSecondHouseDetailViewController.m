@@ -14,6 +14,7 @@
 #import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSHousePriceChangesDataModel.h"
@@ -23,9 +24,11 @@
 #import "QSSecondHousesDetailReturnData.h"
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSUserSimpleDataModel.h"
+
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "MJRefresh.h"
 
@@ -107,37 +110,34 @@ static char LeftStarKey;            //!<左侧星级
     
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
+    ///分享按钮
+    QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
+    
+    UIButton *shareButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyleShare andCallBack:^(UIButton *button) {
+        
+        ///分享
+        [self shareSecondHouse:button];
+        
+    }];
+    [self.view addSubview:shareButton];
+    
     NSString *localUserID=[QSCoreDataManager getUserID];
     ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
     if (![localUserID isEqualToString:self.userInfo.id_]) {
-    
-    ///房客收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
-    
-    ///房客分享按钮
-    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击分享");
+        ///关注按钮
+        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
         
-    } ];
-    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
-    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
-    [self.view addSubview:shareImageView];
+        UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+            
+            ///关注小区
+            [self collectSecondHouse:button];
+            
+        }];
+        intentionButton.selected = [QSCoreDataManager searchCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeSecondHouse];
+        [self.view addSubview:intentionButton];
+        
     }
-    
-    ///业主分享按钮
-    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击分享");
-        
-    } ];
-    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
-    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
-    [self.view addSubview:shareImageView];
 
 }
 
@@ -1320,4 +1320,23 @@ static char LeftStarKey;            //!<左侧星级
     }];
     
 }
+
+#pragma mark - 关注二手房
+///关注二手房
+- (void)collectSecondHouse:(UIButton *)button
+{
+
+    APPLICATION_LOG_INFO(@"收藏二手房", @"收藏二手房")
+
+}
+
+#pragma mark - 分享二手房
+///分享二手房
+- (void)shareSecondHouse:(UIButton *)button
+{
+    
+    APPLICATION_LOG_INFO(@"分享二手房", @"分享二手房")
+    
+}
+
 @end

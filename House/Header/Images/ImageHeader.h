@@ -68,6 +68,7 @@
 ///收藏按钮图片
 #define IMAGE_NAVIGATIONBAR_COLLECT_NORMAL @"navigationbar_collect_normal"
 #define IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED @"navigationbar_collect_highlighted"
+#define IMAGE_NAVIGATIONBAR_COLLECTED_NORMAL @"navigationbar_collected_normal"
 
 ///分享按钮图片
 #define IMAGE_NAVIGATIONBAR_SHARE_NORMAL @"navigationbar_share_normal"

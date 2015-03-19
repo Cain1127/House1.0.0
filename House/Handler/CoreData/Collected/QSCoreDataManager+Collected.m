@@ -172,7 +172,7 @@
  *
  *  @since                  1.0.0
  */
-+ (BOOL)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType
++ (BOOL)checkCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 {
 
     switch (collectedType) {
@@ -195,16 +195,17 @@
             ///小区
         case fFilterMainTypeCommunity:
         {
-        
+            
             NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
             if ([tempArray count] > 0) {
                 
-                return YES;
+                NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
+                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
                 
             }
             
             return NO;
-        
+            
         }
             break;
             
@@ -226,7 +227,61 @@
 
 }
 
-#pragma mark - 数据保存
++ (QSCommunityHouseDetailDataModel *)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType
+{
+
+    switch (collectedType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+            
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_Community_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+            
+        }
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
+        
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_Community_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+        
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
+#pragma mark - 添加收藏/分享
 /**
  *  @author             yangshengmeng, 15-03-19 11:03:29
  *
@@ -486,6 +541,88 @@
 {
 
     
+
+}
+
+#pragma mark - 删除收藏/分享
+/**
+ *  @author                 yangshengmeng, 15-03-19 19:03:11
+ *
+ *  @brief                  删除给定的收藏/分享数据
+ *
+ *  @param collectedModel   收藏的数据模型
+ *  @param dataType         类型
+ *  @param callBack         删除后的回调
+ *
+ *  @since                  1.0.0
+ */
++ (void)deleteCollectedDataWithID:(NSString *)collectedID isSyServer:(BOOL)isSyserver andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    switch (dataType) {
+            ///删除小区关注
+        case fFilterMainTypeCommunity:
+        {
+        
+            ///获取本地模型
+            QSCDCollectedCommunityDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldSearchKey:collectedID];
+            
+            ///判断本地是否存在
+            if (localModel) {
+                
+                ///判断当前收藏是否已上传服务端：未上传，直接删除
+                if ([localModel.is_syserver intValue] == 0) {
+                    
+                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
+                    
+                    if (callBack) {
+                        
+                        callBack(YES);
+                        
+                    }
+                    
+                } else {
+                
+                    ///判断是否已联网删除
+                    if (isSyserver) {
+                        
+                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
+                        
+                        if (callBack) {
+                            
+                            callBack(YES);
+                            
+                        }
+                        
+                    } else {
+                    
+                        ///将本地的状态改为3
+                        QSCommunityHouseDetailDataModel *tempModel = [self changeModel_Community_CDModel_T_DetailMode:localModel];
+                        tempModel.is_syserver = @"3";
+                        
+                        ///保存本地
+                        [self saveCollectedCommunityWithDetailModel:tempModel andCallBack:callBack];
+                    
+                    }
+                
+                }
+                
+            } else {
+            
+                if (callBack) {
+                    
+                    callBack(NO);
+                    
+                }
+            
+            }
+        
+        }
+            break;
+            
+        default:
+            break;
+    }
 
 }
 
