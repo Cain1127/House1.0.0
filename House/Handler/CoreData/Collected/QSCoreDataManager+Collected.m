@@ -194,7 +194,18 @@
             
             ///小区
         case fFilterMainTypeCommunity:
+        {
+        
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            if ([tempArray count] > 0) {
+                
+                return YES;
+                
+            }
             
+            return NO;
+        
+        }
             break;
             
             ///二手房
