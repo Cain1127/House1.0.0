@@ -151,7 +151,8 @@
     
     ///搜索按钮的普通状态和高亮状态图片
     buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_COLLECT_NORMAL;
-    buttonStyle.imagesSelected = IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED;
+    buttonStyle.imagesSelected = IMAGE_NAVIGATIONBAR_COLLECTED_NORMAL;
     
     return buttonStyle;
 

@@ -2,6 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>2027</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2026</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2025</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2024</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
 	<key>2021</key>
 	<dict>
 		<key>url</key>

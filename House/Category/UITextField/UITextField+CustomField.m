@@ -106,10 +106,22 @@
         }
             break;
             
-            ///左提示(深灰)
+            ///左提示(黑色)
         case cCustomTextFieldStyleLeftTipsBlack:
+        {
             
-            ///右箭头+左提示(深灰)
+            ///获取文字显示最小长度
+            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+            leftTipsLabel.text = info;
+            leftView = leftTipsLabel;
+            
+        }
+            break;
+            ///右箭头+左提示(黑色)
         case cCustomTextFieldStyleRightArrowLeftTipsBlack:
         {
             
@@ -122,6 +134,9 @@
             leftTipsLabel.text = info;
             leftView = leftTipsLabel;
             
+            ///右箭头
+            rightView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 13.0f, 23.0f)];
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
         }
             break;
             

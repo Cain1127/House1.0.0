@@ -119,7 +119,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [self intentionCommunity:button];
         
     }];
-    intentionButton.selected = [QSCoreDataManager searchCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
+    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
     [self.view addSubview:intentionButton];
     
 }
@@ -728,12 +728,106 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (void)intentionCommunity:(UIButton *)button
 {
     
-    ///显示HUD
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加关注"];
+    ///判断当前是否已收藏：已收藏则进行删除事件
+    if (button.selected) {
+        
+        [self deleteIntentionCommunity:button];
+        
+    } else {
+    
+        [self addIntentionCommunity:button];
+    
+    }
 
+}
+
+///删除关注
+- (void)deleteIntentionCommunity:(UIButton *)button
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消关注"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSCommunityHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:self.detailInfo.village.id_ andCollectedType:fFilterMainTypeCommunity];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
+        [self deleteIntentionCommunityWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (![self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
+        [self deleteIntentionCommunityWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
     ///封装参数
     NSDictionary *params = @{@"obj_id" : self.detailInfo.village.id_,
                              @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeCommunityDeleteIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteIntentionCommunityWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteIntentionCommunityWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+
+}
+
+///添加关注
+- (void)addIntentionCommunity:(UIButton *)button
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加关注"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.village.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+    
+    ///判断是否已登录
+    if (![self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
+        [self saveIntentionCommunityWithStatus:NO];
+        params = nil;
+        button.selected = YES;
+        return;
+        
+    }
     
     [QSRequestManager requestDataWithType:rRequestTypeCommunityIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -750,13 +844,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             });
             
         } else {
-        
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                 [self saveIntentionCommunityWithStatus:NO];
                 
             });
-        
+            
         }
         
         ///修改按钮状态为已收藏状态
@@ -766,7 +860,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 }
 
-#pragma mark - 将收藏信息保存本地
+#pragma mark - 将关注信息保存本地
 ///将收藏信息保存本地
 - (void)saveIntentionCommunityWithStatus:(BOOL)isSendServer
 {
@@ -794,6 +888,29 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
             APPLICATION_LOG_INFO(@"小区关注->保存本地", @"失败")
         
+        }
+        
+    }];
+
+}
+
+#pragma mark - 取消关注
+///取消当前小区的关注
+- (void)deleteIntentionCommunityWithStatus:(BOOL)isSendServer
+{
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager deleteCollectedDataWithID:self.detailInfo.village.id_ isSyServer:isSendServer andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"小区关注->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"小区关注->删除", @"失败")
+            
         }
         
     }];

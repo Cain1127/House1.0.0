@@ -9,6 +9,7 @@
 #import "QSYSearchCommunityViewController.h"
 
 #import "QSYSelectedCommunityTableViewCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -187,20 +188,85 @@ static char ListViewKey;//!<列表的关联
     
     ///获取模型
     QSCommunityDataModel *tempModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
-    if (self.pickedCommunityCallBack) {
+    
+    ///判断是否已登录
+    if (![self checkLogin]) {
         
-        self.pickedCommunityCallBack(YES,tempModel);
+        if (self.pickedCommunityCallBack) {
+            
+            self.pickedCommunityCallBack(YES,tempModel);
+            
+        }
+        
+        ///显示tabbar
+        if (self.hiddenCustomTabbarWhenPush) {
+            
+            [self hiddenBottomTabbar:NO];
+            
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } else {
+    
+        ///将收藏上传服务器：显示HUD
+        __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加关注"];
+        
+        ///封装参数
+        NSDictionary *params = @{@"obj_id" : tempModel.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeCommunityIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///隐藏HUD
+            [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
+            
+            ///同步服务端成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                tempModel.is_syserver = @"1";
+                
+                ///回调
+                if (self.pickedCommunityCallBack) {
+                    
+                    self.pickedCommunityCallBack(YES,tempModel);
+                    
+                }
+                
+                ///显示tabbar
+                if (self.hiddenCustomTabbarWhenPush) {
+                    
+                    [self hiddenBottomTabbar:NO];
+                    
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            } else {
+                
+                tempModel.is_syserver = @"0";
+                
+                ///回调
+                if (self.pickedCommunityCallBack) {
+                    
+                    self.pickedCommunityCallBack(YES,tempModel);
+                    
+                }
+                
+                ///显示tabbar
+                if (self.hiddenCustomTabbarWhenPush) {
+                    
+                    [self hiddenBottomTabbar:NO];
+                    
+                }
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }
+            
+        }];
         
     }
-    
-    ///显示tabbar
-    if (self.hiddenCustomTabbarWhenPush) {
-        
-        [self hiddenBottomTabbar:NO];
-        
-    }
-    
-    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -382,6 +448,17 @@ static char ListViewKey;//!<列表的关联
 {
 
     [textField resignFirstResponder];
+    
+    ///判断是否存在输入内容
+    if ([textField.text length] > 0) {
+        
+        self.searchKey = textField.text;
+        
+        ///刷新数据
+        [self reloadHeaderData];
+        
+    }
+    
     return YES;
 
 }

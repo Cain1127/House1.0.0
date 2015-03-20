@@ -563,6 +563,10 @@ typedef enum
     rRequestTypeCommunityIntention,             //!<小区关注
     rRequestTypeSecondHandHouseCollected,       //!<二手房收藏
     rRequestTypeRentalHouseCollected,           //!<出租房收藏
+    rRequestTypeNewHouseDeleteCollected,        //!<删除新房收藏
+    rRequestTypeCommunityDeleteIntention,       //!<删除小区关注
+    rRequestTypeSecondHandHouseDeleteCollected, //!<删除二手房收藏
+    rRequestTypeRentalHouseDeleteCollected,     //!<删除出租房收藏
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
