@@ -11,6 +11,7 @@
 #import "QSYForgetPasswordViewController.h"
 
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -20,6 +21,8 @@
 
 #import "QSYLoginReturnData.h"
 #import "QSUserDataModel.h"
+#import "QSCommunityHouseDetailDataModel.h"
+#import "QSWCommunityDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -281,6 +284,13 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///登录成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
+            ///通过子线程提交收藏数据/分享数据
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self loadCollectedDataToServer];
+                
+            });
+            
             ///修改用户登录状态
             [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                 
@@ -289,7 +299,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 QSUserDataModel *userModel = tempModel.userInfo;
                 
                 [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
-                    
                     
                     ///显示提示信息
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
@@ -330,6 +339,114 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }
         
     }];
+
+}
+
+#pragma mark - 将本地的收藏/分享数据上传服务端
+///将本地的收藏/分享数据上传服务端
+- (void)loadCollectedDataToServer
+{
+
+    ///添加
+    [self addCollectedDataToServer];
+    
+    ///删除
+    [self deleteCollectedData];
+    
+}
+
+///将本地未删除的记录，重新提交删除
+- (void)deleteCollectedData
+{
+
+    NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeCommunity];
+    
+    for (QSCommunityHouseDetailDataModel *obj in deleteArray) {
+        
+        ///封装参数
+        NSDictionary *params = @{@"obj_id" : obj.village.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeCommunityDeleteIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///同步服务端成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端", @"成功")
+                
+                [QSCoreDataManager deleteCollectedDataWithID:obj.village.id_ isSyServer:YES andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端->删除本地记录", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端->删除本地记录", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+
+}
+
+///将本地未提交服务端的收藏/分享上传服务端
+- (void)addCollectedDataToServer
+{
+
+    ///小区
+    NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeCommunity];
+    
+    ///发送到服务端
+    for (QSCommunityHouseDetailDataModel *obj in communityList) {
+        
+        ///参数
+        NSDictionary *params = @{@"obj_id" : obj.village.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeCommunityDeleteIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///添加成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端", @"成功")
+                
+                obj.is_syserver = @"1";
+                [QSCoreDataManager saveCollectedDataWithModel:obj andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端->更新本地状态", @"成功")
+                        
+                    } else {
+                    
+                        APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端->更新本地状态", @"失败")
+                    
+                    }
+                    
+                }];
+                
+            } else {
+            
+                APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端", @"失败")
+            
+            }
+            
+        }];
+        
+    }
 
 }
 

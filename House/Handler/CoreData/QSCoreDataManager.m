@@ -423,6 +423,110 @@
 
 }
 
+#pragma mark - 删除记录
+///删除给定记录
++ (void)deleteEntityWithKey:(NSString *)entityName andFieldName:(NSString *)fieldName andFieldValue:(NSString *)value andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    ///过滤条件
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[[NSString stringWithFormat:@"%@ == ",fieldName] stringByAppendingString:@"%@"],value];
+    [self deleteEntityWithKey:entityName andPredicate:predicate andCallBack:callBack];
+
+}
+
++ (void)deleteEntityWithKey:(NSString *)entityName andPredicate:(NSPredicate *)predicate andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有上下文
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:tempContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    
+    ///添加过滤
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *resultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    ///查询失败
+    if (error) {
+        
+        NSLog(@"CoreData.GetData.Error:%@",error);
+        
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///如果本身数据就为0，则直接返回YES
+    if (0 >= [resultArray count]) {
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        return;
+        
+    }
+    
+    ///遍历删除
+    for (NSManagedObject *obj in resultArray) {
+        
+        [tempContext deleteObject:obj];
+        
+    }
+    
+    ///确认删除结果
+    BOOL isChangeSuccess = [tempContext save:&error];
+    if (!isChangeSuccess) {
+        
+        NSLog(@"CoreData.DeleteData.Error:%@",error);
+        
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    if (callBack) {
+        
+        callBack(YES);
+        
+    }
+    
+}
+
 #pragma mark - 清空实体记录API
 /**
  *  @author             yangshengmeng, 15-01-21 23:01:28

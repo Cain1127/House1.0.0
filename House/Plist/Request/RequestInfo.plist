@@ -16,6 +16,34 @@
 		<key>url</key>
 		<string>Order/add</string>
 	</dict>
+	<key>2027</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2026</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2025</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>2024</key>
+	<dict>
+		<key>url</key>
+		<string>focus/del</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
 	<key>2021</key>
 	<dict>
 		<key>url</key>
@@ -127,6 +155,13 @@
 		<string>QSCommunityListReturnData</string>
 		<key>url</key>
 		<string>village/list</string>
+	</dict>
+	<key>2045</key>
+	<dict>
+		<key>class</key>
+		<string>QSMapCommunityListReturnData</string>
+		<key>url</key>
+		<string>village/mapList</string>
 	</dict>
 	<key>2003</key>
 	<dict>

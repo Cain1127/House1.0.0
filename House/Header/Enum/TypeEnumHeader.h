@@ -552,6 +552,8 @@ typedef enum
     rRequestTypeSecondHandHouseList,            //!<二手房列表请求
     rRequestTypeRentalHouse,                    //!<出租房列表请求
     
+    rRequestTypeMapCommunity = 2045,            //!<地图小区列表请求
+    
     rRequestTypeNewHouseDetail = 2050,          //!<新房详情请求
     rRequestTypeCommunityDetail,                //!<小区详情请求
     rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
@@ -561,6 +563,10 @@ typedef enum
     rRequestTypeCommunityIntention,             //!<小区关注
     rRequestTypeSecondHandHouseCollected,       //!<二手房收藏
     rRequestTypeRentalHouseCollected,           //!<出租房收藏
+    rRequestTypeNewHouseDeleteCollected,        //!<删除新房收藏
+    rRequestTypeCommunityDeleteIntention,       //!<删除小区关注
+    rRequestTypeSecondHandHouseDeleteCollected, //!<删除二手房收藏
+    rRequestTypeRentalHouseDeleteCollected,     //!<删除出租房收藏
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     

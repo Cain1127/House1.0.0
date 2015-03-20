@@ -15,6 +15,7 @@
  *
  *  @since  1.0.0
  */
+@class QSCommunityHouseDetailDataModel;
 @interface QSCoreDataManager (Collected)
 
 /**
@@ -26,7 +27,6 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getLocalCollectedDataSource;
 + (NSArray *)getLocalCollectedDataSourceWithType:(FILTER_MAIN_TYPE)type;
 
 /**
@@ -38,8 +38,20 @@
  *
  *  @since  1.0.0
  */
-+ (NSArray *)getUncommitedCollectedDataSource;
 + (NSArray *)getUncommitedCollectedDataSource:(FILTER_MAIN_TYPE)type;
+
+/**
+ *  @author     yangshengmeng, 15-03-19 23:03:11
+ *
+ *  @brief      根据类型，查询删除的收藏或/分享，并且未同步服务端的记录
+ *
+ *  @param type 类型
+ *
+ *  @return     返回未同步服务端删除的数据
+ *
+ *  @since      1.0.0
+ */
++ (NSArray *)getDeleteUnCommitedCollectedDataSoucre:(FILTER_MAIN_TYPE)type;
 
 /**
  *  @author                 yangshengmeng, 15-03-19 15:03:27
@@ -53,7 +65,8 @@
  *
  *  @since                  1.0.0
  */
-+ (BOOL)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
++ (BOOL)checkCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
++ (QSCommunityHouseDetailDataModel *)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 
 /**
  *  @author             yangshengmeng, 15-03-19 11:03:29
@@ -82,5 +95,19 @@
  *  @since                  1.0.0
  */
 + (void)saveCollectedDataWithModel:(id)collectedModel andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
+
+/**
+ *  @author                 yangshengmeng, 15-03-19 19:03:11
+ *
+ *  @brief                  删除给定的收藏/分享数据
+ *
+ *  @param collectedModel   收藏的数据模型
+ *  @param isSyserver       是否已同步服务端
+ *  @param dataType         类型
+ *  @param callBack         删除后的回调
+ *
+ *  @since                  1.0.0
+ */
++ (void)deleteCollectedDataWithID:(NSString *)collectedID isSyServer:(BOOL)isSyserver andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
 
 @end

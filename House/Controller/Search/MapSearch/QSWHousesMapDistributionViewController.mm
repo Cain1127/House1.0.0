@@ -53,14 +53,19 @@
 
 
 ///关联
-static char CollectionViewKey;      //!<collectionView的关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
 
-@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate>
 {
 
     MAMapView *_mapView;
     AMapSearchAPI *_search;
+    
+    CLLocation *_currentLocation;
+    UIButton *_locationButton;
+    
+    NSArray *_pois;
+
     
     NSMutableArray *_annotations;
 
@@ -85,13 +90,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     ///获取本地默认配置的过滤器
     NSString *filterID = [QSCoreDataManager getCurrentUserDefaultFilterID];
-    return [self initWithHouseMainType:(((FILTER_MAIN_TYPE)[filterID integerValue] && (FILTER_MAIN_TYPE)[filterID length] > 0) ? (FILTER_MAIN_TYPE)[filterID intValue] : fFilterMainTypeSecondHouse)];
-    
-    ///注册通知
-    [self registLocalHomePageActionNotification];
+    return [self initWithHouseMainType:((filterID && [filterID length] > 0) ? (FILTER_MAIN_TYPE)[filterID intValue] : fFilterMainTypeSecondHouse)];
     
 }
-
 /**
  *  @author         yangshengmeng, 15-01-30 08:01:06
  *
@@ -114,138 +115,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///获取过滤器模型
         self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
         
-        ///注册通知
-        [self registLocalHomePageActionNotification];
-        
     }
     
     return self;
-    
-}
-
-#pragma mark - 注册首页不同事件的通知
-///注册首页不同事件的通知
-- (void)registLocalHomePageActionNotification
-{
-    
-    ///显示新房通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeNewHouseActionNotification object:@"1"];
-    
-    ///显示出租房通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeRentHouseActionNotification object:@"2"];
-    
-    ///显示二手房通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeSecondHandHouseActionNotification object:@"3"];
-    
-    ///显示小区通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeCommunityActionNotification object:@"4"];
-    
-    ///用户更换默认城市通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChangeCityInfo) name:nUserDefaultCityChanged object:nil];
-    
-}
-
-///用户修改默认城市后的处理
-- (void)userChangeCityInfo
-{
-    
-    ///修改导航栏的显示
-    QSBaseConfigurationDataModel *userCityModel = [QSCoreDataManager getCurrentUserCityModel];
-    [self.houseListTypePickerView resetPickerViewCurrentPickedModel:userCityModel];
-    
-    ///刷新数据
-    [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
-    
-}
-
-///处理首页的不同按钮事件
-- (void)homePageNotificationAction:(NSNotification *)notification
-{
-    
-    ///获取参数
-    int params = [notification.object intValue];
-    
-    switch (params) {
-        case 1:
-        {
-            
-            ///判断是否当前已是相同的列表
-            if (fFilterMainTypeNewHouse == self.listType) {
-                
-                return;
-                
-            }
-            
-            ///修改导航栏文字
-            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]];
-            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
-            
-            ///列出新房
-            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]];
-            
-        }
-            break;
-            
-        case 2:
-        {
-            
-            ///判断是否当前已是相同的列表
-            if (fFilterMainTypeRentalHouse == self.listType) {
-                
-                return;
-                
-            }
-            
-            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]];
-            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
-            
-            ///列出出租房
-            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]];
-            
-        }
-            break;
-            
-        case 3:
-        {
-            
-            ///判断是否当前已是相同的列表
-            if (fFilterMainTypeSecondHouse == self.listType) {
-                
-                return;
-                
-            }
-            
-            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
-            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
-            
-            ///列出二手房
-            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
-            
-        }
-            break;
-            
-        case 4:
-        {
-            
-            ///判断是否当前已是相同的列表
-            if (fFilterMainTypeCommunity == self.listType) {
-                
-                return;
-                
-            }
-            
-            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
-            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
-            
-            ///列出小区
-            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]];
-            
-        }
-            break;
-            
-        default:
-            break;
-    }
     
 }
 
@@ -273,6 +145,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///选择不同的列表类型，事件处理
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///发送过滤器变更通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:selectedKey];
+            
             [self houseListTypeChangeAction:selectedKey];
             
         }
@@ -294,12 +169,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加地图列表
-    //[self createListView];
     [self initMapView];
-    //[self initSearch];
-    //[self initControls];
-    //[self initTableView];
+    [self initSearch];
     [self initAttributes];
+    
     
 }
 
@@ -511,197 +384,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-///搭建列表的UI
-- (void)createListView
-{
-    
-    ///先清除原列表
-    MAMapView *localListView = objc_getAssociatedObject(self, &CollectionViewKey);
-    if (localListView) {
-        
-        [localListView removeFromSuperview];
-        
-    }
-    
-    ///根据不同的类型，创建不同的列表UI
-    switch (self.listType) {
-            ///楼盘列表
-        case fFilterMainTypeBuilding:
-            
-            break;
-            
-            ///新房列表
-        case fFilterMainTypeNewHouse:
-        {
-            
-            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-                
-                ///过滤回调类型
-                switch (actionType) {
-                        ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                        
-                        [self gotoHouseDetail:tempModel];
-                        
-                        break;
-                        
-                        ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                        
-                        [self showNoRecordTips:YES];
-                        
-                        break;
-                        
-                        ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                        
-                        [self showNoRecordTips:NO];
-                        
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-            }];
-            
-            [self.view addSubview:listView];
-            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
-        }
-            break;
-            
-            ///小区列表
-        case fFilterMainTypeCommunity:
-        {
-            
-            ///创建小区/新房的列表UI
-            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-                
-                ///过滤回调类型
-                switch (actionType) {
-                        ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                        
-                        [self gotoHouseDetail:tempModel];
-                        
-                        break;
-                        
-                        ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                        
-                        [self showNoRecordTips:YES];
-                        
-                        break;
-                        
-                        ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                        
-                        [self showNoRecordTips:NO];
-                        
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-            }];
-            
-            [self.view addSubview:listView];
-            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
-        }
-            break;
-            
-            ///二手房列表
-        case fFilterMainTypeSecondHouse:
-        {
-            
-            ///瀑布流布局器
-            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
-                
-                ///过滤回调类型
-                switch (actionType) {
-                        ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                        
-                        [self gotoHouseDetail:tempModel];
-                        
-                        break;
-                        
-                        ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                        
-                        [self showNoRecordTips:YES];
-                        
-                        break;
-                        
-                        ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                        
-                        [self showNoRecordTips:NO];
-                        
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-            }];
-            
-            [self.view addSubview:listView];
-            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
-        }
-            break;
-            
-            ///出租房列表
-        case fFilterMainTypeRentalHouse:
-        {
-            
-            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-                
-                ///过滤回调类型
-                switch (actionType) {
-                        ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                        
-                        [self gotoHouseDetail:tempModel];
-                        
-                        break;
-                        
-                        ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                        
-                        [self showNoRecordTips:YES];
-                        
-                        break;
-                        
-                        ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                        
-                        [self showNoRecordTips:NO];
-                        
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-            }];
-            
-            [self.view addSubview:listView];
-            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
-        }
-            break;
-            
-        default:
-            break;
-    }
-    
-}
-
 #pragma mark - 所有弹窗回收
 ///所有弹窗回收
 - (void)hiddenAllPickerView
@@ -755,7 +437,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             self.filterModel.filter_status = @"2";
             
             ///刷新数据
-            MAMapView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+//            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
             //[collectionView headerBeginRefreshing];
             
             ///保存过滤器
@@ -779,6 +461,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         }
         
+        ///发送过滤器变更通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:[NSString stringWithFormat:@"%d",self.listType]];
+        
     }
     
     ///选择了内容
@@ -792,7 +477,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.filterModel.filter_status = @"2";
         
         ///刷新数据
-        MAMapView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+//        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
         //[collectionView headerBeginRefreshing];
         
         ///保存过滤器
@@ -813,6 +498,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         ///将过滤器设置为当前用户的默认过滤器
         [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+        
+        ///发送过滤器变更通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:[NSString stringWithFormat:@"%d",self.listType]];
         
     }
     
@@ -845,16 +533,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     });
     
 }
-
-#pragma mark -- 返回事件
-//- (void)gotoTurnBackAction
-//{
-//    
-//    [self.navigationController popViewControllerAnimated:YES];
-//
-//}
-
-
 
 #pragma mark - 点击房源进入房源详情页
 ///点击房源
@@ -952,48 +630,147 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     _mapView.centerCoordinate=CLLocationCoordinate2DMake(latitude,longitude);
     
     _mapView.showsUserLocation = YES;
+   // [self locateAction];
+    [self GeoAction];
+    [self reGeoAction];
+    
 }
+
+- (void)initSearch
+{
+    _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+}
+
 
 - (void)initAttributes
 {
-    
     _annotations = [NSMutableArray array];
+    _pois = nil;
+}
+
+#pragma mark - Helpers
+
+- (CGSize)offsetToContainRect:(CGRect)innerRect inRect:(CGRect)outerRect
+{
+    CGFloat nudgeRight = fmaxf(0, CGRectGetMinX(outerRect) - (CGRectGetMinX(innerRect)));
+    CGFloat nudgeLeft = fminf(0, CGRectGetMaxX(outerRect) - (CGRectGetMaxX(innerRect)));
+    CGFloat nudgeTop = fmaxf(0, CGRectGetMinY(outerRect) - (CGRectGetMinY(innerRect)));
+    CGFloat nudgeBottom = fminf(0, CGRectGetMaxY(outerRect) - (CGRectGetMaxY(innerRect)));
+    return CGSizeMake(nudgeLeft ?: nudgeRight, nudgeTop ?: nudgeBottom);
+}
+
+- (void)searchAction
+{
+    if (_currentLocation == nil || _search == nil)
+    {
+        NSLog(@"search failed");
+        return;
+    }
+    
+    AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
+    request.searchType = AMapSearchType_PlaceAround;
+    
+    request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
+    
+    //request.keywords = @"公交";
+    
+    [_search AMapPlaceSearch:request];
+}
+
+//定位
+- (void)locateAction
+{
+    if (_mapView.userTrackingMode != MAUserTrackingModeFollow)
+    {
+        _mapView.userTrackingMode = MAUserTrackingModeFollow;
+        [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
+    }
+}
+
+///地理编码
+- (void)GeoAction
+{
+   
+        AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
+        request.address=@"广东省广州市天河区员村二横路";
+        [_search AMapGeocodeSearch:request];
+    
+}
+
+///反地理编码
+- (void)reGeoAction
+{
+    if (_currentLocation)
+    {
+        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+        
+        request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
+        
+        [_search AMapReGoecodeSearch:request];
+    }
+}
+
+#pragma mark - AMapSearchDelegate
+
+- (void)searchRequest:(id)request didFailWithError:(NSError *)error
+{
+    NSLog(@"request :%@, error :%@", request, error);
+}
+
+/*!
+ @brief 地理编码查询回调函数
+ @param request 发起查询的查询选项(具体字段参考AMapGeocodeSearchRequest类中的定义)
+ @param response 查询结果(具体字段参考AMapGeocodeSearchResponse类中的定义)
+ */
+- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response
+{
+
+    APPLICATION_LOG_INFO(@"地理编码回调", response);
+    //NSArray *cored=response.geocodes;
+
 
 }
 
-#pragma mark --添加大头针气泡
-
-- (void)addAnnotations {
+///反地理编码回调
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
+{
+    NSLog(@"反地理编码回调response :%@", response);
     
-        CGFloat latitude= 23.5543;
-        CGFloat longitude=113.3333;
-    
-        QSAnnotation *anno0 = [[QSAnnotation alloc] init];
-        anno0.title = @"体育西路";
-        anno0.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    
-        //2.反地理编码
-    AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
-    
-    request.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
-    
-    [_search AMapReGoecodeSearch:request];
-    
-
-        
-        [_mapView addAnnotation:anno0];
-        
-        //黙认选中
-        [_mapView selectAnnotation:anno0 animated:YES];
-        
+    NSString *title = response.regeocode.addressComponent.city;
+    if (title.length == 0)
+    {
+        // 直辖市的city为空，取province
+        title = response.regeocode.addressComponent.province;
     }
+    
+    // 更新我的位置title
+    _mapView.userLocation.title = title;
+    _mapView.userLocation.subtitle = response.regeocode.formattedAddress;
+}
+
+- (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
+{
+    NSLog(@"request: %@", request);
+    NSLog(@"response: %@", response);
+    
+    if (response.pois.count > 0)
+    {
+        _pois = response.pois;
+        
+        //[_tableView reloadData];
+        
+        // 清空标注
+        [_mapView removeAnnotations:_annotations];
+        [_annotations removeAllObjects];
+    }
+}
 
 #pragma mark - MAMapViewDelegate
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
-    if (![annotation isKindOfClass:[QSAnnotation class]]) return nil;
-    
+    if ([annotation isKindOfClass:[QSAnnotation class]])
+    {
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
         if (annotationView == nil)
@@ -1004,48 +781,66 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = YES;
-    
-    // 传递模型
-    annotationView.annotation = annotation;
-    
-    annotationView.image=[UIImage imageNamed:@"home_carpostion0"];
-    
+        
         // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
         annotationView.centerOffset = CGPointMake(0, -18);
         return annotationView;
-
+    }
+    
+    return nil;
 }
 
-#pragma mark -点击大头针事件
-//- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
-//{
-//    // 选中定位annotation的时候进行逆地理编码查询
-//    if (![view.annotation isKindOfClass:[QSAnnotation class]])
-//    {
-//        return;
-//    }
-//    
-//    // 调整自定义callout的位置，使其可以完全显示
-//    if ([view isKindOfClass:[QSCustomAnnotationView class]]) {
-//        QSCustomAnnotationView *cusView = (QSCustomAnnotationView *)view;
-//        CGRect frame = [cusView convertRect:cusView.calloutView.frame toView:_mapView];
-//        
-//        frame = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin));
-//        
-//        if (!CGRectContainsRect(_mapView.frame, frame))
-//        {
-//            CGSize offset = [self offsetToContainRect:frame inRect:_mapView.frame];
-//            
-//            CGPoint theCenter = _mapView.center;
-//            theCenter = CGPointMake(theCenter.x - offset.width, theCenter.y - offset.height);
-//            
-//            CLLocationCoordinate2D coordinate = [_mapView convertPoint:theCenter toCoordinateFromView:_mapView];
-//            
-//            [_mapView setCenterCoordinate:coordinate animated:YES];
-//        }
-//        
-//    }
-//}
+- (void)mapView:(MAMapView *)mapView didChangeUserTrackingMode:(MAUserTrackingMode)mode animated:(BOOL)animated
+{
+    // 修改定位按钮状态
+    if (mode == MAUserTrackingModeNone)
+    {
+        [_locationButton setImage:[UIImage imageNamed:@"location_no"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [_locationButton setImage:[UIImage imageNamed:@"location_yes"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
+{
+    NSLog(@"userLocation: %@", userLocation.location);
+    if (updatingLocation)
+    {
+        _currentLocation = [userLocation.location copy];
+    }
+}
+
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+{
+    // 选中定位annotation的时候进行逆地理编码查询
+    if ([view.annotation isKindOfClass:[MAUserLocation class]])
+    {
+        [self reGeoAction];
+    }
+    
+    // 调整自定义callout的位置，使其可以完全显示
+    if ([view isKindOfClass:[QSCustomAnnotationView class]]) {
+        QSCustomAnnotationView *cusView = (QSCustomAnnotationView *)view;
+        CGRect frame = [cusView convertRect:cusView.calloutView.frame toView:_mapView];
+        
+        frame = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin));
+        
+        if (!CGRectContainsRect(_mapView.frame, frame))
+        {
+            CGSize offset = [self offsetToContainRect:frame inRect:_mapView.frame];
+            
+            CGPoint theCenter = _mapView.center;
+            theCenter = CGPointMake(theCenter.x - offset.width, theCenter.y - offset.height);
+            
+            CLLocationCoordinate2D coordinate = [_mapView convertPoint:theCenter toCoordinateFromView:_mapView];
+            
+            [_mapView setCenterCoordinate:coordinate animated:YES];
+        }
+        
+    }
+}
 
 @end
 

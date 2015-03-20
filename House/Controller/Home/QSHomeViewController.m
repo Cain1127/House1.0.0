@@ -247,13 +247,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                     ///进入发布物业的窗口
                     if (sSaleRentHouseTipsActionTypeSale == actionType) {
                         
-                        
+                        ///进入发布物业过滤窗口
                         
                     }
                     
+                    ///进入发布出租物业添加窗口
                     if (sSaleRentHouseTipsActionTypeRent == actionType) {
                         
-                        
+                        ///进入发布出租物业添加窗口
                         
                     }
                     
