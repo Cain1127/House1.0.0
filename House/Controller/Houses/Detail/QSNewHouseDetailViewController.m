@@ -863,29 +863,29 @@ static char LeftStarKey;            //!<左侧星级
         [view addSubview:sixFormImage];
         
         ///主标题信息
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 12.5f, sixFormImage.frame.size.width - 6.0f - 15.0f, 30.0f)];
-        titleLabel.text = [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
-        titleLabel.textAlignment = NSTextAlignmentRight;
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 12.5f, sixFormImage.frame.size.width , 30.0f)];
+        titleLabel.text = [NSString stringWithFormat:@"%d室",[houseTypeModel.house_shi intValue]];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
         titleLabel.textColor = COLOR_CHARACTERS_BLACK;
         [sixFormImage addSubview:titleLabel];
         
+        ///说明信息
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(sixFormImage.frame.origin.x, sixFormImage.frame.origin.y + sixFormImage.frame.size.height + 5.0f, sixFormImage.frame.size.width-15.0f, 15.0f)];
+        infoLabel.textAlignment = NSTextAlignmentRight;
+        infoLabel.text = [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
+        infoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+        infoLabel.adjustsFontSizeToFitWidth = YES;
+        infoLabel.textColor = COLOR_CHARACTERS_GRAY;
+        [view addSubview:infoLabel];
+        
         ///单位
-        UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.frame.origin.x + titleLabel.frame.size.width, titleLabel.frame.origin.y + titleLabel.frame.size.height - 19.0f, 15.0f, 10.0f)];
+        UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x + infoLabel.frame.size.width, infoLabel.frame.origin.y + infoLabel.frame.size.height - 12.0f, 15.0f, 10.0f)];
         unitLabel.text = APPLICATION_AREAUNIT;
         unitLabel.textAlignment = NSTextAlignmentLeft;
         unitLabel.textColor = COLOR_CHARACTERS_BLACK;
         unitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
         [sixFormImage addSubview:unitLabel];
-        
-        ///说明信息
-        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(sixFormImage.frame.origin.x, sixFormImage.frame.origin.y + sixFormImage.frame.size.height + 5.0f, sixFormImage.frame.size.width, 15.0f)];
-        infoLabel.textAlignment = NSTextAlignmentCenter;
-        infoLabel.text = [NSString stringWithFormat:@"%d室%d厅",[houseTypeModel.house_shi intValue],[houseTypeModel.house_ting intValue]];
-        infoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-        infoLabel.adjustsFontSizeToFitWidth = YES;
-        infoLabel.textColor = COLOR_CHARACTERS_GRAY;
-        [view addSubview:infoLabel];
         
     }
     

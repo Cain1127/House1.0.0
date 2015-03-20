@@ -552,6 +552,8 @@ typedef enum
     rRequestTypeSecondHandHouseList,            //!<二手房列表请求
     rRequestTypeRentalHouse,                    //!<出租房列表请求
     
+    rRequestTypeMapCommunity = 2045,            //!<地图小区列表请求
+    
     rRequestTypeNewHouseDetail = 2050,          //!<新房详情请求
     rRequestTypeCommunityDetail,                //!<小区详情请求
     rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求

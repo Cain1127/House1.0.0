@@ -742,7 +742,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
-    timeLabel.text=[NSString stringWithFormat:@"建筑时间:%@年",houseInfoModel.building_year];
+    timeLabel.text=[NSString stringWithFormat:@"建筑时间:%@",houseInfoModel.building_year];
     timeLabel.textAlignment=NSTextAlignmentLeft;
     timeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:timeLabel];

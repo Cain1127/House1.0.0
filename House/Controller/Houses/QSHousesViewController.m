@@ -117,7 +117,29 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     ///用户更换默认城市通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChangeCityInfo) name:nUserDefaultCityChanged object:nil];
+    
+    ///过滤器变更通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(filterInfoChangeAction:) name:nHouseMapListFilterInfoChanggeActionNotification object:nil];
+    
+    ///列表显示小区的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homePageNotificationAction:) name:nHomeCommunityActionNotification object:@"4"];
 
+}
+
+///过滤器条件变更
+- (void)filterInfoChangeAction:(NSNotification *)notification
+{
+    
+    ///获取过滤器ID
+    NSString *filterID = [notification object];
+
+    ///刷新本地过滤器
+    QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:filterID];
+    [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+    
+    ///重置列表
+    [self houseListTypeChangeAction:filterID];
+    
 }
 
 ///用户修改默认城市后的处理
@@ -195,6 +217,25 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             ///列出二手房
             [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]];
+            
+        }
+            break;
+            
+        case 4:
+        {
+            
+            ///判断是否当前已是相同的列表
+            if (fFilterMainTypeCommunity == self.listType) {
+                
+                return;
+                
+            }
+            
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]];
+            [self.houseListTypePickerView resetPickerViewCurrentPickedModel:tempModel];
+            
+            ///列出二手房
+            [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]];
             
         }
             break;
