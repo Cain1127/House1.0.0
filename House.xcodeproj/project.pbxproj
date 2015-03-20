@@ -412,6 +412,8 @@
 		47A207761AB807D100F51797 /* myzone_calendar_month_bt_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */; };
 		47A207771AB807D100F51797 /* myzone_calendar_month_bt_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */; };
 		47A207791AB9217C00F51797 /* myzone_calendar_day_selected_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */; };
+		47D2FE2B1ABC16FE00651A5D /* QSPOrderSubmitResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D2FE2A1ABC16FE00651A5D /* QSPOrderSubmitResultViewController.m */; };
+		47D2FE2D1ABC1B2E00651A5D /* myzone_order_result_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47D2FE2C1ABC1B2E00651A5D /* myzone_order_result_icon.png */; };
 		47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */; };
 		47E0D4D31AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D21AAECD9D00B5C42A /* QSPBookingOrderBookingListView.m */; };
 		47E0D4D61AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E0D4D51AAECDC400B5C42A /* QSPBookingOrderCompletedListView.m */; };
@@ -1063,6 +1065,9 @@
 		47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_left.png; sourceTree = "<group>"; };
 		47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_right.png; sourceTree = "<group>"; };
 		47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_day_selected_bt.png; sourceTree = "<group>"; };
+		47D2FE291ABC16FE00651A5D /* QSPOrderSubmitResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderSubmitResultViewController.h; sourceTree = "<group>"; };
+		47D2FE2A1ABC16FE00651A5D /* QSPOrderSubmitResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderSubmitResultViewController.m; sourceTree = "<group>"; };
+		47D2FE2C1ABC1B2E00651A5D /* myzone_order_result_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_order_result_icon.png; sourceTree = "<group>"; };
 		47E0D4CB1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrdersListsViewController.h; sourceTree = "<group>"; };
 		47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBookingOrdersListsViewController.m; sourceTree = "<group>"; };
 		47E0D4D11AAECD9D00B5C42A /* QSPBookingOrderBookingListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBookingOrderBookingListView.h; sourceTree = "<group>"; };
@@ -2431,6 +2436,7 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				47D2FE2C1ABC1B2E00651A5D /* myzone_order_result_icon.png */,
 				47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */,
 				47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */,
 				47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */,
@@ -3434,6 +3440,8 @@
 				47E0D4CC1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m */,
 				475C3DA81AB6D5480028608F /* QSPOrderBookTimeViewController.h */,
 				475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */,
+				47D2FE291ABC16FE00651A5D /* QSPOrderSubmitResultViewController.h */,
+				47D2FE2A1ABC16FE00651A5D /* QSPOrderSubmitResultViewController.m */,
 			);
 			path = BookingOrders;
 			sourceTree = "<group>";
@@ -3768,6 +3776,7 @@
 				18B564171A8366A4009779A0 /* houses_detail_metro_highlighted.png in Resources */,
 				475C3D761AB171120028608F /* myzone_oorderlist_cell_rent_mark_tip.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
+				47D2FE2D1ABC1B2E00651A5D /* myzone_order_result_icon.png in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18B5641C1A8366A4009779A0 /* houses_detail_school_normal.png in Resources */,
 				18BE12521A88BDAC0036245A /* chat_contact_nocontacts.png in Resources */,
@@ -4014,6 +4023,7 @@
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
 				47E0D4CD1AAE9D3600B5C42A /* QSPBookingOrdersListsViewController.m in Sources */,
+				47D2FE2B1ABC16FE00651A5D /* QSPOrderSubmitResultViewController.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
@@ -4250,8 +4260,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";
@@ -4273,8 +4283,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				INFOPLIST_FILE = "House/House-Info.plist";

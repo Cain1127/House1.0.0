@@ -366,5 +366,8 @@
 ///预约订单选择时间日选择按钮图片
 #define IMAGE_ZONE_ORDER_CALENDAR_DAY_SELECTED_BT    @"myzone_calendar_day_selected_bt"
 
+///预约订单结果界面中间标志图片
+#define IMAGE_ZONE_ORDER_SUBMIT_RESULT_ICON  @"myzone_order_result_icon"
+
 
 #endif

@@ -14,6 +14,7 @@
 #import "QSPTimeHourPickerView.h"
 #import "NSString+Format.h"
 #import "QSHeaderDataModel.h"
+#import "QSPOrderSubmitResultViewController.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -79,7 +80,7 @@
                 if ([self checkInputSource]) {
                     
                     [self addAppointmentOrder];
-                    
+
                 }
             }
             
@@ -99,6 +100,10 @@
                 //左边按钮
             }else if (buttonType == bBottomButtonTypeRight) {
                 //右边按钮
+                
+                if ([self checkInputSource]) {
+                    [self resetAppointmentOrder];
+                }
             }
             
         }];
@@ -371,7 +376,6 @@
     NSString *userID = [QSCoreDataManager getUserID];
     [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
-    
     [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
     [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
@@ -391,11 +395,65 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
-                [self.navigationController popViewControllerAnimated:YES];
+                
+                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed];
+                [self presentViewController:srVc animated:YES completion:^{
+                    
+                }];
+                
             })
             
         }else{
 
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+        }
+        
+    }];
+    
+}
+
+- (void)resetAppointmentOrder
+{
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+//    user_id	true	int	修改人id
+//    appoint_date	true	string	预定的日期,格式2015-06-31
+//    oppoint_start_time	true	string	预定的开始时间
+//    oppoint_end_time	true	string	预定的结束时间
+//    buyer_name	true	string	联系人
+//    buyer_phone	true	string	联系电话(11位数字)
+//    order_id	true	string	订单id
+//    
+//    if (!self.houseInfo || ![self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
+//        NSLog(@"获取房源信息出错！");
+//        return;
+//    }
+    
+    //TODO:获取用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+    [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
+    [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
+    [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
+    [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
+    [tempParam setObject:self.phoneNumField.text forKey:@"buyer_phone"];
+    [tempParam setObject:@"" forKey:@"order_id"];
+    
+    //    NSLog(@"请求参数：%@",tempParam);
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderResetAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        QSHeaderDataModel *headerModel = resultData;
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                [self.navigationController popViewControllerAnimated:YES];
+            })
+            
+        }else{
+            
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
         }
         
