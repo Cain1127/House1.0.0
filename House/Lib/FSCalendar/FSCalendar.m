@@ -48,6 +48,8 @@
 @property (strong, nonatomic) CALayer *topBorderLayer;
 @property (strong, nonatomic) CALayer *bottomBorderLayer;
 
+@property (strong, nonatomic) NSArray *cycleList;
+
 - (void)adjustTitleIfNecessary;
 
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath;
@@ -62,6 +64,20 @@
 @synthesize flow = _flow;
 
 #pragma mark - Life Cycle && Initialize
+
+- (instancetype)initWithFrame:(CGRect)frame withCycleList:(NSArray*)cycleList
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        if (cycleList && [cycleList isKindOfClass:[NSArray class]] && [cycleList count]>0) {
+            self.cycleList = [NSArray arrayWithArray:cycleList];
+        }else{
+            self.cycleList = [NSArray array];
+        }
+        [self initialize];
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -210,6 +226,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FSCalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.cycleList = self.cycleList;
     cell.titleColors = self.titleColors;
     cell.subtitleColors = self.subtitleColors;
     cell.backgroundColors = self.backgroundColors;
@@ -233,33 +250,33 @@
         
         cell.selected = NO;
         
-        CGPoint destOffset = CGPointZero;
-        if ([cell.date fs_daysFrom:_currentMonth] > 0) {
-            destOffset = CGPointMake(self.flow==FSCalendarFlowHorizontal?_collectionView.contentOffset.x+_collectionView.fs_width:0,
-                                             self.flow==FSCalendarFlowVertical?_collectionView.contentOffset.y+_collectionView.fs_height:0);
-
-        } else {
-            destOffset = CGPointMake(self.flow==FSCalendarFlowHorizontal?_collectionView.contentOffset.x-_collectionView.fs_width:0,
-                                             self.flow==FSCalendarFlowVertical?_collectionView.contentOffset.y-_collectionView.fs_height:0);
-        }
-        
-        if (destOffset.x >=_collectionView.fs_width*kNumberOfPages) {
-            destOffset.x = _collectionView.fs_width*(kNumberOfPages-1);
-        }else if (destOffset.x <=0) {
-            destOffset.x = 0;
-        }
-        if (destOffset.y >=_collectionView.fs_height*kNumberOfPages) {
-            destOffset.y = _collectionView.fs_height*(kNumberOfPages-1);
-        }else if (destOffset.y <=0) {
-            destOffset.y = 0;
-        }
-        
-        [_collectionView setContentOffset:destOffset animated:YES];
-//        NSIndexPath *indexPath = [self indexPathForDate:cell.date];
-        if (self.selectedDate) {
-            NSIndexPath *indexPath = [self indexPathForDate:self.selectedDate];
-            [_collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-        }
+//        CGPoint destOffset = CGPointZero;
+//        if ([cell.date fs_daysFrom:_currentMonth] > 0) {
+//            destOffset = CGPointMake(self.flow==FSCalendarFlowHorizontal?_collectionView.contentOffset.x+_collectionView.fs_width:0,
+//                                             self.flow==FSCalendarFlowVertical?_collectionView.contentOffset.y+_collectionView.fs_height:0);
+//
+//        } else {
+//            destOffset = CGPointMake(self.flow==FSCalendarFlowHorizontal?_collectionView.contentOffset.x-_collectionView.fs_width:0,
+//                                             self.flow==FSCalendarFlowVertical?_collectionView.contentOffset.y-_collectionView.fs_height:0);
+//        }
+//        
+//        if (destOffset.x >=_collectionView.fs_width*kNumberOfPages) {
+//            destOffset.x = _collectionView.fs_width*(kNumberOfPages-1);
+//        }else if (destOffset.x <=0) {
+//            destOffset.x = 0;
+//        }
+//        if (destOffset.y >=_collectionView.fs_height*kNumberOfPages) {
+//            destOffset.y = _collectionView.fs_height*(kNumberOfPages-1);
+//        }else if (destOffset.y <=0) {
+//            destOffset.y = 0;
+//        }
+//        
+//        [_collectionView setContentOffset:destOffset animated:YES];
+////        NSIndexPath *indexPath = [self indexPathForDate:cell.date];
+//        if (self.selectedDate) {
+//            NSIndexPath *indexPath = [self indexPathForDate:self.selectedDate];
+//            [_collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+//        }
         
         [self didSelectDate:nil];
         
@@ -281,7 +298,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FSCalendarCell *cell = (FSCalendarCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [cell hideAnimation];
+    if (!cell.isPlaceholder) {
+        [cell hideAnimation];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

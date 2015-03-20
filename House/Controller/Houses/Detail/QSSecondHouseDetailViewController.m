@@ -252,6 +252,7 @@ static char LeftStarKey;            //!<左侧星级
             
             QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
             [bookTimeVc setVcType:bBookTypeViewControllerBook];
+            [bookTimeVc setHouseInfo:self.houseInfo];
             [self.navigationController pushViewController:bookTimeVc animated:YES];
             
             

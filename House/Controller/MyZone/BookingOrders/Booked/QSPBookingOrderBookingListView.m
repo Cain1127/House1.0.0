@@ -18,6 +18,7 @@
 #import "QSPOrderDetailBookedViewController.h"
 
 #import "QSOrderListReturnData.h"
+#import "QSCoreDataManager+User.h"
 
 ///关联
 static char BookingListTableViewKey;    //!<待看房列表关联
@@ -275,8 +276,9 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     }
     
     [tempParam setObject:@"" forKey:@"key"];
-    //TODO:
-    [tempParam setObject:@"1" forKey:@"user_id"];
+    //TODO:获取用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:@"20" forKey:@"page_num"];
     [tempParam setObject:[self.loadNextPage isEqualToValue:[NSNumber numberWithInt:0]]?@"1":self.loadNextPage forKey:@"now_page"];
     [tempParam setObject:@"" forKey:@"order"];

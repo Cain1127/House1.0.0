@@ -11,18 +11,19 @@
 
 @interface QSPCalendarView ()<FSCalendarDelegate>
 
+@property ( strong, nonatomic ) NSDate *selectedDate;
+
 @end
 
 
 @implementation QSPCalendarView
-@synthesize selectedDate;
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withCycle:(NSString*)cycle
 {
-    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f)];
+    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withCycle:cycle];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame withCycle:(NSString*)cycle
 {
     
     if (self = [super initWithFrame:frame]) {
@@ -30,13 +31,18 @@
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
         
+        NSArray *cycleList = nil;
+        if (cycle && [cycle isKindOfClass:[NSString class]] && ![cycle isEqualToString:@""]) {
+            cycleList = [cycle componentsSeparatedByString:@","];
+        }
+        
         FSCalendarHeader *header = [[FSCalendarHeader alloc] initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44)];
         [self addSubview:header];
         ///分隔线
         UILabel *headerBottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, header.frame.origin.y+header.frame.size.height-0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
         [headerBottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
         
-        FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, header.frame.origin.y+header.frame.size.height, SIZE_DEVICE_WIDTH, 580.0f*SIZE_DEVICE_WIDTH/750.0f)];
+        FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, header.frame.origin.y+header.frame.size.height, SIZE_DEVICE_WIDTH, 580.0f*SIZE_DEVICE_WIDTH/750.0f) withCycleList:cycleList];
         calendar.header = header;
         calendar.delegate = self;
         [self addSubview:calendar];
@@ -93,8 +99,31 @@
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date
 {
-    selectedDate = date;
+    self.selectedDate = date;
     NSLog(@"didSelectDate:%@",date);
+}
+
+- (NSString*)getSelectedDayStr
+{
+    
+    NSString *dayStr = nil;
+    if (self.selectedDate&&[self.selectedDate isKindOfClass:[NSDate class]]) {
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        
+        dayStr = [dateFormat stringFromDate:self.selectedDate];
+
+    }
+    return dayStr;
+    
+}
+
+- (void)setCanAppointCycle:(NSString*)cycleStr
+{
+    
+    
 }
 
 @end
