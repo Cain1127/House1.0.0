@@ -38,7 +38,7 @@ static char PriceUnitKey;   //!<价钱单位
     
     [self drawInContext:UIGraphicsGetCurrentContext()];
     
-    self.layer.shadowColor = [COLOR_CHARACTERS_YELLOW CGColor];
+    self.layer.shadowColor = [COLOR_CHARACTERS_LIGHTYELLOW CGColor];
     self.layer.shadowOpacity = 1.0;
     self.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
     
@@ -93,7 +93,7 @@ static char PriceUnitKey;   //!<价钱单位
     /// 添加标题label
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT*2.0f, kPortraitMargin, kTitleWidth, kTitleHeight)];
     titleLabel.font = [UIFont boldSystemFontOfSize:14];
-    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor = [UIColor blackColor];
     titleLabel.text = self.title ? self.title : @"测试地址";
     [self addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey,titleLabel, OBJC_ASSOCIATION_ASSIGN);
@@ -109,8 +109,8 @@ static char PriceUnitKey;   //!<价钱单位
     /// 添加价钱label
      UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 50.0f, 20.0f)];
     priceLabel.font = [UIFont systemFontOfSize:18];
-    priceLabel.textColor = [UIColor lightGrayColor];
-    priceLabel.text = self.price ? self.price : @"测试价999";
+    priceLabel.textColor = [UIColor blackColor];
+    priceLabel.text = self.subtitle ? self.subtitle : @"999";
     priceLabel.textAlignment=NSTextAlignmentRight;
     [self addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceLabelKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);

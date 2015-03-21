@@ -7,7 +7,18 @@
 //
 
 #import "QSCommunityDataModel.h"
+#import "QSHeaderDataModel.h"
+@class QSMapCommunityDataSubModel;
+@interface QSMapCommunityDataModel :QSBaseModel
 
-@interface QSMapCommunityDataModel : QSCommunityDataModel
+@property (nonatomic,copy) NSString *total_num;            //!<小区房源套数;
+@property (nonatomic,retain) QSMapCommunityDataSubModel *mapCommunityDataSubModel;//!<小区基本模型数据
+
+@end
+
+@interface QSMapCommunityDataSubModel : QSCommunityDataModel
+
+@property (nonatomic,copy) NSString *coordinate_x;        //!<经度
+@property (nonatomic,copy) NSString *coordinate_y;        //!<纬度
 
 @end

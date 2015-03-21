@@ -11,7 +11,6 @@
 #import <MAMapKit/MAMapKit.h>
 #import <AMapSearchKit/AMapSearchAPI.h>
 #import "QSCustomAnnotationView.h"
-#import "QSAnnotation.h"
 
 #import "QSHouseKeySearchViewController.h"
 #import "QSSecondHouseDetailViewController.h"
@@ -39,6 +38,9 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
 
+#import "QSMapCommunityDataModel.h"
+#import "QSMapCommunityListReturnData.h"
+
 #import "QSHousesViewController.h"
 
 #import "MJRefresh.h"
@@ -60,25 +62,30 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
     MAMapView *_mapView;
     AMapSearchAPI *_search;
-    
-    CLLocation *_currentLocation;
-    UIButton *_locationButton;
-    
-    NSArray *_pois;
 
-    
-    NSMutableArray *_annotations;
-
+    CLLocation *_currentLocation;  //!<用户当前地理位置
     
 }
 
-@property (nonatomic,assign) FILTER_MAIN_TYPE listType;                 //!<列表类型
-@property (nonatomic,retain) QSFilterDataModel *filterModel;            //!<过滤模型
+@property (nonatomic,assign) FILTER_MAIN_TYPE listType;                     //!<列表类型
+@property (nonatomic,retain) QSFilterDataModel *filterModel;                //!<过滤模型
 
-@property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView; //!<导航栏列表类型选择
-@property (nonatomic,strong) QSCustomPickerView *distictPickerView;       //!<地区选择按钮
-@property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;     //!<户型选择按钮
-@property (nonatomic,strong) QSCustomPickerView *pricePickerView;         //!<总价选择按钮
+@property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView;   //!<导航栏列表类型选择
+@property (nonatomic,strong) QSCustomPickerView *distictPickerView;         //!<地区选择按钮
+@property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
+@property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
+
+///数据源
+@property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
+@property (nonatomic,copy) NSString *title;                                 //!<小区名称
+@property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数
+@property (nonatomic,copy) NSString *coordinate_x;                          //!<网络搜索小区返回的经度
+@property (nonatomic,copy) NSString *coordinate_y;                          //!<网络搜索小区返回的纬度
+@property (nonatomic,assign) CGFloat geolatitude;                           //!<地理编码返回经度
+@property (nonatomic,assign) CGFloat geolongtude;                           //!<地理编码返回纬度
+
+///点击房源时的回调
+@property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 @end
 
@@ -168,11 +175,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     [self.view addSubview:channelBarRootView];
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
-    ///添加地图列表
     [self initMapView];
     [self initSearch];
-    [self initAttributes];
-    
+
     
 }
 
@@ -528,7 +533,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         [self createChannelBarUI:channelRootView];
         
         ///重新创建列表数据
-        //[self createListView];
+        [self initMapView];
         
     });
     
@@ -612,27 +617,41 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 }
 
 #pragma mark--地图相关
+///初始化地图
 - (void)initMapView
+
 {
+    
     [MAMapServices sharedServices].apiKey = APIKey;
+    
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104.0f, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-104.0f)];
     
     _mapView.delegate = self;
+    
     _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, kDefaultControlMargin);
+    
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, kDefaultControlMargin);
     
+    // 2.设置地图类型
+    _mapView.mapType = MAMapTypeStandard;
+    
     [self.view addSubview:_mapView];
-    
-    CGFloat latitude=23.33;
-    
-    CGFloat longitude=113.33;
-    
-    _mapView.centerCoordinate=CLLocationCoordinate2DMake(latitude,longitude);
-    
+
     _mapView.showsUserLocation = YES;
-   // [self locateAction];
-    [self GeoAction];
-    [self reGeoAction];
+    
+    [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
+    
+    ///发起用户定位
+    [self locateAction];
+    
+    ///发起地理编码
+    [self geoAction];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self MapCommunityListHeaderRequest];
+        
+    });
     
 }
 
@@ -641,135 +660,104 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
 }
 
-
-- (void)initAttributes
-{
-    _annotations = [NSMutableArray array];
-    _pois = nil;
-}
-
-#pragma mark - Helpers
-
-- (CGSize)offsetToContainRect:(CGRect)innerRect inRect:(CGRect)outerRect
-{
-    CGFloat nudgeRight = fmaxf(0, CGRectGetMinX(outerRect) - (CGRectGetMinX(innerRect)));
-    CGFloat nudgeLeft = fminf(0, CGRectGetMaxX(outerRect) - (CGRectGetMaxX(innerRect)));
-    CGFloat nudgeTop = fmaxf(0, CGRectGetMinY(outerRect) - (CGRectGetMinY(innerRect)));
-    CGFloat nudgeBottom = fminf(0, CGRectGetMaxY(outerRect) - (CGRectGetMaxY(innerRect)));
-    return CGSizeMake(nudgeLeft ?: nudgeRight, nudgeTop ?: nudgeBottom);
-}
-
-- (void)searchAction
-{
-    if (_currentLocation == nil || _search == nil)
-    {
-        NSLog(@"search failed");
-        return;
-    }
-    
-    AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
-    request.searchType = AMapSearchType_PlaceAround;
-    
-    request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
-    
-    //request.keywords = @"公交";
-    
-    [_search AMapPlaceSearch:request];
-}
-
-//定位
+///用户定位
 - (void)locateAction
 {
     if (_mapView.userTrackingMode != MAUserTrackingModeFollow)
     {
-        _mapView.userTrackingMode = MAUserTrackingModeFollow;
-        [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
+        [_mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
     }
 }
 
-///地理编码
-- (void)GeoAction
+///定位跟踪代理事件
+//- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
+//
+//{
+//    
+//    NSLog(@"用户定位跟踪数据: %@", userLocation.location);
+//    
+//    if (updatingLocation)
+//        
+//    {
+//        
+//        _currentLocation = [userLocation.location copy];
+//        
+//    }
+//    
+//}
+
+#pragma mark-地理编码
+///发起地理编码
+- (void)geoAction
 {
-   
-        AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
-        request.address=@"广东省广州市天河区员村二横路";
-        [_search AMapGeocodeSearch:request];
     
+    AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
+    //request.city=@[@"广州",@"深圳"];
+    request.address=@"广州市白云区江高";
+    [_search AMapGeocodeSearch:request];
 }
 
-///反地理编码
-- (void)reGeoAction
-{
-    if (_currentLocation)
-    {
-        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
-        
-        request.location = [AMapGeoPoint locationWithLatitude:_currentLocation.coordinate.latitude longitude:_currentLocation.coordinate.longitude];
-        
-        [_search AMapReGoecodeSearch:request];
-    }
-}
-
-#pragma mark - AMapSearchDelegate
-
+///地理编码结果返回
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error
 {
-    NSLog(@"request :%@, error :%@", request, error);
+    NSLog(@"地理编码错误返回数据 :%@, error :%@", request, error);
 }
 
-/*!
- @brief 地理编码查询回调函数
- @param request 发起查询的查询选项(具体字段参考AMapGeocodeSearchRequest类中的定义)
- @param response 查询结果(具体字段参考AMapGeocodeSearchResponse类中的定义)
- */
-- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response
+- (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:
+(AMapGeocodeSearchResponse *)response
 {
+    NSLog(@"地理编码数据 :%@", response);
+    NSArray *geoArray=[[NSArray alloc] init];
+    geoArray=response.geocodes;
 
-    APPLICATION_LOG_INFO(@"地理编码回调", response);
-    //NSArray *cored=response.geocodes;
+    for (id item in geoArray) {
+        NSLog(@" item :%@",item);
+        if (item&&[item isKindOfClass:[AMapGeocode class]]) {
+            
+            AMapGeocode *tempdata = (AMapGeocode*)item;
+            AMapGeoPoint *location = tempdata.location;
+            _geolatitude=location.latitude;
+            _geolongtude=location.longitude;
+        }
 
+    }
 
 }
 
-///反地理编码回调
-- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
-{
-    NSLog(@"反地理编码回调response :%@", response);
+#pragma mark --添加大头针气泡
+
+- (void)addAnnotations {
     
-    NSString *title = response.regeocode.addressComponent.city;
-    if (title.length == 0)
-    {
-        // 直辖市的city为空，取province
-        title = response.regeocode.addressComponent.province;
+    QSMapCommunityDataModel *tempModel=[[QSMapCommunityDataModel alloc] init];
+    
+    for (int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
+        
+        tempModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
+        self.title=tempModel.mapCommunityDataSubModel.title;
+        self.subtitle=tempModel.total_num;
+        self.coordinate_x=tempModel.mapCommunityDataSubModel.coordinate_x;
+        self.coordinate_y=tempModel.mapCommunityDataSubModel.coordinate_y;
+        
+        CGFloat latitude= [self.coordinate_x floatValue];
+        CGFloat longitude=[self.coordinate_y floatValue];
+        
+        MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
+        anno.title = self.title;
+        anno.subtitle=self.subtitle;
+        anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
+     
+        [_mapView addAnnotation:anno];
+        //黙认选中
+        [_mapView selectAnnotation:anno animated:YES];
+        
     }
     
-    // 更新我的位置title
-    _mapView.userLocation.title = title;
-    _mapView.userLocation.subtitle = response.regeocode.formattedAddress;
 }
-
-- (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
-{
-    NSLog(@"request: %@", request);
-    NSLog(@"response: %@", response);
-    
-    if (response.pois.count > 0)
-    {
-        _pois = response.pois;
-        
-        //[_tableView reloadData];
-        
-        // 清空标注
-        [_mapView removeAnnotations:_annotations];
-        [_annotations removeAllObjects];
-    }
-}
-
-#pragma mark - MAMapViewDelegate
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
-    if ([annotation isKindOfClass:[QSAnnotation class]])
+    
+    if ([annotation isKindOfClass:[MAPointAnnotation class]])
     {
         static NSString *reuseIndetifier = @"annotationReuseIndetifier";
         QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
@@ -777,10 +765,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         {
             annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
         }
-        annotationView.image = [UIImage imageNamed:@"public_local_highlighted"];
+        //annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
         
         // 设置为NO，用以调用自定义的calloutView
-        annotationView.canShowCallout = YES;
+        annotationView.canShowCallout = NO;
         
         // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
         annotationView.centerOffset = CGPointMake(0, -18);
@@ -790,56 +778,72 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     return nil;
 }
 
-- (void)mapView:(MAMapView *)mapView didChangeUserTrackingMode:(MAUserTrackingMode)mode animated:(BOOL)animated
+#pragma mark - 请求小区列表数据
+///请求小区列表头数据
+- (void)MapCommunityListHeaderRequest
 {
-    // 修改定位按钮状态
-    if (mode == MAUserTrackingModeNone)
-    {
-        [_locationButton setImage:[UIImage imageNamed:@"location_no"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [_locationButton setImage:[UIImage imageNamed:@"location_yes"] forState:UIControlStateNormal];
-    }
-}
+    /// 当前用户坐标
+//    CGFloat latitude= _currentLocation.coordinate.latitude;
+//    CGFloat longitude= _currentLocation.coordinate.longitude;
 
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
-{
-    NSLog(@"userLocation: %@", userLocation.location);
-    if (updatingLocation)
-    {
-        _currentLocation = [userLocation.location copy];
-    }
-}
+    ///地理编码搜索返回坐标
+    NSString *latitude=[NSString stringWithFormat:@"%f",_geolatitude];
+    NSString *longtude=[NSString stringWithFormat:@"%f",_geolongtude];
+    NSString *map_type=[NSString stringWithFormat:@"%d",(int)self.listType];
+    ///请求参数
+     NSDictionary *dict = @{@"map_type" : map_type,
+                            @"now_page" : @"1",
+                            @"page_num" : @"1",
+                            @"range" : @"6000",
+                            @"latitude" : latitude,
+                            @"longitude" : longtude
+                            };
 
-- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
-{
-    // 选中定位annotation的时候进行逆地理编码查询
-    if ([view.annotation isKindOfClass:[MAUserLocation class]])
-    {
-        [self reGeoAction];
-    }
+    [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
     
-    // 调整自定义callout的位置，使其可以完全显示
-    if ([view isKindOfClass:[QSCustomAnnotationView class]]) {
-        QSCustomAnnotationView *cusView = (QSCustomAnnotationView *)view;
-        CGRect frame = [cusView convertRect:cusView.calloutView.frame toView:_mapView];
-        
-        frame = UIEdgeInsetsInsetRect(frame, UIEdgeInsetsMake(kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin, kDefaultCalloutViewMargin));
-        
-        if (!CGRectContainsRect(_mapView.frame, frame))
-        {
-            CGSize offset = [self offsetToContainRect:frame inRect:_mapView.frame];
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
             
-            CGPoint theCenter = _mapView.center;
-            theCenter = CGPointMake(theCenter.x - offset.width, theCenter.y - offset.height);
+            APPLICATION_LOG_INFO(@"地图列表数据返回成功", resultData);
             
-            CLLocationCoordinate2D coordinate = [_mapView convertPoint:theCenter toCoordinateFromView:_mapView];
+           
             
-            [_mapView setCenterCoordinate:coordinate animated:YES];
+            ///请求成功后，转换模型
+            QSMapCommunityListReturnData *resultDataModel = resultData;
+            
+            QSMapCommunityListHeaderData *headerModel=[[QSMapCommunityListHeaderData alloc] init];
+            headerModel=resultDataModel.mapCommunityListHeaderData;
+            NSLog(@"返回小区的数量:%@",headerModel.total_num);
+            
+            QSMapCommunityDataModel *tepmodel=[[QSMapCommunityDataModel alloc] init];
+            tepmodel=resultDataModel.mapCommunityListHeaderData.communityList[0];
+               NSLog(@"第一组小区房源套数:%@",tepmodel.total_num);
+            
+            QSMapCommunityDataSubModel *tepmodel1=[[QSMapCommunityDataSubModel alloc] init];
+            tepmodel1=tepmodel.mapCommunityDataSubModel;
+            NSLog(@"第一组小区名称:%@",tepmodel1.title);
+            NSLog(@"第一组小区地址:%@",tepmodel1.address);
+         
+            
+            ///将数据模型置为nil
+            self.dataSourceModel = nil;
+            self.dataSourceModel=resultDataModel;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self addAnnotations];
+                
+            });
+            
         }
         
-    }
+        else {
+        
+            NSLog(@"=====网络请求失败=======");
+        
+        }
+    }];
+    
 }
 
 @end

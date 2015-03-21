@@ -11,6 +11,6 @@
 @interface QSCustomCalloutView : UIView
 
 @property (nonatomic, copy) NSString *title; //!<小区名
-@property (nonatomic, copy) NSString *price; //!<价钱
+@property (nonatomic, copy) NSString *subtitle; //!<价钱
 
 @end

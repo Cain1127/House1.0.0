@@ -25,6 +25,7 @@ PODS:
   - ASDepthModal (1.0.0)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
+  - MBProgressHUD (0.9.1)
   - protobuf-ios (2.3.2)
   - Reachability (3.1.1)
   - RestKit/ObjectMapping (0.23.3):
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - AMap2DMap (~> 2.4.2)
   - AMapSearch (~> 2.4.1)
   - ASDepthModal (~> 1.0.0)
+  - MBProgressHUD (~> 0.9)
   - protobuf-ios
   - Reachability (~> 3.1.1)
   - RestKit/ObjectMapping (~> 0.23.3)
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   AMapSearch: 1c6a5b217e808a82369070366b323c09e2eb06c5
   ASDepthModal: 643841a570c2e04bb195581dbee0a65ee40c98f3
   ISO8601DateFormatterValueTransformer: a705384ea6531255258e25b6480ba1180db703a0
+  MBProgressHUD: f3747dcbd45a9e855a6b0674550651e0b7ed250c
   protobuf-ios: 16fb51526e3b22d3ce389b9999a9f3d975d65ff3
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   RestKit: 193a35cddae5198388977abaedad129f8acb978b
