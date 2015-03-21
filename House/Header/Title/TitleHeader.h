@@ -212,4 +212,20 @@
 ///订单详情已取消标题
 #define TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP          @"已取消"
 
+///提交修改预约订单结果界面 - 已成功提交预约提示
+#define TITLE_MYZONE_ORDER_SUBMIT_BOOKED_SUCCESS_TIP    @"已成功提交预约"
+
+///提交修改预约订单结果界面 - 已成功取消预约提示
+#define TITLE_MYZONE_ORDER_SUBMIT_CANCEL_SUCCESS_TIP    @"已成功取消预约"
+
+///提交修改预约订单结果界面 - 等待业主确认提示
+#define TITLE_MYZONE_ORDER_SUBMIT_WAIT_COMFIN_TIP    @"等待业主确认"
+
+///提交修改预约订单结果界面 - 查看预约详情 按钮
+#define TITLE_MYZONE_ORDER_SUBMIT_ORDER_DETAIL_BT    @"查看预约详情"
+
+///提交修改预约订单结果界面 - 查看推荐房源 按钮
+#define TITLE_MYZONE_ORDER_SUBMIT_MORE_HOUSE_BT    @"查看推荐房源"
+
+
 #endif

@@ -10,8 +10,10 @@
 
 @interface QSPCalendarView : UIView
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withCycle:(NSString*)cycle;
 
-@property ( strong, nonatomic ) NSDate *selectedDate;
+- (NSString*)getSelectedDayStr;
+
+- (void)setCanAppointCycle:(NSString*)cycleStr;
 
 @end

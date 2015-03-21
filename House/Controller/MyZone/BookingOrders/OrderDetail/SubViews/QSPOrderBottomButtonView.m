@@ -167,4 +167,47 @@
     }
 }
 
+- (void)setLeftBtTitle:(NSString*)title
+{
+    if (_buttonNum == 2 && title && [title isKindOfClass:[NSString class]]) {
+        
+        UIView *view = [self viewWithTag:bBottomButtonTypeLeft];
+        
+        if (view && [view isKindOfClass:[UIButton class]]) {
+            
+            UIButton *button = (UIButton*)view;
+            [button setTitle:title forState:UIControlStateNormal];
+            
+        }
+    }
+}
+
+- (void)setRightBtTitle:(NSString*)title
+{
+    if (_buttonNum == 2 && title && [title isKindOfClass:[NSString class]]) {
+        
+        UIView *view = [self viewWithTag:bBottomButtonTypeRight];
+        
+        if (view && [view isKindOfClass:[UIButton class]]) {
+            
+            UIButton *button = (UIButton*)view;
+            [button setTitle:title forState:UIControlStateNormal];
+            
+        }
+    }
+}
+
+- (void)setBtTitleFont:(UIFont*)font
+{
+    for (UIView *view in [self subviews]) {
+        
+        if (view && [view isKindOfClass:[UIButton class]]) {
+            
+            UIButton *button = (UIButton*)view;
+            [button.titleLabel setFont:font];
+            
+        }
+    }
+}
+
 @end

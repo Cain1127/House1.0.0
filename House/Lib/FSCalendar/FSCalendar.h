@@ -61,6 +61,8 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 
 @interface FSCalendar : UIView<UIAppearance>
 
+- (instancetype)initWithFrame:(CGRect)frame withCycleList:(NSArray*)cycleList;
+        
 @property (weak, nonatomic) IBOutlet id<FSCalendarDelegate> delegate;
 @property (weak, nonatomic) IBOutlet id<FSCalendarDataSource> dataSource;
 @property (weak, nonatomic) IBOutlet FSCalendarHeader *header;

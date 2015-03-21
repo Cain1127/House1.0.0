@@ -11,6 +11,8 @@
 
 @interface FSCalendarCell : UICollectionViewCell
 
+@property (strong, nonatomic) NSArray *cycleList;
+
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIImageView *titleSelectedBgView;
 @property (strong, nonatomic) UILabel *subtitleLabel;

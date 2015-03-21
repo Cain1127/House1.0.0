@@ -31,4 +31,10 @@ typedef enum
 
 - (void)setCenterBtTitle:(NSString*)title;
 
+- (void)setLeftBtTitle:(NSString*)title;
+
+- (void)setRightBtTitle:(NSString*)title;
+
+- (void)setBtTitleFont:(UIFont*)font;
+
 @end

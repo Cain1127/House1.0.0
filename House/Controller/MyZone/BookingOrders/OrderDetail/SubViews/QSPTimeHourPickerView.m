@@ -12,8 +12,13 @@
 
 @interface QSPTimeHourPickerView () <UIPickerViewDataSource,UIPickerViewDelegate>
 
-@property (nonatomic , strong) NSArray *hourStartList;
-@property (nonatomic , strong) NSArray *hourEndList;
+@property (nonatomic , strong) UIPickerView *pickerView;
+
+@property (nonatomic , strong) NSMutableArray *hourStartList;
+@property (nonatomic , strong) NSMutableArray *hourEndList;
+
+@property (nonatomic , assign) NSInteger hourStartInt;
+@property (nonatomic , assign) NSInteger hourEndInt;
 
 @end
 
@@ -40,9 +45,18 @@
     
     if (self = [super initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
-        self.hourStartList = [NSArray arrayWithObjects:@"09:00",@"11:00",@"12:00",@"15:00",@"17:00", nil];
+        self.hourStartList = [NSMutableArray arrayWithCapacity:0];
+        self.hourEndList = [NSMutableArray arrayWithCapacity:0];
+        _hourStartInt = 0;
+        _hourEndInt = 24;
         
-        self.hourEndList = [NSArray arrayWithObjects:@"13:00",@"15:00",@"16:00",@"18:00", nil];
+        for (int i=_hourStartInt; i<=_hourEndInt; i++) {
+            NSString *timeStr = [NSString stringWithFormat:@"%2d:00",i];
+            [self.hourStartList addObject:timeStr];
+            if (i>-0) {
+                [self.hourEndList addObject:timeStr];
+            }
+        }
         
         UIButton *bgBt = [UIButton createBlockButtonWithFrame:self.frame andButtonStyle:[[QSBlockButtonStyleModel alloc] init] andCallBack:^(UIButton *button) {
             
@@ -62,6 +76,30 @@
             }else if (buttonType == bBottomButtonTypeRight) {
                 //右边按钮
                 
+                [self hideTimeHourPickerView];
+                
+                if (self.pickerView) {
+                    if ([self.pickerView numberOfComponents]==2) {
+                        
+                        NSInteger startIndex = [self.pickerView selectedRowInComponent:0];
+                        NSInteger lastIndex = [self.pickerView selectedRowInComponent:1];
+                        
+                        NSString *startHourStr = @"";
+                        NSString *endHourStr = @"";
+                        
+                        if ( startIndex!=-1) {
+                            startHourStr = [self.hourStartList objectAtIndex:startIndex];
+                        }
+                        if ( lastIndex!=-1 ) {
+                            endHourStr = [self.hourEndList objectAtIndex:lastIndex];
+                        }
+                        
+                        if (delegate) {
+                            [delegate changedWithStartHour:startHourStr WithEndHour:endHourStr inView:self];
+                        }
+                        
+                    }
+                }
             }
             
         }];
@@ -70,16 +108,24 @@
         [buttomButtonsView setLeftBtBackgroundColor:COLOR_CHARACTERS_GRAY];
         
         ///picker
-        UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SIZE_DEVICE_HEIGHT-216-buttomButtonsView.frame.size.height, SIZE_DEVICE_WIDTH, 216)];
-        pickerView.dataSource = self;
-        pickerView.delegate = self;
-        pickerView.showsSelectionIndicator=YES;
+        self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SIZE_DEVICE_HEIGHT-180-buttomButtonsView.frame.size.height, SIZE_DEVICE_WIDTH, 180)];
+        self.pickerView.dataSource = self;
+        self.pickerView.delegate = self;
+        self.pickerView.showsSelectionIndicator=YES;
         
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(pickerView.frame.origin.x, pickerView.frame.origin.y, pickerView.frame.size.width, buttomButtonsView.frame.origin.y+buttomButtonsView.frame.size.height)];
+        UILabel *pickerTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.pickerView.frame.size.width, self.pickerView.frame.size.height)];
+        [pickerTipLabel setTextColor:COLOR_CHARACTERS_GRAY];
+        [pickerTipLabel setTextAlignment:NSTextAlignmentCenter];
+        [pickerTipLabel setBackgroundColor:[UIColor clearColor]];
+        [pickerTipLabel setFont:[UIFont boldSystemFontOfSize:FONT_BODY_16]];
+        [pickerTipLabel setText:@"至"];
+        [self.pickerView addSubview:pickerTipLabel];
+        
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(self.pickerView.frame.origin.x, self.pickerView.frame.origin.y, self.pickerView.frame.size.width, buttomButtonsView.frame.origin.y+buttomButtonsView.frame.size.height)];
         [bgView setBackgroundColor:[UIColor whiteColor]];
         
         [self addSubview:bgView];
-        [self addSubview:pickerView];
+        [self addSubview:self.pickerView];
         [self addSubview:buttomButtonsView];
         
         [self setHidden:YES];
@@ -162,6 +208,101 @@
     }
     pickerLabel.text=[self pickerView:pickerView titleForRow:row forComponent:component];
     return pickerLabel;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    
+    if (component==0) {
+        if ([pickerView numberOfComponents]==2) {
+            
+            NSInteger tempStartHourInt = 0;
+            NSString *startHourStr = [self.hourStartList objectAtIndex:row];
+            if (startHourStr) {
+                NSArray *startList = [startHourStr componentsSeparatedByString:@":"];
+                if ([startList count]>0) {
+                    tempStartHourInt = [[startList objectAtIndex:0] integerValue];
+                }
+            }
+            
+            NSInteger lastEndIndex = [pickerView selectedRowInComponent:1];
+            lastEndIndex += (24- [pickerView numberOfRowsInComponent:1]);
+            [self.hourEndList removeAllObjects];
+            for (int i=tempStartHourInt+1; i<=_hourEndInt; i++) {
+                NSString *timeStr = [NSString stringWithFormat:@"%2d:00",i];
+                [self.hourEndList addObject:timeStr];
+            }
+            [pickerView reloadComponent:1];
+            NSInteger tempEndIndex = (24 -[self.hourEndList count]);
+            if (lastEndIndex<tempEndIndex) {
+                [pickerView selectRow:0 inComponent:1 animated:NO];
+            }else{
+                [pickerView selectRow:lastEndIndex-tempEndIndex inComponent:1 animated:NO];
+            }
+            
+        }
+        
+    }
+    
+}
+
+- (void)updateDataFormHour:(NSString*)startHourStr toHour:(NSString*)endHourStr
+{
+    
+    BOOL hadStartHour = NO;
+    if (startHourStr) {
+        
+        NSArray *startList = [startHourStr componentsSeparatedByString:@":"];
+        if ([startList count]>0) {
+            
+            _hourStartInt = [[startList objectAtIndex:0] integerValue];
+            [self.hourStartList removeAllObjects];
+            hadStartHour = YES;
+            
+        }
+    }
+    
+    if (!hadStartHour) {
+        _hourStartInt = 0;
+    }
+    
+    BOOL hadEndHour = NO;
+    if (endHourStr) {
+        
+        NSArray *endList = [endHourStr componentsSeparatedByString:@":"];
+        if ([endList count]>0) {
+            
+            _hourEndInt = [[endList objectAtIndex:0] integerValue];
+            if (_hourEndInt==0) {
+                _hourEndInt = 24;
+            }
+            [self.hourEndList removeAllObjects];
+            hadEndHour = YES;
+        }
+    }
+    
+    if (!hadEndHour) {
+        _hourEndInt = 24;
+    }
+    
+    if (_hourStartInt>_hourEndInt) {
+        [self.pickerView reloadAllComponents];
+        return;
+    }
+    
+    for (int i=_hourStartInt; i<=_hourEndInt; i++) {
+        NSString *timeStr = [NSString stringWithFormat:@"%2d:00",i];
+        if (i!=_hourEndInt) {
+            [self.hourStartList addObject:timeStr];
+        }
+        if (i>_hourStartInt) {
+            [self.hourEndList addObject:timeStr];
+        }
+    }
+    
+    if (self.pickerView) {
+        [self.pickerView reloadAllComponents];
+    }
+    
 }
 
 @end

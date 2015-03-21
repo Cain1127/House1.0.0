@@ -189,8 +189,20 @@
 
 - (BOOL)isPlaceholder
 {
+    BOOL isCanSelectedWeekDay = NO;
+    if (_cycleList && [_cycleList isKindOfClass:[NSArray class]] && [_cycleList count]>0) {
+        for (int i=0; i<[_cycleList count]; i++) {
+            if (_date.fs_weekday == [[_cycleList objectAtIndex:i] integerValue]+1){
+                isCanSelectedWeekDay = YES;
+                break;
+            }
+        }
+    }
+
     //    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) ;
-    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) || (_date.fs_month == _currentDate.fs_month && _date.fs_day<_currentDate.fs_day);
+    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) ||
+            (_date.fs_month == _currentDate.fs_month && _date.fs_day<_currentDate.fs_day) || !isCanSelectedWeekDay
+    ;
 
 }
 
@@ -207,6 +219,9 @@
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
 {
     if (self.isPlaceholder) {
+        if (self.isToday) {
+            return dictionary[@(FSCalendarCellStateToday)];
+        }
         return dictionary[@(FSCalendarCellStatePlaceholder)];
     }
     if (self.isSelected) {

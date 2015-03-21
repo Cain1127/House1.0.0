@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>8003</key>
+	<dict>
+		<key>class</key>
+		<string>QSHeaderDataModel</string>
+		<key>url</key>
+		<string>order/upAppoint</string>
+	</dict>
+	<key>8011</key>
+	<dict>
+		<key>class</key>
+		<string>QSHeaderDataModel</string>
+		<key>url</key>
+		<string>Order/add</string>
+	</dict>
 	<key>2027</key>
 	<dict>
 		<key>url</key>
@@ -79,7 +93,7 @@
 		<key>url</key>
 		<string>user/add</string>
 	</dict>
-	<key>8003</key>
+	<key>8008</key>
 	<dict>
 		<key>class</key>
 		<string>QSOrderListReturnData</string>

@@ -12,7 +12,7 @@
 
 @protocol QSPTimeHourPickerViewDelegate<NSObject>
 
-- (void)changedWithData:(id)Data inView:(QSPTimeHourPickerView*)pickerView;
+- (void)changedWithStartHour:(NSString*)startHourStr WithEndHour:(NSString*)endHourStr inView:(QSPTimeHourPickerView*)pickerView;
 
 @end
 
@@ -26,6 +26,7 @@
 
 - (void)hideTimeHourPickerView;
 
-- (void)updateData:(id)data;
+//时间格式为： 11:00
+- (void)updateDataFormHour:(NSString*)startHourStr toHour:(NSString*)endHourStr;
 
 @end
