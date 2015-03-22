@@ -44,6 +44,7 @@
 #import "QSHousesViewController.h"
 
 #import "MJRefresh.h"
+#import "MBProgressHUD.h"
 
 #import <objc/runtime.h>
 
@@ -75,14 +76,18 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
+@property (nonatomic,retain) MBProgressHUD *hud;                            //!<HUD
+
 ///数据源
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
 @property (nonatomic,copy) NSString *title;                                 //!<小区名称
-@property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数
+@property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数或价钱
+//@property (nonatomic,assign) CGFloat geolatitude;                           //!<地理编码返回的经度
+//@property (nonatomic,assign) CGFloat geolongtude;                           //!<地理编码返回的纬度
+@property (nonatomic,assign) CGFloat latitude;                              //!<网络请求的经度
+@property (nonatomic,assign) CGFloat longtude;                              //!<网络请求的纬度
 @property (nonatomic,copy) NSString *coordinate_x;                          //!<网络搜索小区返回的经度
 @property (nonatomic,copy) NSString *coordinate_y;                          //!<网络搜索小区返回的纬度
-@property (nonatomic,assign) CGFloat geolatitude;                           //!<地理编码返回经度
-@property (nonatomic,assign) CGFloat geolongtude;                           //!<地理编码返回纬度
 
 ///点击房源时的回调
 @property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
@@ -442,6 +447,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             self.filterModel.filter_status = @"2";
             
             ///刷新数据
+            [self MapCommunityListHeaderRequest];
+
 //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
             //[collectionView headerBeginRefreshing];
             
@@ -482,6 +489,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.filterModel.filter_status = @"2";
         
         ///刷新数据
+        [self MapCommunityListHeaderRequest];
+
 //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
         //[collectionView headerBeginRefreshing];
         
@@ -533,7 +542,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         [self createChannelBarUI:channelRootView];
         
         ///重新创建列表数据
-        [self initMapView];
+        [self MapCommunityListHeaderRequest];
         
     });
     
@@ -642,10 +651,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     
     ///发起用户定位
-    [self locateAction];
+    //[self locateAction];
     
-    ///发起地理编码
-    [self geoAction];
+    if (self.filterModel) {
+        ///发起地理编码
+        [self geoAction];
+    }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -670,21 +681,22 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 }
 
 ///定位跟踪代理事件
-//- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
-//
-//{
-//    
-//    NSLog(@"用户定位跟踪数据: %@", userLocation.location);
-//    
-//    if (updatingLocation)
-//        
-//    {
-//        
-//        _currentLocation = [userLocation.location copy];
-//        
-//    }
-//    
-//}
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
+
+{
+    
+    //NSLog(@"用户定位跟踪数据: %@", userLocation.location);
+    
+    if (updatingLocation)
+        
+    {
+        
+        _currentLocation = [userLocation.location copy];
+        
+    }
+
+    
+}
 
 #pragma mark-地理编码
 ///发起地理编码
@@ -693,7 +705,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
     //request.city=@[@"广州",@"深圳"];
-    request.address=@"广州市白云区江高";
+//    request.address=@"广州市白云区江高";
+    request.address=[NSString  stringWithFormat:@"%@%@%@%@",self.filterModel.province_val,self.filterModel.city_val,self.filterModel.district_val,self.filterModel.street_val];
     [_search AMapGeocodeSearch:request];
 }
 
@@ -716,8 +729,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             AMapGeocode *tempdata = (AMapGeocode*)item;
             AMapGeoPoint *location = tempdata.location;
-            _geolatitude=location.latitude;
-            _geolongtude=location.longitude;
+            _latitude=location.latitude;
+            _longtude=location.longitude;
         }
 
     }
@@ -754,6 +767,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
+#pragma mark --地图代理方法
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
     
@@ -778,17 +792,57 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     return nil;
 }
 
+/*!
+ @brief 当mapView新添加annotation views时，调用此接口
+ @param mapView 地图View
+ @param views 新添加的annotation views
+ */
+- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+
+//    for (id item in views) {
+//        NSLog(@" item :%@",item);
+//        if (item&&[item isKindOfClass:[AMapGeocode class]]) {
+//            
+//            AMapGeocode *tempdata = (AMapGeocode*)item;
+//            AMapGeoPoint *location = tempdata.location;
+//            _latitude=location.latitude;
+//            _longtude=location.longitude;
+//        }
+//        
+//    }
+
+   // [_mapView selectAnnotation:views animated:YES];
+
+    
+}
+
+/*!
+ @brief 当选中一个annotation views时，调用此接口
+ @param mapView 地图View
+ @param views 选中的annotation views
+ */
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+{
+
+    //[self gotoHouseDetail:]
+    
+}
+
 #pragma mark - 请求小区列表数据
 ///请求小区列表头数据
 - (void)MapCommunityListHeaderRequest
 {
+    
+    ///显示HUD
+    self.hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     /// 当前用户坐标
-//    CGFloat latitude= _currentLocation.coordinate.latitude;
-//    CGFloat longitude= _currentLocation.coordinate.longitude;
+    CGFloat clatitude= _currentLocation.coordinate.latitude;
+    CGFloat clongitude= _currentLocation.coordinate.longitude;
 
-    ///地理编码搜索返回坐标
-    NSString *latitude=[NSString stringWithFormat:@"%f",_geolatitude];
-    NSString *longtude=[NSString stringWithFormat:@"%f",_geolongtude];
+    ///网络请求坐标
+    NSString *latitude=[NSString stringWithFormat:@"%f",_latitude ? _latitude : clatitude];
+    NSString *longtude=[NSString stringWithFormat:@"%f",_longtude ? _longtude : clongitude];
     NSString *map_type=[NSString stringWithFormat:@"%d",(int)self.listType];
     ///请求参数
      NSDictionary *dict = @{@"map_type" : map_type,
@@ -806,40 +860,53 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             APPLICATION_LOG_INFO(@"地图列表数据返回成功", resultData);
             
+            if (resultData) {
+                [self.hud hide:YES afterDelay:0.5];
+                
+                ///请求成功后，转换模型
+                QSMapCommunityListReturnData *resultDataModel = resultData;
+                
+                QSMapCommunityListHeaderData *headerModel=[[QSMapCommunityListHeaderData alloc] init];
+                headerModel=resultDataModel.mapCommunityListHeaderData;
+                NSLog(@"返回小区的数量:%@",headerModel.total_num);
+                
+                QSMapCommunityDataModel *tepmodel=[[QSMapCommunityDataModel alloc] init];
+                tepmodel=resultDataModel.mapCommunityListHeaderData.communityList[0];
+                NSLog(@"第一组小区房源套数:%@",tepmodel.total_num);
+                
+                QSMapCommunityDataSubModel *tepmodel1=[[QSMapCommunityDataSubModel alloc] init];
+                tepmodel1=tepmodel.mapCommunityDataSubModel;
+                NSLog(@"第一组小区名称:%@",tepmodel1.title);
+                NSLog(@"第一组小区地址:%@",tepmodel1.address);
+                
+                
+                ///将数据模型置为nil
+                self.dataSourceModel = nil;
+                self.dataSourceModel=resultDataModel;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [self addAnnotations];
+                    
+                });
+            }
+            else{
+            
+                self.hud.labelText = @"暂无此小区数据...";
+                [self.hud hide:YES afterDelay:1.5f];
+            
+            }
            
-            
-            ///请求成功后，转换模型
-            QSMapCommunityListReturnData *resultDataModel = resultData;
-            
-            QSMapCommunityListHeaderData *headerModel=[[QSMapCommunityListHeaderData alloc] init];
-            headerModel=resultDataModel.mapCommunityListHeaderData;
-            NSLog(@"返回小区的数量:%@",headerModel.total_num);
-            
-            QSMapCommunityDataModel *tepmodel=[[QSMapCommunityDataModel alloc] init];
-            tepmodel=resultDataModel.mapCommunityListHeaderData.communityList[0];
-               NSLog(@"第一组小区房源套数:%@",tepmodel.total_num);
-            
-            QSMapCommunityDataSubModel *tepmodel1=[[QSMapCommunityDataSubModel alloc] init];
-            tepmodel1=tepmodel.mapCommunityDataSubModel;
-            NSLog(@"第一组小区名称:%@",tepmodel1.title);
-            NSLog(@"第一组小区地址:%@",tepmodel1.address);
-         
-            
-            ///将数据模型置为nil
-            self.dataSourceModel = nil;
-            self.dataSourceModel=resultDataModel;
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [self addAnnotations];
-                
-            });
             
         }
         
         else {
         
             NSLog(@"=====网络请求失败=======");
+            
+            ///隐藏HUD
+            self.hud.labelText = @"网络请求失败...";
+            [self.hud hide:YES afterDelay:1.0f];
         
         }
     }];
