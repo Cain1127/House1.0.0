@@ -9,6 +9,7 @@
 #import "QSPOrderDetailAddressView.h"
 #import "NSString+Calculation.h"
 #import "CoreHeader.h"
+#import "QSOrderListHouseInfoDataModel.h"
 
 //上下间隙
 #define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
@@ -30,7 +31,18 @@
         [self setUserInteractionEnabled:YES];
         
         //地址
-        NSString *addressStr = @"地球亚洲中国广东省广州市体育西路地球亚洲中国广东省广州市体育西路地球亚洲中国广东省广州市体育西路地球亚洲中国广东省广州市体育西路地球亚洲中国广东省广州市体育西路地球亚洲中国广东省广州市体育西路";
+        NSString *addressStr = @"";
+        
+        if (houseData) {
+            
+            if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+                
+                QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+                
+                addressStr = data.address;
+            }
+            
+        }
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-44.0f;
         CGFloat labelHeight = [addressStr calculateStringDisplayHeightByFixedWidth:labelWidth andFontSize:FONT_BODY_14];

@@ -19,6 +19,7 @@
     
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"id_",
+                                                    @"house_no",
                                                     @"title",
                                                     @"address",
                                                     @"cityid",

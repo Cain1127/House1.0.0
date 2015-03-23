@@ -402,6 +402,8 @@
 		475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */; };
 		475C3DA61AB679F50028608F /* QSOrderListOwnerMsgDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */; };
 		475C3DAA1AB6D5480028608F /* QSPOrderBookTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */; };
+		4777741F1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */; };
+		477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */; };
 		47A2076B1AB7E46000F51797 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207601AB7E46000F51797 /* FSCalendar.m */; };
 		47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207621AB7E46000F51797 /* FSCalendarCell.m */; };
 		47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207641AB7E46000F51797 /* FSCalendarHeader.m */; };
@@ -1048,6 +1050,10 @@
 		475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderListOwnerMsgDataModel.m; sourceTree = "<group>"; };
 		475C3DA81AB6D5480028608F /* QSPOrderBookTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderBookTimeViewController.h; sourceTree = "<group>"; };
 		475C3DA91AB6D5480028608F /* QSPOrderBookTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderBookTimeViewController.m; sourceTree = "<group>"; };
+		4777741D1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderDetailInfoDataModel.h; sourceTree = "<group>"; };
+		4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderDetailInfoDataModel.m; sourceTree = "<group>"; };
+		477774201ABFBC8D000AD7D3 /* QSOrderDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderDetailReturnData.h; sourceTree = "<group>"; };
+		477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderDetailReturnData.m; sourceTree = "<group>"; };
 		47A2075F1AB7E46000F51797 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
 		47A207601AB7E46000F51797 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
 		47A207611AB7E46000F51797 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
@@ -3392,6 +3398,8 @@
 			children = (
 				475C3D9A1AB3D58A0028608F /* QSOrderListReturnData.h */,
 				475C3D9B1AB3D58A0028608F /* QSOrderListReturnData.m */,
+				477774201ABFBC8D000AD7D3 /* QSOrderDetailReturnData.h */,
+				477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3405,6 +3413,8 @@
 				475C3DA21AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m */,
 				475C3DA41AB679F50028608F /* QSOrderListOwnerMsgDataModel.h */,
 				475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */,
+				4777741D1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.h */,
+				4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -3993,6 +4003,7 @@
 				18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */,
 				18DABAAF1AAD4E1B00647E7C /* QSLoupanPhaseDataModel.m in Sources */,
 				CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */,
+				477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18DABAB41AAD4E5E00647E7C /* QSHouseTypeDataModel.m in Sources */,
 				CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */,
@@ -4093,6 +4104,7 @@
 				18AFA9D51AB2FF4F00681071 /* QSYSendVerticalCodeReturnData.m in Sources */,
 				186F73C91A77D1FD0078DAE9 /* QSViewControllerAnimatedTransitioning.m in Sources */,
 				18EE34801AAC12C50053B909 /* QSBlockView.m in Sources */,
+				4777741F1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m in Sources */,
 				18E802071A6F8F2100CA21D4 /* UIImageView+CacheImage.m in Sources */,
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
 				18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */,

@@ -12,10 +12,10 @@
 
 @property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
 
-- (instancetype)initWithFrame:(CGRect)frame withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
 
-- (void)setHouseData:(id)houseData;
+- (void)withOrderData:(id)orderData;
 
 @end

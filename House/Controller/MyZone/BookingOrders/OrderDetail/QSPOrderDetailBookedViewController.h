@@ -7,7 +7,10 @@
 //
 
 #import "QSTurnBackViewController.h"
+#import "QSOrderListReturnData.h"
 
 @interface QSPOrderDetailBookedViewController : QSTurnBackViewController
+
+@property ( nonatomic , strong ) QSOrderListItemData *orderData;
 
 @end

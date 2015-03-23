@@ -16,6 +16,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;
 
-- (void)setHouseData:(id)houseData;
+//- (void)setHouseData:(id)houseData;
 
 @end

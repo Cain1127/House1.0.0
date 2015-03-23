@@ -45,7 +45,6 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
         
         ///初始化
         self.bookingListDataSource  = [NSMutableArray arrayWithCapacity:0];
-//        self.bookingListDataSource  = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
         
         ///UI搭建
         [self createBookingListUI];
@@ -245,7 +244,12 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 {
     
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
+        
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+        if ([self.bookingListDataSource count]>indexPath.row) {
+            QSOrderListItemData *orderItem = [self.bookingListDataSource objectAtIndex:indexPath.row];
+            [bookedVc setOrderData:orderItem];
+        }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
     

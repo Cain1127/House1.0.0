@@ -14,12 +14,18 @@
 #import "QSPOrderDetailPersonInfoView.h"
 #import "QSPOrderBottomButtonView.h"
 #import "QSPOrderBookTimeViewController.h"
+#import "QSCoreDataManager+User.h"
+#import "QSOrderDetailReturnData.h"
+#import "QSCustomHUDView.h"
 
 @interface QSPOrderDetailBookedViewController ()
+
+@property ( nonatomic , strong ) QSOrderDetailInfoDataModel *orderDetailData;
 
 @end
 
 @implementation QSPOrderDetailBookedViewController
+@synthesize orderData;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -36,7 +42,41 @@
 - (void)createMainShowUI
 {
     ///头部标题
-    QSPOrderDetailTitleLabel *titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP];
+    NSString *titleTip = @"";
+    
+    ///预约时间
+    NSMutableArray *timeArray = nil;
+    
+    ///房源数据
+    id houseData = nil;
+    
+    //订单数据
+    id orderList = nil;
+    
+    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+        
+        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+            
+            orderList = self.orderData.orderInfoList;
+            
+            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
+            if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                titleTip = [orderItem getStatusStr];
+            }
+            
+            NSString *timeStr = [NSString stringWithFormat:@"%@ %@-%@",orderItem.appoint_date,orderItem.appoint_start_time,orderItem.appoint_end_time];
+            
+            timeArray = [NSMutableArray arrayWithObjects:timeStr, nil];
+            
+        }
+        
+        if (self.orderData.houseData) {
+            houseData = self.orderData.houseData;
+        }
+        
+    }
+    
+    QSPOrderDetailTitleLabel *titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
     [self.view addSubview:titleTipLabel];
     
     //底部按钮
@@ -45,6 +85,10 @@
         NSLog(@"changeOrderButton");
         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
         [bookTimeVc setVcType:bBookTypeViewControllerChange];
+        if (self.orderData) {
+            
+        }
+//        [bookTimeVc setHouseInfo:<#(QSWSecondHouseInfoDataModel *)#>];
         [self.navigationController pushViewController:bookTimeVc animated:YES];
         
     }];
@@ -55,12 +99,11 @@
     [self.view addSubview:scrollView];
     
     ///看房时间
-    NSArray *timeArray = [NSArray arrayWithObjects:@"",@"",@"", nil];
     QSPOrderDetailShowingsTimeView *stView = [[QSPOrderDetailShowingsTimeView alloc] initAtTopLeft:CGPointMake(0.0f, 0.0f) withTimeData:timeArray];
     [scrollView addSubview:stView];
     
     ///房源简介
-    QSPHouseSummaryView *houseSView = [[QSPHouseSummaryView alloc] initAtTopLeft:CGPointMake(0.0f, stView.frame.origin.y+stView.frame.size.height) withHouseData:nil andCallBack:^(UIButton *button) {
+    QSPHouseSummaryView *houseSView = [[QSPHouseSummaryView alloc] initAtTopLeft:CGPointMake(0.0f, stView.frame.origin.y+stView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         NSLog(@"房源 clickBt");
     }];
     [scrollView addSubview:houseSView];
@@ -68,7 +111,7 @@
     [stView addAfterView:&houseSView];
     
     ///地址栏
-    QSPOrderDetailAddressView *addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, houseSView.frame.origin.y+houseSView.frame.size.height) withHouseData:nil andCallBack:^(UIButton *button) {
+    QSPOrderDetailAddressView *addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, houseSView.frame.origin.y+houseSView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         
         NSLog(@"地图定位 clickBt");
         
@@ -78,7 +121,7 @@
     [stView addAfterView:&addressView];
     
     //业主信息栏
-    QSPOrderDetailPersonInfoView *personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, addressView.frame.origin.y+addressView.frame.size.height) withHouseData:nil andCallBack:^(UIButton *button) {
+    QSPOrderDetailPersonInfoView *personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, addressView.frame.origin.y+addressView.frame.size.height) withOrderData:self.orderData andCallBack:^(UIButton *button) {
         
         NSLog(@"askButton");
         
@@ -88,6 +131,71 @@
     [stView addAfterView:&personView];
 
     [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, personView.frame.origin.y+personView.frame.size.height)];
+    
+    
+    [self getDetailData];
+    
+}
+
+- (void)updateData:(id)data
+{
+    
+}
+
+- (void)getDetailData
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    NSString *orderID = nil;
+    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+            
+            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
+            if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                
+                orderID = orderItem.id_;
+                
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            [self.navigationController popViewControllerAnimated:YES];
+        })
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+//    id_	true	string	订单id
+//    user_id	true	string	获取的用户id
+    
+    [tempParam setObject:orderID forKey:@"id_"];
+    //TODO:获取用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderDetailData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSOrderDetailReturnData *headerModel = resultData;
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            self.orderDetailData = headerModel.orderDetailData;
+            [self updateData:self.orderDetailData];
+            
+        }else{
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
     
 }
 

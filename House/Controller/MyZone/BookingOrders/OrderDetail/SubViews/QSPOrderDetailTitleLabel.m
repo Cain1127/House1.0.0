@@ -15,11 +15,14 @@
     
     if (self = [super initWithFrame:frame]) {
         
+        
+        [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
         if (titleStr&&[titleStr isKindOfClass:[NSString class]]) {
-            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP]) {
-                [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
-                
-            }else if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
+//            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP]) {
+//                [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
+//                
+//            }else
+            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
                 [self setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
                 
             }

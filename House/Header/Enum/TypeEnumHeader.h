@@ -570,6 +570,7 @@ typedef enum
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
+    rRequestTypeOrderDetailData = 8001,     //!<订单详情
     rRequestTypeOrderResetAppointment = 8003,     //!<修改预约订单数据
     rRequestTypeOrderListData = 8008,           //!<订单列表数据
     rRequestTypeOrderAddAppointment = 8011,    //!<添加预约订单数据

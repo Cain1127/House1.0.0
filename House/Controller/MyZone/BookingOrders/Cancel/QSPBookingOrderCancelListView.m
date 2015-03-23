@@ -218,6 +218,10 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+        if ([self.cancelListDataSource count]>indexPath.row) {
+            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
+            [bookedVc setOrderData:orderItem];
+        }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }

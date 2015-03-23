@@ -8,7 +8,7 @@
 
 #import "QSPHouseSummaryView.h"
 #import "UIKit+AFNetworking.h"
-
+#import "QSOrderListHouseInfoDataModel.h"
 //上下间隙
 #define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
 
@@ -35,16 +35,36 @@
         [self setUserInteractionEnabled:YES];
         
         //房源编号
+        NSString *houseNum = @"";
+        //图片Url
+        NSString *houseSmallImgUrl = @"";
+        NSString *houseName = @"";
+        
+        if (houseData) {
+            
+            if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+                
+                QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+                
+                houseNum = [NSString stringWithFormat:@"房源编号 %@",data.house_no];
+                houseSmallImgUrl = data.attach_thumb;
+                houseName = data.title;
+                
+            }
+            
+        }
+        
+        //房源编号
         UILabel *houseTitleIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP), 22)];
         [houseTitleIDLabel setFont:[UIFont systemFontOfSize:FONT_BODY_12]];
         [houseTitleIDLabel setTextColor:COLOR_CHARACTERS_GRAY];
-        NSString *IDStr = [NSString stringWithFormat:@"%@  %@",TITLE_MYZONE_ORDER_DETAIL_HOUSE_ID_TITLE_TIP, @"128734823428962"];
-        [houseTitleIDLabel setText:IDStr];
+//        NSString *IDStr = [NSString stringWithFormat:@"%@  %@",TITLE_MYZONE_ORDER_DETAIL_HOUSE_ID_TITLE_TIP, @"128734823428962"];
+        [houseTitleIDLabel setText:houseNum];
         [self addSubview:houseTitleIDLabel];
 
         //图片
         UIImageView *contentImgView = [[UIImageView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-2, houseTitleIDLabel.frame.origin.y+houseTitleIDLabel.frame.size.height+4, 50, 50)];
-        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://img0.bdstatic.com/img/image/shouye/jiaju0311.jpg"]];
+        [contentImgView setImageWithURL:[NSURL URLWithString:houseSmallImgUrl]];
         [self addSubview:contentImgView];
         
         UIImageView *contentCoverImgView = [[UIImageView alloc] initWithFrame:contentImgView.frame];
@@ -55,7 +75,7 @@
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(contentImgView.frame.origin.x+contentImgView.frame.size.width+4, contentImgView.frame.origin.y+(contentImgView.frame.size.height-40)/2.0f, (SIZE_DEVICE_WIDTH - CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-contentImgView.frame.origin.x-contentImgView.frame.size.width-44, 40.0f)];
         [nameLabel setNumberOfLines:2];
         [nameLabel setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
-        [nameLabel setText:@"小区我是小区"];
+        [nameLabel setText:houseName];
         [self addSubview:nameLabel];
         
         //右箭头
@@ -91,8 +111,19 @@
     
 }
 
-- (void)setHouseData:(id)houseData{
-    
-}
+//- (void)setHouseData:(id)houseData{
+//    
+//    if (houseData) {
+//        
+//        if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+//            QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+//            
+//            
+//            
+//        }
+//        
+//    }
+//    
+//}
 
 @end

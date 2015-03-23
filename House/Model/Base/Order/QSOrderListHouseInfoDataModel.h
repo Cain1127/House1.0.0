@@ -11,7 +11,8 @@
 @interface QSOrderListHouseInfoDataModel : QSBaseModel
 
 @property (nonatomic,copy) NSString *title;             //!<标题
-@property (nonatomic,copy) NSString *id_;               //!<所属用户ID
+@property (nonatomic,copy) NSString *id_;               //!<房源ID
+@property (nonatomic,copy) NSString *house_no;          //!<房源编号
 @property (nonatomic,copy) NSString *cityid;            //!<城市ID
 @property (nonatomic,copy) NSString *street;            //!<街道ID
 @property (nonatomic,copy) NSString *address;           //!<地址

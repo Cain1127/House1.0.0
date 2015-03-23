@@ -217,6 +217,10 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 {
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+        if ([self.completeListDataSource count]>indexPath.row) {
+            QSOrderListItemData *orderItem = [self.completeListDataSource objectAtIndex:indexPath.row];
+            [bookedVc setOrderData:orderItem];
+        }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }

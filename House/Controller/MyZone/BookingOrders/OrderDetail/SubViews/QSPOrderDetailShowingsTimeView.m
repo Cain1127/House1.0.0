@@ -91,12 +91,17 @@ static char bottomViewKey;      //!<分割线关联key
             UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+4, countLabel.frame.origin.y, ((SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-countLabel.frame.origin.x+countLabel.frame.size.width - 44.0f), countLabel.frame.size.height)];
             [timeLabel setTextColor:[UIColor blackColor]];
             [timeLabel setFont:[UIFont boldSystemFontOfSize:FONT_BODY_16]];
-            [timeLabel setText:@"2015-03-13(星期五)10:00-11:00"];
             [self addSubview:timeLabel];
+            
+            id item = [timeArray objectAtIndex:i];
+            if ([item isKindOfClass:[NSString class]]) {
+//                [timeLabel setText:@"2015-03-13(星期五)10:00-11:00"];
+                [timeLabel setText:item];
+            }
             
             contentHeight = timeLabel.frame.origin.y +timeLabel.frame.size.height;
             
-            if (i==0&&[timeArray count]>0) {
+            if (i==0&&[timeArray count]>1) {
                 
                 QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
                 buttonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_DOWN_ARROW_BT;
