@@ -44,7 +44,7 @@
 #import "QSHousesViewController.h"
 
 #import "MJRefresh.h"
-#import "MBProgressHUD.h"
+#import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
 
@@ -76,14 +76,14 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
-@property (nonatomic,retain) MBProgressHUD *hud;                            //!<HUD
+@property (nonatomic,retain) QSCustomHUDView *hud;                            //!<HUD
 
 ///数据源
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
 @property (nonatomic,copy) NSString *title;                                 //!<小区名称
 @property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数或价钱
-//@property (nonatomic,assign) CGFloat geolatitude;                           //!<地理编码返回的经度
-//@property (nonatomic,assign) CGFloat geolongtude;                           //!<地理编码返回的纬度
+//@property (nonatomic,assign) CGFloat geolatitude;                         //!<地理编码返回的经度
+//@property (nonatomic,assign) CGFloat geolongtude;                         //!<地理编码返回的纬度
 @property (nonatomic,assign) CGFloat latitude;                              //!<网络请求的经度
 @property (nonatomic,assign) CGFloat longtude;                              //!<网络请求的纬度
 @property (nonatomic,copy) NSString *coordinate_x;                          //!<网络搜索小区返回的经度
@@ -835,7 +835,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     ///显示HUD
-    self.hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    __block QSCustomHUDView *hud=[QSCustomHUDView showCustomHUD];
     /// 当前用户坐标
     CGFloat clatitude= _currentLocation.coordinate.latitude;
     CGFloat clongitude= _currentLocation.coordinate.longitude;
@@ -861,7 +861,11 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             APPLICATION_LOG_INFO(@"地图列表数据返回成功", resultData);
             
             if (resultData) {
-                [self.hud hide:YES afterDelay:0.5];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [hud hiddenCustomHUD];
+                    
+                });
                 
                 ///请求成功后，转换模型
                 QSMapCommunityListReturnData *resultDataModel = resultData;
@@ -892,8 +896,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             }
             else{
             
-                self.hud.labelText = @"暂无此小区数据...";
-                [self.hud hide:YES afterDelay:1.5f];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                     [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..." ];
+                    
+                });
+               
             
             }
            
@@ -904,9 +912,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
             NSLog(@"=====网络请求失败=======");
             
-            ///隐藏HUD
-            self.hud.labelText = @"网络请求失败...";
-            [self.hud hide:YES afterDelay:1.0f];
+            ///显示提示信息
+            [hud hiddenCustomHUDWithFooterTips:@"您的网络不给力"];
         
         }
     }];

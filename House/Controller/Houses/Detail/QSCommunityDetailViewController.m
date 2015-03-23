@@ -209,8 +209,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     
     ///小区房价走势view
-    UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    [self createHouseTotalUI:houseTotalView];
+    UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+5.0f+200.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    [self createHouseTotalUI:houseTotalView andPrice:dataModel.village.price_avg];
     
     ///交通路线与统计view
     UIView *houseServiceView=[[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, (SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)/5.0f)];
@@ -405,18 +405,28 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark -小区房价走势view
 ///添加物业总价
-- (void)createHouseTotalUI:(UIView *)view
+- (void)createHouseTotalUI:(UIView *)view andPrice:(NSString *)price
 {
     
-    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
+    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
     hoeseTotalLabel.text=@"小区房价走势";
     hoeseTotalLabel.textAlignment=NSTextAlignmentLeft;
+    hoeseTotalLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:hoeseTotalLabel];
     
-    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-100.0f, SIZE_DEFAULT_HEIGHTTAP, 100.0f, 20.0f)];
-    areaSizeLabel.text=@"最新均价";
+    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width*0.5f, SIZE_DEFAULT_HEIGHTTAP, view.frame.size.width * 0.5f, 20.0f)];
+    areaSizeLabel.text=[NSString stringWithFormat:@"最新均价:%@元/%@",price,APPLICATION_AREAUNIT];
     areaSizeLabel.textAlignment=NSTextAlignmentRight;
+    areaSizeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:areaSizeLabel];
+    
+    UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, areaSizeLabel.frame.origin.y+areaSizeLabel.frame.size.height+5.0f, view.frame.size.width, view.frame.size.height-areaSizeLabel.frame.size.height+5.0f-SIZE_DEFAULT_HEIGHTTAP)];
+    
+    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",@"http://117.41.235.110:9527/total/resoldApartment/",@"?h=200",@"?total_type=990202?",self.communityID];
+    //?total_type=990202?village_id=1?num=5
+    [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+
+    [view addSubview:priceWeb];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];

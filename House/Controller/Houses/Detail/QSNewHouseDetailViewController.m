@@ -418,7 +418,7 @@ static char LeftStarKey;            //!<左侧星级
     taxSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     
     ///价格走向
-    UIView *priceLineRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 40.0f, mainInfoWidth, 185.0f)];
+    UIView *priceLineRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 40.0f, mainInfoWidth, 200.0f+25.0f+16.0f+5.0f)];
     [self createPriceTrendInfoUI:priceLineRootView];
     
     ///分隔线
@@ -614,6 +614,14 @@ static char LeftStarKey;            //!<左侧星级
     unitLabel.textColor = COLOR_CHARACTERS_BLACK;
     unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:unitLabel];
+    
+    UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
+    
+    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",@"http://117.41.235.110:9527/total/resoldApartment/",@"?h=200",@"?total_type=990201?",self.loupanID];
+    //?total_type=990202?village_id=1?num=5
+    [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    
+    [view addSubview:priceWeb];
 
 }
 
