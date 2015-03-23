@@ -17,17 +17,7 @@
         
         
         [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
-        if (titleStr&&[titleStr isKindOfClass:[NSString class]]) {
-//            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP]) {
-//                [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
-//                
-//            }else
-            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
-                [self setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
-                
-            }
-        }
-        
+        [self setTitle:titleStr];
         [self setTextAlignment:NSTextAlignmentCenter];
         [self setText:titleStr];
         [self setFont:[UIFont boldSystemFontOfSize:FONT_NAVIGATIONBAR_TITLE]];
@@ -36,6 +26,21 @@
     
     return self;
     
+}
+
+- (void)setTitle:(NSString*)title
+{
+    if (titleStr&&[titleStr isKindOfClass:[NSString class]]) {
+//        if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP]) {
+//            [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
+//            
+//        }else
+            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
+                
+                [self setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
+                
+            }
+    }
 }
 
 @end

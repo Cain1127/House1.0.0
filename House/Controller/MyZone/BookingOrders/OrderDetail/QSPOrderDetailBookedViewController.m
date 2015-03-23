@@ -20,7 +20,8 @@
 
 @interface QSPOrderDetailBookedViewController ()
 
-@property ( nonatomic , strong ) QSOrderDetailInfoDataModel *orderDetailData;
+@property (nonatomic, strong) QSOrderDetailInfoDataModel *orderDetailData;
+@property (nonatomic, strong) QSPOrderDetailTitleLabel *titleTipLabel;
 
 @end
 
@@ -76,8 +77,8 @@
         
     }
     
-    QSPOrderDetailTitleLabel *titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
-    [self.view addSubview:titleTipLabel];
+    self.titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
+    [self.view addSubview:self.titleTipLabel];
     
     //底部按钮
     QSPOrderBottomButtonView *changeOrderButtonView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
@@ -139,6 +140,14 @@
 
 - (void)updateData:(id)data
 {
+    
+    if (!data || ![data isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+        NSLog(@"QSOrderDetailInfoDataModel 错误");
+        return;
+    }
+    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
+
+    
     
 }
 

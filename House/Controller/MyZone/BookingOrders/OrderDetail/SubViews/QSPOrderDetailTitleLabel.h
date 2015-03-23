@@ -12,4 +12,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString*)titleStr;
 
+- (void)setTitle:(NSString*)title;
+
 @end
