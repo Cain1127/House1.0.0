@@ -181,7 +181,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
     [self initMapView];
-    [self initSearch];
+    //[self initSearch];
 
     
 }
@@ -447,7 +447,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             self.filterModel.filter_status = @"2";
             
             ///刷新数据
-            [self MapCommunityListHeaderRequest];
 
 //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
             //[collectionView headerBeginRefreshing];
@@ -458,6 +457,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 ///保存成功后进入房子列表
                 if (isSuccess) {
                     
+                    [self MapCommunityListHeaderRequest];
+
                     NSLog(@"====================过滤器保存成功=====================");
                     
                 } else {
@@ -489,7 +490,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.filterModel.filter_status = @"2";
         
         ///刷新数据
-        [self MapCommunityListHeaderRequest];
 
 //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
         //[collectionView headerBeginRefreshing];
@@ -500,6 +500,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///保存成功后进入房子列表
             if (isSuccess) {
                 
+                
+                [self geoAction];
+
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {
@@ -652,6 +655,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     ///发起用户定位
     //[self locateAction];
+    [self initSearch];
     
     if (self.filterModel) {
         ///发起地理编码
@@ -704,8 +708,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
-    //request.city=@[@"广州",@"深圳"];
-//    request.address=@"广州市白云区江高";
+
     request.address=[NSString  stringWithFormat:@"%@%@%@%@",self.filterModel.province_val,self.filterModel.city_val,self.filterModel.district_val,self.filterModel.street_val];
     [_search AMapGeocodeSearch:request];
 }
@@ -719,6 +722,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:
 (AMapGeocodeSearchResponse *)response
 {
+    //NSLog(@"请求地址:%@",request);
     NSLog(@"地理编码数据 :%@", response);
     NSArray *geoArray=[[NSArray alloc] init];
     geoArray=response.geocodes;
@@ -731,9 +735,11 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             AMapGeoPoint *location = tempdata.location;
             _latitude=location.latitude;
             _longtude=location.longitude;
+            
         }
 
     }
+    [self MapCommunityListHeaderRequest];
 
 }
 
@@ -750,6 +756,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.subtitle=tempModel.total_num;
         self.coordinate_x=tempModel.mapCommunityDataSubModel.coordinate_x;
         self.coordinate_y=tempModel.mapCommunityDataSubModel.coordinate_y;
+        APPLICATION_LOG_INFO(@"网络返回大头针经度坐标:", self.coordinate_x);
+        APPLICATION_LOG_INFO(@"网络返回大头针纬度坐标:", self.coordinate_y);
+
         
         CGFloat latitude= [self.coordinate_x floatValue];
         CGFloat longitude=[self.coordinate_y floatValue];
@@ -844,6 +853,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     NSString *latitude=[NSString stringWithFormat:@"%f",_latitude ? _latitude : clatitude];
     NSString *longtude=[NSString stringWithFormat:@"%f",_longtude ? _longtude : clongitude];
     NSString *map_type=[NSString stringWithFormat:@"%d",(int)self.listType];
+    
+    APPLICATION_LOG_INFO(@"网络请求经度", latitude);
+    APPLICATION_LOG_INFO(@"网络请求纬度", longtude);
     ///请求参数
      NSDictionary *dict = @{@"map_type" : map_type,
                             @"now_page" : @"1",
@@ -898,10 +910,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                     [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..." ];
+                     [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..."];
                     
                 });
-               
             
             }
            
@@ -912,8 +923,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
             NSLog(@"=====网络请求失败=======");
             
-            ///显示提示信息
-            [hud hiddenCustomHUDWithFooterTips:@"您的网络不给力"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///显示提示信息
+                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." ];
+                
+            });
         
         }
     }];
