@@ -15,6 +15,7 @@
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
+#import "URLHeader.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -408,24 +409,37 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (void)createHouseTotalUI:(UIView *)view andPrice:(NSString *)price
 {
     
-    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP, 150.0f, 20.0f)];
+    UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_HEIGHTTAP+5.0f, 100.0f, 15.0f)];
     hoeseTotalLabel.text=@"小区房价走势";
     hoeseTotalLabel.textAlignment=NSTextAlignmentLeft;
     hoeseTotalLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:hoeseTotalLabel];
     
-    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width*0.5f, SIZE_DEFAULT_HEIGHTTAP, view.frame.size.width * 0.5f, 20.0f)];
-    areaSizeLabel.text=[NSString stringWithFormat:@"最新均价:%@元/%@",price,APPLICATION_AREAUNIT];
+    UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-80.0f - 95.0f - 35.0f, SIZE_DEFAULT_HEIGHTTAP+5.0f, 80.0f, 15.0f)];
+    areaSizeLabel.text=[NSString stringWithFormat:@"最新均价:"];
     areaSizeLabel.textAlignment=NSTextAlignmentRight;
     areaSizeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:areaSizeLabel];
     
-    UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, areaSizeLabel.frame.origin.y+areaSizeLabel.frame.size.height+5.0f, view.frame.size.width, view.frame.size.height-areaSizeLabel.frame.size.height+5.0f-SIZE_DEFAULT_HEIGHTTAP)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 95.0f - 35.0f, SIZE_DEFAULT_HEIGHTTAP, 95.0f, 20.0f)];
+    priceLabel.text = [NSString stringWithFormat:@"%@",price];
+    priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:priceLabel];
     
-    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",@"http://117.41.235.110:9527/total/resoldApartment/",@"?h=200",@"?total_type=990202?",self.communityID];
-    //?total_type=990202?village_id=1?num=5
+    ///单位
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 30.0f, SIZE_DEFAULT_HEIGHTTAP+5.0f, 35.0f, 10.0f)];
+    unitLabel.text = [NSString stringWithFormat:@"元/%@",APPLICATION_AREAUNIT];
+    unitLabel.textAlignment = NSTextAlignmentLeft;
+    unitLabel.textColor = COLOR_CHARACTERS_BLACK;
+    unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    [view addSubview:unitLabel];
+    
+    UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
+    
+    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990202&",self.communityID];
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-
     [view addSubview:priceWeb];
     
     ///分隔线

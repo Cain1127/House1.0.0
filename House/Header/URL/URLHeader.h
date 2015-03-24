@@ -42,4 +42,8 @@ static NSString *const URLFDangJiaImageIPHome = @"http://117.41.235.102:6300/";
 //
 static NSString *const URLFDangJiaImageDomainHome = @"http://img.fdangjia.com/";
 
+//
+//小区与新房详情页最新均价根地址
+//
+static NSString *const URLFDangJiaAvgPriceTotal = @"http://117.41.235.110:9527/total/resoldApartment/";
 #endif

@@ -14,6 +14,7 @@
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
+#import "URLHeader.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "NSDate+Formatter.h"
@@ -46,9 +47,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view关联Key
 
-static char RightScoreKey;          //!<右侧评分
+//static char RightScoreKey;          //!<右侧评分
 static char RightStarKey;           //!<右侧星级
-static char LeftScoreKey;           //!<左侧评分
+//static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate>
@@ -340,7 +341,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评分栏
     UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, headerImageView.frame.origin.y + headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
-    [self createScoreSubviews:scoreRootView];
+    [self createScoreSubviews:scoreRootView andInsideScore:@"4.6"  andOverflowScore:@"8.8"  andAroundScore:@"3.4"];
     [infoRootView addSubview:scoreRootView];
     
     ///均价栏
@@ -418,7 +419,7 @@ static char LeftStarKey;            //!<左侧星级
     taxSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     
     ///价格走向
-    UIView *priceLineRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 40.0f, mainInfoWidth, 200.0f+25.0f+16.0f+5.0f)];
+    UIView *priceLineRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, taxRootView.frame.origin.y + taxRootView.frame.size.height + 40.0f, mainInfoWidth, 200.0f+25.0f)];
     [self createPriceTrendInfoUI:priceLineRootView];
     
     ///分隔线
@@ -617,7 +618,7 @@ static char LeftStarKey;            //!<左侧星级
     
     UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
     
-    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",@"http://117.41.235.110:9527/total/resoldApartment/",@"?h=200",@"?total_type=990201?",self.loupanID];
+    NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990201&",self.loupanID];
     //?total_type=990202?village_id=1?num=5
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
@@ -1317,7 +1318,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 评分栏子UI搭建
 ///评分栏子UI搭建
-- (void)createScoreSubviews:(UIView *)view
+- (void)createScoreSubviews:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
 {
 
     ///中间评分底view
@@ -1327,7 +1328,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///中间评分
     UILabel *titleScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 15.0f, mainScoreRootView.frame.size.width - 10.0f - 15.0f, 30.0f)];
-    titleScoreLabel.text = @"6.0";
+    titleScoreLabel.text = overflowScore;
     titleScoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     titleScoreLabel.textAlignment = NSTextAlignmentRight;
     [mainScoreRootView addSubview:titleScoreLabel];
@@ -1347,12 +1348,12 @@ static char LeftStarKey;            //!<左侧星级
     
     ///右侧评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:RightScoreKey andStarKey:RightStarKey];
+    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:insideScore andStarKey:RightStarKey];
     [view addSubview:rightScoreRootView];
     
     ///左侧评分底view
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:LeftScoreKey andStarKey:LeftStarKey];
+    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore andStarKey:LeftStarKey];
     [view addSubview:leftScoreRootView];
 
 }
@@ -1366,7 +1367,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 ///创建详情评分UI
-- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(char)scoreKey andStarKey:(char)starKey
+- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(NSString*)scoreKey andStarKey:(char)starKey
 {
 
     ///头图片
@@ -1376,7 +1377,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评分
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f, 5.0f, view.frame.size.width - 8.0f - 15.0f, 25.0f)];
-    scoreLabel.text = @"4.5";
+    scoreLabel.text = scoreKey;
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     scoreLabel.textColor = COLOR_CHARACTERS_YELLOW;

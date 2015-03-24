@@ -855,30 +855,25 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:arrowView];
     
     ///变动图标
-    UILabel *unitLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -10.0f-5.0f,arrowView.frame.origin.y+1.5f , 10.0f, 20.0f)];
-    unitLabel2.text = @"|";
-    unitLabel2.textAlignment = NSTextAlignmentLeft;
-    unitLabel2.textColor = COLOR_CHARACTERS_BLACK;
-    //unitLabel2.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    UIImageView *unitLabel2 = [[UIImageView alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
+    unitLabel2.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
+    [view addSubview:unitLabel2];
     
     ///单位
-    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x  -20.0f- 2.0f,unitLabel2.frame.origin.y , 20.0f, 20.0f)];
+    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x  -20.0f- 2.0f,arrowView.frame.origin.y+4.0f , 20.0f, 15.0f)];
     unitLabel1.text = @"元";
     unitLabel1.textAlignment = NSTextAlignmentLeft;
     unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
-    unitLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    unitLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [view addSubview:unitLabel1];
     
     ///金额
-    UILabel *changeCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -70.0f- 2.0f, unitLabel1.frame.origin.y, 70.0f, 20.0f)];
+    UILabel *changeCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -70.0f- 2.0f, arrowView.frame.origin.y+1.5f, 70.0f, 20.0f)];
     changeCountLabel.text = @"800";
     changeCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     changeCountLabel.textAlignment = NSTextAlignmentRight;
     changeCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [view addSubview:changeCountLabel];
-    
-    [view addSubview:unitLabel2];
-    
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -956,13 +951,13 @@ static char LeftStarKey;            //!<左侧星级
     
     ///间隙
     CGFloat width = 60.0f;
-    CGFloat gap = (view.frame.size.width - width * 4.0f - 26.0f) / 3.0f;
+    CGFloat gap = (view.frame.size.width - width * 4.0f) / 3.0f;
     
     UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+15.0f+5.0f, width, 15.0f)];
     busLabel.text = @"房源浏览量";
     busLabel.textAlignment = NSTextAlignmentCenter;
     busLabel.textColor = COLOR_CHARACTERS_GRAY;
-    busLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    busLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
     [view addSubview:busLabel];
     
     UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
@@ -980,7 +975,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:busCountUnitLabel];
     
     ///分隔线
-    UILabel *busSepLine = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x + busLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f, view.frame.size.height - 2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UILabel *busSepLine = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x + busLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+5.0f, 0.25f, 30.0f)];
     busSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:busSepLine];
     
@@ -1006,7 +1001,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:techCountUnitLabel];
     
     ///分隔线
-    UILabel *techSepLine = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x + techLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f, view.frame.size.height - 2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UILabel *techSepLine = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x + techLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+5.0f, 0.25f, 30.0f)];
     techSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:techSepLine];
     
@@ -1014,7 +1009,7 @@ static char LeftStarKey;            //!<左侧星级
     medicalLabel.text = @"待看房预约";
     medicalLabel.textAlignment = NSTextAlignmentCenter;
     medicalLabel.textColor = COLOR_CHARACTERS_GRAY;
-    medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
     [view addSubview:medicalLabel];
     
     UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
@@ -1032,7 +1027,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:medicalCountUnitLabel];
     
     ///分隔线
-    UILabel *medicalSepLine = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x + medicalLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f, view.frame.size.height - 2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UILabel *medicalSepLine = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x + medicalLabel.frame.size.width + gap / 2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+5.0f, 0.25f, 30.0f)];
     medicalSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:medicalSepLine];
     
@@ -1056,11 +1051,6 @@ static char LeftStarKey;            //!<左侧星级
     foodCountUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     foodCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
     [view addSubview:foodCountUnitLabel];
-    
-    ///右侧箭头
-    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
-    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
-    [view addSubview:arrowView];
     
     
     ///分隔线

@@ -250,6 +250,12 @@
 ///房子详情，头图片的默认图片
 #define IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG @"houses_detail_header_load_fail750x562"
 
+///房子详情，价格下降图片
+#define IMAGE_HOUSES_DETAIL_PRICEDOWN @"houses_detail_pricedown"
+
+///房子详情，价格上升图片
+#define IMAGE_HOUSES_DETAIL_PRICEUP @"houses_detail_priceup"
+
 #pragma mark - 发现模块相关图片资源
 
 /**
