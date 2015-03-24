@@ -303,6 +303,8 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYAttentionCommunityViewController *attentionCommunityVC = [[QSYAttentionCommunityViewController alloc] init];
+                attentionCommunityVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:attentionCommunityVC animated:YES];
                 
             }

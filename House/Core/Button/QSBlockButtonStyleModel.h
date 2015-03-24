@@ -11,6 +11,7 @@
 @interface QSBlockButtonStyleModel : NSObject
 
 @property (nonatomic,copy) NSString *title;                 //!<按钮标题
+@property (nonatomic,copy) NSString *titleSelected;         //!<按钮选择状态时的标题
 @property (nonatomic,retain) UIColor *bgColor;              //!<按钮背景颜色
 @property (nonatomic,retain) UIColor *bgColorHighlighted;   //!<按钮高亮时的背景颜色
 @property (nonatomic,retain) UIColor *bgColorSelected;      //!<按钮选择状态时的背景颜色

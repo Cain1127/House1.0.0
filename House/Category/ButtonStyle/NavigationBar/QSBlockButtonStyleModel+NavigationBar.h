@@ -29,6 +29,7 @@ typedef enum
     nNavigationBarButtonTypeMapList,            //!<找房：地图列表按钮
     nNavigationBarButtonTypeCollected,          //!<收藏/关注按钮
     nNavigationBarButtonTypeShare,              //!<分享按钮
+    nNavigationBarButtonTypeEdit,               //!<编辑按钮
     
 }NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置等等
 
