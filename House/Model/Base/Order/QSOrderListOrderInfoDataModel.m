@@ -46,7 +46,7 @@
 
 - (USER_COUNT_TYPE)getUserType
 {
-    
+    return -1;
 }
 
 
