@@ -11,6 +11,9 @@
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
+#import "QSYPopCustomView.h"
+#import "QSYShareChoicesView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -18,6 +21,7 @@
 #import "URLHeader.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSNewHouseDetailDataModel.h"
@@ -33,6 +37,7 @@
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "MJRefresh.h"
 
@@ -113,22 +118,27 @@ static char LeftStarKey;            //!<左侧星级
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
     ///收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
+        ///收藏新房
+        [self collectNewHouse:button];
+        
+    }];
+    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.loupanID andCollectedType:fFilterMainTypeNewHouse];
+    [self.view addSubview:intentionButton];
     
     ///分享按钮
-    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击分享");
+    QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
+    
+    UIButton *shareButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyleShare andCallBack:^(UIButton *button) {
         
-    } ];
-    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
-    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
-    [self.view addSubview:shareImageView];
+        ///分享
+        [self shareNewHouse:button];
+        
+    }];
+    [self.view addSubview:shareButton];
     
 }
 
@@ -193,6 +203,7 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///判断是否已登录
+            
             ///免费通话
             [self customButtonClick:@"0201304545"];
             ///已登录重新刷新数据
@@ -1505,6 +1516,241 @@ static char LeftStarKey;            //!<左侧星级
                 [self.navigationController popViewControllerAnimated:YES];
                 
             })
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 分享新房
+///分享二手房
+- (void)shareNewHouse:(UIButton *)button
+{
+    
+    ///弹出窗口的指针
+    __block QSYPopCustomView *popView = nil;
+    
+    ///提示选择窗口
+    QSYShareChoicesView *saleTipsView = [[QSYShareChoicesView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 150.0f) andShareCallBack:^(SHARE_CHOICES_TYPE actionType) {
+        
+        ///加收弹出窗口
+        [popView hiddenCustomPopview];
+        
+        ///处理不同的分享事件
+        switch (actionType) {
+                ///新浪微博
+            case sShareChoicesTypeXinLang:
+                
+                break;
+                
+                ///朋友圈
+            case sShareChoicesTypeFriends:
+                
+                break;
+                
+                ///微信朋友圈
+            case sShareChoicesTypeWeChat:
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    ///弹出窗口
+    popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    
+}
+
+#pragma mark - 收藏当前新房
+///收藏当前新房
+- (void)collectNewHouse:(UIButton *)button
+{
+    
+    ///已收藏，则删除收藏
+    if (button.selected) {
+        
+        [self deleteCollectedNewHouse:button];
+        
+    } else {
+        
+        [self addCollectedNewHouse:button];
+        
+    }
+    
+}
+
+///删除收藏
+- (void)deleteCollectedNewHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消收藏"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSNewHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:self.detailInfo.loupan.id_ andCollectedType:fFilterMainTypeNewHouse];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedNewHouseWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (![self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedNewHouseWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.loupan.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedNewHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedNewHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+    
+}
+
+///添加收藏
+- (void)addCollectedNewHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
+    
+    ///判断是否已登录
+    if (![self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        [self saveCollectedNewHouseWithStatus:NO];
+        button.selected = YES;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.loupan.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedNewHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedNewHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+    
+}
+
+#pragma mark - 添加本地收藏
+///将收藏信息保存本地
+- (void)saveCollectedNewHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///当前新房收藏是否同步服务端标识
+    if (isSendServer) {
+        
+        self.detailInfo.is_syserver = @"1";
+        
+    } else {
+        
+        self.detailInfo.is_syserver = @"0";
+        
+    }
+    
+    ///保存新房信息到本地
+    [QSCoreDataManager saveCollectedDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 取消本地收藏
+///取消本地收藏
+- (void)deleteCollectedNewHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///删除本地收藏的新房信息
+    [QSCoreDataManager deleteCollectedDataWithID:self.detailInfo.loupan.id_ isSyServer:isSendServer andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->删除", @"失败")
             
         }
         
