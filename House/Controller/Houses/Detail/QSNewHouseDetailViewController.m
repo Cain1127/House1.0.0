@@ -7,6 +7,7 @@
 //
 
 #import "QSNewHouseDetailViewController.h"
+#import "QSActivityDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -62,6 +63,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo; //!<详情信息的数据模型
 
 @property (nonatomic, copy) NSString *phoneNumber;                  //!<电话号码
+@property (nonatomic,retain) NSArray *activityArray;                //!<活动列表
 
 
 
@@ -319,6 +321,14 @@ static char LeftStarKey;            //!<左侧星级
         
         ///活动栏
         QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+            
+            for (int i=0; i<self.detailInfo.loupan_activity.count; i++) {
+                
+                QSActivityDataModel *temModel=[[QSActivityDataModel alloc] init];
+                temModel=self.detailInfo.loupan_activity[i];
+                QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithModel:temModel];
+                [self.navigationController pushViewController:gotoVC animated:YES];
+            }
             
             NSLog(@"========================================");
             NSLog(@"点击活动:%@",params);
