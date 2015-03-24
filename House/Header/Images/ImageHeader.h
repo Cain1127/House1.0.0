@@ -354,11 +354,40 @@
 ///预约订单列表咨询按钮选中图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED  @"myzone_oorderlist_cell_ask_bt_selected"
 
+///预约订单列表接受按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL    @"myzone_oorderlist_cell_accept_bt_normal"
+///预约订单列表接受按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED  @"myzone_oorderlist_cell_accept_bt_selected"
+
+///预约订单列表拒绝按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_NORMAL    @"myzone_oorderlist_cell_reject_bt_normal"
+///预约订单列表拒绝按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_SELECTED  @"myzone_oorderlist_cell_reject_bt_selected"
+
+///预约订单列表评价按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_COMMENT_BT_NORMAL    @"myzone_oorderlist_cell_comment_bt_normal"
+///预约订单列表评价按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_COMMENT_BT_SELECTED  @"myzone_oorderlist_cell_comment_bt_selected"
+
+///预约订单列表议价/还价按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_TALKPRICE_BT_NORMAL    @"myzone_oorderlist_cell_talkprice_bt_normal"
+///预约订单列表议价/还价按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_TALKPRICE_BT_SELECTED  @"myzone_oorderlist_cell_talkprice_bt_selected"
+
+///预约订单列表申请议价按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ASKFORPRICE_BT_NORMAL    @"myzone_oorderlist_cell_askforprice_bt_normal"
+///预约订单列表申请议价按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ASKFORPRICE_BT_SELECTED  @"myzone_oorderlist_cell_askforprice_bt_selected"
+
+///预约订单列表提醒按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_NORMAL    @"myzone_oorderlist_cell_remind_bt_normal"
+///预约订单列表提醒按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_SELECTED  @"myzone_oorderlist_cell_remind_bt_selected"
+
 ///订单详情看房时间按钮下箭头图片
 #define IMAGE_ZONE_ORDER_DETAIL_DOWN_ARROW_BT   @"myzone_oorderdetail_down_bt"
 ///订单详情看房时间按钮上箭头图片
 #define IMAGE_ZONE_ORDER_DETAIL_UP_ARROW_BT     @"myzone_oorderdetail_up_bt"
-
 
 ///订单详情地址栏地图定位按钮默认图片
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_NORMAL   @"myzone_oorderdetail_map_bt_normal"
