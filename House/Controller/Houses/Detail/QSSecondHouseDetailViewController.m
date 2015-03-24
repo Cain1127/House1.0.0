@@ -1319,15 +1319,10 @@ static char LeftStarKey;            //!<左侧星级
             self.detailInfo = tempModel.detailInfo;
             self.houseInfo=self.detailInfo.house;
             self.userInfo=tempModel.detailInfo.user;
-            NSLog(@"二手房详情数据请求成功%@",tempModel.detailInfo);
-            NSLog(@"参数id%@",params);
-            NSLog(@"地址%@",self.houseInfo.address);
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI:tempModel.detailInfo.user.id_];
-
-            
             
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDApplicationInfoDataModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_token" optional="YES" attributeType="String" syncable="YES"/>
@@ -156,6 +156,406 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="community" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedCommunityDataModel" inverseName="photos" inverseEntity="QSCDCollectedCommunityDataModel" syncable="YES"/>
     </entity>
+    <entity name="QSCDCollectedNewHouseActivityDataModel" representedClassName="QSCDCollectedNewHouseActivityDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="end_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_building_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_periods" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="people_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="start_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="house_info" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedNewHouseAllHousesDataModel" representedClassName="QSCDCollectedNewHouseAllHousesDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="building_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_shi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_ting" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_wei" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_yangtai" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_building_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_periods" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="room_features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="house_info" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedNewHouseDataModel" representedClassName="QSCDCollectedNewHouseDataModel" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="area_covered" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areabuilt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areaid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attention_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="building_structure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="company_property" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="developer_intro" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="developer_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="green_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="heating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idcard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="installation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_syserver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="licence" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loan_base_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loan_first_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loan_loan_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loan_procedures_fee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="open_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="parking_lot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_areaid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_attention_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_building_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_checkin_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_commend" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_favorite_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_floor_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_house_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_households_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_installation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_ladder" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_ladder_family" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_loupan_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_loupan_periods" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_max_house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_min_house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_open_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_price_avg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_property_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_provinceid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_tj_condition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_tj_environment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_used_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phase_view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="property_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provinceid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="qq" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="used_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="volume_rate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="water" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="web" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseActivityDataModel" syncable="YES"/>
+        <relationship name="all_houses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseAllHousesDataModel" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHousePhotoDataModel" syncable="YES"/>
+        <relationship name="recommend_houses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseRecommendHousesDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedNewHousePhotoDataModel" representedClassName="QSCDCollectedNewHousePhotoDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="house_info" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedNewHouseRecommendHousesDataModel" representedClassName="QSCDCollectedNewHouseRecommendHousesDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="building_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_shi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_ting" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_wei" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_yangtai" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_building_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="loupan_periods" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="room_features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="house_info" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedNewHouseDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedRentHouseDataModel" representedClassName="QSCDCollectedRentHouseDataModel" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areaid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attention_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_create_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_idcard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_obj_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_qq" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_sign" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_update_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_user_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_vocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_web" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cycle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="decoration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="elevator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entrust" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entrust_company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fee" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor_which" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_face" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_shi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_ting" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_wei" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_yangtai" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="installation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_syserver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lead_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="negotiated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="payment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_avg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_before_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_changes_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_create_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_obj_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_revised_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_update_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="property_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provinceid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rent_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rent_property" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reservation_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_interval_end" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_interval_start" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_look_house_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_wait_look_house_people" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="update_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="used_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="village_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="village_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedRentHousePhotoDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedRentHousePhotoDataModel" representedClassName="QSCDCollectedRentHousePhotoDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="rent_house" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedRentHouseDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedSecondHandHouseDataModel" representedClassName="QSCDCollectedSecondHandHouseDataModel" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="areaid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attention_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="building_structure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="building_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_age" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_create_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_idcard" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_obj_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_qq" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_sex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_sign" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_update_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_user_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_vocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comment_web" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coordinate_x" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coordinate_y" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cycle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="elevator" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entrust" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="entrust_company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favorite_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="features" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor_which" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_face" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_nature" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_no" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_shi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_ting" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_wei" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="house_yangtai" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="installation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introduce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_syserver" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="negotiated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_avg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_before_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_create_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_obj_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_revised_price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_change_update_time" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price_changes_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="property_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="provinceid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="realname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reservation_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_interval_end" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time_interval_start" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_look_house_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_wait_look_house_people" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="used_year" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="video_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="view_count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="village_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="village_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QSCDCollectedSecondHandHousePhotoDataModel" syncable="YES"/>
+    </entity>
+    <entity name="QSCDCollectedSecondHandHousePhotoDataModel" representedClassName="QSCDCollectedSecondHandHousePhotoDataModel" syncable="YES">
+        <attribute name="attach_file" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="attach_thumb" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="second_house" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="QSCDCollectedSecondHandHouseDataModel" syncable="YES"/>
+    </entity>
     <entity name="QSCDConfigurationDataModel" representedClassName="QSCDConfigurationDataModel" syncable="YES">
         <attribute name="c_v" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="conf" optional="YES" attributeType="String" syncable="YES"/>
@@ -254,13 +654,22 @@
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-146" positionY="270" width="128" height="90"/>
         <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="1213"/>
+        <element name="QSCDCollectedCommunityHouseDataModel" positionX="-360" positionY="216" width="128" height="808"/>
+        <element name="QSCDCollectedCommunityPhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
         <element name="QSCDConfigurationDataModel" positionX="-146" positionY="180" width="128" height="75"/>
+        <element name="QSCDConfigurationdDataModel" positionX="-369" positionY="207" width="128" height="45"/>
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>
-        <element name="QSCDCollectedCommunityPhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
-        <element name="QSCDConfigurationdDataModel" positionX="-369" positionY="207" width="128" height="45"/>
-        <element name="QSCDCollectedCommunityHouseDataModel" positionX="-360" positionY="216" width="128" height="808"/>
+        <element name="QSCDCollectedNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1558"/>
+        <element name="QSCDCollectedNewHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
+        <element name="QSCDCollectedNewHouseRecommendHousesDataModel" positionX="-360" positionY="216" width="128" height="358"/>
+        <element name="QSCDCollectedNewHouseAllHousesDataModel" positionX="-351" positionY="225" width="128" height="358"/>
+        <element name="QSCDCollectedNewHouseActivityDataModel" positionX="-342" positionY="234" width="128" height="253"/>
+        <element name="QSCDCollectedRentHouseDataModel" positionX="-333" positionY="243" width="128" height="1588"/>
+        <element name="QSCDCollectedRentHousePhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
+        <element name="QSCDCollectedSecondHandHouseDataModel" positionX="-369" positionY="207" width="128" height="1558"/>
+        <element name="QSCDCollectedSecondHandHousePhotoDataModel" positionX="-360" positionY="216" width="128" height="148"/>
     </elements>
 </model>

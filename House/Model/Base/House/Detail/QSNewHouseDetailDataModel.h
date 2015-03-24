@@ -30,4 +30,6 @@
 @property (nonatomic,retain) NSArray *loupan_activity;                  //!<楼盘活动列表
 @property (nonatomic,retain) QSRateDataModel *loan;                     //!<利率数据
 
+@property (nonatomic,copy) NSString *is_syserver;                       //!<是否已同步服务端
+
 @end

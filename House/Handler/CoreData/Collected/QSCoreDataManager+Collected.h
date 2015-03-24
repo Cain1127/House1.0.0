@@ -66,7 +66,7 @@
  *  @since                  1.0.0
  */
 + (BOOL)checkCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
-+ (QSCommunityHouseDetailDataModel *)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
++ (id)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 
 /**
  *  @author             yangshengmeng, 15-03-19 11:03:29
