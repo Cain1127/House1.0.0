@@ -47,6 +47,8 @@
 - (USER_COUNT_TYPE)getUserType
 {
     
+    return uUserCountTypeTenant;
+    
 }
 
 

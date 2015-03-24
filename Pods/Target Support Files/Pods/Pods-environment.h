@@ -72,12 +72,6 @@
 #define COCOAPODS_VERSION_MINOR_ISO8601DateFormatterValueTransformer 6
 #define COCOAPODS_VERSION_PATCH_ISO8601DateFormatterValueTransformer 0
 
-// MBProgressHUD
-#define COCOAPODS_POD_AVAILABLE_MBProgressHUD
-#define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
-#define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
-#define COCOAPODS_VERSION_PATCH_MBProgressHUD 1
-
 // RKValueTransformers
 #define COCOAPODS_POD_AVAILABLE_RKValueTransformers
 #define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
@@ -107,10 +101,4 @@
 #define COCOAPODS_VERSION_MAJOR_TransitionKit 2
 #define COCOAPODS_VERSION_MINOR_TransitionKit 1
 #define COCOAPODS_VERSION_PATCH_TransitionKit 0
-
-// protobuf-ios
-#define COCOAPODS_POD_AVAILABLE_protobuf_ios
-#define COCOAPODS_VERSION_MAJOR_protobuf_ios 2
-#define COCOAPODS_VERSION_MINOR_protobuf_ios 3
-#define COCOAPODS_VERSION_PATCH_protobuf_ios 2
 
