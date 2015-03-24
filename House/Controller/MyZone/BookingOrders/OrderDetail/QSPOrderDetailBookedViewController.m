@@ -22,6 +22,10 @@
 
 @property (nonatomic, strong) QSOrderDetailInfoDataModel *orderDetailData;
 @property (nonatomic, strong) QSPOrderDetailTitleLabel *titleTipLabel;
+@property (nonatomic, strong) QSPOrderDetailShowingsTimeView *showingsTimeView;
+@property (nonatomic, strong) QSPHouseSummaryView *houseInfoSView;
+@property (nonatomic, strong) QSPOrderDetailAddressView *addressView;
+@property (nonatomic, strong) QSPOrderDetailPersonInfoView *personView;
 
 @end
 
@@ -96,42 +100,54 @@
     [changeOrderButtonView setFrame:CGRectMake(changeOrderButtonView.frame.origin.x, SIZE_DEVICE_HEIGHT -changeOrderButtonView.frame.size.height, changeOrderButtonView.frame.size.width, changeOrderButtonView.frame.size.height)];
     [self.view addSubview:changeOrderButtonView];
     
-    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(titleTipLabel.frame.origin.x, titleTipLabel.frame.origin.y+titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(titleTipLabel.frame.origin.y+titleTipLabel.frame.size.height))];
+    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(_titleTipLabel.frame.origin.x, _titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(_titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height))];
     [self.view addSubview:scrollView];
     
     ///看房时间
-    QSPOrderDetailShowingsTimeView *stView = [[QSPOrderDetailShowingsTimeView alloc] initAtTopLeft:CGPointMake(0.0f, 0.0f) withTimeData:timeArray];
-    [scrollView addSubview:stView];
+    self.showingsTimeView = [[QSPOrderDetailShowingsTimeView alloc] initAtTopLeft:CGPointMake(0.0f, 0.0f) withTimeData:timeArray];
+    [scrollView addSubview:self.showingsTimeView];
     
     ///房源简介
-    QSPHouseSummaryView *houseSView = [[QSPHouseSummaryView alloc] initAtTopLeft:CGPointMake(0.0f, stView.frame.origin.y+stView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
+    self.houseInfoSView = [[QSPHouseSummaryView alloc] initAtTopLeft:CGPointMake(0.0f, self.showingsTimeView.frame.origin.y+self.showingsTimeView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         NSLog(@"房源 clickBt");
     }];
-    [scrollView addSubview:houseSView];
+    [scrollView addSubview:_houseInfoSView];
     ///将房源简介引用添加进看房时间控件管理作动态高度扩展
-    [stView addAfterView:&houseSView];
+    [self.showingsTimeView addAfterView:&_houseInfoSView];
     
     ///地址栏
-    QSPOrderDetailAddressView *addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, houseSView.frame.origin.y+houseSView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
+    self.addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, self.houseInfoSView.frame.origin.y+self.houseInfoSView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         
         NSLog(@"地图定位 clickBt");
         
+        if (!self.orderDetailData || ![self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+            NSLog(@"QSOrderDetailInfoDataModel 错误");
+            return;
+        }
+        if (self.orderDetailData.house_msg) {
+            
+            //房源坐标
+//            self.orderDetailData.house_msg.coordinate_x;
+//            self.orderDetailData.house_msg.coordinate_y;
+            
+        }
+        
     }];
-    [scrollView addSubview:addressView];
+    [scrollView addSubview:_addressView];
     ///将地址栏引用添加进看房时间控件管理作动态高度扩展
-    [stView addAfterView:&addressView];
+    [self.showingsTimeView addAfterView:&_addressView];
     
     //业主信息栏
-    QSPOrderDetailPersonInfoView *personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, addressView.frame.origin.y+addressView.frame.size.height) withOrderData:self.orderData andCallBack:^(UIButton *button) {
+    self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, _addressView.frame.origin.y+_addressView.frame.size.height) withOrderData:self.orderData andCallBack:^(UIButton *button) {
         
         NSLog(@"askButton");
         
     }];
-    [scrollView addSubview:personView];
+    [scrollView addSubview:self.personView];
     ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
-    [stView addAfterView:&personView];
+    [self.showingsTimeView addAfterView:&_personView];
 
-    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, personView.frame.origin.y+personView.frame.size.height)];
+    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.personView.frame.origin.y+self.personView.frame.size.height)];
     
     
     [self getDetailData];
@@ -145,9 +161,28 @@
         NSLog(@"QSOrderDetailInfoDataModel 错误");
         return;
     }
-    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
-
     
+    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
+    
+    if (_titleTipLabel) {
+        [_titleTipLabel setTitle:[detailData getStatusStr]];
+    }
+    
+    if (_houseInfoSView) {
+        [_houseInfoSView setHouseData:detailData.house_msg];
+    }
+    
+    if (_addressView) {
+        [_addressView setHouseData:detailData.house_msg];
+    }
+    
+    if (_personView) {
+        [_personView setOrderData:self.orderDetailData];
+    }
+    
+    if (_showingsTimeView) {
+        [_showingsTimeView setTimeData:detailData.appoint_list];
+    }
     
 }
 
@@ -197,7 +232,11 @@
         }else{
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                })
             }
             
         }

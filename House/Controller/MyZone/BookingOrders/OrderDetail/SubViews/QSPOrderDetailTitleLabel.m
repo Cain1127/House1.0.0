@@ -28,7 +28,7 @@
     
 }
 
-- (void)setTitle:(NSString*)title
+- (void)setTitle:(NSString*)titleStr
 {
     if (titleStr&&[titleStr isKindOfClass:[NSString class]]) {
 //        if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP]) {
@@ -40,6 +40,9 @@
                 [self setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
                 
             }
+        
+        [self setText:titleStr];
+        
     }
 }
 

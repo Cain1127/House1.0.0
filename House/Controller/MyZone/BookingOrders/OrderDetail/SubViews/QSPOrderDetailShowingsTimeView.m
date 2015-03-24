@@ -10,6 +10,8 @@
 
 #include <objc/runtime.h>
 
+#import "QSOrderDetailInfoDataModel.h"
+
 //上下间隙
 #define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
 
@@ -94,9 +96,12 @@ static char bottomViewKey;      //!<分割线关联key
             [self addSubview:timeLabel];
             
             id item = [timeArray objectAtIndex:i];
+            
             if ([item isKindOfClass:[NSString class]]) {
 //                [timeLabel setText:@"2015-03-13(星期五)10:00-11:00"];
                 [timeLabel setText:item];
+            }else if ([item isKindOfClass:[QSOrderDetailAppointTimeDataModel class]]) {
+                [timeLabel setText:((QSOrderDetailAppointTimeDataModel*)item).time];
             }
             
             contentHeight = timeLabel.frame.origin.y +timeLabel.frame.size.height;
@@ -158,12 +163,13 @@ static char bottomViewKey;      //!<分割线关联key
     }else{
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 0.0f)];
+        [self ResetOtherViewOffsetY];
         
     }
     
 }
 
-- (void)addAfterView:(UIView**)view
+- (void)addAfterView:(UIView* __strong *)view
 {
     
     [self.afterViewList addObject:*view];
@@ -191,6 +197,12 @@ static char bottomViewKey;      //!<分割线关联key
         
     }
     
+    [self ResetOtherViewOffsetY];
+    
+}
+
+- (void)ResetOtherViewOffsetY
+{
     CGFloat offsetY = self.frame.origin.y+self.frame.size.height;
     
     if ([self.afterViewList count]>0) {
@@ -215,7 +227,8 @@ static char bottomViewKey;      //!<分割线关联key
         [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, offsetY)];
         
     }
-    
+
 }
+
 
 @end

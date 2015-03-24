@@ -16,6 +16,6 @@
 
 - (void)setTimeData:(NSArray*)timeArray;
 
-- (void)addAfterView:(UIView**)view;
+- (void)addAfterView:(UIView* __strong *)view;
 
 @end

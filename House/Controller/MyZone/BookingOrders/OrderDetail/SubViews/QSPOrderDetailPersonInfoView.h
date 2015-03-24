@@ -16,6 +16,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
 
-- (void)withOrderData:(id)orderData;
+- (void)setOrderData:(id)orderData;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "QSOrderListOrderInfoDataModel.h"
+#import "QSCoreDataManager+User.h"
 
 @implementation QSOrderListOrderInfoDataModel
 
@@ -40,6 +41,11 @@
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"buyer_msg" toKeyPath:@"buyer_msg" withMapping:[QSOrderListOrderInfoPersonInfoDataModel objectMapping]]];
     
     return shared_mapping;
+    
+}
+
+- (USER_COUNT_TYPE)getUserType
+{
     
 }
 
@@ -97,26 +103,13 @@
     
     if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {
         
-        if ([self.order_status isEqualToString:@"500201"]) {
-            statusStr = @"预约状态";
+        if ([self.order_status isEqualToString:@"500201"] || [self.order_status isEqualToString:@"500215"] || [self.order_status isEqualToString:@"500216"]) {
+            //@"预约状态",@"看房待确认状态",@"房客修改看房时间"
+            statusStr = @"待确认";
         }else if ([self.order_status isEqualToString:@"500202"]) {
             statusStr = @"再预约中状态";
         }else if ([self.order_status isEqualToString:@"500210"]) {
-            statusStr = @"待看房中";
-        }else if ([self.order_status isEqualToString:@"500211"]) {
-            statusStr = @"客户已选定时间";
-        }else if ([self.order_status isEqualToString:@"500212"]) {
-            statusStr = @"客户不同意时间";
-        }else if ([self.order_status isEqualToString:@"500213"]) {
-            statusStr = @"房主已选定时间";
-        }else if ([self.order_status isEqualToString:@"500214"]) {
-            statusStr = @"房主不同意时间";
-        }else if ([self.order_status isEqualToString:@"500215"]) {
-            statusStr = @"看房待确认状态";
-        }else if ([self.order_status isEqualToString:@"500216"]) {
-            statusStr = @"房客修改看房时间";
-        }else if ([self.order_status isEqualToString:@"500217"]) {
-            statusStr = @"房主修改看房时间";
+            statusStr = @"待看房";
         }else if ([self.order_status isEqualToString:@"500230"]) {
             statusStr = @"看房待确认";
         }else if ([self.order_status isEqualToString:@"500231"]) {
@@ -346,6 +339,7 @@
 }
 
 @end
+
 
 @implementation QSOrderButtonActionModel
 

@@ -14,6 +14,14 @@
 //上下间隙
 #define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
 
+
+@interface QSPOrderDetailAddressView ()
+
+@property (nonatomic, strong) UILabel *addressLabel;
+
+@end
+
+
 @implementation QSPOrderDetailAddressView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack
@@ -50,18 +58,18 @@
             labelHeight = 44.0f;
         }
         
-        UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, labelWidth, labelHeight)];
-        [addressLabel setNumberOfLines:0];
-        [addressLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
-        [addressLabel setText:addressStr];
-        [self addSubview:addressLabel];
+        self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, labelWidth, labelHeight)];
+        [self.addressLabel setNumberOfLines:0];
+        [self.addressLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
+        [self.addressLabel setText:addressStr];
+        [self addSubview:self.addressLabel];
         
         ///地图定位按钮
         QSBlockButtonStyleModel *mapButtonStyle = [[QSBlockButtonStyleModel alloc] init];
         mapButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_MAP_BT_NORMAL;
         mapButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED;
         mapButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED;
-        UIButton *mapButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, addressLabel.frame.origin.y+(addressLabel.frame.size.height-44.0f)/2.f, 44, 44) andButtonStyle:mapButtonStyle andCallBack:^(UIButton *button) {
+        UIButton *mapButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, self.addressLabel.frame.origin.y+(self.addressLabel.frame.size.height-44.0f)/2.f, 44, 44) andButtonStyle:mapButtonStyle andCallBack:^(UIButton *button) {
             
             NSLog(@"mapButton");
             if (self.blockButtonCallBack) {
@@ -71,7 +79,7 @@
         }];
         
         ///大的点击区域
-        UIButton *clickBt = [UIButton createBlockButtonWithFrame:CGRectMake(addressLabel.frame.origin.x, addressLabel.frame.origin.y, mapButton.frame.origin.x+mapButton.frame.size.width+10, addressLabel.frame.size.height) andButtonStyle:[[QSBlockButtonStyleModel alloc] init] andCallBack:^(UIButton *button) {
+        UIButton *clickBt = [UIButton createBlockButtonWithFrame:CGRectMake(self.addressLabel.frame.origin.x, self.addressLabel.frame.origin.y, mapButton.frame.origin.x+mapButton.frame.size.width+10, self.addressLabel.frame.size.height) andButtonStyle:[[QSBlockButtonStyleModel alloc] init] andCallBack:^(UIButton *button) {
             
             if (self.blockButtonCallBack) {
                 self.blockButtonCallBack(button);
@@ -83,7 +91,7 @@
         [self addSubview:mapButton];
         
         ///最下方边界区域
-        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, addressLabel.frame.origin.y+addressLabel.frame.size.height, (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP), CONTENT_TOP_BOTTOM_OFFSETY)];
+        UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, self.addressLabel.frame.origin.y+self.addressLabel.frame.size.height, (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP), CONTENT_TOP_BOTTOM_OFFSETY)];
         [bottomView setBackgroundColor:[UIColor whiteColor]];
         [self addSubview:bottomView];
         
@@ -95,6 +103,7 @@
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomView.frame.origin.y+bottomView.frame.size.height)];
         
         self.blockButtonCallBack = callBack;
+        
     }
     
     return self;
@@ -102,6 +111,28 @@
 }
 
 - (void)setHouseData:(id)houseData{
+    
+    //地址
+    NSString *addressStr = @"";
+    
+    if (houseData) {
+        if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+            QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+            addressStr = data.address;
+        }
+    }
+    
+    
+    CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-44.0f;
+    CGFloat labelHeight = [addressStr calculateStringDisplayHeightByFixedWidth:labelWidth andFontSize:FONT_BODY_14];
+    if (labelHeight<44.0f) {
+        labelHeight = 44.0f;
+    }
+    
+    if (self.addressLabel) {
+        [self.addressLabel setText:addressStr];
+        [self.addressLabel setFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, labelWidth, labelHeight)];
+    }
     
 }
 

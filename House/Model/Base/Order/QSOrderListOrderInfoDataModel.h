@@ -53,6 +53,8 @@
 
 - (NSArray*)getButtonAction;    //获取当前支持的按钮操作
 
+- (USER_COUNT_TYPE)getUserType; //获取用户身份
+
 @end
 
 @interface QSOrderListOrderInfoPersonInfoDataModel : QSBaseModel
