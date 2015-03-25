@@ -1,5 +1,5 @@
 //
-//  QSPBookingOrderListsTableViewCell.h
+//  QSPBuyerBookedOrderListsTableViewCell.h
 //  House
 //
 //  Created by CoolTea on 15/3/10.
@@ -13,7 +13,7 @@
 //Cell高度
 #define MY_ZONE_ORDER_LIST_CELL_HEIGHT      115.0f
 
-@interface QSPBookingOrderListsTableViewCell : UITableViewCell
+@interface QSPBuyerBookedOrderListsTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 

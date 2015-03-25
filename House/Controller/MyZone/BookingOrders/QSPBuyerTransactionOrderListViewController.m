@@ -1,19 +1,19 @@
 //
-//  QSPTransactionOrderListViewController.m
+//  QSPBuyerTransactionOrderListViewController.m
 //  House
 //
 //  Created by CoolTea on 15/3/24.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPTransactionOrderListViewController.h"
+#import "QSPBuyerTransactionOrderListViewController.h"
 #import "QSCoreDataManager+User.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-#import "QSPTransactionOrderListPendingView.h"
-#import "QSPTransactionOrderListCompletedView.h"
-#import "QSPTransactionOrderListCancelView.h"
+#import "QSPBuyerTransactionOrderListPendingView.h"
+#import "QSPBuyerTransactionOrderListCompletedView.h"
+#import "QSPBuyerTransactionOrderListCancelView.h"
 #include <objc/runtime.h>
 
 ///关联
@@ -26,13 +26,13 @@ static char CompleteListTableViewKey;       //!<已成交列表关联
 static char CancelListTableViewKey;         //!<已取消列表关联
 static char TipsImageViewKey;               //!<指示三角形关联
 
-@interface QSPTransactionOrderListViewController ()
+@interface QSPBuyerTransactionOrderListViewController ()
 
-@property (nonatomic,assign) MYZONE_TRANSACTION_ORDER_LIST_TYPE selectedListType;//!<当前选中显示的列表状态
+@property (nonatomic,assign) MYZONE_BUYER_TRANSACTION_ORDER_LIST_TYPE selectedListType;//!<当前选中显示的列表状态
 
 @end
 
-@implementation QSPTransactionOrderListViewController
+@implementation QSPBuyerTransactionOrderListViewController
 
 #pragma mark - 初始化
 ///初始化
@@ -42,7 +42,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
     if (self = [super init]) {
         
         ///获取当前用户类型
-        self.selectedListType = mTransactionOrderListTypePending;
+        self.selectedListType = mBuyerTransactionOrderListTypePending;
     }
     
     return self;
@@ -82,21 +82,21 @@ static char TipsImageViewKey;               //!<指示三角形关联
     QSImageView *tipsImage;
     
     ///创建待成交列表
-    QSPTransactionOrderListPendingView *pendingListView = [[QSPTransactionOrderListPendingView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f)];
+    QSPBuyerTransactionOrderListPendingView *pendingListView = [[QSPBuyerTransactionOrderListPendingView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f)];
     [pendingListView setParentViewController:self];
     [self.view addSubview:pendingListView];
     
     objc_setAssociatedObject(self, &PendingListTableViewKey, pendingListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已成交列表
-    QSPTransactionOrderListCompletedView *completeListView = [[QSPTransactionOrderListCompletedView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, pendingListView.frame.origin.y, pendingListView.frame.size.width, pendingListView.frame.size.height)];
+    QSPBuyerTransactionOrderListCompletedView *completeListView = [[QSPBuyerTransactionOrderListCompletedView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, pendingListView.frame.origin.y, pendingListView.frame.size.width, pendingListView.frame.size.height)];
     [completeListView setParentViewController:self];
     [self.view addSubview:completeListView];
     
     objc_setAssociatedObject(self, &CompleteListTableViewKey, completeListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已取消列表
-    QSPTransactionOrderListCancelView *cancelListView = [[QSPTransactionOrderListCancelView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, pendingListView.frame.origin.y, pendingListView.frame.size.width, pendingListView.frame.size.height)];
+    QSPBuyerTransactionOrderListCancelView *cancelListView = [[QSPBuyerTransactionOrderListCancelView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, pendingListView.frame.origin.y, pendingListView.frame.size.width, pendingListView.frame.size.height)];
     [cancelListView setParentViewController:self];
     [self.view addSubview:cancelListView];
     
@@ -115,7 +115,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mTransactionOrderListTypePending animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerTransactionOrderListTypePending animateWithDuration:0.3f];
         
     }];
     PendingButton.selected = YES;
@@ -136,7 +136,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mTransactionOrderListTypeCompleted animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerTransactionOrderListTypeCompleted animateWithDuration:0.3f];
         
     }];
     [self.view addSubview:completeButton];
@@ -156,7 +156,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mTransactionOrderListTypeCancel animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerTransactionOrderListTypeCancel animateWithDuration:0.3f];
         
     }];
     [self.view addSubview:cancelButton];
@@ -180,14 +180,14 @@ static char TipsImageViewKey;               //!<指示三角形关联
     
 }
 
-- (void)setSelectedType:(MYZONE_TRANSACTION_ORDER_LIST_TYPE)type
+- (void)setSelectedType:(MYZONE_BUYER_TRANSACTION_ORDER_LIST_TYPE)type
 {
     
     [self setSelectedType:type animateWithDuration:0.0f];
     
 }
 
-- (void)setSelectedType:(MYZONE_TRANSACTION_ORDER_LIST_TYPE)type animateWithDuration:(NSTimeInterval)duration
+- (void)setSelectedType:(MYZONE_BUYER_TRANSACTION_ORDER_LIST_TYPE)type animateWithDuration:(NSTimeInterval)duration
 {
     
     self.selectedListType = type;
@@ -198,12 +198,12 @@ static char TipsImageViewKey;               //!<指示三角形关联
     
     
     QSImageView *tipsImage = objc_getAssociatedObject(self, &TipsImageViewKey);
-    QSPTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    QSPTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     switch (self.selectedListType) {
-        case mTransactionOrderListTypePending:
+        case mBuyerTransactionOrderListTypePending:
         {
             ///转换选择状态
             if (completeButton) {
@@ -239,7 +239,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
             
         }
             break;
-        case mTransactionOrderListTypeCompleted:
+        case mBuyerTransactionOrderListTypeCompleted:
         {
             ///转换选择状态
             if (completeButton) {
@@ -275,7 +275,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
             
         }
             break;
-        case mTransactionOrderListTypeCancel:
+        case mBuyerTransactionOrderListTypeCancel:
         {
             ///转换选择状态
             if (completeButton) {
@@ -341,9 +341,9 @@ static char TipsImageViewKey;               //!<指示三角形关联
 - (void)showAllList
 {
     
-    QSPTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    QSPTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     if (pendingListView) {
         [pendingListView setHidden:NO];
@@ -360,9 +360,9 @@ static char TipsImageViewKey;               //!<指示三角形关联
 - (void)hideAllList
 {
     
-    QSPTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    QSPTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     if (pendingListView) {
         [pendingListView setHidden:YES];
@@ -377,26 +377,26 @@ static char TipsImageViewKey;               //!<指示三角形关联
 }
 
 
-- (void)showListWithType:(MYZONE_TRANSACTION_ORDER_LIST_TYPE)type
+- (void)showListWithType:(MYZONE_BUYER_TRANSACTION_ORDER_LIST_TYPE)type
 {
     
     [self hideAllList];
-    QSPTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    QSPTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     switch (type) {
-        case mTransactionOrderListTypePending:
+        case mBuyerTransactionOrderListTypePending:
             if (pendingListView) {
                 [pendingListView setHidden:NO];
             }
             break;
-        case mTransactionOrderListTypeCompleted:
+        case mBuyerTransactionOrderListTypeCompleted:
             if (completeListView) {
                 [completeListView setHidden:NO];
             }
             break;
-        case mTransactionOrderListTypeCancel:
+        case mBuyerTransactionOrderListTypeCancel:
             if (cancelListView) {
                 [cancelListView setHidden:NO];
             }

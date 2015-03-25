@@ -1,13 +1,13 @@
 //
-//  QSPBookingOrderCompletedListView.m
+//  QSPBuyerBookedOrderCompletedListView.m
 //  House
 //
 //  Created by CoolTea on 15/3/10.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBookingOrderCompletedListView.h"
-#import "QSPBookingOrderListsTableViewCell.h"
+#import "QSPBuyerBookedOrderCompletedListView.h"
+#import "QSPBuyerBookedOrderListsTableViewCell.h"
 
 #import "MJRefresh.h"
 
@@ -25,7 +25,7 @@
 static char CompleteListTableViewKey;       //!<已看房列表关联
 static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 
-@interface QSPBookingOrderCompletedListView () <UITableViewDataSource,UITableViewDelegate>
+@interface QSPBuyerBookedOrderCompletedListView () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *completeListDataSource;    //!<已看房列表数据源
 
@@ -33,7 +33,7 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 
 @end
 
-@implementation QSPBookingOrderCompletedListView
+@implementation QSPBuyerBookedOrderCompletedListView
 
 @synthesize parentViewController;
 
@@ -172,12 +172,12 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     static NSString *BookingOrderListsTableViewCellName = @"BookingOrderListsTableViewCell";
     
     ///从复用队列中获取cell
-    QSPBookingOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:BookingOrderListsTableViewCellName];
+    QSPBuyerBookedOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:BookingOrderListsTableViewCellName];
     
     ///判断是否需要重新创建
     if (nil == cellSystem) {
         
-        cellSystem = [[QSPBookingOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BookingOrderListsTableViewCellName];
+        cellSystem = [[QSPBuyerBookedOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BookingOrderListsTableViewCellName];
         
         ///取消选择状态
         cellSystem.selectionStyle = UITableViewCellSelectionStyleNone;

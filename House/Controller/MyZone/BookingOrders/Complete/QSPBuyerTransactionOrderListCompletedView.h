@@ -1,5 +1,5 @@
 //
-//  QSPTransactionOrderListPendingView.h
+//  QSPBuyerTransactionOrderListCompletedView.h
 //  House
 //
 //  Created by CoolTea on 15/3/25.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSPTransactionOrderListPendingView : UIView
+@interface QSPBuyerTransactionOrderListCompletedView : UIView
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 

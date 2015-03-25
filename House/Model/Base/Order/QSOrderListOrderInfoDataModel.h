@@ -55,6 +55,8 @@
 
 - (USER_COUNT_TYPE)getUserType; //获取用户身份
 
+- (NSAttributedString*)getSummaryAttributedString;        //获取订单列表标题下方的简介字符串
+
 @end
 
 @interface QSOrderListOrderInfoPersonInfoDataModel : QSBaseModel

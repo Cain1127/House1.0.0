@@ -1,5 +1,5 @@
 //
-//  QSPBookingOrderBookingListView.h
+//  QSPBuyerBookedOrderCancelListView.h
 //  House
 //
 //  Created by CoolTea on 15/3/10.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSPBookingOrderBookingListView : UIView
+@interface QSPBuyerBookedOrderCancelListView : UIView
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 

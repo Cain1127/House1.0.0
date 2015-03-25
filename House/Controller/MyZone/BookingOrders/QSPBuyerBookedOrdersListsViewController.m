@@ -6,14 +6,14 @@
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBookingOrdersListsViewController.h"
+#import "QSPBuyerBookedOrdersListsViewController.h"
 #import "QSCoreDataManager+User.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-#import "QSPBookingOrderBookingListView.h"
-#import "QSPBookingOrderCompletedListView.h"
-#import "QSPBookingOrderCancelListView.h"
+#import "QSPBuyerBookedOrderBookedListView.h"
+#import "QSPBuyerBookedOrderCompletedListView.h"
+#import "QSPBuyerBookedOrderCancelListView.h"
 
 #include <objc/runtime.h>
 
@@ -38,13 +38,13 @@ typedef enum
     
 }TENANT_ZONE_ORDERLIST_SELECT_TYPE;
 
-@interface QSPBookingOrdersListsViewController ()
+@interface QSPBuyerBookedOrdersListsViewController ()
 
-@property (nonatomic,assign) MYZONE_BOOKED_ORDER_LIST_TYPE selectedListType;//!<当前选中显示的列表状态
+@property (nonatomic,assign) MYZONE_BUYER_BOOKED_ORDER_LIST_TYPE selectedListType;//!<当前选中显示的列表状态
 
 @end
 
-@implementation QSPBookingOrdersListsViewController
+@implementation QSPBuyerBookedOrdersListsViewController
 
 #pragma mark - 初始化
 ///初始化
@@ -53,7 +53,7 @@ typedef enum
     
     if (self = [super init]) {
         
-        self.selectedListType = mOrderListTypeBooked;
+        self.selectedListType = mBuyerBookedOrderListTypeBooked;
     }
     
     return self;
@@ -93,21 +93,21 @@ typedef enum
     QSImageView *tipsImage;
     
     ///创建待看房列表
-    QSPBookingOrderBookingListView *waitForListView = [[QSPBookingOrderBookingListView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f)];
+    QSPBuyerBookedOrderBookedListView *waitForListView = [[QSPBuyerBookedOrderBookedListView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f)];
     [waitForListView setParentViewController:self];
     [self.view addSubview:waitForListView];
     
     objc_setAssociatedObject(self, &BookingListTableViewKey, waitForListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已看房列表
-    QSPBookingOrderCompletedListView *completeListView = [[QSPBookingOrderCompletedListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
+    QSPBuyerBookedOrderCompletedListView *completeListView = [[QSPBuyerBookedOrderCompletedListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
     [completeListView setParentViewController:self];
     [self.view addSubview:completeListView];
     
     objc_setAssociatedObject(self, &CompleteListTableViewKey, completeListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已取消列表
-    QSPBookingOrderCancelListView *cancelListView = [[QSPBookingOrderCancelListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
+    QSPBuyerBookedOrderCancelListView *cancelListView = [[QSPBuyerBookedOrderCancelListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
     [cancelListView setParentViewController:self];
     [self.view addSubview:cancelListView];
     
@@ -126,7 +126,7 @@ typedef enum
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mOrderListTypeBooked animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerBookedOrderListTypeBooked animateWithDuration:0.3f];
         
     }];
     waitForButton.selected = YES;
@@ -147,7 +147,7 @@ typedef enum
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mOrderListTypeCompleted animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerBookedOrderListTypeCompleted animateWithDuration:0.3f];
         
     }];
     [self.view addSubview:completeButton];
@@ -167,7 +167,7 @@ typedef enum
         
         [self showAllList];
         ///转换选择状态
-        [self setSelectedType:mOrderListTypeCancel animateWithDuration:0.3f];
+        [self setSelectedType:mBuyerBookedOrderListTypeCancel animateWithDuration:0.3f];
         
     }];
     [self.view addSubview:cancelButton];
@@ -191,14 +191,14 @@ typedef enum
     
 }
 
-- (void)setSelectedType:(MYZONE_BOOKED_ORDER_LIST_TYPE)type
+- (void)setSelectedType:(MYZONE_BUYER_BOOKED_ORDER_LIST_TYPE)type
 {
     
     [self setSelectedType:type animateWithDuration:0.0f];
     
 }
 
-- (void)setSelectedType:(MYZONE_BOOKED_ORDER_LIST_TYPE)type animateWithDuration:(NSTimeInterval)duration
+- (void)setSelectedType:(MYZONE_BUYER_BOOKED_ORDER_LIST_TYPE)type animateWithDuration:(NSTimeInterval)duration
 {
     
     self.selectedListType = type;
@@ -209,12 +209,12 @@ typedef enum
     
 
     QSImageView *tipsImage = objc_getAssociatedObject(self, &TipsImageViewKey);
-    QSPBookingOrderBookingListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
-    QSPBookingOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPBookingOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     switch (self.selectedListType) {
-        case mOrderListTypeBooked:
+        case mBuyerBookedOrderListTypeBooked:
             {
                 ///转换选择状态
                 if (completeButton) {
@@ -250,7 +250,7 @@ typedef enum
                 
             }
             break;
-        case mOrderListTypeCompleted:
+        case mBuyerBookedOrderListTypeCompleted:
             {
                 ///转换选择状态
                 if (completeButton) {
@@ -286,7 +286,7 @@ typedef enum
                 
             }
             break;
-        case mOrderListTypeCancel:
+        case mBuyerBookedOrderListTypeCancel:
             {
                 ///转换选择状态
                 if (completeButton) {
@@ -352,9 +352,9 @@ typedef enum
 - (void)showAllList
 {
     
-    QSPBookingOrderBookingListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
-    QSPBookingOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPBookingOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     if (waitForListView) {
         [waitForListView setHidden:NO];
@@ -371,9 +371,9 @@ typedef enum
 - (void)hideAllList
 {
     
-    QSPBookingOrderBookingListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
-    QSPBookingOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPBookingOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     if (waitForListView) {
         [waitForListView setHidden:YES];
@@ -388,26 +388,26 @@ typedef enum
 }
 
 
-- (void)showListWithType:(MYZONE_BOOKED_ORDER_LIST_TYPE)type
+- (void)showListWithType:(MYZONE_BUYER_BOOKED_ORDER_LIST_TYPE)type
 {
     
     [self hideAllList];
-    QSPBookingOrderBookingListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
-    QSPBookingOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    QSPBookingOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
     
     switch (type) {
-        case mOrderListTypeBooked:
+        case mBuyerBookedOrderListTypeBooked:
             if (waitForListView) {
                 [waitForListView setHidden:NO];
             }
             break;
-        case mOrderListTypeCompleted:
+        case mBuyerBookedOrderListTypeCompleted:
             if (completeListView) {
                 [completeListView setHidden:NO];
             }
             break;
-        case mOrderListTypeCancel:
+        case mBuyerBookedOrderListTypeCancel:
             if (cancelListView) {
                 [cancelListView setHidden:NO];
             }

@@ -1,5 +1,5 @@
 //
-//  QSPBookingOrderCompletedListView.h
+//  QSPBuyerBookedOrderCompletedListView.h
 //  House
 //
 //  Created by CoolTea on 15/3/10.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSPBookingOrderCompletedListView : UIView
+@interface QSPBuyerBookedOrderCompletedListView : UIView
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 

@@ -23,8 +23,8 @@
 
 #import <objc/runtime.h>
 
-#import "QSPBookingOrdersListsViewController.h"
-#import "QSPTransactionOrderListViewController.h"
+#import "QSPBuyerBookedOrdersListsViewController.h"
+#import "QSPBuyerTransactionOrderListViewController.h"
 
 ///关联
 static char UserIconKey;//!<用户头像
@@ -226,9 +226,9 @@ static char UserIconKey;//!<用户头像
                 
                 NSLog(@"==================待看房======================");
                 {
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeBooked];
+                    [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                 }
@@ -239,9 +239,9 @@ static char UserIconKey;//!<用户头像
                 
                 NSLog(@"==================已看房======================");
                 {
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeCompleted];
+                    [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                 }
@@ -252,9 +252,9 @@ static char UserIconKey;//!<用户头像
                 
                 NSLog(@"==================待成交======================");
                 {
-                    QSPTransactionOrderListViewController *bolVc = [[QSPTransactionOrderListViewController alloc] init];
+                    QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mTransactionOrderListTypePending];
+                    [bolVc setSelectedType:mBuyerTransactionOrderListTypePending];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                 }
@@ -265,9 +265,9 @@ static char UserIconKey;//!<用户头像
                 
                 NSLog(@"==================已成交======================");
                 {
-                    QSPTransactionOrderListViewController *bolVc = [[QSPTransactionOrderListViewController alloc] init];
+                    QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mTransactionOrderListTypeCompleted];
+                    [bolVc setSelectedType:mBuyerTransactionOrderListTypeCompleted];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                 }
@@ -279,9 +279,9 @@ static char UserIconKey;//!<用户头像
                 NSLog(@"==================预约订单======================");
                 {
                     
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                     [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeBooked];
+                    [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:bolVc animated:YES];
                     
@@ -292,9 +292,9 @@ static char UserIconKey;//!<用户头像
             case tTenantZoneActionTypeDeal:
             {
                 
-                QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                 [bolVc setHiddenCustomTabbarWhenPush:YES];
-                [bolVc setSelectedType:mOrderListTypeCompleted];
+                [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:bolVc animated:YES];
                 

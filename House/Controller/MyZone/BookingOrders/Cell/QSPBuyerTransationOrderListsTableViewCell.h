@@ -1,5 +1,5 @@
 //
-//  QSPTransationOrderListsTableViewCell.h
+//  QSPBuyerTransationOrderListsTableViewCell.h
 //  House
 //
 //  Created by CoolTea on 15/3/25.
@@ -13,7 +13,7 @@
 //Cell高度
 #define MY_ZONE_ORDER_LIST_CELL_HEIGHT      115.0f
 
-@interface QSPTransationOrderListsTableViewCell : UITableViewCell
+@interface QSPBuyerTransationOrderListsTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 
