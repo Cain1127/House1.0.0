@@ -7,7 +7,9 @@
 
 ODSocket::ODSocket(SOCKET sock)
 {
+    
 	m_sock = sock;
+    
 }
 
 ODSocket::~ODSocket()

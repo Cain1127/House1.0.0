@@ -349,80 +349,117 @@ static char HistoryKey;     //!<浏览足迹
             ///待看房点击
         case tTenantZoneActionTypeStayAround:
             
-            NSLog(@"==================待看房======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeStayAround,nil);
+                
+            }
             
             break;
             
             ///已看房点击
         case tTenantZoneActionTypeHavedAround:
             
-            NSLog(@"==================已看房======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeHavedAround,nil);
+                
+            }
             
             break;
             
             ///待成交点击
         case tTenantZoneActionTypeWaitCommit:
             
-            NSLog(@"==================待成交======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeWaitCommit,nil);
+                
+            }
             
             break;
             
             ///已成交点击
         case tTenantZoneActionTypeCommited:
             
-            NSLog(@"==================已成交======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeCommited,nil);
+                
+            }
             
             break;
             
             ///预约订单击
         case tTenantZoneActionTypeAppointed:
             
-            NSLog(@"==================预约订单======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeAppointed,nil);
+                
+            }
             
             break;
             
             ///已成交订单点击
         case tTenantZoneActionTypeDeal:
             
-            NSLog(@"==================已成交订单======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeDeal,nil);
+                
+            }
             
             break;
             
             ///求租求购点击
         case tTenantZoneActionTypeBeg:
             
-            NSLog(@"==================求租求购======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeBeg,nil);
+                
+            }
             
             break;
             
             ///收藏房源
         case tTenantZoneActionTypeCollected:
             
-            NSLog(@"==================收藏房源======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeCollected,nil);
+                
+            }
             
             break;
             
             ///关注小区
         case tTenantZoneActionTypeCommunity:
             
-            NSLog(@"==================关注小区======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeCommunity,nil);
+                
+            }
             
             break;
             
             ///浏览记录
         case tTenantZoneActionTypeHistory:
             
-            NSLog(@"==================浏览记录======================");
+            if (self.tenantCallBack) {
+                
+                self.tenantCallBack(tTenantZoneActionTypeHistory,nil);
+                
+            }
             
             break;
             
         default:
             break;
     }
-
-    if (self.tenantCallBack) {
-        self.tenantCallBack(actionTag,nil);
-    }
+    
 }
 
 #pragma mark - 返回房客的基本功能配置信息

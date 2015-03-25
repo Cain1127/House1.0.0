@@ -14,10 +14,12 @@ typedef enum
 
     oOwnerZoneActionTypeSaleHouse = 99,     //!<出售物业
     oOwnerZoneActionTypeRenantHouse,        //!<出租物业
+    
     oOwnerZoneActionTypeStayAround,         //!<待看房
     oOwnerZoneActionTypeHavedAround,        //!<已看房
     oOwnerZoneActionTypeWaitCommit,         //!<待成交
     oOwnerZoneActionTypeCommited,           //!<已成交
+    
     oOwnerZoneActionTypeAppointed,          //!<预约我的订单
     oOwnerZoneActionTypeDeal,               //!<成交订单
     oOwnerZoneActionTypeProprerty,          //!<物业管理

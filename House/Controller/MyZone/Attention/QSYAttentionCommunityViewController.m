@@ -146,7 +146,7 @@
 {
 
     ///判断是否已登录
-    if ([self checkLogin]) {
+    if (lLoginCheckActionTypeLogined == [self checkLogin]) {
         
         ///获取网络数据
         
@@ -169,7 +169,7 @@
 {
 
     ///判断是否已登录
-    if ([self checkLogin]) {
+    if (lLoginCheckActionTypeLogined == [self checkLogin]) {
         
         ///获取网络数据
         

@@ -277,10 +277,18 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
  *
  *  @since  1.0.0
  */
-- (BOOL)checkLogin
+- (LOGIN_CHECK_ACTION_TYPE)checkLogin
 {
 
-    return [QSCoreDataManager isLogin];
+    if ([QSCoreDataManager isLogin]) {
+        
+        return lLoginCheckActionTypeLogined;
+        
+    } else {
+    
+        return lLoginCheckActionTypeUnLogin;
+    
+    }
 
 }
 
@@ -307,11 +315,11 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
  *
  *  @since                  1.0.0
  */
-- (void)checkLoginAndShowLoginWithBlock:(void(^)(BOOL flag))loginCallBack
+- (void)checkLoginAndShowLoginWithBlock:(void(^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack
 {
 
-    BOOL isLogin = [self checkLogin];
-    if (!isLogin) {
+    LOGIN_CHECK_ACTION_TYPE isLogin = [self checkLogin];
+    if (lLoginCheckActionTypeUnLogin == isLogin) {
         
         QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:loginCallBack];
         loginVC.hiddenCustomTabbarWhenPush = YES;

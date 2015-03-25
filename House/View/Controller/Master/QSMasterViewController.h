@@ -133,7 +133,7 @@ static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
  *
  *  @since  1.0.0
  */
-- (BOOL)checkLogin;
+- (LOGIN_CHECK_ACTION_TYPE)checkLogin;
 
 /**
  *  @author yangshengmeng, 15-03-13 14:03:46
@@ -153,6 +153,6 @@ static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
  *
  *  @since                  1.0.0
  */
-- (void)checkLoginAndShowLoginWithBlock:(void(^)(BOOL flag))loginCallBack;
+- (void)checkLoginAndShowLoginWithBlock:(void(^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack;
 
 @end

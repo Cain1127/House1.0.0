@@ -37,7 +37,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 @interface QSLoginViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,copy) void(^loginCallBack)(BOOL flag); //!<登录后的回调
+@property (nonatomic,copy) void(^loginCallBack)(LOGIN_CHECK_ACTION_TYPE flag); //!<登录后的回调
 @property (nonatomic,copy) NSString *verCode;               //!<生成的本地验证码
 
 @end
@@ -46,7 +46,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 #pragma mark - 初始化
 ///初始化
-- (instancetype)initWithCallBack:(void (^)(BOOL))loginCallBack
+- (instancetype)initWithCallBack:(void (^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack
 {
 
     if (self = [super init]) {
@@ -318,7 +318,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                         ///回调
                         if (self.loginCallBack) {
                             
-                            self.loginCallBack(YES);
+                            self.loginCallBack(lLoginCheckActionTypeReLogin);
                             
                         }
                         

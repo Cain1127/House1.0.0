@@ -28,6 +28,6 @@
  *
  *  @since                  1.0.0
  */
-- (instancetype)initWithCallBack:(void(^)(BOOL flag))loginCallBack;
+- (instancetype)initWithCallBack:(void(^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack;
 
 @end

@@ -230,10 +230,11 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     UIButton *saleHouseButton = [UIButton createCustomStyleButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 4.0f - 30.0f, bottomLineLabel.frame.origin.y + (bottomHeight - 47.0f) / 2.0f, 80.0f, 47.0f) andButtonStyle:buttonStyle andCustomButtonStyle:cCustomButtonStyleBottomTitle andTitleSize:15.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
         
         ///登录检测
-        [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
             
             ///登录后，进入发布出租/出售页面提示
-            if (flag) {
+            if (lLoginCheckActionTypeUnLogin == flag ||
+                lLoginCheckActionTypeReLogin == flag) {
                 
                 ///弹出窗口的指针
                 __block QSYPopCustomView *popView = nil;

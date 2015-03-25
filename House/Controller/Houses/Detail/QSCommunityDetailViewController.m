@@ -785,7 +785,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     ///判断是否已登录
-    if (![self checkLogin]) {
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"取消关注小区成功"];
@@ -842,10 +842,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                              @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
     
     ///判断是否已登录
-    if (![self checkLogin]) {
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
         ///隐藏HUD
-        [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
+        [hud hiddenCustomHUDWithFooterTips:@"关注小区成功"];
         [self saveIntentionCommunityWithStatus:NO];
         params = nil;
         button.selected = YES;
@@ -856,7 +856,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [QSRequestManager requestDataWithType:rRequestTypeCommunityIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///隐藏HUD
-        [hud hiddenCustomHUDWithFooterTips:@"已分享成功"];
+        [hud hiddenCustomHUDWithFooterTips:@"关注小区成功"];
         
         ///同步服务端成功
         if (rRequestResultTypeSuccess == resultStatus) {

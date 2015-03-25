@@ -1310,7 +1310,7 @@ static char LeftStarKey;            //!<左侧星级
     }
     
     ///判断是否已登录
-    if (![self checkLogin]) {
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
@@ -1363,7 +1363,7 @@ static char LeftStarKey;            //!<左侧星级
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
     
     ///判断是否已登录
-    if (![self checkLogin]) {
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
