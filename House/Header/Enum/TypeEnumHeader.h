@@ -9,6 +9,16 @@
 #ifndef House_TypeEnumHeader_h
 #define House_TypeEnumHeader_h
 
+///登录检测回调类型
+typedef enum
+{
+    
+    lLoginCheckActionTypeUnLogin = 99,  //!<未登录
+    lLoginCheckActionTypeLogined,       //!<原来已登录
+    lLoginCheckActionTypeReLogin,       //!<重新登录
+    
+}LOGIN_CHECK_ACTION_TYPE;
+
 /**
  *  //用户10  ，房源20， 聊天30 ，订单50 ，公共99
  */

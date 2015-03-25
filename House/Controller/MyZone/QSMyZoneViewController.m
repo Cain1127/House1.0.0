@@ -15,6 +15,10 @@
 #import "QSYCollectedHousesViewController.h"
 #import "QSYMyHistoryViewController.h"
 #import "QSYSystemSettingViewController.h"
+#import "QSYReleaseRentHouseViewController.h"
+#import "QSYReleaseSaleHouseViewController.h"
+
+#import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -44,8 +48,16 @@ static char UserIconKey;//!<用户头像
 
     if (self = [super init]) {
         
-        ///获取当前用户类型
-        self.userType = [QSCoreDataManager getCurrentUserCountType];
+        ///获取当前用户类型：如若未登录，直接显示客房类型
+        if ([self checkLogin]) {
+            
+            self.userType = [QSCoreDataManager getCurrentUserCountType];
+            
+        } else {
+        
+            self.userType = uUserCountTypeTenant;
+            
+        }
         
     }
     
@@ -275,17 +287,15 @@ static char UserIconKey;//!<用户头像
                 
                 ///预约订单击
             case tTenantZoneActionTypeAppointed:
+            {
                 
-                NSLog(@"==================预约订单======================");
-                {
-                    
-                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
-                    [bolVc setHiddenCustomTabbarWhenPush:YES];
-                    [bolVc setSelectedType:mOrderListTypeBooked];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                    
-                }
+                QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                [bolVc setHiddenCustomTabbarWhenPush:YES];
+                [bolVc setSelectedType:mOrderListTypeBooked];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+                
+            }
                 break;
                 
                 ///已成交订单点击
@@ -305,10 +315,32 @@ static char UserIconKey;//!<用户头像
             case tTenantZoneActionTypeBeg:
             {
                 
-                QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
-                askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    ///已登录
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
+                        askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
+                        
+                    }
+                    
+                    ///重新成功登录
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        ///刷新页面数据
+                        
+                        ///进入求购页面
+                        QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
+                        askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
+                        
+                    }
+                    
+                }];
                 
             }
                 break;
@@ -356,6 +388,74 @@ static char UserIconKey;//!<用户头像
     ///业主页面
     ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
         
+        switch (actionType) {
+                ///出售物业
+            case oOwnerZoneActionTypeSaleHouse:
+            {
+                
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
+                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        ///刷新当前页面数据
+                        
+                        ///进入发布出售物业页面
+                        QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
+                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+                        
+                    }
+                    
+                }];
+                
+            }
+                break;
+                
+                ///出租物业
+            case oOwnerZoneActionTypeRenantHouse:
+            {
+             
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
+                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        ///刷新当前页面数据
+                        
+                        ///进入发布出租物业页面
+                        QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
+                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+                        
+                    }
+                    
+                }];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
         
     }];
     [rootView addSubview:ownerView];
@@ -388,9 +488,21 @@ static char UserIconKey;//!<用户头像
 {
 
     ///判断登录
-    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+    [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
         
-        if (flag) {
+        if (lLoginCheckActionTypeLogined == flag) {
+            
+            ///进入设置页面
+            QSYMySettingViewController *settingVC = [[QSYMySettingViewController alloc] init];
+            settingVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:settingVC animated:YES];
+            
+        }
+        
+        if (lLoginCheckActionTypeReLogin == flag) {
+            
+            ///刷新当前页面数据
             
             ///进入设置页面
             QSYMySettingViewController *settingVC = [[QSYMySettingViewController alloc] init];
@@ -401,6 +513,46 @@ static char UserIconKey;//!<用户头像
         }
         
     }];
+
+}
+
+#pragma mark - 请求个人数据
+- (void)requestSelfData
+{
+
+    ///已经登录，才请求数据
+    if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+        
+        ///显示HUD
+        __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+        
+        ///请求数据
+        [QSRequestManager requestDataWithType:rRequestTypeAdvert andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///隐藏hud
+            [hud hiddenCustomHUD];
+            
+            ///请求成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"下载成功", 1.0f, ^(){
+                
+                    ///刷新UI
+                    
+                
+                })
+                
+            } else {
+            
+                ///提示信息
+                NSString *tipsString = @"下载失败";
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){})
+            
+            }
+            
+        }];
+        
+    }
 
 }
 

@@ -85,7 +85,7 @@ static QSSocketManager *_socketManager = nil;
 + (void)sendMessageToPerson:(id)msgModel andCallBack:(void(^)(BOOL flag,id model))callBack
 {
     
-#if 1
+#if 0
     ///连接
     ODSocket cppSocket;
     cppSocket.Init();
@@ -114,7 +114,7 @@ static QSSocketManager *_socketManager = nil;
     cppSocket.Clean();
 #endif
     
-#if 0
+#if 1
     ///自身单例
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
 
@@ -124,10 +124,12 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_mid(10);
     sendMessage.set_type(chat::ChatRequestType::ChatTypeSendPTP);
     sendMessage.set_message(string("发送消息"));
-    string sendCPPString = sendMessage.SerializeAsString();
     
-    NSString *sendString = [NSString stringWithUTF8String:sendCPPString.c_str()];
-    [socketManager.tcpSocket writeData:[sendString dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:300];
+    int length = sendMessage.ByteSize();
+    char *buf = new char[length];
+    sendMessage.SerializeToArray(buf,length);
+    
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:300];
 #endif
     
 }
@@ -204,6 +206,8 @@ static QSSocketManager *_socketManager = nil;
     answer.ParseFromString(rec_msg);
     NSLog(@"返回的信息：%s",rec_msg.c_str());
     NSLog(@"解析出来的信息：%s",answer.message().c_str());
+    NSString *resultString = [NSString stringWithUTF8String:answer.message().c_str()];
+    NSLog(@"转换后的信息：%@",resultString);
     
 }
 
