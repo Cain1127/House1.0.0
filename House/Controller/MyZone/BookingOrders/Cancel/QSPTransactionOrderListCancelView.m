@@ -1,42 +1,33 @@
 //
-//  QSPBookingOrderCancelListView.m
+//  QSPTransactionOrderListCancelView.m
 //  House
 //
-//  Created by CoolTea on 15/3/10.
+//  Created by CoolTea on 15/3/25.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBookingOrderCancelListView.h"
-#import "QSPBookingOrderListsTableViewCell.h"
-
+#import "QSPTransactionOrderListCancelView.h"
+#import "QSPTransationOrderListsTableViewCell.h"
 #import "MJRefresh.h"
-
 #import <objc/runtime.h>
-
 #import "QSBlockButtonStyleModel+Normal.h"
-
 #import "QSPOrderDetailBookedViewController.h"
-
-#import "QSOrderListReturnData.h"
-
 #import "QSCoreDataManager+User.h"
 
 ///关联
-static char CancelListTableViewKey;       //!<已取消列表关联
-static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
+static char CancelListTableViewKey;    //!<已取消列表关联
+static char CancelListNoDataViewKey;   //!<已取消列表无数据关联
 
-@interface QSPBookingOrderCancelListView () <UITableViewDataSource,UITableViewDelegate>
+@interface QSPTransactionOrderListCancelView () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
-
-@property (nonatomic,retain) NSMutableArray *cancelListDataSource; //!待看房列表数据源
+@property (nonatomic,strong) NSMutableArray *cancelListDataSource;     //!已取消列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
 
 @end
 
-@implementation QSPBookingOrderCancelListView
 
+@implementation QSPTransactionOrderListCancelView
 @synthesize parentViewController;
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,10 +36,10 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.cancelListDataSource = [NSMutableArray arrayWithCapacity:0];
+        self.cancelListDataSource  = [NSMutableArray arrayWithCapacity:0];
         
         ///UI搭建
-        [self createBookingListUI];
+        [self createCancelListUI];
         
     }
     
@@ -58,7 +49,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 
 #pragma mark - UI搭建
 
-- (void)createBookingListUI
+- (void)createCancelListUI
 {
     
     ///订单记录列表
@@ -82,13 +73,13 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     ///没有数据时显示
     UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, cancelListTableView.frame.size.width, 0)];
     
-    UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_COMMUNITY_NODATA_CION]];
+    UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_TRANSATION_NODATA_CION]];
     [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-75.0f)/2.0f, 0, 75.f, 85.f)];
     [noDataView addSubview:nodataImgView];
     
     QSLabel *nodataTipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0, nodataImgView.frame.origin.y+nodataImgView.frame.size.height, noDataView.frame.size.width, 30)];
     [nodataTipLabel setTextAlignment:NSTextAlignmentCenter];
-    [nodataTipLabel setText:TITLE_MYZONE_CANCEL_ORDER_NODATA_TIP];
+    [nodataTipLabel setText:TITLE_MYZONE_TRANSATION_CANCEL_ORDER_NODATA_TIP];
     objc_setAssociatedObject(self, &CancelListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
     [noDataView addSubview:nodataTipLabel];
     
@@ -99,8 +90,8 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [cancelListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [cancelListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [cancelListTableView addHeaderWithTarget:self action:@selector(getCancelListHeaderData)];
+    [cancelListTableView addFooterWithTarget:self  action:@selector(getCacelListFooterData)];
     
     ///一开始就请求数据
     [cancelListTableView headerBeginRefreshing];
@@ -109,7 +100,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 
 #pragma mark - 数据请求
 ///数据请求
-- (void)getBookingListHeaderData
+- (void)getCancelListHeaderData
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -117,19 +108,18 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         self.loadNextPage = [NSNumber numberWithInt:0];
         
         [self getOrderListData];
-        
-//        [self endRefreshAnimination];
+        //        [self endRefreshAnimination];
+        //        [self reloadData];
         
     });
     
 }
 
-- (void)getBookingListFooterData
+- (void)getCacelListFooterData
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-//        [self endRefreshAnimination];
         [self getOrderListData];
         
     });
@@ -145,7 +135,6 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [tableView headerEndRefreshing];
     [tableView footerEndRefreshing];
     
-//    [self reloadData];
 }
 
 #pragma mark - 刷新数据
@@ -172,15 +161,15 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     
     ///复用标签
-    static NSString *BookingOrderListsTableViewCellName = @"BookingOrderListsTableViewCell";
+    static NSString *PendingOrderListsTableViewCellName = @"PendingOrderListsTableViewCell";
     
     ///从复用队列中获取cell
-    QSPBookingOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:BookingOrderListsTableViewCellName];
+    QSPTransationOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:PendingOrderListsTableViewCellName];
     
     ///判断是否需要重新创建
     if (nil == cellSystem) {
         
-        cellSystem = [[QSPBookingOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BookingOrderListsTableViewCellName];
+        cellSystem = [[QSPTransationOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PendingOrderListsTableViewCellName];
         
         ///取消选择状态
         cellSystem.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -216,7 +205,9 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 ///响应点击订单操作
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
+        
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
         if ([self.cancelListDataSource count]>indexPath.row) {
             QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
@@ -224,6 +215,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
+    
 }
 
 #pragma mark - 响应点击订单操作
@@ -242,7 +234,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     //        order	true	string	以什么排序，默认为空
     //        order_status	true	string	获取什么状态下的订单，具体看配置项:ORDERSTATUS 如果是多个状态下的订单用逗号隔开，eg:500201,500202
     //        list_type	true	enum	只能传递 BUYER 或者 SALER 两个值中的一个，BUYER表示买家列表(房客)，SALER表示卖家的列表(业主)
-    //        order_list_type	true	string(6)	顶单列表类型,具体看配置项:ORDERLISTTYPE, 500401:待看房，500402:已看房, 500403:已成交,500404:已取消
+    //        order_list_type	true	string(6)	顶单列表类型,具体看配置项:ORDERLISTTYPE, 500401:已取消，500402:已看房, 500403:已成交,500404:已取消
     
     if (!self.loadNextPage) {
         
@@ -259,9 +251,9 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [tempParam setObject:@"" forKey:@"order"];
     [tempParam setObject:@"" forKey:@"order_status"];
     [tempParam setObject:@"BUYER" forKey:@"list_type"];
-    [tempParam setObject:@"500404" forKey:@"order_list_type"];
+    [tempParam setObject:@"500504" forKey:@"order_list_type"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeBookOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeTransationOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
         if (rRequestResultTypeSuccess == resultStatus) {

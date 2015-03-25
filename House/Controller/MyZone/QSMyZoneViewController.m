@@ -24,6 +24,7 @@
 #import <objc/runtime.h>
 
 #import "QSPBookingOrdersListsViewController.h"
+#import "QSPTransactionOrderListViewController.h"
 
 ///关联
 static char UserIconKey;//!<用户头像
@@ -224,28 +225,52 @@ static char UserIconKey;//!<用户头像
             case tTenantZoneActionTypeStayAround:
                 
                 NSLog(@"==================待看房======================");
-                
+                {
+                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mOrderListTypeBooked];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
                 break;
                 
                 ///已看房点击
             case tTenantZoneActionTypeHavedAround:
                 
                 NSLog(@"==================已看房======================");
-                
+                {
+                    QSPBookingOrdersListsViewController *bolVc = [[QSPBookingOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
                 break;
                 
                 ///待成交点击
             case tTenantZoneActionTypeWaitCommit:
                 
                 NSLog(@"==================待成交======================");
-                
+                {
+                    QSPTransactionOrderListViewController *bolVc = [[QSPTransactionOrderListViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mTransactionOrderListTypePending];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
                 break;
                 
                 ///已成交点击
             case tTenantZoneActionTypeCommited:
                 
                 NSLog(@"==================已成交======================");
-                
+                {
+                    QSPTransactionOrderListViewController *bolVc = [[QSPTransactionOrderListViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mTransactionOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
                 break;
                 
                 ///预约订单击

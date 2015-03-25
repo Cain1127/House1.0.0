@@ -1,42 +1,32 @@
 //
-//  QSPBookingOrderCancelListView.m
+//  QSPTransactionOrderListPendingView.m
 //  House
 //
-//  Created by CoolTea on 15/3/10.
+//  Created by CoolTea on 15/3/25.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBookingOrderCancelListView.h"
-#import "QSPBookingOrderListsTableViewCell.h"
-
+#import "QSPTransactionOrderListPendingView.h"
+#import "QSPTransationOrderListsTableViewCell.h"
 #import "MJRefresh.h"
-
 #import <objc/runtime.h>
-
 #import "QSBlockButtonStyleModel+Normal.h"
-
 #import "QSPOrderDetailBookedViewController.h"
-
-#import "QSOrderListReturnData.h"
-
 #import "QSCoreDataManager+User.h"
 
 ///关联
-static char CancelListTableViewKey;       //!<已取消列表关联
-static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
+static char PendingListTableViewKey;    //!<待成交列表关联
+static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 
-@interface QSPBookingOrderCancelListView () <UITableViewDataSource,UITableViewDelegate>
+@interface QSPTransactionOrderListPendingView () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
-
-@property (nonatomic,retain) NSMutableArray *cancelListDataSource; //!待看房列表数据源
+@property (nonatomic,strong) NSMutableArray *pendingListDataSource;     //!待成交列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
 
 @end
 
-@implementation QSPBookingOrderCancelListView
-
+@implementation QSPTransactionOrderListPendingView
 @synthesize parentViewController;
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -45,10 +35,10 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     if (self = [super initWithFrame:frame]) {
         
         ///初始化
-        self.cancelListDataSource = [NSMutableArray arrayWithCapacity:0];
+        self.pendingListDataSource  = [NSMutableArray arrayWithCapacity:0];
         
         ///UI搭建
-        [self createBookingListUI];
+        [self createPendingListUI];
         
     }
     
@@ -58,58 +48,87 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 
 #pragma mark - UI搭建
 
-- (void)createBookingListUI
+- (void)createPendingListUI
 {
     
     ///订单记录列表
-    UITableView *cancelListTableView = [[UITableView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
+    UITableView *pendingListTableView = [[UITableView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 0.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH, self.frame.size.height)];
     
     ///取消滚动条
-    cancelListTableView.showsHorizontalScrollIndicator = NO;
-    cancelListTableView.showsVerticalScrollIndicator = NO;
+    pendingListTableView.showsHorizontalScrollIndicator = NO;
+    pendingListTableView.showsVerticalScrollIndicator = NO;
     
     ///数据源
-    cancelListTableView.dataSource = self;
-    cancelListTableView.delegate = self;
+    pendingListTableView.dataSource = self;
+    pendingListTableView.delegate = self;
     
     ///取消选择状态
-    cancelListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    pendingListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self addSubview:cancelListTableView];
+    [self addSubview:pendingListTableView];
     
-    objc_setAssociatedObject(self, &CancelListTableViewKey, cancelListTableView, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &PendingListTableViewKey, pendingListTableView, OBJC_ASSOCIATION_ASSIGN);
     
     ///没有数据时显示
-    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, cancelListTableView.frame.size.width, 0)];
+    UIView *noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 140, pendingListTableView.frame.size.width, 0)];
     
-    UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_COMMUNITY_NODATA_CION]];
+    UIImageView *nodataImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMAGE_ZONE_TRANSATION_NODATA_CION]];
     [nodataImgView setFrame:CGRectMake((noDataView.frame.size.width-75.0f)/2.0f, 0, 75.f, 85.f)];
     [noDataView addSubview:nodataImgView];
     
     QSLabel *nodataTipLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0, nodataImgView.frame.origin.y+nodataImgView.frame.size.height, noDataView.frame.size.width, 30)];
     [nodataTipLabel setTextAlignment:NSTextAlignmentCenter];
-    [nodataTipLabel setText:TITLE_MYZONE_CANCEL_ORDER_NODATA_TIP];
-    objc_setAssociatedObject(self, &CancelListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
+    [nodataTipLabel setText:TITLE_MYZONE_TRANSATION_PENDING_ORDER_NODATA_TIP];
+    objc_setAssociatedObject(self, &PendingListNoDataViewKey, noDataView, OBJC_ASSOCIATION_ASSIGN);
     [noDataView addSubview:nodataTipLabel];
     
-    CGFloat noDataViewHeight = nodataTipLabel.frame.origin.y+nodataTipLabel.frame.size.height;
-    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, (cancelListTableView.frame.size.height-noDataViewHeight)/2, noDataView.frame.size.width, noDataViewHeight)];
+    ///按钮的宽度
+    CGFloat width = (noDataView.frame.size.width - 35.0f * 2.0f - 8.0f) / 2.0f;
     
-    [cancelListTableView addSubview:noDataView];
+    ///按钮风格
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
+    buttonStyle.title = @"看看二手房";
+    
+    ///出售物业按钮
+    UIButton *secondHandHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(35.0f, nodataTipLabel.frame.origin.y + nodataTipLabel.frame.size.height + 12.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"secondHandHouseButton");
+        
+    }];
+    [noDataView addSubview:secondHandHouseButton];
+    
+    buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
+    buttonStyle.title = @"看看出租房";
+    
+    ///出租物业
+    UIButton *renantHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(secondHandHouseButton.frame.origin.x + secondHandHouseButton.frame.size.width + 8.0f, secondHandHouseButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        NSLog(@"renantHouseButton");
+        
+    }];
+    [noDataView addSubview:renantHouseButton];
+    
+    CGFloat noDataViewHeight = secondHandHouseButton.frame.origin.y+secondHandHouseButton.frame.size.height;
+    [noDataView setFrame:CGRectMake(noDataView.frame.origin.x, (pendingListTableView.frame.size.height-noDataViewHeight)/2, noDataView.frame.size.width, noDataViewHeight)];
+    
+    [pendingListTableView addSubview:noDataView];
+    
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [cancelListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [cancelListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [pendingListTableView addHeaderWithTarget:self action:@selector(getPendingListHeaderData)];
+    [pendingListTableView addFooterWithTarget:self  action:@selector(getPendingListFooterData)];
     
     ///一开始就请求数据
-    [cancelListTableView headerBeginRefreshing];
+    [pendingListTableView headerBeginRefreshing];
     
 }
 
 #pragma mark - 数据请求
 ///数据请求
-- (void)getBookingListHeaderData
+- (void)getPendingListHeaderData
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -117,19 +136,18 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         self.loadNextPage = [NSNumber numberWithInt:0];
         
         [self getOrderListData];
-        
-//        [self endRefreshAnimination];
+        //        [self endRefreshAnimination];
+        //        [self reloadData];
         
     });
     
 }
 
-- (void)getBookingListFooterData
+- (void)getPendingListFooterData
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-//        [self endRefreshAnimination];
         [self getOrderListData];
         
     });
@@ -141,11 +159,10 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 - (void)endRefreshAnimination
 {
     
-    UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    UITableView *tableView = objc_getAssociatedObject(self, &PendingListTableViewKey);
     [tableView headerEndRefreshing];
     [tableView footerEndRefreshing];
     
-//    [self reloadData];
 }
 
 #pragma mark - 刷新数据
@@ -153,12 +170,12 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 - (void)reloadData
 {
     
-    UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    UITableView *tableView = objc_getAssociatedObject(self, &PendingListTableViewKey);
     [tableView reloadData];
     
     //没有数据时
-    if ([_cancelListDataSource count]==0) {
-        UIView *nodataView = objc_getAssociatedObject(self, &CancelListNoDataViewKey);
+    if ([_pendingListDataSource count]==0) {
+        UIView *nodataView = objc_getAssociatedObject(self, &PendingListNoDataViewKey);
         if (nodataView) {
             [nodataView setHidden:NO];
         }
@@ -172,15 +189,15 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     
     ///复用标签
-    static NSString *BookingOrderListsTableViewCellName = @"BookingOrderListsTableViewCell";
+    static NSString *PendingOrderListsTableViewCellName = @"PendingOrderListsTableViewCell";
     
     ///从复用队列中获取cell
-    QSPBookingOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:BookingOrderListsTableViewCellName];
+    QSPTransationOrderListsTableViewCell *cellSystem = [tableView dequeueReusableCellWithIdentifier:PendingOrderListsTableViewCellName];
     
     ///判断是否需要重新创建
     if (nil == cellSystem) {
         
-        cellSystem = [[QSPBookingOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BookingOrderListsTableViewCellName];
+        cellSystem = [[QSPTransationOrderListsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PendingOrderListsTableViewCellName];
         
         ///取消选择状态
         cellSystem.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -188,7 +205,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         
     }
     
-    [cellSystem updateCellWith:[_cancelListDataSource objectAtIndex:indexPath.row]];
+    [cellSystem updateCellWith:[_pendingListDataSource objectAtIndex:indexPath.row]];
     
     return cellSystem;
     
@@ -199,7 +216,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [_cancelListDataSource count];
+    return [_pendingListDataSource count];
     
 }
 
@@ -216,14 +233,17 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 ///响应点击订单操作
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
+        
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-        if ([self.cancelListDataSource count]>indexPath.row) {
-            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
+        if ([self.pendingListDataSource count]>indexPath.row) {
+            QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.row];
             [bookedVc setOrderData:orderItem];
         }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
+    
 }
 
 #pragma mark - 响应点击订单操作
@@ -242,7 +262,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     //        order	true	string	以什么排序，默认为空
     //        order_status	true	string	获取什么状态下的订单，具体看配置项:ORDERSTATUS 如果是多个状态下的订单用逗号隔开，eg:500201,500202
     //        list_type	true	enum	只能传递 BUYER 或者 SALER 两个值中的一个，BUYER表示买家列表(房客)，SALER表示卖家的列表(业主)
-    //        order_list_type	true	string(6)	顶单列表类型,具体看配置项:ORDERLISTTYPE, 500401:待看房，500402:已看房, 500403:已成交,500404:已取消
+    //        order_list_type	true	string(6)	顶单列表类型,具体看配置项:ORDERLISTTYPE, 500401:待成交，500402:已看房, 500403:已成交,500404:已取消
     
     if (!self.loadNextPage) {
         
@@ -259,9 +279,9 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [tempParam setObject:@"" forKey:@"order"];
     [tempParam setObject:@"" forKey:@"order_status"];
     [tempParam setObject:@"BUYER" forKey:@"list_type"];
-    [tempParam setObject:@"500404" forKey:@"order_list_type"];
+    [tempParam setObject:@"500501" forKey:@"order_list_type"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeBookOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeTransationOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -280,11 +300,11 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
                     
                     if ([self.loadNextPage isEqualToValue:[NSNumber numberWithInt:0]]) {
                         
-                        [self.cancelListDataSource removeAllObjects];
+                        [self.pendingListDataSource removeAllObjects];
                         
                     }
                     
-                    [self.cancelListDataSource addObjectsFromArray:[NSMutableArray arrayWithArray:headerModel.orderListHeaderData.orderList]];
+                    [self.pendingListDataSource addObjectsFromArray:[NSMutableArray arrayWithArray:headerModel.orderListHeaderData.orderList]];
                     
                     self.loadNextPage = nextPage;
                     

@@ -32,6 +32,9 @@
 ///<预约看房>页面的默认标题
 #define TITLE_VIEWCONTROLLER_TITLE_BOOKTIME @"预约看房"
 
+///<成交订单>页面的默认标题
+#define TITLE_VIEWCONTROLLER_TITLE_TRANSATIONORDERSLIST @"成交订单"
+
 /**
  *  @author yangshengmeng, 15-01-20 12:01:30
  *
@@ -175,6 +178,15 @@
 
 ///无已取消订单提示
 #define TITLE_MYZONE_CANCEL_ORDER_NODATA_TIP        @"您暂无已取消的订单"
+
+///无待成交订单提示
+#define TITLE_MYZONE_TRANSATION_PENDING_ORDER_NODATA_TIP       @"您暂无待成交的订单"
+
+///无已成交订单提示
+#define TITLE_MYZONE_TRANSATION_COMPLETE_ORDER_NODATA_TIP      @"您暂无已成交的订单"
+
+///无已取消订单提示
+#define TITLE_MYZONE_TRANSATION_CANCEL_ORDER_NODATA_TIP        @"您暂无已取消的订单"
 
 ///订单详情待确认标题
 #define TITLE_MYZONE_ORDER_DETAIL_WAIT_FOR_CONFIRN_TIP      @"待确认"

@@ -19,8 +19,8 @@
 
 ///关联
 static char BookingButtonKey;               //!<待看房按钮关联
-static char CompleteButtonKey;              //!<待看房按钮关联
-static char CancelButtonKey;                //!<待看房按钮关联
+static char CompleteButtonKey;              //!<已看房按钮关联
+static char CancelButtonKey;                //!<已取消按钮关联
 
 static char BookingListTableViewKey;        //!<待看房列表关联
 static char CompleteListTableViewKey;       //!<已看房列表关联
@@ -40,8 +40,6 @@ typedef enum
 
 @interface QSPBookingOrdersListsViewController ()
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;//!<用户类型
-
 @property (nonatomic,assign) MYZONE_BOOKED_ORDER_LIST_TYPE selectedListType;//!<当前选中显示的列表状态
 
 @end
@@ -55,8 +53,6 @@ typedef enum
     
     if (self = [super init]) {
         
-        ///获取当前用户类型
-        self.userType = [QSCoreDataManager getCurrentUserCountType];
         self.selectedListType = mOrderListTypeBooked;
     }
     
@@ -97,21 +93,21 @@ typedef enum
     QSImageView *tipsImage;
     
     ///创建待看房列表
-    QSPBookingOrderBookingListView *waitForListView = [[QSPBookingOrderBookingListView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant];
+    QSPBookingOrderBookingListView *waitForListView = [[QSPBookingOrderBookingListView alloc] initWithFrame:CGRectMake(0, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f)];
     [waitForListView setParentViewController:self];
     [self.view addSubview:waitForListView];
     
     objc_setAssociatedObject(self, &BookingListTableViewKey, waitForListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已看房列表
-    QSPBookingOrderCompletedListView *completeListView = [[QSPBookingOrderCompletedListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height) andUserType:uUserCountTypeTenant];
+    QSPBookingOrderCompletedListView *completeListView = [[QSPBookingOrderCompletedListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
     [completeListView setParentViewController:self];
     [self.view addSubview:completeListView];
     
     objc_setAssociatedObject(self, &CompleteListTableViewKey, completeListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///创建已取消列表
-    QSPBookingOrderCancelListView *cancelListView = [[QSPBookingOrderCancelListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height) andUserType:uUserCountTypeTenant];
+    QSPBookingOrderCancelListView *cancelListView = [[QSPBookingOrderCancelListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, waitForListView.frame.origin.y, waitForListView.frame.size.width, waitForListView.frame.size.height)];
     [cancelListView setParentViewController:self];
     [self.view addSubview:cancelListView];
     
@@ -335,9 +331,13 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    [super viewDidAppear:animated];
-    
-    [self showListWithType:self.selectedListType];
+//    [super viewDidAppear:animated];
+//    
+//    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+//        
+        [self showListWithType:self.selectedListType];
+        
+//    }];
     
 }
 

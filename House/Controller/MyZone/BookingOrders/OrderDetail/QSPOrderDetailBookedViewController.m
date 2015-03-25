@@ -66,7 +66,7 @@
             
             QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
             if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
-                titleTip = [orderItem getStatusStr];
+                titleTip = [orderItem getStatusTitle];
             }
             
             NSString *timeStr = [NSString stringWithFormat:@"%@ %@-%@",orderItem.appoint_date,orderItem.appoint_start_time,orderItem.appoint_end_time];
@@ -150,7 +150,18 @@
     [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.personView.frame.origin.y+self.personView.frame.size.height)];
     
     
-    [self getDetailData];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+//    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
+    
+        [self getDetailData];
+        
+//    }];
     
 }
 
@@ -165,7 +176,8 @@
     QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
     
     if (_titleTipLabel) {
-        [_titleTipLabel setTitle:[detailData getStatusStr]];
+        [_titleTipLabel setTitle:[detailData getStatusTitle]];
+        NSLog(@"%@ StatusTitle:%@",detailData.order_status,_titleTipLabel.text);
     }
     
     if (_houseInfoSView) {

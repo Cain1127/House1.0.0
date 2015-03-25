@@ -15,7 +15,6 @@
     
     if (self = [super initWithFrame:frame]) {
         
-        
         [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
         [self setTitle:titleStr];
         [self setTextAlignment:NSTextAlignmentCenter];

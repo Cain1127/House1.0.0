@@ -1,15 +1,16 @@
 //
-//  QSPBookingOrderListsTableViewCell.m
+//  QSPTransationOrderListsTableViewCell.m
 //  House
 //
-//  Created by CoolTea on 15/3/10.
+//  Created by CoolTea on 15/3/25.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBookingOrderListsTableViewCell.h"
+#import "QSPTransationOrderListsTableViewCell.h"
 #import "UIKit+AFNetworking.h"
 #import "CoreHeader.h"
 #include <objc/runtime.h>
+
 #import "QSOrderListReturnData.h"
 
 ///关联
@@ -22,8 +23,7 @@ static char timeLabelKey;       //!<时间Label关联key
 static char leftActionBtKey;    //!<右部左边按钮关联key
 static char rightActionBtKey;   //!<右部右边按钮关联key
 
-@implementation QSPBookingOrderListsTableViewCell
-
+@implementation QSPTransationOrderListsTableViewCell
 @synthesize parentViewController;
 
 - (void)awakeFromNib {
@@ -94,11 +94,11 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     objc_setAssociatedObject(self, &timeLabelKey, timeLabel, OBJC_ASSOCIATION_ASSIGN);
     
-  
+    
     //右部左按钮
     QSBlockButtonStyleModel *leftActionBtStyle = [[QSBlockButtonStyleModel alloc] init];
-//    leftActionBtStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
-//    leftActionBtStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
+    //    leftActionBtStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
+    //    leftActionBtStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+20.0f, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
@@ -113,8 +113,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     //右部右按钮
     QSBlockButtonStyleModel *rightActionBtStyle = [[QSBlockButtonStyleModel alloc] init];
-//    rightActionBtStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL;
-//    rightActionBtStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
+    //    rightActionBtStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL;
+    //    rightActionBtStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
@@ -178,7 +178,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         [leftBt setHidden:YES];
     }
     
-//    QSOrderListItemData
+    //    QSOrderListItemData
     if (!Data || ![Data isKindOfClass:[QSOrderListItemData class]]) {
         return;
     }
@@ -189,28 +189,28 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (leftIconImgView) {
         
-//        //TODO: 图标逻辑
-//        //“购”图标
-//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_BUY_CION]];
-//        
-//        //“租”图标
-//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_RENT_CION]];
-//        
-//        //“新”图标
-//        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION]];
+        //        //TODO: 图标逻辑
+        //        //“购”图标
+        //        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_BUY_CION]];
+        //
+        //        //“租”图标
+        //        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_RENT_CION]];
+        //
+        //        //“新”图标
+        //        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION]];
         [leftIconImgView setImage:[UIImage imageNamed:[orderData getHouseTypeImg]]];
     }
     
     if (nameLabel) {
         
-//        [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
+        //        [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
         [nameLabel setText:[orderData getHouseTitle]];
         
     }
     
     if (stateLabel) {
         
-//        [stateLabel setText:@"预约待确认"];
+        //        [stateLabel setText:@"预约待确认"];
         
         if ([orderData getUserIsOwnerFlag]) {
             //非房客
@@ -234,14 +234,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (contentImgView) {
         
-//        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
+        //        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
         [contentImgView setImageWithURL:[NSURL URLWithString:[orderData getHouseSmallImgUrl]]];
         
     }
     
     if (personNameLabel) {
         
-//        [personNameLabel setText:@"业主：奥巴马"];
+        //        [personNameLabel setText:@"业主：奥巴马"];
         
         if ([orderData getUserIsOwnerFlag]) {
             
@@ -258,7 +258,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (timeLabel) {
         
-//        [timeLabel setText:@"时间：2015-03-11 12：29"];
+        //        [timeLabel setText:@"时间：2015-03-11 12：29"];
         if ([orderData getUserIsOwnerFlag]) {
             
             
@@ -302,7 +302,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.normalImg] forState:UIControlStateNormal];
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateHighlighted];
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateSelected];
-                        
+                            
                         }
                         
                     }else if ([btList count]==2) {
@@ -339,28 +339,6 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
     }
     
-//    if (leftBt) {
-//        
-//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL] forState:UIControlStateNormal];
-//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateHighlighted];
-//        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateSelected];
-//        
-//    }
-//    
-//    if (rightBt) {
-//        
-//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL] forState:UIControlStateNormal];
-//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateHighlighted];
-//        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateSelected];
-//        
-//    }
-    
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

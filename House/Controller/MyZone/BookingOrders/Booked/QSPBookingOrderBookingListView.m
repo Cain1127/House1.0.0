@@ -26,8 +26,6 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 
 @interface QSPBookingOrderBookingListView () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
-
 @property (nonatomic,strong) NSMutableArray *bookingListDataSource;     //!待看房列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
@@ -38,7 +36,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 
 @synthesize parentViewController;
 
-- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType
+- (instancetype)initWithFrame:(CGRect)frame
 {
     
     if (self = [super initWithFrame:frame]) {
@@ -290,7 +288,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     [tempParam setObject:@"BUYER" forKey:@"list_type"];
     [tempParam setObject:@"500401" forKey:@"order_list_type"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeBookOrderListData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
         if (rRequestResultTypeSuccess == resultStatus) {

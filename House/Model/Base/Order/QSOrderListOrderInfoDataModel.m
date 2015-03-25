@@ -63,15 +63,15 @@
     return userType;
 }
 
-//订单状态和按钮.docx
-- (NSString*)getStatusStr
+//订单状态
+- (NSString*)getStatusTitle
 {
     
     NSString *statusStr = @"";
     
     if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {
         
-        if ([self.order_status isEqualToString:@"500201"] || [self.order_status isEqualToString:@"500215"] || [self.order_status isEqualToString:@"500203"]) {
+        if ([self.order_status isEqualToString:@"500201"] || [self.order_status isEqualToString:@"500213"] || [self.order_status isEqualToString:@"500203"]) {
             statusStr = @"待确认";
         }else if ([self.order_status isEqualToString:@"500210"]) {
             statusStr = @"待看房";
@@ -84,7 +84,10 @@
                 statusStr = @"待评价";
             }
         }else if ([self.order_status isEqualToString:@"500231"]) {
-            if ([self getUserType] == uUserCountTypeTenant) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                statusStr = @"待确认已看房";
+            }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
                 statusStr = @"待议价";
             }
@@ -94,9 +97,11 @@
                 statusStr = @"已完成看房";
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                statusStr = @"待议价";
+                statusStr = @"待评价";
             }
-        }else if ([self.order_status isEqualToString:@"500202"] || [self.order_status isEqualToString:@"500250"]) {
+        }else if ([self.order_status isEqualToString:@"500202"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500250"]) {
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 statusStr = @"已完成看房";
@@ -112,7 +117,7 @@
                 //房客角色
                 statusStr = @"待还价";
             }
-        }else if ([self.order_status isEqualToString:@"500253"] || [self.order_status isEqualToString:@"500258"]) {
+        }else if ([self.order_status isEqualToString:@"500253"]) {
             statusStr = @"申请议价";
         }else if ([self.order_status isEqualToString:@"500254"]) {
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -122,7 +127,7 @@
                 //房客角色
                 statusStr = @"待议价";
             }
-        }else if ([self.order_status isEqualToString:@"500257"]) {
+        }else if ([self.order_status isEqualToString:@"500257"] || [self.order_status isEqualToString:@"500258"]) {
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 statusStr = @"待还价";
@@ -170,7 +175,7 @@
     
 }
 
-- (NSArray*)getButtonAction
+- (NSArray*)getButtonSource
 {
     NSMutableArray *btList = [NSMutableArray arrayWithCapacity:0];
     
@@ -197,7 +202,7 @@
             leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
             [btList addObject:leftBt];
             
-        }else if ([self.order_status isEqualToString:@"500215"] || [self.order_status isEqualToString:@"500203"]) {
+        }else if ([self.order_status isEqualToString:@"500213"] || [self.order_status isEqualToString:@"500203"]) {
             //房客修改看房时间
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -241,7 +246,7 @@
                 //业主角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"接受";
+                rightBt.buttonName = @"完成";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
                 [btList addObject:rightBt];

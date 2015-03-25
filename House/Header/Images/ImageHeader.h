@@ -328,6 +328,9 @@
 ///暂无收藏房源图片
 #define IMAGE_ZONE_COMMUNITY_NODATA_CION @"myzone_community_noorderList_data_icon"
 
+///暂无待成交列表数据图片
+#define IMAGE_ZONE_TRANSATION_NODATA_CION @"myzone_community_noClinch_data_icon"
+
 ///暂无浏览记录图片
 #define IMAGE_ZONE_VISIT_NODATA_CION @"myzone_community_novisit_data_icon"
 
