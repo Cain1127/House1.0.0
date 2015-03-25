@@ -61,6 +61,7 @@
     }
     
     return userType;
+    
 }
 
 //订单状态

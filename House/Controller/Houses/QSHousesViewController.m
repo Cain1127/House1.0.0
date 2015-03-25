@@ -34,6 +34,7 @@
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+App.h"
 
 #import "MJRefresh.h"
 
@@ -390,12 +391,25 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         } else {
             
+            ///查找所在区信息
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getDistrictModelWithStreetKey:pickedKey];
+            
             if (districtCurrentModel) {
                 
+                ///更新所在区
+                self.filterModel.district_key = tempModel.key ? tempModel.key : @"";
+                self.filterModel.district_val = tempModel.val ? tempModel.val : @"";
+                
+                ///更新街道
                 [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
                 
             } else {
+                
+                ///更新所在区
+                self.filterModel.district_key = tempModel.key ? tempModel.key : @"";
+                self.filterModel.district_val = tempModel.val ? tempModel.val : @"";
             
+                ///更新街道
                 [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
             
             }

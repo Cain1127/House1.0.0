@@ -164,6 +164,12 @@
         
     }
     
+    if (buttonStyle.titleSelected) {
+        
+        [self setTitle:buttonStyle.titleSelected forState:UIControlStateSelected];
+        
+    }
+    
     if (buttonStyle.bgColor) {
         
         self.backgroundColor = buttonStyle.bgColor;

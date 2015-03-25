@@ -7,8 +7,10 @@
 //
 
 #import "QSTurnBackViewController.h"
+#import "QSActivityDataModel.h"
 
 @interface QSActivityDetailViewController : QSTurnBackViewController
 
+-(instancetype)initWithModel:(QSActivityDataModel*)dataModel;
 
 @end

@@ -570,11 +570,14 @@ typedef enum
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
+    rRequestTypeChatMessageList = 4000,         //!<消息列表
+    
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
     rRequestTypeOrderDetailData = 8001,         //!<订单详情
     rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据
-    rRequestTypeBookOrderListData = 8008,       //!<预约订单列表数据
+    rRequestTypeBookOrderListData = 8008,           //!<预约订单列表数据
+    
     rRequestTypeOrderAddAppointment = 8011,     //!<添加预约订单数据
     
     rRequestTypeSendPhoneVertical = 9000,       //!<发送手机验证码

@@ -23,6 +23,12 @@
 #import "QSUserDataModel.h"
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSWCommunityDataModel.h"
+#import "QSRentHouseDetailDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
+#import "QSNewHouseDetailDataModel.h"
+#import "QSLoupanInfoDataModel.h"
+#import "QSSecondHouseDetailDataModel.h"
+#import "QSWSecondHouseInfoDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -359,6 +365,155 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 - (void)deleteCollectedData
 {
 
+    [self deleteCollectedCommunity];
+    [self deleteCollectedNewHouse];
+    [self deleteCollectedRentHouse];
+    [self deleteCollectedSecondHandHouse];
+
+}
+
+///删除收藏的出租房
+- (void)deleteCollectedRentHouse
+{
+    
+    NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeRentalHouse];
+    
+    for (QSRentHouseDetailDataModel *obj in deleteArray) {
+        
+        ///封装参数
+        NSDictionary *params = @{@"obj_id" : obj.house.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///同步服务端成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"取消出租房收藏->同步服务端", @"成功")
+                
+                [QSCoreDataManager deleteCollectedDataWithID:obj.house.id_ isSyServer:YES andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"取消出租房收藏->同步服务端->删除本地记录", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"取消出租房收藏->同步服务端->删除本地记录", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"取消出租房收藏->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+    
+}
+
+///删除收藏的新房
+- (void)deleteCollectedNewHouse
+{
+    
+    NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeNewHouse];
+    
+    for (QSNewHouseDetailDataModel *obj in deleteArray) {
+        
+        ///封装参数
+        NSDictionary *params = @{@"obj_id" : obj.loupan.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeNewHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///同步服务端成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"取消新房收藏->同步服务端", @"成功")
+                
+                [QSCoreDataManager deleteCollectedDataWithID:obj.loupan.id_ isSyServer:YES andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"取消新房收藏->同步服务端->删除本地记录", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"取消新房收藏->同步服务端->删除本地记录", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"取消新房收藏->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+    
+}
+
+///删除收藏的二手房
+- (void)deleteCollectedSecondHandHouse
+{
+    
+    NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeSecondHouse];
+    
+    for (QSSecondHouseDetailDataModel *obj in deleteArray) {
+        
+        ///封装参数
+        NSDictionary *params = @{@"obj_id" : obj.house.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///同步服务端成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"取消二手房收藏->同步服务端", @"成功")
+                
+                [QSCoreDataManager deleteCollectedDataWithID:obj.house.id_ isSyServer:YES andCollectedType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"取消二手房收藏->同步服务端->删除本地记录", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"取消二手房收藏->同步服务端->删除本地记录", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"取消二手房收藏->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+    
+}
+
+///删除关注的小区
+- (void)deleteCollectedCommunity
+{
+
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeCommunity];
     
     for (QSCommunityHouseDetailDataModel *obj in deleteArray) {
@@ -372,18 +527,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             ///同步服务端成功
             if (rRequestResultTypeSuccess == resultStatus) {
                 
-                APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端", @"成功")
+                APPLICATION_LOG_INFO(@"取消小区关注->同步服务端", @"成功")
                 
                 [QSCoreDataManager deleteCollectedDataWithID:obj.village.id_ isSyServer:YES andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
                     
                     ///保存成功
                     if (flag) {
                         
-                        APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端->删除本地记录", @"成功")
+                        APPLICATION_LOG_INFO(@"取消小区关注->同步服务端->删除本地记录", @"成功")
                         
                     } else {
                         
-                        APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端->删除本地记录", @"失败")
+                        APPLICATION_LOG_INFO(@"取消小区关注->同步服务端->删除本地记录", @"失败")
                         
                     }
                     
@@ -391,7 +546,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 
             } else {
                 
-                APPLICATION_LOG_INFO(@"收藏/分享->删除->同步服务端", @"失败")
+                APPLICATION_LOG_INFO(@"取消小区关注->同步服务端", @"失败")
                 
             }
             
@@ -405,6 +560,162 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 - (void)addCollectedDataToServer
 {
 
+    [self addInttentionCommunityToServer];
+    [self addCollectedNewHouseToServer];
+    [self addCollectedRentHouseToServer];
+    [self addCollectedSecondHandHouseToServer];
+
+}
+
+///将添加收藏的出租房，同步服务端
+- (void)addCollectedRentHouseToServer
+{
+    
+    ///出租房
+    NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeRentalHouse];
+    
+    ///发送到服务端
+    for (QSRentHouseDetailDataModel *obj in communityList) {
+        
+        ///参数
+        NSDictionary *params = @{@"obj_id" : obj.house.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeRentalHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///添加成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"添加出租房收藏->同步服务端", @"成功")
+                
+                obj.house.is_syserver = @"1";
+                [QSCoreDataManager saveCollectedDataWithModel:obj andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"添加出租房收藏->同步服务端->更新本地状态", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"添加出租房收藏->同步服务端->更新本地状态", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加出租房收藏->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+    
+}
+
+///将收藏的新房同步服务端
+- (void)addCollectedNewHouseToServer
+{
+    
+    NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeNewHouse];
+    
+    ///发送到服务端
+    for (QSNewHouseDetailDataModel *obj in communityList) {
+        
+        ///参数
+        NSDictionary *params = @{@"obj_id" : obj.loupan.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeNewHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///添加成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"添加新房收藏->同步服务端", @"成功")
+                
+                obj.is_syserver = @"1";
+                [QSCoreDataManager saveCollectedDataWithModel:obj andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"添加新房收->同步服务端->更新本地状态", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"添加新房收->同步服务端->更新本地状态", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加新房收->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+    
+}
+
+///将新收藏的二手房同步服务端
+- (void)addCollectedSecondHandHouseToServer
+{
+
+    NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeSecondHouse];
+    
+    ///发送到服务端
+    for (QSSecondHouseDetailDataModel *obj in communityList) {
+        
+        ///参数
+        NSDictionary *params = @{@"obj_id" : obj.house.id_,
+                                 @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///添加成功
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                APPLICATION_LOG_INFO(@"添加二手房收藏->同步服务端", @"成功")
+                
+                obj.is_syserver = @"1";
+                [QSCoreDataManager saveCollectedDataWithModel:obj andCollectedType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
+                    
+                    ///保存成功
+                    if (flag) {
+                        
+                        APPLICATION_LOG_INFO(@"添加二手房收藏->同步服务端->更新本地状态", @"成功")
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"添加二手房收藏->同步服务端->更新本地状态", @"失败")
+                        
+                    }
+                    
+                }];
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加二手房收藏->同步服务端", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+
+}
+
+///将添加的关注小区，同步服务端
+- (void)addInttentionCommunityToServer
+{
+
     ///小区
     NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeCommunity];
     
@@ -415,12 +726,12 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         NSDictionary *params = @{@"obj_id" : obj.village.id_,
                                  @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
         
-        [QSRequestManager requestDataWithType:rRequestTypeCommunityDeleteIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeCommunityIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///添加成功
             if (rRequestResultTypeSuccess == resultStatus) {
                 
-                APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端", @"成功")
+                APPLICATION_LOG_INFO(@"添加关注小区->同步服务端", @"成功")
                 
                 obj.is_syserver = @"1";
                 [QSCoreDataManager saveCollectedDataWithModel:obj andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
@@ -428,20 +739,20 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     ///保存成功
                     if (flag) {
                         
-                        APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端->更新本地状态", @"成功")
+                        APPLICATION_LOG_INFO(@"添加关注小区->同步服务端->更新本地状态", @"成功")
                         
                     } else {
-                    
-                        APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端->更新本地状态", @"失败")
-                    
+                        
+                        APPLICATION_LOG_INFO(@"添加关注小区->同步服务端->更新本地状态", @"失败")
+                        
                     }
                     
                 }];
                 
             } else {
-            
-                APPLICATION_LOG_INFO(@"收藏/分享->添加->同步服务端", @"失败")
-            
+                
+                APPLICATION_LOG_INFO(@"添加关注小区->同步服务端", @"失败")
+                
             }
             
         }];

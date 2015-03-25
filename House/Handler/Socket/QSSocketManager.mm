@@ -10,9 +10,15 @@
 
 #import "Chat.pb.h"
 
+#import "ODSocket.h"
+#include <iostream>
+#include <string.h>
+
 #import "AsyncSocket.h"
 
-@interface QSSocketManager () <AsyncSocketDelegate>
+using namespace std;
+
+@interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
 @property (nonatomic,strong) AsyncSocket *tcpSocket;//!<socket连接器
 
@@ -78,29 +84,52 @@ static QSSocketManager *_socketManager = nil;
  */
 + (void)sendMessageToPerson:(id)msgModel andCallBack:(void(^)(BOOL flag,id model))callBack
 {
+    
+#if 1
+    ///连接
+    ODSocket cppSocket;
+    cppSocket.Init();
+    cppSocket.Create(AF_INET,SOCK_STREAM,0);
+    cppSocket.Connect("117.41.235.107",8000);
+    
+    char recvBuf[1024] = "\0";
+    string testmsg="hello";
+    
+    cppSocket.Send(testmsg.c_str(),(int)strlen(testmsg.c_str())+1,1);
+    cppSocket.Recv(recvBuf,1024,0);
+    string rec_msg = string(recvBuf);
+    
+    ///返回的信息
+    chat::Answer answer = chat::Answer();
+    answer.ParseFromString(rec_msg);
+    NSLog(@"返回的信息：%s",rec_msg.c_str());
+    NSLog(@"解析出来的信息：%s",answer.message().c_str());
+    
+    ///转码
+    NSString *resultString = [NSString stringWithUTF8String:answer.message().c_str()];
+    NSLog(@"转换为NSString:%@",resultString);
+    
+    ///关闭C++Socket连接
+    cppSocket.Close();
+    cppSocket.Clean();
+#endif
+    
+#if 0
+    ///自身单例
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
 
-    Question *sendMessage = [[[[[[Question builder] setMid:10]  setTid:20] setType:ChatRequestTypeChatTypeSendPtp] setMessage:@"测试消息"] build];
+    ///发消息
+    chat::Question sendMessage;
+    sendMessage.set_tid(20);
+    sendMessage.set_mid(10);
+    sendMessage.set_type(chat::ChatRequestType::ChatTypeSendPTP);
+    sendMessage.set_message(string("发送消息"));
+    string sendCPPString = sendMessage.SerializeAsString();
     
-    ///将发送的消息转为data
-    NSData *sendData = [sendMessage data];
+    NSString *sendString = [NSString stringWithUTF8String:sendCPPString.c_str()];
+    [socketManager.tcpSocket writeData:[sendString dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:300];
+#endif
     
-    ///发送消息
-    QSSocketManager *socketManager = [self shareSocketManager];
-    [socketManager.tcpSocket writeData:sendData withTimeout:-1 tag:300];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"testProtocolBuf"];
-    BOOL isWriteSuccess = [sendData writeToFile:path atomically:YES];
-    if (isWriteSuccess) {
-        
-        APPLICATION_LOG_INFO(@"发送消息写入文件", @"写入成功")
-        
-    } else {
-    
-        APPLICATION_LOG_INFO(@"发送消息写入文件", @"写入失败")
-    
-    }
-
 }
 
 /**
@@ -165,9 +194,16 @@ static QSSocketManager *_socketManager = nil;
 {
     
     APPLICATION_LOG_INFO(@"socket返回信息", data)
-    NSLog(@"%s",[data bytes]);
-    Answer *answer = [Answer parseFromData:data];
-    APPLICATION_LOG_INFO(@"socket返回信息:模型", answer.message);
+    
+    char recvBuf[1024] = "\0";
+    [data getBytes:recvBuf length:data.length];
+    string rec_msg = string(recvBuf);
+    
+    ///返回的信息
+    chat::Answer answer = chat::Answer();
+    answer.ParseFromString(rec_msg);
+    NSLog(@"返回的信息：%s",rec_msg.c_str());
+    NSLog(@"解析出来的信息：%s",answer.message().c_str());
     
 }
 
