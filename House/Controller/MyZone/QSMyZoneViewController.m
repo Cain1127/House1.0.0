@@ -49,7 +49,7 @@ static char UserIconKey;//!<用户头像
     if (self = [super init]) {
         
         ///获取当前用户类型：如若未登录，直接显示客房类型
-        if ([self checkLogin]) {
+        if (lLoginCheckActionTypeLogined == [self checkLogin]) {
             
             self.userType = [QSCoreDataManager getCurrentUserCountType];
             

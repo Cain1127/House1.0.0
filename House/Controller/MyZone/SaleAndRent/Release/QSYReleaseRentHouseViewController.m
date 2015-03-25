@@ -7,6 +7,7 @@
 //
 
 #import "QSYReleaseRentHouseViewController.h"
+
 #import "QSReleaseRentHouseDataModel.h"
 
 @interface QSYReleaseRentHouseViewController ()
@@ -18,6 +19,20 @@
 
 @implementation QSYReleaseRentHouseViewController
 
-
+#pragma mark - 初始化
+///初始化
+- (instancetype)init
+{
+    
+    if (self = [super init]) {
+        
+        ///初始化发布数据模型
+        self.rentHouseReleaseModel = [[QSReleaseRentHouseDataModel alloc] init];
+        
+    }
+    
+    return self;
+    
+}
 
 @end
