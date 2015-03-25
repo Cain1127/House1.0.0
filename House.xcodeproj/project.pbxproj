@@ -399,6 +399,9 @@
 		18EC15801AC29D2900D2AD3A /* QSReleaseHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC157F1AC29D2900D2AD3A /* QSReleaseHouseDataModel.m */; };
 		18EC15831AC29D5600D2AD3A /* QSReleaseRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15821AC29D5600D2AD3A /* QSReleaseRentHouseDataModel.m */; };
 		18EC15861AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15851AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.m */; };
+		18EC15891AC2A58A00D2AD3A /* ReleaseSaleHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18EC15881AC2A58A00D2AD3A /* ReleaseSaleHouse.plist */; };
+		18EC158D1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC158C1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m */; };
+		18EC15911AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15901AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m */; };
 		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
@@ -1163,6 +1166,11 @@
 		18EC15821AC29D5600D2AD3A /* QSReleaseRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSReleaseRentHouseDataModel.m; path = Release/QSReleaseRentHouseDataModel.m; sourceTree = "<group>"; };
 		18EC15841AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSReleaseSaleHouseDataModel.h; path = Release/QSReleaseSaleHouseDataModel.h; sourceTree = "<group>"; };
 		18EC15851AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSReleaseSaleHouseDataModel.m; path = Release/QSReleaseSaleHouseDataModel.m; sourceTree = "<group>"; };
+		18EC15881AC2A58A00D2AD3A /* ReleaseSaleHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ReleaseSaleHouse.plist; path = MyZone/Release/ReleaseSaleHouse.plist; sourceTree = "<group>"; };
+		18EC158B1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYReleasePickCommunityViewController.h; path = SaleAndRent/Release/Community/QSYReleasePickCommunityViewController.h; sourceTree = "<group>"; };
+		18EC158C1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYReleasePickCommunityViewController.m; path = SaleAndRent/Release/Community/QSYReleasePickCommunityViewController.m; sourceTree = "<group>"; };
+		18EC158F1AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYReleasePickCommunityTableViewCell.h; path = SaleAndRent/Release/Community/Cell/QSYReleasePickCommunityTableViewCell.h; sourceTree = "<group>"; };
+		18EC15901AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYReleasePickCommunityTableViewCell.m; path = SaleAndRent/Release/Community/Cell/QSYReleasePickCommunityTableViewCell.m; sourceTree = "<group>"; };
 		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
 		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
@@ -1635,6 +1643,7 @@
 		184366A01AB9BDA200A81374 /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				18EC158A1AC2AE5000D2AD3A /* Community */,
 				188728F61AC2452100C88AA1 /* QSYReleaseSaleHouseViewController.h */,
 				188728F71AC2452100C88AA1 /* QSYReleaseSaleHouseViewController.m */,
 				188728F91AC2453800C88AA1 /* QSYReleaseRentHouseViewController.h */,
@@ -3126,6 +3135,7 @@
 		18BE12771A8AE3DF0036245A /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15871AC2A57000D2AD3A /* Release */,
 				18BE12781A8AE4160036245A /* MyZoneInfo.plist */,
 			);
 			name = MyZone;
@@ -3735,6 +3745,33 @@
 				18EC15851AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.m */,
 			);
 			name = Release;
+			sourceTree = "<group>";
+		};
+		18EC15871AC2A57000D2AD3A /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15881AC2A58A00D2AD3A /* ReleaseSaleHouse.plist */,
+			);
+			name = Release;
+			sourceTree = "<group>";
+		};
+		18EC158A1AC2AE5000D2AD3A /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				18EC158E1AC2BA1C00D2AD3A /* Cell */,
+				18EC158B1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.h */,
+				18EC158C1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m */,
+			);
+			name = Community;
+			sourceTree = "<group>";
+		};
+		18EC158E1AC2BA1C00D2AD3A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18EC158F1AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.h */,
+				18EC15901AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		18EDA5331ABB226A0024EEAF /* Share */ = {
@@ -4357,6 +4394,7 @@
 				18B5646B1A8366A4009779A0 /* share_friends_normal.png in Resources */,
 				18B564531A8366A4009779A0 /* navigationbar_setting_highlighted.png in Resources */,
 				18BE12691A8A133D0036245A /* myzone_owner_recommend_renant_highlighted.png in Resources */,
+				18EC15891AC2A58A00D2AD3A /* ReleaseSaleHouse.plist in Resources */,
 				475C3D741AB171120028608F /* myzone_oorderlist_cell_cover_frame.png in Resources */,
 				18B564191A8366A4009779A0 /* houses_detail_refresh_highlighted.png in Resources */,
 				18B564051A8366A4009779A0 /* home_bridalchamber_highlighted.png in Resources */,
@@ -4665,9 +4703,11 @@
 				18E8022D1A6FD44400CA21D4 /* NSDate+Formatter.m in Sources */,
 				18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
+				18EC158D1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m in Sources */,
 				18EE34671AABEE300053B909 /* QSScrollView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				1865E3D21AB191B000FAEC9E /* QSYSearchCommunityViewController.m in Sources */,
+				18EC15911AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m in Sources */,
 				47A2076F1AB7E46000F51797 /* NSDate+FSExtension.m in Sources */,
 				18BE125A1A89FC620036245A /* QSMyZoneTenantView.m in Sources */,
 				181524061ABFE13700C609B0 /* QSCDCollectedSecondHandHouseDataModel.m in Sources */,

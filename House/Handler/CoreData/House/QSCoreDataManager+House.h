@@ -40,6 +40,17 @@
 + (NSArray *)getHouseSalePriceType;
 
 /**
+ *  @author yangshengmeng, 15-03-25 17:03:16
+ *
+ *  @brief  是否可以议价选择项
+ *
+ *  @return 返回选项数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseIsNegotiatedPriceType;
+
+/**
  *  @author yangshengmeng, 15-03-06 15:03:43
  *
  *  @brief  返回房子的均价类型数据

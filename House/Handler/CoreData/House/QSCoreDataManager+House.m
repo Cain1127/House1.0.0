@@ -73,6 +73,33 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-03-25 17:03:16
+ *
+ *  @brief  是否可以议价选择项
+ *
+ *  @return 返回选项数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseIsNegotiatedPriceType
+{
+
+    NSMutableArray *houseTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseTypeTempArray = @[@"一口价",@"可议价"];
+    NSArray *houseTypeKeyArray = @[@"1",@"0"];
+    for (int i = 0; i < [houseTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseTypeKeyArray[i];
+        tempModel.val = houseTypeTempArray[i];
+        [houseTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseTypeList];
+
+}
+
+/**
  *  @author yangshengmeng, 15-03-06 15:03:43
  *
  *  @brief  返回房子的均价类型数据

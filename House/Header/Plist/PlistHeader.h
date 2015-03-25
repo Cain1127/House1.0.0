@@ -42,4 +42,7 @@
 ///过滤器：求购
 #define PLIST_FILE_NAME_FILTER_ASK_SECONDHOUSE @"FilterAskSecondHouse"
 
+///发布出售物业：首页
+#define PLIST_FILE_NAME_RELEASE_SALEHOUSE @"ReleaseSaleHouse"
+
 #endif
