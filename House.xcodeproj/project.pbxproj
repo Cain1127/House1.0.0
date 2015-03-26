@@ -408,6 +408,10 @@
 		18EC15AB1AC3DBCC00D2AD3A /* QSYReleaseSaleHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15A71AC3DBCC00D2AD3A /* QSYReleaseSaleHouseViewController.m */; };
 		18EC15AE1AC3DC0000D2AD3A /* QSYReleaseHouseContactInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15AD1AC3DC0000D2AD3A /* QSYReleaseHouseContactInfoViewController.m */; };
 		18EC15B11AC3DDCC00D2AD3A /* QSYReleaseHouseDateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15B01AC3DDCC00D2AD3A /* QSYReleaseHouseDateInfoViewController.m */; };
+		18EC15B31AC3EDA300D2AD3A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EC15B21AC3EDA300D2AD3A /* MobileCoreServices.framework */; };
+		18EC15B91AC3F0BB00D2AD3A /* UIImage+Orientaion.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15B61AC3F0BB00D2AD3A /* UIImage+Orientaion.m */; };
+		18EC15BA1AC3F0BB00D2AD3A /* UIImage+Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15B81AC3F0BB00D2AD3A /* UIImage+Thumbnail.m */; };
+		18EC15BE1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15BD1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m */; };
 		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
@@ -1196,6 +1200,13 @@
 		18EC15AD1AC3DC0000D2AD3A /* QSYReleaseHouseContactInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYReleaseHouseContactInfoViewController.m; sourceTree = "<group>"; };
 		18EC15AF1AC3DDCC00D2AD3A /* QSYReleaseHouseDateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYReleaseHouseDateInfoViewController.h; sourceTree = "<group>"; };
 		18EC15B01AC3DDCC00D2AD3A /* QSYReleaseHouseDateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYReleaseHouseDateInfoViewController.m; sourceTree = "<group>"; };
+		18EC15B21AC3EDA300D2AD3A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		18EC15B51AC3F0BB00D2AD3A /* UIImage+Orientaion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Orientaion.h"; sourceTree = "<group>"; };
+		18EC15B61AC3F0BB00D2AD3A /* UIImage+Orientaion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Orientaion.m"; sourceTree = "<group>"; };
+		18EC15B71AC3F0BB00D2AD3A /* UIImage+Thumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Thumbnail.h"; sourceTree = "<group>"; };
+		18EC15B81AC3F0BB00D2AD3A /* UIImage+Thumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Thumbnail.m"; sourceTree = "<group>"; };
+		18EC15BC1AC3F67800D2AD3A /* QSYShowImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShowImageDetailViewController.h; path = Image/QSYShowImageDetailViewController.h; sourceTree = "<group>"; };
+		18EC15BD1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShowImageDetailViewController.m; path = Image/QSYShowImageDetailViewController.m; sourceTree = "<group>"; };
 		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
 		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
@@ -1430,6 +1441,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EC15B31AC3EDA300D2AD3A /* MobileCoreServices.framework in Frameworks */,
 				182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */,
 				182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */,
 				CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */,
@@ -1603,6 +1615,7 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15B21AC3EDA300D2AD3A /* MobileCoreServices.framework */,
 				182C88201A7B244E00DA64E9 /* OpenGLES.framework */,
 				182C881E1A7B244000DA64E9 /* QuartzCore.framework */,
 				CE7BF47A1A7A70080022A132 /* CoreLocation.framework */,
@@ -1962,6 +1975,7 @@
 		1893007A1A6902E30081D0AA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15BB1AC3F65900D2AD3A /* Image */,
 				18EDA5331ABB226A0024EEAF /* Share */,
 				18AFA9E51AB687A100681071 /* Login */,
 				18CAFCE51A720E9000C90C90 /* Filter */,
@@ -3193,6 +3207,7 @@
 		18C8A0BA1A6A36E300BB9611 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15B41AC3F0BB00D2AD3A /* Compress */,
 				18E802081A6FA75800CA21D4 /* Image */,
 				18E802041A6F8EC300CA21D4 /* ImageCache */,
 				18C8A0BB1A6A373A00BB9611 /* QSImageView.h */,
@@ -3850,6 +3865,26 @@
 			);
 			name = Sale;
 			path = SaleAndRent/Release/Sale;
+			sourceTree = "<group>";
+		};
+		18EC15B41AC3F0BB00D2AD3A /* Compress */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15B51AC3F0BB00D2AD3A /* UIImage+Orientaion.h */,
+				18EC15B61AC3F0BB00D2AD3A /* UIImage+Orientaion.m */,
+				18EC15B71AC3F0BB00D2AD3A /* UIImage+Thumbnail.h */,
+				18EC15B81AC3F0BB00D2AD3A /* UIImage+Thumbnail.m */,
+			);
+			path = Compress;
+			sourceTree = "<group>";
+		};
+		18EC15BB1AC3F65900D2AD3A /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15BC1AC3F67800D2AD3A /* QSYShowImageDetailViewController.h */,
+				18EC15BD1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m */,
+			);
+			name = Image;
 			sourceTree = "<group>";
 		};
 		18EDA5331ABB226A0024EEAF /* Share */ = {
@@ -4777,6 +4812,8 @@
 				1865E3CD1AB17EBD00FAEC9E /* QSCollectedInfoView.m in Sources */,
 				18B5631A1A81AA40009779A0 /* QSCityPickerView.m in Sources */,
 				18B563211A81AA40009779A0 /* QSCustomSingleSelectedPopView.m in Sources */,
+				475C3D981AB2D9AA0028608F /* QSPOrderBottomButtonView.m in Sources */,
+				18EC15BA1AC3F0BB00D2AD3A /* UIImage+Thumbnail.m in Sources */,
 				CE8927041AB1284A005D97D4 /* QSCommunityHouseDetailDataModel.m in Sources */,
 				CECBD3CD1ABAECD700C5F9AF /* QSMapCommunityDataModel.m in Sources */,
 				18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */,
@@ -4838,6 +4875,7 @@
 				18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */,
 				18E802001A6F8D3800CA21D4 /* MJRefreshHeaderView.m in Sources */,
 				18EC158D1AC2AE9100D2AD3A /* QSYReleasePickCommunityViewController.m in Sources */,
+				18EC15BE1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m in Sources */,
 				18EE34671AABEE300053B909 /* QSScrollView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				1865E3D21AB191B000FAEC9E /* QSYSearchCommunityViewController.m in Sources */,
@@ -4863,6 +4901,7 @@
 				CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
 				18E801FF1A6F8D3800CA21D4 /* MJRefreshFooterView.m in Sources */,
+				18EC15B91AC3F0BB00D2AD3A /* UIImage+Orientaion.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
 				CEEB6D7E1AC00B9A00EC215D /* QSUserAssessCell.m in Sources */,

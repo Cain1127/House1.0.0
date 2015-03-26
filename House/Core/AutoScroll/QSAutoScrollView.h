@@ -82,6 +82,25 @@ typedef enum
 - (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andShowPageIndex:(BOOL)pageIndexFlag andShowTime:(CGFloat)showTime andTapCallBack:(void(^)(id params))callBack;
 
 /**
+ *  @author                 yangshengmeng, 15-03-26 17:03:14
+ *
+ *  @brief                  创建一个类广告自滚动的展示view
+ *
+ *  @param frame            大小和位置
+ *  @param delegate         代理
+ *  @param directionType    滚动方向的类型
+ *  @param pageIndexFlag    是否显示页码指示器
+ *  @param currentPage      当前页
+ *  @param showTime         每一页的显示时间
+ *  @param callBack         点击当前显示页时的回调
+ *
+ *  @return                 返回当前创建的自滚动view
+ *
+ *  @since                  1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andShowPageIndex:(BOOL)pageIndexFlag andCurrentPage:(int)currentPage andShowTime:(CGFloat)showTime andTapCallBack:(void(^)(id params))callBack;
+
+/**
  *  @author yangshengmeng, 15-03-12 17:03:15
  *
  *  @brief  重新加载滚动视图
