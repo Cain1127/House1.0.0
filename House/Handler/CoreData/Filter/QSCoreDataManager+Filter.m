@@ -11,6 +11,8 @@
 
 #import "QSCDFilterDataModel.h"
 #import "QSFilterDataModel.h"
+#import "QSCDFilterFeaturesDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 #import "QSCDBaseConfigurationDataModel.h"
 
 #import "QSCoreDataManager+App.h"
@@ -18,6 +20,7 @@
 
 ///过滤器信息的CoreData模型
 #define COREDATA_ENTITYNAME_FILTER @"QSCDFilterDataModel"
+#define COREDATA_ENTITYNAME_FILTER_FEATURE @"QSCDFilterFeaturesDataModel"
 
 @implementation QSCoreDataManager (Filter)
 
@@ -350,7 +353,25 @@
     filterModel.used_year_key = cdFilterModel.used_year_key;
     filterModel.filter_status = cdFilterModel.filter_status;
     
-    filterModel.features_list = [cdFilterModel.features_list allObjects];
+    ///转换模型
+    if ([cdFilterModel.features_list count] > 0) {
+        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (QSCDFilterFeaturesDataModel *cdFeatureModel in cdFilterModel.features_list) {
+            
+            QSBaseConfigurationDataModel *featureModel = [[QSBaseConfigurationDataModel alloc] init];
+            
+            featureModel.key = cdFeatureModel.key;
+            featureModel.val = cdFeatureModel.val;
+            
+            [tempArray addObject:featureModel];
+            
+        }
+        
+        ///将标签信息添加到过滤器中
+        [filterModel.features_list addObjectsFromArray:tempArray];
+        
+    }
     
     return filterModel;
 
@@ -405,46 +426,66 @@
         ///获取模型后更新保存
         QSCDFilterDataModel *cdfilterModel = fetchResultArray[0];
         
-        cdfilterModel.buy_purpose_key = filterModel.buy_purpose_key;
-        cdfilterModel.buy_purpose_val = filterModel.buy_purpose_val;
-        cdfilterModel.city_key = filterModel.city_key;
-        cdfilterModel.city_val = filterModel.city_val;
-        cdfilterModel.decoration_key = filterModel.decoration_key;
-        cdfilterModel.decoration_val = filterModel.decoration_val;
-        cdfilterModel.des = filterModel.des;
-        cdfilterModel.district_key = filterModel.district_key;
-        cdfilterModel.district_val = filterModel.district_val;
-        cdfilterModel.filter_id = filterModel.filter_id;
-        cdfilterModel.floor_key = filterModel.floor_key;
-        cdfilterModel.floor_val = filterModel.floor_val;
-        cdfilterModel.house_area_key = filterModel.house_area_key;
-        cdfilterModel.house_area_val = filterModel.house_area_val;
-        cdfilterModel.house_face_key = filterModel.house_face_key;
-        cdfilterModel.house_face_val = filterModel.house_face_val;
-        cdfilterModel.house_type_key = filterModel.house_type_key;
-        cdfilterModel.house_type_val = filterModel.house_type_val;
-        cdfilterModel.province_key = filterModel.province_key;
-        cdfilterModel.province_val = filterModel.province_val;
-        cdfilterModel.rent_pay_type_key = filterModel.rent_pay_type_key;
-        cdfilterModel.rent_pay_type_val = filterModel.rent_pay_type_val;
-        cdfilterModel.rent_price_key = filterModel.rent_price_key;
-        cdfilterModel.rent_type_key = filterModel.rent_type_key;
-        cdfilterModel.rent_type_val = filterModel.rent_type_val;
-        cdfilterModel.sale_price_key = filterModel.sale_price_key;
-        cdfilterModel.sale_price_val = filterModel.sale_price_val;
-        cdfilterModel.avg_price_key = filterModel.avg_price_key;
-        cdfilterModel.avg_price_val = filterModel.avg_price_val;
-        cdfilterModel.street_key = filterModel.street_key;
-        cdfilterModel.street_val = filterModel.street_val;
-        cdfilterModel.trade_type_key = filterModel.trade_type_key;
-        cdfilterModel.trade_type_val = filterModel.trade_type_val;
-        cdfilterModel.used_year_val = filterModel.used_year_val;
-        cdfilterModel.rent_price_val = filterModel.rent_price_val;
-        cdfilterModel.used_year_key = filterModel.used_year_key;
-        cdfilterModel.filter_status = filterModel.filter_status;
+        cdfilterModel.buy_purpose_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.buy_purpose_key);
+        cdfilterModel.buy_purpose_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.buy_purpose_val);
+        cdfilterModel.city_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.city_key);
+        cdfilterModel.city_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.city_val);
+        cdfilterModel.decoration_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.decoration_key);
+        cdfilterModel.decoration_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.decoration_val);
+        cdfilterModel.des = APPLICATION_NSSTRING_SETTING_NIL(filterModel.des);
+        cdfilterModel.district_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.district_key);
+        cdfilterModel.district_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.district_val);
+        cdfilterModel.filter_id = APPLICATION_NSSTRING_SETTING_NIL(filterModel.filter_id);
+        cdfilterModel.floor_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.floor_key);
+        cdfilterModel.floor_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.floor_val);
+        cdfilterModel.house_area_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_area_key);
+        cdfilterModel.house_area_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_area_val);
+        cdfilterModel.house_face_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_face_key);
+        cdfilterModel.house_face_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_face_val);
+        cdfilterModel.house_type_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_type_key);
+        cdfilterModel.house_type_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.house_type_val);
+        cdfilterModel.province_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.province_key);
+        cdfilterModel.province_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.province_val);
+        cdfilterModel.rent_pay_type_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_pay_type_key);
+        cdfilterModel.rent_pay_type_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_pay_type_val);
+        cdfilterModel.rent_price_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_price_key);
+        cdfilterModel.rent_type_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_type_key);
+        cdfilterModel.rent_type_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_type_val);
+        cdfilterModel.sale_price_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.sale_price_key);
+        cdfilterModel.sale_price_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.sale_price_val);
+        cdfilterModel.avg_price_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.avg_price_key);
+        cdfilterModel.avg_price_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.avg_price_val);
+        cdfilterModel.street_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.street_key);
+        cdfilterModel.street_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.street_val);
+        cdfilterModel.trade_type_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.trade_type_key);
+        cdfilterModel.trade_type_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.trade_type_val);
+        cdfilterModel.used_year_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.used_year_val);
+        cdfilterModel.rent_price_val = APPLICATION_NSSTRING_SETTING_NIL(filterModel.rent_price_val);
+        cdfilterModel.used_year_key = APPLICATION_NSSTRING_SETTING_NIL(filterModel.used_year_key);
+        cdfilterModel.filter_status = APPLICATION_NSSTRING_SETTING_NIL(filterModel.filter_status);
         
-        cdfilterModel.features_list = [NSSet setWithArray:filterModel.features_list];
+        ///清空原标签
+        [cdfilterModel removeFeatures_list:cdfilterModel.features_list];
         
+        ///更新标签信息
+        if ([filterModel.features_list count] > 0) {
+            
+            ///转换模型
+            for (QSBaseConfigurationDataModel *featureModel in filterModel.features_list) {
+                
+                QSCDFilterFeaturesDataModel *cdFeatureModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_FILTER_FEATURE inManagedObjectContext:tempContext];
+                
+                cdFeatureModel.key = featureModel.key;
+                cdFeatureModel.val = featureModel.val;
+                cdFeatureModel.filter = cdfilterModel;
+                
+                [cdfilterModel addFeatures_listObject:cdFeatureModel];
+                
+            }
+            
+        }
+        
+        ///保存
         [tempContext save:&error];
         
     }
@@ -509,7 +550,7 @@
         
     }
     
-    return @{@"commend" : @"Y"};
+//    return @{@"commend" : @"Y"};
     
     ///封装参数
     return [self getHouseListRequestParams:filterType andCityKey:[QSCoreDataManager getCurrentUserCityKey]];
@@ -563,14 +604,14 @@
     ///添加均价
     [tempDictionary setObject:(filterModel.avg_price_key ? filterModel.avg_price_key : @"") forKey:@"price_avg"];
     
-    ///如果是小区/新房列表
+    ///如果是小区/新房列表：不再需要更多参数
     if (fFilterMainTypeCommunity == filterType || fFilterMainTypeNewHouse == filterType) {
         
         return [NSDictionary dictionaryWithDictionary:tempDictionary];
         
     }
     
-    ///配套
+    ///配套:二手房和出租房的配套不同
     [tempDictionary setObject:@"" forKey:@"installation"];
     
     ///朝向

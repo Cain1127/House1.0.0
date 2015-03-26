@@ -10,4 +10,27 @@
 
 @implementation QSFilterDataModel
 
+/**
+ *  @author yangshengmeng, 15-03-27 00:03:32
+ *
+ *  @brief  重写初始化，添加自定义属性的初始化
+ *
+ *  @return 返回当前创建的过滤器模型
+ *
+ *  @since  1.0.0
+ */
+- (instancetype)init
+{
+
+    if (self = [super init]) {
+        
+        ///标签数组
+        self.features_list = [[NSMutableArray alloc] init];
+        
+    }
+    
+    return self;
+
+}
+
 @end

@@ -54,6 +54,6 @@
 @property (nonatomic, copy) NSString * rent_price_val;      //!<租金
 @property (nonatomic, copy) NSString * used_year_key;       //!<房龄key
 @property (nonatomic, copy) NSString * filter_status;       //!<过滤器的当前状态:2-正在使用
-@property (nonatomic, retain) NSArray *features_list;       //!<特色标签
+@property (nonatomic, retain) NSMutableArray *features_list;//!<特色标签
 
 @end

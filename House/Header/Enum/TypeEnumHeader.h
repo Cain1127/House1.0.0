@@ -583,6 +583,8 @@ typedef enum
     rRequestTypeChatMessageList = 4000,         //!<消息列表
     
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
+    rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
+    rRequestTypeMyZoneAddAskRentPurpase,        //!<添加求租求购
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     

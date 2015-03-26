@@ -55,6 +55,7 @@ typedef enum
 
 @property (nonatomic,assign) FILTER_SETTINGVC_TYPE filterVCType;//!<过滤设置页面的类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
+@property (nonatomic,assign) BOOL isAddAskRent;                 //!<是否同步添加求租求购
 
 @end
 
@@ -82,6 +83,9 @@ typedef enum
         
         ///初始化过滤器模型
         [self createFilterDataModel];
+        
+        ///初始化求租求购
+        self.isAddAskRent = YES;
         
     }
     
@@ -380,10 +384,16 @@ typedef enum
                         button.selected = NO;
                         button.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
                         
+                        ///删除选择的标签
+                        [self deleteFeatureWithModel:featuresModel];
+                        
                     } else {
                     
                         button.selected = YES;
                         button.layer.borderColor = [COLOR_CHARACTERS_BLACK CGColor];
+                        
+                        ///保存选择的标签
+                        [self addFeatureWithModel:featuresModel];
                     
                     }
                     
@@ -396,6 +406,10 @@ typedef enum
                 featuresButton.layer.cornerRadius = cornerOfFeatures;
                 featuresButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
                 featuresButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+                
+                ///检测是否已存在标签信息
+                featuresButton.selected = [self checkFeaturesIsPicked:featuresModel];
+                
                 [view addSubview:featuresButton];
                 k++;
                 
@@ -437,6 +451,7 @@ typedef enum
                 UISwitch *tipsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 60.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, setAsAskFilterTips.frame.origin.y + 3.0f, 60.0f, 30.0f)];
                 tipsSwitch.onTintColor = COLOR_CHARACTERS_LIGHTYELLOW;
                 tipsSwitch.on = YES;
+                [tipsSwitch addTarget:self action:@selector(isAddAskRentAndPurchaseSwitchAction:) forControlEvents:UIControlEventValueChanged];
                 [view addSubview:tipsSwitch];
                 
                 ///分隔线
@@ -464,6 +479,74 @@ typedef enum
 
 }
 
+#pragma mark - 是否设置求租求购开关事件
+- (void)isAddAskRentAndPurchaseSwitchAction:(UISwitch *)switchView
+{
+
+    ///判断开关状态
+    if (switchView.on) {
+        
+        self.isAddAskRent = YES;
+        
+    } else {
+    
+        self.isAddAskRent = NO;
+    
+    }
+
+}
+
+#pragma mark - 保存/删除标签
+- (void)addFeatureWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    for (QSBaseConfigurationDataModel *obj in self.filterModel.features_list) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    ///添加
+    [self.filterModel.features_list addObject:model];
+
+}
+
+- (void)deleteFeatureWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    for (QSBaseConfigurationDataModel *obj in self.filterModel.features_list) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            [self.filterModel.features_list removeObject:obj];
+            
+        }
+        
+    }
+
+}
+
+#pragma mark - 检测标签是否已选择
+- (BOOL)checkFeaturesIsPicked:(QSBaseConfigurationDataModel *)model
+{
+
+    for (QSBaseConfigurationDataModel *obj in self.filterModel.features_list) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return YES;
+            
+        }
+        
+    }
+    return NO;
+
+}
+
 #pragma mark - 创建重新设置过滤器的页面
 ///创建重新设置过滤器的页面
 - (void)createUpdateFilterSettingPage
@@ -485,6 +568,18 @@ typedef enum
         
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:[self getFilterTypeWithFilterVCType] andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            
+            ///判断是否发送求租求购
+            if (fFilterSettingVCTypeHouseListRentHouse == self.filterVCType ||
+                fFilterSettingVCTypeHouseListSecondHouse == self.filterVCType) {
+                
+                if (self.isAddAskRent) {
+                    
+                    [self addAskRentAndPurphase];
+                    
+                }
+                
+            }
             
             ///回调
             if (self.resetFilterCallBack) {
@@ -1156,6 +1251,15 @@ typedef enum
     }
     
     return NO;
+
+}
+
+#pragma mark - 添加求租求购
+///添加求租求购
+- (void)addAskRentAndPurphase
+{
+
+    
 
 }
 

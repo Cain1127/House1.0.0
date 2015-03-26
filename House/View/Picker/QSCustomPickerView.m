@@ -796,7 +796,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     
                 } else {
                     
-                    ///保存当前选择模型
+                    ///重置当前选择模型
                     self.currentPickedModel = nil;
                     
                     ///更换显示信息
@@ -806,7 +806,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                     ///回调
                     if (self.pickedCallBack) {
                         
-                        self.pickedCallBack(pPickerCallBackActionTypeUnPickedHidden,nil,nil);
+                        self.pickedCallBack(pPickerCallBackActionTypeUnLimited,nil,nil);
                         
                     }
                 

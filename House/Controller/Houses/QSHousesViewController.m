@@ -389,31 +389,27 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.pricePickerView removePickerView:NO];
             [self.houseListTypePickerView removePickerView:NO];
             
-        } else {
+        } else if (pPickerCallBackActionTypePicked == callBackType) {
             
             ///查找所在区信息
             QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getDistrictModelWithStreetKey:pickedKey];
             
-            if (districtCurrentModel) {
-                
-                ///更新所在区
-                self.filterModel.district_key = tempModel.key ? tempModel.key : @"";
-                self.filterModel.district_val = tempModel.val ? tempModel.val : @"";
-                
-                ///更新街道
-                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
-                
-            } else {
-                
-                ///更新所在区
-                self.filterModel.district_key = tempModel.key ? tempModel.key : @"";
-                self.filterModel.district_val = tempModel.val ? tempModel.val : @"";
+            ///更新所在区
+            self.filterModel.district_key = APPLICATION_NSSTRING_SETTING_NIL(tempModel.key);
+            self.filterModel.district_val = APPLICATION_NSSTRING_SETTING_NIL(tempModel.val);
             
-                ///更新街道
-                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
+            ///更新街道
+            [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:(districtCurrentModel ? YES : NO)];
             
-            }
+        } else if (pPickerCallBackActionTypeUnLimited == callBackType) {
+        
+            ///清空原区信息和街道信息
+            self.filterModel.district_key = nil;
+            self.filterModel.district_val = nil;
             
+            ///更新街道，并刷新数据
+            [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:(districtCurrentModel ? YES : NO)];
+        
         }
         
     }];
@@ -789,42 +785,37 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
 
     ///不限
-    if (pPickerCallBackActionTypeUnLimited == callBackType) {
+    if ((pPickerCallBackActionTypeUnLimited == callBackType) && isCurrentModel) {
         
-        ///判断原来是否已有选择，如果原来就不限，则不刷新，如果原来有选择项，现在重新不限，则刷新
-        if (isCurrentModel) {
+        ///更新过滤器
+        [self.filterModel setValue:@"" forKey:setKey];
+        [self.filterModel setValue:@"" forKey:setVal];
+        
+        ///更新本地对应的过滤器
+        self.filterModel.filter_status = @"2";
+        
+        ///刷新数据
+        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        [collectionView headerBeginRefreshing];
+        
+        ///保存过滤器
+        [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
-            ///更新过滤器
-            [self.filterModel setValue:@"" forKey:setKey];
-            [self.filterModel setValue:@"" forKey:setVal];
-            
-            ///更新本地对应的过滤器
-            self.filterModel.filter_status = @"2";
-            
-            ///刷新数据
-            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            [collectionView headerBeginRefreshing];
-            
-            ///保存过滤器
-            [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+            ///保存成功后进入房子列表
+            if (isSuccess) {
                 
-                ///保存成功后进入房子列表
-                if (isSuccess) {
-                    
-                    NSLog(@"====================过滤器保存成功=====================");
-                    
-                } else {
-                    
-                    NSLog(@"====================过滤器保存失败=====================");
-                    
-                }
+                NSLog(@"====================过滤器保存成功=====================");
                 
-            }];
+            } else {
+                
+                NSLog(@"====================过滤器保存失败=====================");
+                
+            }
             
-            ///将过滤器设置为当前用户的默认过滤器
-            [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
-            
-        }
+        }];
+        
+        ///将过滤器设置为当前用户的默认过滤器
+        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
         
     }
     

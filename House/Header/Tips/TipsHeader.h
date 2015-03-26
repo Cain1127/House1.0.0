@@ -37,6 +37,21 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(b * NSEC_PER_SEC)), di
     \
 });
 
+/**
+ *  @author     yangshengmeng, 15-03-27 01:03:51
+ *
+ *  @brief      弹出一个有两个按钮的提示窗口，并且点击按钮时回调给定的block
+ *
+ *  @param a    标题
+ *  @param b    提示信息
+ *  @param c    取消按钮的标题
+ *  @param d    其他按钮的标题
+ *  @param e    点击按钮时的回调：d的回调下标为0,c的回调下标为1
+ *
+ *  @return     无返回
+ *
+ *  @since      1.0.0
+ */
 #define TIPS_ALERT_MESSAGE_CONFIRMBUTTON(a,b,c,d,e) QSBlockAlertView *tipsAlertView = [[QSBlockAlertView alloc] initWithTitle:a message:b cancelButtonTitle:c andCallBack:e otherButtonTitles:d];\
 [tipsAlertView show];
 
@@ -70,6 +85,16 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(b * NSEC_PER_SEC)), di
 #define APPLICATION_LOG_INFO(a,b) NSLog(@"====================%@====================",a);\
     NSLog(@"%@：%@",a,b);\
     NSLog(@"====================%@====================",a);
+
+/**
+ *  @author yangshengmeng, 15-03-27 01:03:42
+ *
+ *  @brief  字符串属性的判断性赋值
+ *
+ *  @since  1.0.0
+ */
+#define APPLICATION_NSSTRING_SETTING(a,b) [a length] > 0 ? a : b
+#define APPLICATION_NSSTRING_SETTING_NIL(a) APPLICATION_NSSTRING_SETTING(a,nil)
 
 ///版本信息
 #define APPLICATION_RIGHT_INFO @"Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved."
