@@ -52,6 +52,30 @@
 - (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType  andShowPageIndex:(BOOL)pageIndexFlag andShowTime:(CGFloat)currentShowTime andTapCallBack:(void (^)(id))callBack
 {
 
+    return [self initWithFrame:frame andDelegate:delegate andScrollDirectionType:directionType andShowPageIndex:pageIndexFlag andCurrentPage:0 andShowTime:currentShowTime andTapCallBack:callBack];
+
+}
+
+/**
+ *  @author                 yangshengmeng, 15-03-26 17:03:14
+ *
+ *  @brief                  创建一个类广告自滚动的展示view
+ *
+ *  @param frame            大小和位置
+ *  @param delegate         代理
+ *  @param directionType    滚动方向的类型
+ *  @param pageIndexFlag    是否显示页码指示器
+ *  @param currentPage      当前页
+ *  @param showTime         每一页的显示时间
+ *  @param callBack         点击当前显示页时的回调
+ *
+ *  @return                 返回当前创建的自滚动view
+ *
+ *  @since                  1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame andDelegate:(id<QSAutoScrollViewDelegate>)delegate andScrollDirectionType:(AUTOSCROLL_DIRECTION_TYPE)directionType andShowPageIndex:(BOOL)pageIndexFlag andCurrentPage:(int)currentPage andShowTime:(CGFloat)showTime andTapCallBack:(void(^)(id params))callBack
+{
+
     if (self = [super initWithFrame:frame]) {
         
         ///背景颜色
@@ -61,16 +85,16 @@
         self.delegate = delegate;
         
         ///保存显示时间：如果时间小于0.5，则不启动自滚动
-        if (currentShowTime > 0.5f) {
+        if (showTime > 0.5f) {
             
-            self.currentShowTime = currentShowTime;
+            self.currentShowTime = showTime;
             self.isAutoScroll = YES;
             
         } else {
-        
+            
             self.currentShowTime = 1.0f;
             self.isAutoScroll = NO;
-        
+            
         }
         
         ///是否显示页码指示器
@@ -85,6 +109,9 @@
         
         ///保存滚动方向
         self.autoScrollDirectionType = directionType;
+        
+        ///当前显示的页码
+        self.currentIndex = currentPage;
         
         ///创建UI
         [self createAutoShowViewUI];
@@ -122,9 +149,6 @@
 
     ///获取滚动的页数
     self.sumPage = sumPage;
-    
-    ///设置初始显示下标
-    self.currentIndex = 0;
 
     ///判断是否只有一个
     if (1 == self.sumPage) {
@@ -140,7 +164,7 @@
     }
     
     ///通过代理获取当前显示view和下一个显示view
-    self.currentShowCell = [self.delegate autoScrollViewShowView:self viewForShowAtIndex:0];
+    self.currentShowCell = [self.delegate autoScrollViewShowView:self viewForShowAtIndex:self.currentIndex];
     self.nextShowCell = [self.delegate autoScrollViewShowView:self viewForShowAtIndex:[self getRightPrepareShowViewIndex]];
 
     ///重置frame
@@ -190,9 +214,10 @@
 
     self.pageControll = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f)];
     self.pageControll.numberOfPages = self.sumPage;
-    self.pageControll.currentPage = 0;
+    self.pageControll.currentPage = self.currentIndex;
     self.pageControll.center = CGPointMake(self.frame.size.width / 2.0f, self.frame.size.height - 40.0f);
     [self addSubview:self.pageControll];
+    [self bringSubviewToFront:self.pageControll];
 
 }
 

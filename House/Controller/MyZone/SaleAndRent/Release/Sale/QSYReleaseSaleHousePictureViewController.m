@@ -214,7 +214,7 @@ static char PickedImageRootViewKey;//!<图片选择底view
         for (int i = 0;i < sumImageCount && i < 12;i++) {
             
             UIImage *tempImage = self.saleHouseReleaseModel.imagesList[i];
-            UIView *imageView = [self createImageButton:CGRectMake((60.0f + 5.0f) * i, 0.0f, 60.0f, 60.0f) andImage:tempImage];
+            UIView *imageView = [self createImageButton:CGRectMake((60.0f + 5.0f) * i, 0.0f, 60.0f, 60.0f) andImage:tempImage andIndex:i];
             [rootView addSubview:imageView];
             
         }
@@ -250,7 +250,7 @@ static char PickedImageRootViewKey;//!<图片选择底view
 }
 
 ///创建一个已有图片的按钮
-- (UIView *)createImageButton:(CGRect)frame andImage:(UIImage *)image
+- (UIView *)createImageButton:(CGRect)frame andImage:(UIImage *)image andIndex:(int)index
 {
     
     ///底view
@@ -261,13 +261,13 @@ static char PickedImageRootViewKey;//!<图片选择底view
     UIButton *imageButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///查看大图
-        QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImage:image andType:sShowImageOriginalVCTypeEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType) {
+        QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImages:self.saleHouseReleaseModel.imagesList andCurrentIndex:index andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
             
             ///删除事件
             if (sShowImageOriginalActionTypeDelete == actionType) {
                 
                 ///删除图片
-                [self.saleHouseReleaseModel.imagesList removeObject:image];
+                [self.saleHouseReleaseModel.imagesList removeObjectAtIndex:deleteIndex];
                 
                 ///重构图片框
                 [self createImagePickedView];
