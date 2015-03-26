@@ -7,6 +7,7 @@
 //
 
 #import "QSYReleaseSaleHouseAddInfoViewController.h"
+#import "QSYReleaseSaleHousePictureViewController.h"
 
 #import "QSCustomSingleSelectedPopView.h"
 #import "QSMultipleSelectedPopView.h"
@@ -96,7 +97,9 @@ typedef enum
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        
+        ///进入图片页
+        QSYReleaseSaleHousePictureViewController *pictureAddVC = [[QSYReleaseSaleHousePictureViewController alloc] initWithSaleModel:self.saleHouseReleaseModel];
+        [self.navigationController pushViewController:pictureAddVC animated:YES];
         
     }];
     [self.view addSubview:commitButton];

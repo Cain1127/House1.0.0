@@ -410,11 +410,6 @@ static char UserIconKey;//!<用户头像
                         
                         ///刷新当前页面数据
                         
-                        ///进入发布出售物业页面
-                        QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
-                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
-                        [self hiddenBottomTabbar:YES];
-                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
                     }
                     
