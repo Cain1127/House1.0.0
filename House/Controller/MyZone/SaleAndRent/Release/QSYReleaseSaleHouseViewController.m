@@ -8,6 +8,7 @@
 
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleasePickCommunityViewController.h"
+#import "QSYReleaseSaleHouseAddInfoViewController.h"
 
 #import "QSCustomSingleSelectedPopView.h"
 #import "QSCustomDistrictSelectedPopView.h"
@@ -95,7 +96,14 @@ typedef enum
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        
+        ///校验数据
+        if ([self checkInputData]) {
+            
+            ///进入第二页
+            QSYReleaseSaleHouseAddInfoViewController *addInfoVC = [[QSYReleaseSaleHouseAddInfoViewController alloc] initWithSaleModel:self.saleHouseReleaseModel];
+            [self.navigationController pushViewController:addInfoVC animated:YES];
+            
+        }
         
     }];
     [self.view addSubview:commitButton];
@@ -173,6 +181,92 @@ typedef enum
     
 }
 
+#pragma mark - 校验数据
+///校验数据
+- (BOOL)checkInputData
+{
+
+    ///物业类型
+    if ([self.saleHouseReleaseModel.trandType length] <= 0 ||
+        [self.saleHouseReleaseModel.trandTypeKey length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择物业类型", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///区域信息
+    if ([self.saleHouseReleaseModel.district length] <= 0 ||
+        [self.saleHouseReleaseModel.districtKey length] <= 0 ||
+        [self.saleHouseReleaseModel.street length] <= 0 ||
+        [self.saleHouseReleaseModel.streetKey length] <= 0) {
+        
+        ///提示
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择区域信息", 1.0f, ^(){})
+        
+        return NO;
+        
+    }
+    
+    ///小区名
+    if ([self.saleHouseReleaseModel.community length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请填写小区名称", 1.0, ^(){})
+        
+        return NO;
+        
+    }
+    
+    ///详细地址
+    if ([self.saleHouseReleaseModel.address length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请填写详细地址", 1.0, ^(){})
+        
+        return NO;
+        
+    }
+    
+    ///户型
+    if ([self.saleHouseReleaseModel.houseType length] <= 0 ||
+        [self.saleHouseReleaseModel.houseTypeKey length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择户型", 1.0, ^(){})
+        
+        return NO;
+        
+    }
+    
+    ///面积
+    if ([self.saleHouseReleaseModel.area length] <= 0 ||
+        [self.saleHouseReleaseModel.areaKey length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择面积", 1.0, ^(){})
+        return NO;
+        
+    }
+    
+    ///售价
+    if ([self.saleHouseReleaseModel.salePrice length] <= 0 ||
+        [self.saleHouseReleaseModel.salePriceKey length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择售价", 1.0, ^(){})
+        return NO;
+        
+    }
+    
+    ///是否议价
+    if ([self.saleHouseReleaseModel.negotiatedPrice length] <= 0 ||
+        [self.saleHouseReleaseModel.negotiatedPriceKey length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择是否议价", 1.0, ^(){})
+        return NO;
+        
+    }
+    
+    return YES;
+
+}
+
 #pragma mark - 点击textField时的事件：不进入编辑模式，只跳转
 ///点击textField时的事件：不进入编辑模式，只跳转
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -205,10 +299,14 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.trandType = tempModel.val;
+                    self.saleHouseReleaseModel.trandTypeKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
+                    self.saleHouseReleaseModel.trandType = nil;
+                    self.saleHouseReleaseModel.trandTypeKey = nil;
                     
                 }
                 
@@ -241,12 +339,22 @@ typedef enum
                     QSBaseConfigurationDataModel *districtModel = [QSCoreDataManager getDistrictModelWithStreetKey:tempModel.key];
                     
                     ///显示当前位置信息
+                    self.districtField.text = districtModel.val;
                     self.streetField.text = tempModel.val;
+                    self.saleHouseReleaseModel.district = districtModel.val;
+                    self.saleHouseReleaseModel.districtKey = districtModel.key;
+                    self.saleHouseReleaseModel.street = tempModel.val;
+                    self.saleHouseReleaseModel.streetKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     ///显示当前位置信息
-                    textField.text = nil;
+                    self.districtField.text = nil;
+                    self.streetField.text = nil;
+                    self.saleHouseReleaseModel.district = nil;
+                    self.saleHouseReleaseModel.districtKey = nil;
+                    self.saleHouseReleaseModel.street = nil;
+                    self.saleHouseReleaseModel.streetKey = nil;
                     
                 }
                 
@@ -273,6 +381,10 @@ typedef enum
                     
                     ///显示信息
                     textField.text = pickCommunity.title;
+                    
+                    ///保存小区
+                    self.saleHouseReleaseModel.community = pickCommunity.title;
+                    self.saleHouseReleaseModel.communityKey = pickCommunity.id_;
                     
                 }
                 
@@ -312,11 +424,15 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.houseType = tempModel.val;
+                    self.saleHouseReleaseModel.houseTypeKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
-                    ///显示当前位置信息
+                    ///取消户型信息
                     textField.text = nil;
+                    self.saleHouseReleaseModel.houseType = nil;
+                    self.saleHouseReleaseModel.houseTypeKey = nil;
                     
                 }
                 
@@ -346,10 +462,14 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.area = tempModel.val;
+                    self.saleHouseReleaseModel.areaKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
+                    self.saleHouseReleaseModel.area = nil;
+                    self.saleHouseReleaseModel.areaKey = nil;
                     
                 }
                 
@@ -379,10 +499,14 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.salePrice = tempModel.val;
+                    self.saleHouseReleaseModel.salePriceKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
+                    self.saleHouseReleaseModel.salePrice = nil;
+                    self.saleHouseReleaseModel.salePriceKey = nil;
                     
                 }
                 
@@ -400,10 +524,10 @@ typedef enum
             ///回收详细地址弹出的键盘
             [tempField resignFirstResponder];
             
-            ///获取出售价格的数据
+            ///获取是否议价选择项数组
             NSArray *intentArray = [QSCoreDataManager getHouseIsNegotiatedPriceType];
             
-            ///显示房子售价选择窗口
+            ///显示是否议价选择项窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
@@ -412,10 +536,14 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.negotiatedPrice = tempModel.val;
+                    self.saleHouseReleaseModel.negotiatedPriceKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
+                    self.saleHouseReleaseModel.negotiatedPrice = nil;
+                    self.saleHouseReleaseModel.negotiatedPriceKey = nil;
                     
                 }
                 
@@ -451,6 +579,31 @@ typedef enum
 {
 
     [textField resignFirstResponder];
+    return YES;
+
+}
+
+#pragma mark - 详细地址编辑完成后保存地址信息
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+
+    ///详细地址输入框
+    int actionType = [[textField valueForKey:@"customFlag"] intValue];
+    if (rReleaseSaleHouseHomeActionTypeDetailAddress == actionType) {
+        
+        NSString *inputString = textField.text;
+        if ([inputString length] > 0) {
+            
+            self.saleHouseReleaseModel.address = inputString;
+            
+        } else {
+        
+            self.saleHouseReleaseModel.address = nil;
+        
+        }
+        
+    }
+    
     return YES;
 
 }
