@@ -1,8 +1,8 @@
 //
-//  QSPBuyerTransationOrderListsTableViewCell.h
+//  QSPSalerBookedOrderListsTableViewCell.h
 //  House
 //
-//  Created by CoolTea on 15/3/25.
+//  Created by CoolTea on 15/3/26.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 //Cell高度
 #define MY_ZONE_ORDER_LIST_CELL_HEIGHT      115.0f
 
-@interface QSPBuyerTransationOrderListsTableViewCell : UITableViewCell
+@interface QSPSalerBookedOrderListsTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 

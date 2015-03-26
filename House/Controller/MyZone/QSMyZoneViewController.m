@@ -29,6 +29,8 @@
 
 #import "QSPBuyerBookedOrdersListsViewController.h"
 #import "QSPBuyerTransactionOrderListViewController.h"
+#import "QSPSalerBookedOrdersListsViewController.h"
+#import "QSPSalerTransactionOrderListViewController.h"
 
 ///关联
 static char UserIconKey;//!<用户头像
@@ -391,6 +393,46 @@ static char UserIconKey;//!<用户头像
     ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
         
         switch (actionType) {
+            case oOwnerZoneActionTypeStayAround:
+                //待看房
+                {
+                    QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeBooked];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
+                break;
+            case oOwnerZoneActionTypeHavedAround:
+                //已看房
+                {
+                    QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
+                break;
+            case oOwnerZoneActionTypeWaitCommit:
+                //待成交
+                {
+                    QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
+                break;
+            case oOwnerZoneActionTypeCommited:
+                //已成交
+                {
+                    QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                    [bolVc setHiddenCustomTabbarWhenPush:YES];
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                }
+                break;
                 ///出售物业
             case oOwnerZoneActionTypeSaleHouse:
             {

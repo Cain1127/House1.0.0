@@ -1,16 +1,15 @@
 //
-//  QSPBuyerTransationOrderListsTableViewCell.m
+//  QSPSalerBookedOrderListsTableViewCell.m
 //  House
 //
-//  Created by CoolTea on 15/3/25.
+//  Created by CoolTea on 15/3/26.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPBuyerTransationOrderListsTableViewCell.h"
+#import "QSPSalerBookedOrderListsTableViewCell.h"
 #import "UIKit+AFNetworking.h"
 #import "CoreHeader.h"
 #include <objc/runtime.h>
-
 #import "QSOrderListReturnData.h"
 
 ///关联
@@ -23,7 +22,8 @@ static char infoLabelKey;       //!<时间,出价等简介Label关联key
 static char leftActionBtKey;    //!<右部左边按钮关联key
 static char rightActionBtKey;   //!<右部右边按钮关联key
 
-@implementation QSPBuyerTransationOrderListsTableViewCell
+@implementation QSPSalerBookedOrderListsTableViewCell
+
 @synthesize parentViewController;
 
 - (void)awakeFromNib {
@@ -323,6 +323,28 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
     }
     
+    //    if (leftBt) {
+    //
+    //        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL] forState:UIControlStateNormal];
+    //        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateHighlighted];
+    //        [leftBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED] forState:UIControlStateSelected];
+    //
+    //    }
+    //
+    //    if (rightBt) {
+    //
+    //        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL] forState:UIControlStateNormal];
+    //        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateHighlighted];
+    //        [rightBt setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED] forState:UIControlStateSelected];
+    //
+    //    }
+    
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
 }
 
 @end
