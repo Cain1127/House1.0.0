@@ -96,7 +96,7 @@
     [changeOrderButtonView setFrame:CGRectMake(changeOrderButtonView.frame.origin.x, SIZE_DEVICE_HEIGHT -changeOrderButtonView.frame.size.height, changeOrderButtonView.frame.size.width, changeOrderButtonView.frame.size.height)];
     [self.view addSubview:changeOrderButtonView];
     
-    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(titleTipLabel.frame.origin.x, titleTipLabel.frame.origin.y+titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(titleTipLabel.frame.origin.y+titleTipLabel.frame.size.height))];
+    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(_titleTipLabel.frame.origin.x, _titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(_titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height))];
     [self.view addSubview:scrollView];
     
     ///看房时间
