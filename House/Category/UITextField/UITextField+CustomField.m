@@ -62,6 +62,19 @@
             
             ///左提示(浅灰)
         case cCustomTextFieldStyleLeftTipsLightGray:
+        {
+        
+            ///获取文字显示最小长度
+            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+            leftTipsLabel.text = info;
+            leftView = leftTipsLabel;
+        
+        }
+            break;
             
             ///右箭头+左提示信息(浅灰)
         case cCustomTextFieldStyleRightArrowLeftTipsLightGray:

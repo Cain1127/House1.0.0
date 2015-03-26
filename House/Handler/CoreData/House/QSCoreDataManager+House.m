@@ -8,6 +8,7 @@
 
 #import "QSCoreDataManager+House.h"
 #import "QSBaseConfigurationDataModel.h"
+#import "NSDate+Formatter.h"
 
 ///配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_BASECONFIGURATION_INFO @"QSCDBaseConfigurationDataModel"
@@ -69,6 +70,33 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-25 17:03:16
+ *
+ *  @brief  是否可以议价选择项
+ *
+ *  @return 返回选项数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseIsNegotiatedPriceType
+{
+
+    NSMutableArray *houseTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseTypeTempArray = @[@"一口价",@"可议价"];
+    NSArray *houseTypeKeyArray = @[@"1",@"0"];
+    for (int i = 0; i < [houseTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseTypeKeyArray[i];
+        tempModel.val = houseTypeTempArray[i];
+        [houseTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseTypeList];
 
 }
 
@@ -671,6 +699,139 @@
             break;
     }
     
+    return nil;
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-26 11:03:05
+ *
+ *  @brief  返回二手房的房屋性质
+ *
+ *  @return 返回二手房的房屋性质
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseNatureTypes
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"house_nature"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-26 11:03:21
+ *
+ *  @brief  返回建筑年代选择项
+ *
+ *  @return 返回建筑年代所有数据
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseBuildingYearTypes
+{
+
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSMutableArray *houseUsedYearTypeTempArray = [[NSMutableArray alloc] init];
+    NSMutableArray *houseUsedYearTypeKeyArray = [[NSMutableArray alloc] init];
+    
+    ///获取当前年
+    NSString *currentDate = [NSDate formatNSTimeToNSDateString:[NSDate currentDateTimeStamp]];
+    NSString *currentYear = [currentDate substringToIndex:4];
+    
+    ///构建年代数据
+    for (int i = 1980; i <= [currentYear intValue]; i++) {
+        
+        [houseUsedYearTypeTempArray addObject:[NSString stringWithFormat:@"%d年",i]];
+        [houseUsedYearTypeKeyArray addObject:[NSString stringWithFormat:@"%d",i]];
+        
+    }
+    
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-03-26 12:03:22
+ *
+ *  @brief              返回不同房源类型的配套信息
+ *
+ *  @param filterType   房源类型
+ *
+ *  @return             返回对应类型的配套信息
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getHouseInstallationTypes:(FILTER_MAIN_TYPE)filterType
+{
+    
+    switch (filterType) {
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+        
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"installation_rent"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+        
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+         
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"installation"]];
+            
+            ///排序
+            [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                
+                QSBaseConfigurationDataModel *obj1Model = obj1;
+                QSBaseConfigurationDataModel *obj2Model = obj2;
+                
+                return [obj1Model.key intValue] > [obj2Model.key intValue];
+                
+            }];
+            
+            return [NSArray arrayWithArray:tempArray];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+
     return nil;
 
 }

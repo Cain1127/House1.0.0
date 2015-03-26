@@ -8,12 +8,16 @@
 
 #import "QSRentHouseDetailViewController.h"
 #import "QSAutoScrollView.h"
+#import "QSYPopCustomView.h"
+#import "QSYShareChoicesView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSRentHousesDetailReturnData.h"
@@ -28,6 +32,7 @@
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "MJRefresh.h"
 
@@ -109,22 +114,27 @@ static char LeftStarKey;            //!<左侧星级
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
     ///收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
+        ///收藏出租房
+        [self collectRentHouse:button];
+        
+    }];
+    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeRentalHouse];
+    [self.view addSubview:intentionButton];
     
     ///分享按钮
-    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击分享");
+    QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
+    
+    UIButton *shareButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyleShare andCallBack:^(UIButton *button) {
         
-    } ];
-    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
-    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
-    [self.view addSubview:shareImageView];
+        ///分享
+        [self shareRentHouse:button];
+        
+    }];
+    [self.view addSubview:shareButton];
     
 }
 
@@ -371,25 +381,9 @@ static char LeftStarKey;            //!<左侧星级
     infoRootView.scrollEnabled=YES;
     infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,commentView.frame.origin.y+commentView.frame.size.height+130.0f);
     
-    //[self.view addSubview:scrollView];
-    //    objc_setAssociatedObject(self, &RootscrollViewKey, scrollView, OBJC_ASSOCIATION_ASSIGN);
-    
-    
-    ///判断滚动尺寸
-    //    if ((secondRootView.frame.origin.y + secondViewHeight + 10.0f) > infoRootView.frame.size.height) {
-    //
-    //        infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondViewHeight + 10.0f));
-    //
-    //    }
-    
-    ///修改滚动尺寸
-    //    infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, infoRootView.contentSize.height + 130.0f);
-    
 }
 
-
-
-#pragma mark -添加评分view
+#pragma mark - 添加评分view
 ///添加评分view
 -(void)createScoreUI:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
 {
@@ -493,7 +487,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 
-#pragma mark -添加物业总价view
+#pragma mark - 添加物业总价view
 ///添加物业总价
 - (void)createHouseTotalUI:(UIView *)view andTotalModel:(QSWRentHouseInfoDataModel *)houseInfo
 {
@@ -665,7 +659,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 
-#pragma mark -添加房子详情view
+#pragma mark - 添加房子详情view
 ///添加房子详情view
 -(void)createHouseDetailViewUI:(UIView *)view andHousesInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
 {
@@ -737,7 +731,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房子服务按钮view
+#pragma mark - 添加房子服务按钮view
 ///添加房子服务按钮view
 -(void)createHouseServiceViewUI:(QSScrollView *)view
 {
@@ -813,7 +807,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房子价钱变动view
+#pragma mark - 添加房子价钱变动view
 ///添加房子价钱变动view
 -(void)createPriceChangeViewUI:(UIView *)view andPriceChanges:(QSHousePriceChangesDataModel *)priceChangesModel
 {
@@ -882,7 +876,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加小区均价view
+#pragma mark - 添加小区均价view
 ///添加小区均价view
 -(void)createDistrictAveragePriceViewUI:(UIView *)view andTitle:(NSString *)Districttitle andAveragePrice:(NSString *)averagePrice
 {
@@ -943,7 +937,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房源关注view
+#pragma mark - 添加房源关注view
 ///添加房源关注view
 -(void)createHouseAttentionViewUI:(UIView *)view andHouseInfo:(QSWRentHouseInfoDataModel *)houseInfoModel
 
@@ -1060,7 +1054,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加评论view
+#pragma mark - 添加评论view
 ///添加评论view
 -(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSHouseCommentDataModel *) commentModel
 {
@@ -1116,7 +1110,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加业主view
+#pragma mark - 添加业主view
 ///添加业主view
 -(void)createOwnerViewUI:(UIView *)view andUserInfo:(QSUserSimpleDataModel *)userInfoModel
 {
@@ -1153,23 +1147,7 @@ static char LeftStarKey;            //!<左侧星级
     }];
     [view addSubview:connectButton];
     
-//    ///分隔线
-//    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
-//    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
-//    [view addSubview:bottomLineLabel];
-    
 }
-
-
-//#pragma mark - 结束刷新动画
-/////结束刷新动画
-//- (void)endRefreshAnimination
-//{
-//
-//    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
-//    [scrollView headerEndRefreshing];
-//
-//}
 
 #pragma mark - 联系业主事件
 - (void)makeCall:(NSString *)number andOwer:(NSString *)ower
@@ -1201,14 +1179,12 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-
 #pragma mark - 请求详情信息
 - (void)getRentHouseDetailInfo
 {
     
     ///封装参数
     NSDictionary *params = @{@"id_" : self.detailID ? self.detailID : @""};
-    ///
     
     ///进行请求
     [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -1222,12 +1198,6 @@ static char LeftStarKey;            //!<左侧星级
             ///保存返回的数据模型
             self.detailInfo = tempModel.detailInfo;
             self.houseInfo=tempModel.detailInfo.house;
-            NSLog(@"出租房详情数据请求成功%@",tempModel.detailInfo);
-            NSLog(@"参数id%@",params);
-            NSLog(@"地址%@",self.houseInfo.address);
-            NSLog(@"小区名%@",self.houseInfo.village_name);
-            NSLog(@"出租价格%@",self.houseInfo.rent_price);
-            
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
@@ -1260,5 +1230,239 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+#pragma mark - 分享出租房
+///分享出租房
+- (void)shareRentHouse:(UIButton *)button
+{
+    
+    ///弹出窗口的指针
+    __block QSYPopCustomView *popView = nil;
+    
+    ///提示选择窗口
+    QSYShareChoicesView *saleTipsView = [[QSYShareChoicesView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 150.0f) andShareCallBack:^(SHARE_CHOICES_TYPE actionType) {
+        
+        ///加收弹出窗口
+        [popView hiddenCustomPopview];
+        
+        ///处理不同的分享事件
+        switch (actionType) {
+                ///新浪微博
+            case sShareChoicesTypeXinLang:
+                
+                break;
+                
+                ///朋友圈
+            case sShareChoicesTypeFriends:
+                
+                break;
+                
+                ///微信朋友圈
+            case sShareChoicesTypeWeChat:
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    ///弹出窗口
+    popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    
+}
+
+#pragma mark - 收藏当前出租房
+///收藏当前出租房
+- (void)collectRentHouse:(UIButton *)button
+{
+    
+    ///已收藏，则删除收藏
+    if (button.selected) {
+        
+        [self deleteCollectedRentHouse:button];
+        
+    } else {
+        
+        [self addCollectedRentHouse:button];
+        
+    }
+    
+}
+
+///删除收藏
+- (void)deleteCollectedRentHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消收藏"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSRentHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:self.detailInfo.house.id_ andCollectedType:fFilterMainTypeRentalHouse];
+    if (0 == [localDataModel.house.is_syserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedRentWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedRentWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.house.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedRentWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedRentWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+    
+}
+
+///添加收藏
+- (void)addCollectedRentHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        [self saveCollectedRentHouseWithStatus:NO];
+        button.selected = YES;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.house.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedRentHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedRentHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+    
+}
+
+#pragma mark - 添加本地收藏
+///将收藏信息保存本地
+- (void)saveCollectedRentHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///当前新房收藏是否同步服务端标识
+    if (isSendServer) {
+        
+        self.detailInfo.house.is_syserver = @"1";
+        
+    } else {
+        
+        self.detailInfo.house.is_syserver = @"0";
+        
+    }
+    
+    ///保存新房信息到本地
+    [QSCoreDataManager saveCollectedDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"出租房收藏->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"出租收藏->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 取消本地收藏
+///取消本地收藏
+- (void)deleteCollectedRentWithStatus:(BOOL)isSendServer
+{
+    
+    ///删除本地收藏的新房信息
+    [QSCoreDataManager deleteCollectedDataWithID:self.detailInfo.house.id_ isSyServer:isSendServer andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"出租房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"出租房收藏->删除", @"失败")
+            
+        }
+        
+    }];
+    
+}
 
 @end

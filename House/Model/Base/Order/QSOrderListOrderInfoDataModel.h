@@ -47,11 +47,13 @@
 
 @property (nonatomic,strong) QSOrderListOrderInfoPersonInfoDataModel *buyer_msg;         //!<买家
 
-- (NSString*)getStatusStr;      //获取订单状态字符串
+- (NSString*)getStatusTitle;      //获取订单状态字符串
 
-- (NSString*)getTimeStr;        //获取订单预约时间字符串
+- (NSString*)getAppointmentTimeString;        //获取订单预约时间字符串
 
-- (NSArray*)getButtonAction;    //获取当前支持的按钮操作
+- (NSArray*)getButtonSource;    //获取当前支持的按钮操作
+
+- (USER_COUNT_TYPE)getUserType; //获取用户身份
 
 @end
 

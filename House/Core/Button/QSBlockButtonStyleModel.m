@@ -22,6 +22,7 @@
 {
     
     self.title = nil;
+    self.titleSelected = nil;
     self.bgColor = nil;
     self.titleNormalColor = nil;
     self.titleHightedColor = nil;

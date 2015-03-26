@@ -9,6 +9,16 @@
 #ifndef House_TypeEnumHeader_h
 #define House_TypeEnumHeader_h
 
+///登录检测回调类型
+typedef enum
+{
+    
+    lLoginCheckActionTypeUnLogin = 99,  //!<未登录
+    lLoginCheckActionTypeLogined,       //!<原来已登录
+    lLoginCheckActionTypeReLogin,       //!<重新登录
+    
+}LOGIN_CHECK_ACTION_TYPE;
+
 /**
  *  //用户10  ，房源20， 聊天30 ，订单50 ，公共99
  */
@@ -570,10 +580,15 @@ typedef enum
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
-    rRequestTypeOrderDetailData = 8001,     //!<订单详情
-    rRequestTypeOrderResetAppointment = 8003,     //!<修改预约订单数据
-    rRequestTypeOrderListData = 8008,           //!<订单列表数据
-    rRequestTypeOrderAddAppointment = 8011,    //!<添加预约订单数据
+    rRequestTypeChatMessageList = 4000,         //!<消息列表
+    
+    rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
+    
+    rRequestTypeOrderDetailData = 8001,         //!<订单详情
+    rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据
+    rRequestTypeBookOrderListData = 8008,           //!<预约订单列表数据
+    
+    rRequestTypeOrderAddAppointment = 8011,     //!<添加预约订单数据
     
     rRequestTypeSendPhoneVertical = 9000,       //!<发送手机验证码
     rRequestTypeRegistPhone,                    //!<普通的手机注册

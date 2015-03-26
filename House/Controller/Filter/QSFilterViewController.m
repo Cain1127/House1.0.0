@@ -423,7 +423,7 @@ typedef enum
             fFilterSettingVCTypeHouseListSecondHouse == self.filterVCType) {
             
             ///判断是否已登录
-            if ([self checkLogin]) {
+            if (lLoginCheckActionTypeLogined == [self checkLogin]) {
                 
                 ///提示信息
                 UILabel *setAsAskFilterTips = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 5.0f, currentHeight, 200.0f, 30.0f)];

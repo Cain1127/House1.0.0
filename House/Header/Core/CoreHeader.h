@@ -19,5 +19,7 @@
     #import "QSScrollView.h"        //!<自定义取消滚动条的scrollView
     #import "QSBlockView.h"         //!<自定义带回调的UIView
     #import "NSString+Format.h"     //!<字符串格式化
+    #import "QSCollectionView.h"    //!<自定义的UICollectionView
+    #import "QSBlockAlertView.h"    //!<自定义回调UIAlertView
 
 #endif

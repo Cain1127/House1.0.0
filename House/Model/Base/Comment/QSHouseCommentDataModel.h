@@ -38,6 +38,6 @@
 @property (nonatomic,copy) NSString *idcard;             //!<评论人身份证
 @property (nonatomic,copy) NSString *vocation;           //!<评论人职业
 @property (nonatomic,copy) NSString *tj_secondHouse_num; //!<评论人二手房数量
-@property (nonatomic,copy) NSString *tj_rentHouse_num;   //!<//!<评论人二手房数量
+@property (nonatomic,copy) NSString *tj_rentHouse_num;   //!<评论人二手房数量
 
 @end

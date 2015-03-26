@@ -40,6 +40,17 @@
 + (NSArray *)getHouseSalePriceType;
 
 /**
+ *  @author yangshengmeng, 15-03-25 17:03:16
+ *
+ *  @brief  是否可以议价选择项
+ *
+ *  @return 返回选项数组
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseIsNegotiatedPriceType;
+
+/**
  *  @author yangshengmeng, 15-03-06 15:03:43
  *
  *  @brief  返回房子的均价类型数据
@@ -212,5 +223,40 @@
  */
 + (NSArray *)getHouseFeatureListWithType:(FILTER_MAIN_TYPE)filterType;
 + (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType;
+
+/**
+ *  @author yangshengmeng, 15-03-26 11:03:05
+ *
+ *  @brief  返回二手房的房屋性质
+ *
+ *  @return 返回二手房的房屋性质
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseNatureTypes;
+
+/**
+ *  @author yangshengmeng, 15-03-26 11:03:21
+ *
+ *  @brief  返回建筑年代选择项
+ *
+ *  @return 返回建筑年代所有数据
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHouseBuildingYearTypes;
+
+/**
+ *  @author             yangshengmeng, 15-03-26 12:03:22
+ *
+ *  @brief              返回不同房源类型的配套信息
+ *
+ *  @param filterType   房源类型
+ *
+ *  @return             返回对应类型的配套信息
+ *
+ *  @since              1.0.0
+ */
++ (NSArray *)getHouseInstallationTypes:(FILTER_MAIN_TYPE)filterType;
 
 @end

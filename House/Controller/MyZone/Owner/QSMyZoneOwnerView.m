@@ -293,11 +293,8 @@ static char RecommendKey;   //!<推荐房源关联key
     }];
     [mainRootView addSubview:saleHouseButton];
     
-    buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
-    buttonStyle.title = @"发布出租物业";
-    
     ///出租物业
+    buttonStyle.title = @"发布出租物业";
     UIButton *renantHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(saleHouseButton.frame.origin.x + saleHouseButton.frame.size.width + 8.0f, saleHouseButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         [self functionButtonAction:oOwnerZoneActionTypeRenantHouse];
@@ -391,75 +388,116 @@ static char RecommendKey;   //!<推荐房源关联key
             ///发售物业
         case oOwnerZoneActionTypeSaleHouse:
             
-            NSLog(@"==================发售物业======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeSaleHouse,nil);
+                
+            }
             
             break;
             
             ///发布出租物业
         case oOwnerZoneActionTypeRenantHouse:
             
-            NSLog(@"==================发布出租物业======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeRenantHouse,nil);
+                
+            }
             
             break;
             
             ///待看房
         case oOwnerZoneActionTypeStayAround:
             
-            NSLog(@"==================待看房======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeStayAround,nil);
+                
+            }
             
             break;
             
             ///已看房
         case oOwnerZoneActionTypeHavedAround:
             
-            NSLog(@"==================已看房======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeHavedAround,nil);
+                
+            }
             
             break;
             
             ///待成交
         case oOwnerZoneActionTypeWaitCommit:
             
-            NSLog(@"==================待成交======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeWaitCommit,nil);
+                
+            }
             
             break;
             
             ///已成交
         case oOwnerZoneActionTypeCommited:
             
-            NSLog(@"==================已成交======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeCommited,nil);
+                
+            }
             
             break;
             
             ///预约我的订单
         case oOwnerZoneActionTypeAppointed:
             
-            NSLog(@"==================预约我的订单======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeAppointed,nil);
+                
+            }
             
             break;
             
             ///已成交订单
         case oOwnerZoneActionTypeDeal:
             
-            NSLog(@"==================已成交订单======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeDeal,nil);
+                
+            }
             
             break;
             
             ///物业管理
         case oOwnerZoneActionTypeProprerty:
             
-            NSLog(@"==================物业管理======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeProprerty,nil);
+                
+            }
             
             break;
             
             ///推荐房客
         case oOwnerZoneActionTypeRecommend:
             
-            NSLog(@"==================推荐房客======================");
+            if (self.ownerCallBack) {
+                
+                self.ownerCallBack(oOwnerZoneActionTypeRecommend,nil);
+                
+            }
             
             break;
             
         default:
             break;
+            
     }
     
 }

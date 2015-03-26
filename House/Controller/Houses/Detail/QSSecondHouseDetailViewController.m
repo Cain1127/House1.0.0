@@ -10,6 +10,7 @@
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
 #import "QSYPopCustomView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -128,12 +129,12 @@ static char LeftStarKey;            //!<左侧星级
     ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
     if (![localUserID isEqualToString:self.userInfo.id_]) {
         
-        ///关注按钮
+        ///收藏按钮
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
         
         UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            ///关注小区
+            ///收藏二手房
             [self collectSecondHouse:button];
             
         }];
@@ -1258,16 +1259,6 @@ static char LeftStarKey;            //!<左侧星级
     }];
     [view addSubview:connectButton];
 }
-//#pragma mark - 结束刷新动画
-/////结束刷新动画
-//- (void)endRefreshAnimination
-//{
-//
-//    UIScrollView *scrollView = objc_getAssociatedObject(self, &RootscrollViewKey);
-//    [scrollView headerEndRefreshing];
-//
-//}
-
 
 #pragma mark - 联系业主事件
 - (void)makeCall:(NSString *)number andOwer:(NSString *)ower
@@ -1319,15 +1310,10 @@ static char LeftStarKey;            //!<左侧星级
             self.detailInfo = tempModel.detailInfo;
             self.houseInfo=self.detailInfo.house;
             self.userInfo=tempModel.detailInfo.user;
-            NSLog(@"二手房详情数据请求成功%@",tempModel.detailInfo);
-            NSLog(@"参数id%@",params);
-            NSLog(@"地址%@",self.houseInfo.address);
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI:tempModel.detailInfo.user.id_];
-
-            
             
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1356,13 +1342,197 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark - 关注二手房
-///关注二手房
+#pragma mark - 收藏二手房
+///收藏二手房
 - (void)collectSecondHouse:(UIButton *)button
 {
 
-    APPLICATION_LOG_INFO(@"收藏二手房", @"收藏二手房")
+    ///已收藏，则删除收藏
+    if (button.selected) {
+        
+        [self deleteCollectedSecondHandHouse:button];
+        
+    } else {
+    
+        [self addCollectedSecondHandHouse:button];
+    
+    }
 
+}
+
+///删除收藏
+- (void)deleteCollectedSecondHandHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消收藏"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSSecondHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:self.detailInfo.house.id_ andCollectedType:fFilterMainTypeSecondHouse];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedSecondHandHouseWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedSecondHandHouseWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.house.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedSecondHandHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedSecondHandHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+    
+}
+
+///添加收藏
+- (void)addCollectedSecondHandHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        [self saveCollectedSecondHandHouseWithStatus:NO];
+        button.selected = YES;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.house.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedSecondHandHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedSecondHandHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+    
+}
+
+#pragma mark - 添加本地收藏
+///将收藏信息保存本地
+- (void)saveCollectedSecondHandHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///当前小区是否同步服务端标识
+    if (isSendServer) {
+        
+        self.detailInfo.is_syserver = @"1";
+        
+    } else {
+        
+        self.detailInfo.is_syserver = @"0";
+        
+    }
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager saveCollectedDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 取消本地收藏
+///取消当前小区的关注
+- (void)deleteCollectedSecondHandHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager deleteCollectedDataWithID:self.detailInfo.house.id_ isSyServer:isSendServer andCollectedType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"失败")
+            
+        }
+        
+    }];
+    
 }
 
 #pragma mark - 分享二手房

@@ -27,4 +27,6 @@
 @property (nonatomic,retain) QSHouseCommentDataModel *comment;              //!<评论
 @property (nonatomic,retain) NSArray *secondHouse_photo;                    //!<图集信息
 
+@property (nonatomic,copy) NSString *is_syserver;                           //!<是否已同步服务端
+
 @end

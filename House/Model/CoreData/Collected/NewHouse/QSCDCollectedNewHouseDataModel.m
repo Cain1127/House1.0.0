@@ -1,0 +1,120 @@
+//
+//  QSCDCollectedNewHouseDataModel.m
+//  House
+//
+//  Created by ysmeng on 15/3/23.
+//  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
+//
+
+#import "QSCDCollectedNewHouseDataModel.h"
+#import "QSCDCollectedNewHouseActivityDataModel.h"
+#import "QSCDCollectedNewHouseAllHousesDataModel.h"
+#import "QSCDCollectedNewHousePhotoDataModel.h"
+#import "QSCDCollectedNewHouseRecommendHousesDataModel.h"
+
+
+@implementation QSCDCollectedNewHouseDataModel
+
+@dynamic id_;
+@dynamic user_id;
+@dynamic introduce;
+@dynamic title;
+@dynamic title_second;
+@dynamic address;
+@dynamic floor_num;
+@dynamic property_type;
+@dynamic used_year;
+@dynamic installation;
+@dynamic features;
+@dynamic view_count;
+@dynamic provinceid;
+@dynamic cityid;
+@dynamic areaid;
+@dynamic street;
+@dynamic commend;
+@dynamic attach_file;
+@dynamic attach_thumb;
+@dynamic favorite_count;
+@dynamic attention_count;
+@dynamic status;
+@dynamic house_no;
+@dynamic building_structure;
+@dynamic decoration_type;
+@dynamic heating;
+@dynamic company_property;
+@dynamic fee;
+@dynamic water;
+@dynamic open_time;
+@dynamic area_covered;
+@dynamic areabuilt;
+@dynamic volume_rate;
+@dynamic green_rate;
+@dynamic licence;
+@dynamic parking_lot;
+@dynamic loupan_status;
+@dynamic user_type;
+@dynamic nickname;
+@dynamic username;
+@dynamic avatar;
+@dynamic email;
+@dynamic mobile;
+@dynamic realname;
+@dynamic tj_secondHouse_num;
+@dynamic tj_rentHouse_num;
+@dynamic sex;
+@dynamic web;
+@dynamic vocation;
+@dynamic qq;
+@dynamic age;
+@dynamic idcard;
+@dynamic tel;
+@dynamic developer_name;
+@dynamic developer_intro;
+@dynamic phase_id;
+@dynamic phase_user_id;
+@dynamic phase_introduce;
+@dynamic phase_title;
+@dynamic phase_title_second;
+@dynamic phase_address;
+@dynamic phase_floor_num;
+@dynamic phase_property_type;
+@dynamic phase_used_year;
+@dynamic phase_installation;
+@dynamic phase_features;
+@dynamic phase_view_count;
+@dynamic phase_provinceid;
+@dynamic phase_cityid;
+@dynamic phase_areaid;
+@dynamic phase_street;
+@dynamic phase_commend;
+@dynamic phase_attach_file;
+@dynamic phase_attach_thumb;
+@dynamic phase_favorite_count;
+@dynamic phase_attention_count;
+@dynamic phase_status;
+@dynamic phase_house_no;
+@dynamic phase_loupan_id;
+@dynamic phase_loupan_periods;
+@dynamic phase_building_no;
+@dynamic phase_open_time;
+@dynamic phase_checkin_time;
+@dynamic phase_households_num;
+@dynamic phase_ladder;
+@dynamic phase_ladder_family;
+@dynamic phase_tel;
+@dynamic phase_price_avg;
+@dynamic phase_min_house_area;
+@dynamic phase_max_house_area;
+@dynamic phase_tj_condition;
+@dynamic phase_tj_environment;
+@dynamic loan_base_rate;
+@dynamic loan_first_rate;
+@dynamic loan_procedures_fee;
+@dynamic loan_loan_year;
+@dynamic is_syserver;
+@dynamic photos;
+@dynamic activities;
+@dynamic recommend_houses;
+@dynamic all_houses;
+
+@end

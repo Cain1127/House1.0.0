@@ -11,6 +11,9 @@
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
+#import "QSYPopCustomView.h"
+#import "QSYShareChoicesView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -18,6 +21,7 @@
 #import "URLHeader.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSDate+Formatter.h"
 
 #import "QSNewHouseDetailDataModel.h"
@@ -33,6 +37,7 @@
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+Collected.h"
 
 #import "MJRefresh.h"
 
@@ -113,22 +118,27 @@ static char LeftStarKey;            //!<左侧星级
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
     ///收藏按钮
-    UIImageView *collectImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-60.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击收藏");
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-    } ];
-    [collectImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL]];
-    [collectImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED]];
-    [self.view addSubview:collectImageView];
+        ///收藏新房
+        [self collectNewHouse:button];
+        
+    }];
+    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.loupanID andCollectedType:fFilterMainTypeNewHouse];
+    [self.view addSubview:intentionButton];
     
     ///分享按钮
-    UIImageView *shareImageView=[QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-30.0f, 27.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
-        NSLog(@"点击分享");
+    QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
+    
+    UIButton *shareButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyleShare andCallBack:^(UIButton *button) {
         
-    } ];
-    [shareImageView setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_NORMAL]];
-    [shareImageView setHighlightedImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED]];
-    [self.view addSubview:shareImageView];
+        ///分享
+        [self shareNewHouse:button];
+        
+    }];
+    [self.view addSubview:shareButton];
     
 }
 
@@ -143,7 +153,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///添加刷新
     [rootView addHeaderWithTarget:self action:@selector(getNewHouseDetailInfo)];
-
+    
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
     [rootView addSubview:infoRootView];
@@ -159,14 +169,14 @@ static char LeftStarKey;            //!<左侧星级
     
     ///一开始就请求数据
     [rootView headerBeginRefreshing];
-
+    
 }
 
 #pragma mark - 搭建底部按钮
 ///创建底部按钮
 - (void)createBottomButtonViewUI:(BOOL)isLooked
 {
-
+    
     ///获取底view
     UIView *view = objc_getAssociatedObject(self, &BottomButtonRootViewKey);
     
@@ -193,6 +203,7 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///判断是否已登录
+            
             ///免费通话
             [self customButtonClick:@"0201304545"];
             ///已登录重新刷新数据
@@ -211,7 +222,7 @@ static char LeftStarKey;            //!<左侧星级
         [view addSubview:lookHouseButton];
         
     } else {
-    
+        
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
         
@@ -227,9 +238,9 @@ static char LeftStarKey;            //!<左侧星级
             
         }];
         [view addSubview:callFreeButton];
-    
+        
     }
-
+    
 }
 
 #pragma mark - 联系业主
@@ -280,19 +291,19 @@ static char LeftStarKey;            //!<左侧星级
     
     UIView *mainInfoView = objc_getAssociatedObject(self, &MainInfoRootViewKey);
     UIView *bottomView = objc_getAssociatedObject(self, &BottomButtonRootViewKey);
-
+    
     if (flag) {
         
         mainInfoView.hidden = NO;
         bottomView.hidden = NO;
         
     } else {
-    
+        
         mainInfoView.hidden = YES;
         bottomView.hidden = YES;
-    
+        
     }
-
+    
 }
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
@@ -470,7 +481,7 @@ static char LeftStarKey;            //!<左侧星级
         infoRootView.contentSize = CGSizeMake(infoRootView.frame.size.width, (secondRootView.frame.origin.y + secondViewHeight + 10.0f));
         
     }
-
+    
 }
 
 #pragma mark - 其他配套信息的UI
@@ -481,7 +492,7 @@ static char LeftStarKey;            //!<左侧星级
     ///间隙
     CGFloat width = 60.0f;
     CGFloat gap = (view.frame.size.width - width * 4.0f - 26.0f) / 3.0f;
-
+    
     ///公交路线
     UILabel *busLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 30.0f, width, 15.0f)];
     busLabel.text = @"公交线路";
@@ -589,14 +600,14 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
-
+    
 }
 
 #pragma mark - 价格走向图UI
 ///价格走向图UI
 - (void)createPriceTrendInfoUI:(UIView *)view
 {
-
+    
     ///标题
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 85.0f, 15.0f)];
     consultLabel.text = @"小区房价走势";
@@ -633,14 +644,14 @@ static char LeftStarKey;            //!<左侧星级
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     
     [view addSubview:priceWeb];
-
+    
 }
 
 #pragma mark - 税金信息UI
 ///税金信息UI
 - (void)createTaxInfoUI:(UIView *)view
 {
-
+    
     ///税金参考
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 70.0f, 15.0f)];
     consultLabel.text = @"税金参考：";
@@ -734,14 +745,14 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
-
+    
 }
 
 #pragma mark - 代款信息UI
 ///代款信息UI
 - (void)createProvideInfoUI:(UIView *)view
 {
-
+    
     ///月供参考
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 8.0f, 70.0f, 15.0f)];
     consultLabel.text = @"月供参考：";
@@ -855,7 +866,7 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
-
+    
 }
 
 #pragma mark - 户型信息UI
@@ -914,7 +925,7 @@ static char LeftStarKey;            //!<左侧星级
         view.contentSize = CGSizeMake((width * sum + gap * (sum - 1)) + 10.0f, view.frame.size.height);
         
     }
-
+    
 }
 
 #pragma mark - 开盘等信息UI
@@ -929,7 +940,7 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat infoWidth = (view.frame.size.width - 50.0f) / 2.0f;
     CGFloat width = 45.0f;
     CGFloat height = 15.0f;
-
+    
     ///开盘日期
     UILabel *openTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, height)];
     openTipsLabel.text = @"开盘：";
@@ -1052,7 +1063,7 @@ static char LeftStarKey;            //!<左侧星级
             
             ///展开
             if (moreInfoRootView) {
-            
+                
                 [moreInfoRootView removeFromSuperview];
                 
             }
@@ -1093,7 +1104,7 @@ static char LeftStarKey;            //!<左侧星级
     [moreButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_ARROW_60X60_NORMAL] forState:UIControlStateNormal];
     [moreButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_ARROW_60X60_HIGHLIGHTED] forState:UIControlStateHighlighted];
     [view addSubview:moreButton];
-
+    
 }
 
 ///更多详情信息
@@ -1102,7 +1113,7 @@ static char LeftStarKey;            //!<左侧星级
     
     CGFloat infoWidth = (view.frame.size.width - 50.0f) / 2.0f;
     CGFloat height = 15.0f;
-
+    
     ///占地面积
     UILabel *areaTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 70.0f, height)];
     areaTipsLabel.text = @"占地面积：";
@@ -1201,7 +1212,7 @@ static char LeftStarKey;            //!<左侧星级
 ///搭建地址信息UI
 - (void)createAddressSubviewsUI:(UIView *)view andDistriceID:(NSString *)districtID andStreetID:(NSString *)streetID andDetailAddress:(NSString *)address andCommunityInfo:(NSString *)comunity
 {
-
+    
     NSMutableString *allAddress = [NSMutableString stringWithCapacity:1];
     
     ///如果有区，拼装区
@@ -1242,14 +1253,14 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *localImageView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 30.0f, view.frame.size.height - 30.0f, 30.0f, 30.0f)];
     localImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_LOCAL_LIGHYELLOW];
     [view addSubview:localImageView];
-
+    
 }
 
 #pragma mark - 创建特色标签
 ///创建特色标签
 - (void)createFeaturesSubviews:(UIView *)view andDataSource:(NSString *)featuresString
 {
-
+    
     if (featuresString && ([featuresString length] > 0)) {
         
         ///清空原标签
@@ -1287,14 +1298,14 @@ static char LeftStarKey;            //!<左侧星级
         }
         
     }
-
+    
 }
 
 #pragma mark - 均价子UI搭建
 ///均价子UI搭建
 - (void)createAveragePriceSubviews:(UIView *)view andAveragePrice:(NSString *)avgPrice
 {
-
+    
     ///标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 16.0f)];
     titleLabel.text = @"新盘售价";
@@ -1323,14 +1334,14 @@ static char LeftStarKey;            //!<左侧星级
     unitPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     unitPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:unitPriceLabel];
-
+    
 }
 
 #pragma mark - 评分栏子UI搭建
 ///评分栏子UI搭建
 - (void)createScoreSubviews:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
 {
-
+    
     ///中间评分底view
     QSImageView *mainScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 40.0f, 0.0f, 80.0f, 90.0f)];
     mainScoreRootView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_MAIN_SCORE];
@@ -1365,21 +1376,21 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
     [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore andStarKey:LeftStarKey];
     [view addSubview:leftScoreRootView];
-
+    
 }
 
 ///创建总评分UI
 - (void)createMainScoreInfoUI:(UIView *)view andMainScore:(NSString *)mainScore
 {
-
     
-
+    
+    
 }
 
 ///创建详情评分UI
 - (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(NSString*)scoreKey andStarKey:(char)starKey
 {
-
+    
     ///头图片
     QSImageView *imageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 32.0f)];
     imageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_DETAIL_SCORE];
@@ -1421,16 +1432,16 @@ static char LeftStarKey;            //!<左侧星级
     QSImageView *yellowStarView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, starRootImageView.frame.size.width, starRootImageView.frame.size.height)];
     yellowStarView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_STAR_YELLOW];
     [starRootView addSubview:yellowStarView];
-
+    
 }
 
 #pragma mark - 活动页相关代理设置
 ///自滚动的总数
 - (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
 {
-
+    
     return (int)[self.detailInfo.loupan_activity count];
-
+    
 }
 
 ///每个下标的广告页
@@ -1448,17 +1459,17 @@ static char LeftStarKey;            //!<左侧星级
     [activityView updateNewHouseActivityUI:self.detailInfo.loupan_activity[index]];
     
     return activityView;
-
+    
 }
 
 ///每一个广告页的返回参数
 - (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
-
+    
     ///获取模型
     QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
     return activityModel.id_;
-
+    
 }
 
 #pragma mark - 请求新房详情信息
@@ -1495,17 +1506,252 @@ static char LeftStarKey;            //!<左侧星级
             });
             
         } else {
-                    
+            
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
             [rootView headerEndRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
-            
+                
                 ///推回上一页
                 [self.navigationController popViewControllerAnimated:YES];
-            
+                
             })
+            
+        }
         
+    }];
+    
+}
+
+#pragma mark - 分享新房
+///分享二手房
+- (void)shareNewHouse:(UIButton *)button
+{
+    
+    ///弹出窗口的指针
+    __block QSYPopCustomView *popView = nil;
+    
+    ///提示选择窗口
+    QSYShareChoicesView *saleTipsView = [[QSYShareChoicesView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 150.0f) andShareCallBack:^(SHARE_CHOICES_TYPE actionType) {
+        
+        ///加收弹出窗口
+        [popView hiddenCustomPopview];
+        
+        ///处理不同的分享事件
+        switch (actionType) {
+                ///新浪微博
+            case sShareChoicesTypeXinLang:
+                
+                break;
+                
+                ///朋友圈
+            case sShareChoicesTypeFriends:
+                
+                break;
+                
+                ///微信朋友圈
+            case sShareChoicesTypeWeChat:
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    ///弹出窗口
+    popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    
+}
+
+#pragma mark - 收藏当前新房
+///收藏当前新房
+- (void)collectNewHouse:(UIButton *)button
+{
+    
+    ///已收藏，则删除收藏
+    if (button.selected) {
+        
+        [self deleteCollectedNewHouse:button];
+        
+    } else {
+        
+        [self addCollectedNewHouse:button];
+        
+    }
+    
+}
+
+///删除收藏
+- (void)deleteCollectedNewHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消收藏"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSNewHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:self.detailInfo.loupan.id_ andCollectedType:fFilterMainTypeNewHouse];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedNewHouseWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedNewHouseWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.loupan.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedNewHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedNewHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+    
+}
+
+///添加收藏
+- (void)addCollectedNewHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        [self saveCollectedNewHouseWithStatus:NO];
+        button.selected = YES;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : self.detailInfo.loupan.id_,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedNewHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedNewHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+    
+}
+
+#pragma mark - 添加本地收藏
+///将收藏信息保存本地
+- (void)saveCollectedNewHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///当前新房收藏是否同步服务端标识
+    if (isSendServer) {
+        
+        self.detailInfo.is_syserver = @"1";
+        
+    } else {
+        
+        self.detailInfo.is_syserver = @"0";
+        
+    }
+    
+    ///保存新房信息到本地
+    [QSCoreDataManager saveCollectedDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
+}
+
+#pragma mark - 取消本地收藏
+///取消本地收藏
+- (void)deleteCollectedNewHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///删除本地收藏的新房信息
+    [QSCoreDataManager deleteCollectedDataWithID:self.detailInfo.loupan.id_ isSyServer:isSendServer andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"新房收藏->删除", @"失败")
+            
         }
         
     }];

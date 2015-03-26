@@ -13,6 +13,15 @@
 @property (nonatomic,assign) BOOL hiddenCustomTabbarWhenPush;   //!<当push时是否隐藏tabbar
 
 /**
+ *  @author yangshengmeng, 15-03-26 11:03:13
+ *
+ *  @brief  返回事件
+ *
+ *  @since  1.0.0
+ */
+- (void)gotoTurnBackAction;
+
+/**
  *  @author             yangshengmeng, 15-01-17 23:01:53
  *
  *  @brief              设置返回时，跳转到当前相差stepCount个的页面，如若超过rootView，则直接显示rootView

@@ -109,15 +109,24 @@
             
             break;
             
+            ///收藏按钮
         case nNavigationBarButtonTypeCollected:
             
             return [self createNavigationBarCollectedButtonStyle];
             
             break;
             
+            ///分享按钮
         case nNavigationBarButtonTypeShare:
             
             return [self createNavigationBarShareButtonStyle];
+            
+            break;
+            
+            ///编辑按钮
+        case nNavigationBarButtonTypeEdit:
+            
+            return [self createNavigationBarEditButtonStyle];
             
             break;
             
@@ -126,6 +135,21 @@
     }
     
     return nil;
+    
+}
+
+#pragma mark - 编辑按钮
++ (QSBlockButtonStyleModel *)createNavigationBarEditButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.title = @"编辑";
+    buttonStyle.titleSelected = @"完成";
+    buttonStyle.titleNormalColor = COLOR_CHARACTERS_GRAY;
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_14];
+    
+    return buttonStyle;
     
 }
 

@@ -190,7 +190,7 @@ static char ListViewKey;//!<列表的关联
     QSCommunityDataModel *tempModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
     
     ///判断是否已登录
-    if (![self checkLogin]) {
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
         if (self.pickedCommunityCallBack) {
             
