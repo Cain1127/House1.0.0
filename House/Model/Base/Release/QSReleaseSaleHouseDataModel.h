@@ -41,6 +41,9 @@
 @property (nonatomic,copy) NSString *decorationKey;     //!<装修key
 @property (nonatomic,copy) NSString *title;             //!<标题
 @property (nonatomic,copy) NSString *detailComment;     //!<详细说明
+@property (nonatomic,copy) NSString *userName;          //!<联系人姓名
+@property (nonatomic,copy) NSString *phone;             //!<联系电话
+@property (nonatomic,copy) NSString *verCode;           //!<手机验证码
 
 @property (nonatomic,retain) NSMutableArray *imagesList;//!<图片集
 

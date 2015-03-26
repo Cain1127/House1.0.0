@@ -158,6 +158,88 @@
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///用户名校验
+        NSString *userName = nameField.text;
+        if ([userName length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的姓名", 1.0f, ^(){
+            
+                [nameField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        if ([userName length] < 4) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-11个字符", 1.0f, ^(){
+                
+                [nameField becomeFirstResponder];
+                
+            })
+            return;
+            
+        }
+        
+        ///手机校验
+        NSString *phoneNum = phoneField.text;
+        if ([phoneNum length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的手机号码", 1.0f, ^(){
+            
+                [phoneField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        if (![NSString isValidateMobile:phoneNum]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"手机号码应为11位数字，以13/14/15/17/18开头", 1.0f, ^(){
+            
+                [phoneField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        ///验证码校验
+        NSString *inputVercode = vertificationCodeField.text;
+        if ([inputVercode length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码是6位数字，请重新输入", 1.0f, ^(){
+            
+                [vertificationCodeField becomeFirstResponder];
+            
+            })
+            return;
+            
+        }
+        
+        if (![inputVercode isEqualToString:self.verCode]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码不正确，请重新输入", 1.0f, ^(){
+                
+                [vertificationCodeField becomeFirstResponder];
+                
+            })
+            return;
+            
+        }
+        
+        ///保存信息
+        self.saleHouseReleaseModel.userName = userName;
+        self.saleHouseReleaseModel.phone = phoneNum;
+        self.saleHouseReleaseModel.verCode = inputVercode;
+        
+        ///回收键盘
+        [nameField resignFirstResponder];
+        [phoneField resignFirstResponder];
+        [vertificationCodeField resignFirstResponder];
+        
         ///进入联系信息填写窗口
         QSYReleaseHouseDateInfoViewController *pictureAddVC = [[QSYReleaseHouseDateInfoViewController alloc] initWithSaleHouseInfoModel:self.saleHouseReleaseModel];
         [self.navigationController pushViewController:pictureAddVC animated:YES];
@@ -165,6 +247,32 @@
     }];
     [self.view addSubview:commitButton];
     
+}
+
+#pragma mark - 回收键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+    [textField resignFirstResponder];
+    return YES;
+
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+    ///回收键盘
+    for (UIView *obj in [self.view subviews]) {
+        
+        if ([obj isKindOfClass:[UITextField class]]) {
+            
+            UITextField *tempField = (UITextField *)obj;
+            [tempField resignFirstResponder];
+            
+        }
+        
+    }
+
 }
 
 @end
