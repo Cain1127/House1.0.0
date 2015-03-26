@@ -8,6 +8,9 @@
 
 #import "QSYReleaseSaleHouseAddInfoViewController.h"
 
+#import "QSCustomSingleSelectedPopView.h"
+#import "QSMultipleSelectedPopView.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 
@@ -164,7 +167,7 @@ typedef enum
         for (int j = 0; j < numOfFeaturesRow && k < [featuresList count]; j++) {
             
             ///标签模型
-            QSBaseConfigurationDataModel *featuresModel = featuresList[k];
+            __block QSBaseConfigurationDataModel *featuresModel = featuresList[k];
             
             UIButton *featuresButton = [UIButton createBlockButtonWithFrame:CGRectMake(gapOfFeatures + j * (widthOfFeatures + gapOfFeatures), currentHeight + i * (heightOfFeatures + 5.0f), widthOfFeatures, heightOfFeatures) andButtonStyle:nil andCallBack:^(UIButton *button) {
                 
@@ -173,10 +176,16 @@ typedef enum
                     button.selected = NO;
                     button.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
                     
+                    ///删除选择项
+                    [self deleteFeatureWithModel:featuresModel];
+                    
                 } else {
                     
                     button.selected = YES;
                     button.layer.borderColor = [COLOR_CHARACTERS_BLACK CGColor];
+                    
+                    ///添加标签信息
+                    [self addFeatureWithModel:featuresModel];
                     
                 }
                 
@@ -240,7 +249,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeHouseProperty:
         {
             
+            ///获取房屋性质选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseNatureTypes];
             
+            ///显示房屋性质选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.nature = tempModel.val;
+                    self.saleHouseReleaseModel.natureKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.nature = nil;
+                    self.saleHouseReleaseModel.natureKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -251,7 +283,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeBuildingYear:
         {
             
+            ///获取房屋建筑年代选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseBuildingYearTypes];
             
+            ///显示房屋建筑年代选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.buildingYear = tempModel.val;
+                    self.saleHouseReleaseModel.buildingYearKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.buildingYear = nil;
+                    self.saleHouseReleaseModel.buildingYearKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -262,7 +317,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeUsedYear:
         {
             
+            ///获取房屋产权选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
             
+            ///显示房屋产权选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.propertyRightYear = tempModel.val;
+                    self.saleHouseReleaseModel.propertyRightYearKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.propertyRightYear = nil;
+                    self.saleHouseReleaseModel.propertyRightYearKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -273,7 +351,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeFloor:
         {
             
+            ///获取楼层选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseFloorType];
             
+            ///显示楼层选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.floor = tempModel.val;
+                    self.saleHouseReleaseModel.floorKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.floor = nil;
+                    self.saleHouseReleaseModel.floorKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -284,7 +385,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeHouseFace:
         {
             
+            ///获取朝向选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseFaceType];
             
+            ///显示朝向选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.face = tempModel.val;
+                    self.saleHouseReleaseModel.faceKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.face = nil;
+                    self.saleHouseReleaseModel.faceKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -295,7 +419,30 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeDecoration:
         {
             
+            ///获取装修选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseDecorationType];
             
+            ///显示装修选择项窗口
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                    
+                    ///转模型
+                    QSBaseConfigurationDataModel *tempModel = params;
+                    
+                    textField.text = tempModel.val;
+                    self.saleHouseReleaseModel.decoration = tempModel.val;
+                    self.saleHouseReleaseModel.decorationKey = tempModel.key;
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    self.saleHouseReleaseModel.decoration = nil;
+                    self.saleHouseReleaseModel.decorationKey = nil;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -306,7 +453,42 @@ typedef enum
         case rReleaseSaleHouseAddinfoActionTypeInstallation:
         {
             
+            ///获取配套选择项数组
+            NSArray *intentArray = [QSCoreDataManager getHouseInstallationTypes:fFilterMainTypeSecondHouse];
             
+            ///显示配套选择项窗口
+            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:intentArray andSelectedSource:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+                if (cCustomPopviewActionTypeMultipleSelected == actionType) {
+                    
+                    ///拼装显示信息
+                    NSMutableString *showString = [[NSMutableString alloc] init];
+                    for (int i = 0;i < [params count];i++) {
+                        
+                        QSBaseConfigurationDataModel *tempModel = params[i];
+                        
+                        ///非第一个元素时，添加逗号
+                        if (i != 0) {
+                            
+                            [showString appendString:@","];
+                            
+                        }
+                        
+                        [showString appendString:tempModel.val];
+                        
+                    }
+                    
+                    textField.text = showString;
+                    [self.saleHouseReleaseModel.installationList addObjectsFromArray:params];
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
+                    textField.text = nil;
+                    [self.saleHouseReleaseModel.installationList removeAllObjects];;
+                    
+                }
+                
+            }];
             
             return NO;
             
@@ -319,6 +501,80 @@ typedef enum
     
     return NO;
     
+}
+
+#pragma mark - 配套信息的添加和删除
+///配置信息的添加和删除
+- (void)addInstallationWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    ///遍历原保存，如果没有，则添加
+    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.installationList) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    ///添加
+    [self.saleHouseReleaseModel.installationList addObject:model];
+
+}
+
+- (void)deleteInstallationWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    ///遍历，如果存在，则删除
+    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.installationList) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            [self.saleHouseReleaseModel.installationList removeObject:obj];
+
+        }
+        
+    }
+
+}
+
+#pragma mark - 添加/删除标签
+///添加/删除标签
+- (void)addFeatureWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    ///遍历原保存，如果没有，则添加
+    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.featuresList) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    ///添加
+    [self.saleHouseReleaseModel.featuresList addObject:model];
+
+}
+
+- (void)deleteFeatureWithModel:(QSBaseConfigurationDataModel *)model
+{
+
+    ///遍历，如果存在，则删除
+    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.featuresList) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            [self.saleHouseReleaseModel.featuresList removeObject:obj];
+            
+        }
+        
+    }
+
 }
 
 #pragma mark - 返回当前页的设置信息配置文件字典

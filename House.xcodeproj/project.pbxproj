@@ -404,6 +404,7 @@
 		18EC15911AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15901AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m */; };
 		18EC15941AC3969100D2AD3A /* QSYReleaseSaleHouseAddInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15931AC3969100D2AD3A /* QSYReleaseSaleHouseAddInfoViewController.m */; };
 		18EC15961AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18EC15951AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist */; };
+		18EC159A1AC3AE0200D2AD3A /* QSBlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15991AC3AE0200D2AD3A /* QSBlockAlertView.m */; };
 		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
@@ -1176,6 +1177,8 @@
 		18EC15921AC3969100D2AD3A /* QSYReleaseSaleHouseAddInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYReleaseSaleHouseAddInfoViewController.h; path = SaleAndRent/Release/QSYReleaseSaleHouseAddInfoViewController.h; sourceTree = "<group>"; };
 		18EC15931AC3969100D2AD3A /* QSYReleaseSaleHouseAddInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYReleaseSaleHouseAddInfoViewController.m; path = SaleAndRent/Release/QSYReleaseSaleHouseAddInfoViewController.m; sourceTree = "<group>"; };
 		18EC15951AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ReleaseSaleHouseAddinfo.plist; path = MyZone/Release/ReleaseSaleHouseAddinfo.plist; sourceTree = "<group>"; };
+		18EC15981AC3AE0200D2AD3A /* QSBlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSBlockAlertView.h; path = Alert/QSBlockAlertView.h; sourceTree = "<group>"; };
+		18EC15991AC3AE0200D2AD3A /* QSBlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSBlockAlertView.m; path = Alert/QSBlockAlertView.m; sourceTree = "<group>"; };
 		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
 		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
@@ -1951,6 +1954,7 @@
 		1893007B1A6902E30081D0AA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15971AC3ADDD00D2AD3A /* Alert */,
 				188728EE1AC1AA4400C88AA1 /* CollectionView */,
 				18AFA9C71AB2D20600681071 /* String */,
 				18AFA9BF1AB2C9B900681071 /* VerCodeView */,
@@ -3782,6 +3786,15 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		18EC15971AC3ADDD00D2AD3A /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15981AC3AE0200D2AD3A /* QSBlockAlertView.h */,
+				18EC15991AC3AE0200D2AD3A /* QSBlockAlertView.m */,
+			);
+			name = Alert;
+			sourceTree = "<group>";
+		};
 		18EDA5331ABB226A0024EEAF /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -4717,6 +4730,7 @@
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
 				1865E3D21AB191B000FAEC9E /* QSYSearchCommunityViewController.m in Sources */,
 				18EC15911AC2BA4300D2AD3A /* QSYReleasePickCommunityTableViewCell.m in Sources */,
+				18EC159A1AC3AE0200D2AD3A /* QSBlockAlertView.m in Sources */,
 				47A2076F1AB7E46000F51797 /* NSDate+FSExtension.m in Sources */,
 				18BE125A1A89FC620036245A /* QSMyZoneTenantView.m in Sources */,
 				181524061ABFE13700C609B0 /* QSCDCollectedSecondHandHouseDataModel.m in Sources */,

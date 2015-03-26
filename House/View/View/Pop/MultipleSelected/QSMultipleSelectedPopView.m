@@ -9,6 +9,7 @@
 #import "QSMultipleSelectedPopView.h"
 #import "QSCustomSelectedView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBaseConfigurationDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -19,11 +20,25 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
 @interface QSMultipleSelectedPopView ()
 
 @property (nonatomic,assign) BOOL isSelectedAll;                //!<是否全选标识
-@property (nonatomic,retain) NSMutableDictionary *selectedInfos;//!<多选的结果
+@property (nonatomic,retain) NSMutableArray *selectedInfos;     //!<多选的结果
 
 @end
 
 @implementation QSMultipleSelectedPopView
+
+#pragma mark - 初始化
+- (instancetype)initWithFrame:(CGRect)frame
+{
+
+    if (self = [super initWithFrame:frame]) {
+        
+        self.selectedInfos = [[NSMutableArray alloc] init];
+        
+    }
+    
+    return self;
+
+}
 
 #pragma mark - UI搭建
 - (void)createCustomPopviewInfoUI
@@ -166,7 +181,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
 }
 
 #pragma mark - 根据数据源搭建选择项UI
-- (void)createSingleSelectedInfoUI:(NSArray *)dataSource
+- (void)createSingleSelectedInfoUI:(NSArray *)dataSource andSelectedDataSource:(NSArray *)selectedDataSource
 {
     
     ///获取选择项的底view
@@ -177,13 +192,20 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
         
     }
     
+    ///保存已选择的项
+    if ([selectedDataSource count] > 0) {
+        
+        [self.selectedInfos addObjectsFromArray:selectedDataSource];
+        
+    }
+    
     ///循环创建选择项
     for (int i = 0; i < [dataSource count]; i++) {
         
         ///模型
-        NSDictionary *selectedItemDict = dataSource[i];
+        __block QSBaseConfigurationDataModel *selectedItemModel = dataSource[i];
         
-        QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:[selectedItemDict valueForKey:@"info"] andSelectedType:cCustomSelectedViewTypeMultiple andSelectedBoxTapCallBack:^(BOOL currentStatus) {
+        QSCustomSelectedView *tempSelectedItem = [[QSCustomSelectedView alloc] initWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, rootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andSelectedInfo:selectedItemModel.val andSelectedType:cCustomSelectedViewTypeMultiple andSelectedBoxTapCallBack:^(BOOL currentStatus) {
             
             if (currentStatus) {
                 
@@ -191,7 +213,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
                 [self resetSelectedAllBox];
                 
                 ///添加参数
-                [self.selectedInfos setObject:dataSource[i] forKey:[NSString stringWithFormat:@"%d",i]];
+                [self.selectedInfos addObject:selectedItemModel];
                 
             } else {
             
@@ -201,7 +223,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
                 self.isSelectedAll = NO;
                 
                 ///删除选择暂存参数
-                [self.selectedInfos removeObjectForKey:[NSString stringWithFormat:@"%d",i]];
+                [self.selectedInfos removeObject:selectedItemModel];
             
             }
             
@@ -209,8 +231,8 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
         [rootView addSubview:tempSelectedItem];
         
         ///判断是否处于选择状态
-        int selectedStatus = [[selectedItemDict valueForKey:@"selected"] intValue];
-        if (1 == selectedStatus) {
+        BOOL isSelectedStatus = [self checkIsSelectedData:selectedItemModel];
+        if (isSelectedStatus) {
             
             tempSelectedItem.selectedStatus = YES;
             
@@ -235,6 +257,24 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
         
     }
     
+}
+
+#pragma mark - 查找原选择数据里是否有选择项
+- (BOOL)checkIsSelectedData:(QSBaseConfigurationDataModel *)model
+{
+
+    for (QSBaseConfigurationDataModel *obj in self.selectedInfos) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return YES;
+            
+        }
+        
+    }
+    
+    return NO;
+
 }
 
 #pragma mark - 移除单选弹出框
@@ -269,7 +309,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
  *
  *  @since                  1.0.0
  */
-+ (instancetype)showMultipleSelectedViewWithDataSource:(NSArray *)dataSource andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack
++ (instancetype)showMultipleSelectedViewWithDataSource:(NSArray *)dataSource andSelectedSource:(NSArray *)selectedDataSource andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack
 {
     
     QSMultipleSelectedPopView *singleSelectedView = [[QSMultipleSelectedPopView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
@@ -284,7 +324,7 @@ static char SelectedItemRootViewKey;    //!<选择项放置的底view关联key
     ///搭建选择数据的UI
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [singleSelectedView createSingleSelectedInfoUI:dataSource];
+        [singleSelectedView createSingleSelectedInfoUI:dataSource andSelectedDataSource:selectedDataSource];
         
     });
     

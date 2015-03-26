@@ -37,6 +37,9 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(b * NSEC_PER_SEC)), di
     \
 });
 
+#define TIPS_ALERT_MESSAGE_CONFIRMBUTTON(a,b,c,d,e) QSBlockAlertView *tipsAlertView = [[QSBlockAlertView alloc] initWithTitle:a message:b cancelButtonTitle:c andCallBack:e otherButtonTitles:d];\
+[tipsAlertView show];
+
 /**
  *  @author yangshengmeng, 15-03-14 10:03:51
  *

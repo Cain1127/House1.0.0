@@ -608,4 +608,23 @@ typedef enum
 
 }
 
+#pragma mark - 重写返回事件
+///重写返回事件，返回时，提示清空发布信息
+- (void)gotoTurnBackAction
+{
+
+    
+    TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil,@"返回将会清空发布出售物业所填写的信息",@"取消",@"确认",^(int buttonIndex) {
+        
+        ///判断按钮事件:0取消
+        if (0 < buttonIndex) {
+            
+            [super gotoTurnBackAction];
+            
+        }
+        
+    })
+
+}
+
 @end

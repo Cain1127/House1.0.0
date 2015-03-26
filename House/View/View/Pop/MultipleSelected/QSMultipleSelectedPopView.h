@@ -24,6 +24,6 @@
  *
  *  @since                  1.0.0
  */
-+ (instancetype)showMultipleSelectedViewWithDataSource:(NSArray *)dataSource andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack;
++ (instancetype)showMultipleSelectedViewWithDataSource:(NSArray *)dataSource andSelectedSource:(NSArray *)selectedDataSource andSelectedCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))selectedCallBack;
 
 @end

@@ -10,4 +10,23 @@
 
 @implementation QSReleaseSaleHouseDataModel
 
+#pragma mark - 初始化
+///初始化：同时初始化窗口类对象
+- (instancetype)init
+{
+
+    if (self = [super init]) {
+        
+        ///配套信息数组
+        self.installationList = [[NSMutableArray alloc] init];
+        
+        ///标签信息数组
+        self.featuresList = [[NSMutableArray alloc] init];
+        
+    }
+    
+    return self;
+
+}
+
 @end
