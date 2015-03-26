@@ -257,25 +257,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }
     
     if (infoLabel) {
-        
-//        [infoLabel setText:@"时间：2015-03-11 12：29"];
-        if ([orderData getUserIsOwnerFlag]) {
-            
-            
-        }else{
-            //房客
-            if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
-                
-                QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
-                if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
-                    
-//                    [infoLabel setText:[orderInfoData getTimeStr]];
-                    [infoLabel setAttributedText:[orderInfoData getSummaryAttributedString]];
-                    
-                }
-            }
-            
-        }
+      
+        [infoLabel setAttributedText:[orderData getSummaryOnCellAttributedString]];
         
     }
     

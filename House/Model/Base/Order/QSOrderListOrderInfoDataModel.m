@@ -571,49 +571,7 @@
     return btList;
 }
 
-//获取订单列表标题下方的简介字符串
-- (NSAttributedString*)getSummaryAttributedString
-{
-    
-    NSMutableAttributedString *summaryString = nil;
-    
-    NSString *tempString = @"";
-    
-    
-    if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {
-        
-        if ([self.order_status isEqualToString:@"500201"]) {
-            //预约状态
-            
-        }
-    }
-    
-    NSString *tempPrice = @"430";
-    NSString *lastPrice = @"350";
-    
-    if (tempPrice&&[tempPrice isKindOfClass:[NSString class]]) {
-        
-//        tempString = [NSString stringWithFormat:@"售价:%@万",tempPrice];
-//        summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
-//        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(3, tempPrice.length)];
-        
-        tempString = [NSString stringWithFormat:@"总价%@万|协商价%@万",tempPrice,lastPrice];
-        summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
-        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(2, tempPrice.length)];
-        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(7+tempPrice.length, lastPrice.length)];
-        
-    }
-    
-    if (summaryString && [summaryString isKindOfClass:[NSMutableAttributedString class]]) {
-        //设置字体大小
-        [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_12] range:NSMakeRange(0, summaryString.length)];
-        
-    }
-    
-    return summaryString;
-}
-
-- (NSString*)getTimeStr
+- (NSString*)getAppointmentTimeString
 {
     NSString *timeStr = @"";
     
@@ -622,7 +580,7 @@
     }
     
     if (self.appoint_start_time) {
-        timeStr = [NSString stringWithFormat:@"%@ %@",timeStr,self.appoint_start_time];
+        timeStr = [NSString stringWithFormat:@"时间:%@ %@",timeStr,self.appoint_start_time];
     }
     
     if (self.appoint_end_time) {
