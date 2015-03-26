@@ -23,6 +23,9 @@
         ///标签信息数组
         self.featuresList = [[NSMutableArray alloc] init];
         
+        ///图片集
+        self.imagesList = [[NSMutableArray alloc] init];
+        
     }
     
     return self;

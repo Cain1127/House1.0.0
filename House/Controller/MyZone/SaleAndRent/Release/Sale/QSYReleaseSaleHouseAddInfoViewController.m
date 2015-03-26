@@ -201,6 +201,11 @@ typedef enum
             featuresButton.layer.cornerRadius = cornerOfFeatures;
             featuresButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
             featuresButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+            
+            ///检测是否已选择过
+            featuresButton.selected = [self checkFeaturesIsSave:featuresModel];
+            
+            ///添加按钮
             [view addSubview:featuresButton];
             k++;
             
@@ -220,6 +225,23 @@ typedef enum
     
 }
 
+#pragma mark - 检测标签是否已在数据源中
+- (BOOL)checkFeaturesIsSave:(QSBaseConfigurationDataModel *)model
+{
+
+    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.featuresList) {
+        
+        if ([obj.key isEqualToString:model.key]) {
+            
+            return YES;
+            
+        }
+        
+    }
+    return NO;
+
+}
+
 #pragma mark - 创建右剪头控件
 ///创建右剪头控件
 - (UIView *)createRightArrowSubviewWithViewInfo:(NSDictionary *)tempDict
@@ -233,6 +255,12 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    NSString *filterInfo = [self.saleHouseReleaseModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     return tempTextField;
     
@@ -256,7 +284,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseNatureTypes];
             
             ///显示房屋性质选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.natureKey length] > 0 ? self.saleHouseReleaseModel.natureKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -290,7 +318,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseBuildingYearTypes];
             
             ///显示房屋建筑年代选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.buildingYearKey length] > 0 ? self.saleHouseReleaseModel.buildingYearKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -324,7 +352,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHousePropertyRightType];
             
             ///显示房屋产权选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.propertyRightYearKey length] > 0 ? self.saleHouseReleaseModel.propertyRightYearKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -358,7 +386,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseFloorType];
             
             ///显示楼层选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.floorKey length] > 0 ? self.saleHouseReleaseModel.floorKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -392,7 +420,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseFaceType];
             
             ///显示朝向选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.faceKey length] > 0 ? self.saleHouseReleaseModel.faceKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -426,7 +454,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseDecorationType];
             
             ///显示装修选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.decorationKey length] > 0 ? self.saleHouseReleaseModel.decorationKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
@@ -460,7 +488,7 @@ typedef enum
             NSArray *intentArray = [QSCoreDataManager getHouseInstallationTypes:fFilterMainTypeSecondHouse];
             
             ///显示配套选择项窗口
-            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:intentArray andSelectedSource:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:intentArray andSelectedSource:([self.saleHouseReleaseModel.installationList count] > 0 ? self.saleHouseReleaseModel.installationList : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
                 if (cCustomPopviewActionTypeMultipleSelected == actionType) {
                     
@@ -482,11 +510,13 @@ typedef enum
                     }
                     
                     textField.text = showString;
+                    self.saleHouseReleaseModel.installationString = showString;
                     [self.saleHouseReleaseModel.installationList addObjectsFromArray:params];
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
+                    self.saleHouseReleaseModel.installationString = nil;
                     [self.saleHouseReleaseModel.installationList removeAllObjects];;
                     
                 }

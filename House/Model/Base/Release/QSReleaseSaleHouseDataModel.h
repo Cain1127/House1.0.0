@@ -39,11 +39,16 @@
 @property (nonatomic,copy) NSString *faceKey;           //!<朝向key
 @property (nonatomic,copy) NSString *decoration;        //!<装修
 @property (nonatomic,copy) NSString *decorationKey;     //!<装修key
+@property (nonatomic,copy) NSString *title;             //!<标题
+@property (nonatomic,copy) NSString *detailComment;     //!<详细说明
+
+@property (nonatomic,retain) NSMutableArray *imagesList;//!<图片集
 
 ///标签
 @property (nonatomic,retain) NSMutableArray *featuresList;
 
 ///配套信息
+@property (nonatomic,copy) NSString *installationString;
 @property (nonatomic,retain) NSMutableArray *installationList;
 
 @end

@@ -8,13 +8,23 @@
 
 #import "QSYReleaseSaleHousePictureViewController.h"
 #import "QSYReleaseHouseContactInfoViewController.h"
+#import "QSYShowImageDetailViewController.h"
 
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
+#import "UIImage+Orientaion.h"
+#import "UIImage+Thumbnail.h"
+
 #import "QSReleaseSaleHouseDataModel.h"
 
-@interface QSYReleaseSaleHousePictureViewController () <UITextFieldDelegate,UITextViewDelegate>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <objc/runtime.h>
+
+///关联
+static char PickedImageRootViewKey;//!<图片选择底view
+
+@interface QSYReleaseSaleHousePictureViewController () <UITextFieldDelegate,UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 ///出售物业的数据模型
 @property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
@@ -105,6 +115,11 @@
     ///标题
     UITextField *titleField = [UITextField createCustomTextFieldWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsRootView.frame.origin.y + tipsRootView.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, tipsRootView.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:@"简要描述20字以内" andLeftTipsInfo:@"标       题" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsLightGray];
     titleField.delegate = self;
+    if ([self.saleHouseReleaseModel.title length] > 0) {
+        
+        titleField.text = self.saleHouseReleaseModel.title;
+        
+    }
     [view addSubview:titleField];
     
     ///分隔线
@@ -123,6 +138,12 @@
     descriptionView.font = [UIFont systemFontOfSize:FONT_BODY_16];
     descriptionView.text = @"房屋详细描述";
     descriptionView.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    if ([self.saleHouseReleaseModel.detailComment length] > 0) {
+        
+        descriptionView.text = self.saleHouseReleaseModel.detailComment;
+        descriptionView.textColor = COLOR_CHARACTERS_BLACK;
+        
+    }
     [view addSubview:descriptionView];
     
     ///添加图片
@@ -132,22 +153,16 @@
     addImageLabel.textColor = COLOR_CHARACTERS_GRAY;
     [view addSubview:addImageLabel];
     
-    ///添加图片按钮
-    UIButton *addImageButtonOne = [UIButton createBlockButtonWithFrame:CGRectMake(addImageLabel.frame.origin.x, addImageLabel.frame.origin.y + addImageLabel.frame.size.height +  VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 60.0f, 60.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        
-        
-    }];
-    addImageButtonOne.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
-    addImageButtonOne.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
-    addImageButtonOne.layer.borderWidth = 0.5f;
-    [addImageButtonOne setTitle:@"+" forState:UIControlStateNormal];
-    [addImageButtonOne setTitleColor:COLOR_CHARACTERS_BLACKH forState:UIControlStateNormal];
-    [addImageButtonOne setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
-    [view addSubview:addImageButtonOne];
+    ///添加图片按钮底view
+    QSScrollView *addImageRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(addImageLabel.frame.origin.x, addImageLabel.frame.origin.y + addImageLabel.frame.size.height +  VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, addImageLabel.frame.size.width, 60.0f)];
+    [view addSubview:addImageRootView];
+    objc_setAssociatedObject(self, &PickedImageRootViewKey, addImageRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///创建图片添加按钮
+    [self createImagePickedView];
     
     ///添加视频
-    UILabel *addVedioLabel = [[UILabel alloc] initWithFrame:CGRectMake(addImageLabel.frame.origin.x, addImageButtonOne.frame.origin.y + addImageButtonOne.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, addImageLabel.frame.size.width, 30.0f)];
+    UILabel *addVedioLabel = [[UILabel alloc] initWithFrame:CGRectMake(addImageLabel.frame.origin.x, addImageRootView.frame.origin.y + addImageRootView.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, addImageLabel.frame.size.width, 30.0f)];
     addVedioLabel.text = @"添加视频";
     addVedioLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     addVedioLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -174,6 +189,262 @@
         
     }
     
+}
+
+#pragma mark - 更新图片UI
+- (void)createImagePickedView
+{
+    
+    UIScrollView *rootView = objc_getAssociatedObject(self, &PickedImageRootViewKey);
+
+    ///清空原UI
+    for (UIView *obj in [rootView subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
+    
+    ///重新按选择图片创建UI
+    if ([self.saleHouseReleaseModel.imagesList count] > 0) {
+        
+        ///总图片个数
+        NSInteger sumImageCount = [self.saleHouseReleaseModel.imagesList count];
+        
+        ///创建图片显示button
+        for (int i = 0;i < sumImageCount && i < 12;i++) {
+            
+            UIImage *tempImage = self.saleHouseReleaseModel.imagesList[i];
+            UIView *imageView = [self createImageButton:CGRectMake((60.0f + 5.0f) * i, 0.0f, 60.0f, 60.0f) andImage:tempImage];
+            [rootView addSubview:imageView];
+            
+        }
+        
+        ///宽度记录
+        CGFloat widthImage = (60.0f + 5.0f) * sumImageCount;
+        
+        ///如果未超过12个，则创建再添加按钮
+        if (sumImageCount < 12) {
+            
+            UIButton *addImageButton = [self createAddImageButton:CGRectMake((60.0f + 5.0f) * sumImageCount, 0.0f, 60.0f, 60.0f)];
+            [rootView addSubview:addImageButton];
+            widthImage = widthImage + 60.0f;
+            
+        }
+        
+        ///判断滚动
+        if (widthImage > rootView.frame.size.width) {
+            
+            rootView.contentSize = CGSizeMake(widthImage + 10.0f, rootView.frame.size.height);
+            
+        }
+    
+        
+    } else {
+    
+        ///添加图片按钮
+        UIButton *addImageButton = [self createAddImageButton:CGRectMake(0.0f, 0.0f, 60.0f, 60.0f)];
+        [rootView addSubview:addImageButton];
+    
+    }
+
+}
+
+///创建一个已有图片的按钮
+- (UIView *)createImageButton:(CGRect)frame andImage:(UIImage *)image
+{
+    
+    ///底view
+    UIView *rootView = [[UIView alloc] initWithFrame:frame];
+    rootView.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
+    rootView.clipsToBounds = YES;
+
+    UIButton *imageButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///查看大图
+        QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImage:image andType:sShowImageOriginalVCTypeEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType) {
+            
+            ///删除事件
+            if (sShowImageOriginalActionTypeDelete == actionType) {
+                
+                ///删除图片
+                [self.saleHouseReleaseModel.imagesList removeObject:image];
+                
+                ///重构图片框
+                [self createImagePickedView];
+                
+            }
+            
+        }];
+        [self.navigationController pushViewController:showOriginalImageVC animated:YES];
+        
+    }];
+    [imageButton setImage:image forState:UIControlStateNormal];
+    [rootView addSubview:imageButton];
+    
+    return rootView;
+
+}
+
+///创建一个添加图片的按钮
+- (UIButton *)createAddImageButton:(CGRect)frame
+{
+
+    UIButton *addImageButton = [UIButton createBlockButtonWithFrame:frame andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///弹出提示
+        UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+        [pickedImageAskSheet showInView:self.view];
+        
+    }];
+    addImageButton.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
+    addImageButton.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    addImageButton.layer.borderWidth = 0.5f;
+    [addImageButton setTitle:@"+" forState:UIControlStateNormal];
+    [addImageButton setTitleColor:COLOR_CHARACTERS_BLACKH forState:UIControlStateNormal];
+    [addImageButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    return addImageButton;
+
+}
+
+#pragma mark - 选择图片
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    ///从新拍照
+    if (0 == buttonIndex) {
+        
+        ///拍照：如果是要准备进行拍照，一定要判断设备是否支持拍照
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypeCamera]) {
+            
+            ///如果是拍照
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            
+        } else {
+            
+            ///如果不支持拍照
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前设备不支持拍照", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+    ///从相册选择图片
+    if (1 == buttonIndex) {
+        
+        //需要判断是否支持取本地相册
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            //如果支持取本地相册：则调用本地相册
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            
+        } else {
+            
+            ///如果不支持读取相册
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法获取本地相册", 1.0f, ^(){})
+            
+        }
+        
+    }
+
+}
+
+#pragma mark - 拍照或者选择窗口
+///拍照 和 取本地相册，都是一个代理，不过是区分资源
+///UIImagePickerController 这是管理本地的控件器
+///UIImagePickerControllerSourceTypePhotoLibrary : 相册
+///UIImagePickerControllerSourceTypeCamera : 照相机
+///UIImagePickerControllerSourceTypeSavedPhotosAlbum : 胶卷
+- (void)loadImageWithSourceType:(UIImagePickerControllerSourceType)type
+{
+    if (type == UIImagePickerControllerSourceTypePhotoLibrary) {
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    } else if(type == UIImagePickerControllerSourceTypeCamera){
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    }
+    
+}
+
+#pragma mark - 获取拍照/本地图片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    /*
+     *  将图片转化成NSData 存入应用的沙盒中
+     */
+    NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([sourceType isEqualToString:(NSString *)kUTTypeImage]) {
+        
+        ///原图片
+        UIImage *pickedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+        
+        ///修改图片
+        UIImage *rightImage = [pickedImage fixOrientation:pickedImage];
+        
+        ///压缩图片
+        UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
+        
+        ///保存图片
+        [self.saleHouseReleaseModel.imagesList addObject:smallImage];
+        
+        ///修改UI
+        [self createImagePickedView];
+        
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{}];
+    
+}
+
+#pragma mark - 标题完成输入
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+
+    if ([textField.text length] > 0) {
+        
+        self.saleHouseReleaseModel.title = textField.text;
+        
+    } else {
+    
+        self.saleHouseReleaseModel.title = nil;
+    
+    }
+
+}
+
+#pragma mark - 房源详细说明信息完成输入
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+
+    if ([textView.text length] > 0) {
+        
+        self.saleHouseReleaseModel.detailComment = textView.text;
+        
+    } else {
+    
+        self.saleHouseReleaseModel.detailComment = nil;
+    
+    }
+
 }
 
 #pragma mark - 回收键盘
@@ -204,7 +475,7 @@
     if ([textView.text length] <= 0) {
         
         textView.text = @"房屋详细描述";
-        textView.textColor = COLOR_CHARACTERS_BLACK;
+        textView.textColor = COLOR_CHARACTERS_LIGHTGRAY;
         
     }
     return YES;

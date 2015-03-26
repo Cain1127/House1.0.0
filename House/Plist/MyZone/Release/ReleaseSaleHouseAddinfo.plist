@@ -15,7 +15,7 @@
 		<key>left_title</key>
 		<string>房屋性质</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>nature</string>
 	</dict>
 	<key>building_year</key>
 	<dict>
@@ -30,7 +30,7 @@
 		<key>left_title</key>
 		<string>建筑年代</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>buildingYear</string>
 	</dict>
 	<key>user_year</key>
 	<dict>
@@ -45,7 +45,7 @@
 		<key>left_title</key>
 		<string>使用年限</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>propertyRightYear</string>
 	</dict>
 	<key>floor</key>
 	<dict>
@@ -60,7 +60,7 @@
 		<key>left_title</key>
 		<string>楼       层</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>floor</string>
 	</dict>
 	<key>face</key>
 	<dict>
@@ -75,7 +75,7 @@
 		<key>left_title</key>
 		<string>朝       向</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>face</string>
 	</dict>
 	<key>decoration</key>
 	<dict>
@@ -90,7 +90,7 @@
 		<key>left_title</key>
 		<string>装       修</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>decoration</string>
 	</dict>
 	<key>device</key>
 	<dict>
@@ -105,7 +105,7 @@
 		<key>left_title</key>
 		<string>配       套</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>installationString</string>
 	</dict>
 </dict>
 </plist>
