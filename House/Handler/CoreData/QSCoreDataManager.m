@@ -10,7 +10,117 @@
 #import "QSYAppDelegate.h"
 #import "QSCDFilterDataModel.h"
 
+static QSCoreDataManager *_coredataManager = nil;
+@interface QSCoreDataManager ()
+
+///小区关注数据有变动时的回调block
+@property (nonatomic,copy) COREDATACHANGEBLOCK communityIntentionChangeCallBack;
+
+@end
+
 @implementation QSCoreDataManager
+
+#pragma mark - 数据操作管理器的单例
+/**
+ *  @author yangshengmeng, 15-03-26 23:03:04
+ *
+ *  @brief  返回Coredata管理器的单例对象
+ *
+ *  @return 返回当前创建的管理器单例
+ *
+ *  @since  1.0.0
+ */
++ (instancetype)shareCoreDataManager
+{
+
+    if (nil == _coredataManager) {
+        
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            
+            _coredataManager = [[QSCoreDataManager alloc] init];
+            
+        });
+        
+    }
+    
+    return _coredataManager;
+
+}
+
+#pragma mark - 注册相关数据变动时的回调
+/**
+ *  @author                 yangshengmeng, 15-03-26 23:03:30
+ *
+ *  @brief                  注册数据变动时的回调，用来监测本地数据变化时的事件
+ *
+ *  @param dataType         数据类型
+ *  @param changeCallBack   对应数据变动时的回调block
+ *
+ *  @since                  1.0.0
+ */
++ (void)setCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andCallBack:(COREDATACHANGEBLOCK)changeCallBack
+{
+
+    switch (dataType) {
+            ///小区关注改变时的回调
+        case cCoredataDataTypeCommunityIntention:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.communityIntentionChangeCallBack = changeCallBack;
+                
+            } else {
+            
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.communityIntentionChangeCallBack = nil;
+            
+            }
+            
+            break;
+            
+        default:
+            break;
+            
+    }
+
+}
+
+/**
+ *  @author         yangshengmeng, 15-03-26 23:03:28
+ *
+ *  @brief          回调给定的数据变动block
+ *
+ *  @param dataType 数据类型
+ *
+ *  @since          1.0.0
+ */
++ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType
+{
+
+    switch (dataType) {
+            ///小区关注改变时的回调
+        case cCoredataDataTypeCommunityIntention:
+        {
+            
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.communityIntentionChangeCallBack) {
+                
+                coredataManager.communityIntentionChangeCallBack(cCoredataDataTypeCommunityIntention,changeType);
+                
+            }
+            
+        }
+            
+            break;
+            
+        default:
+            break;
+            
+    }
+
+}
 
 #pragma mark - 实体数据查询
 /**

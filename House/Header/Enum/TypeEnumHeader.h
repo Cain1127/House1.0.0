@@ -582,6 +582,8 @@ typedef enum
     
     rRequestTypeChatMessageList = 4000,         //!<消息列表
     
+    rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
+    
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
     rRequestTypeOrderDetailData = 8001,         //!<订单详情

@@ -8,6 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+///数据类型
+typedef enum
+{
+
+    cCoredataDataTypeCommunityIntention = 0,//!<小区关注
+
+}COREDATA_DATA_TYPE;
+
+///数据的变动类型
+typedef enum
+{
+    
+    dDataChangeTypeIncrease = 0,  //!<增加
+    dDataChangeTypeReduce,        //!<减少
+    dDataChangeTypeZero,          //!<已为0
+    
+}DATA_CHANGE_TYPE;
+
+///回调block重定义
+typedef void(^COREDATACHANGEBLOCK)(COREDATA_DATA_TYPE dataType,DATA_CHANGE_TYPE changeType);
+
 /**
  *  @author yangshengmeng, 15-01-21 18:01:59
  *
@@ -16,6 +37,41 @@
  *  @since  1.0.0
  */
 @interface QSCoreDataManager : NSObject
+
+#pragma mark - CoreData操作单例
+/**
+ *  @author yangshengmeng, 15-03-26 23:03:04
+ *
+ *  @brief  返回Coredata管理器的单例对象
+ *
+ *  @return 返回当前创建的管理器单例
+ *
+ *  @since  1.0.0
+ */
++ (instancetype)shareCoreDataManager;
+
+/**
+ *  @author                 yangshengmeng, 15-03-26 23:03:30
+ *
+ *  @brief                  注册数据变动时的回调，用来监测本地数据变化时的事件
+ *
+ *  @param dataType         数据类型
+ *  @param changeCallBack   对应数据变动时的回调block
+ *
+ *  @since                  1.0.0
+ */
++ (void)setCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andCallBack:(COREDATACHANGEBLOCK)changeCallBack;
+
+/**
+ *  @author         yangshengmeng, 15-03-26 23:03:28
+ *
+ *  @brief          回调给定的数据变动block
+ *
+ *  @param dataType 数据类型
+ *
+ *  @since          1.0.0
+ */
++ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType;
 
 #pragma mark - 实体数据查询
 /**

@@ -837,6 +837,9 @@
         
     }
     
+    ///回调改动
+    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease];
+    
     ///回调
     if (callBack) {
         
@@ -922,6 +925,9 @@
         });
         
     }
+    
+    ///回调改动
+    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease];
     
     ///回调
     if (callBack) {
@@ -1254,12 +1260,18 @@
                     
                     [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                     
+                    ///回调关注变动
+                    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
+                    
                 } else {
                 
                     ///判断是否已联网删除
                     if (isSyserver) {
                         
                         [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
                         
                     } else {
                     
@@ -1268,7 +1280,19 @@
                         tempModel.is_syserver = @"3";
                         
                         ///保存本地
-                        [self saveCollectedCommunityWithDetailModel:tempModel andCallBack:callBack];
+                        [self saveCollectedCommunityWithDetailModel:tempModel andCallBack:^(BOOL flag) {
+                            
+                            if (flag) {
+                                
+                                ///回调关注变动
+                                [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
+                                
+                                ///回调
+                                callBack(YES);
+                                
+                            }
+                            
+                        }];
                     
                     }
                 
