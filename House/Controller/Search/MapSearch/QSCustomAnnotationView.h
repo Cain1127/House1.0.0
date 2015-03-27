@@ -10,5 +10,14 @@
 #import "QSCustomCalloutView.h"
 @interface QSCustomAnnotationView : MAAnnotationView
 
-@property (nonatomic, strong) QSCustomCalloutView *calloutView;
+@property (nonatomic, strong) QSCustomCalloutView *calloutView; //!<自定义大头针的子view
+
+/*!
+ *  @author wangshupeng, 15-03-27 16:03:57
+ *
+ *  @brief  更新大头针数据
+ *
+ *  @since 1.0.0
+ */-(void)updateAnnotation:(id <MAAnnotation>)annotation;
+
 @end

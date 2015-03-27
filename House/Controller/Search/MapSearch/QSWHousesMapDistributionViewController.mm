@@ -58,13 +58,15 @@
 ///关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
 
-@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate>
+@interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate,CLLocationManagerDelegate>
 {
 
     MAMapView *_mapView;
     AMapSearchAPI *_search;
 
     CLLocation *_currentLocation;  //!<用户当前地理位置
+    
+    CLLocationManager      *_locationmanager;
     
 }
 
@@ -653,20 +655,21 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     
-    ///发起用户定位
-    //[self locateAction];
     [self initSearch];
     
-    if (self.filterModel) {
+    if (self.filterModel.street_val) {
         ///发起地理编码
         [self geoAction];
     }
     
+    else {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self MapCommunityListHeaderRequest];
+        ///发起用户定位
+        [self locateAction];
         
     });
+    }
     
 }
 
@@ -682,6 +685,19 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     {
         [_mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
     }
+    
+    _locationmanager = [[CLLocationManager alloc] init];
+    [_locationmanager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
+    [_locationmanager requestWhenInUseAuthorization];     //NSLocationWhenInUseDescription
+    _locationmanager.delegate = self;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self MapCommunityListHeaderRequest];
+
+    });
+
+    
 }
 
 ///定位跟踪代理事件
@@ -699,7 +715,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
     }
 
-    
+    [_locationmanager stopUpdatingLocation];
 }
 
 #pragma mark-地理编码
@@ -749,6 +765,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     QSMapCommunityDataModel *tempModel=[[QSMapCommunityDataModel alloc] init];
     
+    NSMutableArray *annoArray=[[NSMutableArray alloc] init];
+    
     for (int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
         
         tempModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
@@ -767,12 +785,17 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         anno.title = self.title;
         anno.subtitle=self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
+        
+        [annoArray addObject:anno];
      
         [_mapView addAnnotation:anno];
+        
         //黙认选中
-        [_mapView selectAnnotation:anno animated:YES];
+        //[_mapView selectAnnotation:anno animated:YES];
         
     }
+    
+    [_mapView showAnnotations:annoArray animated:YES];
     
 }
 
@@ -793,6 +816,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = NO;
         
+        ///更新大头针数据
+        [annotationView  updateAnnotation:annotation];
+        
         // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
         annotationView.centerOffset = CGPointMake(0, -18);
         return annotationView;
@@ -806,25 +832,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
  @param mapView 地图View
  @param views 新添加的annotation views
  */
-- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-
-//    for (id item in views) {
-//        NSLog(@" item :%@",item);
-//        if (item&&[item isKindOfClass:[AMapGeocode class]]) {
-//            
-//            AMapGeocode *tempdata = (AMapGeocode*)item;
-//            AMapGeoPoint *location = tempdata.location;
-//            _latitude=location.latitude;
-//            _longtude=location.longitude;
-//        }
-//        
-//    }
-
-   // [_mapView selectAnnotation:views animated:YES];
-
-    
-}
+//- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
+//{
+//
+//
+//    
+//}
 
 /*!
  @brief 当选中一个annotation views时，调用此接口
@@ -834,8 +847,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
 
-    //[self gotoHouseDetail:]
-    
+    NSLog(@"点击大头针事件");
 }
 
 #pragma mark - 请求小区列表数据
@@ -846,8 +858,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///显示HUD
     __block QSCustomHUDView *hud=[QSCustomHUDView showCustomHUD];
     /// 当前用户坐标
-    CGFloat clatitude= _currentLocation.coordinate.latitude;
-    CGFloat clongitude= _currentLocation.coordinate.longitude;
+    CGFloat clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 23.333;
+    CGFloat clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 113.333;
 
     ///网络请求坐标
     NSString *latitude=[NSString stringWithFormat:@"%f",_latitude ? _latitude : clatitude];
@@ -859,7 +871,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///请求参数
      NSDictionary *dict = @{@"map_type" : map_type,
                             @"now_page" : @"1",
-                            @"page_num" : @"1",
+                            @"page_num" : @"5",
                             @"range" : @"6000",
                             @"latitude" : latitude,
                             @"longitude" : longtude

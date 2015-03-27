@@ -48,7 +48,7 @@ static char PriceUnitKey;   //!<价钱单位
 {
     
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetFillColorWithColor(context, [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.8].CGColor);
+    CGContextSetFillColorWithColor(context, [COLOR_CHARACTERS_YELLOW CGColor]);
     
     [self getDrawPath:context];
     CGContextFillPath(context);
@@ -91,23 +91,25 @@ static char PriceUnitKey;   //!<价钱单位
 {
     
     /// 添加标题label
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT*2.0f, kPortraitMargin, kTitleWidth, kTitleHeight)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, kPortraitMargin, kTitleWidth, kTitleHeight)];
     titleLabel.font = [UIFont boldSystemFontOfSize:14];
     titleLabel.textColor = [UIColor blackColor];
     titleLabel.text = self.title ? self.title : @"测试地址";
+    titleLabel.textAlignment=NSTextAlignmentCenter;
     [self addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey,titleLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///均价label
-    UILabel *avgLabel=[[UILabel alloc] initWithFrame:CGRectMake(titleLabel.frame.origin.x, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 40.0f, 15.0f)];
+    UILabel *avgLabel=[[UILabel alloc] initWithFrame:CGRectMake(15.0f, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 35.0f, 15.0f)];
     avgLabel.text=@"均价:";
     avgLabel.font=[UIFont systemFontOfSize:14];
+    avgLabel.textAlignment=NSTextAlignmentRight;
     [self addSubview:avgLabel];
     objc_setAssociatedObject(self, &AvgLabelKey, avgLabel, OBJC_ASSOCIATION_ASSIGN);
 
     
     /// 添加价钱label
-     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 50.0f, 20.0f)];
+     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 35.0f, 20.0f)];
     priceLabel.font = [UIFont systemFontOfSize:18];
     priceLabel.textColor = [UIColor blackColor];
     priceLabel.text = self.subtitle ? self.subtitle : @"999";

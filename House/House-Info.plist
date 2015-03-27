@@ -11,6 +11,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>为您更准确推荐周边相关的小区信息。</string>
+	<key>NSLocationWhenInUseDescription</key>
+	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
