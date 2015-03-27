@@ -396,7 +396,6 @@
 //            [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(7+tempPrice.length, lastPrice.length)];
 //
 //        }
-
 //    summaryString = [self priceStringWithTip:@"售价：" withPricef:3513.12];
 
 - (NSAttributedString*)blackWithString:(NSString*)string

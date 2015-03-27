@@ -10,8 +10,6 @@
 
 @interface QSPOrderDetailPersonInfoView : UIView
 
-@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
-
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
 
 - (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
