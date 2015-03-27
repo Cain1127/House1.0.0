@@ -45,8 +45,10 @@
 -(void)updateAnnotation:(id <MAAnnotation>)annotation
 {
 
-
+//    NSString *title = annotation.title;
+//    NSArray *tempArray = [title componentsSeparatedByString:@"#"];
     self.calloutView.title = annotation.title;
+    //self.mapdeteilID = @"11";
     self.calloutView.subtitle=annotation.subtitle;
 
 }
