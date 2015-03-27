@@ -329,21 +329,13 @@ static char LeftStarKey;            //!<左侧星级
         
         ///更新以下UI的起始Y坐标
         startYPoint = SIZE_DEVICE_WIDTH * 253.0f / 750.0f;
-
+        
         ///活动栏
         QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
             
-            QSActivityDataModel *activityModel=[[QSActivityDataModel alloc] init];
-
-            for (int i=0; i<[self.detailInfo.loupan_activity count]; i++) {
-                
-                activityModel=self.detailInfo.loupan_activity[i];
-                
-            }
+            QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithactivityID:params];
             
-            QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithactivityID:activityModel.id_];
-            
-                [self.navigationController pushViewController:gotoVC animated:YES];
+            [self.navigationController pushViewController:gotoVC animated:YES];
             
             
             NSLog(@"========================================");

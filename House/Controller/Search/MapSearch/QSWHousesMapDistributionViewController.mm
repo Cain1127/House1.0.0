@@ -78,7 +78,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
-@property (nonatomic,retain) QSCustomHUDView *hud;                            //!<HUD
+@property (nonatomic,retain) QSCustomHUDView *hud;                          //!<HUD
 
 ///数据源
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
