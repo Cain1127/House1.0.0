@@ -836,4 +836,31 @@
 
 }
 
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  返回星期选择项
+ *
+ *  @return 返回星期选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getWeeksPickedType
+{
+
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"周一",@"周二",@"周三",@"周四",@"周五",@"周六",@"周日"];
+    NSArray *houseUsedYearTypeKeyArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"0"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
 @end

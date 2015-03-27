@@ -26,6 +26,9 @@
         ///图片集
         self.imagesList = [[NSMutableArray alloc] init];
         
+        ///星期几
+        self.weekInfos = [[NSMutableArray alloc] init];
+        
     }
     
     return self;
