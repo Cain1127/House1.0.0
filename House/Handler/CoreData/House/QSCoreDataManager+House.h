@@ -259,4 +259,15 @@
  */
 + (NSArray *)getHouseInstallationTypes:(FILTER_MAIN_TYPE)filterType;
 
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  返回星期选择项
+ *
+ *  @return 返回星期选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getWeeksPickedType;
+
 @end

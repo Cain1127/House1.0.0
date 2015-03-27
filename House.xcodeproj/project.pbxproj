@@ -413,6 +413,10 @@
 		18EC15BA1AC3F0BB00D2AD3A /* UIImage+Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15B81AC3F0BB00D2AD3A /* UIImage+Thumbnail.m */; };
 		18EC15BE1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15BD1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m */; };
 		18EC15C11AC466A500D2AD3A /* QSCDFilterFeaturesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15C01AC466A500D2AD3A /* QSCDFilterFeaturesDataModel.m */; };
+		18EC15C51AC50E4B00D2AD3A /* QSYWeekPickedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15C41AC50E4B00D2AD3A /* QSYWeekPickedView.m */; };
+		18EC15C91AC51EE600D2AD3A /* QSYTimePickedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15C81AC51EE600D2AD3A /* QSYTimePickedView.m */; };
+		18EC15FE1AC546EB00D2AD3A /* QSYUserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15FD1AC546EB00D2AD3A /* QSYUserProtocolViewController.m */; };
+		18EC16021AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */; };
 		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
@@ -1212,6 +1216,14 @@
 		18EC15BD1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShowImageDetailViewController.m; path = Image/QSYShowImageDetailViewController.m; sourceTree = "<group>"; };
 		18EC15BF1AC466A500D2AD3A /* QSCDFilterFeaturesDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDFilterFeaturesDataModel.h; path = Filter/QSCDFilterFeaturesDataModel.h; sourceTree = "<group>"; };
 		18EC15C01AC466A500D2AD3A /* QSCDFilterFeaturesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDFilterFeaturesDataModel.m; path = Filter/QSCDFilterFeaturesDataModel.m; sourceTree = "<group>"; };
+		18EC15C31AC50E4B00D2AD3A /* QSYWeekPickedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYWeekPickedView.h; path = Week/QSYWeekPickedView.h; sourceTree = "<group>"; };
+		18EC15C41AC50E4B00D2AD3A /* QSYWeekPickedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYWeekPickedView.m; path = Week/QSYWeekPickedView.m; sourceTree = "<group>"; };
+		18EC15C71AC51EE600D2AD3A /* QSYTimePickedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYTimePickedView.h; path = Time/QSYTimePickedView.h; sourceTree = "<group>"; };
+		18EC15C81AC51EE600D2AD3A /* QSYTimePickedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTimePickedView.m; path = Time/QSYTimePickedView.m; sourceTree = "<group>"; };
+		18EC15FC1AC546EB00D2AD3A /* QSYUserProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYUserProtocolViewController.h; path = SaleAndRent/Release/QSYUserProtocolViewController.h; sourceTree = "<group>"; };
+		18EC15FD1AC546EB00D2AD3A /* QSYUserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYUserProtocolViewController.m; path = SaleAndRent/Release/QSYUserProtocolViewController.m; sourceTree = "<group>"; };
+		18EC16001AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYExclusiveCompanyViewController.h; path = SaleAndRent/Release/Company/QSYExclusiveCompanyViewController.h; sourceTree = "<group>"; };
+		18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYExclusiveCompanyViewController.m; path = SaleAndRent/Release/Company/QSYExclusiveCompanyViewController.m; sourceTree = "<group>"; };
 		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
 		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
@@ -1707,9 +1719,12 @@
 		184366A01AB9BDA200A81374 /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15FF1AC5487800D2AD3A /* Company */,
 				18EC159E1AC3DBCC00D2AD3A /* Rent */,
 				18EC15A11AC3DBCC00D2AD3A /* Sale */,
 				18EC158A1AC2AE5000D2AD3A /* Community */,
+				18EC15FC1AC546EB00D2AD3A /* QSYUserProtocolViewController.h */,
+				18EC15FD1AC546EB00D2AD3A /* QSYUserProtocolViewController.m */,
 			);
 			name = Release;
 			sourceTree = "<group>";
@@ -2521,6 +2536,8 @@
 		18B562FB1A81AA40009779A0 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				18EC15C61AC51EA500D2AD3A /* Time */,
+				18EC15C21AC50E2A00D2AD3A /* Week */,
 				18B5632C1A81ADB5009779A0 /* Multiple */,
 				18B5632B1A81ADAF009779A0 /* Single */,
 				18B562FC1A81AA40009779A0 /* District */,
@@ -3900,6 +3917,33 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
+		18EC15C21AC50E2A00D2AD3A /* Week */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15C31AC50E4B00D2AD3A /* QSYWeekPickedView.h */,
+				18EC15C41AC50E4B00D2AD3A /* QSYWeekPickedView.m */,
+			);
+			name = Week;
+			sourceTree = "<group>";
+		};
+		18EC15C61AC51EA500D2AD3A /* Time */ = {
+			isa = PBXGroup;
+			children = (
+				18EC15C71AC51EE600D2AD3A /* QSYTimePickedView.h */,
+				18EC15C81AC51EE600D2AD3A /* QSYTimePickedView.m */,
+			);
+			name = Time;
+			sourceTree = "<group>";
+		};
+		18EC15FF1AC5487800D2AD3A /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				18EC16001AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.h */,
+				18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */,
+			);
+			name = Company;
+			sourceTree = "<group>";
+		};
 		18EDA5331ABB226A0024EEAF /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -4718,6 +4762,7 @@
 				475A4D381AC3E65A009881CF /* QSPSalerBookedOrderListsTableViewCell.m in Sources */,
 				183CC6741A68FC8800B8F97D /* House.xcdatamodeld in Sources */,
 				18B572AB1AC16D1600C75682 /* strutil.cc in Sources */,
+				18EC15FE1AC546EB00D2AD3A /* QSYUserProtocolViewController.m in Sources */,
 				181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */,
 				18E801FD1A6F8D3800CA21D4 /* MJRefreshBaseView.m in Sources */,
 				18B572B11AC16D1600C75682 /* wire_format.cc in Sources */,
@@ -4772,6 +4817,7 @@
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				475C3D9C1AB3D58A0028608F /* QSOrderListReturnData.m in Sources */,
 				184366CD1ABA82E700A81374 /* QSCDCollectedCommunityPhotoDataModel.m in Sources */,
+				18EC15C91AC51EE600D2AD3A /* QSYTimePickedView.m in Sources */,
 				184950911A7CAD6800CC00F7 /* QSHouseCollectionViewCell.m in Sources */,
 				18B572B01AC16D1600C75682 /* unknown_field_set.cc in Sources */,
 				18AFA9FA1AB69B6500681071 /* QSYAgreementViewController.m in Sources */,
@@ -4781,6 +4827,7 @@
 				477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				475A4D3D1AC3E65A009881CF /* QSPOrderDetailAddressView.m in Sources */,
+				18EC15C51AC50E4B00D2AD3A /* QSYWeekPickedView.m in Sources */,
 				18B572991AC16D1600C75682 /* gzip_stream.cc in Sources */,
 				18DABAB41AAD4E5E00647E7C /* QSHouseTypeDataModel.m in Sources */,
 				CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */,
@@ -4818,6 +4865,7 @@
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
+				18EC16021AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				188728F51AC1B0F800C88AA1 /* QSAttentionCommunityCell.m in Sources */,

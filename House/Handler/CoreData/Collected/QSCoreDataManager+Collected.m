@@ -1471,7 +1471,7 @@
 ///普通数据模型和CoreData数据模型转换
 + (void)changeModel_Community_DetailMode_T_CDModel:(QSCommunityHouseDetailDataModel *)collectedModel andCDModel:(QSCDCollectedCommunityDataModel *)cdCollectedModel andOperationContext:(NSManagedObjectContext *)tempContext
 {
-
+    
     cdCollectedModel.id_ = collectedModel.village.id_;
     cdCollectedModel.user_id = collectedModel.village.user_id;
     cdCollectedModel.floor_num = collectedModel.village.floor_num;
@@ -1550,10 +1550,9 @@
     cdCollectedModel.tj_environment = collectedModel.village.tj_environment;
     cdCollectedModel.isSelectedStatus = [NSString stringWithFormat:@"%d",collectedModel.village.isSelectedStatus];
     
+    ///清空原记录
+    [cdCollectedModel removePhotos:cdCollectedModel.photos];
     if ([collectedModel.village_photo count] > 0) {
-        
-        ///清空原记录
-        [cdCollectedModel removePhotos:cdCollectedModel.photos];
         
         for (QSPhotoDataModel *photoModel in collectedModel.village_photo) {
             
@@ -1574,10 +1573,9 @@
         
     }
     
-    if (collectedModel.house_commend) {
-        
-        ///清空原记录
-        [cdCollectedModel removeHouses:cdCollectedModel.houses];
+    ///清空记录
+    [cdCollectedModel removeHouses:cdCollectedModel.houses];
+    if ([collectedModel.house_commend count] > 0) {
         
         for (QSHouseInfoDataModel *houseModel in collectedModel.house_commend) {
             

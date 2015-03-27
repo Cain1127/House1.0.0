@@ -7,6 +7,12 @@
 //
 
 #import "QSYReleaseHouseDateInfoViewController.h"
+#import "QSYUserProtocolViewController.h"
+#import "QSYExclusiveCompanyViewController.h"
+
+#import "QSYPopCustomView.h"
+#import "QSYWeekPickedView.h"
+#import "QSYTimePickedView.h"
 
 #import "UIButton+Factory.h"
 #import "UITextField+CustomField.h"
@@ -14,11 +20,19 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 
 #import "QSReleaseSaleHouseDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
-@interface QSYReleaseHouseDateInfoViewController ()
+#import <objc/runtime.h>
+
+///关联
+static char isExclusiveKey; //!<独家按钮关联
+static char unExlusiveKey;  //!<非独家按钮关联
+
+@interface QSYReleaseHouseDateInfoViewController () <UITextFieldDelegate>
 
 ///出售物业的数据模型
 @property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
+@property (nonatomic,assign) BOOL isAgreetProtocal;//!<是否同意服务协议
 
 @end
 
@@ -91,10 +105,14 @@
     ///日期时间的高芳
     CGFloat height = 20.0f + 40.0f + 5.0f + SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
     
+    ///指针
+    __block UILabel *dateInfoLabel;
+    
     ///日期
     QSBlockView *dateRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, height) andSingleTapCallBack:^(BOOL flag) {
         
-        
+        ///弹出日期选择
+        [self popWeekPickedView:dateInfoLabel];
         
     }];
     [view addSubview:dateRootView];
@@ -107,8 +125,15 @@
     [dateRootView addSubview:dateTipsLabel];
     
     ///日期
-    UILabel *dateInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, dateTipsLabel.frame.origin.y + dateTipsLabel.frame.size.height + 5.0f, dateTipsLabel.frame.size.width, 40.0f)];
+    dateInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, dateTipsLabel.frame.origin.y + dateTipsLabel.frame.size.height + 5.0f, dateTipsLabel.frame.size.width, 40.0f)];
     [dateRootView addSubview:dateInfoLabel];
+    
+    ///加载默认信息
+    if ([self.saleHouseReleaseModel.weekInfos count] > 0) {
+        
+        dateInfoLabel.text = APPLICATION_NSSTRING_SETTING_NIL(self.saleHouseReleaseModel.weekInfoString);
+        
+    }
     
     ///右箭头
     QSImageView *dateArrow = [[QSImageView alloc] initWithFrame:CGRectMake(dateRootView.frame.size.width - 13.0f, (dateRootView.frame.size.height - 23.0f) / 2.0f, 13.0f, 23.0f)];
@@ -120,24 +145,36 @@
     dateLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [dateRootView addSubview:dateLineLable];
     
+    ///指针
+    __block UILabel *timeInfoLabel;
+    
     ///时间段
     QSBlockView *timeRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, dateRootView.frame.origin.y + dateRootView.frame.size.height + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, dateRootView.frame.size.width, 85.0f) andSingleTapCallBack:^(BOOL flag) {
         
-        
+        ///选择可预约时间段
+        [self popTimePickedView:timeInfoLabel];
         
     }];
     [view addSubview:timeRootView];
     
     ///说明信息
     UILabel *timeTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, timeRootView.frame.size.width - 30.0f, 20.0f)];
-    timeTipsLabel.text = @"设置可预约周期";
+    timeTipsLabel.text = @"设置可预约时段";
     timeTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     timeTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
     [timeRootView addSubview:timeTipsLabel];
     
     ///时间段
-    UILabel *timeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeTipsLabel.frame.origin.y + timeTipsLabel.frame.size.height + 5.0f, timeTipsLabel.frame.size.width, 40.0f)];
+    timeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeTipsLabel.frame.origin.y + timeTipsLabel.frame.size.height + 5.0f, timeTipsLabel.frame.size.width, 40.0f)];
     [timeRootView addSubview:timeInfoLabel];
+    
+    ///加载默认信息
+    if ([self.saleHouseReleaseModel.starTime length] > 0 &&
+        [self.saleHouseReleaseModel.endTime length] > 0) {
+        
+        timeInfoLabel.text = [NSString stringWithFormat:@"%@-%@",self.saleHouseReleaseModel.starTime,self.saleHouseReleaseModel.endTime];
+        
+    }
     
     ///右箭头
     QSImageView *timeArrow = [[QSImageView alloc] initWithFrame:CGRectMake(timeRootView.frame.size.width - 13.0f, (timeRootView.frame.size.height - 23.0f) / 2.0f, 13.0f, 23.0f)];
@@ -156,10 +193,21 @@
     authorizeTips.textColor = COLOR_CHARACTERS_GRAY;
     [view addSubview:authorizeTips];
     
+    ///指针
+    __block UIButton *authorizeBox;
+    __block UIButton *unAuthorizeBox;
+    ///选择独家公司指针
+    __block UITextField *companyChoice;
+    
     ///选择项
-    UIButton *authorizeBox = [UIButton createCustomStyleButtonWithFrame:CGRectMake(authorizeTips.frame.origin.x + authorizeTips.frame.size.width + 10.0f, authorizeTips.frame.origin.y, 62.0f, 20.0f) andButtonStyle:nil andCustomButtonStyle:cCustomButtonStyleRightTitle andTitleSize:40.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
+    authorizeBox = [UIButton createCustomStyleButtonWithFrame:CGRectMake(authorizeTips.frame.origin.x + authorizeTips.frame.size.width + 10.0f, authorizeTips.frame.origin.y, 62.0f, 20.0f) andButtonStyle:nil andCustomButtonStyle:cCustomButtonStyleRightTitle andTitleSize:40.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
         
-        
+        if (!button.selected) {
+            
+            button.selected = YES;
+            unAuthorizeBox.selected = NO;
+            
+        }
         
     }];
     [authorizeBox setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
@@ -170,9 +218,21 @@
     [authorizeBox setTitleColor:COLOR_CHARACTERS_LIGHTYELLOW forState:UIControlStateHighlighted];
     [view addSubview:authorizeBox];
     
-    UIButton *unAuthorizeBox = [UIButton createCustomStyleButtonWithFrame:CGRectMake(authorizeBox.frame.origin.x + authorizeBox.frame.size.width + 25.0f, authorizeTips.frame.origin.y, 82.0f, 20.0f) andButtonStyle:nil andCustomButtonStyle:cCustomButtonStyleRightTitle andTitleSize:60.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
+    ///非独家
+    unAuthorizeBox = [UIButton createCustomStyleButtonWithFrame:CGRectMake(authorizeBox.frame.origin.x + authorizeBox.frame.size.width + 25.0f, authorizeTips.frame.origin.y, 82.0f, 20.0f) andButtonStyle:nil andCustomButtonStyle:cCustomButtonStyleRightTitle andTitleSize:60.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
         
-        
+        if (!button.selected) {
+            
+            button.selected = YES;
+            authorizeBox.selected = NO;
+            
+            ///清空独家公司选择项
+            self.saleHouseReleaseModel.exclusiveCompany = nil;
+            
+            ///独家公司显示框内容为空
+            companyChoice.text = nil;
+            
+        }
         
     }];
     [unAuthorizeBox setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
@@ -188,8 +248,18 @@
     [view addSubview:authorLineLable];
     
     ///选择独家公司
-    UITextField *companyChoice = [UITextField createCustomTextFieldWithFrame:CGRectMake(authorLineLable.frame.origin.x, unAuthorizeBox.frame.origin.y + unAuthorizeBox.frame.size.height + 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, timeRootView.frame.size.width, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"选择独家公司" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsLightGray];
+    companyChoice = [UITextField createCustomTextFieldWithFrame:CGRectMake(authorLineLable.frame.origin.x, unAuthorizeBox.frame.origin.y + unAuthorizeBox.frame.size.height + 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, timeRootView.frame.size.width, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"选择独家公司" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsLightGray];
+    companyChoice.delegate = self;
     [view addSubview:companyChoice];
+    objc_setAssociatedObject(companyChoice, &isExclusiveKey, authorizeBox, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(companyChoice, &unExlusiveKey, unAuthorizeBox, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///加载默认独家公司信息
+    if (self.saleHouseReleaseModel.exclusiveCompany) {
+        
+        companyChoice.text = [self.saleHouseReleaseModel.exclusiveCompany valueForKey:@"title"];
+        
+    }
     
     ///分隔线
     UILabel *companyLineLable = [[UILabel alloc] initWithFrame:CGRectMake(companyChoice.frame.origin.x, companyChoice.frame.origin.y + companyChoice.frame.size.height + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, companyChoice.frame.size.width, 0.25f)];
@@ -199,18 +269,36 @@
     ///承诺说明
     UIButton *protocalButton = [UIButton createBlockButtonWithFrame:CGRectMake(companyChoice.frame.origin.x, companyChoice.frame.origin.y + companyChoice.frame.size.height + 2.0f * 2.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
+        ///改变状态
+        if (button.selected) {
+            
+            button.selected = NO;
+            
+            ///修改协议同意状态
+            self.isAgreetProtocal = NO;
+            
+        } else {
         
+            button.selected = YES;
+            
+            ///修改协议同意状态
+            self.isAgreetProtocal = YES;
+        
+        }
         
     }];
     [protocalButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
     [protocalButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
     protocalButton.selected = YES;
+    self.isAgreetProtocal = YES;
     [view addSubview:protocalButton];
     
     ///协议说明文字按钮
     UIButton *protocalTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(protocalButton.frame.origin.x + protocalButton.frame.size.width + 5.0f, protocalButton.frame.origin.y - 7.0f, companyLineLable.frame.size.width - protocalButton.frame.size.width + 5.0f, 50.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        
+        ///进入协议页面
+        QSYUserProtocolViewController *protocolVC = [[QSYUserProtocolViewController alloc] init];
+        [self.navigationController pushViewController:protocolVC animated:YES];
         
     }];
     [protocalTipsButton setTitle:@"我承诺我发布的房源信息全部属实，并接受<<XXX的用户使用协议>>" forState:UIControlStateNormal];
@@ -230,5 +318,121 @@
     
 }
 
+#pragma mark - 弹出日期选择
+///弹出日期选择
+- (void)popWeekPickedView:(UILabel *)targetLabel
+{
+
+    ///弹出窗口
+    __block QSYPopCustomView *popView;
+    
+    ///星期选择
+    QSYWeekPickedView *weekPickedView = [[QSYWeekPickedView alloc] initWithFrame:CGRectMake(0.0f, 110.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 110.0f) andPickeData:self.saleHouseReleaseModel.weekInfos andPickedCallBack:^(WEEK_PICKED_CALLBACK_TYPE actionType, NSArray *pickedDatas) {
+        
+        ///选择星期
+        if (wWeekPickedCallBackTypePicked == actionType) {
+            
+            ///清空原信息
+            [self.saleHouseReleaseModel.weekInfos removeAllObjects];
+            
+            NSMutableString *tempString = [[NSMutableString alloc] init];
+            for (int i = 0; i < [pickedDatas count]; i++) {
+                
+                QSBaseConfigurationDataModel *weekModel = pickedDatas[i];
+                [tempString appendString:weekModel.val];
+                
+                ///添加分号
+                if (i != ([pickedDatas count] - 1)) {
+                    
+                    [tempString appendString:@"、"];
+                    
+                }
+                
+                ///保存选择的星期信息
+                [self.saleHouseReleaseModel.weekInfos addObject:weekModel];
+                
+            }
+            
+            targetLabel.text = tempString;
+            self.saleHouseReleaseModel.weekInfoString = tempString;
+            
+        }
+        
+        ///回收
+        [popView hiddenCustomPopview];
+        
+    }];
+    
+    ///展现
+    popView = [QSYPopCustomView popCustomView:weekPickedView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+
+}
+
+#pragma mark - 时间段选择
+- (void)popTimePickedView:(UILabel *)timeLabel
+{
+
+    ///弹出窗口
+    __block QSYPopCustomView *popView;
+    
+    ///时间段选择
+    QSYTimePickedView *weekPickedView = [[QSYTimePickedView alloc] initWithFrame:CGRectMake(0.0f, 110.0f, SIZE_DEVICE_WIDTH, 226.0f) andStarTime:([self.saleHouseReleaseModel.starTime length] > 0 ? self.saleHouseReleaseModel.starTime : @"08:00") andEndTime:([self.saleHouseReleaseModel.endTime length] > 0 ? self.saleHouseReleaseModel.endTime : @"18:00") andPickedCallBack:^(TIME_PICKED_ACTION_TYPE actionType, NSString *startTime, NSString *endTime) {
+        
+        ///选择星期
+        if (tTimePickedActionTypePicked == actionType) {
+            
+            self.saleHouseReleaseModel.starTime = APPLICATION_NSSTRING_SETTING_NIL(startTime);
+            self.saleHouseReleaseModel.endTime = APPLICATION_NSSTRING_SETTING_NIL(endTime);
+            timeLabel.text = [NSString stringWithFormat:@"%@-%@",startTime,endTime];
+            
+        }
+        
+        ///回收
+        [popView hiddenCustomPopview];
+        
+    }];
+    
+    ///展现
+    popView = [QSYPopCustomView popCustomView:weekPickedView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    
+}
+
+#pragma mark - 独家公司选择
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+
+    ///弹出独家公司选择页
+    QSYExclusiveCompanyViewController *pickedCompanyVC = [[QSYExclusiveCompanyViewController alloc] initWithPickedCallBack:^(BOOL isPicked, id params) {
+        
+        if (isPicked) {
+            
+            ///保存独家公司
+            self.saleHouseReleaseModel.exclusiveCompany = params;
+            
+            ///修改独家选择状态
+            UIButton *authorButton = objc_getAssociatedObject(textField, &isExclusiveKey);
+            if (authorButton) {
+                
+                authorButton.selected = YES;
+                
+            }
+            
+            UIButton *unAuthorButton = objc_getAssociatedObject(textField, &unExlusiveKey);
+            if (unAuthorButton) {
+                
+                unAuthorButton.selected = NO;
+                
+            }
+            
+            ///修改显示文字
+            textField.text = [params valueForKey:@"title"];
+            
+        }
+        
+    }];
+    [self.navigationController pushViewController:pickedCompanyVC animated:YES];
+    return NO;
+
+}
 
 @end

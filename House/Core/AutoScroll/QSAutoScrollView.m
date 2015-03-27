@@ -143,6 +143,24 @@
     ///如果没有提供显示的总数页，则不创建展示页
     if (0 >= sumPage) {
         
+        self.sumPage = 0;
+        
+        ///移除原有view
+        if (self.currentShowCell) {
+            
+            [self.currentShowCell removeFromSuperview];
+            
+        }
+        
+        if (self.nextShowCell) {
+            
+            [self.nextShowCell removeFromSuperview];
+            
+        }
+        
+        ///隐藏页码指示器
+        [self showPageIndexControl:NO];
+        
         return;
         
     }
@@ -153,13 +171,8 @@
     ///判断是否只有一个
     if (1 == self.sumPage) {
         
-        UIView *showView = [self.delegate autoScrollViewShowView:self viewForShowAtIndex:0];
-        
-        ///显示
-        showView.frame = CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height);
-        [self addSubview:showView];
-        
-        return;
+        ///更新相关参数
+        self.currentIndex = 0;
         
     }
     
@@ -189,7 +202,7 @@
     ///页码指示
     if (self.pageIndexFlag) {
         
-        [self showPageIndexControl];
+        [self showPageIndexControl:YES];
         
     }
     
@@ -209,15 +222,33 @@
 
 #pragma mark - 添加页码指示器
 ///创建页码指示
-- (void)showPageIndexControl
+- (void)showPageIndexControl:(BOOL)flag
 {
 
-    self.pageControll = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f)];
-    self.pageControll.numberOfPages = self.sumPage;
-    self.pageControll.currentPage = self.currentIndex;
-    self.pageControll.center = CGPointMake(self.frame.size.width / 2.0f, self.frame.size.height - 40.0f);
-    [self addSubview:self.pageControll];
-    [self bringSubviewToFront:self.pageControll];
+    if (flag) {
+        
+        if (nil == self.pageControll) {
+            
+            self.pageControll = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f)];
+            
+        }
+    
+        self.pageControll.hidden = NO;
+        self.pageControll.numberOfPages = self.sumPage;
+        self.pageControll.currentPage = self.currentIndex;
+        self.pageControll.center = CGPointMake(self.frame.size.width / 2.0f, self.frame.size.height - 40.0f);
+        [self addSubview:self.pageControll];
+        [self bringSubviewToFront:self.pageControll];
+        
+    } else {
+    
+        if (self.pageControll) {
+            
+            self.pageControll.hidden = YES;
+            
+        }
+    
+    }
 
 }
 
@@ -225,15 +256,30 @@
 - (void)startAnimination
 {
     
+    ///判断是否已开启
+    if ([self.autoScrollTimer isValid]) {
+        
+        [self.autoScrollTimer invalidate];
+        self.autoScrollTimer = nil;
+        
+    }
+    
     ///开启定时器
-    self.autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:(self.currentShowTime + 3.0f) target:self selector:@selector(changeCurrentShowView) userInfo:nil repeats:YES];
+    self.autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:(self.currentShowTime + 3.0f) target:self selector:@selector(changeCurrentShowView:) userInfo:nil repeats:YES];
     [self.autoScrollTimer fire];
 
 }
 
 ///切换当前显示的视图
-- (void)changeCurrentShowView
+- (void)changeCurrentShowView:(NSTimer *)timer
 {
+    
+    ///判断当前是否有多页
+    if (self.sumPage <= 0) {
+        
+        return;
+        
+    }
 
     switch (self.autoScrollDirectionType) {
             
@@ -428,7 +474,6 @@
         view.frame = currentShowFrame;
         
         showingAction();
-
         
     } completion:^(BOOL finished) {
         
@@ -549,6 +594,13 @@
 - (void)autoScrollViewLeftSwipeAction:(UISwipeGestureRecognizer *)swipe
 {
     
+    ///判断当前是否有多页
+    if (self.sumPage <= 0) {
+        
+        return;
+        
+    }
+    
     ///定时器延迟三秒执行
     [self.autoScrollTimer setFireDate:[[NSDate date] dateByAddingTimeInterval:3.5f]];
     
@@ -631,6 +683,13 @@
 ///向右滑动时的事件
 - (void)autoScrollViewRightSwipeAction:(UISwipeGestureRecognizer *)swipe
 {
+    
+    ///判断当前是否有多页
+    if (self.sumPage <= 0) {
+        
+        return;
+        
+    }
     
     ///定时器延迟三秒执行
     [self.autoScrollTimer setFireDate:[[NSDate date] dateByAddingTimeInterval:3.5f]];
@@ -715,6 +774,13 @@
 - (void)autoScrollViewUpSwipeAction:(UISwipeGestureRecognizer *)swipe
 {
     
+    ///判断当前是否有多页
+    if (self.sumPage <= 0) {
+        
+        return;
+        
+    }
+    
     ///重置定时器
     [self.autoScrollTimer setFireDate:[[NSDate date] dateByAddingTimeInterval:3.5f]];
     
@@ -797,6 +863,13 @@
 ///向下滑动时的事件
 - (void)autoScrollViewDownSwipeAction:(UISwipeGestureRecognizer *)swipe
 {
+    
+    ///判断当前是否有多页
+    if (self.sumPage <= 0) {
+        
+        return;
+        
+    }
     
     ///重置定时器
     [self.autoScrollTimer setFireDate:[[NSDate date] dateByAddingTimeInterval:3.5f]];
@@ -884,7 +957,18 @@
         [obj removeFromSuperview];
         
     }
-
+    
+    ///设置当前页码
+    self.currentIndex = 0;
+    
+    ///销毁定时器
+    if (self.isAutoScroll) {
+        
+        [self.autoScrollTimer invalidate];
+        self.autoScrollTimer = nil;
+        
+    }
+    
     [self createAutoShowViewUI];
 
 }

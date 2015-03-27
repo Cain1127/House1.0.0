@@ -44,6 +44,13 @@
 @property (nonatomic,copy) NSString *userName;          //!<联系人姓名
 @property (nonatomic,copy) NSString *phone;             //!<联系电话
 @property (nonatomic,copy) NSString *verCode;           //!<手机验证码
+@property (nonatomic,copy) NSString *starTime;          //!<开始时间
+@property (nonatomic,copy) NSString *endTime;           //!<结束时间
+
+@property (nonatomic,retain) id exclusiveCompany;       //!<独家公司
+
+@property (nonatomic,copy) NSString *weekInfoString;    //!<星期显示信息
+@property (nonatomic,retain) NSMutableArray *weekInfos; //!<可以看房的星期信息
 
 @property (nonatomic,retain) NSMutableArray *imagesList;//!<图片集
 

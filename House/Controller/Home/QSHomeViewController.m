@@ -144,16 +144,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                 ///已选择
                 if (flag) {
                     
-                    ///转换模型
-                    QSCommunityHouseDetailDataModel *detailModel = [[QSCommunityHouseDetailDataModel alloc] init];
-                    detailModel.village = (QSWCommunityDataModel *)communityModel;
-                    
-                    ///添加数据源
-                    [self.collectedDataSource addObject:detailModel];
-                    
-//                    ///刷新数据
-//                    [colledtedView reloadAutoScrollView];
-                    
                     ///保存数据
                     [QSCoreDataManager saveCollectedDataWithModel:communityModel andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
                         
@@ -196,12 +186,19 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         if (changeType == dDataChangeTypeIncrease ||
             changeType == dDataChangeTypeReduce) {
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            ///刷新数据源
+            if (nil == _collectedDataSource) {
                 
-                ///刷新数据源
-                [_collectedDataSource removeAllObjects];
-                _collectedDataSource = nil;
                 _collectedDataSource = [NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeCommunity]];
+                
+            } else {
+            
+                [_collectedDataSource removeAllObjects];
+                [_collectedDataSource addObjectsFromArray:[NSMutableArray arrayWithArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeCommunity]]];
+            
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 ///刷新数据
                 [colledtedView reloadAutoScrollView];

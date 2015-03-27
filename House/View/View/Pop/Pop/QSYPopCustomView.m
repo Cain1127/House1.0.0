@@ -31,7 +31,7 @@
     popView.customPopviewTapCallBack = callBack;
     
     ///添加自定义的view
-    view.frame = CGRectMake(0.0f, popView.frame.size.height - view.frame.size.height, popView.frame.size.width, view.frame.size.width);
+    view.frame = CGRectMake(0.0f, popView.frame.size.height - view.frame.size.height, popView.frame.size.width, view.frame.size.height);
     [popView addSubview:view];
     
 #pragma clang diagnostic push
