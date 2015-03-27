@@ -25,7 +25,7 @@
  */
 + (instancetype)popCustomView:(UIView *)view andPopViewActionCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))callBack
 {
-
+    
     ///弹出框
     __block QSYPopCustomView *popView = [[QSYPopCustomView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
     popView.customPopviewTapCallBack = callBack;
@@ -47,7 +47,45 @@
 #pragma clang diagnostic pop
     
     return popView;
+    
+}
 
+/*!
+ *  @author         wangshupeng, 15-03-26 16:03:24
+ *
+ *  @brief          弹出一个不改变子view大小和位置的自定义view
+ *
+ *  @param view     需要显示的信息展示view
+ *  @param callBack 事件回调
+ *
+ *  @return         返回当前创建的弹出view对象
+ *
+ *  @since          1.0.0
+ */
++ (instancetype)popCustomViewWithoutChangeFrame:(UIView *)view andPopViewActionCallBack:(void(^)(CUSTOM_POPVIEW_ACTION_TYPE actionType,id params,int selectedIndex))callBack
+{
+    
+    ///弹出框
+    __block QSYPopCustomView *popView = [[QSYPopCustomView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    popView.customPopviewTapCallBack = callBack;
+    
+    ///添加自定义的view
+    [popView addSubview:view];
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    
+    ///显示
+    if ([popView respondsToSelector:@selector(showCustomPopview)]) {
+        
+        [popView performSelector:@selector(showCustomPopview)];
+        
+    }
+    
+#pragma clang diagnostic pop
+    
+    return popView;
+    
 }
 
 @end

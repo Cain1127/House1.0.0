@@ -498,7 +498,9 @@ typedef enum
     
     hHouseListActionTypeNoRecord = 99,  //!<无记录
     hHouseListActionTypeHaveRecord,     //!<有记录
-    hHouseListActionTypeGotoDetail      //!<点击进入详情页
+    hHouseListActionTypeGotoDetail,     //!<点击进入详情页
+    hHouseListActionTypeShake,          //!<摇一摇
+
     
 }HOUSE_LIST_ACTION_TYPE;
 
@@ -562,13 +564,6 @@ typedef enum
     rRequestTypeSecondHandHouseList,            //!<二手房列表请求
     rRequestTypeRentalHouse,                    //!<出租房列表请求
     
-    rRequestTypeMapCommunity = 2045,            //!<地图小区列表请求
-    
-    rRequestTypeNewHouseDetail = 2050,          //!<新房详情请求
-    rRequestTypeCommunityDetail,                //!<小区详情请求
-    rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
-    rRequestTypeRentalHouseDetail,              //!<出租房详情请求
-    
     rRequestTypeNewHouseCollected = 2020,       //!<新房收藏
     rRequestTypeCommunityIntention,             //!<小区关注
     rRequestTypeSecondHandHouseCollected,       //!<二手房收藏
@@ -577,6 +572,15 @@ typedef enum
     rRequestTypeCommunityDeleteIntention,       //!<删除小区关注
     rRequestTypeSecondHandHouseDeleteCollected, //!<删除二手房收藏
     rRequestTypeRentalHouseDeleteCollected,     //!<删除出租房收藏
+    
+    rRequestTypeMapCommunity = 2045,            //!<地图小区列表请求
+    
+    rRequestTypeNewHouseDetail = 2050,          //!<新房详情请求
+    rRequestTypeCommunityDetail,                //!<小区详情请求
+    rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
+    rRequestTypeRentalHouseDetail,              //!<出租房详情请求
+    
+    rRequestTypeActivityDetail = 2061,          //!<活动详情请求
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     

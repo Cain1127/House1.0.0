@@ -56,6 +56,9 @@
 #define IMAGE_SHARE_WEIBO_NORMAL @"share_weibo_normal"
 #define IMAGE_SHARE_WEIBO_HIGHLIGHTED @"share_weibo_highlighted"
 
+///摇一摇图片
+#define IMAGE_PUBLIC_SHAKE @"public_shake"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26

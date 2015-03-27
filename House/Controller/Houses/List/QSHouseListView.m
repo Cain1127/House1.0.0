@@ -222,6 +222,18 @@
             ///结束刷新动画
             [self endRefreshAnimination];
             
+            ///回调告知ViewController，当前已满足摇一摇的触发条件
+            if (self.currentPage % 2 == 0) {
+                
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeShake,nil);
+                    
+                }
+                
+            }
+
+            
         } else {
             
             ///结束刷新动画
@@ -404,6 +416,21 @@
     }
     
     return rRequestTypeSecondHandHouseList;
+    
+}
+
+#pragma mark - 加载推荐房源
+/*!
+ *  @author wangshupeng, 15-03-26 18:03:30
+ *
+ *  @brief  加载推荐的二手房
+ *
+ *  @since  1.0.0
+ */
+- (void)loadRecommendHouse
+{
+    
+    [self headerBeginRefreshing];
     
 }
 

@@ -330,6 +330,18 @@
             [self headerEndRefreshing];
             [self footerEndRefreshing];
             
+            ///回调告知ViewController，当前已满足摇一摇的触发条件
+            if ([self.dataSourceModel.headerData.per_page intValue] % 1 == 0) {
+                
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeShake,nil);
+                    
+                }
+                
+            }
+
+            
         } else {
             
             ///结束刷新动画
@@ -388,6 +400,21 @@
     }
     
     return rRequestTypeSecondHandHouseList;
+    
+}
+
+#pragma mark - 加载推荐出租房
+/*!
+ *  @author wangshupeng, 15-03-26 18:03:30
+ *
+ *  @brief  加载推荐的出租房
+ *
+ *  @since  1.0.0
+ */
+- (void)loadRecommendHouse
+{
+    
+    [self headerBeginRefreshing];
     
 }
 

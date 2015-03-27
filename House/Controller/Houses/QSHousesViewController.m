@@ -16,6 +16,7 @@
 #import "QSCommunityDetailViewController.h"
 #import "QSFilterViewController.h"
 #import "QSCustomPickerView.h"
+#import "QSYPopCustomView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -43,11 +44,14 @@
 ///关联
 static char CollectionViewKey;      //!<collectionView的关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
+static char PopViewKey;             //!<摇一摇view关联
+
 
 @interface QSHousesViewController ()
 
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;                 //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;            //!<过滤模型
+@property (nonatomic,assign) BOOL isCanShake;                           //!<是否能摇一摇控件变量
 
 @property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView; //!<导航栏列表类型选择
 @property (nonatomic,strong) QSCustomPickerView *distictPickerView;       //!<地区选择按钮
@@ -688,6 +692,15 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                         
                         break;
                         
+                        
+                        ///摇一摇
+                    case hHouseListActionTypeShake:
+                        
+                        [self popShakeGuideView];
+                        
+                        break;
+
+                        
                     default:
                         break;
                 }
@@ -727,6 +740,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                     case hHouseListActionTypeHaveRecord:
                         
                         [self showNoRecordTips:NO];
+                        
+                        break;
+                        
+                        ///摇一摇
+                    case hHouseListActionTypeShake:
+                        
+                        [self popShakeGuideView];
                         
                         break;
                         
@@ -983,6 +1003,72 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             break;
     }
 
+}
+
+#pragma mark - 弹出摇一摇提示页面
+///弹出摇一摇提示页面
+- (void)popShakeGuideView
+{
+    
+    ///弹出视图
+    QSYPopCustomView *popView;
+    
+    ///底view
+    CGFloat maxHeight = 155.0f;
+    CGFloat ypoint = (SIZE_DEVICE_HEIGHT - maxHeight) / 2.0f;
+    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, maxHeight)];
+    
+    ///提示图片
+    UIImageView *iconImgView = [[UIImageView alloc] initWithFrame:CGRectMake((rootView.frame.size.width - 95.0f) / 2.0f, 0.0f, 95.0f, 125.0f)];
+    iconImgView.image = [UIImage imageNamed:IMAGE_PUBLIC_SHAKE];
+    [rootView addSubview:iconImgView];
+    
+    ///说明信息
+    UILabel *titleLabel= [[UILabel alloc] initWithFrame:CGRectMake(0.0f, iconImgView.frame.origin.y + iconImgView.frame.size.height, rootView.frame.size.width, 30.0f)];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [titleLabel setText:@"摇一摇查看推荐房源"];
+    [rootView addSubview:titleLabel];
+    
+    ///弹出
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:rootView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    objc_setAssociatedObject(self, &PopViewKey, popView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///开启摇一摇感应
+    self.isCanShake = YES;
+    
+}
+
+#pragma mark - 摇一摇事件
+///摇一摇事件接收入口
+-(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    
+    ///判断当前是否可以摇一摇
+    if (self.isCanShake) {
+        
+        QSYPopCustomView *popView=objc_getAssociatedObject(self, &PopViewKey);
+        if (![popView isHidden]) {
+            
+            [popView hiddenCustomPopview];
+            
+            ///重置摇一摇状态
+            self.isCanShake = NO;
+            
+            ///刷新
+            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+            if ([collectionView respondsToSelector:@selector(loadRecommendHouse)]) {
+                
+                [collectionView performSelector:@selector(loadRecommendHouse)];
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 @end

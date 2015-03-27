@@ -11,6 +11,6 @@
 
 @interface QSActivityDetailViewController : QSTurnBackViewController
 
--(instancetype)initWithModel:(QSActivityDataModel*)dataModel;
+-(instancetype)initWithactivityID:(NSString*)activityID;
 
 @end

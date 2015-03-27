@@ -34,4 +34,12 @@
  */
 - (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
 
+/*!
+ *  @author wangshupeng, 15-03-26 18:03:30
+ *
+ *  @brief  加载推荐的出租房
+ *
+ *  @since  1.0.0
+ */
+- (void)loadRecommendHouse;
 @end

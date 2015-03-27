@@ -149,6 +149,13 @@
 		<key>url</key>
 		<string>user/checkSendVer</string>
 	</dict>
+	<key>2061</key>
+	<dict>
+		<key>class</key>
+		<string>QSActivityDetailReturnData</string>
+		<key>url</key>
+		<string>loupanActivity/view</string>
+	</dict>
 	<key>2053</key>
 	<dict>
 		<key>class</key>
