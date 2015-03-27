@@ -417,6 +417,7 @@
 		18EC15C91AC51EE600D2AD3A /* QSYTimePickedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15C81AC51EE600D2AD3A /* QSYTimePickedView.m */; };
 		18EC15FE1AC546EB00D2AD3A /* QSYUserProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC15FD1AC546EB00D2AD3A /* QSYUserProtocolViewController.m */; };
 		18EC16021AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */; };
+		18EC16061AC553D500D2AD3A /* QSYLoadImageReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EC16051AC553D500D2AD3A /* QSYLoadImageReturnData.m */; };
 		18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */; };
 		18EE34671AABEE300053B909 /* QSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE34661AABEE300053B909 /* QSScrollView.m */; };
 		18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE346C1AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m */; };
@@ -1224,6 +1225,8 @@
 		18EC15FD1AC546EB00D2AD3A /* QSYUserProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYUserProtocolViewController.m; path = SaleAndRent/Release/QSYUserProtocolViewController.m; sourceTree = "<group>"; };
 		18EC16001AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYExclusiveCompanyViewController.h; path = SaleAndRent/Release/Company/QSYExclusiveCompanyViewController.h; sourceTree = "<group>"; };
 		18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYExclusiveCompanyViewController.m; path = SaleAndRent/Release/Company/QSYExclusiveCompanyViewController.m; sourceTree = "<group>"; };
+		18EC16041AC553D500D2AD3A /* QSYLoadImageReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYLoadImageReturnData.h; path = LoadImage/QSYLoadImageReturnData.h; sourceTree = "<group>"; };
+		18EC16051AC553D500D2AD3A /* QSYLoadImageReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYLoadImageReturnData.m; path = LoadImage/QSYLoadImageReturnData.m; sourceTree = "<group>"; };
 		18EDA5341ABB229A0024EEAF /* QSYShareChoicesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYShareChoicesView.h; path = Share/QSYShareChoicesView.h; sourceTree = "<group>"; };
 		18EDA5351ABB229A0024EEAF /* QSYShareChoicesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYShareChoicesView.m; path = Share/QSYShareChoicesView.m; sourceTree = "<group>"; };
 		18EE34651AABEE300053B909 /* QSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSScrollView.h; path = ScrollView/QSScrollView.h; sourceTree = "<group>"; };
@@ -3481,6 +3484,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18EC16031AC5539600D2AD3A /* LoadImage */,
 				18AFA9D91AB3E83000681071 /* Login */,
 				475C3D991AB3D5330028608F /* Order */,
 				18AFA9D21AB2FF0C00681071 /* SendVerticalCode */,
@@ -3942,6 +3946,15 @@
 				18EC16011AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m */,
 			);
 			name = Company;
+			sourceTree = "<group>";
+		};
+		18EC16031AC5539600D2AD3A /* LoadImage */ = {
+			isa = PBXGroup;
+			children = (
+				18EC16041AC553D500D2AD3A /* QSYLoadImageReturnData.h */,
+				18EC16051AC553D500D2AD3A /* QSYLoadImageReturnData.m */,
+			);
+			name = LoadImage;
 			sourceTree = "<group>";
 		};
 		18EDA5331ABB226A0024EEAF /* Share */ = {
@@ -4864,6 +4877,7 @@
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
 				18E802221A6FD02400CA21D4 /* QSCoreDataManager+Guide.m in Sources */,
 				18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */,
+				18EC16061AC553D500D2AD3A /* QSYLoadImageReturnData.m in Sources */,
 				186F73C61A77CD1D0078DAE9 /* QSPresentationController.m in Sources */,
 				18EC16021AC548AA00D2AD3A /* QSYExclusiveCompanyViewController.m in Sources */,
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,

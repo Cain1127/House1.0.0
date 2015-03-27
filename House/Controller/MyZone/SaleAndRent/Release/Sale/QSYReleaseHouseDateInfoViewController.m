@@ -13,6 +13,7 @@
 #import "QSYPopCustomView.h"
 #import "QSYWeekPickedView.h"
 #import "QSYTimePickedView.h"
+#import "QSCustomHUDView.h"
 
 #import "UIButton+Factory.h"
 #import "UITextField+CustomField.h"
@@ -92,7 +93,32 @@ static char unExlusiveKey;  //!<非独家按钮关联
     buttonStyle.title = @"发布";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///判断是否已同意协议
+        if (!self.isAgreetProtocal) {
+            
+            return;
+            
+        }
         
+        ///检测日期信息
+        if ([self.saleHouseReleaseModel.weekInfos count] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择预约周期", 1.0f, ^(){})
+            return;
+            
+        }
+        
+        ///检测时间段信息
+        if ([self.saleHouseReleaseModel.starTime length] <= 0 ||
+            [self.saleHouseReleaseModel.endTime length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择预约时段", 1.0f, ^(){})
+            return;
+            
+        }
+        
+        ///进行发布
+        [self releaseSaleHouse];
         
     }];
     [self.view addSubview:commitButton];
@@ -432,6 +458,47 @@ static char unExlusiveKey;  //!<非独家按钮关联
     }];
     [self.navigationController pushViewController:pickedCompanyVC animated:YES];
     return NO;
+
+}
+
+#pragma mark - 发布房源
+- (void)releaseSaleHouse
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布房源"];
+    
+    ///生成参数
+    NSDictionary *params = [self.saleHouseReleaseModel createReleaseSaleHouseParams];
+    
+    ///发布房源
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+               
+                ///如果之前没有生成过求租求购页面，则进入求租求购页面
+                
+                
+            }];
+            
+        } else {
+        
+            NSString *tipsString = @"发布失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andCallBack:^(BOOL flag) {
+                
+            }];
+        
+        }
+        
+    }];
 
 }
 

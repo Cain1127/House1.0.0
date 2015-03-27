@@ -61,4 +61,18 @@
 @property (nonatomic,copy) NSString *installationString;
 @property (nonatomic,retain) NSMutableArray *installationList;
 
+///返回图片数组
+- (NSArray *)getCurrentPickedImages;
+
+///生成发布出售物业的参数
+- (NSDictionary *)createReleaseSaleHouseParams;
+
+@end
+
+@interface QSReleaseSaleHousePhotoDataModel : NSObject
+
+@property (nonatomic,retain) UIImage *image;            //!<原图
+@property (nonatomic,copy) NSString *smallImageURL;     //!<小图地址
+@property (nonatomic,copy) NSString *originalImageURL;  //!<大图地址
+
 @end
