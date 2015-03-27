@@ -555,52 +555,52 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 #pragma mark - 点击房源进入房源详情页
 ///点击房源
-- (void)gotoHouseDetail:(id)dataModel
+- (void)gotoHouseDetail:(QSMapCommunityDataModel*)dataModel
 {
     
     ///根据不同的列表，进入同的详情页
     switch (self.listType) {
             ///进入新房详情
-        case fFilterMainTypeNewHouse:
-        {
-            
-            ///获取房子模型
-            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
-            
-            ///进入详情页面
-            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
-            [self hiddenBottomTabbar:YES];
-            [self.navigationController pushViewController:detailVC animated:YES];
-            
-        }
-            break;
+//        case fFilterMainTypeNewHouse:
+//        {
+//            
+//            ///获取房子模型
+//            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
+//            
+//            ///进入详情页面
+//            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
+//            detailVC.hiddenCustomTabbarWhenPush = YES;
+//            [self hiddenBottomTabbar:YES];
+//            [self.navigationController pushViewController:detailVC animated:YES];
+//            
+//        }
+//            break;
             
             ///进入小区详情
-        case fFilterMainTypeCommunity:
-        {
-            
-            ///获取房子模型
-            QSCommunityDataModel *houseInfoModel = dataModel;
-            
-            ///进入详情页面
-            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
-            [self hiddenBottomTabbar:YES];
-            [self.navigationController pushViewController:detailVC animated:YES];
-            
-        }
-            break;
+//        case fFilterMainTypeCommunity:
+//        {
+//            
+//            ///获取房子模型
+//            QSCommunityDataModel *houseInfoModel = dataModel;
+//            
+//            ///进入详情页面
+//            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+//            detailVC.hiddenCustomTabbarWhenPush = YES;
+//            [self hiddenBottomTabbar:YES];
+//            [self.navigationController pushViewController:detailVC animated:YES];
+//            
+//        }
+//            break;
             
             ///进入二手房详情
         case fFilterMainTypeSecondHouse:
         {
             
             ///获取房子模型
-            QSHouseInfoDataModel *houseInfoModel = dataModel;
+            QSMapCommunityDataSubModel *houseInfoModel = dataModel.mapCommunityDataSubModel;
             
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -613,10 +613,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         {
             
             ///获取房子模型
-            QSRentHouseInfoDataModel *houseInfoModel = dataModel;
+            QSMapCommunityDataSubModel *houseInfoModel = dataModel.mapCommunityDataSubModel;
             
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -761,28 +761,31 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 #pragma mark --添加大头针气泡
 
-- (void)addAnnotations {
+- (void)addAnnotations
+{
     
-    QSMapCommunityDataModel *tempModel=[[QSMapCommunityDataModel alloc] init];
+//    QSMapCommunityDataModel *tempModel = [[QSMapCommunityDataModel alloc] init];
     
     NSMutableArray *annoArray=[[NSMutableArray alloc] init];
     
     for (int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
         
-        tempModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
+        QSMapCommunityDataModel *tempModel = self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
         self.title=tempModel.mapCommunityDataSubModel.title;
         self.subtitle=tempModel.total_num;
         self.coordinate_x=tempModel.mapCommunityDataSubModel.coordinate_x;
         self.coordinate_y=tempModel.mapCommunityDataSubModel.coordinate_y;
         APPLICATION_LOG_INFO(@"网络返回大头针经度坐标:", self.coordinate_x);
         APPLICATION_LOG_INFO(@"网络返回大头针纬度坐标:", self.coordinate_y);
-
         
         CGFloat latitude= [self.coordinate_x floatValue];
         CGFloat longitude=[self.coordinate_y floatValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
-        anno.title = self.title;
+        
+//        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@#%@",self.title,tempModel.mapCommunityDataSubModel.id_,self.title];
+        //anno.title = tempTitle;
+        anno.title=self.title;
         anno.subtitle=self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
@@ -799,7 +802,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-#pragma mark --地图代理方法
+#pragma mark - 地图代理方法
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
     
@@ -815,6 +818,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = NO;
+        //annotationView.mapdeteilID=[]
         
         ///更新大头针数据
         [annotationView  updateAnnotation:annotation];
@@ -847,7 +851,18 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
 
+    QSMapCommunityDataModel *infoModel=[[QSMapCommunityDataModel alloc] init];
+
+    for(int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++)
+    {
+        
+        infoModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
+    
+    }
     NSLog(@"点击大头针事件");
+//    NSString *idString = [view valueForKey:@"mapdetailID"];
+    
+   [self gotoHouseDetail:infoModel];
 }
 
 #pragma mark - 请求小区列表数据

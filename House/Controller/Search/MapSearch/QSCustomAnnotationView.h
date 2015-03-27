@@ -11,7 +11,7 @@
 @interface QSCustomAnnotationView : MAAnnotationView
 
 @property (nonatomic, strong) QSCustomCalloutView *calloutView; //!<自定义大头针的子view
-
+@property (nonatomic, copy) NSString *mapdeteilID;              //!<地图大头针ID
 /*!
  *  @author wangshupeng, 15-03-27 16:03:57
  *
