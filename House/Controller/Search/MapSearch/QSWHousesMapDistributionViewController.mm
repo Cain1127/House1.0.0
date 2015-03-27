@@ -555,7 +555,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 #pragma mark - 点击房源进入房源详情页
 ///点击房源
-- (void)gotoHouseDetail:(QSMapCommunityDataModel*)dataModel
+- (void)gotoHouseDetail:(NSString *)title andDetailID:(NSString *)detailID
 {
     
     ///根据不同的列表，进入同的详情页
@@ -585,8 +585,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 //            
 //            ///进入详情页面
 //            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-//            detailVC.hiddenCustomTabbarWhenPush = YES;
-//            [self hiddenBottomTabbar:YES];
 //            [self.navigationController pushViewController:detailVC animated:YES];
 //            
 //        }
@@ -596,13 +594,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case fFilterMainTypeSecondHouse:
         {
             
-            ///获取房子模型
-            QSMapCommunityDataSubModel *houseInfoModel = dataModel.mapCommunityDataSubModel;
-            
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
-            [self hiddenBottomTabbar:YES];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:title andDetailID:detailID andDetailType:self.listType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -612,13 +605,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case fFilterMainTypeRentalHouse:
         {
             
-            ///获取房子模型
-            QSMapCommunityDataSubModel *houseInfoModel = dataModel.mapCommunityDataSubModel;
-            
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
-            [self hiddenBottomTabbar:YES];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:title andDetailID:detailID andDetailType:self.listType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -716,6 +704,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     }
 
     [_locationmanager stopUpdatingLocation];
+    
 }
 
 #pragma mark-地理编码
@@ -783,9 +772,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         
-//        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@#%@",self.title,tempModel.mapCommunityDataSubModel.id_,self.title];
-        //anno.title = tempTitle;
-        anno.title=self.title;
+        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.id_];
+        anno.title = tempTitle;
         anno.subtitle=self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
@@ -851,18 +839,21 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
 
-    QSMapCommunityDataModel *infoModel=[[QSMapCommunityDataModel alloc] init];
-
-    for(int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++)
-    {
-        
-        infoModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
+//    QSMapCommunityDataModel *infoModel=[[QSMapCommunityDataModel alloc] init];
+//
+//    for(int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++)
+//    {
+//        
+//        infoModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
+//    
+//    }
+//    NSLog(@"点击大头针事件");
     
-    }
-    NSLog(@"点击大头针事件");
-//    NSString *idString = [view valueForKey:@"mapdetailID"];
+    NSString *idString = [view valueForKey:@"deteilID"];
+    NSString *titleString = [view valueForKey:@"title"];
     
-   [self gotoHouseDetail:infoModel];
+    [self gotoHouseDetail:titleString andDetailID:idString];
+    
 }
 
 #pragma mark - 请求小区列表数据
