@@ -17,6 +17,7 @@
 
 @interface QSPOrderBottomButtonView ()
 
+@property (nonatomic,copy) void(^blockButtonCallBack)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button);
 @property ( nonatomic, assign ) NSInteger buttonNum;
 
 @end

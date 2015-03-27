@@ -17,6 +17,7 @@
 
 @interface QSPOrderDetailPersonInfoView ()
 
+@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *phoneLabel;
 @property (nonatomic, strong) UILabel *phoneTipLabel;

@@ -19,8 +19,6 @@ typedef enum
 
 @interface QSPOrderBottomButtonView : UIView
 
-@property (nonatomic,copy) void(^blockButtonCallBack)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button);
-
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withButtonCount:(NSInteger)num andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack;
 
 - (void)setCenterBtBackgroundColor:(UIColor*)color;

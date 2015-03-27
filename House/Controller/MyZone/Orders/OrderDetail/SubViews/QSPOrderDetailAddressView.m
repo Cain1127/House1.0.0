@@ -18,6 +18,7 @@
 @interface QSPOrderDetailAddressView ()
 
 @property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
 
 @end
 

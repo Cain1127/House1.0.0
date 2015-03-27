@@ -365,6 +365,16 @@
 ///预约订单列表接受按钮选中图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED  @"myzone_oorderlist_cell_accept_bt_selected"
 
+///预约订单列表成交按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL    @"myzone_oorderlist_cell_confirm_bt_normal"
+///预约订单列表成交按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED  @"myzone_oorderlist_cell_confirm_bt_selected"
+
+///预约订单列表同意还价按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_NORMAL    @"myzone_oorderlist_cell_accept_price_bt_normal"
+///预约订单列表同意还价按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_SELECTED  @"myzone_oorderlist_cell_accept_price_bt_selected"
+
 ///预约订单列表拒绝按钮默认图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_NORMAL    @"myzone_oorderlist_cell_reject_bt_normal"
 ///预约订单列表拒绝按钮选中图片
@@ -399,6 +409,12 @@
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_NORMAL   @"myzone_oorderdetail_map_bt_normal"
 ///订单详情地址栏地图定位按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED  @"myzone_oorderdetail_map_bt_pressed"
+
+///订单详情地址栏计算器按钮默认图片
+#define IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_NORMAL   @"myzone_oorderdetail_computer_bt_normal"
+///订单详情地址栏计算器按钮按下图片
+#define IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED  @"myzone_oorderdetail_computer_bt_selected"
+
 
 ///预约订单选择时间月份选择按钮左箭头图片
 #define IMAGE_ZONE_ORDER_CALENDAR_MONTH_LEFT_BT    @"myzone_calendar_month_bt_left"

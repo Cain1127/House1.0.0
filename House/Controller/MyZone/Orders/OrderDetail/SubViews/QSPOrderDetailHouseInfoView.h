@@ -1,5 +1,5 @@
 //
-//  QSPOrderDetailAddressView.h
+//  QSPOrderDetailHouseInfoView.h
 //  House
 //
 //  Created by CoolTea on 15/3/13.
@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSPOrderDetailAddressView : UIView
+@interface QSPOrderDetailHouseInfoView : UIView
+
+@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;
 
