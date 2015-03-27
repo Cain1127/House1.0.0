@@ -21,6 +21,8 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 
 @interface QSMasterViewController ()
 
+@property (nonatomic,strong) UILabel *noRecordLabel;//!<暂无记录的提示信息
+
 @end
 
 @implementation QSMasterViewController
@@ -210,38 +212,35 @@ static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
  */
 - (void)showNoRecordTips:(BOOL)flag
 {
-
-    ///从关联中获取label
-    UILabel *noRecordLabel = objc_getAssociatedObject(self, &NoRecordTipsLabelKey);
     
     ///判断是否需要显示
     if (flag) {
         
         ///判断原来是否已有
-        if (noRecordLabel) {
+        if (self.noRecordLabel) {
             
             ///将提示移前
-            [self.view bringSubviewToFront:noRecordLabel];
+            self.noRecordLabel.hidden = NO;
+            [self.view bringSubviewToFront:self.noRecordLabel];
             return;
             
         }
         
         ///没有则创建显示
-        noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 140.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
-        noRecordLabel.text = @"暂无记录";
-        noRecordLabel.textAlignment = NSTextAlignmentCenter;
-        noRecordLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-        noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
-        [self.view addSubview:noRecordLabel];
-        [self.view bringSubviewToFront:noRecordLabel];
-        objc_setAssociatedObject(self, &NoRecordTipsLabelKey, noRecordLabel, OBJC_ASSOCIATION_ASSIGN);
+        self.noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 140.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
+        self.noRecordLabel.text = @"暂无记录";
+        self.noRecordLabel.textAlignment = NSTextAlignmentCenter;
+        self.noRecordLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+        self.noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+        [self.view addSubview:self.noRecordLabel];
+        [self.view bringSubviewToFront:self.noRecordLabel];
         
     } else {
     
         ///不需要显示则移除
-        if (noRecordLabel) {
+        if (self.noRecordLabel) {
             
-            [noRecordLabel removeFromSuperview];
+            self.noRecordLabel.hidden = YES;
             
         }
     

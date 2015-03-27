@@ -28,9 +28,6 @@
 ///当前列表类型
 @property (nonatomic,assign) FILTER_MAIN_TYPE listType;
 
-///当前过滤器
-@property (nonatomic,retain) QSFilterDataModel *filterModel;
-
 ///点击房源时的回调
 @property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
@@ -46,7 +43,7 @@
 
 #pragma mark - 初始化
 ///初始化
-- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCurrentFilter:(QSFilterDataModel *)filterModel andCallBack:(void (^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
+- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCallBack:(void (^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
 {
     
     ///瀑布流布局器
@@ -57,7 +54,6 @@
         
         ///保存参数
         self.listType = listType;
-        self.filterModel = filterModel;
         if (callBack) {
             
             self.houseListTapCallBack = callBack;
@@ -143,6 +139,24 @@
             ///结束刷新动画
             [self endRefreshAnimination];
             
+        } else if (rRequestResultTypeFail == resultStatus) {
+        
+            ///结束刷新动画
+            [self endRefreshAnimination];
+            
+            ///重置数据指针
+            self.dataSourceModel = nil;
+            
+            ///刷新数据
+            [self reloadData];
+            
+            ///由于是第一页，请求失败，显示暂无记录
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
+        
         } else {
             
             ///结束刷新动画

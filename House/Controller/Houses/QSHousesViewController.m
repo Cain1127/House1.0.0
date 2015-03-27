@@ -577,7 +577,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case fFilterMainTypeNewHouse:
         {
         
-            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -608,6 +608,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
             }];
             
+            listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
         
@@ -619,7 +620,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         {
         
             ///创建小区/新房的列表UI
-            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -650,6 +651,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
             }];
             
+            listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
         
@@ -661,7 +663,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         {
         
             ///瀑布流布局器
-            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -692,6 +694,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
             }];
             
+            listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
         
@@ -702,7 +705,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         case fFilterMainTypeRentalHouse:
         {
         
-            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCurrentFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -733,6 +736,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
             }];
             
+            listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
         
@@ -794,16 +798,15 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///更新本地对应的过滤器
         self.filterModel.filter_status = @"2";
         
-        ///刷新数据
-        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        [collectionView headerBeginRefreshing];
-        
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///保存成功后进入房子列表
             if (isSuccess) {
                 
+                ///刷新数据
+                UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+                [collectionView headerBeginRefreshing];
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {
@@ -829,16 +832,15 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///更新本地对应的过滤器
         self.filterModel.filter_status = @"2";
         
-        ///刷新数据
-        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        [collectionView headerBeginRefreshing];
-        
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///保存成功后进入房子列表
             if (isSuccess) {
                 
+                ///刷新数据
+                UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+                [collectionView headerBeginRefreshing];
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {
