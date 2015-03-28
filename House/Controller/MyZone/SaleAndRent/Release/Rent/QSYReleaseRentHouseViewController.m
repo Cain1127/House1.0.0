@@ -8,6 +8,7 @@
 
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYReleasePickCommunityViewController.h"
+#import "QSYReleaseRentHouseAddinfoViewController.h"
 
 #import "QSCustomDistrictSelectedPopView.h"
 #import "QSCustomSingleSelectedPopView.h"
@@ -31,7 +32,7 @@ typedef enum
     rReleaseRentHouseHomeActionTypeCommunity,           //!<小区名
     rReleaseRentHouseHomeActionTypeAddress,             //!<地址
     rReleaseRentHouseHomeActionTypeHouseType,           //!<户型
-    rReleaseRentHouseHomeActionTypeArea,                 //!<面积
+    rReleaseRentHouseHomeActionTypeArea,                //!<面积
     rReleaseRentHouseHomeActionTypeRentPrice,           //!<租金
     rReleaseRentHouseHomeActionTypeRentPayType,         //!<支付方式
     rReleaseRentHouseHomeActionTypeWhetherBargaining,   //!<是否议价
@@ -100,7 +101,8 @@ typedef enum
         ///校验数据
         if ([self checkInputData]) {
             
-            
+            QSYReleaseRentHouseAddinfoViewController *addinfoVC = [[QSYReleaseRentHouseAddinfoViewController alloc] initWithRentHouseModel:self.rentHouseReleaseModel];
+            [self.navigationController pushViewController:addinfoVC animated:YES];
             
         }
         

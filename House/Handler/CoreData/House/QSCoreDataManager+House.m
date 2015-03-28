@@ -890,4 +890,42 @@
 
 }
 
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  房子的物业管理费
+ *
+ *  @return 返回出房子的物业管理费
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHousePropertyManagementFees
+{
+
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"1.0 元/月/㎡",
+                                            @"1.5 元/月/㎡",
+                                            @"1.8 元/月/㎡",
+                                            @"2.0 元/月/㎡",
+                                            @"2.2 元/月/㎡",
+                                            @"3.0 元/月/㎡"];
+    
+    NSArray *houseUsedYearTypeKeyArray = @[@"1",
+                                           @"1.5",
+                                           @"1.8",
+                                           @"2.0",
+                                           @"2.2",
+                                           @"3.0"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
 @end

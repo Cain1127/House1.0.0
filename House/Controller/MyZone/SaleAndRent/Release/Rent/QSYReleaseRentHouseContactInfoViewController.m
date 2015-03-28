@@ -1,56 +1,55 @@
 //
-//  QSYReleaseHouseContactInfoViewController.m
+//  QSYReleaseRentHouseContactInfoViewController.m
 //  House
 //
-//  Created by ysmeng on 15/3/26.
+//  Created by ysmeng on 15/3/28.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSYReleaseHouseContactInfoViewController.h"
-#import "QSYReleaseHouseDateInfoViewController.h"
+#import "QSYReleaseRentHouseContactInfoViewController.h"
+#import "QSYReleaseRentHouseDateInfoViewController.h"
 
 #import "QSNetworkVerticalCodeView.h"
 
-#import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "UITextField+CustomField.h"
 
-#import "QSReleaseSaleHouseDataModel.h"
+#import "QSReleaseRentHouseDataModel.h"
 
-@interface QSYReleaseHouseContactInfoViewController () <UITextFieldDelegate>
+@interface QSYReleaseRentHouseContactInfoViewController () <UITextFieldDelegate>
 
-///出售物业的数据模型
-@property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
-
-@property (nonatomic,copy) NSString *verCode;           //!<手机验证码
+///发布出租房时的暂存模型
+@property (nonatomic,retain) QSReleaseRentHouseDataModel *rentHouseReleaseModel;
+@property (nonatomic,copy) NSString *verCode;//!<验证码
 
 @end
 
-@implementation QSYReleaseHouseContactInfoViewController
+@implementation QSYReleaseRentHouseContactInfoViewController
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-03-26 14:03:37
+ *  @author             yangshengmeng, 15-03-26 09:03:39
  *
- *  @brief              根据发布信息保存的数据模型，创建联系人设置页面
+ *  @brief              创建发布出租物业时的联系信息填写窗口
  *
- *  @param saleModel    发布出售房源信息模型
+ *  @param saleModel    发布出租物业时的填写数据模型
  *
- *  @return             返回当前创建的联系信息设置页面
+ *  @return             返回当前创建的联系信息窗口
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithSaleHouseModel:(QSReleaseSaleHouseDataModel *)saleModel
+- (instancetype)initWithRentHouseModel:(QSReleaseRentHouseDataModel *)model
 {
-
+    
     if (self = [super init]) {
         
-        ///保存数据
-        self.saleHouseReleaseModel = saleModel;
+        ///保存数据模型
+        self.rentHouseReleaseModel = model;
         
     }
     
     return self;
-
+    
 }
 
 #pragma mark - UI搭建
@@ -59,7 +58,7 @@
 {
     
     [super createNavigationBarUI];
-    [self setNavigationBarTitle:@"发布出售物业"];
+    [self setNavigationBarTitle:@"发布出租物业"];
     
 }
 
@@ -70,10 +69,9 @@
     __block UITextField *nameField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 64.0f + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"请输入您的联系姓名" andLeftTipsInfo:@"姓       名" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     nameField.delegate = self;
     [self.view addSubview:nameField];
-    
-    if ([self.saleHouseReleaseModel.userName length] > 0) {
+    if ([self.rentHouseReleaseModel.userName  length] > 0) {
         
-        nameField.text = self.saleHouseReleaseModel.userName;
+        nameField.text = self.rentHouseReleaseModel.userName;
         
     }
     
@@ -88,9 +86,9 @@
     phoneField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:phoneField];
     
-    if ([self.saleHouseReleaseModel.phone length] > 0) {
+    if ([self.rentHouseReleaseModel.phone length] > 0) {
         
-        phoneField.text = self.saleHouseReleaseModel.phone;
+        phoneField.text = self.rentHouseReleaseModel.phone;
         
     }
     
@@ -175,9 +173,9 @@
         if ([userName length] <= 0) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的姓名", 1.0f, ^(){
-            
+                
                 [nameField becomeFirstResponder];
-            
+                
             })
             return;
             
@@ -199,9 +197,9 @@
         if ([phoneNum length] <= 0) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的手机号码", 1.0f, ^(){
-            
+                
                 [phoneField becomeFirstResponder];
-            
+                
             })
             return;
             
@@ -210,9 +208,9 @@
         if (![NSString isValidateMobile:phoneNum]) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"手机号码应为11位数字，以13/14/15/17/18开头", 1.0f, ^(){
-            
+                
                 [phoneField becomeFirstResponder];
-            
+                
             })
             return;
             
@@ -223,9 +221,9 @@
         if ([inputVercode length] <= 0) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码是6位数字，请重新输入", 1.0f, ^(){
-            
+                
                 [vertificationCodeField becomeFirstResponder];
-            
+                
             })
             return;
             
@@ -243,9 +241,9 @@
         }
         
         ///保存信息
-        self.saleHouseReleaseModel.userName = userName;
-        self.saleHouseReleaseModel.phone = phoneNum;
-        self.saleHouseReleaseModel.verCode = inputVercode;
+        self.rentHouseReleaseModel.userName = userName;
+        self.rentHouseReleaseModel.phone = phoneNum;
+        self.rentHouseReleaseModel.verCode = inputVercode;
         
         ///回收键盘
         [nameField resignFirstResponder];
@@ -253,7 +251,7 @@
         [vertificationCodeField resignFirstResponder];
         
         ///进入联系信息填写窗口
-        QSYReleaseHouseDateInfoViewController *pictureAddVC = [[QSYReleaseHouseDateInfoViewController alloc] initWithSaleHouseInfoModel:self.saleHouseReleaseModel];
+        QSYReleaseRentHouseDateInfoViewController *pictureAddVC = [[QSYReleaseRentHouseDateInfoViewController alloc] initWithRentHouseModel:self.rentHouseReleaseModel];
         [self.navigationController pushViewController:pictureAddVC animated:YES];
         
     }];
@@ -264,15 +262,15 @@
 #pragma mark - 回收键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-
+    
     [textField resignFirstResponder];
     return YES;
-
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
     ///回收键盘
     for (UIView *obj in [self.view subviews]) {
         
@@ -284,7 +282,7 @@
         }
         
     }
-
+    
 }
 
 @end
