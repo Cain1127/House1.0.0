@@ -270,4 +270,15 @@
  */
 + (NSArray *)getWeeksPickedType;
 
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  出租房的状态
+ *
+ *  @return 返回出租房的状态
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseStatusTypes;
+
 @end

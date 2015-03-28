@@ -48,4 +48,7 @@
 ///发布出售物业：附加信息页
 #define PLIST_FILE_NAME_RELEASE_SALEHOUSE_ADD @"ReleaseSaleHouseAddinfo"
 
+///发布出租物业：首页
+#define PLIST_FILE_NAME_RELEASE_RENTHOUSE @"ReleaseRentHouse"
+
 #endif

@@ -377,6 +377,7 @@
 		18DABAB01AAD4E1B00647E7C /* QSRateDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABAAC1AAD4E1B00647E7C /* QSRateDataModel.m */; };
 		18DABAB41AAD4E5E00647E7C /* QSHouseTypeDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABAB31AAD4E5E00647E7C /* QSHouseTypeDataModel.m */; };
 		18DFE83D1AC66DA100C216C3 /* public_sixform_hollow_100x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE83C1AC66DA100C216C3 /* public_sixform_hollow_100x80.png */; };
+		18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE83E1AC67E8500C216C3 /* ReleaseRentHouse.plist */; };
 		18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */; };
 		18E202431AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E202421AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
@@ -1176,6 +1177,7 @@
 		18DABAB21AAD4E5E00647E7C /* QSHouseTypeDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSHouseTypeDataModel.h; path = House/HouseType/QSHouseTypeDataModel.h; sourceTree = "<group>"; };
 		18DABAB31AAD4E5E00647E7C /* QSHouseTypeDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSHouseTypeDataModel.m; path = House/HouseType/QSHouseTypeDataModel.m; sourceTree = "<group>"; };
 		18DFE83C1AC66DA100C216C3 /* public_sixform_hollow_100x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_sixform_hollow_100x80.png; sourceTree = "<group>"; };
+		18DFE83E1AC67E8500C216C3 /* ReleaseRentHouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ReleaseRentHouse.plist; path = MyZone/Release/ReleaseRentHouse.plist; sourceTree = "<group>"; };
 		18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNewHouseActivityView.h; path = Detail/Activity/QSNewHouseActivityView.h; sourceTree = "<group>"; };
 		18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNewHouseActivityView.m; path = Detail/Activity/QSNewHouseActivityView.m; sourceTree = "<group>"; };
 		18E202421AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseSecondHouseReset.plist; path = Filter/FilterFindHouseSecondHouseReset.plist; sourceTree = "<group>"; };
@@ -3928,6 +3930,7 @@
 			children = (
 				18EC15881AC2A58A00D2AD3A /* ReleaseSaleHouse.plist */,
 				18EC15951AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist */,
+				18DFE83E1AC67E8500C216C3 /* ReleaseRentHouse.plist */,
 			);
 			name = Release;
 			sourceTree = "<group>";
@@ -4768,6 +4771,7 @@
 				18B564411A8366A4009779A0 /* 640X960.png in Resources */,
 				18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */,
 				18B564651A8366A4009779A0 /* public_row_arrow.png in Resources */,
+				18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */,
 				18B564251A8366A4009779A0 /* houses_appliance.png in Resources */,
 				47B8A1D41AC144710083C20A /* myzone_oorderlist_cell_comment_bt_normal.png in Resources */,
 				18B5645C1A8366A4009779A0 /* public_appointment_success.png in Resources */,
