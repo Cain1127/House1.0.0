@@ -15,8 +15,11 @@
 #import "QSNewHouseDetailViewController.h"
 #import "QSCommunityDetailViewController.h"
 #import "QSFilterViewController.h"
+#import "QSYBrowseHouseViewController.h"
+
 #import "QSCustomPickerView.h"
 #import "QSYPopCustomView.h"
+#import "QSYComparisonTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -49,14 +52,17 @@ static char PopViewKey;             //!<摇一摇view关联
 
 @interface QSHousesViewController ()
 
-@property (nonatomic,assign) FILTER_MAIN_TYPE listType;                 //!<列表类型
-@property (nonatomic,retain) QSFilterDataModel *filterModel;            //!<过滤模型
-@property (nonatomic,assign) BOOL isCanShake;                           //!<是否能摇一摇控件变量
+@property (nonatomic,assign) FILTER_MAIN_TYPE listType;                     //!<列表类型
+@property (nonatomic,retain) QSFilterDataModel *filterModel;                //!<过滤模型
+@property (nonatomic,assign) BOOL isCanShake;                               //!<是否能摇一摇事件变量
 
-@property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView; //!<导航栏列表类型选择
-@property (nonatomic,strong) QSCustomPickerView *distictPickerView;       //!<地区选择按钮
-@property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;     //!<户型选择按钮
-@property (nonatomic,strong) QSCustomPickerView *pricePickerView;         //!<总价选择按钮
+@property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView;   //!<导航栏列表类型选择
+@property (nonatomic,strong) QSCustomPickerView *distictPickerView;         //!<地区选择按钮
+@property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
+@property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
+
+@property (nonatomic,retain) NSMutableArray *secondHandHouseBrowseCounts;   //!<二手房浏览详情次数记录
+@property (nonatomic,retain) NSMutableArray *rentHandHouseBrowseCounts;     //!<出租房浏览详情次数记录
 
 @end
 
@@ -72,6 +78,10 @@ static char PopViewKey;             //!<摇一摇view关联
     
     ///注册通知
     [self registLocalHomePageActionNotification];
+    
+    ///初始化计数数组
+    self.secondHandHouseBrowseCounts = [[NSMutableArray alloc] init];
+    self.rentHandHouseBrowseCounts = [[NSMutableArray alloc] init];
 
 }
 
@@ -99,6 +109,10 @@ static char PopViewKey;             //!<摇一摇view关联
         
         ///注册通知
         [self registLocalHomePageActionNotification];
+        
+        ///初始化计数记录数组
+        self.secondHandHouseBrowseCounts = [[NSMutableArray alloc] init];
+        self.rentHandHouseBrowseCounts = [[NSMutableArray alloc] init];
         
     }
     
@@ -978,6 +992,20 @@ static char PopViewKey;             //!<摇一摇view关联
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
+            
+            ///保存浏览记录数的回调
+            detailVC.loadingSuccessCallBack = ^(BOOL flag,NSString *detailID){
+            
+                ///保存浏览计数
+                if (flag) {
+                    
+                    ///添加二手房的浏览记录
+                    [self addSecondHandHouseBrowseRecord:detailID];
+                    
+                }
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -994,6 +1022,20 @@ static char PopViewKey;             //!<摇一摇view关联
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
+            
+            ///保存浏览记录数的回调
+            detailVC.loadingSuccessCallBack = ^(BOOL flag,NSString *detailID){
+                
+                ///保存浏览计数
+                if (flag) {
+                    
+                    ///添加出租房的浏览记录
+                    [self addRentHandHouseBrowseRecord:detailID];
+                    
+                }
+                
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -1001,6 +1043,138 @@ static char PopViewKey;             //!<摇一摇view关联
             
         default:
             break;
+    }
+
+}
+
+#pragma mark - 添加二手房详情浏览记数
+///添加二手房详情浏览记数
+- (void)addSecondHandHouseBrowseRecord:(NSString *)detailID
+{
+
+    ///原来已有记录，则不再重复添加
+    for (int i = 0; i < [self.secondHandHouseBrowseCounts count]; i++) {
+        
+        NSString *tempString = self.secondHandHouseBrowseCounts[i];
+        if ([tempString isEqualToString:detailID]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    ///添加
+    [self.secondHandHouseBrowseCounts addObject:detailID];
+    
+    ///判断是否满足比一比条件
+    if ([self.secondHandHouseBrowseCounts count] == 10) {
+        
+        ///弹出比一比提示
+        __block QSYPopCustomView *popView;
+        
+        QSYComparisonTipsPopView *tipsView = [[QSYComparisonTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 119.0f, SIZE_DEVICE_WIDTH, 119.0f) andShareCallBack:^(COMPARISION_TIPS_ACTION_TYPE actionType) {
+            
+            ///回收弹出窗口
+            [popView hiddenCustomPopview];
+            
+            ///清空记录
+            [self.secondHandHouseBrowseCounts removeAllObjects];
+            
+            ///确定
+            if (cComparisonTipsActionTypeConfirm == actionType) {
+                
+                ///跟转到比一比页面
+                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
+                historyVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:historyVC animated:YES];
+                
+            }
+            
+        }];
+        
+        ///弹出提示框
+        popView = [QSYPopCustomView popCustomView:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            if (cCustomPopviewActionTypeDefault == actionType) {
+                
+                ///回收弹出窗口
+                [popView hiddenCustomPopview];
+                
+                ///清空记录
+                [self.secondHandHouseBrowseCounts removeAllObjects];
+                
+            }
+            
+        }];
+        
+    }
+
+}
+
+#pragma mark - 添加出租房的详情浏览记数
+///添加出租房的详情浏览记数
+- (void)addRentHandHouseBrowseRecord:(NSString *)detailID
+{
+
+    ///原来已有记录，则不再重复添加
+    for (int i = 0; i < [self.rentHandHouseBrowseCounts count]; i++) {
+        
+        NSString *tempString = self.rentHandHouseBrowseCounts[i];
+        if ([tempString isEqualToString:detailID]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    ///添加
+    [self.rentHandHouseBrowseCounts addObject:detailID];
+    
+    ///判断是否满足比一比条件
+    if ([self.rentHandHouseBrowseCounts count] == 10) {
+        
+        ///弹出比一比提示
+        __block QSYPopCustomView *popView;
+        
+        QSYComparisonTipsPopView *tipsView = [[QSYComparisonTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 119.0f, SIZE_DEVICE_WIDTH, 119.0f) andShareCallBack:^(COMPARISION_TIPS_ACTION_TYPE actionType) {
+            
+            ///回收弹出窗口
+            [popView hiddenCustomPopview];
+            
+            ///清空记录
+            [self.rentHandHouseBrowseCounts removeAllObjects];
+            
+            ///确定
+            if (cComparisonTipsActionTypeConfirm == actionType) {
+                
+                ///跟转到比一比页面
+                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
+                historyVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:historyVC animated:YES];
+                
+            }
+            
+        }];
+        
+        ///弹出提示框
+        popView = [QSYPopCustomView popCustomView:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            
+            if (cCustomPopviewActionTypeDefault == actionType) {
+                
+                ///回收弹出窗口
+                [popView hiddenCustomPopview];
+                
+                ///清空记录
+                [self.rentHandHouseBrowseCounts removeAllObjects];
+                
+            }
+            
+        }];
+        
     }
 
 }
