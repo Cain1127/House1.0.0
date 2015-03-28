@@ -66,7 +66,6 @@
     __block QSYHistoryRentHouseList *rentHouseList;
     __block QSYHistorySecondHandHouseListView *secondHandHouseList;
     __block QSYHistoryNewHouseListView *newHouseList;
-    __block QSYHistoryCommunityListView *communityList;
     
     ///指示三角指针
     __block UIImageView *arrowIndicator;
@@ -75,10 +74,9 @@
     __block UIButton *secondHandHouseButton;
     __block UIButton *rentHouseButton;
     __block UIButton *newHouseButton;
-    __block UIButton *communityHouseButton;
     
     ///尺寸
-    CGFloat widthButton = SIZE_DEVICE_WIDTH / 4.0f;
+    CGFloat widthButton = SIZE_DEVICE_WIDTH / 3.0f;
     CGFloat listYPoint = 64.0f + 44.0f + SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
     
     ///按钮风格
@@ -101,7 +99,6 @@
         button.selected = YES;
         rentHouseButton.selected = NO;
         newHouseButton.selected = NO;
-        communityHouseButton.selected = NO;
         
         ///切换列表
         secondHandHouseList = [[QSYHistorySecondHandHouseListView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
@@ -113,7 +110,7 @@
         [self.view addSubview:secondHandHouseList];
         
         ///获取当前正在显示的view
-        UIView *tempView = rentHouseList ? rentHouseList : (newHouseList ? newHouseList : communityList);
+        UIView *tempView = rentHouseList ? rentHouseList : newHouseList;
         
         ///移动指示器
         [UIView animateWithDuration:0.3f animations:^{
@@ -129,7 +126,6 @@
             [tempView removeFromSuperview];
             rentHouseList = nil;
             newHouseList = nil;
-            communityList = nil;
             
         }];
         
@@ -152,7 +148,6 @@
         button.selected = YES;
         secondHandHouseButton.selected = NO;
         newHouseButton.selected = NO;
-        communityHouseButton.selected = NO;
         
         ///坐标
         CGFloat xpoint = -SIZE_DEVICE_WIDTH;
@@ -174,7 +169,7 @@
         [self.view addSubview:rentHouseList];
         
         ///获取当前正在显示的view
-        UIView *tempView = secondHandHouseList ? secondHandHouseList : (newHouseList ? newHouseList : communityList);
+        UIView *tempView = secondHandHouseList ? secondHandHouseList : newHouseList;
         
         ///移动指示器
         [UIView animateWithDuration:0.3f animations:^{
@@ -190,7 +185,6 @@
             [tempView removeFromSuperview];
             secondHandHouseList = nil;
             newHouseList = nil;
-            communityList = nil;
             
         }];
         
@@ -212,20 +206,9 @@
         button.selected = YES;
         secondHandHouseButton.selected = NO;
         rentHouseButton.selected = NO;
-        communityHouseButton.selected = NO;
-        
-        ///坐标
-        CGFloat xpoint = SIZE_DEVICE_WIDTH;
-        CGFloat endXPoint = -SIZE_DEVICE_WIDTH;
-        if (communityList) {
-            
-            xpoint = -xpoint;
-            endXPoint = - endXPoint;
-            
-        }
         
         ///切换列表
-        newHouseList = [[QSYHistoryNewHouseListView alloc] initWithFrame:CGRectMake(xpoint, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+        newHouseList = [[QSYHistoryNewHouseListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
             ///进入详情页
             [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
@@ -234,57 +217,7 @@
         [self.view addSubview:newHouseList];
         
         ///获取当前正在显示的view
-        UIView *tempView = secondHandHouseList ? secondHandHouseList : (communityList ? communityList : rentHouseList);
-        
-        ///移动指示器
-        [UIView animateWithDuration:0.3f animations:^{
-            
-            arrowIndicator.frame = CGRectMake(button.frame.origin.x + button.frame.size.width / 2.0f - 7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
-            
-            tempView.frame = CGRectMake(endXPoint, tempView.frame.origin.y, tempView.frame.size.width, tempView.frame.size.height);
-            
-            newHouseList.frame = CGRectMake(0.0f, newHouseList.frame.origin.y, newHouseList.frame.size.width, newHouseList.frame.size.height);
-            
-        } completion:^(BOOL finished) {
-            
-            [tempView removeFromSuperview];
-            secondHandHouseList = nil;
-            rentHouseList = nil;
-            communityList = nil;
-            
-        }];
-        
-    }];
-    [self.view addSubview:newHouseButton];
-    
-    ///小区
-    buttonStyle.title = @"小区";
-    communityHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(newHouseButton.frame.origin.x + newHouseButton.frame.size.width, 64.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        
-        ///当前已处于选择状态
-        if (button.selected) {
-            
-            return;
-            
-        }
-        
-        ///切换按钮状态
-        button.selected = YES;
-        rentHouseButton.selected = NO;
-        secondHandHouseButton.selected = NO;
-        newHouseButton.selected = NO;
-        
-        ///切换列表
-        communityList = [[QSYHistoryCommunityListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-            
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeNewHouse];
-            
-        }];
-        [self.view addSubview:communityList];
-        
-        ///获取当前正在显示的view
-        UIView *tempView = rentHouseList ? rentHouseList : (secondHandHouseList ? secondHandHouseList : newHouseList);
+        UIView *tempView = secondHandHouseList ? secondHandHouseList : rentHouseList;
         
         ///移动指示器
         [UIView animateWithDuration:0.3f animations:^{
@@ -293,19 +226,18 @@
             
             tempView.frame = CGRectMake(-SIZE_DEVICE_WIDTH, tempView.frame.origin.y, tempView.frame.size.width, tempView.frame.size.height);
             
-            communityList.frame = CGRectMake(0.0f, communityList.frame.origin.y, communityList.frame.size.width, communityList.frame.size.height);
+            newHouseList.frame = CGRectMake(0.0f, newHouseList.frame.origin.y, newHouseList.frame.size.width, newHouseList.frame.size.height);
             
         } completion:^(BOOL finished) {
             
             [tempView removeFromSuperview];
-            rentHouseList = nil;
             secondHandHouseList = nil;
-            newHouseList = nil;
+            rentHouseList = nil;
             
         }];
         
     }];
-    [self.view addSubview:communityHouseButton];
+    [self.view addSubview:newHouseButton];
     
     ///初始化时，加载二手房列表
     secondHandHouseList = [[QSYHistorySecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
