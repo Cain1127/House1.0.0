@@ -17,8 +17,10 @@
 #import "QSYSystemSettingViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYReleaseSaleHouseViewController.h"
+#import "QSYSystemMessagesViewController.h"
 
 #import "QSCustomHUDView.h"
+#import "QSImageView+Block.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -124,7 +126,12 @@ static char UserIconKey;//!<用户头像
 {
 
     ///头像view
-    QSImageView *iconImageView = [[QSImageView alloc] initWithFrame:CGRectMake((rootView.frame.size.width - 79.0f) / 2.0f, 64.0f, 79.0f, 79.0f)];
+    UIImageView *iconImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake((rootView.frame.size.width - 79.0f) / 2.0f, 64.0f, 79.0f, 79.0f) andSingleTapCallBack:^{
+        
+        ///进入个人设置页面
+        [self gotoPersonSetting];
+        
+    }];
     UIImage *tempImage = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_158];
     iconImageView.image = tempImage;
     [rootView addSubview:iconImageView];
@@ -525,17 +532,29 @@ static char UserIconKey;//!<用户头像
 ///点击消息按钮
 - (void)gotoMessageViewController
 {
+    
+    ///进入系统消息页面
+    QSYSystemMessagesViewController *systemMessageVC = [[QSYSystemMessagesViewController alloc] init];
+    systemMessageVC.hiddenCustomTabbarWhenPush = YES;
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:systemMessageVC animated:YES];
+
+}
+
+#pragma mark - 进入个人设置页面
+- (void)gotoPersonSetting
+{
 
     ///判断登录
     [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
         
         if (lLoginCheckActionTypeLogined == flag) {
             
-            ///进入设置页面
-            QSYMySettingViewController *settingVC = [[QSYMySettingViewController alloc] init];
-            settingVC.hiddenCustomTabbarWhenPush = YES;
+            ///进入系统消息页面
+            QSYMySettingViewController *mySettingVC = [[QSYMySettingViewController alloc] init];
+            mySettingVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
-            [self.navigationController pushViewController:settingVC animated:YES];
+            [self.navigationController pushViewController:mySettingVC animated:YES];
             
         }
         
@@ -543,11 +562,6 @@ static char UserIconKey;//!<用户头像
             
             ///刷新当前页面数据
             
-            ///进入设置页面
-            QSYMySettingViewController *settingVC = [[QSYMySettingViewController alloc] init];
-            settingVC.hiddenCustomTabbarWhenPush = YES;
-            [self hiddenBottomTabbar:YES];
-            [self.navigationController pushViewController:settingVC animated:YES];
             
         }
         

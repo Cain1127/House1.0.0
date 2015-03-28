@@ -4,8 +4,10 @@
 <dict>
 	<key>5003</key>
 	<dict>
+		<key>oldurl</key>
+		<string>Upfile/phone</string>
 		<key>url</key>
-		<string>Upfile/index</string>
+		<string>http://117.41.235.102:6300/index.php?r=Upfile/phone</string>
 		<key>class</key>
 		<string>QSYLoadImageReturnData</string>
 	</dict>

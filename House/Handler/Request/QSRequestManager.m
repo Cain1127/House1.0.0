@@ -235,6 +235,41 @@
         
     }
     
+    ///图片请求
+    if (rRequestTypeLoadImage == taskModel.requestType) {
+        
+#if 0
+        
+        [self.httpRequestManager GET:taskModel.requestURL parameters:taskModel.requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            ///请求失败时处理失败回调
+            [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
+            
+        }];
+#endif
+        
+#if 1
+        [self.httpRequestManager POST:taskModel.requestURL parameters:taskModel.requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            ///请求成功
+            [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            ///请求失败
+            [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
+            
+        }];
+#endif
+        
+        return;
+        
+    }
+    
     ///POST请求
     if (rRequestHttpRequestTypePost == taskModel.httpRequestType) {
         
@@ -476,9 +511,7 @@
             result[16], result[17], result[18], result[19],
             result[20], result[21], result[22], result[23],
             result[24], result[25], result[26], result[27],
-            result[28], result[29], result[30], result[31]
-            
-            ];
+            result[28], result[29], result[30], result[31]];
     
 }
 
@@ -617,6 +650,13 @@
     
     ///获取配置的类名
     NSString *urlString = [taskDictionary valueForKey:@"url"];
+    
+    ///如果是图片上传，则直接返回
+    if (rRequestTypeLoadImage == requestType) {
+        
+        return urlString;
+        
+    }
     
     return [NSString stringWithFormat:@"%@%@",URLFDangJiaIPHome,urlString];
 
