@@ -361,6 +361,8 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYCollectedHousesViewController *collectedHouseVC = [[QSYCollectedHousesViewController alloc] init];
+                collectedHouseVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:collectedHouseVC animated:YES];
                 
             }
