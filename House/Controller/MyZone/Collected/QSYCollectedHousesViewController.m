@@ -16,6 +16,7 @@
 #import "QSYCollectedNewHouseListView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSHouseInfoDataModel.h"
 #import "QSRentHouseInfoDataModel.h"
@@ -33,6 +34,25 @@
 
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"收藏房源"];
+    
+    ///编辑按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeEdit];
+    
+    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///当前非编辑状态，进入删除状态
+        if (button.selected) {
+            
+            button.selected = NO;
+            
+        } else {
+            
+            button.selected = YES;
+            
+        }
+        
+    }];
+    [self setNavigationBarRightView:editButton];
 
 }
 

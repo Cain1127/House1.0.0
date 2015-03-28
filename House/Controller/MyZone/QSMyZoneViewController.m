@@ -385,6 +385,8 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYMyHistoryViewController *myHistoryVC = [[QSYMyHistoryViewController alloc] init];
+                myHistoryVC.hiddenCustomTabbarWhenPush = YES;
+                [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:myHistoryVC animated:YES];
                 
             }
