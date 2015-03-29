@@ -95,7 +95,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return ([self.dataSourceModel.headerData.rentHouseList count] > 0) ? ([self.dataSourceModel.headerData.rentHouseList count] + 1) : 1;
+    return ([self.dataSourceModel.headerData.rentHouseList count] > 0) ? ([self.dataSourceModel.headerData.rentHouseList count] + 1) : 0;
     
 }
 
@@ -103,13 +103,13 @@
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultSizeOfItemInSection:(NSInteger)section
 {
     
-    if ([self.dataSourceModel.headerData.rentHouseList count] > 0) {
+    if ([self.dataSourceModel.headerData.rentHouseList count] <= 0) {
         
-        return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
+        return SIZE_DEFAULT_MAX_WIDTH;
         
     }
     
-    return SIZE_DEFAULT_MAX_WIDTH;
+    return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
     
 }
 
@@ -118,11 +118,11 @@
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if ([self.dataSourceModel.headerData.rentHouseList count] <= 0) {
-        
-        return collectionView.frame.size.height;
-        
-    }
+//    if ([self.dataSourceModel.headerData.rentHouseList count] <= 0) {
+//        
+//        return collectionView.frame.size.height;
+//        
+//    }
     
     if (0 == indexPath.row) {
         

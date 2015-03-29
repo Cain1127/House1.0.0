@@ -55,8 +55,8 @@
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
+        [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
         
         ///添加刷新
         [self addHeaderWithTarget:self action:@selector(houseListHeaderRequest)];
@@ -131,7 +131,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) ? ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] + 1) : 1;
+    return ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) ? ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] + 1) : 0;
     
 }
 
@@ -139,13 +139,7 @@
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultSizeOfItemInSection:(NSInteger)section
 {
     
-    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) {
-        
-        return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
-        
-    }
-    
-    return SIZE_DEFAULT_MAX_WIDTH;
+    return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
     
 }
 
@@ -153,12 +147,6 @@
 ///返回不同的cell的高度
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] <= 0) {
-        
-        return collectionView.frame.size.height;
-        
-    }
     
     if (0 == indexPath.row) {
         
