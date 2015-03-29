@@ -55,11 +55,10 @@
     ///不同的房源类型，加载不同的列表
     if (fFilterMainTypeRentalHouse == self.houseType) {
         
-        self.houseListView = [[QSYRecommendSecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 84.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 84.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, QSHouseInfoDataModel *tempModel) {
+        self.houseListView = [[QSYRecommendRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 84.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 84.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, QSRentHouseInfoDataModel *tempModel) {
             
             if (hHouseListActionTypeGotoDetail == actionType) {
                 
-                ///进入详情页
                 ///进入详情页
                 [self gotoRecommendHouseDetail:tempModel];
                 
