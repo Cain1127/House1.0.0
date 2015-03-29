@@ -999,8 +999,12 @@ static char PopViewKey;             //!<摇一摇view关联
                 ///保存浏览计数
                 if (flag) {
                     
-                    ///添加二手房的浏览记录
-                    [self addSecondHandHouseBrowseRecord:detailID];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                       
+                        ///添加二手房的浏览记录
+                        [self addSecondHandHouseBrowseRecord:detailID];
+                        
+                    });
                     
                 }
             
@@ -1029,8 +1033,12 @@ static char PopViewKey;             //!<摇一摇view关联
                 ///保存浏览计数
                 if (flag) {
                     
-                    ///添加出租房的浏览记录
-                    [self addRentHandHouseBrowseRecord:detailID];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        
+                        ///添加出租房的浏览记录
+                        [self addRentHandHouseBrowseRecord:detailID];
+                        
+                    });
                     
                 }
                 
@@ -1066,9 +1074,37 @@ static char PopViewKey;             //!<摇一摇view关联
     
     ///添加
     [self.secondHandHouseBrowseCounts addObject:detailID];
+
+}
+
+#pragma mark - 添加出租房的详情浏览记数
+///添加出租房的详情浏览记数
+- (void)addRentHandHouseBrowseRecord:(NSString *)detailID
+{
+
+    ///原来已有记录，则不再重复添加
+    for (int i = 0; i < [self.rentHandHouseBrowseCounts count]; i++) {
+        
+        NSString *tempString = self.rentHandHouseBrowseCounts[i];
+        if ([tempString isEqualToString:detailID]) {
+            
+            return;
+            
+        }
+        
+    }
     
+    ///添加
+    [self.rentHandHouseBrowseCounts addObject:detailID];
+
+}
+
+#pragma mark - 房源列表显示时，判断是否满足比一比
+- (void)viewDidAppear:(BOOL)animated
+{
+
     ///判断是否满足比一比条件
-    if ([self.secondHandHouseBrowseCounts count] == 10) {
+    if ([self.secondHandHouseBrowseCounts count] >= 1) {
         
         ///弹出比一比提示
         __block QSYPopCustomView *popView;
@@ -1110,31 +1146,9 @@ static char PopViewKey;             //!<摇一摇view关联
         }];
         
     }
-
-}
-
-#pragma mark - 添加出租房的详情浏览记数
-///添加出租房的详情浏览记数
-- (void)addRentHandHouseBrowseRecord:(NSString *)detailID
-{
-
-    ///原来已有记录，则不再重复添加
-    for (int i = 0; i < [self.rentHandHouseBrowseCounts count]; i++) {
-        
-        NSString *tempString = self.rentHandHouseBrowseCounts[i];
-        if ([tempString isEqualToString:detailID]) {
-            
-            return;
-            
-        }
-        
-    }
-    
-    ///添加
-    [self.rentHandHouseBrowseCounts addObject:detailID];
     
     ///判断是否满足比一比条件
-    if ([self.rentHandHouseBrowseCounts count] == 10) {
+    if ([self.rentHandHouseBrowseCounts count] >= 10) {
         
         ///弹出比一比提示
         __block QSYPopCustomView *popView;
@@ -1176,6 +1190,8 @@ static char PopViewKey;             //!<摇一摇view关联
         }];
         
     }
+    
+    [super viewDidAppear:animated];
 
 }
 

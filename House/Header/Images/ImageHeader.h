@@ -59,6 +59,15 @@
 ///摇一摇图片
 #define IMAGE_PUBLIC_SHAKE @"public_shake"
 
+///暂无关注小区
+#define IMAGE_PUBLIC_NOINTENTION @"public_no_intention_community"
+
+///暂无收藏房源
+#define IMAGE_PUBLIC_NOCOLLECTED @"public_no_collected"
+
+///暂无浏览房源
+#define IMAGE_PUBLIC_NOHISTORY @"public_no_history"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26

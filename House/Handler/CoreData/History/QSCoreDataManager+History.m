@@ -9,6 +9,7 @@
 #import "QSCoreDataManager+History.h"
 
 #import "QSYAppDelegate.h"
+#import "NSDate+Formatter.h"
 
 #import "QSCDHistorySecondHandHouseDataModel.h"
 #import "QSCDHistorySecondHandHousePhotoDataModel.h"
@@ -99,7 +100,7 @@
 + (NSArray *)getLocalHistoryNewHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -118,7 +119,7 @@
 + (NSArray *)getLocalHistorySecondHandHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -137,7 +138,7 @@
 + (NSArray *)getLocalHistoryRentHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -562,6 +563,9 @@
     cdCollectedModel.loan_first_rate = collectedModel.loan.first_rate;
     cdCollectedModel.loan_procedures_fee = collectedModel.loan.procedures_fee;
     cdCollectedModel.loan_loan_year = collectedModel.loan.loan_year;
+    
+    ///时间出戳
+    cdCollectedModel.create_time = [NSDate date];
     
     ///图片信息
     if ([collectedModel.loupanBuilding_photo count] > 0) {
@@ -1072,6 +1076,9 @@
     cdCollectedModel.comment_tj_secondHouse_num = collectedModel.comment.tj_secondHouse_num;
     cdCollectedModel.comment_tj_rentHouse_num = collectedModel.comment.tj_rentHouse_num;
     
+    ///时间出戳
+    cdCollectedModel.create_time = [NSDate date];
+    
     ///图片
     if ([collectedModel.secondHouse_photo count] > 0) {
         
@@ -1367,6 +1374,9 @@
     cdCollectedModel.comment_vocation = collectedModel.comment.vocation;
     cdCollectedModel.comment_tj_secondHouse_num = collectedModel.comment.tj_secondHouse_num;
     cdCollectedModel.comment_tj_rentHouse_num = collectedModel.comment.tj_rentHouse_num;
+    
+    ///时间出戳
+    cdCollectedModel.create_time = [NSDate date];
     
     ///图片
     if ([collectedModel.rentHouse_photo count] > 0) {

@@ -115,6 +115,7 @@
 @property (nonatomic, retain) NSString * view_count;
 @property (nonatomic, retain) NSString * village_id;
 @property (nonatomic, retain) NSString * village_name;
+@property (nonatomic, retain) NSDate * create_time;
 @property (nonatomic, retain) NSSet *photos;
 @end
 

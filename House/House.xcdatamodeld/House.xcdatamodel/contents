@@ -658,6 +658,7 @@
         <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="company_property" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="create_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="developer_intro" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="developer_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -815,6 +816,7 @@
         <attribute name="comment_vocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment_web" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="create_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="cycle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="decoration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
@@ -933,6 +935,7 @@
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coordinate_x" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="coordinate_y" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="create_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="cycle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="elevator" optional="YES" attributeType="String" syncable="YES"/>
@@ -1069,14 +1072,14 @@
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>
-        <element name="QSCDHistoryNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1558"/>
+        <element name="QSCDHistoryNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1573"/>
         <element name="QSCDHistoryNewHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
         <element name="QSCDHistoryNewHouseActivityDataModel" positionX="-360" positionY="216" width="128" height="253"/>
         <element name="QSCDHistoryNewHouseAllHouseDataModel" positionX="-351" positionY="225" width="128" height="358"/>
         <element name="QSCDHistoryNewHouseRecommendHousesDataModel" positionX="-342" positionY="234" width="128" height="358"/>
-        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="243" width="128" height="1558"/>
+        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="243" width="128" height="1573"/>
         <element name="QSCDHistorySecondHandHousePhotoDataModel" positionX="-324" positionY="252" width="128" height="148"/>
-        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1588"/>
+        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1603"/>
         <element name="QSCDHistoryRentHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
     </elements>
 </model>

@@ -112,6 +112,7 @@
 @dynamic volume_rate;
 @dynamic water;
 @dynamic web;
+@dynamic create_time;
 @dynamic activities;
 @dynamic photos;
 @dynamic all_houses;

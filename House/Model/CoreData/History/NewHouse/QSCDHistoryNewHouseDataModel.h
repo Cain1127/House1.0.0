@@ -110,6 +110,7 @@
 @property (nonatomic, retain) NSString * volume_rate;
 @property (nonatomic, retain) NSString * water;
 @property (nonatomic, retain) NSString * web;
+@property (nonatomic, retain) NSDate * create_time;
 @property (nonatomic, retain) NSSet *activities;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSSet *all_houses;
