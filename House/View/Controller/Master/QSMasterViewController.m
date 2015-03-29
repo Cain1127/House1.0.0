@@ -17,7 +17,6 @@
 
 ///关联
 static char NavigationBarKey;       //!<导航栏的关联key
-static char NoRecordTipsLabelKey;   //!<暂无记录提示Label
 
 @interface QSMasterViewController ()
 

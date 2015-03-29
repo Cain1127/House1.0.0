@@ -7,6 +7,8 @@
 //
 
 #import "QSCoreDataManager+SearchHistory.h"
+#import "QSLocalSearchHistoryDataModel.h"
+#import "QSCDLocalSearchHistoryDataModel.h"
 #import "QSYAppDelegate.h"
 
 ///应用配置信息的CoreData模型
@@ -14,30 +16,52 @@
 
 @implementation QSCoreDataManager (SearchHistory)
 
-#pragma mark - 本地搜索历史记录相关操作
+#pragma mark - 本地搜索搜索历史
 /**
- *  @author yangshengmeng, 15-01-21 18:01:15
+ *  @author             yangshengmeng, 15-01-21 18:01:15
  *
- *  @brief  获取本地搜索历史
+ *  @brief              获取本地搜索历史
  *
- *  @return 返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
+ *  @param  houseType   房源类型
  *
- *  @since  1.0.0
+ *  @return             返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getLocalSearchHistory
++ (NSArray *)getLocalSearchHistoryWithHouseType:(FILTER_MAIN_TYPE)houseType
 {
     
-    return [self getEntityListWithKey:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andSortKeyWord:@"search_time" andAscend:YES];
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andFieldKey:@"search_type" andSearchKey:[NSString stringWithFormat:@"%d",houseType]];
+    
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [tempArray count]; i++) {
+        
+        QSLocalSearchHistoryDataModel *tempModel = [[QSLocalSearchHistoryDataModel alloc] init];
+        QSCDLocalSearchHistoryDataModel *saveModel = tempArray[i];
+        tempModel.search_type = saveModel.search_type;
+        tempModel.search_time = saveModel.search_time;
+        tempModel.search_sub_type = saveModel.search_sub_type;
+        tempModel.search_keywork = saveModel.search_keywork;
+        [resultArray addObject:tempModel];
+        
+    }
+    
+    return [NSArray arrayWithArray:resultArray];
     
 }
 
 ///插入一个新的搜索历史
-+ (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model
++ (void)addLocalSearchHistory:(QSLocalSearchHistoryDataModel *)model andCallBack:(void(^)(BOOL flag))callBack
 {
     
     if (nil == model) {
         
-        return NO;
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
         
     }
     
@@ -49,20 +73,62 @@
     NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     tempContext.parentContext = mainContext;
     
-    ///错误信息
-    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
     
-    ///插入数据
-    QSCDLocalSearchHistoryDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:tempContext];
-    insertModel.search_keywork = model.search_keywork;
-    insertModel.search_sub_type = model.search_sub_type;
-    insertModel.search_time = model.search_time;
-    insertModel.search_type = model.search_type;
-    [tempContext save:&error];
+    ///设置查询过滤
+    NSString *typeString = @"search_type == %@ AND ";
+    NSString *keyString = @"search_keywork == %@";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[typeString stringByAppendingString:keyString],model.search_type,model.search_keywork];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
     
     if (error) {
         
-        return NO;
+        NSLog(@"CoreData.SearchCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///判断本地是否有数据
+    if ([fetchResultArray count] > 0) {
+        
+        QSCDLocalSearchHistoryDataModel *insertModel = fetchResultArray[0];
+        insertModel.search_keywork = model.search_keywork;
+        insertModel.search_sub_type = model.search_sub_type;
+        insertModel.search_time = model.search_time;
+        insertModel.search_type = model.search_type;
+        [tempContext save:&error];
+        
+    } else {
+        
+        QSCDLocalSearchHistoryDataModel *insertModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO inManagedObjectContext:tempContext];
+        insertModel.search_keywork = model.search_keywork;
+        insertModel.search_sub_type = model.search_sub_type;
+        insertModel.search_time = model.search_time;
+        insertModel.search_type = model.search_type;
+        [tempContext save:&error];
+        
+    }
+    
+    ///判断是否保存成功
+    if (error) {
+        
+        NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
         
     }
     
@@ -81,15 +147,25 @@
         
     }
     
-    return YES;
+    ///回调
+    if (callBack) {
+        
+        callBack(YES);
+        
+    }
     
 }
 
 ///清空本地搜索历史
-+ (BOOL)clearLocalSearchHistory
++ (void)clearLocalSearchHistoryWithHouseType:(FILTER_MAIN_TYPE)houseType andCallBack:(void(^)(BOOL flag))callBack
 {
     
-    return [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO];
+    BOOL deleteResult = [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_LOCALSEARCHISTORY_INFO andFieldKey:@"search_type" andDeleteKey:[NSString stringWithFormat:@"%d",houseType]];
+    if (callBack) {
+        
+        callBack(deleteResult);
+        
+    }
     
 }
 

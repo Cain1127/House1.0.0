@@ -98,6 +98,10 @@
 #define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal_normal"
 #define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_normal_highlighted"
 
+///交叉图片取消按钮
+#define IMAGE_NAVIGATIONBAR_CANCEL_NORMAL @"navigationbar_corss_normal"
+#define IMAGE_NAVIGATIONBAR_CANCEL_HIGHLIGHTED @"navigationbar_corss_highlighted"
+
 ///分享按钮图片
 #define IMAGE_NAVIGATIONBAR_SHARE_NORMAL @"navigationbar_share_normal"
 #define IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED @"navigationbar_share_highlighted"

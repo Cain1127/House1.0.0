@@ -17,4 +17,6 @@
  */
 @interface QSHouseKeySearchViewController : QSTurnBackViewController
 
+- (instancetype)initWithHouseType:(FILTER_MAIN_TYPE)houseType;
+
 @end

@@ -144,11 +144,29 @@
             
             break;
             
+            ///叉叉取消按钮
+        case nNavigationBarButtonTypeCancel:
+            
+            return [self createNavigationBarCancelButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
+    
+}
+
+#pragma mark - 交叉图片取消按钮
++ (QSBlockButtonStyleModel *)createNavigationBarCancelButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_CANCEL_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_CANCEL_HIGHLIGHTED;
+    return buttonStyle;
     
 }
 

@@ -926,7 +926,7 @@ static char PopViewKey;             //!<摇一摇view关联
 - (void)gotoSearchViewController
 {
   
-    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] init];
+    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] initWithHouseType:self.listType];
     searchVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:searchVC animated:YES];
