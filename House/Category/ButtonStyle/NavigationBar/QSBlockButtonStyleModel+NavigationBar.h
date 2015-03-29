@@ -30,6 +30,8 @@ typedef enum
     nNavigationBarButtonTypeCollected,          //!<收藏/关注按钮
     nNavigationBarButtonTypeShare,              //!<分享按钮
     nNavigationBarButtonTypeEdit,               //!<编辑按钮
+    nNavigationBarButtonTypeCommit,             //!<提交确认按钮
+    nNavigationBarButtonTypeAdd,                //!<添加按钮-加号图片
     
 }NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置等等
 

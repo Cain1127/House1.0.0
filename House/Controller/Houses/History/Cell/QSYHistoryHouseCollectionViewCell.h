@@ -13,4 +13,7 @@
 ///刷新UI
 - (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType;
 
+///刷新是否处于选择状态
+- (void)setPickedTipsStatus:(BOOL)flag;
+
 @end

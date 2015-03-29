@@ -90,6 +90,14 @@
 #define IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED @"navigationbar_collect_highlighted"
 #define IMAGE_NAVIGATIONBAR_COLLECTED_NORMAL @"navigationbar_collected_normal"
 
+///确认提交按对勾按钮
+#define IMAGE_NAVIGATIONBAR_CONFIRM_NORMAL @"navigationbar_confirm_normal"
+#define IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED @"navigationbar_confirm_highlighted"
+
+///加号图标的添加按钮
+#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal_normal"
+#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_normal_highlighted"
+
 ///分享按钮图片
 #define IMAGE_NAVIGATIONBAR_SHARE_NORMAL @"navigationbar_share_normal"
 #define IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED @"navigationbar_share_highlighted"
@@ -110,6 +118,7 @@
 #define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
 #define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
 
+///展示或收超的三角形指示
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 

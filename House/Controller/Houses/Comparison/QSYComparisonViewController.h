@@ -19,6 +19,6 @@
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithPickedHouseList:(NSArray *)houseList;
+- (instancetype)initWithPickedHouseList:(NSArray *)houseList andHouseType:(FILTER_MAIN_TYPE)houseType;
 
 @end

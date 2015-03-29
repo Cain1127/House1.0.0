@@ -16,6 +16,7 @@
 #import "QSCommunityDetailViewController.h"
 #import "QSFilterViewController.h"
 #import "QSYBrowseHouseViewController.h"
+#import "QSYShakeRecommendHouseViewController.h"
 
 #import "QSCustomPickerView.h"
 #import "QSYPopCustomView.h"
@@ -926,6 +927,8 @@ static char PopViewKey;             //!<摇一摇view关联
 {
   
     QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] init];
+    searchVC.hiddenCustomTabbarWhenPush = YES;
+    [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:searchVC animated:YES];
     
 }
@@ -1104,7 +1107,7 @@ static char PopViewKey;             //!<摇一摇view关联
 {
 
     ///判断是否满足比一比条件
-    if ([self.secondHandHouseBrowseCounts count] >= 1) {
+    if ([self.secondHandHouseBrowseCounts count] >= 2) {
         
         ///弹出比一比提示
         __block QSYPopCustomView *popView;
@@ -1247,13 +1250,11 @@ static char PopViewKey;             //!<摇一摇view关联
             ///重置摇一摇状态
             self.isCanShake = NO;
             
-            ///刷新
-            UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            if ([collectionView respondsToSelector:@selector(loadRecommendHouse)]) {
-                
-                [collectionView performSelector:@selector(loadRecommendHouse)];
-                
-            }
+            ///进入摇一摇推荐页面
+            QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:self.listType];
+            shakeRecommendHouseVC.hiddenCustomTabbarWhenPush = YES;
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
             
         }
         

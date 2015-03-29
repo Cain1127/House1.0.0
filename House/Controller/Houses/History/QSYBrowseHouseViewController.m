@@ -7,12 +7,19 @@
 //
 
 #import "QSYBrowseHouseViewController.h"
+#import "QSYComparisonViewController.h"
 
 #import "QSYHistoryHouseCollectionViewCell.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSCoreDataManager+History.h"
+
+#import "QSRentHouseDetailDataModel.h"
+#import "QSSecondHouseDetailDataModel.h"
+#import "QSWSecondHouseInfoDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -21,6 +28,7 @@
 @property (nonatomic,assign) FILTER_MAIN_TYPE houseType;        //!<当前列表的房源类型
 @property (nonatomic,strong) UICollectionView *houseListView;   //!<房源列表
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
+@property (nonatomic,retain) NSMutableArray *pickedHouseList;   //!<当前选择的房源列表
 
 @end
 
@@ -46,6 +54,7 @@
         
         ///初始化
         self.dataSource = [[NSMutableArray alloc] init];
+        self.pickedHouseList = [[NSMutableArray alloc] init];
         
     }
     
@@ -59,6 +68,26 @@
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"最近浏览房源"];
+    
+    ///确认选择按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCommit];
+    
+    UIButton *commitedButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///判断当前选择个数
+        if ([self.pickedHouseList count] <= 1) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少选择两个房源", 1.0, ^(){})
+            return;
+            
+        }
+        
+        ///进入比一比页面
+        QSYComparisonViewController *comparisonVC = [[QSYComparisonViewController alloc] initWithPickedHouseList:self.pickedHouseList andHouseType:self.houseType];
+        [self.navigationController pushViewController:comparisonVC animated:YES];
+        
+    }];
+    [self setNavigationBarRightView:commitedButton];
     
 }
 
@@ -157,7 +186,10 @@
         QSYHistoryHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
         
         ///获取数据模型
-        [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSource[indexPath.row] andHouseType:fFilterMainTypeSecondHouse];
+        [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSource[indexPath.row] andHouseType:self.houseType];
+        
+        ///设置选择状态
+        [cellHouse setPickedTipsStatus:[self checkHouseIsSave:self.dataSource[indexPath.row]]];
         
         return cellHouse;
         
@@ -213,6 +245,89 @@
     
     }
     
+}
+
+#pragma 选择房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    ///不同的列表类型，取不同的数据模型
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        QSRentHouseDetailDataModel *tempModel = self.dataSource[indexPath.row];
+        
+        if ([self checkHouseIsSave:tempModel]) {
+            
+            [self.pickedHouseList removeObject:tempModel.house.id_];
+            
+        } else {
+        
+            [self.pickedHouseList addObject:tempModel.house.id_];
+        
+        }
+        
+        ///刷新UI
+        [self.houseListView reloadData];
+        
+    }
+    
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        QSSecondHouseDetailDataModel *tempModel = self.dataSource[indexPath.row];
+        if ([self checkHouseIsSave:tempModel]) {
+            
+            [self.pickedHouseList removeObject:tempModel.house.id_];
+            
+        } else {
+        
+            [self.pickedHouseList addObject:tempModel.house.id_];
+        
+        }
+        
+        ///刷新UI
+        [self.houseListView reloadData];
+        
+    }
+
+}
+
+#pragma mark - 检测当前选择的房源是否已保存
+- (BOOL)checkHouseIsSave:(id)model
+{
+
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        QSRentHouseDetailDataModel *tempModel = model;
+        
+        for (int i = 0; i < [self.pickedHouseList count]; i++) {
+            
+            NSString *saveID = self.pickedHouseList[i];
+            if ([saveID isEqualToString:tempModel.house.id_]) {
+                
+                return YES;
+                
+            }
+            
+        }
+        
+    } else if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        QSSecondHouseDetailDataModel *tempModel = model;
+        for (int i = 0; i < [self.pickedHouseList count]; i++) {
+            
+            NSString *saveID = self.pickedHouseList[i];
+            if ([saveID isEqualToString:tempModel.house.id_]) {
+                
+                return YES;
+                
+            }
+            
+        }
+        
+    }
+    
+    return NO;
+
 }
 
 #pragma mark - 看看附近房源事件

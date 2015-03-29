@@ -29,6 +29,7 @@ static char HouseAreaKey;   //!<面积
 static char HouseStreetKey; //!<房子所在街道
 static char CommunityKey;   //!<所在小区
 static char FeaturesKey;    //!<特色标签
+static char SelectedBoxKey; //!<选择标识
 
 @implementation QSYHistoryHouseCollectionViewCell
 
@@ -116,6 +117,13 @@ static char FeaturesKey;    //!<特色标签
     UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, streetRootView.frame.origin.y + streetRootView.frame.size.height + 10.0f, self.frame.size.width, 20.0)];
     [self.contentView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///选择状态
+    UIButton *selectedTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 25.0f, 5.0f, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {}];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
+    [self.contentView addSubview:selectedTipsButton];
+    objc_setAssociatedObject(self, &SelectedBoxKey, selectedTipsButton, OBJC_ASSOCIATION_ASSIGN);
     
 }
 
@@ -510,6 +518,20 @@ static char FeaturesKey;    //!<特色标签
         
     }
     
+}
+
+#pragma mark - 设置选择状态
+///刷新是否处于选择状态
+- (void)setPickedTipsStatus:(BOOL)flag
+{
+
+    UIButton *button = objc_getAssociatedObject(self, &SelectedBoxKey);
+    if (button) {
+        
+        button.selected = flag;
+        
+    }
+
 }
 
 @end

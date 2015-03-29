@@ -130,12 +130,48 @@
             
             break;
             
+            ///提交确认按钮
+        case nNavigationBarButtonTypeCommit:
+            
+            return [self createNavigationBarCommitButtonStyle];
+            
+            break;
+            
+            ///添加按钮
+        case nNavigationBarButtonTypeAdd:
+            
+            return [self createNavigationBarAddButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
     
+}
+
+#pragma mark - 提交确认按钮
++ (QSBlockButtonStyleModel *)createNavigationBarAddButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_ADD_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED;
+    return buttonStyle;
+    
+}
+
+#pragma mark - 提交确认按钮
++ (QSBlockButtonStyleModel *)createNavigationBarCommitButtonStyle
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_CONFIRM_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED;
+    return buttonStyle;
+
 }
 
 #pragma mark - 编辑按钮
