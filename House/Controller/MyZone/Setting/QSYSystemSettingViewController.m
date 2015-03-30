@@ -8,8 +8,12 @@
 
 #import "QSYSystemSettingViewController.h"
 
+#import "QSCustomHUDView.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
+
+#import "QSCoreDataManager+User.h"
 
 ///不过的自定义按钮tag
 typedef enum
@@ -52,6 +56,7 @@ typedef enum
     UISwitch *tipsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 60.0f, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP + 64.0f + 3.0f, 60.0f, 30.0f)];
     tipsSwitch.onTintColor = COLOR_CHARACTERS_LIGHTYELLOW;
     tipsSwitch.on = YES;
+    [tipsSwitch addTarget:self action:@selector(acceptSystemMessageSetting:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:tipsSwitch];
     
     ///分隔线
@@ -121,6 +126,17 @@ typedef enum
     buttonStyle.title = @"退出";
     UIButton *logoutButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - VIEW_SIZE_NORMAL_BUTTON_HEIGHT - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///判断当前是否已登录
+        if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前并未登录", 1.0f, ^(){})
+            return;
+            
+        }
+        
+        ///退出登录
+        [self logoutAction];
+        
     }];
     [self.view addSubview:logoutButton];
     
@@ -182,6 +198,61 @@ typedef enum
     }
     
     return NO;
+    
+}
+
+#pragma mark - 是否接收系统抢着消息设置
+- (void)acceptSystemMessageSetting:(UISwitch *)switchUI
+{
+
+    if (switchUI.on) {
+        
+        
+        
+    } else {
+    
+        
+    
+    }
+
+}
+
+#pragma mark - 退出登录
+- (void)logoutAction
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在退出"];
+    
+    ///退出登录状态
+    [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///退出登录成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    [hud hiddenCustomHUDWithFooterTips:@"退出成功"];
+                    
+                }
+                
+            }];
+            
+        } else {
+        
+            NSString *tipsString = @"退出成功";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.0f];
+        
+        }
+        
+    }];
     
 }
 

@@ -19,6 +19,41 @@
 
 @property (nonatomic,strong) NSArray *appoint_list;         //!<预约时间列表
 
+
+- (void)updateViewsFlags;    //更新各种状态下Views显示组合
+
+//ScrollView内
+@property (nonatomic,assign) BOOL isShowTitleView;              //!<详情标题View
+@property (nonatomic,assign) BOOL isShowShowingsTimeView;       //!<看房时间View
+@property (nonatomic,assign) BOOL isShowShowingsActivitiesView; //!<看房活动简介View
+@property (nonatomic,assign) BOOL isShowHouseInfoView;          //!<房源简介View
+@property (nonatomic,assign) BOOL isShowHousePriceView;         //!<房源售价单价View
+@property (nonatomic,assign) BOOL isShowAddressView;            //!<地址栏View
+@property (nonatomic,assign) BOOL isShowOwnerInfoView;          //!<业主信息View
+@property (nonatomic,assign) BOOL isShowActivitiesPhoneView;    //!<看房活动联系电话View
+@property (nonatomic,assign) BOOL isShowOtherPriceView;         //!<对方出价View
+@property (nonatomic,assign) BOOL isShowMyPriceView;            //!<我的出价View
+@property (nonatomic,assign) BOOL isShowInputMyPriceView;       //!<输入我的出价View
+@property (nonatomic,assign) BOOL isShowTransactionPriceView;   //!<最后成交价View
+@property (nonatomic,assign) BOOL isShowBargainingPriceHistoryView; //!<和对方议价记录View
+@property (nonatomic,assign) BOOL isShowRemarkRejectPriceView;  //!<备注:拒绝还价将视为取消订单View
+@property (nonatomic,assign) BOOL isShowOrderCancelByOwnerTipView;     //!<订单取消原因：业主取消预约View
+@property (nonatomic,assign) BOOL isShowCommentNoteTipsView;    //!<预约结束评价提示View
+@property (nonatomic,assign) BOOL isShowOrderCancelByMeTipView;     //!<订单取消原因：我取消预约View
+
+@property (nonatomic,assign) BOOL isShowComplaintAndCommentButtonView;  //!<我要投诉和评价房源按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainAndPriceAgainButtonView;  //!<再次预约和我要议价按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainAndRejectPriceButtonView;  //!<再次预约和拒绝还价按钮View
+@property (nonatomic,assign) BOOL isShowRejectAndAcceptAppointmentButtonView;    //!<拒绝预约和接受预约按钮View
+@property (nonatomic,assign) BOOL isShowCancelTransAndWarmBuyerButtonView;    //!<取消成交和提醒房客按钮View
+
+//ScrollView外底悬浮层
+@property (nonatomic,assign) BOOL isShowChangeOrderButtonView;  //!<修改订单按钮View
+@property (nonatomic,assign) BOOL isShowConfirmOrderButtonView; //!<房源非常满意，我要成交按钮View
+@property (nonatomic,assign) BOOL isShowSubmitPriceButtonView;  //!<提交出价按钮View
+@property (nonatomic,assign) BOOL isShowAppointmentSalerAgainButtonView;    //!<重新预约业主按钮View
+@property (nonatomic,assign) BOOL isShowChangeAppointmentButtonView;    //!<修改预约按钮View
+
 @end
 
 

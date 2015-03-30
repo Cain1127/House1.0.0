@@ -1,12 +1,12 @@
 //
-//  QSPHouseSummaryView.m
+//  QSPOrderDetailHouseInfoView.m
 //  House
 //
 //  Created by CoolTea on 15/3/13.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSPHouseSummaryView.h"
+#import "QSPOrderDetailHouseInfoView.h"
 #import "UIKit+AFNetworking.h"
 #import "QSOrderListHouseInfoDataModel.h"
 //上下间隙
@@ -17,7 +17,7 @@
 //static char contentImgViewKey;      //!<房源图片关联key
 //static char houseTitleLabelKey;     //!<房源标题关联key
 
-@interface QSPHouseSummaryView ()
+@interface QSPOrderDetailHouseInfoView ()
 
 @property (nonatomic, strong) UILabel *houseTitleIDLabel;
 @property (nonatomic, strong) UIImageView *contentImgView;
@@ -27,7 +27,7 @@
 
 
 
-@implementation QSPHouseSummaryView
+@implementation QSPOrderDetailHouseInfoView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack
 {

@@ -35,4 +35,33 @@
 
 }
 
+- (NSArray *)getCurrentPickedImages
+{
+
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [self.imagesList count]; i++) {
+        
+        QSReleaseSaleHousePhotoDataModel *tempModel = self.imagesList[i];
+        [tempArray addObject:tempModel.image];
+        
+    }
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
+#pragma mark - 生成发布出售物业的参数
+- (NSDictionary *)createReleaseSaleHouseParams
+{
+
+    return nil;
+
+}
+
+@end
+
+@implementation QSReleaseSaleHousePhotoDataModel
+
+
+
 @end

@@ -10,6 +10,8 @@
 #import "QSYReleaseHouseContactInfoViewController.h"
 #import "QSYShowImageDetailViewController.h"
 
+#import "QSCustomHUDView.h"
+
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -17,6 +19,7 @@
 #import "UIImage+Thumbnail.h"
 
 #import "QSReleaseSaleHouseDataModel.h"
+#import "QSYLoadImageReturnData.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <objc/runtime.h>
@@ -213,7 +216,8 @@ static char PickedImageRootViewKey;//!<图片选择底view
         ///创建图片显示button
         for (int i = 0;i < sumImageCount && i < 12;i++) {
             
-            UIImage *tempImage = self.saleHouseReleaseModel.imagesList[i];
+            QSReleaseSaleHousePhotoDataModel *tempModel = self.saleHouseReleaseModel.imagesList[i];
+            UIImage *tempImage = tempModel.image;
             UIView *imageView = [self createImageButton:CGRectMake((60.0f + 5.0f) * i, 0.0f, 60.0f, 60.0f) andImage:tempImage andIndex:i];
             [rootView addSubview:imageView];
             
@@ -261,7 +265,7 @@ static char PickedImageRootViewKey;//!<图片选择底view
     UIButton *imageButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///查看大图
-        QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImages:self.saleHouseReleaseModel.imagesList andCurrentIndex:index andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+        QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImages:[self.saleHouseReleaseModel getCurrentPickedImages] andCurrentIndex:index andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
             
             ///删除事件
             if (sShowImageOriginalActionTypeDelete == actionType) {
@@ -404,10 +408,25 @@ static char PickedImageRootViewKey;//!<图片选择底view
         UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
         
         ///保存图片
-        [self.saleHouseReleaseModel.imagesList addObject:smallImage];
+        QSReleaseSaleHousePhotoDataModel *photoModel = [[QSReleaseSaleHousePhotoDataModel alloc] init];
+        photoModel.image = smallImage;
+        [self.saleHouseReleaseModel.imagesList addObject:photoModel];
         
-        ///修改UI
-        [self createImagePickedView];
+        ///上传图片
+        [self loadImageToServer:[self.saleHouseReleaseModel.imagesList lastObject] andCallBack:^(BOOL flag) {
+            
+            if (flag) {
+                
+                ///修改UI
+                [self createImagePickedView];
+                
+            } else {
+            
+                [self.saleHouseReleaseModel.imagesList removeLastObject];
+            
+            }
+            
+        }];
         
     }
     
@@ -479,6 +498,59 @@ static char PickedImageRootViewKey;//!<图片选择底view
         
     }
     return YES;
+
+}
+
+#pragma mark - 上传图片
+///上传图片
+- (void)loadImageToServer:(QSReleaseSaleHousePhotoDataModel *)imageModel andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+    
+    ///获取图片二进制流
+    NSData *imageData = UIImageJPEGRepresentation(imageModel.image, 0.8f);
+    
+    ///封装参数
+    NSDictionary *params = @{@"source" : @"iOS",
+                             @"thumb_width" : [NSString stringWithFormat:@"%.2f",imageModel.image.size.width],
+                             @"thumb_height" : [NSString stringWithFormat:@"%.2f",imageModel.image.size.height],
+                             @"attach_file" : imageData};
+    
+    ///上传图片
+    [QSRequestManager requestDataWithType:rRequestTypeLoadImage andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///上传成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"上传成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+                ///修改参数
+                QSYLoadImageReturnData *tempModel = resultData;
+                imageModel.smallImageURL = tempModel.imageModel.smallImageURl;
+                imageModel.originalImageURL = tempModel.imageModel.originalImageURl;
+                callBack(YES);
+                
+            }];
+            
+        } else {
+        
+            ///提示
+            NSString *tipsString = @"上传失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+               callBack(NO);
+                
+            }];
+        
+        }
+        
+    }];
 
 }
 

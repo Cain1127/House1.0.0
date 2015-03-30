@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>5003</key>
+	<dict>
+		<key>oldurl</key>
+		<string>Upfile/phone</string>
+		<key>url</key>
+		<string>http://117.41.235.102:6300/index.php?r=Upfile/phone</string>
+		<key>class</key>
+		<string>QSYLoadImageReturnData</string>
+	</dict>
 	<key>5002</key>
 	<dict>
 		<key>class</key>

@@ -64,7 +64,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     objc_setAssociatedObject(self, &AddressInfoKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///选择状态
-    UIButton *selectedTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(bgImageView.frame.size.width - 15.0f, 15.0f, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {}];
+    UIButton *selectedTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(bgImageView.frame.size.width - 25.0f, 15.0f, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {}];
     [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
     [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
     [bgImageView addSubview:selectedTipsButton];

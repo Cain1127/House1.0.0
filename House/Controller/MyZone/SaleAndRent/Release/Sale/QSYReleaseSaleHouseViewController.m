@@ -141,7 +141,7 @@ typedef enum
         
     }
     
-    ///判断是否可滚动
+    ///判断是否可滚动：超出高度则设置滚动
     if ((([tempInfoArray count] * (44.0f + 8.0f)) + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP) > view.frame.size.height) {
         
         view.contentSize = CGSizeMake(view.frame.size.width, (([tempInfoArray count] * (44.0f + 8.0f)) + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP) + 20.0f);

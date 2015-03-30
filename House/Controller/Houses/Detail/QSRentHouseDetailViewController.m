@@ -33,6 +33,7 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+Collected.h"
+#import "QSCoreDataManager+History.h"
 
 #import "MJRefresh.h"
 
@@ -1210,6 +1211,13 @@ static char LeftStarKey;            //!<左侧星级
                 [rootView headerEndRefreshing];
                 [self showInfoUI:YES];
                 
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    ///添加浏览记录
+                    [self addBrowseRecords];
+                    
+                });
+                
             });
             
         } else {
@@ -1217,7 +1225,7 @@ static char LeftStarKey;            //!<左侧星级
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
             [rootView headerEndRefreshing];
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取出租房详情信息失败，请稍后再试……",1.0f,^(){
                 
                 ///推回上一页
                 [self.navigationController popViewControllerAnimated:YES];
@@ -1228,6 +1236,33 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
+}
+
+#pragma mark - 添加浏览记录
+- (void)addBrowseRecords
+{
+
+    [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+        
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"成功")
+            
+            ///回调告诉浏览添加成功
+            if (self.loadingSuccessCallBack) {
+                
+                self.loadingSuccessCallBack(YES,self.detailID);
+                
+            }
+            
+        } else {
+        
+            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"失败")
+        
+        }
+        
+    }];
+
 }
 
 #pragma mark - 分享出租房

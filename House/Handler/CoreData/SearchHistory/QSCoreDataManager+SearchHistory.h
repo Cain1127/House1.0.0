@@ -7,7 +7,6 @@
 //
 
 #import "QSCoreDataManager.h"
-#import "QSCDLocalSearchHistoryDataModel.h"
 
 /**
  *  @author yangshengmeng, 15-01-21 20:01:43
@@ -16,23 +15,26 @@
  *
  *  @since  1.0.0
  */
+@class QSLocalSearchHistoryDataModel;
 @interface QSCoreDataManager (SearchHistory)
 
 /**
- *  @author yangshengmeng, 15-01-21 18:01:15
+ *  @author             yangshengmeng, 15-01-21 18:01:15
  *
- *  @brief  获取本地搜索历史
+ *  @brief              获取本地搜索历史
  *
- *  @return 返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
+ *  @param  houseType   房源类型
  *
- *  @since  1.0.0
+ *  @return             返回搜索历史数组：数组中的模型为-QSFDangJiaSearchHistoryDataModel
+ *
+ *  @since              1.0.0
  */
-+ (NSArray *)getLocalSearchHistory;
++ (NSArray *)getLocalSearchHistoryWithHouseType:(FILTER_MAIN_TYPE)houseType;
 
 ///插入一个新的搜索历史
-+ (BOOL)addLocalSearchHistory:(QSCDLocalSearchHistoryDataModel *)model;
++ (void)addLocalSearchHistory:(QSLocalSearchHistoryDataModel *)model andCallBack:(void(^)(BOOL flag))callBack;
 
 ///清空本地搜索历史
-+ (BOOL)clearLocalSearchHistory;
++ (void)clearLocalSearchHistoryWithHouseType:(FILTER_MAIN_TYPE)houseType andCallBack:(void(^)(BOOL flag))callBack;
 
 @end

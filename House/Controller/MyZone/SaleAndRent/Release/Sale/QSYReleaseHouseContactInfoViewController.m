@@ -71,6 +71,12 @@
     nameField.delegate = self;
     [self.view addSubview:nameField];
     
+    if ([self.saleHouseReleaseModel.userName length] > 0) {
+        
+        nameField.text = self.saleHouseReleaseModel.userName;
+        
+    }
+    
     ///分隔线
     UILabel *nameLineLable = [[UILabel alloc] initWithFrame:CGRectMake(nameField.frame.origin.x + 5.0f, nameField.frame.origin.y + nameField.frame.size.height + 3.5f, nameField.frame.size.width - 10.0f, 0.5f)];
     nameLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
@@ -81,6 +87,12 @@
     phoneField.delegate = self;
     phoneField.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:phoneField];
+    
+    if ([self.saleHouseReleaseModel.phone length] > 0) {
+        
+        phoneField.text = self.saleHouseReleaseModel.phone;
+        
+    }
     
     ///分隔线
     UILabel *phoneLineLable = [[UILabel alloc] initWithFrame:CGRectMake(phoneField.frame.origin.x + 5.0f, phoneField.frame.origin.y + phoneField.frame.size.height + 3.5f, phoneField.frame.size.width - 10.0f, 0.5f)];

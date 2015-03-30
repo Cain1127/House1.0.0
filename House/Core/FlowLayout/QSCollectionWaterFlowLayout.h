@@ -19,7 +19,6 @@
 @protocol QSCollectionWaterFlowLayoutDelegate <NSObject>
 
 @required
-
 /**
  *  @author                     yangshengmeng, 15-01-31 09:01:09
  *

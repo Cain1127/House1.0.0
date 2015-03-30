@@ -7,25 +7,72 @@
 //
 
 #import "QSPOrderDetailBookedViewController.h"
-#import "QSPOrderDetailTitleLabel.h"
-#import "QSPOrderDetailShowingsTimeView.h"
-#import "QSPHouseSummaryView.h"
-#import "QSPOrderDetailAddressView.h"
-#import "QSPOrderDetailPersonInfoView.h"
-#import "QSPOrderBottomButtonView.h"
 #import "QSPOrderBookTimeViewController.h"
 #import "QSCoreDataManager+User.h"
 #import "QSOrderDetailReturnData.h"
 #import "QSCustomHUDView.h"
 
+#import "QSPOrderDetailTitleLabel.h"
+#import "QSPOrderDetailShowingsTimeView.h"
+#import "QSPOrderDetailHouseInfoView.h"
+#import "QSPOrderDetailAddressView.h"
+#import "QSPOrderDetailPersonInfoView.h"
+#import "QSPOrderBottomButtonView.h"
+#import "QSPOrderDetailShowingsActivitiesView.h"
+#import "QSPOrderDetailHousePriceView.h"
+#import "QSPOrderDetailActivitiesPhoneView.h"
+#import "QSPOrderDetailOtherPriceView.h"
+#import "QSPOrderDetailMyPriceView.h"
+#import "QSPOrderDetailInputMyPriceView.h"
+#import "QSPOrderDetailTransactionPriceView.h"
+#import "QSPOrderDetailBargainingPriceHistoryView.h"
+#import "QSPOrderDetailRemarkRejectPriceView.h"
+#import "QSPOrderDetailOrderCancelByOwnerTipView.h"
+#import "QSPOrderDetailCommentNoteTipsView.h"
+#import "QSPOrderDetailOrderCancelByMeTipView.h"
+#import "QSPOrderDetailComplaintAndCommentButtonView.h"
+#import "QSPOrderDetailAppointAgainAndPriceAgainButtonView.h"
+#import "QSPOrderDetailAppointAgainAndRejectPriceButtonView.h"
+#import "QSPOrderDetailRejectAndAcceptAppointmentButtonView.h"
+#import "QSPOrderDetailCancelTransAndWarmBuyerButtonView.h"
+#import "QSPOrderDetailChangeOrderButtonView.h"
+#import "QSPOrderDetailConfirmOrderButtonView.h"
+#import "QSPOrderDetailSubmitPriceButtonView.h"
+#import "QSPOrderDetailAppointmentSalerAgainButtonView.h"
+#import "QSPOrderDetailChangeAppointmentButtonView.h"
+
 @interface QSPOrderDetailBookedViewController ()
 
 @property (nonatomic, strong) QSOrderDetailInfoDataModel *orderDetailData;
-@property (nonatomic, strong) QSPOrderDetailTitleLabel *titleTipLabel;
-@property (nonatomic, strong) QSPOrderDetailShowingsTimeView *showingsTimeView;
-@property (nonatomic, strong) QSPHouseSummaryView *houseInfoSView;
-@property (nonatomic, strong) QSPOrderDetailAddressView *addressView;
-@property (nonatomic, strong) QSPOrderDetailPersonInfoView *personView;
+
+@property (nonatomic, strong) QSPOrderDetailTitleLabel *titleTipLabel;          //!<详情标题View
+@property (nonatomic, strong) QSPOrderDetailShowingsTimeView *showingsTimeView; //!<看房时间View
+@property (nonatomic, strong) QSPOrderDetailShowingsActivitiesView *showingsActivitiesView; //!<看房活动简介View
+@property (nonatomic, strong) QSPOrderDetailHouseInfoView *houseInfoView;  //!<房源简介View
+@property (nonatomic, strong) QSPOrderDetailHousePriceView *housePriceView;         //!<房源售价单价View
+@property (nonatomic, strong) QSPOrderDetailAddressView *addressView;   //!<地址栏View
+@property (nonatomic, strong) QSPOrderDetailPersonInfoView *personView; //!<业主信息View
+@property (nonatomic, strong) QSPOrderDetailActivitiesPhoneView *activitiesPhoneView;    //!<看房活动联系电话View
+@property (nonatomic, strong) QSPOrderDetailOtherPriceView *otherPriceView;         //!<对方出价View
+@property (nonatomic, strong) QSPOrderDetailMyPriceView *myPriceView;            //!<我的出价View
+@property (nonatomic, strong) QSPOrderDetailInputMyPriceView *inputMyPriceView;       //!<输入我的出价View
+@property (nonatomic, strong) QSPOrderDetailTransactionPriceView *transactionPriceView;   //!<最后成交价View
+@property (nonatomic, strong) QSPOrderDetailBargainingPriceHistoryView *bargainingPriceHistoryView; //!<和对方议价记录View
+@property (nonatomic, strong) QSPOrderDetailRemarkRejectPriceView *remarkRejectPriceView;  //!<备注:拒绝还价将视为取消订单View
+@property (nonatomic, strong) QSPOrderDetailOrderCancelByOwnerTipView *orderCancelByOwnerTipView;     //!<订单取消原因：业主取消预约View
+@property (nonatomic, strong) QSPOrderDetailCommentNoteTipsView *commentNoteTipsView;    //!<预约结束评价提示View
+@property (nonatomic, strong) QSPOrderDetailOrderCancelByMeTipView *orderCancelByMeTipView;     //!<订单取消原因：我取消预约View
+@property (nonatomic, strong) QSPOrderDetailComplaintAndCommentButtonView *complaintAndCommentButtonView;  //!<我要投诉和评价房源按钮View
+@property (nonatomic, strong) QSPOrderDetailAppointAgainAndPriceAgainButtonView *appointAgainAndPriceAgainButtonView;  //!<再次预约和我要议价按钮View
+@property (nonatomic, strong) QSPOrderDetailAppointAgainAndRejectPriceButtonView *appointAgainAndRejectPriceButtonView;  //!<再次预约和拒绝还价按钮View
+@property (nonatomic, strong) QSPOrderDetailRejectAndAcceptAppointmentButtonView *rejectAndAcceptAppointmentButtonView;    //!<拒绝预约和接受预约按钮View
+@property (nonatomic, strong) QSPOrderDetailCancelTransAndWarmBuyerButtonView *cancelTransactionAndWarmBuyerButtonView;    //!<取消成交和提醒房客按钮View
+@property (nonatomic, strong) QSPOrderDetailChangeOrderButtonView *changeOrderButtonView;  //!<修改订单按钮View
+@property (nonatomic, strong) QSPOrderDetailConfirmOrderButtonView *confirmOrderButtonView; //!<房源非常满意，我要成交按钮View
+@property (nonatomic, strong) QSPOrderDetailSubmitPriceButtonView *submitPriceButtonView;  //!<提交出价按钮View
+@property (nonatomic, strong) QSPOrderDetailAppointmentSalerAgainButtonView *appointmentSalerAgainButtonView;    //!<重新预约业主按钮View
+@property (nonatomic, strong) QSPOrderDetailChangeAppointmentButtonView *changeAppointmentButtonView;    //!<修改预约按钮View
+
 
 @end
 
@@ -108,15 +155,23 @@
     [scrollView addSubview:self.showingsTimeView];
     
     ///房源简介
-    self.houseInfoSView = [[QSPHouseSummaryView alloc] initAtTopLeft:CGPointMake(0.0f, self.showingsTimeView.frame.origin.y+self.showingsTimeView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
+    self.houseInfoView = [[QSPOrderDetailHouseInfoView alloc] initAtTopLeft:CGPointMake(0.0f, self.showingsTimeView.frame.origin.y+self.showingsTimeView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         NSLog(@"房源 clickBt");
     }];
-    [scrollView addSubview:_houseInfoSView];
+    [scrollView addSubview:_houseInfoView];
     ///将房源简介引用添加进看房时间控件管理作动态高度扩展
-    [self.showingsTimeView addAfterView:&_houseInfoSView];
+    [self.showingsTimeView addAfterView:&_houseInfoView];
+    
+    ///房源价格
+    self.housePriceView = [[QSPOrderDetailHousePriceView alloc] initAtTopLeft:CGPointMake(0.0f, self.houseInfoView.frame.origin.y+self.houseInfoView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
+        NSLog(@" clickBt");
+    }];
+    [scrollView addSubview:_housePriceView];
+    ///将房源价格引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_housePriceView];
     
     ///地址栏
-    self.addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, self.houseInfoSView.frame.origin.y+self.houseInfoSView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
+    self.addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, self.housePriceView.frame.origin.y+self.housePriceView.frame.size.height) withHouseData:houseData andCallBack:^(UIButton *button) {
         
         NSLog(@"地图定位 clickBt");
         
@@ -180,8 +235,8 @@
         NSLog(@"%@ StatusTitle:%@",detailData.order_status,_titleTipLabel.text);
     }
     
-    if (_houseInfoSView) {
-        [_houseInfoSView setHouseData:detailData.house_msg];
+    if (_houseInfoView) {
+        [_houseInfoView setHouseData:detailData.house_msg];
     }
     
     if (_addressView) {
@@ -239,6 +294,7 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             self.orderDetailData = headerModel.orderDetailData;
+            [self.orderDetailData updateViewsFlags];
             [self updateData:self.orderDetailData];
             
         }else{

@@ -10,18 +10,23 @@
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
+#import "QSImageView+Block.h"
+
+#import <objc/runtime.h>
 
 ///不过的自定义按钮tag
 typedef enum
 {
 
-    sSettingFieldActionTypeOpinionFeedback = 99,//!<意见返馈
-    sSettingFieldActionTypeRecommendScore,      //!<推荐评分
-    sSettingFieldActionTypeAboutus,             //!<关于我们
-    sSettingFieldActionTypeCheckVersion,        //!<版本检测
-    sSettingFieldActionTypeClearCache,          //!<清空缓存
+    sSelfSettingFieldActionTypeName = 99,   //!<姓名
+    sSelfSettingFieldActionTypeSex,         //!<性别
+    sSelfSettingFieldActionTypePhone,       //!<手机号码
+    sSelfSettingFieldActionTypePassword,    //!<账号密码
 
-}SETTING_FIELD_ACTION_TYPE;
+}SELFSETTING_FIELD_ACTION_TYPE;
+
+///关联
+static char IconImageViewKey;   //!<头像关联
 
 @interface QSYMySettingViewController () <UITextFieldDelegate>
 
@@ -34,95 +39,84 @@ typedef enum
 {
 
     [super createNavigationBarUI];
-    [self setNavigationBarTitle:@"设置"];
+    [self setNavigationBarTitle:@"个人设置"];
 
 }
 
 - (void)createMainShowUI
 {
     
-    ///消息提醒
-    UILabel *msgTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP + 64.0f, 80.0f, 44.0f)];
-    msgTipsLabel.text = @"消息提醒";
+    ///头像
+    UILabel *msgTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 85.0f / 2.0f + 64.0f - 15.0f, 80.0f, 30.0f)];
+    msgTipsLabel.text = @"头       像";
     msgTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     msgTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
     [self.view addSubview:msgTipsLabel];
     
-    ///开关按钮
-    UISwitch *tipsSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 60.0f, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP + 64.0f + 3.0f, 60.0f, 30.0f)];
-    tipsSwitch.onTintColor = COLOR_CHARACTERS_LIGHTYELLOW;
-    tipsSwitch.on = YES;
-    [self.view addSubview:tipsSwitch];
-    
-    ///分隔线
-    UILabel *msgTipsSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(msgTipsLabel.frame.origin.x + 5.0f, msgTipsLabel.frame.origin.y + msgTipsLabel.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    msgTipsSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:msgTipsSepLabel];
-    
-    ///意见返馈
-    UITextField *opinionFeedback = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, msgTipsLabel.frame.origin.y + msgTipsLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"意见返馈" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
-    opinionFeedback.delegate = self;
-    opinionFeedback.tag = sSettingFieldActionTypeOpinionFeedback;
-    [self.view addSubview:opinionFeedback];
-    
-    ///分隔线
-    UILabel *opinionFeedbackSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(opinionFeedback.frame.origin.x + 5.0f, opinionFeedback.frame.origin.y + opinionFeedback.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    opinionFeedbackSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:opinionFeedbackSepLabel];
-    
-    ///推荐评分
-    UITextField *recommendScore = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, opinionFeedback.frame.origin.y + opinionFeedback.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"推荐评分" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
-    recommendScore.delegate = self;
-    recommendScore.tag = sSettingFieldActionTypeRecommendScore;
-    [self.view addSubview:recommendScore];
-    
-    ///分隔线
-    UILabel *recommendScoreSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(recommendScore.frame.origin.x + 5.0f, recommendScore.frame.origin.y + recommendScore.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    recommendScoreSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:recommendScoreSepLabel];
-    
-    ///关于我们
-    UITextField *aboutUs = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, recommendScore.frame.origin.y + recommendScore.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"关于我们" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
-    aboutUs.delegate = self;
-    aboutUs.tag = sSettingFieldActionTypeAboutus;
-    [self.view addSubview:aboutUs];
-    
-    ///分隔线
-    UILabel *aboutusSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(aboutUs.frame.origin.x + 5.0f, aboutUs.frame.origin.y + aboutUs.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    aboutusSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:aboutusSepLabel];
-    
-    ///版本检测
-    UITextField *checkVersion = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, aboutUs.frame.origin.y + aboutUs.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"版本检测" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
-    checkVersion.delegate = self;
-    checkVersion.tag = sSettingFieldActionTypeCheckVersion;
-    [self.view addSubview:checkVersion];
-    
-    ///分隔线
-    UILabel *checkVersionSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkVersion.frame.origin.x + 5.0f, checkVersion.frame.origin.y + checkVersion.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    checkVersionSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:checkVersionSepLabel];
-    
-    ///清空缓存
-    UITextField *clearCaches = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, checkVersion.frame.origin.y + checkVersion.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"清空缓存" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
-    clearCaches.delegate = self;
-    clearCaches.tag = sSettingFieldActionTypeClearCache;
-    [self.view addSubview:clearCaches];
-    
-    ///分隔线
-    UILabel *clearCachesSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(clearCaches.frame.origin.x + 5.0f, clearCaches.frame.origin.y + clearCaches.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
-    clearCachesSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.view addSubview:clearCachesSepLabel];
-    
-    ///按钮风格
-    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
-
-    ///退出按钮
-    buttonStyle.title = @"退出";
-    UIButton *logoutButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - VIEW_SIZE_NORMAL_BUTTON_HEIGHT - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    ///头像图片
+    UIImageView *iconImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 65.0f - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 64.0f + 10.0f, 65.0f, 65.0f) andSingleTapCallBack:^{
+        
+        ///弹出图片选择提示
+        [self popPickedImageTipsView];
         
     }];
-    [self.view addSubview:logoutButton];
+    iconImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_158];
+    [self.view addSubview:iconImageView];
+    objc_setAssociatedObject(self, &IconImageViewKey, iconImageView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///头像六角
+    QSImageView *iconSixformImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconImageView.frame.size.width, iconImageView.frame.size.height)];
+    iconSixformImageView.image = [UIImage imageNamed:IMAGE_USERICON_HOLLOW_80];
+    [iconImageView addSubview:iconSixformImageView];
+    
+    ///分隔线
+    UILabel *iconSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(msgTipsLabel.frame.origin.x, iconImageView.frame.origin.y + iconImageView.frame.size.height + 10.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
+    iconSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:iconSepLabel];
+    
+    ///姓名
+    UITextField *nameField = [UITextField createCustomTextFieldWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, iconSepLabel.frame.origin.y + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"姓      名" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    nameField.delegate = self;
+    nameField.tag = sSelfSettingFieldActionTypeName;
+    [self.view addSubview:nameField];
+    
+    ///分隔线
+    UILabel *nameSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameField.frame.origin.x + 5.0f, nameField.frame.origin.y + nameField.frame.size.height + 3.5f, nameField.frame.size.width - 10.0f, 0.25f)];
+    nameSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:nameSepLabel];
+    
+    ///别性
+    UITextField *genderField = [UITextField createCustomTextFieldWithFrame:CGRectMake(nameField.frame.origin.x, nameField.frame.origin.y + nameField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, nameField.frame.size.width, nameField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"性       别" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    genderField.delegate = self;
+    genderField.tag = sSelfSettingFieldActionTypeSex;
+    [self.view addSubview:genderField];
+    
+    ///分隔线
+    UILabel *genderSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(genderField.frame.origin.x + 5.0f, genderField.frame.origin.y + genderField.frame.size.height + 3.5f, genderField.frame.size.width - 10.0f, 0.25f)];
+    genderSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:genderSepLabel];
+    
+    ///手机
+    UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(genderField.frame.origin.x, genderField.frame.origin.y + genderField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, genderField.frame.size.width, genderField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"手机号码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    phoneField.delegate = self;
+    phoneField.tag = sSelfSettingFieldActionTypePhone;
+    [self.view addSubview:phoneField];
+    
+    ///分隔线
+    UILabel *phoneSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(phoneField.frame.origin.x + 5.0f, phoneField.frame.origin.y + phoneField.frame.size.height + 3.5f, phoneField.frame.size.width - 10.0f, 0.25f)];
+    phoneSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:phoneSepLabel];
+    
+    ///版本检测
+    UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(phoneField.frame.origin.x, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, phoneField.frame.size.width, phoneField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"账户密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    passwordField.delegate = self;
+    passwordField.tag = sSelfSettingFieldActionTypeName;
+    [self.view addSubview:passwordField];
+    
+    ///分隔线
+    UILabel *pswSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(passwordField.frame.origin.x + 5.0f, passwordField.frame.origin.y + passwordField.frame.size.height + 3.5f, passwordField.frame.size.width - 10.0f, 0.25f)];
+    pswSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:pswSepLabel];
 
 }
 
@@ -131,47 +125,38 @@ typedef enum
 {
     
     switch (textField.tag) {
-            ///意见返馈
-        case sSettingFieldActionTypeOpinionFeedback:
+            ///姓名
+        case sSelfSettingFieldActionTypeName:
         {
         
-            APPLICATION_LOG_INFO(@"意见返馈", @"")
+            APPLICATION_LOG_INFO(@"姓名", @"")
         
         }
             break;
             
-            ///推荐评分
-        case sSettingFieldActionTypeRecommendScore:
+            ///性别
+        case sSelfSettingFieldActionTypeSex:
         {
             
-            APPLICATION_LOG_INFO(@"推荐评分", @"")
+            APPLICATION_LOG_INFO(@"性别", @"")
             
         }
             break;
             
-            ///关于我们
-        case sSettingFieldActionTypeAboutus:
+            ///手机
+        case sSelfSettingFieldActionTypePhone:
         {
             
-            APPLICATION_LOG_INFO(@"关于我们", @"")
+            APPLICATION_LOG_INFO(@"手机", @"")
             
         }
             break;
             
-            ///版本检测
-        case sSettingFieldActionTypeCheckVersion:
+            ///密码
+        case sSelfSettingFieldActionTypePassword:
         {
             
-            APPLICATION_LOG_INFO(@"版本检测", @"")
-            
-        }
-            break;
-            
-            ///清空缓存
-        case sSettingFieldActionTypeClearCache:
-        {
-            
-            APPLICATION_LOG_INFO(@"清空缓存", @"")
+            APPLICATION_LOG_INFO(@"密码", @"")
             
         }
             break;
@@ -182,6 +167,14 @@ typedef enum
     }
     
     return NO;
+
+}
+
+#pragma mark - 弹出图片选择提示
+- (void)popPickedImageTipsView
+{
+
+    
 
 }
 

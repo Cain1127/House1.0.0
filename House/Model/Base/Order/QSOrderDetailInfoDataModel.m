@@ -27,8 +27,51 @@
     
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"saler_msg" toKeyPath:@"saler_msg" withMapping:[QSOrderListOrderInfoPersonInfoDataModel objectMapping]]];
     
-    
     return shared_mapping;
+    
+}
+
+
+- (void)setAllViewsFlagWithFlag:(BOOL)flag
+{
+    //重置Flag
+    self.isShowTitleView = flag;
+    self.isShowShowingsTimeView = flag;
+    self.isShowShowingsActivitiesView = flag;
+    self.isShowHouseInfoView = flag;
+    self.isShowHousePriceView = flag;
+    self.isShowAddressView = flag;
+    self.isShowOwnerInfoView = flag;
+    self.isShowActivitiesPhoneView = flag;
+    self.isShowOtherPriceView = flag;
+    self.isShowMyPriceView = flag;
+    self.isShowInputMyPriceView = flag;
+    self.isShowTransactionPriceView = flag;
+    self.isShowBargainingPriceHistoryView = flag;
+    self.isShowRemarkRejectPriceView = flag;
+    self.isShowOrderCancelByOwnerTipView = flag;
+    self.isShowCommentNoteTipsView = flag;
+    self.isShowOrderCancelByMeTipView = flag;
+    self.isShowComplaintAndCommentButtonView = flag;
+    self.isShowAppointAgainAndPriceAgainButtonView = flag;
+    self.isShowAppointAgainAndRejectPriceButtonView = flag;
+    self.isShowRejectAndAcceptAppointmentButtonView = flag;
+    self.isShowCancelTransAndWarmBuyerButtonView = flag;
+    self.isShowChangeOrderButtonView = flag;
+    self.isShowConfirmOrderButtonView = flag;
+    self.isShowSubmitPriceButtonView = flag;
+    self.isShowAppointmentSalerAgainButtonView = flag;
+    self.isShowChangeAppointmentButtonView = flag;
+    
+}
+
+- (void)updateViewsFlags
+{
+    
+    [self setAllViewsFlagWithFlag:NO];
+    
+    
+    
     
 }
 

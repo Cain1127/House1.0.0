@@ -589,12 +589,13 @@ typedef enum
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
     rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
     rRequestTypeMyZoneAddAskRentPurpase,        //!<添加求租求购
+    rRequestTypeLoadImage,                      //!<上传图片
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
     rRequestTypeOrderDetailData = 8001,         //!<订单详情
     rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据
-    rRequestTypeBookOrderListData = 8008,           //!<预约订单列表数据
+    rRequestTypeBookOrderListData = 8008,       //!<预约订单列表数据
     
     rRequestTypeOrderAddAppointment = 8011,     //!<添加预约订单数据
     

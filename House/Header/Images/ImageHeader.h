@@ -59,6 +59,15 @@
 ///摇一摇图片
 #define IMAGE_PUBLIC_SHAKE @"public_shake"
 
+///暂无关注小区
+#define IMAGE_PUBLIC_NOINTENTION @"public_no_intention_community"
+
+///暂无收藏房源
+#define IMAGE_PUBLIC_NOCOLLECTED @"public_no_collected"
+
+///暂无浏览房源
+#define IMAGE_PUBLIC_NOHISTORY @"public_no_history"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
@@ -81,6 +90,18 @@
 #define IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED @"navigationbar_collect_highlighted"
 #define IMAGE_NAVIGATIONBAR_COLLECTED_NORMAL @"navigationbar_collected_normal"
 
+///确认提交按对勾按钮
+#define IMAGE_NAVIGATIONBAR_CONFIRM_NORMAL @"navigationbar_confirm_normal"
+#define IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED @"navigationbar_confirm_highlighted"
+
+///加号图标的添加按钮
+#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal_normal"
+#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_normal_highlighted"
+
+///交叉图片取消按钮
+#define IMAGE_NAVIGATIONBAR_CANCEL_NORMAL @"navigationbar_corss_normal"
+#define IMAGE_NAVIGATIONBAR_CANCEL_HIGHLIGHTED @"navigationbar_corss_highlighted"
+
 ///分享按钮图片
 #define IMAGE_NAVIGATIONBAR_SHARE_NORMAL @"navigationbar_share_normal"
 #define IMAGE_NAVIGATIONBAR_SHARE_HIGHLIGHTED @"navigationbar_share_highlighted"
@@ -101,6 +122,7 @@
 #define IMAGE_NAVIGATIONBAR_MAPLIST_NORMAL @"navigationbar_maplist_normal"
 #define IMAGE_NAVIGATIONBAR_MAPLIST_HIGHLIGHTED @"navigationbar_maplist_highlighted"
 
+///展示或收超的三角形指示
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
@@ -365,6 +387,16 @@
 ///预约订单列表接受按钮选中图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED  @"myzone_oorderlist_cell_accept_bt_selected"
 
+///预约订单列表成交按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL    @"myzone_oorderlist_cell_confirm_bt_normal"
+///预约订单列表成交按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED  @"myzone_oorderlist_cell_confirm_bt_selected"
+
+///预约订单列表同意还价按钮默认图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_NORMAL    @"myzone_oorderlist_cell_accept_price_bt_normal"
+///预约订单列表同意还价按钮选中图片
+#define IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_SELECTED  @"myzone_oorderlist_cell_accept_price_bt_selected"
+
 ///预约订单列表拒绝按钮默认图片
 #define IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_NORMAL    @"myzone_oorderlist_cell_reject_bt_normal"
 ///预约订单列表拒绝按钮选中图片
@@ -399,6 +431,12 @@
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_NORMAL   @"myzone_oorderdetail_map_bt_normal"
 ///订单详情地址栏地图定位按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_MAP_BT_PRESSED  @"myzone_oorderdetail_map_bt_pressed"
+
+///订单详情地址栏计算器按钮默认图片
+#define IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_NORMAL   @"myzone_oorderdetail_computer_bt_normal"
+///订单详情地址栏计算器按钮按下图片
+#define IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED  @"myzone_oorderdetail_computer_bt_selected"
+
 
 ///预约订单选择时间月份选择按钮左箭头图片
 #define IMAGE_ZONE_ORDER_CALENDAR_MONTH_LEFT_BT    @"myzone_calendar_month_bt_left"

@@ -306,8 +306,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -328,8 +328,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"同意还价";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPTPRICE_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -381,8 +381,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
             }
@@ -393,8 +393,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -413,8 +413,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -430,8 +430,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
             }
@@ -443,8 +443,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -459,8 +459,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
             }
@@ -472,8 +472,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
@@ -489,8 +489,8 @@
             QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
             rightBt.bottionActionTag = [self.order_status integerValue];
             rightBt.buttonName = @"成交";
-            rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-            rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+            rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+            rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
             [btList addObject:rightBt];
             
         }else if ([self.order_status isEqualToString:@"500221"]) {
@@ -510,8 +510,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
             }
@@ -523,8 +523,8 @@
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
                 

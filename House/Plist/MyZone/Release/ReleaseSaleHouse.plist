@@ -11,7 +11,7 @@
 		<key>order</key>
 		<string>0</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>物业类型</string>
 		<key>filter_key</key>
@@ -26,7 +26,7 @@
 		<key>order</key>
 		<string>1</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>区       域</string>
 		<key>filter_key</key>
@@ -41,7 +41,7 @@
 		<key>order</key>
 		<string>2</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>所在街道</string>
 		<key>filter_key</key>
@@ -86,7 +86,7 @@
 		<key>order</key>
 		<string>5</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>户       型</string>
 		<key>filter_key</key>
@@ -101,7 +101,7 @@
 		<key>order</key>
 		<string>6</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>面       积</string>
 		<key>filter_key</key>
@@ -116,7 +116,7 @@
 		<key>order</key>
 		<string>7</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>售       价</string>
 		<key>filter_key</key>
@@ -131,7 +131,7 @@
 		<key>order</key>
 		<string>8</string>
 		<key>placehold</key>
-		<string>不限</string>
+		<string></string>
 		<key>left_title</key>
 		<string>是否议价</string>
 		<key>filter_key</key>

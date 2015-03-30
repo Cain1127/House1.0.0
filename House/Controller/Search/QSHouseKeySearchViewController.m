@@ -7,130 +7,170 @@
 //
 
 #import "QSHouseKeySearchViewController.h"
-#import "ColorHeader.h"
+#import "QSYSearchHousesViewController.h"
+
+#import "QSCustomPickerView.h"
+
+#import "NSDate+Formatter.h"
+
+#import "QSBlockButtonStyleModel+NavigationBar.h"
+
 #import "QSCoreDataManager+SearchHistory.h"
+#import "QSCoreDataManager+House.h"
+#import "QSLocalSearchHistoryDataModel.h"
+
+#import "QSBaseConfigurationDataModel.h"
+
+#import "MJRefresh.h"
 
 @interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
-@property (nonatomic,retain) NSMutableArray *localSearchHistoryDataSource;//!<数据源
+@property (nonatomic,strong) UITableView *searchItemView;           //!<列表
+@property (nonatomic,strong) UIView *noRecordsRootView;             //!<没有记录底view
+@property (nonatomic,strong) QSCustomPickerView *houseTypePicker;   //!<导航栏列表类型选择
+@property (nonatomic,retain) NSMutableArray *searchDataSource;      //!<数据源
+@property (nonatomic,assign) FILTER_MAIN_TYPE houseType;            //!<房源类型
 
 @end
 
 @implementation QSHouseKeySearchViewController
 
-#pragma mark -添加导航栏视图
--(void)setDataSource:(NSMutableArray *)dataSource
+#pragma mark - 初始化
+- (instancetype)initWithHouseType:(FILTER_MAIN_TYPE)houseType
 {
+
+    if (self = [super init]) {
+        
+        ///保存当前房源类型
+        self.houseType = houseType;
+        
+    }
     
-    ///获取本地搜索历史
-    self.localSearchHistoryDataSource = [[NSMutableArray alloc] initWithArray:[QSCoreDataManager getLocalSearchHistory]];
-  
+    return self;
+
 }
 
-
+#pragma mark - UI搭建
 -(void)createNavigationBarUI
 {
-    [super createNavigationBarUI];
     
-   ///创建导航栏搜索输入框
-    UITextField *seachTextField=[[UITextField alloc]initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH-150.0f, 30.0f)];
+    ///指针
+    __block UITextField *seachTextField;
     
-    seachTextField.backgroundColor=[UIColor whiteColor];
-    
-    ///设置站位文字
-    seachTextField.placeholder=[NSString stringWithFormat:@"请输入小区名称或地址"];
-    
-    /// 设置字体与边框类型
-    seachTextField.font=[UIFont systemFontOfSize:14.0f];
-    seachTextField.borderStyle=UITextBorderStyleRoundedRect;
-    
-    ///设置键盘的返回按钮点击类型
-    seachTextField.returnKeyType=UIReturnKeySearch;
-    seachTextField.autocorrectionType=UITextAutocorrectionTypeNo;
-    
-    seachTextField.delegate=self;
-    
-    ///添加导航栏中间搜索栏
-    [self setNavigationBarMiddleView:seachTextField];
-    
-    
-    ///添加右侧交叉按钮
-    __weak UIViewController *weakSelf = self;
-    UIButton *corssButton=[UIButton createBlockButtonWithButtonStyle:nil andCallBack:^(UIButton *button) {
+    ///中间选择列表类型按钮
+    QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",self.houseType]];
+    self.houseTypePicker = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(5.0f, 22.0f, 80.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *selectedKey, NSString *selectedVal) {
         
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-        
-        if ([weakSelf respondsToSelector:@selector(gotoTurnBackAction)]) {
+        ///弹出时，回收键盘
+        if (pPickerCallBackActionTypeShow == callBackType) {
             
-            [weakSelf performSelector:@selector(gotoTurnBackAction)];
+            [seachTextField resignFirstResponder];
             
         }
         
-#pragma clang diagnostic pop
+        ///选择不同的列表类型，事件处理
+        if (pPickerCallBackActionTypePicked == callBackType) {
+            
+            ///保存类型
+            self.houseType = [selectedKey intValue];
+            
+            ///刷新数据
+            [self.searchItemView headerBeginRefreshing];
+            
+        }
         
     }];
-   
-    [corssButton setImage:[UIImage imageNamed:@"navigationbar_corss_normal"] forState:UIControlStateNormal];
+    [self.view addSubview:self.houseTypePicker];
     
-    //添加导航栏右边图片
-    [self setNavigationBarRightView:corssButton];
+    ///创建导航栏搜索输入框
+    seachTextField = [[UITextField alloc]initWithFrame:CGRectMake(self.houseTypePicker.frame.origin.x +  self.houseTypePicker.frame.size.width + 8.0f, 27.0f, SIZE_DEVICE_WIDTH - self.houseTypePicker.frame.size.width - 44.0f - 15.0f, 30.0f)];
+    seachTextField.backgroundColor = [UIColor whiteColor];
+    seachTextField.placeholder = [NSString stringWithFormat:@"请输入小区名称或地址"];
+    seachTextField.font = [UIFont systemFontOfSize:14.0f];
+    seachTextField.borderStyle = UITextBorderStyleRoundedRect;
+    seachTextField.returnKeyType = UIReturnKeySearch;
+    seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    seachTextField.delegate = self;
+    [self.view addSubview:seachTextField];
+    
+    ///取消搜索按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCancel];
+    
+    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        [self gotoTurnBackAction];
+        
+    }];
+    [self.view addSubview:cancelButton];
+    
+    ///分隔线
+    UILabel *sepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f - 0.25f, SIZE_DEVICE_WIDTH, 0.25f)];
+    sepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:sepLine];
     
 }
 
-#pragma mark -添加中间视图
 - (void)createMainShowUI
 {
+    
     [super createMainShowUI];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    ///创建无记录
+    self.noRecordsRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
+    self.noRecordsRootView.hidden = YES;
+    [self createNoRecordsUI];
+    [self.view addSubview:self.noRecordsRootView];
     
-    ///加载没有搜索历史记录界面
-//    [self setupHistoryView];
+    ///初始化数据源
+    self.searchDataSource = [[NSMutableArray alloc] init];
     
-    ///加载有搜索历史界面
-    [self setupTableView];
+    self.searchItemView = [[UITableView alloc]initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) style:UITableViewStylePlain];
+    
+    ///设置数据源和代理
+    self.searchItemView.delegate = self;
+    self.searchItemView.dataSource = self;
+    self.searchItemView.backgroundColor = [UIColor clearColor];
+    
+    ///取消滚动条
+    self.searchItemView.showsHorizontalScrollIndicator = NO;
+    self.searchItemView.showsVerticalScrollIndicator = NO;
+    
+    ///取消分隔样式
+    self.searchItemView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.view addSubview:self.searchItemView];
+    
+    ///添加刷新
+    [self.searchItemView addHeaderWithTarget:self action:@selector(getLocalSearchHistoryData)];
+    [self.searchItemView headerBeginRefreshing];
    
 }
 
-///添加没有搜索历史记录界面
--(void)setupHistoryView
+///创建无记录提示UI
+- (void)createNoRecordsUI
 {
     
     ///添加没有搜索历史记录图片
-    UIImageView *seachImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH *0.5 -40.0f, 150.0f, 75.0f, 85.0f)];
-    seachImageView.image=[UIImage imageNamed:@"seach_seachstatus"];
-    [self.view addSubview:seachImageView];
-    
+    UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) * 0.5, (SIZE_DEVICE_HEIGHT - 64.0f) / 2.0f - 85.0f, 75.0f, 85.0f)];
+    searchImageView.image = [UIImage imageNamed:@"seach_seachstatus"];
+    searchImageView.tag = 200;
+    [self.noRecordsRootView addSubview:searchImageView];
     
     ///添加没有搜索历史记录
-    UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 240.0f, SIZE_DEVICE_WIDTH, 30.0f)];
-    label.text=@"没有搜索历史记录";
+    UILabel *tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, searchImageView.frame.origin.y + searchImageView.frame.size.height + 15.0f, SIZE_DEVICE_WIDTH, 30.0f)];
+    tipsLabel.text = @"没有搜索历史记录";
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
+    tipsLabel.tag = 201;
+    [self.noRecordsRootView addSubview:tipsLabel];
     
-    ///设置文字居中
-    label.textAlignment=NSTextAlignmentCenter;
-    
-    [self.view addSubview:label];
-    
-}
-
-///添加tableView
--(void)setupTableView
-{
- 
-    CGRect rect=CGRectMake(0, 64, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f-49.0f);
-    UITableView *tableView=[[UITableView alloc]initWithFrame:rect];
-    tableView.delegate=self;
-    tableView.dataSource=self;
-    [self.view addSubview:tableView];
-
 }
 
 ///返回的行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 5;
+    return [self.searchDataSource count];
     
 }
 
@@ -138,36 +178,60 @@
 ///返回每一个搜索记录显示cell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-   static NSString *acell=@"cellIndentifier";
     
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:acell];
-    
-    if (cell==nil) {
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:acell];
+    static NSString *searchItemCell = @"searchItemCell";
+    UITableViewCell *cellSearchItem = [tableView dequeueReusableCellWithIdentifier:searchItemCell];
+    if (nil == cellSearchItem) {
         
-        cell.textLabel.text=@"历史搜索关键词";
+        cellSearchItem = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:searchItemCell];
+        cellSearchItem.backgroundColor = [UIColor whiteColor];
+        
+        ///分隔线
+        UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 44.0f - 0.25f, SIZE_DEVICE_WIDTH - 20.0f, 0.25f)];
+        sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [cellSearchItem addSubview:sepLabel];
+        
     }
-    return cell;
+    
+    ///搜索记录的标题
+    QSLocalSearchHistoryDataModel *dataModel = self.searchDataSource[indexPath.row];
+    cellSearchItem.textLabel.text = dataModel.search_keywork;
+    
+    return cellSearchItem;
+    
 }
 
-#pragma mark -设置列表Header信息
+#pragma mark - 设置列表Header信息
 ///添加列表头部view
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIButton *headButton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        NSLog(@"清空历史记录");
-    }];
+    if ([self.searchDataSource count] > 0) {
+        
+        UIButton *headButton=[UIButton createBlockButtonWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+            ///清空当前类型的数据，并刷新UI
+            [QSCoreDataManager clearLocalSearchHistoryWithHouseType:self.houseType andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    [self.searchItemView headerBeginRefreshing];
+                    
+                }
+                
+            }];
+        
+        }];
+        headButton.backgroundColor=COLOR_CHARACTERS_YELLOW;
+        [headButton setTintColor:COLOR_CHARACTERS_GRAY];
+        [headButton setTitle:@"点击清空历史记录" forState:UIControlStateNormal];
+        headButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
+        
+        return headButton;
+        
+    }
     
-    headButton.backgroundColor=COLOR_CHARACTERS_YELLOW;
-  
-    [headButton setTintColor:COLOR_CHARACTERS_GRAY];
-    [headButton setTitle:@"点击清空历史记录" forState:UIControlStateNormal];
-    
-    headButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-
-    return headButton;
+    return nil;
     
 }
 
@@ -175,21 +239,93 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 44.0f;
+    if ([self.searchDataSource count] > 0) {
+        
+        return 44.0f;
+        
+    }
+    
+    return 0.0f;
     
 }
 
-#pragma mark - 键盘回收事件
+#pragma mark - 选择搜索历史
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if ([self.searchDataSource count] > 0) {
+        
+        QSLocalSearchHistoryDataModel *tempModel = self.searchDataSource[indexPath.row];
+        
+        ///进入房源搜索列表
+        QSYSearchHousesViewController *searchHouseVC = [[QSYSearchHousesViewController alloc] initWithHouseType:self.houseType andSearchKey:tempModel.search_keywork];
+        [self.navigationController pushViewController:searchHouseVC animated:YES];
+        
+    }
+
+}
+
+#pragma mark - 获取搜索历史
+- (void)getLocalSearchHistoryData
+{
+    
+    ///清空原数据
+    [self.searchDataSource removeAllObjects];
+
+    NSArray *tempArray = [QSCoreDataManager getLocalSearchHistoryWithHouseType:self.houseType];
+    if ([tempArray count] > 0) {
+        
+        [self.searchDataSource addObjectsFromArray:tempArray];
+        self.noRecordsRootView.hidden = YES;
+        
+    } else {
+    
+        self.noRecordsRootView.hidden = NO;
+    
+    }
+    
+    ///刷新数据
+    [self.searchItemView reloadData];
+    
+    ///结束刷新动画
+    [self.searchItemView headerEndRefreshing];
+
+}
+
+#pragma mark - 点击键盘搜索事件
 ///键盘回收
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     
     [textField resignFirstResponder];
     
-    NSLog(@"搜索内容%@",textField.text);
-    NSLog(@"搜索返回的内容%@",self.localSearchHistoryDataSource);
+    ///保存搜索
+    if ([textField.text length] > 0) {
+        
+        NSString *inputString = textField.text;
+        
+        ///保存搜索记录
+        QSLocalSearchHistoryDataModel *tempModel = [[QSLocalSearchHistoryDataModel alloc] init];
+        tempModel.search_keywork = inputString;
+        tempModel.search_time = [NSDate currentDateTimeStamp];
+        tempModel.search_type = [NSString stringWithFormat:@"%d",self.houseType];
+        
+        [QSCoreDataManager addLocalSearchHistory:tempModel andCallBack:^(BOOL flag) {}];
+        
+        ///刷新列表
+        [self.searchItemView headerBeginRefreshing];
+        
+        ///清空原信息
+        textField.text = nil;
+        
+        ///进入搜索房源结果页
+        QSYSearchHousesViewController *searchHouseVC = [[QSYSearchHousesViewController alloc] initWithHouseType:self.houseType andSearchKey:inputString];
+        [self.navigationController pushViewController:searchHouseVC animated:YES];
+        
+    }
     
     return YES;
     
 }
+
 @end

@@ -734,7 +734,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
             [rootView headerEndRefreshing];
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取小区详情信息失败，请稍后再试……",1.0f,^(){
                 
                 ///推回上一页
                 [self.navigationController popViewControllerAnimated:YES];

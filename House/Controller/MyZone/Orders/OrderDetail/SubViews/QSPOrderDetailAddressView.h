@@ -10,8 +10,6 @@
 
 @interface QSPOrderDetailAddressView : UIView
 
-@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
-
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;
 
 - (instancetype)initWithFrame:(CGRect)frame withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack;

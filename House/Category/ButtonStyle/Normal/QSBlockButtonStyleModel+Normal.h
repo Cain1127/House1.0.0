@@ -15,9 +15,11 @@ typedef enum
     nNormalButtonTypeCornerWhite = 400,     //!<普通白色圆角按钮
     nNormalButtonTypeCornerYellow,          //!<普通黄色圆角按钮
     nNormalButtonTypeCornerLightYellow,     //!<浅黄色圆角按钮
-     nNormalButtonTypeCornerWhiteGray,      //!<白字圆角灰底按钮
+    nNormalButtonTypeCornerWhiteGray,       //!<白字圆角灰底按钮
+    
     nNormalButtonTypeClearGray,             //!<灰字白底按钮
     nNormalButtonTypeClearLightGray,        //!<浅灰字白底按钮
+    
     nNormalButtonTypeClear                  //!<黑字白色按钮
 
 }NORMAL_BUTTON_TYPE;

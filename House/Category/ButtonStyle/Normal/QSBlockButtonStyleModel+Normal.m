@@ -62,14 +62,14 @@
             
             break;
             
-            ///黑字白底按钮
+            ///灰字白底按钮
         case nNormalButtonTypeClearGray:
             
             return [self createNormalClearGrayButton];
             
             break;
             
-            ///黑字白底按钮
+            ///淡灰字白底按钮
         case nNormalButtonTypeClearLightGray:
             
             return [self createNormalClearLightGrayButton];

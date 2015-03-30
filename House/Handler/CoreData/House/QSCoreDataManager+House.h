@@ -270,4 +270,26 @@
  */
 + (NSArray *)getWeeksPickedType;
 
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  出租房的状态
+ *
+ *  @return 返回出租房的状态
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseStatusTypes;
+
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  房子的物业管理费
+ *
+ *  @return 返回出房子的物业管理费
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getHousePropertyManagementFees;
+
 @end
