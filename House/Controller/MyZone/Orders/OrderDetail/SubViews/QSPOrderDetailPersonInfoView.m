@@ -58,7 +58,7 @@
                     
                     ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
                     
-                    NSString *tempPhoneStr = owner.mobile;
+                    NSString *tempPhoneStr = [NSString stringWithString:owner.mobile];
                     BOOL hidePhone = YES;
                     if (hidePhone) {
                         if ([tempPhoneStr length]>=8) {
@@ -154,7 +154,7 @@
                 
                 ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
                 
-                NSString *tempPhoneStr = owner.mobile;
+                NSString *tempPhoneStr = [NSString stringWithString:owner.mobile];
                 BOOL hidePhone = YES;
                 if (hidePhone) {
                     if ([tempPhoneStr length]>=8) {
@@ -168,6 +168,7 @@
                 phoneStr = [NSString stringWithFormat:@"电话:%@",tempPhoneStr];
                 
             }
+            
         }
     }
     

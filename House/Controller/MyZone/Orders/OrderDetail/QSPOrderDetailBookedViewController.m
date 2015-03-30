@@ -77,7 +77,7 @@
 @end
 
 @implementation QSPOrderDetailBookedViewController
-@synthesize orderData;
+@synthesize orderListItemData, selectedIndex;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -105,13 +105,13 @@
     //订单数据
     id orderList = nil;
     
-    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
         
-        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+        if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
             
-            orderList = self.orderData.orderInfoList;
+            orderList = self.orderListItemData.orderInfoList;
             
-            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
+            QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
             if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                 titleTip = [orderItem getStatusTitle];
             }
@@ -122,8 +122,8 @@
             
         }
         
-        if (self.orderData.houseData) {
-            houseData = self.orderData.houseData;
+        if (self.orderListItemData.houseData) {
+            houseData = self.orderListItemData.houseData;
         }
         
     }
@@ -137,7 +137,7 @@
         NSLog(@"changeOrderButton");
         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
         [bookTimeVc setVcType:bBookTypeViewControllerChange];
-        if (self.orderData) {
+        if (self.orderListItemData) {
             
         }
 //        [bookTimeVc setHouseInfo:<#(QSWSecondHouseInfoDataModel *)#>];
@@ -193,7 +193,7 @@
     [self.showingsTimeView addAfterView:&_addressView];
     
     //业主信息栏
-    self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, _addressView.frame.origin.y+_addressView.frame.size.height) withOrderData:self.orderData andCallBack:^(UIButton *button) {
+    self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, _addressView.frame.origin.y+_addressView.frame.size.height) withOrderData:self.orderListItemData andCallBack:^(UIButton *button) {
         
         NSLog(@"askButton");
         
@@ -203,8 +203,6 @@
     [self.showingsTimeView addAfterView:&_personView];
 
     [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.personView.frame.origin.y+self.personView.frame.size.height)];
-    
-    
     
 }
 
@@ -257,10 +255,10 @@
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     NSString *orderID = nil;
-    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
-        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
+        if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
             
-            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
+            QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
             if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                 
                 orderID = orderItem.id_;
@@ -274,6 +272,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             [self.navigationController popViewControllerAnimated:YES];
         })
+        return;
     }
     
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];

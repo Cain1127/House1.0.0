@@ -246,7 +246,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
         if ([self.bookingListDataSource count]>indexPath.row) {
             QSOrderListItemData *orderItem = [self.bookingListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+            [bookedVc setOrderListItemData:orderItem];
         }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }

@@ -188,7 +188,11 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         
     }
     
-    [cellSystem updateCellWith:[_cancelListDataSource objectAtIndex:indexPath.row]];
+    if ([_cancelListDataSource objectAtIndex:indexPath.section]&&[[_cancelListDataSource objectAtIndex:indexPath.section] orderInfoList]&&[[[_cancelListDataSource objectAtIndex:indexPath.section] orderInfoList] count]>indexPath.row) {
+        
+        [cellSystem updateCellWith:[_cancelListDataSource objectAtIndex:indexPath.section] withIndex:indexPath.row];
+        
+    }
     
     return cellSystem;
     
@@ -218,10 +222,15 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-        if ([self.cancelListDataSource count]>indexPath.row) {
-            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+
+        if ([self.cancelListDataSource count]>indexPath.section) {
+            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.section];
+            if (orderItem) {
+                [bookedVc setOrderListItemData:orderItem];
+            }
         }
+        [bookedVc setSelectedIndex:indexPath.row];
+        
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }

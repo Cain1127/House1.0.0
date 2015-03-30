@@ -560,6 +560,7 @@
 		475C3DA61AB679F50028608F /* QSOrderListOwnerMsgDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */; };
 		4777741F1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */; };
 		477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */; };
+		478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645E11AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m */; };
 		47A2076B1AB7E46000F51797 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207601AB7E46000F51797 /* FSCalendar.m */; };
 		47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207621AB7E46000F51797 /* FSCalendarCell.m */; };
 		47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207641AB7E46000F51797 /* FSCalendarHeader.m */; };
@@ -1538,6 +1539,8 @@
 		4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderDetailInfoDataModel.m; sourceTree = "<group>"; };
 		477774201ABFBC8D000AD7D3 /* QSOrderDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOrderDetailReturnData.h; sourceTree = "<group>"; };
 		477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderDetailReturnData.m; sourceTree = "<group>"; };
+		478645E01AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPSalerTransactionBookedOrderLIstHeaderView.h; sourceTree = "<group>"; };
+		478645E11AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPSalerTransactionBookedOrderLIstHeaderView.m; sourceTree = "<group>"; };
 		47A2075F1AB7E46000F51797 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
 		47A207601AB7E46000F51797 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
 		47A207611AB7E46000F51797 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
@@ -4519,6 +4522,8 @@
 				475A4D0E1AC3E65A009881CF /* QSPBuyerBookedOrderListsTableViewCell.m */,
 				475A4D0F1AC3E65A009881CF /* QSPSalerBookedOrderListsTableViewCell.h */,
 				475A4D101AC3E65A009881CF /* QSPSalerBookedOrderListsTableViewCell.m */,
+				478645E01AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.h */,
+				478645E11AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -5344,6 +5349,7 @@
 				18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */,
 				18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */,
 				18B572AE1AC16D1600C75682 /* googletest.cc in Sources */,
+				478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */,
 				475A4D301AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m in Sources */,
 				18DFE8631AC6B40600C216C3 /* QSYHistoryRentHouseList.m in Sources */,
 				CE000DCE1A6F8064008FD309 /* QSWDeveloperActivityViewController.m in Sources */,
@@ -5666,8 +5672,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5707,8 +5713,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

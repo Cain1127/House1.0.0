@@ -205,7 +205,11 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
         
     }
     
-    [cellSystem updateCellWith:[_pendingListDataSource objectAtIndex:indexPath.row]];
+    if ([_pendingListDataSource objectAtIndex:indexPath.section]&&[[_pendingListDataSource objectAtIndex:indexPath.section] orderInfoList]&&[[[_pendingListDataSource objectAtIndex:indexPath.section] orderInfoList] count]>indexPath.row) {
+        
+        [cellSystem updateCellWith:[_pendingListDataSource objectAtIndex:indexPath.section] withIndex:indexPath.row];
+        
+    }
     
     return cellSystem;
     
@@ -237,10 +241,13 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-        if ([self.pendingListDataSource count]>indexPath.row) {
-            QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+        if ([self.pendingListDataSource count]>indexPath.section) {
+            QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.section];
+            if (orderItem) {
+                [bookedVc setOrderListItemData:orderItem];
+            }
         }
+        [bookedVc setSelectedIndex:indexPath.row];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
     

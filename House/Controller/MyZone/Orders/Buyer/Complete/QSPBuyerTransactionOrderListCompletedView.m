@@ -210,7 +210,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
         if ([self.completeListDataSource count]>indexPath.row) {
             QSOrderListItemData *orderItem = [self.completeListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+            [bookedVc setOrderListItemData:orderItem];
         }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
