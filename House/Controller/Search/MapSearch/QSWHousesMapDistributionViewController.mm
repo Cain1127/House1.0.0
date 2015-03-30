@@ -836,18 +836,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
  @param mapView 地图View
  @param views 选中的annotation views
  */
-- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(QSCustomAnnotationView *)view
 {
-
-//    QSMapCommunityDataModel *infoModel=[[QSMapCommunityDataModel alloc] init];
-//
-//    for(int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++)
-//    {
-//        
-//        infoModel=self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
-//    
-//    }
-//    NSLog(@"点击大头针事件");
     
     NSString *idString = [view valueForKey:@"deteilID"];
     NSString *titleString = [view valueForKey:@"title"];
