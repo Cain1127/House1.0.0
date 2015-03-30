@@ -77,7 +77,7 @@
         ///判断当前选择个数
         if ([self.pickedHouseList count] <= 1) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少选择两个房源", 1.0, ^(){})
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择至少2个房源进行对比", 1.0, ^(){})
             return;
             
         }
@@ -143,7 +143,7 @@
 
 }
 
-#pragma mark -尺寸设置
+#pragma mark - 尺寸设置
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -250,6 +250,14 @@
 #pragma 选择房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///如果当前已添加达三个，则提示
+    if ([self.pickedHouseList count] >= 3) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
+        return;
+        
+    }
 
     ///不同的列表类型，取不同的数据模型
     if (fFilterMainTypeRentalHouse == self.houseType) {
