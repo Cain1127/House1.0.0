@@ -197,6 +197,8 @@
                 break;
             }
         }
+    }else{
+        isCanSelectedWeekDay = YES;
     }
 
     //    return !(_date.fs_year == _month.fs_year && _date.fs_month == _month.fs_month) ;
