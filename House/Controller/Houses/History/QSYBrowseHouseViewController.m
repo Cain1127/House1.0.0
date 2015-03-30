@@ -111,10 +111,10 @@
     [self.view addSubview:self.houseListView];
     
     ///添加刷新
-    [self.houseListView addHeaderWithTarget:self action:@selector(historyHouseListHeaderRequest)];
+    [self.houseListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(historyHouseListHeaderRequest)];
     
     ///开始就刷新
-    [self.houseListView headerBeginRefreshing];
+    [self.houseListView.header beginRefreshing];
 
 }
 
@@ -137,7 +137,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.houseListView reloadData];
-        [self.houseListView headerEndRefreshing];
+        [self.houseListView.header endRefreshing];
         
     });
 

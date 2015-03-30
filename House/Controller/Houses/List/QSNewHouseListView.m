@@ -81,11 +81,11 @@
         [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"newHouseInfoCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(newHouseListHeaderRequest)];
-        [self addFooterWithTarget:self action:@selector(newHouseListFooterRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(newHouseListHeaderRequest)];
+        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(newHouseListFooterRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -189,14 +189,14 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
         } else if (rRequestResultTypeFail == resultStatus) {
         
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
             ///重置数据
             self.dataSourceModel = nil;
@@ -214,8 +214,8 @@
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
             ///由于是第一页，请求失败，显示暂无记录
             if (self.houseListTapCallBack) {
@@ -237,8 +237,8 @@
     if ([self.dataSourceModel.headerData.per_page intValue] == [self.dataSourceModel.headerData.total_page intValue]) {
         
         ///结束刷新动画
-        [self headerEndRefreshing];
-        [self footerEndRefreshing];
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
         return;
         
     }
@@ -272,14 +272,14 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
         }
         

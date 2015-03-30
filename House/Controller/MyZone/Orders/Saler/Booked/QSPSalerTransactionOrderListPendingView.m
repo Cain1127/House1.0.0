@@ -123,11 +123,11 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [pendingListTableView addHeaderWithTarget:self action:@selector(getPendingListHeaderData)];
-    [pendingListTableView addFooterWithTarget:self  action:@selector(getPendingListFooterData)];
+    [pendingListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getPendingListHeaderData)];
+    [pendingListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getPendingListFooterData)];
     
     ///一开始就请求数据
-    [pendingListTableView headerBeginRefreshing];
+    [pendingListTableView.header beginRefreshing];
     
 }
 
@@ -165,8 +165,8 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 

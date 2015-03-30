@@ -126,6 +126,10 @@
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
 
+///导航栏详情按钮图片
+#define IMAGE_NAVIGATIONBAR_DETAIL_NORMAL @"navigationbar_detail_normal"
+#define IMAGE_NAVIGATIONBAR_DETAIL_HIGHLIGHTED @"navigationbar_detail_highlighted"
+
 #pragma mark - 频道栏图片资源
 /**
  *  @author yangshengmeng, 15-01-30 10:01:10

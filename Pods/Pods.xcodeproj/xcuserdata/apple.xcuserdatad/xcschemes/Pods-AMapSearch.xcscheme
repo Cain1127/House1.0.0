@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1B2422D9FC7C79DCB9BC7A72"
+               BlueprintIdentifier = "13476B086AA61CB785898AA5"
                BuildableName = "libPods-AMapSearch.a"
                BlueprintName = "Pods-AMapSearch"
                ReferencedContainer = "container:Pods.xcodeproj">

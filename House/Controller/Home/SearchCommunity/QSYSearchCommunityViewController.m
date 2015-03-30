@@ -123,14 +123,14 @@ static char ListViewKey;//!<列表的关联
     communityListView.delegate = self;
     
     ///添加头尾刷新
-    [communityListView addHeaderWithTarget:self action:@selector(getCommendCommunityHeaderData)];
-    [communityListView addFooterWithTarget:self action:@selector(getCommendCommunityFooterData)];
+    [communityListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getCommendCommunityHeaderData)];
+    [communityListView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getCommendCommunityFooterData)];
     
     [self.view addSubview:communityListView];
     objc_setAssociatedObject(self, &ListViewKey, communityListView, OBJC_ASSOCIATION_ASSIGN);
     
     ///一开始就请求数据
-    [communityListView headerBeginRefreshing];
+    [communityListView.header beginRefreshing];
 
 }
 
@@ -299,8 +299,8 @@ static char ListViewKey;//!<列表的关联
 {
 
     UITableView *tableView = objc_getAssociatedObject(self, &ListViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
 
 }
 
@@ -310,7 +310,7 @@ static char ListViewKey;//!<列表的关联
 {
 
     UITableView *tableView = objc_getAssociatedObject(self, &ListViewKey);
-    [tableView headerBeginRefreshing];
+    [tableView.header beginRefreshing];
 
 }
 

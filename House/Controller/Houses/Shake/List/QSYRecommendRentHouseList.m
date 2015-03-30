@@ -58,10 +58,10 @@
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(rentHouseListHeaderRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -258,7 +258,7 @@
             
             tipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, cellTitle.frame.size.width - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, cellTitle.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
                 
-                [self headerBeginRefreshing];
+                [self.header beginRefreshing];
                 
             }];
             tipsButton.tag = 112;
@@ -330,12 +330,12 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
+            [self.header endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
+            [self.header endRefreshing];
             
             ///重置数据
             self.dataSourceModel = nil;

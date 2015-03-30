@@ -130,10 +130,10 @@
     [self.view addSubview:self.infoRootView];
     
     ///添加头部刷新
-    [self.infoRootView addHeaderWithTarget:self action:@selector(createComparisonUI)];
+    [self.infoRootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(createComparisonUI)];
     
     ///一开始就请求数据
-    [self.infoRootView headerBeginRefreshing];
+    [self.infoRootView.header beginRefreshing];
 
 }
 
@@ -159,7 +159,7 @@
     ///结束动画
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.infoRootView headerEndRefreshing];
+        [self.infoRootView.header endRefreshing];
         
     });
 

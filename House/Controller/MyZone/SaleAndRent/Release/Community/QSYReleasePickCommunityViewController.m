@@ -100,7 +100,7 @@
         [inputField resignFirstResponder];
         
         ///刷新数据
-        [self.listView headerBeginRefreshing];
+        [self.listView.header beginRefreshing];
         
     }];
     [searchButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_SEARCH_NORMAL] forState:UIControlStateNormal];
@@ -123,13 +123,13 @@
     self.listView.delegate = self;
     
     ///添加头尾刷新
-    [self.listView addHeaderWithTarget:self action:@selector(getHeaderData)];
-    [self.listView addFooterWithTarget:self action:@selector(getMoreData)];
+    [self.listView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getHeaderData)];
+    [self.listView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getMoreData)];
     
     [self.view addSubview:self.listView];
     
     ///开始就请求数据
-    [self.listView headerBeginRefreshing];
+    [self.listView.header beginRefreshing];
 
 }
 
@@ -223,14 +223,14 @@
             });
             
             ///结束刷新动画
-            [self.listView headerEndRefreshing];
-            [self.listView footerEndRefreshing];
+            [self.listView.header endRefreshing];
+            [self.listView.footer endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self.listView headerEndRefreshing];
-            [self.listView footerEndRefreshing];
+            [self.listView.header endRefreshing];
+            [self.listView.footer endRefreshing];
             
         }
         
@@ -246,8 +246,8 @@
     if ([self.dataModel.communityListHeaderData.per_page intValue] == [self.dataModel.communityListHeaderData.total_page intValue]) {
         
         ///结束刷新动画
-        [self.listView headerEndRefreshing];
-        [self.listView footerEndRefreshing];
+        [self.listView.header endRefreshing];
+        [self.listView.footer endRefreshing];
         return;
         
     }
@@ -282,14 +282,14 @@
             });
             
             ///结束刷新动画
-            [self.listView headerEndRefreshing];
-            [self.listView footerEndRefreshing];
+            [self.listView.header endRefreshing];
+            [self.listView.footer endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self.listView headerEndRefreshing];
-            [self.listView footerEndRefreshing];
+            [self.listView.header endRefreshing];
+            [self.listView.footer endRefreshing];
             
         }
         
@@ -310,7 +310,7 @@
         self.searchKey = textField.text;
         
         ///刷新数据
-        [self.listView headerBeginRefreshing];
+        [self.listView.header beginRefreshing];
         
     }
     

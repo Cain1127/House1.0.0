@@ -108,11 +108,11 @@ static char MessageListKey;//!<消息列表关联
     objc_setAssociatedObject(self, &MessageListKey, messageList, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加刷新事件
-    [messageList addHeaderWithTarget:self action:@selector(getMessageListHeaderData)];
-    [messageList addFooterWithTarget:self  action:@selector(getMessageListFooterData)];
+    [messageList addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getMessageListHeaderData)];
+    [messageList addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getMessageListFooterData)];
     
     ///一开始就请求数据
-    [messageList headerBeginRefreshing];
+    [messageList.header beginRefreshing];
 
 }
 
@@ -146,8 +146,8 @@ static char MessageListKey;//!<消息列表关联
 {
 
     UITableView *tableView = objc_getAssociatedObject(self, &MessageListKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
 
 }
 

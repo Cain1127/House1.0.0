@@ -867,7 +867,7 @@ static char PopViewKey;             //!<摇一摇view关联
                 
                 ///刷新数据
                 UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-                [collectionView headerBeginRefreshing];
+                [collectionView.header beginRefreshing];
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {
@@ -901,7 +901,7 @@ static char PopViewKey;             //!<摇一摇view关联
                 
                 ///刷新数据
                 UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-                [collectionView headerBeginRefreshing];
+                [collectionView.header beginRefreshing];
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {

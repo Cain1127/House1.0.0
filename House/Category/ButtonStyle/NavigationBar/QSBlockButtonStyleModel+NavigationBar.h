@@ -33,6 +33,7 @@ typedef enum
     nNavigationBarButtonTypeCommit,             //!<提交确认按钮
     nNavigationBarButtonTypeAdd,                //!<添加按钮-加号图片
     nNavigationBarButtonTypeCancel,             //!<右侧取消按钮-打叉图片
+    nNavigationBarButtonTypeUserDetail,         //!<用户详情
     
 }NAVIGATIONBAR_BUTTON_TYPE;                     //!<导航栏按钮的类型：搜索、消息、设置等等
 

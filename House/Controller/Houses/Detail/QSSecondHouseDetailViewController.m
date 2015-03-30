@@ -14,6 +14,7 @@
 #import "QSYCallTipsPopView.h"
 
 #import "QSYAgentInfoViewController.h"
+#import "QSYTalkPTPViewController.h"
 #import "QSYOwnerInfoViewController.h"
 
 #import "QSImageView+Block.h"
@@ -156,7 +157,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getSecondHouseDetailInfo)];
+    [rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getSecondHouseDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
@@ -170,7 +171,7 @@ static char LeftStarKey;            //!<左侧星级
     bottomRootView.hidden = YES;
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
     
-    [rootView headerBeginRefreshing];
+    [rootView.header beginRefreshing];
     
 }
 
@@ -205,11 +206,7 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_SECOND_STOPSALE;
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击停止出售按钮事件");
-            ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
+            ///发送停售状态
             
             
         }];
@@ -218,21 +215,22 @@ static char LeftStarKey;            //!<左侧星级
         
         ///按钮风格
         QSBlockButtonStyleModel *editButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        
         ///编辑按钮
         editButtonStyle.title = TITLE_HOUSES_DETAIL_SECOND_EDIT;
         UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-30.0f-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
             
             NSLog(@"点击编辑按钮事件");
             
-            
         }];
         [view addSubview:editButton];
         
         ///按钮风格
         QSBlockButtonStyleModel *refreshButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClear];
+        
         ///刷新按钮
-        refreshButtonStyle.imagesNormal=@"houses_detail_refresh_normal";
-        refreshButtonStyle.imagesHighted=@"houses_detail_refresh_highlighted";
+        refreshButtonStyle.imagesNormal = @"houses_detail_refresh_normal";
+        refreshButtonStyle.imagesHighted = @"houses_detail_refresh_highlighted";
         UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-30.0f, editButton.frame.origin.y+7.0f, 30.0f, 30.0f) andButtonStyle:refreshButtonStyle andCallBack:^(UIButton *button) {
             
             NSLog(@"点击刷新按钮事件");
@@ -245,7 +243,7 @@ static char LeftStarKey;            //!<左侧星级
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
         
-        ///停止出售按钮
+        ///预约按钮
         buttonStyle.title = TITLE_HOUSES_DETAIL_RENT_ORDER;
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
@@ -266,7 +264,7 @@ static char LeftStarKey;            //!<左侧星级
                     
                     ///刷新数据
                     UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                    [rootView headerBeginRefreshing];
+                    [rootView.header beginRefreshing];
                     
                 }
                 
@@ -277,11 +275,31 @@ static char LeftStarKey;            //!<左侧星级
         
         ///按钮风格
         QSBlockButtonStyleModel *editButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-        ///编辑按钮
+        
+        ///咨询按钮
         editButtonStyle.title = TITLE_HOUSES_DETAIL_RENT_CONSULT;
         UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击立即咨询按钮事件");
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                ///已登录
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:self.detailInfo.user];
+                    [self.navigationController pushViewController:talkVC animated:YES];
+                    
+                }
+                
+                ///新登录
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    ///刷新数据
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView.header beginRefreshing];
+                    
+                }
+                
+            }];
             
             
         }];
@@ -1289,7 +1307,7 @@ static char LeftStarKey;            //!<左侧星级
             if (lLoginCheckActionTypeReLogin) {
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView headerBeginRefreshing];
+                [rootView.header beginRefreshing];
                 
             }
             
@@ -1357,7 +1375,7 @@ static char LeftStarKey;            //!<左侧星级
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView headerEndRefreshing];
+                [rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1372,7 +1390,7 @@ static char LeftStarKey;            //!<左侧星级
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-            [rootView headerEndRefreshing];
+            [rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取二手房详情信息失败，请稍后再试……",1.0f,^(){
                 

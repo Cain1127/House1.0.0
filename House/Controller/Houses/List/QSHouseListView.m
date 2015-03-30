@@ -69,11 +69,11 @@
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(houseListHeaderRequest)];
-        [self addFooterWithTarget:self action:@selector(houseListFooterRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(houseListHeaderRequest)];
+        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(houseListFooterRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -250,8 +250,8 @@
 - (void)endRefreshAnimination
 {
     
-    [self headerEndRefreshing];
-    [self footerEndRefreshing];
+    [self.header endRefreshing];
+    [self.footer endRefreshing];
     
 }
 
@@ -430,7 +430,7 @@
 - (void)loadRecommendHouse
 {
     
-    [self headerBeginRefreshing];
+    [self.header beginRefreshing];
     
 }
 

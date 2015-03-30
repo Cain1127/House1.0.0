@@ -89,11 +89,11 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [completeListTableView addHeaderWithTarget:self action:@selector(getCompleteListHeaderData)];
-    [completeListTableView addFooterWithTarget:self  action:@selector(getCompleteListFooterData)];
+    [completeListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getCompleteListHeaderData)];
+    [completeListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getCompleteListFooterData)];
     
     ///一开始就请求数据
-    [completeListTableView headerBeginRefreshing];
+    [completeListTableView.header beginRefreshing];
     
 }
 
@@ -131,8 +131,8 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 

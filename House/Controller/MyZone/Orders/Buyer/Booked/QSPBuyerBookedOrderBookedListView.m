@@ -125,11 +125,11 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [bookingListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [bookingListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [bookingListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBookingListHeaderData)];
+    [bookingListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [bookingListTableView headerBeginRefreshing];
+    [bookingListTableView.header beginRefreshing];
     
 }
 
@@ -167,8 +167,8 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &BookingListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 

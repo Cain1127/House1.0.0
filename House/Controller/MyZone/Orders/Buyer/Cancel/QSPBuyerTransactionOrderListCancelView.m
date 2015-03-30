@@ -90,11 +90,11 @@ static char CancelListNoDataViewKey;   //!<已取消列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [cancelListTableView addHeaderWithTarget:self action:@selector(getCancelListHeaderData)];
-    [cancelListTableView addFooterWithTarget:self  action:@selector(getCacelListFooterData)];
+    [cancelListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getCancelListHeaderData)];
+    [cancelListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getCacelListFooterData)];
     
     ///一开始就请求数据
-    [cancelListTableView headerBeginRefreshing];
+    [cancelListTableView.header beginRefreshing];
     
 }
 
@@ -132,8 +132,8 @@ static char CancelListNoDataViewKey;   //!<已取消列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 

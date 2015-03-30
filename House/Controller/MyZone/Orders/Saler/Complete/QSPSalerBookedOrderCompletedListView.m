@@ -95,11 +95,11 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [completeListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [completeListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [completeListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBookingListHeaderData)];
+    [completeListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [completeListTableView headerBeginRefreshing];
+    [completeListTableView.header beginRefreshing];
     
 }
 
@@ -138,8 +138,8 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 

@@ -451,7 +451,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///刷新数据
 
 //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            //[collectionView headerBeginRefreshing];
+            //[collectionView.header beginRefreshing];
             
             ///保存过滤器
             [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -494,7 +494,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///刷新数据
 
 //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        //[collectionView headerBeginRefreshing];
+        //[collectionView.header beginRefreshing];
         
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
