@@ -163,7 +163,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                 }
                 
             }];
-            searchCommunityVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:searchCommunityVC animated:YES];
             
@@ -172,7 +171,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
             ///模型转换
             QSCommunityHouseDetailDataModel *tempModel = params;
             QSCommunityDetailViewController *communityDetail = [[QSCommunityDetailViewController alloc] initWithTitle:tempModel.village.title andCommunityID:tempModel.village.id_ andCommendNum:@"10" andHouseType:@"second"];
-            communityDetail.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:communityDetail animated:YES];
         
@@ -181,7 +179,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     }];
     
     ///绑定分享改变时的事件回调
-    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType) {
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType,NSString *paramsID,id params) {
         
         if (changeType == dDataChangeTypeIncrease ||
             changeType == dDataChangeTypeReduce) {
@@ -253,8 +251,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
             
             ///登录后，进入发布出租/出售页面提示
-            if (lLoginCheckActionTypeUnLogin == flag ||
-                lLoginCheckActionTypeReLogin == flag) {
+            if (lLoginCheckActionTypeLogined == flag) {
                 
                 ///弹出窗口的指针
                 __block QSYPopCustomView *popView = nil;
@@ -590,7 +587,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         
         ///弹出二手房设置过滤的页面
         QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeHomeSecondHouse];
-        filterVC.hiddenCustomTabbarWhenPush = YES;
         [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
@@ -635,7 +631,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
             }
         
         };
-        filterVC.hiddenCustomTabbarWhenPush = YES;
         [self hiddenBottomTabbar:YES];
         [self.navigationController pushViewController:filterVC animated:YES];
         
@@ -777,6 +772,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         }
         
     }];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self hiddenBottomTabbar:NO];
+    [super viewWillAppear:animated];
     
 }
 

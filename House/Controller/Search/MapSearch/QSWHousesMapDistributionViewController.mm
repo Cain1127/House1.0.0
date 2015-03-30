@@ -569,7 +569,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 //            
 //            ///进入详情页面
 //            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-//            detailVC.hiddenCustomTabbarWhenPush = YES;
 //            [self hiddenBottomTabbar:YES];
 //            [self.navigationController pushViewController:detailVC animated:YES];
 //            

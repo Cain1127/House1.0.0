@@ -335,6 +335,33 @@ static char PopViewKey;             //!<摇一摇view关联
     
     [self createListView];
     
+    ///注册浏览记录监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeAddSecondHandHouseHistory andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        ///保存浏览计数
+        if (cCoredataDataTypeAddSecondHandHouseHistory == dataType &&
+            dDataChangeTypeIncrease == changeType) {
+            
+            ///添加二手房的浏览记录
+            [self addSecondHandHouseBrowseRecord:paramsID];
+            
+        }
+        
+    }];
+    
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeAddRentHouseHistory andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        ///保存浏览计数
+        if (cCoredataDataTypeAddRentHouseHistory == dataType &&
+            dDataChangeTypeIncrease == changeType) {
+            
+            ///添加二手房的浏览记录
+            [self addRentHandHouseBrowseRecord:paramsID];
+            
+        }
+        
+    }];
+    
 }
 
 ///搭建频道栏的UI
@@ -366,7 +393,6 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入高级筛选窗口
             QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:filterVCType];
-            filterVC.hiddenCustomTabbarWhenPush = YES;
             filterVC.resetFilterCallBack = ^(BOOL flag){
             
                 if (flag) {
@@ -927,7 +953,6 @@ static char PopViewKey;             //!<摇一摇view关联
 {
   
     QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] initWithHouseType:self.listType];
-    searchVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:searchVC animated:YES];
     
@@ -939,7 +964,6 @@ static char PopViewKey;             //!<摇一摇view关联
 {
     
     QSWHousesMapDistributionViewController *mapHouseListVC = [[QSWHousesMapDistributionViewController alloc] init];
-    mapHouseListVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:mapHouseListVC animated:YES];
 
@@ -961,7 +985,6 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
         
@@ -977,7 +1000,6 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
             
@@ -993,25 +1015,7 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
-            
-            ///保存浏览记录数的回调
-            detailVC.loadingSuccessCallBack = ^(BOOL flag,NSString *detailID){
-            
-                ///保存浏览计数
-                if (flag) {
-                    
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                       
-                        ///添加二手房的浏览记录
-                        [self addSecondHandHouseBrowseRecord:detailID];
-                        
-                    });
-                    
-                }
-            
-            };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
@@ -1027,25 +1031,7 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
-            detailVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
-            
-            ///保存浏览记录数的回调
-            detailVC.loadingSuccessCallBack = ^(BOOL flag,NSString *detailID){
-                
-                ///保存浏览计数
-                if (flag) {
-                    
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        
-                        ///添加出租房的浏览记录
-                        [self addRentHandHouseBrowseRecord:detailID];
-                        
-                    });
-                    
-                }
-                
-            };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
@@ -1125,7 +1111,6 @@ static char PopViewKey;             //!<摇一摇view关联
                 
                 ///跟转到比一比页面
                 QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
-                historyVC.hiddenCustomTabbarWhenPush = YES;
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:historyVC animated:YES];
                 
@@ -1169,7 +1154,6 @@ static char PopViewKey;             //!<摇一摇view关联
                 
                 ///跟转到比一比页面
                 QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
-                historyVC.hiddenCustomTabbarWhenPush = YES;
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:historyVC animated:YES];
                 
@@ -1260,7 +1244,6 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入摇一摇推荐页面
             QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:self.listType];
-            shakeRecommendHouseVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
             

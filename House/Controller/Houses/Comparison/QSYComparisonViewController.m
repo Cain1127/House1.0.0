@@ -288,6 +288,7 @@
     addressLabel.textAlignment = NSTextAlignmentCenter;
     addressLabel.textColor = COLOR_CHARACTERS_BLACK;
     addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    addressLabel.adjustsFontSizeToFitWidth = YES;
     addressLabel.text = [NSString stringWithFormat:@"%@|%@",tempModel.districe,tempModel.street];
     [self.infoRootView addSubview:addressLabel];
     
@@ -523,6 +524,7 @@
     addressLabel.textAlignment = NSTextAlignmentCenter;
     addressLabel.textColor = COLOR_CHARACTERS_BLACK;
     addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    addressLabel.adjustsFontSizeToFitWidth = YES;
     addressLabel.text = [NSString stringWithFormat:@"%@|%@",tempModel.districe,tempModel.street];
     [self.infoRootView addSubview:addressLabel];
     

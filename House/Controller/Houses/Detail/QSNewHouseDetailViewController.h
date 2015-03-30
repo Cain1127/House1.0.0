@@ -10,8 +10,6 @@
 
 @interface QSNewHouseDetailViewController : QSTurnBackViewController
 
-@property (nonatomic,copy) void(^loadingSuccessCallBack)(BOOL flag,NSString *houseID);
-
 /**
  *  @author             yangshengmeng, 15-03-09 09:03:30
  *

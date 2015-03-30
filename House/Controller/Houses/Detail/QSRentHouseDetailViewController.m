@@ -199,11 +199,25 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_RENT_ORDER;
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击预约按钮事件");
             ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                ///已登录
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    
+                    
+                }
+                
+                ///新登录时刷新数据
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView headerBeginRefreshing];
+                    
+                }
+                
+            }];
             
             
         }];
@@ -1247,13 +1261,6 @@ static char LeftStarKey;            //!<左侧星级
         if (flag) {
             
             APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"成功")
-            
-            ///回调告诉浏览添加成功
-            if (self.loadingSuccessCallBack) {
-                
-                self.loadingSuccessCallBack(YES,self.detailID);
-                
-            }
             
         } else {
         
