@@ -7,29 +7,26 @@
 //
 
 #import "QSPSalerBookedOrderCompletedListView.h"
+#import "QSPSalerTransactionBookedOrderLIstHeaderView.h"
 #import "QSPSalerBookedOrderListsTableViewCell.h"
-
 #import "MJRefresh.h"
-
 #import <objc/runtime.h>
-
 #import "QSBlockButtonStyleModel+Normal.h"
-
 #import "QSPOrderDetailBookedViewController.h"
-
 #import "QSOrderListReturnData.h"
-
 #import "QSCoreDataManager+User.h"
 
 ///关联
 static char CompleteListTableViewKey;       //!<已看房列表关联
 static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
 
-@interface QSPSalerBookedOrderCompletedListView () <UITableViewDataSource,UITableViewDelegate>
+@interface QSPSalerBookedOrderCompletedListView () <UITableViewDataSource,UITableViewDelegate,QSPSalerTransactionBookedOrderLIstHeaderViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *completeListDataSource;    //!<已看房列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
+
+@property (nonatomic,assign) NSInteger      currentShowHeaderIndex;              //!当前展开Cell的Header索引,-1表示全部闭合，
 
 @end
 
@@ -44,6 +41,7 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
         
         ///初始化
         self.completeListDataSource = [NSMutableArray arrayWithCapacity:0];
+        _currentShowHeaderIndex = -1;
         
         ///UI搭建
         [self createCompleteListUI];
@@ -195,12 +193,96 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     
 }
 
+#pragma mark - 返回一共有多少条房源预定记录
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSInteger count = 0;
+    
+    if ([_completeListDataSource count]>=1) {
+        
+        count = [_completeListDataSource count];
+        
+    }
+    
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    static NSString *HeaderID = @"QSPSalerTransactionBookedOrderLIstHeaderView";
+    
+    QSPSalerTransactionBookedOrderLIstHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderID];
+    
+    if (header == nil) {
+        
+        header = [[QSPSalerTransactionBookedOrderLIstHeaderView alloc]initWithReuseIdentifier:HeaderID];
+        
+        [header setFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT)];
+        
+        [header setOrderTypeName:@"已看房"];
+        
+    }
+    [header setDelegate:self];
+    [header setTag:section];
+    [header updateData:[self.completeListDataSource objectAtIndex:section]];
+    
+    [header setShowButtonOpenOrClose:NO];
+    
+    if (_currentShowHeaderIndex == section) {
+        
+        [header setShowButtonOpenOrClose:YES];
+        
+    }
+    
+    return header;
+}
+
+#pragma mark - 点击HeaderView 响应
+- (void)clickItemInHeaderViewWithData:(id)data withSection:(NSInteger)section
+{
+    
+    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%d",data ,section);
+    UITableView *tableView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    
+    if (_currentShowHeaderIndex==-1) {
+        _currentShowHeaderIndex = section;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:_currentShowHeaderIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }else {
+        NSInteger tempIndex = _currentShowHeaderIndex;
+        _currentShowHeaderIndex = -1;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:tempIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
+    
+}
+
 #pragma mark - 返回一共有多少条订单记录
 ///返回一共有多少条订单记录
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger count = 0;
     
-    return [_completeListDataSource count];
+    if (_currentShowHeaderIndex != -1) {
+        if (section == _currentShowHeaderIndex) {
+            
+            if ([self.completeListDataSource objectAtIndex:section]&&[[self.completeListDataSource objectAtIndex:section] orderInfoList]&&[[[self.completeListDataSource objectAtIndex:section] orderInfoList] count]>0) {
+                
+                count = [[[self.completeListDataSource objectAtIndex:section] orderInfoList] count];
+                
+            }
+        }
+    }
+    
+    return count;
     
 }
 
@@ -312,5 +394,19 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
     
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        
+    }
+    
+}
 
 @end
