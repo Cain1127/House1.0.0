@@ -638,8 +638,8 @@ static char LeftStarKey;            //!<左侧星级
     UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
     
     NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990201&",self.loupanID];
-    //?total_type=990202?village_id=1?num=5
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    priceWeb.backgroundColor=[UIColor whiteColor];
     
     [view addSubview:priceWeb];
     

@@ -10,6 +10,17 @@
 #import "QSHouseCommentDataModel.h"
 @interface QSUserAssessViewController : QSTurnBackViewController
 
+/*!
+ *  @author wangshupeng, 15-03-30 10:03:02
+ *
+ *  @brief  用户评论信息
+ *
+ *  @param dataModel 评论基本模型
+ *
+ *  @return 评论数据
+ *
+ *  @since 1.0.0
+ */
 -(instancetype)initWithModel:(QSHouseCommentDataModel*) dataModel;
 
 

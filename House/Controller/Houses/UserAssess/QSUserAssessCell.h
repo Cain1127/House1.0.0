@@ -12,6 +12,7 @@
 
 @interface QSUserAssessCell : UITableViewCell
 
+
 -(void)updateAssessCellInfo:(QSHouseCommentDataModel *)CommentDataModel;
 
 @end

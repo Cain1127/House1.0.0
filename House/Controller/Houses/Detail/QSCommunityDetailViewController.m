@@ -440,6 +440,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990202&",self.communityID];
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    priceWeb.backgroundColor=[UIColor whiteColor];
     [view addSubview:priceWeb];
     
     ///分隔线
