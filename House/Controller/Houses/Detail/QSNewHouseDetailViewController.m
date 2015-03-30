@@ -1771,7 +1771,7 @@ static char LeftStarKey;            //!<左侧星级
         
         if (flag) {
             
-            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"成功")
+            APPLICATION_LOG_INFO(@"新房房浏览记录添加", @"成功")
             
             ///回调告诉浏览添加成功
             if (self.loadingSuccessCallBack) {
@@ -1782,7 +1782,7 @@ static char LeftStarKey;            //!<左侧星级
             
         } else {
             
-            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"失败")
+            APPLICATION_LOG_INFO(@"新房浏览记录添加", @"失败")
             
         }
         

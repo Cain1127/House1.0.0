@@ -170,7 +170,7 @@
     
 }
 
-#pragma mark - 提交确认按钮
+#pragma mark - 加号添加按钮
 + (QSBlockButtonStyleModel *)createNavigationBarAddButtonStyle
 {
     

@@ -95,8 +95,8 @@
 #define IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED @"navigationbar_confirm_highlighted"
 
 ///加号图标的添加按钮
-#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal_normal"
-#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_normal_highlighted"
+#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal"
+#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_highlighted"
 
 ///交叉图片取消按钮
 #define IMAGE_NAVIGATIONBAR_CANCEL_NORMAL @"navigationbar_corss_normal"
@@ -280,6 +280,13 @@
 
 ///房子详情，价格上升图片
 #define IMAGE_HOUSES_DETAIL_PRICEUP @"houses_detail_priceup"
+
+///比一比中的推荐房源大六角
+#define IMAGE_COMPARISON_SIXFORM @"comparison_sixform"
+
+///比一比中的提示三角
+#define IMAGE_COMPARISON_INDICADE_NORMAL @"comparison_recommend_house_indecator_normal"
+#define IMAGE_COMPARISON_INDICADE_HIGHLIGHTED @"comparison_recommend_house_indecator_highlighted"
 
 #pragma mark - 发现模块相关图片资源
 

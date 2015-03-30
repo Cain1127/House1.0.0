@@ -22,3 +22,28 @@
 - (instancetype)initWithPickedHouseList:(NSArray *)houseList andHouseType:(FILTER_MAIN_TYPE)houseType;
 
 @end
+
+@interface QSYComparisonDataModel : NSObject
+
+@property (nonatomic,copy) NSString *houseID;       //!<房源ID
+@property (nonatomic,copy) NSString *communityName; //!<小区名
+@property (nonatomic,copy) NSString *score;         //!<评分
+@property (nonatomic,copy) NSString *districe;      //!<区
+@property (nonatomic,copy) NSString *street;        //!<街道
+@property (nonatomic,copy) NSString *address;       //!<详细地址
+@property (nonatomic,copy) NSString *area;          //!<面积
+@property (nonatomic,copy) NSString *house_shi;     //!<室的个数
+@property (nonatomic,copy) NSString *house_ting;    //!<厅的个数
+@property (nonatomic,copy) NSString *house_wei;     //!<卫的个数
+@property (nonatomic,copy) NSString *price;         //!<售价/租金
+@property (nonatomic,copy) NSString *avg_price;     //!<售价/租金
+@property (nonatomic,copy) NSString *downPayPrice;  //!<首付
+@property (nonatomic,copy) NSString *monthPrice;    //!<月供
+@property (nonatomic,copy) NSString *buildingYear;  //!<建筑时间
+@property (nonatomic,copy) NSString *rightYear;     //!<产权年限
+@property (nonatomic,copy) NSString *liftNum;       //!<电梯总数
+@property (nonatomic,copy) NSString *liftServerNum; //!<电梯服务的户数
+@property (nonatomic,copy) NSString *face;          //!<朝向
+@property (nonatomic,copy) NSString *decoration;    //!<装修
+
+@end

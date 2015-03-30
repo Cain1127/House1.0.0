@@ -1198,6 +1198,14 @@ static char PopViewKey;             //!<摇一摇view关联
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [self hiddenBottomTabbar:NO];
+    [super viewWillAppear:animated];
+
+}
+
 #pragma mark - 弹出摇一摇提示页面
 ///弹出摇一摇提示页面
 - (void)popShakeGuideView

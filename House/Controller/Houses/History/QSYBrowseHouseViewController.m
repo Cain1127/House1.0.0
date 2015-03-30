@@ -250,14 +250,6 @@
 #pragma 选择房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    ///如果当前已添加达三个，则提示
-    if ([self.pickedHouseList count] >= 3) {
-        
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
-        return;
-        
-    }
 
     ///不同的列表类型，取不同的数据模型
     if (fFilterMainTypeRentalHouse == self.houseType) {
@@ -266,11 +258,19 @@
         
         if ([self checkHouseIsSave:tempModel]) {
             
-            [self.pickedHouseList removeObject:tempModel.house.id_];
+            [self.pickedHouseList removeObject:tempModel];
             
         } else {
         
-            [self.pickedHouseList addObject:tempModel.house.id_];
+            ///如果当前已添加达三个，则提示
+            if ([self.pickedHouseList count] >= 3) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
+                return;
+                
+            }
+            
+            [self.pickedHouseList addObject:tempModel];
         
         }
         
@@ -284,11 +284,18 @@
         QSSecondHouseDetailDataModel *tempModel = self.dataSource[indexPath.row];
         if ([self checkHouseIsSave:tempModel]) {
             
-            [self.pickedHouseList removeObject:tempModel.house.id_];
+            [self.pickedHouseList removeObject:tempModel];
             
         } else {
         
-            [self.pickedHouseList addObject:tempModel.house.id_];
+            ///如果当前已添加达三个，则提示
+            if ([self.pickedHouseList count] >= 3) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
+                return;
+                
+            }
+            [self.pickedHouseList addObject:tempModel];
         
         }
         
@@ -309,8 +316,8 @@
         
         for (int i = 0; i < [self.pickedHouseList count]; i++) {
             
-            NSString *saveID = self.pickedHouseList[i];
-            if ([saveID isEqualToString:tempModel.house.id_]) {
+            QSRentHouseDetailDataModel *saveModel = self.pickedHouseList[i];
+            if ([saveModel.house.id_ isEqualToString:tempModel.house.id_]) {
                 
                 return YES;
                 
@@ -323,8 +330,8 @@
         QSSecondHouseDetailDataModel *tempModel = model;
         for (int i = 0; i < [self.pickedHouseList count]; i++) {
             
-            NSString *saveID = self.pickedHouseList[i];
-            if ([saveID isEqualToString:tempModel.house.id_]) {
+            QSRentHouseDetailDataModel *saveModel = self.pickedHouseList[i];
+            if ([saveModel.house.id_ isEqualToString:tempModel.house.id_]) {
                 
                 return YES;
                 

@@ -412,6 +412,11 @@
 		18DFE8C41AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8C31AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m */; };
 		18DFE8C71AC82C4D00C216C3 /* QSYSearchHousesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8C61AC82C4D00C216C3 /* QSYSearchHousesViewController.m */; };
 		18DFE8CB1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8CA1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m */; };
+		18DFE8CE1AC8F29000C216C3 /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */; };
+		18DFE8D11AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */; };
+		18DFE8D21AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */; };
+		18DFE8D51AC95BEA00C216C3 /* navigationbar_add_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8D31AC95BEA00C216C3 /* navigationbar_add_highlighted.png */; };
+		18DFE8D61AC95BEA00C216C3 /* navigationbar_add_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8D41AC95BEA00C216C3 /* navigationbar_add_normal.png */; };
 		18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */; };
 		18E202431AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18E202421AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist */; };
 		18E801FC1A6F8D3800CA21D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E801EC1A6F8D3800CA21D4 /* MJRefresh.bundle */; };
@@ -1277,6 +1282,11 @@
 		18DFE8C61AC82C4D00C216C3 /* QSYSearchHousesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSearchHousesViewController.m; path = Search/QSYSearchHousesViewController.m; sourceTree = "<group>"; };
 		18DFE8C91AC8326000C216C3 /* QSLocalSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSLocalSearchHistoryDataModel.h; path = Search/QSLocalSearchHistoryDataModel.h; sourceTree = "<group>"; };
 		18DFE8CA1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSLocalSearchHistoryDataModel.m; path = Search/QSLocalSearchHistoryDataModel.m; sourceTree = "<group>"; };
+		18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
+		18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_recommend_house_indecator_highlighted.png; sourceTree = "<group>"; };
+		18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_recommend_house_indecator_normal.png; sourceTree = "<group>"; };
+		18DFE8D31AC95BEA00C216C3 /* navigationbar_add_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_add_highlighted.png; sourceTree = "<group>"; };
+		18DFE8D41AC95BEA00C216C3 /* navigationbar_add_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_add_normal.png; sourceTree = "<group>"; };
 		18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNewHouseActivityView.h; path = Detail/Activity/QSNewHouseActivityView.h; sourceTree = "<group>"; };
 		18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSNewHouseActivityView.m; path = Detail/Activity/QSNewHouseActivityView.m; sourceTree = "<group>"; };
 		18E202421AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterFindHouseSecondHouseReset.plist; path = Filter/FilterFindHouseSecondHouseReset.plist; sourceTree = "<group>"; };
@@ -2937,6 +2947,7 @@
 		18B563721A8366A4009779A0 /* Houses */ = {
 			isa = PBXGroup;
 			children = (
+				18DFE8CC1AC8F29000C216C3 /* Comparison */,
 				18018AE91A9FFF5800F35DEB /* houses_list_load_fail330x250.png */,
 				18018AEA1A9FFF5800F35DEB /* houses_list_load_fail690x350.png */,
 				18B563731A8366A4009779A0 /* Detail */,
@@ -3089,6 +3100,8 @@
 		18B563AE1A8366A4009779A0 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				18DFE8D31AC95BEA00C216C3 /* navigationbar_add_highlighted.png */,
+				18DFE8D41AC95BEA00C216C3 /* navigationbar_add_normal.png */,
 				18B563AF1A8366A4009779A0 /* navigationbar_collect_highlighted.png */,
 				18B563B01A8366A4009779A0 /* navigationbar_collect_normal.png */,
 				18B563B11A8366A4009779A0 /* navigationbar_collected_normal.png */,
@@ -4104,6 +4117,16 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
+		18DFE8CC1AC8F29000C216C3 /* Comparison */ = {
+			isa = PBXGroup;
+			children = (
+				18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */,
+				18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */,
+				18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */,
+			);
+			path = Comparison;
+			sourceTree = "<group>";
+		};
 		18E2023C1AAFFA4900577872 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -5031,6 +5054,7 @@
 				18B564171A8366A4009779A0 /* houses_detail_metro_highlighted.png in Resources */,
 				475C3D761AB171120028608F /* myzone_oorderlist_cell_rent_mark_tip.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
+				18DFE8D61AC95BEA00C216C3 /* navigationbar_add_normal.png in Resources */,
 				47D2FE2D1ABC1B2E00651A5D /* myzone_order_result_icon.png in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18B5641C1A8366A4009779A0 /* houses_detail_school_normal.png in Resources */,
@@ -5096,6 +5120,7 @@
 				18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */,
 				475C3D921AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png in Resources */,
 				18B563F41A8366A4009779A0 /* developer_chat_hightlight.png in Resources */,
+				18DFE8D51AC95BEA00C216C3 /* navigationbar_add_highlighted.png in Resources */,
 				475A4DA51AC55DF5009881CF /* myzone_oorderdetail_computer_bt_normal.png in Resources */,
 				18BE12731A8A133D0036245A /* myzone_renant_order_appointed_highlighted.png in Resources */,
 				18B564481A8366A4009779A0 /* navigationbar_confirm_normal.png in Resources */,
@@ -5111,6 +5136,7 @@
 				18BE12691A8A133D0036245A /* myzone_owner_recommend_renant_highlighted.png in Resources */,
 				18EC15891AC2A58A00D2AD3A /* ReleaseSaleHouse.plist in Resources */,
 				475C3D741AB171120028608F /* myzone_oorderlist_cell_cover_frame.png in Resources */,
+				18DFE8D11AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png in Resources */,
 				18B564191A8366A4009779A0 /* houses_detail_refresh_highlighted.png in Resources */,
 				18B564051A8366A4009779A0 /* home_bridalchamber_highlighted.png in Resources */,
 				18BE126A1A8A133D0036245A /* myzone_owner_recommend_renant_normal.png in Resources */,
@@ -5135,9 +5161,11 @@
 				18B564131A8366A4009779A0 /* houses_detail_catering_highlighted.png in Resources */,
 				18B564661A8366A4009779A0 /* public_shake.png in Resources */,
 				18B564571A8366A4009779A0 /* navigationbar_tool_highlighted.png in Resources */,
+				18DFE8D21AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png in Resources */,
 				18B564231A8366A4009779A0 /* houses_detail_video_highlighted.png in Resources */,
 				18B5643C1A8366A4009779A0 /* icon87.png in Resources */,
 				18B5643E1A8366A4009779A0 /* 1242X2208.png in Resources */,
+				18DFE8CE1AC8F29000C216C3 /* comparison_sixform.png in Resources */,
 				18B5640A1A8366A4009779A0 /* home_secondhandhouse_normal.png in Resources */,
 				18B564001A8366A4009779A0 /* guide_tenant_haved_circle_tip.png in Resources */,
 				18B5641D1A8366A4009779A0 /* houses_detail_score.png in Resources */,
