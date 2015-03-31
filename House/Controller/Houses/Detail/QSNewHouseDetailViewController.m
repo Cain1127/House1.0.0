@@ -9,6 +9,7 @@
 #import "QSNewHouseDetailViewController.h"
 #import "QSActivityDetailViewController.h"
 #import "QSHouseTypeDetailViewController.h"
+#import "QSSignUpViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -71,8 +72,6 @@ static char LeftStarKey;            //!<左侧星级
 
 @property (nonatomic, copy) NSString *phoneNumber;                  //!<电话号码
 @property (nonatomic,retain) NSArray *activityArray;                //!<活动列表
-
-
 
 @end
 
@@ -167,7 +166,7 @@ static char LeftStarKey;            //!<左侧星级
     [rootView addSubview:bottomRootView];
     bottomRootView.hidden = YES;
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
-    [self createBottomButtonViewUI:YES];
+   // [self createBottomButtonViewUI];
     
     ///一开始就请求数据
     [rootView.header beginRefreshing];
@@ -176,7 +175,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 搭建底部按钮
 ///创建底部按钮
-- (void)createBottomButtonViewUI:(BOOL)isLooked
+- (void)createBottomButtonViewUI
 {
     
     ///获取底view
@@ -194,8 +193,27 @@ static char LeftStarKey;            //!<左侧星级
     sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:sepLabel];
     
-    ///根据是否已看房，创建不同的功能按钮
-    if (isLooked) {
+    ///根据是否有活动，创建不同的功能按钮
+    if ([self.detailInfo.loupan_activity count]>0) {
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        
+        ///免费通话按钮
+        buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
+        UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
+            
+            ///判断是否已登录
+            
+            
+            ///已登录重新刷新数据
+            
+            
+        }];
+        [view addSubview:callFreeButton];
+        
+        
+    } else {
         
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
@@ -218,28 +236,11 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE;
         UIButton *lookHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(callFreeButton.frame.origin.x + callFreeButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, callFreeButton.frame.origin.y, callFreeButton.frame.size.width, callFreeButton.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            
+            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithtitle:self.title];
+            [self.navigationController pushViewController:VC animated:YES];
             
         }];
         [view addSubview:lookHouseButton];
-        
-    } else {
-        
-        ///按钮风格
-        QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-        
-        ///免费通话按钮
-        buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
-        UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
-            
-            ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
-            
-            
-        }];
-        [view addSubview:callFreeButton];
         
     }
     
@@ -1456,10 +1457,18 @@ static char LeftStarKey;            //!<左侧星级
 - (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
     
+    QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
+
     ///创建活动页
-    QSNewHouseActivityView *activityView = [[QSNewHouseActivityView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andSignUpButtonCallBack:^(BOOL flag) {
+    QSNewHouseActivityView *activityView = [[QSNewHouseActivityView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andSignUpButtonCallBack:^(ACTIVITY_CALLBACK_ACTION_TYPE actionType) {
         
-        ///
+        if (aActivityCallBackActionTypeSignUP == actionType) {
+            
+            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:activityModel.id_ andTitle:activityModel.title andNumber:activityModel.people_num andEndTime:activityModel.end_time];
+            
+            [self.navigationController pushViewController:VC animated:YES];
+            
+        }
         
     }];
     
@@ -1503,6 +1512,9 @@ static char LeftStarKey;            //!<左侧星级
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
+            
+            ///创建底部UI
+            [self createBottomButtonViewUI];
             
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

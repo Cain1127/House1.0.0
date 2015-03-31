@@ -75,11 +75,11 @@
     [self.view addSubview:_rootView];
     
     ///添加刷新
-    //[_rootView addHeaderWithTarget:self action:@selector(getHouseTypeDetailInfo)];
+    //[_rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getHouseTypeDetailInfo)];
     [self getHouseTypeDetailInfo];
     
     ///一开始就头部刷新
-    //[_rootView headerBeginRefreshing];
+    //[_rootView.header beginRefreshing];
 
 }
 
@@ -344,7 +344,7 @@
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-                //[_rootView headerEndRefreshing];
+//                [_rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
                 
@@ -352,7 +352,7 @@
             
         } else {
             
-            //[_rootView headerEndRefreshing];
+            [_rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
                 

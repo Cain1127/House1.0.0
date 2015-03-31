@@ -28,7 +28,7 @@ static char CommitedCountKey;   //!<已报名人数关联
 @interface QSNewHouseActivityView ()
 
 @property (nonatomic,assign) CGFloat totalTime;                     //!<总的活动时间
-@property (nonatomic,copy) void(^signupButtonCallBack)(BOOL flag);  //!<报名按钮回调
+@property (nonatomic,copy) void(^signupButtonCallBack)(ACTIVITY_CALLBACK_ACTION_TYPE flag);  //!<报名按钮回调
 
 @end
 
@@ -48,7 +48,7 @@ static char CommitedCountKey;   //!<已报名人数关联
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSignUpButtonCallBack:(void(^)(BOOL flag))signButtonCallBack
+- (instancetype)initWithFrame:(CGRect)frame andSignUpButtonCallBack:(void(^)(ACTIVITY_CALLBACK_ACTION_TYPE flag))signButtonCallBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -186,12 +186,19 @@ static char CommitedCountKey;   //!<已报名人数关联
     ///报名按钮
     UIButton *signUpButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, infoRootView.frame.size.height - (SIZE_DEVICE_WIDTH > 320.0f ? 44.0f : 30.0f), self.frame.size.width - 2.0f * widthOfImage - 30.0f, (SIZE_DEVICE_WIDTH > 320.0f ? 44.0f : 30.0f)) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
+        if (self.signupButtonCallBack) {
+            
+            self.signupButtonCallBack(aActivityCallBackActionTypeSignUP);
+            
+        }
+        
     }];
     [signUpButton setTitle:@"马上报名" forState:UIControlStateNormal];
     [signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [signUpButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
     signUpButton.backgroundColor = [UIColor redColor];
     signUpButton.layer.cornerRadius = 6.0f;
+    //signUpButton.userInteractionEnabled = NO;
     [infoRootView addSubview:signUpButton];
 
 }

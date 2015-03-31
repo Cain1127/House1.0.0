@@ -11,6 +11,17 @@
 
 @interface QSActivityDetailViewController : QSTurnBackViewController
 
+/*!
+ *  @author wangshupeng, 15-03-31 10:03:01
+ *
+ *  @brief  活动详情界面
+ *
+ *  @param activityID 活动ID
+ *
+ *  @return 活动详情
+ *
+ *  @since 1.0.0
+ */
 -(instancetype)initWithactivityID:(NSString*)activityID;
 
 @end

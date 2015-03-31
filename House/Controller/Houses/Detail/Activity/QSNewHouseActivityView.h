@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+///活动回调类型
+typedef enum
+{
+
+    aActivityCallBackActionTypeDetail = 0,//!<进入活动详情页
+    aActivityCallBackActionTypeSignUP,
+
+}ACTIVITY_CALLBACK_ACTION_TYPE;
+
 /**
  *  @author yangshengmeng, 15-03-11 12:03:14
  *
@@ -30,7 +39,7 @@
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSignUpButtonCallBack:(void(^)(BOOL flag))signButtonCallBack;
+- (instancetype)initWithFrame:(CGRect)frame andSignUpButtonCallBack:(void(^)(ACTIVITY_CALLBACK_ACTION_TYPE actionType))signButtonCallBack;
 
 /**
  *  @author         yangshengmeng, 15-03-11 12:03:37

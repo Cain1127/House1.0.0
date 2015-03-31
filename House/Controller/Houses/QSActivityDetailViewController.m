@@ -7,6 +7,8 @@
 //
 
 #import "QSActivityDetailViewController.h"
+#import "QSSignUpViewController.h"
+
 #import "DeviceSizeHeader.h"
 #import "ColorHeader.h"
 #import "QSBlockButton.h"
@@ -175,6 +177,10 @@ static char RootViewKey;     //!<顶部信息关联key
     UIButton *signUpButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         APPLICATION_LOG_INFO(@"马上报名按钮事件", nil);
+        
+        QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:self.activityID andTitle:self.detailInfo.loupan_activity.title andNumber:self.detailInfo.loupan_activity.people_num andEndTime:self.detailInfo.loupan_activity.end_time];
+        
+        [self.navigationController pushViewController:VC animated:YES];
         
     }];
     [view addSubview:signUpButton];

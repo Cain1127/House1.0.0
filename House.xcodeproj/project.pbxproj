@@ -611,6 +611,7 @@
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
 		CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */; };
 		CE2E0FC41AAFF75A004DEE1E /* QSHouseCommentDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */; };
+		CE391F7B1ACA387000C298D7 /* QSSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE391F7A1ACA387000C298D7 /* QSSignUpViewController.m */; };
 		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
 		CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */; };
 		CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF47A1A7A70080022A132 /* CoreLocation.framework */; };
@@ -1624,6 +1625,8 @@
 		CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHousePriceChangesDataModel.m; sourceTree = "<group>"; };
 		CE2E0FC21AAFF75A004DEE1E /* QSHouseCommentDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseCommentDataModel.h; sourceTree = "<group>"; };
 		CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseCommentDataModel.m; sourceTree = "<group>"; };
+		CE391F791ACA387000C298D7 /* QSSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSignUpViewController.h; sourceTree = "<group>"; };
+		CE391F7A1ACA387000C298D7 /* QSSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSignUpViewController.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_busbutton_highlighted.png; sourceTree = "<group>"; };
@@ -2511,6 +2514,7 @@
 		18A88E421A8C5AF100596E11 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CE391F781ACA384900C298D7 /* SignUp */,
 				CE7F50571AC8E9CE004E6032 /* HouseTypeDetail */,
 				CEEB6D741AC0099E00EC215D /* Cell */,
 				CEEB6D781AC00A4300EC215D /* UserAssess */,
@@ -4852,6 +4856,16 @@
 			path = PriceChanges;
 			sourceTree = "<group>";
 		};
+		CE391F781ACA384900C298D7 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				CE391F791ACA387000C298D7 /* QSSignUpViewController.h */,
+				CE391F7A1ACA387000C298D7 /* QSSignUpViewController.m */,
+			);
+			name = SignUp;
+			path = Detail/SignUp;
+			sourceTree = "<group>";
+		};
 		CE7F50571AC8E9CE004E6032 /* HouseTypeDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -5504,6 +5518,7 @@
 				18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */,
 				18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */,
 				18B572AE1AC16D1600C75682 /* googletest.cc in Sources */,
+				CE391F7B1ACA387000C298D7 /* QSSignUpViewController.m in Sources */,
 				478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */,
 				475A4D301AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m in Sources */,
 				18DFE8631AC6B40600C216C3 /* QSYHistoryRentHouseList.m in Sources */,
