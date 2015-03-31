@@ -522,6 +522,7 @@ typedef enum
     rRequestResultTypeError,            //!<请求类型有误
     rRequestResultTypeURLError,         //!<无法获取有效URL信息
     rRequestResultTypeMappingClassError,//!<无效的mapping类
+    rRequestResultTypeImageDataError,   //!<上传图片时，图片获取失败
     
     rRequestResultTypeNoNetworking,     //!<请求失败，无可用网络
     rRequestResultTypeBadNetworking     //!<请求失败，网络不稳定

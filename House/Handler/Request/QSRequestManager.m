@@ -16,6 +16,9 @@
 
 #import <CommonCrypto/CommonDigest.h>
 
+///网络请求错误标识
+#define REQUEST_ERROR_DOMAIN @"com.77tng.request.error"
+
 @interface QSRequestManager ()
 
 ///网络请求管理器
@@ -238,10 +241,27 @@
     ///图片请求
     if (rRequestTypeLoadImage == taskModel.requestType) {
         
-#if 0
-        
-        [self.httpRequestManager GET:taskModel.requestURL parameters:taskModel.requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        ///获取图片
+        NSString *imagePath = [taskModel.requestParams valueForKey:@"attach_file"];
+        __block NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+        if (nil == imageData || 0 >= [imageData length]) {
             
+            [self handleRequestFail:[self createCustomLocalError:REQUEST_ERROR_DOMAIN andErrorCode:rRequestResultTypeImageDataError andErrorInfo:@"图片获取失败"] andFailCallBack:taskModel.requestCallBack];
+            return;
+            
+        }
+        
+        ///封装图片上传的post参数
+        NSMutableDictionary *tempParams = [taskModel.requestParams mutableCopy];
+        [tempParams removeObjectForKey:@"attach_file"];
+        
+        [self.httpRequestManager POST:taskModel.requestURL parameters:tempParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+            [formData appendPartWithFileData:imageData name:@"attach_file" fileName:@"image.jpg" mimeType:@"image/jpg"];
+            
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            ///请求成功
             [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -250,21 +270,6 @@
             [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
             
         }];
-#endif
-        
-#if 1
-        [self.httpRequestManager POST:taskModel.requestURL parameters:taskModel.requestParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            ///请求成功
-            [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-            ///请求失败
-            [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
-            
-        }];
-#endif
         
         return;
         
@@ -513,6 +518,16 @@
             result[24], result[25], result[26], result[27],
             result[28], result[29], result[30], result[31]];
     
+}
+
+#pragma mark - 自定义NSError
+- (NSError *)createCustomLocalError:(NSString *)errorDomain andErrorCode:(REQUEST_RESULT_STATUS)errorCode andErrorInfo:(NSString *)errorInfo
+{
+    
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errorInfo                                                                      forKey:NSLocalizedDescriptionKey];
+    NSError *aError = [NSError errorWithDomain:errorDomain code:errorCode userInfo:userInfo];
+    return aError;
+
 }
 
 #pragma mark - ===============类方法区域===============

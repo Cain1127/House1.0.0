@@ -34,8 +34,8 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addAttributeMappingsFromDictionary:@{@"" : @"smallImageURl",
-                                                         @"" : @"originalImageURl"}];
+    [shared_mapping addAttributeMappingsFromDictionary:@{@"attach_file" : @"smallImageURl",
+                                                         @"attach_thumb" : @"originalImageURl"}];
     
     return shared_mapping;
     
