@@ -82,6 +82,7 @@
     
     ///开始就头部刷新
     [self.listView.header beginRefreshing];
+    self.listView.footer.hidden = YES;
 
 }
 
