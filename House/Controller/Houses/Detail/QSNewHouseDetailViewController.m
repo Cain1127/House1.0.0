@@ -8,6 +8,7 @@
 
 #import "QSNewHouseDetailViewController.h"
 #import "QSActivityDetailViewController.h"
+#import "QSHouseTypeDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -886,7 +887,16 @@ static char LeftStarKey;            //!<左侧星级
         QSHouseTypeDataModel *houseTypeModel = self.detailInfo.loupanHouse[i];
         
         ///底图
-        QSImageView *sixFormImage = [[QSImageView alloc] initWithFrame:CGRectMake(i * (width + gap), 0.0f, width, 55.0f)];
+        UIImageView *sixFormImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(i * (width + gap), 0.0f, width, 55.0f) andSingleTapCallBack:^{
+            
+            ///进入户型详情
+            APPLICATION_LOG_INFO(@"点击户型进入户型详情", nil);
+            QSHouseTypeDetailViewController *VC=[[QSHouseTypeDetailViewController alloc] initWithLoupan_id:self.loupanID andLoupan_building_id:self.buildingID];
+            
+            [self.navigationController pushViewController:VC animated:YES];
+            
+            
+        }];
         sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
         [view addSubview:sixFormImage];
         

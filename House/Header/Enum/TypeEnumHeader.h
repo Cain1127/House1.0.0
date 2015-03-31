@@ -581,6 +581,7 @@ typedef enum
     rRequestTypeRentalHouseDetail,              //!<出租房详情请求
     
     rRequestTypeActivityDetail = 2061,          //!<活动详情请求
+    rRequestHouseTypeDetail = 2062,             //!<户型详情请求
     
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     

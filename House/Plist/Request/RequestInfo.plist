@@ -158,6 +158,13 @@
 		<key>url</key>
 		<string>user/checkSendVer</string>
 	</dict>
+	<key>2062</key>
+	<dict>
+		<key>url</key>
+		<string>loupanHouse/view</string>
+		<key>class</key>
+		<string>QSHouseTypeDetailReturnData</string>
+	</dict>
 	<key>2061</key>
 	<dict>
 		<key>class</key>
