@@ -20,6 +20,6 @@ typedef enum
 @interface QSPOrderBookTimeViewController : QSTurnBackViewController
 
 @property ( nonatomic, assign ) BOOKTIME_VIEWCONTROLLER_TYPE vcType;
-@property ( nonatomic, strong ) QSWSecondHouseInfoDataModel *houseInfo;        //!<房源信息数据模型
+@property ( nonatomic, strong ) id houseInfo;        //!<房源信息数据模型
 
 @end

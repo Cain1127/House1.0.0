@@ -37,6 +37,7 @@
 
 #import "MJRefresh.h"
 
+#import "QSPOrderBookTimeViewController.h"
 
 #import <objc/runtime.h>
 
@@ -195,29 +196,33 @@ static char LeftStarKey;            //!<左侧星级
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
         
-        ///停止出售按钮
+        ///预约按钮
         buttonStyle.title = TITLE_HOUSES_DETAIL_RENT_ORDER;
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            ///判断是否已登录
-            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
-                
-                ///已登录
-                if (lLoginCheckActionTypeLogined == flag) {
+//            ///判断是否已登录
+//            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+//                
+//                ///已登录
+//                if (lLoginCheckActionTypeLogined == flag) {
+//                    
+                    ///已登录进入预约
+                    QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
+                    [bookTimeVc setVcType:bBookTypeViewControllerBook];
+                    [bookTimeVc setHouseInfo:self.houseInfo];
+                    [self.navigationController pushViewController:bookTimeVc animated:YES];
                     
-                    
-                    
-                }
-                
-                ///新登录时刷新数据
-                if (lLoginCheckActionTypeReLogin == flag) {
-                    
-                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                    [rootView.header beginRefreshing];
-                    
-                }
-                
-            }];
+//                }
+//                
+//                ///新登录时刷新数据
+//                if (lLoginCheckActionTypeReLogin == flag) {
+//                    
+//                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+//                    [rootView.header beginRefreshing];
+//                    
+//                }
+//                
+//            }];
             
             
         }];

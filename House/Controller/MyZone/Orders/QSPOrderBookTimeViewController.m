@@ -15,6 +15,7 @@
 #import "NSString+Format.h"
 #import "QSHeaderDataModel.h"
 #import "QSPOrderSubmitResultViewController.h"
+#import "QSWRentHouseInfoDataModel.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -121,7 +122,11 @@
     //日历
     NSString *cycleStr = nil;
     if (self.houseInfo) {
-        cycleStr = self.houseInfo.cycle;
+        if ([self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
+            cycleStr = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).cycle;
+        }else if ([self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]]) {
+            cycleStr = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).cycle;
+        }
     }
     self.calendarView = [[QSPCalendarView alloc] initAtTopLeft:CGPointZero withCycle:cycleStr];
     [self.scrollView addSubview:self.calendarView];
@@ -155,7 +160,15 @@
         }
         [timePickerView setDelegate:self];
         if (self.houseInfo) {
-            [timePickerView updateDataFormHour:self.houseInfo.time_interval_start toHour:self.houseInfo.time_interval_end];
+            if ([self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
+                
+                [timePickerView updateDataFormHour:((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_start toHour:((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_end];
+                
+            }else if ([self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]]) {
+                
+                [timePickerView updateDataFormHour:((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_start toHour:((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_end];
+                
+            }
         }
         [timePickerView showTimeHourPickerView];
         
@@ -367,7 +380,7 @@
 //    saler_id	true	string	出售/出租者id，也就是销售/出租该房子的直接操控者
 //    add_type	true	string	添加的类型，不必要填写，主要用与区分是后台添加还是来源客户端，默认是0，也是就是来源客户端的添加
     
-    if (!self.houseInfo || ![self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
+    if (!self.houseInfo || (![self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]] && ![self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]])) {
         NSLog(@"获取房源信息出错！");
         return;
     }
@@ -381,10 +394,22 @@
     [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
     [tempParam setObject:self.phoneNumField.text forKey:@"buyer_phone"];
     [tempParam setObject:@"500102" forKey:@"order_type"];
-    [tempParam setObject:self.houseInfo.id_ forKey:@"source_id"];
     [tempParam setObject:@"" forKey:@"source_ask_for_id"];
-    [tempParam setObject:self.houseInfo.user_id forKey:@"saler_id"];
     [tempParam setObject:@"0" forKey:@"add_type"];
+    
+    if (self.houseInfo) {
+        if ([self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
+            
+            [tempParam setObject:((QSWSecondHouseInfoDataModel*)(self.houseInfo)).id_ forKey:@"source_id"];
+            [tempParam setObject:((QSWSecondHouseInfoDataModel*)(self.houseInfo)).user_id forKey:@"saler_id"];
+            
+        }else if ([self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]]) {
+            
+            [tempParam setObject:((QSWRentHouseInfoDataModel*)(self.houseInfo)).id_ forKey:@"source_id"];
+            [tempParam setObject:((QSWRentHouseInfoDataModel*)(self.houseInfo)).user_id forKey:@"saler_id"];
+            
+        }
+    }
     
 //    NSLog(@"请求参数：%@",tempParam);
 
