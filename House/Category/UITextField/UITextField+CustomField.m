@@ -44,6 +44,13 @@
 + (UITextField *)createCustomTextFieldWithFrame:(CGRect)frame andPlaceHolder:(NSString *)placeHoulder andLeftTipsInfo:(NSString *)info andLeftTipsTextAlignment:(NSTextAlignment)alignment andTextFieldStyle:(CUSTOM_TEXTFIELD_STLYE)fieldStyle
 {
 
+    return [self createCustomTextFieldWithFrame:frame andPlaceHolder:placeHoulder andLeftTipsInfo:info andRightTipsInfo:nil andLeftTipsTextAlignment:alignment andTextFieldStyle:fieldStyle];
+
+}
+
++ (UITextField *)createCustomTextFieldWithFrame:(CGRect)frame andPlaceHolder:(NSString *)placeHoulder andLeftTipsInfo:(NSString *)leftInfo andRightTipsInfo:(NSString *)rightInfo andLeftTipsTextAlignment:(NSTextAlignment)alignment andTextFieldStyle:(CUSTOM_TEXTFIELD_STLYE)fieldStyle
+{
+
     QSTextField *textField = [[QSTextField alloc] initWithFrame:frame];
     
     ///左右view
@@ -65,12 +72,12 @@
         {
         
             ///获取文字显示最小长度
-            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
             
             QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
             leftTipsLabel.textAlignment = alignment;
             leftTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-            leftTipsLabel.text = info;
+            leftTipsLabel.text = leftInfo;
             leftView = leftTipsLabel;
         
         }
@@ -81,12 +88,12 @@
         {
             
             ///获取文字显示最小长度
-            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
             
             QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
             leftTipsLabel.textAlignment = alignment;
             leftTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-            leftTipsLabel.text = info;
+            leftTipsLabel.text = leftInfo;
             leftView = leftTipsLabel;
             
             ///右箭头
@@ -98,18 +105,31 @@
             
             ///左提示(深灰)
         case cCustomTextFieldStyleLeftTipsGray:
+        {
+            
+            ///获取文字显示最小长度
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+            leftTipsLabel.text = leftInfo;
+            leftView = leftTipsLabel;
+            
+        }
+            break;
             
             ///右箭头+左提示(深灰)
         case cCustomTextFieldStyleRightArrowLeftTipsGray:
         {
             
             ///获取文字显示最小长度
-            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
             
             QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
             leftTipsLabel.textAlignment = alignment;
             leftTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
-            leftTipsLabel.text = info;
+            leftTipsLabel.text = leftInfo;
             leftView = leftTipsLabel;
             
             ///右箭头
@@ -124,12 +144,12 @@
         {
             
             ///获取文字显示最小长度
-            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
             
             QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
             leftTipsLabel.textAlignment = alignment;
             leftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
-            leftTipsLabel.text = info;
+            leftTipsLabel.text = leftInfo;
             leftView = leftTipsLabel;
             
         }
@@ -139,17 +159,96 @@
         {
             
             ///获取文字显示最小长度
-            CGFloat width = [info calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            CGFloat width = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
             
             QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, width + 30.0f, 44.0)];
             leftTipsLabel.textAlignment = alignment;
             leftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
-            leftTipsLabel.text = info;
+            leftTipsLabel.text = leftInfo;
             leftView = leftTipsLabel;
             
             ///右箭头
             rightView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 13.0f, 23.0f)];
             ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
+        }
+            break;
+            
+            ///左右都是文字提示:文字黑色
+        case cCustomTextFieldStyleLeftAndRightTipsBlack:
+        {
+            
+            ///获取文字显示最小长度
+            CGFloat widthLeft = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthLeft + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+            leftTipsLabel.text = leftInfo;
+            leftView = leftTipsLabel;
+            
+            ///右箭头
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
+            CGFloat widthRight = [rightInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            QSLabel *rightTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthRight + 30.0f, 44.0)];
+            rightTipsLabel.textAlignment = NSTextAlignmentRight;
+            rightTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+            rightTipsLabel.text = rightInfo;
+            rightView = rightTipsLabel;
+            
+        }
+            break;
+            
+            ///左右都是文字提示:文字灰色
+        case cCustomTextFieldStyleLeftAndRightTipsGray:
+        {
+            
+            ///获取文字显示最小长度
+            CGFloat widthLeft = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthLeft + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+            leftTipsLabel.text = leftInfo;
+            leftView = leftTipsLabel;
+            
+            ///右箭头
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
+            CGFloat widthRight = [rightInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            QSLabel *rightTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthRight + 30.0f, 44.0)];
+            rightTipsLabel.textAlignment = NSTextAlignmentRight;
+            rightTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
+            rightTipsLabel.text = rightInfo;
+            rightView = rightTipsLabel;
+            
+        }
+            break;
+            
+            ///左右都是文字提示:文字浅灰色
+        case cCustomTextFieldStyleLeftAndRightTipsLightGray:
+        {
+            
+            ///获取文字显示最小长度
+            CGFloat widthLeft = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthLeft + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+            leftTipsLabel.text = leftInfo;
+            leftView = leftTipsLabel;
+            
+            ///右箭头
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
+            CGFloat widthRight = [rightInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            QSLabel *rightTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthRight + 30.0f, 44.0)];
+            rightTipsLabel.textAlignment = NSTextAlignmentRight;
+            rightTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+            rightTipsLabel.text = rightInfo;
+            rightView = rightTipsLabel;
+            
         }
             break;
             

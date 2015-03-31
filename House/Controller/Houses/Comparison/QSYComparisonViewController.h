@@ -41,9 +41,13 @@
 @property (nonatomic,copy) NSString *monthPrice;    //!<月供
 @property (nonatomic,copy) NSString *buildingYear;  //!<建筑时间
 @property (nonatomic,copy) NSString *rightYear;     //!<产权年限
-@property (nonatomic,copy) NSString *liftNum;       //!<电梯总数
-@property (nonatomic,copy) NSString *liftServerNum; //!<电梯服务的户数
+@property (nonatomic,copy) NSString *floor_which;   //!<房源所在楼层
+@property (nonatomic,copy) NSString *floor_sum;     //!<房源楼栋总层数
 @property (nonatomic,copy) NSString *face;          //!<朝向
 @property (nonatomic,copy) NSString *decoration;    //!<装修
+@property (nonatomic,copy) NSString *lift;          //!<是否有电梯
+@property (nonatomic,copy) NSString *rentPayType;   //!<租金支付方式
+@property (nonatomic,copy) NSString *leadTime;      //!<入住时间
+@property (nonatomic,copy) NSString *houseStatus;   //!<出租房的当前状态
 
 @end

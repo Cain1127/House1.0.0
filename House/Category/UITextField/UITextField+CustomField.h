@@ -18,7 +18,10 @@ typedef enum
     cCustomTextFieldStyleRightArrowLeftTipsGray,        //!<右箭头+左提示(灰色)
     cCustomTextFieldStyleLeftTipsLightGray,             //!<左提示(浅灰)
     cCustomTextFieldStyleLeftTipsGray,                  //!<左提示(深灰)
-    cCustomTextFieldStyleLeftTipsBlack                  //!<左提示(黑色)
+    cCustomTextFieldStyleLeftTipsBlack,                 //!<左提示(黑色)
+    cCustomTextFieldStyleLeftAndRightTipsBlack,         //!<左右都是文字提示:文字黑色
+    cCustomTextFieldStyleLeftAndRightTipsGray,          //!<左右都是文字提示：灰色
+    cCustomTextFieldStyleLeftAndRightTipsLightGray,     //!<左右都是文字提示：浅灰色
     
 }CUSTOM_TEXTFIELD_STLYE;                                //!<自定义输入框的几种常用风格
 
@@ -57,5 +60,7 @@ typedef enum
  *  @since              1.0.0
  */
 + (UITextField *)createCustomTextFieldWithFrame:(CGRect)frame andPlaceHolder:(NSString *)placeHoulder andLeftTipsInfo:(NSString *)info andLeftTipsTextAlignment:(NSTextAlignment)alignment andTextFieldStyle:(CUSTOM_TEXTFIELD_STLYE)fieldStyle;
+
++ (UITextField *)createCustomTextFieldWithFrame:(CGRect)frame andPlaceHolder:(NSString *)placeHoulder andLeftTipsInfo:(NSString *)leftInfo andRightTipsInfo:(NSString *)rightInfo andLeftTipsTextAlignment:(NSTextAlignment)alignment andTextFieldStyle:(CUSTOM_TEXTFIELD_STLYE)fieldStyle;
 
 @end

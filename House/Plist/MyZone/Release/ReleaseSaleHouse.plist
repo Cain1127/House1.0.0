@@ -4,6 +4,8 @@
 <dict>
 	<key>trade_type</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>20</string>
 		<key>type</key>
@@ -19,6 +21,8 @@
 	</dict>
 	<key>district</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>21</string>
 		<key>type</key>
@@ -34,6 +38,8 @@
 	</dict>
 	<key>street</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>22</string>
 		<key>type</key>
@@ -49,6 +55,8 @@
 	</dict>
 	<key>community_name</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>23</string>
 		<key>type</key>
@@ -64,6 +72,8 @@
 	</dict>
 	<key>address</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>24</string>
 		<key>type</key>
@@ -79,6 +89,8 @@
 	</dict>
 	<key>house_type</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>25</string>
 		<key>type</key>
@@ -94,6 +106,8 @@
 	</dict>
 	<key>area</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>26</string>
 		<key>type</key>
@@ -109,10 +123,12 @@
 	</dict>
 	<key>price</key>
 	<dict>
+		<key>right_title</key>
+		<string>万</string>
 		<key>action_type</key>
 		<string>27</string>
 		<key>type</key>
-		<string>1</string>
+		<string>9</string>
 		<key>order</key>
 		<string>7</string>
 		<key>placehold</key>
@@ -124,6 +140,8 @@
 	</dict>
 	<key>is_price</key>
 	<dict>
+		<key>right_title</key>
+		<string></string>
 		<key>action_type</key>
 		<string>28</string>
 		<key>type</key>

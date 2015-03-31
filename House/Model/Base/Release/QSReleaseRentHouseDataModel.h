@@ -27,6 +27,8 @@
 @property (nonatomic,copy) NSString *rentPriceKey;                  //!<租金key
 @property (nonatomic,copy) NSString *rentPaytype;                   //!<支付方式
 @property (nonatomic,copy) NSString *rentPaytypeKey;                //!<支付方式key
+@property (nonatomic,copy) NSString *leadTime;                      //!<入住时间
+@property (nonatomic,copy) NSString *leadTimeKey;                   //!<入住时间key
 @property (nonatomic,copy) NSString *whetherBargaining;             //!<是否议价
 @property (nonatomic,copy) NSString *whetherBargainingKey;          //!<是否议价key
 @property (nonatomic,copy) NSString *houseStatus;                   //!<出租房当前状态

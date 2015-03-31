@@ -240,6 +240,14 @@
 
 }
 
++ (NSString *)getHouseRentTypeWithKey:(NSString *)payKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"payment" andSecondFieldName:@"key" andSecndFieldValue:payKey];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 10:02:46
  *
@@ -925,6 +933,42 @@
         
     }
     return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  出租房的入住时间
+ *
+ *  @return 返回出租房的可入住时间选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseLeadTimeTyps
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"lead_time"]];
+    
+    ///排序
+    [tempArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSBaseConfigurationDataModel *obj1Model = obj1;
+        QSBaseConfigurationDataModel *obj2Model = obj2;
+        
+        return [obj1Model.key intValue] > [obj2Model.key intValue];
+        
+    }];
+    
+    return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getRentHouseLeadTimeTypeWithKey:(NSString *)typeKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"lead_time" andSecondFieldName:@"key" andSecndFieldValue:typeKey];
+    return tempModel.val;
 
 }
 
