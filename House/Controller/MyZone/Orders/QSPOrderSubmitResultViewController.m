@@ -9,18 +9,25 @@
 #import "QSPOrderSubmitResultViewController.h"
 #import "QSPOrderBottomButtonView.h"
 
+#define ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME   5.0f
+
 @interface QSPOrderSubmitResultViewController ()
 
+@property (nonatomic,copy) void  (^blockButtonCallBack)(ORDER_SUBMIT_RESULT_BACK_TYPE);
 @property (nonatomic, assign) ORDER_SUBMIT_RESULT_TYPE resultType;
+@property (nonatomic,retain) NSTimer *autoReturnTimer;      //!<自动返回的定时器
 
 @end
 
 @implementation QSPOrderSubmitResultViewController
 
-- (instancetype)initWithResultType:(ORDER_SUBMIT_RESULT_TYPE)type
+- (instancetype)initWithResultType:(ORDER_SUBMIT_RESULT_TYPE)type andAutoBackCallBack:(void(^)(ORDER_SUBMIT_RESULT_BACK_TYPE)) callBack
 {
     if (self = [super init]) {
+        
         _resultType = type;
+        self.blockButtonCallBack = callBack;
+        
     }
     return self;
 }
@@ -62,12 +69,12 @@
             if (buttonType == bBottomButtonTypeLeft) {
                 //左边按钮
                 
-                [self dismissViewControllerAnimated:YES completion:^{
-                    
-                }];
+                [self backToLastViewControllerWithBackType:oOrderSubmitResultBackTypeToDetail];
                 
             }else if (buttonType == bBottomButtonTypeRight) {
                 //右边按钮
+                
+                [self backToLastViewControllerWithBackType:oOrderSubmitResultBackTypeToMoreHouse];
                 
             }
             
@@ -87,9 +94,7 @@
             if (buttonType == bBottomButtonTypeOne) {
                 //中间按钮
                 
-                [self dismissViewControllerAnimated:YES completion:^{
-                    
-                }];
+                 [self backToLastViewControllerWithBackType:oOrderSubmitResultBackTypeToMoreHouse];
                 
             }
             
@@ -112,6 +117,53 @@
     [contentBgView setFrame:CGRectMake(contentBgView.frame.origin.x, contentBgView.frame.origin.y, contentBgView.frame.size.width, offsetY)];
     
     [contentBgView setCenter: self.view.center];
+    
+    [self initAutoReturnTimer];
+    
+}
+
+///初始化自动返回定时器
+- (void)initAutoReturnTimer
+{
+    ///判断是否已开启
+    if ([self.autoReturnTimer isValid]) {
+        
+        [self.autoReturnTimer invalidate];
+        self.autoReturnTimer = nil;
+        
+    }
+    
+    ///开启定时器
+    self.autoReturnTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(checkReturn:) userInfo:nil repeats:NO];
+    
+}
+
+///退出视图
+- (void)checkReturn:(NSTimer *)timer
+{
+    
+    [self backToLastViewControllerWithBackType:oOrderSubmitResultBackTypeAuto];
+    
+}
+
+- (void)backToLastViewControllerWithBackType:(ORDER_SUBMIT_RESULT_BACK_TYPE)backType
+{
+    
+    if (self.autoReturnTimer && [self.autoReturnTimer isValid]) {
+        
+        [self.autoReturnTimer invalidate];
+        self.autoReturnTimer = nil;
+        
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+    if (self.blockButtonCallBack) {
+        self.blockButtonCallBack(backType);
+    }
+    
     
 }
 

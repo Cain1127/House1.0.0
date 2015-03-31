@@ -456,6 +456,20 @@
 ///订单详情地址栏计算器按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED  @"myzone_oorderdetail_computer_bt_selected"
 
+///订单详情对方出价灰色背景头图片
+#define IMAGE_ZONE_ORDER_DETAIL_OTHER_PRICE_GRAY_BG   @"myzone_oorderdetail_orther_price_bg"
+///订单详情我的出价黄色背景头图片
+#define IMAGE_ZONE_ORDER_DETAIL_MY_PRICE_YELLOW_BG  @"myzone_oorderdetail_my_price_bg"
+
+///订单详情出价还价栏接受议价按钮默认图片
+#define IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_NORMAL   @"myzone_oorderdetail_accept_bt_normal"
+///订单详情出价还价栏接受议价按钮按下图片
+#define IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_PRESSED  @"myzone_oorderdetail_accept_bt_selected"
+
+///订单详情出价还价栏接受议价按钮默认图片
+#define IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL  @"myzone_oorderdetail_edite_price_bt_normal"
+///订单详情出价还价栏接受议价按钮按下图片
+#define IMAGE_ZONE_ORDER_DETAIL_EDITE_PRICE_BT_PRESSED @"myzone_oorderdetail_edite_price_bt_selected"
 
 ///预约订单选择时间月份选择按钮左箭头图片
 #define IMAGE_ZONE_ORDER_CALENDAR_MONTH_LEFT_BT    @"myzone_calendar_month_bt_left"

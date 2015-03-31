@@ -16,8 +16,17 @@ typedef enum
     
 }ORDER_SUBMIT_RESULT_TYPE;
 
+typedef enum
+{
+    
+    oOrderSubmitResultBackTypeAuto = 801,           //!<自动返回
+    oOrderSubmitResultBackTypeToDetail,             //!<点击查看预约详情按钮返回
+    oOrderSubmitResultBackTypeToMoreHouse,          //!<点击查看推荐房源按钮返回
+    
+}ORDER_SUBMIT_RESULT_BACK_TYPE;
+
 @interface QSPOrderSubmitResultViewController : QSHeaderViewController
 
-- (instancetype)initWithResultType:(ORDER_SUBMIT_RESULT_TYPE)type;
+- (instancetype)initWithResultType:(ORDER_SUBMIT_RESULT_TYPE)type andAutoBackCallBack:(void(^)(ORDER_SUBMIT_RESULT_BACK_TYPE)) callBack;
 
 @end

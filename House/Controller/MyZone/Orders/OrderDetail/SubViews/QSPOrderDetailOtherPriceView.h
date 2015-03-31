@@ -10,4 +10,10 @@
 
 @interface QSPOrderDetailOtherPriceView : UIView
 
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
+
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack;
+
+- (void)setOrderData:(id)orderData;
+
 @end
