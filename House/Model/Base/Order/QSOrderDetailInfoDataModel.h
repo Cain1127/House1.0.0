@@ -10,6 +10,7 @@
 #import "QSOrderListHouseInfoDataModel.h"
 
 @class QSOrderDetailInfoHouseDataModel;
+@class QSOrderDetailBargainDataModel;
 
 @interface QSOrderDetailInfoDataModel : QSOrderListOrderInfoDataModel
 
@@ -19,8 +20,22 @@
 
 @property (nonatomic,strong) NSArray *appoint_list;         //!<预约时间列表
 
+@property (nonatomic,strong) NSArray *bargain_list;         //!<双方出价记录列表
+
+
+
+- (NSAttributedString*)priceStringOnOtherPriceView;         //!<对方出价栏的中部价钱显示
+
+- (NSAttributedString*)priceStringOnMyPriceView;            //!<我的出价栏的中部价钱显示
+
+- (NSAttributedString*)titleStringOnBargainListView;        //!<议价记录列表栏的标题
+
+- (NSAttributedString*)infoStringOnBargainListView:(QSOrderDetailBargainDataModel*)itemData;         //!<议价记录
 
 - (void)updateViewsFlags;    //更新各种状态下Views显示组合
+
+
+
 
 //ScrollView内
 @property (nonatomic,assign) BOOL isShowTitleView;              //!<详情标题View
@@ -62,6 +77,16 @@
 @interface QSOrderDetailAppointTimeDataModel : QSBaseModel
 
 @property (nonatomic,strong) NSString *time;                 //!<预约时间字符串 ：eg:2015-03-15 12:00-13:00
+
+@end
+
+
+@interface QSOrderDetailBargainDataModel : QSBaseModel
+
+@property (nonatomic,strong) NSString *buyer_bid;       //!<房客的出价
+@property (nonatomic,strong) NSString *saler_bid;       //!<房主的出价 值为-1就是拒绝还价
+@property (nonatomic,strong) NSString *expand_1;
+@property (nonatomic,strong) NSString *expand_2;
 
 @end
 

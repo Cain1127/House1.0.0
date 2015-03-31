@@ -125,9 +125,17 @@
         if (areaStr&&[areaStr isKindOfClass:[NSString class]]&&![areaStr isEqualToString:@""]) {
             
             CGFloat areaf = areaStr.floatValue;
-            CGFloat perPricef = totalPriceStr.floatValue/areaf;
-            //转换单位为万的价格
-            perPriceStr = [NSString stringWithFormat:@"%.1f",perPricef/10000];
+            if (areaf==0) {
+                
+                perPriceStr = @"暂无单价";
+                
+            }else{
+                
+                CGFloat perPricef = totalPriceStr.floatValue/areaf;
+                //转换单位为万的价格
+                perPriceStr = [NSString stringWithFormat:@"%.1f",perPricef/10000];
+                
+            }
             
         }
         

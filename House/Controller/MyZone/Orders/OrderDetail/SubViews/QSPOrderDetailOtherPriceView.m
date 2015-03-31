@@ -39,37 +39,20 @@
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
         
-        NSString *ownerName = @"";
-        
-        NSString *phoneStr = @"";
-        
-        NSString *phoneTipStr = @"";
+        QSOrderDetailInfoDataModel *tempOrderData = nil;
         
         if (orderData) {
             
-            if ([orderData isKindOfClass:[QSOrderListItemData class]]) {
+            if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
                 
-                QSOrderListOwnerMsgDataModel *owner = ((QSOrderListItemData*)orderData).ownerData;
-                NSLog(@"owner:%@",owner);
-                if (owner && [owner isKindOfClass:[QSOrderListOwnerMsgDataModel class]]) {
-                    
-                    ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
-                    
-                    NSString *tempPhoneStr = [NSString stringWithString:owner.mobile];
-                    BOOL hidePhone = YES;
-                    if (hidePhone) {
-                        if ([tempPhoneStr length]>=8) {
-                            tempPhoneStr = [tempPhoneStr stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-                        }
-                        phoneTipStr = @"(预约成功后开放)";
-                    }else{
-                        phoneTipStr = @"";
-                    }
-                    
-                    phoneStr = [NSString stringWithFormat:@"电话:%@",tempPhoneStr];
-                    
-                }
+                tempOrderData = (QSOrderDetailInfoDataModel*)orderData;
+                
             }
+        }
+        
+        if (!tempOrderData) {
+            NSLog(@"QSPOrderDetailMyPriceView orderdata 格式错误！");
+            return self;
         }
         
         UIImageView *otherPriceBgView = [[UIImageView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, 73, 44)];
@@ -83,15 +66,20 @@
         [self.otherNameTipLabel setTextAlignment:NSTextAlignmentCenter];
         [otherPriceBgView addSubview:self.otherNameTipLabel];
         
-        self.otherPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(otherPriceBgView.frame.origin.x+otherPriceBgView.frame.size.width-8, otherPriceBgView.frame.origin.y, SIZE_DEVICE_WIDTH-(otherPriceBgView.frame.origin.x+otherPriceBgView.frame.size.width-8)-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44-10, otherPriceBgView.frame.size.height)];
+        self.otherPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(otherPriceBgView.frame.origin.x+otherPriceBgView.frame.size.width-8, otherPriceBgView.frame.origin.y+0.5f, SIZE_DEVICE_WIDTH-(otherPriceBgView.frame.origin.x+otherPriceBgView.frame.size.width-8)-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44-10, otherPriceBgView.frame.size.height-1.0f)];
         [self.otherPriceLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
         [self.otherPriceLabel setTextColor:COLOR_CHARACTERS_GRAY];
-        [self.otherPriceLabel setText:@"等待业主还价"];
         [self.otherPriceLabel setTextAlignment:NSTextAlignmentCenter];
         [self.otherPriceLabel.layer setCornerRadius:VIEW_SIZE_NORMAL_CORNERADIO];
         [self.otherPriceLabel.layer setBorderWidth:0.5f];
         [self.otherPriceLabel.layer setBorderColor:COLOR_CHARACTERS_GRAY.CGColor];
         [self addSubview:self.otherPriceLabel];
+        
+        if (tempOrderData) {
+            
+            [self.otherPriceLabel setAttributedText:[tempOrderData priceStringOnOtherPriceView]];
+            
+        }
 
         [self addSubview:otherPriceBgView];
         
@@ -110,7 +98,7 @@
         
         [self addSubview:acceptButton];
         
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, otherPriceBgView.frame.origin.y+otherPriceBgView.frame.size.height + 20)];
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, otherPriceBgView.frame.origin.y+otherPriceBgView.frame.size.height)];
         
         self.blockButtonCallBack = callBack;
         

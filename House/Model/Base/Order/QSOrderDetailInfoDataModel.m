@@ -27,10 +27,153 @@
     
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"saler_msg" toKeyPath:@"saler_msg" withMapping:[QSOrderListOrderInfoPersonInfoDataModel objectMapping]]];
     
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"bargain_list" toKeyPath:@"bargain_list" withMapping:[QSOrderDetailBargainDataModel objectMapping]]];
+    
     return shared_mapping;
     
 }
 
+- (NSAttributedString*)priceStringOnOtherPriceView
+{
+    
+    NSMutableAttributedString *priceInfoString = nil;
+    
+    NSString* priceStr = @"";
+    if (priceStr && ![priceStr isEqualToString:@""]) {
+        
+        NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
+        
+        priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
+        
+        [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, priceInfoString.length)];
+        
+        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_16] range:NSMakeRange(0, priceInfoString.length)];
+        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
+        
+    }else{
+        
+        priceInfoString = [[NSMutableAttributedString alloc] initWithString:@"等待业主还价"];
+        
+        [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, priceInfoString.length)];
+        
+        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, priceInfoString.length)];
+        
+    }
+
+    return priceInfoString;
+    
+}
+
+- (NSAttributedString*)priceStringOnMyPriceView
+{
+    
+    NSMutableAttributedString *priceInfoString = nil;
+    
+    NSString* priceStr = @"388";
+    NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
+    
+    priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
+    
+    [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
+    
+    [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_16] range:NSMakeRange(0, priceInfoString.length)];
+    [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
+    
+    return priceInfoString;
+    
+}
+
+- (NSAttributedString*)titleStringOnBargainListView
+{
+    
+    NSMutableAttributedString *countInfoString = nil;
+    
+    NSString* countStr = @"999999";
+    NSString* otherType = @"业主";
+    
+    if (self.bargain_list&&[self.bargain_list count]>0) {
+        countStr = [NSString stringWithFormat:@"%d",[self.bargain_list count]];
+    }
+    
+    if (countStr && ![countStr isEqualToString:@""]) {
+        
+        NSString* tempString = [NSString stringWithFormat:@"我和%@的议价记录（%@）条",otherType,countStr];
+        
+        countInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
+        
+        [countInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, countInfoString.length)];
+        
+        [countInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, countInfoString.length)];
+        
+        [countInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(8+otherType.length, countStr.length)];
+        
+    }else{
+
+        
+    }
+    
+    return countInfoString;
+    
+}
+
+- (NSAttributedString*)infoStringOnBargainListView:(QSOrderDetailBargainDataModel*)itemData
+{
+    
+    NSMutableAttributedString *itemInfoString = nil;
+    
+    if (!itemData || ![itemData isKindOfClass:[QSOrderDetailBargainDataModel class]]) {
+        NSLog(@"itemData 格式错误");
+        return itemInfoString;
+    }
+    
+    //FIXME: 缺房客与业主角色逻辑
+    NSString *myPriceStr = itemData.saler_bid;//@"290";
+    NSString *otherPriceStr = itemData.buyer_bid;//@"310";
+    
+    NSString *myPriceInfoString = nil;
+    
+    if (myPriceStr && ![myPriceStr isEqualToString:@""]) {
+        
+        myPriceInfoString = [NSString stringWithFormat:@"我的出价%@万",myPriceStr];
+        
+        itemInfoString = [[NSMutableAttributedString alloc] initWithString:myPriceInfoString];
+        
+        [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, itemInfoString.length)];
+        
+        [itemInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, itemInfoString.length)];
+        
+        [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(4, myPriceStr.length)];
+        
+        
+    }
+    
+    if (otherPriceStr && ![otherPriceStr isEqualToString:@""]) {
+        
+        NSString *otherPriceString = [NSString stringWithFormat:@"业主还价%@万",otherPriceStr];
+        NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
+        
+        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];
+        
+        [otherPriceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, otherPriceInfoString.length)];
+        
+        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(4, otherPriceStr.length)];
+        
+        if (itemInfoString) {
+            
+            [itemInfoString appendAttributedString:[[NSAttributedString alloc] initWithString:@"|"]];
+            [itemInfoString appendAttributedString:otherPriceInfoString];
+            
+        }else{
+            
+            itemInfoString = otherPriceInfoString;
+            
+        }
+        
+    }
+    
+    return itemInfoString;
+    
+}
 
 - (void)setAllViewsFlagWithFlag:(BOOL)flag
 {
@@ -190,6 +333,29 @@
     
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"time"
+                                                    ]];
+    
+    return shared_mapping;
+    
+}
+
+@end
+
+
+@implementation QSOrderDetailBargainDataModel
+
+///解析规则
++ (RKObjectMapping *)objectMapping
+{
+    ///非继承
+    RKObjectMapping *shared_mapping = nil;
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    
+    ///在超类的mapping规则之上添加子类mapping
+    [shared_mapping addAttributeMappingsFromArray:@[@"buyer_bid",
+                                                    @"saler_bid",
+                                                    @"expand_1",
+                                                    @"expand_2"
                                                     ]];
     
     return shared_mapping;

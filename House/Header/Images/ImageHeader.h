@@ -466,9 +466,9 @@
 ///订单详情出价还价栏接受议价按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_PRESSED  @"myzone_oorderdetail_accept_bt_selected"
 
-///订单详情出价还价栏接受议价按钮默认图片
+///订单详情出价还价栏编辑出价按钮默认图片
 #define IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL  @"myzone_oorderdetail_edite_price_bt_normal"
-///订单详情出价还价栏接受议价按钮按下图片
+///订单详情出价还价栏编辑出价按钮按下图片
 #define IMAGE_ZONE_ORDER_DETAIL_EDITE_PRICE_BT_PRESSED @"myzone_oorderdetail_edite_price_bt_selected"
 
 ///预约订单选择时间月份选择按钮左箭头图片
