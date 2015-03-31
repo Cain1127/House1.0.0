@@ -11,6 +11,17 @@
 @class QSUserSimpleDataModel;
 @interface QSYTalkPTPViewController : QSTurnBackViewController
 
+/**
+ *  @author             yangshengmeng, 15-03-31 15:03:25
+ *
+ *  @brief              根据聊天对像，创建聊天窗口
+ *
+ *  @param userModel    对方用户信息数据模型
+ *
+ *  @return             返回当前聊天窗口
+ *
+ *  @since              1.0.0
+ */
 - (instancetype)initWithUserModel:(QSUserSimpleDataModel *)userModel;
 
 @end

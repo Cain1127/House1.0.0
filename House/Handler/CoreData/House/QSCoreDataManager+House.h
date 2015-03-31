@@ -71,6 +71,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseAreaType;
++ (NSString *)getHouseAreaTypeWithKey:(NSString *)areaKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:48
@@ -140,6 +141,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseFloorType;
++ (NSString *)getHouseFloorTypeWithKey:(NSString *)floorKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 10:02:22

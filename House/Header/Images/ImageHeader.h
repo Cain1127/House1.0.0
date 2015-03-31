@@ -481,5 +481,15 @@
 ///预约订单结果界面中间标志图片
 #define IMAGE_ZONE_ORDER_SUBMIT_RESULT_ICON  @"myzone_order_result_icon"
 
+///求租求购列表中展开编辑按钮
+#define IMAGE_ZONE_ASK_SETTING_NORMAL @"myzone_ask_list_setting_normal"
+#define IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED @"myzone_ask_list_setting_highlighted"
+#define IMAGE_ZONE_ASK_SETTING_CLOSE_NORMAL @"myzone_ask_list_setting_close_normal"
+#define IMAGE_ZONE_ASK_SETTING_CLOSE_HIGHLIGHTED @"myzone_ask_list_setting_close_highlighted"
+
+///求租求购左上角标识图片
+#define IMAGE_ZONE_ASK_TAG_BUY @"myzone_ask_buy"
+#define IMAGE_ZONE_ASK_TAG_RENT_ENTIRE @"myzone_ask_rent_entire"
+#define IMAGE_ZONE_ASK_TAG_RENT_PARTNER @"myzone_ask_rent_partner"
 
 #endif

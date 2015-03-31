@@ -52,7 +52,7 @@
 {
 
     ///提示信息
-    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - 80.0f - 6.0f - 80.0f) / 2.0f, 25.0f, 80.0f, 15.0f)];
+    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - 80.0f - 6.0f - 80.0f) / 2.0f, 15.0f, 80.0f, 15.0f)];
     tipsLabel.text = @"联系业主";
     tipsLabel.textAlignment = NSTextAlignmentRight;
     tipsLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -60,7 +60,7 @@
     [self addSubview:tipsLabel];
     
     ///业主姓名
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipsLabel.frame.origin.x + tipsLabel.frame.size.width + 6.0f, 20.0f, 80.0f, 20.0f)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipsLabel.frame.origin.x + tipsLabel.frame.size.width + 6.0f, 10.0f, 80.0f, 20.0f)];
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.textColor = COLOR_CHARACTERS_BLACK;
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
@@ -70,7 +70,7 @@
     UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, nameLabel.frame.origin.y + nameLabel.frame.size.height + 2.0f, self.frame.size.width, 20.0f)];
     phoneLabel.textAlignment = NSTextAlignmentCenter;
     phoneLabel.textColor = COLOR_CHARACTERS_BLACK;
-    phoneLabel.font = [UIFont systemFontOfSize:FONT_BODY_25];
+    phoneLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [self addSubview:phoneLabel];
     
     ///按钮相关尺寸
@@ -81,7 +81,7 @@
     QSBlockButtonStyleModel *cancelButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
     cancelButtonStyle.title = @"取消";
     
-    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, tipsLabel.frame.origin.y + tipsLabel.frame.size.height + 15.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
+    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, phoneLabel.frame.origin.y + phoneLabel.frame.size.height + 13.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
         
         ///回调
         if (self.contactUserTipsCallBack) {

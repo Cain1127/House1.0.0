@@ -12,6 +12,8 @@
 #import "QSHouseKeySearchViewController.h"
 #import "QSCommunityDetailViewController.h"
 #import "QSYSearchCommunityViewController.h"
+#import "QSYReleaseSaleHouseViewController.h"
+#import "QSYReleaseRentHouseViewController.h"
 
 #import "NSDate+Formatter.h"
 
@@ -266,6 +268,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                     if (sSaleRentHouseTipsActionTypeSale == actionType) {
                         
                         ///进入发布物业过滤窗口
+                        QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
                     }
                     
@@ -273,6 +278,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                     if (sSaleRentHouseTipsActionTypeRent == actionType) {
                         
                         ///进入发布出租物业添加窗口
+                        QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
                     }
                     
@@ -551,7 +559,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
 }
 
-#pragma mark -点击新房
+#pragma mark - 点击新房
 ///点击新房
 - (void)newHouseButtonAction
 {

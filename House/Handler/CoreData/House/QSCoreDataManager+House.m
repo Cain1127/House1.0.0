@@ -156,6 +156,14 @@
 
 }
 
++ (NSString *)getHouseAreaTypeWithKey:(NSString *)areaKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_area" andSecondFieldName:@"key" andSecndFieldValue:areaKey];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 09:02:48
  *
@@ -347,6 +355,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseFloorTypeWithKey:(NSString *)floorKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"floor_which" andSecondFieldName:@"key" andSecndFieldValue:floorKey];
+    return tempModel.val;
 
 }
 
