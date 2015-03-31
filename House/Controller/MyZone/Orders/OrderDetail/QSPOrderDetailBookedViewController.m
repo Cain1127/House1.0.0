@@ -79,7 +79,7 @@
 @end
 
 @implementation QSPOrderDetailBookedViewController
-@synthesize orderListItemData, selectedIndex;
+@synthesize orderListItemData, selectedIndex, orderID;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -95,8 +95,11 @@
 ///搭建主展示UI
 - (void)createMainShowUI
 {
+    
     self.contentBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.contentBgView];
+    
+    [self getDetailData];
 }
 
 - (void)createSubViewsUI
@@ -110,8 +113,8 @@
     ///房源数据
     id houseData = nil;
     
-    //订单数据
-    id orderList = nil;
+//    //订单数据
+//    id orderList = nil;
     
 //    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
 //        
@@ -139,7 +142,7 @@
     if (self.orderDetailData) {
         
         titleTip = [self.orderDetailData getStatusTitle];
-        timeArray = self.orderDetailData.appoint_list;
+        timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
         
     }
@@ -218,7 +221,17 @@
     ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_personView];
     
-    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.personView.frame.origin.y+self.personView.frame.size.height)];
+    //!<对方出价View
+    self.otherPriceView = [[QSPOrderDetailOtherPriceView alloc] initAtTopLeft:CGPointMake(0.0f, _personView.frame.origin.y+_personView.frame.size.height) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
+        
+        NSLog(@"接受房价Button");
+        
+    }];
+    [scrollView addSubview:self.otherPriceView];
+    ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_otherPriceView];
+    
+    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.otherPriceView.frame.origin.y+self.otherPriceView.frame.size.height)];
     
 }
 
@@ -228,8 +241,8 @@
     
 //    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
     
-        [self getDetailData];
-        
+//        [self getDetailData];
+    
 //    }];
     
 }
@@ -270,20 +283,24 @@
 - (void)getDetailData
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
-    NSString *orderID = nil;
-    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
-        if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
-            
-            QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
-            if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
+            if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
                 
-                orderID = orderItem.id_;
-                
+                QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
+                if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    
+                    self.orderID = orderItem.id_;
+                    
+                }
             }
         }
+        
     }
     
-    if (!orderID || [orderID isEqualToString:@""]) {
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             [self.navigationController popViewControllerAnimated:YES];
@@ -296,7 +313,7 @@
 //    id_	true	string	订单id
 //    user_id	true	string	获取的用户id
     
-    [tempParam setObject:orderID forKey:@"id_"];
+    [tempParam setObject:self.orderID forKey:@"id_"];
     //TODO:获取用户ID
     NSString *userID = [QSCoreDataManager getUserID];
     [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];

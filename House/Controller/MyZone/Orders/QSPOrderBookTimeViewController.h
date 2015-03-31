@@ -7,7 +7,6 @@
 //
 
 #import "QSTurnBackViewController.h"
-#import "QSWSecondHouseInfoDataModel.h"
 
 typedef enum
 {

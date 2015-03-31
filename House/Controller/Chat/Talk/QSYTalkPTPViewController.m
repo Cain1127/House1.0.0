@@ -119,7 +119,7 @@
     [self.rootView addSubview:cameraButton];
     
     ///文字输入框
-    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 40.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 30.0f)];
+    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
     inputField.borderStyle = UITextBorderStyleRoundedRect;
     inputField.delegate = self;
     inputField.placeholder = @"请输入信息……";
@@ -136,7 +136,48 @@
     [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_NORMAL] forState:UIControlStateNormal];
     [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_HIGHLIGHTED] forState:UIControlStateHighlighted];
     [self.rootView addSubview:soundButton];
+    
+    ///注册键盘弹出和回收的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
 
+}
+
+#pragma mark - 键盘弹出和回收
+- (void)keyboarShowAction:(NSNotification *)sender
+{
+    
+    //上移：需要知道键盘高度和移动时间
+    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(self.rootView.frame.origin.x,
+                              64.0f - keyBoardRect.size.height,
+                              self.rootView.frame.size.width,
+                              self.rootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        self.rootView.frame = frame;
+        
+    }];
+    
+}
+
+- (void)keyboarHideAction:(NSNotification *)sender
+{
+    
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(self.rootView.frame.origin.x,
+                              64.0f,
+                              self.rootView.frame.size.width,
+                              self.rootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        self.rootView.frame = frame;
+        
+    }];
+    
 }
 
 #pragma mark - 消息数量
@@ -189,37 +230,14 @@
 
 }
 
-#pragma mark - 开始输入信息时所有view向上滑动
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-
-    [UIView animateWithDuration:0.25f animations:^{
-        
-        self.rootView.frame = CGRectMake(0.0f, 64.0f - 225.0f, self.rootView.frame.size.width, self.rootView.frame.size.height);
-        
-    }];
-    return YES;
-
-}
-
-#pragma mark - 结束输入时view回滚
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-
-    [UIView animateWithDuration:0.25f animations:^{
-        
-        self.rootView.frame = CGRectMake(0.0f, 64.0f, self.rootView.frame.size.width, self.rootView.frame.size.height);
-        
-    }];
-    return YES;
-
-}
-
 #pragma mark - 点击发送按钮
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 
     [textField resignFirstResponder];
+    
+    ///发送消息
+    
     return YES;
 
 }

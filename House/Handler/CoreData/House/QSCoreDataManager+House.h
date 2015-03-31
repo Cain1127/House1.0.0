@@ -104,6 +104,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseRentPayType;
++ (NSString *)getHouseRentTypeWithKey:(NSString *)payKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 10:02:46
@@ -291,5 +292,17 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHousePropertyManagementFees;
+
+/**
+ *  @author yangshengmeng, 15-03-27 12:03:37
+ *
+ *  @brief  出租房的入住时间
+ *
+ *  @return 返回出租房的可入住时间选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseLeadTimeTyps;
++ (NSString *)getRentHouseLeadTimeTypeWithKey:(NSString *)key;
 
 @end

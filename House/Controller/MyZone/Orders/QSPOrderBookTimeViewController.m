@@ -13,9 +13,12 @@
 #import "UITextField+CustomField.h"
 #import "QSPTimeHourPickerView.h"
 #import "NSString+Format.h"
-#import "QSHeaderDataModel.h"
+#import "QSPAppointmentOrderReturnData.h"
 #import "QSPOrderSubmitResultViewController.h"
+#import "QSWSecondHouseInfoDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
+#import "QSPOrderDetailBookedViewController.h"
+#import "QSCustomHUDView.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -366,6 +369,8 @@
 - (void)addAppointmentOrder
 {
     
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
 //    user_id	true	int	用户id
@@ -411,17 +416,48 @@
         }
     }
     
-//    NSLog(@"请求参数：%@",tempParam);
+    NSLog(@"请求参数：%@",tempParam);
 
     [QSRequestManager requestDataWithType:rRequestTypeOrderAddAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
-        QSHeaderDataModel *headerModel = resultData;
+        QSPAppointmentOrderReturnData *headerModel = resultData;
         if (rRequestResultTypeSuccess == resultStatus) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+    
+                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
+                    
+                    switch (backType) {
+                        case oOrderSubmitResultBackTypeAuto:
+                            
+                            NSLog(@"auto back");
+                            [self.navigationController popViewControllerAnimated:NO];
+                            
+                            break;
+                        case oOrderSubmitResultBackTypeToDetail:
+                            
+                            NSLog(@"back 查看预约详情");
+                            {
+                                QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+                                [bookedVc setOrderID:headerModel.msg];
+                                [bookedVc setTurnBackDistanceStep:2];
+                                [self.navigationController pushViewController:bookedVc animated:NO];
+                                
+                            }
+                            break;
+                        case oOrderSubmitResultBackTypeToMoreHouse:
+                            
+                            NSLog(@"back 查看推荐房源");
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    
+                }];
                 
-                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed];
                 [self presentViewController:srVc animated:YES completion:^{
                     
                 }];
@@ -433,12 +469,16 @@
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
         }
         
+        [hud hiddenCustomHUD];
+        
     }];
     
 }
 
 - (void)resetAppointmentOrder
 {
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
@@ -470,7 +510,7 @@
     [QSRequestManager requestDataWithType:rRequestTypeOrderResetAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
-        QSHeaderDataModel *headerModel = resultData;
+        QSPAppointmentOrderReturnData *headerModel = resultData;
         if (rRequestResultTypeSuccess == resultStatus) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
@@ -481,6 +521,8 @@
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
         }
+        
+        [hud hiddenCustomHUD];
         
     }];
     

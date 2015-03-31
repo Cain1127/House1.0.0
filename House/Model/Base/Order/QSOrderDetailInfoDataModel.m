@@ -62,6 +62,7 @@
     self.isShowSubmitPriceButtonView = flag;
     self.isShowAppointmentSalerAgainButtonView = flag;
     self.isShowChangeAppointmentButtonView = flag;
+    self.isShowAppointmentAgainButtonView = flag;
     
 }
 
@@ -70,8 +71,108 @@
     
     [self setAllViewsFlagWithFlag:NO];
     
-    
-    
+    if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {
+        
+        if ([self.order_status isEqualToString:@"500201"] || [self.order_status isEqualToString:@"500213"] || [self.order_status isEqualToString:@"500203"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500210"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500230"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500231"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500232"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500202"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500250"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500252"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500253"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500254"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500257"] || [self.order_status isEqualToString:@"500258"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500259"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500220"]) {
+            
+        }else if ([self.order_status isEqualToString:@"500221"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500222"]) {
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500223"]) {
+            
+            
+        }else if ([self.order_status isEqualToString:@"500240"] || [self.order_status isEqualToString:@"500241"] || [self.order_status isEqualToString:@"500246"]) {
+            
+        }
+        
+        //缺 成交订单  – 已取消 状态码未确定
+        
+    }
     
 }
 

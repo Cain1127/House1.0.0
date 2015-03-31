@@ -21,6 +21,7 @@
 #import "QSRentHouseDetailDataModel.h"
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -332,109 +333,181 @@
     houseTypeSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.infoRootView addSubview:houseTypeSepLabel];
     
-    ///总价
-    caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
-    widthResult = caclWith > (widthBest * 3.0f / 4.0f) ? (widthBest * 3.0f / 4.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
-    UILabel *totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 15.0f) / 2.0f, houseTypeLabel.frame.origin.y + houseTypeLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
-    totalPriceLabel.text = tempModel.price;
-    totalPriceLabel.textAlignment = NSTextAlignmentRight;
-    totalPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:totalPriceLabel];
+    ///差异UI的坐标记录
+    CGFloat ypointDifferentUI = houseTypeLabel.frame.origin.y + houseTypeLabel.frame.size.height + 40.0f;
     
-    ///单位
-    UILabel *unitTotalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(totalPriceLabel.frame.origin.x + totalPriceLabel.frame.size.width, totalPriceLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
-    unitTotalPriceLabel.text = @"万";
-    unitTotalPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitTotalPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    unitTotalPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:unitTotalPriceLabel];
+    ///二手房创建的UI
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        ///总价
+        caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest * 3.0f / 4.0f) ? (widthBest * 3.0f / 4.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 15.0f) / 2.0f, ypointDifferentUI, widthResult, 30.0f)];
+        totalPriceLabel.text = tempModel.price;
+        totalPriceLabel.textAlignment = NSTextAlignmentRight;
+        totalPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:totalPriceLabel];
+        
+        ///单位
+        UILabel *unitTotalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(totalPriceLabel.frame.origin.x + totalPriceLabel.frame.size.width, totalPriceLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
+        unitTotalPriceLabel.text = @"万";
+        unitTotalPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitTotalPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        unitTotalPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:unitTotalPriceLabel];
+        
+        ///均价
+        UILabel *avgPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, totalPriceLabel.frame.origin.y + totalPriceLabel.frame.size.height, widthBest, 15.0f)];
+        avgPriceLabel.text = [NSString stringWithFormat:@"%@万/%@",tempModel.avg_price,APPLICATION_AREAUNIT];
+        avgPriceLabel.textAlignment = NSTextAlignmentCenter;
+        avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:avgPriceLabel];
+        
+        ///分隔线
+        UILabel *avgPriceSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
+        avgPriceSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [self.infoRootView addSubview:avgPriceSepLabel];
+        
+        ///首付信息
+        caclWith = [tempModel.downPayPrice calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *downPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
+        downPaymentLabel.text = tempModel.downPayPrice;
+        downPaymentLabel.textAlignment = NSTextAlignmentRight;
+        downPaymentLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:downPaymentLabel];
+        
+        ///单位
+        UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPaymentLabel.frame.origin.x + downPaymentLabel.frame.size.width, downPaymentLabel.frame.origin.y + 10.0f, 60.0f, 15.0f)];
+        unitDownPayPriceLabel.text = @"万首付";
+        unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
+        [self.infoRootView addSubview:unitDownPayPriceLabel];
+        
+        ///月供
+        UILabel *monthPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, downPaymentLabel.frame.origin.y + downPaymentLabel.frame.size.height, widthBest, 15.0f)];
+        monthPriceLabel.text = [NSString stringWithFormat:@"月供%@元",tempModel.monthPrice];
+        monthPriceLabel.textAlignment = NSTextAlignmentCenter;
+        monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:monthPriceLabel];
+        
+        ///分隔线
+        UILabel *monthPriceSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
+        monthPriceSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [self.infoRootView addSubview:monthPriceSepLabel];
+        
+        ///建筑时间
+        UILabel *buildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - 60.0f) / 2.0f, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 40.0f, 60.0f, 30.0f)];
+        buildYearLabel.text = tempModel.buildingYear;
+        buildYearLabel.textAlignment = NSTextAlignmentRight;
+        buildYearLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:buildYearLabel];
+        
+        ///单位
+        UILabel *unitBuildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildYearLabel.frame.origin.x + buildYearLabel.frame.size.width, buildYearLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
+        unitBuildYearLabel.text = @"年";
+        unitBuildYearLabel.textAlignment = NSTextAlignmentLeft;
+        unitBuildYearLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        unitBuildYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:unitBuildYearLabel];
+        
+        ///产权年限
+        UILabel *rightYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, buildYearLabel.frame.origin.y + buildYearLabel.frame.size.height, widthBest, 15.0f)];
+        rightYearLabel.text = [NSString stringWithFormat:@"%@年使用权",tempModel.rightYear];
+        rightYearLabel.textAlignment = NSTextAlignmentCenter;
+        rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
+        rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:rightYearLabel];
+        
+        ///分隔线
+        UILabel *rightYearSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
+        rightYearSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [self.infoRootView addSubview:rightYearSepLabel];
+        
+        ///重置ypoint
+        ypointDifferentUI = rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 40.0f;
+        
+    }
     
-    ///均价
-    UILabel *avgPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, totalPriceLabel.frame.origin.y + totalPriceLabel.frame.size.height, widthBest, 15.0f)];
-    avgPriceLabel.text = [NSString stringWithFormat:@"%@万/%@",tempModel.avg_price,APPLICATION_AREAUNIT];
-    avgPriceLabel.textAlignment = NSTextAlignmentCenter;
-    avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
-    avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:avgPriceLabel];
+    ///出租房UI
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        ///租金信息
+        caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *rentPrice = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, ypointDifferentUI, widthResult, 30.0f)];
+        rentPrice.text = tempModel.price;
+        rentPrice.textAlignment = NSTextAlignmentRight;
+        rentPrice.textColor = COLOR_CHARACTERS_YELLOW;
+        rentPrice.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:rentPrice];
+        
+        ///单位
+        UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(rentPrice.frame.origin.x + rentPrice.frame.size.width, rentPrice.frame.origin.y + 10.0f, 60.0f, 15.0f)];
+        unitDownPayPriceLabel.text = @"元/月";
+        unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
+        [self.infoRootView addSubview:unitDownPayPriceLabel];
+        
+        ///租金支付方式
+        UILabel *rentPayTypeLable = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rentPrice.frame.origin.y + rentPrice.frame.size.height, widthBest, 15.0f)];
+        rentPayTypeLable.text = tempModel.rentPayType;
+        rentPayTypeLable.textAlignment = NSTextAlignmentCenter;
+        rentPayTypeLable.textColor = COLOR_CHARACTERS_BLACK;
+        rentPayTypeLable.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:rentPayTypeLable];
+        
+        ///分隔线
+        UILabel *monthPriceSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, rentPayTypeLable.frame.origin.y + rentPayTypeLable.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
+        monthPriceSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [self.infoRootView addSubview:monthPriceSepLabel];
+        
+        ///入住时间
+        UILabel *leadTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rentPayTypeLable.frame.origin.y + rentPayTypeLable.frame.size.height + 40.0f, widthBest, 30.0f)];
+        leadTimeLabel.text = tempModel.leadTime;
+        leadTimeLabel.textAlignment = NSTextAlignmentRight;
+        leadTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
+        leadTimeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:leadTimeLabel];
+        
+        ///出租房当前状态
+        UILabel *houseStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, leadTimeLabel.frame.origin.y + leadTimeLabel.frame.size.height, widthBest, 15.0f)];
+        houseStatusLabel.text = tempModel.houseStatus;
+        houseStatusLabel.textAlignment = NSTextAlignmentCenter;
+        houseStatusLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseStatusLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:houseStatusLabel];
+        
+        ///分隔线
+        UILabel *rightYearSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, houseStatusLabel.frame.origin.y + houseStatusLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
+        rightYearSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [self.infoRootView addSubview:rightYearSepLabel];
+        
+        ///重置ypoint
+        ypointDifferentUI = houseStatusLabel.frame.origin.y + houseStatusLabel.frame.size.height + 40.0f;
+        
+    }
     
-    ///分隔线
-    UILabel *avgPriceSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
-    avgPriceSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.infoRootView addSubview:avgPriceSepLabel];
-    
-    ///首付信息
-    caclWith = [tempModel.downPayPrice calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
-    widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
-    UILabel *downPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
-    downPaymentLabel.text = tempModel.downPayPrice;
-    downPaymentLabel.textAlignment = NSTextAlignmentRight;
-    downPaymentLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:downPaymentLabel];
-    
-    ///单位
-    UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPaymentLabel.frame.origin.x + downPaymentLabel.frame.size.width, downPaymentLabel.frame.origin.y + 10.0f, 60.0f, 15.0f)];
-    unitDownPayPriceLabel.text = @"万首付";
-    unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
-    [self.infoRootView addSubview:unitDownPayPriceLabel];
-    
-    ///月供
-    UILabel *monthPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, downPaymentLabel.frame.origin.y + downPaymentLabel.frame.size.height, widthBest, 15.0f)];
-    monthPriceLabel.text = [NSString stringWithFormat:@"月供%@元",tempModel.monthPrice];
-    monthPriceLabel.textAlignment = NSTextAlignmentCenter;
-    monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
-    monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:monthPriceLabel];
-    
-    ///分隔线
-    UILabel *monthPriceSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
-    monthPriceSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.infoRootView addSubview:monthPriceSepLabel];
-    
-    ///建筑时间
-    UILabel *buildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - 60.0f) / 2.0f, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 40.0f, 60.0f, 30.0f)];
-    buildYearLabel.text = tempModel.buildingYear;
-    buildYearLabel.textAlignment = NSTextAlignmentRight;
-    buildYearLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:buildYearLabel];
-    
-    ///单位
-    UILabel *unitBuildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildYearLabel.frame.origin.x + buildYearLabel.frame.size.width, buildYearLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
-    unitBuildYearLabel.text = @"年";
-    unitBuildYearLabel.textAlignment = NSTextAlignmentLeft;
-    unitBuildYearLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    unitBuildYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:unitBuildYearLabel];
-    
-    ///产权年限
-    UILabel *rightYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, buildYearLabel.frame.origin.y + buildYearLabel.frame.size.height, widthBest, 15.0f)];
-    rightYearLabel.text = [NSString stringWithFormat:@"%@年使用权",tempModel.rightYear];
-    rightYearLabel.textAlignment = NSTextAlignmentCenter;
-    rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
-    rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:rightYearLabel];
-    
-    ///分隔线
-    UILabel *rightYearSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpiontSepLabel, rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 20.0f - 0.25f, self.infoRootView.frame.size.width - 2.0f * xpiontSepLabel, 0.25f)];
-    rightYearSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.infoRootView addSubview:rightYearSepLabel];
-    
-    ///电梯比率
-    UILabel *liftRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 40.0f, widthBest, 15.0f)];
-    liftRateLabel.text = [NSString stringWithFormat:@"%@/%@",tempModel.liftNum,tempModel.liftServerNum];
+    ///楼层信息
+    UILabel *liftRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, ypointDifferentUI, widthBest, 30.0f)];
+    liftRateLabel.text = [NSString stringWithFormat:@"%@/%@",tempModel.floor_which,tempModel.floor_sum];
     liftRateLabel.textAlignment = NSTextAlignmentCenter;
     liftRateLabel.textColor = COLOR_CHARACTERS_GRAY;
     liftRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [self.infoRootView addSubview:liftRateLabel];
     
-    ///电梯提示信息
-    UILabel *liftTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftRateLabel.frame.origin.y + liftRateLabel.frame.size.height + 5.0f, widthBest, 15.0f)];
-    liftTipsLabel.text = @"有电梯";
+    ///是否有电梯
+    UILabel *liftTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftRateLabel.frame.origin.y + liftRateLabel.frame.size.height, widthBest, 15.0f)];
+    liftTipsLabel.text = tempModel.lift;
     liftTipsLabel.textAlignment = NSTextAlignmentCenter;
     liftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     liftTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -446,7 +519,7 @@
     [self.infoRootView addSubview:liftSepLabel];
     
     ///朝向
-    UILabel *faceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftTipsLabel.frame.origin.y + liftTipsLabel.frame.size.height + 40.0f, widthBest, 15.0f)];
+    UILabel *faceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftTipsLabel.frame.origin.y + liftTipsLabel.frame.size.height + 40.0f, widthBest, 30.0f)];
     faceLabel.text = tempModel.face;
     faceLabel.textAlignment = NSTextAlignmentCenter;
     faceLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -454,7 +527,7 @@
     [self.infoRootView addSubview:faceLabel];
     
     ///装修
-    UILabel *decorationLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, faceLabel.frame.origin.y + faceLabel.frame.size.height + 5.0f, widthBest, 15.0f)];
+    UILabel *decorationLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, faceLabel.frame.origin.y + faceLabel.frame.size.height, widthBest, 15.0f)];
     decorationLabel.text = tempModel.decoration;
     decorationLabel.textAlignment = NSTextAlignmentCenter;
     decorationLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -558,101 +631,161 @@
     houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [self.infoRootView addSubview:houseTypeLabel];
     
-    ///总价
-    caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
-    widthResult = caclWith > (widthBest * 3.0f / 4.0f) ? (widthBest * 3.0f / 4.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
-    UILabel *totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 15.0f) / 2.0f, houseTypeLabel.frame.origin.y + houseTypeLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
-    totalPriceLabel.text = tempModel.price;
-    totalPriceLabel.textAlignment = NSTextAlignmentRight;
-    totalPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
-    totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:totalPriceLabel];
+    CGFloat ypointDifferentUI = houseTypeLabel.frame.origin.y + houseTypeLabel.frame.size.height + 40.0f;
     
-    ///单位
-    UILabel *unitTotalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(totalPriceLabel.frame.origin.x + totalPriceLabel.frame.size.width, totalPriceLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
-    unitTotalPriceLabel.text = @"万";
-    unitTotalPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitTotalPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
-    unitTotalPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:unitTotalPriceLabel];
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        ///总价
+        caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest * 3.0f / 4.0f) ? (widthBest * 3.0f / 4.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *totalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 15.0f) / 2.0f, ypointDifferentUI, widthResult, 30.0f)];
+        totalPriceLabel.text = tempModel.price;
+        totalPriceLabel.textAlignment = NSTextAlignmentRight;
+        totalPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
+        totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:totalPriceLabel];
+        
+        ///单位
+        UILabel *unitTotalPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(totalPriceLabel.frame.origin.x + totalPriceLabel.frame.size.width, totalPriceLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
+        unitTotalPriceLabel.text = @"万";
+        unitTotalPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitTotalPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
+        unitTotalPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:unitTotalPriceLabel];
+        
+        ///均价
+        UILabel *avgPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, totalPriceLabel.frame.origin.y + totalPriceLabel.frame.size.height, widthBest, 15.0f)];
+        avgPriceLabel.text = [NSString stringWithFormat:@"%@万/%@",tempModel.avg_price,APPLICATION_AREAUNIT];
+        avgPriceLabel.textAlignment = NSTextAlignmentCenter;
+        avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:avgPriceLabel];
+        
+        ///首付信息
+        caclWith = [tempModel.downPayPrice calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *downPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
+        downPaymentLabel.text = tempModel.downPayPrice;
+        downPaymentLabel.textAlignment = NSTextAlignmentRight;
+        downPaymentLabel.textColor = COLOR_CHARACTERS_GRAY;
+        downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:downPaymentLabel];
+        
+        ///单位
+        UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPaymentLabel.frame.origin.x + downPaymentLabel.frame.size.width, downPaymentLabel.frame.origin.y + 10.0f, 60.0f, 15.0f)];
+        unitDownPayPriceLabel.text = @"万首付";
+        unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
+        unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
+        [self.infoRootView addSubview:unitDownPayPriceLabel];
+        
+        ///月供
+        UILabel *monthPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, downPaymentLabel.frame.origin.y + downPaymentLabel.frame.size.height, widthBest, 15.0f)];
+        monthPriceLabel.text = [NSString stringWithFormat:@"月供%@元",tempModel.monthPrice];
+        monthPriceLabel.textAlignment = NSTextAlignmentCenter;
+        monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:monthPriceLabel];
+        
+        ///建筑时间
+        UILabel *buildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - 60.0f) / 2.0f, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 40.0f, 60.0f, 30.0f)];
+        buildYearLabel.text = tempModel.buildingYear;
+        buildYearLabel.textAlignment = NSTextAlignmentRight;
+        buildYearLabel.textColor = COLOR_CHARACTERS_GRAY;
+        buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:buildYearLabel];
+        
+        ///单位
+        UILabel *unitBuildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildYearLabel.frame.origin.x + buildYearLabel.frame.size.width, buildYearLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
+        unitBuildYearLabel.text = @"年";
+        unitBuildYearLabel.textAlignment = NSTextAlignmentLeft;
+        unitBuildYearLabel.textColor = COLOR_CHARACTERS_GRAY;
+        unitBuildYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:unitBuildYearLabel];
+        
+        ///产权年限
+        UILabel *rightYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, buildYearLabel.frame.origin.y + buildYearLabel.frame.size.height, widthBest, 15.0f)];
+        rightYearLabel.text = [NSString stringWithFormat:@"%@年使用权",tempModel.rightYear];
+        rightYearLabel.textAlignment = NSTextAlignmentCenter;
+        rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
+        rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:rightYearLabel];
+        
+        ///重置ypoint
+        ypointDifferentUI = rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 40.0f;
+        
+    }
+
+    ///出租房UI
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        ///租金信息
+        caclWith = [tempModel.price calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
+        widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
+        UILabel *rentPrice = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, ypointDifferentUI, widthResult, 30.0f)];
+        rentPrice.text = tempModel.price;
+        rentPrice.textAlignment = NSTextAlignmentRight;
+        rentPrice.textColor = COLOR_CHARACTERS_YELLOW;
+        rentPrice.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:rentPrice];
+        
+        ///单位
+        UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(rentPrice.frame.origin.x + rentPrice.frame.size.width, rentPrice.frame.origin.y + 10.0f, 60.0f, 15.0f)];
+        unitDownPayPriceLabel.text = @"元/月";
+        unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
+        unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
+        [self.infoRootView addSubview:unitDownPayPriceLabel];
+        
+        ///租金支付方式
+        UILabel *rentPayTypeLable = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rentPrice.frame.origin.y + rentPrice.frame.size.height, widthBest, 15.0f)];
+        rentPayTypeLable.text = tempModel.rentPayType;
+        rentPayTypeLable.textAlignment = NSTextAlignmentCenter;
+        rentPayTypeLable.textColor = COLOR_CHARACTERS_BLACK;
+        rentPayTypeLable.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:rentPayTypeLable];
+        
+        ///入住时间
+        UILabel *leadTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rentPayTypeLable.frame.origin.y + rentPayTypeLable.frame.size.height + 40.0f, widthBest, 30.0f)];
+        leadTimeLabel.text = tempModel.leadTime;
+        leadTimeLabel.textAlignment = NSTextAlignmentRight;
+        leadTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
+        leadTimeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [self.infoRootView addSubview:leadTimeLabel];
+        
+        ///出租房当前状态
+        UILabel *houseStatusLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, leadTimeLabel.frame.origin.y + leadTimeLabel.frame.size.height, widthBest, 15.0f)];
+        houseStatusLabel.text = tempModel.houseStatus;
+        houseStatusLabel.textAlignment = NSTextAlignmentCenter;
+        houseStatusLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseStatusLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        [self.infoRootView addSubview:houseStatusLabel];
+        
+        ///重置ypoint
+        ypointDifferentUI = houseStatusLabel.frame.origin.y + houseStatusLabel.frame.size.height + 40.0f;
+        
+    }
     
-    ///均价
-    UILabel *avgPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, totalPriceLabel.frame.origin.y + totalPriceLabel.frame.size.height, widthBest, 15.0f)];
-    avgPriceLabel.text = [NSString stringWithFormat:@"%@万/%@",tempModel.avg_price,APPLICATION_AREAUNIT];
-    avgPriceLabel.textAlignment = NSTextAlignmentCenter;
-    avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
-    avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:avgPriceLabel];
-    
-    ///首付信息
-    caclWith = [tempModel.downPayPrice calculateStringDisplayWidthByFixedHeight:30.0f andFontSize:FONT_BODY_20] + 5.0f;
-    widthResult = caclWith > (widthBest - 60.0f) ? (widthBest - 60.0f) : (caclWith < widthBest / 2.0f ? widthBest / 2.0f : caclWith);
-    UILabel *downPaymentLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - widthResult - 60.0f) / 2.0f, avgPriceLabel.frame.origin.y + avgPriceLabel.frame.size.height + 40.0f, widthResult, 30.0f)];
-    downPaymentLabel.text = tempModel.downPayPrice;
-    downPaymentLabel.textAlignment = NSTextAlignmentRight;
-    downPaymentLabel.textColor = COLOR_CHARACTERS_GRAY;
-    downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:downPaymentLabel];
-    
-    ///单位
-    UILabel *unitDownPayPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPaymentLabel.frame.origin.x + downPaymentLabel.frame.size.width, downPaymentLabel.frame.origin.y + 10.0f, 60.0f, 15.0f)];
-    unitDownPayPriceLabel.text = @"万首付";
-    unitDownPayPriceLabel.textAlignment = NSTextAlignmentLeft;
-    unitDownPayPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
-    unitDownPayPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    unitDownPayPriceLabel.adjustsFontSizeToFitWidth = YES;
-    [self.infoRootView addSubview:unitDownPayPriceLabel];
-    
-    ///月供
-    UILabel *monthPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, downPaymentLabel.frame.origin.y + downPaymentLabel.frame.size.height, widthBest, 15.0f)];
-    monthPriceLabel.text = [NSString stringWithFormat:@"月供%@元",tempModel.monthPrice];
-    monthPriceLabel.textAlignment = NSTextAlignmentCenter;
-    monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
-    monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:monthPriceLabel];
-    
-    ///建筑时间
-    UILabel *buildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint + (widthBest - 60.0f) / 2.0f, monthPriceLabel.frame.origin.y + monthPriceLabel.frame.size.height + 40.0f, 60.0f, 30.0f)];
-    buildYearLabel.text = tempModel.buildingYear;
-    buildYearLabel.textAlignment = NSTextAlignmentRight;
-    buildYearLabel.textColor = COLOR_CHARACTERS_GRAY;
-    buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [self.infoRootView addSubview:buildYearLabel];
-    
-    ///单位
-    UILabel *unitBuildYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildYearLabel.frame.origin.x + buildYearLabel.frame.size.width, buildYearLabel.frame.origin.y + 10.0f, 15.0f, 15.0f)];
-    unitBuildYearLabel.text = @"年";
-    unitBuildYearLabel.textAlignment = NSTextAlignmentLeft;
-    unitBuildYearLabel.textColor = COLOR_CHARACTERS_GRAY;
-    unitBuildYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:unitBuildYearLabel];
-    
-    ///产权年限
-    UILabel *rightYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, buildYearLabel.frame.origin.y + buildYearLabel.frame.size.height, widthBest, 15.0f)];
-    rightYearLabel.text = [NSString stringWithFormat:@"%@年使用权",tempModel.rightYear];
-    rightYearLabel.textAlignment = NSTextAlignmentCenter;
-    rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
-    rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [self.infoRootView addSubview:rightYearLabel];
-    
-    ///电梯比率
-    UILabel *liftRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, rightYearLabel.frame.origin.y + rightYearLabel.frame.size.height + 40.0f, widthBest, 15.0f)];
-    liftRateLabel.text = [NSString stringWithFormat:@"%@/%@",tempModel.liftNum,tempModel.liftServerNum];
+    ///楼层信息
+    UILabel *liftRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, ypointDifferentUI, widthBest, 30.0f)];
+    liftRateLabel.text = [NSString stringWithFormat:@"%@/%@",tempModel.floor_which,tempModel.floor_sum];
     liftRateLabel.textAlignment = NSTextAlignmentCenter;
     liftRateLabel.textColor = COLOR_CHARACTERS_GRAY;
     liftRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [self.infoRootView addSubview:liftRateLabel];
     
-    ///电梯提示信息
+    ///是否有电梯
     UILabel *liftTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftRateLabel.frame.origin.y + liftRateLabel.frame.size.height + 5.0f, widthBest, 15.0f)];
-    liftTipsLabel.text = @"有电梯";
+    liftTipsLabel.text = tempModel.lift;
     liftTipsLabel.textAlignment = NSTextAlignmentCenter;
     liftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     liftTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [self.infoRootView addSubview:liftTipsLabel];
     
     ///朝向
-    UILabel *faceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftTipsLabel.frame.origin.y + liftTipsLabel.frame.size.height + 40.0f, widthBest, 15.0f)];
+    UILabel *faceLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, liftTipsLabel.frame.origin.y + liftTipsLabel.frame.size.height + 40.0f, widthBest, 30.0f)];
     faceLabel.text = tempModel.face;
     faceLabel.textAlignment = NSTextAlignmentCenter;
     faceLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -660,7 +793,7 @@
     [self.infoRootView addSubview:faceLabel];
     
     ///装修
-    UILabel *decorationLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, faceLabel.frame.origin.y + faceLabel.frame.size.height + 5.0f, widthBest, 15.0f)];
+    UILabel *decorationLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpoint, faceLabel.frame.origin.y + faceLabel.frame.size.height, widthBest, 30.0f)];
     decorationLabel.text = tempModel.decoration;
     decorationLabel.textAlignment = NSTextAlignmentCenter;
     decorationLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -751,7 +884,35 @@
 - (QSYComparisonDataModel *)comparisonChangeRentHouseModelToPrivaryModel:(QSRentHouseDetailDataModel *)rentModel
 {
 
-    return nil;
+    QSYComparisonDataModel *comparisonModel = [[QSYComparisonDataModel alloc] init];
+    
+    comparisonModel.houseID = rentModel.house.id_;
+    comparisonModel.communityName = rentModel.house.village_name;
+    comparisonModel.score = @"8";
+    comparisonModel.districe = [QSCoreDataManager getDistrictValWithDistrictKey:rentModel.house.areaid];
+    comparisonModel.street = [QSCoreDataManager getStreetValWithStreetKey:rentModel.house.street];
+    comparisonModel.address = rentModel.house.address;
+    comparisonModel.area = rentModel.house.house_area;
+    comparisonModel.house_shi = rentModel.house.house_shi;
+    comparisonModel.house_ting = rentModel.house.house_ting;
+    comparisonModel.house_wei = rentModel.house.house_wei;
+    comparisonModel.lift = [rentModel.house.elevator isEqualToString:@"Y"] ? @"有电梯" : @"无电梯";
+    
+    ///租金支付方式
+    NSString *rentPayType = [QSCoreDataManager getHouseRentTypeWithKey:rentModel.house.payment];
+    comparisonModel.rentPayType = [rentPayType length] > 0 ? rentPayType : @"面议";
+    comparisonModel.leadTime = [QSCoreDataManager getRentHouseLeadTimeTypeWithKey:rentModel.house.lead_time];
+    
+    ///0-在租，1-自住，2-吉屋
+    int houseStatus = [rentModel.house.house_status intValue];
+    comparisonModel.houseStatus = houseStatus == 1 ? @"自住" : (houseStatus == 0 ? @"在租" : @"吉屋");
+    comparisonModel.price = [NSString stringWithFormat:@"%.0f",[rentModel.house.rent_price floatValue]];
+    comparisonModel.floor_sum = rentModel.house.floor_num;
+    comparisonModel.floor_which = rentModel.house.floor_which;
+    comparisonModel.face = [QSCoreDataManager getHouseFaceTypeWithKey:rentModel.house.house_face];
+    comparisonModel.decoration = [QSCoreDataManager getHouseDecorationTypeWithKey:rentModel.house.decoration_type];
+    
+    return comparisonModel;
 
 }
 
@@ -771,6 +932,7 @@
     comparisonModel.house_shi = rentModel.house.house_shi;
     comparisonModel.house_ting = rentModel.house.house_ting;
     comparisonModel.house_wei = rentModel.house.house_wei;
+    comparisonModel.lift = [rentModel.house.elevator isEqualToString:@"Y"] ? @"有电梯" : @"无电梯";
     
     ///总价
     CGFloat totalPrice = [rentModel.house.house_area floatValue] * [rentModel.house.price_avg floatValue];
@@ -788,8 +950,8 @@
     
     comparisonModel.buildingYear = [[NSDate formatNSTimeToNSDateString:rentModel.house.building_year] substringToIndex:4];
     comparisonModel.rightYear = rentModel.house.used_year;
-    comparisonModel.liftNum = @"26";
-    comparisonModel.liftServerNum = @"1023";
+    comparisonModel.floor_sum = rentModel.house.floor_num;
+    comparisonModel.floor_which = rentModel.house.floor_which;
     comparisonModel.face = [QSCoreDataManager getHouseFaceTypeWithKey:rentModel.house.house_face];
     comparisonModel.decoration = [QSCoreDataManager getHouseDecorationTypeWithKey:rentModel.house.decoration_type];
     

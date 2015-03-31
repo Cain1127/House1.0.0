@@ -15,4 +15,6 @@
 
 @property ( nonatomic , assign ) NSInteger  selectedIndex;
 
+@property ( nonatomic , strong ) NSString *orderID;
+
 @end

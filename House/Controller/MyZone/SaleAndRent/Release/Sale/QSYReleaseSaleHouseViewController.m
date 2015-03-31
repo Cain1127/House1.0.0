@@ -44,6 +44,7 @@ typedef enum
 
 ///出售物业的数据模型
 @property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
+@property (nonatomic,strong) QSScrollView *pickedRootView;
 
 @property (nonatomic,unsafe_unretained) UITextField *districtField;
 @property (nonatomic,unsafe_unretained) UITextField *streetField;
@@ -82,12 +83,12 @@ typedef enum
 {
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 25.0f)];
-    [self createSettingInputUI:pickedRootView];
-    [self.view addSubview:pickedRootView];
+    self.pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 25.0f)];
+    [self createSettingInputUI:self.pickedRootView];
+    [self.view addSubview:self.pickedRootView];
     
     ///分隔线
-    UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, pickedRootView.frame.origin.y + pickedRootView.frame.size.height, SIZE_DEVICE_WIDTH, 0.5f)];
+    UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.pickedRootView.frame.origin.y + self.pickedRootView.frame.size.height, SIZE_DEVICE_WIDTH, 0.5f)];
     sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:sepLineLabel];
     
@@ -148,6 +149,47 @@ typedef enum
         
     }
     
+    ///注册键盘弹出监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+#pragma mark - 键盘弹出和回收
+- (void)keyboarShowAction:(NSNotification *)sender
+{
+
+    //上移：需要知道键盘高度和移动时间
+    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
+                              64.0f - keyBoardRect.size.height,
+                              self.pickedRootView.frame.size.width,
+                              self.pickedRootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        self.pickedRootView.frame = frame;
+        
+    }];
+
+}
+
+- (void)keyboarHideAction:(NSNotification *)sender
+{
+
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
+                              64.0f,
+                              self.pickedRootView.frame.size.width,
+                              self.pickedRootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        self.pickedRootView.frame = frame;
+        
+    }];
+
 }
 
 #pragma mark - 创建右剪头控件
@@ -159,7 +201,13 @@ typedef enum
     int index = [orderString intValue];
     
     ///显示信息栏
-    UITextField *tempTextField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:[tempDict valueForKey:@"placehold"] andLeftTipsInfo:[tempDict valueForKey:@"left_title"] andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:[[tempDict valueForKey:@"type"] intValue]];
+    UITextField *tempTextField = [UITextField
+                                  createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f)
+                                  andPlaceHolder:[tempDict valueForKey:@"placehold"]
+                                  andLeftTipsInfo:[tempDict valueForKey:@"left_title"]
+                                  andRightTipsInfo:[tempDict valueForKey:@"right_title"]
+                                  andLeftTipsTextAlignment:NSTextAlignmentCenter
+                                  andTextFieldStyle:[[tempDict valueForKey:@"type"] intValue]];
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
@@ -400,6 +448,7 @@ typedef enum
         {
             
             tempField = textField;
+            textField.returnKeyType = UIReturnKeyDone;
             return YES;
             
         }
@@ -486,33 +535,8 @@ typedef enum
             
             ///回收详细地址弹出的键盘
             [tempField resignFirstResponder];
-            
-            ///获取出售价格的数据
-            NSArray *intentArray = [QSCoreDataManager getHouseSalePriceType];
-            
-            ///显示房子售价选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.salePriceKey length] > 0 ? self.saleHouseReleaseModel.salePriceKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
-                
-                if (cCustomPopviewActionTypeSingleSelected == actionType) {
-                    
-                    ///转模型
-                    QSBaseConfigurationDataModel *tempModel = params;
-                    
-                    textField.text = tempModel.val;
-                    self.saleHouseReleaseModel.salePrice = tempModel.val;
-                    self.saleHouseReleaseModel.salePriceKey = tempModel.key;
-                    
-                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
-                    
-                    textField.text = nil;
-                    self.saleHouseReleaseModel.salePrice = nil;
-                    self.saleHouseReleaseModel.salePriceKey = nil;
-                    
-                }
-                
-            }];
-            
-            return NO;
+            textField.returnKeyType = UIReturnKeyDone;
+            return YES;
             
         }
             break;
@@ -584,7 +608,7 @@ typedef enum
 }
 
 #pragma mark - 详细地址编辑完成后保存地址信息
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
 
     ///详细地址输入框
@@ -604,8 +628,23 @@ typedef enum
         
     }
     
-    return YES;
-
+    if (rReleaseSaleHouseHomeActionTypeSalePrice == actionType) {
+        
+        NSString *inputString = textField.text;
+        if ([inputString length] > 0) {
+            
+            self.saleHouseReleaseModel.salePrice = inputString;
+            self.saleHouseReleaseModel.salePriceKey = inputString;
+            
+        } else {
+            
+            self.saleHouseReleaseModel.address = nil;
+            self.saleHouseReleaseModel.salePriceKey = nil;
+            
+        }
+        
+    }
+    
 }
 
 #pragma mark - 重写返回事件

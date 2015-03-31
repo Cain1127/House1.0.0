@@ -54,6 +54,8 @@
 @property (nonatomic,assign) BOOL isShowAppointmentSalerAgainButtonView;    //!<重新预约业主按钮View
 @property (nonatomic,assign) BOOL isShowChangeAppointmentButtonView;    //!<修改预约按钮View
 
+@property (nonatomic,assign) BOOL isShowAppointmentAgainButtonView;    //!<再次预约按钮覆盖View
+
 @end
 
 

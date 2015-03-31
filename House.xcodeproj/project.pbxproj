@@ -578,6 +578,13 @@
 		4777741F1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */; };
 		477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */; };
 		478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645E11AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m */; };
+		478645E91ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E31ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png */; };
+		478645EA1ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E41ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png */; };
+		478645EB1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E51ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png */; };
+		478645EC1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E61ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png */; };
+		478645ED1ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E71ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png */; };
+		478645EE1ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E81ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png */; };
+		478645F11ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645F01ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m */; };
 		47A2076B1AB7E46000F51797 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207601AB7E46000F51797 /* FSCalendar.m */; };
 		47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207621AB7E46000F51797 /* FSCalendarCell.m */; };
 		47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207641AB7E46000F51797 /* FSCalendarHeader.m */; };
@@ -1577,6 +1584,14 @@
 		477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOrderDetailReturnData.m; sourceTree = "<group>"; };
 		478645E01AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPSalerTransactionBookedOrderLIstHeaderView.h; sourceTree = "<group>"; };
 		478645E11AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPSalerTransactionBookedOrderLIstHeaderView.m; sourceTree = "<group>"; };
+		478645E31ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_accept_bt_normal.png; sourceTree = "<group>"; };
+		478645E41ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_accept_bt_selected.png; sourceTree = "<group>"; };
+		478645E51ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_edite_price_bt_normal.png; sourceTree = "<group>"; };
+		478645E61ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_edite_price_bt_selected.png; sourceTree = "<group>"; };
+		478645E71ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_my_price_bg.png; sourceTree = "<group>"; };
+		478645E81ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderdetail_orther_price_bg.png; sourceTree = "<group>"; };
+		478645EF1ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPAppointmentOrderReturnData.h; sourceTree = "<group>"; };
+		478645F01ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPAppointmentOrderReturnData.m; sourceTree = "<group>"; };
 		47A2075F1AB7E46000F51797 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
 		47A207601AB7E46000F51797 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
 		47A207611AB7E46000F51797 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
@@ -3083,6 +3098,12 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				478645E31ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png */,
+				478645E41ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png */,
+				478645E51ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png */,
+				478645E61ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png */,
+				478645E71ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png */,
+				478645E81ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png */,
 				475A4DA61AC55FC2009881CF /* myzone_oorderdetail_computer_bt_selected.png */,
 				475A4DA41AC55DF5009881CF /* myzone_oorderdetail_computer_bt_normal.png */,
 				475A4D5E1AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_normal.png */,
@@ -4764,6 +4785,8 @@
 				475C3D9B1AB3D58A0028608F /* QSOrderListReturnData.m */,
 				477774201ABFBC8D000AD7D3 /* QSOrderDetailReturnData.h */,
 				477774211ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m */,
+				478645EF1ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.h */,
+				478645F01ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -5066,6 +5089,8 @@
 				18BE12751A8A133D0036245A /* myzone_renant_order_deal_highlighted.png in Resources */,
 				18B5643B1A8366A4009779A0 /* icon80.png in Resources */,
 				18B564491A8366A4009779A0 /* navigationbar_corss_highlighted.png in Resources */,
+				478645EE1ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png in Resources */,
+				478645EA1ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png in Resources */,
 				18B564591A8366A4009779A0 /* navigationbar_turnback_highlighted.png in Resources */,
 				18E202431AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist in Resources */,
 				18BE12501A8894E20036245A /* public_vip_tag.png in Resources */,
@@ -5214,6 +5239,7 @@
 				18B564361A8366A4009779A0 /* icon180.png in Resources */,
 				18B5643F1A8366A4009779A0 /* 320X480.png in Resources */,
 				18BE12701A8A133D0036245A /* myzone_renant_community_normal.png in Resources */,
+				478645EC1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png in Resources */,
 				18B564301A8366A4009779A0 /* icon1024.png in Resources */,
 				18B564771A8366A4009779A0 /* tabbar_myzone_selected.png in Resources */,
 				18B5646D1A8366A4009779A0 /* share_wechat_normal.png in Resources */,
@@ -5254,6 +5280,7 @@
 				18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */,
 				475C3D921AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png in Resources */,
 				18B563F41A8366A4009779A0 /* developer_chat_hightlight.png in Resources */,
+				478645E91ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png in Resources */,
 				18DFE8D51AC95BEA00C216C3 /* navigationbar_add_highlighted.png in Resources */,
 				475A4DA51AC55DF5009881CF /* myzone_oorderdetail_computer_bt_normal.png in Resources */,
 				18BE12731A8A133D0036245A /* myzone_renant_order_appointed_highlighted.png in Resources */,
@@ -5262,8 +5289,10 @@
 				18B563F81A8366A4009779A0 /* guide_big_circle.png in Resources */,
 				18B564201A8366A4009779A0 /* houses_detail_starlevel_gray.png in Resources */,
 				18B564761A8366A4009779A0 /* tabbar_myzone_normal.png in Resources */,
+				478645EB1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png in Resources */,
 				18B563FE1A8366A4009779A0 /* guide_middle_tip.png in Resources */,
 				47E0D4E21AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png in Resources */,
+				478645ED1ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png in Resources */,
 				18B5646B1A8366A4009779A0 /* share_friends_normal.png in Resources */,
 				18EC15961AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist in Resources */,
 				18B564531A8366A4009779A0 /* navigationbar_setting_highlighted.png in Resources */,
@@ -5672,6 +5701,7 @@
 				CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */,
 				475A4D881AC5384D009881CF /* QSPOrderDetailComplaintAndCommentButtonView.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
+				478645F11ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m in Sources */,
 				18DFE8CB1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m in Sources */,
 				18EC15B91AC3F0BB00D2AD3A /* UIImage+Orientaion.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
@@ -5844,8 +5874,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5885,8 +5915,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
