@@ -10,4 +10,12 @@
 
 @interface QSPOrderDetailBargainingPriceHistoryView : UIView
 
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData;
+
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData;
+
+- (void)setOrderData:(id)orderData;
+
+- (void)addAfterView:(UIView* __strong *)view;
+
 @end

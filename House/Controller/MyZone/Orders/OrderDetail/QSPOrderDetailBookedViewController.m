@@ -113,8 +113,8 @@
     ///房源数据
     id houseData = nil;
     
-//    //订单数据
-//    id orderList = nil;
+    //议价历史列表数据
+    id bargainList = nil;
     
 //    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
 //        
@@ -144,7 +144,7 @@
         titleTip = [self.orderDetailData getStatusTitle];
         timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
-        
+        bargainList = self.orderDetailData.bargain_list;
     }
     
     self.titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
@@ -221,17 +221,34 @@
     ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_personView];
     
-    //!<对方出价View
+    ///对方出价View
     self.otherPriceView = [[QSPOrderDetailOtherPriceView alloc] initAtTopLeft:CGPointMake(0.0f, _personView.frame.origin.y+_personView.frame.size.height) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
         
         NSLog(@"接受房价Button");
         
     }];
     [scrollView addSubview:self.otherPriceView];
-    ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
+    ///将对方出价View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_otherPriceView];
     
-    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.otherPriceView.frame.origin.y+self.otherPriceView.frame.size.height)];
+    ///我的出价View
+    self.myPriceView = [[QSPOrderDetailMyPriceView alloc] initAtTopLeft:CGPointMake(0.0f, _otherPriceView.frame.origin.y+_otherPriceView.frame.size.height) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
+        
+        NSLog(@"接受房价Button");
+        
+    }];
+    [scrollView addSubview:self.myPriceView];
+    ///将我的出价View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_myPriceView];
+    
+    ///和对方议价记录View
+    self.bargainingPriceHistoryView = [[QSPOrderDetailBargainingPriceHistoryView alloc] initAtTopLeft:CGPointMake(0.0f, self.myPriceView.frame.origin.y+self.myPriceView.frame.size.height) withOrderData:self.orderDetailData];
+    [scrollView addSubview:self.bargainingPriceHistoryView];
+    ///将和对方议价记录View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_bargainingPriceHistoryView];
+    
+    
+    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.bargainingPriceHistoryView.frame.origin.y+self.bargainingPriceHistoryView.frame.size.height+20)];
     
 }
 
