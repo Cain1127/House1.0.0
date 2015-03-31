@@ -20,6 +20,7 @@
 
 #import "QSActivityDetailReturnData.h"
 #import "QSActivityDetailDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -32,7 +33,8 @@ static char RootViewKey;     //!<顶部信息关联key
 
 @interface QSActivityDetailViewController ()<UIScrollViewDelegate>
 
-@property (nonatomic,retain) NSString *activityID;                      //!<活动详情ID
+@property (nonatomic,copy) NSString *activityID;                      //!<活动详情ID
+@property (nonatomic,copy) NSString *userID;
 
 @property (nonatomic,retain) QSActivityDetailDataModel *detailInfo;     //!<活动详情基本模型
 
@@ -41,12 +43,13 @@ static char RootViewKey;     //!<顶部信息关联key
 @implementation QSActivityDetailViewController
 
 ///初始化
--(instancetype)initWithactivityID:(NSString*)activityID
+-(instancetype)initWithactivityID:(NSString*)activityID andUserID:(NSString *)userID
 {
     
     if (self=[super init]) {
         
         self.activityID=activityID;
+        self.userID=userID;
         
     }
     
@@ -178,7 +181,7 @@ static char RootViewKey;     //!<顶部信息关联key
         
         APPLICATION_LOG_INFO(@"马上报名按钮事件", nil);
         
-        QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:self.activityID andTitle:self.detailInfo.loupan_activity.title andNumber:self.detailInfo.loupan_activity.people_num andEndTime:self.detailInfo.loupan_activity.end_time];
+        QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:self.activityID andTitle:self.detailInfo.loupan_activity.title andNumber:self.detailInfo.loupan_activity.people_num andEndTime:self.detailInfo.loupan_activity.end_time andloupanID:self.detailInfo.loupan_activity.loupan_id anduserID:self.userID];
         
         [self.navigationController pushViewController:VC animated:YES];
         

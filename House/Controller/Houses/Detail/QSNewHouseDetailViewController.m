@@ -66,6 +66,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
 @property (nonatomic,copy) NSString *buildingID;            //!<楼栋ID
+@property (nonatomic,copy) NSString *userID;                //!<业主ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 
 @property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo; //!<详情信息的数据模型
@@ -236,7 +237,7 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE;
         UIButton *lookHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(callFreeButton.frame.origin.x + callFreeButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, callFreeButton.frame.origin.y, callFreeButton.frame.size.width, callFreeButton.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithtitle:self.title];
+            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithtitle:self.title andloupanID:self.loupanID anduserID:self.userID];
             [self.navigationController pushViewController:VC animated:YES];
             
         }];
@@ -336,7 +337,7 @@ static char LeftStarKey;            //!<左侧星级
         ///活动栏
         QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
             
-            QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithactivityID:params];
+            QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithactivityID:params andUserID:self.userID];
             
             [self.navigationController pushViewController:gotoVC animated:YES];
             
@@ -1464,7 +1465,7 @@ static char LeftStarKey;            //!<左侧星级
         
         if (aActivityCallBackActionTypeSignUP == actionType) {
             
-            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:activityModel.id_ andTitle:activityModel.title andNumber:activityModel.people_num andEndTime:activityModel.end_time];
+            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:activityModel.id_ andTitle:activityModel.title andNumber:activityModel.people_num andEndTime:activityModel.end_time andloupanID:self.loupanID anduserID:self.userID];
             
             [self.navigationController pushViewController:VC animated:YES];
             
@@ -1509,6 +1510,7 @@ static char LeftStarKey;            //!<左侧星级
             
             ///保存数据模型
             self.detailInfo = tempModel.detailInfo;
+            self.userID = tempModel.detailInfo.loupan_building.user_id;
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];

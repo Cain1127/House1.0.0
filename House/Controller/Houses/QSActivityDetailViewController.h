@@ -22,6 +22,6 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithactivityID:(NSString*)activityID;
+-(instancetype)initWithactivityID:(NSString*)activityID andUserID:(NSString *)userID;
 
 @end

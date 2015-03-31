@@ -24,7 +24,7 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithactivityID:(NSString*)activityID andTitle:(NSString *)title andNumber:(NSString *)number andEndTime:(NSString *)endTime;
+-(instancetype)initWithactivityID:(NSString*)activityID andTitle:(NSString *)title andNumber:(NSString *)number andEndTime:(NSString *)endTime andloupanID:(NSString *)loupanID anduserID:(NSString *)userID;
 
 /*!
  *  @author wangshupeng, 15-03-31 13:03:35
@@ -37,5 +37,5 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithtitle:(NSString *)houseTitle;
+-(instancetype)initWithtitle:(NSString *)houseTitle andloupanID:(NSString *)loupanID anduserID:(NSString *)userID;
 @end
