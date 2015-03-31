@@ -314,6 +314,14 @@
 ///暂无联系人图标
 #define IMAGE_CHAT_NOCONTACTS @"chat_contact_nocontacts"
 
+///音频
+#define IMAGE_CHAT_SOUND_NORMAL @"talk_sound_normal"
+#define IMAGE_CHAT_SOUND_HIGHLIGHTED @"talk_sound_highlighted"
+
+///图片
+#define IMAGE_CHAT_PHOTO_NORMAL @"talk_photo_normal"
+#define IMAGE_CHAT_PHOTO_HIGHLIGHTED @"talk_photo_highlighted"
+
 #pragma mark - 个人中心相关图片
 
 /**

@@ -16,7 +16,7 @@
 
 #import "MJRefresh.h"
 
-@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate>
+@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 ///对话人的数据
 @property (nonatomic,retain) QSUserSimpleDataModel *userModel;
@@ -102,7 +102,40 @@
     [self.messagesListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadUnReadMessage)];
     [self.messagesListView.header beginRefreshing];
     
-    ///聊天信息输入窗口
+    ///分隔线
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.rootView.frame.size.height - 50.0f, SIZE_DEVICE_WIDTH, 0.25f)];
+    lineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.rootView addSubview:lineLabel];
+    
+    ///相机
+    UIButton *cameraButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///弹出图片选择，或拍照
+        
+        
+    }];
+    [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_NORMAL] forState:UIControlStateNormal];
+    [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [self.rootView addSubview:cameraButton];
+    
+    ///文字输入框
+    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 40.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 30.0f)];
+    inputField.borderStyle = UITextBorderStyleRoundedRect;
+    inputField.delegate = self;
+    inputField.placeholder = @"请输入信息……";
+    inputField.returnKeyType = UIReturnKeySend;
+    [self.rootView addSubview:inputField];
+    
+    ///音频
+    UIButton *soundButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.rootView.frame.size.width - 5.0f - 44.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///进入录制音频
+        
+        
+    }];
+    [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_NORMAL] forState:UIControlStateNormal];
+    [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [self.rootView addSubview:soundButton];
 
 }
 
@@ -153,6 +186,41 @@
         [self.messagesListView.header endRefreshing];
         
     });
+
+}
+
+#pragma mark - 开始输入信息时所有view向上滑动
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+
+    [UIView animateWithDuration:0.25f animations:^{
+        
+        self.rootView.frame = CGRectMake(0.0f, 64.0f - 225.0f, self.rootView.frame.size.width, self.rootView.frame.size.height);
+        
+    }];
+    return YES;
+
+}
+
+#pragma mark - 结束输入时view回滚
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+
+    [UIView animateWithDuration:0.25f animations:^{
+        
+        self.rootView.frame = CGRectMake(0.0f, 64.0f, self.rootView.frame.size.width, self.rootView.frame.size.height);
+        
+    }];
+    return YES;
+
+}
+
+#pragma mark - 点击发送按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+    [textField resignFirstResponder];
+    return YES;
 
 }
 
