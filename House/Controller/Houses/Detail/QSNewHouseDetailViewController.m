@@ -154,7 +154,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加刷新
-    [rootView addHeaderWithTarget:self action:@selector(getNewHouseDetailInfo)];
+    [rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getNewHouseDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
@@ -170,7 +170,7 @@ static char LeftStarKey;            //!<左侧星级
     [self createBottomButtonViewUI:YES];
     
     ///一开始就请求数据
-    [rootView headerBeginRefreshing];
+    [rootView.header beginRefreshing];
     
 }
 
@@ -1508,7 +1508,7 @@ static char LeftStarKey;            //!<左侧星级
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView headerEndRefreshing];
+                [rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1523,7 +1523,7 @@ static char LeftStarKey;            //!<左侧星级
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-            [rootView headerEndRefreshing];
+            [rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
                 
@@ -1781,18 +1781,11 @@ static char LeftStarKey;            //!<左侧星级
         
         if (flag) {
             
-            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"成功")
-            
-            ///回调告诉浏览添加成功
-            if (self.loadingSuccessCallBack) {
-                
-                self.loadingSuccessCallBack(YES,self.loupanID);
-                
-            }
+            APPLICATION_LOG_INFO(@"新房房浏览记录添加", @"成功")
             
         } else {
             
-            APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"失败")
+            APPLICATION_LOG_INFO(@"新房浏览记录添加", @"失败")
             
         }
         

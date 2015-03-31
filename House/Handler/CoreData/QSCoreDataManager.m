@@ -16,6 +16,12 @@ static QSCoreDataManager *_coredataManager = nil;
 ///小区关注数据有变动时的回调block
 @property (nonatomic,copy) COREDATACHANGEBLOCK communityIntentionChangeCallBack;
 
+///保存出租房浏览记录时的回调
+@property (nonatomic,copy) COREDATACHANGEBLOCK addRentHouseHistoryHouseCallBack;
+
+///保存二手房浏览记录时的回调
+@property (nonatomic,copy) COREDATACHANGEBLOCK addSecondHandHouseHistoryHouseCallBack;
+
 @end
 
 @implementation QSCoreDataManager
@@ -80,6 +86,40 @@ static QSCoreDataManager *_coredataManager = nil;
             
             break;
             
+            ///二手房浏览记录改变时的回调
+        case cCoredataDataTypeAddSecondHandHouseHistory:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.addSecondHandHouseHistoryHouseCallBack = changeCallBack;
+                
+            } else {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.addSecondHandHouseHistoryHouseCallBack = nil;
+                
+            }
+            
+            break;
+            
+            ///出租房浏览记录改变时的回调
+        case cCoredataDataTypeAddRentHouseHistory:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.addRentHouseHistoryHouseCallBack = changeCallBack;
+                
+            } else {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.addRentHouseHistoryHouseCallBack = nil;
+                
+            }
+            
+            break;
+            
         default:
             break;
             
@@ -96,7 +136,7 @@ static QSCoreDataManager *_coredataManager = nil;
  *
  *  @since          1.0.0
  */
-+ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType
++ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType andParamsID:(NSString *)changeKey andParams:(id)param
 {
 
     switch (dataType) {
@@ -107,7 +147,35 @@ static QSCoreDataManager *_coredataManager = nil;
             QSCoreDataManager *coredataManager = [self shareCoreDataManager];
             if (coredataManager.communityIntentionChangeCallBack) {
                 
-                coredataManager.communityIntentionChangeCallBack(cCoredataDataTypeCommunityIntention,changeType);
+                coredataManager.communityIntentionChangeCallBack(cCoredataDataTypeCommunityIntention,changeType,nil,nil);
+                
+            }
+            
+        }
+            break;
+            
+            ///二手房浏览记录改变时的回调
+        case cCoredataDataTypeAddSecondHandHouseHistory:
+        {
+            
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.addSecondHandHouseHistoryHouseCallBack) {
+                
+                coredataManager.addSecondHandHouseHistoryHouseCallBack(cCoredataDataTypeAddSecondHandHouseHistory,changeType,changeKey,nil);
+                
+            }
+            
+        }
+            break;
+            
+            ///出租房浏览记录改变时的回调
+        case cCoredataDataTypeAddRentHouseHistory:
+        {
+            
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.addRentHouseHistoryHouseCallBack) {
+                
+                coredataManager.addRentHouseHistoryHouseCallBack(cCoredataDataTypeAddRentHouseHistory,changeType,changeKey,nil);
                 
             }
             

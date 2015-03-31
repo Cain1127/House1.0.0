@@ -77,7 +77,7 @@
         ///判断当前选择个数
         if ([self.pickedHouseList count] <= 1) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少选择两个房源", 1.0, ^(){})
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择至少2个房源进行对比", 1.0, ^(){})
             return;
             
         }
@@ -111,10 +111,10 @@
     [self.view addSubview:self.houseListView];
     
     ///添加刷新
-    [self.houseListView addHeaderWithTarget:self action:@selector(historyHouseListHeaderRequest)];
+    [self.houseListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(historyHouseListHeaderRequest)];
     
     ///开始就刷新
-    [self.houseListView headerBeginRefreshing];
+    [self.houseListView.header beginRefreshing];
 
 }
 
@@ -137,13 +137,13 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.houseListView reloadData];
-        [self.houseListView headerEndRefreshing];
+        [self.houseListView.header endRefreshing];
         
     });
 
 }
 
-#pragma mark -尺寸设置
+#pragma mark - 尺寸设置
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -258,11 +258,19 @@
         
         if ([self checkHouseIsSave:tempModel]) {
             
-            [self.pickedHouseList removeObject:tempModel.house.id_];
+            [self.pickedHouseList removeObject:tempModel];
             
         } else {
         
-            [self.pickedHouseList addObject:tempModel.house.id_];
+            ///如果当前已添加达三个，则提示
+            if ([self.pickedHouseList count] >= 3) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
+                return;
+                
+            }
+            
+            [self.pickedHouseList addObject:tempModel];
         
         }
         
@@ -276,11 +284,18 @@
         QSSecondHouseDetailDataModel *tempModel = self.dataSource[indexPath.row];
         if ([self checkHouseIsSave:tempModel]) {
             
-            [self.pickedHouseList removeObject:tempModel.house.id_];
+            [self.pickedHouseList removeObject:tempModel];
             
         } else {
         
-            [self.pickedHouseList addObject:tempModel.house.id_];
+            ///如果当前已添加达三个，则提示
+            if ([self.pickedHouseList count] >= 3) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择3个房源进行对比", 1.0, ^(){})
+                return;
+                
+            }
+            [self.pickedHouseList addObject:tempModel];
         
         }
         
@@ -301,8 +316,8 @@
         
         for (int i = 0; i < [self.pickedHouseList count]; i++) {
             
-            NSString *saveID = self.pickedHouseList[i];
-            if ([saveID isEqualToString:tempModel.house.id_]) {
+            QSRentHouseDetailDataModel *saveModel = self.pickedHouseList[i];
+            if ([saveModel.house.id_ isEqualToString:tempModel.house.id_]) {
                 
                 return YES;
                 
@@ -315,8 +330,8 @@
         QSSecondHouseDetailDataModel *tempModel = model;
         for (int i = 0; i < [self.pickedHouseList count]; i++) {
             
-            NSString *saveID = self.pickedHouseList[i];
-            if ([saveID isEqualToString:tempModel.house.id_]) {
+            QSRentHouseDetailDataModel *saveModel = self.pickedHouseList[i];
+            if ([saveModel.house.id_ isEqualToString:tempModel.house.id_]) {
                 
                 return YES;
                 

@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+///贷款类型
+typedef enum
+{
+
+    lLoadRatefeeCalculateHousingAccumulationFundLoan = 0,   //!<住房公积金代款
+    lLoadRatefeeBusinessLoan,                               //!<商业贷款
+    lLoadRatefeeMixLoan,                                    //!<混合贷款
+
+}LOAD_RATEFEE_CALCULATE;
+
 /**
  *  @author yangshengmeng, 15-01-24 12:01:06
  *
@@ -55,5 +65,11 @@
  *  @since  1.0.0
  */
 - (NSURL *)getImageURL;
+
++ (CGFloat)calculateDefaultDownPay:(CGFloat)totalValue;
+
++ (CGFloat)calculateDownPayWithRate:(CGFloat)totalValue andRate:(CGFloat)rate;
+
++ (CGFloat)calculateMonthlyMortgatePayment:(CGFloat)totalValue andPaymentType:(LOAD_RATEFEE_CALCULATE)payType andRate:(CGFloat)rate andTimes:(NSInteger)sumTimes;
 
 @end

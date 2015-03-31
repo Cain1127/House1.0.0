@@ -11,12 +11,12 @@
 //Cell宽度
 #define MY_ZONE_ORDER_LIST_CELL_WIDTH       (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)
 //Cell高度
-#define MY_ZONE_ORDER_LIST_CELL_HEIGHT      115.0f
+#define MY_ZONE_ORDER_LIST_CELL_HEIGHT      102.0f
 
 @interface QSPSalerBookedOrderListsTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIViewController *parentViewController;
 
-- (void)updateCellWith:(id)Data;
+- (void)updateCellWith:(id)Data withIndex:(NSInteger)index;
 
 @end

@@ -70,7 +70,7 @@ static char RootViewKey;     //!<顶部信息关联key
     objc_setAssociatedObject(self, &RootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加刷新
-    [rootView addHeaderWithTarget:self action:@selector(getActivityDetailInfo)];
+    [rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getActivityDetailInfo)];
     
     ///底部按钮
     UIView *bottomView=[[UIView alloc] initWithFrame:CGRectMake(0, SIZE_DEVICE_HEIGHT-60.0f, SIZE_DEVICE_WIDTH, 60.0f)];
@@ -78,7 +78,7 @@ static char RootViewKey;     //!<顶部信息关联key
     [self createBottomUI:bottomView];
     objc_setAssociatedObject(self, &BottomViewKey, bottomView, OBJC_ASSOCIATION_ASSIGN);
     
-    [rootView headerBeginRefreshing];
+    [rootView.header beginRefreshing];
     
 }
 
@@ -206,7 +206,7 @@ static char RootViewKey;     //!<顶部信息关联key
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &RootViewKey);
-                [rootView headerEndRefreshing];
+                [rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
             });
@@ -214,7 +214,7 @@ static char RootViewKey;     //!<顶部信息关联key
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &RootViewKey);
-            [rootView headerEndRefreshing];
+            [rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(TIPS_NEWHOUSE_DETAIL_LOADFAIL,1.0f,^(){
                 

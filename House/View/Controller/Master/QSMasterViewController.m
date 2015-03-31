@@ -8,6 +8,10 @@
 
 #import "QSMasterViewController.h"
 #import "QSTabBarViewController.h"
+#import "QSHomeViewController.h"
+#import "QSHousesViewController.h"
+#import "QSChatViewController.h"
+#import "QSMyZoneViewController.h"
 
 #import "QSLoginViewController.h"
 
@@ -320,8 +324,17 @@ static char NavigationBarKey;       //!<导航栏的关联key
     if (lLoginCheckActionTypeUnLogin == isLogin) {
         
         QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:loginCallBack];
-        loginVC.hiddenCustomTabbarWhenPush = YES;
-        [self hiddenBottomTabbar:YES];
+        
+        ///如果是四个首页，需要隐藏tabbar
+        if ([self isKindOfClass:[QSHomeViewController class]] ||
+            [self isKindOfClass:[QSHousesViewController class]] ||
+            [self isKindOfClass:[QSChatViewController class]] ||
+            [self isKindOfClass:[QSMyZoneViewController class]]) {
+            
+            [self hiddenBottomTabbar:YES];
+            
+        }
+        
         [self.navigationController pushViewController:loginVC animated:YES];
         
     } else {

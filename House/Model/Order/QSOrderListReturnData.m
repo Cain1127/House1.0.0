@@ -7,6 +7,7 @@
 //
 
 #import "QSOrderListReturnData.h"
+#import "QSCoreDataManager+User.h"
 
 @implementation QSOrderListReturnData
 
@@ -97,9 +98,10 @@
     BOOL flag = NO;
     if (self.ownerData&&self.ownerData.id_)
     {
-        //FIXME: 要修改为真实的当前用户ID！
-        
-        if ([self.ownerData.id_ isEqual:@"3"]) {
+        NSString *userID = [QSCoreDataManager getUserID];
+        //FIXME:测试！！
+        userID = @"1";
+        if ([self.ownerData.id_ isEqual:userID]) {
             flag = YES;
         }
     }

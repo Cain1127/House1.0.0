@@ -451,7 +451,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///刷新数据
 
 //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            //[collectionView headerBeginRefreshing];
+            //[collectionView.header beginRefreshing];
             
             ///保存过滤器
             [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -494,7 +494,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///刷新数据
 
 //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        //[collectionView headerBeginRefreshing];
+        //[collectionView.header beginRefreshing];
         
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -569,7 +569,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 //            
 //            ///进入详情页面
 //            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-//            detailVC.hiddenCustomTabbarWhenPush = YES;
 //            [self hiddenBottomTabbar:YES];
 //            [self.navigationController pushViewController:detailVC animated:YES];
 //            

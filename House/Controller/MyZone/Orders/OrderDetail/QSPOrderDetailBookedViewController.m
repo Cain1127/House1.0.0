@@ -43,6 +43,8 @@
 
 @interface QSPOrderDetailBookedViewController ()
 
+@property (nonatomic, strong) UIView *contentBgView;
+
 @property (nonatomic, strong) QSOrderDetailInfoDataModel *orderDetailData;
 
 @property (nonatomic, strong) QSPOrderDetailTitleLabel *titleTipLabel;          //!<详情标题View
@@ -77,7 +79,7 @@
 @end
 
 @implementation QSPOrderDetailBookedViewController
-@synthesize orderData;
+@synthesize orderListItemData, selectedIndex;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -93,6 +95,12 @@
 ///搭建主展示UI
 - (void)createMainShowUI
 {
+    self.contentBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:self.contentBgView];
+}
+
+- (void)createSubViewsUI
+{
     ///头部标题
     NSString *titleTip = @"";
     
@@ -105,31 +113,39 @@
     //订单数据
     id orderList = nil;
     
-    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+//    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
+//        
+//        if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
+//            
+//            orderList = self.orderListItemData.orderInfoList;
+//            
+//            QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
+//            if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+//                titleTip = [orderItem getStatusTitle];
+//            }
+//            
+//            NSString *timeStr = [NSString stringWithFormat:@"%@ %@-%@",orderItem.appoint_date,orderItem.appoint_start_time,orderItem.appoint_end_time];
+//            
+//            timeArray = [NSMutableArray arrayWithObjects:timeStr, nil];
+//            
+//        }
+//        
+//        if (self.orderListItemData.houseData) {
+//            houseData = self.orderListItemData.houseData;
+//        }
+//        
+//    }
+    
+    if (self.orderDetailData) {
         
-        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
-            
-            orderList = self.orderData.orderInfoList;
-            
-            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
-            if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
-                titleTip = [orderItem getStatusTitle];
-            }
-            
-            NSString *timeStr = [NSString stringWithFormat:@"%@ %@-%@",orderItem.appoint_date,orderItem.appoint_start_time,orderItem.appoint_end_time];
-            
-            timeArray = [NSMutableArray arrayWithObjects:timeStr, nil];
-            
-        }
-        
-        if (self.orderData.houseData) {
-            houseData = self.orderData.houseData;
-        }
+        titleTip = [self.orderDetailData getStatusTitle];
+        timeArray = self.orderDetailData.appoint_list;
+        houseData = self.orderDetailData.house_msg;
         
     }
     
     self.titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
-    [self.view addSubview:self.titleTipLabel];
+    [self.contentBgView addSubview:self.titleTipLabel];
     
     //底部按钮
     QSPOrderBottomButtonView *changeOrderButtonView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
@@ -137,18 +153,18 @@
         NSLog(@"changeOrderButton");
         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
         [bookTimeVc setVcType:bBookTypeViewControllerChange];
-        if (self.orderData) {
+        if (self.orderDetailData) {
             
         }
-//        [bookTimeVc setHouseInfo:<#(QSWSecondHouseInfoDataModel *)#>];
+        //        [bookTimeVc setHouseInfo:<#(QSWSecondHouseInfoDataModel *)#>];
         [self.navigationController pushViewController:bookTimeVc animated:YES];
         
     }];
     [changeOrderButtonView setFrame:CGRectMake(changeOrderButtonView.frame.origin.x, SIZE_DEVICE_HEIGHT -changeOrderButtonView.frame.size.height, changeOrderButtonView.frame.size.width, changeOrderButtonView.frame.size.height)];
-    [self.view addSubview:changeOrderButtonView];
+    [self.contentBgView addSubview:changeOrderButtonView];
     
     QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(_titleTipLabel.frame.origin.x, _titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(_titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height))];
-    [self.view addSubview:scrollView];
+    [self.contentBgView addSubview:scrollView];
     
     ///看房时间
     self.showingsTimeView = [[QSPOrderDetailShowingsTimeView alloc] initAtTopLeft:CGPointMake(0.0f, 0.0f) withTimeData:timeArray];
@@ -182,8 +198,8 @@
         if (self.orderDetailData.house_msg) {
             
             //房源坐标
-//            self.orderDetailData.house_msg.coordinate_x;
-//            self.orderDetailData.house_msg.coordinate_y;
+            //            self.orderDetailData.house_msg.coordinate_x;
+            //            self.orderDetailData.house_msg.coordinate_y;
             
         }
         
@@ -193,7 +209,7 @@
     [self.showingsTimeView addAfterView:&_addressView];
     
     //业主信息栏
-    self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, _addressView.frame.origin.y+_addressView.frame.size.height) withOrderData:self.orderData andCallBack:^(UIButton *button) {
+    self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, _addressView.frame.origin.y+_addressView.frame.size.height) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
         
         NSLog(@"askButton");
         
@@ -201,10 +217,8 @@
     [scrollView addSubview:self.personView];
     ///将业主信息栏引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_personView];
-
+    
     [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.personView.frame.origin.y+self.personView.frame.size.height)];
-    
-    
     
 }
 
@@ -220,47 +234,47 @@
     
 }
 
-- (void)updateData:(id)data
-{
-    
-    if (!data || ![data isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
-        NSLog(@"QSOrderDetailInfoDataModel 错误");
-        return;
-    }
-    
-    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
-    
-    if (_titleTipLabel) {
-        [_titleTipLabel setTitle:[detailData getStatusTitle]];
-        NSLog(@"%@ StatusTitle:%@",detailData.order_status,_titleTipLabel.text);
-    }
-    
-    if (_houseInfoView) {
-        [_houseInfoView setHouseData:detailData.house_msg];
-    }
-    
-    if (_addressView) {
-        [_addressView setHouseData:detailData.house_msg];
-    }
-    
-    if (_personView) {
-        [_personView setOrderData:self.orderDetailData];
-    }
-    
-    if (_showingsTimeView) {
-        [_showingsTimeView setTimeData:detailData.appoint_list];
-    }
-    
-}
+//- (void)updateData:(id)data
+//{
+//    
+//    if (!data || ![data isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+//        NSLog(@"QSOrderDetailInfoDataModel 错误");
+//        return;
+//    }
+//    
+//    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
+//    
+//    if (_titleTipLabel) {
+//        [_titleTipLabel setTitle:[detailData getStatusTitle]];
+//        NSLog(@"%@ StatusTitle:%@",detailData.order_status,_titleTipLabel.text);
+//    }
+//    
+//    if (_houseInfoView) {
+//        [_houseInfoView setHouseData:detailData.house_msg];
+//    }
+//    
+//    if (_addressView) {
+//        [_addressView setHouseData:detailData.house_msg];
+//    }
+//    
+//    if (_personView) {
+//        [_personView setOrderData:self.orderDetailData];
+//    }
+//    
+//    if (_showingsTimeView) {
+//        [_showingsTimeView setTimeData:detailData.appoint_list];
+//    }
+//    
+//}
 
 - (void)getDetailData
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     NSString *orderID = nil;
-    if (self.orderData && [self.orderData isKindOfClass:[QSOrderListItemData class]]) {
-        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+    if (self.orderListItemData && [self.orderListItemData isKindOfClass:[QSOrderListItemData class]]) {
+        if (self.orderListItemData.orderInfoList&&[self.orderListItemData.orderInfoList count]>0) {
             
-            QSOrderListOrderInfoDataModel *orderItem = [self.orderData.orderInfoList objectAtIndex:0];
+            QSOrderListOrderInfoDataModel *orderItem = [self.orderListItemData.orderInfoList objectAtIndex:selectedIndex];
             if (orderItem&&[orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                 
                 orderID = orderItem.id_;
@@ -274,6 +288,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             [self.navigationController popViewControllerAnimated:YES];
         })
+        return;
     }
     
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
@@ -295,7 +310,8 @@
             
             self.orderDetailData = headerModel.orderDetailData;
             [self.orderDetailData updateViewsFlags];
-            [self updateData:self.orderDetailData];
+//            [self updateData:self.orderDetailData];
+            [self createSubViewsUI];
             
         }else{
             

@@ -12,7 +12,9 @@
 typedef enum
 {
 
-    cCoredataDataTypeCommunityIntention = 0,//!<小区关注
+    cCoredataDataTypeCommunityIntention = 0,    //!<小区关注
+    cCoredataDataTypeAddSecondHandHouseHistory, //!<二手房浏览记录
+    cCoredataDataTypeAddRentHouseHistory,       //!<出租房浏览记录
 
 }COREDATA_DATA_TYPE;
 
@@ -27,7 +29,7 @@ typedef enum
 }DATA_CHANGE_TYPE;
 
 ///回调block重定义
-typedef void(^COREDATACHANGEBLOCK)(COREDATA_DATA_TYPE dataType,DATA_CHANGE_TYPE changeType);
+typedef void(^COREDATACHANGEBLOCK)(COREDATA_DATA_TYPE dataType,DATA_CHANGE_TYPE changeType,NSString *paramsID,id params);
 
 /**
  *  @author yangshengmeng, 15-01-21 18:01:59
@@ -71,7 +73,7 @@ typedef void(^COREDATACHANGEBLOCK)(COREDATA_DATA_TYPE dataType,DATA_CHANGE_TYPE 
  *
  *  @since          1.0.0
  */
-+ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType;
++ (void)performCoredataChangeCallBack:(COREDATA_DATA_TYPE)dataType andChangeType:(DATA_CHANGE_TYPE)changeType andParamsID:(NSString *)changeKey andParams:(id)param;
 
 #pragma mark - 实体数据查询
 /**

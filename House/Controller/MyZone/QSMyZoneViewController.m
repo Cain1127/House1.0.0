@@ -332,7 +332,6 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeLogined == flag) {
                         
                         QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
-                        askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
                         
@@ -343,11 +342,6 @@ static char UserIconKey;//!<用户头像
                         
                         ///刷新页面数据
                         
-                        ///进入求购页面
-                        QSYAskSaleAndRentViewController *askSaleAndRentVC = [[QSYAskSaleAndRentViewController alloc] init];
-                        askSaleAndRentVC.hiddenCustomTabbarWhenPush = YES;
-                        [self hiddenBottomTabbar:YES];
-                        [self.navigationController pushViewController:askSaleAndRentVC animated:YES];
                         
                     }
                     
@@ -361,7 +355,6 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYCollectedHousesViewController *collectedHouseVC = [[QSYCollectedHousesViewController alloc] init];
-                collectedHouseVC.hiddenCustomTabbarWhenPush = YES;
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:collectedHouseVC animated:YES];
                 
@@ -373,7 +366,6 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYAttentionCommunityViewController *attentionCommunityVC = [[QSYAttentionCommunityViewController alloc] init];
-                attentionCommunityVC.hiddenCustomTabbarWhenPush = YES;
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:attentionCommunityVC animated:YES];
                 
@@ -385,7 +377,6 @@ static char UserIconKey;//!<用户头像
             {
                 
                 QSYMyHistoryViewController *myHistoryVC = [[QSYMyHistoryViewController alloc] init];
-                myHistoryVC.hiddenCustomTabbarWhenPush = YES;
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:myHistoryVC animated:YES];
                 
@@ -453,7 +444,6 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeLogined == flag) {
                         
                         QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
-                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
@@ -480,7 +470,6 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeLogined == flag) {
                         
                         QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
-                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
@@ -489,12 +478,6 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新当前页面数据
-                        
-                        ///进入发布出租物业页面
-                        QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
-                        releaseRentHouseVC.hiddenCustomTabbarWhenPush = YES;
-                        [self hiddenBottomTabbar:YES];
-                        [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
                         
                     }
                     
@@ -526,7 +509,6 @@ static char UserIconKey;//!<用户头像
     
     ///进入设置页面
     QSYSystemSettingViewController *settingVC = [[QSYSystemSettingViewController alloc] init];
-    settingVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:settingVC animated:YES];
 
@@ -539,7 +521,6 @@ static char UserIconKey;//!<用户头像
     
     ///进入系统消息页面
     QSYSystemMessagesViewController *systemMessageVC = [[QSYSystemMessagesViewController alloc] init];
-    systemMessageVC.hiddenCustomTabbarWhenPush = YES;
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:systemMessageVC animated:YES];
 
@@ -556,7 +537,6 @@ static char UserIconKey;//!<用户头像
             
             ///进入系统消息页面
             QSYMySettingViewController *mySettingVC = [[QSYMySettingViewController alloc] init];
-            mySettingVC.hiddenCustomTabbarWhenPush = YES;
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:mySettingVC animated:YES];
             
@@ -611,6 +591,14 @@ static char UserIconKey;//!<用户头像
         
     }
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self hiddenBottomTabbar:NO];
+    [super viewWillAppear:animated];
+    
 }
 
 @end

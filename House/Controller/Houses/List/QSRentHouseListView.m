@@ -65,11 +65,11 @@
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(rentHouseListHeaderRequest)];
-        [self addFooterWithTarget:self action:@selector(rentHouseListFooterRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
+        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -245,14 +245,14 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
         } else if (rRequestResultTypeFail == resultStatus) {
         
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
             ///重置数据
             self.dataSourceModel = nil;
@@ -268,8 +268,8 @@
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
             ///由于是第一页，请求失败，显示暂无记录
             if (self.houseListTapCallBack) {
@@ -292,8 +292,8 @@
     if ([self.dataSourceModel.headerData.per_page intValue] == [self.dataSourceModel.headerData.total_page intValue]) {
         
         ///结束刷新动画
-        [self headerEndRefreshing];
-        [self footerEndRefreshing];
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
         return;
         
     }
@@ -327,8 +327,8 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
             ///回调告知ViewController，当前已满足摇一摇的触发条件
             if ([self.dataSourceModel.headerData.per_page intValue] % 1 == 0) {
@@ -345,8 +345,8 @@
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
-            [self footerEndRefreshing];
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
             
         }
         
@@ -414,7 +414,7 @@
 - (void)loadRecommendHouse
 {
     
-    [self headerBeginRefreshing];
+    [self.header beginRefreshing];
     
 }
 

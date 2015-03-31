@@ -99,11 +99,11 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [cancelListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [cancelListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [cancelListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBookingListHeaderData)];
+    [cancelListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [cancelListTableView headerBeginRefreshing];
+    [cancelListTableView.header beginRefreshing];
     
 }
 
@@ -142,8 +142,8 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 //    [self reloadData];
 }
@@ -220,7 +220,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
         if ([self.cancelListDataSource count]>indexPath.row) {
             QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+            [bookedVc setOrderListItemData:orderItem];
         }
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }

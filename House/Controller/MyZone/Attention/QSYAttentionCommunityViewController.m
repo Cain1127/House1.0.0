@@ -95,11 +95,11 @@
     [self.view addSubview:self.collectionView];
     
     ///添加刷新
-    [self.collectionView addHeaderWithTarget:self action:@selector(communityListHeaderRequest)];
-    [self.collectionView addFooterWithTarget:self action:@selector(communityListFooterRequest)];
+    [self.collectionView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(communityListHeaderRequest)];
+    [self.collectionView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(communityListFooterRequest)];
     
     ///开始就刷新
-    [self.collectionView headerBeginRefreshing];
+    [self.collectionView.header beginRefreshing];
 
 }
 
@@ -157,8 +157,8 @@
         
         ///重载数据
         [self.collectionView reloadData];
-        [self.collectionView headerEndRefreshing];
-        [self.collectionView footerEndRefreshing];
+        [self.collectionView.header endRefreshing];
+        [self.collectionView.footer endRefreshing];
     
     }
 
@@ -176,8 +176,8 @@
     } else {
         
         ///本地数据已一次取完
-        [self.collectionView headerEndRefreshing];
-        [self.collectionView footerEndRefreshing];
+        [self.collectionView.header endRefreshing];
+        [self.collectionView.footer endRefreshing];
         
     }
 

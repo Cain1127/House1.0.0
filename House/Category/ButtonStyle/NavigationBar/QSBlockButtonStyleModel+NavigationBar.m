@@ -151,12 +151,30 @@
             
             break;
             
+            ///详情按钮
+        case nNavigationBarButtonTypeUserDetail:
+            
+            return [self createNavigationBarDetailButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
     
+}
+
+#pragma mark - 详情按钮
++ (QSBlockButtonStyleModel *)createNavigationBarDetailButtonStyle
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_DETAIL_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_DETAIL_HIGHLIGHTED;
+    return buttonStyle;
+
 }
 
 #pragma mark - 交叉图片取消按钮
@@ -170,7 +188,7 @@
     
 }
 
-#pragma mark - 提交确认按钮
+#pragma mark - 加号添加按钮
 + (QSBlockButtonStyleModel *)createNavigationBarAddButtonStyle
 {
     

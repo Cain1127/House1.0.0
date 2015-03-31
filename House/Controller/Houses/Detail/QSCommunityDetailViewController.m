@@ -135,7 +135,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getCommunityDetailInfo)];
+    [rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getCommunityDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height)];
@@ -143,7 +143,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     infoRootView.hidden = YES;
     objc_setAssociatedObject(self, &MainInfoRootViewKey, infoRootView, OBJC_ASSOCIATION_ASSIGN);
     
-    [rootView headerBeginRefreshing];
+    [rootView.header beginRefreshing];
     
 }
 
@@ -725,7 +725,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView headerEndRefreshing];
+                [rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
             });
@@ -733,7 +733,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-            [rootView headerEndRefreshing];
+            [rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取小区详情信息失败，请稍后再试……",1.0f,^(){
                 

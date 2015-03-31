@@ -167,4 +167,12 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [self hiddenBottomTabbar:NO];
+    [super viewWillAppear:animated];
+    
+}
+
 @end

@@ -575,15 +575,15 @@
 {
     NSString *timeStr = @"";
     
-    if (self.appoint_date) {
+    if (self.appoint_date && ![self.appoint_date isEqualToString:@""]) {
         timeStr = self.appoint_date;
     }
     
-    if (self.appoint_start_time) {
+    if (self.appoint_start_time && ![self.appoint_start_time isEqualToString:@""]) {
         timeStr = [NSString stringWithFormat:@"时间:%@ %@",timeStr,self.appoint_start_time];
     }
     
-    if (self.appoint_end_time) {
+    if (self.appoint_end_time && ![self.appoint_end_time isEqualToString:@""]) {
         timeStr = [NSString stringWithFormat:@"%@-%@",timeStr,self.appoint_end_time];
     }
     

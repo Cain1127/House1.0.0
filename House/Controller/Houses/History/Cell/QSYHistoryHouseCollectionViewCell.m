@@ -49,9 +49,7 @@ static char SelectedBoxKey; //!<选择标识
 {
     
     if (self = [super initWithFrame:frame]) {
-        
-        APPLICATION_LOG_INFO(@"cell大小", NSStringFromCGRect(frame))
-        
+                
         ///UI搭建
         [self createHouseInfoCellUI];
         

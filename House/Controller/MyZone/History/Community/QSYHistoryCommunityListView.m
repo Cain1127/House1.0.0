@@ -75,11 +75,11 @@
         [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"newHouseInfoCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(newHouseListHeaderRequest)];
-        [self addFooterWithTarget:self action:@selector(newHouseListFooterRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(newHouseListHeaderRequest)];
+        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(newHouseListFooterRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -93,8 +93,8 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self headerEndRefreshing];
-        [self footerEndRefreshing];
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
         
     });
     
@@ -105,8 +105,8 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self headerEndRefreshing];
-        [self footerEndRefreshing];
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
         
     });
     

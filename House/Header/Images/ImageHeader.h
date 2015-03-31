@@ -95,8 +95,8 @@
 #define IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED @"navigationbar_confirm_highlighted"
 
 ///加号图标的添加按钮
-#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal_normal"
-#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_normal_highlighted"
+#define IMAGE_NAVIGATIONBAR_ADD_NORMAL @"navigationbar_add_normal"
+#define IMAGE_NAVIGATIONBAR_ADD_HIGHLIGHTED @"navigationbar_add_highlighted"
 
 ///交叉图片取消按钮
 #define IMAGE_NAVIGATIONBAR_CANCEL_NORMAL @"navigationbar_corss_normal"
@@ -125,6 +125,10 @@
 ///展示或收超的三角形指示
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL @"navigationbar_deploy_arrow_normal"
 #define IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED @"navigationbar_deploy_arrow_highlighted"
+
+///导航栏详情按钮图片
+#define IMAGE_NAVIGATIONBAR_DETAIL_NORMAL @"navigationbar_detail_normal"
+#define IMAGE_NAVIGATIONBAR_DETAIL_HIGHLIGHTED @"navigationbar_detail_highlighted"
 
 #pragma mark - 频道栏图片资源
 /**
@@ -281,6 +285,13 @@
 ///房子详情，价格上升图片
 #define IMAGE_HOUSES_DETAIL_PRICEUP @"houses_detail_priceup"
 
+///比一比中的推荐房源大六角
+#define IMAGE_COMPARISON_SIXFORM @"comparison_sixform"
+
+///比一比中的提示三角
+#define IMAGE_COMPARISON_INDICADE_NORMAL @"comparison_recommend_house_indecator_normal"
+#define IMAGE_COMPARISON_INDICADE_HIGHLIGHTED @"comparison_recommend_house_indecator_highlighted"
+
 #pragma mark - 发现模块相关图片资源
 
 /**
@@ -302,6 +313,14 @@
 
 ///暂无联系人图标
 #define IMAGE_CHAT_NOCONTACTS @"chat_contact_nocontacts"
+
+///音频
+#define IMAGE_CHAT_SOUND_NORMAL @"talk_sound_normal"
+#define IMAGE_CHAT_SOUND_HIGHLIGHTED @"talk_sound_highlighted"
+
+///图片
+#define IMAGE_CHAT_PHOTO_NORMAL @"talk_photo_normal"
+#define IMAGE_CHAT_PHOTO_HIGHLIGHTED @"talk_photo_highlighted"
 
 #pragma mark - 个人中心相关图片
 

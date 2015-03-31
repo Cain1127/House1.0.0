@@ -838,7 +838,7 @@
     }
     
     ///回调改动
-    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease];
+    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
     
     ///回调
     if (callBack) {
@@ -927,7 +927,7 @@
     }
     
     ///回调改动
-    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease];
+    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
     
     ///回调
     if (callBack) {
@@ -1261,7 +1261,7 @@
                     [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                     
                     ///回调关注变动
-                    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
+                    [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                     
                 } else {
                 
@@ -1271,7 +1271,7 @@
                         [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                         
                         ///回调关注变动
-                        [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
+                        [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     } else {
                     
@@ -1285,7 +1285,7 @@
                             if (flag) {
                                 
                                 ///回调关注变动
-                                [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce];
+                                [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                                 
                                 ///回调
                                 callBack(YES);

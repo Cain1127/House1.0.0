@@ -7,31 +7,26 @@
 //
 
 #import "QSPSalerBookedOrderCancelListView.h"
+#import "QSPSalerTransactionBookedOrderLIstHeaderView.h"
 #import "QSPSalerBookedOrderListsTableViewCell.h"
-
 #import "MJRefresh.h"
-
 #import <objc/runtime.h>
-
 #import "QSBlockButtonStyleModel+Normal.h"
-
 #import "QSPOrderDetailBookedViewController.h"
-
 #import "QSOrderListReturnData.h"
-
 #import "QSCoreDataManager+User.h"
 
 ///关联
 static char CancelListTableViewKey;       //!<已取消列表关联
 static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 
-@interface QSPSalerBookedOrderCancelListView () <UITableViewDataSource,UITableViewDelegate>
-
-@property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
+@interface QSPSalerBookedOrderCancelListView () <UITableViewDataSource,UITableViewDelegate,QSPSalerTransactionBookedOrderLIstHeaderViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *cancelListDataSource; //!待看房列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
+
+@property (nonatomic,assign) NSInteger      currentShowHeaderIndex;              //!当前展开Cell的Header索引,-1表示全部闭合，
 
 @end
 
@@ -46,6 +41,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         
         ///初始化
         self.cancelListDataSource = [NSMutableArray arrayWithCapacity:0];
+        _currentShowHeaderIndex = -1;
         
         ///UI搭建
         [self createBookingListUI];
@@ -99,11 +95,11 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [cancelListTableView addHeaderWithTarget:self action:@selector(getBookingListHeaderData)];
-    [cancelListTableView addFooterWithTarget:self  action:@selector(getBookingListFooterData)];
+    [cancelListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBookingListHeaderData)];
+    [cancelListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getBookingListFooterData)];
     
     ///一开始就请求数据
-    [cancelListTableView headerBeginRefreshing];
+    [cancelListTableView.header beginRefreshing];
     
 }
 
@@ -142,8 +138,8 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
     //    [self reloadData];
 }
@@ -188,9 +184,85 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         
     }
     
-    [cellSystem updateCellWith:[_cancelListDataSource objectAtIndex:indexPath.row]];
+    if ([_cancelListDataSource objectAtIndex:indexPath.section]&&[[_cancelListDataSource objectAtIndex:indexPath.section] orderInfoList]&&[[[_cancelListDataSource objectAtIndex:indexPath.section] orderInfoList] count]>indexPath.row) {
+        
+        [cellSystem updateCellWith:[_cancelListDataSource objectAtIndex:indexPath.section] withIndex:indexPath.row];
+        
+    }
     
     return cellSystem;
+    
+}
+
+#pragma mark - 返回一共有多少条房源记录
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSInteger count = 0;
+    
+    if ([_cancelListDataSource count]>=1) {
+        
+        count = [_cancelListDataSource count];
+        
+    }
+    
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    static NSString *HeaderID = @"QSPSalerTransactionBookedOrderLIstHeaderView";
+    
+    QSPSalerTransactionBookedOrderLIstHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderID];
+    
+    if (header == nil) {
+        
+        header = [[QSPSalerTransactionBookedOrderLIstHeaderView alloc]initWithReuseIdentifier:HeaderID];
+        
+        [header setFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT)];
+        
+        [header setOrderTypeName:@"已取消"];
+        
+    }
+    [header setDelegate:self];
+    [header setTag:section];
+    [header updateData:[self.cancelListDataSource objectAtIndex:section]];
+    
+    [header setShowButtonOpenOrClose:NO];
+    
+    if (_currentShowHeaderIndex == section) {
+        
+        [header setShowButtonOpenOrClose:YES];
+        
+    }
+    
+    return header;
+}
+
+#pragma mark - 点击HeaderView 响应
+- (void)clickItemInHeaderViewWithData:(id)data withSection:(NSInteger)section
+{
+    
+    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%d",data ,section);
+    UITableView *tableView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    if (_currentShowHeaderIndex==-1) {
+        _currentShowHeaderIndex = section;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:_currentShowHeaderIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }else {
+        NSInteger tempIndex = _currentShowHeaderIndex;
+        _currentShowHeaderIndex = -1;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:tempIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
     
 }
 
@@ -198,8 +270,20 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 ///返回一共有多少条订单记录
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger count = 0;
     
-    return [_cancelListDataSource count];
+    if (_currentShowHeaderIndex != -1) {
+        if (section == _currentShowHeaderIndex) {
+            
+            if ([self.cancelListDataSource objectAtIndex:section]&&[[self.cancelListDataSource objectAtIndex:section] orderInfoList]&&[[[self.cancelListDataSource objectAtIndex:section] orderInfoList] count]>0) {
+                
+                count = [[[self.cancelListDataSource objectAtIndex:section] orderInfoList] count];
+                
+            }
+        }
+    }
+    
+    return count;
     
 }
 
@@ -218,10 +302,15 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
 {
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-        if ([self.cancelListDataSource count]>indexPath.row) {
-            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+
+        if ([self.cancelListDataSource count]>indexPath.section) {
+            QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.section];
+            if (orderItem) {
+                [bookedVc setOrderListItemData:orderItem];
+            }
         }
+        [bookedVc setSelectedIndex:indexPath.row];
+        
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }
@@ -305,6 +394,21 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
         [self endRefreshAnimination];
         
     }];
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        
+    }
     
 }
 

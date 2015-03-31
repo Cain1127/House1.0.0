@@ -11,6 +11,8 @@
 
 @interface QSPOrderDetailBookedViewController : QSTurnBackViewController
 
-@property ( nonatomic , strong ) QSOrderListItemData *orderData;
+@property ( nonatomic , strong ) QSOrderListItemData *orderListItemData;
+
+@property ( nonatomic , assign ) NSInteger  selectedIndex;
 
 @end

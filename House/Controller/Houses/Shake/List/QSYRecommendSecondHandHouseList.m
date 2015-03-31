@@ -59,10 +59,10 @@
         [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
         
         ///添加刷新
-        [self addHeaderWithTarget:self action:@selector(houseListHeaderRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(houseListHeaderRequest)];
         
         ///开始就刷新
-        [self headerBeginRefreshing];
+        [self.header beginRefreshing];
         
     }
     
@@ -107,12 +107,12 @@
             });
             
             ///结束刷新动画
-            [self headerEndRefreshing];
+            [self.header endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self headerEndRefreshing];
+            [self.header endRefreshing];
             
             ///重置数据指针
             self.dataSourceModel = nil;
@@ -283,7 +283,7 @@
             
             tipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, cellTitle.frame.size.width - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, cellTitle.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
                 
-                [self headerBeginRefreshing];
+                [self.header beginRefreshing];
                 
             }];
             tipsButton.tag = 112;

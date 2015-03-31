@@ -75,7 +75,7 @@
             self.houseType = [selectedKey intValue];
             
             ///刷新数据
-            [self.searchItemView headerBeginRefreshing];
+            [self.searchItemView.header beginRefreshing];
             
         }
         
@@ -141,8 +141,8 @@
     [self.view addSubview:self.searchItemView];
     
     ///添加刷新
-    [self.searchItemView addHeaderWithTarget:self action:@selector(getLocalSearchHistoryData)];
-    [self.searchItemView headerBeginRefreshing];
+    [self.searchItemView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getLocalSearchHistoryData)];
+    [self.searchItemView.header beginRefreshing];
    
 }
 
@@ -215,7 +215,7 @@
                 
                 if (flag) {
                     
-                    [self.searchItemView headerBeginRefreshing];
+                    [self.searchItemView.header beginRefreshing];
                     
                 }
                 
@@ -288,7 +288,7 @@
     [self.searchItemView reloadData];
     
     ///结束刷新动画
-    [self.searchItemView headerEndRefreshing];
+    [self.searchItemView.header endRefreshing];
 
 }
 
@@ -313,7 +313,7 @@
         [QSCoreDataManager addLocalSearchHistory:tempModel andCallBack:^(BOOL flag) {}];
         
         ///刷新列表
-        [self.searchItemView headerBeginRefreshing];
+        [self.searchItemView.header beginRefreshing];
         
         ///清空原信息
         textField.text = nil;

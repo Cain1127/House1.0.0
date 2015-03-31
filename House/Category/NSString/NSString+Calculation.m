@@ -75,4 +75,66 @@
 
 }
 
++ (CGFloat)calculateDefaultDownPay:(CGFloat)totalValue
+{
+
+    return [self calculateDownPayWithRate:totalValue andRate:0.3f];
+
+}
+
++ (CGFloat)calculateDownPayWithRate:(CGFloat)totalValue andRate:(CGFloat)rate
+{
+
+    return totalValue * rate;
+
+}
+
+///
++ (CGFloat)calculateMonthlyMortgatePayment:(CGFloat)totalValue andPaymentType:(LOAD_RATEFEE_CALCULATE)payType andRate:(CGFloat)monthRate andTimes:(NSInteger)allMonth
+{
+    
+    switch (payType) {
+            ///住房公积金贷款
+        case lLoadRatefeeCalculateHousingAccumulationFundLoan:
+            
+            return [self calculateHousingAccumulationFundLoanMonthlyMortgatePayment:totalValue andRate:monthRate andTimes:allMonth];
+            
+            break;
+            
+        case lLoadRatefeeBusinessLoan:
+            
+            return [self calculateBusinessLoadMonthlyMortgatePayment:totalValue andRate:monthRate andTimes:allMonth];
+            
+            break;
+            
+        case lLoadRatefeeMixLoan:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return 0.0f;
+
+}
+
++ (CGFloat)calculateHousingAccumulationFundLoanMonthlyMortgatePayment:(CGFloat)totalValue andRate:(CGFloat)monthRate andTimes:(NSInteger)allMonth
+{
+
+    return 0.0f;
+
+}
+
++ (CGFloat)calculateBusinessLoadMonthlyMortgatePayment:(CGFloat)totalValue andRate:(CGFloat)monthRate andTimes:(NSInteger)allMonth
+{
+
+    ///月供计算
+    CGFloat rateBase = pow(1.0f + monthRate, allMonth * 1.0);
+    CGFloat mortgagePayment = totalValue * monthRate * rateBase / (rateBase - 1.0f);
+    
+    return mortgagePayment;
+
+}
+
 @end

@@ -10,6 +10,28 @@
 
 @implementation QSReleaseRentHouseDataModel
 
+#pragma mark - 初始化
+///初始化：同时初始化窗口类对象
+- (instancetype)init
+{
+    
+    if (self = [super init]) {
+        
+        ///配套信息数组
+        self.installationList = [[NSMutableArray alloc] init];
+        
+        ///图片集
+        self.imagesList = [[NSMutableArray alloc] init];
+        
+        ///星期几
+        self.weekInfos = [[NSMutableArray alloc] init];
+        
+    }
+    
+    return self;
+    
+}
+
 - (NSArray *)getCurrentPickedImages
 {
     

@@ -274,6 +274,9 @@
         
     }
     
+    ///回调通知浏览记录的变化
+    [self performCoredataChangeCallBack:cCoredataDataTypeAddRentHouseHistory andChangeType:dDataChangeTypeIncrease andParamsID:collectedModel.house.id_ andParams:nil];
+    
     ///回调
     if (callBack) {
         
@@ -359,6 +362,9 @@
         });
         
     }
+    
+    ///回调通知浏览记录的变化
+    [self performCoredataChangeCallBack:cCoredataDataTypeAddSecondHandHouseHistory andChangeType:dDataChangeTypeIncrease andParamsID:collectedModel.house.id_ andParams:nil];
     
     ///回调
     if (callBack) {

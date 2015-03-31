@@ -150,7 +150,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &DetailRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加头部刷新
-    [rootView addHeaderWithTarget:self action:@selector(getRentHouseDetailInfo)];
+    [rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getRentHouseDetailInfo)];
     
     ///其他信息底view
     QSScrollView *infoRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, rootView.frame.size.height - 60.0f)];
@@ -165,7 +165,7 @@ static char LeftStarKey;            //!<左侧星级
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
     [self createBottomButtonViewUI:YES];
     
-    [rootView headerBeginRefreshing];
+    [rootView.header beginRefreshing];
     
 }
 
@@ -199,11 +199,25 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_RENT_ORDER;
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击预约按钮事件");
             ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                ///已登录
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    
+                    
+                }
+                
+                ///新登录时刷新数据
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView.header beginRefreshing];
+                    
+                }
+                
+            }];
             
             
         }];
@@ -1208,7 +1222,7 @@ static char LeftStarKey;            //!<左侧星级
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView headerEndRefreshing];
+                [rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1223,7 +1237,7 @@ static char LeftStarKey;            //!<左侧星级
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-            [rootView headerEndRefreshing];
+            [rootView.header endRefreshing];
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取出租房详情信息失败，请稍后再试……",1.0f,^(){
                 
@@ -1247,13 +1261,6 @@ static char LeftStarKey;            //!<左侧星级
         if (flag) {
             
             APPLICATION_LOG_INFO(@"出租房浏览记录添加", @"成功")
-            
-            ///回调告诉浏览添加成功
-            if (self.loadingSuccessCallBack) {
-                
-                self.loadingSuccessCallBack(YES,self.detailID);
-                
-            }
             
         } else {
         

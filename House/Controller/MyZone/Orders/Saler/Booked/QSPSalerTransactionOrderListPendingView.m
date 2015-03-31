@@ -7,22 +7,26 @@
 //
 
 #import "QSPSalerTransactionOrderListPendingView.h"
+#import "QSPSalerTransactionBookedOrderLIstHeaderView.h"
 #import "QSPSalerBookedOrderListsTableViewCell.h"
 #import "MJRefresh.h"
 #import <objc/runtime.h>
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSPOrderDetailBookedViewController.h"
+#import "QSOrderListReturnData.h"
 #import "QSCoreDataManager+User.h"
 
 ///关联
 static char PendingListTableViewKey;    //!<待成交列表关联
 static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 
-@interface QSPSalerTransactionOrderListPendingView () <UITableViewDataSource,UITableViewDelegate>
+@interface QSPSalerTransactionOrderListPendingView () <UITableViewDataSource,UITableViewDelegate,QSPSalerTransactionBookedOrderLIstHeaderViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *pendingListDataSource;     //!待成交列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
+
+@property (nonatomic,assign) NSInteger      currentShowHeaderIndex;              //!当前展开Cell的Header索引,-1表示全部闭合，
 
 @end
 
@@ -36,6 +40,7 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
         
         ///初始化
         self.pendingListDataSource  = [NSMutableArray arrayWithCapacity:0];
+        _currentShowHeaderIndex = -1;
         
         ///UI搭建
         [self createPendingListUI];
@@ -118,11 +123,11 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     [noDataView setHidden:YES];
     
     ///添加刷新事件
-    [pendingListTableView addHeaderWithTarget:self action:@selector(getPendingListHeaderData)];
-    [pendingListTableView addFooterWithTarget:self  action:@selector(getPendingListFooterData)];
+    [pendingListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getPendingListHeaderData)];
+    [pendingListTableView addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getPendingListFooterData)];
     
     ///一开始就请求数据
-    [pendingListTableView headerBeginRefreshing];
+    [pendingListTableView.header beginRefreshing];
     
 }
 
@@ -160,8 +165,8 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 {
     
     UITableView *tableView = objc_getAssociatedObject(self, &PendingListTableViewKey);
-    [tableView headerEndRefreshing];
-    [tableView footerEndRefreshing];
+    [tableView.header endRefreshing];
+    [tableView.footer endRefreshing];
     
 }
 
@@ -205,9 +210,85 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
         
     }
     
-    [cellSystem updateCellWith:[_pendingListDataSource objectAtIndex:indexPath.row]];
+    if ([_pendingListDataSource objectAtIndex:indexPath.section]&&[[_pendingListDataSource objectAtIndex:indexPath.section] orderInfoList]&&[[[_pendingListDataSource objectAtIndex:indexPath.section] orderInfoList] count]>indexPath.row) {
+        
+        [cellSystem updateCellWith:[_pendingListDataSource objectAtIndex:indexPath.section] withIndex:indexPath.row];
+        
+    }
     
     return cellSystem;
+    
+}
+
+#pragma mark - 返回一共有多少条房源记录
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSInteger count = 0;
+    
+    if ([_pendingListDataSource count]>=1) {
+        
+        count = [_pendingListDataSource count];
+        
+    }
+    
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    static NSString *HeaderID = @"QSPSalerTransactionBookedOrderLIstHeaderView";
+    
+    QSPSalerTransactionBookedOrderLIstHeaderView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderID];
+    
+    if (header == nil) {
+        
+        header = [[QSPSalerTransactionBookedOrderLIstHeaderView alloc]initWithReuseIdentifier:HeaderID];
+        
+        [header setFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT)];
+        
+        [header setOrderTypeName:@"待成交"];
+        
+    }
+    [header setDelegate:self];
+    [header setTag:section];
+    [header updateData:[self.pendingListDataSource objectAtIndex:section]];
+    
+    [header setShowButtonOpenOrClose:NO];
+    
+    if (_currentShowHeaderIndex == section) {
+        
+        [header setShowButtonOpenOrClose:YES];
+        
+    }
+    
+    return header;
+}
+
+#pragma mark - 点击HeaderView 响应
+- (void)clickItemInHeaderViewWithData:(id)data withSection:(NSInteger)section
+{
+    
+    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%d",data ,section);
+    UITableView *tableView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    
+    if (_currentShowHeaderIndex==-1) {
+        _currentShowHeaderIndex = section;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:_currentShowHeaderIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }else {
+        NSInteger tempIndex = _currentShowHeaderIndex;
+        _currentShowHeaderIndex = -1;
+        if (tableView) {
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:tempIndex] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
     
 }
 
@@ -215,8 +296,20 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 ///返回一共有多少条订单记录
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger count = 0;
     
-    return [_pendingListDataSource count];
+    if (_currentShowHeaderIndex != -1) {
+        if (section == _currentShowHeaderIndex) {
+            
+            if ([self.pendingListDataSource objectAtIndex:section]&&[[self.pendingListDataSource objectAtIndex:section] orderInfoList]&&[[[self.pendingListDataSource objectAtIndex:section] orderInfoList] count]>0) {
+                
+                count = [[[self.pendingListDataSource objectAtIndex:section] orderInfoList] count];
+                
+            }
+        }
+    }
+    
+    return count;
     
 }
 
@@ -237,10 +330,13 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     if (self.parentViewController&&[self.parentViewController isKindOfClass:[UIViewController class]]) {
         
         QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-        if ([self.pendingListDataSource count]>indexPath.row) {
-            QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.row];
-            [bookedVc setOrderData:orderItem];
+        if ([self.pendingListDataSource count]>indexPath.section) {
+            QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.section];
+            if (orderItem) {
+                [bookedVc setOrderListItemData:orderItem];
+            }
         }
+        [bookedVc setSelectedIndex:indexPath.row];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
     
@@ -325,6 +421,21 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
         [self endRefreshAnimination];
         
     }];
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionHeaderHeight = MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        
+    }
     
 }
 

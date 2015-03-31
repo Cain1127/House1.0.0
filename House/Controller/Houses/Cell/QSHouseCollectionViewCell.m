@@ -47,8 +47,6 @@ static char FeaturesKey;    //!<特色标签
     
     if (self = [super initWithFrame:frame]) {
         
-        APPLICATION_LOG_INFO(@"房源的frame", NSStringFromCGRect(frame))
-        
         ///UI搭建
         [self createHouseInfoCellUI];
         

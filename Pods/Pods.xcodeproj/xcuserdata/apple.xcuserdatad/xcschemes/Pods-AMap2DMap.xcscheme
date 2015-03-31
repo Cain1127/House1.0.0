@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E8F29B0DF2E3CBDE28FE3846"
+               BlueprintIdentifier = "28492449DE093642BC63F70D"
                BuildableName = "libPods-AMap2DMap.a"
                BlueprintName = "Pods-AMap2DMap"
                ReferencedContainer = "container:Pods.xcodeproj">
