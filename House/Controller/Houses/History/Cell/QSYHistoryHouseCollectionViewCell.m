@@ -204,18 +204,26 @@ static char SelectedBoxKey; //!<选择标识
 - (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType
 {
 
+    [self updateHouseInfoCellUIWithDataModel:model andHouseType:filterType andPickedBoxStatus:YES];
+
+}
+
+///个人中心的浏览历史使用的刷新方法
+- (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType andPickedBoxStatus:(BOOL)isShowPickedBox
+{
+
     switch (filterType) {
             ///出租房
         case fFilterMainTypeRentalHouse:
             
-            [self updateRentHouseInfoCellUIWithModel:model];
+            [self updateRentHouseInfoCellUIWithModel:model andPickedBoxStatus:isShowPickedBox];
             
             break;
             
             ///二手房
         case fFilterMainTypeSecondHouse:
             
-            [self updateSecondHandHouseInfoCellUIWithModel:model];
+            [self updateSecondHandHouseInfoCellUIWithModel:model andPickedBoxStatus:isShowPickedBox];
             
             break;
             
@@ -226,8 +234,12 @@ static char SelectedBoxKey; //!<选择标识
 }
 
 ///刷新二手房的信息展示UI
-- (void)updateSecondHandHouseInfoCellUIWithModel:(QSSecondHouseDetailDataModel *)tempModel
+- (void)updateSecondHandHouseInfoCellUIWithModel:(QSSecondHouseDetailDataModel *)tempModel andPickedBoxStatus:(BOOL)isPickedBoxShow
 {
+    
+    ///选择框的状态
+    UIButton *button = objc_getAssociatedObject(self, &SelectedBoxKey);
+    button.hidden = !isPickedBoxShow;
 
     ///更新小区
     [self updateHouseCommunityInfo:tempModel.house.village_name];
@@ -257,8 +269,12 @@ static char SelectedBoxKey; //!<选择标识
 }
 
 ///刷新出租房UI
-- (void)updateRentHouseInfoCellUIWithModel:(QSRentHouseDetailDataModel *)tempModel
+- (void)updateRentHouseInfoCellUIWithModel:(QSRentHouseDetailDataModel *)tempModel andPickedBoxStatus:(BOOL)isPickedBoxShow
 {
+    
+    ///判断是否显示选择框
+    UIButton *button = objc_getAssociatedObject(self, &SelectedBoxKey);
+    button.hidden = !isPickedBoxShow;
 
     ///更新小区
     [self updateHouseCommunityInfo:tempModel.house.village_name];

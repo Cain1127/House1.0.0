@@ -20,6 +20,7 @@
 #import "QSCoreDataManager+User.h"
 
 #import "QSRequestManager.h"
+#import "QSSocketManager.h"
 
 #import "QSCustomHUDView.h"
 
@@ -64,6 +65,9 @@
         [self autoLoginAction:localCount andPassword:psw];
         
     }
+    
+    ///进入应用即连接socket
+    [QSSocketManager sendOnLineMessage];
     
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{

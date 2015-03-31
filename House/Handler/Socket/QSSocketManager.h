@@ -11,6 +11,15 @@
 @interface QSSocketManager : NSObject
 
 /**
+ *  @author yangshengmeng, 15-03-31 23:03:31
+ *
+ *  @brief  发送上线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)sendOnLineMessage;
+
+/**
  *  @author         yangshengmeng, 15-03-17 19:03:05
  *
  *  @brief          一对一聊天时，发送消息

@@ -74,6 +74,20 @@ static QSSocketManager *_socketManager = nil;
 
 #pragma mark - 发送消息类方法
 /**
+ *  @author yangshengmeng, 15-03-31 23:03:31
+ *
+ *  @brief  发送上线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)sendOnLineMessage
+{
+
+    
+
+}
+
+/**
  *  @author         yangshengmeng, 15-03-17 19:03:05
  *
  *  @brief          一对一聊天时，发送消息
@@ -85,36 +99,6 @@ static QSSocketManager *_socketManager = nil;
 + (void)sendMessageToPerson:(id)msgModel andCallBack:(void(^)(BOOL flag,id model))callBack
 {
     
-#if 0
-    ///连接
-    ODSocket cppSocket;
-    cppSocket.Init();
-    cppSocket.Create(AF_INET,SOCK_STREAM,0);
-    cppSocket.Connect("117.41.235.107",8000);
-    
-    char recvBuf[1024] = "\0";
-    string testmsg="hello";
-    
-    cppSocket.Send(testmsg.c_str(),(int)strlen(testmsg.c_str())+1,1);
-    cppSocket.Recv(recvBuf,1024,0);
-    string rec_msg = string(recvBuf);
-    
-    ///返回的信息
-    chat::Answer answer = chat::Answer();
-    answer.ParseFromString(rec_msg);
-    NSLog(@"返回的信息：%s",rec_msg.c_str());
-    NSLog(@"解析出来的信息：%s",answer.message().c_str());
-    
-    ///转码
-    NSString *resultString = [NSString stringWithUTF8String:answer.message().c_str()];
-    NSLog(@"转换为NSString:%@",resultString);
-    
-    ///关闭C++Socket连接
-    cppSocket.Close();
-    cppSocket.Clean();
-#endif
-    
-#if 1
     ///自身单例
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
 
@@ -130,7 +114,6 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.SerializeToArray(buf,length);
     
     [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:300];
-#endif
     
 }
 

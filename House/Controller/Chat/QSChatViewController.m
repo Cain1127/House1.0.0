@@ -161,9 +161,7 @@
 - (void)gotoToolViewController
 {
 
-    [QSSocketManager sendMessageToPerson:nil andCallBack:^(BOOL flag, id model) {
-        
-    }];
+    
 
 }
 
