@@ -183,6 +183,7 @@
     if (self.currentPage == [self.dataSourceModel.secondHandHouseHeaderData.total_page intValue]) {
         
         ///结束刷新动画
+        [self.footer setTitle:@"已没有更多数据" forState:MJRefreshFooterStateIdle];
         [self endRefreshAnimination];
         return;
         
