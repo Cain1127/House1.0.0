@@ -319,8 +319,6 @@ static QSSocketManager *_socketManager = nil;
             ///返回的信息
             qschat::AnswerWord wordMessage = qschat::AnswerWord();
             wordMessage.ParseFromString(messageString);
-            NSString *resultString = [NSString stringWithUTF8String:wordMessage.message().c_str()];
-            APPLICATION_LOG_INFO(@"返回的消息", resultString)
             
             ///转模型关回调
             [self talk_ChangeCPPToOCModel_Word:wordMessage];
@@ -455,6 +453,18 @@ int32_t intbytesToInt32(char *bytes)
     addr |= ((bytes[2] << 16) & 0xFF0000);
     addr |= ((bytes[3] << 24) & 0xFF000000);
     return addr;
+    
+}
+
+void int32ToByte(int32_t i,char *bytes)
+{
+    
+    memset(bytes,0,sizeof(char) *  4);
+    bytes[0] = (char) (0xff & i);
+    bytes[1] = (char) ((0xff00 & i) >> 8);
+    bytes[2] = (char) ((0xff0000 & i) >> 16);
+    bytes[3] = (char) ((0xff000000 & i) >> 24);
+    return ;
     
 }
 

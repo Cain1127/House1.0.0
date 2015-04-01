@@ -261,6 +261,7 @@
                 
                 ///隐藏无记录页面
                 self.noRecordsRootView.hidden = YES;
+                [self.view sendSubviewToBack:self.noRecordsRootView];
                 
             } else {
             
@@ -272,6 +273,7 @@
                 
                 ///显示无记录页面
                 self.noRecordsRootView.hidden = NO;
+                [self.view bringSubviewToFront:self.noRecordsRootView];
             
             }
             
@@ -285,6 +287,7 @@
         
             ///显示无记录页面
             self.noRecordsRootView.hidden = NO;
+            [self.view bringSubviewToFront:self.noRecordsRootView];
         
         }
         
@@ -346,9 +349,6 @@
                 [self.listView.header endRefreshing];
                 [self.listView.footer endRefreshing];
                 
-                ///显示无记录页面
-                self.noRecordsRootView.hidden = YES;
-                
             }
             
         } else {
@@ -356,9 +356,6 @@
             ///结束刷新
             [self.listView.header endRefreshing];
             [self.listView.footer endRefreshing];
-            
-            ///显示无记录页面
-            self.noRecordsRootView.hidden = YES;
             
         }
         

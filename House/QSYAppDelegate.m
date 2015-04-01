@@ -67,7 +67,7 @@
     }
     
     ///进入应用即连接socket
-    [QSSocketManager sendOnLineMessage];
+//    [QSSocketManager sendOnLineMessage];
     
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
