@@ -12,7 +12,11 @@
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
+#import "QSSocketManager.h"
+#import "QSCoreDataManager+User.h"
+
 #import "QSUserSimpleDataModel.h"
+#import "QSYSendMessageWord.h"
 
 #import "MJRefresh.h"
 
@@ -21,9 +25,10 @@
 ///对话人的数据
 @property (nonatomic,retain) QSUserSimpleDataModel *userModel;
 
-@property (nonatomic,strong) UIView *rootView;                  //!<底view，方便滑动
-@property (nonatomic,strong) UITableView *messagesListView;     //!<消息列表view
-@property (nonatomic,retain) NSMutableArray *messagesDataSource;//!<消息数据
+@property (nonatomic,strong) UIView *rootView;                      //!<底view，方便滑动
+@property (nonatomic,strong) UITableView *messagesListView;         //!<消息列表view
+@property (nonatomic,retain) NSMutableArray *messagesDataSource;    //!<消息数据
+@property (nonatomic,retain) QSYSendMessageWord *wordMessageModel;  //!<文字消息模型
 
 @end
 
@@ -37,6 +42,15 @@
         
         ///保存对话人
         self.userModel = userModel;
+        
+        ///初始化数据源
+        self.messagesDataSource = [[NSMutableArray alloc] init];
+        
+        ///初始化消息模型
+        self.wordMessageModel = [[QSYSendMessageWord alloc] init];
+        self.wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
+        self.wordMessageModel.fromID = [QSCoreDataManager getUserID];
+        self.wordMessageModel.toID = self.wordMessageModel.fromID;
         
     }
     
@@ -213,6 +227,19 @@
     }
     
     ///刷新数据
+    QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
+    switch (tempModel.msgType) {
+        case qQSCustomProtocolChatMessageTypeWord:
+        {
+            QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
+            cellNormaMessage.textLabel.text = wordModel.message;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
     return cellNormaMessage;
 
@@ -222,7 +249,7 @@
 - (void)loadUnReadMessage
 {
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.messagesListView.header endRefreshing];
         
@@ -236,7 +263,35 @@
 
     [textField resignFirstResponder];
     
-    ///发送消息
+    ///判断是否存在文字消息
+    if ([textField.text length] > 0) {
+        
+        self.wordMessageModel.message = textField.text;
+        
+        ///显示当前自已发送的消息
+        [self.messagesDataSource addObject:self.wordMessageModel];
+        
+        ///刷新消息列表
+        [self.messagesListView reloadData];
+        
+        ///显示最后一行
+//        [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        
+        ///发送消息
+        [QSSocketManager sendMessageToPerson:self.wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
+            
+            ///绑定消息回调
+            [self.messagesDataSource addObject:model];
+            
+            ///刷新消息列表
+            [self.messagesListView reloadData];
+            
+            ///显示最后一行
+//            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+        }];
+        
+    }
     
     return YES;
 

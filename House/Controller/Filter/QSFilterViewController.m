@@ -518,11 +518,14 @@ typedef enum
 - (void)deleteFeatureWithModel:(QSBaseConfigurationDataModel *)model
 {
 
-    for (QSBaseConfigurationDataModel *obj in self.filterModel.features_list) {
+    ///临时数组
+    NSArray *tempArray = [[NSArray alloc] initWithArray:self.filterModel.features_list];
+    [self.filterModel.features_list removeAllObjects];
+    for (QSBaseConfigurationDataModel *obj in tempArray) {
         
-        if ([obj.key isEqualToString:model.key]) {
+        if (![obj.key isEqualToString:model.key]) {
             
-            [self.filterModel.features_list removeObject:obj];
+            [self.filterModel.features_list addObject:obj];
             
         }
         

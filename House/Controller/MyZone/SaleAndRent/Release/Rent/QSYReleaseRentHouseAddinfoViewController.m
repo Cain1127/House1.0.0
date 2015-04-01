@@ -340,6 +340,7 @@ typedef enum
                     
                     textField.text = showString;
                     self.rentHouseReleaseModel.installationString = showString;
+                    [self.rentHouseReleaseModel.installationList removeAllObjects];
                     [self.rentHouseReleaseModel.installationList addObjectsFromArray:params];
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {

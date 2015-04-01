@@ -28,7 +28,7 @@
  *
  *  @since          1.0.0
  */
-+ (void)sendMessageToPerson:(id)msgModel andCallBack:(void(^)(BOOL flag,id model))callBack;
++ (void)sendMessageToPerson:(id)msgModel andMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType andCallBack:(void(^)(BOOL flag,id model))callBack;
 
 /**
  *  @author         yangshengmeng, 15-03-17 19:03:27
@@ -41,5 +41,14 @@
  *  @since          1.0.0
  */
 + (void)sendMessageToGroup:(id)msgModel andGroupID:(NSString *)groupID andCallBack:(void(^)(BOOL flag,id model))callBack;
+
+/**
+ *  @author yangshengmeng, 15-04-01 12:04:28
+ *
+ *  @brief  注销当前聊天的即里回调
+ *
+ *  @since  1.0.0
+ */
++ (void)offsCurrentTalkCallBack;
 
 @end
