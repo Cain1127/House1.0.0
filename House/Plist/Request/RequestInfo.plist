@@ -12,7 +12,7 @@
 	<key>5002</key>
 	<dict>
 		<key>class</key>
-		<string></string>
+		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
 		<string>rentPurchaseInfo/add</string>
 	</dict>
@@ -40,7 +40,7 @@
 	<key>4000</key>
 	<dict>
 		<key>class</key>
-		<string></string>
+		<string>QSYPostMessageListReturnData</string>
 		<key>url</key>
 		<string>message/list</string>
 	</dict>

@@ -10,6 +10,7 @@
 
 #import "QSCustomDistrictSelectedPopView.h"
 #import "QSCustomSingleSelectedPopView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
@@ -105,7 +106,7 @@ typedef enum
 {
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 25.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
@@ -115,7 +116,7 @@ typedef enum
         ///校验数据
         if ([self checkAskRentHandHouseInfo]) {
             
-            
+            [self releaseAskRentHouse];
             
         }
         
@@ -610,6 +611,53 @@ typedef enum
 - (BOOL)checkAskRentHandHouseInfo
 {
     
+    ///区域
+    if ([self.releaseModel.district_key length] <= 0 ||
+        [self.releaseModel.street_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择目标区域", 1.0f, ^(){})
+        return NO;
+        
+    } else {
+        
+        QSBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:self.releaseModel.district_key];
+        self.releaseModel.city_key = cityModel.key;
+        self.releaseModel.city_val = cityModel.val;
+        
+    }
+    
+    ///出租方式
+    if ([self.releaseModel.rent_type_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择出租方式", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///户型
+    if ([self.releaseModel.house_type_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择户型", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///租金
+    if ([self.releaseModel.rent_price_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择租金", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///支付方式
+    if ([self.releaseModel.rent_pay_type_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择支付方式", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
     return YES;
     
 }
@@ -706,6 +754,62 @@ typedef enum
     }
     return NO;
     
+}
+
+#pragma mark - 发布求租信息
+- (void)releaseAskRentHouse
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布"];
+
+    NSDictionary *params = @{@"type" : @"1",
+                            @"rent_property" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_type_key, @""),
+                            @"cityid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.city_key, @""),
+                            @"areaid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.district_key, @""),
+                            @"street" : APPLICATION_NSSTRING_SETTING(self.releaseModel.street_key, @""),
+                            @"price" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_price_key, @""),
+                            @"house_shi" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_type_key, @""),
+                            @"property_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.trade_type_key, @""),
+                            @"floor_which" : APPLICATION_NSSTRING_SETTING(self.releaseModel.floor_key, @""),
+                            @"house_face" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_face_key, @""),
+                            @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.decoration_key, @""),
+                            @"installation" : @"",
+                            @"features" : [self.releaseModel getFeaturesPostParams],
+                            @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @""),
+                             @"rentPurchaseInfo" : @""};
+    
+    ///发布
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    ///返回上一页
+                    if (self.releasedCallBack) {
+                        
+                        self.releasedCallBack(YES);
+                        
+                    }
+                    
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    
+                }
+                
+            }];
+            
+        } else {
+        
+            [hud hiddenCustomHUDWithFooterTips:@"发布失败" andDelayTime:1.0];
+        
+        }
+        
+    }];
+
 }
 
 @end

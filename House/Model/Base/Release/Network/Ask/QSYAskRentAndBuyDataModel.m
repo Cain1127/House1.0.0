@@ -47,7 +47,8 @@
                                                     @"commend_num",
                                                     @"attach_file",
                                                     @"attach_thumb",
-                                                    @"status"]];
+                                                    @"status",
+                                                    @"payment"]];
     
     return shared_mapping;
     

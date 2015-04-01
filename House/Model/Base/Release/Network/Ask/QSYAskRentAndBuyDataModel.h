@@ -40,6 +40,7 @@
 @property (nonatomic,copy) NSString *commend_num;       //!<推荐房源数量
 @property (nonatomic,copy) NSString *attach_file;       //!<大图
 @property (nonatomic,copy) NSString *attach_thumb;      //!<原图
+@property (nonatomic,copy) NSString *payment;           //!<租金支付方式
 @property (nonatomic,copy) NSString *status;            //!<状态:-1已删除，0未发布，1已发布
 
 @end

@@ -10,6 +10,7 @@
 
 #import "QSCustomDistrictSelectedPopView.h"
 #import "QSCustomSingleSelectedPopView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
@@ -106,7 +107,7 @@ typedef enum
 {
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f - 25.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
@@ -116,7 +117,7 @@ typedef enum
         ///校验数据
         if ([self checkAskSecondHandHouseInfo]) {
             
-            
+            [self releaseAskBuyHouse];
             
         }
         
@@ -688,6 +689,45 @@ typedef enum
 #pragma mark - 数据校验
 - (BOOL)checkAskSecondHandHouseInfo
 {
+    
+    ///地区
+    if ([self.releaseModel.district_key length] <= 0 ||
+        [self.releaseModel.street_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择目标区域", 1.0f, ^(){})
+        return NO;
+        
+    } else {
+    
+        QSBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:self.releaseModel.district_key];
+        self.releaseModel.city_key = cityModel.key;
+        self.releaseModel.city_val = cityModel.val;
+    
+    }
+    
+    ///户型
+    if ([self.releaseModel.house_type_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择户型", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///购房目的
+    if ([self.releaseModel.buy_purpose_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择购房目的", 1.0f, ^(){})
+        return NO;
+        
+    }
+    
+    ///售价
+    if ([self.releaseModel.sale_price_key length] <= 0) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择售价信息", 1.0f, ^(){})
+        return NO;
+        
+    }
 
     return YES;
 
@@ -774,6 +814,60 @@ typedef enum
         
     }
     return NO;
+    
+}
+
+- (void)releaseAskBuyHouse
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布"];
+
+    NSDictionary *params = @{@"type" : @"2",
+                             @"cityid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.city_key, @""),
+                             @"areaid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.district_key, @""),
+                             @"street" : APPLICATION_NSSTRING_SETTING(self.releaseModel.street_key, @""),
+                             @"intent" : APPLICATION_NSSTRING_SETTING(self.releaseModel.buy_purpose_key, @""),
+                             @"price" : APPLICATION_NSSTRING_SETTING(self.releaseModel.sale_price_key, @""),
+                             @"house_shi" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_type_key, @""),
+                             @"house_area" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_area_key, @""),
+                             @"property_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.trade_type_key, @""),
+                             @"floor_which" : APPLICATION_NSSTRING_SETTING(self.releaseModel.floor_key, @""),
+                             @"house_face" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_face_key, @""),
+                             @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.decoration_key, @""),
+                             @"features" : [self.releaseModel getFeaturesPostParams],
+                             @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @"")};
+    
+    ///发布
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    ///返回上一页
+                    if (self.releasedCallBack) {
+                        
+                        self.releasedCallBack(YES);
+                        
+                    }
+                    
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"发布失败" andDelayTime:1.0];
+            
+        }
+        
+    }];
     
 }
 

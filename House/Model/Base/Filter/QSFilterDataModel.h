@@ -56,6 +56,10 @@
 @property (nonatomic, copy) NSString * filter_status;       //!<过滤器的当前状态:2-正在使用
 @property (nonatomic, copy) NSString * comment;             //!<备注信息
 
+@property (nonatomic, retain) NSMutableArray *installations;//!<配套信息
 @property (nonatomic, retain) NSMutableArray *features_list;//!<特色标签
+
+- (NSString *)getFeaturesPostParams;
+- (NSString *)getInstallationPostParams;
 
 @end

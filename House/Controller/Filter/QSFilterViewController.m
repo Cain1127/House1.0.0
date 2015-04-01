@@ -538,7 +538,7 @@ typedef enum
     CGFloat ypoint = 64.0f;
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 25.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
