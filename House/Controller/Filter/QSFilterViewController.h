@@ -18,8 +18,6 @@ typedef enum
     fFilterSettingVCTypeHomeSecondHouse,        //!<首页：二手房
     fFilterSettingVCTypeHouseListRentHouse,     //!<找房：出租房
     fFilterSettingVCTypeHouseListSecondHouse,   //!<找房：二手房
-    fFilterSettingVCTypeMyZoneAskRentHouse,     //!<求租
-    fFilterSettingVCTypeMyZoneAskSecondHouse    //!<求购
 
 }FILTER_SETTINGVC_TYPE;
 

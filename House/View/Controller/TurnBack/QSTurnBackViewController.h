@@ -10,7 +10,7 @@
 
 @interface QSTurnBackViewController : QSMasterViewController
 
-@property (nonatomic,assign) BOOL hiddenCustomTabbarWhenPush;   //!<当push时是否隐藏tabbar
+//@property (nonatomic,assign) BOOL hiddenCustomTabbarWhenPush;   //!<当push时是否隐藏tabbar
 
 /**
  *  @author yangshengmeng, 15-03-26 11:03:13

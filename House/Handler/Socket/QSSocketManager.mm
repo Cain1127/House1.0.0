@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string.h>
 #include <endian.h>
+#include <stdlib.h>
 
 #import "AsyncSocket.h"
 #import <sys/socket.h>
@@ -104,6 +105,15 @@ static QSSocketManager *_socketManager = nil;
     ///自身单例
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
+#if 0
+    int32_t testLength = 10;
+    char *testChar;
+    sprintf(testChar, "%d", testLength);
+    NSLog(@"%s",testChar);
+    HTONL(testLength);
+    sprintf(testChar, "%d",testLength);
+#endif
+    
     qschat::QuestionOnline onLineMessage;
 //    onLineMessage.set_token([[QSCoreDataManager getApplicationCurrentTokenID] UTF8String]);
     onLineMessage.set_token([[QSCoreDataManager getUserID] UTF8String]);
@@ -111,6 +121,7 @@ static QSSocketManager *_socketManager = nil;
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
     int32_t messageType = static_cast <int32_t> ([socketManager talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOnLine]);
+    
     HTONL(messageLength);
     HTONL(messageType);
     
@@ -178,6 +189,7 @@ static QSSocketManager *_socketManager = nil;
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
     int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    
     HTONL(messageLength);
     HTONL(messageType);
     

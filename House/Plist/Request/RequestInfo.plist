@@ -19,7 +19,7 @@
 	<key>5001</key>
 	<dict>
 		<key>class</key>
-		<string></string>
+		<string>QSYAskRentAndBuyReturnData</string>
 		<key>url</key>
 		<string>rentPurchaseInfo/list</string>
 	</dict>

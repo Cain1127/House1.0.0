@@ -114,8 +114,6 @@ typedef enum
                         
         case fFilterSettingVCTypeHouseListRentHouse:
             
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-            
             return fFilterMainTypeRentalHouse;
             
             break;
@@ -126,8 +124,6 @@ typedef enum
         case fFilterSettingVCTypeHomeSecondHouse:
             
         case fFilterSettingVCTypeHouseListSecondHouse:
-            
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
             
             return fFilterMainTypeSecondHouse;
             
@@ -186,24 +182,6 @@ typedef enum
         }
             break;
             
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-        {
-            
-            [super createNavigationBarUI];
-            [self setNavigationBarTitle:@"求租"];
-            
-        }
-            break;
-            
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
-        {
-            
-            [super createNavigationBarUI];
-            [self setNavigationBarTitle:@"求购"];
-            
-        }
-            break;
-            
         default:
             break;
     }
@@ -230,6 +208,7 @@ typedef enum
             [self createUpdateFilterSettingPage];
             
             break;
+            
     }
 
 }
@@ -591,12 +570,6 @@ typedef enum
                 
             }
             
-            ///返回上一页
-            if (self.hiddenCustomTabbarWhenPush) {
-                
-                [self hiddenBottomTabbar:NO];
-                
-            }
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         }];
@@ -686,20 +659,6 @@ typedef enum
         case fFilterSettingVCTypeHouseListSecondHouse:
             
             infoFileName = PLIST_FILE_NAME_FILTER_ADVANCE_SECONDHOUSE;
-            
-            break;
-            
-            ///求租
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-            
-            infoFileName = PLIST_FILE_NAME_FILTER_ASK_RENANTHOUSE;
-            
-            break;
-            
-            ///求购
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
-            
-            infoFileName = PLIST_FILE_NAME_FILTER_ASK_SECONDHOUSE;
             
             break;
             
