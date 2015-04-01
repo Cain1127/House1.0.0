@@ -98,6 +98,17 @@
 		18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA001AB6B79600681071 /* GCDAsyncUdpSocket.m */; };
 		18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA031AB6B79600681071 /* AsyncSocket.m */; };
 		18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */; };
+		18B0E23A1ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E2391ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.m */; };
+		18B0E23E1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E23D1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.m */; };
+		18B0E2431ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E2421ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m */; };
+		18B0E24A1ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E2491ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m */; };
+		18B0E24D1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E24B1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png */; };
+		18B0E24E1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E24C1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png */; };
+		18B0E2511ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E24F1ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png */; };
+		18B0E2521ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E2501ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png */; };
+		18B0E2561ACAEC9700C8EE9E /* myzone_ask_buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E2531ACAEC9700C8EE9E /* myzone_ask_buy.png */; };
+		18B0E2571ACAEC9700C8EE9E /* myzone_ask_rent_entire.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E2541ACAEC9700C8EE9E /* myzone_ask_rent_entire.png */; };
+		18B0E2581ACAEC9700C8EE9E /* myzone_ask_rent_partner.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B0E2551ACAEC9700C8EE9E /* myzone_ask_rent_partner.png */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -824,6 +835,21 @@
 		18AFAA031AB6B79600681071 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		18AFAA041AB6B79600681071 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
 		18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		18B0E2381ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYAskRentAndSecondHandHouseTipsPopView.h; sourceTree = "<group>"; };
+		18B0E2391ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYAskRentAndSecondHandHouseTipsPopView.m; sourceTree = "<group>"; };
+		18B0E23C1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAskRentAndBuyTableViewCell.h; path = SaleAndRent/Ask/Cell/QSYAskRentAndBuyTableViewCell.h; sourceTree = "<group>"; };
+		18B0E23D1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskRentAndBuyTableViewCell.m; path = SaleAndRent/Ask/Cell/QSYAskRentAndBuyTableViewCell.m; sourceTree = "<group>"; };
+		18B0E2411ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAskRentAndBuyReturnData.h; path = Release/Ask/QSYAskRentAndBuyReturnData.h; sourceTree = "<group>"; };
+		18B0E2421ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskRentAndBuyReturnData.m; path = Release/Ask/QSYAskRentAndBuyReturnData.m; sourceTree = "<group>"; };
+		18B0E2481ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAskRentAndBuyDataModel.h; path = Release/Network/Ask/QSYAskRentAndBuyDataModel.h; sourceTree = "<group>"; };
+		18B0E2491ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskRentAndBuyDataModel.m; path = Release/Network/Ask/QSYAskRentAndBuyDataModel.m; sourceTree = "<group>"; };
+		18B0E24B1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_list_setting_highlighted.png; sourceTree = "<group>"; };
+		18B0E24C1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_list_setting_normal.png; sourceTree = "<group>"; };
+		18B0E24F1ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_list_setting_close_highlighted.png; sourceTree = "<group>"; };
+		18B0E2501ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_list_setting_close_normal.png; sourceTree = "<group>"; };
+		18B0E2531ACAEC9700C8EE9E /* myzone_ask_buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_buy.png; sourceTree = "<group>"; };
+		18B0E2541ACAEC9700C8EE9E /* myzone_ask_rent_entire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_rent_entire.png; sourceTree = "<group>"; };
+		18B0E2551ACAEC9700C8EE9E /* myzone_ask_rent_partner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_ask_rent_partner.png; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1960,6 +1986,8 @@
 		1843669F1AB9BD9D00A81374 /* Ask */ = {
 			isa = PBXGroup;
 			children = (
+				18B0E23B1ACA9D3900C8EE9E /* Cell */,
+				18B0E2371ACA908C00C8EE9E /* Pop */,
 				184366A11AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.h */,
 				184366A21AB9BDEF00A81374 /* QSYAskSaleAndRentViewController.m */,
 			);
@@ -2737,6 +2765,59 @@
 			path = House/Protocol;
 			sourceTree = "<group>";
 		};
+		18B0E2371ACA908C00C8EE9E /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E2381ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.h */,
+				18B0E2391ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.m */,
+			);
+			name = Pop;
+			path = SaleAndRent/Ask/Pop;
+			sourceTree = "<group>";
+		};
+		18B0E23B1ACA9D3900C8EE9E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E23C1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.h */,
+				18B0E23D1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		18B0E23F1ACA9E1100C8EE9E /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E2401ACA9E2000C8EE9E /* Ask */,
+			);
+			name = Release;
+			sourceTree = "<group>";
+		};
+		18B0E2401ACA9E2000C8EE9E /* Ask */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E2411ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.h */,
+				18B0E2421ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m */,
+			);
+			name = Ask;
+			sourceTree = "<group>";
+		};
+		18B0E2461ACA9FEA00C8EE9E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E2471ACA9FF700C8EE9E /* Ask */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		18B0E2471ACA9FF700C8EE9E /* Ask */ = {
+			isa = PBXGroup;
+			children = (
+				18B0E2481ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.h */,
+				18B0E2491ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m */,
+			);
+			name = Ask;
+			sourceTree = "<group>";
+		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3098,6 +3179,13 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				18B0E2531ACAEC9700C8EE9E /* myzone_ask_buy.png */,
+				18B0E2541ACAEC9700C8EE9E /* myzone_ask_rent_entire.png */,
+				18B0E2551ACAEC9700C8EE9E /* myzone_ask_rent_partner.png */,
+				18B0E24F1ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png */,
+				18B0E2501ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png */,
+				18B0E24B1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png */,
+				18B0E24C1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png */,
 				478645E31ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png */,
 				478645E41ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png */,
 				478645E51ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png */,
@@ -3772,6 +3860,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				18B0E23F1ACA9E1100C8EE9E /* Release */,
 				18EC16031AC5539600D2AD3A /* LoadImage */,
 				18AFA9D91AB3E83000681071 /* Login */,
 				475C3D991AB3D5330028608F /* Order */,
@@ -4341,6 +4430,7 @@
 		18EC157D1AC29CFC00D2AD3A /* Release */ = {
 			isa = PBXGroup;
 			children = (
+				18B0E2461ACA9FEA00C8EE9E /* Network */,
 				18EC157E1AC29D2900D2AD3A /* QSReleaseHouseDataModel.h */,
 				18EC157F1AC29D2900D2AD3A /* QSReleaseHouseDataModel.m */,
 				18EC15811AC29D5600D2AD3A /* QSReleaseRentHouseDataModel.h */,
@@ -5108,6 +5198,7 @@
 				18B5644B1A8366A4009779A0 /* navigationbar_deploy_arrow_highlighted.png in Resources */,
 				47B8A1E11AC155DB0083C20A /* myzone_oorderlist_cell_remind_bt_selected.png in Resources */,
 				18B5645D1A8366A4009779A0 /* public_choice_arrow.png in Resources */,
+				18B0E2511ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png in Resources */,
 				475C3D871AB284A30028608F /* myzone_oorderdetail_down_bt.png in Resources */,
 				18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */,
 				18BE12791A8AE4160036245A /* MyZoneInfo.plist in Resources */,
@@ -5162,6 +5253,7 @@
 				18B5642F1A8366A4009779A0 /* icon100.png in Resources */,
 				18DFE8471AC68CD600C216C3 /* ReleaseRentHouseAddinfo.plist in Resources */,
 				475C3D751AB171120028608F /* myzone_oorderlist_cell_new_mark_tip.png in Resources */,
+				18B0E2561ACAEC9700C8EE9E /* myzone_ask_buy.png in Resources */,
 				475A4D611AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_selected.png in Resources */,
 				47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */,
 				18DFE8F81AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png in Resources */,
@@ -5176,6 +5268,7 @@
 				18B5640F1A8366A4009779A0 /* houses_detail_bus_highlighted.png in Resources */,
 				18BE12561A89F22F0036245A /* icon_default_158x158.png in Resources */,
 				18B5640D1A8366A4009779A0 /* houses_detail_activity_left.png in Resources */,
+				18B0E2571ACAEC9700C8EE9E /* myzone_ask_rent_entire.png in Resources */,
 				18BE124D1A8893670036245A /* chat_message_recommend.png in Resources */,
 				18BE12541A89F1A20036245A /* public_sixform_hollow_158x158.png in Resources */,
 				18B564731A8366A4009779A0 /* tabbar_home_selected.png in Resources */,
@@ -5273,9 +5366,11 @@
 				18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */,
 				18B564251A8366A4009779A0 /* houses_appliance.png in Resources */,
 				47B8A1D41AC144710083C20A /* myzone_oorderlist_cell_comment_bt_normal.png in Resources */,
+				18B0E2581ACAEC9700C8EE9E /* myzone_ask_rent_partner.png in Resources */,
 				18B5645C1A8366A4009779A0 /* public_appointment_success.png in Resources */,
 				18B564281A8366A4009779A0 /* houses_features_hezu.png in Resources */,
 				18FABD001A775E55007AC345 /* PushConfig.plist in Resources */,
+				18B0E24E1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png in Resources */,
 				18B564101A8366A4009779A0 /* houses_detail_bus_normal.png in Resources */,
 				18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */,
 				475C3D921AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png in Resources */,
@@ -5303,6 +5398,7 @@
 				18DFE8FD1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png in Resources */,
 				18B564191A8366A4009779A0 /* houses_detail_refresh_highlighted.png in Resources */,
 				18B564051A8366A4009779A0 /* home_bridalchamber_highlighted.png in Resources */,
+				18B0E24D1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png in Resources */,
 				18BE126A1A8A133D0036245A /* myzone_owner_recommend_renant_normal.png in Resources */,
 				18DFE83D1AC66DA100C216C3 /* public_sixform_hollow_100x80.png in Resources */,
 				18BE12321A8869760036245A /* calendar_sixform.png in Resources */,
@@ -5345,6 +5441,7 @@
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				1865E3D61AB1A47C00FAEC9E /* home_collected_increase_up.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
+				18B0E2521ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png in Resources */,
 				18DFE8FB1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png in Resources */,
 				18DFE8FF1AC9A8D700C216C3 /* talk_my_sound_message_selected.png in Resources */,
 				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
@@ -5447,6 +5544,7 @@
 				18B572A71AC16D1600C75682 /* common.cc in Sources */,
 				475A4D3B1AC3E65A009881CF /* QSPOrderDetailHouseInfoView.m in Sources */,
 				18B5631F1A81AA40009779A0 /* QSMultipleSelectedPopView.m in Sources */,
+				18B0E24A1ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m in Sources */,
 				18B572A41AC16D1600C75682 /* service.cc in Sources */,
 				18B563441A82063E009779A0 /* QSCDFilterDataModel.m in Sources */,
 				18B5729A1AC16D1600C75682 /* printer.cc in Sources */,
@@ -5600,6 +5698,7 @@
 				18AFAA071AB6B79600681071 /* GCDAsyncUdpSocket.m in Sources */,
 				18DFE8831AC6F56300C216C3 /* QSCDHistoryRentHousePhotoDataModel.m in Sources */,
 				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
+				18B0E23E1ACA9D6100C8EE9E /* QSYAskRentAndBuyTableViewCell.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
@@ -5619,6 +5718,7 @@
 				184366BA1ABA630900A81374 /* QSYSystemSettingViewController.m in Sources */,
 				18DFE8A81AC705DD00C216C3 /* QSYComparisonTipsPopView.m in Sources */,
 				475A4D561AC40194009881CF /* QSPSalerTransactionOrderListCompletedView.m in Sources */,
+				18B0E2431ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m in Sources */,
 				18AFA9F61AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m in Sources */,
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				475A4D4A1AC3E721009881CF /* QSPSalerBookedOrderCompletedListView.m in Sources */,
@@ -5692,6 +5792,7 @@
 				18DABA951AAD405D00647E7C /* QSUserBaseInfoDataModel.m in Sources */,
 				475A4D791AC5376B009881CF /* QSPOrderDetailBargainingPriceHistoryView.m in Sources */,
 				18EE347C1AABFD610053B909 /* QSNewHouseDetailDataModel.m in Sources */,
+				18B0E23A1ACA908C00C8EE9E /* QSYAskRentAndSecondHandHouseTipsPopView.m in Sources */,
 				18EC15AA1AC3DBCC00D2AD3A /* QSYReleaseSaleHousePictureViewController.m in Sources */,
 				18DFE8981AC6F65D00C216C3 /* QSCDHistoryNewHouseActivityDataModel.m in Sources */,
 				18B5633E1A8203BA009779A0 /* QSFilterDataModel.m in Sources */,
@@ -5874,8 +5975,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5915,8 +6016,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

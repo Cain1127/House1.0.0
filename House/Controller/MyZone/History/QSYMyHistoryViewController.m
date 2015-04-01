@@ -20,12 +20,17 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-#import "QSNewHouseInfoDataModel.h"
-#import "QSHouseInfoDataModel.h"
-#import "QSRentHouseInfoDataModel.h"
-#import "QSCommunityDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
+#import "QSRentHouseDetailDataModel.h"
+#import "QSNewHouseDetailDataModel.h"
+#import "QSLoupanInfoDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
+#import "QSSecondHouseDetailDataModel.h"
+#import "QSWSecondHouseInfoDataModel.h"
 
 @interface QSYMyHistoryViewController ()
+
+@property (nonatomic,strong) UIView *noRecordsRootView;//!<无记录底view
 
 @end
 
@@ -61,6 +66,9 @@
 
 - (void)createMainShowUI
 {
+    
+    ///创建无记录UI
+    [self createNoRecordsUI];
 
     ///列表指针
     __block QSYHistoryRentHouseList *rentHouseList;
@@ -103,8 +111,28 @@
         ///切换列表
         secondHandHouseList = [[QSYHistorySecondHandHouseListView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            ///无记录UI
+            if (hHouseListActionTypeNoRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = NO;
+                return;
+                
+            }
+            
+            ///有记录时隐藏无记录UI
+            if (hHouseListActionTypeHaveRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = YES;
+                return;
+                
+            }
+            
+            if (hHouseListActionTypeGotoDetail == actionType) {
+                
+                ///进入详情页
+                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+                
+            }
             
         }];
         [self.view addSubview:secondHandHouseList];
@@ -162,8 +190,28 @@
         ///切换列表
         rentHouseList = [[QSYHistoryRentHouseList alloc] initWithFrame:CGRectMake(xpoint, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+            ///无记录UI
+            if (hHouseListActionTypeNoRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = NO;
+                return;
+                
+            }
+            
+            ///有记录时隐藏无记录UI
+            if (hHouseListActionTypeHaveRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = YES;
+                return;
+                
+            }
+            
+            if (hHouseListActionTypeGotoDetail == actionType) {
+                
+                ///进入详情页
+                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+                
+            }
             
         }];
         [self.view addSubview:rentHouseList];
@@ -210,8 +258,28 @@
         ///切换列表
         newHouseList = [[QSYHistoryNewHouseListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+            ///无记录UI
+            if (hHouseListActionTypeNoRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = NO;
+                return;
+                
+            }
+            
+            ///有记录时隐藏无记录UI
+            if (hHouseListActionTypeHaveRecord == actionType) {
+                
+                self.noRecordsRootView.hidden = YES;
+                return;
+                
+            }
+            
+            if (hHouseListActionTypeGotoDetail == actionType) {
+                
+                ///进入详情页
+                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+                
+            }
             
         }];
         [self.view addSubview:newHouseList];
@@ -255,6 +323,31 @@
 
 }
 
+///创建无记录UI
+- (void)createNoRecordsUI
+{
+
+    self.noRecordsRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
+    self.noRecordsRootView.hidden = YES;
+    [self.view addSubview:self.noRecordsRootView];
+    
+    ///无记录说明信息
+    UIImageView *tipsImage = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 64.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f - 85.0f, 75.0f, 85.0f)];
+    tipsImage.image = [UIImage imageNamed:IMAGE_PUBLIC_NOHISTORY];
+    tipsImage.tag = 3110;
+    [self.noRecordsRootView addSubview:tipsImage];
+    
+    ///提示信息
+    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsImage.frame.origin.y + tipsImage.frame.size.height + 15.0f, SIZE_DEFAULT_MAX_WIDTH, 20.0f)];
+    tipsLabel.text = @"暂无浏览房源";
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    tipsLabel.tag = 3111;
+    [self.noRecordsRootView addSubview:tipsLabel];
+    
+}
+
 #pragma mark - 进入详情页面
 - (void)gotoHouseDetailPage:(id)dataModel andHouseType:(FILTER_MAIN_TYPE)houseType
 {
@@ -265,10 +358,10 @@
         {
             
             ///获取房子模型
-            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
+            QSNewHouseDetailDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:houseType];
+            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.loupan.title andLoupanID:houseInfoModel.loupan.id_ andLoupanBuildingID:houseInfoModel.loupan_building.id_ andDetailType:houseType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -279,10 +372,10 @@
         {
             
             ///获取房子模型
-            QSHouseInfoDataModel *houseInfoModel = dataModel;
+            QSSecondHouseDetailDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:houseType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.house.village_name andDetailID:houseInfoModel.house.id_ andDetailType:houseType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -293,24 +386,10 @@
         {
             
             ///获取房子模型
-            QSRentHouseInfoDataModel *houseInfoModel = dataModel;
+            QSRentHouseDetailDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:houseType];
-            [self.navigationController pushViewController:detailVC animated:YES];
-            
-        }
-            break;
-            
-            ///小区
-        case fFilterMainTypeCommunity:
-        {
-            
-            ///获取房子模型
-            QSCommunityDataModel *houseInfoModel = dataModel;
-            
-            ///进入详情页面
-            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.house.village_name andDetailID:houseInfoModel.house.id_ andDetailType:houseType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }

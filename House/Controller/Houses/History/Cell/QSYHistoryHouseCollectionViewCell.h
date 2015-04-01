@@ -13,6 +13,9 @@
 ///刷新UI
 - (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType;
 
+///个人中心的浏览历史使用的刷新方法
+- (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType andPickedBoxStatus:(BOOL)isShowPickedBox;
+
 ///刷新是否处于选择状态
 - (void)setPickedTipsStatus:(BOOL)flag;
 

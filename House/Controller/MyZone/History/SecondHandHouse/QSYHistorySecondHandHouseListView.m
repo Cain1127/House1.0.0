@@ -10,10 +10,9 @@
 
 #import "QSCollectionWaterFlowLayout.h"
 
-#import "QSHouseCollectionViewCell.h"
+#import "QSYHistoryHouseCollectionViewCell.h"
 
-#import "QSSecondHandHouseListReturnData.h"
-#import "QSHouseInfoDataModel.h"
+#import "QSCoreDataManager+History.h"
 
 #import "MJRefresh.h"
 
@@ -23,10 +22,6 @@
 @property (nonatomic,copy) void(^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 @property (nonatomic,retain) NSMutableArray *customDataSource;  //!<数据源
-@property (nonatomic,assign) BOOL isLocalData;                  //!<是否是本地数据
-
-///网络请求返回的数据模型
-@property (nonatomic,retain) QSSecondHandHouseListReturnData *dataSourceModel;
 
 @end
 
@@ -61,17 +56,16 @@
             
         }
         
-        self.backgroundColor = [UIColor orangeColor];
+        self.backgroundColor = [UIColor whiteColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
+        [self registerClass:[QSYHistoryHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
-        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -86,24 +80,39 @@
 - (void)rentHouseListHeaderRequest
 {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///获取本地数据
+    NSArray *tempArray = [QSCoreDataManager getLocalHistoryDataSourceWithType:fFilterMainTypeSecondHouse];
+    
+    if ([tempArray count] > 0) {
+        
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+            
+        }
+        
+        [self.customDataSource removeAllObjects];
+        [self.customDataSource addObjectsFromArray:tempArray];
+        [self reloadData];
         
         [self.header endRefreshing];
         [self.footer endRefreshing];
         
-    });
-    
-}
-
-- (void)rentHouseListFooterRequest
-{
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    } else {
+        
+        [self.customDataSource removeAllObjects];
+        [self reloadData];
         
         [self.header endRefreshing];
         [self.footer endRefreshing];
         
-    });
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+            
+        }
+        
+    }
     
 }
 
@@ -135,13 +144,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    if (self.isLocalData) {
-        
-        return [self.customDataSource count];
-        
-    }
-    
-    return 0;
+    return [self.customDataSource count];
     
 }
 
@@ -153,22 +156,27 @@
     static NSString *houseCellIndentify = @"houseCell";
     
     ///从复用队列中获取房子信息的cell
-    QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
-    
-    ///获取数据模型
-    QSHouseInfoDataModel *tempModel;
-    if (self.isLocalData) {
-        
-        tempModel = self.customDataSource[indexPath.row];
-        
-    } else {
-        
-        tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row];
-        
-    }
-    [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
+    QSYHistoryHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
+
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.customDataSource[indexPath.row] andHouseType:fFilterMainTypeSecondHouse andPickedBoxStatus:NO];
     
     return cellHouse;
+    
+}
+
+#pragma mark - 点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if ([self.customDataSource count] > 0) {
+        
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,self.customDataSource[indexPath.row]);
+            
+        }
+        
+    }
     
 }
 

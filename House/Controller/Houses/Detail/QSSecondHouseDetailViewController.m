@@ -1325,7 +1325,7 @@ static char LeftStarKey;            //!<左侧星级
     ///弹出框
     __block QSYPopCustomView *popView;
     
-    QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 140.0f, SIZE_DEVICE_WIDTH, 140.0f) andName:ower andPhone:number andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
+    QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:ower andPhone:number andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
         
         ///回收弹框
         [popView hiddenCustomPopview];
