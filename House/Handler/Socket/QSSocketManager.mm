@@ -195,7 +195,6 @@ static QSSocketManager *_socketManager = nil;
     
     char *buf = new char[length];
     sendMessage.SerializeToArray(buf,length);
-    
     [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:300];
     [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:300];
     
@@ -285,34 +284,36 @@ static QSSocketManager *_socketManager = nil;
     
     ///获取消息长度
     char messageLengthBuf[4] = "\0";
-    [data getBytes:messageLengthBuf length:4];
-    int32_t messageLengthNetwork = atoi(messageLengthBuf);
+    [data getBytes:messageLengthBuf range:NSMakeRange(0, 4)];
+    int32_t messageLengthNetwork = intbytesToInt32(messageLengthBuf);
     NTOHL(messageLengthNetwork);
     
     ///获取消息类型
     char messageTypeBuf[4] = "\0";
-    [data getBytes:messageTypeBuf length:4];
-    int32_t messageTypeNetwork = atoi(messageLengthBuf);
+    [data getBytes:messageTypeBuf range:NSMakeRange(4, 4)];
+    int32_t messageTypeNetwork;
+    messageTypeNetwork = intbytesToInt32(messageTypeBuf);
     NTOHL(messageTypeNetwork);
     
     ///根据不同的类型，转不同的模型
     switch (messageTypeNetwork) {
             ///上线
-        case qQSCustomProtocolChatMessageTypeOnLine:
+        case qschat::ONLINE:
             
             break;
             
             ///下线
-        case qQSCustomProtocolChatMessageTypeOffLine:
+        case qschat::OFFLINE:
             
             break;
             
             ///文字聊天
-        case qQSCustomProtocolChatMessageTypeWord:
+        case qschat::WORD:
         {
         
             ///消息
             char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
             string messageString = string(messageBuf);
             
             ///返回的信息
@@ -328,22 +329,22 @@ static QSSocketManager *_socketManager = nil;
             break;
             
             ///图片聊天
-        case qQSCustomProtocolChatMessageTypePicture:
+        case qschat::PIC:
             
             break;
             
             ///视频聊天
-        case qQSCustomProtocolChatMessageTypeVideo:
+        case qschat::VIDEO:
             
             break;
             
             ///推荐房源消息
-        case qQSCustomProtocolChatMessageTypeSpecial:
+        case qschat::SPECIAL:
             
             break;
             
             ///系统消息
-        case qQSCustomProtocolChatMessageTypeSystem:
+        case qschat::SYSTEM:
             
             break;
             
@@ -443,6 +444,18 @@ static QSSocketManager *_socketManager = nil;
     
     return qschat::ChatTypeSendPTP;
 
+}
+
+#pragma mark - C数据格式化及转换
+int32_t intbytesToInt32(char *bytes)
+{
+    
+    int32_t addr = bytes[0] & 0xFF;
+    addr |= ((bytes[1] << 8) & 0xFF00);
+    addr |= ((bytes[2] << 16) & 0xFF0000);
+    addr |= ((bytes[3] << 24) & 0xFF000000);
+    return addr;
+    
 }
 
 @end

@@ -71,6 +71,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(houseListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(houseListFooterRequest)];
+        self.footer.hidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -133,6 +134,14 @@
                 
                 ///刷新数据
                 [self reloadData];
+                
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
                 
             });
             
@@ -217,6 +226,14 @@
                 
                 ///刷新数据
                 [self reloadData];
+                
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
                 
             });
             

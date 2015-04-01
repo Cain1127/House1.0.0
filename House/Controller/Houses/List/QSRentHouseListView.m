@@ -67,6 +67,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
+        self.footer.hidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -239,6 +240,14 @@
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.headerData.per_page intValue] ==
+                    [self.dataSourceModel.headerData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
+                
                 ///刷新数据
                 [self reloadData];
                 
@@ -331,7 +340,7 @@
             [self.footer endRefreshing];
             
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if ([self.dataSourceModel.headerData.per_page intValue] % 1 == 0) {
+            if (([self.dataSourceModel.headerData.per_page intValue] + 1) % 2 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     
@@ -340,7 +349,13 @@
                 }
                 
             }
-
+            
+            if ([self.dataSourceModel.headerData.per_page intValue] ==
+                [self.dataSourceModel.headerData.next_page intValue]) {
+                
+                [self.footer noticeNoMoreData];
+                
+            }
             
         } else {
             
