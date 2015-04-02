@@ -54,4 +54,7 @@
 ///发布出租物业：附加信息页
 #define PLIST_FILE_NAME_RELEASE_RENTHOUSE_ADD @"ReleaseRentHouseAddinfo"
 
+///房源周边信息地图的频道栏按钮配置信息
+#define PLIST_FILE_NAME_HOUSEDETAIL_AROUND_CHANNELBAR @"HouseDetailAroundInfo"
+
 #endif

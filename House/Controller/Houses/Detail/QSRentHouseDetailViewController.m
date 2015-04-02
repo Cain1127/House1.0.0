@@ -7,6 +7,8 @@
 //
 
 #import "QSRentHouseDetailViewController.h"
+#import "QSNearInfoViewController.h"
+
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
 #import "QSYShareChoicesView.h"
@@ -106,6 +108,21 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+///由小区进入的接口
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID
+{
+    
+    if (self = [super init]) {
+        
+        ///保存相关参数
+        self.title = title;
+        self.detailID = detailID;
+        
+    }
+    
+    return self;
+    
+}
 #pragma mark - UI搭建
 ///重写导航栏，添加标题信息
 - (void)createNavigationBarUI
@@ -599,8 +616,15 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:featuresRootView];
     [self createFeaturesSubviews:featuresRootView andDataSource:houseInfo.features];
     
+    NSString *coordinate_x=houseInfo.coordinate_x;
+    NSString *coordinate_y=houseInfo.coordinate_y;
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
+        
+        QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:houseInfo.address andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        
+        [self.navigationController pushViewController:mapNearVC animated:YES];
+        
     }];
     
     UILabel *addressLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 10.0f, view.frame.size.width-100.0f, 20.0f)];

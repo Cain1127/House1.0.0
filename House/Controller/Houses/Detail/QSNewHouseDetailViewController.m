@@ -378,7 +378,7 @@ static char LeftStarKey;            //!<左侧星级
     [self createFeaturesSubviews:featuresRootView andDataSource:self.detailInfo.loupan.features];
     [infoRootView addSubview:featuresRootView];
     
-    QSBaseHouseInfoDataModel *coordinateModel=[[QSBaseHouseInfoDataModel alloc] init];
+    QSLoupanInfoDataModel *coordinateModel=[[QSLoupanInfoDataModel alloc] init];
     coordinateModel=self.detailInfo.loupan;
     NSString *coordinate_x=coordinateModel.coordinate_x;
     NSString *coordinate_y=coordinateModel.coordinate_y;

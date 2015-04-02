@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>around_channelbar</key>
+	<array>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_bus_normal</string>
+			<key>selected</key>
+			<string>houses_detail_bus_highlighted</string>
+			<key>keywords</key>
+			<string>公交</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_metro_normal</string>
+			<key>selected</key>
+			<string>houses_detail_metro_highlighted</string>
+			<key>keywords</key>
+			<string>地铁</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_hospital_normal</string>
+			<key>selected</key>
+			<string>houses_detail_hospital_highlighted</string>
+			<key>keywords</key>
+			<string>医院</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_school_normal</string>
+			<key>selected</key>
+			<string>houses_detail_school_highlighted</string>
+			<key>keywords</key>
+			<string>学校</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_catering_normal</string>
+			<key>selected</key>
+			<string>houses_detail_catering_highlighted</string>
+			<key>keywords</key>
+			<string>餐饮</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_supermarket_normal</string>
+			<key>selected</key>
+			<string>houses_detail_supermarket_highlighted</string>
+			<key>keywords</key>
+			<string>超市</string>
+		</dict>
+		<dict>
+			<key>normal</key>
+			<string>houses_detail_market_normal</string>
+			<key>selected</key>
+			<string>houses_detail_market_highlighted</string>
+			<key>keywords</key>
+			<string>商场</string>
+		</dict>
+	</array>
+</dict>
+</plist>

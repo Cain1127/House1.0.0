@@ -23,7 +23,6 @@
 #import "MJRefresh.h"
 #import <objc/runtime.h>
 
-static char TitleButtonKey;  ///导航按钮关联
 
 #define APIKey      @"0f36774bd285a275b3b8e496e45fe6d9"
 
@@ -45,8 +44,8 @@ static char TitleButtonKey;  ///导航按钮关联
 }
 
 @property(nonatomic,copy) NSString *address;            //!<周边信息地址
-@property(nonatomic,assign) CGFloat coordinate_x;       //!<经度
-@property(nonatomic,assign) CGFloat coordinate_y;       //!<纬度
+@property(nonatomic,assign) CGFloat coordinate_x;       //!<周边经度
+@property(nonatomic,assign) CGFloat coordinate_y;       //!<周边纬度
 
 @property(nonatomic,strong) QSScrollView *mapInfoView;  //!<地图UI
 @property(nonatomic,strong) UITextView *infoTextView;   //!<底部说明信息UI
@@ -106,159 +105,79 @@ static char TitleButtonKey;  ///导航按钮关联
     ///每个户型信息项之间的间隙
     CGFloat gap = 40.0f;
     
-    ///总的户型信息个数
-    int sum=7;
+    ///获取配置信息
+    NSString *path = [[NSBundle mainBundle] pathForResource:PLIST_FILE_NAME_HOUSEDETAIL_AROUND_CHANNELBAR ofType:PLIST_FILE_TYPE];
+    NSArray *packInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"around_channelbar"];
+    
+    ///底图
+    __block UIImageView *sixFormImage = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 5.0f, width, 40.0f)];
+    sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
+    [view addSubview:sixFormImage];
     
     ///循环创建户型信息
-    for (int i = 0; i < sum; i++) {
+    for (int i = 0; i < [packInfos count]; i++) {
         
-        ///获取模型
-        ///底图
-        UIImageView *sixFormImage = [QSImageView createBlockImageViewWithFrame:CGRectMake((i+1)*gap + i*width, 5.0f, width, 40.0f) andSingleTapCallBack:^{
-            
-        }];
-        sixFormImage.backgroundColor=[UIColor whiteColor];
-        [view addSubview:sixFormImage];
+        ///配置字典
+        NSDictionary *infoDict = packInfos[i];
         
-        QSBlockButtonStyleModel *buttonStyle=[[QSBlockButtonStyleModel alloc] init];
-        
-        switch (i) {
-            case 0:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_BUS_NORMAL;
-                buttonStyle.imagesHighted=IMAGE_HOUSES_DETAIL_BUS_HIGHLIGHTED;
-                
-                break;
-                
-            case 1:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_METRO_NORMAL;
-                buttonStyle.imagesHighted=IMAGE_HOUSES_DETAIL_METRO_NORMAL;
-                
-                break;
-                
-            case 2:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_HOSPITAL_NORMAL;
-                buttonStyle.imagesHighted=IMAGE_HOUSES_DETAIL_HOSPITAL_HIGHLIGHTED;
-                
-                break;
-                
-            case 3:
-                
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_SCHOOL_NORMAL;
-                buttonStyle.imagesHighted=IMAGE_HOUSES_DETAIL_SCHOOL_HIGHLIGHTED;
-                
-                break;
-                
-            case 4:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_CATERING_NORMAL;
-                buttonStyle.imagesHighted=IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED;
-                break;
-                
-            case 5:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_BUS_NORMAL;
-                
-                break;
-                
-            case 6:
-                buttonStyle.imagesNormal=IMAGE_HOUSES_DETAIL_BUS_NORMAL;
-                
-                break;
-                
-            default:
-                break;
-        }
-        
+        QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+        buttonStyle.imagesNormal = [infoDict valueForKey:@"normal"];
+        buttonStyle.imagesSelected = [infoDict valueForKey:@"selected"];
         
         ///主标题信息
-        UIButton *titleButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(2.0f, 5.0f, sixFormImage.frame.size.width , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        UIButton *titleButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(gap + (width + gap) * i-4.5f, 5.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击事件");
-            
-            switch (i) {
-                case 0:
-                    [self searchAction:@"公交"];
-                    _infoTextView.text=self.resultAddressString;
-                    
-                    
-                    break;
-                    
-                case 1:
-                    [self searchAction:@"地铁"];
-                    
-                    _infoTextView.text=self.resultAddressString;
-
-                    break;
-                    
-                case 2:
-                    [self searchAction:@"医院"];
-                    _infoTextView.text=self.resultNameString;
-
-                    
-                    break;
-                    
-                case 3:
-                    
-                    [self searchAction:@"学校"];
-                    _infoTextView.text=self.resultNameString;
-
-                    
-                    break;
-                    
-                case 4:
-                    [self searchAction:@"餐饮"];
-                    _infoTextView.text=self.resultNameString;
-
-                    break;
-                    
-                case 5:
-                    
-                    [self searchAction:@"超市"];
-                    _infoTextView.text=self.resultNameString;
-
-                    
-                    break;
-                    
-                case 6:
-                    
-                    [self searchAction:@"商场"];
-                    _infoTextView.text=self.resultNameString;
-
-                    
-                    break;
-                    
-                default:
-                    break;
+            ///如果当前按钮已是选择状态，则不进行事件
+            if (button.selected) {
+                
+                return;
+                
             }
             
-            //view.contentOffset = CGPointMake(view.frame.size.width * i, 0.0f);
+            ///刷新数据
             
-            sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
+            [self searchAction:[infoDict valueForKey:@"keywords"]];
             
-            //            ///移动UI
-            //            [UIView animateWithDuration:0.3f animations:^{
-            //
-            //                view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
-            //
-            //
-            //            } completion:^(BOOL finished) {
-            //
-            //                view.frame=CGRectMake(view.frame.size.width*i, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
-            //
-            //            }];
+            ///移动六角形
+            [UIView animateWithDuration:0.3f animations:^{
+                
+                sixFormImage.frame = CGRectMake(gap + (width + gap) * i, sixFormImage.frame.origin.y, sixFormImage.frame.size.width, sixFormImage.frame.size.height);
+                
+            }];
             
         }];
         
-        
-        [sixFormImage addSubview:titleButton];
+        [titleButton addTarget:self action:@selector(changeChannelBarButtonStatus:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:titleButton];
         
     }
     
     ///判断是否需要开启滚动
-    if ((width * sum + gap * (sum - 1)) > view.frame.size.width) {
+    if ((width * [packInfos count] + gap * ([packInfos count] + 1)) > view.frame.size.width) {
         
-        view.contentSize = CGSizeMake((width * sum + gap * (sum + 1)) + 10.0f, view.frame.size.height);
+        view.contentSize = CGSizeMake((width * [packInfos count] + gap * ([packInfos count] + 1)) + 10.0f, view.frame.size.height);
         
     }
     
+}
+
+#pragma mark - 同步修改按钮状态
+- (void)changeChannelBarButtonStatus:(UIButton *)button
+{
+
+    for (UIView *obj in [button.superview subviews]) {
+        
+        if ([obj isKindOfClass:[UIButton class]]) {
+            
+            UIButton *tempButton = (UIButton *)obj;
+            tempButton.selected = NO;
+            
+        }
+        
+    }
+    
+    button.selected = YES;
+
 }
 
 #pragma mark -添加地图信息UI
@@ -293,7 +212,8 @@ static char TitleButtonKey;  ///导航按钮关联
     _mapView.delegate = self;
     _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, kDefaultControlMargin);
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, kDefaultControlMargin);
-    
+    [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
+
     [self.mapInfoView addSubview:_mapView];
     
     _mapView.showsUserLocation = YES;
@@ -308,11 +228,13 @@ static char TitleButtonKey;  ///导航按钮关联
 {
     if (self.coordinate_x)
     {
-        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
         
-        request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_x longitude:self.coordinate_y];
-        
-        [_search AMapReGoecodeSearch:request];
+        _mapView.userLocation.coordinate=CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
+//        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+//        
+//        request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_x longitude:self.coordinate_y];
+//        
+//        [_search AMapReGoecodeSearch:request];
     }
 }
 
@@ -322,6 +244,8 @@ static char TitleButtonKey;  ///导航按钮关联
 {
     
     _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+    ///默认选中第一个
+    [self searchAction:@"公交"];
     
 }
 
@@ -330,8 +254,16 @@ static char TitleButtonKey;  ///导航按钮关联
     if (!self.coordinate_x || _search == nil)
     {
         NSLog(@"search failed");
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
+
         return;
     }
+    
+    //[_mapInfoView.header beginRefreshing];
+    
+    ///清空标注
+    [_mapView removeAnnotations:_annotations];
+    [_annotations removeAllObjects];
     
     AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
     request.searchType = AMapSearchType_PlaceAround;
@@ -349,6 +281,8 @@ static char TitleButtonKey;  ///导航按钮关联
 {
     ///搜索失败提示
     NSLog(@"request :%@, error :%@", request, error);
+    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"搜索失败", 1.0f, ^(){})
+    
 }
 
 ///房子位置搜索信息回调
@@ -388,21 +322,56 @@ static char TitleButtonKey;  ///导航按钮关联
             
             AMapPOI *poi = _pois[i];
             
+            ///获取返回的大头针位置
+            MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+            annotation.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+            
+            ///大头针加入地图
+            [_mapView addAnnotation:annotation];
+            [_annotations addObject:annotation];
+            
+            ///拼接搜索反回结果
             [resultNameString appendString:poi.name];
             [resultAddressString appendString:poi.address];
             
         }
-        
+        //[_mapInfoView.header endRefreshing];
         self.resultNameString=resultNameString;
         self.resultAddressString=resultAddressString;
+        _infoTextView.text=self.resultNameString;
         
-
-        // 清空标注
-        [_mapView removeAnnotations:_annotations];
-        [_annotations removeAllObjects];
+        [_mapView showAnnotations:_annotations animated:YES];
+        
         
     }
 }
+
+#pragma mark - 地图代理方法
+
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MAPointAnnotation class]])
+    {
+        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
+        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
+        }
+        ///显示大头针图片
+        annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_METRO_NORMAL];
+        
+        // 设置为NO，用以调用自定义的calloutView
+        annotationView.canShowCallout = YES;
+        
+        // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
+        annotationView.centerOffset = CGPointMake(0, -18);
+        return annotationView;
+    }
+    
+    return nil;
+}
+
 
 #pragma mark -获取地图信息结束刷新
 -(void)getMapInfo

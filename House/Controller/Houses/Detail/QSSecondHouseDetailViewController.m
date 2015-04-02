@@ -109,6 +109,21 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID
+{
+    
+    if (self = [super init]) {
+        
+        ///保存相关参数
+        self.title = title;
+        self.detailID = detailID;
+        
+    }
+    
+    return self;
+    
+}
+
 #pragma mark - UI搭建
 ///重写导航栏，添加标题信息
 - (void)createNavigationBarUI
@@ -661,9 +676,15 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:featuresRootView];
     [self createFeaturesSubviews:featuresRootView andDataSource:houseInfoModel.features];
     
+    NSString *coordinate_x=houseInfoModel.coordinate_x;
+    NSString *coordinate_y=houseInfoModel.coordinate_y;
     
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
+        
+        QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:houseInfoModel.address andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        
+        [self.navigationController pushViewController:mapNearVC animated:YES];
         
     }];
     

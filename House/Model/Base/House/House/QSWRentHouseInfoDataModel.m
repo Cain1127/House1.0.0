@@ -62,7 +62,9 @@
                                                     @"reservation_num",
                                                     @"tj_look_house_num",
                                                     @"tj_wait_look_house_people",
-                                                    @"price_avg"
+                                                    @"price_avg",
+                                                    @"coordinate_x",
+                                                    @"coordinate_y"
                                                     
                                                     ]];
     

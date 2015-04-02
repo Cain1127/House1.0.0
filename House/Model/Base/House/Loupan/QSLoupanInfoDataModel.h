@@ -33,6 +33,9 @@
 @property (nonatomic,copy) NSString *licence;           //!<预售许可证号
 @property (nonatomic,copy) NSString *parking_lot;       //!<停车位数量
 
+@property (nonatomic,copy) NSString *coordinate_x;          //!<楼房经度
+@property (nonatomic,copy) NSString *coordinate_y;          //!<楼房纬度
+
 ///楼盘状态：楼盘状态0为未开盘，1为已开盘，2为已结束
 @property (nonatomic,copy) NSString *loupan_status;
 

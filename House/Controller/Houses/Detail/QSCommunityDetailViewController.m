@@ -8,6 +8,8 @@
 
 #import "QSCommunityDetailViewController.h"
 #import "QSCommunityDetailViewCell.h"
+#import "QSSecondHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSCustomHUDView.h"
@@ -196,6 +198,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         ///进入地图：需要传经纬度
         NSLog(@"点击进入小区二手房");
+        QSSecondHouseDetailViewController *shVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.communityID];
+        [self.navigationController pushViewController:shVC animated:YES];
         
     }];
     
@@ -205,7 +209,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         ///进入地图：需要传经纬度
         NSLog(@"点击进入小区出租房");
-        
+        QSRentHouseDetailViewController *rhVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.communityID];
+        [self.navigationController pushViewController:rhVC animated:YES];
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     

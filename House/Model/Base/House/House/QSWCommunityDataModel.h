@@ -10,4 +10,7 @@
 
 @interface QSWCommunityDataModel : QSCommunityDataModel
 
+@property (nonatomic,copy) NSString *coordinate_x;               //!<经度
+@property (nonatomic,copy) NSString *coordinate_y;               //!<纬度
+
 @end

@@ -31,7 +31,10 @@
                                                     @"green_rate",
                                                     @"licence",
                                                     @"parking_lot",
-                                                    @"loupan_status"]];
+                                                    @"loupan_status",
+                                                    @"coordinate_x",
+                                                    @"coordinate_y"
+                                                    ]];
     
     return shared_mapping;
     

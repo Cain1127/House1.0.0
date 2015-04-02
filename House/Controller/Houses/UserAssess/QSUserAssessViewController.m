@@ -91,7 +91,7 @@ static char AssessTableKey;   //!<评论内容关联key
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 1;
+    return 10;
 
 }
 @end

@@ -191,7 +191,7 @@
     ///判断是否需要开启滚动
     if ((width * sum + gap * (sum - 1)) > view.frame.size.width) {
         
-        view.contentSize = CGSizeMake((width * sum + gap * (sum - 1)) + 10.0f, view.frame.size.height);
+        view.contentSize = CGSizeMake((width * sum + gap * (sum + 1)) + 10.0f, view.frame.size.height);
         
     }
 

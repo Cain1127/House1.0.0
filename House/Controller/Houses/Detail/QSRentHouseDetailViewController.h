@@ -25,4 +25,17 @@
  */
 - (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType;
 
+/*!
+ *  @author wangshupeng, 15-04-02 11:04:37
+ *
+ *  @brief  由小区进入
+ *
+ *  @param title    标题
+ *  @param detailID 详情的ID
+ *
+ *  @return 返回当前创建的详情页指针
+ *
+ *  @since 1.0.0
+ */
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID;
 @end

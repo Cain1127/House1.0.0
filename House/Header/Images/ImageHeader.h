@@ -313,6 +313,14 @@
 #define IMAGE_HOUSES_DETAIL_CATERING_NORMAL @"houses_detail_catering_normal"
 #define IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED @"houses_detail_catering_highlighted"
 
+///超市图片
+#define IMAGE_HOUSES_DETAIL_SUPERMARKET_NORMAL @"houses_detail_supermarket_normal"
+#define IMAGE_HOUSES_DETAIL_SUPERMARKET_HIGHLIGHTED @"houses_detail_supermarket_highlighted"
+
+///商场图片
+#define IMAGE_HOUSES_DETAIL_MARKET_NORMAL @"houses_detail_market_normal"
+#define IMAGE_HOUSES_DETAIL_MARKET_HIGHLIGHTED @"houses_detail_market_highlighted"
+
 #pragma mark - 发现模块相关图片资源
 
 /**

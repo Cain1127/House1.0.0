@@ -32,4 +32,7 @@
  */
 - (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID andDetailType:(FILTER_MAIN_TYPE)detailType;
 
+///由小区进入接口
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID;
+
 @end
