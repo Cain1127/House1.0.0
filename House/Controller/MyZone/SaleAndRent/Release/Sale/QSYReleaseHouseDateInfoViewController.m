@@ -9,6 +9,7 @@
 #import "QSYReleaseHouseDateInfoViewController.h"
 #import "QSYUserProtocolViewController.h"
 #import "QSYExclusiveCompanyViewController.h"
+#import "QSYReleaseSaleTipsViewController.h"
 
 #import "QSYPopCustomView.h"
 #import "QSYWeekPickedView.h"
@@ -479,8 +480,9 @@ static char unExlusiveKey;  //!<非独家按钮关联
             
             [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
                
-                ///如果之前没有生成过物业管理页面，则生成物业管理页面
-                
+                ///提示发布成功
+                QSYReleaseSaleTipsViewController *tipsVC = [[QSYReleaseSaleTipsViewController alloc] init];
+                [self.navigationController pushViewController:tipsVC animated:YES];
                 
             }];
             

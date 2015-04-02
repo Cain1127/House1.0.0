@@ -195,7 +195,7 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
-                    self.rentHouseReleaseModel.limitedKey = tempModel.val;
+                    self.rentHouseReleaseModel.limited = tempModel.val;
                     self.rentHouseReleaseModel.limitedKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {

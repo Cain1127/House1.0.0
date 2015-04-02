@@ -93,6 +93,14 @@ static char PickedImageRootViewKey;//!<图片选择底view
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///校验图片是否已上传
+        if ([self.saleHouseReleaseModel.imagesList count] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少上传一张图片", 1.0f, ^(){})
+            return;
+            
+        }
+        
         ///回收键盘
         [self.titleField resignFirstResponder];
         [self.detailInfoField resignFirstResponder];

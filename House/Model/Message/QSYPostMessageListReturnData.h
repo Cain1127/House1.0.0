@@ -7,6 +7,7 @@
 //
 
 #import "QSHeaderDataModel.h"
+#import "QSMSGBaseDataModel.h"
 
 @class QSYPostMessageListHeaderData;
 @interface QSYPostMessageListReturnData : QSHeaderDataModel
@@ -15,7 +16,7 @@
 
 @end
 
-@interface QSYPostMessageListHeaderData : QSBaseModel
+@interface QSYPostMessageListHeaderData : QSMSGBaseDataModel
 
 @property (nonatomic,retain) NSMutableArray *messageList;//!<消息列表
 
