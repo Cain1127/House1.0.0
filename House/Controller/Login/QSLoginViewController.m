@@ -308,12 +308,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     
                     ///显示提示信息
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
-                    
-                        if (self.hiddenCustomTabbarWhenPush) {
-                            
-                            [self hiddenBottomTabbar:NO];
-                            
-                        }
                         
                         ///回调
                         if (self.loginCallBack) {

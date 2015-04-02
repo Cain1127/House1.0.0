@@ -511,6 +511,7 @@ typedef enum
                     
                     textField.text = showString;
                     self.saleHouseReleaseModel.installationString = showString;
+                    [self.saleHouseReleaseModel.installationList removeAllObjects];
                     [self.saleHouseReleaseModel.installationList addObjectsFromArray:params];
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
@@ -598,11 +599,13 @@ typedef enum
 {
 
     ///遍历，如果存在，则删除
-    for (QSBaseConfigurationDataModel *obj in self.saleHouseReleaseModel.featuresList) {
+    NSArray *tempArray = [[NSArray alloc] initWithArray:self.saleHouseReleaseModel.featuresList];
+    [self.saleHouseReleaseModel.featuresList removeAllObjects];
+    for (QSBaseConfigurationDataModel *obj in tempArray) {
         
-        if ([obj.key isEqualToString:model.key]) {
+        if (![obj.key isEqualToString:model.key]) {
             
-            [self.saleHouseReleaseModel.featuresList removeObject:obj];
+            [self.saleHouseReleaseModel.featuresList addObject:obj];
             
         }
         

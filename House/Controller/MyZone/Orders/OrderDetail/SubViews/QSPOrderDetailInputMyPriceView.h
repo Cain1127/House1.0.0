@@ -10,4 +10,16 @@
 
 @interface QSPOrderDetailInputMyPriceView : UIView
 
+/**
+ *  创建我的出还价输入控件
+ *
+ *  @param topLeftPoint 相对左上角坐标
+ *  @param count        剩余可出价次数
+ *
+ *  @return 控件
+ */
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
+
+- (instancetype)initWithFrame:(CGRect)frame;
+
 @end

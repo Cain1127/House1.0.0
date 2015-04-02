@@ -10,12 +10,18 @@
 
 @implementation QSPOrderDetailSubmitPriceButtonView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack{
+    
+    if (self = [super initAtTopLeft:topLeftPoint withButtonCount:1 andCallBack:callBack]) {
+        
+        [self setCenterBtTitle:@"提交出价"];
+        
+        [self setCenterButtonType:nNormalButtonTypeCornerYellow];
+        
+    }
+    
+    return self;
+    
 }
-*/
 
 @end

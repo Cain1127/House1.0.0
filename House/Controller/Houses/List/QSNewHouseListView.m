@@ -83,6 +83,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(newHouseListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(newHouseListFooterRequest)];
+        self.footer.hidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -183,6 +184,14 @@
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.headerData.per_page intValue] ==
+                    [self.dataSourceModel.headerData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
+                
                 ///刷新数据
                 [self reloadData];
                 
@@ -268,6 +277,13 @@
                 
                 ///刷新数据
                 [self reloadData];
+                
+                if ([self.dataSourceModel.headerData.per_page intValue] ==
+                    [self.dataSourceModel.headerData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
                 
             });
             

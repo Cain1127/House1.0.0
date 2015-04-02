@@ -7,6 +7,7 @@
 //
 
 #import "QSFilterDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
 @implementation QSFilterDataModel
 
@@ -26,10 +27,39 @@
         
         ///标签数组
         self.features_list = [[NSMutableArray alloc] init];
+        self.installations = [[NSMutableArray alloc] init];
         
     }
     
     return self;
+
+}
+
+- (NSString *)getFeaturesPostParams
+{
+
+    NSMutableString *tempString = [[NSMutableString alloc] init];
+    for (QSBaseConfigurationDataModel *obj in self.features_list) {
+        
+        [tempString appendString:obj.key];
+        
+    }
+    
+    return [NSString stringWithString:tempString];
+
+}
+
+- (NSString *)getInstallationPostParams
+{
+
+    NSMutableString *tempString = [[NSMutableString alloc] init];
+    for (QSBaseConfigurationDataModel *obj in self.installations) {
+        
+        [tempString appendString:obj.key];
+        
+    }
+    
+    return [NSString stringWithString:tempString];
 
 }
 

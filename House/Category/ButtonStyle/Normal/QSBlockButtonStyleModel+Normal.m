@@ -76,6 +76,12 @@
             
             break;
             
+        case nNormalButtonTypeCornerWhiteLightYellowBorder:
+            ///普通白色底浅黄圆角框按钮
+
+            return [self ceateNormalCornerWhiteLightYellowBorderButton];
+            
+            break;
         default:
             break;
     }
@@ -174,6 +180,20 @@
     buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
     buttonStyle.borderColor = COLOR_CHARACTERS_GRAY;
     buttonStyle.borderWith = 0.5f;
+    return buttonStyle;
+    
+}
+
+///普通白色底浅黄圆角框按钮
++ (QSBlockButtonStyleModel *)ceateNormalCornerWhiteLightYellowBorderButton
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.bgColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    buttonStyle.cornerRadio = VIEW_SIZE_NORMAL_CORNERADIO;
+    buttonStyle.titleNormalColor = [UIColor whiteColor];
+    buttonStyle.titleHightedColor = [UIColor whiteColor];
+    buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
     return buttonStyle;
     
 }

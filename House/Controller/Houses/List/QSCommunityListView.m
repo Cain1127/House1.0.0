@@ -83,6 +83,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(communityListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(communityListFooterRequest)];
+        self.footer.hidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -143,6 +144,14 @@
                 ///刷新数据
                 [self reloadData];
                 
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
+                
             });
             
             ///结束刷新动画
@@ -194,6 +203,14 @@
     ///判断是否最大页码
     if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
         
+        self.footer.hidden = NO;
+        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+            [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+            
+            [self.footer noticeNoMoreData];
+            
+        }
+        
         ///结束刷新动画
         [self.header endRefreshing];
         [self.footer endRefreshing];
@@ -226,6 +243,14 @@
                 
                 ///刷新数据
                 [self reloadData];
+                
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
                 
             });
             

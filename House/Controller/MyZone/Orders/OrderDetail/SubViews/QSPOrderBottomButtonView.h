@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButton.h"
+
+//上下间隙
+#define     CONTENT_TOP_BOTTOM_OFFSETY     12.0f
+//左右间隙
+#define     CONTENT_LEFT_RIGHT_OFFSETX     CONTENT_TOP_BOTTOM_OFFSETY //35.0f
 
 typedef enum
 {
@@ -21,18 +28,55 @@ typedef enum
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withButtonCount:(NSInteger)num andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack;
 
+/**
+ *  设置中间按钮的样式
+ *
+ *  @param buttonStyle 样式
+ */
+- (void)setCenterButtonType:(NORMAL_BUTTON_TYPE)buttonType;
+
+/**
+ *  设置右按钮的样式
+ *
+ *  @param buttonStyle 样式
+ */
+- (void)setRightButtonType:(NORMAL_BUTTON_TYPE)buttonType;
+
+/**
+ *  设置左按钮的样式
+ *
+ *  @param buttonStyle 样式
+ */
+- (void)setLeftButtonType:(NORMAL_BUTTON_TYPE)buttonType;
+
+/**
+ *  设置中间按钮的标题
+ *
+ *  @param title 标题字符串
+ */
+- (void)setCenterBtTitle:(NSString*)title;
+
+/**
+ *  设置左按钮的标题
+ *
+ *  @param title 标题字符串
+ */
+- (void)setLeftBtTitle:(NSString*)title;
+
+/**
+ *  设置右按钮的标题
+ *
+ *  @param title 标题字符串
+ */
+- (void)setRightBtTitle:(NSString*)title;
+
+- (void)setBtTitleFont:(UIFont*)font;
+
 - (void)setCenterBtBackgroundColor:(UIColor*)color;
 
 - (void)setLeftBtBackgroundColor:(UIColor*)color;
 
 - (void)setRightBtBackgroundColor:(UIColor*)color;
 
-- (void)setCenterBtTitle:(NSString*)title;
-
-- (void)setLeftBtTitle:(NSString*)title;
-
-- (void)setRightBtTitle:(NSString*)title;
-
-- (void)setBtTitleFont:(UIFont*)font;
 
 @end

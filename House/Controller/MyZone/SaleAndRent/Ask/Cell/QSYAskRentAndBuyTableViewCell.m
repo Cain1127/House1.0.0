@@ -395,7 +395,7 @@ static char SettingButton;  //!<设置按钮
         }
         
         ///更新租金支付方式
-        [self updateRentPayType:[QSCoreDataManager getHouseRentTypeWithKey:@"200801"]];
+        [self updateRentPayType:[QSCoreDataManager getHouseRentTypeWithKey:model.payment]];
         
         ///更新价钱信息
         [self updatePriceInfo:model.price AndUnit:@"元以下"];

@@ -10,4 +10,8 @@
 
 @interface QSPOrderDetailCommentNoteTipsView : UIView
 
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
+
+- (instancetype)initWithFrame:(CGRect)frame;
+
 @end

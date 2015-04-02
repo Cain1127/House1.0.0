@@ -114,8 +114,6 @@ typedef enum
                         
         case fFilterSettingVCTypeHouseListRentHouse:
             
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-            
             return fFilterMainTypeRentalHouse;
             
             break;
@@ -126,8 +124,6 @@ typedef enum
         case fFilterSettingVCTypeHomeSecondHouse:
             
         case fFilterSettingVCTypeHouseListSecondHouse:
-            
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
             
             return fFilterMainTypeSecondHouse;
             
@@ -186,24 +182,6 @@ typedef enum
         }
             break;
             
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-        {
-            
-            [super createNavigationBarUI];
-            [self setNavigationBarTitle:@"求租"];
-            
-        }
-            break;
-            
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
-        {
-            
-            [super createNavigationBarUI];
-            [self setNavigationBarTitle:@"求购"];
-            
-        }
-            break;
-            
         default:
             break;
     }
@@ -230,6 +208,7 @@ typedef enum
             [self createUpdateFilterSettingPage];
             
             break;
+            
     }
 
 }
@@ -518,11 +497,14 @@ typedef enum
 - (void)deleteFeatureWithModel:(QSBaseConfigurationDataModel *)model
 {
 
-    for (QSBaseConfigurationDataModel *obj in self.filterModel.features_list) {
+    ///临时数组
+    NSArray *tempArray = [[NSArray alloc] initWithArray:self.filterModel.features_list];
+    [self.filterModel.features_list removeAllObjects];
+    for (QSBaseConfigurationDataModel *obj in tempArray) {
         
-        if ([obj.key isEqualToString:model.key]) {
+        if (![obj.key isEqualToString:model.key]) {
             
-            [self.filterModel.features_list removeObject:obj];
+            [self.filterModel.features_list addObject:obj];
             
         }
         
@@ -556,7 +538,7 @@ typedef enum
     CGFloat ypoint = 64.0f;
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 15.0f)];
+    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 25.0f)];
     [self createSettingInputUI:pickedRootView];
     [self.view addSubview:pickedRootView];
     
@@ -588,12 +570,6 @@ typedef enum
                 
             }
             
-            ///返回上一页
-            if (self.hiddenCustomTabbarWhenPush) {
-                
-                [self hiddenBottomTabbar:NO];
-                
-            }
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         }];
@@ -683,20 +659,6 @@ typedef enum
         case fFilterSettingVCTypeHouseListSecondHouse:
             
             infoFileName = PLIST_FILE_NAME_FILTER_ADVANCE_SECONDHOUSE;
-            
-            break;
-            
-            ///求租
-        case fFilterSettingVCTypeMyZoneAskRentHouse:
-            
-            infoFileName = PLIST_FILE_NAME_FILTER_ASK_RENANTHOUSE;
-            
-            break;
-            
-            ///求购
-        case fFilterSettingVCTypeMyZoneAskSecondHouse:
-            
-            infoFileName = PLIST_FILE_NAME_FILTER_ASK_SECONDHOUSE;
             
             break;
             

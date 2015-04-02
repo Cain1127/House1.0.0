@@ -198,13 +198,6 @@ static char ListViewKey;//!<列表的关联
             
         }
         
-        ///显示tabbar
-        if (self.hiddenCustomTabbarWhenPush) {
-            
-            [self hiddenBottomTabbar:NO];
-            
-        }
-        
         [self.navigationController popViewControllerAnimated:YES];
         
     } else {
@@ -233,13 +226,6 @@ static char ListViewKey;//!<列表的关联
                     
                 }
                 
-                ///显示tabbar
-                if (self.hiddenCustomTabbarWhenPush) {
-                    
-                    [self hiddenBottomTabbar:NO];
-                    
-                }
-                
                 [self.navigationController popViewControllerAnimated:YES];
                 
             } else {
@@ -250,13 +236,6 @@ static char ListViewKey;//!<列表的关联
                 if (self.pickedCommunityCallBack) {
                     
                     self.pickedCommunityCallBack(YES,tempModel);
-                    
-                }
-                
-                ///显示tabbar
-                if (self.hiddenCustomTabbarWhenPush) {
-                    
-                    [self hiddenBottomTabbar:NO];
                     
                 }
                 

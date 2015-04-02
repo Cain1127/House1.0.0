@@ -504,6 +504,29 @@ typedef enum
     
 }HOUSE_LIST_ACTION_TYPE;
 
+///消息的种类
+typedef enum
+{
+    
+    qQSCustomProtocolChatMessageTypeWord    = 9000, //!<文字信息
+    qQSCustomProtocolChatMessageTypePicture = 9001, //!<图片信息
+    qQSCustomProtocolChatMessageTypeVideo   = 9002, //!<语音信息
+    qQSCustomProtocolChatMessageTypeOnLine  = 9003, //!<下线信息
+    qQSCustomProtocolChatMessageTypeOffLine = 9004, //!<上线信息
+    qQSCustomProtocolChatMessageTypeSpecial = 9005, //!<推荐房源
+    qQSCustomProtocolChatMessageTypeSystem  = 9006, //!<系统消息
+    
+}QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE;
+
+///聊天发送消息时的发送类型：单对单聊天、群聊
+typedef enum
+{
+    
+    qQSCustomProtocolChatSendTypePTP = 8000,//!<单对单聊天
+    qQSCustomProtocolChatSendTypePTG = 8001,//!<群聊
+    
+}QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE;
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *

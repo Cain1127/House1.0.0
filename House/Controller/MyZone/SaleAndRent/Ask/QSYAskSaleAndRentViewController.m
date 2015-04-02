@@ -7,7 +7,8 @@
 //
 
 #import "QSYAskSaleAndRentViewController.h"
-#import "QSFilterViewController.h"
+#import "QSYAskSecondHandHouseViewController.h"
+#import "QSYAskRentHouseViewController.h"
 
 #import "QSYAskRentAndBuyTableViewCell.h"
 
@@ -24,6 +25,7 @@
 @interface QSYAskSaleAndRentViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) UIView *noRecordsRootView;                     //!<无记录底view
+@property (nonatomic,strong) UIButton *addButton;                           //!<导航栏添加按钮
 @property (nonatomic,strong) UIView *actionButtonRootView;                  //!<功能按钮的底view
 @property (nonatomic,strong) UITableView *listView;                         //!<列表
 @property (nonatomic,retain) QSYAskRentAndBuyReturnData *dataSourceModel;   //!<数据源
@@ -44,13 +46,14 @@
     ///添加按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeAdd];
     
-    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.addButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///弹出求租求购咨询页面
         [self popAskRentAndSecondHandHouseView];
         
     }];
-    [self setNavigationBarRightView:addButton];
+    self.addButton.hidden = YES;
+    [self setNavigationBarRightView:self.addButton];
 
 }
 
@@ -108,7 +111,16 @@
     UIButton *askSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsLabel.frame.origin.y + tipsLabel.frame.size.height + 15.0f, (SIZE_DEFAULT_MAX_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入求购过滤设置页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeMyZoneAskSecondHouse];
+        QSYAskSecondHandHouseViewController *filterVC = [[QSYAskSecondHandHouseViewController alloc] initWithModel:nil andReleaseStatus:bBuyhouseReleaseStatusTypeNew andCallBack:^(BOOL isRelease) {
+            
+            if (isRelease) {
+                
+                ///列表刷新
+                [self.listView.header beginRefreshing];
+                
+            }
+            
+        }];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -119,7 +131,15 @@
     UIButton *askRentButton = [UIButton createBlockButtonWithFrame:CGRectMake(askSaleButton.frame.origin.x + askSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, askSaleButton.frame.origin.y, askSaleButton.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入求租过滤设置页面
-        QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeMyZoneAskRentHouse];
+        QSYAskRentHouseViewController *filterVC = [[QSYAskRentHouseViewController alloc] initWithModel:nil andReleaseStatus:rRenthouseReleaseStatusTypeNew andCallBack:^(BOOL isRelease) {
+            
+            if (isRelease) {
+                
+                
+                
+            }
+            
+        }];
         [self.navigationController pushViewController:filterVC animated:YES];
         
     }];
@@ -233,19 +253,27 @@
                 ///刷新数据
                 [self.listView reloadData];
                 
+                ///显示导航栏按钮
+                self.addButton.hidden = NO;
+                
                 ///结束刷新
                 [self.listView.header endRefreshing];
                 
                 ///隐藏无记录页面
                 self.noRecordsRootView.hidden = YES;
+                [self.view sendSubviewToBack:self.noRecordsRootView];
                 
             } else {
             
                 ///结束刷新
                 [self.listView.header endRefreshing];
                 
+                ///隐藏导航栏按钮
+                self.addButton.hidden = YES;
+                
                 ///显示无记录页面
                 self.noRecordsRootView.hidden = NO;
+                [self.view bringSubviewToFront:self.noRecordsRootView];
             
             }
             
@@ -253,9 +281,13 @@
             
             ///结束刷新
             [self.listView.header endRefreshing];
+            
+            ///隐藏导航栏按钮
+            self.addButton.hidden = NO;
         
             ///显示无记录页面
             self.noRecordsRootView.hidden = NO;
+            [self.view bringSubviewToFront:self.noRecordsRootView];
         
         }
         
@@ -317,9 +349,6 @@
                 [self.listView.header endRefreshing];
                 [self.listView.footer endRefreshing];
                 
-                ///显示无记录页面
-                self.noRecordsRootView.hidden = YES;
-                
             }
             
         } else {
@@ -327,9 +356,6 @@
             ///结束刷新
             [self.listView.header endRefreshing];
             [self.listView.footer endRefreshing];
-            
-            ///显示无记录页面
-            self.noRecordsRootView.hidden = YES;
             
         }
         
@@ -353,7 +379,16 @@
         ///求租
         if (aAskRentAndSecondHouseTipsActionTypeRent == actionType) {
             
-            QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeMyZoneAskRentHouse];
+            ///进入求租过滤设置页面
+            QSYAskRentHouseViewController *filterVC = [[QSYAskRentHouseViewController alloc] initWithModel:nil andReleaseStatus:rRenthouseReleaseStatusTypeNew andCallBack:^(BOOL isRelease) {
+                
+                if (isRelease) {
+                    
+                    
+                    
+                }
+                
+            }];
             [self.navigationController pushViewController:filterVC animated:YES];
             
         }
@@ -361,7 +396,17 @@
         ///求购
         if (aAskRentAndSecondHouseTipsActionTypeBuy == actionType) {
             
-            QSFilterViewController *filterVC = [[QSFilterViewController alloc] initWithFilterType:fFilterSettingVCTypeMyZoneAskSecondHouse];
+            ///进入求购过滤设置页面
+            QSYAskSecondHandHouseViewController *filterVC = [[QSYAskSecondHandHouseViewController alloc] initWithModel:nil andReleaseStatus:bBuyhouseReleaseStatusTypeNew andCallBack:^(BOOL isRelease) {
+                
+                if (isRelease) {
+                    
+                    ///列表刷新
+                    [self.listView.header beginRefreshing];
+                    
+                }
+                
+            }];
             [self.navigationController pushViewController:filterVC animated:YES];
             
         }

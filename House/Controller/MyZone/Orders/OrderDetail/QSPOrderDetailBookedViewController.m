@@ -150,23 +150,47 @@
     self.titleTipLabel = [[QSPOrderDetailTitleLabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44) withTitle:titleTip];
     [self.contentBgView addSubview:self.titleTipLabel];
     
-    //底部按钮
-    QSPOrderBottomButtonView *changeOrderButtonView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
-        
-        NSLog(@"changeOrderButton");
-        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
-        [bookTimeVc setVcType:bBookTypeViewControllerChange];
-        if (self.orderDetailData) {
-            
+    
+    //!<修改订单按钮View
+    self.changeOrderButtonView = [[QSPOrderDetailChangeOrderButtonView alloc] initAtTopLeft:CGPointMake(0.0f, SIZE_DEVICE_HEIGHT - (2*CONTENT_TOP_BOTTOM_OFFSETY+44.0f)) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeOne:
+                NSLog(@"QSPOrderDetailChangeOrderButtonView:修改订单");
+                break;
+            default:
+                break;
         }
-        //        [bookTimeVc setHouseInfo:<#(QSWSecondHouseInfoDataModel *)#>];
-        [self.navigationController pushViewController:bookTimeVc animated:YES];
         
     }];
-    [changeOrderButtonView setFrame:CGRectMake(changeOrderButtonView.frame.origin.x, SIZE_DEVICE_HEIGHT -changeOrderButtonView.frame.size.height, changeOrderButtonView.frame.size.width, changeOrderButtonView.frame.size.height)];
-    [self.contentBgView addSubview:changeOrderButtonView];
+    [self.contentBgView addSubview:self.changeOrderButtonView];
     
-    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(_titleTipLabel.frame.origin.x, _titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, changeOrderButtonView.frame.origin.y-(_titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height))];
+    //!<房源非常满意，我要成交按钮View
+    self.confirmOrderButtonView = [[QSPOrderDetailConfirmOrderButtonView alloc] initAtTopLeft:CGPointMake(0.0f, SIZE_DEVICE_HEIGHT - (2*CONTENT_TOP_BOTTOM_OFFSETY+44.0f)) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeOne:
+                NSLog(@"QSPOrderDetailConfirmOrderButtonView:房源非常满意，我要成交按钮");
+                break;
+            default:
+                break;
+        }
+        
+    }];
+    [self.contentBgView addSubview:self.confirmOrderButtonView];
+    
+    //!<提交出价按钮View
+    self.submitPriceButtonView = [[QSPOrderDetailSubmitPriceButtonView alloc] initAtTopLeft:CGPointMake(0.0f, SIZE_DEVICE_HEIGHT - (2*CONTENT_TOP_BOTTOM_OFFSETY+44.0f)) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeOne:
+                NSLog(@"QSPOrderDetailSubmitPriceButtonView:提交出价按钮");
+                break;
+            default:
+                break;
+        }
+        
+    }];
+    [self.contentBgView addSubview:self.submitPriceButtonView];
+    
+    QSScrollView *scrollView = [[QSScrollView alloc] initWithFrame:CGRectMake(_titleTipLabel.frame.origin.x, _titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height, SIZE_DEVICE_WIDTH, self.changeOrderButtonView.frame.origin.y-(_titleTipLabel.frame.origin.y+_titleTipLabel.frame.size.height))];
     [self.contentBgView addSubview:scrollView];
     
     ///看房时间
@@ -241,14 +265,90 @@
     ///将我的出价View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_myPriceView];
     
+//    QSPOrderDetailInputMyPriceView *inputMyPriceView;       //!<输入我的出价View
+    self.inputMyPriceView = [[QSPOrderDetailInputMyPriceView alloc] initAtTopLeft:CGPointMake(0.0f, _myPriceView.frame.origin.y+_myPriceView.frame.size.height)];
+    [scrollView addSubview:self.inputMyPriceView];
+    ///将我的出价View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_inputMyPriceView];
+    
     ///和对方议价记录View
-    self.bargainingPriceHistoryView = [[QSPOrderDetailBargainingPriceHistoryView alloc] initAtTopLeft:CGPointMake(0.0f, self.myPriceView.frame.origin.y+self.myPriceView.frame.size.height) withOrderData:self.orderDetailData];
+    self.bargainingPriceHistoryView = [[QSPOrderDetailBargainingPriceHistoryView alloc] initAtTopLeft:CGPointMake(0.0f, self.inputMyPriceView.frame.origin.y+self.inputMyPriceView.frame.size.height) withOrderData:self.orderDetailData];
     [scrollView addSubview:self.bargainingPriceHistoryView];
     ///将和对方议价记录View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_bargainingPriceHistoryView];
     
+    //!<备注:拒绝还价将视为取消订单View
+    self.remarkRejectPriceView = [[QSPOrderDetailRemarkRejectPriceView alloc] initAtTopLeft:CGPointMake(0.0f, self.bargainingPriceHistoryView.frame.origin.y+self.bargainingPriceHistoryView.frame.size.height) withRemarkTip:@"备注：拒绝还价将视为取消订单"];
+    [scrollView addSubview:self.remarkRejectPriceView];
+    ///将备注信息View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_remarkRejectPriceView];
+    [self.bargainingPriceHistoryView addAfterView:&_remarkRejectPriceView];
     
-    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.bargainingPriceHistoryView.frame.origin.y+self.bargainingPriceHistoryView.frame.size.height+20)];
+    //!<预约结束评价提示View
+    self.commentNoteTipsView = [[QSPOrderDetailCommentNoteTipsView alloc] initAtTopLeft:CGPointMake(0.0f, self.remarkRejectPriceView.frame.origin.y+self.remarkRejectPriceView.frame.size.height)];
+    [scrollView addSubview:self.commentNoteTipsView];
+    ///将预约结束评价View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_commentNoteTipsView];
+    [self.bargainingPriceHistoryView addAfterView:&_commentNoteTipsView];
+    
+    //!<我要投诉和评价房源按钮View
+    self.complaintAndCommentButtonView = [[QSPOrderDetailComplaintAndCommentButtonView alloc] initAtTopLeft:CGPointMake(0.0f, self.commentNoteTipsView.frame.origin.y+self.commentNoteTipsView.frame.size.height) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeLeft:
+                NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要评价");
+                break;
+            case bBottomButtonTypeRight:
+                NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:评价房源");
+                break;
+            default:
+                break;
+        }
+        
+    }];
+    [scrollView addSubview:self.complaintAndCommentButtonView];
+    ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_complaintAndCommentButtonView];
+    [self.bargainingPriceHistoryView addAfterView:&_complaintAndCommentButtonView];
+    
+    //!<再次预约和我要议价按钮View
+    self.appointAgainAndPriceAgainButtonView = [[QSPOrderDetailAppointAgainAndPriceAgainButtonView alloc] initAtTopLeft:CGPointMake(0.0f, self.complaintAndCommentButtonView.frame.origin.y+self.complaintAndCommentButtonView.frame.size.height) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeLeft:
+                NSLog(@"QSPOrderDetailAppointAgainAndPriceAgainButtonView:再次预约");
+                break;
+            case bBottomButtonTypeRight:
+                NSLog(@"QSPOrderDetailAppointAgainAndPriceAgainButtonView:我要议价");
+                break;
+            default:
+                break;
+        }
+        
+    }];
+    [scrollView addSubview:self.appointAgainAndPriceAgainButtonView];
+    ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_appointAgainAndPriceAgainButtonView];
+    [self.bargainingPriceHistoryView addAfterView:&_appointAgainAndPriceAgainButtonView];
+    
+    //!<再次预约和拒绝还价按钮View
+    self.appointAgainAndRejectPriceButtonView = [[QSPOrderDetailAppointAgainAndRejectPriceButtonView alloc] initAtTopLeft:CGPointMake(0.0f, self.appointAgainAndPriceAgainButtonView.frame.origin.y+self.appointAgainAndPriceAgainButtonView.frame.size.height) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        switch (buttonType) {
+            case bBottomButtonTypeLeft:
+                NSLog(@"QSPOrderDetailAppointAgainAndRejectPriceButtonView:再次预约");
+                break;
+            case bBottomButtonTypeRight:
+                NSLog(@"QSPOrderDetailAppointAgainAndRejectPriceButtonView:拒绝还价");
+                break;
+            default:
+                break;
+        }
+        
+    }];
+    [scrollView addSubview:self.appointAgainAndRejectPriceButtonView];
+    ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+    [self.showingsTimeView addAfterView:&_appointAgainAndRejectPriceButtonView];
+    [self.bargainingPriceHistoryView addAfterView:&_appointAgainAndRejectPriceButtonView];
+    
+    [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, self.appointAgainAndRejectPriceButtonView.frame.origin.y+self.appointAgainAndRejectPriceButtonView.frame.size.height+20)];
     
 }
 
@@ -261,6 +361,60 @@
 //        [self getDetailData];
     
 //    }];
+    
+    ///注册键盘弹出监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+#pragma mark - 键盘弹出和回收
+- (void)keyboarShowAction:(NSNotification *)sender
+{
+    
+    //上移：需要知道键盘高度和移动时间
+    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    
+    CGRect keyboardRect = [self.view convertRect:keyBoardRect fromView:nil];
+    CGRect textFieldRect = [self.view convertRect:self.inputMyPriceView.frame fromView:self.inputMyPriceView.superview];
+    
+    NSLog(@"keyboarShowAction: %f,  %f  %f      : %f",textFieldRect.origin.y+textFieldRect.size.height,keyBoardRect.origin.y,keyBoardRect.size.height , (textFieldRect.origin.y+textFieldRect.size.height - keyBoardRect.origin.y));
+    
+    if (textFieldRect.origin.y+textFieldRect.size.height> keyboardRect.origin.y) {
+        
+        [UIView animateWithDuration:anTime animations:^{
+            
+            [self.view setFrame:CGRectMake(self.view.frame.origin.x,  -(textFieldRect.origin.y+textFieldRect.size.height  - keyboardRect.origin.y), self.view.frame.size.width, self.view.frame.size.height)];
+            
+        }];
+        
+    }
+    
+}
+
+- (void)keyboarHideAction:(NSNotification *)sender
+{
+    
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    
+    [UIView animateWithDuration:anTime animations:^{
+        
+        [self.view setFrame:CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        
+    }];
     
 }
 
