@@ -84,8 +84,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
 @property (nonatomic,copy) NSString *title;                                 //!<小区名称
 @property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数或价钱
-//@property (nonatomic,assign) CGFloat geolatitude;                         //!<地理编码返回的经度
-//@property (nonatomic,assign) CGFloat geolongtude;                         //!<地理编码返回的纬度
 @property (nonatomic,assign) CGFloat latitude;                              //!<网络请求的经度
 @property (nonatomic,assign) CGFloat longtude;                              //!<网络请求的纬度
 @property (nonatomic,copy) NSString *coordinate_x;                          //!<网络搜索小区返回的经度

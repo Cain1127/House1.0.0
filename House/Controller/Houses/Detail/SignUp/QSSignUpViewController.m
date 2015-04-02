@@ -368,41 +368,7 @@
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                 
-//                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
-//                    
-//                    switch (backType) {
-//                        case oOrderSubmitResultBackTypeAuto:
-//                            
-//                            NSLog(@"auto back");
-//                            [self.navigationController popViewControllerAnimated:NO];
-//                            
-//                            break;
-//                        case oOrderSubmitResultBackTypeToDetail:
-//                            
-//                            NSLog(@"back 查看预约详情");
-//                        {
-//                            QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-//                            [bookedVc setOrderID:headerModel.msg];
-//                            [bookedVc setTurnBackDistanceStep:2];
-//                            [self.navigationController pushViewController:bookedVc animated:NO];
-//                            
-//                        }
-//                            break;
-//                        case oOrderSubmitResultBackTypeToMoreHouse:
-//                            
-//                            NSLog(@"back 查看推荐房源");
-//                            
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    
-//                    
-//                }];
-                
-//                [self presentViewController:srVc animated:YES completion:^{
-//                    
-//                }];
+            [self.navigationController popViewControllerAnimated:YES];                
                 
             })
             

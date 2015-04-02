@@ -39,7 +39,10 @@
                                                     @"attach_thumb",
                                                     @"favorite_count",
                                                     @"attention_count",
-                                                    @"status"]];
+                                                    @"status",
+                                                    @"coordinate_x",
+                                                    @"coordinate_y"
+                                                    ]];
     
     return shared_mapping;
     

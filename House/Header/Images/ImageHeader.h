@@ -292,6 +292,27 @@
 #define IMAGE_COMPARISON_INDICADE_NORMAL @"comparison_recommend_house_indecator_normal"
 #define IMAGE_COMPARISON_INDICADE_HIGHLIGHTED @"comparison_recommend_house_indecator_highlighted"
 
+///周边信息图片
+///公交图片
+#define IMAGE_HOUSES_DETAIL_BUS_NORMAL @"houses_detail_bus_normal"
+#define IMAGE_HOUSES_DETAIL_BUS_HIGHLIGHTED @"houses_detail_bus_highlighted"
+
+///地铁图片
+#define IMAGE_HOUSES_DETAIL_METRO_NORMAL @"houses_detail_metro_normal"
+#define IMAGE_HOUSES_DETAIL_METRO_HIGHLIGHTED @"houses_detail_metro_highlighted"
+
+///学校图片
+#define IMAGE_HOUSES_DETAIL_SCHOOL_NORMAL @"houses_detail_school_normal"
+#define IMAGE_HOUSES_DETAIL_SCHOOL_HIGHLIGHTED @"houses_detail_school_highlighted"
+
+///医院图片
+#define IMAGE_HOUSES_DETAIL_HOSPITAL_NORMAL @"houses_detail_hospital_normal"
+#define IMAGE_HOUSES_DETAIL_HOSPITAL_HIGHLIGHTED @"houses_detail_hospital_highlighted"
+
+///餐饮图片
+#define IMAGE_HOUSES_DETAIL_CATERING_NORMAL @"houses_detail_catering_normal"
+#define IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED @"houses_detail_catering_highlighted"
+
 #pragma mark - 发现模块相关图片资源
 
 /**

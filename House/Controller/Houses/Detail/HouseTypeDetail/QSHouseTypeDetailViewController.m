@@ -75,11 +75,10 @@
     [self.view addSubview:_rootView];
     
     ///添加刷新
-    //[_rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getHouseTypeDetailInfo)];
-    [self getHouseTypeDetailInfo];
+    [_rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getHouseTypeDetailInfo)];
     
     ///一开始就头部刷新
-    //[_rootView.header beginRefreshing];
+    [_rootView.header beginRefreshing];
 
 }
 
@@ -221,7 +220,6 @@
             ///头图片
             QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, view.frame.size.height-104.0f)];
             [headerImageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
-            //headerImageView.backgroundColor=[UIColor redColor];
             [view addSubview:headerImageView];
         }
         
@@ -266,7 +264,7 @@
         NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(priceLabel,unitPriceLabel);
         
         ///约束
-        NSString *___hVFL_all = @"H:|-(>=2)-[priceLabel(>=50)]-2-[unitPriceLabel(20)]-(>=20)-|";
+        NSString *___hVFL_all = @"H:|-(>=2)-[priceLabel(>=50)]-2-[unitPriceLabel(20)]-(>=25)-|";
         NSString *___vVFL_priceLabel = @"V:|-0-[priceLabel(44)]";
         NSString *___vVFL_unitPriceLabel = @"V:|-14-[unitPriceLabel(20)]";
         
@@ -303,7 +301,7 @@
         NSDictionary *___viewsVFL1 = NSDictionaryOfVariableBindings(areaLabel,unitPriceLabel1);
         
         ///约束
-        NSString *___hVFL_all1 = @"H:|-(>=2)-[areaLabel(>=50)]-2-[unitPriceLabel1(20)]-(>=20)-|";
+        NSString *___hVFL_all1 = @"H:|-(>=2)-[areaLabel(>=50)]-2-[unitPriceLabel1(20)]-(>=25)-|";
         NSString *___vVFL_areaLabel = @"V:|-0-[areaLabel(44)]";
         NSString *___vVFL_unitPriceLabel1 = @"V:|-14-[unitPriceLabel1(20)]";
         
@@ -340,11 +338,11 @@
             
             ///创建详情UI
             [self createHouseTypeDetailInfoViewUI:tempModel.houseTypeDetailModel];
+            [_rootView.header endRefreshing];
             
             ///1秒后停止动画，并显示界面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
-//                [_rootView.header endRefreshing];
                 [self showInfoUI:YES];
                 
                 

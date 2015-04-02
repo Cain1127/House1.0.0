@@ -10,6 +10,7 @@
 #import "QSActivityDetailViewController.h"
 #import "QSHouseTypeDetailViewController.h"
 #import "QSSignUpViewController.h"
+#import "QSNearInfoViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -74,6 +75,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic, copy) NSString *phoneNumber;                  //!<电话号码
 @property (nonatomic,retain) NSArray *activityArray;                //!<活动列表
 
+@property (nonatomic,copy) NSMutableString *allAddress;             //!<拼装地址
 @end
 
 @implementation QSNewHouseDetailViewController
@@ -376,11 +378,17 @@ static char LeftStarKey;            //!<左侧星级
     [self createFeaturesSubviews:featuresRootView andDataSource:self.detailInfo.loupan.features];
     [infoRootView addSubview:featuresRootView];
     
+    QSBaseHouseInfoDataModel *coordinateModel=[[QSBaseHouseInfoDataModel alloc] init];
+    coordinateModel=self.detailInfo.loupan;
+    NSString *coordinate_x=coordinateModel.coordinate_x;
+    NSString *coordinate_y=coordinateModel.coordinate_y;
     ///地址信息
     QSBlockView *addressRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(leftGap, featuresRootView.frame.origin.y + featuresRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
         NSLog(@"点击定位");
+        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        [self.navigationController pushViewController:nearInfoVC animated:YES];
         
     }];
     
@@ -1223,31 +1231,31 @@ static char LeftStarKey;            //!<左侧星级
 - (void)createAddressSubviewsUI:(UIView *)view andDistriceID:(NSString *)districtID andStreetID:(NSString *)streetID andDetailAddress:(NSString *)address andCommunityInfo:(NSString *)comunity
 {
     
-    NSMutableString *allAddress = [NSMutableString stringWithCapacity:1];
+    _allAddress = [NSMutableString stringWithCapacity:1];
     
     ///如果有区，拼装区
     if (districtID && [districtID length] > 0) {
         
-        [allAddress appendString:[QSCoreDataManager getDistrictValWithDistrictKey:districtID]];
+        [_allAddress appendString:[QSCoreDataManager getDistrictValWithDistrictKey:districtID]];
         
     }
     
     ///如果有街道，则拼装街道
     if (streetID && [streetID length] > 0) {
         
-        [allAddress appendString:[QSCoreDataManager getStreetValWithStreetKey:streetID]];
+        [_allAddress appendString:[QSCoreDataManager getStreetValWithStreetKey:streetID]];
         
     }
     
     ///拼装小区信息
-    [allAddress appendString:([comunity length] > 0 ? comunity : @"")];
+    [_allAddress appendString:([comunity length] > 0 ? comunity : @"")];
     
     ///拼装详情地址
-    [allAddress appendString:[NSString stringWithFormat:@" %@",([address length] > 0 ? address : @"")]];
+    [_allAddress appendString:[NSString stringWithFormat:@" %@",([address length] > 0 ? address : @"")]];
     
     ///创建UI
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width - 100.0f, view.frame.size.height)];
-    titleLabel.text = allAddress;
+    titleLabel.text = _allAddress;
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:titleLabel];
