@@ -257,6 +257,67 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-04-02 10:04:49
+ *
+ *  @brief  返回出租房的限制条件选择项
+ *
+ *  @return 返回出租房的限制条件选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseLimitedTypes
+{
+
+    NSMutableArray *houseTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseTypeTempArray = @[@"男女不限",@"欢男生",@"限女生"];
+    NSArray *houseTypeKeyArray = @[@"990601",@"990602",@"990603"];
+    for (int i = 0; i < [houseTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseTypeKeyArray[i];
+        tempModel.val = houseTypeTempArray[i];
+        [houseTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseTypeList];
+
+}
+
++ (NSString *)getRentHouseLimitedTypeWithKey:(NSString *)limitedKey
+{
+
+    int limitedType = [limitedKey intValue];
+    switch (limitedType) {
+            ///男女不限
+        case rRentHouseLimitedTypeUnLimited:
+            
+            return @"男女不限";
+            
+            break;
+            
+            ///男女不限
+        case rRentHouseLimitedTypeMale:
+            
+            return @"欢男生";
+            
+            break;
+            
+            ///男女不限
+        case rRentHouseLimitedTypeFemale:
+            
+            return @"限女生";
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
+/**
  *  @author yangshengmeng, 15-02-02 10:02:46
  *
  *  @brief  获取房子的装修类型

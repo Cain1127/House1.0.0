@@ -480,7 +480,7 @@ static char unExlusiveKey;  //!<非独家按钮关联
             
             [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
                 
-                ///如果之前没有生成过求租求购页面，则进入求租求购页面
+                ///如果之前没有生成过物业管理页面，则生成物业管理页面
                 
                 
             }];

@@ -108,6 +108,18 @@
 + (NSString *)getHouseRentTypeWithKey:(NSString *)payKey;
 
 /**
+ *  @author yangshengmeng, 15-04-02 10:04:49
+ *
+ *  @brief  返回出租房的限制条件选择项
+ *
+ *  @return 返回出租房的限制条件选择项
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getRentHouseLimitedTypes;
++ (NSString *)getRentHouseLimitedTypeWithKey:(NSString *)limitedKey;
+
+/**
  *  @author yangshengmeng, 15-02-02 10:02:46
  *
  *  @brief  获取房子的装修类型

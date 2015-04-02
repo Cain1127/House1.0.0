@@ -456,6 +456,16 @@ typedef enum
 
 }HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
+///出租房的限制类型
+typedef enum
+{
+
+    rRentHouseLimitedTypeUnLimited = 990601,//!<男女不限
+    rRentHouseLimitedTypeMale,            //!<艰男生
+    rRentHouseLimitedTypeFemale,           //!<限女生
+
+}RENT_HOUSE_LIMITED_TYPE;
+
 ///房子的状态类型
 typedef enum
 {

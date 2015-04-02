@@ -178,7 +178,7 @@ typedef enum
         {
             
             ///获取限制的数据
-            NSArray *intentArray = [QSCoreDataManager getHouseRentPayType];
+            NSArray *intentArray = [QSCoreDataManager getRentHouseLimitedTypes];
             
             ///显示限制选择窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.rentHouseReleaseModel.limitedKey length] > 0 ? self.rentHouseReleaseModel.limitedKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
