@@ -390,6 +390,7 @@
 		18D081B01ACD51EC004FA20F /* QSYReleaseSaleHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D0819A1ACD51EC004FA20F /* QSYReleaseSaleHouseViewController.m */; };
 		18D081BB1ACD884E004FA20F /* QSYReleaseRentTipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081B81ACD884E004FA20F /* QSYReleaseRentTipsViewController.m */; };
 		18D081BC1ACD884E004FA20F /* QSYReleaseSaleTipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081BA1ACD884E004FA20F /* QSYReleaseSaleTipsViewController.m */; };
+		18D081C01ACD891D004FA20F /* QSYOwnerPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081BF1ACD891D004FA20F /* QSYOwnerPropertyViewController.m */; };
 		18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */; };
 		18DABA8A1AAD3C1F00647E7C /* QSPhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA891AAD3C1F00647E7C /* QSPhotoDataModel.m */; };
 		18DABA951AAD405D00647E7C /* QSUserBaseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA941AAD405D00647E7C /* QSUserBaseInfoDataModel.m */; };
@@ -1298,6 +1299,8 @@
 		18D081B81ACD884E004FA20F /* QSYReleaseRentTipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYReleaseRentTipsViewController.m; sourceTree = "<group>"; };
 		18D081B91ACD884E004FA20F /* QSYReleaseSaleTipsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYReleaseSaleTipsViewController.h; sourceTree = "<group>"; };
 		18D081BA1ACD884E004FA20F /* QSYReleaseSaleTipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYReleaseSaleTipsViewController.m; sourceTree = "<group>"; };
+		18D081BE1ACD891D004FA20F /* QSYOwnerPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYOwnerPropertyViewController.h; path = Property/QSYOwnerPropertyViewController.h; sourceTree = "<group>"; };
+		18D081BF1ACD891D004FA20F /* QSYOwnerPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYOwnerPropertyViewController.m; path = Property/QSYOwnerPropertyViewController.m; sourceTree = "<group>"; };
 		18D79CC91A7B834700DAEE5C /* QSCollectionWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionWaterFlowLayout.h; path = FlowLayout/QSCollectionWaterFlowLayout.h; sourceTree = "<group>"; };
 		18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionWaterFlowLayout.m; path = FlowLayout/QSCollectionWaterFlowLayout.m; sourceTree = "<group>"; };
 		18DABA881AAD3C1F00647E7C /* QSPhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPhotoDataModel.h; path = Photo/QSPhotoDataModel.h; sourceTree = "<group>"; };
@@ -2546,6 +2549,7 @@
 		189300AE1A690C880081D0AA /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				18D081BD1ACD88FE004FA20F /* Property */,
 				18D0816A1ACD51EC004FA20F /* SaleAndRent */,
 				475A4CF71AC3E65A009881CF /* Orders */,
 				184366B41ABA615900A81374 /* Message */,
@@ -4237,6 +4241,15 @@
 			path = Tips;
 			sourceTree = "<group>";
 		};
+		18D081BD1ACD88FE004FA20F /* Property */ = {
+			isa = PBXGroup;
+			children = (
+				18D081BE1ACD891D004FA20F /* QSYOwnerPropertyViewController.h */,
+				18D081BF1ACD891D004FA20F /* QSYOwnerPropertyViewController.m */,
+			);
+			name = Property;
+			sourceTree = "<group>";
+		};
 		18D79CC81A7B82E800DAEE5C /* FlowLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -5856,6 +5869,7 @@
 				18D081AD1ACD51EC004FA20F /* QSYReleaseHouseDateInfoViewController.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				188728F51AC1B0F800C88AA1 /* QSAttentionCommunityCell.m in Sources */,
+				18D081C01ACD891D004FA20F /* QSYOwnerPropertyViewController.m in Sources */,
 				181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */,
 				CE8926FE1AB127E2005D97D4 /* QSCommunityHousesDetailReturnData.m in Sources */,
 				18DFE89B1AC6F65E00C216C3 /* QSCDHistoryNewHouseAllHouseDataModel.m in Sources */,

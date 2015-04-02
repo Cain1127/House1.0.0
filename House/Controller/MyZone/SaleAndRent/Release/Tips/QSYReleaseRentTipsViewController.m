@@ -7,14 +7,48 @@
 //
 
 #import "QSYReleaseRentTipsViewController.h"
+#import "QSYOwnerPropertyViewController.h"
+#import "QSSecondHouseDetailViewController.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 
 @interface QSYReleaseRentTipsViewController ()
+
+@property (nonatomic,copy) NSString *title;     //!<标题
+@property (nonatomic,copy) NSString *detailID;  //!<发布房源的详情ID
 
 @end
 
 @implementation QSYReleaseRentTipsViewController
 
+#pragma mark - 初始化
+/**
+ *  @author         yangshengmeng, 15-04-02 22:04:41
+ *
+ *  @brief          根据发布房源的标题和id初始化一个发布提示页面
+ *
+ *  @param title    标题
+ *  @param detailID 详情id
+ *
+ *  @return         返回当前创建的发布提示页
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID
+{
+
+    if (self = [super init]) {
+        
+        self.title = title;
+        self.detailID = detailID;
+        
+    }
+    
+    return self;
+
+}
+
+#pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
     
@@ -48,6 +82,9 @@
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, messageLabel.frame.origin.y + messageLabel.frame.size.height + 25.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入详情页
+        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
+        [detailVC setTurnBackDistanceStep:7];
+        [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
     [self.view addSubview:detailButton];
@@ -56,7 +93,10 @@
     buttonStyle.title = @"管理我的物业";
     UIButton *houseListButton = [UIButton createBlockButtonWithFrame:CGRectMake(detailButton.frame.origin.x + detailButton.frame.size.width + 8.0f, detailButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///进入详情页
+        ///进入物业管理页
+        QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
+        [propertyVC setTurnBackDistanceStep:7];
+        [self.navigationController pushViewController:propertyVC animated:YES];
         
     }];
     [self.view addSubview:houseListButton];

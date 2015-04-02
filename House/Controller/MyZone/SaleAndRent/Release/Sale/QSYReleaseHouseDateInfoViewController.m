@@ -23,6 +23,9 @@
 
 #import "QSReleaseSaleHouseDataModel.h"
 #import "QSBaseConfigurationDataModel.h"
+#import "QSYSendVerticalCodeReturnData.h"
+
+#import "QSCoreDataManager+User.h"
 
 #import <objc/runtime.h>
 
@@ -479,9 +482,19 @@ static char unExlusiveKey;  //!<非独家按钮关联
         if (rRequestResultTypeSuccess == resultStatus) {
             
             [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+                ///刷新用户信息:由于发布物业后，房客升级为业主
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [QSCoreDataManager reloadUserInfoFromServer];
+                    
+                });
+                
+                ///获取返回ID
+                QSYSendVerticalCodeReturnData *tempModel = resultData;
                
                 ///提示发布成功
-                QSYReleaseSaleTipsViewController *tipsVC = [[QSYReleaseSaleTipsViewController alloc] init];
+                QSYReleaseSaleTipsViewController *tipsVC = [[QSYReleaseSaleTipsViewController alloc] initWithTitle:self.saleHouseReleaseModel.title andDetailID:tempModel.msg];
                 [self.navigationController pushViewController:tipsVC animated:YES];
                 
             }];

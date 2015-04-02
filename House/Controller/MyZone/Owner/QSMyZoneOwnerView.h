@@ -54,4 +54,15 @@ typedef void(^BLOCK_OWNER_ZONE_CALLBACK)(OWNER_ZONE_ACTION_TYPE actionType,id pa
  */
 - (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType andCallBack:(BLOCK_OWNER_ZONE_CALLBACK)callBack;
 
+/**
+ *  @author         yangshengmeng, 15-04-02 23:04:15
+ *
+ *  @brief          根据新的用户类型，重构业主功能UI
+ *
+ *  @param userType 用户类型
+ *
+ *  @since          1.0.0
+ */
+- (void)rebuildOwnerFunctionUI:(USER_COUNT_TYPE)userType;
+
 @end

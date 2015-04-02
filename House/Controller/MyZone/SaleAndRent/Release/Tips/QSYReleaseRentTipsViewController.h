@@ -10,4 +10,18 @@
 
 @interface QSYReleaseRentTipsViewController : QSTurnBackViewController
 
+/**
+ *  @author         yangshengmeng, 15-04-02 22:04:41
+ *
+ *  @brief          根据发布房源的标题和id初始化一个发布提示页面
+ *
+ *  @param title    标题
+ *  @param detailID 详情id
+ *
+ *  @return         返回当前创建的发布提示页
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID;
+
 @end
