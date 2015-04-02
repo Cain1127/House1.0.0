@@ -764,23 +764,22 @@ typedef enum
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布"];
 
     NSDictionary *params = @{@"type" : @"1",
-                            @"rent_property" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_type_key, @""),
-                            @"cityid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.city_key, @""),
-                            @"areaid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.district_key, @""),
-                            @"street" : APPLICATION_NSSTRING_SETTING(self.releaseModel.street_key, @""),
-                            @"price" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_price_key, @""),
-                            @"house_shi" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_type_key, @""),
-                            @"property_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.trade_type_key, @""),
-                            @"floor_which" : APPLICATION_NSSTRING_SETTING(self.releaseModel.floor_key, @""),
-                            @"house_face" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_face_key, @""),
-                            @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.decoration_key, @""),
-                            @"installation" : @"",
-                            @"features" : [self.releaseModel getFeaturesPostParams],
-                            @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @""),
-                             @"rentPurchaseInfo" : @""};
+            @"rent_property" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_type_key, @""),
+            @"cityid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.city_key, @""),
+                @"areaid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.district_key, @""),
+                @"street" : APPLICATION_NSSTRING_SETTING(self.releaseModel.street_key, @""),
+                    @"price" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_price_key, @""),
+                @"house_shi" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_type_key, @""),
+            @"property_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.trade_type_key, @""),
+                    @"floor_which" : APPLICATION_NSSTRING_SETTING(self.releaseModel.floor_key, @""),
+                @"house_face" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_face_key, @""),
+        @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.decoration_key, @""),
+            @"installation" : @"",
+                    @"features" : [self.releaseModel getFeaturesPostParams],
+                @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @"")};
     
     ///发布
-    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:@{@"rentPurchaseInfo" : params} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///发布成功
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -796,7 +795,7 @@ typedef enum
                         
                     }
                     
-                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    [self.navigationController popViewControllerAnimated:YES];
                     
                 }
                 
