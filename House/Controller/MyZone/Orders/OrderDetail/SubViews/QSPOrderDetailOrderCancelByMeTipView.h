@@ -10,4 +10,7 @@
 
 @interface QSPOrderDetailOrderCancelByMeTipView : UIView
 
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withRemarkTip:(NSString*)tipStr;
+- (instancetype)initWithFrame:(CGRect)frame withRemarkTip:(NSString*)tipStr;
+
 @end

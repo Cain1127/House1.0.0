@@ -10,4 +10,15 @@
 
 @interface QSPOrderDetailTransactionPriceView : UIView
 
+/**
+ *  创建最终成交价控件
+ *
+ *  @param topLeftPoint 相对左上角坐标
+ *
+ *  @return 控件
+ */
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
+
+- (instancetype)initWithFrame:(CGRect)frame;
+
 @end
