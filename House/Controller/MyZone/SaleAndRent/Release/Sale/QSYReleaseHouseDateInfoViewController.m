@@ -472,7 +472,7 @@ static char unExlusiveKey;  //!<非独家按钮关联
     NSDictionary *params = [self.saleHouseReleaseModel createReleaseSaleHouseParams];
     
     ///发布房源
-    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneReleaseSecondHandHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///发布成功
         if (rRequestResultTypeSuccess == resultStatus) {

@@ -50,7 +50,7 @@
 }
 
 #pragma mark - 生成发布出租物业的参数
-- (NSDictionary *)createReleaseSaleHouseParams
+- (NSDictionary *)createReleaseRentHouseParams
 {
     
     ///图片参数
@@ -103,8 +103,8 @@
 @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @"")};
     
     ///返回发布出租房参数
-    return @{@"secondHouse_photo" : [NSArray arrayWithArray:photosArray],
-             @"secondHouse" : houseParams};
+    return @{@"rentHouse_photo" : [NSArray arrayWithArray:photosArray],
+             @"rentHouse" : houseParams};
     
 }
 

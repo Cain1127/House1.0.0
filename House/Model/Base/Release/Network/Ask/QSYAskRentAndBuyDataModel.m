@@ -48,7 +48,8 @@
                                                     @"attach_file",
                                                     @"attach_thumb",
                                                     @"status",
-                                                    @"payment"]];
+                                                    @"payment",
+                                                    @"used_year"]];
     
     return shared_mapping;
     

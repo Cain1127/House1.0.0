@@ -470,10 +470,10 @@ static char unExlusiveKey;  //!<非独家按钮关联
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布房源"];
     
     ///生成参数
-    NSDictionary *params = [self.rentHouseReleaseModel createReleaseSaleHouseParams];
+    NSDictionary *params = [self.rentHouseReleaseModel createReleaseRentHouseParams];
     
     ///发布房源
-    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneReleaseRentHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///发布成功
         if (rRequestResultTypeSuccess == resultStatus) {

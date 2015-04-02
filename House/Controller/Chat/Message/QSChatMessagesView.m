@@ -7,7 +7,15 @@
 //
 
 #import "QSChatMessagesView.h"
+
 #import "QSChatMessageListTableViewCell.h"
+
+#import "QSCoreDataManager+User.h"
+#import "QSSocketManager.h"
+#import "QSRequestManager.h"
+
+#import "QSYPostMessageListReturnData.h"
+#import "QSYPostMessageSimpleModel.h"
 
 #import "MJRefresh.h"
 
@@ -18,10 +26,10 @@ static char MessageListKey;//!<消息列表关联
 
 @interface QSChatMessagesView () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;                  //!<用户类型
+@property (nonatomic,assign) USER_COUNT_TYPE userType;                      //!<用户类型
 
-@property (nonatomic,assign) int systemInfoNumber;                      //!<系统消息项
-@property (nonatomic,retain) NSMutableArray *contactMessagesDataSource; //!消息数据源
+@property (nonatomic,assign) int systemInfoNumber;                          //!<系统消息项
+@property (nonatomic,retain) NSMutableArray *messageList;                   //!消息数据源
 
 @end
 
@@ -48,8 +56,8 @@ static char MessageListKey;//!<消息列表关联
         ///初始化系统消息数据
         [self initSystemInfoDataSource];
         
-        ///初始化联系人发过来的消息
-        self.contactMessagesDataSource = [[NSMutableArray alloc] init];
+        ///消息数组源
+        self.messageList = [[NSMutableArray alloc] init];
         
         ///UI搭建
         [self createInfoListUI];
@@ -109,10 +117,17 @@ static char MessageListKey;//!<消息列表关联
     
     ///添加刷新事件
     [messageList addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getMessageListHeaderData)];
-    [messageList addLegendFooterWithRefreshingTarget:self  refreshingAction:@selector(getMessageListFooterData)];
     
     ///一开始就请求数据
     [messageList.header beginRefreshing];
+    
+    ///注册新消息通知
+    [QSSocketManager registInstantMessageReceiveNotification:^(int msgNum, QSUserSimpleDataModel *userInfo) {
+        
+        ///
+        APPLICATION_LOG_INFO(@"新消息进入", @"需要编写消息提配")
+        
+    }];
 
 }
 
@@ -121,23 +136,49 @@ static char MessageListKey;//!<消息列表关联
 - (void)getMessageListHeaderData
 {
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///判断登录状态
+    if (![QSCoreDataManager isLogin]) {
         
         [self endRefreshAnimination];
+        return;
         
-    });
-
-}
-
-- (void)getMessageListFooterData
-{
+    }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self endRefreshAnimination];
-        
-    });
+    ///参数封装
+    NSDictionary *params = @{@"order" : @"",
+                             @"page_num" : @"9999",
+                             @"now_page" : @"1"};
     
+    ///请求离线消息
+    [QSRequestManager requestDataWithType:rRequestTypeChatMessageList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///获取成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///清空信息
+            [self.messageList removeAllObjects];
+            QSYPostMessageListReturnData *tempModel = resultData;
+            
+            if ([tempModel.headerData.messageList count] > 0) {
+        
+                [self.messageList addObjectsFromArray:tempModel.headerData.messageList];
+                
+            }
+            
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            ///刷新数据
+            [self reloadData];
+            
+            ///结束刷新
+            [self endRefreshAnimination];
+            
+        });
+        
+    }];
+
 }
 
 #pragma mark - 结束刷新动画
@@ -165,9 +206,38 @@ static char MessageListKey;//!<消息列表关联
 ///返回每一个消息cell内容项
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (indexPath.row < [self.messageList count]) {
+        
+        ///其他消息cell复用标签
+        static NSString *normalCellName = @"normalCell";
+        
+        ///从复用队列中获取cell
+        QSChatMessageListTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCellName];
+        
+        ///判断是否需要重新创建
+        if (nil == cellNormal) {
+            
+            cellNormal = [[QSChatMessageListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCellName andCellType:mMessageListCellTypeNormal];
+            
+            ///取消选择状态
+            cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///刷新数据
+        if ([self.messageList count] > indexPath.row) {
+            
+            [cellNormal updateMessageTipsCellUI:self.messageList[indexPath.row]];
+            
+        }
+        
+        return cellNormal;
+        
+    }
 
     ///系统消息放在第一栏
-    if (0 == indexPath.row) {
+    if ([self.messageList count] == indexPath.row) {
         
         ///复用标签
         static NSString *systemMessageCellName = @"systemCell";
@@ -185,12 +255,14 @@ static char MessageListKey;//!<消息列表关联
             
         }
         
+        ///刷新系统消息
+        
         return cellSystem;
         
     }
     
     ///判断第二栏是否是推送房源
-    if ((self.systemInfoNumber == 2) && (1 == indexPath.row)) {
+    if ((self.systemInfoNumber == 2) && ([self.messageList count] + 1 == indexPath.row)) {
         
         ///复用标签
         static NSString *recommendMessageCellName = @"recommendCell";
@@ -207,6 +279,8 @@ static char MessageListKey;//!<消息列表关联
             cellRecommend.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
+        
+        ///刷新推荐房源消息
         
         return cellRecommend;
         
@@ -237,7 +311,7 @@ static char MessageListKey;//!<消息列表关联
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return self.systemInfoNumber + [self.contactMessagesDataSource count];
+    return self.systemInfoNumber + [self.messageList count];
 
 }
 

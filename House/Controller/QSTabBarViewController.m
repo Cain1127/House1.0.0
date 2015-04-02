@@ -10,6 +10,7 @@
 #import "QSMasterViewController.h"
 
 #import "QSCoreDataManager+User.h"
+#import "QSSocketManager.h"
 
 @interface QSTabBarViewController ()
 
@@ -119,6 +120,35 @@
     [self.view addSubview:self.customTabbarView];
     
     self.selectedIndex = (self.intCurrentIndex >= 0 && self.intCurrentIndex < [self.tabbarButtonInfoArray count]) ? self.intCurrentIndex : 0;
+    
+    ///注册消息监听
+    [QSSocketManager registCurrentUnReadMessageCountNotification:^(int msgNum) {
+        
+        ///判断当前是否选择发现，不是时显示消息提醒
+        if (2 == self.selectedIndex) {
+            
+            return;
+            
+        }
+        
+        ///在发现按钮的右上角显示提示信息
+        if (msgNum > 0) {
+            
+            NSString *tipsString;
+            if (msgNum > 99) {
+                
+                tipsString = @"99+";
+                
+            } else {
+            
+                tipsString = [NSString stringWithFormat:@"%d",msgNum];
+            
+            }
+            [self.customTabbarView setUpperRightCornerTipsWithString:tipsString andIndex:2];
+            
+        }
+        
+    }];
     
 }
 

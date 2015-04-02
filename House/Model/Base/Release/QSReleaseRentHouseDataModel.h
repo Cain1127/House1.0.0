@@ -69,7 +69,7 @@
 - (NSArray *)getCurrentPickedImages;
 
 ///生成发布出售物业的参数
-- (NSDictionary *)createReleaseSaleHouseParams;
+- (NSDictionary *)createReleaseRentHouseParams;
 
 @end
 

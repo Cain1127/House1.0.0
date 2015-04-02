@@ -27,6 +27,8 @@
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
 
+#import "QSUserSimpleDataModel.h"
+
 using namespace std;
 
 ///服务端地址
@@ -38,6 +40,12 @@ using namespace std;
 
 ///当前聊天的回调
 @property (nonatomic,copy) void(^currentTalkMessageCallBack)(BOOL flag,id messageModel);
+
+///当前所有离线消息数量回调
+@property (nonatomic,copy) void(^currentUnReadMessageNumCallBack)(int msgNum);
+
+///新消息进入时的提醒回调
+@property (nonatomic,copy) void(^instantMessageNotification)(int msgNum,QSUserSimpleDataModel *userInfo);
 
 @property (nonatomic,strong) AsyncSocket *tcpSocket;//!<socket连接器
 
@@ -466,6 +474,63 @@ void int32ToByte(int32_t i,char *bytes)
     bytes[3] = (char) ((0xff000000 & i) >> 24);
     return ;
     
+}
+
+#pragma mark - 注册消息监听回调
+/**
+ *  @author yangshengmeng, 15-04-02 13:04:23
+ *
+ *  @brief  注册当前所有未读消息的回调通知
+ *
+ *  @since  1.0.0
+ */
++ (void)registCurrentUnReadMessageCountNotification:(void(^)(int msgNum))callBack
+{
+
+    QSSocketManager *manager = [self shareSocketManager];
+    if (callBack) {
+        
+        manager.currentUnReadMessageNumCallBack = callBack;
+        
+    }
+
+}
+
++ (void)offsCurrentUnReadMessageCountNotification
+{
+    
+    QSSocketManager *manager = [self shareSocketManager];
+    manager.currentUnReadMessageNumCallBack = nil;
+
+}
+
+/**
+ *  @author         yangshengmeng, 15-04-02 14:04:13
+ *
+ *  @brief          注册当前有消息进入时的回调，返回当前消息的发送人，及发送人的未读消息数量
+ *
+ *  @param callBack 当有新的消息来时，回调
+ *
+ *  @since          1.0.0
+ */
++ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,QSUserSimpleDataModel *userInfo))callBack
+{
+
+    if (callBack) {
+        
+        QSSocketManager *manager = [self shareSocketManager];
+        manager.instantMessageNotification = callBack;
+        
+    }
+
+}
+
++ (void)offsInstantMessageReceiveNotification
+{
+
+    QSSocketManager *manager = [self shareSocketManager];
+    manager.instantMessageNotification = nil;
+
 }
 
 @end

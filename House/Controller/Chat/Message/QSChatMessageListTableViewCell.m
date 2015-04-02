@@ -9,6 +9,10 @@
 #import "QSChatMessageListTableViewCell.h"
 
 #import "NSString+Calculation.h"
+#import "NSDate+Formatter.h"
+
+#import "QSYPostMessageSimpleModel.h"
+#import "QSUserSimpleDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -96,13 +100,14 @@ static char CommentInfoKey;     //!<简述信息key
     
     ///消息条数提示
     UILabel *countTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconImageView.frame.size.width - 15.0f, iconImageView.frame.origin.y - 5.0f, 20.0f, 20.0f)];
-    countTipsLabel.text = @"8";
+    countTipsLabel.text = @"0";
     countTipsLabel.textColor = [UIColor whiteColor];
     countTipsLabel.backgroundColor = [UIColor redColor];
     countTipsLabel.textAlignment = NSTextAlignmentCenter;
     countTipsLabel.layer.cornerRadius = 10.0f;
     countTipsLabel.layer.masksToBounds = YES;
     countTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+    countTipsLabel.hidden = YES;
     [self.contentView addSubview:countTipsLabel];
     objc_setAssociatedObject(self, &InfoCountTipsKey, countTipsLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -122,6 +127,7 @@ static char CommentInfoKey;     //!<简述信息key
     vipImage.image = [UIImage imageNamed:IMAGE_PUBLIC_VIP];
     vipImage.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:vipImage];
+    vipImage.hidden = YES;
     objc_setAssociatedObject(self, &VIPFlagKey, vipImage, OBJC_ASSOCIATION_ASSIGN);
     
     ///最新消息日期
@@ -252,6 +258,86 @@ static char CommentInfoKey;     //!<简述信息key
 }
 
 #pragma mark - 刷新UI
+/**
+ *  @author         yangshengmeng, 15-04-02 14:04:02
+ *
+ *  @brief          刷新联系人发送的消息提示UI
+ *
+ *  @param model    消息数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateMessageTipsCellUI:(QSYPostMessageSimpleModel *)model
+{
+
+    ///更新消息数量
+    [self updateInfoCountTips:model.not_view];
+    
+    ///更新用户名
+    [self updateFromUserName:model.fromUserInfo.username];
+    
+    ///更新日期
+    [self updateLastTime:model.time];
+    
+    ///更新最后消息
+    [self updateLastMessage:model.content];
+    
+    ///更新用户头像
+    [self updateIcon:model.fromUserInfo.avatar];
+
+}
+
+///更新最新消息
+- (void)updateLastMessage:(NSString *)comment
+{
+
+    UILabel *lastMessage = objc_getAssociatedObject(self, &CommentInfoKey);
+    if (lastMessage) {
+        
+        lastMessage.text = comment;
+        
+    }
+
+}
+
+///更新VIP标识
+- (void)updateVIPFlag:(NSString *)vipFlag
+{
+
+    UILabel *labelVIP = objc_getAssociatedObject(self, &VIPFlagKey);
+    if (labelVIP && vipFlag) {
+        
+        
+        
+    }
+
+}
+
+///更新用户名
+- (void)updateFromUserName:(NSString *)userName
+{
+
+    UILabel *nameLabel = objc_getAssociatedObject(self, &UserNameKey);
+    if (nameLabel && userName) {
+        
+        nameLabel.text = userName;
+        
+    }
+
+}
+
+///更新最后消息的日期
+- (void)updateLastTime:(NSString *)timeStamp
+{
+
+    UILabel *timeLabel = objc_getAssociatedObject(self, &LastTimeKey);
+    if (timeLabel && timeStamp) {
+        
+        timeLabel.text = [[NSDate formatNSTimeToNSDateString:timeStamp] substringToIndex:10];
+        
+    }
+
+}
 
 ///更新消息提示
 - (void)updateInfoCountTips:(NSString *)tips
@@ -261,6 +347,7 @@ static char CommentInfoKey;     //!<简述信息key
     if (label && tips) {
         
         label.text = tips;
+        label.hidden = NO;
         
     }
 

@@ -176,6 +176,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseUsedYearType;
++ (NSString *)getHouseUsedYearTypeWithKey:(NSString *)usedYearKey;
 
 /**
  *  @author yangshengmeng, 15-01-29 15:01:06

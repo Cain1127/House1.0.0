@@ -27,6 +27,7 @@
 @property (nonatomic,copy) NSString *realname;          //!<真名
 @property (nonatomic,copy) NSString *tj_secondHouse_num;//!<所发布的二手房数量
 @property (nonatomic,copy) NSString *tj_rentHouse_num;  //!<所发布的出租房数量
+@property (nonatomic,copy) NSString *level;             //!<是否VIP
 
 /**
  *  @author yangshengmeng, 15-02-12 17:02:48

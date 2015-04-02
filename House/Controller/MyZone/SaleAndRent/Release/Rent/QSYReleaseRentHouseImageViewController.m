@@ -94,6 +94,20 @@ static char PickedImageRootViewKey;//!<添加图片的底view
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
+        
+        ///封装标题
+        NSString *titleString = self.titleField.text;
+        if ([titleString length] <= 0) {
+            
+            ///区域+小区+街道+价格
+            titleString = [NSString stringWithFormat:@"%@%@%@%@",self.rentHouseReleaseModel.district,self.rentHouseReleaseModel.community,self.rentHouseReleaseModel.street,self.rentHouseReleaseModel.rentPrice];
+            
+        }
+        self.rentHouseReleaseModel.title = titleString;
+        
         ///进入联系信息填写窗口
         QSYReleaseRentHouseContactInfoViewController *pictureAddVC = [[QSYReleaseRentHouseContactInfoViewController alloc] initWithRentHouseModel:self.rentHouseReleaseModel];
         [self.navigationController pushViewController:pictureAddVC animated:YES];
@@ -166,7 +180,9 @@ static char PickedImageRootViewKey;//!<添加图片的底view
     ///添加视频按钮
     UIButton *addVedioButton = [UIButton createBlockButtonWithFrame:CGRectMake(addVedioLabel.frame.origin.x, addVedioLabel.frame.origin.y + addVedioLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 60.0f, 60.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
         
     }];
     addVedioButton.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
@@ -256,6 +272,10 @@ static char PickedImageRootViewKey;//!<添加图片的底view
     
     UIButton *imageButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
+        
         ///查看大图
         QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImages:[self.rentHouseReleaseModel getCurrentPickedImages] andCurrentIndex:index andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
             
@@ -286,6 +306,10 @@ static char PickedImageRootViewKey;//!<添加图片的底view
 {
     
     UIButton *addImageButton = [UIButton createBlockButtonWithFrame:frame andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
         
         ///弹出提示
         UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];

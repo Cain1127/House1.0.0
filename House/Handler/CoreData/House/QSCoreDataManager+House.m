@@ -482,6 +482,37 @@
 
 }
 
++ (NSString *)getHouseUsedYearTypeWithKey:(NSString *)usedYearKey
+{
+
+    if ([usedYearKey isEqualToString:@"2-under"]) {
+        
+        return @"2年以下";
+        
+    }
+    
+    if ([usedYearKey isEqualToString:@"2-5"]) {
+        
+        return @"2-5年";
+        
+    }
+    
+    if ([usedYearKey isEqualToString:@"5-10"]) {
+        
+        return @"5-10年";
+        
+    }
+    
+    if ([usedYearKey isEqualToString:@"10-over"]) {
+        
+        return @"10年以上";
+        
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-01-29 15:01:06
  *
