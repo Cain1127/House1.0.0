@@ -80,4 +80,7 @@
  */
 - (instancetype)initWithFrame:(CGRect)frame andButtonStyle:(QSBlockButtonStyleModel *)buttonStyle;
 
+
+- (void)setButtonPropertyWithButtonStyle:(QSBlockButtonStyleModel *)buttonStyle;
+
 @end

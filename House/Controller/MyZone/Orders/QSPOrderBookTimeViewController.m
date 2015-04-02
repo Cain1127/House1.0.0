@@ -236,12 +236,26 @@
         [self.view addSubview:buttomButtonsView];
     }
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
     ///添加键盘缩放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {

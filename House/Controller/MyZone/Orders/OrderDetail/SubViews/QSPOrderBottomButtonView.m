@@ -7,13 +7,6 @@
 //
 
 #import "QSPOrderBottomButtonView.h"
-#import "QSBlockButtonStyleModel+Normal.h"
-
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     12.0f
-//左右间隙
-#define     CONTENT_LEFT_RIGHT_OFFSETX     CONTENT_TOP_BOTTOM_OFFSETY //35.0f
-
 
 @interface QSPOrderBottomButtonView ()
 
@@ -151,6 +144,72 @@
         }
         
     }
+}
+
+- (void)setLeftButtonType:(NORMAL_BUTTON_TYPE)buttonType
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:buttonType];
+    
+    if (_buttonNum == 2 && buttonStyle) {
+        
+        UIView *view = [self viewWithTag:bBottomButtonTypeLeft];
+        
+        if (view && [view isKindOfClass:[QSBlockButton class]]) {
+            
+            QSBlockButton *button = (QSBlockButton*)view;
+            if (buttonStyle) {
+                
+                [button setButtonPropertyWithButtonStyle:buttonStyle];
+                
+            }
+        }
+    }
+    
+}
+
+- (void)setRightButtonType:(NORMAL_BUTTON_TYPE)buttonType
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:buttonType];
+    
+    if (_buttonNum == 2 && buttonStyle) {
+        
+        UIView *view = [self viewWithTag:bBottomButtonTypeRight];
+        
+        if (view && [view isKindOfClass:[QSBlockButton class]]) {
+            
+            QSBlockButton *button = (QSBlockButton*)view;
+            if (buttonStyle) {
+                
+                [button setButtonPropertyWithButtonStyle:buttonStyle];
+                
+            }
+        }
+    }
+    
+}
+
+- (void)setCenterButtonType:(NORMAL_BUTTON_TYPE)buttonType
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:buttonType];
+    
+    if (_buttonNum == 2 && buttonStyle) {
+        
+        UIView *view = [self viewWithTag:bBottomButtonTypeOne];
+        
+        if (view && [view isKindOfClass:[QSBlockButton class]]) {
+            
+            QSBlockButton *button = (QSBlockButton*)view;
+            if (buttonStyle) {
+                
+                [button setButtonPropertyWithButtonStyle:buttonStyle];
+                
+            }
+        }
+    }
+    
 }
 
 - (void)setCenterBtTitle:(NSString*)title

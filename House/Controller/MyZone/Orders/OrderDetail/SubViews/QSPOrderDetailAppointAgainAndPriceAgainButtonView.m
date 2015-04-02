@@ -10,12 +10,21 @@
 
 @implementation QSPOrderDetailAppointAgainAndPriceAgainButtonView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack{
+    
+    if (self = [super initAtTopLeft:topLeftPoint withButtonCount:2 andCallBack:callBack]) {
+        
+        [self setLeftBtTitle:@"再次预约"];
+        [self setRightBtTitle:@"我要议价"];
+        
+        [self setLeftButtonType:nNormalButtonTypeCornerYellow];
+        [self setRightButtonType:nNormalButtonTypeCornerLightYellow];
+        
+    }
+    
+    return self;
+    
 }
-*/
+
 
 @end

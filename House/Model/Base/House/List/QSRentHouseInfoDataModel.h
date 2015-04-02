@@ -30,8 +30,8 @@
 @property (nonatomic,copy) NSString *fee;                   //!<每月物业费具体值
 
 @property (nonatomic,copy) NSString *cycle;                 //!<可以看房的周期:0-星期天，1-6-周一到周六
-@property (nonatomic,copy) NSString *time_interval_start;   //!<可以看房的时间段开始钟点
-@property (nonatomic,copy) NSString *time_interval_end;     //!<可以看房的时间段结束钟点
+@property (nonatomic,copy) NSString *time_interval_start;   //!<可以看房的时间段开始钟点 09:00
+@property (nonatomic,copy) NSString *time_interval_end;     //!<可以看房的时间段结束钟点 10:00
 
 @property (nonatomic,copy) NSString *entrust;               //!<经纪人
 @property (nonatomic,copy) NSString *entrust_company;       //!<经纪公司
