@@ -682,7 +682,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
         
-        QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:houseInfoModel.address andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:houseInfoModel.address andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         
         [self.navigationController pushViewController:mapNearVC animated:YES];
         

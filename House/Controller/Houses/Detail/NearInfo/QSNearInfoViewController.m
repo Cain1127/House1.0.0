@@ -44,21 +44,25 @@
 }
 
 @property(nonatomic,copy) NSString *address;            //!<周边信息地址
+@property(nonatomic,copy) NSString *title;              //!<房子标题
 @property(nonatomic,assign) CGFloat coordinate_x;       //!<周边经度
 @property(nonatomic,assign) CGFloat coordinate_y;       //!<周边纬度
 
 @property(nonatomic,strong) QSScrollView *mapInfoView;  //!<地图UI
 @property(nonatomic,strong) UITextView *infoTextView;   //!<底部说明信息UI
+@property (nonatomic,assign) MAP_DETAIL_BUTTON_ACTION_TYPE mapLineType;
 
 @property(nonatomic,copy) NSMutableString *resultNameString;
 @property(nonatomic,copy) NSMutableString *resultAddressString;
+
+@property(nonatomic,strong) MAPointAnnotation *annotation0;
 
 
 @end
 
 @implementation QSNearInfoViewController
 
--(instancetype)initWithAddress:(NSString *)address andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y
+-(instancetype)initWithAddress:(NSString *)address  andTitle:(NSString *)title andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y
 {
     
     if (self = [super init]) {
@@ -66,7 +70,7 @@
         self.address=address;
         self.coordinate_x=[coordinate_x floatValue];
         self.coordinate_y=[coordinate_y floatValue];
-        
+        self.title=title;
     }
     
     return self;
@@ -116,7 +120,7 @@
     
     ///循环创建户型信息
     for (int i = 0; i < [packInfos count]; i++) {
-        
+     
         ///配置字典
         NSDictionary *infoDict = packInfos[i];
         
@@ -134,8 +138,10 @@
                 
             }
             
-            ///刷新数据
+            ///更换类型
+            self.mapLineType = i +101;
             
+            ///刷新数据
             [self searchAction:[infoDict valueForKey:@"keywords"]];
             
             ///移动六角形
@@ -218,23 +224,24 @@
     
     _mapView.showsUserLocation = YES;
 
-    [self reGeoAction];
+    //[self houseAddressAction];
     
     
 }
 
-///获取房子位置
-- (void)reGeoAction
+///添加房子位置大头针
+- (void)houseAddressAction
 {
     if (self.coordinate_x)
     {
+        ///获取房子的大头针位置
+        MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+        annotation.coordinate = CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
         
-        _mapView.userLocation.coordinate=CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
-//        AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
-//        
-//        request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_x longitude:self.coordinate_y];
-//        
-//        [_search AMapReGoecodeSearch:request];
+        ///大头针加入地图
+        [_mapView addAnnotation:annotation];
+        [_annotations addObject:annotation];
+
     }
 }
 
@@ -285,24 +292,6 @@
     
 }
 
-///房子位置搜索信息回调
-- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
-{
-    NSLog(@"response :%@", response);
-    
-    NSString *title = response.regeocode.addressComponent.city;
-    if (title.length == 0)
-    {
-        // 直辖市的city为空，取province
-        title = response.regeocode.addressComponent.province;
-    }
-    
-    // 更新我的位置title
-    _mapView.userLocation.title = title;
-    _mapView.userLocation.subtitle = response.regeocode.formattedAddress;
-    
-}
-
 ///房子周边信息回调
 - (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
 {
@@ -325,6 +314,8 @@
             ///获取返回的大头针位置
             MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
             annotation.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+            annotation.title = poi.name;
+            annotation.subtitle=poi.address;
             
             ///大头针加入地图
             [_mapView addAnnotation:annotation];
@@ -338,10 +329,29 @@
         //[_mapInfoView.header endRefreshing];
         self.resultNameString=resultNameString;
         self.resultAddressString=resultAddressString;
+        
+        if (self.mapLineType==mMapBusButtonActionType||self.mapLineType==mMapMetroButtonActionType) {
+            
+            _infoTextView.text=self.resultAddressString;
+
+        }
+        else{
+            
         _infoTextView.text=self.resultNameString;
+            
+        }
+        //[self houseAddressAction];
+        ///获取房子的大头针位置
+        _annotation0 = [[MAPointAnnotation alloc] init];
+        _annotation0.coordinate = CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
+        _annotation0.title=self.title;
+        ///大头针加入地图
+        [_mapView addAnnotation:_annotation0];
+        [_annotations addObject:_annotation0];
         
+        [_mapView selectAnnotation:_annotation0 animated:YES];
+        ///地图显示所有大头针
         [_mapView showAnnotations:_annotations animated:YES];
-        
         
     }
 }
@@ -358,14 +368,82 @@
         {
             annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
         }
-        ///显示大头针图片
-        annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_METRO_NORMAL];
+        switch (self.mapLineType) {
+                
+            case mMapBusButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_BUS_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+
+                }
+                break;
+                
+            case mMapMetroButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_METRO_NORMAL];
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+            case mMapHospitalButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOSPITAL_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+            case mMapSchoolButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SCHOOL_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+            case mMapCateringButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+            case mMapSuperMarketButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SUPERMARKET_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+            case mMapMarketButtonActionType:
+                ///显示大头针图片
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_MARKET_HIGHLIGHTED];
+                
+                if (annotation==_annotation0) {
+                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    
+                }
+                break;
+                
+            default:
+
+                break;
+        }
         
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = YES;
         
         // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
-        annotationView.centerOffset = CGPointMake(0, -18);
+        //annotationView.centerOffset = CGPointMake(0, -10);
         return annotationView;
     }
     

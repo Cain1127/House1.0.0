@@ -387,7 +387,7 @@ static char LeftStarKey;            //!<左侧星级
         
         ///进入地图：需要传经纬度
         NSLog(@"点击定位");
-        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         [self.navigationController pushViewController:nearInfoVC animated:YES];
         
     }];
