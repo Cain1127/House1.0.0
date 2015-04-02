@@ -158,6 +158,12 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    NSString *filterInfo = [self.rentHouseReleaseModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     return tempTextField;
     
@@ -189,7 +195,7 @@ typedef enum
                     QSBaseConfigurationDataModel *tempModel = params;
                     
                     textField.text = tempModel.val;
-                    self.rentHouseReleaseModel.limitedKey = tempModel.val;
+                    self.rentHouseReleaseModel.limited = tempModel.val;
                     self.rentHouseReleaseModel.limitedKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
@@ -368,7 +374,7 @@ typedef enum
             ///显示物业管理费选择项窗口
             [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.rentHouseReleaseModel.feeKey length] > 0 ? self.rentHouseReleaseModel.feeKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                if (cCustomPopviewActionTypeMultipleSelected == actionType) {
+                if (cCustomPopviewActionTypeSingleSelected == actionType) {
                     
                     QSBaseConfigurationDataModel *tempModel = params;
                     

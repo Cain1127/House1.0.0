@@ -87,7 +87,7 @@ static char bottomViewKey;      //!<分割线关联key
             [[countLabel layer] setMasksToBounds:YES];
             [countLabel setTextAlignment:NSTextAlignmentCenter];
             [countLabel setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
-            [countLabel setText:[NSString stringWithFormat:@"%u",([timeArray count]-i)]];
+            [countLabel setText:[NSString stringWithFormat:@"%lu",([timeArray count]-i)]];
             [self addSubview:countLabel];
             
             UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+4, countLabel.frame.origin.y, ((SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-countLabel.frame.origin.x+countLabel.frame.size.width - 44.0f), countLabel.frame.size.height)];

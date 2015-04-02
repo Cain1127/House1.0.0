@@ -11,7 +11,8 @@
 @interface QSTabbar ()
 
 @property (nonatomic,copy) void(^tabbarTapCallBack)(int index);
-@property (nonatomic,retain) NSMutableArray *tabbarButtonArray;//!<tabbar按钮数组
+@property (nonatomic,retain) NSMutableArray *tabbarButtonArray;     //!<tabbar按钮数组
+@property (nonatomic,retain) NSMutableArray *tabbarButtonTipsArray; //!<tabbar按钮右上角提示数组
 
 @end
 
@@ -108,14 +109,26 @@
             
         }
         
+        ///右上角提示
+        UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(tempButton.frame.origin.x + tempButton.frame.size.width - 35.0f, tempButton.frame.origin.y, 20.0f, 20.0f)];
+        tipsLabel.backgroundColor = [UIColor redColor];
+        tipsLabel.layer.cornerRadius = 10.0f;
+        tipsLabel.layer.masksToBounds = YES;
+        tipsLabel.text = @"0";
+        tipsLabel.textColor = [UIColor whiteColor];
+        tipsLabel.adjustsFontSizeToFitWidth = YES;
+        tipsLabel.hidden = YES;
+        
         ///添加单击时的状态更换
         [tempButton addTarget:self action:@selector(tabbarButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         
         ///加载
         [self addSubview:tempButton];
+        [self addSubview:tipsLabel];
         
         ///保存
         [self.tabbarButtonArray addObject:tempButton];
+        [self.tabbarButtonTipsArray addObject:tipsLabel];
         
     }
     
@@ -196,7 +209,18 @@
 - (void)setUpperRightCornerTipsWithString:(NSString *)tipsString andIndex:(int)index
 {
 
+    UILabel *tipsLabel = self.tabbarButtonTipsArray[index];
+    if ([tipsString length] > 0) {
+        
+        tipsLabel.hidden = NO;
+        tipsLabel.text = tipsString;
+        
+    } else {
     
+        tipsLabel.text = @"0";
+        tipsLabel.hidden = YES;
+    
+    }
 
 }
 

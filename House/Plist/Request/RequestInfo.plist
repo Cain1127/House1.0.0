@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>5005</key>
+	<dict>
+		<key>url</key>
+		<string>secondHouse/add</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>5004</key>
+	<dict>
+		<key>url</key>
+		<string>rentHouse/add</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
 	<key>5003</key>
 	<dict>
 		<key>url</key>

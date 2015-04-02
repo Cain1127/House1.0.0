@@ -196,6 +196,7 @@
     self.isShowCommentNoteTipsView = flag;
     self.isShowOrderCancelByMeTipView = flag;
     self.isShowComplaintAndCommentButtonView = flag;
+    self.isShowComplaintAndCompletedButtonView = flag;
     self.isShowAppointAgainAndPriceAgainButtonView = flag;
     self.isShowAppointAgainAndRejectPriceButtonView = flag;
     self.isShowRejectAndAcceptAppointmentButtonView = flag;

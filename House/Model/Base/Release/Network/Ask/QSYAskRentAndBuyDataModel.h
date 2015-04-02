@@ -42,5 +42,6 @@
 @property (nonatomic,copy) NSString *attach_thumb;      //!<原图
 @property (nonatomic,copy) NSString *payment;           //!<租金支付方式
 @property (nonatomic,copy) NSString *status;            //!<状态:-1已删除，0未发布，1已发布
+@property (nonatomic,copy) NSString *used_year;         //!<房龄
 
 @end

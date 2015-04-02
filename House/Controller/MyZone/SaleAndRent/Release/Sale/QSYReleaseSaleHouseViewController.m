@@ -48,6 +48,8 @@ typedef enum
 
 @property (nonatomic,unsafe_unretained) UITextField *districtField;
 @property (nonatomic,unsafe_unretained) UITextField *streetField;
+@property (nonatomic,unsafe_unretained) UITextField *detailAddressField;
+@property (nonatomic,unsafe_unretained) UITextField *SalePriceField;
 
 @end
 
@@ -225,6 +227,18 @@ typedef enum
         
     }
     
+    if (rReleaseSaleHouseHomeActionTypeDetailAddress == [[tempDict valueForKey:@"action_type"] intValue]) {
+        
+        self.detailAddressField = tempTextField;
+        
+    }
+    
+    if (rReleaseSaleHouseHomeActionTypeSalePrice == [[tempDict valueForKey:@"action_type"] intValue]) {
+        
+        self.SalePriceField = tempTextField;
+        
+    }
+    
     return tempTextField;
     
 }
@@ -266,12 +280,17 @@ typedef enum
     }
     
     ///详细地址
-    if ([self.saleHouseReleaseModel.address length] <= 0) {
+    if ([self.detailAddressField.text length] <= 0) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请填写详细地址", 1.0, ^(){})
-        
+        [self.detailAddressField becomeFirstResponder];
         return NO;
         
+    } else {
+    
+        [self.detailAddressField resignFirstResponder];
+        self.saleHouseReleaseModel.address = self.detailAddressField.text;
+    
     }
     
     ///户型
@@ -294,12 +313,19 @@ typedef enum
     }
     
     ///售价
-    if ([self.saleHouseReleaseModel.salePrice length] <= 0 ||
+    if ([self.SalePriceField.text length] <= 0 ||
         [self.saleHouseReleaseModel.salePriceKey length] <= 0) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择售价", 1.0, ^(){})
+        [self.SalePriceField becomeFirstResponder];
         return NO;
         
+    } else {
+    
+        [self.SalePriceField resignFirstResponder];
+        self.saleHouseReleaseModel.salePrice = self.SalePriceField.text;
+        self.saleHouseReleaseModel.salePriceKey = self.SalePriceField.text;
+    
     }
     
     ///是否议价
@@ -323,9 +349,6 @@ typedef enum
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
     
-    ///详细地址输入框指针
-    static UITextField *tempField = nil;
-    
     switch (actionType) {
             
             ///物业类型
@@ -333,7 +356,8 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
             
             ///获取房子的物业类型选择项数据
             NSArray *intentArray = [QSCoreDataManager getHouseTradeType];
@@ -373,7 +397,8 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
             
             [QSCustomDistrictSelectedPopView showCustomDistrictSelectedPopviewWithSteetSelectedKey:([self.saleHouseReleaseModel.streetKey length] > 0 ? self.saleHouseReleaseModel.streetKey : nil) andDistrictPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
@@ -418,7 +443,9 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
+            
             QSYReleasePickCommunityViewController *pickCommunityVC = [[QSYReleasePickCommunityViewController alloc] initWithPickedCallBack:^(BOOL flag, id pickModel) {
                 
                 ///已选择小区
@@ -447,7 +474,6 @@ typedef enum
         case rReleaseSaleHouseHomeActionTypeDetailAddress:
         {
             
-            tempField = textField;
             textField.returnKeyType = UIReturnKeyDone;
             return YES;
             
@@ -459,7 +485,8 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
             
             ///获取户型的数据
             NSArray *intentArray = [QSCoreDataManager getHouseType];
@@ -497,7 +524,8 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
             
             ///获取房子面积的数据
             NSArray *intentArray = [QSCoreDataManager getHouseAreaType];
@@ -534,7 +562,6 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
             textField.returnKeyType = UIReturnKeyDone;
             return YES;
             
@@ -546,7 +573,8 @@ typedef enum
         {
             
             ///回收详细地址弹出的键盘
-            [tempField resignFirstResponder];
+            [self.detailAddressField resignFirstResponder];
+            [self.SalePriceField resignFirstResponder];
             
             ///获取是否议价选择项数组
             NSArray *intentArray = [QSCoreDataManager getHouseIsNegotiatedPriceType];

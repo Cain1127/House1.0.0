@@ -10,4 +10,8 @@
 
 @interface QSPOrderDetailShowingsActivitiesView : UIView
 
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withActivityData:(id)activityData;
+
+- (instancetype)initWithFrame:(CGRect)frame withActivityData:(id)activityData;
+
 @end

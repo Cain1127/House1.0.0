@@ -57,6 +57,7 @@
 @property (nonatomic,assign) BOOL isShowOrderCancelByMeTipView;     //!<订单取消原因：我取消预约View
 
 @property (nonatomic,assign) BOOL isShowComplaintAndCommentButtonView;  //!<我要投诉和评价房源按钮View
+@property (nonatomic,assign) BOOL isShowComplaintAndCompletedButtonView;  //!<我要投诉和完成看房按钮View
 @property (nonatomic,assign) BOOL isShowAppointAgainAndPriceAgainButtonView;  //!<再次预约和我要议价按钮View
 @property (nonatomic,assign) BOOL isShowAppointAgainAndRejectPriceButtonView;  //!<再次预约和拒绝还价按钮View
 @property (nonatomic,assign) BOOL isShowRejectAndAcceptAppointmentButtonView;    //!<拒绝预约和接受预约按钮View

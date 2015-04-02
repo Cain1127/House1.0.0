@@ -370,7 +370,7 @@ static char SettingButton;  //!<设置按钮
     [self updateHouseFloor:[QSCoreDataManager getHouseFloorTypeWithKey:model.floor_which]];
     
     ///房龄
-    [self updateHouseUseYear:@"10-15年"];
+    [self updateHouseUseYear:[QSCoreDataManager getHouseUsedYearTypeWithKey:model.used_year]];
     
     ///备注信息
     [self updateCommentInfo:model.content];

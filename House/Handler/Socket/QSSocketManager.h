@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class QSUserSimpleDataModel;
 @interface QSSocketManager : NSObject
 
 /**
@@ -50,5 +51,27 @@
  *  @since  1.0.0
  */
 + (void)offsCurrentTalkCallBack;
+
+/**
+ *  @author yangshengmeng, 15-04-02 13:04:23
+ *
+ *  @brief  注册当前所有未读消息的回调通知
+ *
+ *  @since  1.0.0
+ */
++ (void)registCurrentUnReadMessageCountNotification:(void(^)(int msgNum))callBack;
++ (void)offsCurrentUnReadMessageCountNotification;
+
+/**
+ *  @author         yangshengmeng, 15-04-02 14:04:13
+ *
+ *  @brief          注册当前有消息进入时的回调，返回当前消息的发送人，及发送人的未读消息数量
+ *
+ *  @param callBack 当有新的消息来时，回调
+ *
+ *  @since          1.0.0
+ */
++ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,QSUserSimpleDataModel *userInfo))callBack;
++ (void)offsInstantMessageReceiveNotification;
 
 @end

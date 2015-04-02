@@ -32,6 +32,9 @@ static char PickedImageRootViewKey;//!<图片选择底view
 ///出售物业的数据模型
 @property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
 
+@property (nonatomic,strong) UITextField *titleField;       //!<标题输入框
+@property (nonatomic,strong) UITextView *detailInfoField;   //!<详细信息输入框
+
 @end
 
 @implementation QSYReleaseSaleHousePictureViewController
@@ -90,6 +93,28 @@ static char PickedImageRootViewKey;//!<图片选择底view
     buttonStyle.title = @"下一步";
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///校验图片是否已上传
+        if ([self.saleHouseReleaseModel.imagesList count] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少上传一张图片", 1.0f, ^(){})
+            return;
+            
+        }
+        
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
+        
+        ///封装标题
+        NSString *titleString = self.titleField.text;
+        if ([titleString length] <= 0) {
+            
+            ///区域+小区+街道+价格
+            titleString = [NSString stringWithFormat:@"%@%@%@%@",self.saleHouseReleaseModel.district,self.saleHouseReleaseModel.community,self.saleHouseReleaseModel.street,self.saleHouseReleaseModel.salePrice];
+            
+        }
+        self.saleHouseReleaseModel.title = titleString;
+        
         ///进入联系信息填写窗口
         QSYReleaseHouseContactInfoViewController *pictureAddVC = [[QSYReleaseHouseContactInfoViewController alloc] initWithSaleHouseModel:self.saleHouseReleaseModel];
         [self.navigationController pushViewController:pictureAddVC animated:YES];
@@ -116,41 +141,41 @@ static char PickedImageRootViewKey;//!<图片选择底view
     [tipsRootView addSubview:tipsLabel];
     
     ///标题
-    UITextField *titleField = [UITextField createCustomTextFieldWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsRootView.frame.origin.y + tipsRootView.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, tipsRootView.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:@"简要描述20字以内" andLeftTipsInfo:@"标       题" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsLightGray];
-    titleField.delegate = self;
+    self.titleField = [UITextField createCustomTextFieldWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsRootView.frame.origin.y + tipsRootView.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, tipsRootView.frame.size.width - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:@"简要描述20字以内" andLeftTipsInfo:@"标       题" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsLightGray];
+    self.titleField.delegate = self;
     if ([self.saleHouseReleaseModel.title length] > 0) {
         
-        titleField.text = self.saleHouseReleaseModel.title;
+        self.titleField.text = self.saleHouseReleaseModel.title;
         
     }
-    [view addSubview:titleField];
+    [view addSubview:self.titleField];
     
     ///分隔线
-    UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleField.frame.origin.x, titleField.frame.origin.y + titleField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP / 2.0f, titleField.frame.size.width, 0.25f)];
+    UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleField.frame.origin.x, self.titleField.frame.origin.y + self.titleField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP / 2.0f, self.titleField.frame.size.width, 0.25f)];
     sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:sepLineLabel];
     
     ///详细描述
-    UITextView *descriptionView = [[UITextView alloc] initWithFrame:CGRectMake(titleField.frame.origin.x, titleField.frame.origin.y + titleField.frame.size.height + 2.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, titleField.frame.size.width, 120.0f)];
-    descriptionView.delegate = self;
-    descriptionView.showsHorizontalScrollIndicator = NO;
-    descriptionView.showsVerticalScrollIndicator = NO;
-    descriptionView.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
-    descriptionView.layer.borderWidth = 0.5f;
-    descriptionView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
-    descriptionView.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    descriptionView.text = @"房屋详细描述";
-    descriptionView.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    self.detailInfoField = [[UITextView alloc] initWithFrame:CGRectMake(self.titleField.frame.origin.x, self.titleField.frame.origin.y + self.titleField.frame.size.height + 2.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, self.titleField.frame.size.width, 120.0f)];
+    self.detailInfoField.delegate = self;
+    self.detailInfoField.showsHorizontalScrollIndicator = NO;
+    self.detailInfoField.showsVerticalScrollIndicator = NO;
+    self.detailInfoField.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
+    self.detailInfoField.layer.borderWidth = 0.5f;
+    self.detailInfoField.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
+    self.detailInfoField.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    self.detailInfoField.text = @"房屋详细描述";
+    self.detailInfoField.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     if ([self.saleHouseReleaseModel.detailComment length] > 0) {
         
-        descriptionView.text = self.saleHouseReleaseModel.detailComment;
-        descriptionView.textColor = COLOR_CHARACTERS_BLACK;
+        self.detailInfoField.text = self.saleHouseReleaseModel.detailComment;
+        self.detailInfoField.textColor = COLOR_CHARACTERS_BLACK;
         
     }
-    [view addSubview:descriptionView];
+    [view addSubview:self.detailInfoField];
     
     ///添加图片
-    UILabel *addImageLabel = [[UILabel alloc] initWithFrame:CGRectMake(descriptionView.frame.origin.x, descriptionView.frame.origin.y + descriptionView.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, descriptionView.frame.size.width, 30.0f)];
+    UILabel *addImageLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.detailInfoField.frame.origin.x, self.detailInfoField.frame.origin.y + self.detailInfoField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, self.detailInfoField.frame.size.width, 30.0f)];
     addImageLabel.text = @"添加图片";
     addImageLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     addImageLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -174,7 +199,9 @@ static char PickedImageRootViewKey;//!<图片选择底view
     ///添加视频按钮
     UIButton *addVedioButton = [UIButton createBlockButtonWithFrame:CGRectMake(addVedioLabel.frame.origin.x, addVedioLabel.frame.origin.y + addVedioLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, 60.0f, 60.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
         
     }];
     addVedioButton.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
@@ -264,6 +291,10 @@ static char PickedImageRootViewKey;//!<图片选择底view
 
     UIButton *imageButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
+        
         ///查看大图
         QSYShowImageDetailViewController *showOriginalImageVC = [[QSYShowImageDetailViewController alloc] initWithImages:[self.saleHouseReleaseModel getCurrentPickedImages] andCurrentIndex:index andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
             
@@ -294,6 +325,10 @@ static char PickedImageRootViewKey;//!<图片选择底view
 {
 
     UIButton *addImageButton = [UIButton createBlockButtonWithFrame:frame andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///回收键盘
+        [self.titleField resignFirstResponder];
+        [self.detailInfoField resignFirstResponder];
         
         ///弹出提示
         UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];

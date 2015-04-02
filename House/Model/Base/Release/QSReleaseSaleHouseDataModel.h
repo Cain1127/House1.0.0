@@ -46,6 +46,7 @@
 @property (nonatomic,copy) NSString *verCode;           //!<手机验证码
 @property (nonatomic,copy) NSString *starTime;          //!<开始时间
 @property (nonatomic,copy) NSString *endTime;           //!<结束时间
+@property (nonatomic,copy) NSString *video_url;         //!<视频地址
 
 @property (nonatomic,retain) id exclusiveCompany;       //!<独家公司
 

@@ -25,6 +25,7 @@ typedef enum
  *
  *  @since  1.0.0
  */
+@class QSYPostMessageSimpleModel;
 @interface QSChatMessageListTableViewCell : UITableViewCell
 
 /**
@@ -41,5 +42,16 @@ typedef enum
  *  @since                  1.0.0
  */
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andCellType:(MESSAGELIST_CELL_TYPE)cellType;
+
+/**
+ *  @author         yangshengmeng, 15-04-02 14:04:02
+ *
+ *  @brief          刷新联系人发送的消息提示UI
+ *
+ *  @param model    消息数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateMessageTipsCellUI:(QSYPostMessageSimpleModel *)model;
 
 @end
