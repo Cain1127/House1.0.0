@@ -65,6 +65,118 @@
     
 }
 
+////订单状态
+//- (NSString*)getStatusTitleWithCode:(NSString*)orderStatus
+//{
+//    
+//    NSString *statusStr = @"";
+//    
+//    if (orderStatus&&[orderStatus isKindOfClass:[NSString class]]) {
+//        
+//        if ([orderStatus isEqualToString:@"500201"] || [orderStatus isEqualToString:@"500213"] || [orderStatus isEqualToString:@"500203"]) {
+//            statusStr = @"待确认";
+//        }else if ([orderStatus isEqualToString:@"500210"]) {
+//            statusStr = @"待看房";
+//        }else if ([orderStatus isEqualToString:@"500230"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待确认已看房";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待评价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500231"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待确认已看房";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待议价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500232"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"已完成看房";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待评价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500202"]) {
+//            
+//        }else if ([orderStatus isEqualToString:@"500250"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"已完成看房";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待议价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500252"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"已还价";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待还价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500253"]) {
+//            statusStr = @"申请议价";
+//        }else if ([orderStatus isEqualToString:@"500254"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待议价/成交";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待议价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500257"] || [orderStatus isEqualToString:@"500258"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待还价";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"已还价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500259"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待议价/成交";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待议价";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500220"]) {
+//            statusStr = @"议价成功";
+//        }else if ([orderStatus isEqualToString:@"500221"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待确认成交";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待我确认";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500222"]) {
+//            if ([self getUserType] == uUserCountTypeOwner) {
+//                //业主角色
+//                statusStr = @"待确认成交";
+//            }else if ([self getUserType] == uUserCountTypeTenant) {
+//                //房客角色
+//                statusStr = @"待业主确认";
+//            }
+//        }else if ([orderStatus isEqualToString:@"500223"]) {
+//            statusStr = @"已成交";
+//        }else if ([orderStatus isEqualToString:@"500240"] || [orderStatus isEqualToString:@"500241"] || [orderStatus isEqualToString:@"500246"]) {
+//            statusStr = @"已取消";
+//        }
+//        
+//        //缺 成交订单  – 已取消 状态码未确定
+//        
+//    }
+//    
+//    return statusStr;
+//    
+//}
+
 //订单状态
 - (NSString*)getStatusTitle
 {

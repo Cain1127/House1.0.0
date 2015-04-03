@@ -97,6 +97,8 @@
         
     }
     
+    self.showHeight = self.frame.size.height;
+    
 }
 
 - (void)setCenterBtBackgroundColor:(UIColor*)color

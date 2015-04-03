@@ -9,9 +9,6 @@
 #import "QSPOrderDetailInputMyPriceView.h"
 #import "NSString+Calculation.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 @implementation QSPOrderDetailInputMyPriceView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint{
@@ -51,8 +48,9 @@
         
         [self addSubview:inputPriceTextField];
         
-        
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10)];
+        
+        self.showHeight = self.frame.size.height;
         
     }
     

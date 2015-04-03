@@ -12,9 +12,6 @@
 #import "QSOrderListReturnData.h"
 #import "QSOrderDetailInfoDataModel.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 @interface QSPOrderDetailOtherPriceView ()
 
 @property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
@@ -99,6 +96,8 @@
         [self addSubview:acceptButton];
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, otherPriceBgView.frame.origin.y+otherPriceBgView.frame.size.height)];
+        
+        self.showHeight = self.frame.size.height;
         
         self.blockButtonCallBack = callBack;
         

@@ -9,8 +9,6 @@
 #import "QSPOrderDetailHouseInfoView.h"
 #import "UIKit+AFNetworking.h"
 #import "QSOrderListHouseInfoDataModel.h"
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
 
 ////关联
 //static char houseIDLabelKey;        //!<房源ID关联key
@@ -24,7 +22,6 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 
 @end
-
 
 
 @implementation QSPOrderDetailHouseInfoView
@@ -111,7 +108,9 @@
         [bottomLineLablel setBackgroundColor:COLOR_CHARACTERS_BLACKH];
         [bottomView addSubview:bottomLineLablel];
         
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomView.frame.origin.y+bottomView.frame.size.height)];
+        self.showHeight = bottomView.frame.origin.y+bottomView.frame.size.height;
+        
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.showHeight)];
         
         self.blockButtonCallBack = callBack;
         

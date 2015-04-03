@@ -6,14 +6,9 @@
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QSPOrderDetalSubBaseView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButton.h"
-
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     12.0f
-//左右间隙
-#define     CONTENT_LEFT_RIGHT_OFFSETX     CONTENT_TOP_BOTTOM_OFFSETY //35.0f
 
 typedef enum
 {
@@ -24,7 +19,7 @@ typedef enum
     
 }BOTTOM_BUTTON_TYPE;
 
-@interface QSPOrderBottomButtonView : UIView
+@interface QSPOrderBottomButtonView : QSPOrderDetalSubBaseView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withButtonCount:(NSInteger)num andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack;
 

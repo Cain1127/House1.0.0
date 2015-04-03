@@ -9,9 +9,6 @@
 #import "QSPOrderDetailCommentNoteTipsView.h"
 #import "NSString+Calculation.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 @implementation QSPOrderDetailCommentNoteTipsView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint {
@@ -52,6 +49,7 @@
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, remarkTipLabel.frame.origin.y+remarkTipLabel.frame.size.height + 10)];
         
+        self.showHeight = self.frame.size.height;
     }
     
     return self;

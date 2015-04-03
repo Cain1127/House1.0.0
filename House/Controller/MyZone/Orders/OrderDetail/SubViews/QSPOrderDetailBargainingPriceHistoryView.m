@@ -10,9 +10,6 @@
 #include <objc/runtime.h>
 #import "QSOrderDetailInfoDataModel.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 //关联
 static char hideShowButtonKey;      //!<折叠按钮关联key
 static char bottomViewKey;      //!<分割线关联key
@@ -21,7 +18,6 @@ static char bottomViewKey;      //!<分割线关联key
 
 @property (nonatomic, strong) UILabel *bargainTitleLabel;               //!<议价标题View
 @property (nonatomic, strong) UIButton *hideShowButton;                 //!<折叠按钮
-@property (nonatomic, strong) NSMutableArray *afterViewList;            //!<保存同级界面后面的UIView元素,必须按照展示先后顺序加入
 @property (nonatomic, strong) NSMutableArray *bargainList;              //!<议价历史数据
 @property (nonatomic, assign) BOOL  isShowListFlag;                     //!<是否展示议价历史数据
 
@@ -41,7 +37,6 @@ static char bottomViewKey;      //!<分割线关联key
     
     if (self = [super initWithFrame:frame]) {
         
-        self.afterViewList = [NSMutableArray arrayWithCapacity:0];
         self.bargainList = [NSMutableArray arrayWithCapacity:0];
         self.isShowListFlag = NO;
         
@@ -104,6 +99,8 @@ static char bottomViewKey;      //!<分割线关联key
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomView.frame.origin.y+bottomView.frame.size.height)];
         
+        self.showHeight = self.frame.size.height;
+        
         [self setOrderData:orderData];
         
     }
@@ -160,7 +157,7 @@ static char bottomViewKey;      //!<分割线关联key
             [[countLabel layer] setMasksToBounds:YES];
             [countLabel setTextAlignment:NSTextAlignmentCenter];
             [countLabel setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
-            [countLabel setText:[NSString stringWithFormat:@"%d",([self.bargainList count]-i)]];
+            [countLabel setText:[NSString stringWithFormat:@"%lu",([self.bargainList count]-i)]];
             [self addSubview:countLabel];
             
             UILabel *bargainLabel = [[UILabel alloc] initWithFrame:CGRectMake(countLabel.frame.origin.x+countLabel.frame.size.width+4, countLabel.frame.origin.y, ((SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-countLabel.frame.origin.x+countLabel.frame.size.width - 44.0f), countLabel.frame.size.height)];
@@ -187,12 +184,7 @@ static char bottomViewKey;      //!<分割线关联key
         
     }
     
-}
-
-- (void)addAfterView:(UIView* __strong *)view
-{
-    
-    [self.afterViewList addObject:*view];
+    self.showHeight = self.frame.size.height;
     
 }
 
@@ -218,35 +210,6 @@ static char bottomViewKey;      //!<分割线关联key
     }
     
     [self ResetOtherViewOffsetY];
-    
-}
-
-- (void)ResetOtherViewOffsetY
-{
-    CGFloat offsetY = self.frame.origin.y+self.frame.size.height;
-    
-    if ([self.afterViewList count]>0) {
-        for (int i=0; i<[self.afterViewList count]; i++) {
-            
-            id afterItem = [self.afterViewList objectAtIndex:i];
-            if ([afterItem isKindOfClass:[UIView class]]) {
-                
-                UIView *afterView = (UIView*)afterItem;
-                [afterView setFrame:CGRectMake(afterView.frame.origin.x, offsetY, afterView.frame.size.width, afterView.frame.size.height)];
-                
-                offsetY += afterView.frame.size.height;
-                
-            }
-            
-        }
-    }
-    
-    if ([self.superview isKindOfClass:[UIScrollView class]]) {
-        
-        UIScrollView *scrollView = (UIScrollView*)(self.superview);
-        [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, offsetY)];
-        
-    }
     
 }
 

@@ -616,6 +616,10 @@
 		478645EE1ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 478645E81ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png */; };
 		478645F11ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645F01ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m */; };
 		478645F41ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645F31ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.m */; };
+		478645F71ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645F61ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m */; };
+		478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645F91ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m */; };
+		478645FD1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645FC1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.m */; };
+		478646001ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 478645FF1ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m */; };
 		47A2076B1AB7E46000F51797 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207601AB7E46000F51797 /* FSCalendar.m */; };
 		47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207621AB7E46000F51797 /* FSCalendarCell.m */; };
 		47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A207641AB7E46000F51797 /* FSCalendarHeader.m */; };
@@ -1702,6 +1706,14 @@
 		478645F01ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPAppointmentOrderReturnData.m; sourceTree = "<group>"; };
 		478645F21ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetailComplaintAndCompletedButtonView.h; sourceTree = "<group>"; };
 		478645F31ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailComplaintAndCompletedButtonView.m; sourceTree = "<group>"; };
+		478645F51ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetalSubBaseView.h; sourceTree = "<group>"; };
+		478645F61ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetalSubBaseView.m; sourceTree = "<group>"; };
+		478645F81ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetailCancelAppointmentButtonView.h; sourceTree = "<group>"; };
+		478645F91ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailCancelAppointmentButtonView.m; sourceTree = "<group>"; };
+		478645FB1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetailConfirmOrderDisableButtonView.h; sourceTree = "<group>"; };
+		478645FC1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailConfirmOrderDisableButtonView.m; sourceTree = "<group>"; };
+		478645FE1ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetailAppointAgainButtonView.h; sourceTree = "<group>"; };
+		478645FF1ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailAppointAgainButtonView.m; sourceTree = "<group>"; };
 		47A2075F1AB7E46000F51797 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
 		47A207601AB7E46000F51797 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
 		47A207611AB7E46000F51797 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
@@ -5108,6 +5120,8 @@
 				475A4D961AC5392D009881CF /* QSPOrderDetailChangeOrderButtonView.m */,
 				475A4D981AC5393F009881CF /* QSPOrderDetailConfirmOrderButtonView.h */,
 				475A4D991AC5393F009881CF /* QSPOrderDetailConfirmOrderButtonView.m */,
+				478645F81ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.h */,
+				478645F91ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m */,
 				475A4D9B1AC53950009881CF /* QSPOrderDetailSubmitPriceButtonView.h */,
 				475A4D9C1AC53950009881CF /* QSPOrderDetailSubmitPriceButtonView.m */,
 				475A4D9E1AC5395F009881CF /* QSPOrderDetailAppointmentSalerAgainButtonView.h */,
@@ -5116,6 +5130,12 @@
 				475A4DA21AC5396E009881CF /* QSPOrderDetailChangeAppointmentButtonView.m */,
 				478645F21ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.h */,
 				478645F31ACD276C00B41F0F /* QSPOrderDetailComplaintAndCompletedButtonView.m */,
+				478645F51ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.h */,
+				478645F61ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m */,
+				478645FB1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.h */,
+				478645FC1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.m */,
+				478645FE1ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.h */,
+				478645FF1ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -5844,6 +5864,7 @@
 				18DFE8701AC6F3AF00C216C3 /* QSCoreDataManager+History.m in Sources */,
 				1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
+				478646001ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m in Sources */,
 				18DFE8E61AC9A29300C216C3 /* QSYTalkPTPViewController.m in Sources */,
 				184366AF1ABA5DBD00A81374 /* QSYAttentionCommunityViewController.m in Sources */,
 				475A4D7C1AC53789009881CF /* QSPOrderDetailRemarkRejectPriceView.m in Sources */,
@@ -6041,6 +6062,7 @@
 				CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */,
 				18D081E41ACE7C43004FA20F /* QSYTenantInfoViewController.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
+				478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */,
 				1815241B1ABFE31900C609B0 /* QSCDCollectedNewHouseAllHousesDataModel.m in Sources */,
 				18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */,
 				18CAFCD11A70E45A00C90C90 /* QSHeaderDataModel.m in Sources */,
@@ -6097,6 +6119,7 @@
 				18D081A81ACD51EC004FA20F /* QSYReleaseRentHouseContactInfoViewController.m in Sources */,
 				18B0E25B1ACB7D8100C8EE9E /* qschat.pb.cc in Sources */,
 				18DFE8AF1AC7088800C216C3 /* QSYBrowseHouseViewController.m in Sources */,
+				478645FD1ACEB4B400B41F0F /* QSPOrderDetailConfirmOrderDisableButtonView.m in Sources */,
 				18DFE8DE1AC990A500C216C3 /* QSYOwnerInfoViewController.m in Sources */,
 				184366B71ABA617600A81374 /* QSYSystemMessagesViewController.m in Sources */,
 				475A4D6D1AC53710009881CF /* QSPOrderDetailOtherPriceView.m in Sources */,
@@ -6152,6 +6175,7 @@
 				475A4D821AC537B7009881CF /* QSPOrderDetailCommentNoteTipsView.m in Sources */,
 				18AFA9D11AB2F4C300681071 /* QSNetworkVerticalCodeView.m in Sources */,
 				18B572931AC16D1600C75682 /* dynamic_message.cc in Sources */,
+				478645F71ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m in Sources */,
 				475A4D411AC3E65A009881CF /* QSPTimeHourPickerView.m in Sources */,
 				18B572A91AC16D1600C75682 /* stringprintf.cc in Sources */,
 				18DFE8691AC6B49900C216C3 /* QSYHistoryNewHouseListView.m in Sources */,
