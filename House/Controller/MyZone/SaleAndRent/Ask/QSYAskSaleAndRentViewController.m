@@ -135,7 +135,8 @@
             
             if (isRelease) {
                 
-                
+                ///列表刷新
+                [self.listView.header beginRefreshing];
                 
             }
             
@@ -384,7 +385,12 @@
                 
                 if (isRelease) {
                     
-                    
+                    if (isRelease) {
+                        
+                        ///列表刷新
+                        [self.listView.header beginRefreshing];
+                        
+                    }
                     
                 }
                 
