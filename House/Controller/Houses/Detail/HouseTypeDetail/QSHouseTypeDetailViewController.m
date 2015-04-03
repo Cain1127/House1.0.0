@@ -34,6 +34,7 @@
 //@property (nonatomic,copy) NSString *loupan_house_id;       //!<户型ID
 
 @property (nonatomic,strong) QSScrollView *rootView;        //!<主UI
+@property (nonatomic,strong) QSScrollView *topView;         //!<导航UI
 @property (nonatomic,strong) QSScrollView *mainView;        //!<内容UI
 
 @property (nonatomic,retain) QSHouseTypeDetailDataModel *detailInfo; //!<数据模型信息
@@ -46,22 +47,22 @@
 {
     
     if (self = [super init]){
-    
+        
         self.loupan_id=loupan_id;
         self.loupan_building_id=loupan_building_id;
         //self.loupan_house_id=loupan_house_id;
-    
-    
+        
+        
     }
     
     return self;
-
+    
 }
 
 
 -(void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     
     [self setNavigationBarTitle:@"户型详情"];
@@ -69,7 +70,7 @@
 
 -(void)createMainShowUI
 {
-
+    
     _rootView=[[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f)];
     
     [self.view addSubview:_rootView];
@@ -79,7 +80,7 @@
     
     ///一开始就头部刷新
     [_rootView.header beginRefreshing];
-
+    
 }
 
 
@@ -95,16 +96,16 @@
     }
     
     else {
-    
+        
         _rootView.hidden=YES;
         
     }
-
+    
 }
 
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
-- (void)createHouseTypeDetailInfoViewUI:(QSHouseTypeDetailDataModel *)detailInfo
+- (void)createHouseTypeDetailInfoViewUI
 {
     
     ///清空原UI
@@ -115,15 +116,16 @@
     }
     
     
-    QSScrollView *topView=[[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 50.0f)];
-    [_rootView addSubview:topView];
-    [self createHouseTypeUI:topView];
+    _topView=[[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 50.0f)];
+    [_rootView addSubview:_topView];
     
-    self.mainView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, topView.frame.origin.y+topView.frame.size.height, SIZE_DEVICE_WIDTH, _rootView.frame.size.height-topView.frame.size.height)];
+    self.mainView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, _topView.frame.origin.y+_topView.frame.size.height, SIZE_DEVICE_WIDTH, _rootView.frame.size.height-_topView.frame.size.height)];
     self.mainView.pagingEnabled = YES;
-    [self createHouseMainView:self.mainView];
     [_rootView addSubview:self.mainView];
+    
+    [self createHouseTypeUI:_topView];
 
+    
 }
 
 #pragma mark -添加顶部户型UI
@@ -138,7 +140,6 @@
     
     ///总的户型信息个数
     int sum = (int)[self.detailInfo.loupanHouse_list count];
-    //int sum=4;
     
     ///底图
     UIImageView *sixFormImage = [[UIImageView alloc]initWithFrame:CGRectMake(gap, 5.0f, width, 40.0f)];
@@ -167,38 +168,51 @@
                 return ;
                 
             }
-            ///刷新数据
-            
-            ///移动UI
+
+            ///移动导航栏UI
             [UIView animateWithDuration:0.3f animations:^{
                 
                 sixFormImage.frame = CGRectMake(gap+ (gap + width)*i, sixFormImage.frame.origin.y, sixFormImage.frame.size.width, sixFormImage.frame.size.height);
                 
+            }];
+            
+            ///刷新内容数据
+            [self createHouseMainView:houseTypeModel];
+            
+            ///判断内容是否需要开启滚动
+            if (_mainView.frame.size.width * i > _mainView.frame.size.width) {
+                
+                _mainView.contentSize = CGSizeMake(_mainView.frame.size.width * i + 10.0f, _mainView.frame.size.height);
+            }
+            
+            ///移动内容UI
+            [UIView animateWithDuration:0.3f animations:^{
+                
+                _mainView.frame = CGRectMake(_mainView.frame.size.width * i, _mainView.frame.origin.y, _mainView.frame.size.width, _mainView.frame.size.height);
                 
             }];
-
+            
         }];
         
         [titleButton addTarget:self action:@selector(changeChannelBarButtonStatus:) forControlEvents:UIControlEventTouchUpInside];
-        
         
         [view addSubview:titleButton];
         
     }
     
-    ///判断是否需要开启滚动
+    ///判断导航栏是否需要开启滚动
     if ((width * sum + gap * (sum + 1)) > view.frame.size.width) {
         
         view.contentSize = CGSizeMake((width * sum + gap * (sum + 1)) + 10.0f, view.frame.size.height);
         
     }
-
+    
 }
 
 #pragma mark -同步改变导航栏按钮的状态
 -(void)changeChannelBarButtonStatus:(UIButton *)button
 {
-
+    
     for (UIView *obj in [button.superview subviews] ) {
         
         if ([obj isKindOfClass:[UIButton class]]) {
@@ -208,53 +222,44 @@
         }
     }
     button.selected = YES;
-
+    
 }
 
 #pragma mark -添加户型图片
 ///添加户型图片
--(void)createHouseMainView:(QSScrollView *)view
+-(void)createHouseMainView:(QSLoupanHouseListDataModel *)houseTypeModel
 {
-
-    ///总的户型信息个数
-    int sum = (int)[self.detailInfo.loupanHouse_list count];
     
-    ///循环创建户型信息
-    for (int i = 0; i < sum; i++) {
+    QSPhotoDataModel *photoModel=[[QSPhotoDataModel alloc] init];
+
+    for (int i = 0; i < [houseTypeModel.photo count]; i++) {
         
-        ///获取模型
-        QSLoupanHouseListDataModel *houseTypeModel = self.detailInfo.loupanHouse_list[i];
+        photoModel =houseTypeModel.photo[i];
         
-        ///添加户型图片
-        for (int j; j < [houseTypeModel.photo count]; j++) {
-            
-            QSPhotoDataModel *photoModel=[[QSPhotoDataModel alloc] init];
-            photoModel=houseTypeModel.photo[j];
-            
-            ///头图片
-            QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, view.frame.size.height-104.0f)];
-            [headerImageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
-            [view addSubview:headerImageView];
-        }
+        QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, _mainView.frame.size.height-104.0f)];
+        [headerImageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
         
+        [_mainView addSubview:headerImageView];
+        
+    }
         ///添加底部UI
-        UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, view.frame.origin.y+view.frame.size.height-84.0f-50.0f, 100.0f, 20.0f)];
+        UILabel *hoeseTotalLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, _mainView.frame.origin.y+_mainView.frame.size.height-84.0f-50.0f, 100.0f, 20.0f)];
         hoeseTotalLabel.text=@"参考价格";
         hoeseTotalLabel.textAlignment=NSTextAlignmentLeft;
         hoeseTotalLabel.font=[UIFont systemFontOfSize:14.0f];
-        [view addSubview:hoeseTotalLabel];
+        [_mainView addSubview:hoeseTotalLabel];
         
-        UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-100.0f-30.0f, hoeseTotalLabel.frame.origin.y, 100.0f, 20.0f)];
+        UILabel *areaSizeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_mainView.frame.size.width-100.0f-30.0f, hoeseTotalLabel.frame.origin.y, 100.0f, 20.0f)];
         areaSizeLabel.text=[NSString stringWithFormat:@"%@室%@厅",houseTypeModel.house_shi,houseTypeModel.house_ting];
         areaSizeLabel.textAlignment=NSTextAlignmentRight;
         areaSizeLabel.font=[UIFont systemFontOfSize:14.0f];
-        [view addSubview:areaSizeLabel];
+        [_mainView addSubview:areaSizeLabel];
         
         ///总计底view
-        UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(30.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height, view.frame.size.width/2.0f-3.0f-30.0f, 44.0f)];
+        UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(30.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height, _mainView.frame.size.width/2.0f-3.0f-30.0f, 44.0f)];
         rootView.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
         rootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-        [view addSubview:rootView];
+        [_mainView addSubview:rootView];
         
         ///价钱信息
         UILabel *priceLabel=[[UILabel alloc] init];
@@ -291,7 +296,7 @@
         UIView *rootView1 = [[UIView alloc] initWithFrame:CGRectMake(rootView.frame.origin.x+rootView.frame.size.width+6.0f, hoeseTotalLabel.frame.origin.y+hoeseTotalLabel.frame.size.height, rootView.frame.size.width, 44.0f)];
         rootView1.layer.cornerRadius = VIEW_SIZE_NORMAL_CORNERADIO;
         rootView1.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-        [view addSubview:rootView1];
+        [_mainView addSubview:rootView1];
         
         ///面积信息
         UILabel *areaLabel = [[UILabel alloc] init];
@@ -323,9 +328,7 @@
         [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all1 options:0 metrics:nil views:___viewsVFL1]];
         [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_areaLabel options:0 metrics:nil views:___viewsVFL1]];
         [rootView1 addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_unitPriceLabel1 options:0 metrics:nil views:___viewsVFL1]];
-   
     
-    }
 }
 
 #pragma mark -网络数据请求
@@ -351,7 +354,7 @@
             self.detailInfo = tempModel.houseTypeDetailModel;
             
             ///创建详情UI
-            [self createHouseTypeDetailInfoViewUI:tempModel.houseTypeDetailModel];
+            [self createHouseTypeDetailInfoViewUI];
             [_rootView.header endRefreshing];
             
             ///1秒后停止动画，并显示界面
