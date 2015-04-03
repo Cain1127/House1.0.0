@@ -19,6 +19,9 @@
 
 @interface QSYAskRentAndBuyHeaderData : QSMSGBaseDataModel
 
-@property (nonatomic,retain) NSArray *dataList; //!<求租求购信息列表
+@property (nonatomic,copy) NSString *is_pass;       //!<是否可以发布新的求租求购
+@property (nonatomic,copy) NSString *rent_num;      //!<当前发布的求租记录数量
+@property (nonatomic,copy) NSString *purchase_num;  //!<当前发布的求购数据
+@property (nonatomic,retain) NSArray *dataList;     //!<求租求购信息列表
 
 @end

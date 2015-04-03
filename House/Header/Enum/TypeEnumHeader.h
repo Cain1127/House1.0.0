@@ -620,6 +620,7 @@ typedef enum
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
     rRequestTypeChatMessageList = 4000,         //!<消息列表
+    rRequestTypeChatContactList,                //!<联系人列表
     
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
     rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
