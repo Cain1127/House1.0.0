@@ -8,6 +8,7 @@
 
 #import "QSSecondHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
+#import "QSUserAssessViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
@@ -422,6 +423,8 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入评论");
+        QSUserAssessViewController *assessVC = [[QSUserAssessViewController alloc] initWithType:@"990105" andID:[self.detailID intValue]];
+        [self.navigationController pushViewController:assessVC animated:YES];
         
     }];
     

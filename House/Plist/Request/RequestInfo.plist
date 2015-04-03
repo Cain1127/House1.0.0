@@ -177,6 +177,13 @@
 		<key>url</key>
 		<string>user/checkSendVer</string>
 	</dict>
+	<key>2063</key>
+	<dict>
+		<key>url</key>
+		<string>comment/list</string>
+		<key>class</key>
+		<string>QSCommentListReturnData</string>
+	</dict>
 	<key>2062</key>
 	<dict>
 		<key>url</key>

@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QSHouseCommentDataModel.h"
+#import "QSCommentListDataModel.h"
 
 
 @interface QSUserAssessCell : UITableViewCell
 
 
--(void)updateAssessCellInfo:(QSHouseCommentDataModel *)CommentDataModel;
+-(void)updateAssessCellInfo:(QSCommentListDataModel *)CommentDataModel;
 
 @end

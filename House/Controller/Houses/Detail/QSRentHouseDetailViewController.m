@@ -9,6 +9,7 @@
 #import "QSRentHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSUserAssessViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
@@ -370,7 +371,6 @@ static char LeftStarKey;            //!<左侧星级
     ///分数view
     QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"");
         
     }];
@@ -380,53 +380,49 @@ static char LeftStarKey;            //!<左侧星级
     UIView *houseTotalView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, scoreView.frame.origin.y+scoreView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*3.0f+44.0f+3.0f*10.0f+2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseTotalUI:houseTotalView andTotalModel:dataModel.house];
     
+    ///房子详情
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*5.0f+4.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHousesInfo:self.houseInfo];
     
+    ///房子服务
     QSScrollView *houseServiceView=[[QSScrollView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT+52.0f+8.0f+20.0f)];
     [self createHouseServiceViewUI:houseServiceView];
     
+    ///价格变动
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"点击进入价格变动");
         
     }];
     
     [self createPriceChangeViewUI:priceChangeView andPriceChanges:self.priceChangesInfo];
     
+    ///均价详情
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"点击进入均价详情");
         
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andTitle:self.houseInfo.village_name andAveragePrice:self.houseInfo.price_avg];
     
-    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
-        
-        ///进入地图：需要传经纬度
-        NSLog(@"点击进入关注");
-        
-    }];
+    ///房源浏览量
+    QSBlockView *houseAttentionView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, districtAveragePriceView.frame.origin.y+districtAveragePriceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 25.0f+15.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     
     [self createHouseAttentionViewUI:houseAttentionView andHouseInfo:dataModel.house];
     
+    ///房源评论
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"点击进入评论");
+            QSUserAssessViewController *assessVC = [[QSUserAssessViewController alloc] initWithType:@"990106" andID:[self.detailID intValue]];
+        [self.navigationController pushViewController:assessVC animated:YES];
+        
         
     }];
     
     [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
-    QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
-        
-        ///进入地图：需要传经纬度
-        NSLog(@"点击业主");
-        
-    }];
+    QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     
     [self createOwnerViewUI:ownerView andUserInfo:self.userInfo];
     

@@ -633,7 +633,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 }
 
 #pragma mark -添加更多配套view
-///添加评论view
+///更多配套
 -(void)createCommentViewUI:(UIView *)view
 {
     

@@ -81,11 +81,11 @@ static char AssessCommentKey;   //!<评论内容关联key
 
 }
 
--(void)updateAssessCellInfo:(QSHouseCommentDataModel *)CommentDataModel
+-(void)updateAssessCellInfo:(QSCommentListDataModel *)CommentDataModel
 {
 
-    [self updateAssessImageKey:CommentDataModel.avatar];
-    [self updateAssessUserKey:CommentDataModel.nickname];
+    [self updateAssessImageKey:CommentDataModel.userInfo.avatar];
+    [self updateAssessUserKey:CommentDataModel.userInfo.username];
     [self updateAssessDateKey:CommentDataModel.create_time];
     [self updateAssessTimeKey:CommentDataModel.update_time];
     [self updateAssessCommentKey:CommentDataModel.content];

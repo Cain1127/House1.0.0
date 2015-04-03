@@ -21,7 +21,7 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithModel:(QSHouseCommentDataModel*) dataModel;
+-(instancetype)initWithType:(NSString *)type andID:(int )be_id;
 
 
 @end

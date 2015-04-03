@@ -632,7 +632,6 @@
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
 		CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */; };
-		CE2E0FC41AAFF75A004DEE1E /* QSHouseCommentDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */; };
 		CE391F7B1ACA387000C298D7 /* QSSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE391F7A1ACA387000C298D7 /* QSSignUpViewController.m */; };
 		CE520FF81ACCFBDB00D6230B /* HouseDetailAroundInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE520FF71ACCFBDB00D6230B /* HouseDetailAroundInfo.plist */; };
 		CE5210071ACD0F1800D6230B /* houses_detail_bus_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE520FF91ACD0F1800D6230B /* houses_detail_bus_highlighted.png */; };
@@ -649,6 +648,9 @@
 		CE5210121ACD0F1800D6230B /* houses_detail_school_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CE5210041ACD0F1800D6230B /* houses_detail_school_normal.png */; };
 		CE5210131ACD0F1800D6230B /* houses_detail_supermarket_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE5210051ACD0F1800D6230B /* houses_detail_supermarket_highlighted.png */; };
 		CE5210141ACD0F1800D6230B /* houses_detail_supermarket_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CE5210061ACD0F1800D6230B /* houses_detail_supermarket_normal.png */; };
+		CE5210181ACE758900D6230B /* QSCommentListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5210171ACE758900D6230B /* QSCommentListReturnData.m */; };
+		CE52101C1ACE799D00D6230B /* QSHouseCommentDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52101B1ACE799D00D6230B /* QSHouseCommentDataModel.m */; };
+		CE5210201ACE7A1200D6230B /* QSCommentListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE52101F1ACE7A1200D6230B /* QSCommentListDataModel.m */; };
 		CE5341891A7FBE89002BA188 /* NSString+Calculation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5341881A7FBE89002BA188 /* NSString+Calculation.m */; };
 		CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */; };
 		CE7BF47B1A7A70080022A132 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7BF47A1A7A70080022A132 /* CoreLocation.framework */; };
@@ -1702,8 +1704,6 @@
 		CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRentHouseDetailDataModel.m; sourceTree = "<group>"; };
 		CE2E0FBF1AAFF693004DEE1E /* QSHousePriceChangesDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHousePriceChangesDataModel.h; sourceTree = "<group>"; };
 		CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHousePriceChangesDataModel.m; sourceTree = "<group>"; };
-		CE2E0FC21AAFF75A004DEE1E /* QSHouseCommentDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseCommentDataModel.h; sourceTree = "<group>"; };
-		CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseCommentDataModel.m; sourceTree = "<group>"; };
 		CE391F791ACA387000C298D7 /* QSSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSignUpViewController.h; sourceTree = "<group>"; };
 		CE391F7A1ACA387000C298D7 /* QSSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSignUpViewController.m; sourceTree = "<group>"; };
 		CE520FF71ACCFBDB00D6230B /* HouseDetailAroundInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HouseDetailAroundInfo.plist; sourceTree = "<group>"; };
@@ -1721,6 +1721,12 @@
 		CE5210041ACD0F1800D6230B /* houses_detail_school_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_school_normal.png; sourceTree = "<group>"; };
 		CE5210051ACD0F1800D6230B /* houses_detail_supermarket_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_supermarket_highlighted.png; sourceTree = "<group>"; };
 		CE5210061ACD0F1800D6230B /* houses_detail_supermarket_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_supermarket_normal.png; sourceTree = "<group>"; };
+		CE5210161ACE758900D6230B /* QSCommentListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCommentListReturnData.h; sourceTree = "<group>"; };
+		CE5210171ACE758900D6230B /* QSCommentListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommentListReturnData.m; sourceTree = "<group>"; };
+		CE52101A1ACE799D00D6230B /* QSHouseCommentDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseCommentDataModel.h; sourceTree = "<group>"; };
+		CE52101B1ACE799D00D6230B /* QSHouseCommentDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHouseCommentDataModel.m; sourceTree = "<group>"; };
+		CE52101E1ACE7A1200D6230B /* QSCommentListDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCommentListDataModel.h; sourceTree = "<group>"; };
+		CE52101F1ACE7A1200D6230B /* QSCommentListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommentListDataModel.m; sourceTree = "<group>"; };
 		CE5341871A7FBE89002BA188 /* NSString+Calculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Calculation.h"; sourceTree = "<group>"; };
 		CE5341881A7FBE89002BA188 /* NSString+Calculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Calculation.m"; sourceTree = "<group>"; };
 		CE64AB4D1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_busbutton_highlighted.png; sourceTree = "<group>"; };
@@ -1913,6 +1919,7 @@
 		182C88191A7B0F0A00DA64E9 /* House */ = {
 			isa = PBXGroup;
 			children = (
+				CE5210151ACE754500D6230B /* Comment */,
 				CE97039F1AC92F8A00AE403E /* HouseTypeDetail */,
 				CEBA355D1AC514D500A1E082 /* ActivityDetail */,
 				187CA8BF1AA2FBEA00841A7E /* NewHouse */,
@@ -3364,8 +3371,8 @@
 		18B564781A8380CA009779A0 /* House */ = {
 			isa = PBXGroup;
 			children = (
+				CE52101D1ACE79D200D6230B /* CommentList */,
 				CE9703A31AC930B100AE403E /* HouseTypeDetail */,
-				CE2E0FBD1AAFF5E9004DEE1E /* Comment */,
 				CE2E0FBE1AAFF5E9004DEE1E /* PriceChanges */,
 				CE2E0FB71AAFF34D004DEE1E /* House */,
 				18DABAB11AAD4E3B00647E7C /* HouseType */,
@@ -4781,6 +4788,7 @@
 		18EE34691AABFD3F0053B909 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CE5210191ACE799D00D6230B /* Comment */,
 				18EE347A1AABFD610053B909 /* QSNewHouseDetailDataModel.h */,
 				18EE347B1AABFD610053B909 /* QSNewHouseDetailDataModel.m */,
 				CE2E0FB11AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.h */,
@@ -5141,15 +5149,6 @@
 			path = House/House;
 			sourceTree = "<group>";
 		};
-		CE2E0FBD1AAFF5E9004DEE1E /* Comment */ = {
-			isa = PBXGroup;
-			children = (
-				CE2E0FC21AAFF75A004DEE1E /* QSHouseCommentDataModel.h */,
-				CE2E0FC31AAFF75A004DEE1E /* QSHouseCommentDataModel.m */,
-			);
-			path = Comment;
-			sourceTree = "<group>";
-		};
 		CE2E0FBE1AAFF5E9004DEE1E /* PriceChanges */ = {
 			isa = PBXGroup;
 			children = (
@@ -5191,6 +5190,35 @@
 				CE520FF71ACCFBDB00D6230B /* HouseDetailAroundInfo.plist */,
 			);
 			path = Around;
+			sourceTree = "<group>";
+		};
+		CE5210151ACE754500D6230B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				CE5210161ACE758900D6230B /* QSCommentListReturnData.h */,
+				CE5210171ACE758900D6230B /* QSCommentListReturnData.m */,
+			);
+			name = Comment;
+			path = House/Comment;
+			sourceTree = "<group>";
+		};
+		CE5210191ACE799D00D6230B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				CE52101A1ACE799D00D6230B /* QSHouseCommentDataModel.h */,
+				CE52101B1ACE799D00D6230B /* QSHouseCommentDataModel.m */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		CE52101D1ACE79D200D6230B /* CommentList */ = {
+			isa = PBXGroup;
+			children = (
+				CE52101E1ACE7A1200D6230B /* QSCommentListDataModel.h */,
+				CE52101F1ACE7A1200D6230B /* QSCommentListDataModel.m */,
+			);
+			name = CommentList;
+			path = House/CommentList;
 			sourceTree = "<group>";
 		};
 		CE7F50571AC8E9CE004E6032 /* HouseTypeDetail */ = {
@@ -5820,6 +5848,7 @@
 				18018AF71AA05D7200F35DEB /* QSCommunityListReturnData.m in Sources */,
 				18B5729B1AC16D1600C75682 /* strtod.cc in Sources */,
 				1815241E1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m in Sources */,
+				CE52101C1ACE799D00D6230B /* QSHouseCommentDataModel.m in Sources */,
 				18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */,
 				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
 				18B572951AC16D1600C75682 /* extension_set_heavy.cc in Sources */,
@@ -5948,6 +5977,7 @@
 				CEFA4DF81AAD2F010018C8F9 /* QSNewHouseDetailViewController.m in Sources */,
 				475A4D761AC53758009881CF /* QSPOrderDetailTransactionPriceView.m in Sources */,
 				18A88EC01A8CBC5400596E11 /* QSCommunityCollectionViewCell.m in Sources */,
+				CE5210181ACE758900D6230B /* QSCommentListReturnData.m in Sources */,
 				18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */,
 				18B572AF1AC16D1600C75682 /* text_format.cc in Sources */,
 				18DFE8B91AC7D8D900C216C3 /* QSYHistoryHouseCollectionViewCell.m in Sources */,
@@ -6064,7 +6094,6 @@
 				1865E3DE1AB2979500FAEC9E /* QSYHomeReturnData.m in Sources */,
 				47A2076E1AB7E46000F51797 /* NSCalendar+FSExtension.m in Sources */,
 				18DABAAD1AAD4E1B00647E7C /* QSActivityDataModel.m in Sources */,
-				CE2E0FC41AAFF75A004DEE1E /* QSHouseCommentDataModel.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
 				CECBD3CA1ABAE91B00C5F9AF /* QSMapCommunityListReturnData.m in Sources */,
 				187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */,
@@ -6093,6 +6122,7 @@
 				18AFA9CA1AB2D20600681071 /* NSString+Format.m in Sources */,
 				475A4D391AC3E65A009881CF /* QSPOrderDetailBookedViewController.m in Sources */,
 				18B563321A81ADF8009779A0 /* QSSinglePickerView.m in Sources */,
+				CE5210201ACE7A1200D6230B /* QSCommentListDataModel.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */,
 				475A4D331AC3E65A009881CF /* QSPBuyerBookedOrderCompletedListView.m in Sources */,
