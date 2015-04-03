@@ -18,7 +18,14 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
+    [shared_mapping addAttributeMappingsFromArray:@[@"is_pass",
+                                                    @"rent_num",
+                                                    @"purchase_num"]];
+    
+    ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"headerData" withMapping:[QSYAskRentAndBuyHeaderData objectMapping]]];
+    
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"order_list" toKeyPath:@"orderList" withMapping:[QSYAskRentAndBuyHeaderData objectMapping]]];
     
     return shared_mapping;
     

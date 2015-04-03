@@ -158,11 +158,29 @@
             
             break;
             
+            ///联系人设置
+        case nNavigationBarButtonTypeContactSetting:
+            
+            return [self createNavigationBarContactSettinButtonStyle];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
+    
+}
+
+#pragma mark - 详情按钮
++ (QSBlockButtonStyleModel *)createNavigationBarContactSettinButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_NAVIGATIONBAR_MORE_NORMAL;
+    buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_MORE_HIGHLIGHTED;
+    return buttonStyle;
     
 }
 
