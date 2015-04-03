@@ -102,7 +102,7 @@
     }
     
 }
-
+//
 #pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
 - (void)createHouseTypeDetailInfoViewUI
