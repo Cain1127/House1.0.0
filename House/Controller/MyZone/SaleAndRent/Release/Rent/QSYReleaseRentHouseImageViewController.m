@@ -533,7 +533,7 @@ static char PickedImageRootViewKey;//!<添加图片的底view
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
     
     ///获取图片二进制流
-    NSData *imageData = UIImageJPEGRepresentation(imageModel.image, 0.8f);
+    NSData *imageData = UIImageJPEGRepresentation(imageModel.image, 0.5f);
     NSString *tempFilePath = NSTemporaryDirectory();
     NSString *savePath = [tempFilePath stringByAppendingString:@"temp_image.jpg"];
     if (![imageData writeToFile:savePath atomically:YES]) {

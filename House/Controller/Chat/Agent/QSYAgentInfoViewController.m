@@ -7,23 +7,27 @@
 //
 
 #import "QSYAgentInfoViewController.h"
+#import "QSPOrderDetailBookedViewController.h"
 
 #import "QSYAskRentAndBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
+#import "QSYContactAppointmentCreditInfoView.h"
 
 #import "QSYContactDetailReturnData.h"
 #import "QSYContactDetailInfoModel.h"
+#import "QSYAskListOrderInfosModel.h"
 
 #import "MJRefresh.h"
 
 @interface QSYAgentInfoViewController () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,copy) NSString *agentName;             //!<经纪人名
-@property (nonatomic,copy) NSString *agentID;               //!<经纪ID
-@property (nonatomic,strong) UITableView *userInfoRootView; //!<用户消息列表
-@property (nonatomic,assign) NSInteger releaseIndex;        //!<当前展开的cell下标
-@property (nonatomic,retain) NSMutableArray *askDataSource; //!<求租求购的记录
-@property (nonatomic,retain) QSYContactDetailReturnData *contactInfo;
+@property (nonatomic,copy) NSString *agentName;                         //!<经纪人名
+@property (nonatomic,copy) NSString *agentID;                           //!<经纪ID
+@property (nonatomic,strong) UITableView *userInfoRootView;             //!<用户消息列表
+@property (nonatomic,assign) NSInteger releaseIndex;                    //!<当前展开的cell下标
+@property (nonatomic,retain) NSMutableArray *askDataSource;             //!<求租求购的记录
+@property (nonatomic,retain) QSYContactDetailReturnData *contactInfo;   //!<联系人信息
+@property (nonatomic,retain) QSYAskListOrderInfosModel *orderInfo;      //!<订单信息
 
 @end
 
@@ -103,6 +107,18 @@
         
     }
     
+    if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
+        
+        return 44.0f;
+        
+    }
+    
+    if (3 == indexPath.row && self.orderInfo) {
+        
+        return 105.0f;
+        
+    }
+    
     if (indexPath.row != self.releaseIndex) {
         
         return 332.0f;
@@ -149,6 +165,41 @@
     if (1 == indexPath.row) {
         
         static NSString *addInfoCell = @"addInfoCell";
+        UITableViewCell *cellUserInfo = [tableView dequeueReusableCellWithIdentifier:addInfoCell];
+        if (nil == cellUserInfo) {
+            
+            cellUserInfo = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addInfoCell];
+            cellUserInfo.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///头view
+        QSYContactAppointmentCreditInfoView *infoRootView = (QSYContactAppointmentCreditInfoView *)[cellUserInfo.contentView viewWithTag:5556];
+        if (nil == infoRootView) {
+            
+            infoRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
+            infoRootView.backgroundColor = [UIColor whiteColor];
+            [cellUserInfo.contentView addSubview:infoRootView];
+            
+        }
+        
+        ///刷新数据
+        [infoRootView updateContactInfoUI:self.contactInfo.contactInfo];
+        
+        return cellUserInfo;
+        
+    }
+    
+    ///判断是否有订单
+    if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
+        
+        static NSString *isOrderCell = @"isOrderCell";
+        
+    }
+    
+    if (3 == indexPath.row && self.orderInfo) {
+        
+        static NSString *orderInfoCell = @"orderInfoCell";
         
     }
     
@@ -201,6 +252,24 @@
     }];
     
     return cellNormal;
+
+}
+
+#pragma mark - 点击cell上的事件
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (3 == indexPath.row && self.orderInfo) {
+        
+        
+        
+    }
+    
+    if (indexPath.row != self.releaseIndex) {
+        
+        
+        
+    }
 
 }
 

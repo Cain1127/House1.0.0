@@ -544,13 +544,20 @@ static char PickedImageRootViewKey;//!<图片选择底view
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
     
     ///获取图片二进制流
-    NSData *imageData = UIImageJPEGRepresentation(imageModel.image, 0.8f);
+    NSData *imageData = UIImageJPEGRepresentation(imageModel.image, 0.5f);
+    NSString *tempFilePath = NSTemporaryDirectory();
+    NSString *savePath = [tempFilePath stringByAppendingString:@"temp_image.jpg"];
+    if (![imageData writeToFile:savePath atomically:YES]) {
+        
+        return;
+        
+    }
     
     ///封装参数
     NSDictionary *params = @{@"source" : @"iOS",
                              @"thumb_width" : [NSString stringWithFormat:@"%.2f",imageModel.image.size.width],
                              @"thumb_height" : [NSString stringWithFormat:@"%.2f",imageModel.image.size.height],
-                             @"attach_file" : imageData};
+                             @"attach_file" : savePath};
     
     ///上传图片
     [QSRequestManager requestDataWithType:rRequestTypeLoadImage andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
