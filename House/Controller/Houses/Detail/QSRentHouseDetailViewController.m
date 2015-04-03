@@ -8,11 +8,13 @@
 
 #import "QSRentHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
+#import "QSYTalkPTPViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
 #import "QSYShareChoicesView.h"
 #import "QSCustomHUDView.h"
+#import "QSYCallTipsPopView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -56,7 +58,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UIAlertViewDelegate>
+@interface QSRentHouseDetailViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -241,22 +243,39 @@ static char LeftStarKey;            //!<左侧星级
                 
             }];
             
-            
         }];
         [view addSubview:stopSaleButton];
         
         ///按钮风格
         QSBlockButtonStyleModel *editButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-        ///编辑按钮
+        
+        ///咨询按钮
         editButtonStyle.title = TITLE_HOUSES_DETAIL_RENT_CONSULT;
         UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击立即咨询按钮事件");
-            
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                ///已登录
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:self.detailInfo.user];
+                    [self.navigationController pushViewController:talkVC animated:YES];
+                    
+                }
+                
+                ///新登录
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    ///刷新数据
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView.header beginRefreshing];
+                    
+                }
+                
+            }];
             
         }];
         [view addSubview:editButton];
-        
         
     } else {
         
@@ -267,11 +286,25 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
             
-            ///判断是否已登录
-            
-            
-            ///已登录重新刷新数据
-            
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                ///已登录
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    
+                    
+                }
+                
+                ///新登录
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    ///刷新数据
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView.header beginRefreshing];
+                    
+                }
+                
+            }];
             
         }];
         [view addSubview:callFreeButton];
@@ -328,8 +361,6 @@ static char LeftStarKey;            //!<左侧星级
     
     ///保存图片信息
     self.photoArray=dataModel.rentHouse_photo;
-    NSLog(@"图片数组集数量--%ld",self.photoArray.count);
-//    self.photoInfo=self.photoArray[0];
     
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
@@ -415,8 +446,8 @@ static char LeftStarKey;            //!<左侧星级
     
     ///设置数据源和代理
     infoRootView.delegate = self;
-    infoRootView.scrollEnabled=YES;
-    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,commentView.frame.origin.y+commentView.frame.size.height+130.0f);
+    infoRootView.scrollEnabled = YES;
+    infoRootView.contentSize = CGSizeMake(SIZE_DEVICE_WIDTH,commentView.frame.origin.y+commentView.frame.size.height+130.0f);
     
 }
 
@@ -1160,9 +1191,19 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     ///业主
-    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 33.0f, 33.0f)];
-    userImageView.backgroundColor=[UIColor yellowColor];
+    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+    userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+    if ([self.detailInfo.user.avatar length] > 0) {
+        
+        [userImageView loadImageWithURL:[self.detailInfo.user.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        
+    }
     [view addSubview:userImageView];
+    
+    ///镂空六角形
+    QSImageView *userIconSixForm = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, userImageView.frame.size.width, userImageView.frame.size.height)];
+    userIconSixForm.image = [UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW];
+    [userImageView addSubview:userIconSixForm];
     
     ///业主名称
     UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
@@ -1180,13 +1221,30 @@ static char LeftStarKey;            //!<左侧星级
     
     ///按钮风格
     QSBlockButtonStyleModel *connectButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    
     ///编辑按钮
     connectButtonStyle.title = TITLE_HOUSES_DETAIL_RENT_CONNECT;
     UIButton *connectButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height+SIZE_DEFAULT_MARGIN_LEFT_RIGHT,view.frame.size.width,35.0f) andButtonStyle:connectButtonStyle andCallBack:^(UIButton *button) {
         
-        NSLog(@"点击联系业主按钮事件");
-        [self makeCall:userInfoModel.mobile andOwer:userInfoModel.nickname];
-        
+        ///判断是否已登录
+        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+            
+            ///已登录
+            if (lLoginCheckActionTypeLogined == flag) {
+                
+                [self contactHouseOwner:userInfoModel.mobile andOwer:userInfoModel.nickname];
+                
+            }
+            
+            ///新登录，刷新数据
+            if (lLoginCheckActionTypeReLogin) {
+                
+                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                [rootView.header beginRefreshing];
+                
+            }
+            
+        }];
         
     }];
     [view addSubview:connectButton];
@@ -1194,32 +1252,29 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 #pragma mark - 联系业主事件
-- (void)makeCall:(NSString *)number andOwer:(NSString *)ower
+- (void)contactHouseOwner:(NSString *)number andOwer:(NSString *)ower
 {
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
-                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
-                                              cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
-    alertView.tag = kCallAlertViewTag;
-    self.phoneNumber = number;
-    [alertView show];
-    return;
+    ///弹出框
+    __block QSYPopCustomView *popView;
     
-}
-
-#pragma mark - 打电话代理事件
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (alertView.tag == kCallAlertViewTag) {
+    QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:ower andPhone:number andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
         
-        if (buttonIndex == 1) {
+        ///回收弹框
+        [popView hiddenCustomPopview];
+        
+        ///确认打电话
+        if (cCallTipsCallBackActionTypeConfirm == actionType) {
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.phoneNumber]]];
             
         }
         
-    }
+    }];
+    
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:callTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+    }];
     
 }
 

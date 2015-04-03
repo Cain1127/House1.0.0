@@ -58,7 +58,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate,UIAlertViewDelegate>
+@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -317,7 +317,6 @@ static char LeftStarKey;            //!<左侧星级
                 }
                 
             }];
-            
             
         }];
         [view addSubview:editButton];
@@ -1283,7 +1282,12 @@ static char LeftStarKey;            //!<左侧星级
     
     ///业主
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
-    [userImageView loadImageWithURL:[self.detailInfo.user.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+    userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+    if ([self.detailInfo.user.avatar length] > 0) {
+        
+        [userImageView loadImageWithURL:[self.detailInfo.user.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        
+    }
     [view addSubview:userImageView];
     
     ///镂空六角形
