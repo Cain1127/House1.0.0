@@ -14,6 +14,9 @@
 
 #import <objc/runtime.h>
 
+///关联
+static char MainInfoButtonRootViewKey;//!<功能按钮区的底view
+
 @interface QSMyZoneOwnerView ()
 
 @property (nonatomic,assign) USER_COUNT_TYPE userType;              //!<用户类型
@@ -90,6 +93,7 @@ static char RecommendKey;   //!<推荐房源关联key
     ///其他信息项底view
     UIScrollView *mainRootView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, channelButtonRootView.frame.size.height, self.frame.size.width, self.frame.size.height - channelButtonRootView.frame.size.height)];
     [self addSubview:mainRootView];
+    objc_setAssociatedObject(self, &MainInfoButtonRootViewKey, mainRootView, OBJC_ASSOCIATION_ASSIGN);
 
     ///根据用户类型创建不同的UI
     if (uUserCountTypeTenant == self.userType) {
@@ -189,6 +193,13 @@ static char RecommendKey;   //!<推荐房源关联key
 - (void)createOwnerNormalFunctionUI:(UIScrollView *)view
 {
     
+    ///清空
+    for (UIView *obj in [view subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
+    
     ///布局高度
     CGFloat layoutHeight = view.frame.size.height;
     
@@ -263,6 +274,13 @@ static char RecommendKey;   //!<推荐房源关联key
 ///房客的用户时，显示如何成为业主
 - (void)createRenantOwnerFunctionUI:(UIView *)mainRootView
 {
+    
+    ///清空
+    for (UIView *obj in [mainRootView subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
 
     ///开始的y坐标
     CGFloat ypoint = (mainRootView.frame.size.height - 139.0f) / 2.0f;
@@ -627,6 +645,28 @@ static char RecommendKey;   //!<推荐房源关联key
         
     }
     
+}
+
+#pragma mark - 重建UI
+- (void)rebuildOwnerFunctionUI:(USER_COUNT_TYPE)userType
+{
+    
+    ///获取底view
+    UIScrollView *rootView = objc_getAssociatedObject(self, &MainInfoButtonRootViewKey);
+
+    ///根据用户类型创建不同的UI
+    if (uUserCountTypeTenant == userType) {
+        
+        ///创建房客的业主页面
+        [self createRenantOwnerFunctionUI:rootView];
+        
+    } else {
+        
+        ///正常业主功能页面
+        [self createOwnerNormalFunctionUI:rootView];
+        
+    }
+
 }
 
 @end

@@ -22,6 +22,9 @@ static QSCoreDataManager *_coredataManager = nil;
 ///保存二手房浏览记录时的回调
 @property (nonatomic,copy) COREDATACHANGEBLOCK addSecondHandHouseHistoryHouseCallBack;
 
+///个人中心基于用户信息更新后的回调
+@property (nonatomic,copy) COREDATACHANGEBLOCK myZoneUserInfoUpdateCallBack;
+
 @end
 
 @implementation QSCoreDataManager
@@ -120,6 +123,23 @@ static QSCoreDataManager *_coredataManager = nil;
             
             break;
             
+            ///当前用户的信息刷新时，回调通知myzone，用以更新UI
+        case cCoredataDataTypeMyZoneUserInfoChange:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneUserInfoUpdateCallBack = changeCallBack;
+                
+            } else {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneUserInfoUpdateCallBack = nil;
+                
+            }
+            
+            break;
+            
         default:
             break;
             
@@ -176,6 +196,21 @@ static QSCoreDataManager *_coredataManager = nil;
             if (coredataManager.addRentHouseHistoryHouseCallBack) {
                 
                 coredataManager.addRentHouseHistoryHouseCallBack(cCoredataDataTypeAddRentHouseHistory,changeType,changeKey,nil);
+                
+            }
+            
+        }
+            
+            break;
+            
+            ///当前用户的信息刷新时，回调通知myzone，用以更新UI
+        case cCoredataDataTypeMyZoneUserInfoChange:
+        {
+            
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.myZoneUserInfoUpdateCallBack) {
+                
+                coredataManager.myZoneUserInfoUpdateCallBack(cCoredataDataTypeMyZoneUserInfoChange,changeType,nil,nil);
                 
             }
             

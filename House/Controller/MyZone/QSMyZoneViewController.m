@@ -244,8 +244,6 @@ static char UserIconKey;//!<用户头像
         switch (actionType) {
                 ///待看房点击
             case tTenantZoneActionTypeStayAround:
-                
-                NSLog(@"==================待看房======================");
                 {
                     QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                     [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
@@ -485,6 +483,14 @@ static char UserIconKey;//!<用户头像
         rootView.contentSize = CGSizeMake(rootView.frame.size.width, (myZoneView.frame.origin.y + myZoneView.frame.size.height) + 10.0f);
         
     }
+    
+    ///注册用户信息变动的监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        ///重构业主UI
+        [ownerView rebuildOwnerFunctionUI:[QSCoreDataManager getCurrentUserCountType]];
+        
+    }];
 
 }
 

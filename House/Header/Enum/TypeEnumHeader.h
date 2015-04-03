@@ -640,6 +640,7 @@ typedef enum
     rRequestTypeRegistPhone,                    //!<普通的手机注册
     rRequestTypeLogin,                          //!<登录
     rRequestTypeLogout,                         //!<退出登录
+    rRequestTypeReloadUserUnfo,                 //!<重新下载用户信息
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

@@ -12,10 +12,13 @@
 #import "QSBaseConfigurationDataModel.h"
 #import "QSUserDataModel.h"
 #import "QSCDUserDataModel.h"
+#import "QSYLoginReturnData.h"
 
 #import "QSYAppDelegate.h"
 
 #import "QSCoreDataManager+App.h"
+
+#import "QSRequestManager.h"
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_USER_INFO @"QSCDUserDataModel"
@@ -51,6 +54,68 @@
     }
     
     return YES;
+
+}
+
+/**
+ *  @author yangshengmeng, 15-04-02 22:04:48
+ *
+ *  @brief  重新请求个人信息
+ *
+ *  @since  1.0.0
+ */
++ (void)reloadUserInfoFromServer
+{
+
+    ///登录
+    [QSRequestManager requestDataWithType:rRequestTypeReloadUserUnfo andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///登录成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改用户登录状态
+            [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
+                
+                ///保存用户信息
+                QSYLoginReturnData *tempModel = resultData;
+                QSUserDataModel *userModel = tempModel.userInfo;
+                
+                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                    
+                    if (flag) {
+                        
+                        ///打印日志
+                        APPLICATION_LOG_INFO(@"更新用户信息", @"成功")
+                        
+                        ///回调通知用户信息已修改
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
+                        
+                    } else {
+                    
+                        ///打印日志
+                        APPLICATION_LOG_INFO(@"更新用户信息", @"失败")
+                    
+                    }
+                    
+                }];
+                
+            }];
+            
+        } else {
+            
+            NSString *tips = @"重新获取用户信息失败";
+            if (resultData) {
+                
+                tips = [resultData valueForKey:@"info"];
+                
+            }
+            
+            ///打印日志
+            APPLICATION_LOG_INFO(@"更新用户信息", tips)
+            
+        }
+        
+    }];
 
 }
 

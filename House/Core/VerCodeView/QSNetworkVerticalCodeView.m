@@ -12,6 +12,9 @@
 
 #import "QSYSendVerticalCodeReturnData.h"
 
+///将验证码显示在输入框中的开关宏
+#define ___VERCODE_AUTOWRITE_TO_FIELD___
+
 @interface QSNetworkVerticalCodeView ()
 
 @property (nonatomic,unsafe_unretained) UITextField *phoneField;//!<手机号码输入框
@@ -221,6 +224,11 @@
             
             ///回调
             if (self.sendVerticalCodeCallBack) {
+                
+#ifdef ___VERCODE_AUTOWRITE_TO_FIELD___
+                ///显示验证码
+                self.phoneField.text = tempModel.msg;
+#endif
                 
                 self.sendVerticalCodeCallBack(sSendPhoneVerticalCodeActionTypeSuccess,tempModel.msg);
                 

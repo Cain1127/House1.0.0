@@ -15,6 +15,7 @@ typedef enum
     cCoredataDataTypeCommunityIntention = 0,    //!<小区关注
     cCoredataDataTypeAddSecondHandHouseHistory, //!<二手房浏览记录
     cCoredataDataTypeAddRentHouseHistory,       //!<出租房浏览记录
+    cCoredataDataTypeMyZoneUserInfoChange,      //!<用户信息变动时，我的中心连动类型
 
 }COREDATA_DATA_TYPE;
 
@@ -22,9 +23,10 @@ typedef enum
 typedef enum
 {
     
-    dDataChangeTypeIncrease = 0,  //!<增加
-    dDataChangeTypeReduce,        //!<减少
-    dDataChangeTypeZero,          //!<已为0
+    dDataChangeTypeIncrease = 0,    //!<增加
+    dDataChangeTypeReduce,          //!<减少
+    dDataChangeTypeZero,            //!<已为0
+    dDataChangeTypeUserInfoChanged, //!<有变动
     
 }DATA_CHANGE_TYPE;
 

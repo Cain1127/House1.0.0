@@ -32,6 +32,15 @@
 + (BOOL)isLogin;
 
 /**
+ *  @author yangshengmeng, 15-04-02 22:04:48
+ *
+ *  @brief  重新请求个人信息
+ *
+ *  @since  1.0.0
+ */
++ (void)reloadUserInfoFromServer;
+
+/**
  *  @author     yangshengmeng, 15-03-14 12:03:47
  *
  *  @brief      更新用户登录状态
