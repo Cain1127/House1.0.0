@@ -130,7 +130,6 @@
 ///添加户型UI
 -(void)createHouseTypeUI:(QSScrollView *)view
 {
-
     
     ///每个控件的宽度
     CGFloat width = 35.0f;
@@ -140,60 +139,75 @@
     ///总的户型信息个数
     int sum = (int)[self.detailInfo.loupanHouse_list count];
     //int sum=4;
+    
+    ///底图
+    UIImageView *sixFormImage = [[UIImageView alloc]initWithFrame:CGRectMake(gap, 5.0f, width, 40.0f)];
+    sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
+    [view addSubview:sixFormImage];
     ///循环创建户型信息
     for (int i = 0; i < sum; i++) {
         
         ///获取模型
         QSLoupanHouseListDataModel *houseTypeModel = self.detailInfo.loupanHouse_list[i];
         
-        ///底图
-        UIImageView *sixFormImage = [QSImageView createBlockImageViewWithFrame:CGRectMake((i+1)*gap + i*width, 5.0f, width, 40.0f) andSingleTapCallBack:^{
-            
-        }];
-        sixFormImage.backgroundColor=[UIColor whiteColor];
-        [view addSubview:sixFormImage];
-        
-        
-        QSBlockButtonStyleModel *buttonStyle=[[QSBlockButtonStyleModel alloc] init];
+        QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
         buttonStyle.title=[NSString stringWithFormat:@"%@室",houseTypeModel.house_shi ? houseTypeModel.house_shi : @"0"];
-       // buttonStyle.title=@"1室";
         buttonStyle.titleNormalColor=COLOR_CHARACTERS_BLACK;
+        buttonStyle.bgColor = [UIColor clearColor];
         buttonStyle.titleFont=[UIFont boldSystemFontOfSize:FONT_BODY_14];
         
         ///主标题信息
-        UIButton *titleButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(2.0f, 5.0f, sixFormImage.frame.size.width , 30.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        UIButton *titleButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(gap+(gap + width) *i-4.5f, 5.0f, 44.0f , 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             NSLog(@"点击户型事件");
-            self.mainView.contentOffset = CGPointMake(self.mainView.frame.size.width * i, 0.0f);
             
-            
-                sixFormImage.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOUSETYPE_SIXFORM];
+            ///如果已点击直接返回
+            if (button.selected) {
+                
+                return ;
+                
+            }
+            ///刷新数据
             
             ///移动UI
             [UIView animateWithDuration:0.3f animations:^{
                 
-                _mainView.frame = CGRectMake(_mainView.frame.origin.x, _mainView.frame.origin.y, _mainView.frame.size.width, _mainView.frame.size.height);
+                sixFormImage.frame = CGRectMake(gap+ (gap + width)*i, sixFormImage.frame.origin.y, sixFormImage.frame.size.width, sixFormImage.frame.size.height);
                 
-                
-            } completion:^(BOOL finished) {
-                
-                _mainView.frame=CGRectMake(_mainView.frame.size.width*i, _mainView.frame.origin.y, _mainView.frame.size.width, _mainView.frame.size.height);
                 
             }];
 
         }];
         
+        [titleButton addTarget:self action:@selector(changeChannelBarButtonStatus:) forControlEvents:UIControlEventTouchUpInside];
         
-        [sixFormImage addSubview:titleButton];
+        
+        [view addSubview:titleButton];
         
     }
     
     ///判断是否需要开启滚动
-    if ((width * sum + gap * (sum - 1)) > view.frame.size.width) {
+    if ((width * sum + gap * (sum + 1)) > view.frame.size.width) {
         
         view.contentSize = CGSizeMake((width * sum + gap * (sum + 1)) + 10.0f, view.frame.size.height);
         
     }
+
+}
+
+#pragma mark -同步改变导航栏按钮的状态
+-(void)changeChannelBarButtonStatus:(UIButton *)button
+{
+
+    for (UIView *obj in [button.superview subviews] ) {
+        
+        if ([obj isKindOfClass:[UIButton class]]) {
+            UIButton *tempButton = (UIButton *)obj;
+            tempButton.selected=NO;
+            
+        }
+    }
+    button.selected = YES;
 
 }
 
