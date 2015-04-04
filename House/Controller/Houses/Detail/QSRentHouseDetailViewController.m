@@ -1189,7 +1189,7 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     ///用户头像
-    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 33.0f, 33.0f)];
+    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
     if ([commentModel.avatar length] > 0) {
         
@@ -1327,7 +1327,7 @@ static char LeftStarKey;            //!<左侧星级
             }
             
             ///新登录，刷新数据
-            if (lLoginCheckActionTypeReLogin) {
+            if (lLoginCheckActionTypeReLogin == flag) {
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
                 [rootView.header beginRefreshing];

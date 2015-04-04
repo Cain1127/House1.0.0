@@ -38,7 +38,7 @@
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"rentHouse_photo" toKeyPath:@"rentHouse_photo" withMapping:[QSPhotoDataModel objectMapping]]];
     
     ///扩展信息
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"expand_msg" toKeyPath:@"expandInfo" withMapping:[QSPhotoDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"expand_msg" toKeyPath:@"expandInfo" withMapping:[QSRentHouseDetailExpandInfoDataModel objectMapping]]];
     
     return shared_mapping;
     

@@ -1377,7 +1377,7 @@ static char LeftStarKey;            //!<左侧星级
             }
             
             ///新登录，刷新数据
-            if (lLoginCheckActionTypeReLogin) {
+            if (lLoginCheckActionTypeReLogin == flag) {
                 
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
                 [rootView.header beginRefreshing];
