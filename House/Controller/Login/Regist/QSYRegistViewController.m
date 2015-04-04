@@ -14,6 +14,8 @@
 
 #import "QSNetworkVerticalCodeView.h"
 
+#define ___VERCODE_AUTOWRITE_TO_FIELD___
+
 @interface QSYRegistViewController () <UITextFieldDelegate>
 
 ///注册请求完成后的回调
@@ -128,6 +130,9 @@
             [phoneField resignFirstResponder];
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码已发到你手机，请注意查收", 1.0f, ^(){})
             APPLICATION_LOG_INFO(@"手机验证码",verCode)
+#ifdef ___VERCODE_AUTOWRITE_TO_FIELD___
+            vertificationCodeField.text = verCode;
+#endif
             return;
             
         }

@@ -95,9 +95,9 @@ static char PickedImageRootViewKey;//!<添加图片的底view
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///判断是否已上传图片
-        if ([self.rentHouseReleaseModel.imagesList count] <= 0) {
+        if ([self.rentHouseReleaseModel.imagesList count] <= 1) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少上传一张图片", 1.0f, ^(){})
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最少上传两张图片", 1.0f, ^(){})
             return;
             
         }

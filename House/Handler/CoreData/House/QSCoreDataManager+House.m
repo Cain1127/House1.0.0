@@ -1019,19 +1019,19 @@
 {
 
     NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
-    NSArray *houseUsedYearTypeTempArray = @[@"1.0 元/月/㎡",
-                                            @"1.5 元/月/㎡",
-                                            @"1.8 元/月/㎡",
-                                            @"2.0 元/月/㎡",
-                                            @"2.2 元/月/㎡",
-                                            @"3.0 元/月/㎡"];
+    NSArray *houseUsedYearTypeTempArray = @[@"1 元/月/㎡",
+                                            @"2 元/月/㎡",
+                                            @"3 元/月/㎡",
+                                            @"4 元/月/㎡",
+                                            @"5 元/月/㎡",
+                                            @"6 元/月/㎡"];
     
     NSArray *houseUsedYearTypeKeyArray = @[@"1",
-                                           @"1.5",
-                                           @"1.8",
-                                           @"2.0",
-                                           @"2.2",
-                                           @"3.0"];
+                                           @"2",
+                                           @"3",
+                                           @"4",
+                                           @"5",
+                                           @"6"];
     for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
         
         QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];

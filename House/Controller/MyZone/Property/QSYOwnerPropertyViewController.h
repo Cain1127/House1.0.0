@@ -23,4 +23,13 @@
  */
 - (instancetype)initWithHouseType:(FILTER_MAIN_TYPE)houseType;
 
+/**
+ *  @author yangshengmeng, 15-04-04 15:04:19
+ *
+ *  @brief  刷新物业列表
+ *
+ *  @since  1.0.0
+ */
+- (void)updateMyPropertyData;
+
 @end

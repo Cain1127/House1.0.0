@@ -93,6 +93,20 @@
     buttonStyle.title = @"管理我的物业";
     UIButton *houseListButton = [UIButton createBlockButtonWithFrame:CGRectMake(detailButton.frame.origin.x + detailButton.frame.size.width + 8.0f, detailButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///判断原来是否存在管理物业页面
+        for (int i = 0; i < [self.navigationController.viewControllers count]; i++) {
+            
+            UIViewController *tempVC = self.navigationController.viewControllers[i];
+            if ([tempVC isKindOfClass:[QSYOwnerPropertyViewController class]]) {
+                
+                [((QSYOwnerPropertyViewController *)tempVC) updateMyPropertyData];
+                [self.navigationController popToViewController:tempVC animated:YES];
+                return;
+                
+            }
+            
+        }
+        
         ///进入物业管理页
         QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
         [propertyVC setTurnBackDistanceStep:7];
