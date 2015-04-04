@@ -72,7 +72,7 @@
     [self.view addSubview:messageLabel];
     
     ///按钮宽度
-    CGFloat widthButton = SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f;
+    CGFloat widthButton = (SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f) / 2.0f;
     
     ///按钮风格
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];

@@ -18,6 +18,8 @@
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYSystemMessagesViewController.h"
+#import "QSYOwnerPropertyViewController.h"
+#import "QSYRecommendTenantViewController.h"
 
 #import "QSCustomHUDView.h"
 #import "QSImageView+Block.h"
@@ -244,70 +246,70 @@ static char UserIconKey;//!<用户头像
         switch (actionType) {
                 ///待看房点击
             case tTenantZoneActionTypeStayAround:
-                {
-                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
                 
                 ///已看房点击
             case tTenantZoneActionTypeHavedAround:
                 
-                {
-                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
                 
                 ///待成交点击
             case tTenantZoneActionTypeWaitCommit:
                 
-                {
-                    QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerTransactionOrderListTypePending];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
+                [bolVc setSelectedType:mBuyerTransactionOrderListTypePending];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
                 
                 ///已成交点击
             case tTenantZoneActionTypeCommited:
+            {
+                QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
+                [bolVc setSelectedType:mBuyerTransactionOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
                 
-                {
-                    QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerTransactionOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            }
                 break;
                 
                 ///预约订单击
             case tTenantZoneActionTypeAppointed:
-            
-                {
-                    
-                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                    
-                }
+                
+            {
+                
+                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+                
+            }
                 break;
                 
                 ///已成交订单点击
             case tTenantZoneActionTypeDeal:
-                {
-                    
-                    QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                    
-                }
+            {
+                
+                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+                
+            }
                 break;
                 
                 ///求租求购点击
@@ -385,40 +387,84 @@ static char UserIconKey;//!<用户头像
         switch (actionType) {
             case oOwnerZoneActionTypeStayAround:
                 //待看房
-                {
-                    QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mSalerBookedOrderListTypeBooked];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mSalerBookedOrderListTypeBooked];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
+                
             case oOwnerZoneActionTypeHavedAround:
                 //已看房
-                {
-                    QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
-                    [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
+                
             case oOwnerZoneActionTypeWaitCommit:
                 //待成交
-                {
-                    QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
-                    [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
+                
             case oOwnerZoneActionTypeCommited:
                 //已成交
-                {
-                    QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
-                    [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:bolVc animated:YES];
-                }
+            {
+                QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:bolVc animated:YES];
+            }
                 break;
+                
+                ///预约订单
+            case oOwnerZoneActionTypeAppointed:
+            {
+            
+                
+            
+            }
+                break;
+                
+                ///成交订单
+            case oOwnerZoneActionTypeDeal:
+            {
+            
+                
+            
+            }
+                break;
+                
+                ///推荐房客
+            case oOwnerZoneActionTypeRecommend:
+            {
+            
+                QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] init];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:recommendVC animated:YES];
+            
+            }
+                break;
+                
+                ///管理物业
+            case oOwnerZoneActionTypeProprerty:
+            {
+            
+                QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:propertyVC animated:YES];
+            
+            }
+                break;
+                
                 ///出售物业
             case oOwnerZoneActionTypeSaleHouse:
             {

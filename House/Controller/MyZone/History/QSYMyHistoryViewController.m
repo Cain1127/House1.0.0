@@ -14,7 +14,6 @@
 #import "QSYHistoryRentHouseList.h"
 #import "QSYHistorySecondHandHouseListView.h"
 #import "QSYHistoryNewHouseListView.h"
-#import "QSYHistoryCommunityListView.h"
 #import "QSCommunityDetailViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"

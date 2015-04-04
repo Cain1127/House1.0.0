@@ -45,6 +45,49 @@
 
 }
 
++ (NSString *)getHouseTypeValueWithKey:(NSString *)houseTypeKey
+{
+
+    if ([houseTypeKey isEqualToString:@"1"]) {
+        
+        return @"一室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"2"]) {
+        
+        
+        return @"二室";
+    }
+    
+    if ([houseTypeKey isEqualToString:@"3"]) {
+        
+        
+        return @"三室";
+    }
+    
+    if ([houseTypeKey isEqualToString:@"4"]) {
+        
+        return @"四室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"5"]) {
+        
+        return @"五室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"5-over"]) {
+        
+        return @"五室以上";
+        
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 09:02:41
  *
@@ -70,6 +113,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseSalePriceValueWithKey:(NSString *)priceKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_price" andSecondFieldName:@"key" andSecndFieldValue:priceKey];
+    return tempModel.val;
 
 }
 
@@ -217,6 +268,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseRentPriceValueWithKey:(NSString *)rentKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"rent_price" andSecondFieldName:@"key" andSecndFieldValue:rentKey];
+    return tempModel.val;
 
 }
 

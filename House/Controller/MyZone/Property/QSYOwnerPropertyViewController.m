@@ -10,6 +10,8 @@
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
 
+#import "QSBlockButtonStyleModel+Normal.h"
+
 #import "QSYPopCustomView.h"
 #import "QSYSaleOrRentHouseTipsView.h"
 
@@ -66,11 +68,95 @@
         [self popReleaseHouseTipsView];
         
     }];
-    addButton.hidden = YES;
     [self setNavigationBarRightView:addButton];
 
 }
 
+- (void)createMainShowUI
+{
+    
+    ///按钮指针
+    __block UIButton *secondHandHouseButton;
+    __block UIButton *rentHouseButton;
+    
+    ///指示三角指针
+    __block UIImageView *arrowIndicator;
+    
+    ///尺寸
+    CGFloat widthButton = SIZE_DEVICE_WIDTH / 2.0f;
+    
+    ///按钮风格
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
+    buttonStyle.bgColorSelected = COLOR_CHARACTERS_LIGHTYELLOW;
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_16];
+    
+    ///二手房源
+    buttonStyle.title = @"出售物业";
+    secondHandHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 64.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///当前已处于选择状态
+        if (button.selected) {
+            
+            return;
+            
+        }
+        
+        ///切换按钮状态
+        button.selected = YES;
+        rentHouseButton.selected = NO;
+        
+        ///移动指示器
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            arrowIndicator.frame = CGRectMake(button.frame.origin.x + button.frame.size.width / 2.0f - 7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
+            
+        } completion:^(BOOL finished) {
+            
+            
+            
+        }];
+        
+    }];
+    secondHandHouseButton.selected = YES;
+    [self.view addSubview:secondHandHouseButton];
+    
+    ///出租房房源
+    buttonStyle.title = @"出租物业";
+    rentHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(secondHandHouseButton.frame.origin.x + secondHandHouseButton.frame.size.width, 64.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///当前已处于选择状态
+        if (button.selected) {
+            
+            return;
+            
+        }
+        
+        ///切换按钮状态
+        button.selected = YES;
+        secondHandHouseButton.selected = NO;
+        
+        ///移动指示器
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            arrowIndicator.frame = CGRectMake(button.frame.origin.x + button.frame.size.width / 2.0f - 7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
+            
+        } completion:^(BOOL finished) {
+            
+            
+            
+        }];
+        
+    }];
+    [self.view addSubview:rentHouseButton];
+    
+    ///指示三角
+    arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(secondHandHouseButton.frame.size.width / 2.0f - 7.5f, secondHandHouseButton.frame.origin.y + secondHandHouseButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
+    arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
+    [self.view addSubview:arrowIndicator];
+    
+}
+
+#pragma mark - 弹出发布物业提示框
 - (void)popReleaseHouseTipsView
 {
 

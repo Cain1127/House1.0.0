@@ -8,7 +8,7 @@
 
 #import "QSYReleaseRentTipsViewController.h"
 #import "QSYOwnerPropertyViewController.h"
-#import "QSSecondHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -72,7 +72,7 @@
     [self.view addSubview:messageLabel];
     
     ///按钮宽度
-    CGFloat widthButton = SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f;
+    CGFloat widthButton = (SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f) / 2.0f;
     
     ///按钮风格
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
@@ -82,7 +82,7 @@
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, messageLabel.frame.origin.y + messageLabel.frame.size.height + 25.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入详情页
-        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
+        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
         [detailVC setTurnBackDistanceStep:7];
         [self.navigationController pushViewController:detailVC animated:YES];
         
