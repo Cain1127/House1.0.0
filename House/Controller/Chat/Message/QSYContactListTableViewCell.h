@@ -11,6 +11,9 @@
 @class QSYContactInfoSimpleModel;
 @interface QSYContactListTableViewCell : UITableViewCell
 
+///删除联系人事件回调
+@property (nonatomic,copy) void(^deleteConactCallBack)(BOOL isDelete);
+
 /**
  *  @author         yangshengmeng, 15-04-03 15:04:50
  *

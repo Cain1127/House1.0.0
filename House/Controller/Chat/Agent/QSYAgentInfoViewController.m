@@ -11,8 +11,10 @@
 
 #import "QSYAskRentAndBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
+#import "QSYContactOrderInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
 
+#import "QSYAskRentAndBuyReturnData.h"
 #import "QSYContactDetailReturnData.h"
 #import "QSYContactDetailInfoModel.h"
 #import "QSYAskListOrderInfosModel.h"
@@ -97,17 +99,23 @@
 
     if (0 == indexPath.row) {
         
-        return 160.0f;
+        return 80.0f;
         
     }
     
     if (1 == indexPath.row) {
         
-        return 44.0f;
+        return 80.0f;
         
     }
     
     if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
+        
+        return 44.0f;
+        
+    }
+    
+    if (2 == indexPath.row && !(self.contactInfo.contactInfo.is_order)) {
         
         return 44.0f;
         
@@ -194,12 +202,87 @@
     if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
         
         static NSString *isOrderCell = @"isOrderCell";
+        UITableViewCell *cellHaveOrder = [tableView dequeueReusableCellWithIdentifier:isOrderCell];
+        if (nil == cellHaveOrder) {
+            
+            cellHaveOrder = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:isOrderCell];
+            cellHaveOrder.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///是订单提示信息
+        UILabel *tipsLabel = (UILabel *)[cellHaveOrder.contentView viewWithTag:5557];
+        if (nil == tipsLabel) {
+            
+            tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
+            tipsLabel.text = @"预约我的历史";
+            tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            [cellHaveOrder.contentView addSubview:tipsLabel];
+            
+        }
+        
+        ///指示三角
+        QSImageView *arrowImageView = (QSImageView *)[cellHaveOrder.contentView viewWithTag:5558];
+        if (nil == arrowImageView) {
+            
+            arrowImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 13.0f, (44.0f - 23.0f) / 2.0f, 13.0f, 23.0f)];
+            arrowImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            [cellHaveOrder.contentView addSubview:arrowImageView];
+            
+        }
+        
+        return cellHaveOrder;
+        
+    }
+    
+    if (2 == indexPath.row && !(self.contactInfo.contactInfo.is_order)) {
+        
+        static NSString *titleCell = @"titleCell";
+        UITableViewCell *cellTitle = [tableView dequeueReusableCellWithIdentifier:titleCell];
+        if (nil == cellTitle) {
+            
+            cellTitle = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCell];
+            cellTitle.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///标题
+        UILabel *titleLabel = (UILabel *)[cellTitle.contentView viewWithTag:5559];
+        if (nil == titleLabel) {
+            
+            titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
+            titleLabel.text = @"求租求购信息";
+            titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            [cellTitle.contentView addSubview:titleLabel];
+            
+        }
+        
+        return cellTitle;
         
     }
     
     if (3 == indexPath.row && self.orderInfo) {
         
         static NSString *orderInfoCell = @"orderInfoCell";
+        UITableViewCell *cellOrderInfo = [tableView dequeueReusableCellWithIdentifier:orderInfoCell];
+        if (nil == cellOrderInfo) {
+            
+            cellOrderInfo = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:orderInfoCell];
+            cellOrderInfo.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        QSYContactOrderInfoView *orderInfoView = (QSYContactOrderInfoView *)[cellOrderInfo.contentView viewWithTag:5560];
+        if (nil == orderInfoView) {
+            
+            orderInfoView = [[QSYContactOrderInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 105.0f)];
+            [cellOrderInfo.contentView addSubview:orderInfoView];
+            
+        }
+        
+        [orderInfoView updateContactOrderInfo:self.orderInfo];
+        
+        return cellOrderInfo;
         
     }
     
@@ -276,8 +359,101 @@
 #pragma mark - 获取用户详情信息
 - (void)getUserDetailInfo
 {
-
     
+    ///参数
+    NSDictionary *userInfoParams = @{@"linkman_id" : self.agentID};
+
+    ///先请求联系人信息
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactInfo andParams:userInfoParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///获取成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSYContactDetailReturnData *tempModel = resultData;
+            self.contactInfo = tempModel;
+            
+            ///开始请求求租求购信息
+            [self getAskListDataWithLinkManInfo:self.contactInfo.contactInfo.linkman_id];
+            
+        } else {
+        
+            [self.userInfoRootView.header endRefreshing];
+            
+            NSString *tipsString = @"获取联系人信息失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){
+            
+                [self.navigationController popViewControllerAnimated:YES];
+            
+            })
+        
+        }
+        
+    }];
+
+}
+
+- (void)getAskListDataWithLinkManInfo:(NSString *)linkManID
+{
+
+    NSDictionary *params = @{@"order" : @"update_time desc",
+                             @"page_num" : @"10",
+                             @"now_page" : @"1",
+                             @"type" : @"0",
+                             @"bi_found_id" : linkManID};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSYAskRentAndBuyReturnData *tempModel = resultData;
+            
+            ///清空原数据
+            [self.askDataSource removeAllObjects];
+            self.orderInfo = nil;
+            
+            ///判断是否有数据
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                [self.askDataSource addObjectsFromArray:tempModel.headerData.dataList];
+                
+            }
+            
+            if ([tempModel.headerData.orderList count] > 0) {
+                
+                self.orderInfo = tempModel.headerData.orderList[0];
+                
+            }
+            
+            ///刷新数据
+            [self.userInfoRootView reloadData];
+            
+            ///结束刷新
+            [self.userInfoRootView.header endRefreshing];
+            
+        } else {
+            
+            [self.userInfoRootView.header endRefreshing];
+            NSString *tipsString = @"下载联系人信息失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){})
+            
+        }
+        
+    }];
 
 }
 

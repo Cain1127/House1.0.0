@@ -355,6 +355,10 @@
 #define IMAGE_CHAT_PHOTO_NORMAL @"talk_photo_normal"
 #define IMAGE_CHAT_PHOTO_HIGHLIGHTED @"talk_photo_highlighted"
 
+///联系人列表-删除按钮
+#define IMAGE_CHAT_CONTACTLIST_DELETE_NORMAL @"chat_contact_list_delete_normal"
+#define IMAGE_CHAT_CONTACTLIST_DELETE_HIGHLIGHTED @"chat_contact_list_delete_highlighted"
+
 #pragma mark - 个人中心相关图片
 
 /**

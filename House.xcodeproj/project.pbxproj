@@ -411,6 +411,9 @@
 		18D082011ACE9D90004FA20F /* QSYAskListOrderInfosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082001ACE9D90004FA20F /* QSYAskListOrderInfosModel.m */; };
 		18D082041ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082031ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.m */; };
 		18D082071ACEAC60004FA20F /* NSString+Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082061ACEAC60004FA20F /* NSString+Order.m */; };
+		18D0820A1ACF978C004FA20F /* QSYContactOrderInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082091ACF978C004FA20F /* QSYContactOrderInfoView.m */; };
+		18D0820D1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D0820B1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png */; };
+		18D0820E1ACFC37C004FA20F /* chat_contact_list_delete_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D0820C1ACFC37C004FA20F /* chat_contact_list_delete_normal.png */; };
 		18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */; };
 		18DABA8A1AAD3C1F00647E7C /* QSPhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA891AAD3C1F00647E7C /* QSPhotoDataModel.m */; };
 		18DABA951AAD405D00647E7C /* QSUserBaseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA941AAD405D00647E7C /* QSUserBaseInfoDataModel.m */; };
@@ -1363,6 +1366,10 @@
 		18D082031ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactAppointmentCreditInfoView.m; sourceTree = "<group>"; };
 		18D082051ACEAC60004FA20F /* NSString+Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Order.h"; sourceTree = "<group>"; };
 		18D082061ACEAC60004FA20F /* NSString+Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Order.m"; sourceTree = "<group>"; };
+		18D082081ACF978C004FA20F /* QSYContactOrderInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYContactOrderInfoView.h; sourceTree = "<group>"; };
+		18D082091ACF978C004FA20F /* QSYContactOrderInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactOrderInfoView.m; sourceTree = "<group>"; };
+		18D0820B1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_contact_list_delete_highlighted.png; sourceTree = "<group>"; };
+		18D0820C1ACFC37C004FA20F /* chat_contact_list_delete_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_contact_list_delete_normal.png; sourceTree = "<group>"; };
 		18D79CC91A7B834700DAEE5C /* QSCollectionWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionWaterFlowLayout.h; path = FlowLayout/QSCollectionWaterFlowLayout.h; sourceTree = "<group>"; };
 		18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionWaterFlowLayout.m; path = FlowLayout/QSCollectionWaterFlowLayout.m; sourceTree = "<group>"; };
 		18DABA881AAD3C1F00647E7C /* QSPhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPhotoDataModel.h; path = Photo/QSPhotoDataModel.h; sourceTree = "<group>"; };
@@ -3099,6 +3106,8 @@
 		18B563501A8366A4009779A0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18D0820B1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png */,
+				18D0820C1ACFC37C004FA20F /* chat_contact_list_delete_normal.png */,
 				18DFE8E71AC9A8D700C216C3 /* Talk */,
 				18BE12511A88BDAC0036245A /* chat_contact_nocontacts.png */,
 				18BE124B1A8893670036245A /* chat_message_recommend.png */,
@@ -4394,6 +4403,8 @@
 				18D081F71ACE8728004FA20F /* QSYContactInfoView.m */,
 				18D082021ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.h */,
 				18D082031ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.m */,
+				18D082081ACF978C004FA20F /* QSYContactOrderInfoView.h */,
+				18D082091ACF978C004FA20F /* QSYContactOrderInfoView.m */,
 			);
 			name = Contact;
 			path = Cell/Contact;
@@ -5593,6 +5604,7 @@
 				18B563F91A8366A4009779A0 /* guide_filter_header.png in Resources */,
 				18B5644A1A8366A4009779A0 /* navigationbar_corss_normal.png in Resources */,
 				CEBC98631ABC4E0900A69F34 /* home_carpostion0.png in Resources */,
+				18D0820D1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png in Resources */,
 				18B564581A8366A4009779A0 /* navigationbar_tool_normal.png in Resources */,
 				18EE34831AAC36F50053B909 /* public_arrow_highlighted60x60.png in Resources */,
 				18B5645B1A8366A4009779A0 /* public_appointment_commited.png in Resources */,
@@ -5674,6 +5686,7 @@
 				18DFE9031AC9A8D700C216C3 /* talk_sound_normal.png in Resources */,
 				184366971AB9843100A81374 /* FilterAdvanceRentHouse.plist in Resources */,
 				CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */,
+				18D0820E1ACFC37C004FA20F /* chat_contact_list_delete_normal.png in Resources */,
 				18B564441A8366A4009779A0 /* navigationbar_collect_highlighted.png in Resources */,
 				475A4D601AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_normal.png in Resources */,
 				18BE12711A8A133D0036245A /* myzone_renant_history_highlighted.png in Resources */,
@@ -6215,6 +6228,7 @@
 				CE2E0FC41AAFF75A004DEE1E /* QSHouseCommentDataModel.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
 				CECBD3CA1ABAE91B00C5F9AF /* QSMapCommunityListReturnData.m in Sources */,
+				18D0820A1ACF978C004FA20F /* QSYContactOrderInfoView.m in Sources */,
 				187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */,
 				18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */,
 				CE8926FB1AB127AB005D97D4 /* QSSecondHousesDetailReturnData.m in Sources */,

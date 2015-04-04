@@ -621,6 +621,9 @@ typedef enum
     
     rRequestTypeChatMessageList = 4000,         //!<消息列表
     rRequestTypeChatContactList,                //!<联系人列表
+    rRequestTypeChatContactInfo,                //!<联系人信息
+    rRequestTypeChatContactAdd,                 //!<添加联系人
+    rRequestTypeChatContactInfoChange,          //!<联系人信息修改
     
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
     rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
