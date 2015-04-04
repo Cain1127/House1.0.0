@@ -297,6 +297,23 @@
 }
 
 /**
+ *  @author yangshengmeng, 15-04-04 23:04:36
+ *
+ *  @brief  获取当前用户的类型
+ *
+ *  @return 返回当前用户的类型
+ *
+ *  @since  1.0.0
+ */
++ (USER_COUNT_TYPE)getUserType
+{
+
+    NSString *userType = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_count_type"];
+    return ([userType length] > 0 ? ([userType intValue]) : uUserCountTypeTenant);
+
+}
+
+/**
  *  @author yangshengmeng, 15-03-16 10:03:37
  *
  *  @brief  返回登录账号

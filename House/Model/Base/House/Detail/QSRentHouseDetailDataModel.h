@@ -19,13 +19,21 @@
 @class QSUserSimpleDataModel;
 @class QSHousePriceChangesDataModel;
 @class QSHouseCommentDataModel;
-
+@class QSRentHouseDetailExpandInfoDataModel;
 @interface QSRentHouseDetailDataModel : QSBaseModel
 
-@property (nonatomic,retain) QSWRentHouseInfoDataModel *house;              //!<出租房基本数据
-@property (nonatomic,retain) QSUserSimpleDataModel *user;                   //!<业主信息
-@property (nonatomic,retain) QSHousePriceChangesDataModel *price_changes;   //!<钱价变动
-@property (nonatomic,retain) QSHouseCommentDataModel *comment;              //!<评论
-@property (nonatomic,retain) NSArray *rentHouse_photo;                      //!<图集信息
+@property (nonatomic,retain) QSWRentHouseInfoDataModel *house;                      //!<出租房基本数据
+@property (nonatomic,retain) QSUserSimpleDataModel *user;                           //!<业主信息
+@property (nonatomic,retain) QSHousePriceChangesDataModel *price_changes;           //!<钱价变动
+@property (nonatomic,retain) QSHouseCommentDataModel *comment;                      //!<评论
+@property (nonatomic,retain) QSRentHouseDetailExpandInfoDataModel *expandInfo;      //!<扩展信息
+@property (nonatomic,retain) NSArray *rentHouse_photo;                              //!<图集信息
 
 @end    
+
+@interface QSRentHouseDetailExpandInfoDataModel : QSBaseModel
+
+@property (nonatomic,copy) NSString *total_common_num;  //!<评论总数
+@property (nonatomic,copy) NSString *is_book;           //!<当前用户是否已预定
+
+@end
