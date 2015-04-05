@@ -631,6 +631,8 @@ typedef enum
     rRequestTypeLoadImage,                      //!<上传图片
     rRequestTypeMyZoneReleaseRentHouse,         //!<发布出租房
     rRequestTypeMyZoneReleaseSecondHandHouse,   //!<发布二手房
+    rRequestTypeMyZoneEditAskRentPurpase,       //!<修改求租求购
+    rRequestTypeMyZoneDeleteAskRentPurpase,
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     

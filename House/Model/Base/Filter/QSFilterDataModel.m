@@ -42,8 +42,12 @@
     for (QSBaseConfigurationDataModel *obj in self.features_list) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
         
     }
+    
+    ///删除最后的分号
+    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
     
     return [NSString stringWithString:tempString];
 

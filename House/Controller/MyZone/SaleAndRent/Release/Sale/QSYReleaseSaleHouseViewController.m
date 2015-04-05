@@ -661,8 +661,8 @@ typedef enum
         NSString *inputString = textField.text;
         if ([inputString length] > 0) {
             
-            self.saleHouseReleaseModel.salePrice = inputString;
-            self.saleHouseReleaseModel.salePriceKey = inputString;
+            self.saleHouseReleaseModel.salePrice = [NSString stringWithFormat:@"%.2f",[inputString floatValue] * 10000];
+            self.saleHouseReleaseModel.salePriceKey = [NSString stringWithFormat:@"%.2f",[inputString floatValue] * 10000];
             
         } else {
             

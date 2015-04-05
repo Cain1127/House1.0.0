@@ -78,6 +78,8 @@ typedef enum
             
         }
         
+        self.releaseStatus = isNewRelease;
+        
         ///判断是否是新发布，或者重新发布
         if (rRenthouseReleaseStatusTypeRerelease == isNewRelease) {
             
@@ -273,6 +275,53 @@ typedef enum
         
     }
     
+    ///注册键盘弹出监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+#pragma mark - 键盘弹出和回收
+- (void)keyboarShowAction:(NSNotification *)sender
+{
+    
+    ///获取底view
+    UIView *rootView = [self.commentField superview];
+    
+    //上移：需要知道键盘高度和移动时间
+    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(rootView.frame.origin.x,
+                              64.0f - keyBoardRect.size.height,
+                              rootView.frame.size.width,
+                              rootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        rootView.frame = frame;
+        
+    }];
+    
+}
+
+- (void)keyboarHideAction:(NSNotification *)sender
+{
+    
+    ///获取底view
+    UIView *rootView = [self.commentField superview];
+    
+    NSTimeInterval anTime;
+    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
+    CGRect frame = CGRectMake(rootView.frame.origin.x,
+                              64.0f,
+                              rootView.frame.size.width,
+                              rootView.frame.size.height);
+    [UIView animateWithDuration:anTime animations:^{
+        
+        rootView.frame = frame;
+        
+    }];
+    
 }
 
 #pragma mark - 创建右剪头控制
@@ -305,6 +354,9 @@ typedef enum
     
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
+    
+    ///回收键盘
+    [self.commentField resignFirstResponder];
     
     switch (actionType) {
             
@@ -762,9 +814,24 @@ typedef enum
 - (void)releaseAskRentHouse
 {
     
-    ///显示HUD
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布"];
+    if (rRenthouseReleaseStatusTypeRerelease == self.releaseStatus) {
+        
+        [self editAskRentHouse];
+        
+    } else {
+    
+        [self addAskRentHouse];
+    
+    }
 
+}
+
+- (void)editAskRentHouse
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改"];
+    
     NSDictionary *params = @{
          @"type" : @"1",
          @"rent_property" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_type_key, @""),
@@ -780,6 +847,62 @@ typedef enum
          @"installation" : @"",
          @"features" : [self.releaseModel getFeaturesPostParams],
          @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @"")};
+    
+    ///发布
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneEditAskRentPurpase andParams:@{@"rentPurchaseInfo" : params,@"id_" : self.releaseModel.filter_id} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    ///进入提示发布成功页
+                    if (self.releasedCallBack) {
+                        
+                        self.releasedCallBack(YES);
+                        
+                    }
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"修改失败" andDelayTime:1.0];
+            
+        }
+        
+    }];
+
+}
+
+- (void)addAskRentHouse
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布"];
+    
+    NSDictionary *params = @{
+                             @"type" : @"1",
+                             @"rent_property" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_type_key, @""),
+                             @"cityid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.city_key, @""),
+                             @"areaid" : APPLICATION_NSSTRING_SETTING(self.releaseModel.district_key, @""),
+                             @"street" : APPLICATION_NSSTRING_SETTING(self.releaseModel.street_key, @""),
+                             @"price" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_price_key, @""),
+                             @"house_shi" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_type_key, @""),
+                             @"property_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.trade_type_key, @""),
+                             @"floor_which" : APPLICATION_NSSTRING_SETTING(self.releaseModel.floor_key, @""),
+                             @"house_face" : APPLICATION_NSSTRING_SETTING(self.releaseModel.house_face_key, @""),
+                             @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.releaseModel.decoration_key, @""),
+                             @"installation" : @"",
+                             @"payment" : APPLICATION_NSSTRING_SETTING(self.releaseModel.rent_pay_type_key,@""),
+                             @"features" : [self.releaseModel getFeaturesPostParams],
+                             @"content" : APPLICATION_NSSTRING_SETTING(self.releaseModel.comment, @"")};
     
     ///发布
     [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:@{@"rentPurchaseInfo" : params} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -808,9 +931,9 @@ typedef enum
             }];
             
         } else {
-        
+            
             [hud hiddenCustomHUDWithFooterTips:@"发布失败" andDelayTime:1.0];
-        
+            
         }
         
     }];

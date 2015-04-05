@@ -90,6 +90,7 @@
     QSBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:self.areaid];
     QSBaseConfigurationDataModel *districtModel = [QSCoreDataManager getDistrictModelWithStreetKey:self.street];
     QSBaseConfigurationDataModel *streetModel = [QSCoreDataManager getStreetModelWithStreetKey:self.street];
+    filterModel.filter_id = self.id_;
     filterModel.city_key = APPLICATION_NSSTRING_SETTING(cityModel.key, @"");
     filterModel.city_val = APPLICATION_NSSTRING_SETTING(cityModel.val, @"");
     filterModel.district_key = APPLICATION_NSSTRING_SETTING(districtModel.key, @"");
@@ -142,6 +143,7 @@
 
     QSFilterDataModel *filterModel = [[QSFilterDataModel alloc] init];
     
+    filterModel.filter_id = self.id_;
     filterModel.rent_type_key = APPLICATION_NSSTRING_SETTING(self.rent_property, @"");
     filterModel.rent_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentTypeWithKey:self.rent_property], @"");
     
@@ -155,7 +157,9 @@
     filterModel.street_key = APPLICATION_NSSTRING_SETTING(streetModel.key, @"");
     filterModel.street_val = APPLICATION_NSSTRING_SETTING(streetModel.val, @"");
     filterModel.rent_price_key = APPLICATION_NSSTRING_SETTING(self.price, @"");
-    filterModel.rent_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentPriceValueWithKey:self.price], @"");
+    filterModel.rent_price_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentPriceValueWithKey:self.price], @"");
+    filterModel.rent_pay_type_key = APPLICATION_NSSTRING_SETTING(self.payment,@"");
+    filterModel.rent_pay_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentTypeWithKey:self.payment],@"");
     filterModel.house_type_key = APPLICATION_NSSTRING_SETTING(self.house_shi, @"");
     filterModel.house_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseTypeValueWithKey:self.house_shi], @"");
     filterModel.trade_type_key = APPLICATION_NSSTRING_SETTING(self.property_type, @"");

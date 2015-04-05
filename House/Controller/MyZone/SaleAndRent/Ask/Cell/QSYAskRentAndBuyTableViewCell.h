@@ -35,4 +35,15 @@ typedef enum
  */
 - (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isHidenSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType))callBack;
 
+/**
+ *  @author         yangshengmeng, 15-04-05 18:04:13
+ *
+ *  @brief          更新底部功能按钮的状态
+ *
+ *  @param isShow   YES-显示
+ *
+ *  @since          1.0.0
+ */
+- (void)updateButtonActionStatus:(BOOL)isShow;
+
 @end

@@ -15,7 +15,9 @@
 #import "QSYAskRentAndBuyTableViewCell.h"
 
 #import "QSYPopCustomView.h"
+#import "QSCustomHUDView.h"
 #import "QSYAskRentAndSecondHandHouseTipsPopView.h"
+#import "QSYDeleteAskRentAndBuyHouseTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -183,6 +185,7 @@
         
         cellNormal = [[QSYAskRentAndBuyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
         cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+        cellNormal.backgroundColor = [UIColor whiteColor];
         
     }
     
@@ -262,11 +265,14 @@
         
         if (aAskRentAndBuyCellActionTypeDelete == actionType) {
             
-            
+            [self popAskRentAndBuyDeleteTips:tempModel.id_];
             
         }
         
     }];
+    
+    ///更新附加功能栏是否显示
+    [cellNormal updateButtonActionStatus:(indexPath.row == self.releaseIndex)];
     
     return cellNormal;
 
@@ -280,7 +286,8 @@
     NSDictionary *params = @{@"order" : @"update_time desc",
                              @"page_num" : @"10",
                              @"now_page" : @"1",
-                             @"type" : @"0"};
+                             @"type" : @"0",
+                             @"status" : @"1"};
 
     [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -364,7 +371,8 @@
     NSDictionary *params = @{@"order" : @"update_time desc",
                              @"page_num" : @"10",
                              @"now_page" : self.dataSourceModel.headerData.next_page,
-                             @"type" : @"0"};
+                             @"type" : @"0",
+                             @"status" : @"1"};
     
     [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -432,12 +440,8 @@
                 
                 if (isRelease) {
                     
-                    if (isRelease) {
-                        
-                        ///列表刷新
-                        [self.listView.header beginRefreshing];
-                        
-                    }
+                    ///列表刷新
+                    [self.listView.header beginRefreshing];
                     
                 }
                 
@@ -461,6 +465,66 @@
                 
             }];
             [self.navigationController pushViewController:filterVC animated:YES];
+            
+        }
+        
+    }];
+    
+    ///弹出窗口
+    popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+
+}
+
+#pragma mark - 弹出求租求购记录删除
+- (void)popAskRentAndBuyDeleteTips:(NSString *)dataID
+{
+
+    ///弹出窗口的指针
+    __block QSYPopCustomView *popView = nil;
+    
+    ///提示选择窗口
+    QSYDeleteAskRentAndBuyHouseTipsPopView *saleTipsView = [[QSYDeleteAskRentAndBuyHouseTipsPopView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 109.0f) andCallBack:^(DELETE_ASK_RENTANDBUYHOUSE_TIPS_ACTION_TYPE actionType) {
+        
+        ///隐藏弹窗
+        [popView hiddenCustomPopview];
+        
+        if (dDeleteAskRentAndBuyHouseTipsActionTypeConfirm == actionType) {
+            
+            ///显示HUD
+            __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+            
+            ///封装参数
+            NSDictionary *params = @{@"id_" : dataID};
+            
+            [QSRequestManager requestDataWithType:rRequestTypeMyZoneDeleteAskRentPurpase andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+                
+                ///删除成功
+                if (rRequestResultTypeSuccess == resultStatus) {
+                    
+                    [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
+                        
+                        if (flag) {
+                            
+                            ///刷新数据
+                            [self.listView.header beginRefreshing];
+                            
+                        }
+                        
+                    }];
+                    
+                } else {
+                
+                    NSString *tipsString = @"删除失败";
+                    if (resultData) {
+                        
+                        tipsString = [resultData valueForKey:@"info"];
+                        
+                    }
+                    [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.0f];
+                
+                }
+                
+            }];
             
         }
         
