@@ -230,6 +230,30 @@
 
 }
 
+#pragma mark - 列表设置
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    return 0;
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    static NSString *normalCell = @"normalCell";
+    UITableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+    if (nil == cellNormal) {
+        
+        cellNormal = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+        cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    }
+    
+    return cellNormal;
+
+}
+
 #pragma mark - 请求数据
 - (void)getReleaseHouseHeaderData
 {

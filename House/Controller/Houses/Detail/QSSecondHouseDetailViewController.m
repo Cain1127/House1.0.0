@@ -9,7 +9,7 @@
 #import "QSSecondHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
 #import "QSPOrderDetailBookedViewController.h"
-#import "QSYAgentInfoViewController.h"
+#import "QSYTenantInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
 #import "QSYOwnerInfoViewController.h"
 

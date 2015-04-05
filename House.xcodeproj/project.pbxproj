@@ -27,6 +27,7 @@
 		182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */; };
 		182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C881E1A7B244000DA64E9 /* QuartzCore.framework */; };
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
+		183571D91AD1642100A29607 /* QSCollectionVerticalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -757,6 +758,8 @@
 		182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSSecondHandHouseListReturnData.m; path = House/Second/QSSecondHandHouseListReturnData.m; sourceTree = "<group>"; };
 		182C881E1A7B244000DA64E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		182C88201A7B244E00DA64E9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		183571D71AD1642100A29607 /* QSCollectionVerticalFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionVerticalFlowLayout.h; path = FlowLayout/QSCollectionVerticalFlowLayout.h; sourceTree = "<group>"; };
+		183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionVerticalFlowLayout.m; path = FlowLayout/QSCollectionVerticalFlowLayout.m; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -4446,6 +4449,8 @@
 			children = (
 				18D79CC91A7B834700DAEE5C /* QSCollectionWaterFlowLayout.h */,
 				18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */,
+				183571D71AD1642100A29607 /* QSCollectionVerticalFlowLayout.h */,
+				183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */,
 			);
 			name = FlowLayout;
 			sourceTree = "<group>";
@@ -6157,6 +6162,7 @@
 				475A4D8B1AC538B6009881CF /* QSPOrderDetailAppointAgainAndPriceAgainButtonView.m in Sources */,
 				18D081AF1ACD51EC004FA20F /* QSYReleaseSaleHousePictureViewController.m in Sources */,
 				182C881D1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m in Sources */,
+				183571D91AD1642100A29607 /* QSCollectionVerticalFlowLayout.m in Sources */,
 				18B572921AC16D1600C75682 /* descriptor_database.cc in Sources */,
 				CEEB6D811AC01CC100EC215D /* QSUserAssessViewController.m in Sources */,
 				18D081A11ACD51EC004FA20F /* QSYAskRentHouseViewController.m in Sources */,

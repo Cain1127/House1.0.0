@@ -23,7 +23,8 @@ static char CoolCountKey;       //!<回复率
 
     if (self = [super initWithFrame:frame]) {
         
-        
+        ///搭建UI
+        [self createContactAppoinmentCreditUI];
         
     }
     
@@ -43,6 +44,7 @@ static char CoolCountKey;       //!<回复率
     replyRateLabel.textAlignment = NSTextAlignmentRight;
     replyRateLabel.textColor = COLOR_CHARACTERS_YELLOW;
     replyRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    replyRateLabel.text = @"0";
     [self addSubview:replyRateLabel];
     objc_setAssociatedObject(self, &ReplyRateKey, replyRateLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -67,6 +69,7 @@ static char CoolCountKey;       //!<回复率
     appointCountLabel.textAlignment = NSTextAlignmentRight;
     appointCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     appointCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    appointCountLabel.text = @"0";
     [self addSubview:appointCountLabel];
     objc_setAssociatedObject(self, &AppointCountKey, appointCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -87,10 +90,11 @@ static char CoolCountKey;       //!<回复率
     [self addSubview:appointSepLabel];
     
     ///爽约率
-    UILabel *coolRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - width / 2.0f, 20.0f, 40.0f, 20.0f)];
+    UILabel *coolRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width -(width - 55.0f) / 2.0f - width, 20.0f, 40.0f, 20.0f)];
     coolRateLabel.textAlignment = NSTextAlignmentRight;
     coolRateLabel.textColor = COLOR_CHARACTERS_YELLOW;
     coolRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    coolRateLabel.text = @"0";
     [self addSubview:coolRateLabel];
     objc_setAssociatedObject(self, &CoolCountKey, coolRateLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -100,7 +104,7 @@ static char CoolCountKey;       //!<回复率
     [self addSubview:coolRateUnitLabel];
     
     UILabel *coolRateTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - width, coolRateUnitLabel.frame.origin.y + coolRateUnitLabel.frame.size.height, width, 20.0f)];
-    coolRateTipsLabel.text = @"爽约次数";
+    coolRateTipsLabel.text = @"爽约率";
     coolRateTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     coolRateTipsLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:coolRateTipsLabel];

@@ -73,8 +73,8 @@ static char PhoneInfoKey;   //!<联系号码
     [self.contentView addSubview:phoneLabel];
     objc_setAssociatedObject(self, &PhoneInfoKey, phoneLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///添加联系人按钮
-    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 44.0f, 18.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    ///删除联系人按钮
+    UIButton *deleteButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 44.0f, 15.0f, 44.0f, 49.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         if (self.deleteConactCallBack) {
             
@@ -83,9 +83,9 @@ static char PhoneInfoKey;   //!<联系号码
         }
         
     }];
-    [addButton setImage:[UIImage imageNamed:IMAGE_CHAT_CONTACTLIST_DELETE_NORMAL] forState:UIControlStateNormal];
-    [addButton setImage:[UIImage imageNamed:IMAGE_CHAT_CONTACTLIST_DELETE_HIGHLIGHTED] forState:UIControlStateHighlighted];
-    [self.contentView addSubview:addButton];
+    [deleteButton setImage:[UIImage imageNamed:IMAGE_CHAT_CONTACTLIST_DELETE_NORMAL] forState:UIControlStateNormal];
+    [deleteButton setImage:[UIImage imageNamed:IMAGE_CHAT_CONTACTLIST_DELETE_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [self.contentView addSubview:deleteButton];
     
     UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 80.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
     sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;

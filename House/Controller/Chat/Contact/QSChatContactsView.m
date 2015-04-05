@@ -163,7 +163,7 @@
     
     ///提示信息
     UILabel *tipsLabel = [[QSLabel alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 80.0f, tipsImageView.frame.origin.y + tipsImageView.frame.size.height + 10.0f, 160.0f, 20.0f)];
-    tipsLabel.text = flag ? @"您暂无联系人" : @"请先登录";
+    tipsLabel.text = @"您暂无联系人";
     tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     tipsLabel.textAlignment = NSTextAlignmentCenter;
     tipsLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -230,7 +230,7 @@
             
         }
         int persionNum = [self.contactDataSource[section] count];
-        titleLabel.text = [NSString stringWithFormat:@"重点关注联系人(%d)",persionNum];
+        titleLabel.text = [NSString stringWithFormat:@"        重点关注联系人(%d)",persionNum];
         
         return titleLabel;
         
@@ -248,7 +248,7 @@
             
         }
         int persionNum = [self.contactDataSource[section] count];
-        titleLabel.text = [NSString stringWithFormat:@"普通联系人(%d)",persionNum];
+        titleLabel.text = [NSString stringWithFormat:@"        普通联系人(%d)",persionNum];
         
         return titleLabel;
         
@@ -272,7 +272,6 @@
             
             cellNoRecord = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:noRecordCell];
             cellNoRecord.selectionStyle = UITableViewCellSelectionStyleNone;
-            cellNoRecord.backgroundColor = [UIColor clearColor];
             
         }
         
@@ -283,6 +282,8 @@
             titleLabel.textColor = COLOR_CHARACTERS_LIGHTLIGHTGRAY;
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+            titleLabel.tag = 300;
+            [cellNoRecord.contentView addSubview:titleLabel];
             
         }
         
@@ -305,7 +306,32 @@
     ///刷新数据
     [cellNormal updateContacterInfoWithModel:self.contactDataSource[indexPath.section][indexPath.row]];
     
+    ///注册删除事件
+    cellNormal.deleteConactCallBack = ^(BOOL isDelete){
+    
+        
+    
+    };
+    
     return cellNormal;
+
+}
+
+#pragma mark - 点击联系人
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (indexPath.section == 0) {
+        
+        
+        
+    }
+    
+    if (indexPath.section == 1) {
+        
+        
+        
+    }
 
 }
 

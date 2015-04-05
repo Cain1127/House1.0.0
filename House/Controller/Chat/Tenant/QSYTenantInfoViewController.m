@@ -170,6 +170,7 @@
             
             infoRootView = [[QSYContactInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
             infoRootView.backgroundColor = [UIColor whiteColor];
+            infoRootView.tag = 555;
             [cellUserInfo.contentView addSubview:infoRootView];
             
         }
@@ -199,6 +200,7 @@
             
             infoRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
             infoRootView.backgroundColor = [UIColor whiteColor];
+            infoRootView.tag = 5556;
             [cellUserInfo.contentView addSubview:infoRootView];
             
         }
@@ -229,6 +231,7 @@
             tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
             tipsLabel.text = @"预约我的历史";
             tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            tipsLabel.tag = 5557;
             [cellHaveOrder.contentView addSubview:tipsLabel];
             
         }
@@ -239,6 +242,7 @@
             
             arrowImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 13.0f, (44.0f - 23.0f) / 2.0f, 13.0f, 23.0f)];
             arrowImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            arrowImageView.tag = 5558;
             [cellHaveOrder.contentView addSubview:arrowImageView];
             
         }
@@ -264,6 +268,7 @@
             
             titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
             titleLabel.text = @"求租求购信息";
+            titleLabel.tag = 5559;
             titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
             [cellTitle.contentView addSubview:titleLabel];
             
@@ -288,6 +293,7 @@
         if (nil == orderInfoView) {
             
             orderInfoView = [[QSYContactOrderInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 105.0f)];
+            orderInfoView.tag = 5560;
             [cellOrderInfo.contentView addSubview:orderInfoView];
             
         }

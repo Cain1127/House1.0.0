@@ -123,7 +123,7 @@
         button.selected = YES;
         
         ///创建联系人列表
-        contactListView = [[QSChatContactsView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant andCallBack:^(CONTACT_LIST_ACTION_TYPE actionType, id params) {
+        contactListView = [[QSChatContactsView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 119.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 55.0f) andUserType:uUserCountTypeTenant andCallBack:^(CONTACT_LIST_ACTION_TYPE actionType, id params) {
             
             switch (actionType) {
                     ///查看二手房

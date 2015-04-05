@@ -8,9 +8,13 @@
 
 #import "QSYContactInfoView.h"
 
+#import "QSCustomHUDView.h"
+
 #import "NSString+Calculation.h"
 
 #import "QSYContactDetailInfoModel.h"
+
+#import "QSRequestManager.h"
 
 #import <objc/runtime.h>
 
@@ -55,8 +59,9 @@ static char PhoneInfoKey;   //!<联系信息
     [iconView addSubview:iconSixForm];
     
     ///姓名
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconView.frame.origin.x + iconView.frame.size.width + 5.0f, iconView.frame.origin.y, 120.0f, 20.0f)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconView.frame.origin.x + iconView.frame.size.width + 5.0f, iconView.frame.origin.y, 80.0f, 20.0f)];
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    nameLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:nameLabel];
     objc_setAssociatedObject(self, &UserNameKey, nameLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -68,7 +73,7 @@ static char PhoneInfoKey;   //!<联系信息
     objc_setAssociatedObject(self, &VIPFlagKey, vipImage, OBJC_ASSOCIATION_ASSIGN);
     
     ///是否诚信用户
-    UILabel *creditTag = [[UILabel alloc] initWithFrame:CGRectMake(vipImage.frame.origin.x + vipImage.frame.size.width + 60.0f, vipImage.frame.origin.y + 5.0f, 60.0f, 15.0f)];
+    UILabel *creditTag = [[UILabel alloc] initWithFrame:CGRectMake(vipImage.frame.origin.x + vipImage.frame.size.width + 30.0f, vipImage.frame.origin.y + 5.0f, 60.0f, 15.0f)];
     creditTag.text = @"诚信房客";
     creditTag.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     creditTag.textColor = [UIColor whiteColor];
@@ -87,7 +92,7 @@ static char PhoneInfoKey;   //!<联系信息
     objc_setAssociatedObject(self, &PhoneInfoKey, phoneLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加联系人按钮
-    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 44.0f, 18.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 44.0f, 25.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         [self addContact:button];
         
@@ -199,8 +204,36 @@ static char PhoneInfoKey;   //!<联系信息
 #pragma mark - 添加联系人
 - (void)addContact:(UIButton *)button
 {
-
     
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"linkman_id" : @"66",
+                             @"remark" : @"",
+                             @"more_remark" : @""};
+
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactAdd andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"添加成功" andDelayTime:1.5f];
+            
+        } else {
+        
+            NSString *tipsString = @"添加失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
 
 }
 
