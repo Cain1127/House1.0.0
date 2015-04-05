@@ -13,6 +13,7 @@ typedef enum
 {
 
     cContactListActionTypeLookSecondHandHouse = 9,  //!<查看周边二手房
+    cContactListActionTypeGotoContactDetail,        //!<查看联系人详情
 
 }CONTACT_LIST_ACTION_TYPE;
 

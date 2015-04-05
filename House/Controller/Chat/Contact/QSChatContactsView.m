@@ -321,15 +321,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (indexPath.section == 0) {
+    QSYContactInfoSimpleModel *tempModel = self.contactDataSource[indexPath.section][indexPath.row];
+    if (tempModel) {
         
-        
-        
-    }
-    
-    if (indexPath.section == 1) {
-        
-        
+        if (self.contactListCallBack) {
+            
+            self.contactListCallBack(cContactListActionTypeGotoContactDetail,tempModel);
+            
+        }
         
     }
 

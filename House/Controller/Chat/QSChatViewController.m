@@ -7,6 +7,8 @@
 //
 
 #import "QSChatViewController.h"
+#import "QSYTenantInfoViewController.h"
+#import "QSYOwnerInfoViewController.h"
 
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
@@ -14,8 +16,12 @@
 #import "QSYLoginTipsPopView.h"
 
 #import "QSSocketManager.h"
+#import "QSCoreDataManager+User.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+
+#import "QSYContactInfoSimpleModel.h"
+#import "QSUserSimpleDataModel.h"
 
 @interface QSChatViewController ()
 
@@ -135,6 +141,39 @@
                     
                     ///进入二手房列表
                     self.tabBarController.selectedIndex = 1;
+                
+                }
+                    break;
+                    
+                    ///查看联系人详情
+                case cContactListActionTypeGotoContactDetail:
+                {
+                    
+                    QSYContactInfoSimpleModel *tempModel = params;
+                
+                    ///如果是中介，只能进入普通客户页面
+                    if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
+                        
+                        QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:contactVC animated:YES];
+                        
+                    }
+                    
+                    ///联系人是房客，则进入房客页面
+                    if (uUserCountTypeTenant == [tempModel.contactUserInfo.user_type intValue]) {
+                        
+                        QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:contactVC animated:YES];
+                        
+                    }
+                    
+                    ///联系人是业主，则进入业主
+                    if (uUserCountTypeOwner == [tempModel.contactUserInfo.user_type intValue]) {
+                        
+                        QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:ownerVC animated:YES];
+                        
+                    }
                 
                 }
                     break;
