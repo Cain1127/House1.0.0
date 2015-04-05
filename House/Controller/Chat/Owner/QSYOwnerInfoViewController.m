@@ -10,8 +10,9 @@
 
 @interface QSYOwnerInfoViewController ()
 
-@property (nonatomic,copy) NSString *ownerName; //!<业主名
-@property (nonatomic,copy) NSString *ownerID;   //!<业主ID
+@property (nonatomic,copy) NSString *ownerName;                 //!<业主名
+@property (nonatomic,copy) NSString *ownerID;                   //!<业主ID
+@property (nonatomic,strong) UICollectionView *userInfoRootView;//!<用户信息底view
 
 @end
 
