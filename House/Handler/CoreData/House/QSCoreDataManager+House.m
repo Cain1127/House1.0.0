@@ -45,6 +45,49 @@
 
 }
 
++ (NSString *)getHouseTypeValueWithKey:(NSString *)houseTypeKey
+{
+
+    if ([houseTypeKey isEqualToString:@"1"]) {
+        
+        return @"一室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"2"]) {
+        
+        
+        return @"二室";
+    }
+    
+    if ([houseTypeKey isEqualToString:@"3"]) {
+        
+        
+        return @"三室";
+    }
+    
+    if ([houseTypeKey isEqualToString:@"4"]) {
+        
+        return @"四室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"5"]) {
+        
+        return @"五室";
+        
+    }
+    
+    if ([houseTypeKey isEqualToString:@"5-over"]) {
+        
+        return @"五室以上";
+        
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 09:02:41
  *
@@ -70,6 +113,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseSalePriceValueWithKey:(NSString *)priceKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_price" andSecondFieldName:@"key" andSecndFieldValue:priceKey];
+    return tempModel.val;
 
 }
 
@@ -217,6 +268,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseRentPriceValueWithKey:(NSString *)rentKey
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"rent_price" andSecondFieldName:@"key" andSecndFieldValue:rentKey];
+    return tempModel.val;
 
 }
 
@@ -1019,19 +1078,19 @@
 {
 
     NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
-    NSArray *houseUsedYearTypeTempArray = @[@"1.0 元/月/㎡",
-                                            @"1.5 元/月/㎡",
-                                            @"1.8 元/月/㎡",
-                                            @"2.0 元/月/㎡",
-                                            @"2.2 元/月/㎡",
-                                            @"3.0 元/月/㎡"];
+    NSArray *houseUsedYearTypeTempArray = @[@"1 元/月/㎡",
+                                            @"2 元/月/㎡",
+                                            @"3 元/月/㎡",
+                                            @"4 元/月/㎡",
+                                            @"5 元/月/㎡",
+                                            @"6 元/月/㎡"];
     
     NSArray *houseUsedYearTypeKeyArray = @[@"1",
-                                           @"1.5",
-                                           @"1.8",
-                                           @"2.0",
-                                           @"2.2",
-                                           @"3.0"];
+                                           @"2",
+                                           @"3",
+                                           @"4",
+                                           @"5",
+                                           @"6"];
     for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
         
         QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];

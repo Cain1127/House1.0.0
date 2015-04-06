@@ -38,6 +38,27 @@
     ///图片
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"secondHouse_photo" toKeyPath:@"secondHouse_photo" withMapping:[QSPhotoDataModel objectMapping]]];
     
+    ///扩展信息
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"expand_msg" toKeyPath:@"expandInfo" withMapping:[QSSecondHandHouseDetailExpandInfoDataModel objectMapping]]];
+    
+    return shared_mapping;
+    
+}
+
+@end
+
+@implementation QSSecondHandHouseDetailExpandInfoDataModel
+
+///解析规则
++ (RKObjectMapping *)objectMapping
+{
+    
+    RKObjectMapping *shared_mapping = nil;
+    
+    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    [shared_mapping addAttributeMappingsFromArray:@[@"total_common_num",
+                                                    @"is_book"]];
+    
     return shared_mapping;
     
 }

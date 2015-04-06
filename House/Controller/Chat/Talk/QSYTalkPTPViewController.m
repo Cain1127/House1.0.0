@@ -7,7 +7,7 @@
 //
 
 #import "QSYTalkPTPViewController.h"
-#import "QSYAgentInfoViewController.h"
+#import "QSYTenantInfoViewController.h"
 #import "QSYOwnerInfoViewController.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -73,7 +73,7 @@
         ///判断用户类型
         if (uUserCountTypeAgency == [self.userModel.user_type intValue]) {
             
-            QSYAgentInfoViewController *agentInfoVC = [[QSYAgentInfoViewController alloc] initWithName:self.userModel.username andAgentID:self.userModel.id_];
+            QSYTenantInfoViewController *agentInfoVC = [[QSYTenantInfoViewController alloc] initWithName:self.userModel.username andAgentID:self.userModel.id_];
             [self.navigationController pushViewController:agentInfoVC animated:YES];
             
         }

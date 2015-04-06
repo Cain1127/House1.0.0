@@ -21,5 +21,7 @@
     #import "NSString+Format.h"     //!<字符串格式化
     #import "QSCollectionView.h"    //!<自定义的UICollectionView
     #import "QSBlockAlertView.h"    //!<自定义回调UIAlertView
+    #import "NSString+Sort.h"       //!<含有自符串属性的集合排序
+    #import "NSString+Order.h"      //!<订单相关的数据转换
 
 #endif

@@ -7,12 +7,21 @@
 //
 
 #import "QSChatViewController.h"
+#import "QSYTenantInfoViewController.h"
+#import "QSYOwnerInfoViewController.h"
+
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
+#import "QSYPopCustomView.h"
+#import "QSYLoginTipsPopView.h"
 
 #import "QSSocketManager.h"
+#import "QSCoreDataManager+User.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+
+#import "QSYContactInfoSimpleModel.h"
+#import "QSUserSimpleDataModel.h"
 
 @interface QSChatViewController ()
 
@@ -120,8 +129,106 @@
         button.selected = YES;
         
         ///创建联系人列表
-        contactListView = [[QSChatContactsView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant];
+        contactListView = [[QSChatContactsView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 119.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 55.0f) andUserType:uUserCountTypeTenant andCallBack:^(CONTACT_LIST_ACTION_TYPE actionType, id params) {
+            
+            switch (actionType) {
+                    ///查看二手房
+                case cContactListActionTypeLookSecondHandHouse:
+                {
+                
+                    ///发送通知
+                    [[NSNotificationCenter defaultCenter] postNotificationName:nHomeSecondHandHouseActionNotification object:@"3"];
+                    
+                    ///进入二手房列表
+                    self.tabBarController.selectedIndex = 1;
+                
+                }
+                    break;
+                    
+                    ///查看联系人详情
+                case cContactListActionTypeGotoContactDetail:
+                {
+                    
+                    QSYContactInfoSimpleModel *tempModel = params;
+                
+                    ///如果是中介，只能进入普通客户页面
+                    if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
+                        
+                        QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:contactVC animated:YES];
+                        
+                    }
+                    
+                    ///联系人是房客，则进入房客页面
+                    if (uUserCountTypeTenant == [tempModel.contactUserInfo.user_type intValue]) {
+                        
+                        QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:contactVC animated:YES];
+                        
+                    }
+                    
+                    ///联系人是业主，则进入业主
+                    if (uUserCountTypeOwner == [tempModel.contactUserInfo.user_type intValue]) {
+                        
+                        QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id];
+                        [self.navigationController pushViewController:ownerVC animated:YES];
+                        
+                    }
+                
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }];
         [self.view addSubview:contactListView];
+        
+        ///检测登录
+        if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+            
+            ///弹出提示
+            __block QSYPopCustomView *popView;
+            QSYLoginTipsPopView *loginTipsView = [[QSYLoginTipsPopView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 124.0f) andCallBack:^(LOGIN_TIPS_ACTION_TYPE actionType) {
+                
+                [popView hiddenCustomPopview];
+                
+                switch (actionType) {
+                        ///取消
+                    case lLoginTipsActionTypeCancel:
+                        
+                        break;
+                        
+                        ///登录
+                    case lLoginTipsActionTypeLogin:
+                    {
+                        
+                        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                            
+                            if (lLoginCheckActionTypeLogined == flag ||
+                                lLoginCheckActionTypeReLogin == flag) {
+                                
+                                [contactListView rebuildContactsView];
+                                
+                            }
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+            
+            popView = [QSYPopCustomView popCustomView:loginTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+            }];
+            
+        }
         
         ///动画移动
         [UIView animateWithDuration:0.3 animations:^{

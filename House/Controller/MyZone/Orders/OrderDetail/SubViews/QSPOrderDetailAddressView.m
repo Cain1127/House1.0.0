@@ -11,10 +11,6 @@
 #import "CoreHeader.h"
 #import "QSOrderListHouseInfoDataModel.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
-
 @interface QSPOrderDetailAddressView ()
 
 @property (nonatomic, strong) UILabel *addressLabel;
@@ -102,6 +98,8 @@
         [bottomView addSubview:bottomLineLablel];
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomView.frame.origin.y+bottomView.frame.size.height)];
+        
+        self.showHeight = self.frame.size.height;
         
         self.blockButtonCallBack = callBack;
         

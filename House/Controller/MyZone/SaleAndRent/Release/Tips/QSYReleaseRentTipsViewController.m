@@ -8,7 +8,7 @@
 
 #import "QSYReleaseRentTipsViewController.h"
 #import "QSYOwnerPropertyViewController.h"
-#import "QSSecondHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -72,7 +72,7 @@
     [self.view addSubview:messageLabel];
     
     ///按钮宽度
-    CGFloat widthButton = SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f;
+    CGFloat widthButton = (SIZE_DEVICE_WIDTH - 4.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 8.0f) / 2.0f;
     
     ///按钮风格
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
@@ -82,7 +82,7 @@
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, messageLabel.frame.origin.y + messageLabel.frame.size.height + 25.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入详情页
-        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
+        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
         [detailVC setTurnBackDistanceStep:7];
         [self.navigationController pushViewController:detailVC animated:YES];
         
@@ -92,6 +92,20 @@
     ///管理我的物业
     buttonStyle.title = @"管理我的物业";
     UIButton *houseListButton = [UIButton createBlockButtonWithFrame:CGRectMake(detailButton.frame.origin.x + detailButton.frame.size.width + 8.0f, detailButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///判断原来是否存在管理物业页面
+        for (int i = 0; i < [self.navigationController.viewControllers count]; i++) {
+            
+            UIViewController *tempVC = self.navigationController.viewControllers[i];
+            if ([tempVC isKindOfClass:[QSYOwnerPropertyViewController class]]) {
+                
+                [((QSYOwnerPropertyViewController *)tempVC) updateMyPropertyData];
+                [self.navigationController popToViewController:tempVC animated:YES];
+                return;
+                
+            }
+            
+        }
         
         ///进入物业管理页
         QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];

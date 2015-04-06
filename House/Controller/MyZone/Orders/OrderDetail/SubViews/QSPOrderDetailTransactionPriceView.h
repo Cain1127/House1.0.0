@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QSPOrderDetalSubBaseView.h"
 
-@interface QSPOrderDetailTransactionPriceView : UIView
+@interface QSPOrderDetailTransactionPriceView : QSPOrderDetalSubBaseView
 
 /**
  *  创建最终成交价控件

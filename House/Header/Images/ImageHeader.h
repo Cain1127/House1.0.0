@@ -130,6 +130,10 @@
 #define IMAGE_NAVIGATIONBAR_DETAIL_NORMAL @"navigationbar_detail_normal"
 #define IMAGE_NAVIGATIONBAR_DETAIL_HIGHLIGHTED @"navigationbar_detail_highlighted"
 
+///导航栏更多按钮图片
+#define IMAGE_NAVIGATIONBAR_MORE_NORMAL @"navigationbar_more_normal"
+#define IMAGE_NAVIGATIONBAR_MORE_HIGHLIGHTED @"navigationbar_more_highlighted"
+
 #pragma mark - 频道栏图片资源
 /**
  *  @author yangshengmeng, 15-01-30 10:01:10
@@ -350,6 +354,10 @@
 ///图片
 #define IMAGE_CHAT_PHOTO_NORMAL @"talk_photo_normal"
 #define IMAGE_CHAT_PHOTO_HIGHLIGHTED @"talk_photo_highlighted"
+
+///联系人列表-删除按钮
+#define IMAGE_CHAT_CONTACTLIST_DELETE_NORMAL @"chat_contact_list_delete_normal"
+#define IMAGE_CHAT_CONTACTLIST_DELETE_HIGHLIGHTED @"chat_contact_list_delete_highlighted"
 
 #pragma mark - 个人中心相关图片
 

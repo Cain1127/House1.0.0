@@ -13,7 +13,7 @@
 #import "QSYSendVerticalCodeReturnData.h"
 
 ///将验证码显示在输入框中的开关宏
-#define ___VERCODE_AUTOWRITE_TO_FIELD___
+//#define ___VERCODE_AUTOWRITE_TO_FIELD___
 
 @interface QSNetworkVerticalCodeView ()
 

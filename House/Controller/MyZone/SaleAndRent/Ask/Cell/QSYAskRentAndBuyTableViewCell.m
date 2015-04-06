@@ -35,6 +35,7 @@ static char FeaturesKey;    //!<标签底view
 static char CommentKey;     //!<备注信息
 static char RecommendHouse; //!<推荐房源数量
 static char SettingButton;  //!<设置按钮
+static char BottomViewkey;  //!<脚功能区关联
 
 @interface QSYAskRentAndBuyTableViewCell ()
 
@@ -93,14 +94,14 @@ static char SettingButton;  //!<设置按钮
     
     ///几室几厅
     UILabel *houseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(rootView.frame.size.width - 160.0f, targetLabel.frame.origin.y - 5.0f, 120.0f, 20.0f)];
-    houseNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    houseNumLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     houseNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     houseNumLabel.textAlignment = NSTextAlignmentRight;
     [rootView addSubview:houseNumLabel];
     objc_setAssociatedObject(self, &HouseNumberKey, houseNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///总价-租金
-    UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, targetLabel.frame.origin.y - 5.0f, (rootView.frame.size.width - 8.0f) / 2.0f, 44.0f)];
+    UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, targetLabel.frame.origin.y + targetLabel.frame.size.height + 10.0f, (rootView.frame.size.width - 8.0f) / 2.0f, 44.0f)];
     priceRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     priceRootView.layer.cornerRadius = 6.0f;
     [rootView addSubview:priceRootView];
@@ -109,11 +110,12 @@ static char SettingButton;  //!<设置按钮
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     priceLabel.textAlignment = NSTextAlignmentRight;
+    priceLabel.adjustsFontSizeToFitWidth = YES;
     [priceRootView addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///单位
-    UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width, priceLabel.frame.origin.y + 25.0f, 60.0f, 15.0f)];
+    UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x + priceLabel.frame.size.width, priceLabel.frame.origin.y + 20.0f, 60.0f, 15.0f)];
     priceUnitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     priceUnitLabel.textColor = COLOR_CHARACTERS_BLACK;
     priceUnitLabel.textAlignment = NSTextAlignmentLeft;
@@ -134,11 +136,11 @@ static char SettingButton;  //!<设置按钮
     [areaRootView addSubview:areaLabel];
     objc_setAssociatedObject(self, &AreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UILabel *areaUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(areaLabel.frame.origin.x + areaLabel.frame.size.width, areaLabel.frame.origin.y + 25.0f, 60.0f, 15.0f)];
+    UILabel *areaUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(areaLabel.frame.origin.x + areaLabel.frame.size.width, areaLabel.frame.origin.y + 20.0f, 60.0f, 15.0f)];
     areaUnitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     areaUnitLabel.textColor = COLOR_CHARACTERS_BLACK;
     areaUnitLabel.textAlignment = NSTextAlignmentLeft;
-    areaUnitLabel.text = @"万";
+    areaUnitLabel.text = [NSString stringWithFormat:@"/%@",APPLICATION_AREAUNIT];
     [areaRootView addSubview:areaUnitLabel];
     
     ///附加信息的标题宽度
@@ -147,14 +149,14 @@ static char SettingButton;  //!<设置按钮
     
     ///物业类型
     UILabel *tradeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, areaRootView.frame.origin.y + areaRootView.frame.size.height + 20.0f, widthTitle, 15.0f)];
-    tradeLabel.text  =@"类    型";
+    tradeLabel.text  =@"类  型";
     tradeLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     tradeLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [rootView addSubview:tradeLabel];
     
     ///内容项
     UILabel *tradeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(tradeLabel.frame.origin.x + tradeLabel.frame.size.width + 5.0f, tradeLabel.frame.origin.y, widthValue, 15.0f)];
-    tradeInfoLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    tradeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tradeInfoLabel.textAlignment = NSTextAlignmentLeft;
     tradeInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -163,14 +165,14 @@ static char SettingButton;  //!<设置按钮
     
     ///装修
     UILabel *decorationLabel = [[UILabel alloc] initWithFrame:CGRectMake(tradeInfoLabel.frame.origin.x + tradeInfoLabel.frame.size.width + 8.0f, tradeInfoLabel.frame.origin.y, widthTitle, 15.0f)];
-    decorationLabel.text  =@"装    修";
+    decorationLabel.text  = @"装  修";
     decorationLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     decorationLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [rootView addSubview:decorationLabel];
     
     ///内容项
     UILabel *decorationInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(decorationLabel.frame.origin.x + decorationLabel.frame.size.width + 5.0f, decorationLabel.frame.origin.y, widthValue, 15.0f)];
-    decorationInfoLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    decorationInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     decorationInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     decorationInfoLabel.textAlignment = NSTextAlignmentLeft;
     decorationInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -179,14 +181,14 @@ static char SettingButton;  //!<设置按钮
     
     ///朝向
     UILabel *faceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, tradeLabel.frame.origin.y + tradeLabel.frame.size.height + 5.0f, widthTitle, 15.0f)];
-    faceLabel.text  =@"朝    向";
+    faceLabel.text  =@"朝  向";
     faceLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     faceLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [rootView addSubview:faceLabel];
     
     ///内容项
     UILabel *faceInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceLabel.frame.origin.x + faceLabel.frame.size.width + 5.0f, faceLabel.frame.origin.y, widthValue, 15.0f)];
-    faceInfoLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    faceInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     faceInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     faceInfoLabel.textAlignment = NSTextAlignmentLeft;
     faceInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -195,14 +197,14 @@ static char SettingButton;  //!<设置按钮
     
     ///楼层
     UILabel *floorLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceInfoLabel.frame.origin.x + faceInfoLabel.frame.size.width + 8.0f, faceLabel.frame.origin.y, widthTitle, 15.0f)];
-    floorLabel.text  =@"楼    层";
+    floorLabel.text  =@"楼  层";
     floorLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     floorLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [rootView addSubview:floorLabel];
     
     ///内容项
     UILabel *floorInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(floorLabel.frame.origin.x + floorLabel.frame.size.width + 5.0f, floorLabel.frame.origin.y, widthValue, 15.0f)];
-    floorInfoLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    floorInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     floorInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     floorInfoLabel.textAlignment = NSTextAlignmentLeft;
     floorInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -211,14 +213,14 @@ static char SettingButton;  //!<设置按钮
     
     ///房龄
     UILabel *usedYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, floorLabel.frame.origin.y + floorLabel.frame.size.height + 5.0f, widthTitle, 15.0f)];
-    usedYearLabel.text  =@"房    龄";
+    usedYearLabel.text  =@"房  龄";
     usedYearLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     usedYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [rootView addSubview:usedYearLabel];
     
     ///内容项
     UILabel *usedYearInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(usedYearLabel.frame.origin.x + usedYearLabel.frame.size.width + 5.0f, usedYearLabel.frame.origin.y, widthValue, 15.0f)];
-    usedYearInfoLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    usedYearInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     usedYearInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     usedYearInfoLabel.textAlignment = NSTextAlignmentLeft;
     usedYearInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -239,7 +241,7 @@ static char SettingButton;  //!<设置按钮
     objc_setAssociatedObject(self, &CommentKey, commentLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///推荐房源
-    UIButton *recommendHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height + 10.0f, rootView.frame.size.width, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *recommendHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height + 10.0f, 120.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///回调
         if (self.askRentAndBuyCellCallBack) {
@@ -249,35 +251,60 @@ static char SettingButton;  //!<设置按钮
         }
         
     }];
-    [recommendHouseButton setTitle:@"推荐房源(        条)" forState:UIControlStateNormal];
+    [recommendHouseButton setTitle:@"推荐房源(      条)" forState:UIControlStateNormal];
     recommendHouseButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    recommendHouseButton.titleLabel.textAlignment = NSTextAlignmentLeft;
     [recommendHouseButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
     [rootView addSubview:recommendHouseButton];
     
     ///推荐房源数量
-    UILabel *recommendHouseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(85.0f, 0.0f, 30.0f, 20.0f)];
+    UILabel *recommendHouseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0f, 0.0f, 30.0f, 20.0f)];
     recommendHouseNumLabel.textColor = COLOR_CHARACTERS_YELLOW;
     recommendHouseNumLabel.font = [UIFont systemFontOfSize:15.0f];
     [recommendHouseButton addSubview:recommendHouseNumLabel];
     objc_setAssociatedObject(self, &RecommendHouse, recommendHouseNumLabel, OBJC_ASSOCIATION_ASSIGN);
     
+    ///附加功能底view
+    __block UIView *buttonRootView;
+    
     ///展开按钮
-    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(rootView.frame.size.width - 44.0f, recommendHouseButton.frame.origin.y - 24.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(rootView.frame.size.width - 44.0f, recommendHouseButton.frame.origin.y - 12.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///回调展开
         if (button.selected) {
             
+            button.selected = NO;
+            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_NORMAL] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
+            
+            ///收缩底部功能栏
+            [UIView animateWithDuration:0.3f animations:^{
+                
+                buttonRootView.frame = CGRectMake(buttonRootView.frame.origin.x, buttonRootView.frame.origin.y, buttonRootView.frame.size.width, 0.0f);
+                
+            }];
+            
             if (self.askRentAndBuyCellCallBack) {
                 
-                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSetting);
+                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSettingClose);
                 
             }
             
         } else {
         
+            button.selected = YES;
+            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_NORMAL] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_HIGHLIGHTED] forState:UIControlStateHighlighted];
+            
+            [UIView animateWithDuration:0.3f animations:^{
+                
+                buttonRootView.frame = CGRectMake(buttonRootView.frame.origin.x, buttonRootView.frame.origin.y, buttonRootView.frame.size.width, 43.0f);
+                
+            }];
+            
             if (self.askRentAndBuyCellCallBack) {
                 
-                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSettingClose);
+                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSetting);
                 
             }
         
@@ -295,9 +322,16 @@ static char SettingButton;  //!<设置按钮
     topLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [rootView addSubview:topLineLabel];
     
-    ///编辑按钮
     CGFloat ypointEditButton = recommendHouseButton.frame.origin.y + recommendHouseButton.frame.size.height + 21.0f;
-    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, ypointEditButton, (rootView.frame.size.width - 8.0f) / 2.0f, (rootView.frame.size.height - ypointEditButton - 1.0f)) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    
+    ///按钮底view
+    buttonRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypointEditButton, rootView.frame.size.width, 0.0f)];
+    buttonRootView.clipsToBounds = YES;
+    [rootView addSubview:buttonRootView];
+    objc_setAssociatedObject(self, &BottomViewkey, buttonRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///编辑按钮
+    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, (buttonRootView.frame.size.width - 8.0f) / 2.0f, 42.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         if (self.askRentAndBuyCellCallBack) {
             
@@ -306,7 +340,15 @@ static char SettingButton;  //!<设置按钮
         }
         
     }];
-    [rootView addSubview:editButton];
+    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [editButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    [buttonRootView addSubview:editButton];
+    
+    ///分隔线
+    UILabel *editLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(buttonRootView.frame.size.width / 2.0f, 3.0f, 0.25f, 43.0f - 6.0f)];
+    editLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [buttonRootView addSubview:editLineLabel];
     
     ///删除按钮
     UIButton *deleteButton = [UIButton createBlockButtonWithFrame:CGRectMake(editButton.frame.origin.x + editButton.frame.size.width + 8.0f, editButton.frame.origin.y, editButton.frame.size.width, editButton.frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
@@ -318,12 +360,15 @@ static char SettingButton;  //!<设置按钮
         }
         
     }];
-    [rootView addSubview:deleteButton];
+    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
+    [deleteButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [deleteButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    [buttonRootView addSubview:deleteButton];
     
     ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, rootView.frame.size.height - 0.25f, rootView.frame.size.width, 0.25f)];
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 43.0f - 0.25f, buttonRootView.frame.size.width, 0.25f)];
     bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [rootView addSubview:bottomLineLabel];
+    [buttonRootView addSubview:bottomLineLabel];
 
 }
 
@@ -415,13 +460,45 @@ static char SettingButton;  //!<设置按钮
         [self updateRentPayType:[QSCoreDataManager getPerpostPerchaseTypeWithKey:model.intent]];
         
         ///更新价钱信息
-        [self updatePriceInfo:model.price AndUnit:@"万"];
+        [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",([model.price floatValue]) / 10000] AndUnit:@"万"];
         
         ///更新标签
         [self updateFeatures:model.features andHouseType:fFilterMainTypeSecondHouse];
     
     }
     
+}
+
+/**
+ *  @author         yangshengmeng, 15-04-05 18:04:13
+ *
+ *  @brief          更新底部功能按钮的状态
+ *
+ *  @param isShow   YES-显示
+ *
+ *  @since          1.0.0
+ */
+- (void)updateButtonActionStatus:(BOOL)isShow
+{
+
+    UIView *rootView = objc_getAssociatedObject(self, &BottomViewkey);
+    if (rootView) {
+        
+        if (isShow) {
+            
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 43.0f);
+            
+        } else {
+        
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 0.0f);
+        
+        }
+        
+        ///调整设置按钮
+        [self updateSettingButton:isShow];
+        
+    }
+
 }
 
 ///更新设置按钮的隐藏状态
@@ -626,7 +703,7 @@ static char SettingButton;  //!<设置按钮
 {
 
     UIView *rootView = objc_getAssociatedObject(self, &FeaturesKey);
-    if (rootView && featureString) {
+    if (rootView && [featureString length] > 0) {
         
         ///清空原标签
         for (UIView *obj in [rootView subviews]) {
@@ -639,7 +716,7 @@ static char SettingButton;  //!<设置按钮
         NSArray *featuresList = [featureString componentsSeparatedByString:@","];
         
         ///标签宽度
-        CGFloat width = (rootView.frame.size.width - 12.0f) / 3.0f;
+        CGFloat width = (rootView.frame.size.width - 12.0f) / 5.0f;
         
         ///循环创建特色标签
         for (int i = 0; i < [featuresList count] && i < 3;i++) {

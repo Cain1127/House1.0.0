@@ -12,9 +12,6 @@
 
 #import "QSOrderDetailInfoDataModel.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 //关联
 static char downButtonKey;      //!<下箭头按钮关联key
 static char upButtonKey;        //!<上箭头按钮关联key
@@ -22,7 +19,6 @@ static char bottomViewKey;      //!<分割线关联key
 
 @interface QSPOrderDetailShowingsTimeView ()
 
-@property (nonatomic, strong) NSMutableArray *afterViewList;    //保存同级界面后面的UIView元素,必须按照展示先后顺序加入
 
 @end
 
@@ -39,8 +35,6 @@ static char bottomViewKey;      //!<分割线关联key
 {
 
     if (self = [super initWithFrame:frame]) {
-        
-        self.afterViewList = [NSMutableArray arrayWithCapacity:0];
         
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
@@ -63,6 +57,8 @@ static char bottomViewKey;      //!<分割线关联key
         [bottomView addSubview:bottomLineLablel];
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomLineLablel.frame.origin.y+bottomLineLablel.frame.size.height)];
+        
+        self.showHeight = self.frame.size.height;
         
         [self setTimeData:timeArray];
         
@@ -167,12 +163,7 @@ static char bottomViewKey;      //!<分割线关联key
         
     }
     
-}
-
-- (void)addAfterView:(UIView* __strong *)view
-{
-    
-    [self.afterViewList addObject:*view];
+    self.showHeight = self.frame.size.height;
     
 }
 
@@ -200,35 +191,5 @@ static char bottomViewKey;      //!<分割线关联key
     [self ResetOtherViewOffsetY];
     
 }
-
-- (void)ResetOtherViewOffsetY
-{
-    CGFloat offsetY = self.frame.origin.y+self.frame.size.height;
-    
-    if ([self.afterViewList count]>0) {
-        for (int i=0; i<[self.afterViewList count]; i++) {
-            
-            id afterItem = [self.afterViewList objectAtIndex:i];
-            if ([afterItem isKindOfClass:[UIView class]]) {
-                
-                UIView *afterView = (UIView*)afterItem;
-                [afterView setFrame:CGRectMake(afterView.frame.origin.x, offsetY, afterView.frame.size.width, afterView.frame.size.height)];
-                
-                offsetY += afterView.frame.size.height;
-                
-            }
-            
-        }
-    }
-    
-    if ([self.superview isKindOfClass:[UIScrollView class]]) {
-        
-        UIScrollView *scrollView = (UIScrollView*)(self.superview);
-        [scrollView setContentSize:CGSizeMake(scrollView.frame.size.width, offsetY)];
-        
-    }
-
-}
-
 
 @end

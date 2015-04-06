@@ -9,9 +9,6 @@
 #import "QSPOrderDetailShowingsActivitiesView.h"
 #import "NSString+Calculation.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 @implementation QSPOrderDetailShowingsActivitiesView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withActivityData:(id)activityData
@@ -73,6 +70,8 @@
         [self addSubview:bottomLineLablel];
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, bottomLineLablel.frame.origin.y+bottomLineLablel.frame.size.height)];
+        
+        self.showHeight = self.frame.size.height;
         
     }
     

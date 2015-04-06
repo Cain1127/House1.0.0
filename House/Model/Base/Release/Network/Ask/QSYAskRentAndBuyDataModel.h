@@ -8,6 +8,7 @@
 
 #import "QSBaseModel.h"
 
+@class QSFilterDataModel;
 @interface QSYAskRentAndBuyDataModel : QSBaseModel
 
 @property (nonatomic,copy) NSString *id_;               //!<求租求购ID
@@ -43,5 +44,16 @@
 @property (nonatomic,copy) NSString *payment;           //!<租金支付方式
 @property (nonatomic,copy) NSString *status;            //!<状态:-1已删除，0未发布，1已发布
 @property (nonatomic,copy) NSString *used_year;         //!<房龄
+
+/**
+ *  @author yangshengmeng, 15-04-04 22:04:24
+ *
+ *  @brief  将求租求购数据模型，转换为过滤器类型
+ *
+ *  @return 返回当前转换的过滤器模型
+ *
+ *  @since  1.0.0
+ */
+- (QSFilterDataModel *)change_AskDataModel_TO_FilterModel;
 
 @end

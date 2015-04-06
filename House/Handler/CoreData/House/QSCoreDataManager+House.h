@@ -27,6 +27,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseType;
++ (NSString *)getHouseTypeValueWithKey:(NSString *)houseTypeKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:41
@@ -38,6 +39,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseSalePriceType;
++ (NSString *)getHouseSalePriceValueWithKey:(NSString *)priceKey;
 
 /**
  *  @author yangshengmeng, 15-03-25 17:03:16
@@ -94,6 +96,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseRentPriceType;
++ (NSString *)getHouseRentPriceValueWithKey:(NSString *)rentKey;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:44

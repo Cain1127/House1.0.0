@@ -16,6 +16,8 @@
 
 #import "QSCoreDataManager+User.h"
 
+#define ___VERCODE_AUTOWRITE_TO_FIELD___
+
 @interface QSYForgetPasswordViewController () <UITextFieldDelegate>
 
 @property (nonatomic,copy) NSString *verCode;//!<手机验证码
@@ -105,6 +107,10 @@
             [phoneField resignFirstResponder];
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"验证码已发到你手机，请注意查收", 1.0f, ^(){})
             APPLICATION_LOG_INFO(@"手机验证码",verCode)
+            
+#ifdef ___VERCODE_AUTOWRITE_TO_FIELD___
+            vertificationCodeField.text = verCode;
+#endif
             return;
             
         }

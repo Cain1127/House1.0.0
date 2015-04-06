@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "QSPOrderDetalSubBaseView.h"
 
-@interface QSPOrderDetailHouseInfoView : UIView
+@interface QSPOrderDetailHouseInfoView : QSPOrderDetalSubBaseView
 
 @property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
 

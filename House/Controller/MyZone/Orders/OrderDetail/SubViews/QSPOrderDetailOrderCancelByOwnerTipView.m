@@ -9,9 +9,6 @@
 #import "QSPOrderDetailOrderCancelByOwnerTipView.h"
 #import "NSString+Calculation.h"
 
-//上下间隙
-#define     CONTENT_TOP_BOTTOM_OFFSETY     14.0f
-
 @implementation QSPOrderDetailOrderCancelByOwnerTipView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withRemarkTip:(NSString*)tipStr{
@@ -38,6 +35,7 @@
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, markTipLabel.frame.origin.y+markTipLabel.frame.size.height + 10)];
         
+        self.showHeight = self.frame.size.height;
     }
     
     return self;

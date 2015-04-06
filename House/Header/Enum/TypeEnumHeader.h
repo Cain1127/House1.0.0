@@ -621,6 +621,10 @@ typedef enum
     rRequestTypeHomeCountData = 3000,           //!<首页统计数据
     
     rRequestTypeChatMessageList = 4000,         //!<消息列表
+    rRequestTypeChatContactList,                //!<联系人列表
+    rRequestTypeChatContactInfo,                //!<联系人信息
+    rRequestTypeChatContactAdd,                 //!<添加联系人
+    rRequestTypeChatContactInfoChange,          //!<联系人信息修改
     
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
     rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
@@ -628,6 +632,8 @@ typedef enum
     rRequestTypeLoadImage,                      //!<上传图片
     rRequestTypeMyZoneReleaseRentHouse,         //!<发布出租房
     rRequestTypeMyZoneReleaseSecondHandHouse,   //!<发布二手房
+    rRequestTypeMyZoneEditAskRentPurpase,       //!<修改求租求购
+    rRequestTypeMyZoneDeleteAskRentPurpase,
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
