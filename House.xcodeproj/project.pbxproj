@@ -28,6 +28,7 @@
 		182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C881E1A7B244000DA64E9 /* QuartzCore.framework */; };
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
 		183571D91AD1642100A29607 /* QSCollectionVerticalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */; };
+		183571DC1AD2558E00A29607 /* QSYMessageWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -303,7 +304,6 @@
 		18BE12321A8869760036245A /* calendar_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122F1A8869760036245A /* calendar_sixform.png */; };
 		18BE12361A8869850036245A /* comparison_appointment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12341A8869850036245A /* comparison_appointment.png */; };
 		18BE12371A8869850036245A /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12351A8869850036245A /* comparison_sixform.png */; };
-		18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */; };
 		18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */; };
 		18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12431A88934F0036245A /* icon_default_80x80.png */; };
 		18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12441A88934F0036245A /* icon_default_100x100.png */; };
@@ -763,6 +763,8 @@
 		182C88201A7B244E00DA64E9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		183571D71AD1642100A29607 /* QSCollectionVerticalFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionVerticalFlowLayout.h; path = FlowLayout/QSCollectionVerticalFlowLayout.h; sourceTree = "<group>"; };
 		183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionVerticalFlowLayout.m; path = FlowLayout/QSCollectionVerticalFlowLayout.m; sourceTree = "<group>"; };
+		183571DA1AD2558E00A29607 /* QSYMessageWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMessageWordTableViewCell.h; path = Talk/Word/QSYMessageWordTableViewCell.h; sourceTree = "<group>"; };
+		183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMessageWordTableViewCell.m; path = Talk/Word/QSYMessageWordTableViewCell.m; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1173,8 +1175,6 @@
 		18BE122F1A8869760036245A /* calendar_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_sixform.png; sourceTree = "<group>"; };
 		18BE12341A8869850036245A /* comparison_appointment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_appointment.png; sourceTree = "<group>"; };
 		18BE12351A8869850036245A /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
-		18BE123B1A8877FF0036245A /* QSChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessageTableViewCell.h; path = Cell/Message/QSChatMessageTableViewCell.h; sourceTree = "<group>"; };
-		18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatMessageTableViewCell.m; path = Cell/Message/QSChatMessageTableViewCell.m; sourceTree = "<group>"; };
 		18BE123E1A8878420036245A /* QSChatMessageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessageListTableViewCell.h; path = Message/QSChatMessageListTableViewCell.h; sourceTree = "<group>"; };
 		18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatMessageListTableViewCell.m; path = Message/QSChatMessageListTableViewCell.m; sourceTree = "<group>"; };
 		18BE12431A88934F0036245A /* icon_default_80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_default_80x80.png; sourceTree = "<group>"; };
@@ -3669,8 +3669,6 @@
 		18BE12391A8877CA0036245A /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				18BE123B1A8877FF0036245A /* QSChatMessageTableViewCell.h */,
-				18BE123C1A8877FF0036245A /* QSChatMessageTableViewCell.m */,
 				18BE123E1A8878420036245A /* QSChatMessageListTableViewCell.h */,
 				18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */,
 				18D081DB1ACE44F6004FA20F /* QSYContactListTableViewCell.h */,
@@ -4166,6 +4164,8 @@
 		18D081611ACD3888004FA20F /* Word */ = {
 			isa = PBXGroup;
 			children = (
+				183571DA1AD2558E00A29607 /* QSYMessageWordTableViewCell.h */,
+				183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */,
 			);
 			name = Word;
 			sourceTree = "<group>";
@@ -5932,7 +5932,6 @@
 				181524211ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				18B572A01AC16D1600C75682 /* message.cc in Sources */,
-				18BE123D1A8877FF0036245A /* QSChatMessageTableViewCell.m in Sources */,
 				18DFE8701AC6F3AF00C216C3 /* QSCoreDataManager+History.m in Sources */,
 				1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
@@ -5948,6 +5947,7 @@
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18B572971AC16D1600C75682 /* generated_message_util.cc in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
+				183571DC1AD2558E00A29607 /* QSYMessageWordTableViewCell.m in Sources */,
 				18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */,
 				1890B7821AB8475400B94E9B /* QSSocketManager.mm in Sources */,
 				CEBC98721ABD0A1F00A69F34 /* QSCustomCalloutView.m in Sources */,

@@ -10,20 +10,23 @@
 #import "QSYTenantInfoViewController.h"
 #import "QSYOwnerInfoViewController.h"
 
+#import "QSYMessageWordTableViewCell.h"
+
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSSocketManager.h"
 #import "QSCoreDataManager+User.h"
 
 #import "QSUserSimpleDataModel.h"
+#import "QSUserDataModel.h"
 #import "QSYSendMessageWord.h"
 
 #import "MJRefresh.h"
 
 @interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
-///对话人的数据
-@property (nonatomic,retain) QSUserSimpleDataModel *userModel;
+@property (nonatomic,retain) QSUserSimpleDataModel *userModel;      //!<当前聊天对象数据模型
+@property (nonatomic,retain) QSUserDataModel *myUserModel;          //!<当前用户数据模型
 
 @property (nonatomic,strong) UIView *rootView;                      //!<底view，方便滑动
 @property (nonatomic,strong) UITableView *messagesListView;         //!<消息列表view
@@ -42,6 +45,9 @@
         
         ///保存对话人
         self.userModel = userModel;
+        
+        ///保存当前用户的信息
+        self.myUserModel = [QSCoreDataManager getCurrentUserDataModel];
         
         ///初始化数据源
         self.messagesDataSource = [[NSMutableArray alloc] init];
@@ -214,25 +220,50 @@
 #pragma mark - 返回消息
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    static NSString *wordsCell = @"wordsCell";
-    UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsCell];
-    if (nil == cellNormaMessage) {
-        
-        cellNormaMessage = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsCell];
-        
-        ///取消选择样式
-        cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-    }
     
-    ///刷新数据
+    ///消息类型
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
+    
+    UITableViewCell *cellNormaMessage;
+    
     switch (tempModel.msgType) {
         case qQSCustomProtocolChatMessageTypeWord:
         {
-            QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
-            cellNormaMessage.textLabel.text = wordModel.message;
+            
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessageWord";
+                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
+                [(QSYMessageWordTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessageWord";
+                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
+                [(QSYMessageWordTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            }
             
         }
             break;

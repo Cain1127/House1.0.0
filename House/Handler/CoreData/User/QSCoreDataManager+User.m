@@ -288,6 +288,45 @@
     
 }
 
+///返回当前用户的消息
++ (QSUserDataModel *)getCurrentUserDataModel
+{
+    
+    NSArray *resultList = [NSArray arrayWithArray:[self getEntityListWithKey:COREDATA_ENTITYNAME_USER_INFO andSortKeyWord:@"user_id" andAscend:YES]];
+    QSCDUserDataModel *cdUserModel = resultList[0];
+    
+    if (nil) {
+        
+        return nil;
+        
+    }
+    
+    QSUserDataModel *userModel = [[QSUserDataModel alloc] init];
+    userModel.id_ = cdUserModel.user_id;
+    userModel.user_type = cdUserModel.user_count_type;
+    userModel.username = cdUserModel.user_name;
+    userModel.username = cdUserModel.user_count;
+    userModel.email = cdUserModel.email;
+    userModel.last_login_time = cdUserModel.last_login_time;
+    userModel.ischeck_mail = cdUserModel.ischeck_mail;
+    userModel.ischeck_mobile = cdUserModel.ischeck_mobile;
+    userModel.mobile = cdUserModel.mobile;
+    userModel.realname = cdUserModel.realname;
+    userModel.sex = cdUserModel.sex;
+    userModel.avatar = cdUserModel.avatar;
+    userModel.nickname = cdUserModel.nick_name;
+    userModel.web = cdUserModel.web;
+    userModel.qq = cdUserModel.qq;
+    userModel.age = cdUserModel.age;
+    userModel.idcard = cdUserModel.idcard;
+    userModel.vocation = cdUserModel.vocation;
+    userModel.tj_rentHouse_num = cdUserModel.tj_rentHouse_num;
+    userModel.tj_secondHouse_num = cdUserModel.tj_secondHouse_num;
+    
+    return userModel;
+
+}
+
 ///获取当前用户ID
 + (NSString *)getUserID
 {

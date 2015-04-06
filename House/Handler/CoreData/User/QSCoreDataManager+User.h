@@ -63,6 +63,7 @@
  *  @since              1.0.0
  */
 + (void)saveLoginUserData:(QSUserDataModel *)userModel andCallBack:(void(^)(BOOL flag))callBack;
++ (QSUserDataModel *)getCurrentUserDataModel;
 
 /**
  *  @author yangshengmeng, 15-01-22 15:01:25
