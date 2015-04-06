@@ -11,6 +11,7 @@
 #import "QSHouseTypeDetailViewController.h"
 #import "QSSignUpViewController.h"
 #import "QSNearInfoViewController.h"
+#import "QSMortgageCalculatorViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -1015,6 +1016,8 @@ static char LeftStarKey;            //!<左侧星级
     UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, 0.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
         
         NSLog(@"点击计算器");
+        QSMortgageCalculatorViewController *calculatorVC = [[QSMortgageCalculatorViewController alloc] init];
+        [self.navigationController pushViewController:calculatorVC animated:YES];
         
     }];
     calculatorImage.image = [UIImage imageNamed:IMAGE_PUBLIC_CALCULATOR_NORMAL];

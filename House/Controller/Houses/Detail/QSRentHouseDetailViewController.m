@@ -10,6 +10,8 @@
 #import "QSNearInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
 #import "QSUserAssessViewController.h"
+#import "QSPOrderDetailBookedViewController.h"
+#import "QSYOwnerInfoViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
@@ -451,8 +453,6 @@ static char LeftStarKey;            //!<左侧星级
     [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
     QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    
-    [self createOwnerViewUI:ownerView andUserInfo:self.userInfo];
     
     [infoRootView addSubview:headerImageView];
     [infoRootView addSubview:scoreView];

@@ -9,6 +9,11 @@
 #import "QSSecondHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
 #import "QSUserAssessViewController.h"
+#import "QSPOrderDetailBookedViewController.h"
+#import "QSYTenantInfoViewController.h"
+#import "QSYTalkPTPViewController.h"
+#import "QSYOwnerInfoViewController.h"
+#import "QSMortgageCalculatorViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
@@ -829,6 +834,8 @@ static char LeftStarKey;            //!<左侧星级
         UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y, 30.0f, 30.0f) andSingleTapCallBack:^{
             
             NSLog(@"点击计算器");
+            QSMortgageCalculatorViewController *mortgageVC = [[QSMortgageCalculatorViewController alloc] init];
+            [self.navigationController pushViewController:mortgageVC animated:YES];
             
         }];
         calculatorImage.image = [UIImage imageNamed:IMAGE_PUBLIC_CALCULATOR_NORMAL];

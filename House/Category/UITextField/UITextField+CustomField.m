@@ -200,6 +200,34 @@
         }
             break;
             
+            ///左右都是文字提示+ 右箭头:文字黑色
+        case cCustomTextFieldStyleLeftAndRightTipsAndRightArrowBlack:
+        {
+            
+            ///获取文字显示最小长度
+            CGFloat widthLeft = [leftInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            
+            QSLabel *leftTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthLeft + 30.0f, 44.0)];
+            leftTipsLabel.textAlignment = alignment;
+            leftTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+            leftTipsLabel.text = leftInfo;
+            leftView = leftTipsLabel;
+            
+            ///右箭头
+            ((UIImageView *)rightView).image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+            
+            CGFloat widthRight = [rightInfo calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_BODY_16];
+            QSLabel *rightTipsLabel = [self createCustomFieldTipsLableWithFrame:CGRectMake(0.0f, 0.0f, widthRight + 30.0f, 44.0)];
+            rightTipsLabel.textAlignment = NSTextAlignmentCenter;
+            rightTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+            rightTipsLabel.text = rightInfo;
+            rightView = rightTipsLabel;
+            
+        }
+            break;
+
+            
+            
             ///左右都是文字提示:文字灰色
         case cCustomTextFieldStyleLeftAndRightTipsGray:
         {
