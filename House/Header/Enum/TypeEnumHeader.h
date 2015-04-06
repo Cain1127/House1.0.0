@@ -40,6 +40,15 @@ typedef enum
 
 }USER_COUNT_TYPE;                   //!<用户账号权限类型
 
+///消息是自己的消息，还是别人的消息类型
+typedef enum
+{
+    
+    mMessageFromTypeMY = 99,//!<当前用户的消息
+    mMessageFromTypeFriends,//!<朋友发送过来的
+    
+}MESSAGE_FROM_TYPE;
+
 /*
  *  //楼盘均价
  *  price_avg : "10000"         "一万元以下";
