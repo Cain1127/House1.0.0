@@ -856,24 +856,20 @@ typedef enum
             
             [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
                 
-                if (flag) {
+                ///进入提示发布成功页
+                if (self.releasedCallBack) {
                     
-                    ///进入提示发布成功页
-                    if (self.releasedCallBack) {
-                        
-                        self.releasedCallBack(YES);
-                        
-                    }
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
+                    self.releasedCallBack(YES);
                     
                 }
+                
+                [self.navigationController popViewControllerAnimated:YES];
                 
             }];
             
         } else {
             
-            [hud hiddenCustomHUDWithFooterTips:@"修改失败" andDelayTime:1.0];
+            [hud hiddenCustomHUDWithFooterTips:@"修改失败" andDelayTime:1.5];
             
         }
         
@@ -912,27 +908,23 @@ typedef enum
             
             [hud hiddenCustomHUDWithFooterTips:@"发布成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
                 
-                if (flag) {
+                ///进入提示发布成功页
+                if (self.releasedCallBack) {
                     
-                    ///进入提示发布成功页
-                    if (self.releasedCallBack) {
-                        
-                        self.releasedCallBack(YES);
-                        
-                    }
-                    
-                    ///获取返回ID
-                    QSYSendVerticalCodeReturnData *tempModel = resultData;
-                    QSYAskRentTipsViewController *tipsVC = [[QSYAskRentTipsViewController alloc] initWithRecommendID:tempModel.msg];
-                    [self.navigationController pushViewController:tipsVC animated:YES];
+                    self.releasedCallBack(YES);
                     
                 }
+                
+                ///获取返回ID
+                QSYSendVerticalCodeReturnData *tempModel = resultData;
+                QSYAskRentTipsViewController *tipsVC = [[QSYAskRentTipsViewController alloc] initWithRecommendID:tempModel.msg];
+                [self.navigationController pushViewController:tipsVC animated:YES];
                 
             }];
             
         } else {
             
-            [hud hiddenCustomHUDWithFooterTips:@"发布失败" andDelayTime:1.0];
+            [hud hiddenCustomHUDWithFooterTips:@"发布失败" andDelayTime:1.5];
             
         }
         

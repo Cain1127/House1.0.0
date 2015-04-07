@@ -503,12 +503,8 @@
                     
                     [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.0f andCallBack:^(BOOL flag) {
                         
-                        if (flag) {
-                            
-                            ///刷新数据
-                            [self.listView.header beginRefreshing];
-                            
-                        }
+                        ///刷新数据
+                        [self.listView.header beginRefreshing];
                         
                     }];
                     
