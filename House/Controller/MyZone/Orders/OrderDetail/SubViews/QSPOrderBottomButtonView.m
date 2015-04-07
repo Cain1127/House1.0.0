@@ -26,8 +26,8 @@
         [self setUserInteractionEnabled:YES];
         [self setBackgroundColor:[UIColor whiteColor]];
         
-        _buttonNum = num;
-        [self creatButton:_buttonNum];
+        _buttonNum = ABS(num);
+        [self creatButton:num];
         
         self.blockButtonCallBack = callBack;
         
@@ -41,7 +41,28 @@
 - (void)creatButton:(NSInteger)num
 {
     
-    if (num == 1) {
+    if (num == -1) {
+        
+        CGFloat width = (SIZE_DEVICE_WIDTH-3.0f*CONTENT_TOP_BOTTOM_OFFSETY)/2;
+        
+        ///按钮风格
+        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+        
+        ///中间一个的按钮
+        buttonStyle.title = TITLE_MYZONE_ORDER_DETAIL_CHANGE_ORDER_TITLE_TIP;
+        UIButton *centerOneButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH-width)/2, CONTENT_TOP_BOTTOM_OFFSETY, width, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+            
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(bBottomButtonTypeOne,button);
+            }
+            
+        }];
+        [centerOneButton setTag:bBottomButtonTypeOne];
+        [self addSubview:centerOneButton];
+        
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, centerOneButton.frame.origin.y+centerOneButton.frame.size.height+CONTENT_TOP_BOTTOM_OFFSETY)];
+        
+    }else if (num == 1) {
         
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];

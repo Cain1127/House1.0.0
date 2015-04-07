@@ -59,11 +59,17 @@
 @property (nonatomic,assign) BOOL isShowComplaintAndCommentButtonView;  //!<我要投诉和评价房源按钮View
 @property (nonatomic,assign) BOOL isShowComplaintAndCompletedButtonView;  //!<我要投诉和完成看房按钮View
 @property (nonatomic,assign) BOOL isShowAppointAgainAndPriceAgainButtonView;  //!<再次预约和我要议价按钮View
-@property (nonatomic,assign) BOOL isShowAppointAgainView;  //!<再次预约按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainView;  //!<内容页内的再次预约按钮View
 
 @property (nonatomic,assign) BOOL isShowAppointAgainAndRejectPriceButtonView;  //!<再次预约和拒绝还价按钮View
 @property (nonatomic,assign) BOOL isShowRejectAndAcceptAppointmentButtonView;    //!<拒绝预约和接受预约按钮View
 @property (nonatomic,assign) BOOL isShowCancelTransAndWarmBuyerButtonView;    //!<取消成交和提醒房客按钮View
+@property (nonatomic,assign) BOOL isShowCancelTransAndWarmSalerButtonView;    //!<取消成交和提醒业主按钮View
+@property (nonatomic,assign) BOOL isShowCancelTransAndCompleteButtonView;    //!<取消成交和确认成交按钮View
+@property (nonatomic,assign) BOOL isShowAcceptOrRejectApplicationView;      //!<接受申请、拒绝申请按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainOrCancelApplicationView;      //!<再次预约、取消申请按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainAndApplicationBargainView;      //!<再次预约、申请议价按钮View
+
 
 //ScrollView外底悬浮层
 @property (nonatomic,assign) BOOL isShowChangeOrderButtonEnableView;  //!<修改订单按钮View
