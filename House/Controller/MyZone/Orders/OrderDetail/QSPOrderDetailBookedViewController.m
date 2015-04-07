@@ -1005,9 +1005,9 @@
 //    user_id	true	string	获取的用户id
     
     [tempParam setObject:self.orderID forKey:@"id_"];
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderDetailData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         

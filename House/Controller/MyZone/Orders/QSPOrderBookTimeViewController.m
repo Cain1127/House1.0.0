@@ -418,9 +418,9 @@
         return;
     }
     
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
     [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
@@ -531,9 +531,9 @@
 //        return;
 //    }
     
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
     [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
