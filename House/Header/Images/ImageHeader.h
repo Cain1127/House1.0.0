@@ -383,6 +383,7 @@
 ///头像的六角形镂空图片
 #define IMAGE_USERICON_HOLLOW_80 @"public_sixform_hollow_80x80"
 #define IMAGE_USERICON_HOLLOW_158 @"public_sixform_hollow_158x158"
+#define IMAGE_USERICON_HOLLOW_150x170 @"public_sixform_hollow_150x170"
 
 ///预约订单图片
 #define IMAGE_ZONE_ORDER_APPOINTED_NORMAL @"myzone_renant_order_appointed_normal"
@@ -534,5 +535,8 @@
 #define IMAGE_ZONE_ASK_TAG_BUY @"myzone_ask_buy"
 #define IMAGE_ZONE_ASK_TAG_RENT_ENTIRE @"myzone_ask_rent_entire"
 #define IMAGE_ZONE_ASK_TAG_RENT_PARTNER @"myzone_ask_rent_partner"
+
+///我的物业列表中，房源图片的默认图片
+#define IMAGE_ZONE_MYPROPERTYLIST_HOUSE_DEFAULT @"myzone_property_house_default"
 
 #endif

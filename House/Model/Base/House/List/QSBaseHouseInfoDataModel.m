@@ -39,7 +39,8 @@
                                                     @"attach_thumb",
                                                     @"favorite_count",
                                                     @"attention_count",
-                                                    @"status"
+                                                    @"status",
+                                                    @"update_time"
                                                     ]];
     
     return shared_mapping;
