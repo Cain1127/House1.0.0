@@ -31,5 +31,5 @@ typedef enum
  *
  *  @since 1.0.0
  */
--(instancetype)initWithHousePrice:(NSString *)housePrice;
+-(instancetype)initWithHousePrice:(CGFloat )housePrice;
 @end

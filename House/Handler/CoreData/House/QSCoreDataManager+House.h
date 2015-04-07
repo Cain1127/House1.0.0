@@ -323,4 +323,29 @@
 + (NSArray *)getRentHouseLeadTimeTyps;
 + (NSString *)getRentHouseLeadTimeTypeWithKey:(NSString *)key;
 
+/*!
+ *  @author wangshupeng, 15-04-07 15:04:35
+ *
+ *  @brief  代款方式，用来进行贷款信息计算
+ *
+ *  @return 返回所有的代款类型
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getMortgageTypes;
++ (NSString *)getMortgageTypeWithKey:(NSString *)typeKey;
+
+/*!
+ *  @author wangshupeng, 15-04-07 15:04:35
+ *
+ *  @brief  代款年限，用来进行贷款信息计算
+ *
+ *  @return 返回所有的代款年限
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getMortgageYears;
++ (NSString *)getMortgageYearsWithKey:(NSString *)typeKey;
+
+
 @end

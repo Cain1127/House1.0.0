@@ -1139,4 +1139,285 @@
 
 }
 
+/*!
+ *  @author wangshupeng, 15-04-07 15:04:35
+ *
+ *  @brief  代款方式，用来进行贷款信息计算
+ *
+ *  @return 返回所有的代款类型
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getMortgageTypes
+{
+    
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"等额本息",
+                                            @"等息本额"];
+    
+    NSArray *houseUsedYearTypeKeyArray = @[@"1",
+                                           @"2"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+    
+}
+
++ (NSString *)getMortgageTypeWithKey:(NSString *)typeKey
+{
+    
+    if (1 == [typeKey intValue]) {
+        
+        return @"等额本息";
+        
+    }
+    
+    if (2 == [typeKey intValue]) {
+        
+        return @"等息本额";
+        
+    }
+    
+    return nil;
+    
+}
+
+/*!
+ *  @author wangshupeng, 15-04-07 15:04:35
+ *
+ *  @brief  代款年限，用来进行贷款信息计算
+ *
+ *  @return 返回所有的代款年限
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getMortgageYears
+{
+    
+    NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
+    NSArray *houseUsedYearTypeTempArray = @[@"1年",
+                                            @"2年",
+                                            @"3年",
+                                            @"4年",
+                                            @"5年",
+                                            @"6年",
+                                            @"7年",
+                                            @"8年",
+                                            @"9年",
+                                            @"10年",
+                                            @"11年",
+                                            @"12年",
+                                            @"13年",
+                                            @"14年",
+                                            @"15年",
+                                            @"16年",
+                                            @"17年",
+                                            @"18年",
+                                            @"19年",
+                                            @"20年",
+                                            @"21年",
+                                            @"22年",
+                                            @"23年",
+                                            @"24年",
+                                            @"25年",
+                                            @"26年",
+                                            @"27年",
+                                            @"28年",
+                                            @"29年",
+                                            @"30年"
+                                            
+                                            ];
+    
+    NSArray *houseUsedYearTypeKeyArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24",@"25",@"26",@"27",@"28",@"29",
+                                           @"30"];
+    for (int i = 0; i < [houseUsedYearTypeTempArray count]; i++) {
+        
+        QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+        tempModel.key = houseUsedYearTypeKeyArray[i];
+        tempModel.val = houseUsedYearTypeTempArray[i];
+        [houseUsedYearTypeList addObject:tempModel];
+        
+    }
+    return [NSArray arrayWithArray:houseUsedYearTypeList];
+    
+}
+
++ (NSString *)getMortgageYearsWithKey:(NSString *)typeKey
+{
+    
+    if (1 == [typeKey intValue]) {
+        
+        return @"1年";
+        
+    }
+    
+    if (2 == [typeKey intValue]) {
+        
+        return @"2年";
+        
+    }
+    if (3 == [typeKey intValue]) {
+        
+        return @"3年";
+        
+    }
+    
+    if (4 == [typeKey intValue]) {
+        
+        return @"4年";
+        
+    }
+    if (5 == [typeKey intValue]) {
+        
+        return @"5年";
+        
+    }
+    
+    if (6 == [typeKey intValue]) {
+        
+        return @"6年";
+        
+    }
+    if (7 == [typeKey intValue]) {
+        
+        return @"7年";
+        
+    }
+    
+    if (8 == [typeKey intValue]) {
+        
+        return @"8年";
+        
+    }
+    if (9 == [typeKey intValue]) {
+        
+        return @"9年";
+        
+    }
+    
+    if (10 == [typeKey intValue]) {
+        
+        return @"10年";
+        
+    }
+    if (11 == [typeKey intValue]) {
+        
+        return @"11年";
+        
+    }
+    
+    if (12 == [typeKey intValue]) {
+        
+        return @"12年";
+        
+    }
+    if (13 == [typeKey intValue]) {
+        
+        return @"13年";
+        
+    }
+    
+    if (14 == [typeKey intValue]) {
+        
+        return @"14年";
+        
+    }
+    if (15 == [typeKey intValue]) {
+        
+        return @"15年";
+        
+    }
+    
+    if (16 == [typeKey intValue]) {
+        
+        return @"16年";
+        
+    }
+    if (17 == [typeKey intValue]) {
+        
+        return @"17年";
+        
+    }
+    
+    if (18 == [typeKey intValue]) {
+        
+        return @"18年";
+        
+    }
+    if (19 == [typeKey intValue]) {
+        
+        return @"19年";
+        
+    }
+    
+    if (20 == [typeKey intValue]) {
+        
+        return @"20年";
+        
+    }
+    if (21 == [typeKey intValue]) {
+        
+        return @"21年";
+        
+    }
+    
+    if (22 == [typeKey intValue]) {
+        
+        return @"22年";
+        
+    }
+    if (23 == [typeKey intValue]) {
+        
+        return @"23年";
+        
+    }
+    
+    if (24 == [typeKey intValue]) {
+        
+        return @"24年";
+        
+    }
+    if (25 == [typeKey intValue]) {
+        
+        return @"25年";
+        
+    }
+    
+    if (26 == [typeKey intValue]) {
+        
+        return @"26年";
+        
+    }
+    if (27 == [typeKey intValue]) {
+        
+        return @"27年";
+        
+    }
+    
+    if (28 == [typeKey intValue]) {
+        
+        return @"28年";
+        
+    }
+    if (29 == [typeKey intValue]) {
+        
+        return @"29年";
+        
+    }
+    
+    if (30 == [typeKey intValue]) {
+        
+        return @"30年";
+        
+    }
+    
+    return nil;
+    
+}
 @end

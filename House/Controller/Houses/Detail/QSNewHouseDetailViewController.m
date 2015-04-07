@@ -820,7 +820,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///贷款七成
     UILabel *priovideTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(width + 5.0f, referencePriceTipsLabel.frame.origin.y, 70.0f, 15.0f)];
-    priovideTipsLabel.text = @"代款7成：";
+    priovideTipsLabel.text = @"贷款7成：";
     priovideTipsLabel.textColor = COLOR_CHARACTERS_GRAY;
     priovideTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:priovideTipsLabel];
@@ -1015,7 +1015,7 @@ static char LeftStarKey;            //!<左侧星级
     UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, 0.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
         
         NSLog(@"点击计算器");
-        QSMortgageCalculatorViewController *calculatorVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:totalPrice];
+        QSMortgageCalculatorViewController *calculatorVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:[totalPrice floatValue]*0.7f/10000];
         [self.navigationController pushViewController:calculatorVC animated:YES];
         
     }];
