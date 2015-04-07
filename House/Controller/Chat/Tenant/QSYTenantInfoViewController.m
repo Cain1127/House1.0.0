@@ -35,6 +35,7 @@
 @property (nonatomic,strong) UITableView *userInfoRootView;             //!<用户消息列表
 @property (nonatomic,assign) NSInteger releaseIndex;                    //!<当前展开的cell下标
 @property (nonatomic,retain) NSMutableArray *askDataSource;             //!<求租求购的记录
+@property (nonatomic,assign) int askDataStarStep;                       //!<求租求租下标减掉的数量
 @property (nonatomic,retain) QSYContactDetailReturnData *contactInfo;   //!<联系人信息
 @property (nonatomic,retain) QSYAskListOrderInfosModel *orderInfo;      //!<订单信息
 
@@ -63,6 +64,9 @@
         ///保存信息
         self.tenantID = agentID;
         self.tenantName = agentName;
+        
+        ///初始化数据源
+        self.askDataSource = [[NSMutableArray alloc] init];
         
     }
     
@@ -144,7 +148,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 2 + [self.askDataSource count];
+    int statusNum = 3;
+    if (1 == [self.contactInfo.contactInfo.is_order intValue]) {
+        
+        statusNum = 5;
+        
+    }
+    return statusNum + [self.askDataSource count];
     
 }
 
@@ -163,21 +173,27 @@
         
     }
     
-    if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
+    if (2 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
         
         return 44.0f;
         
     }
     
-    if (2 == indexPath.row && !(self.contactInfo.contactInfo.is_order)) {
+    if (2 == indexPath.row && !(1 == [self.contactInfo.contactInfo.is_order intValue])) {
         
         return 44.0f;
         
     }
     
-    if (3 == indexPath.row && self.orderInfo) {
+    if (3 == indexPath.row && [self.orderInfo.id_ length] > 0) {
         
         return 105.0f;
+        
+    }
+    
+    if (4 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
+        
+        return 44.0f;
         
     }
     
@@ -212,7 +228,7 @@
             
             infoRootView = [[QSYContactInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
             infoRootView.backgroundColor = [UIColor whiteColor];
-            infoRootView.tag = 555;
+            infoRootView.tag = 5555;
             [cellUserInfo.contentView addSubview:infoRootView];
             
         }
@@ -227,35 +243,35 @@
     ///用户回复率信息栏
     if (1 == indexPath.row) {
         
-        static NSString *addInfoCell = @"addInfoCell";
-        UITableViewCell *cellUserInfo = [tableView dequeueReusableCellWithIdentifier:addInfoCell];
-        if (nil == cellUserInfo) {
+        static NSString *appointCreditCell = @"addInfoCell";
+        UITableViewCell *cellAppointCreditInfo = [tableView dequeueReusableCellWithIdentifier:appointCreditCell];
+        if (nil == cellAppointCreditInfo) {
             
-            cellUserInfo = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:addInfoCell];
-            cellUserInfo.selectionStyle = UITableViewCellSelectionStyleNone;
+            cellAppointCreditInfo = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:appointCreditCell];
+            cellAppointCreditInfo.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
         
         ///头view
-        QSYContactAppointmentCreditInfoView *infoRootView = (QSYContactAppointmentCreditInfoView *)[cellUserInfo.contentView viewWithTag:5556];
+        QSYContactAppointmentCreditInfoView *infoRootView = (QSYContactAppointmentCreditInfoView *)[cellAppointCreditInfo.contentView viewWithTag:5556];
         if (nil == infoRootView) {
             
             infoRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f) andHouseType:uUserCountTypeTenant];
             infoRootView.backgroundColor = [UIColor whiteColor];
             infoRootView.tag = 5556;
-            [cellUserInfo.contentView addSubview:infoRootView];
+            [cellAppointCreditInfo.contentView addSubview:infoRootView];
             
         }
         
         ///刷新数据
         [infoRootView updateContactInfoUI:self.contactInfo.contactInfo];
         
-        return cellUserInfo;
+        return cellAppointCreditInfo;
         
     }
     
     ///判断是否有订单
-    if (2 == indexPath.row && self.contactInfo.contactInfo.is_order) {
+    if (2 == indexPath.row && ([self.contactInfo.contactInfo.is_order intValue] == 1)) {
         
         static NSString *isOrderCell = @"isOrderCell";
         UITableViewCell *cellHaveOrder = [tableView dequeueReusableCellWithIdentifier:isOrderCell];
@@ -293,7 +309,7 @@
         
     }
     
-    if (2 == indexPath.row && !(self.contactInfo.contactInfo.is_order)) {
+    if (2 == indexPath.row && !([self.contactInfo.contactInfo.is_order intValue] == 1)) {
         
         static NSString *titleCell = @"titleCell";
         UITableViewCell *cellTitle = [tableView dequeueReusableCellWithIdentifier:titleCell];
@@ -320,7 +336,7 @@
         
     }
     
-    if (3 == indexPath.row && self.orderInfo) {
+    if (3 == indexPath.row && [self.orderInfo.id_ length] > 0) {
         
         static NSString *orderInfoCell = @"orderInfoCell";
         UITableViewCell *cellOrderInfo = [tableView dequeueReusableCellWithIdentifier:orderInfoCell];
@@ -346,6 +362,33 @@
         
     }
     
+    if (4 == indexPath.row && [self.contactInfo.contactInfo.is_order intValue] == 1) {
+        
+        static NSString *titleCell = @"titleCell";
+        UITableViewCell *cellTitle = [tableView dequeueReusableCellWithIdentifier:titleCell];
+        if (nil == cellTitle) {
+            
+            cellTitle = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCell];
+            cellTitle.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///标题
+        UILabel *titleLabel = (UILabel *)[cellTitle.contentView viewWithTag:5559];
+        if (nil == titleLabel) {
+            
+            titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
+            titleLabel.text = @"求租求购信息";
+            titleLabel.tag = 5559;
+            titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            [cellTitle.contentView addSubview:titleLabel];
+            
+        }
+        
+        return cellTitle;
+        
+    }
+    
     ///求租求购列表
     static NSString *normalCell = @"normalCell";
     QSYAskRentAndBuyTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
@@ -357,7 +400,7 @@
     }
     
     ///刷新UI
-    [cellNormal updateAskRentAndBuyInfoCellUI:self.askDataSource[indexPath.row] andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
+    [cellNormal updateAskRentAndBuyInfoCellUI:self.askDataSource[indexPath.row - self.askDataStarStep] andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
         
         ///根据不同的事件，进入不同的页面
         if (aAskRentAndBuyCellActionTypeSetting == actionType) {
@@ -402,15 +445,42 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (3 == indexPath.row && self.orderInfo) {
+    if (0 == indexPath.row) {
         
-        
+        return;
         
     }
     
-    if (indexPath.row != self.releaseIndex) {
+    if (1 == indexPath.row) {
         
+        return;
         
+    }
+    
+    if (2 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
+        
+        return;
+        
+    }
+    
+    if (2 == indexPath.row && !(1 == [self.contactInfo.contactInfo.is_order intValue])) {
+        
+        return;
+        
+    }
+    
+    if (3 == indexPath.row && [self.orderInfo.id_ length] > 0) {
+        
+        QSPOrderDetailBookedViewController *orderDetailVC = [[QSPOrderDetailBookedViewController alloc] init];
+        orderDetailVC.orderID = self.orderInfo.id_;
+        [self.navigationController pushViewController:orderDetailVC animated:YES];
+        return;
+        
+    }
+    
+    if (4 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
+        
+        return;
         
     }
     
@@ -432,6 +502,17 @@
             ///转换模型
             QSYContactDetailReturnData *tempModel = resultData;
             self.contactInfo = tempModel;
+            
+            ///保存列表的起始下标
+            if (1 == [tempModel.contactInfo.is_order intValue]) {
+                
+                self.askDataStarStep = 5;
+                
+            } else {
+            
+                self.askDataStarStep = 3;
+            
+            }
             
             ///开始请求求租求购信息
             [self getAskListDataWithLinkManInfo:self.contactInfo.contactInfo.linkman_id];
@@ -466,7 +547,7 @@
                              @"page_num" : @"10",
                              @"now_page" : @"1",
                              @"type" : @"0",
-                             @"bi_found_id" : linkManID,
+                             @"be_found_id" : linkManID,
                              @"status" : @"1"};
     
     [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
