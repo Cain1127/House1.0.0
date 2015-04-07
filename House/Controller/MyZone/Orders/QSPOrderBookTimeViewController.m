@@ -32,12 +32,26 @@
 @property (nonatomic, strong) UITextField *personNameField;
 @property (nonatomic, strong) UITextField *phoneNumField;
 
+@property (nonatomic,copy) void(^blockButtonCallBack)(NSInteger resultTag);
+
 @end
 
 @implementation QSPOrderBookTimeViewController
 @synthesize vcType, houseInfo;
 
 #pragma mark - 初始化
+
+- (instancetype)initWithSubmitCallBack:(void(^)(NSInteger resultTag))callBack
+{
+    if (self = [self init]) {
+        
+        self.blockButtonCallBack = callBack;
+        
+    }
+    return self;
+    
+}
+
 ///初始化
 - (instancetype)init
 {
@@ -478,9 +492,17 @@
                 
             })
             
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(1);
+            }
+            
         }else{
 
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(0);
+            }
         }
         
         [hud hiddenCustomHUD];
