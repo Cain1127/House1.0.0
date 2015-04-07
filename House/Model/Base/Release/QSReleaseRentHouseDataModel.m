@@ -117,8 +117,12 @@
     for (QSBaseConfigurationDataModel *obj in self.weekInfos) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
         
     }
+    
+    ///删除最后的分号
+    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
     
     return [NSString stringWithString:tempString];
 
@@ -132,8 +136,12 @@
     for (QSBaseConfigurationDataModel *obj in self.installationList) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
         
     }
+    
+    ///删除最后的分号
+    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
     
     return [NSString stringWithString:tempString];
 

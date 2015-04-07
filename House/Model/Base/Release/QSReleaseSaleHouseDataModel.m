@@ -73,6 +73,7 @@
     }
     
     NSString *cityKey = [QSCoreDataManager getCityKeyWithDitrictKey:self.districtKey];
+    NSString *salePrice = [NSString stringWithFormat:@"%.2f",[self.salePrice floatValue] * 10000.0f];
     NSDictionary *houseParams = @{
             @"property_type" : APPLICATION_NSSTRING_SETTING(self.trandTypeKey, @""),
             @"cityid" : APPLICATION_NSSTRING_SETTING(cityKey, @""),
@@ -83,7 +84,7 @@
             @"address" : APPLICATION_NSSTRING_SETTING(self.address, @""),
             @"house_shi" : APPLICATION_NSSTRING_SETTING(self.houseTypeKey, @""),
             @"house_area" : APPLICATION_NSSTRING_SETTING(self.areaKey, @""),
-            @"house_price" : APPLICATION_NSSTRING_SETTING(self.salePrice, @""),
+            @"house_price" : APPLICATION_NSSTRING_SETTING(salePrice, @""),
             @"negotiated" : APPLICATION_NSSTRING_SETTING(self.negotiatedPriceKey, @""),
             @"house_nature" : APPLICATION_NSSTRING_SETTING(self.natureKey, @""),
             @"building_year" : APPLICATION_NSSTRING_SETTING(self.buildingYearKey, @""),
@@ -134,8 +135,12 @@
     for (QSBaseConfigurationDataModel *obj in self.featuresList) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
         
     }
+    
+    ///删除最后的分号
+    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
     
     return [NSString stringWithString:tempString];
 
@@ -149,8 +154,12 @@
     for (QSBaseConfigurationDataModel *obj in self.installationList) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
         
     }
+    
+    ///删除最后的分号
+    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
     
     return [NSString stringWithString:tempString];
     

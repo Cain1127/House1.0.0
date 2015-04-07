@@ -550,8 +550,6 @@
         
     }
     
-//    return @{@"commend" : @"Y"};
-    
     ///封装参数
     return [self getHouseListRequestParams:filterType andCityKey:[QSCoreDataManager getCurrentUserCityKey]];
 
@@ -581,7 +579,6 @@
     NSMutableDictionary *tempDictionary = [[NSMutableDictionary alloc] init];
     
     ///城市信息
-    [tempDictionary setObject:(filterModel.province_key ? filterModel.province_key : @"") forKey:@"provinceid"];
     [tempDictionary setObject:(filterModel.city_key ? filterModel.city_key : @"") forKey:@"cityid"];
     [tempDictionary setObject:(filterModel.district_key ? filterModel.district_key : @"") forKey:@"areaid"];
     [tempDictionary setObject:(filterModel.street_key ? filterModel.street_key : @"") forKey:@"street"];
@@ -623,6 +620,26 @@
     ///装修类型
     [tempDictionary setObject:(filterModel.decoration_key ? filterModel.decoration_key : @"") forKey:@"decoration_type"];
     
+    ///特色标签
+    if ([filterModel.features_list count] > 0) {
+        
+        NSMutableString *featuresString = [[NSMutableString alloc] init];
+        for (QSCDBaseConfigurationDataModel *obj in filterModel.features_list) {
+            
+            [featuresString appendString:obj.key];
+            [featuresString appendString:@","];
+            
+        }
+        
+        ///将最后一个<,>去掉
+        [tempDictionary setObject:[NSString stringWithString:[featuresString substringToIndex:(featuresString.length - 1)]] forKey:@"features"];
+        
+    } else {
+        
+        [tempDictionary setObject:@"" forKey:@"features"];
+        
+    }
+    
     ///出租房时，封装的是租金
     if (fFilterMainTypeRentalHouse == filterType) {
         
@@ -631,6 +648,9 @@
         
         ///租金
         [tempDictionary setObject:(filterModel.rent_price_key ? filterModel.rent_price_key : @"") forKey:@"rent_price"];
+        
+        ///租金支付方式
+        [tempDictionary setObject:(filterModel.rent_pay_type_key ? filterModel.rent_pay_type_key : @"") forKey:@"payment"];
         
         return [NSDictionary dictionaryWithDictionary:tempDictionary];
         
@@ -656,26 +676,6 @@
     
     ///楼盘的总楼层数量
     [tempDictionary setObject:@"" forKey:@"floor_num"];
-    
-    ///特色标签
-    if ([filterModel.features_list count] > 0) {
-        
-        NSMutableString *featuresString = [[NSMutableString alloc] init];
-        for (QSCDBaseConfigurationDataModel *obj in filterModel.features_list) {
-            
-            [featuresString appendString:obj.key];
-            [featuresString appendString:@","];
-            
-        }
-        
-        ///将最后一个<,>去掉
-        [tempDictionary setObject:[NSString stringWithString:[featuresString substringToIndex:(featuresString.length - 1)]] forKey:@"features"];
-        
-    } else {
-    
-        [tempDictionary setObject:@"" forKey:@"features"];
-    
-    }
     
     return [NSDictionary dictionaryWithDictionary:tempDictionary];
 

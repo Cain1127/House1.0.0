@@ -70,6 +70,7 @@ static char CoolCountKey;       //!<回复率
     appointCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     appointCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     appointCountLabel.text = @"0";
+    appointCountLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:appointCountLabel];
     objc_setAssociatedObject(self, &AppointCountKey, appointCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -90,7 +91,7 @@ static char CoolCountKey;       //!<回复率
     [self addSubview:appointSepLabel];
     
     ///爽约率
-    UILabel *coolRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width -(width - 55.0f) / 2.0f - width, 20.0f, 40.0f, 20.0f)];
+    UILabel *coolRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - (width - 55.0f) / 2.0f - 55.0f, 20.0f, 40.0f, 20.0f)];
     coolRateLabel.textAlignment = NSTextAlignmentRight;
     coolRateLabel.textColor = COLOR_CHARACTERS_YELLOW;
     coolRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];

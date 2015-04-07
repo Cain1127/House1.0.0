@@ -7,6 +7,7 @@
 //
 
 #import "QSYOwnerInfoViewController.h"
+#import "QSYTalkPTPViewController.h"
 
 #import "QSYContactInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
@@ -16,6 +17,9 @@
 #import "QSHouseListTitleCollectionViewCell.h"
 #import "QSHouseCollectionViewCell.h"
 #import "QSYContactDetailReturnData.h"
+#import "QSYContactDetailInfoModel.h"
+
+#import "QSCoreDataManager+User.h"
 
 #import "MJRefresh.h"
 
@@ -85,6 +89,40 @@
     ///头部刷新
     [self.userInfoRootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOwnerInfo)];
     [self.userInfoRootView.header beginRefreshing];
+    
+    ///判断是否是中介
+    if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
+        
+        return;
+        
+    }
+    
+    ///非中介时，添加功能按钮
+    self.userInfoRootView.frame = CGRectMake(self.userInfoRootView.frame.origin.x, self.userInfoRootView.frame.origin.y, self.userInfoRootView.frame.size.width, self.userInfoRootView.frame.size.height - 44.0f - 16.0f);
+    
+    ///按钮风格
+    CGFloat widthButton = (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
+    
+    ///发送消息
+    buttonStyle.title = @"发送消息";
+    UIButton *sendMessageButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 8.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///进入聊天页
+        QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[self.contactInfo.contactInfo contactDetailChangeToSimpleUserModel]];
+        [self.navigationController pushViewController:talkVC animated:YES];
+        
+    }];
+    [self.view addSubview:sendMessageButton];
+    
+    ///打电话
+    buttonStyle.title = @"打电话";
+    UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///打电话
+        
+    }];
+    [self.view addSubview:callButton];
 
 }
 

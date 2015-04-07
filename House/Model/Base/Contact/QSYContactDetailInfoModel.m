@@ -7,6 +7,7 @@
 //
 
 #import "QSYContactDetailInfoModel.h"
+#import "QSUserSimpleDataModel.h"
 
 @implementation QSYContactDetailInfoModel
 
@@ -34,6 +35,29 @@
         
     return shared_mapping;
     
+}
+
+/**
+ *  @author yangshengmeng, 15-04-07 09:04:32
+ *
+ *  @brief  将联系人数据模型，转换为普通用户数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSUserSimpleDataModel *)contactDetailChangeToSimpleUserModel
+{
+
+    QSUserSimpleDataModel *simpleModel = [[QSUserSimpleDataModel alloc] init];
+    simpleModel.id_ = self.linkman_id;
+    simpleModel.user_type = self.user_type;
+    simpleModel.nickname = self.remark;
+    simpleModel.username = self.username;
+    simpleModel.avatar = self.avatar;
+    simpleModel.mobile = self.mobile;
+    simpleModel.level = self.level;
+    
+    return simpleModel;
+
 }
 
 @end

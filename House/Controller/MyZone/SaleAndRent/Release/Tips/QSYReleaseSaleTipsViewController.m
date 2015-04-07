@@ -8,6 +8,7 @@
 
 #import "QSYReleaseSaleTipsViewController.h"
 #import "QSYOwnerPropertyViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -82,7 +83,7 @@
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, messageLabel.frame.origin.y + messageLabel.frame.size.height + 25.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入详情页
-        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeRentalHouse];
+        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:self.detailID andDetailType:fFilterMainTypeSecondHouse];
         [detailVC setTurnBackDistanceStep:7];
         [self.navigationController pushViewController:detailVC animated:YES];
         

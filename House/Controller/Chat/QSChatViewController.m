@@ -155,6 +155,7 @@
                     if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
                         
                         QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:contactVC animated:YES];
                         
                     }
@@ -163,6 +164,7 @@
                     if (uUserCountTypeTenant == [tempModel.contactUserInfo.user_type intValue]) {
                         
                         QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:contactVC animated:YES];
                         
                     }
@@ -171,6 +173,7 @@
                     if (uUserCountTypeOwner == [tempModel.contactUserInfo.user_type intValue]) {
                         
                         QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id];
+                        [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:ownerVC animated:YES];
                         
                     }
