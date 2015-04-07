@@ -130,6 +130,7 @@
                 
                 ///进入详情页
                 [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+                return;
                 
             }
             
@@ -209,6 +210,7 @@
                 
                 ///进入详情页
                 [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+                return;
                 
             }
             
@@ -309,8 +311,29 @@
     ///初始化时，加载二手房列表
     secondHandHouseList = [[QSYHistorySecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
         
-        ///进入详情页
-        [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+        ///无记录UI
+        if (hHouseListActionTypeNoRecord == actionType) {
+            
+            self.noRecordsRootView.hidden = NO;
+            return;
+            
+        }
+        
+        ///有记录时隐藏无记录UI
+        if (hHouseListActionTypeHaveRecord == actionType) {
+            
+            self.noRecordsRootView.hidden = YES;
+            return;
+            
+        }
+        
+        if (hHouseListActionTypeGotoDetail == actionType) {
+            
+            ///进入详情页
+            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            return;
+            
+        }
         
     }];
     [self.view addSubview:secondHandHouseList];

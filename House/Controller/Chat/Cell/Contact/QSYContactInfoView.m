@@ -152,7 +152,7 @@ static char PhoneInfoKey;   //!<联系信息
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneInfoKey);
     if (phoneLabel && [phone length] > 0) {
         
-        phoneLabel.text = [NSString stringWithFormat:@"%@******%@(预约成功后开放)",[phone substringWithRange:NSMakeRange(0, 3)],[phone substringWithRange:NSMakeRange(10, 2)]];
+        phoneLabel.text = [NSString stringWithFormat:@"%@******%@(预约成功后开放)",[phone substringWithRange:NSMakeRange(0, 3)],[phone substringWithRange:NSMakeRange(9, 2)]];
         
     }
 

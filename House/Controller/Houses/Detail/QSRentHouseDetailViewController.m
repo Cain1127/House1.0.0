@@ -456,8 +456,6 @@ static char LeftStarKey;            //!<左侧星级
     
     [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
-//    QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
-    
     ///判断是房客并且不是经纪人则加载该界面
     NSString *localUserID=[QSCoreDataManager getUserID];
     if(![localUserID isEqualToString:self.userInfo.id_] &&
@@ -1319,14 +1317,14 @@ static char LeftStarKey;            //!<左侧星级
             if (lLoginCheckActionTypeLogined == flag) {
                 
                 ///判断是否已预约：已经预约方可联系业主
-                if (1 == [self.detailInfo.expandInfo.is_book intValue]) {
+                if (0 < [self.detailInfo.expandInfo.is_book intValue]) {
                     
                     [self contactHouseOwner:userInfoModel.mobile andOwer:userInfoModel.nickname];
                     
                 }
                 
                 ///未预约，则弹出提示
-                if (0 == [self.detailInfo.expandInfo.is_book intValue]) {
+                if (0 >= [self.detailInfo.expandInfo.is_book intValue]) {
                     
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
                     
