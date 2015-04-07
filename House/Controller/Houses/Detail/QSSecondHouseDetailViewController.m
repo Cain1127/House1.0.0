@@ -1411,9 +1411,10 @@ static char LeftStarKey;            //!<左侧星级
         [popView hiddenCustomPopview];
         
         ///确认打电话
-        if (cCallTipsCallBackActionTypeConfirm == actionType) {
+        if (cCallTipsCallBackActionTypeConfirm == actionType &&
+            [number length] > 0) {
             
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.phoneNumber]]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",number]]];
             
         }
         
