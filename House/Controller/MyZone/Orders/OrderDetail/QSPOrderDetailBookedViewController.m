@@ -5,6 +5,27 @@
 //  Created by CoolTea on 15/3/12.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
+//                      .::::.
+//                      .::::::::.
+//                     :::::::::::  女神保佑 代码无bug
+//                 ..:::::::::::'
+//               '::::::::::::'
+//                 .::::::::::
+//            '::::::::::::::..
+//                 ..::::::::::::.
+//               ``::::::::::::::::
+//                ::::``:::::::::'        .:::.
+//               ::::'   ':::::'       .::::::::.
+//             .::::'      ::::     .:::::::'::::.
+//            .:::'       :::::  .:::::::::' ':::::.
+//           .::'        :::::.:::::::::'      ':::::.
+//          .::'         ::::::::::::::'         ``::::.
+//      ...:::           ::::::::::::'              ``::.
+//     ```` ':.          ':::::::::'                  ::::..
+//                        '.:::::'                    ':'````..
+//
+//
+
 
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSPOrderBookTimeViewController.h"
@@ -984,9 +1005,9 @@
 //    user_id	true	string	获取的用户id
     
     [tempParam setObject:self.orderID forKey:@"id_"];
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderDetailData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         

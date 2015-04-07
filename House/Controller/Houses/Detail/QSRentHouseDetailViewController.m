@@ -278,7 +278,11 @@ static char LeftStarKey;            //!<左侧星级
                     if (0 >= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
-                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(NSInteger resultTag) {
+                            
+                            NSLog(@"回调：%ld 提交成功：1   失败： 0 ",(long)resultTag);
+                            
+                        }];
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
                         [bookTimeVc setHouseInfo:self.houseInfo];
                         [self.navigationController pushViewController:bookTimeVc animated:YES];

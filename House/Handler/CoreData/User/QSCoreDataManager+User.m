@@ -629,7 +629,14 @@
     
     int userCountType = [userCountTypeString intValue];
     
-    return userCountType;
+    if (uUserCountTypeTenant <= userCountType &&
+        uUserCountTypeDeveloper >= userCountType) {
+        
+        return userCountType;
+        
+    }
+    
+    return uUserCountTypeTenant;
     
 }
 

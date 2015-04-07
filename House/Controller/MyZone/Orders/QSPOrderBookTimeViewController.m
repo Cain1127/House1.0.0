@@ -32,12 +32,26 @@
 @property (nonatomic, strong) UITextField *personNameField;
 @property (nonatomic, strong) UITextField *phoneNumField;
 
+@property (nonatomic,copy) void(^blockButtonCallBack)(NSInteger resultTag);
+
 @end
 
 @implementation QSPOrderBookTimeViewController
 @synthesize vcType, houseInfo;
 
 #pragma mark - 初始化
+
+- (instancetype)initWithSubmitCallBack:(void(^)(NSInteger resultTag))callBack
+{
+    if (self = [self init]) {
+        
+        self.blockButtonCallBack = callBack;
+        
+    }
+    return self;
+    
+}
+
 ///初始化
 - (instancetype)init
 {
@@ -404,9 +418,9 @@
         return;
     }
     
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
     [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
@@ -478,9 +492,17 @@
                 
             })
             
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(1);
+            }
+            
         }else{
 
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(0);
+            }
         }
         
         [hud hiddenCustomHUD];
@@ -509,9 +531,9 @@
 //        return;
 //    }
     
-    //TODO:获取用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+//    //TODO:获取用户ID
+//    NSString *userID = [QSCoreDataManager getUserID];
+//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
     [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];

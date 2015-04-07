@@ -18,6 +18,8 @@ typedef enum
 
 @interface QSPOrderBookTimeViewController : QSTurnBackViewController
 
+- (instancetype)initWithSubmitCallBack:(void(^)(NSInteger resultTag))callBack;
+
 @property ( nonatomic, assign ) BOOKTIME_VIEWCONTROLLER_TYPE vcType;
 @property ( nonatomic, strong ) id houseInfo;        //!<房源信息数据模型
 
