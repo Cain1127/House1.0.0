@@ -226,7 +226,7 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///发送停售状态
-            s
+            
             
         }];
         stopSaleButton.backgroundColor=[UIColor grayColor];
