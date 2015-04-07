@@ -14,6 +14,7 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYOwnerInfoViewController.h"
 #import "QSMortgageCalculatorViewController.h"
+#import "QSCommunityDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
@@ -425,6 +426,9 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入均价详情");
+        ///进入详情页面
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"second"];
+        [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andTitle:dataModel.price_changes.title andAveragePrice:dataModel.house.price_avg];

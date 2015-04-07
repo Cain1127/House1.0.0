@@ -12,6 +12,7 @@
 #import "QSUserAssessViewController.h"
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSYOwnerInfoViewController.h"
+#import "QSCommunityDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
@@ -76,7 +77,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
 
 @property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
-@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                            //!<图片模型
+@property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
 
@@ -435,6 +436,9 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入均价详情");
+        ///进入详情页面
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"rent"];
+        [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andTitle:self.houseInfo.village_name andAveragePrice:self.houseInfo.price_avg];

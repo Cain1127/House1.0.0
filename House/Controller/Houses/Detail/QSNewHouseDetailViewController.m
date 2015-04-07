@@ -461,6 +461,8 @@ static char LeftStarKey;            //!<左侧星级
         
         ///进入更多配套信息页面
         NSLog(@"配套信息");
+        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        [self.navigationController pushViewController:nearInfoVC animated:YES];
         
     }];
     [self createOtherInstallationInfoUI:otherInfoRootView];
