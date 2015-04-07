@@ -1368,14 +1368,14 @@ static char LeftStarKey;            //!<左侧星级
             if (lLoginCheckActionTypeLogined == flag) {
                 
                 ///判断是否已预约：已经预约方可联系业主
-                if (1 == [self.detailInfo.expandInfo.is_book intValue]) {
+                if (0 < [self.detailInfo.expandInfo.is_book length]) {
                     
                     [self contactHouseOwner:userInfoModel.mobile andOwer:userInfoModel.nickname];
                     
                 }
                 
                 ///未预约，则弹出提示
-                if (0 == [self.detailInfo.expandInfo.is_book intValue]) {
+                if (0 >= [self.detailInfo.expandInfo.is_book intValue]) {
                     
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
                     

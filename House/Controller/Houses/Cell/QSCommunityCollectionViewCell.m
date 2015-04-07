@@ -286,10 +286,14 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 {
 
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
-    if (bgImageView && imgUrl) {
+    if (bgImageView && [imgUrl length] > 0) {
         
         [bgImageView loadImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
+    } else {
+    
+        bgImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350];
+    
     }
 
 }

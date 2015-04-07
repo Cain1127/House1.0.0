@@ -49,6 +49,9 @@
     
     if (self = [super initWithFrame:frame collectionViewLayout:defaultLayout]) {
         
+        ///初始化数据源
+        self.customDataSource = [[NSMutableArray alloc] init];
+        
         ///保存参数
         if (callBack) {
             
@@ -65,7 +68,7 @@
         [self registerClass:[QSYHistoryHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(secondHandHouseListHeaderRequest)];
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -77,7 +80,7 @@
 }
 
 #pragma mark - 请求列表数据
-- (void)rentHouseListHeaderRequest
+- (void)secondHandHouseListHeaderRequest
 {
     
     ///获取本地数据

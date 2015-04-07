@@ -513,6 +513,10 @@ static char FeaturesKey;    //!<特色标签
         
         [imageView loadImageWithURL:[urlString getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL330x250]];
         
+    } else {
+    
+        imageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL330x250];
+    
     }
 
 }
