@@ -240,7 +240,7 @@
         QSYContactAppointmentCreditInfoView *infoRootView = (QSYContactAppointmentCreditInfoView *)[cellUserInfo.contentView viewWithTag:5556];
         if (nil == infoRootView) {
             
-            infoRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
+            infoRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f) andHouseType:uUserCountTypeTenant];
             infoRootView.backgroundColor = [UIColor whiteColor];
             infoRootView.tag = 5556;
             [cellUserInfo.contentView addSubview:infoRootView];

@@ -12,6 +12,20 @@
 @interface QSYContactAppointmentCreditInfoView : UIView
 
 /**
+ *  @author             yangshengmeng, 15-04-07 18:04:06
+ *
+ *  @brief              创建用户统计信息的UI
+ *
+ *  @param frame        大小和位置
+ *  @param houseType    房子的类型
+ *
+ *  @return             返回当前创建的用户统计信息UI
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame andHouseType:(USER_COUNT_TYPE)userType;
+
+/**
  *  @author             yangshengmeng, 15-04-03 18:04:39
  *
  *  @brief              刷新联系人信用信息

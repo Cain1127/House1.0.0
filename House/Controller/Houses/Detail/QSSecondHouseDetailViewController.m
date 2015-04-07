@@ -276,7 +276,15 @@ static char LeftStarKey;            //!<左侧星级
                         
                         ///已登录进入预约
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(NSInteger resultTag) {
-                            NSLog(@"回调：%ld 提交成功：1   失败： 0 ",(long)resultTag);
+                            
+                            if (1 == resultTag) {
+                                
+                                ///预约成功，刷新详情数据
+                                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                                [rootView.header beginRefreshing];
+                                
+                            }
+                            
                         }];
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
                         [bookTimeVc setHouseInfo:self.houseInfo];
@@ -458,7 +466,7 @@ static char LeftStarKey;            //!<左侧星级
                 
                 if (lLoginCheckActionTypeLogined == flag) {
                     
-                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_];
+                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeSecondHouse];
                     [self.navigationController pushViewController:ownerInfoVC animated:YES];
                     
                 }
@@ -1284,6 +1292,7 @@ static char LeftStarKey;            //!<左侧星级
     }];
     stopSaleButton.backgroundColor=[UIColor blackColor];
     stopSaleButton.titleLabel.text=@"停止出售";
+    stopSaleButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [view addSubview:stopSaleButton];
     
     ///按钮风格
@@ -1295,6 +1304,7 @@ static char LeftStarKey;            //!<左侧星级
     }];
     editButton.backgroundColor=[UIColor yellowColor];
     editButton.titleLabel.text=@"编辑";
+    editButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [view addSubview:editButton];
     
     UIButton *refreshButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-44.0f-SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 5.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {

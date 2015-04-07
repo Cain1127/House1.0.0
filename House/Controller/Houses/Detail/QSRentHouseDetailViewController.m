@@ -224,7 +224,7 @@ static char LeftStarKey;            //!<左侧星级
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
         
         ///停止出售按钮
-        buttonStyle.title = TITLE_HOUSES_DETAIL_SECOND_STOPSALE;
+        buttonStyle.title = @"停止出租";
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///发送停售状态
@@ -232,6 +232,7 @@ static char LeftStarKey;            //!<左侧星级
             
         }];
         stopSaleButton.backgroundColor=[UIColor grayColor];
+        stopSaleButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
         [view addSubview:stopSaleButton];
         
         ///按钮风格
@@ -244,6 +245,7 @@ static char LeftStarKey;            //!<左侧星级
             NSLog(@"点击编辑按钮事件");
             
         }];
+        editButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
         [view addSubview:editButton];
         
         ///按钮风格
@@ -280,7 +282,13 @@ static char LeftStarKey;            //!<左侧星级
                         ///已登录进入预约
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(NSInteger resultTag) {
                             
-                            NSLog(@"回调：%ld 提交成功：1   失败： 0 ",(long)resultTag);
+                            if (1 == resultTag) {
+                                
+                                ///预约成功，刷新详情数据
+                                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                                [rootView.header beginRefreshing];
+                                
+                            }
                             
                         }];
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
@@ -468,7 +476,7 @@ static char LeftStarKey;            //!<左侧星级
                 
                 if (lLoginCheckActionTypeLogined == flag) {
                     
-                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_];
+                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeRentalHouse];
                     [self.navigationController pushViewController:ownerInfoVC animated:YES];
                     
                 }

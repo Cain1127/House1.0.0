@@ -22,6 +22,9 @@
 ///通过代理，获取头信息的高度
 - (CGFloat)heightForCustomVerticalFlowLayoutHeader;
 
+///元素宽度
+- (CGFloat)widthForCustomVerticalFlowLayoutItem;
+
 ///通过代理，获取垂直方向的间隙
 - (CGFloat)gapVerticalForCustomVerticalFlowItem;
 

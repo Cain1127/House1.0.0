@@ -61,6 +61,8 @@
     
     ///总的cell个数
     self.totalNumberOfCell = [self.collectionView numberOfItemsInSection:0];
+    self.widthSize = [self.delegate widthForCustomVerticalFlowLayoutItem];
+    self.widthSize = (self.widthSize > 0.0f && self.widthSize <= maxWidth / 2.0f) ? self.widthSize : (maxWidth - 45.0f) / 2.0f;
     self.gapHorizontal = (maxWidth - 2.0f * self.widthSize) / 3.0f;
     self.gapVertical = [self.delegate gapVerticalForCustomVerticalFlowItem];
     
@@ -167,7 +169,7 @@
     
         UICollectionViewLayoutAttributes *aboveAttributes = self.layoutAttributes[index - 2];
         CGRect aboveFrame = aboveAttributes.frame;
-        tempFrame = CGRectMake(gapHorizontal, aboveFrame.origin.y + aboveFrame.size.height + gapVertical, widthOfCell, heightOfCell);
+        tempFrame = CGRectMake(aboveFrame.origin.x, aboveFrame.origin.y + aboveFrame.size.height + gapVertical, widthOfCell, heightOfCell);
     
     }
     
