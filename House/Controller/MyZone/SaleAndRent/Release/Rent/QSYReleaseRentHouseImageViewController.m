@@ -111,7 +111,7 @@ static char PickedImageRootViewKey;//!<添加图片的底view
         if ([titleString length] <= 0) {
             
             ///区域+小区+街道+价格
-            titleString = [NSString stringWithFormat:@"%@%@%@%@",self.rentHouseReleaseModel.district,self.rentHouseReleaseModel.community,self.rentHouseReleaseModel.street,self.rentHouseReleaseModel.rentPrice];
+            titleString = [NSString stringWithFormat:@"%@%@%@%@万",self.rentHouseReleaseModel.district,self.rentHouseReleaseModel.community,self.rentHouseReleaseModel.street,self.rentHouseReleaseModel.rentPrice];
             
         }
         self.rentHouseReleaseModel.title = titleString;

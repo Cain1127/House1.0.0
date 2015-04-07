@@ -275,7 +275,7 @@ static char LeftStarKey;            //!<左侧星级
                 if (lLoginCheckActionTypeLogined == flag) {
                     
                     ///判断是否已预约
-                    if (0 == [self.detailInfo.expandInfo.is_book intValue]) {
+                    if (0 >= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
@@ -285,11 +285,11 @@ static char LeftStarKey;            //!<左侧星级
                         
                     }
                     
-                    if (1 == [self.detailInfo.expandInfo.is_book intValue]) {
+                    if (1 <= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
                         QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
-                        orderDetailPage.orderID = @"";
+                        orderDetailPage.orderID = self.detailInfo.expandInfo.is_book;
                         [self.navigationController pushViewController:orderDetailPage animated:YES];
                         
                     }
@@ -452,7 +452,42 @@ static char LeftStarKey;            //!<左侧星级
     
     [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
-    QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+//    QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+30.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    
+    ///判断是房客并且不是经纪人则加载该界面
+    NSString *localUserID=[QSCoreDataManager getUserID];
+    if(![localUserID isEqualToString:self.userInfo.id_] &&
+       (uUserCountTypeAgency != [QSCoreDataManager getUserType])) {
+        
+        QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f+5.0f+35.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
+            
+            ///检测登录
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_];
+                    [self.navigationController pushViewController:ownerInfoVC animated:YES];
+                    
+                }
+                
+                if (lLoginCheckActionTypeReLogin == flag) {
+                    
+                    ///刷新数据
+                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                    [rootView.header beginRefreshing];
+                    
+                }
+                
+            }];
+            
+        }];
+        
+        ///搭建业主信息栏
+        [self createOwnerViewUI:ownerView andUserInfo:self.userInfo];
+        [infoRootView addSubview:ownerView];
+        
+    }
     
     [infoRootView addSubview:headerImageView];
     [infoRootView addSubview:scoreView];
@@ -1251,7 +1286,7 @@ static char LeftStarKey;            //!<左侧星级
     ///如果未预约，则隐藏手机号
     if ([self.detailInfo.expandInfo.is_book intValue] == 0) {
         
-        commentLabel.text = [NSString stringWithFormat:@"%@******%@ (%@) | 二手房(%@) | 出租(%@)",[userInfoModel.mobile substringToIndex:3],[userInfoModel.mobile substringFromIndex:10],@"未开放",userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
+        commentLabel.text = [NSString stringWithFormat:@"%@******%@ (%@) | 二手房(%@) | 出租(%@)",[userInfoModel.mobile substringToIndex:3],[userInfoModel.mobile substringFromIndex:9],@"未开放",userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
         
     }
     

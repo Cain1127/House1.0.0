@@ -188,7 +188,7 @@
             
         }
         
-        if ([userName length] < 4) {
+        if ([userName length] < 2) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-11个字符", 1.0f, ^(){
                 

@@ -122,7 +122,11 @@
     }
     
     ///删除最后的分号
-    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+        
+    }
     
     return [NSString stringWithString:tempString];
 
@@ -141,7 +145,11 @@
     }
     
     ///删除最后的分号
-    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+        
+    }
     
     return [NSString stringWithString:tempString];
 

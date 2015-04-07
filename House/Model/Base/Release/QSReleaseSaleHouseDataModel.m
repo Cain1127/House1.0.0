@@ -120,6 +120,14 @@
     for (QSBaseConfigurationDataModel *obj in self.weekInfos) {
         
         [tempString appendString:obj.key];
+        [tempString appendString:@","];
+        
+    }
+    
+    ///删除最后的分号
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
         
     }
     
@@ -140,13 +148,17 @@
     }
     
     ///删除最后的分号
-    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+        
+    }
     
     return [NSString stringWithString:tempString];
 
 }
 
-///返回配置的请求参数
+///返回配套的请求参数
 - (NSString *)getInstallationPostParams
 {
     
@@ -159,7 +171,11 @@
     }
     
     ///删除最后的分号
-    [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+        
+    }
     
     return [NSString stringWithString:tempString];
     

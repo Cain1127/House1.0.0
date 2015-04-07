@@ -56,14 +56,6 @@
 #pragma mark - 返回事件
 - (void)gotoTurnBackAction
 {
-    
-//    ///判断是否需要重新显示tabbar
-//    if (self.hiddenCustomTabbarWhenPush) {
-//        
-//        QSTabBarViewController *tabbarController = (QSTabBarViewController *)self.tabBarController;
-//        [tabbarController hiddenBottomTabbar:NO];
-//        
-//    }
 
     ///如果设置了步距，则必须跳转到对应的页面中
     if (self.turnBackStepCount > 1) {

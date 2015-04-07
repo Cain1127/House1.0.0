@@ -323,7 +323,24 @@ static char NavigationBarKey;       //!<导航栏的关联key
     LOGIN_CHECK_ACTION_TYPE isLogin = [self checkLogin];
     if (lLoginCheckActionTypeUnLogin == isLogin) {
         
-        QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:loginCallBack];
+        QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:^(LOGIN_CHECK_ACTION_TYPE flag) {
+            
+            ///判断是否已重新登录
+            if (lLoginCheckActionTypeReLogin == flag) {
+                
+                ///让相关UI重创
+                ///回调通知用户信息已修改
+                [QSCoreDataManager performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
+                
+            }
+            
+            if (loginCallBack) {
+                
+                loginCallBack(flag);
+                
+            }
+            
+        }];
         
         ///如果是四个首页，需要隐藏tabbar
         if ([self isKindOfClass:[QSHomeViewController class]] ||

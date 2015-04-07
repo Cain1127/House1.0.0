@@ -11,6 +11,8 @@
 
 #import "QSYContactInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
+#import "QSYPopCustomView.h"
+#import "QSYCallTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSCollectionVerticalFlowLayout.h"
@@ -120,6 +122,7 @@
     UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///打电话
+        [self callContactOwner];
         
     }];
     [self.view addSubview:callButton];
@@ -360,7 +363,7 @@
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){
                 
-//                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
                 
             })
             
@@ -368,6 +371,33 @@
         
     }];
 
+}
+
+#pragma mark - 联系业主事件
+- (void)callContactOwner
+{
+    
+    ///弹出框
+    __block QSYPopCustomView *popView;
+    
+    QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:self.contactInfo.contactInfo.username andPhone:self.contactInfo.contactInfo.mobile andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
+        
+        ///回收弹框
+        [popView hiddenCustomPopview];
+        
+        ///确认打电话
+        if (cCallTipsCallBackActionTypeConfirm == actionType) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.contactInfo.contactInfo.mobile]]];
+            
+        }
+        
+    }];
+    
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:callTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+    }];
+    
 }
 
 @end
