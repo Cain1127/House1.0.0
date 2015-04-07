@@ -834,7 +834,7 @@ static char LeftStarKey;            //!<左侧星级
         UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y, 30.0f, 30.0f) andSingleTapCallBack:^{
             
             NSLog(@"点击计算器");
-            QSMortgageCalculatorViewController *mortgageVC = [[QSMortgageCalculatorViewController alloc] init];
+            QSMortgageCalculatorViewController *mortgageVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:houseInfoModel.house_price];
             [self.navigationController pushViewController:mortgageVC animated:YES];
             
         }];

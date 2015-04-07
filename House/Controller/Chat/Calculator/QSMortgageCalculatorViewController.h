@@ -20,4 +20,16 @@ typedef enum
 
 @interface QSMortgageCalculatorViewController : QSTurnBackViewController
 
+/*!
+ *  @author wangshupeng, 15-04-07 14:04:51
+ *
+ *  @brief  新房与二手房入口
+ *
+ *  @param housePrice 新房/二手房贷款总额初始值
+ *
+ *  @return 贷款总额
+ *
+ *  @since 1.0.0
+ */
+-(instancetype)initWithHousePrice:(NSString *)housePrice;
 @end

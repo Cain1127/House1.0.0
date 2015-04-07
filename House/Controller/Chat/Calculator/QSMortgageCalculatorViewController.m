@@ -13,6 +13,7 @@
 
 #import "UITextField+CustomField.h"
 #import "NSString+Calculation.h"
+#import "QSBlockView.h"
 
 #import <objc/runtime.h>
 
@@ -23,9 +24,24 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
 
 @interface QSMortgageCalculatorViewController ()
 
+@property(nonatomic,copy) NSString *housePrice;
+
 @end
 
 @implementation QSMortgageCalculatorViewController
+
+-(instancetype)initWithHousePrice:(NSString *)housePrice
+{
+    
+    if (self = [super init]) {
+        
+        self.housePrice = housePrice;
+        
+    }
+    
+    return self;
+    
+}
 
 -(void)createNavigationBarUI
 {
@@ -226,40 +242,194 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
 #pragma mark -添加UI
 -(void)createMortgageView:(UIView *)view andMortgageType:(MORTGAGE_ACTION_TYPE)mortageType
 {
+ 
+    ///还款方式
+    UIView *repayModelView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, 0.0f, SIZE_DEVICE_WIDTH-2.0f*25.0f, 50.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        APPLICATION_LOG_INFO(@"点击等额本息", nil);
+    }];
+    [view addSubview:repayModelView];
+
+    QSLabel *repayModelLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+    repayModelLabel.text = @"还款方式:";
+    repayModelLabel.font = [UIFont systemFontOfSize:14.0f];
+    [repayModelView addSubview:repayModelLabel];
     
-    UITextField *textField = [UITextField createCustomTextFieldWithFrame:CGRectMake(25.0f, 0.0f, SIZE_DEVICE_WIDTH-2.0f*25.0f, 50.0f) andPlaceHolder:nil andLeftTipsInfo:@"贷款方式" andRightTipsInfo:@"等额本息" andLeftTipsTextAlignment:NSTextAlignmentRight andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsAndRightArrowBlack];
-    [view addSubview:textField];
+    QSLabel *repayModelResultLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, repayModelLabel.frame.origin.y, 100.0f, 20.0f)];
+    [repayModelView addSubview:repayModelResultLabel];
+    repayModelResultLabel.text = @"等额本息";
+    repayModelResultLabel.textAlignment = NSTextAlignmentRight;
+    repayModelResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+    repayModelResultLabel.font = [UIFont systemFontOfSize:14.0f];
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(repayModelResultLabel.frame.origin.x+repayModelResultLabel.frame.size.width, 13.0f, 13.0f, 23.0f)];
+    arrowImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [repayModelView addSubview:arrowImageView];
     
     ///分隔线
-    UILabel *sepLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(textField.frame.origin.x, textField.frame.origin.y+textField.frame.size.height-0.25f, textField.frame.size.width, 0.25f)];
+    UILabel *sepLabel0 = [[UILabel alloc] initWithFrame:CGRectMake(repayModelView.frame.origin.x, repayModelView.frame.origin.y+repayModelView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
     sepLabel0.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:sepLabel0];
     
-    UITextField *totalField = [UITextField createCustomTextFieldWithFrame:CGRectMake(textField.frame.origin.x, textField.frame.origin.y+textField.frame.size.height, textField.frame.size.width, textField.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"贷款总额" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentRight andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsAndRightArrowBlack];
-    [view addSubview:totalField];
+    ///列表指针
+    __block UIView *accumulationView;   //!<公积金贷款
+    __block UIView *totalView;          //!<总额贷款或商业贷款
+    
+    if (mortageType == mMortgageGrounpType) {
+        ///公积金贷款
+        accumulationView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+            
+            APPLICATION_LOG_INFO(@"点击公积金贷款", nil);
+        }];
+        [view addSubview:accumulationView];
+        
+        QSLabel *accumulationLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+        accumulationLabel.text = @"公积金贷款:";
+        accumulationLabel.font = [UIFont systemFontOfSize:14.0f];
+        [accumulationView addSubview:accumulationLabel];
+        
+        QSLabel *accumulationResultLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, repayModelLabel.frame.origin.y, 100.0f, 20.0f)];
+        accumulationResultLabel.textAlignment = NSTextAlignmentRight;
+        accumulationResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+        accumulationResultLabel.font = [UIFont systemFontOfSize:14.0f];
+        accumulationResultLabel.text = [NSString stringWithFormat:@"%@%@",self.housePrice,@"万元"];
+        [accumulationView addSubview:accumulationResultLabel];
+        
+        UIImageView *arrowImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(accumulationResultLabel.frame.origin.x+accumulationResultLabel.frame.size.width, 13.0f, 13.0f, 23.0f)];
+        arrowImageView1.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [accumulationView addSubview:arrowImageView1];
+        
+        ///分隔线
+        UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(accumulationView.frame.origin.x, accumulationView.frame.origin.y+accumulationView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+        sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [view addSubview:sepLabel1];
+
+        ///商业贷款
+        totalView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, accumulationView.frame.origin.y+accumulationView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+            
+            APPLICATION_LOG_INFO(@"点击商业贷款", nil);
+        }];
+        [view addSubview:totalView];
+        
+        QSLabel *totalLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+        totalLabel.text = @"商业贷款:";
+        totalLabel.font = [UIFont systemFontOfSize:14.0f];
+        [totalView addSubview:totalLabel];
+        
+        QSLabel *totalResultLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, repayModelLabel.frame.origin.y, 100.0f, 20.0f)];
+        totalResultLabel.textAlignment = NSTextAlignmentRight;
+        totalResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+        totalResultLabel.font = [UIFont systemFontOfSize:14.0f];
+        totalResultLabel.text = [NSString stringWithFormat:@"%@%@",self.housePrice,@"万元"];
+
+        [totalView addSubview:totalResultLabel];
+        
+        UIImageView *arrowImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(totalResultLabel.frame.origin.x+totalResultLabel.frame.size.width, 13.0f, 13.0f, 23.0f)];
+        arrowImageView2.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [totalView addSubview:arrowImageView2];
+        
+        ///分隔线
+        UILabel *sepLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(totalView.frame.origin.x, totalView.frame.origin.y+totalView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+        sepLabel2.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [view addSubview:sepLabel2];
+
+    }
+    else{
+    ///贷款总额
+    totalView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+        
+        APPLICATION_LOG_INFO(@"点击贷款总额", nil);
+    }];
+    [view addSubview:totalView];
+
+    QSLabel *totalLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+    totalLabel.text = @"贷款总额:";
+    totalLabel.font = [UIFont systemFontOfSize:14.0f];
+    [totalView addSubview:totalLabel];
+    
+    QSLabel *totalResultLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, repayModelLabel.frame.origin.y, 100.0f, 20.0f)];
+    totalResultLabel.textAlignment = NSTextAlignmentRight;
+    totalResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+    totalResultLabel.font = [UIFont systemFontOfSize:14.0f];
+        totalResultLabel.text = [NSString stringWithFormat:@"%@%@",self.housePrice,@"万元"];
+
+    [totalView addSubview:totalResultLabel];
+    
+    UIImageView *arrowImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f, 13.0f, 13.0f, 23.0f)];
+    arrowImageView1.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [totalView addSubview:arrowImageView1];
     
     ///分隔线
-    UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(textField.frame.origin.x, totalField.frame.origin.y+totalField.frame.size.height-0.25f, textField.frame.size.width, 0.25f)];
+    UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(totalView.frame.origin.x, totalView.frame.origin.y+totalView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
     sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:sepLabel1];
+    }
+    ///贷款年限
+    UIView *yearView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, totalView.frame.origin.y+totalView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+        
+        APPLICATION_LOG_INFO(@"点击贷款年限", nil);
+    }];
+    QSLabel *yearLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+    yearLabel.text = @"贷款年限:";
+    yearLabel.font = [UIFont systemFontOfSize:14.0f];
+    [yearView addSubview:yearLabel];
     
-    UITextField *yearField = [UITextField createCustomTextFieldWithFrame:CGRectMake(textField.frame.origin.x, totalField.frame.origin.y+totalField.frame.size.height, textField.frame.size.width, textField.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"贷款年限" andRightTipsInfo:@"年" andLeftTipsTextAlignment:NSTextAlignmentRight andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsAndRightArrowBlack];
-    [view addSubview:yearField];
+    QSLabel *yearResultLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, repayModelLabel.frame.origin.y, 100.0f, 20.0f)];
+    yearResultLabel.textAlignment = NSTextAlignmentRight;
+    yearResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+    yearResultLabel.font = [UIFont systemFontOfSize:14.0f];
+    yearResultLabel.text = @"20年";
+    [yearView addSubview:yearResultLabel];
+    
+    UIImageView *arrowImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f, 13.0f, 13.0f, 23.0f)];
+    arrowImageView2.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [yearView addSubview:arrowImageView2];
+    [view addSubview:yearView];
     
     ///分隔线
-    UILabel *sepLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(textField.frame.origin.x, yearField.frame.origin.y+yearField.frame.size.height-0.25f, textField.frame.size.width, 0.25f)];
+    UILabel *sepLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(yearView.frame.origin.x, yearView.frame.origin.y+yearView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
     sepLabel2.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:sepLabel2];
     
-    UITextField *rateField = [UITextField createCustomTextFieldWithFrame:CGRectMake(textField.frame.origin.x, yearField.frame.origin.y+yearField.frame.size.height, textField.frame.size.width, textField.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"贷款利率" andRightTipsInfo:@"基准率6.15%" andLeftTipsTextAlignment:NSTextAlignmentRight andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsAndRightArrowBlack];
-    [view addSubview:rateField];
+    ///贷款利率
+    UIView *rateView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, yearView.frame.origin.y+yearView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+        
+        APPLICATION_LOG_INFO(@"点击贷款利率", nil);
+    }];
+    QSLabel *rateLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
+    rateLabel.text = @"贷款利率:";
+    rateLabel.font = [UIFont systemFontOfSize:14.0f];
+    [rateView addSubview:rateLabel];
+    
+    __block UILabel *rateResultLabel;
+     rateResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, rateLabel.frame.origin.y, 100.0f, 20.0f)];
+    rateResultLabel.textAlignment = NSTextAlignmentRight;
+    rateResultLabel.textColor = COLOR_CHARACTERS_GRAY;
+    rateResultLabel.font = [UIFont systemFontOfSize:14.0f];
+    
+    if (mortageType == mMortgageAccumulationType) {
+        
+        rateResultLabel.text = @"4.5%";
+
+    }
+    else
+    {
+        rateResultLabel.text = @"6.15%";
+        
+    }
+    [rateView addSubview:rateResultLabel];
+    
+    UIImageView *arrowImageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f, 13.0f, 13.0f, 23.0f)];
+    arrowImageView3.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+    [rateView addSubview:arrowImageView3];
+    [view addSubview:rateView];
     
     ///分隔线
-    UILabel *rateFieldLine = [[UILabel alloc] initWithFrame:CGRectMake(textField.frame.origin.x, rateField.frame.origin.y+rateField.frame.size.height-0.25f, textField.frame.size.width, 0.25f)];
-    rateFieldLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [view addSubview:rateFieldLine];
+    UILabel *sepLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(yearView.frame.origin.x, rateView.frame.origin.y+rateView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+    sepLabel3.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [view addSubview:sepLabel3];
     
-    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(rateFieldLine.frame.origin.x, rateFieldLine.frame.origin.y+rateFieldLine.frame.size.height+20.0f, rateFieldLine.frame.size.width, 120.0f)];
+    ///计算结果UI
+    UIView *resultView = [[UIView alloc] initWithFrame:CGRectMake(rateView.frame.origin.x, rateView.frame.origin.y+rateView.frame.size.height+20.0f, rateView.frame.size.width, 120.0f)];
     resultView.backgroundColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:resultView];
     
@@ -309,6 +479,9 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         NSLog(@"计算");
         
         ///刷新数据
+        //repaymentToalResult
+        //payInterestResult
+        //monthPaymentResult
         
     }];
     [view addSubview:countButton];
