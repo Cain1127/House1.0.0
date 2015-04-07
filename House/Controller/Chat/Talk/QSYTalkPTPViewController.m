@@ -86,7 +86,7 @@
         
         if (uUserCountTypeOwner == [self.userModel.user_type intValue]) {
             
-            QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.userModel.username andOwnerID:self.userModel.id_];
+            QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.userModel.username andOwnerID:self.userModel.id_ andDefaultHouseType:fFilterMainTypeSecondHouse];
             [self.navigationController pushViewController:ownerInfoVC animated:YES];
             
         }

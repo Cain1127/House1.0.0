@@ -20,6 +20,8 @@
 #import "QSHouseCollectionViewCell.h"
 #import "QSYContactDetailReturnData.h"
 #import "QSYContactDetailInfoModel.h"
+#import "QSSecondHandHouseListReturnData.h"
+#import "QSRentHouseListReturnData.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -29,6 +31,7 @@
 
 @property (nonatomic,copy) NSString *ownerName;                         //!<业主名
 @property (nonatomic,copy) NSString *ownerID;                           //!<业主ID
+@property (nonatomic,assign) FILTER_MAIN_TYPE houseType;                //!<房源类型
 @property (nonatomic,strong) UICollectionView *userInfoRootView;        //!<用户信息底view
 @property (nonatomic,retain) NSMutableArray *housesSource;              //!<房源列表
 @property (nonatomic,retain) QSYContactDetailReturnData *contactInfo;   //!<联系人信息
@@ -38,7 +41,20 @@
 @implementation QSYOwnerInfoViewController
 
 #pragma mark - 初始化
-- (instancetype)initWithName:(NSString *)ownerName  andOwnerID:(NSString *)ownerID
+/**
+ *  @author             yangshengmeng, 15-04-07 16:04:50
+ *
+ *  @brief              创建业主页面
+ *
+ *  @param ownerName    业主名
+ *  @param ownerID      业主的ID
+ *  @param houseType    房源类型：默认显示的类型
+ *
+ *  @return             返回当前创建的业主信息页
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithName:(NSString *)ownerName  andOwnerID:(NSString *)ownerID andDefaultHouseType:(FILTER_MAIN_TYPE)houseType
 {
 
     if (self = [super init]) {
@@ -46,6 +62,7 @@
         ///保存业主信息
         self.ownerID = ownerID;
         self.ownerName = ownerName;
+        self.houseType = houseType;
         
         ///初始化参数
         self.housesSource = [[NSMutableArray alloc] init];
@@ -138,6 +155,13 @@
 
 }
 
+- (CGFloat)widthForCustomVerticalFlowLayoutItem
+{
+    
+    return (SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
+
+}
+
 ///垂直方向间隙
 - (CGFloat)gapVerticalForCustomVerticalFlowItem
 {
@@ -198,7 +222,7 @@
         QSYContactAppointmentCreditInfoView *replyRootView = (QSYContactAppointmentCreditInfoView *)[headerCell.contentView viewWithTag:451];
         if (nil == replyRootView) {
             
-            replyRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, infoRootView.frame.origin.y + infoRootView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f)];
+            replyRootView = [[QSYContactAppointmentCreditInfoView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, infoRootView.frame.origin.y + infoRootView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f) andHouseType:uUserCountTypeOwner];
             replyRootView.tag = 451;
             [headerCell.contentView addSubview:replyRootView];
             
@@ -231,6 +255,10 @@
                 button.selected = YES;
                 rentHouseButton.selected = NO;
                 
+                ///重置房源类型
+                self.houseType = fFilterMainTypeSecondHouse;
+                [self.userInfoRootView.header beginRefreshing];
+                
                 ///移动指示三角
                 [UIView animateWithDuration:0.3f animations:^{
                     
@@ -244,7 +272,7 @@
                 
             }];
             saleHouseButton.tag = 452;
-            saleHouseButton.selected = YES;
+            saleHouseButton.selected = (self.houseType == fFilterMainTypeSecondHouse);
             [headerCell.contentView addSubview:saleHouseButton];
             
         }
@@ -268,6 +296,10 @@
                 button.selected = YES;
                 saleHouseButton.selected = NO;
                 
+                ///重置房源类型
+                self.houseType = fFilterMainTypeRentalHouse;
+                [self.userInfoRootView.header beginRefreshing];
+                
                 ///移动指示三角
                 [UIView animateWithDuration:0.3f animations:^{
                     
@@ -281,6 +313,7 @@
                 
             }];
             rentHouseButton.tag = 453;
+            rentHouseButton.selected = (self.houseType == fFilterMainTypeRentalHouse);
             [headerCell.contentView addSubview:rentHouseButton];
             
         }
@@ -309,7 +342,8 @@
         QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
         
         ///更新数据
-        [cellTitle updateTitleInfoWithTitle:@"0" andSubTitle:@"套二手房信息"];
+        NSString *titleString = (self.houseType == fFilterMainTypeRentalHouse ? @"套出租房信息" : @"套二手房信息");
+        [cellTitle updateTitleInfoWithTitle:[NSString stringWithFormat:@"%d",(int)[self.housesSource count]] andSubTitle:titleString];
         
         return cellTitle;
         
@@ -322,7 +356,7 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:nil andListType:fFilterMainTypeSecondHouse];
+    [cellHouse updateHouseInfoCellUIWithDataModel:nil andListType:self.houseType];
     
     return cellHouse;
 
@@ -348,7 +382,8 @@
             ///刷新数据
             [self.userInfoRootView reloadData];
             
-            [self.userInfoRootView.header endRefreshing];
+            ///请求发布房源数据
+            [self getOwnerReleaseHouse];
             
         } else {
             
@@ -361,11 +396,102 @@
                 
             }
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.5f, ^(){
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 
             })
+            
+        }
+        
+    }];
+
+}
+
+///请求当前用户发布的所有物业信息
+- (void)getOwnerReleaseHouse
+{
+    
+    ///清空原数据，刷新UI
+    [self.housesSource removeAllObjects];
+    [self.userInfoRootView reloadData];
+
+    ///根据类型请求
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        [self getOwnerReleaseSecondHandHouse];
+        
+    }
+    
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        [self getOwnerReleaseRentHouse];
+        
+    }
+
+}
+
+///请求二手房数据
+- (void)getOwnerReleaseSecondHandHouse
+{
+
+    ///封装参数
+    NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(self.ownerID, @"")};
+    
+    ///请求
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSSecondHandHouseListReturnData *tempModel = resultData;
+            if ([tempModel.secondHandHouseHeaderData.houseList count] > 0) {
+                
+                [self.housesSource addObjectsFromArray:tempModel.secondHandHouseHeaderData.houseList];
+                
+            }
+            
+            ///结束刷新
+            [self.userInfoRootView reloadData];
+            [self.userInfoRootView.header endRefreshing];
+            
+        } else {
+            
+            [self.userInfoRootView reloadData];
+            [self.userInfoRootView.header endRefreshing];
+            
+        }
+        
+    }];
+
+}
+
+///请求出租房数据
+- (void)getOwnerReleaseRentHouse
+{
+
+    ///封装参数
+    NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(self.ownerID, @"")};
+    
+    ///请求
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSRentHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.rentHouseList count] > 0) {
+                
+                [self.housesSource addObjectsFromArray:tempModel.headerData.rentHouseList];
+                
+            }
+            
+            ///结束刷新
+            [self.userInfoRootView reloadData];
+            [self.userInfoRootView.header endRefreshing];
+            
+        } else {
+        
+            [self.userInfoRootView reloadData];
+            [self.userInfoRootView.header endRefreshing];
             
         }
         

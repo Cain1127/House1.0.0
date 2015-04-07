@@ -172,7 +172,7 @@
                     ///联系人是业主，则进入业主
                     if (uUserCountTypeOwner == [tempModel.contactUserInfo.user_type intValue]) {
                         
-                        QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id];
+                        QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id andDefaultHouseType:fFilterMainTypeSecondHouse];
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:ownerVC animated:YES];
                         

@@ -225,7 +225,7 @@ static char LeftStarKey;            //!<左侧星级
         QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
         
         ///停止出售按钮
-        buttonStyle.title = TITLE_HOUSES_DETAIL_SECOND_STOPSALE;
+        buttonStyle.title = @"停止出租";
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///发送停售状态
@@ -233,6 +233,7 @@ static char LeftStarKey;            //!<左侧星级
             
         }];
         stopSaleButton.backgroundColor=[UIColor grayColor];
+        stopSaleButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
         [view addSubview:stopSaleButton];
         
         ///按钮风格
@@ -245,6 +246,7 @@ static char LeftStarKey;            //!<左侧星级
             NSLog(@"点击编辑按钮事件");
             
         }];
+        editButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
         [view addSubview:editButton];
         
         ///按钮风格
@@ -281,7 +283,13 @@ static char LeftStarKey;            //!<左侧星级
                         ///已登录进入预约
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(NSInteger resultTag) {
                             
-                            NSLog(@"回调：%ld 提交成功：1   失败： 0 ",(long)resultTag);
+                            if (1 == resultTag) {
+                                
+                                ///预约成功，刷新详情数据
+                                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+                                [rootView.header beginRefreshing];
+                                
+                            }
                             
                         }];
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
@@ -401,7 +409,12 @@ static char LeftStarKey;            //!<左侧星级
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    [headerImageView loadImageWithURL:[self.houseInfo.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    headerImageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
+    if ([dataModel.house.attach_file length] > 0) {
+        
+        [headerImageView loadImageWithURL:[dataModel.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+        
+    }
     
     ///分数view
     QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
@@ -472,7 +485,7 @@ static char LeftStarKey;            //!<左侧星级
                 
                 if (lLoginCheckActionTypeLogined == flag) {
                     
-                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_];
+                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeRentalHouse];
                     [self.navigationController pushViewController:ownerInfoVC animated:YES];
                     
                 }

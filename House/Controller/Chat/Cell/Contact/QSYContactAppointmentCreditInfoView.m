@@ -15,13 +15,34 @@ static char ReplyRateKey;       //!<回复率
 static char AppointCountKey;    //!<回复率
 static char CoolCountKey;       //!<回复率
 
+@interface QSYContactAppointmentCreditInfoView ()
+
+@property (nonatomic,assign) USER_COUNT_TYPE userType;//!<房源类型
+
+@end
+
 @implementation QSYContactAppointmentCreditInfoView
 
 #pragma mark - 初始化
-- (instancetype)initWithFrame:(CGRect)frame
+/**
+ *  @author             yangshengmeng, 15-04-07 18:04:06
+ *
+ *  @brief              创建用户统计信息的UI
+ *
+ *  @param frame        大小和位置
+ *  @param houseType    房子的类型
+ *
+ *  @return             返回当前创建的用户统计信息UI
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame andHouseType:(USER_COUNT_TYPE)userType
 {
 
     if (self = [super initWithFrame:frame]) {
+        
+        ///保存房源类型
+        self.userType = userType;
         
         ///搭建UI
         [self createContactAppoinmentCreditUI];
@@ -65,7 +86,13 @@ static char CoolCountKey;       //!<回复率
     [self addSubview:replySepLabel];
     
     ///预约次数
-    UILabel *appointCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 55.0f / 2.0f, 20.0f, 40.0f, 20.0f)];
+    CGFloat sumWidthAppoint = 55.0f;
+    if (uUserCountTypeOwner == self.userType) {
+        
+        sumWidthAppoint = 75.0f;
+        
+    }
+    UILabel *appointCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - sumWidthAppoint / 2.0f, 20.0f, 40.0f, 20.0f)];
     appointCountLabel.textAlignment = NSTextAlignmentRight;
     appointCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     appointCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
@@ -74,13 +101,38 @@ static char CoolCountKey;       //!<回复率
     [self addSubview:appointCountLabel];
     objc_setAssociatedObject(self, &AppointCountKey, appointCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UILabel *appointCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(appointCountLabel.frame.origin.x + appointCountLabel.frame.size.width, appointCountLabel.frame.origin.y + 5.0f, 15.0f, 15.0f)];
-    appointCountUnitLabel.text = @"次";
+    UILabel *appointCountUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(appointCountLabel.frame.origin.x + appointCountLabel.frame.size.width, appointCountLabel.frame.origin.y + 5.0f, sumWidthAppoint - 40.0f, 15.0f)];
+    
+    if (uUserCountTypeTenant == self.userType) {
+        
+        appointCountUnitLabel.text = @"次";
+        
+    }
+    
+    if (uUserCountTypeOwner == self.userType) {
+        
+        appointCountUnitLabel.text = @"分钟";
+        
+    }
+    
     appointCountUnitLabel.textColor = COLOR_CHARACTERS_LIGHTLIGHTGRAY;
+    appointCountUnitLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:appointCountUnitLabel];
     
     UILabel *appointCountTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width - width) / 2.0f, appointCountUnitLabel.frame.origin.y + appointCountUnitLabel.frame.size.height, width, 20.0f)];
-    appointCountTipsLabel.text = @"预约次数";
+    
+    if (uUserCountTypeTenant == self.userType) {
+        
+        appointCountTipsLabel.text = @"预约次数";
+        
+    }
+    
+    if (uUserCountTypeOwner == self.userType) {
+        
+        appointCountTipsLabel.text = @"平均确认时间";
+        
+    }
+    
     appointCountTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     appointCountTipsLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:appointCountTipsLabel];
@@ -136,7 +188,7 @@ static char CoolCountKey;       //!<回复率
 
 }
 
-///更新回复率
+///更新爽约率
 - (void)updateCoolRate:(NSString *)replyRate
 {
     
@@ -149,14 +201,14 @@ static char CoolCountKey;       //!<回复率
     
 }
 
-///更新回复率
+///更新回预约率/平均回复时间
 - (void)updateAppointCount:(NSString *)replyRate
 {
     
     UILabel *label = objc_getAssociatedObject(self, &AppointCountKey);
     if (label && [replyRate length] > 0) {
         
-        label.text = replyRate;
+        label.text = [NSString stringWithFormat:@"%.2f",[replyRate floatValue]];
         
     }
     

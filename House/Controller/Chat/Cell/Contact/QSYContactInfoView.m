@@ -86,6 +86,7 @@ static char PhoneInfoKey;   //!<联系信息
     creditTag.font = [UIFont systemFontOfSize:FONT_BODY_12];
     creditTag.layer.cornerRadius = 4.0f;
     creditTag.layer.masksToBounds = YES;
+    creditTag.textAlignment = NSTextAlignmentCenter;
     [self addSubview:creditTag];
     objc_setAssociatedObject(self, &CreditTagKey, creditTag, OBJC_ASSOCIATION_ASSIGN);
     
@@ -98,14 +99,14 @@ static char PhoneInfoKey;   //!<联系信息
     objc_setAssociatedObject(self, &PhoneInfoKey, phoneLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///添加联系人按钮
-    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 44.0f, 25.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 44.0f, 28.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         [self addContact:button];
         
     }];
-    [addButton setTitle:@"添加" forState:UIControlStateNormal];
-    [addButton setTitleColor:COLOR_CHARACTERS_LIGHTYELLOW forState:UIControlStateNormal];
-    [addButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    [addButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL] forState:UIControlStateNormal];
+    [addButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [addButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECTED_NORMAL]  forState:UIControlStateSelected];
     [self addSubview:addButton];
     objc_setAssociatedObject(self, &AddContactKey, addButton, OBJC_ASSOCIATION_ASSIGN);
     
@@ -140,6 +141,9 @@ static char PhoneInfoKey;   //!<联系信息
     
     ///更新用户联系方式
     [self updatePhoneInfo:userModel.mobile andStatus:nil];
+    
+    ///更新添加按钮
+    [self updateAddContactButton:userModel.id_];
 
     ///更新头像
     [self updateUserIcon:userModel.avatar];
@@ -202,9 +206,17 @@ static char PhoneInfoKey;   //!<联系信息
 {
 
     UIButton *addButton = objc_getAssociatedObject(self, &AddContactKey);
-    if (addButton && flag) {
+    if (addButton) {
         
+        if ([flag intValue] > 0) {
+            
+            addButton.selected = YES;
+            
+        } else {
         
+            addButton.selected = NO;
+        
+        }
         
     }
 
@@ -213,6 +225,13 @@ static char PhoneInfoKey;   //!<联系信息
 #pragma mark - 添加联系人
 - (void)addContact:(UIButton *)button
 {
+    
+    ///如果本来已添加，则不修改
+    if (button.selected) {
+        
+        return;
+        
+    }
     
     ///显示HUD
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加"];
@@ -228,6 +247,9 @@ static char PhoneInfoKey;   //!<联系信息
         ///添加成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
+            ///修改按钮状态
+            UIButton *addButton = objc_getAssociatedObject(self, &AddContactKey);
+            addButton.selected = YES;
             [hud hiddenCustomHUDWithFooterTips:@"添加成功" andDelayTime:1.5f];
             
         } else {

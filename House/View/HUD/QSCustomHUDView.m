@@ -159,6 +159,9 @@
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///保存回调
+    void(^tempCallBack)(BOOL flag) = [callBack copy];
+    
     ///判断是否有退出时的提示信息
     if (footerTips) {
             
@@ -174,9 +177,9 @@
             } completion:^(BOOL finished) {
                 
                 ///判断是否有回调
-                if (callBack) {
+                if (tempCallBack) {
                     
-                    callBack(YES);
+                    tempCallBack(YES);
                     
                 }
                 
@@ -198,9 +201,9 @@
             } completion:^(BOOL finished) {
                 
                 ///判断是否有回调
-                if (callBack) {
+                if (tempCallBack) {
                     
-                    callBack(YES);
+                    tempCallBack(YES);
                     
                 }
                 
