@@ -44,6 +44,12 @@
 #import "QSPOrderDetailChangeAppointmentButtonView.h"
 #import "QSPOrderDetailComplaintAndCompletedButtonView.h"
 #import "QSPOrderDetailCancelAppointmentButtonView.h"
+#import "QSPOrderDetailAcceptOrRejectApplicationView.h"
+#import "QSPOrderDetailAppointAgainOrCancelApplicationView.h"
+#import "QSPOrderDetailAppointAgainAndApplicationBargainView.h"
+#import "QSPOrderDetailCancelTransAndCompleteButtonView.h"
+#import "QSPOrderDetailCancelTransAndWarmSalerButtonView.h"
+
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -75,6 +81,12 @@
 @property (nonatomic, strong) QSPOrderDetailAppointAgainAndRejectPriceButtonView *appointAgainAndRejectPriceButtonView;  //!<再次预约和拒绝还价按钮View
 @property (nonatomic, strong) QSPOrderDetailRejectAndAcceptAppointmentButtonView *rejectAndAcceptAppointmentButtonView;    //!<拒绝预约和接受预约按钮View
 @property (nonatomic, strong) QSPOrderDetailCancelTransAndWarmBuyerButtonView *cancelTransactionAndWarmBuyerButtonView;    //!<取消成交和提醒房客按钮View
+@property (nonatomic, strong) QSPOrderDetailCancelTransAndWarmSalerButtonView *cancelTransAndWarmSalerButtonView;           //!<取消成交和提醒业主按钮View
+@property (nonatomic, strong) QSPOrderDetailCancelTransAndCompleteButtonView *cancelTransAndCompleteButtonView;         //!<取消成交和确认成交按钮View
+@property (nonatomic, strong) QSPOrderDetailAcceptOrRejectApplicationView *acceptOrRejectApplicationView;      //!<接受申请和拒绝申请按钮View
+@property (nonatomic, strong) QSPOrderDetailAppointAgainOrCancelApplicationView *appointAgainOrCancelApplicationView;       //!<再次预约、取消申请按钮View
+@property (nonatomic, strong)  QSPOrderDetailAppointAgainAndApplicationBargainView *appointAgainAndApplicationBargainView;      //!<再次预约、申请议价按钮View
+    
 
 //ScrollView底部悬浮按钮
 @property (nonatomic, strong) QSPOrderDetailChangeOrderButtonView *changeOrderButtonView;  //!<修改订单按钮View
@@ -571,10 +583,10 @@
         self.complaintAndCompletedButtonView = [[QSPOrderDetailComplaintAndCompletedButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
-                    NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:我要评价");
+                    NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:我要投诉");
                     break;
                 case bBottomButtonTypeRight:
-                    NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:评价房源");
+                    NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:完成看房");
                     break;
                 default:
                     break;
@@ -593,7 +605,7 @@
     //!<再次预约按钮View
     if (self.orderDetailData.isShowAppointAgainView) {
         
-        self.appointAgainButtonView = [[QSPOrderDetailAppointAgainButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewBottomButtonOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+        self.appointAgainButtonView = [[QSPOrderDetailAppointAgainButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailAppointAgainButtonView:再次预约");
@@ -708,6 +720,130 @@
         [self.bargainingPriceHistoryView addAfterView:&_cancelTransactionAndWarmBuyerButtonView];
         [self.myPriceView addAfterView:&_cancelTransactionAndWarmBuyerButtonView];
         viewContentOffsetY = self.cancelTransactionAndWarmBuyerButtonView.frame.origin.y+self.cancelTransactionAndWarmBuyerButtonView.frame.size.height;
+        
+    }
+    
+    if (self.orderDetailData.isShowCancelTransAndWarmSalerButtonView) {
+        
+        self.cancelTransAndWarmSalerButtonView = [[QSPOrderDetailCancelTransAndWarmSalerButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+            switch (buttonType) {
+                case bBottomButtonTypeLeft:
+                    NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:取消成交");
+                    break;
+                case bBottomButtonTypeRight:
+                    NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:提醒业主");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [scrollView addSubview:self.cancelTransAndWarmSalerButtonView];
+        ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_cancelTransAndWarmSalerButtonView];
+        [self.bargainingPriceHistoryView addAfterView:&_cancelTransAndWarmSalerButtonView];
+        [self.myPriceView addAfterView:&_cancelTransAndWarmSalerButtonView];
+        viewContentOffsetY = self.cancelTransAndWarmSalerButtonView.frame.origin.y+self.cancelTransAndWarmSalerButtonView.frame.size.height;
+        
+    }
+    
+    //!<取消成交和确认成交按钮View
+    if (self.orderDetailData.isShowCancelTransAndCompleteButtonView) {
+        
+        self.cancelTransAndCompleteButtonView = [[QSPOrderDetailCancelTransAndCompleteButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+            switch (buttonType) {
+                case bBottomButtonTypeLeft:
+                    NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:取消成交");
+                    break;
+                case bBottomButtonTypeRight:
+                    NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:确认成交");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [scrollView addSubview:self.cancelTransAndCompleteButtonView];
+        ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_cancelTransAndCompleteButtonView];
+        [self.bargainingPriceHistoryView addAfterView:&_cancelTransAndCompleteButtonView];
+        [self.myPriceView addAfterView:&_cancelTransAndCompleteButtonView];
+        viewContentOffsetY = self.cancelTransAndCompleteButtonView.frame.origin.y+self.cancelTransAndCompleteButtonView.frame.size.height;
+
+    }
+    
+    //!<接受申请、拒绝申请按钮View
+    if (self.orderDetailData.isShowAcceptOrRejectApplicationView) {
+        
+        self.acceptOrRejectApplicationView = [[QSPOrderDetailAcceptOrRejectApplicationView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+            switch (buttonType) {
+                case bBottomButtonTypeLeft:
+                    NSLog(@"QSPOrderDetailAcceptOrRejectApplicationView:接受申请");
+                    break;
+                case bBottomButtonTypeRight:
+                    NSLog(@"QSPOrderDetailAcceptOrRejectApplicationView:拒绝申请");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [scrollView addSubview:self.acceptOrRejectApplicationView];
+        ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_acceptOrRejectApplicationView];
+        [self.bargainingPriceHistoryView addAfterView:&_acceptOrRejectApplicationView];
+        [self.myPriceView addAfterView:&_acceptOrRejectApplicationView];
+        viewContentOffsetY = self.acceptOrRejectApplicationView.frame.origin.y+self.acceptOrRejectApplicationView.frame.size.height;
+        
+    }
+    
+    //!<再次预约、取消申请按钮View
+    if (self.orderDetailData.isShowAppointAgainOrCancelApplicationView) {
+        
+        self.appointAgainOrCancelApplicationView = [[QSPOrderDetailAppointAgainOrCancelApplicationView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+            switch (buttonType) {
+                case bBottomButtonTypeLeft:
+                    NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:再次预约");
+                    break;
+                case bBottomButtonTypeRight:
+                    NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:取消申请");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [scrollView addSubview:self.appointAgainOrCancelApplicationView];
+        ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_appointAgainOrCancelApplicationView];
+        [self.bargainingPriceHistoryView addAfterView:&_appointAgainOrCancelApplicationView];
+        [self.myPriceView addAfterView:&_appointAgainOrCancelApplicationView];
+        viewContentOffsetY = self.appointAgainOrCancelApplicationView.frame.origin.y+self.appointAgainOrCancelApplicationView.frame.size.height;
+        
+    }
+    
+    //!<再次预约、申请议价按钮View
+    if (self.orderDetailData.isShowAppointAgainAndApplicationBargainView) {
+        
+        self.appointAgainAndApplicationBargainView = [[QSPOrderDetailAppointAgainAndApplicationBargainView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
+            switch (buttonType) {
+                case bBottomButtonTypeLeft:
+                    NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:再次预约");
+                    break;
+                case bBottomButtonTypeRight:
+                    NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:申请议价");
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [scrollView addSubview:self.appointAgainAndApplicationBargainView];
+        ///将按钮View引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_appointAgainAndApplicationBargainView];
+        [self.bargainingPriceHistoryView addAfterView:&_appointAgainAndApplicationBargainView];
+        [self.myPriceView addAfterView:&_appointAgainAndApplicationBargainView];
+        viewContentOffsetY = self.appointAgainAndApplicationBargainView.frame.origin.y+self.appointAgainAndApplicationBargainView.frame.size.height;
         
     }
     

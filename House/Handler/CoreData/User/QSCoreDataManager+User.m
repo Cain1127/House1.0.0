@@ -133,7 +133,20 @@
 + (void)updateLoginStatus:(BOOL)flag andCallBack:(void(^)(BOOL flag))callBack
 {
 
+    ///清空登录标识
     BOOL isSave = [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"is_login" andFieldNewValue:(flag ? @"1" : @"0")];
+    
+    ///重置用户ID
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_id" andFieldNewValue:@"0"];
+    
+    ///重置用户类型
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count_type" andFieldNewValue:@"0"];
+    
+    ///清空登录密码
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"password" andFieldNewValue:@"0"];
+    
+    ///回调通知用户信息已修改
+    [self performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
     
     ///回调
     callBack(isSave);

@@ -78,7 +78,7 @@ static char oepnActionBtKey;    //!<右部展开按钮关联key
     
     QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
     buttonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_DOWN_ARROW_BT;
-    UIButton *downButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, (MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT-44)/2, 44, 44) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    UIButton *downButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-2*CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, (MY_ZONE_ORDER_LIST_HEADER_CELL_HEIGHT-44)/2, 44, 44) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"QSPSalerTransactionBookedOrderLIstHeaderView downButton");
         

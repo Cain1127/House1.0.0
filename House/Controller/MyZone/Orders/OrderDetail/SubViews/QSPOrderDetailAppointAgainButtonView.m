@@ -12,7 +12,7 @@
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint andCallBack:(void(^)(BOTTOM_BUTTON_TYPE buttonType, UIButton *button))callBack{
     
-    if (self = [super initAtTopLeft:topLeftPoint withButtonCount:1 andCallBack:callBack]) {
+    if (self = [super initAtTopLeft:topLeftPoint withButtonCount:-1 andCallBack:callBack]) {
         
         [self setCenterBtTitle:@"再次预约"];
         

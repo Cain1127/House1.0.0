@@ -416,7 +416,7 @@ typedef enum
                     self.streetField.text = tempModel.val;
                     self.saleHouseReleaseModel.district = districtModel.val;
                     self.saleHouseReleaseModel.districtKey = districtModel.key;
-                    self.saleHouseReleaseModel.street = tempModel.val;
+                    self.saleHouseReleaseModel.street = [QSCoreDataManager getStreetValWithStreetKey:tempModel.key];
                     self.saleHouseReleaseModel.streetKey = tempModel.key;
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {

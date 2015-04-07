@@ -272,7 +272,7 @@ static char LeftStarKey;            //!<左侧星级
                 if (lLoginCheckActionTypeLogined == flag) {
                     
                     ///判断是否已预约
-                    if (0 == [self.detailInfo.expandInfo.is_book intValue]) {
+                    if (0 >= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] init];
@@ -282,11 +282,11 @@ static char LeftStarKey;            //!<左侧星级
                         
                     }
                     
-                    if (1 == [self.detailInfo.expandInfo.is_book intValue]) {
+                    if (1 <= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
                         QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
-                        orderDetailPage.orderID = @"";
+                        orderDetailPage.orderID = self.detailInfo.expandInfo.is_book;
                         [self.navigationController pushViewController:orderDetailPage animated:YES];
                         
                     }
@@ -437,7 +437,6 @@ static char LeftStarKey;            //!<左侧星级
     
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入评论");
         QSUserAssessViewController *assessVC = [[QSUserAssessViewController alloc] initWithType:@"990105" andID:[self.detailID intValue]];
         [self.navigationController pushViewController:assessVC animated:YES];
         
@@ -1338,7 +1337,7 @@ static char LeftStarKey;            //!<左侧星级
     ///如果未预约，则隐藏手机号
     if ([self.detailInfo.expandInfo.is_book intValue] == 0) {
         
-        commentLabel.text = [NSString stringWithFormat:@"%@******%@ (%@) | 二手房(%@) | 出租(%@)",[userInfoModel.mobile substringToIndex:3],[userInfoModel.mobile substringFromIndex:10],@"未开放",userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
+        commentLabel.text = [NSString stringWithFormat:@"%@******%@ (%@) | 二手房(%@) | 出租(%@)",[userInfoModel.mobile substringToIndex:3],[userInfoModel.mobile substringFromIndex:9],@"未开放",userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
         
     }
     

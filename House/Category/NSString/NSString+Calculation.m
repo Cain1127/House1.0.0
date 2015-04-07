@@ -71,7 +71,13 @@
 - (NSURL *)getImageURL
 {
 
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,self]];
+    if (self.length > 0) {
+        
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,self]];
+        
+    }
+    
+    return nil;
 
 }
 

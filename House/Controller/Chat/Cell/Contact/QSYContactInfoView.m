@@ -26,6 +26,12 @@ static char CreditTagKey;   //!<信息说明
 static char AddContactKey;  //!<添加联系人
 static char PhoneInfoKey;   //!<联系信息
 
+@interface QSYContactInfoView ()
+
+@property (nonatomic,copy) NSString *linkManID;//!<联系人ID
+
+@end
+
 @implementation QSYContactInfoView
 
 #pragma mark - 初始化
@@ -123,6 +129,9 @@ static char PhoneInfoKey;   //!<联系信息
 - (void)updateContactInfoUI:(QSYContactDetailInfoModel *)userModel
 {
     
+    ///保存用户ID
+    self.linkManID = userModel.linkman_id;
+    
     ///更新用户名
     [self updateUserName:userModel.username];
     
@@ -143,7 +152,7 @@ static char PhoneInfoKey;   //!<联系信息
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneInfoKey);
     if (phoneLabel && [phone length] > 0) {
         
-        phoneLabel.text = [NSString stringWithFormat:@"%@********(预约成功后开放)",phone];
+        phoneLabel.text = [NSString stringWithFormat:@"%@******%@(预约成功后开放)",[phone substringWithRange:NSMakeRange(0, 3)],[phone substringWithRange:NSMakeRange(10, 2)]];
         
     }
 
@@ -209,7 +218,7 @@ static char PhoneInfoKey;   //!<联系信息
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加"];
     
     ///封装参数
-    NSDictionary *params = @{@"linkman_id" : @"66",
+    NSDictionary *params = @{@"linkman_id" : APPLICATION_NSSTRING_SETTING(self.linkManID, @""),
                              @"remark" : @"",
                              @"more_remark" : @""};
 

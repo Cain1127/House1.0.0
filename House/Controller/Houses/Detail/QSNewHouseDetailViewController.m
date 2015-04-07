@@ -170,7 +170,6 @@ static char LeftStarKey;            //!<左侧星级
     [rootView addSubview:bottomRootView];
     bottomRootView.hidden = YES;
     objc_setAssociatedObject(self, &BottomButtonRootViewKey, bottomRootView, OBJC_ASSOCIATION_ASSIGN);
-   // [self createBottomButtonViewUI];
     
     ///一开始就请求数据
     [rootView.header beginRefreshing];

@@ -203,6 +203,11 @@
     self.isShowAppointAgainAndRejectPriceButtonView = flag;
     self.isShowRejectAndAcceptAppointmentButtonView = flag;
     self.isShowCancelTransAndWarmBuyerButtonView = flag;
+    self.isShowCancelTransAndWarmSalerButtonView = flag;
+    self.isShowCancelTransAndCompleteButtonView = flag;
+    self.isShowAcceptOrRejectApplicationView = flag;
+    self.isShowAppointAgainOrCancelApplicationView = flag;
+    self.isShowAppointAgainAndApplicationBargainView = flag;
     
     self.isShowChangeOrderButtonEnableView = flag;
     self.isShowChangeOrderButtonDisableView = flag;
@@ -325,7 +330,7 @@
                 
                 self.isShowHousePriceView = YES;
                 
-                //再次预约、议价、我要成交
+                //G-06-4-按钮不能点击 再次预约、议价、我要成交
                 self.isShowAppointAgainAndPriceAgainButtonView = YES;
                 self.isShowConfirmOrderButtonView = YES;
                 
@@ -379,8 +384,11 @@
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
+                
+                //G-29-1/G-29-2  同意还价、编辑出价、拒绝还价
                 //拒绝还价
                 self.isShowRejectPriceButtonView = YES;
+                
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
@@ -431,67 +439,176 @@
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 //接受申请、拒绝申请
+                self.isShowAcceptOrRejectApplicationView = YES;
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
                 //再次预约、取消申请、成交
-                
+                self.isShowAppointAgainOrCancelApplicationView = YES;
                 self.isShowConfirmOrderButtonView = YES;
                 
             }
             
         }else if ([self.order_status isEqualToString:@"500254"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowShowingsTimeView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                //再次预约、申请议价、成交
+                self.isShowAppointAgainAndApplicationBargainView = YES;
+                self.isShowConfirmOrderButtonView = YES;
                 
             }
-        }else if ([self.order_status isEqualToString:@"500257"] || [self.order_status isEqualToString:@"500258"]) {
+        }else if ([self.order_status isEqualToString:@"500257"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowShowingsTimeView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowOtherPriceView = YES;
+            self.isShowMyPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
-                
+                //不可点击-同意还价、编辑出价、拒绝还价
+                self.isShowRejectPriceButtonView = YES;
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                
+                //再次预约、我要成交、同意还价、拒绝还价、编辑还价
+                self.isShowAppointAgainAndRejectPriceButtonView = YES;
+                self.isShowConfirmOrderButtonView = YES;
             }
         }else if ([self.order_status isEqualToString:@"500259"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowShowingsTimeView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                //再次预约、申请议价、成交
+                self.isShowConfirmOrderButtonView = YES;
+                self.isShowAppointAgainAndApplicationBargainView = YES;
                 
             }
         }else if ([self.order_status isEqualToString:@"500220"]) {
             
-        }else if ([self.order_status isEqualToString:@"500221"]) {
+            self.isShowTitleView = YES;
+            self.isShowShowingsTimeView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
+                //我要成交
+                self.isShowConfirmOrderButtonView = YES;
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                //再次预约、我要成交
+                self.isShowAppointAgainView = YES;
+                self.isShowConfirmOrderButtonView = YES;
+
+            }
+            
+        }else if ([self.order_status isEqualToString:@"500221"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                //取消成交、提醒房客
+                self.isShowCancelTransAndWarmBuyerButtonView = YES;
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                //取消成交、确认成交
+                self.isShowCancelTransAndCompleteButtonView = YES;
                 
             }
         }else if ([self.order_status isEqualToString:@"500222"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
+                //取消成交、确认成交
+                self.isShowCancelTransAndCompleteButtonView = YES;
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                //取消成交、提醒业主
+                self.isShowCancelTransAndWarmSalerButtonView = YES;
                 
             }
         }else if ([self.order_status isEqualToString:@"500223"]) {
             
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowOwnerInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
             
         }else if ([self.order_status isEqualToString:@"500240"] || [self.order_status isEqualToString:@"500241"] || [self.order_status isEqualToString:@"500246"]) {
+            
+            self.isShowTitleView = YES;
+            self.isShowShowingsTimeView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowOwnerInfoView = YES;
+            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                self.isShowOrderCancelByMeTipView = YES;
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+                self.isShowAppointmentSalerAgainButtonView = YES;
+                self.isShowOrderCancelByOwnerTipView = YES;
+                
+            }
             
         }
         
         //缺 成交订单  – 已取消 状态码未确定
         
     }
+    
+    //FIXME: 测试用
+    [self setAllViewsFlagWithFlag:YES];
     
 }
 
