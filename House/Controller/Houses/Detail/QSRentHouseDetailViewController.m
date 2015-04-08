@@ -658,7 +658,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *priceLabel=[[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
-    priceLabel.text = houseInfo.rent_price;
+    priceLabel.text = [NSString stringWithFormat:@"%.2f",[houseInfo.rent_price floatValue]/1000.0f];
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
@@ -824,7 +824,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:houseTypeLabel];
     
     UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    typeLabel.text = [NSString stringWithFormat:@"类型:%@",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type]];
+    typeLabel.text = [NSString stringWithFormat:@"类型:%@(%@)",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type],houseInfoModel.elevator];
     typeLabel.textAlignment=NSTextAlignmentLeft;
     typeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:typeLabel];
@@ -1035,7 +1035,7 @@ static char LeftStarKey;            //!<左侧星级
 {
     ///小区名
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    consultLabel.text = [NSString stringWithFormat:@"%@小区均价",Districttitle];
+    consultLabel.text = [NSString stringWithFormat:@"%@小区均价",self.houseInfo.village_name];
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
@@ -1211,7 +1211,25 @@ static char LeftStarKey;            //!<左侧星级
 ///添加评论view
 -(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSHouseCommentDataModel *) commentModel
 {
-    
+    if (!commentModel.num) {
+        UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:view.bounds];
+        nNommentLabel.text = @"暂无评论";
+        nNommentLabel.font = [UIFont systemFontOfSize:20.0f];
+        nNommentLabel.textAlignment = NSTextAlignmentCenter;
+        [view addSubview:nNommentLabel];
+        
+        ///右侧箭头
+        QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+        arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [view addSubview:arrowView];
+        
+        ///分隔线
+        UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
+        bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+        [view addSubview:bottomLineLabel];
+    }
+    else
+    {
     ///用户头像
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
@@ -1270,7 +1288,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
     [view addSubview:bottomLineLabel];
-    
+    }
 }
 
 #pragma mark - 添加业主view
@@ -1412,6 +1430,8 @@ static char LeftStarKey;            //!<左侧星级
             self.detailInfo = tempModel.detailInfo;
             self.houseInfo = tempModel.detailInfo.house;
             
+            [self setNavigationBarTitle:( tempModel.detailInfo.house.title? tempModel.detailInfo.house.title : @"详情")];
+
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI];
