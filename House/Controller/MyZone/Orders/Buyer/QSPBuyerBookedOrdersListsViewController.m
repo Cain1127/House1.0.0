@@ -331,14 +331,10 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     
-//    [super viewDidAppear:animated];
-//    
-//    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
-//        
-        [self showListWithType:self.selectedListType];
-        
-//    }];
-    
+    [super viewDidAppear:animated];
+
+    [self showListWithType:self.selectedListType];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated

@@ -320,13 +320,17 @@ static char TipsImageViewKey;               //!<指示三角形关联
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    //    [super viewDidAppear:animated];
-    //
-    //    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
-    //
-    [self showListWithType:self.selectedListType];
+    [super viewDidAppear:animated];
     
-    //    }];
+    [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+    
+        if (flag == lLoginCheckActionTypeLogined || flag == lLoginCheckActionTypeReLogin) {
+            
+            [self showListWithType:self.selectedListType];
+            
+        }
+    
+    }];
     
 }
 

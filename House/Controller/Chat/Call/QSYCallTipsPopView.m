@@ -38,6 +38,9 @@
             
         }
         
+        self.userName = userName;
+        self.userMobile = phone;
+        
         ///创建UI
         [self createContactUserTipsUI];
         
@@ -64,6 +67,7 @@
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.textColor = COLOR_CHARACTERS_BLACK;
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    nameLabel.text = self.userName;
     [self addSubview:nameLabel];
     
     ///电话号码
@@ -71,6 +75,7 @@
     phoneLabel.textAlignment = NSTextAlignmentCenter;
     phoneLabel.textColor = COLOR_CHARACTERS_BLACK;
     phoneLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
+    phoneLabel.text = self.userMobile;
     [self addSubview:phoneLabel];
     
     ///按钮相关尺寸

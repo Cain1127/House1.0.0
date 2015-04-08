@@ -32,6 +32,8 @@
 #import "QSCoreDataManager+User.h"
 #import "QSOrderDetailReturnData.h"
 #import "QSCustomHUDView.h"
+#import "QSYCallTipsPopView.h"
+#import "QSYPopCustomView.h"
 
 #import "QSPOrderDetailTitleLabel.h"
 #import "QSPOrderDetailShowingsTimeView.h"
@@ -70,6 +72,10 @@
 #import "QSPOrderDetailAppointAgainAndApplicationBargainView.h"
 #import "QSPOrderDetailCancelTransAndCompleteButtonView.h"
 #import "QSPOrderDetailCancelTransAndWarmSalerButtonView.h"
+
+#import "QSSecondHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
+#import "QSNearInfoViewController.h"
 
 
 @interface QSPOrderDetailBookedViewController ()
@@ -374,6 +380,29 @@
         
         self.houseInfoView = [[QSPOrderDetailHouseInfoView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withHouseData:houseData andCallBack:^(UIButton *button) {
             NSLog(@"房源 clickBt");
+            
+            QSOrderDetailInfoHouseDataModel *houseData = self.orderDetailData.house_msg;
+            if (houseData) {
+                
+                //500101:一手房购买订单, 500102 二手房，500103出租房
+                if ([self.orderDetailData.order_type isEqualToString:@"500101"])
+                {
+                }else if ([self.orderDetailData.order_type isEqualToString:@"500102"])
+                {
+                    
+                    QSSecondHouseDetailViewController *sVc = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseData.village_name andDetailID:houseData.id_ andDetailType:fFilterMainTypeSecondHouse];
+                    [self.navigationController pushViewController:sVc animated:YES];
+                    
+                }else if ([self.orderDetailData.order_type isEqualToString:@"500103"])
+                {
+                    
+                    QSRentHouseDetailViewController *rVc = [[QSRentHouseDetailViewController alloc] initWithTitle:houseData.village_name andDetailID:houseData.id_ andDetailType:fFilterMainTypeRentalHouse];
+                    [self.navigationController pushViewController:rVc animated:YES];
+                    
+                }
+                
+            }
+            
         }];
         [scrollView addSubview:_houseInfoView];
         ///将房源简介引用添加进看房时间控件管理作动态高度扩展
@@ -410,6 +439,9 @@
                 //房源坐标
                 //            self.orderDetailData.house_msg.coordinate_x;
                 //            self.orderDetailData.house_msg.coordinate_y;
+                QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:self.orderDetailData.house_msg.address andTitle:self.orderDetailData.house_msg.name andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
+                
+                [self.navigationController pushViewController:mapNearVC animated:YES];
                 
             }
             
@@ -424,8 +456,56 @@
     //业主信息栏
     if (self.orderDetailData.isShowOwnerInfoView) {
         
-        self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
+        self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(PERSON_INFO_BUTTON_TYPE buttonType,UIButton *button) {
             
+            NSString *phoneStr = @"";
+            NSString *ownerNameStr = @"";
+            QSOrderListOrderInfoPersonInfoDataModel *owner = self.orderDetailData.saler_msg;
+            
+            if (owner && [owner isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                
+                ownerNameStr = owner.username;
+                phoneStr = owner.mobile;
+                
+            }
+            
+            switch (buttonType) {
+                case pPersonButtonTypePhone:
+                    {
+                        if (phoneStr&&![phoneStr isEqualToString:@""]) {
+                            
+                            ///弹出框
+                            __block QSYPopCustomView *popView;
+                            
+                            QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:ownerNameStr andPhone:phoneStr andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
+                                
+                                ///回收弹框
+                                [popView hiddenCustomPopview];
+                                
+                                ///确认打电话
+                                if (cCallTipsCallBackActionTypeConfirm == actionType) {
+                                    
+                                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                                    
+                                }
+                                
+                            }];
+                            
+                            popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:callTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                                
+                            }];
+                        }
+                    }
+                    NSLog(@"电话");
+                    break;
+                case pPersonButtonTypeAsk:
+                    
+                    NSLog(@"咨询");
+                    
+                    break;
+                default:
+                    break;
+            }
             NSLog(@"askButton");
             
         }];
@@ -938,39 +1018,6 @@
     
 }
 
-//- (void)updateData:(id)data
-//{
-//    
-//    if (!data || ![data isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
-//        NSLog(@"QSOrderDetailInfoDataModel 错误");
-//        return;
-//    }
-//    
-//    QSOrderDetailInfoDataModel *detailData = (QSOrderDetailInfoDataModel*)data;
-//    
-//    if (_titleTipLabel) {
-//        [_titleTipLabel setTitle:[detailData getStatusTitle]];
-//        NSLog(@"%@ StatusTitle:%@",detailData.order_status,_titleTipLabel.text);
-//    }
-//    
-//    if (_houseInfoView) {
-//        [_houseInfoView setHouseData:detailData.house_msg];
-//    }
-//    
-//    if (_addressView) {
-//        [_addressView setHouseData:detailData.house_msg];
-//    }
-//    
-//    if (_personView) {
-//        [_personView setOrderData:self.orderDetailData];
-//    }
-//    
-//    if (_showingsTimeView) {
-//        [_showingsTimeView setTimeData:detailData.appoint_list];
-//    }
-//    
-//}
-
 - (void)getDetailData
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
@@ -1018,7 +1065,6 @@
             
             self.orderDetailData = headerModel.orderDetailData;
             [self.orderDetailData updateViewsFlags];
-//            [self updateData:self.orderDetailData];
             [self createSubViewsUI];
             
         }else{

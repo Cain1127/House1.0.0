@@ -14,7 +14,7 @@
 
 @interface QSPOrderDetailPersonInfoView ()
 
-@property (nonatomic,copy) void(^blockButtonCallBack)(UIButton *button);
+@property (nonatomic,copy) void(^blockButtonCallBack)(PERSON_INFO_BUTTON_TYPE buttonType, UIButton *button);
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *phoneLabel;
 @property (nonatomic, strong) UILabel *phoneTipLabel;
@@ -23,14 +23,14 @@
 
 @implementation QSPOrderDetailPersonInfoView
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(PERSON_INFO_BUTTON_TYPE buttonType, UIButton *button))callBack
 {
     
     return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withOrderData:orderData andCallBack:callBack];
     
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(PERSON_INFO_BUTTON_TYPE buttonType, UIButton *button))callBack
 {
     if (self = [super initWithFrame:frame]) {
         
@@ -47,6 +47,28 @@
         
         if (orderData) {
             
+            if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+                
+                QSOrderListOrderInfoPersonInfoDataModel *owner = ((QSOrderDetailInfoDataModel*)orderData).saler_msg;
+                NSLog(@"owner:%@",owner);
+                
+                if (owner && [owner isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                    
+                    ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
+                    
+                    phoneStr = owner.mobile;
+                    
+                    NSRange strRange = [phoneStr rangeOfString:@"*"];
+                    if ( strRange.length > 0) {
+                        
+                        phoneTipStr = @"(预约成功后开放)";
+                        
+                    }
+                    
+                }
+                
+            }
+            
             if ([orderData isKindOfClass:[QSOrderListItemData class]]) {
                 
                 QSOrderListOwnerMsgDataModel *owner = ((QSOrderListItemData*)orderData).ownerData;
@@ -55,18 +77,14 @@
                     
                     ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
                     
-                    NSString *tempPhoneStr = [NSString stringWithString:owner.mobile];
-                    BOOL hidePhone = YES;
-                    if (hidePhone) {
-                        if ([tempPhoneStr length]>=8) {
-                            tempPhoneStr = [tempPhoneStr stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-                        }
-                        phoneTipStr = @"(预约成功后开放)";
-                    }else{
-                        phoneTipStr = @"";
-                    }
+                    phoneStr = owner.mobile;
                     
-                    phoneStr = [NSString stringWithFormat:@"电话:%@",tempPhoneStr];
+                    NSRange strRange = [phoneStr rangeOfString:@"*"];
+                    if ( strRange.length > 0) {
+                        
+                        phoneTipStr = @"(预约成功后开放)";
+                        
+                    }
                     
                 }
             }
@@ -78,6 +96,9 @@
         [self.nameLabel setText:ownerName];
         [self addSubview:self.nameLabel];
         
+        if (phoneStr&&![phoneStr isEqualToString:@""]) {
+            phoneStr = [NSString stringWithFormat:@"电话:%@",phoneStr];
+        }
         
         //电话号码
         CGFloat phoneLabelWidth = [phoneStr calculateStringDisplayWidthByFixedHeight:self.nameLabel.frame.size.height andFontSize:FONT_BODY_16];
@@ -96,20 +117,44 @@
         [self.phoneTipLabel setText:phoneTipStr];
         [self addSubview:self.phoneTipLabel];
         
+        CGFloat btOffsetX = SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-10;
+        
         ///咨询按钮
         QSBlockButtonStyleModel *askButtonStyle = [[QSBlockButtonStyleModel alloc] init];
         askButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL;
         askButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
         askButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
-        UIButton *askButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-30-10, self.nameLabel.frame.origin.y+(self.nameLabel.frame.size.height+self.phoneLabel.frame.size.height-34.0f)/2.f, 30, 34) andButtonStyle:askButtonStyle andCallBack:^(UIButton *button) {
+        
+        btOffsetX -= 30;
+        UIButton *askButton = [UIButton createBlockButtonWithFrame:CGRectMake(btOffsetX, self.nameLabel.frame.origin.y+(self.nameLabel.frame.size.height+self.phoneLabel.frame.size.height-34.0f)/2.f, 30, 34) andButtonStyle:askButtonStyle andCallBack:^(UIButton *button) {
             
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(button);
+                self.blockButtonCallBack(pPersonButtonTypeAsk,button);
             }
             
         }];
-        
         [self addSubview:askButton];
+        
+        
+        if (phoneStr && ![phoneStr isEqualToString:@""] && phoneTipStr && [phoneTipStr isEqualToString:@""]) {
+            
+            ///电话按钮
+            QSBlockButtonStyleModel *phoneButtonStyle = [[QSBlockButtonStyleModel alloc] init];
+            phoneButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
+            phoneButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
+            phoneButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
+            btOffsetX -= (30+10);
+            UIButton *phoneButton = [UIButton createBlockButtonWithFrame:CGRectMake(btOffsetX, self.nameLabel.frame.origin.y+(self.nameLabel.frame.size.height+self.phoneLabel.frame.size.height-34.0f)/2.f, 30, 34) andButtonStyle:phoneButtonStyle andCallBack:^(UIButton *button) {
+                
+                if (self.blockButtonCallBack) {
+                    self.blockButtonCallBack(pPersonButtonTypePhone,button);
+                }
+                
+            }];
+            [self addSubview:phoneButton];
+            
+        }
+        
         
         ///最下方边界区域
         UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, self.phoneLabel.frame.origin.y+self.phoneLabel.frame.size.height, (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP), CONTENT_TOP_BOTTOM_OFFSETY)];
