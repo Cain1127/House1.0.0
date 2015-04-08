@@ -390,13 +390,13 @@
                 }else if ([self.orderDetailData.order_type isEqualToString:@"500102"])
                 {
                     
-                    QSSecondHouseDetailViewController *sVc = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseData.name andDetailID:houseData.id_ andDetailType:fFilterMainTypeSecondHouse];
+                    QSSecondHouseDetailViewController *sVc = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseData.village_name andDetailID:houseData.id_ andDetailType:fFilterMainTypeSecondHouse];
                     [self.navigationController pushViewController:sVc animated:YES];
                     
                 }else if ([self.orderDetailData.order_type isEqualToString:@"500103"])
                 {
                     
-                    QSRentHouseDetailViewController *rVc = [[QSRentHouseDetailViewController alloc] initWithTitle:houseData.name andDetailID:houseData.id_ andDetailType:fFilterMainTypeRentalHouse];
+                    QSRentHouseDetailViewController *rVc = [[QSRentHouseDetailViewController alloc] initWithTitle:houseData.village_name andDetailID:houseData.id_ andDetailType:fFilterMainTypeRentalHouse];
                     [self.navigationController pushViewController:rVc animated:YES];
                     
                 }
