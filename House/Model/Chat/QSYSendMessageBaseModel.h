@@ -10,9 +10,11 @@
 
 @interface QSYSendMessageBaseModel : NSObject
 
-@property (nonatomic,copy) NSString *fromID;                               //!<消息发出者的ID
-@property (nonatomic,copy) NSString *toID;                                 //!<消息接收者的ID
-@property (nonatomic,assign) QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE sendType;    //!<消息发送的类型：群聊-单聊
-@property (nonatomic,assign) QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE msgType;  //!<消息类型
+@property (nonatomic,copy) NSString *deviceUUID;                            //!<设备的UUID
+@property (nonatomic,copy) NSString *msgID;                                 //!<消息自定身的ID
+@property (nonatomic,copy) NSString *fromID;                                //!<消息发出者的ID
+@property (nonatomic,copy) NSString *toID;                                  //!<消息接收者的ID
+@property (nonatomic,assign) QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE sendType;     //!<消息发送的类型：群聊-单聊
+@property (nonatomic,assign) QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE msgType;   //!<消息类型
 
 @end

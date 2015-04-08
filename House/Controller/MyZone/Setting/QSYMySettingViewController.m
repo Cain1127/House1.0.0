@@ -8,10 +8,21 @@
 
 #import "QSYMySettingViewController.h"
 
+#import "QSCustomHUDView.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 #import "QSImageView+Block.h"
+#import "NSString+Calculation.h"
 
+#import "UIImage+Orientaion.h"
+#import "UIImage+Thumbnail.h"
+
+#import "QSYLoadImageReturnData.h"
+
+#import "QSCoreDataManager+User.h"
+
+#import <MobileCoreServices/MobileCoreServices.h>
 #import <objc/runtime.h>
 
 ///不过的自定义按钮tag
@@ -28,7 +39,7 @@ typedef enum
 ///关联
 static char IconImageViewKey;   //!<头像关联
 
-@interface QSYMySettingViewController () <UITextFieldDelegate>
+@interface QSYMySettingViewController () <UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @end
 
@@ -173,8 +184,224 @@ static char IconImageViewKey;   //!<头像关联
 #pragma mark - 弹出图片选择提示
 - (void)popPickedImageTipsView
 {
-
     
+    ///弹出提示
+    UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+    [pickedImageAskSheet showInView:self.view];
+
+}
+
+#pragma mark - 选择图片时相册/拍照提示
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    ///从新拍照
+    if (0 == buttonIndex) {
+        
+        ///拍照：如果是要准备进行拍照，一定要判断设备是否支持拍照
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypeCamera]) {
+            
+            ///如果是拍照
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            
+        } else {
+            
+            ///如果不支持拍照
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前设备不支持拍照", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+    ///从相册选择图片
+    if (1 == buttonIndex) {
+        
+        //需要判断是否支持取本地相册
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            //如果支持取本地相册：则调用本地相册
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            
+        } else {
+            
+            ///如果不支持读取相册
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法获取本地相册", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+}
+
+#pragma mark - 拍照或者从相册中选择图片
+///拍照 和 取本地相册，都是一个代理，不过是区分资源
+///UIImagePickerController 这是管理本地的控件器
+///UIImagePickerControllerSourceTypePhotoLibrary : 相册
+///UIImagePickerControllerSourceTypeCamera : 照相机
+///UIImagePickerControllerSourceTypeSavedPhotosAlbum : 胶卷
+- (void)loadImageWithSourceType:(UIImagePickerControllerSourceType)type
+{
+    if (type == UIImagePickerControllerSourceTypePhotoLibrary) {
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    } else if(type == UIImagePickerControllerSourceTypeCamera){
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    }
+    
+}
+
+#pragma mark - 获取拍照/本地图片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    /*
+     *  将图片转化成NSData 存入应用的沙盒中
+     */
+    NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([sourceType isEqualToString:(NSString *)kUTTypeImage]) {
+        
+        ///原图片
+        UIImage *pickedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+        
+        ///修改图片
+        UIImage *rightImage = [pickedImage fixOrientation:pickedImage];
+        
+        ///压缩图片
+        UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.8f)];
+        
+        ///将图片写入本地
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.8f);
+        NSString *tempFilePath = NSTemporaryDirectory();
+        NSString *savePath = [tempFilePath stringByAppendingString:@"temp_image.jpg"];
+        BOOL isSave = [imageData writeToFile:savePath atomically:YES];
+        if (isSave) {
+            
+            [self updateUserIconImage:savePath];
+            
+        }
+        
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{}];
+    
+}
+
+///联网更新用户图片
+- (void)updateUserIconImage:(NSString *)filePath
+{
+
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+    
+    ///获取图片
+    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    UIImage *image = [UIImage imageWithData:imageData];
+    
+    ///获取图片二进制流
+    
+    
+    if (!image) {
+        
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"source" : @"iOS",
+                             @"thumb_width" : [NSString stringWithFormat:@"%.2f",image.size.width],
+                             @"thumb_height" : [NSString stringWithFormat:@"%.2f",image.size.height],
+                             @"attach_file" : filePath};
+    
+    ///上传图片
+    [QSRequestManager requestDataWithType:rRequestTypeLoadImage andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///上传成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改参数
+            QSYLoadImageReturnData *tempModel = resultData;
+            [self updateUserIconImage:tempModel.imageModel.smallImageURl andSmallPath:tempModel.imageModel.originalImageURl andHUD:hud];
+            
+        } else {
+            
+            ///提示
+            NSString *tipsString = @"上传失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
+
+}
+
+///更新用户的头像
+- (void)updateUserIconImage:(NSString *)originalPath andSmallPath:(NSString *)smallPath andHUD:(QSCustomHUDView *)hud
+{
+    
+    ///封装参数
+    NSDictionary *params = @{@"big_avatar" : APPLICATION_NSSTRING_SETTING(originalPath, @""),
+                             @"avatar" : APPLICATION_NSSTRING_SETTING(smallPath, @"")};
+
+    [QSRequestManager requestDataWithType:rRequestTypeUPDateuserInfo andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///更新成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+    
+            [hud hiddenCustomHUDWithFooterTips:@"上传成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                if ([smallPath length] > 0) {
+                    
+                    UIImageView *iconView = objc_getAssociatedObject(self, &IconImageViewKey);
+                    [iconView loadImageWithURL:[smallPath getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_158]];
+                    
+                    ///更新用户信息
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [QSCoreDataManager reloadUserInfoFromServer];
+                        
+                    });
+                    
+                }
+                
+            }];
+            
+        } else {
+        
+            ///提示
+            NSString *tipsString = @"上传失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+        
+        }
+        
+    }];
 
 }
 

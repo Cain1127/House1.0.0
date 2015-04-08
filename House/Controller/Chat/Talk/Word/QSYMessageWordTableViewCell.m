@@ -85,10 +85,10 @@ static char MessageKey; //!<消息体关联
     
     ///指示三角
     QSImageView *arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(xpointArrow, iconView.frame.origin.y + 20.0f - 7.5f, 5.0f, 15.0f)];
-    arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_SENDER_HIGHLIGHTED];
+    arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_SENDER_ARROW_NORMAL];
     if (mMessageFromTypeMY == self.messageType) {
         
-        arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_MY_ARROW_HIGHLIGHTED];;
+        arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_MY_ARROW_NORMAL];;
         
     }
     [self.contentView addSubview:arrowIndicator];
@@ -97,10 +97,11 @@ static char MessageKey; //!<消息体关联
     UILabel *messageLabel = [[QSLabel alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y + 20.0f - 15.0f, widthMessage, 30.0f) andGap:3.0f];
     messageLabel.layer.cornerRadius = 4.0f;
     messageLabel.layer.masksToBounds = YES;
-    messageLabel.backgroundColor = COLOR_CHARACTERS_LIGHTLIGHTGRAY;
+    messageLabel.backgroundColor = COLOR_HEXCOLOR(0xe6e5ea);
     if (mMessageFromTypeMY == self.messageType) {
         
-        messageLabel.backgroundColor = COLOR_CHARACTERS_YELLOW;
+        ///ffcd0e/dfb100
+        messageLabel.backgroundColor = COLOR_HEXCOLOR(0xdfb100);
         
     }
     [self.contentView addSubview:messageLabel];

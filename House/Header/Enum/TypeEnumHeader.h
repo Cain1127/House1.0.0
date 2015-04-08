@@ -642,7 +642,9 @@ typedef enum
     rRequestTypeMyZoneReleaseRentHouse,         //!<发布出租房
     rRequestTypeMyZoneReleaseSecondHandHouse,   //!<发布二手房
     rRequestTypeMyZoneEditAskRentPurpase,       //!<修改求租求购
-    rRequestTypeMyZoneDeleteAskRentPurpase,
+    rRequestTypeMyZoneDeleteAskRentPurpase,     //!<删除求租求购
+    
+    rRequestTypeMyZoneStatistics = 5500,        //!<个人中心的统计数据
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
@@ -657,6 +659,7 @@ typedef enum
     rRequestTypeLogin,                          //!<登录
     rRequestTypeLogout,                         //!<退出登录
     rRequestTypeReloadUserUnfo,                 //!<重新下载用户信息
+    rRequestTypeUPDateuserInfo,                 //!<更新用户信息
     
     rRequestTypeImage                           //!<图片请求：末尾请求
 

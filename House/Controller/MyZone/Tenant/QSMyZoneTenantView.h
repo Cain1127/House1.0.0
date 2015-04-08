@@ -35,6 +35,7 @@ typedef void(^BLOCK_TENANT_ZONE_CALLBACK)(TENANT_ZONE_ACTION_TYPE actionType,id 
  *
  *  @since  1.0.0
  */
+@class QSYMyzoneStatisticsRenantModel;
 @interface QSMyZoneTenantView : UIView
 
 /**
@@ -50,5 +51,16 @@ typedef void(^BLOCK_TENANT_ZONE_CALLBACK)(TENANT_ZONE_ACTION_TYPE actionType,id 
  *  @since          1.0.0
  */
 - (instancetype)initWithFrame:(CGRect)frame andCallBack:(BLOCK_TENANT_ZONE_CALLBACK)callBack;
+
+/**
+ *  @author         yangshengmeng, 15-04-08 19:04:16
+ *
+ *  @brief          更新房客个人中心统计信息
+ *
+ *  @param model    房客统计信息的数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateRentCountInfo:(QSYMyzoneStatisticsRenantModel *)model;
 
 @end
