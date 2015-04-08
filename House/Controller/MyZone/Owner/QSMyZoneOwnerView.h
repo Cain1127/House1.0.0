@@ -37,6 +37,7 @@ typedef void(^BLOCK_OWNER_ZONE_CALLBACK)(OWNER_ZONE_ACTION_TYPE actionType,id pa
  *
  *  @since  1.0.0
  */
+@class QSYMyzoneStatisticsOwnerModel;
 @interface QSMyZoneOwnerView : UIView
 
 /**
@@ -64,5 +65,16 @@ typedef void(^BLOCK_OWNER_ZONE_CALLBACK)(OWNER_ZONE_ACTION_TYPE actionType,id pa
  *  @since          1.0.0
  */
 - (void)rebuildOwnerFunctionUI:(USER_COUNT_TYPE)userType;
+
+/**
+ *  @author         yangshengmeng, 15-04-08 19:04:08
+ *
+ *  @brief          根据业主的统计信息，更新业主页面的数据
+ *
+ *  @param model    业主的数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateOwnerCountInfo:(QSYMyzoneStatisticsOwnerModel *)model;
 
 @end

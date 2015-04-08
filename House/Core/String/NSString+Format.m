@@ -53,4 +53,27 @@
     
 }
 
+/**
+ *  @author yangshengmeng, 15-04-08 16:04:34
+ *
+ *  @brief  返回当前设置的uuid
+ *
+ *  @return 返回当前用户设置的uuid
+ *
+ *  @since  1.0.0
+ */
++ (NSString*)getDeviceUUID
+{
+    
+    CFUUIDRef puuid = CFUUIDCreate(nil);
+    CFStringRef uuidString = CFUUIDCreateString(nil, puuid);
+    
+    NSString *result = (NSString *)CFBridgingRelease(CFStringCreateCopy(NULL, uuidString));
+    CFRelease(puuid);
+    CFRelease(uuidString);
+    
+    return result;
+    
+}
+
 @end

@@ -12,6 +12,8 @@
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
+#import "QSYMyzoneStatisticsOwnerModel.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -522,12 +524,23 @@ static char RecommendKey;   //!<推荐房源关联key
 
 #pragma mark - 刷新UI
 /**
- *  @author yangshengmeng, 15-02-11 13:02:53
+ *  @author         yangshengmeng, 15-04-08 19:04:08
  *
- *  @brief  刷新UI
+ *  @brief          根据业主的统计信息，更新业主页面的数据
  *
- *  @since  1.0.0
+ *  @param model    业主的数据模型
+ *
+ *  @since          1.0.0
  */
+- (void)updateOwnerCountInfo:(QSYMyzoneStatisticsOwnerModel *)model
+{
+
+    [self updateStayAroundCount:model.book_wait];
+    [self updateHavedAroundCount:model.book_ok];
+    [self updateWaitCommitAroundCount:model.transaction_wait];
+    [self updateCommitedCount:model.transaction_ok];
+
+}
 
 ///更新待看房数量
 - (void)updateStayAroundCount:(NSString *)newInfo

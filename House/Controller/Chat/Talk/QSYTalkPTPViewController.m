@@ -20,18 +20,27 @@
 #import "QSUserSimpleDataModel.h"
 #import "QSUserDataModel.h"
 #import "QSYSendMessageWord.h"
+#import "QSYSendMessageVideo.h"
+#import "QSYSendMessagePicture.h"
 
 #import "MJRefresh.h"
 
-@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "UIImage+Orientaion.h"
+#import "UIImage+Thumbnail.h"
 
-@property (nonatomic,retain) QSUserSimpleDataModel *userModel;      //!<当前聊天对象数据模型
-@property (nonatomic,retain) QSUserDataModel *myUserModel;          //!<当前用户数据模型
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@property (nonatomic,strong) UIView *rootView;                      //!<底view，方便滑动
-@property (nonatomic,strong) UITableView *messagesListView;         //!<消息列表view
-@property (nonatomic,retain) NSMutableArray *messagesDataSource;    //!<消息数据
-@property (nonatomic,retain) QSYSendMessageWord *wordMessageModel;  //!<文字消息模型
+@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+@property (nonatomic,retain) QSUserSimpleDataModel *userModel;              //!<当前聊天对象数据模型
+@property (nonatomic,retain) QSUserDataModel *myUserModel;                  //!<当前用户数据模型
+
+@property (nonatomic,strong) UIView *rootView;                              //!<底view，方便滑动
+@property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
+@property (nonatomic,retain) NSMutableArray *messagesDataSource;            //!<消息数据
+@property (nonatomic,retain) QSYSendMessageWord *wordMessageModel;          //!<文字消息模型
+@property (nonatomic,retain) QSYSendMessageVideo *videoMessageModel;        //!<文字消息模型
+@property (nonatomic,retain) QSYSendMessagePicture *pictureMessageModel;    //!<文字消息模型
 
 @end
 
@@ -57,6 +66,19 @@
         self.wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
         self.wordMessageModel.fromID = [QSCoreDataManager getUserID];
         self.wordMessageModel.toID = self.wordMessageModel.fromID;
+        self.wordMessageModel.deviceUUID = [NSString getDeviceUUID];
+        
+        self.videoMessageModel = [[QSYSendMessageVideo alloc] init];
+        self.videoMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
+        self.videoMessageModel.fromID = [QSCoreDataManager getUserID];
+        self.videoMessageModel.toID = self.wordMessageModel.fromID;
+        self.videoMessageModel.deviceUUID = [NSString getDeviceUUID];
+        
+        self.pictureMessageModel = [[QSYSendMessagePicture alloc] init];
+        self.pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
+        self.pictureMessageModel.fromID = [QSCoreDataManager getUserID];
+        self.pictureMessageModel.toID = self.wordMessageModel.fromID;
+        self.pictureMessageModel.deviceUUID = [NSString getDeviceUUID];
         
     }
     
@@ -127,11 +149,18 @@
     lineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.rootView addSubview:lineLabel];
     
+    ///文字输入框
+    __block UITextField *inputField;
+    
     ///相机
     UIButton *cameraButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        ///弹出图片选择，或拍照
+        ///回收键盘
+        [inputField resignFirstResponder];
         
+        ///弹出提示
+        UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+        [pickedImageAskSheet showInView:self.view];
         
     }];
     [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_NORMAL] forState:UIControlStateNormal];
@@ -139,7 +168,7 @@
     [self.rootView addSubview:cameraButton];
     
     ///文字输入框
-    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
+    inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
     inputField.borderStyle = UITextBorderStyleRoundedRect;
     inputField.delegate = self;
     inputField.placeholder = @"请输入信息……";
@@ -327,6 +356,118 @@
     
     return YES;
 
+}
+
+#pragma mark - 选择图片时相册/拍照提示
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    ///从新拍照
+    if (0 == buttonIndex) {
+        
+        ///拍照：如果是要准备进行拍照，一定要判断设备是否支持拍照
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypeCamera]) {
+            
+            ///如果是拍照
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            
+        } else {
+            
+            ///如果不支持拍照
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前设备不支持拍照", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+    ///从相册选择图片
+    if (1 == buttonIndex) {
+        
+        //需要判断是否支持取本地相册
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            //如果支持取本地相册：则调用本地相册
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            
+        } else {
+            
+            ///如果不支持读取相册
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法获取本地相册", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+}
+
+#pragma mark - 拍照或者从相册中选择图片
+///拍照 和 取本地相册，都是一个代理，不过是区分资源
+///UIImagePickerController 这是管理本地的控件器
+///UIImagePickerControllerSourceTypePhotoLibrary : 相册
+///UIImagePickerControllerSourceTypeCamera : 照相机
+///UIImagePickerControllerSourceTypeSavedPhotosAlbum : 胶卷
+- (void)loadImageWithSourceType:(UIImagePickerControllerSourceType)type
+{
+    if (type == UIImagePickerControllerSourceTypePhotoLibrary) {
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    } else if(type == UIImagePickerControllerSourceTypeCamera){
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    }
+    
+}
+
+#pragma mark - 获取拍照/本地图片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    /*
+     *  将图片转化成NSData 存入应用的沙盒中
+     */
+    NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([sourceType isEqualToString:(NSString *)kUTTypeImage]) {
+        
+        ///原图片
+        UIImage *pickedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+        
+        ///修改图片
+        UIImage *rightImage = [pickedImage fixOrientation:pickedImage];
+        
+        ///压缩图片
+        UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
+        
+        ///保存图片消息
+        self.pictureMessageModel.pictureInfo = smallImage;
+        
+        ///加载当前消息
+        [self.messagesDataSource addObject:self.pictureMessageModel];
+        
+        ///发送消息
+        
+        
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{}];
+    
 }
 
 @end

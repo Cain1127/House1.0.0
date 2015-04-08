@@ -26,8 +26,14 @@
 
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "NSString+Calculation.h"
 
 #import "QSCoreDataManager+User.h"
+
+#import "QSYMyzoneStatisticsReturnData.h"
+#import "QSYMyzoneStatisticsRenantModel.h"
+#import "QSYMyzoneStatisticsOwnerModel.h"
+#import "QSUserDataModel.h"
 
 #import <objc/runtime.h>
 
@@ -36,12 +42,22 @@
 #import "QSPSalerBookedOrdersListsViewController.h"
 #import "QSPSalerTransactionOrderListViewController.h"
 
+#include "MJRefresh.h"
+
 ///关联
-static char UserIconKey;//!<用户头像
+static char UserIconKey;    //!<用户头像
+static char RenantRootView; //!<房客底view
+static char OwnerRootView;  //!<业主底view
 
 @interface QSMyZoneViewController ()
 
-@property (nonatomic,assign) USER_COUNT_TYPE userType;//!<用户类型
+@property (nonatomic,assign) USER_COUNT_TYPE userType;  //!<用户类型
+@property (nonatomic,strong) QSScrollView *rootView;    //!<所有信息的底view
+
+///用户信息
+@property (nonatomic,retain) QSUserDataModel *userInfoData;
+///统计数据
+@property (nonatomic,retain) QSYMyzoneStatisticsReturnData *statisticsData;
 
 @end
 
@@ -84,9 +100,9 @@ static char UserIconKey;//!<用户头像
 {
     
     ///个人页面可以全屏滚动
-    QSScrollView *rootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 49.0f)];
-    rootView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:rootView];
+    self.rootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 49.0f)];
+    self.rootView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.rootView];
     
     ///导航栏设置按钮
     UIButton *settingButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeLeft andButtonType:nNavigationBarButtonTypeSetting] andCallBack:^(UIButton *button) {
@@ -95,31 +111,34 @@ static char UserIconKey;//!<用户头像
         [self gotoSettingViewController];
         
     }];
-    [rootView addSubview:settingButton];
+    [self.rootView addSubview:settingButton];
     
     ///导航栏消息按钮
-    UIButton *messageButton = [UIButton createBlockButtonWithFrame:CGRectMake(rootView.frame.size.width - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeMessage] andCallBack:^(UIButton *button) {
+    UIButton *messageButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.rootView.frame.size.width - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeMessage] andCallBack:^(UIButton *button) {
         
         ///进入消息页
         [self gotoMessageViewController];
         
     }];
-    [rootView addSubview:messageButton];
+    [self.rootView addSubview:messageButton];
     
     ///头像背景
     QSImageView *iconRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 170.0f)];
     iconRootView.backgroundColor = COLOR_NAVIGATIONBAR_LIGHTGRAY;
     [self createIconImageView:iconRootView];
-    [rootView addSubview:iconRootView];
-    [rootView sendSubviewToBack:iconRootView];
+    [self.rootView addSubview:iconRootView];
+    [self.rootView sendSubviewToBack:iconRootView];
     
     ///三角指示
     QSImageView *arrowImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 7.5f, iconRootView.frame.origin.y + iconRootView.frame.size.height - 5.0f, 15.0f, 5.0f)];
     arrowImageView.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
-    [rootView addSubview:arrowImageView];
+    [self.rootView addSubview:arrowImageView];
     
     ///功能UI
-    [self createMyZoneFunctionUI:rootView andStartYPoint:170.0f];
+    [self createMyZoneFunctionUI:self.rootView andStartYPoint:170.0f];
+    
+    ///开始就请求数据
+    [self.rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getMyZoneCalculationData)];
     
 }
 
@@ -247,21 +266,24 @@ static char UserIconKey;//!<用户头像
                 ///待看房点击
             case tTenantZoneActionTypeStayAround:
             {
+                
                 QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                 [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:bolVc animated:YES];
+                
             }
                 break;
                 
                 ///已看房点击
             case tTenantZoneActionTypeHavedAround:
-                
             {
+                
                 QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
                 [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:bolVc animated:YES];
+                
             }
                 break;
                 
@@ -331,7 +353,7 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新页面数据
-                        
+                        [self.rootView.header beginRefreshing];
                         
                     }
                     
@@ -380,6 +402,7 @@ static char UserIconKey;//!<用户头像
         
     }];
     [rootView addSubview:myZoneView];
+    objc_setAssociatedObject(self, &RenantRootView, myZoneView, OBJC_ASSOCIATION_ASSIGN);
     
     ///业主页面
     ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
@@ -482,7 +505,7 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新当前页面数据
-                        
+                        [self.rootView.header beginRefreshing];
                         
                     }
                     
@@ -508,6 +531,7 @@ static char UserIconKey;//!<用户头像
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新当前页面数据
+                        [self.rootView.header beginRefreshing];
                         
                     }
                     
@@ -522,6 +546,7 @@ static char UserIconKey;//!<用户头像
         
     }];
     [rootView addSubview:ownerView];
+    objc_setAssociatedObject(self, &OwnerRootView, ownerView, OBJC_ASSOCIATION_ASSIGN);
     
     ///判断是否需要滚动
     if ((myZoneView.frame.origin.y + myZoneView.frame.size.height) > rootView.frame.size.height) {
@@ -535,6 +560,9 @@ static char UserIconKey;//!<用户头像
         
         ///重构业主UI
         [ownerView rebuildOwnerFunctionUI:[QSCoreDataManager getCurrentUserCountType]];
+        
+        ///重新请求数据
+        [self.rootView.header beginRefreshing];
         
     }];
 
@@ -592,7 +620,7 @@ static char UserIconKey;//!<用户头像
 }
 
 #pragma mark - 请求个人数据
-- (void)requestSelfData
+- (void)getMyZoneCalculationData
 {
 
     ///已经登录，才请求数据
@@ -601,8 +629,11 @@ static char UserIconKey;//!<用户头像
         ///显示HUD
         __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
         
+        ///获取用户信息
+        self.userInfoData = [QSCoreDataManager getCurrentUserDataModel];
+        
         ///请求数据
-        [QSRequestManager requestDataWithType:rRequestTypeAdvert andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneStatistics andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///隐藏hud
             [hud hiddenCustomHUD];
@@ -613,16 +644,18 @@ static char UserIconKey;//!<用户头像
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(@"下载成功", 1.0f, ^(){
                 
                     ///刷新UI
-                    
+                    self.statisticsData = resultData;
+                    [self updateMyzoneUIWithLoginData];
                 
                 })
                 
             } else {
             
                 ///提示信息
+                [self.rootView.header endRefreshing];
                 NSString *tipsString = @"下载失败";
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){})
-            
+                
             }
             
         }];
@@ -631,6 +664,54 @@ static char UserIconKey;//!<用户头像
 
 }
 
+#pragma mark - 更新UI
+- (void)updateMyzoneUIWithLoginData
+{
+
+    [self updateRenantCountInfo];
+    [self updateOwnerCountInfo];
+    [self updateuserIcon];
+    
+    ///停止刷新动画
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.rootView.header endRefreshing];
+        
+    });
+
+}
+
+///更新房客信息
+- (void)updateRenantCountInfo
+{
+    
+    QSMyZoneOwnerView *view = objc_getAssociatedObject(self, &RenantRootView);
+    
+}
+
+///更新业主信息
+- (void)updateOwnerCountInfo
+{
+    
+    QSMyZoneTenantView *view = objc_getAssociatedObject(self, &OwnerRootView);
+    
+}
+
+///更新用户头像
+- (void)updateuserIcon
+{
+
+    UIImageView *iconView = objc_getAssociatedObject(self, &UserIconKey);
+    if (iconView && [self.userInfoData.avatar length] > 0) {
+        
+        [iconView loadImageWithURL:[self.userInfoData.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_158]];
+        
+    }
+
+}
+
+#pragma mark - 个人中心出现时显示tabbar
+///个人中心出现时显示tabbar
 - (void)viewWillAppear:(BOOL)animated
 {
     

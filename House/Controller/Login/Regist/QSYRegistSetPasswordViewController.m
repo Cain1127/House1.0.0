@@ -276,4 +276,29 @@
 
 }
 
+///回收键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+    [textField resignFirstResponder];
+    return YES;
+
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+    for (UIView *subView in [self.view subviews]) {
+        
+        if ([subView isKindOfClass:[UITextField class]]) {
+            
+            UITextField *tempTextField = (UITextField *)subView;
+            [tempTextField resignFirstResponder];
+            
+        }
+        
+    }
+
+}
+
 @end

@@ -10,8 +10,9 @@
 
 #import "UIButton+Factory.h"
 
-#import <objc/runtime.h>
+#import "QSYMyzoneStatisticsRenantModel.h"
 
+#import <objc/runtime.h>
 
 ///功能按钮的起始tag
 #define TAG_RENANT_ROOT 99
@@ -476,12 +477,28 @@ static char HistoryKey;     //!<浏览足迹
 
 #pragma mark - 刷新UI
 /**
- *  @author yangshengmeng, 15-02-11 13:02:53
+ *  @author         yangshengmeng, 15-04-08 19:04:16
  *
- *  @brief  刷新UI
+ *  @brief          更新房客个人中心统计信息
  *
- *  @since  1.0.0
+ *  @param model    房客统计信息的数据模型
+ *
+ *  @since          1.0.0
  */
+- (void)updateRentCountInfo:(QSYMyzoneStatisticsRenantModel *)model
+{
+
+    [self updateStayAroundCount:model.book_wait];
+    [self updateHavedAroundCount:model.book_ok];
+    [self updateWaitCommitAroundCount:model.transaction_wait];
+    [self updateCommitedCount:model.transaction_ok];
+    [self updateAppointedOrderCount:model.book_all];
+    [self updateDealOrderCount:model.transaction_all];
+    [self updateBegCount:model.store_rent];
+    [self updateCollectCount:model.store_apartment];
+    [self updateCommunityCount:model.store_rent];
+
+}
 
 ///更新待看房数量
 - (void)updateStayAroundCount:(NSString *)newInfo
