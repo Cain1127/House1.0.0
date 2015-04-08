@@ -128,7 +128,12 @@
 + (CGFloat)calculateHousingAccumulationFundLoanMonthlyMortgatePayment:(CGFloat)totalValue andRate:(CGFloat)monthRate andTimes:(NSInteger)allMonth
 {
 
-    return 0.0f;
+    ///月供计算
+    CGFloat rateBase = pow(1.0f + monthRate, allMonth * 1.0);
+    CGFloat mortgagePayment = totalValue * monthRate * rateBase / (rateBase - 1.0f);
+    
+    return mortgagePayment;
+
 
 }
 

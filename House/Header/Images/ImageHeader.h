@@ -297,33 +297,43 @@
 #define IMAGE_COMPARISON_INDICADE_HIGHLIGHTED @"comparison_recommend_house_indecator_highlighted"
 
 ///周边信息图片
+///房子大头针
+#define IMAGE_HOUSES_DETAIL_ANNOTION @"houses_detail_annotion"
+
 ///公交图片
 #define IMAGE_HOUSES_DETAIL_BUS_NORMAL @"houses_detail_bus_normal"
 #define IMAGE_HOUSES_DETAIL_BUS_HIGHLIGHTED @"houses_detail_bus_highlighted"
+#define IMAGE_HOUSES_DETAIL_BUS_ANNOTION @"houses_detail_bus_annotion"
 
 ///地铁图片
 #define IMAGE_HOUSES_DETAIL_METRO_NORMAL @"houses_detail_metro_normal"
 #define IMAGE_HOUSES_DETAIL_METRO_HIGHLIGHTED @"houses_detail_metro_highlighted"
+#define IMAGE_HOUSES_DETAIL_METRO_ANNOTION @"houses_detail_metro_annotion"
 
 ///学校图片
 #define IMAGE_HOUSES_DETAIL_SCHOOL_NORMAL @"houses_detail_school_normal"
 #define IMAGE_HOUSES_DETAIL_SCHOOL_HIGHLIGHTED @"houses_detail_school_highlighted"
+#define IMAGE_HOUSES_DETAIL_SCHOOL_ANNOTION @"houses_detail_school_annotion"
 
 ///医院图片
 #define IMAGE_HOUSES_DETAIL_HOSPITAL_NORMAL @"houses_detail_hospital_normal"
 #define IMAGE_HOUSES_DETAIL_HOSPITAL_HIGHLIGHTED @"houses_detail_hospital_highlighted"
+#define IMAGE_HOUSES_DETAIL_HOSPITAL_ANNOTION @"houses_detail_hospital_annotion"
 
 ///餐饮图片
 #define IMAGE_HOUSES_DETAIL_CATERING_NORMAL @"houses_detail_catering_normal"
 #define IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED @"houses_detail_catering_highlighted"
+#define IMAGE_HOUSES_DETAIL_CATERING_ANNOTION @"houses_detail_catering_annotion"
 
 ///超市图片
 #define IMAGE_HOUSES_DETAIL_SUPERMARKET_NORMAL @"houses_detail_supermarket_normal"
 #define IMAGE_HOUSES_DETAIL_SUPERMARKET_HIGHLIGHTED @"houses_detail_supermarket_highlighted"
+#define IMAGE_HOUSES_DETAIL_SUPERMARKET_ANNOTION @"houses_detail_supermarket_annotion"
 
 ///商场图片
 #define IMAGE_HOUSES_DETAIL_MARKET_NORMAL @"houses_detail_market_normal"
 #define IMAGE_HOUSES_DETAIL_MARKET_HIGHLIGHTED @"houses_detail_market_highlighted"
+#define IMAGE_HOUSES_DETAIL_MARKET_ANNOTION @"houses_detail_market_annotion"
 
 #pragma mark - 发现模块相关图片资源
 

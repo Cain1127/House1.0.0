@@ -14,6 +14,8 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYOwnerInfoViewController.h"
 #import "QSMortgageCalculatorViewController.h"
+#import "QSCommunityDetailViewController.h"
+#import "QSSearchMapViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
@@ -438,6 +440,9 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入均价详情");
+        ///进入详情页面
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"second"];
+        [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andTitle:dataModel.price_changes.title andAveragePrice:dataModel.house.price_avg];
@@ -724,11 +729,11 @@ static char LeftStarKey;            //!<左侧星级
     NSString *coordinate_y=houseInfoModel.coordinate_y;
     
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
-        NSLog(@"点击定位");
+        NSLog(@"点击查看地图");
         
-        QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:houseInfoModel.address andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         
-        [self.navigationController pushViewController:mapNearVC animated:YES];
+        [self.navigationController pushViewController:smVC animated:YES];
         
     }];
     

@@ -267,10 +267,25 @@ static char OwnerRootView;  //!<业主底view
             case tTenantZoneActionTypeStayAround:
             {
                 
-                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    ///刷新数据
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                    
+                }];
                 
             }
                 break;
@@ -279,32 +294,77 @@ static char OwnerRootView;  //!<业主底view
             case tTenantZoneActionTypeHavedAround:
             {
                 
-                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    ///刷新数据
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                    
+                }];
                 
             }
                 break;
                 
                 ///待成交点击
             case tTenantZoneActionTypeWaitCommit:
-                
             {
-                QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
-                [bolVc setSelectedType:mBuyerTransactionOrderListTypePending];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerTransactionOrderListTypePending];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                
+                }];
+                
             }
                 break;
                 
                 ///已成交点击
             case tTenantZoneActionTypeCommited:
             {
-                QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
-                [bolVc setSelectedType:mBuyerTransactionOrderListTypeCompleted];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerTransactionOrderListViewController *bolVc = [[QSPBuyerTransactionOrderListViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerTransactionOrderListTypeCompleted];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                
+                }];
                 
             }
                 break;
@@ -314,10 +374,24 @@ static char OwnerRootView;  //!<业主底view
                 
             {
                 
-                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                    
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerBookedOrderListTypeBooked];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                    
+                }];
                 
             }
                 break;
@@ -326,10 +400,24 @@ static char OwnerRootView;  //!<业主底view
             case tTenantZoneActionTypeDeal:
             {
                 
-                QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                    if (lLoginCheckActionTypeLogined == flag) {
+                        
+                        QSPBuyerBookedOrdersListsViewController *bolVc = [[QSPBuyerBookedOrdersListsViewController alloc] init];
+                        [bolVc setSelectedType:mBuyerBookedOrderListTypeCompleted];
+                        [self hiddenBottomTabbar:YES];
+                        [self.navigationController pushViewController:bolVc animated:YES];
+                        
+                    }
+                    
+                    if (lLoginCheckActionTypeReLogin == flag) {
+                        
+                        [self.rootView.header beginRefreshing];
+                        
+                    }
+                
+                }];
                 
             }
                 break;
@@ -412,9 +500,18 @@ static char OwnerRootView;  //!<业主底view
                 //待看房
             {
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mSalerBookedOrderListTypeBooked];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeBooked];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+
             }
                 break;
                 
@@ -422,9 +519,18 @@ static char OwnerRootView;  //!<业主底view
                 //已看房
             {
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
-                [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+                
             }
                 break;
                 
@@ -432,9 +538,18 @@ static char OwnerRootView;  //!<业主底view
                 //待成交
             {
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
-                [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+                
             }
                 break;
                 
@@ -442,9 +557,18 @@ static char OwnerRootView;  //!<业主底view
                 //已成交
             {
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
-                [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
-                [self hiddenBottomTabbar:YES];
-                [self.navigationController pushViewController:bolVc animated:YES];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
+                
             }
                 break;
                 
@@ -686,6 +810,7 @@ static char OwnerRootView;  //!<业主底view
 {
     
     QSMyZoneOwnerView *view = objc_getAssociatedObject(self, &RenantRootView);
+    [view updateOwnerCountInfo:self.statisticsData.headerData.ownerData];
     
 }
 
@@ -694,6 +819,7 @@ static char OwnerRootView;  //!<业主底view
 {
     
     QSMyZoneTenantView *view = objc_getAssociatedObject(self, &OwnerRootView);
+    [view updateRentCountInfo:self.statisticsData.headerData.renantData];
     
 }
 

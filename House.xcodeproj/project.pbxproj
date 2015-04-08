@@ -703,9 +703,17 @@
 		CE9703A91AC937AC00AE403E /* QSLoupanHouseViewDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9703A81AC937AC00AE403E /* QSLoupanHouseViewDataModel.m */; };
 		CE9703AC1AC938E800AE403E /* QSLoupanHouseListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9703AB1AC938E800AE403E /* QSLoupanHouseListDataModel.m */; };
 		CEA0871F1ACBC35800D6C7D1 /* QSNearInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0871E1ACBC35800D6C7D1 /* QSNearInfoViewController.m */; };
+		CEA9CFCA1AD503B200FEF74A /* houses_detail_bus_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC31AD503B200FEF74A /* houses_detail_bus_annotion.png */; };
+		CEA9CFCB1AD503B200FEF74A /* houses_detail_catering_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC41AD503B200FEF74A /* houses_detail_catering_annotion.png */; };
+		CEA9CFCC1AD503B200FEF74A /* houses_detail_hospital_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC51AD503B200FEF74A /* houses_detail_hospital_annotion.png */; };
+		CEA9CFCD1AD503B200FEF74A /* houses_detail_market_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC61AD503B200FEF74A /* houses_detail_market_annotion.png */; };
+		CEA9CFCE1AD503B200FEF74A /* houses_detail_metro_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC71AD503B200FEF74A /* houses_detail_metro_annotion.png */; };
+		CEA9CFCF1AD503B200FEF74A /* houses_detail_school_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC81AD503B200FEF74A /* houses_detail_school_annotion.png */; };
+		CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC91AD503B200FEF74A /* houses_detail_supermarket_annotion.png */; };
+		CEA9CFD21AD503D500FEF74A /* houses_detail_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */; };
+		CEA9CFD61AD511B100FEF74A /* QSSearchMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9CFD51AD511B100FEF74A /* QSSearchMapViewController.m */; };
 		CEBA35611AC5236900A1E082 /* QSActivityDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */; };
 		CEBA35641AC523B600A1E082 /* QSActivityDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35631AC523B600A1E082 /* QSActivityDetailDataModel.m */; };
-		CEBC98631ABC4E0900A69F34 /* home_carpostion0.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBC98621ABC4E0900A69F34 /* home_carpostion0.png */; };
 		CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC986C1ABD0A1F00A69F34 /* QSCustomAnnotationView.m */; };
 		CEBC98721ABD0A1F00A69F34 /* QSCustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC986E1ABD0A1F00A69F34 /* QSCustomCalloutView.m */; };
 		CEBC98731ABD0A1F00A69F34 /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEBC98701ABD0A1F00A69F34 /* QSWHousesMapDistributionViewController.mm */; };
@@ -1860,11 +1868,20 @@
 		CE9703AB1AC938E800AE403E /* QSLoupanHouseListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLoupanHouseListDataModel.m; sourceTree = "<group>"; };
 		CEA0871D1ACBC35800D6C7D1 /* QSNearInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNearInfoViewController.h; sourceTree = "<group>"; };
 		CEA0871E1ACBC35800D6C7D1 /* QSNearInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNearInfoViewController.m; sourceTree = "<group>"; };
+		CEA9CFC31AD503B200FEF74A /* houses_detail_bus_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_bus_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC41AD503B200FEF74A /* houses_detail_catering_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_catering_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC51AD503B200FEF74A /* houses_detail_hospital_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_hospital_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC61AD503B200FEF74A /* houses_detail_market_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_market_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC71AD503B200FEF74A /* houses_detail_metro_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_metro_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC81AD503B200FEF74A /* houses_detail_school_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_school_annotion.png; sourceTree = "<group>"; };
+		CEA9CFC91AD503B200FEF74A /* houses_detail_supermarket_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_supermarket_annotion.png; sourceTree = "<group>"; };
+		CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_annotion.png; sourceTree = "<group>"; };
+		CEA9CFD41AD511B100FEF74A /* QSSearchMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSearchMapViewController.h; sourceTree = "<group>"; };
+		CEA9CFD51AD511B100FEF74A /* QSSearchMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSearchMapViewController.m; sourceTree = "<group>"; };
 		CEBA355F1AC5236900A1E082 /* QSActivityDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailReturnData.h; sourceTree = "<group>"; };
 		CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActivityDetailReturnData.m; sourceTree = "<group>"; };
 		CEBA35621AC523B600A1E082 /* QSActivityDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailDataModel.h; sourceTree = "<group>"; };
 		CEBA35631AC523B600A1E082 /* QSActivityDetailDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActivityDetailDataModel.m; sourceTree = "<group>"; };
-		CEBC98621ABC4E0900A69F34 /* home_carpostion0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_carpostion0.png; sourceTree = "<group>"; };
 		CEBC986B1ABD0A1F00A69F34 /* QSCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomAnnotationView.h; sourceTree = "<group>"; };
 		CEBC986C1ABD0A1F00A69F34 /* QSCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomAnnotationView.m; sourceTree = "<group>"; };
 		CEBC986D1ABD0A1F00A69F34 /* QSCustomCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomCalloutView.h; sourceTree = "<group>"; };
@@ -2719,6 +2736,7 @@
 		18A88E421A8C5AF100596E11 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CEA9CFD31AD5119100FEF74A /* SearchMap */,
 				CEA0871C1ACBC33200D6C7D1 /* NearInfo */,
 				CE391F781ACA384900C298D7 /* SignUp */,
 				CE7F50571AC8E9CE004E6032 /* HouseTypeDetail */,
@@ -3259,9 +3277,16 @@
 		18B563731A8366A4009779A0 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				CEBC98621ABC4E0900A69F34 /* home_carpostion0.png */,
+				CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */,
 				18983A071AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png */,
 				18B563741A8366A4009779A0 /* houses_detail_activity_left.png */,
+				CEA9CFC31AD503B200FEF74A /* houses_detail_bus_annotion.png */,
+				CEA9CFC41AD503B200FEF74A /* houses_detail_catering_annotion.png */,
+				CEA9CFC51AD503B200FEF74A /* houses_detail_hospital_annotion.png */,
+				CEA9CFC61AD503B200FEF74A /* houses_detail_market_annotion.png */,
+				CEA9CFC71AD503B200FEF74A /* houses_detail_metro_annotion.png */,
+				CEA9CFC81AD503B200FEF74A /* houses_detail_school_annotion.png */,
+				CEA9CFC91AD503B200FEF74A /* houses_detail_supermarket_annotion.png */,
 				CE520FF91ACD0F1800D6230B /* houses_detail_bus_highlighted.png */,
 				CE520FFA1ACD0F1800D6230B /* houses_detail_bus_normal.png */,
 				CE520FFB1ACD0F1800D6230B /* houses_detail_catering_highlighted.png */,
@@ -5515,6 +5540,16 @@
 			path = Detail/NearInfo;
 			sourceTree = "<group>";
 		};
+		CEA9CFD31AD5119100FEF74A /* SearchMap */ = {
+			isa = PBXGroup;
+			children = (
+				CEA9CFD41AD511B100FEF74A /* QSSearchMapViewController.h */,
+				CEA9CFD51AD511B100FEF74A /* QSSearchMapViewController.m */,
+			);
+			name = SearchMap;
+			path = Detail/SearchMap;
+			sourceTree = "<group>";
+		};
 		CEBA355D1AC514D500A1E082 /* ActivityDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -5706,10 +5741,13 @@
 				1865E3BA1AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist in Resources */,
 				CE52100D1ACD0F1800D6230B /* houses_detail_market_highlighted.png in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
+				CEA9CFCB1AD503B200FEF74A /* houses_detail_catering_annotion.png in Resources */,
 				18B563EE1A8366A4009779A0 /* channelbar_indicate_arrow.png in Resources */,
 				CE5210071ACD0F1800D6230B /* houses_detail_bus_highlighted.png in Resources */,
 				18B564241A8366A4009779A0 /* houses_detail_video_normal.png in Resources */,
 				18B564611A8366A4009779A0 /* public_local_highlighted.png in Resources */,
+				CEA9CFD21AD503D500FEF74A /* houses_detail_annotion.png in Resources */,
+				CEA9CFCD1AD503B200FEF74A /* houses_detail_market_annotion.png in Resources */,
 				18B563ED1A8366A4009779A0 /* channelbar_deploy_arrow_normal.png in Resources */,
 				CE5210141ACD0F1800D6230B /* houses_detail_supermarket_normal.png in Resources */,
 				18DFE8F91AC9A8D700C216C3 /* talk_contact_sound_message_normal.png in Resources */,
@@ -5719,6 +5757,7 @@
 				18B564711A8366A4009779A0 /* tabbar_chat_selected.png in Resources */,
 				18BE12311A8869760036245A /* calendar_right_arrow.png in Resources */,
 				47E0D4E11AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png in Resources */,
+				CEA9CFCE1AD503B200FEF74A /* houses_detail_metro_annotion.png in Resources */,
 				18B563FF1A8366A4009779A0 /* guide_tenant_haved.png in Resources */,
 				18B564691A8366A4009779A0 /* seach_seachstatus.png in Resources */,
 				18BE126E1A8A133D0036245A /* myzone_renant_collect_normal.png in Resources */,
@@ -5734,7 +5773,6 @@
 				18BE12741A8A133D0036245A /* myzone_renant_order_appointed_normal.png in Resources */,
 				18B563F91A8366A4009779A0 /* guide_filter_header.png in Resources */,
 				18B5644A1A8366A4009779A0 /* navigationbar_corss_normal.png in Resources */,
-				CEBC98631ABC4E0900A69F34 /* home_carpostion0.png in Resources */,
 				18D0820D1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png in Resources */,
 				18B564581A8366A4009779A0 /* navigationbar_tool_normal.png in Resources */,
 				18EE34831AAC36F50053B909 /* public_arrow_highlighted60x60.png in Resources */,
@@ -5759,10 +5797,12 @@
 				475A4D611AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_selected.png in Resources */,
 				47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */,
 				CE5210101ACD0F1800D6230B /* houses_detail_metro_normal.png in Resources */,
+				CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */,
 				18DFE8F81AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */,
+				CEA9CFCF1AD503B200FEF74A /* houses_detail_school_annotion.png in Resources */,
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
 				475C3D6F1AB171120028608F /* myzone_oorderlist_cell_ask_bt_normal.png in Resources */,
 				18B564311A8366A4009779A0 /* icon114.png in Resources */,
@@ -5823,6 +5863,7 @@
 				475A4D601AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_normal.png in Resources */,
 				18BE12711A8A133D0036245A /* myzone_renant_history_highlighted.png in Resources */,
 				18DFE8B51AC7D09900C216C3 /* public_no_history.png in Resources */,
+				CEA9CFCA1AD503B200FEF74A /* houses_detail_bus_annotion.png in Resources */,
 				18B563FA1A8366A4009779A0 /* guide_header_backgroud.png in Resources */,
 				18B563EB1A8366A4009779A0 /* channelbar_advancedfilter_normal.png in Resources */,
 				18B5643A1A8366A4009779A0 /* icon58.png in Resources */,
@@ -5913,6 +5954,7 @@
 				18B564541A8366A4009779A0 /* navigationbar_setting_normal.png in Resources */,
 				47B8A1D91AC148010083C20A /* myzone_oorderlist_cell_talkprice_bt_selected.png in Resources */,
 				18BE126B1A8A133D0036245A /* myzone_renant_beg_highlighted.png in Resources */,
+				CEA9CFCC1AD503B200FEF74A /* houses_detail_hospital_annotion.png in Resources */,
 				183571E21AD4355000A29607 /* myzone_property_house_default.png in Resources */,
 				18B5640B1A8366A4009779A0 /* home_tenement_highlighted.png in Resources */,
 				18BE126D1A8A133D0036245A /* myzone_renant_collect_highlighted.png in Resources */,
@@ -6396,6 +6438,7 @@
 				18D081AB1ACD51EC004FA20F /* QSYReleaseRentHouseViewController.m in Sources */,
 				18D0821A1AD020CC004FA20F /* QSYRecommendTenantViewController.m in Sources */,
 				18B5729E1AC16D1600C75682 /* zero_copy_stream_impl.cc in Sources */,
+				CEA9CFD61AD511B100FEF74A /* QSSearchMapViewController.m in Sources */,
 				475A4D8E1AC538D4009881CF /* QSPOrderDetailAppointAgainAndRejectPriceButtonView.m in Sources */,
 				18D082231AD0264A004FA20F /* QSYAskRecommendSecondHouseViewController.m in Sources */,
 				18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */,
