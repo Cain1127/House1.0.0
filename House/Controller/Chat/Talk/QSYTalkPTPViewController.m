@@ -298,6 +298,7 @@
     if ([textField.text length] > 0) {
         
         self.wordMessageModel.message = textField.text;
+        textField.text = nil;
         
         ///显示当前自已发送的消息
         [self.messagesDataSource addObject:self.wordMessageModel];
@@ -306,7 +307,7 @@
         [self.messagesListView reloadData];
         
         ///显示最后一行
-//        [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
         ///发送消息
         [QSSocketManager sendMessageToPerson:self.wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
@@ -318,7 +319,7 @@
             [self.messagesListView reloadData];
             
             ///显示最后一行
-//            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             
         }];
         

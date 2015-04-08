@@ -246,6 +246,9 @@ static char SettingKey;     //!<设置按钮关联
     ///更新查看次数
     [self updateHouseViewCountInfo:tempModel.view_count];
     
+    ///更新订单数
+    [self updateHouseOrderNumber:tempModel.reservation_num];
+    
     ///更新标签信息
     [self updateHouseFeaturesInfo:tempModel.features];
 
@@ -277,7 +280,7 @@ static char SettingKey;     //!<设置按钮关联
     [self updateHouseViewCountInfo:tempModel.view_count];
     
     ///更新订单数
-    [self updateHouseOrderNumber:tempModel.view_count];
+    [self updateHouseOrderNumber:tempModel.reservation_num];
     
     ///更新标签信息
     [self updateHouseFeaturesInfo:tempModel.features];

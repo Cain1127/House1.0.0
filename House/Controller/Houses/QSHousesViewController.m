@@ -1014,7 +1014,7 @@ static char PopViewKey;             //!<摇一摇view关联
             QSHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -1030,7 +1030,7 @@ static char PopViewKey;             //!<摇一摇view关联
             QSRentHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];

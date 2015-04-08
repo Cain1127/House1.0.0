@@ -54,6 +54,7 @@
 {
     
     ///图片参数
+    QSReleaseRentHousePhotoDataModel *houseImageModel;
     NSMutableArray *photosArray = [[NSMutableArray alloc] init];
     if ([self.imagesList count] > 0) {
         
@@ -67,8 +68,10 @@
             
         }
         
+        houseImageModel = self.imagesList[0];
+        
     }
-    
+
     NSString *cityKey = [QSCoreDataManager getCityKeyWithDitrictKey:self.districtKey];
     NSDictionary *houseParams = @{
           @"cityid" : APPLICATION_NSSTRING_SETTING(cityKey, @""),
@@ -101,7 +104,9 @@
           @"time_interval_start" : APPLICATION_NSSTRING_SETTING(self.starTime, @""),
           @"time_interval_end" : APPLICATION_NSSTRING_SETTING(self.endTime, @""),
           @"entrust" : (self.exclusiveCompany ? @"Y" : @"N"),
-          @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @"")};
+          @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @""),
+          @"attach_file" : APPLICATION_NSSTRING_SETTING(houseImageModel.originalImageURL, @""),
+          @"attach_thumb" : APPLICATION_NSSTRING_SETTING(houseImageModel.smallImageURL, @"")};
     
     ///返回发布出租房参数
     return @{@"rentHouse_photo" : [NSArray arrayWithArray:photosArray],
