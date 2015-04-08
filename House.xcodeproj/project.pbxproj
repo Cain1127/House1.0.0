@@ -5914,6 +5914,7 @@
 				47B8A1D91AC148010083C20A /* myzone_oorderlist_cell_talkprice_bt_selected.png in Resources */,
 				18BE126B1A8A133D0036245A /* myzone_renant_beg_highlighted.png in Resources */,
 				CEA9CFCC1AD503B200FEF74A /* houses_detail_hospital_annotion.png in Resources */,
+				183571E21AD4355000A29607 /* myzone_property_house_default.png in Resources */,
 				18B5640B1A8366A4009779A0 /* home_tenement_highlighted.png in Resources */,
 				18BE126D1A8A133D0036245A /* myzone_renant_collect_highlighted.png in Resources */,
 				18B564061A8366A4009779A0 /* home_bridalchamber_normal.png in Resources */,
