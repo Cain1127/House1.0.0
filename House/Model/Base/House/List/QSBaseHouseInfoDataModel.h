@@ -40,6 +40,7 @@
 @property (nonatomic,copy) NSString *favorite_count;        //!<收藏次数
 @property (nonatomic,copy) NSString *attention_count;       //!<关注次数
 
+@property (nonatomic,copy) NSString *update_time;           //!<最后发布日期
 
 //!<状态：-1已删除，0未发布，1已发布，2已出租，3已出售
 @property (nonatomic,copy) NSString *status;

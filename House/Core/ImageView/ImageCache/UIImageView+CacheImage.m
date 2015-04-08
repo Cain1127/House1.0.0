@@ -46,6 +46,11 @@
     ///基本校验
     if (nil == url) {
         
+        if (placeholderImage) {
+            
+            self.image = placeholderImage;
+            
+        }
         return;
         
     }

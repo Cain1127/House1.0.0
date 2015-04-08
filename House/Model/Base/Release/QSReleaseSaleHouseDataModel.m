@@ -57,6 +57,7 @@
 {
 
     ///图片参数
+    QSReleaseSaleHousePhotoDataModel *houseImageModel;
     NSMutableArray *photosArray = [[NSMutableArray alloc] init];
     if ([self.imagesList count] > 0) {
         
@@ -69,6 +70,8 @@
             [photosArray addObject:tempPhotoParam];
             
         }
+        
+        houseImageModel = self.imagesList[0];
         
     }
     
@@ -104,7 +107,9 @@
             @"time_interval_start" : APPLICATION_NSSTRING_SETTING(self.starTime, @""),
             @"time_interval_end" : APPLICATION_NSSTRING_SETTING(self.endTime, @""),
             @"entrust" : (self.exclusiveCompany ? @"Y" : @"N"),
-            @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @"")};
+            @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @""),
+            @"attach_file" : APPLICATION_NSSTRING_SETTING(houseImageModel.originalImageURL, @""),
+            @"attach_thumb" : APPLICATION_NSSTRING_SETTING(houseImageModel.smallImageURL, @"")};
     
     ///返回发布出租房参数
     return @{@"secondHouse_photo" : [NSArray arrayWithArray:photosArray],

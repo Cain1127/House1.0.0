@@ -43,6 +43,9 @@ static char MessageKey; //!<消息体关联
 
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        ///保存消息类型
+        self.messageType = isMyMessage;
+        
         ///搭建UI
         [self createMessageWordUI];
         

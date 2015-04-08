@@ -29,6 +29,8 @@
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
 		183571D91AD1642100A29607 /* QSCollectionVerticalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */; };
 		183571DC1AD2558E00A29607 /* QSYMessageWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */; };
+		183571E01AD432A100A29607 /* public_sixform_hollow_150x170.png in Resources */ = {isa = PBXBuildFile; fileRef = 183571DF1AD432A100A29607 /* public_sixform_hollow_150x170.png */; };
+		183571E21AD4355000A29607 /* myzone_property_house_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 183571E11AD4355000A29607 /* myzone_property_house_default.png */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -778,6 +780,8 @@
 		183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionVerticalFlowLayout.m; path = FlowLayout/QSCollectionVerticalFlowLayout.m; sourceTree = "<group>"; };
 		183571DA1AD2558E00A29607 /* QSYMessageWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMessageWordTableViewCell.h; path = Talk/Word/QSYMessageWordTableViewCell.h; sourceTree = "<group>"; };
 		183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMessageWordTableViewCell.m; path = Talk/Word/QSYMessageWordTableViewCell.m; sourceTree = "<group>"; };
+		183571DF1AD432A100A29607 /* public_sixform_hollow_150x170.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_sixform_hollow_150x170.png; sourceTree = "<group>"; };
+		183571E11AD4355000A29607 /* myzone_property_house_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_property_house_default.png; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -3431,6 +3435,8 @@
 		18B563C61A8366A4009779A0 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				183571E11AD4355000A29607 /* myzone_property_house_default.png */,
+				183571DF1AD432A100A29607 /* public_sixform_hollow_150x170.png */,
 				18DFE8B11AC7D09900C216C3 /* public_no_collected.png */,
 				18DFE8B21AC7D09900C216C3 /* public_no_history.png */,
 				18DFE8B31AC7D09900C216C3 /* public_no_intention_community.png */,
@@ -5776,6 +5782,7 @@
 				475C3D731AB171120028608F /* myzone_oorderlist_cell_call_bt_selected.png in Resources */,
 				18B564671A8366A4009779A0 /* public_single_selected_highlighted.png in Resources */,
 				18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */,
+				183571E01AD432A100A29607 /* public_sixform_hollow_150x170.png in Resources */,
 				18B564561A8366A4009779A0 /* navigationbar_share_normal.png in Resources */,
 				475C3D711AB171120028608F /* myzone_oorderlist_cell_buy_mark_tip.png in Resources */,
 				18B564511A8366A4009779A0 /* navigationbar_search_highlighted.png in Resources */,

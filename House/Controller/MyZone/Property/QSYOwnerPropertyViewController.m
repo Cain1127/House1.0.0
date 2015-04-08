@@ -19,6 +19,11 @@
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
+#import "QSSecondHandHouseListReturnData.h"
+#import "QSRentHouseListReturnData.h"
+
+#import "QSCoreDataManager+User.h"
+
 #import "MJRefresh.h"
 
 @interface QSYOwnerPropertyViewController () <UITableViewDataSource,UITableViewDelegate>
@@ -31,6 +36,10 @@
 
 ///无记录提示框
 @property (nonatomic,strong) UILabel *noRecordsLabel;
+
+///数据模型
+@property (nonatomic,retain) QSSecondHandHouseListReturnData *secondHousesModel;
+@property (nonatomic,retain) QSRentHouseListReturnData *rentModel;
 
 @end
 
@@ -193,6 +202,7 @@
     arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(arrowXPoint, secondHandHouseButton.frame.origin.y + secondHandHouseButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
     arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowIndicator];
+    [self.view bringSubviewToFront:arrowIndicator];
     
     ///记录列表
     self.recordsListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 104.0f)];
@@ -205,6 +215,7 @@
     self.recordsListView.delegate = self;
     
     [self.view addSubview:self.recordsListView];
+    [self.view sendSubviewToBack:self.recordsListView];
     
     ///头部刷新
     [self.recordsListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getReleaseHouseHeaderData)];
@@ -234,23 +245,88 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        return [self.secondHousesModel.secondHandHouseHeaderData.houseList count];
+        
+    }
+    
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        return [self.rentModel.headerData.rentHouseList count];
+        
+    }
+    
     return 0;
+
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 165.0f;
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    static NSString *normalCell = @"normalCell";
-    UITableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
-    if (nil == cellNormal) {
+    ///二手房
+    if (fFilterMainTypeSecondHouse == self.houseType) {
         
-        cellNormal = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
-        cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+        static NSString *secondHandHouseCell = @"secondHandHouseCell";
+        QSYPropertyHouseInfoTableViewCell *cellSecondHandHouse = [tableView dequeueReusableCellWithIdentifier:secondHandHouseCell];
+        if (nil == cellSecondHandHouse) {
+            
+            cellSecondHandHouse = [[QSYPropertyHouseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:secondHandHouseCell andHouseType:fFilterMainTypeSecondHouse];
+            cellSecondHandHouse.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///刷新数据
+        [cellSecondHandHouse updateMyPropertyHouseInfo:self.secondHousesModel.secondHandHouseHeaderData.houseList[indexPath.row] andHouseType:fFilterMainTypeSecondHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
+        
+            
+        
+        }];
+        
+        return cellSecondHandHouse;
         
     }
     
-    return cellNormal;
+    ///出租房
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        static NSString *rentHouseCell = @"rentHouseCell";
+        QSYPropertyHouseInfoTableViewCell *cellRentHouse = [tableView dequeueReusableCellWithIdentifier:rentHouseCell];
+        if (nil == cellRentHouse) {
+            
+            cellRentHouse = [[QSYPropertyHouseInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:rentHouseCell andHouseType:fFilterMainTypeSecondHouse];
+            cellRentHouse.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+        }
+        
+        ///刷新数据
+        [cellRentHouse updateMyPropertyHouseInfo:self.rentModel.headerData.rentHouseList[indexPath.row] andHouseType:fFilterMainTypeRentalHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
+            
+            
+            
+        }];
+        
+        return cellRentHouse;
+        
+    }
+    
+    static NSString *unuseCell = @"unuseCell";
+    UITableViewCell *cellUnuse = [tableView dequeueReusableCellWithIdentifier:unuseCell];
+    if (nil == cellUnuse) {
+        
+        cellUnuse = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:unuseCell];
+        cellUnuse.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+    }
+    
+    return cellUnuse;
 
 }
 
@@ -258,15 +334,94 @@
 - (void)getReleaseHouseHeaderData
 {
     
-    self.noRecordsLabel.hidden = YES;
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///清空原数据，刷新UI
+    self.secondHousesModel = nil;
+    self.rentModel = nil;
+    [self.recordsListView reloadData];
+    
+    ///根据类型请求
+    if (fFilterMainTypeSecondHouse == self.houseType) {
         
-        [self.recordsListView.header endRefreshing];
-        self.noRecordsLabel.hidden = NO;
+        [self getOwnerReleaseSecondHandHouse];
         
-    });
+    }
+    
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        [self getOwnerReleaseRentHouse];
+        
+    }
 
+}
+
+///请求二手房数据
+- (void)getOwnerReleaseSecondHandHouse
+{
+    
+    ///封装参数
+    NSString *userID = [QSCoreDataManager getUserID];
+    NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(userID, @"")};
+    
+    ///请求
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSSecondHandHouseListReturnData *tempModel = resultData;
+            if ([tempModel.secondHandHouseHeaderData.houseList count] > 0) {
+                
+                self.secondHousesModel = tempModel;
+                
+            }
+            
+            ///结束刷新
+            [self.recordsListView reloadData];
+            [self.recordsListView.header endRefreshing];
+            
+        } else {
+            
+            [self.recordsListView reloadData];
+            [self.recordsListView.header endRefreshing];
+            
+        }
+        
+    }];
+    
+}
+
+///请求出租房数据
+- (void)getOwnerReleaseRentHouse
+{
+    
+    ///封装参数
+    NSString *userID = [QSCoreDataManager getUserID];
+    NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(userID, @"")};
+    
+    ///请求
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSRentHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.rentHouseList count] > 0) {
+                
+                self.rentModel = tempModel;
+                
+            }
+            
+            ///结束刷新
+            [self.recordsListView reloadData];
+            [self.recordsListView.header endRefreshing];
+            
+        } else {
+            
+            [self.recordsListView reloadData];
+            [self.recordsListView.header endRefreshing];
+            
+        }
+        
+    }];
+    
 }
 
 - (void)getReleaseHouseMoreData
