@@ -24,7 +24,7 @@
 #import <objc/runtime.h>
 
 ///关联
-static char AccumulationViewKey;    //!<公积金关联KEY
+static char accumulationTextFieldKey;    //!<公积金关联KEY
 static char BusinessViewKey;        //!<商业贷款关联KEY
 static char GrounpViewKey;          //!<组合贷款关联KEY
 
@@ -61,7 +61,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
 {
     
     ///列表指针
-    __block UIView *accumulationView;
+    __block UIView *accumulationTextField;
     __block UIView *businessView;
     __block UIView *groupView;
     
@@ -99,11 +99,11 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         groupButton.selected = NO;
         
         ///切换列表
-        accumulationView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
+        accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
         
-        [self.view addSubview:accumulationView];
+        [self.view addSubview:accumulationTextField];
         
-        [self createMortgageView:accumulationView andMortgageType:mMortgageAccumulationType];
+        [self createMortgageView:accumulationTextField andMortgageType:mMortgageAccumulationType];
         
         ///获取当前正在显示的view
         UIView *tempView = businessView ? businessView : groupView;
@@ -115,7 +115,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
             
             tempView.frame = CGRectMake(SIZE_DEVICE_WIDTH, tempView.frame.origin.y, tempView.frame.size.width, tempView.frame.size.height);
             
-            accumulationView.frame = CGRectMake(0.0f, accumulationView.frame.origin.y, accumulationView.frame.size.width, accumulationView.frame.size.height);
+            accumulationTextField.frame = CGRectMake(0.0f, accumulationTextField.frame.origin.y, accumulationTextField.frame.size.width, accumulationTextField.frame.size.height);
             
         } completion:^(BOOL finished) {
             
@@ -125,7 +125,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
             
         }];
         
-        objc_setAssociatedObject(self, &AccumulationViewKey, accumulationView, OBJC_ASSOCIATION_ASSIGN);
+        objc_setAssociatedObject(self, &accumulationTextFieldKey, accumulationTextField, OBJC_ASSOCIATION_ASSIGN);
         
     }];
     //accumulationButton.selected = YES;
@@ -150,7 +150,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         ///坐标
         CGFloat xpoint = -SIZE_DEVICE_WIDTH;
         CGFloat endXPoint = SIZE_DEVICE_WIDTH;
-        if (accumulationView) {
+        if (accumulationTextField) {
             
             xpoint = -xpoint;
             endXPoint = - endXPoint;
@@ -163,7 +163,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         
         [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
         ///获取当前正在显示的view
-        UIView *tempView = accumulationView ? accumulationView : groupView;
+        UIView *tempView = accumulationTextField ? accumulationTextField : groupView;
         
         ///移动指示器
         [UIView animateWithDuration:0.3f animations:^{
@@ -177,12 +177,12 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         } completion:^(BOOL finished) {
             
             [tempView removeFromSuperview];
-            accumulationView = nil;
+            accumulationTextField = nil;
             groupView = nil;
             
         }];
         objc_setAssociatedObject(self, &BusinessViewKey, businessView, OBJC_ASSOCIATION_ASSIGN);
-
+        
         
     }];
     businessButton.selected=YES;
@@ -209,7 +209,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         [self.view addSubview:groupView];
         [self createMortgageView:groupView andMortgageType:mMortgageGrounpType];
         ///获取当前正在显示的view
-        UIView *tempView = accumulationView ? accumulationView : businessView;
+        UIView *tempView = accumulationTextField ? accumulationTextField : businessView;
         
         ///移动指示器
         [UIView animateWithDuration:0.3f animations:^{
@@ -223,12 +223,12 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         } completion:^(BOOL finished) {
             
             [tempView removeFromSuperview];
-            accumulationView = nil;
+            accumulationTextField = nil;
             businessView = nil;
             
         }];
         objc_setAssociatedObject(self, &GrounpViewKey, groupView, OBJC_ASSOCIATION_ASSIGN);
-
+        
         
     }];
     [self.view addSubview:groupButton];
@@ -250,7 +250,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
 {
     
     __block QSLabel *repayModelResultLabel;
- 
+    
     ///还款方式
     UIView *repayModelView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, 0.0f, SIZE_DEVICE_WIDTH-2.0f*25.0f, 50.0f) andSingleTapCallBack:^(BOOL flag) {
         
@@ -260,7 +260,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         
     }];
     [view addSubview:repayModelView];
-
+    
     QSLabel *repayModelLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
     repayModelLabel.text = @"还款方式:";
     repayModelLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -282,54 +282,57 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
     [view addSubview:sepLabel0];
     
     ///列表指针
-    __block UITextField *accumulationView;   //!<公积金贷款
-    __block UITextField *totalView;          //!<总额贷款或商业贷款
+    __block UITextField *accumulationTextField;   //!<公积金贷款
+    __block UITextField *totalTextField;          //!<总额贷款或商业贷款
     
     if (mortageType == mMortgageGrounpType) {
         ///公积金贷款
-        accumulationView = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:[NSString stringWithFormat:@"%.2f",self.housePrice ? self.housePrice : 0] andLeftTipsInfo:@"公积金贷款:"  andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
-        accumulationView.textAlignment = NSTextAlignmentRight;
-        accumulationView.textColor = COLOR_CHARACTERS_GRAY;
-        accumulationView.delegate = self;
-
-        [view addSubview:accumulationView];
-
+        accumulationTextField = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"公积金贷款:"  andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
+        accumulationTextField.textAlignment = NSTextAlignmentRight;
+        accumulationTextField.textColor = COLOR_CHARACTERS_GRAY;
+        accumulationTextField.text = [NSString stringWithFormat:@"%.2f",self.housePrice];
+        accumulationTextField.delegate = self;
+        
+        [view addSubview:accumulationTextField];
+        
         
         ///分隔线
-        UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(accumulationView.frame.origin.x, accumulationView.frame.origin.y+accumulationView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+        UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(accumulationTextField.frame.origin.x, accumulationTextField.frame.origin.y+accumulationTextField.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
         sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [view addSubview:sepLabel1];
-
+        
         ///商业贷款
-        totalView = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, accumulationView.frame.origin.y+accumulationView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:[NSString stringWithFormat:@"%.2f",self.housePrice ? self.housePrice : 0] andLeftTipsInfo:@"商业贷款:" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
-        totalView.delegate = self;
-        totalView.textAlignment = NSTextAlignmentRight;
-        totalView.textColor = COLOR_CHARACTERS_GRAY;
-        [view addSubview:totalView];
+        totalTextField = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, accumulationTextField.frame.origin.y+accumulationTextField.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"商业贷款:" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
+        totalTextField.delegate = self;
+        totalTextField.text = [NSString stringWithFormat:@"%.2f",self.housePrice];
+        totalTextField.textAlignment = NSTextAlignmentRight;
+        totalTextField.textColor = COLOR_CHARACTERS_GRAY;
+        [view addSubview:totalTextField];
         
         ///分隔线
-        UILabel *sepLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(totalView.frame.origin.x, totalView.frame.origin.y+totalView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+        UILabel *sepLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(totalTextField.frame.origin.x, totalTextField.frame.origin.y+totalTextField.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
         sepLabel2.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [view addSubview:sepLabel2];
-
+        
     }
     else{
-    ///贷款总额
-        totalView = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:[NSString stringWithFormat:@"%.2f",self.housePrice ? self.housePrice : 0] andLeftTipsInfo:@"贷款总额:" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
-        totalView.delegate = self;
-        totalView.textAlignment = NSTextAlignmentRight;
-        totalView.textColor = COLOR_CHARACTERS_GRAY;
-        [view addSubview:totalView];
-    
-    ///分隔线
-    UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(totalView.frame.origin.x, totalView.frame.origin.y+totalView.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
-    sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [view addSubview:sepLabel1];
+        ///贷款总额
+        totalTextField = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"贷款总额:" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
+        totalTextField.delegate = self;
+        totalTextField.text = [NSString stringWithFormat:@"%.2f",self.housePrice];
+        totalTextField.textAlignment = NSTextAlignmentRight;
+        totalTextField.textColor = COLOR_CHARACTERS_GRAY;
+        [view addSubview:totalTextField];
+        
+        ///分隔线
+        UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(totalTextField.frame.origin.x, totalTextField.frame.origin.y+totalTextField.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
+        sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        [view addSubview:sepLabel1];
     }
     
     ///贷款年限
     __block UILabel *yearResultLabel;
-    UIView *yearView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, totalView.frame.origin.y+totalView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
+    UIView *yearView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, totalTextField.frame.origin.y+totalTextField.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
         
         APPLICATION_LOG_INFO(@"点击贷款年限", nil);
         ///获取贷款选择项数据
@@ -371,15 +374,15 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
     [rateView addSubview:rateLabel];
     
     __block UILabel *rateResultLabel;
-     rateResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, rateLabel.frame.origin.y, 100.0f, 20.0f)];
+    rateResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-50.0f-13.0f-100.0f, rateLabel.frame.origin.y, 100.0f, 20.0f)];
     rateResultLabel.textAlignment = NSTextAlignmentRight;
     rateResultLabel.textColor = COLOR_CHARACTERS_GRAY;
     rateResultLabel.font = [UIFont systemFontOfSize:14.0f];
     
     if (mortageType == mMortgageAccumulationType) {
         
-        rateResultLabel.text = @"4.5%";
-
+        rateResultLabel.text = @"4.05%";
+        
     }
     else
     {
@@ -448,62 +451,76 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
     UIButton *countButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, bottomLine.frame.origin.y+bottomLine.frame.size.height+8.0f, bottomLine.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
         NSLog(@"计算");
         
-        ///刷新数据
-        //repaymentToalResult
-        //payInterestResult
-        //monthPaymentResult
-        ///报名人数有效性数据
-        
-        ///月均还款
-        monthPaymentResult.text = [NSString stringWithFormat:@"%.2f",[NSString calculateMonthlyMortgatePayment:[totalView.text floatValue] andPaymentType:lLoadRatefeeBusinessLoan andRate:6.8f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f]*10000];
-        
         if (mortageType == mMortgageGrounpType) {
-            NSString *accumString = accumulationView.text;
+            NSString *accumString = accumulationTextField.text;
             if ([accumString length] <= 0) {
                 
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入公积金贷款总额", 1.0f, ^(){
                     
-                    [accumulationView becomeFirstResponder];
+                    [accumulationTextField becomeFirstResponder];
                     
                 })
                 
                 return;
             }
             
-            NSString *totalString = totalView.text;
+            NSString *totalString = totalTextField.text;
             if ([totalString length] <= 0) {
                 
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请商业贷款总额", 1.0f, ^(){
                     
-                    [totalView becomeFirstResponder];
+                    [totalTextField becomeFirstResponder];
                     
                 })
                 
                 return;
             }
-
+            
+            ///刷新数据
+            
+            ///月均还款
+            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[accumulationTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeCalculateHousingAccumulationFundLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f]+[NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
+            
+            ///还款总额
+            repaymentToalResult.text = [NSString stringWithFormat:@"%.2f%@",[monthPaymentResult.text floatValue]*[yearResultLabel.text floatValue]*12.0f,@"元"];
+            
+            ///支付利息
+            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[totalTextField.text floatValue]*10000.0f,@"元"];
+            
         }
-       
+        
         else{
-        NSString *totalString = totalView.text;
-        if ([totalString length] <= 0) {
-            
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入贷款总额", 1.0f, ^(){
+            NSString *totalString = totalTextField.text;
+            if ([totalString length] <= 0) {
                 
-                [totalView becomeFirstResponder];
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入贷款总额", 1.0f, ^(){
+                    
+                    [totalTextField becomeFirstResponder];
+                    
+                })
                 
-            })
+                return;
+            }
             
-            return;
+            ///刷新数据
+            
+            ///月均还款
+            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/1200.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
+            
+            ///还款总额
+            repaymentToalResult.text = [NSString stringWithFormat:@"%.2f%@",[monthPaymentResult.text floatValue]*[yearResultLabel.text floatValue]*12.0f,@"元"];
+            
+            ///支付利息
+            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[totalTextField.text floatValue]*10000.0f,@"元"];
         }
-        }
-    ///回收键盘
-    [accumulationView resignFirstResponder];
-    [totalView resignFirstResponder];
+        
+        ///回收键盘
+        [accumulationTextField resignFirstResponder];
+        [totalTextField resignFirstResponder];
     }];
     
     [view addSubview:countButton];
-
+    
 }
 
 #pragma mark -弹出选择框的过滤列表
@@ -530,7 +547,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         }
         
     }];
-
+    
 }
 
 #pragma mark -键盘代理方法

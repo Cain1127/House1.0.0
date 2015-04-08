@@ -12,6 +12,7 @@
 #import "QSSignUpViewController.h"
 #import "QSNearInfoViewController.h"
 #import "QSMortgageCalculatorViewController.h"
+#import "QSSearchMapViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -387,8 +388,9 @@ static char LeftStarKey;            //!<左侧星级
         
         ///进入地图：需要传经纬度
         NSLog(@"点击定位");
-        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
-        [self.navigationController pushViewController:nearInfoVC animated:YES];
+        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        
+        [self.navigationController pushViewController:smVC animated:YES];
         
     }];
     

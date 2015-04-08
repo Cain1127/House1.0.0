@@ -197,9 +197,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2.0f*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"点击进入小区二手房");
-        QSSecondHouseDetailViewController *shVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.title andDetailID:dataModel.village.id_];
+        QSSecondHouseDetailViewController *shVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:dataModel.village.title andDetailID:dataModel.village.id_ andDetailType:fFilterMainTypeSecondHouse];
         [self.navigationController pushViewController:shVC animated:YES];
         
     }];
@@ -208,9 +207,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入地图：需要传经纬度
         NSLog(@"点击进入小区出租房");
-        QSRentHouseDetailViewController *rhVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.title andDetailID:dataModel.village.id_];
+        QSRentHouseDetailViewController *rhVC = [[QSRentHouseDetailViewController alloc] initWithTitle:dataModel.village.title andDetailID:dataModel.village.id_ andDetailType:fFilterMainTypeRentalHouse];
         [self.navigationController pushViewController:rhVC animated:YES];
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];

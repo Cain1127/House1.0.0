@@ -372,64 +372,64 @@
                 
             case mMapBusButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_BUS_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_BUS_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
 
                 }
                 break;
                 
             case mMapMetroButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_METRO_NORMAL];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_METRO_ANNOTION];
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
             case mMapHospitalButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOSPITAL_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HOSPITAL_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
             case mMapSchoolButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SCHOOL_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SCHOOL_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
             case mMapCateringButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_CATERING_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_CATERING_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
             case mMapSuperMarketButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SUPERMARKET_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_SUPERMARKET_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
             case mMapMarketButtonActionType:
                 ///显示大头针图片
-                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_MARKET_HIGHLIGHTED];
+                annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_MARKET_ANNOTION];
                 
                 if (annotation==_annotation0) {
-                    annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
+                    annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
                     
                 }
                 break;
