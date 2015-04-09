@@ -8,6 +8,8 @@
 
 #import "QSYMessageWordTableViewCell.h"
 
+#import "NSString+Calculation.h"
+
 #import "QSYSendMessageWord.h"
 
 #import <objc/runtime.h>
@@ -118,9 +120,9 @@ static char MessageKey; //!<消息体关联
 
     ///更新头像
     UIImageView *icontView = objc_getAssociatedObject(self, &UserIconKey);
-    if (icontView) {
+    if (icontView && [model.f_avatar length] > 0) {
         
-        
+        [icontView loadImageWithURL:[model.f_avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
         
     }
     

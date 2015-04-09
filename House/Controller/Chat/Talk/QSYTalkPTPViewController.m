@@ -17,6 +17,7 @@
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSString+Format.h"
 #import "NSString+Calculation.h"
+#import "NSDate+Formatter.h"
 
 #import "QSSocketManager.h"
 #import "QSCoreDataManager+User.h"
@@ -385,14 +386,27 @@
     ///判断是否存在文字消息
     if ([textField.text length] > 0) {
         
-        NSString *sendMessage = textField.text;
+        ///保存消息
+        NSString *sendMessage = [NSString stringWithString:textField.text];
+        textField.text = nil;
+        
         QSYSendMessageWord *wordMessageModel = [[QSYSendMessageWord alloc] init];
         wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        wordMessageModel.fromID = self.myUserModel.id_;
-        wordMessageModel.toID = self.userModel.id_;
-        wordMessageModel.deviceUUID = [NSString getDeviceUUID];
-        wordMessageModel.message = sendMessage;
-        textField.text = nil;
+        wordMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_,@"");
+        wordMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
+        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
+        wordMessageModel.message = APPLICATION_NSSTRING_SETTING(sendMessage,@"");
+        wordMessageModel.timeStamp = APPLICATION_NSSTRING_SETTING([NSDate currentDateTimeStamp],@"");
+        
+        wordMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
+        wordMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
+        wordMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
+        wordMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        
+        wordMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
+        wordMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
+        wordMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
+        wordMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
         
         CGFloat showHeight = 30.0f;
         CGFloat showWidth = [sendMessage calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
@@ -534,13 +548,41 @@
         ///压缩图片
         UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
         
+        ///获取时间戳
+        NSString *timeStamp = [NSDate currentDateTimeStamp];
+        NSString *rootPath = [self getTalkImageSavePath];
+        NSString *savePath = [rootPath stringByAppendingString:timeStamp];
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 1.0f);
+        
+        ///保存本地
+        BOOL isSave = [imageData writeToFile:savePath atomically:YES];
+        if (!isSave) {
+            
+            ///提示发送失败
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"发送失败", 1.5f, ^(){})
+            return;
+            
+        }
+        
         ///保存图片消息
         QSYSendMessagePicture *pictureMessageModel = [[QSYSendMessagePicture alloc] init];
         pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypePicture;
-        pictureMessageModel.fromID = self.myUserModel.id_;
-        pictureMessageModel.toID = self.userModel.id_;
-        pictureMessageModel.deviceUUID = [NSString getDeviceUUID];
-        pictureMessageModel.pictureInfo = smallImage;
+        pictureMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_, @"");
+        pictureMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
+        pictureMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
+        pictureMessageModel.pictureURL = APPLICATION_NSSTRING_SETTING(savePath,@"");
+        
+        pictureMessageModel.timeStamp = [NSDate currentDateTimeStamp];
+        
+        pictureMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
+        pictureMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
+        pictureMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
+        pictureMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        
+        pictureMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
+        pictureMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
+        pictureMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
+        pictureMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
         
         CGFloat showWidth = smallImage.size.width;
         showWidth = (showWidth > (SIZE_DEVICE_WIDTH * 2.0f / 5.0f)) ? (SIZE_DEVICE_WIDTH * 2.0f / 5.0f) : showWidth;
@@ -562,6 +604,100 @@
     
     [self dismissViewControllerAnimated:YES completion:^{}];
     
+}
+
+#pragma mark - 聊天图片沙盒目录
+- (NSString *)getTalkImageSavePath
+{
+
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/image"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+
+}
+
+- (NSString *)getTalkVideoSavePath
+{
+    
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/video"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (NSString *)getContactRootPath
+{
+
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/contact"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+
 }
 
 @end

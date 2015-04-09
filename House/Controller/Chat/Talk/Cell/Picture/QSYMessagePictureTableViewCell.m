@@ -8,6 +8,8 @@
 
 #import "QSYMessagePictureTableViewCell.h"
 
+#import "NSString+Calculation.h"
+
 #import "QSYSendMessagePicture.h"
 
 #import <objc/runtime.h>
@@ -118,9 +120,9 @@ static char ImageMessageKey;//!<图片消息
     
     ///更新头像
     UIImageView *icontView = objc_getAssociatedObject(self, &UserIconKey);
-    if (icontView) {
+    if (icontView && [model.f_avatar length] > 0) {
         
-        
+        [icontView loadImageWithURL:[model.f_avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
         
     }
     
@@ -144,9 +146,10 @@ static char ImageMessageKey;//!<图片消息
         
         messageView.frame = CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f);
         
-        if (model.pictureInfo) {
+        if ([model.pictureURL length] > 0) {
             
-            messageView.image = model.pictureInfo;
+            NSData *imageData = [NSData dataWithContentsOfFile:model.pictureURL];
+            messageView.image = [UIImage imageWithData:imageData];
             
         }
         

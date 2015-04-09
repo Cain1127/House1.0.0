@@ -10,6 +10,6 @@
 
 @interface QSYSendMessagePicture : QSYSendMessageBaseModel
 
-@property (nonatomic,retain) UIImage *pictureInfo;//!<聊天中图片信息
+@property (nonatomic,retain) NSString *pictureURL;//!<聊天中图片信息本地路径
 
 @end
