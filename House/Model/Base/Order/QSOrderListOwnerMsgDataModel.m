@@ -28,7 +28,11 @@
                                                     @"sex",
                                                     @"avatar",
                                                     @"nickname",
-                                                    @"level"
+                                                    @"level",
+                                                    @"email",
+                                                    @"realname",
+                                                    @"tj_secondHouse_num",
+                                                    @"tj_rentHouse_num"
                                                     ]];
     return shared_mapping;
     

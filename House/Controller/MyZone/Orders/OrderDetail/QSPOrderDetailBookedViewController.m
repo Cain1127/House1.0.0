@@ -78,6 +78,8 @@
 #import "QSNearInfoViewController.h"
 
 #import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
+#import "QSYTalkPTPViewController.h"
+#import "QSYPostMessageSimpleModel.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -551,6 +553,12 @@
                 case pPersonButtonTypeAsk:
                     
                     NSLog(@"咨询");
+                    {
+                        QSYPostMessageSimpleModel *tempModel = params;
+                        
+                        QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+                        [self.navigationController pushViewController:talkVC animated:YES];
+                    }
                     
                     break;
                 default:
