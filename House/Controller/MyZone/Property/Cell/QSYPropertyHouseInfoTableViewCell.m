@@ -151,7 +151,7 @@ static char SettingKey;     //!<设置按钮关联
     objc_setAssociatedObject(self, &OrderCountKey, orderCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///展开按钮
-    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 44.0f, orderInfoLabel.frame.origin.y - 12.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, orderInfoLabel.frame.origin.y - 12.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         if (button.selected) {
             
