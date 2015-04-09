@@ -134,11 +134,11 @@ static QSSocketManager *_socketManager = nil;
     
     ///设置发送消息
     QSChat::QuestionOnline onLineMessage;
-    onLineMessage.set_token([[QSCoreDataManager getApplicationCurrentTokenID] UTF8String]);
-    onLineMessage.set_user_id([[QSCoreDataManager getUserID] UTF8String]);
-    onLineMessage.set_device_udid([socketManager.currentDeviceUUID UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"") UTF8String]);
+    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"") UTF8String]);
+    onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(socketManager.currentDeviceUUID,@"") UTF8String]);
     onLineMessage.set_device_info([deviceInfoString UTF8String]);
-    onLineMessage.set_local_info([[QSCoreDataManager getCurrentUserCity] UTF8String]);
+    onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"") UTF8String]);
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
