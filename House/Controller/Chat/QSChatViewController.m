@@ -9,6 +9,7 @@
 #import "QSChatViewController.h"
 #import "QSYTenantInfoViewController.h"
 #import "QSYOwnerInfoViewController.h"
+#import "QSYTalkPTPViewController.h"
 
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
@@ -22,6 +23,7 @@
 
 #import "QSYContactInfoSimpleModel.h"
 #import "QSUserSimpleDataModel.h"
+#import "QSYPostMessageSimpleModel.h"
 
 @interface QSChatViewController ()
 
@@ -92,7 +94,35 @@
         button.selected = YES;
         
         ///创建消息列表
-        messageListView = [[QSChatMessagesView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant];
+        messageListView = [[QSChatMessagesView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant andCallBack:^(MESSAGE_LIST_ACTION_TYPE actionType, id params) {
+            
+            switch (actionType) {
+                    ///推荐房源
+                case mMessageListActionTypeGotoRecommendHouse:
+                    
+                    break;
+                    
+                    ///进入系统消息页
+                case mMessageListActionTypeGotoSystemMessage:
+                    
+                    break;
+                    
+                    ///进入聊天
+                case mMessageListActionTypeGotoTalk:
+                {
+                    
+                    QSYPostMessageSimpleModel *tempModel = params;
+                    QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+                    [self.navigationController pushViewController:talkVC animated:YES];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }];
         [self.view addSubview:messageListView];
         
         ///动画移动
@@ -262,7 +292,35 @@
     [self.view sendSubviewToBack:sepLabel];
     
     ///首先创建消息列表
-    messageListView = [[QSChatMessagesView alloc] initWithFrame:CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant];
+    messageListView = [[QSChatMessagesView alloc] initWithFrame:CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant andCallBack:^(MESSAGE_LIST_ACTION_TYPE actionType, id params) {
+        
+        switch (actionType) {
+                ///推荐房源
+            case mMessageListActionTypeGotoRecommendHouse:
+                
+                break;
+                
+                ///进入系统消息页
+            case mMessageListActionTypeGotoSystemMessage:
+                
+                break;
+                
+                ///进入聊天
+            case mMessageListActionTypeGotoTalk:
+            {
+            
+                QSYPostMessageSimpleModel *tempModel = params;
+                QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+                [self.navigationController pushViewController:talkVC animated:YES];
+            
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
     [self.view addSubview:messageListView];
 
 }

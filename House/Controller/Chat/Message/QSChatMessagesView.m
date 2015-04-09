@@ -16,6 +16,8 @@
 
 #import "QSYPostMessageListReturnData.h"
 #import "QSYPostMessageSimpleModel.h"
+#import "QSYSendMessageBaseModel.h"
+#import "QSUserSimpleDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -27,6 +29,9 @@ static char MessageListKey;//!<消息列表关联
 @interface QSChatMessagesView () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,assign) USER_COUNT_TYPE userType;                      //!<用户类型
+
+///消息列表的回调
+@property (nonatomic,copy) void(^messageListCallBack)(MESSAGE_LIST_ACTION_TYPE actionType,id params);
 
 @property (nonatomic,assign) int systemInfoNumber;                          //!<系统消息项
 @property (nonatomic,retain) NSMutableArray *messageList;                   //!消息数据源
@@ -48,13 +53,20 @@ static char MessageListKey;//!<消息列表关联
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType
+- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(MESSAGE_LIST_ACTION_TYPE actionType,id params))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
         
         ///初始化系统消息数据
         [self initSystemInfoDataSource];
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.messageListCallBack = callBack;
+            
+        }
         
         ///消息数组源
         self.messageList = [[NSMutableArray alloc] init];
@@ -99,7 +111,7 @@ static char MessageListKey;//!<消息列表关联
     CGFloat gap = SIZE_DEVICE_WIDTH > 320.0f ? 25.0f : 15.0f;
 
     ///消息列表
-    UITableView *messageList = [[UITableView alloc] initWithFrame:CGRectMake(gap, 0.0f, self.frame.size.width - 2.0f * gap, self.frame.size.height)];
+    __block UITableView *messageList = [[UITableView alloc] initWithFrame:CGRectMake(gap, 0.0f, self.frame.size.width - 2.0f * gap, self.frame.size.height)];
     
     ///取消滚动条
     messageList.showsHorizontalScrollIndicator = NO;
@@ -122,12 +134,65 @@ static char MessageListKey;//!<消息列表关联
     [messageList.header beginRefreshing];
     
     ///注册新消息通知
-    [QSSocketManager registInstantMessageReceiveNotification:^(int msgNum, QSUserSimpleDataModel *userInfo) {
+    [QSSocketManager registInstantMessageReceiveNotification:^(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage, QSUserSimpleDataModel *userInfo) {
         
-        ///
-        APPLICATION_LOG_INFO(@"新消息进入", @"需要编写消息提配")
+        ///生成数据模型
+        QSYPostMessageSimpleModel *newInfoModel = [[QSYPostMessageSimpleModel alloc] init];
+        newInfoModel.id_ = lastMessage.msgID;
+        newInfoModel.from_id = lastMessage.fromID;
+        newInfoModel.to_id = lastMessage.toID;
+        newInfoModel.not_view = [NSString stringWithFormat:@"%d",msgNum];
+        newInfoModel.content = APPLICATION_NSSTRING_SETTING(lastComment, @"");
+        newInfoModel.time = lastMessage.timeStamp;
+        newInfoModel.fromUserInfo = userInfo;
+        
+        ///刷新数据
+        [self.messageList addObject:newInfoModel];
+        [messageList reloadData];
         
     }];
+
+}
+
+#pragma mark - 进入消息列
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    int messageCount = (int)[self.messageList count];
+    if (indexPath.row < messageCount) {
+        
+        ///进入推荐房源列表
+        if (self.messageListCallBack) {
+            
+            ///注销消息监听
+            [QSSocketManager offsInstantMessageReceiveNotification];
+            self.messageListCallBack(mMessageListActionTypeGotoTalk,self.messageList[indexPath.row]);
+            
+        }
+        
+    }
+    
+    if (indexPath.row == messageCount) {
+        
+        ///进入房当前团队消息列表
+        if (self.messageListCallBack) {
+            
+            self.messageListCallBack(mMessageListActionTypeGotoSystemMessage,nil);
+            
+        }
+        
+    }
+    
+    if (indexPath.row == messageCount + 1) {
+        
+        ///进入推荐房源列表
+        if (self.messageListCallBack) {
+            
+            self.messageListCallBack(mMessageListActionTypeGotoRecommendHouse,nil);
+            
+        }
+        
+    }
 
 }
 

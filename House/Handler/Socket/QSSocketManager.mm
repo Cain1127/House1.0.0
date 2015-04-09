@@ -49,7 +49,7 @@ using namespace std;
 @property (nonatomic,copy) void(^currentUnReadMessageNumCallBack)(int msgNum);
 
 ///新消息进入时的提醒回调
-@property (nonatomic,copy) void(^instantMessageNotification)(int msgNum,QSUserSimpleDataModel *userInfo);
+@property (nonatomic,copy) void(^instantMessageNotification)(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage,QSUserSimpleDataModel *userInfo);
 
 ///socket连接器
 @property (nonatomic,strong) AsyncSocket *tcpSocket;
@@ -429,6 +429,21 @@ static QSSocketManager *_socketManager = nil;
         
         self.currentTalkMessageCallBack(YES,ocWordModel);
         
+    } else {
+    
+        ///回调通知
+        if (self.instantMessageNotification) {
+            
+            QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+            userSimple.id_ = [NSString stringWithFormat:@"%d",(int)fIDINT32];
+            userSimple.avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
+            userSimple.username = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
+            userSimple.user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
+            userSimple.level = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
+            self.instantMessageNotification(1,ocWordModel.message,ocWordModel,userSimple);
+            
+        }
+    
     }
 
 }
@@ -580,7 +595,7 @@ void int32ToByte(int32_t i,char *bytes)
  *
  *  @since          1.0.0
  */
-+ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,QSUserSimpleDataModel *userInfo))callBack
++ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage,QSUserSimpleDataModel *userInfo))callBack
 {
 
     if (callBack) {
