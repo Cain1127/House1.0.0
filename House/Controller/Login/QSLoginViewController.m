@@ -300,32 +300,25 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             ///修改用户登录状态
             [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                 
-                [QSCoreDataManager saveLoginCount:count andCallBack:^(BOOL flag) {
+                ///保存用户信息
+                QSYLoginReturnData *tempModel = resultData;
+                QSUserDataModel *userModel = tempModel.userInfo;
+                
+                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                     
-                    [QSCoreDataManager saveLoginPassword:password andCallBack:^(BOOL flag) {
+                    ///显示提示信息
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
                         
-                        QSYLoginReturnData *tempModel = resultData;
-                        QSUserDataModel *userModel = tempModel.userInfo;
-                        
-                        [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                        ///回调
+                        if (self.loginCallBack) {
                             
-                            ///显示提示信息
-                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
-                                
-                                ///回调
-                                if (self.loginCallBack) {
-                                    
-                                    self.loginCallBack(lLoginCheckActionTypeReLogin);
-                                    
-                                }
-                                
-                                [self.navigationController popViewControllerAnimated:YES];
-                                
-                            })
+                            self.loginCallBack(lLoginCheckActionTypeReLogin);
                             
-                        }];
+                        }
                         
-                    }];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    
+                    })
                     
                 }];
                 
@@ -342,21 +335,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             
             ///显示提示信息
             TIPS_ALERT_MESSAGE_ANDTURNBACK(tips, 1.5f, ^(){})
-            
-            ///修改登录状态
-            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
-                
-                [QSCoreDataManager saveLoginCount:@"" andCallBack:^(BOOL flag) {
-                    
-                    [QSCoreDataManager saveLoginPassword:@"" andCallBack:^(BOOL flag) {
-                        
-                        
-                        
-                    }];
-                    
-                }];
-                
-            }];
             
         }
         
