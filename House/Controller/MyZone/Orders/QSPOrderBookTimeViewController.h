@@ -16,9 +16,17 @@ typedef enum
     
 }BOOKTIME_VIEWCONTROLLER_TYPE;
 
+typedef enum
+{
+    
+    bBookResultTypeSucess = 101,        //!<提交成功
+    bBookResultTypeFail,                //!<提交失败
+    
+}BOOKTIME_RESULT_TYPE;
+
 @interface QSPOrderBookTimeViewController : QSTurnBackViewController
 
-- (instancetype)initWithSubmitCallBack:(void(^)(NSInteger resultTag))callBack;
+- (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag))callBack; 
 
 @property ( nonatomic, assign ) BOOKTIME_VIEWCONTROLLER_TYPE vcType;
 @property ( nonatomic, strong ) id houseInfo;        //!<房源信息数据模型

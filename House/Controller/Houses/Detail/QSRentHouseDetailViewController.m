@@ -282,9 +282,9 @@ static char LeftStarKey;            //!<左侧星级
                     if (0 >= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
-                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(NSInteger resultTag) {
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
                             
-                            if (1 == resultTag) {
+                            if (bBookResultTypeSucess == resultTag) {
                                 
                                 ///预约成功，刷新详情数据
                                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);

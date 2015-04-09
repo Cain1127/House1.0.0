@@ -77,6 +77,7 @@
 #import "QSRentHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
 
+#import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -153,6 +154,17 @@
 
 - (void)createSubViewsUI
 {
+    
+    if (self.contentBgView) {
+        
+        for (UIView *view in [self.contentBgView subviews]) {
+            
+            [view removeFromSuperview];
+            
+        }
+        
+    }
+    
     ///头部标题
     NSString *titleTip = @"";
     
@@ -210,6 +222,19 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailChangeOrderButtonView:修改订单");
+                    {
+                        QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+                            
+                            if (bBookResultTypeSucess == resultTag) {
+                                //修改成功,更新详情
+                                [self getDetailData];
+                            }
+                            
+                        }];
+                        [btVc setVcType:bBookTypeViewControllerChange];
+                        [self.navigationController pushViewController:btVc animated:YES];
+                        
+                    }
                     break;
                 default:
                     break;
@@ -321,6 +346,18 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailAppointmentSalerAgainButtonView:重新预约业主按钮按钮");
+                    {
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+                            
+                            if (bBookResultTypeSucess == resultTag) {
+                                [self getDetailData];
+                            }
+                            
+                        }];
+                        [bookTimeVc setVcType:bBookTypeViewControllerBook];
+                        [bookTimeVc setHouseInfo:self.orderDetailData.house_msg];
+                        [self.navigationController pushViewController:bookTimeVc animated:YES];
+                    }
                     break;
                 default:
                     break;
@@ -781,9 +818,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailRejectAndAcceptAppointmentButtonView:拒绝预约");
+                    [self cancelAppointmentOrder];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailRejectAndAcceptAppointmentButtonView:接受预约");
+                    [self commitAppointmentOrder];
                     break;
                 default:
                     break;
@@ -1018,6 +1057,7 @@
     
 }
 
+#pragma mark - 获取订单详情数据
 - (void)getDetailData
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
@@ -1083,6 +1123,106 @@
         
     }];
     
+}
+
+
+#pragma mark - 请求取消预约订单
+- (void)cancelAppointmentOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	int	用户id
+//    order_id	true	string	订单id
+//    cause	true	string	取消的原因，字符串（暂定）
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            [self.navigationController popViewControllerAnimated:YES];
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    [tempParam setObject:@"" forKey:@"cause"];
+ 
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
+#pragma mark - 请求接受预约订单
+- (void)commitAppointmentOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	string	确认的用户id(房主)
+//    order_id	true	string	订单id
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            [self.navigationController popViewControllerAnimated:YES];
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
 }
 
 @end

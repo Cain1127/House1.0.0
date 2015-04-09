@@ -11,6 +11,7 @@
 #import "CoreHeader.h"
 #include <objc/runtime.h>
 #import "QSOrderListReturnData.h"
+#import "NSString+Calculation.h"
 
 ///关联
 static char houseTypeTopTipViewKey;  //!<左上角图片关联key
@@ -144,7 +145,7 @@ static char oepnActionBtKey;    //!<右部展开按钮关联key
     }
 
     if (contentImgView) {
-        [contentImgView setImageWithURL:[NSURL URLWithString:[self.sectionData getHouseSmallImgUrl]]];
+        [contentImgView setImageWithURL:[[self.sectionData getHouseSmallImgUrl] getImageURL]];
     }
     
     if ([self.sectionData orderInfoList]&&[[self.sectionData orderInfoList] count]>0)

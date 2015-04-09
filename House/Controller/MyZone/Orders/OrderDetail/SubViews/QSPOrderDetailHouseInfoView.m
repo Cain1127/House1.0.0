@@ -9,6 +9,7 @@
 #import "QSPOrderDetailHouseInfoView.h"
 #import "UIKit+AFNetworking.h"
 #import "QSOrderListHouseInfoDataModel.h"
+#import "NSString+Calculation.h"
 
 ////关联
 //static char houseIDLabelKey;        //!<房源ID关联key
@@ -146,7 +147,7 @@
                 [self.houseTitleIDLabel setText:[NSString stringWithFormat:@"房源编号 %@",data.house_no]];
             }
             if (self.contentImgView) {
-                [self.contentImgView setImageWithURL:[NSURL URLWithString:data.attach_thumb]];
+                [self.contentImgView setImageWithURL:[data.attach_thumb getImageURL]];
             }
             if (self.nameLabel) {
                 [self.nameLabel setText:data.title];

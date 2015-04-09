@@ -658,6 +658,10 @@ typedef enum
     rRequestTypeLogout,                         //!<退出登录
     rRequestTypeReloadUserUnfo,                 //!<重新下载用户信息
     
+    rRequestTypeOrderCancelAppointment = 10003, //!<订单详情里取消预约订单
+    rRequestTypeOrderCommitAppointment = 10004, //!<订单详情里接受预约订单
+    
+    
     rRequestTypeImage                           //!<图片请求：末尾请求
 
 }REQUEST_TYPE;                                  //!<请求类型
