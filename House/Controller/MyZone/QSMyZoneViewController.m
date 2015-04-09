@@ -809,8 +809,8 @@ static char OwnerRootView;  //!<业主底view
 - (void)updateRenantCountInfo
 {
     
-    QSMyZoneOwnerView *view = objc_getAssociatedObject(self, &RenantRootView);
-    [view updateOwnerCountInfo:self.statisticsData.headerData.ownerData];
+    QSMyZoneTenantView *view = objc_getAssociatedObject(self, &RenantRootView);
+    [view updateRentCountInfo:self.statisticsData.headerData.renantData];
     
 }
 
@@ -818,8 +818,8 @@ static char OwnerRootView;  //!<业主底view
 - (void)updateOwnerCountInfo
 {
     
-    QSMyZoneTenantView *view = objc_getAssociatedObject(self, &OwnerRootView);
-    [view updateRentCountInfo:self.statisticsData.headerData.renantData];
+    QSMyZoneOwnerView *view = objc_getAssociatedObject(self, &OwnerRootView);
+    [view updateOwnerCountInfo:self.statisticsData.headerData.ownerData];
     
 }
 

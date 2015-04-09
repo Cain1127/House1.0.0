@@ -13,7 +13,8 @@
 #import <objc/runtime.h>
 
 ///关联
-static char UserIconKey;//!<头像关联
+static char UserIconKey;    //!<头像关联
+static char ImageMessageKey;//!<图片消息
 
 @interface QSYMessagePictureTableViewCell ()
 
@@ -62,7 +63,7 @@ static char UserIconKey;//!<头像关联
     CGFloat xpointIcon = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
     CGFloat xpointArrow = xpointIcon + 40.0f + 3.0f;
     CGFloat xpointMessage = xpointArrow + 5.0f;
-    CGFloat widthMessage = SIZE_DEVICE_WIDTH * 3.0f / 5.0f;
+    CGFloat widthMessage = SIZE_DEVICE_WIDTH * 2.0f / 5.0f;
     if (mMessageFromTypeMY == self.messageType) {
         
         xpointIcon = SIZE_DEVICE_WIDTH - 40.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
@@ -72,7 +73,7 @@ static char UserIconKey;//!<头像关联
     }
     
     ///头像
-    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, 15.0f, 40.0f, 40.0f)];
     iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
     [self.contentView addSubview:iconView];
     objc_setAssociatedObject(self, &UserIconKey, iconView, OBJC_ASSOCIATION_ASSIGN);
@@ -92,6 +93,23 @@ static char UserIconKey;//!<头像关联
     }
     [self.contentView addSubview:arrowIndicator];
     
+    ///消息图片底view
+    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 100.0f)];
+    rootView.layer.cornerRadius = 4.0f;
+    rootView.backgroundColor = COLOR_CHARACTERS_GRAY;
+    if (mMessageFromTypeMY == self.messageType) {
+        
+        rootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+        
+    }
+    [self.contentView addSubview:rootView];
+    
+    ///图片消息
+    QSImageView *pictureView = [[QSImageView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f)];
+    pictureView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_100];
+    [rootView addSubview:pictureView];
+    objc_setAssociatedObject(self, &ImageMessageKey, pictureView, OBJC_ASSOCIATION_ASSIGN);
+    
 }
 
 #pragma mark - 刷新UI
@@ -107,6 +125,32 @@ static char UserIconKey;//!<头像关联
     }
     
     ///更新图片
+    UIImageView *messageView = objc_getAssociatedObject(self, &ImageMessageKey);
+    if (messageView) {
+        
+        ///更新消息体尺寸
+        UIView *rootView = messageView.superview;
+        
+        if (mMessageFromTypeMY == self.messageType) {
+            
+            CGFloat originalWidth = rootView.frame.size.width;
+            rootView.frame = CGRectMake(rootView.frame.origin.x + (originalWidth - model.showWidth), rootView.frame.origin.y, model.showWidth, model.showHeight);
+            
+        } else {
+            
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, model.showWidth, model.showHeight);
+            
+        }
+        
+        messageView.frame = CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f);
+        
+        if (model.pictureInfo) {
+            
+            messageView.image = model.pictureInfo;
+            
+        }
+        
+    }
     
 }
 

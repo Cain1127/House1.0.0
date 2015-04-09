@@ -91,6 +91,17 @@ static char UserIconKey;//!<头像关联
         
     }
     [self.contentView addSubview:arrowIndicator];
+    
+    ///消息图片底view
+    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 50.0f)];
+    rootView.layer.cornerRadius = 4.0f;
+    rootView.backgroundColor = COLOR_CHARACTERS_GRAY;
+    if (mMessageFromTypeMY == self.messageType) {
+        
+        rootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+        
+    }
+    [self.contentView addSubview:rootView];
 
 }
 

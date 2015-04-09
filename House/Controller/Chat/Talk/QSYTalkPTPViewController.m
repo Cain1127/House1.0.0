@@ -15,6 +15,8 @@
 #import "QSYMessagePictureTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "NSString+Format.h"
+#import "NSString+Calculation.h"
 
 #import "QSSocketManager.h"
 #import "QSCoreDataManager+User.h"
@@ -40,9 +42,6 @@
 @property (nonatomic,strong) UIView *rootView;                              //!<底view，方便滑动
 @property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
 @property (nonatomic,retain) NSMutableArray *messagesDataSource;            //!<消息数据
-@property (nonatomic,retain) QSYSendMessageWord *wordMessageModel;          //!<文字消息模型
-@property (nonatomic,retain) QSYSendMessageVideo *videoMessageModel;        //!<文字消息模型
-@property (nonatomic,retain) QSYSendMessagePicture *pictureMessageModel;    //!<文字消息模型
 
 @end
 
@@ -62,25 +61,6 @@
         
         ///初始化数据源
         self.messagesDataSource = [[NSMutableArray alloc] init];
-        
-        ///初始化消息模型
-        self.wordMessageModel = [[QSYSendMessageWord alloc] init];
-        self.wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        self.wordMessageModel.fromID = [QSCoreDataManager getUserID];
-        self.wordMessageModel.toID = self.wordMessageModel.fromID;
-        self.wordMessageModel.deviceUUID = [NSString getDeviceUUID];
-        
-        self.videoMessageModel = [[QSYSendMessageVideo alloc] init];
-        self.videoMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        self.videoMessageModel.fromID = [QSCoreDataManager getUserID];
-        self.videoMessageModel.toID = self.wordMessageModel.fromID;
-        self.videoMessageModel.deviceUUID = [NSString getDeviceUUID];
-        
-        self.pictureMessageModel = [[QSYSendMessagePicture alloc] init];
-        self.pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        self.pictureMessageModel.fromID = [QSCoreDataManager getUserID];
-        self.pictureMessageModel.toID = self.wordMessageModel.fromID;
-        self.pictureMessageModel.deviceUUID = [NSString getDeviceUUID];
         
     }
     
@@ -244,7 +224,8 @@
 {
 
     ///根据消息的类型，返回不同的高度
-    return 44.0f;
+    QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
+    return tempModel.showHeight + 30.0f;
 
 }
 
@@ -308,7 +289,7 @@
                 cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
                 if (nil == cellNormaMessage) {
                     
-                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
                     
                     ///取消选择样式
                     cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -324,7 +305,7 @@
                 UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
                 if (nil == cellNormaMessage) {
                     
-                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
                     
                     ///取消选择样式
                     cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -404,11 +385,31 @@
     ///判断是否存在文字消息
     if ([textField.text length] > 0) {
         
-        self.wordMessageModel.message = textField.text;
+        NSString *sendMessage = textField.text;
+        QSYSendMessageWord *wordMessageModel = [[QSYSendMessageWord alloc] init];
+        wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
+        wordMessageModel.fromID = self.myUserModel.id_;
+        wordMessageModel.toID = self.userModel.id_;
+        wordMessageModel.deviceUUID = [NSString getDeviceUUID];
+        wordMessageModel.message = sendMessage;
         textField.text = nil;
         
+        CGFloat showHeight = 30.0f;
+        CGFloat showWidth = [sendMessage calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
+        if (showWidth > (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f)) {
+            
+            showWidth = (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f);
+            showHeight = [sendMessage calculateStringDisplayHeightByFixedWidth:showWidth andFontSize:FONT_BODY_16];
+            
+        }
+        
+        showWidth = showWidth + 20.0f;
+        showHeight = showHeight + 20.0f;
+        wordMessageModel.showWidth = showWidth;
+        wordMessageModel.showHeight = showHeight;
+        
         ///显示当前自已发送的消息
-        [self.messagesDataSource addObject:self.wordMessageModel];
+        [self.messagesDataSource addObject:wordMessageModel];
         
         ///刷新消息列表
         [self.messagesListView reloadData];
@@ -417,7 +418,7 @@
         [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
         ///发送消息
-        [QSSocketManager sendMessageToPerson:self.wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
+        [QSSocketManager sendMessageToPerson:wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
             
             ///绑定消息回调
             [self.messagesDataSource addObject:model];
@@ -534,13 +535,28 @@
         UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
         
         ///保存图片消息
-        self.pictureMessageModel.pictureInfo = smallImage;
+        QSYSendMessagePicture *pictureMessageModel = [[QSYSendMessagePicture alloc] init];
+        pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypePicture;
+        pictureMessageModel.fromID = self.myUserModel.id_;
+        pictureMessageModel.toID = self.userModel.id_;
+        pictureMessageModel.deviceUUID = [NSString getDeviceUUID];
+        pictureMessageModel.pictureInfo = smallImage;
+        
+        CGFloat showWidth = smallImage.size.width;
+        showWidth = (showWidth > (SIZE_DEVICE_WIDTH * 2.0f / 5.0f)) ? (SIZE_DEVICE_WIDTH * 2.0f / 5.0f) : showWidth;
+        CGFloat showHeight = showWidth * (smallImage.size.height / smallImage.size.width);
+        showWidth = showWidth + 20.0f;
+        showHeight = showHeight + 20.0f;
+        pictureMessageModel.showWidth = showWidth;
+        pictureMessageModel.showHeight = showHeight;
         
         ///加载当前消息
-        [self.messagesDataSource addObject:self.pictureMessageModel];
+        [self.messagesDataSource addObject:pictureMessageModel];
         
         ///发送消息
         
+        ///刷新数据
+        [self.messagesListView reloadData];
         
     }
     
