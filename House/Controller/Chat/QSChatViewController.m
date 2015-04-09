@@ -10,6 +10,7 @@
 #import "QSYTenantInfoViewController.h"
 #import "QSYOwnerInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSMapManager.h"
 
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
@@ -43,6 +44,12 @@
     ///导航栏工具按钮
     UIButton *toolButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeTool] andCallBack:^(UIButton *button) {
         
+        QSMapManager *mapMgr = [[QSMapManager alloc] init];
+        [mapMgr getUserLocation:^(BOOL isLocalSuccess, NSString *placename) {
+            
+            NSLog(@"回调当前用户地址%@",placename);
+            
+        }];
         ///进入搜索页
         [self gotoToolViewController];
         
