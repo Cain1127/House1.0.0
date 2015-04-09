@@ -11,6 +11,8 @@
 #import "QSYOwnerInfoViewController.h"
 
 #import "QSYMessageWordTableViewCell.h"
+#import "QSYMessageVideoTableViewCell.h"
+#import "QSYMessagePictureTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
@@ -252,10 +254,10 @@
     
     ///消息类型
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
-    
     UITableViewCell *cellNormaMessage;
     
     switch (tempModel.msgType) {
+            ///文字聊天
         case qQSCustomProtocolChatMessageTypeWord:
         {
             
@@ -295,6 +297,82 @@
             }
             
         }
+            break;
+            
+            ///图片聊天
+        case qQSCustomProtocolChatMessageTypePicture:
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessagePicture";
+                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
+                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessagePicture";
+                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
+                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            }
+            break;
+            
+            ///音频聊天
+        case qQSCustomProtocolChatMessageTypeVideo:
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessageVideo";
+                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
+                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessageVideo";
+                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
+                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            }
             break;
             
         default:
