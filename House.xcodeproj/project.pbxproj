@@ -648,6 +648,7 @@
 		47A207761AB807D100F51797 /* myzone_calendar_month_bt_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */; };
 		47A207771AB807D100F51797 /* myzone_calendar_month_bt_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */; };
 		47A207791AB9217C00F51797 /* myzone_calendar_day_selected_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */; };
+		47B411561AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B411551AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.m */; };
 		47B8A1CE1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B8A1CA1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_normal.png */; };
 		47B8A1CF1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B8A1CB1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_selected.png */; };
 		47B8A1D01AC11CC50083C20A /* myzone_oorderlist_cell_reject_bt_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B8A1CC1AC11CC50083C20A /* myzone_oorderlist_cell_reject_bt_normal.png */; };
@@ -1831,6 +1832,8 @@
 		47A207741AB807D100F51797 /* myzone_calendar_month_bt_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_left.png; sourceTree = "<group>"; };
 		47A207751AB807D100F51797 /* myzone_calendar_month_bt_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_month_bt_right.png; sourceTree = "<group>"; };
 		47A207781AB9217C00F51797 /* myzone_calendar_day_selected_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_calendar_day_selected_bt.png; sourceTree = "<group>"; };
+		47B411541AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderDetailCancelOrAppointReturnDataModel.h; sourceTree = "<group>"; };
+		47B411551AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderDetailCancelOrAppointReturnDataModel.m; sourceTree = "<group>"; };
 		47B8A1CA1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderlist_cell_accept_bt_normal.png; sourceTree = "<group>"; };
 		47B8A1CB1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderlist_cell_accept_bt_selected.png; sourceTree = "<group>"; };
 		47B8A1CC1AC11CC50083C20A /* myzone_oorderlist_cell_reject_bt_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorderlist_cell_reject_bt_normal.png; sourceTree = "<group>"; };
@@ -5436,6 +5439,8 @@
 				475C3DA51AB679F50028608F /* QSOrderListOwnerMsgDataModel.m */,
 				4777741D1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.h */,
 				4777741E1ABFAA9F000AD7D3 /* QSOrderDetailInfoDataModel.m */,
+				47B411541AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.h */,
+				47B411551AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.m */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -6478,6 +6483,7 @@
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */,
 				18D081CA1ACE26AA004FA20F /* QSYAskRentTipsViewController.m in Sources */,
+				47B411561AD6520F00E40FF3 /* QSPOrderDetailCancelOrAppointReturnDataModel.m in Sources */,
 				18B5631D1A81AA40009779A0 /* QSCustomCitySelectedView.m in Sources */,
 				18B572A81AC16D1600C75682 /* once.cc in Sources */,
 				CEFA4DF81AAD2F010018C8F9 /* QSNewHouseDetailViewController.m in Sources */,
@@ -6772,8 +6778,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -6813,8 +6819,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

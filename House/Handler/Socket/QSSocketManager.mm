@@ -8,6 +8,10 @@
 
 #import "QSSocketManager.h"
 
+#import "NSString+Format.h"
+#import "NSDate+Formatter.h"
+#import "NSString+Calculation.h"
+
 #include "qschat.pb.h"
 
 #import "ODSocket.h"
@@ -32,9 +36,9 @@
 using namespace std;
 
 ///服务端地址
-#define QS_SOCKET_SERVER_IP @"192.168.1.145"
+//#define QS_SOCKET_SERVER_IP @"192.168.1.145"
 #define QS_SOCKET_SERVER_PORT 8000
-//#define QS_SOCKET_SERVER_IP @"117.41.235.107"
+#define QS_SOCKET_SERVER_IP @"117.41.235.107"
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
@@ -45,9 +49,13 @@ using namespace std;
 @property (nonatomic,copy) void(^currentUnReadMessageNumCallBack)(int msgNum);
 
 ///新消息进入时的提醒回调
-@property (nonatomic,copy) void(^instantMessageNotification)(int msgNum,QSUserSimpleDataModel *userInfo);
+@property (nonatomic,copy) void(^instantMessageNotification)(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage,QSUserSimpleDataModel *userInfo);
 
-@property (nonatomic,strong) AsyncSocket *tcpSocket;//!<socket连接器
+///socket连接器
+@property (nonatomic,strong) AsyncSocket *tcpSocket;
+
+@property (nonatomic,retain) QSUserSimpleDataModel *myUserMode; //!<当前用户的数据模型
+@property (nonatomic,copy) NSString *currentDeviceUUID;         //!<当前设备的UUID
 
 @end
 
@@ -96,6 +104,10 @@ static QSSocketManager *_socketManager = nil;
         APPLICATION_LOG_INFO(@"TCP连接成功：", @"无错误")
         
     }
+    
+    ///相关参数初始化
+    self.myUserMode = (QSUserSimpleDataModel *)[QSCoreDataManager getCurrentUserDataModel];
+    self.currentDeviceUUID = [NSString getDeviceUUID];
 
 }
 
@@ -113,18 +125,20 @@ static QSSocketManager *_socketManager = nil;
     ///自身单例
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
-#if 0
-    int32_t testLength = 10;
-    char *testChar;
-    sprintf(testChar, "%d", testLength);
-    NSLog(@"%s",testChar);
-    HTONL(testLength);
-    sprintf(testChar, "%d",testLength);
-#endif
+    ///设置信息
+    NSString *deviceName = [UIDevice currentDevice].name;                   //获取设备所有者的名称
+    NSString *deviceType = [UIDevice currentDevice].model;                  //获取设备的类别
+    NSString *deviceSystemName = [UIDevice currentDevice].systemName;       //获取设备的类别
+    NSString *deviceSystemVersion = [UIDevice currentDevice].systemVersion; //获取设备的类别
+    NSString *deviceInfoString = [NSString stringWithFormat:@"%@的%@(%@ %@)",deviceName,deviceType,deviceSystemName,deviceSystemVersion];
     
-    qschat::QuestionOnline onLineMessage;
-//    onLineMessage.set_token([[QSCoreDataManager getApplicationCurrentTokenID] UTF8String]);
-    onLineMessage.set_token([[QSCoreDataManager getUserID] UTF8String]);
+    ///设置发送消息
+    QSChat::QuestionOnline onLineMessage;
+    onLineMessage.set_token([[QSCoreDataManager getApplicationCurrentTokenID] UTF8String]);
+    onLineMessage.set_user_id([[QSCoreDataManager getUserID] UTF8String]);
+    onLineMessage.set_device_udid([socketManager.currentDeviceUUID UTF8String]);
+    onLineMessage.set_device_info([deviceInfoString UTF8String]);
+    onLineMessage.set_local_info([[QSCoreDataManager getCurrentUserCity] UTF8String]);
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
@@ -137,11 +151,11 @@ static QSSocketManager *_socketManager = nil;
     onLineMessage.SerializeToArray(buf,length);
     
     ///先发送长度和类型
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:300];
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:300];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:7000];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:7001];
     
     ///再发主体信息
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:300];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:7002];
 
 }
 
@@ -174,7 +188,7 @@ static QSSocketManager *_socketManager = nil;
 + (void)sendWordMessageToPersion:(QSYSendMessageWord *)wordMessageModel andCallBack:(void(^)(BOOL flag,id model))callBack
 {
     
-    ///先发送长度和类型
+    ///socket管理器
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
     ///保存回调
@@ -184,7 +198,7 @@ static QSSocketManager *_socketManager = nil;
         
     }
 
-    qschat::QuestionWord sendMessage;
+    QSChat::QuestionWord sendMessage;
     
     ///设置消息体
     int32_t fromIDINT32 = [wordMessageModel.fromID intValue];
@@ -194,6 +208,18 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:wordMessageModel.sendType]);
     sendMessage.set_message([wordMessageModel.message UTF8String]);
     
+    sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
+    
+    sendMessage.set_m_avatar([wordMessageModel.f_avatar UTF8String]);
+    sendMessage.set_m_name([wordMessageModel.f_name UTF8String]);
+    sendMessage.set_m_leve([wordMessageModel.f_leve UTF8String]);
+    sendMessage.set_m_user_type([wordMessageModel.f_user_type UTF8String]);
+    
+    sendMessage.set_t_avatar([wordMessageModel.t_avatar UTF8String]);
+    sendMessage.set_t_name([wordMessageModel.t_name UTF8String]);
+    sendMessage.set_t_leve([wordMessageModel.t_leve UTF8String]);
+    sendMessage.set_t_user_type([wordMessageModel.t_user_type UTF8String]);
+    
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
     int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
@@ -201,13 +227,14 @@ static QSSocketManager *_socketManager = nil;
     HTONL(messageLength);
     HTONL(messageType);
     
+    ///头信息
     char *buf = new char[length];
     sendMessage.SerializeToArray(buf,length);
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:300];
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:300];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8000];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8001];
     
-    ///再发主体信息
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:300];
+    ///发主体信息
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8002];
 
 }
 
@@ -306,17 +333,17 @@ static QSSocketManager *_socketManager = nil;
     ///根据不同的类型，转不同的模型
     switch (messageTypeNetwork) {
             ///上线
-        case qschat::ONLINE:
+        case QSChat::QSCHAT_ONLINE:
             
             break;
             
             ///下线
-        case qschat::OFFLINE:
+        case QSChat::QSCHAT_OFFLINE:
             
             break;
             
             ///文字聊天
-        case qschat::WORD:
+        case QSChat::QSCHAT_WORD:
         {
         
             ///消息
@@ -325,7 +352,7 @@ static QSSocketManager *_socketManager = nil;
             string messageString = string(messageBuf);
             
             ///返回的信息
-            qschat::AnswerWord wordMessage = qschat::AnswerWord();
+            QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
             wordMessage.ParseFromString(messageString);
             
             ///转模型关回调
@@ -335,22 +362,22 @@ static QSSocketManager *_socketManager = nil;
             break;
             
             ///图片聊天
-        case qschat::PIC:
+        case QSChat::QSCHAT_PIC:
             
             break;
             
             ///视频聊天
-        case qschat::VIDEO:
+        case QSChat::QSCHAT_VIDEO:
             
             break;
             
             ///推荐房源消息
-        case qschat::SPECIAL:
+        case QSChat::QSCHAT_SPECIAL:
             
             break;
             
             ///系统消息
-        case qschat::SYSTEM:
+        case QSChat::QSCHAT_SYSTEM:
             
             break;
             
@@ -361,94 +388,149 @@ static QSSocketManager *_socketManager = nil;
 }
 
 #pragma mark - 将C++数据模型转为OC的消息模型，然后判断回调
-- (void)talk_ChangeCPPToOCModel_Word:(qschat::AnswerWord)cppWordModel
+- (void)talk_ChangeCPPToOCModel_Word:(QSChat::AnswerWord)cppWordModel
 {
     
     ///OC数据模型
     QSYSendMessageWord *ocWordModel = [[QSYSendMessageWord alloc] init];
     ocWordModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-    ocWordModel.fromID = @"123";
-    ocWordModel.toID = @"123";
+    ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
+    ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
+    
+    int64_t fIDINT32 = cppWordModel.fid();
+    ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
+    ocWordModel.toID = self.myUserMode.id_;
     ocWordModel.message = [NSString stringWithUTF8String:cppWordModel.message().c_str()];
-    ocWordModel.sendType = qQSCustomProtocolChatSendTypePTG;
+    
+    ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
+    
+    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
+    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
+    ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
+    ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
+    ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.f_unread_count().c_str()];
+    
+    CGFloat showHeight = 30.0f;
+    CGFloat showWidth = [ocWordModel.message calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
+    if (showWidth > (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f)) {
+        
+        showWidth = (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f);
+        showHeight = [ocWordModel.message calculateStringDisplayHeightByFixedWidth:showWidth andFontSize:FONT_BODY_16];
+        
+    }
+    
+    showWidth = showWidth + 20.0f;
+    showHeight = showHeight + 20.0f;
+    ocWordModel.showWidth = showWidth;
+    ocWordModel.showHeight = showHeight;
 
     ///回调
     if (self.currentTalkMessageCallBack) {
         
         self.currentTalkMessageCallBack(YES,ocWordModel);
         
+    } else {
+    
+        ///回调通知
+        if (self.instantMessageNotification) {
+            
+            QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+            userSimple.id_ = [NSString stringWithFormat:@"%d",(int)fIDINT32];
+            userSimple.avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
+            userSimple.username = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
+            userSimple.user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
+            userSimple.level = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
+            self.instantMessageNotification(1,ocWordModel.message,ocWordModel,userSimple);
+            
+        }
+    
     }
 
 }
 
 ///将OC的消息类型转为C++的消息类型
-- (qschat::ChatMessageType)talk_ChangeOCEnumToCPP_MessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)ocType
+- (QSChat::QSChatMessageType)talk_ChangeOCEnumToCPP_MessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)ocType
 {
     
     switch (ocType) {
             ///文字信息
         case qQSCustomProtocolChatMessageTypeWord:
             
-            return qschat::WORD;
+            return QSChat::QSCHAT_WORD;
             
             ///图片信息
         case qQSCustomProtocolChatMessageTypePicture:
             
-            return qschat::PIC;
+            return QSChat::QSCHAT_PIC;
             
             ///音频信息
         case qQSCustomProtocolChatMessageTypeVideo:
             
-            return qschat::VIDEO;
+            return QSChat::QSCHAT_VIDEO;
             
             ///上线消息
         case qQSCustomProtocolChatMessageTypeOnLine:
             
-            return qschat::ONLINE;
+            return QSChat::QSCHAT_ONLINE;
             
             ///下线消息
         case qQSCustomProtocolChatMessageTypeOffLine:
             
-            return qschat::OFFLINE;
+            return QSChat::QSCHAT_OFFLINE;
             
             ///推送房源
         case qQSCustomProtocolChatMessageTypeSpecial:
             
-            return qschat::SPECIAL;
+            return QSChat::QSCHAT_SPECIAL;
             
             ///系统消息
         case qQSCustomProtocolChatMessageTypeSystem:
             
-            return qschat::SYSTEM;
+            return QSChat::QSCHAT_SYSTEM;
+            
+            ///系统消息
+        case qQSCustomProtocolChatMessageTypeHistoryWord:
+            
+            return QSChat::QSCHAT_HISTORY_WORD;
+            
+            ///系统消息
+        case qQSCustomProtocolChatMessageTypeHistoryPicture:
+            
+            return QSChat::QSCHAT_HISTORY_PIC;
+            
+            ///系统消息
+        case qQSCustomProtocolChatMessageTypeHistoryVideo:
+            
+            return QSChat::QSCHAT_HISTORY_VIDEO;
             
         default:
             break;
     }
     
-    return qschat::WORD;
+    return QSChat::QSCHAT_WORD;
     
 }
 
 ///将OC的消息发送类型转为C++的发送类型
-- (qschat::ChatRequestType)talk_ChangeOCEnumToCPP_SendType:(QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE)ocType
+- (QSChat::ChatRequestType)talk_ChangeOCEnumToCPP_SendType:(QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE)ocType
 {
 
     switch (ocType) {
             ///单聊
         case qQSCustomProtocolChatSendTypePTP:
             
-            return qschat::ChatTypeSendPTP;
+            return QSChat::ChatTypeSendPTP;
         
             ///群聊
         case qQSCustomProtocolChatSendTypePTG:
             
-            return qschat::ChatTypeSendPTG;
+            return QSChat::ChatTypeSendPTG;
             
         default:
             break;
     }
     
-    return qschat::ChatTypeSendPTP;
+    return QSChat::ChatTypeSendPTP;
 
 }
 
@@ -513,7 +595,7 @@ void int32ToByte(int32_t i,char *bytes)
  *
  *  @since          1.0.0
  */
-+ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,QSUserSimpleDataModel *userInfo))callBack
++ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage,QSUserSimpleDataModel *userInfo))callBack
 {
 
     if (callBack) {
@@ -531,6 +613,100 @@ void int32ToByte(int32_t i,char *bytes)
     QSSocketManager *manager = [self shareSocketManager];
     manager.instantMessageNotification = nil;
 
+}
+
+#pragma mark - 聊天图片沙盒目录
+- (NSString *)getTalkImageSavePath
+{
+    
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/image"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (NSString *)getTalkVideoSavePath
+{
+    
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/video"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (NSString *)getContactRootPath
+{
+    
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/contact"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
 }
 
 @end

@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace qschat {
+namespace QSChat {
     
     namespace {
         
@@ -26,6 +26,9 @@ namespace qschat {
         const ::google::protobuf::Descriptor* QuestionOffline_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         QuestionOffline_reflection_ = NULL;
+        const ::google::protobuf::Descriptor* QuestionHistory_descriptor_ = NULL;
+        const ::google::protobuf::internal::GeneratedMessageReflection*
+        QuestionHistory_reflection_ = NULL;
         const ::google::protobuf::Descriptor* QuestionWord_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         QuestionWord_reflection_ = NULL;
@@ -38,6 +41,9 @@ namespace qschat {
         const ::google::protobuf::Descriptor* QuestionVideo_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         QuestionVideo_reflection_ = NULL;
+        const ::google::protobuf::Descriptor* QuestionSystem_descriptor_ = NULL;
+        const ::google::protobuf::internal::GeneratedMessageReflection*
+        QuestionSystem_reflection_ = NULL;
         const ::google::protobuf::Descriptor* AnswerWord_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         AnswerWord_reflection_ = NULL;
@@ -59,7 +65,7 @@ namespace qschat {
         const ::google::protobuf::Descriptor* AnswerSystem_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         AnswerSystem_reflection_ = NULL;
-        const ::google::protobuf::EnumDescriptor* ChatMessageType_descriptor_ = NULL;
+        const ::google::protobuf::EnumDescriptor* QSChatMessageType_descriptor_ = NULL;
         const ::google::protobuf::EnumDescriptor* ChatRequestType_descriptor_ = NULL;
         
     }  // namespace
@@ -72,8 +78,12 @@ namespace qschat {
                                                                              "qschat.proto");
         GOOGLE_CHECK(file != NULL);
         QuestionOnline_descriptor_ = file->message_type(0);
-        static const int QuestionOnline_offsets_[1] = {
+        static const int QuestionOnline_offsets_[5] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOnline, token_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOnline, user_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOnline, device_udid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOnline, device_info_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOnline, local_info_),
         };
         QuestionOnline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -87,8 +97,10 @@ namespace qschat {
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionOnline));
         QuestionOffline_descriptor_ = file->message_type(1);
-        static const int QuestionOffline_offsets_[1] = {
+        static const int QuestionOffline_offsets_[3] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOffline, token_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOffline, user_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionOffline, info_),
         };
         QuestionOffline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -101,12 +113,41 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionOffline));
-        QuestionWord_descriptor_ = file->message_type(2);
-        static const int QuestionWord_offsets_[4] = {
+        QuestionHistory_descriptor_ = file->message_type(2);
+        static const int QuestionHistory_offsets_[6] = {
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, ctype_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, token_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, wid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, page_num_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, current_page_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, last_id_),
+        };
+        QuestionHistory_reflection_ =
+        new ::google::protobuf::internal::GeneratedMessageReflection(
+                                                                     QuestionHistory_descriptor_,
+                                                                     QuestionHistory::default_instance_,
+                                                                     QuestionHistory_offsets_,
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, _has_bits_[0]),
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionHistory, _unknown_fields_),
+                                                                     -1,
+                                                                     ::google::protobuf::DescriptorPool::generated_pool(),
+                                                                     ::google::protobuf::MessageFactory::generated_factory(),
+                                                                     sizeof(QuestionHistory));
+        QuestionWord_descriptor_ = file->message_type(3);
+        static const int QuestionWord_offsets_[13] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, tid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, ctype_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, message_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_user_type_),
         };
         QuestionWord_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -119,8 +160,8 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionWord));
-        QuestionSpecial_descriptor_ = file->message_type(3);
-        static const int QuestionSpecial_offsets_[8] = {
+        QuestionSpecial_descriptor_ = file->message_type(4);
+        static const int QuestionSpecial_offsets_[17] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, cid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, ctype_),
@@ -129,6 +170,15 @@ namespace qschat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, pic_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, desc_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, t_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, t_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, t_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, t_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_user_type_),
         };
         QuestionSpecial_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -141,12 +191,21 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionSpecial));
-        QuestionPic_descriptor_ = file->message_type(4);
-        static const int QuestionPic_offsets_[4] = {
+        QuestionPic_descriptor_ = file->message_type(5);
+        static const int QuestionPic_offsets_[13] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, tid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, ctype_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, pic_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, t_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, t_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, t_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, t_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_user_type_),
         };
         QuestionPic_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -159,12 +218,21 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionPic));
-        QuestionVideo_descriptor_ = file->message_type(5);
-        static const int QuestionVideo_offsets_[4] = {
+        QuestionVideo_descriptor_ = file->message_type(6);
+        static const int QuestionVideo_offsets_[13] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, tid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, ctype_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, video_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, t_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, t_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, t_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, t_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_user_type_),
         };
         QuestionVideo_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -177,10 +245,38 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionVideo));
-        AnswerWord_descriptor_ = file->message_type(6);
-        static const int AnswerWord_offsets_[2] = {
+        QuestionSystem_descriptor_ = file->message_type(7);
+        static const int QuestionSystem_offsets_[6] = {
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, title_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, desc_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, time_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, mid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, url_),
+        };
+        QuestionSystem_reflection_ =
+        new ::google::protobuf::internal::GeneratedMessageReflection(
+                                                                     QuestionSystem_descriptor_,
+                                                                     QuestionSystem::default_instance_,
+                                                                     QuestionSystem_offsets_,
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, _has_bits_[0]),
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, _unknown_fields_),
+                                                                     -1,
+                                                                     ::google::protobuf::DescriptorPool::generated_pool(),
+                                                                     ::google::protobuf::MessageFactory::generated_factory(),
+                                                                     sizeof(QuestionSystem));
+        AnswerWord_descriptor_ = file->message_type(8);
+        static const int AnswerWord_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, message_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, msg_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_unread_count_),
         };
         AnswerWord_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -193,10 +289,18 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerWord));
-        AnswerPic_descriptor_ = file->message_type(7);
-        static const int AnswerPic_offsets_[2] = {
+        AnswerPic_descriptor_ = file->message_type(9);
+        static const int AnswerPic_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, pic_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, msg_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_unread_count_),
         };
         AnswerPic_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -209,10 +313,18 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerPic));
-        AnswerVideo_descriptor_ = file->message_type(8);
-        static const int AnswerVideo_offsets_[2] = {
+        AnswerVideo_descriptor_ = file->message_type(10);
+        static const int AnswerVideo_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, video_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, msg_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_unread_count_),
         };
         AnswerVideo_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -225,9 +337,17 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerVideo));
-        AnswerOnline_descriptor_ = file->message_type(9);
-        static const int AnswerOnline_offsets_[1] = {
+        AnswerOnline_descriptor_ = file->message_type(11);
+        static const int AnswerOnline_offsets_[9] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, result_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, msg_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_unread_count_),
         };
         AnswerOnline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -240,10 +360,18 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerOnline));
-        AnswerOffline_descriptor_ = file->message_type(10);
-        static const int AnswerOffline_offsets_[2] = {
+        AnswerOffline_descriptor_ = file->message_type(12);
+        static const int AnswerOffline_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, msg_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, msg_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, time_stamp_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_unread_count_),
         };
         AnswerOffline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -256,7 +384,7 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerOffline));
-        AnswerSpecial_descriptor_ = file->message_type(11);
+        AnswerSpecial_descriptor_ = file->message_type(13);
         static const int AnswerSpecial_offsets_[5] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, pic_),
@@ -275,7 +403,7 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerSpecial));
-        AnswerSystem_descriptor_ = file->message_type(12);
+        AnswerSystem_descriptor_ = file->message_type(14);
         static const int AnswerSystem_offsets_[6] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, title_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, desc_),
@@ -295,7 +423,7 @@ namespace qschat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerSystem));
-        ChatMessageType_descriptor_ = file->enum_type(0);
+        QSChatMessageType_descriptor_ = file->enum_type(0);
         ChatRequestType_descriptor_ = file->enum_type(1);
     }
     
@@ -314,6 +442,8 @@ namespace qschat {
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  QuestionOffline_descriptor_, &QuestionOffline::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+                                                                                 QuestionHistory_descriptor_, &QuestionHistory::default_instance());
+            ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  QuestionWord_descriptor_, &QuestionWord::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  QuestionSpecial_descriptor_, &QuestionSpecial::default_instance());
@@ -321,6 +451,8 @@ namespace qschat {
                                                                                  QuestionPic_descriptor_, &QuestionPic::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  QuestionVideo_descriptor_, &QuestionVideo::default_instance());
+            ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+                                                                                 QuestionSystem_descriptor_, &QuestionSystem::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerWord_descriptor_, &AnswerWord::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -344,6 +476,8 @@ namespace qschat {
         delete QuestionOnline_reflection_;
         delete QuestionOffline::default_instance_;
         delete QuestionOffline_reflection_;
+        delete QuestionHistory::default_instance_;
+        delete QuestionHistory_reflection_;
         delete QuestionWord::default_instance_;
         delete QuestionWord_reflection_;
         delete QuestionSpecial::default_instance_;
@@ -352,6 +486,8 @@ namespace qschat {
         delete QuestionPic_reflection_;
         delete QuestionVideo::default_instance_;
         delete QuestionVideo_reflection_;
+        delete QuestionSystem::default_instance_;
+        delete QuestionSystem_reflection_;
         delete AnswerWord::default_instance_;
         delete AnswerWord_reflection_;
         delete AnswerPic::default_instance_;
@@ -375,43 +511,91 @@ namespace qschat {
         GOOGLE_PROTOBUF_VERIFY_VERSION;
         
         ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-                                                                     "\n\014qschat.proto\022\006qschat\"\037\n\016QuestionOnline"
-                                                                     "\022\r\n\005token\030\001 \002(\t\" \n\017QuestionOffline\022\r\n\005to"
-                                                                     "ken\030\001 \002(\t\"a\n\014QuestionWord\022\013\n\003mid\030\001 \002(\003\022\013"
-                                                                     "\n\003tid\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.qschat.Chat"
-                                                                     "RequestType\022\017\n\007message\030\004 \002(\t\"\227\001\n\017Questio"
-                                                                     "nSpecial\022\013\n\003mid\030\001 \002(\003\022\013\n\003cid\030\002 \002(\003\022&\n\005ct"
-                                                                     "ype\030\003 \002(\0162\027.qschat.ChatRequestType\022\013\n\003fi"
-                                                                     "d\030\004 \002(\003\022\014\n\004type\030\005 \002(\t\022\014\n\004name\030\006 \002(\t\022\013\n\003p"
-                                                                     "ic\030\007 \002(\t\022\014\n\004desc\030\010 \002(\t\"\\\n\013QuestionPic\022\013\n"
+                                                                     "\n\014qschat.proto\022\006QSChat\"n\n\016QuestionOnline"
+                                                                     "\022\r\n\005token\030\001 \002(\t\022\017\n\007user_id\030\002 \002(\t\022\023\n\013devi"
+                                                                     "ce_udid\030\003 \002(\t\022\023\n\013device_info\030\004 \002(\t\022\022\n\nlo"
+                                                                     "cal_info\030\005 \001(\t\"\?\n\017QuestionOffline\022\r\n\005tok"
+                                                                     "en\030\001 \002(\t\022\017\n\007user_id\030\002 \002(\t\022\014\n\004info\030\003 \002(\t\""
+                                                                     "\216\001\n\017QuestionHistory\022&\n\005ctype\030\001 \002(\0162\027.QSC"
+                                                                     "hat.ChatRequestType\022\r\n\005token\030\002 \002(\t\022\013\n\003wi"
+                                                                     "d\030\003 \002(\t\022\020\n\010page_num\030\004 \002(\t\022\024\n\014current_pag"
+                                                                     "e\030\005 \002(\t\022\017\n\007last_id\030\006 \002(\t\"\203\002\n\014QuestionWor"
+                                                                     "d\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022&\n\005ctype\030\003 \002"
+                                                                     "(\0162\027.QSChat.ChatRequestType\022\017\n\007message\030\004"
+                                                                     " \002(\t\022\022\n\ntime_stamp\030\005 \002(\t\022\020\n\010t_avatar\030\006 \002"
+                                                                     "(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t_leve\030\010 \002(\t\022\023\n\013t_"
+                                                                     "user_type\030\t \002(\t\022\020\n\010m_avatar\030\n \002(\t\022\016\n\006m_n"
+                                                                     "ame\030\013 \002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023\n\013m_user_type"
+                                                                     "\030\r \002(\t\"\271\002\n\017QuestionSpecial\022\013\n\003mid\030\001 \002(\003\022"
+                                                                     "\013\n\003cid\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.Cha"
+                                                                     "tRequestType\022\013\n\003fid\030\004 \002(\003\022\014\n\004type\030\005 \002(\t\022"
+                                                                     "\014\n\004name\030\006 \002(\t\022\013\n\003pic\030\007 \002(\t\022\014\n\004desc\030\010 \002(\t"
+                                                                     "\022\022\n\ntime_stamp\030\t \002(\t\022\020\n\010t_avatar\030\n \002(\t\022\016"
+                                                                     "\n\006t_name\030\013 \002(\t\022\016\n\006t_leve\030\014 \002(\t\022\023\n\013t_user"
+                                                                     "_type\030\r \002(\t\022\020\n\010m_avatar\030\016 \002(\t\022\016\n\006m_name\030"
+                                                                     "\017 \002(\t\022\016\n\006m_leve\030\020 \002(\t\022\023\n\013m_user_type\030\021 \002"
+                                                                     "(\t\"\376\001\n\013QuestionPic\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002"
+                                                                     " \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.ChatRequest"
+                                                                     "Type\022\013\n\003pic\030\004 \002(\014\022\022\n\ntime_stamp\030\005 \002(\t\022\020\n"
+                                                                     "\010t_avatar\030\006 \002(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t_lev"
+                                                                     "e\030\010 \002(\t\022\023\n\013t_user_type\030\t \002(\t\022\020\n\010m_avatar"
+                                                                     "\030\n \002(\t\022\016\n\006m_name\030\013 \002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023"
+                                                                     "\n\013m_user_type\030\r \002(\t\"\202\002\n\rQuestionVideo\022\013\n"
                                                                      "\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027"
-                                                                     ".qschat.ChatRequestType\022\013\n\003pic\030\004 \002(\014\"`\n\r"
-                                                                     "QuestionVideo\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022"
-                                                                     "&\n\005ctype\030\003 \002(\0162\027.qschat.ChatRequestType\022"
-                                                                     "\r\n\005video\030\004 \002(\014\"-\n\nAnswerWord\022\016\n\006result\030\001"
-                                                                     " \002(\t\022\017\n\007message\030\002 \002(\t\"(\n\tAnswerPic\022\016\n\006re"
-                                                                     "sult\030\001 \002(\t\022\013\n\003pic\030\002 \002(\014\",\n\013AnswerVideo\022\016"
-                                                                     "\n\006result\030\001 \002(\t\022\r\n\005video\030\002 \002(\014\"\036\n\014AnswerO"
-                                                                     "nline\022\016\n\006result\030\001 \002(\005\",\n\rAnswerOffline\022\016"
-                                                                     "\n\006result\030\001 \002(\005\022\013\n\003msg\030\002 \002(\t\"S\n\rAnswerSpe"
-                                                                     "cial\022\014\n\004name\030\001 \002(\t\022\013\n\003pic\030\002 \002(\t\022\014\n\004desc\030"
-                                                                     "\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\014\n\004type\030\005 \002(\t\"a\n\014Answ"
-                                                                     "erSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004desc\030\002 \002(\t\022\014\n"
-                                                                     "\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004type\030\005 \002(\t\022\013"
-                                                                     "\n\003url\030\006 \002(\t*h\n\017ChatMessageType\022\t\n\004WORD\020\250"
-                                                                     "F\022\010\n\003PIC\020\251F\022\n\n\005VIDEO\020\252F\022\013\n\006ONLINE\020\253F\022\014\n\007"
-                                                                     "OFFLINE\020\254F\022\014\n\007SPECIAL\020\255F\022\013\n\006SYSTEM\020\256F*=\n"
-                                                                     "\017ChatRequestType\022\024\n\017ChatTypeSendPTP\020\300>\022\024"
-                                                                     "\n\017ChatTypeSendPTG\020\301>B$\n\032com.fangdangjia."
-                                                                     "fdj.structB\006QSChat", 1138);
+                                                                     ".QSChat.ChatRequestType\022\r\n\005video\030\004 \002(\014\022\022"
+                                                                     "\n\ntime_stamp\030\005 \002(\t\022\020\n\010t_avatar\030\006 \002(\t\022\016\n\006"
+                                                                     "t_name\030\007 \002(\t\022\016\n\006t_leve\030\010 \002(\t\022\023\n\013t_user_t"
+                                                                     "ype\030\t \002(\t\022\020\n\010m_avatar\030\n \002(\t\022\016\n\006m_name\030\013 "
+                                                                     "\002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023\n\013m_user_type\030\r \002(\t"
+                                                                     "\"c\n\016QuestionSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004des"
+                                                                     "c\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004ty"
+                                                                     "pe\030\005 \002(\t\022\013\n\003url\030\006 \002(\t\"\275\001\n\nAnswerWord\022\016\n\006"
+                                                                     "result\030\001 \002(\t\022\017\n\007message\030\002 \002(\t\022\016\n\006msg_id\030"
+                                                                     "\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020"
+                                                                     "\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_le"
+                                                                     "ve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_unrea"
+                                                                     "d_count\030\n \002(\t\"\270\001\n\tAnswerPic\022\016\n\006result\030\001 "
+                                                                     "\002(\t\022\013\n\003pic\030\002 \002(\014\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime"
+                                                                     "_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 "
+                                                                     "\002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f"
+                                                                     "_user_type\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t"
+                                                                     "\"\274\001\n\013AnswerVideo\022\016\n\006result\030\001 \002(\t\022\r\n\005vide"
+                                                                     "o\030\002 \002(\014\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_stamp\030\004 "
+                                                                     "\002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_"
+                                                                     "name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_user_typ"
+                                                                     "e\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t\"\256\001\n\014Answ"
+                                                                     "erOnline\022\016\n\006result\030\001 \002(\005\022\016\n\006msg_id\030\002 \002(\t"
+                                                                     "\022\022\n\ntime_stamp\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\020\n\010f_a"
+                                                                     "vatar\030\005 \002(\t\022\016\n\006f_name\030\006 \002(\t\022\016\n\006f_leve\030\007 "
+                                                                     "\002(\t\022\023\n\013f_user_type\030\010 \002(\t\022\026\n\016f_unread_cou"
+                                                                     "nt\030\t \002(\t\"\274\001\n\rAnswerOffline\022\016\n\006result\030\001 \002"
+                                                                     "(\005\022\013\n\003msg\030\002 \002(\t\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_"
+                                                                     "stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002"
+                                                                     "(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_"
+                                                                     "user_type\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t\""
+                                                                     "S\n\rAnswerSpecial\022\014\n\004name\030\001 \002(\t\022\013\n\003pic\030\002 "
+                                                                     "\002(\t\022\014\n\004desc\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\014\n\004type\030\005"
+                                                                     " \002(\t\"a\n\014AnswerSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004d"
+                                                                     "esc\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004"
+                                                                     "type\030\005 \002(\t\022\013\n\003url\030\006 \002(\t*\351\001\n\021QSChatMessag"
+                                                                     "eType\022\020\n\013QSCHAT_WORD\020\250F\022\017\n\nQSCHAT_PIC\020\251F"
+                                                                     "\022\021\n\014QSCHAT_VIDEO\020\252F\022\022\n\rQSCHAT_ONLINE\020\253F\022"
+                                                                     "\023\n\016QSCHAT_OFFLINE\020\254F\022\023\n\016QSCHAT_SPECIAL\020\255"
+                                                                     "F\022\022\n\rQSCHAT_SYSTEM\020\256F\022\030\n\023QSCHAT_HISTORY_"
+                                                                     "WORD\020\257F\022\027\n\022QSCHAT_HISTORY_PIC\020\260F\022\031\n\024QSCH"
+                                                                     "AT_HISTORY_VIDEO\020\261F*=\n\017ChatRequestType\022\024"
+                                                                     "\n\017ChatTypeSendPTP\020\300>\022\024\n\017ChatTypeSendPTG\020"
+                                                                     "\301>B$\n\032com.fangdangjia.fdj.structB\006QSChat", 3000);
         ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
                                                                           "qschat.proto", &protobuf_RegisterTypes);
         QuestionOnline::default_instance_ = new QuestionOnline();
         QuestionOffline::default_instance_ = new QuestionOffline();
+        QuestionHistory::default_instance_ = new QuestionHistory();
         QuestionWord::default_instance_ = new QuestionWord();
         QuestionSpecial::default_instance_ = new QuestionSpecial();
         QuestionPic::default_instance_ = new QuestionPic();
         QuestionVideo::default_instance_ = new QuestionVideo();
+        QuestionSystem::default_instance_ = new QuestionSystem();
         AnswerWord::default_instance_ = new AnswerWord();
         AnswerPic::default_instance_ = new AnswerPic();
         AnswerVideo::default_instance_ = new AnswerVideo();
@@ -421,10 +605,12 @@ namespace qschat {
         AnswerSystem::default_instance_ = new AnswerSystem();
         QuestionOnline::default_instance_->InitAsDefaultInstance();
         QuestionOffline::default_instance_->InitAsDefaultInstance();
+        QuestionHistory::default_instance_->InitAsDefaultInstance();
         QuestionWord::default_instance_->InitAsDefaultInstance();
         QuestionSpecial::default_instance_->InitAsDefaultInstance();
         QuestionPic::default_instance_->InitAsDefaultInstance();
         QuestionVideo::default_instance_->InitAsDefaultInstance();
+        QuestionSystem::default_instance_->InitAsDefaultInstance();
         AnswerWord::default_instance_->InitAsDefaultInstance();
         AnswerPic::default_instance_->InitAsDefaultInstance();
         AnswerVideo::default_instance_->InitAsDefaultInstance();
@@ -441,11 +627,11 @@ namespace qschat {
             protobuf_AddDesc_qschat_2eproto();
         }
     } static_descriptor_initializer_qschat_2eproto_;
-    const ::google::protobuf::EnumDescriptor* ChatMessageType_descriptor() {
+    const ::google::protobuf::EnumDescriptor* QSChatMessageType_descriptor() {
         protobuf_AssignDescriptorsOnce();
-        return ChatMessageType_descriptor_;
+        return QSChatMessageType_descriptor_;
     }
-    bool ChatMessageType_IsValid(int value) {
+    bool QSChatMessageType_IsValid(int value) {
         switch(value) {
             case 9000:
             case 9001:
@@ -454,6 +640,9 @@ namespace qschat {
             case 9004:
             case 9005:
             case 9006:
+            case 9007:
+            case 9008:
+            case 9009:
                 return true;
             default:
                 return false;
@@ -479,12 +668,16 @@ namespace qschat {
     
 #ifndef _MSC_VER
     const int QuestionOnline::kTokenFieldNumber;
+    const int QuestionOnline::kUserIdFieldNumber;
+    const int QuestionOnline::kDeviceUdidFieldNumber;
+    const int QuestionOnline::kDeviceInfoFieldNumber;
+    const int QuestionOnline::kLocalInfoFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionOnline::QuestionOnline()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionOnline)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionOnline)
     }
     
     void QuestionOnline::InitAsDefaultInstance() {
@@ -494,24 +687,40 @@ namespace qschat {
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionOnline)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionOnline)
     }
     
     void QuestionOnline::SharedCtor() {
         ::google::protobuf::internal::GetEmptyString();
         _cached_size_ = 0;
         token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        local_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionOnline::~QuestionOnline() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionOnline)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionOnline)
         SharedDtor();
     }
     
     void QuestionOnline::SharedDtor() {
         if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete token_;
+        }
+        if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete user_id_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
+        }
+        if (device_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_info_;
+        }
+        if (local_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete local_info_;
         }
         if (this != default_instance_) {
         }
@@ -539,9 +748,31 @@ namespace qschat {
     }
     
     void QuestionOnline::Clear() {
-        if (has_token()) {
-            if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                token_->clear();
+        if (_has_bits_[0 / 32] & 31) {
+            if (has_token()) {
+                if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    token_->clear();
+                }
+            }
+            if (has_user_id()) {
+                if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    user_id_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
+                }
+            }
+            if (has_device_info()) {
+                if (device_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_info_->clear();
+                }
+            }
+            if (has_local_info()) {
+                if (local_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    local_info_->clear();
+                }
             }
         }
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -552,7 +783,7 @@ namespace qschat {
                                                      ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionOnline)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionOnline)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -567,6 +798,74 @@ namespace qschat {
                                                                                              this->token().data(), this->token().length(),
                                                                                              ::google::protobuf::internal::WireFormat::PARSE,
                                                                                              "token");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_user_id;
+                    break;
+                }
+                    
+                    // required string user_id = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_user_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_user_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->user_id().data(), this->user_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "user_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_device_info;
+                    break;
+                }
+                    
+                    // required string device_info = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_device_info:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_info()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_info().data(), this->device_info().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_info");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_local_info;
+                    break;
+                }
+                    
+                    // optional string local_info = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_local_info:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_local_info()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->local_info().data(), this->local_info().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "local_info");
                     } else {
                         goto handle_unusual;
                     }
@@ -588,17 +887,17 @@ namespace qschat {
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionOnline)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionOnline)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionOnline)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionOnline)
         return false;
 #undef DO_
     }
     
     void QuestionOnline::SerializeWithCachedSizes(
                                                   ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionOnline)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionOnline)
         // required string token = 1;
         if (has_token()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -609,16 +908,56 @@ namespace qschat {
                                                                                   1, this->token(), output);
         }
         
+        // required string user_id = 2;
+        if (has_user_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->user_id().data(), this->user_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "user_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->user_id(), output);
+        }
+        
+        // required string device_udid = 3;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->device_udid(), output);
+        }
+        
+        // required string device_info = 4;
+        if (has_device_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_info().data(), this->device_info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_info");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->device_info(), output);
+        }
+        
+        // optional string local_info = 5;
+        if (has_local_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->local_info().data(), this->local_info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "local_info");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->local_info(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionOnline)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionOnline)
     }
     
     ::google::protobuf::uint8* QuestionOnline::SerializeWithCachedSizesToArray(
                                                                                ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionOnline)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionOnline)
         // required string token = 1;
         if (has_token()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -630,11 +969,55 @@ namespace qschat {
                                                                              1, this->token(), target);
         }
         
+        // required string user_id = 2;
+        if (has_user_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->user_id().data(), this->user_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "user_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->user_id(), target);
+        }
+        
+        // required string device_udid = 3;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->device_udid(), target);
+        }
+        
+        // required string device_info = 4;
+        if (has_device_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_info().data(), this->device_info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_info");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->device_info(), target);
+        }
+        
+        // optional string local_info = 5;
+        if (has_local_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->local_info().data(), this->local_info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "local_info");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->local_info(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionOnline)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionOnline)
         return target;
     }
     
@@ -647,6 +1030,34 @@ namespace qschat {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->token());
+            }
+            
+            // required string user_id = 2;
+            if (has_user_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->user_id());
+            }
+            
+            // required string device_udid = 3;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
+            // required string device_info = 4;
+            if (has_device_info()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_info());
+            }
+            
+            // optional string local_info = 5;
+            if (has_local_info()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->local_info());
             }
             
         }
@@ -679,6 +1090,18 @@ namespace qschat {
             if (from.has_token()) {
                 set_token(from.token());
             }
+            if (from.has_user_id()) {
+                set_user_id(from.user_id());
+            }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
+            if (from.has_device_info()) {
+                set_device_info(from.device_info());
+            }
+            if (from.has_local_info()) {
+                set_local_info(from.local_info());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -696,7 +1119,7 @@ namespace qschat {
     }
     
     bool QuestionOnline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+        if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
         
         return true;
     }
@@ -704,6 +1127,10 @@ namespace qschat {
     void QuestionOnline::Swap(QuestionOnline* other) {
         if (other != this) {
             std::swap(token_, other->token_);
+            std::swap(user_id_, other->user_id_);
+            std::swap(device_udid_, other->device_udid_);
+            std::swap(device_info_, other->device_info_);
+            std::swap(local_info_, other->local_info_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -723,12 +1150,14 @@ namespace qschat {
     
 #ifndef _MSC_VER
     const int QuestionOffline::kTokenFieldNumber;
+    const int QuestionOffline::kUserIdFieldNumber;
+    const int QuestionOffline::kInfoFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionOffline::QuestionOffline()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionOffline)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionOffline)
     }
     
     void QuestionOffline::InitAsDefaultInstance() {
@@ -738,24 +1167,32 @@ namespace qschat {
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionOffline)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionOffline)
     }
     
     void QuestionOffline::SharedCtor() {
         ::google::protobuf::internal::GetEmptyString();
         _cached_size_ = 0;
         token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionOffline::~QuestionOffline() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionOffline)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionOffline)
         SharedDtor();
     }
     
     void QuestionOffline::SharedDtor() {
         if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete token_;
+        }
+        if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete user_id_;
+        }
+        if (info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete info_;
         }
         if (this != default_instance_) {
         }
@@ -783,9 +1220,21 @@ namespace qschat {
     }
     
     void QuestionOffline::Clear() {
-        if (has_token()) {
-            if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                token_->clear();
+        if (_has_bits_[0 / 32] & 7) {
+            if (has_token()) {
+                if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    token_->clear();
+                }
+            }
+            if (has_user_id()) {
+                if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    user_id_->clear();
+                }
+            }
+            if (has_info()) {
+                if (info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    info_->clear();
+                }
             }
         }
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -796,7 +1245,7 @@ namespace qschat {
                                                       ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionOffline)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionOffline)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -811,6 +1260,40 @@ namespace qschat {
                                                                                              this->token().data(), this->token().length(),
                                                                                              ::google::protobuf::internal::WireFormat::PARSE,
                                                                                              "token");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_user_id;
+                    break;
+                }
+                    
+                    // required string user_id = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_user_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_user_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->user_id().data(), this->user_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "user_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_info;
+                    break;
+                }
+                    
+                    // required string info = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_info:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_info()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->info().data(), this->info().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "info");
                     } else {
                         goto handle_unusual;
                     }
@@ -832,17 +1315,17 @@ namespace qschat {
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionOffline)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionOffline)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionOffline)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionOffline)
         return false;
 #undef DO_
     }
     
     void QuestionOffline::SerializeWithCachedSizes(
                                                    ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionOffline)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionOffline)
         // required string token = 1;
         if (has_token()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -853,16 +1336,36 @@ namespace qschat {
                                                                                   1, this->token(), output);
         }
         
+        // required string user_id = 2;
+        if (has_user_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->user_id().data(), this->user_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "user_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->user_id(), output);
+        }
+        
+        // required string info = 3;
+        if (has_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->info().data(), this->info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "info");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->info(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionOffline)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionOffline)
     }
     
     ::google::protobuf::uint8* QuestionOffline::SerializeWithCachedSizesToArray(
                                                                                 ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionOffline)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionOffline)
         // required string token = 1;
         if (has_token()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -874,11 +1377,33 @@ namespace qschat {
                                                                              1, this->token(), target);
         }
         
+        // required string user_id = 2;
+        if (has_user_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->user_id().data(), this->user_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "user_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->user_id(), target);
+        }
+        
+        // required string info = 3;
+        if (has_info()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->info().data(), this->info().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "info");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->info(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionOffline)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionOffline)
         return target;
     }
     
@@ -891,6 +1416,20 @@ namespace qschat {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->token());
+            }
+            
+            // required string user_id = 2;
+            if (has_user_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->user_id());
+            }
+            
+            // required string info = 3;
+            if (has_info()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->info());
             }
             
         }
@@ -923,6 +1462,12 @@ namespace qschat {
             if (from.has_token()) {
                 set_token(from.token());
             }
+            if (from.has_user_id()) {
+                set_user_id(from.user_id());
+            }
+            if (from.has_info()) {
+                set_info(from.info());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -940,7 +1485,7 @@ namespace qschat {
     }
     
     bool QuestionOffline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+        if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
         
         return true;
     }
@@ -948,6 +1493,8 @@ namespace qschat {
     void QuestionOffline::Swap(QuestionOffline* other) {
         if (other != this) {
             std::swap(token_, other->token_);
+            std::swap(user_id_, other->user_id_);
+            std::swap(info_, other->info_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -966,16 +1513,552 @@ namespace qschat {
     // ===================================================================
     
 #ifndef _MSC_VER
+    const int QuestionHistory::kCtypeFieldNumber;
+    const int QuestionHistory::kTokenFieldNumber;
+    const int QuestionHistory::kWidFieldNumber;
+    const int QuestionHistory::kPageNumFieldNumber;
+    const int QuestionHistory::kCurrentPageFieldNumber;
+    const int QuestionHistory::kLastIdFieldNumber;
+#endif  // !_MSC_VER
+    
+    QuestionHistory::QuestionHistory()
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        // @@protoc_insertion_point(constructor:QSChat.QuestionHistory)
+    }
+    
+    void QuestionHistory::InitAsDefaultInstance() {
+    }
+    
+    QuestionHistory::QuestionHistory(const QuestionHistory& from)
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        MergeFrom(from);
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionHistory)
+    }
+    
+    void QuestionHistory::SharedCtor() {
+        ::google::protobuf::internal::GetEmptyString();
+        _cached_size_ = 0;
+        ctype_ = 8000;
+        token_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        wid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        page_num_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        current_page_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        last_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+    }
+    
+    QuestionHistory::~QuestionHistory() {
+        // @@protoc_insertion_point(destructor:QSChat.QuestionHistory)
+        SharedDtor();
+    }
+    
+    void QuestionHistory::SharedDtor() {
+        if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete token_;
+        }
+        if (wid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete wid_;
+        }
+        if (page_num_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete page_num_;
+        }
+        if (current_page_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete current_page_;
+        }
+        if (last_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete last_id_;
+        }
+        if (this != default_instance_) {
+        }
+    }
+    
+    void QuestionHistory::SetCachedSize(int size) const {
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    }
+    const ::google::protobuf::Descriptor* QuestionHistory::descriptor() {
+        protobuf_AssignDescriptorsOnce();
+        return QuestionHistory_descriptor_;
+    }
+    
+    const QuestionHistory& QuestionHistory::default_instance() {
+        if (default_instance_ == NULL) protobuf_AddDesc_qschat_2eproto();
+        return *default_instance_;
+    }
+    
+    QuestionHistory* QuestionHistory::default_instance_ = NULL;
+    
+    QuestionHistory* QuestionHistory::New() const {
+        return new QuestionHistory;
+    }
+    
+    void QuestionHistory::Clear() {
+        if (_has_bits_[0 / 32] & 63) {
+            ctype_ = 8000;
+            if (has_token()) {
+                if (token_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    token_->clear();
+                }
+            }
+            if (has_wid()) {
+                if (wid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    wid_->clear();
+                }
+            }
+            if (has_page_num()) {
+                if (page_num_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    page_num_->clear();
+                }
+            }
+            if (has_current_page()) {
+                if (current_page_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    current_page_->clear();
+                }
+            }
+            if (has_last_id()) {
+                if (last_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    last_id_->clear();
+                }
+            }
+        }
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+        mutable_unknown_fields()->Clear();
+    }
+    
+    bool QuestionHistory::MergePartialFromCodedStream(
+                                                      ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+        ::google::protobuf::uint32 tag;
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionHistory)
+        for (;;) {
+            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+            tag = p.first;
+            if (!p.second) goto handle_unusual;
+            switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+                    // required .QSChat.ChatRequestType ctype = 1;
+                case 1: {
+                    if (tag == 8) {
+                        int value;
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                                                                                           input, &value)));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
+                        } else {
+                            mutable_unknown_fields()->AddVarint(1, value);
+                        }
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_token;
+                    break;
+                }
+                    
+                    // required string token = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_token:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_token()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->token().data(), this->token().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "token");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_wid;
+                    break;
+                }
+                    
+                    // required string wid = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_wid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_wid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->wid().data(), this->wid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "wid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_page_num;
+                    break;
+                }
+                    
+                    // required string page_num = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_page_num:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_page_num()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->page_num().data(), this->page_num().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "page_num");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_current_page;
+                    break;
+                }
+                    
+                    // required string current_page = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_current_page:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_current_page()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->current_page().data(), this->current_page().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "current_page");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_last_id;
+                    break;
+                }
+                    
+                    // required string last_id = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_last_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_last_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->last_id().data(), this->last_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "last_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectAtEnd()) goto success;
+                    break;
+                }
+                    
+                default: {
+                handle_unusual:
+                    if (tag == 0 ||
+                        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                        goto success;
+                    }
+                    DO_(::google::protobuf::internal::WireFormat::SkipField(
+                                                                            input, tag, mutable_unknown_fields()));
+                    break;
+                }
+            }
+        }
+    success:
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionHistory)
+        return true;
+    failure:
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionHistory)
+        return false;
+#undef DO_
+    }
+    
+    void QuestionHistory::SerializeWithCachedSizes(
+                                                   ::google::protobuf::io::CodedOutputStream* output) const {
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionHistory)
+        // required .QSChat.ChatRequestType ctype = 1;
+        if (has_ctype()) {
+            ::google::protobuf::internal::WireFormatLite::WriteEnum(
+                                                                    1, this->ctype(), output);
+        }
+        
+        // required string token = 2;
+        if (has_token()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->token().data(), this->token().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "token");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->token(), output);
+        }
+        
+        // required string wid = 3;
+        if (has_wid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->wid().data(), this->wid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "wid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->wid(), output);
+        }
+        
+        // required string page_num = 4;
+        if (has_page_num()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->page_num().data(), this->page_num().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "page_num");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->page_num(), output);
+        }
+        
+        // required string current_page = 5;
+        if (has_current_page()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->current_page().data(), this->current_page().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "current_page");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->current_page(), output);
+        }
+        
+        // required string last_id = 6;
+        if (has_last_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->last_id().data(), this->last_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "last_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->last_id(), output);
+        }
+        
+        if (!unknown_fields().empty()) {
+            ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+                                                                             unknown_fields(), output);
+        }
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionHistory)
+    }
+    
+    ::google::protobuf::uint8* QuestionHistory::SerializeWithCachedSizesToArray(
+                                                                                ::google::protobuf::uint8* target) const {
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionHistory)
+        // required .QSChat.ChatRequestType ctype = 1;
+        if (has_ctype()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+                                                                                    1, this->ctype(), target);
+        }
+        
+        // required string token = 2;
+        if (has_token()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->token().data(), this->token().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "token");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->token(), target);
+        }
+        
+        // required string wid = 3;
+        if (has_wid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->wid().data(), this->wid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "wid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->wid(), target);
+        }
+        
+        // required string page_num = 4;
+        if (has_page_num()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->page_num().data(), this->page_num().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "page_num");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->page_num(), target);
+        }
+        
+        // required string current_page = 5;
+        if (has_current_page()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->current_page().data(), this->current_page().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "current_page");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->current_page(), target);
+        }
+        
+        // required string last_id = 6;
+        if (has_last_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->last_id().data(), this->last_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "last_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->last_id(), target);
+        }
+        
+        if (!unknown_fields().empty()) {
+            target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+                                                                                             unknown_fields(), target);
+        }
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionHistory)
+        return target;
+    }
+    
+    int QuestionHistory::ByteSize() const {
+        int total_size = 0;
+        
+        if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            // required .QSChat.ChatRequestType ctype = 1;
+            if (has_ctype()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
+            }
+            
+            // required string token = 2;
+            if (has_token()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->token());
+            }
+            
+            // required string wid = 3;
+            if (has_wid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->wid());
+            }
+            
+            // required string page_num = 4;
+            if (has_page_num()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->page_num());
+            }
+            
+            // required string current_page = 5;
+            if (has_current_page()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->current_page());
+            }
+            
+            // required string last_id = 6;
+            if (has_last_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->last_id());
+            }
+            
+        }
+        if (!unknown_fields().empty()) {
+            total_size +=
+            ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+                                                                               unknown_fields());
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = total_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        return total_size;
+    }
+    
+    void QuestionHistory::MergeFrom(const ::google::protobuf::Message& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        const QuestionHistory* source =
+        ::google::protobuf::internal::dynamic_cast_if_available<const QuestionHistory*>(
+                                                                                        &from);
+        if (source == NULL) {
+            ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+        } else {
+            MergeFrom(*source);
+        }
+    }
+    
+    void QuestionHistory::MergeFrom(const QuestionHistory& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            if (from.has_ctype()) {
+                set_ctype(from.ctype());
+            }
+            if (from.has_token()) {
+                set_token(from.token());
+            }
+            if (from.has_wid()) {
+                set_wid(from.wid());
+            }
+            if (from.has_page_num()) {
+                set_page_num(from.page_num());
+            }
+            if (from.has_current_page()) {
+                set_current_page(from.current_page());
+            }
+            if (from.has_last_id()) {
+                set_last_id(from.last_id());
+            }
+        }
+        mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+    }
+    
+    void QuestionHistory::CopyFrom(const ::google::protobuf::Message& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    void QuestionHistory::CopyFrom(const QuestionHistory& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    bool QuestionHistory::IsInitialized() const {
+        if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+        
+        return true;
+    }
+    
+    void QuestionHistory::Swap(QuestionHistory* other) {
+        if (other != this) {
+            std::swap(ctype_, other->ctype_);
+            std::swap(token_, other->token_);
+            std::swap(wid_, other->wid_);
+            std::swap(page_num_, other->page_num_);
+            std::swap(current_page_, other->current_page_);
+            std::swap(last_id_, other->last_id_);
+            std::swap(_has_bits_[0], other->_has_bits_[0]);
+            _unknown_fields_.Swap(&other->_unknown_fields_);
+            std::swap(_cached_size_, other->_cached_size_);
+        }
+    }
+    
+    ::google::protobuf::Metadata QuestionHistory::GetMetadata() const {
+        protobuf_AssignDescriptorsOnce();
+        ::google::protobuf::Metadata metadata;
+        metadata.descriptor = QuestionHistory_descriptor_;
+        metadata.reflection = QuestionHistory_reflection_;
+        return metadata;
+    }
+    
+    
+    // ===================================================================
+    
+#ifndef _MSC_VER
     const int QuestionWord::kMidFieldNumber;
     const int QuestionWord::kTidFieldNumber;
     const int QuestionWord::kCtypeFieldNumber;
     const int QuestionWord::kMessageFieldNumber;
+    const int QuestionWord::kTimeStampFieldNumber;
+    const int QuestionWord::kTAvatarFieldNumber;
+    const int QuestionWord::kTNameFieldNumber;
+    const int QuestionWord::kTLeveFieldNumber;
+    const int QuestionWord::kTUserTypeFieldNumber;
+    const int QuestionWord::kMAvatarFieldNumber;
+    const int QuestionWord::kMNameFieldNumber;
+    const int QuestionWord::kMLeveFieldNumber;
+    const int QuestionWord::kMUserTypeFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionWord::QuestionWord()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionWord)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionWord)
     }
     
     void QuestionWord::InitAsDefaultInstance() {
@@ -985,7 +2068,7 @@ namespace qschat {
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionWord)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionWord)
     }
     
     void QuestionWord::SharedCtor() {
@@ -995,17 +2078,53 @@ namespace qschat {
         tid_ = GOOGLE_LONGLONG(0);
         ctype_ = 8000;
         message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionWord::~QuestionWord() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionWord)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionWord)
         SharedDtor();
     }
     
     void QuestionWord::SharedDtor() {
         if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete message_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_avatar_;
+        }
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_name_;
+        }
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_leve_;
+        }
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_user_type_;
+        }
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_avatar_;
+        }
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_name_;
+        }
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_leve_;
+        }
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_user_type_;
         }
         if (this != default_instance_) {
         }
@@ -1043,12 +2162,59 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 ::memset(&first, 0, n);                                \
 } while (0)
         
-        if (_has_bits_[0 / 32] & 15) {
+        if (_has_bits_[0 / 32] & 255) {
             ZR_(mid_, tid_);
             ctype_ = 8000;
             if (has_message()) {
                 if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     message_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            if (has_t_avatar()) {
+                if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_avatar_->clear();
+                }
+            }
+            if (has_t_name()) {
+                if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_name_->clear();
+                }
+            }
+            if (has_t_leve()) {
+                if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 7936) {
+            if (has_t_user_type()) {
+                if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_user_type_->clear();
+                }
+            }
+            if (has_m_avatar()) {
+                if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_avatar_->clear();
+                }
+            }
+            if (has_m_name()) {
+                if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_name_->clear();
+                }
+            }
+            if (has_m_leve()) {
+                if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_leve_->clear();
+                }
+            }
+            if (has_m_user_type()) {
+                if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_user_type_->clear();
                 }
             }
         }
@@ -1064,7 +2230,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                    ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionWord)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionWord)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -1099,7 +2265,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // required .qschat.ChatRequestType ctype = 3;
+                    // required .QSChat.ChatRequestType ctype = 3;
                 case 3: {
                     if (tag == 24) {
                     parse_ctype:
@@ -1107,8 +2273,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                         DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                              int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                                                                                            input, &value)));
-                        if (::qschat::ChatRequestType_IsValid(value)) {
-                            set_ctype(static_cast< ::qschat::ChatRequestType >(value));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
                         } else {
                             mutable_unknown_fields()->AddVarint(3, value);
                         }
@@ -1132,6 +2298,159 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(42)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_t_avatar;
+                    break;
+                }
+                    
+                    // required string t_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_t_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_avatar().data(), this->t_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_t_name;
+                    break;
+                }
+                    
+                    // required string t_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_t_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_name().data(), this->t_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_t_leve;
+                    break;
+                }
+                    
+                    // required string t_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_t_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_leve().data(), this->t_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_t_user_type;
+                    break;
+                }
+                    
+                    // required string t_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_t_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_user_type().data(), this->t_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_m_avatar;
+                    break;
+                }
+                    
+                    // required string m_avatar = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_m_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_avatar().data(), this->m_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(90)) goto parse_m_name;
+                    break;
+                }
+                    
+                    // required string m_name = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_m_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_name().data(), this->m_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_m_leve;
+                    break;
+                }
+                    
+                    // required string m_leve = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_m_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_leve().data(), this->m_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_m_user_type;
+                    break;
+                }
+                    
+                    // required string m_user_type = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_m_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_user_type().data(), this->m_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -1150,17 +2469,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionWord)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionWord)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionWord)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionWord)
         return false;
 #undef DO_
     }
     
     void QuestionWord::SerializeWithCachedSizes(
                                                 ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionWord)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionWord)
         // required int64 mid = 1;
         if (has_mid()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->mid(), output);
@@ -1171,7 +2490,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->tid(), output);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             ::google::protobuf::internal::WireFormatLite::WriteEnum(
                                                                     3, this->ctype(), output);
@@ -1187,16 +2506,106 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   4, this->message(), output);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->time_stamp(), output);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->t_avatar(), output);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->t_name(), output);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->t_leve(), output);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->t_user_type(), output);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->m_avatar(), output);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->m_name(), output);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->m_leve(), output);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->m_user_type(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionWord)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionWord)
     }
     
     ::google::protobuf::uint8* QuestionWord::SerializeWithCachedSizesToArray(
                                                                              ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionWord)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionWord)
         // required int64 mid = 1;
         if (has_mid()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->mid(), target);
@@ -1207,7 +2616,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->tid(), target);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
                                                                                     3, this->ctype(), target);
@@ -1224,11 +2633,110 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              4, this->message(), target);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->time_stamp(), target);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->t_avatar(), target);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->t_name(), target);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->t_leve(), target);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->t_user_type(), target);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->m_avatar(), target);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->m_name(), target);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->m_leve(), target);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->m_user_type(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionWord)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionWord)
         return target;
     }
     
@@ -1250,7 +2758,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                         this->tid());
             }
             
-            // required .qschat.ChatRequestType ctype = 3;
+            // required .QSChat.ChatRequestType ctype = 3;
             if (has_ctype()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
@@ -1261,6 +2769,71 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->message());
+            }
+            
+            // required string time_stamp = 5;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required string t_avatar = 6;
+            if (has_t_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_avatar());
+            }
+            
+            // required string t_name = 7;
+            if (has_t_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_name());
+            }
+            
+            // required string t_leve = 8;
+            if (has_t_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string t_user_type = 9;
+            if (has_t_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_user_type());
+            }
+            
+            // required string m_avatar = 10;
+            if (has_m_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_avatar());
+            }
+            
+            // required string m_name = 11;
+            if (has_m_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_name());
+            }
+            
+            // required string m_leve = 12;
+            if (has_m_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_leve());
+            }
+            
+            // required string m_user_type = 13;
+            if (has_m_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_user_type());
             }
             
         }
@@ -1302,6 +2875,35 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_message()) {
                 set_message(from.message());
             }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_t_avatar()) {
+                set_t_avatar(from.t_avatar());
+            }
+            if (from.has_t_name()) {
+                set_t_name(from.t_name());
+            }
+            if (from.has_t_leve()) {
+                set_t_leve(from.t_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_t_user_type()) {
+                set_t_user_type(from.t_user_type());
+            }
+            if (from.has_m_avatar()) {
+                set_m_avatar(from.m_avatar());
+            }
+            if (from.has_m_name()) {
+                set_m_name(from.m_name());
+            }
+            if (from.has_m_leve()) {
+                set_m_leve(from.m_leve());
+            }
+            if (from.has_m_user_type()) {
+                set_m_user_type(from.m_user_type());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -1319,7 +2921,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionWord::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
         
         return true;
     }
@@ -1330,6 +2932,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(tid_, other->tid_);
             std::swap(ctype_, other->ctype_);
             std::swap(message_, other->message_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(t_avatar_, other->t_avatar_);
+            std::swap(t_name_, other->t_name_);
+            std::swap(t_leve_, other->t_leve_);
+            std::swap(t_user_type_, other->t_user_type_);
+            std::swap(m_avatar_, other->m_avatar_);
+            std::swap(m_name_, other->m_name_);
+            std::swap(m_leve_, other->m_leve_);
+            std::swap(m_user_type_, other->m_user_type_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -1356,12 +2967,21 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionSpecial::kNameFieldNumber;
     const int QuestionSpecial::kPicFieldNumber;
     const int QuestionSpecial::kDescFieldNumber;
+    const int QuestionSpecial::kTimeStampFieldNumber;
+    const int QuestionSpecial::kTAvatarFieldNumber;
+    const int QuestionSpecial::kTNameFieldNumber;
+    const int QuestionSpecial::kTLeveFieldNumber;
+    const int QuestionSpecial::kTUserTypeFieldNumber;
+    const int QuestionSpecial::kMAvatarFieldNumber;
+    const int QuestionSpecial::kMNameFieldNumber;
+    const int QuestionSpecial::kMLeveFieldNumber;
+    const int QuestionSpecial::kMUserTypeFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionSpecial::QuestionSpecial()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionSpecial)
     }
     
     void QuestionSpecial::InitAsDefaultInstance() {
@@ -1371,7 +2991,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionSpecial)
     }
     
     void QuestionSpecial::SharedCtor() {
@@ -1385,11 +3005,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         pic_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionSpecial::~QuestionSpecial() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionSpecial)
         SharedDtor();
     }
     
@@ -1405,6 +3034,33 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete desc_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_avatar_;
+        }
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_name_;
+        }
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_leve_;
+        }
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_user_type_;
+        }
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_avatar_;
+        }
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_name_;
+        }
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_leve_;
+        }
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_user_type_;
         }
         if (this != default_instance_) {
         }
@@ -1466,6 +3122,53 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
+        if (_has_bits_[8 / 32] & 65280) {
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            if (has_t_avatar()) {
+                if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_avatar_->clear();
+                }
+            }
+            if (has_t_name()) {
+                if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_name_->clear();
+                }
+            }
+            if (has_t_leve()) {
+                if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_leve_->clear();
+                }
+            }
+            if (has_t_user_type()) {
+                if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_user_type_->clear();
+                }
+            }
+            if (has_m_avatar()) {
+                if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_avatar_->clear();
+                }
+            }
+            if (has_m_name()) {
+                if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_name_->clear();
+                }
+            }
+            if (has_m_leve()) {
+                if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_leve_->clear();
+                }
+            }
+        }
+        if (has_m_user_type()) {
+            if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                m_user_type_->clear();
+            }
+        }
         
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -1478,9 +3181,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                       ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionSpecial)
         for (;;) {
-            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
             tag = p.first;
             if (!p.second) goto handle_unusual;
             switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -1513,7 +3216,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // required .qschat.ChatRequestType ctype = 3;
+                    // required .QSChat.ChatRequestType ctype = 3;
                 case 3: {
                     if (tag == 24) {
                     parse_ctype:
@@ -1521,8 +3224,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                         DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                              int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                                                                                            input, &value)));
-                        if (::qschat::ChatRequestType_IsValid(value)) {
-                            set_ctype(static_cast< ::qschat::ChatRequestType >(value));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
                         } else {
                             mutable_unknown_fields()->AddVarint(3, value);
                         }
@@ -1612,6 +3315,159 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(74)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_t_avatar;
+                    break;
+                }
+                    
+                    // required string t_avatar = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_t_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_avatar().data(), this->t_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(90)) goto parse_t_name;
+                    break;
+                }
+                    
+                    // required string t_name = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_t_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_name().data(), this->t_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_t_leve;
+                    break;
+                }
+                    
+                    // required string t_leve = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_t_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_leve().data(), this->t_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_t_user_type;
+                    break;
+                }
+                    
+                    // required string t_user_type = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_t_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_user_type().data(), this->t_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(114)) goto parse_m_avatar;
+                    break;
+                }
+                    
+                    // required string m_avatar = 14;
+                case 14: {
+                    if (tag == 114) {
+                    parse_m_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_avatar().data(), this->m_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(122)) goto parse_m_name;
+                    break;
+                }
+                    
+                    // required string m_name = 15;
+                case 15: {
+                    if (tag == 122) {
+                    parse_m_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_name().data(), this->m_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(130)) goto parse_m_leve;
+                    break;
+                }
+                    
+                    // required string m_leve = 16;
+                case 16: {
+                    if (tag == 130) {
+                    parse_m_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_leve().data(), this->m_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(138)) goto parse_m_user_type;
+                    break;
+                }
+                    
+                    // required string m_user_type = 17;
+                case 17: {
+                    if (tag == 138) {
+                    parse_m_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_user_type().data(), this->m_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -1630,17 +3486,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionSpecial)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionSpecial)
         return false;
 #undef DO_
     }
     
     void QuestionSpecial::SerializeWithCachedSizes(
                                                    ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionSpecial)
         // required int64 mid = 1;
         if (has_mid()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->mid(), output);
@@ -1651,7 +3507,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->cid(), output);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             ::google::protobuf::internal::WireFormatLite::WriteEnum(
                                                                     3, this->ctype(), output);
@@ -1702,16 +3558,106 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   8, this->desc(), output);
         }
         
+        // required string time_stamp = 9;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->time_stamp(), output);
+        }
+        
+        // required string t_avatar = 10;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->t_avatar(), output);
+        }
+        
+        // required string t_name = 11;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->t_name(), output);
+        }
+        
+        // required string t_leve = 12;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->t_leve(), output);
+        }
+        
+        // required string t_user_type = 13;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->t_user_type(), output);
+        }
+        
+        // required string m_avatar = 14;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  14, this->m_avatar(), output);
+        }
+        
+        // required string m_name = 15;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  15, this->m_name(), output);
+        }
+        
+        // required string m_leve = 16;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  16, this->m_leve(), output);
+        }
+        
+        // required string m_user_type = 17;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  17, this->m_user_type(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionSpecial)
     }
     
     ::google::protobuf::uint8* QuestionSpecial::SerializeWithCachedSizesToArray(
                                                                                 ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionSpecial)
         // required int64 mid = 1;
         if (has_mid()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->mid(), target);
@@ -1722,7 +3668,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->cid(), target);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
                                                                                     3, this->ctype(), target);
@@ -1777,11 +3723,110 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              8, this->desc(), target);
         }
         
+        // required string time_stamp = 9;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->time_stamp(), target);
+        }
+        
+        // required string t_avatar = 10;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->t_avatar(), target);
+        }
+        
+        // required string t_name = 11;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->t_name(), target);
+        }
+        
+        // required string t_leve = 12;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->t_leve(), target);
+        }
+        
+        // required string t_user_type = 13;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->t_user_type(), target);
+        }
+        
+        // required string m_avatar = 14;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             14, this->m_avatar(), target);
+        }
+        
+        // required string m_name = 15;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             15, this->m_name(), target);
+        }
+        
+        // required string m_leve = 16;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             16, this->m_leve(), target);
+        }
+        
+        // required string m_user_type = 17;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             17, this->m_user_type(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionSpecial)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionSpecial)
         return target;
     }
     
@@ -1803,7 +3848,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                         this->cid());
             }
             
-            // required .qschat.ChatRequestType ctype = 3;
+            // required .QSChat.ChatRequestType ctype = 3;
             if (has_ctype()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
@@ -1842,6 +3887,73 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->desc());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string time_stamp = 9;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required string t_avatar = 10;
+            if (has_t_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_avatar());
+            }
+            
+            // required string t_name = 11;
+            if (has_t_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_name());
+            }
+            
+            // required string t_leve = 12;
+            if (has_t_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_leve());
+            }
+            
+            // required string t_user_type = 13;
+            if (has_t_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_user_type());
+            }
+            
+            // required string m_avatar = 14;
+            if (has_m_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_avatar());
+            }
+            
+            // required string m_name = 15;
+            if (has_m_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_name());
+            }
+            
+            // required string m_leve = 16;
+            if (has_m_leve()) {
+                total_size += 2 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_leve());
+            }
+            
+        }
+        if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+            // required string m_user_type = 17;
+            if (has_m_user_type()) {
+                total_size += 2 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_user_type());
             }
             
         }
@@ -1896,6 +4008,37 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 set_desc(from.desc());
             }
         }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_t_avatar()) {
+                set_t_avatar(from.t_avatar());
+            }
+            if (from.has_t_name()) {
+                set_t_name(from.t_name());
+            }
+            if (from.has_t_leve()) {
+                set_t_leve(from.t_leve());
+            }
+            if (from.has_t_user_type()) {
+                set_t_user_type(from.t_user_type());
+            }
+            if (from.has_m_avatar()) {
+                set_m_avatar(from.m_avatar());
+            }
+            if (from.has_m_name()) {
+                set_m_name(from.m_name());
+            }
+            if (from.has_m_leve()) {
+                set_m_leve(from.m_leve());
+            }
+        }
+        if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+            if (from.has_m_user_type()) {
+                set_m_user_type(from.m_user_type());
+            }
+        }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
     
@@ -1912,7 +4055,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionSpecial::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
+        if ((_has_bits_[0] & 0x0001ffff) != 0x0001ffff) return false;
         
         return true;
     }
@@ -1927,6 +4070,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(name_, other->name_);
             std::swap(pic_, other->pic_);
             std::swap(desc_, other->desc_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(t_avatar_, other->t_avatar_);
+            std::swap(t_name_, other->t_name_);
+            std::swap(t_leve_, other->t_leve_);
+            std::swap(t_user_type_, other->t_user_type_);
+            std::swap(m_avatar_, other->m_avatar_);
+            std::swap(m_name_, other->m_name_);
+            std::swap(m_leve_, other->m_leve_);
+            std::swap(m_user_type_, other->m_user_type_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -1949,12 +4101,21 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionPic::kTidFieldNumber;
     const int QuestionPic::kCtypeFieldNumber;
     const int QuestionPic::kPicFieldNumber;
+    const int QuestionPic::kTimeStampFieldNumber;
+    const int QuestionPic::kTAvatarFieldNumber;
+    const int QuestionPic::kTNameFieldNumber;
+    const int QuestionPic::kTLeveFieldNumber;
+    const int QuestionPic::kTUserTypeFieldNumber;
+    const int QuestionPic::kMAvatarFieldNumber;
+    const int QuestionPic::kMNameFieldNumber;
+    const int QuestionPic::kMLeveFieldNumber;
+    const int QuestionPic::kMUserTypeFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionPic::QuestionPic()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionPic)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionPic)
     }
     
     void QuestionPic::InitAsDefaultInstance() {
@@ -1964,7 +4125,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionPic)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionPic)
     }
     
     void QuestionPic::SharedCtor() {
@@ -1974,17 +4135,53 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         tid_ = GOOGLE_LONGLONG(0);
         ctype_ = 8000;
         pic_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionPic::~QuestionPic() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionPic)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionPic)
         SharedDtor();
     }
     
     void QuestionPic::SharedDtor() {
         if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete pic_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_avatar_;
+        }
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_name_;
+        }
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_leve_;
+        }
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_user_type_;
+        }
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_avatar_;
+        }
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_name_;
+        }
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_leve_;
+        }
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_user_type_;
         }
         if (this != default_instance_) {
         }
@@ -2022,12 +4219,59 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 ::memset(&first, 0, n);                                \
 } while (0)
         
-        if (_has_bits_[0 / 32] & 15) {
+        if (_has_bits_[0 / 32] & 255) {
             ZR_(mid_, tid_);
             ctype_ = 8000;
             if (has_pic()) {
                 if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     pic_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            if (has_t_avatar()) {
+                if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_avatar_->clear();
+                }
+            }
+            if (has_t_name()) {
+                if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_name_->clear();
+                }
+            }
+            if (has_t_leve()) {
+                if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 7936) {
+            if (has_t_user_type()) {
+                if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_user_type_->clear();
+                }
+            }
+            if (has_m_avatar()) {
+                if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_avatar_->clear();
+                }
+            }
+            if (has_m_name()) {
+                if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_name_->clear();
+                }
+            }
+            if (has_m_leve()) {
+                if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_leve_->clear();
+                }
+            }
+            if (has_m_user_type()) {
+                if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_user_type_->clear();
                 }
             }
         }
@@ -2043,7 +4287,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                   ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionPic)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionPic)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -2078,7 +4322,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // required .qschat.ChatRequestType ctype = 3;
+                    // required .QSChat.ChatRequestType ctype = 3;
                 case 3: {
                     if (tag == 24) {
                     parse_ctype:
@@ -2086,8 +4330,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                         DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                              int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                                                                                            input, &value)));
-                        if (::qschat::ChatRequestType_IsValid(value)) {
-                            set_ctype(static_cast< ::qschat::ChatRequestType >(value));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
                         } else {
                             mutable_unknown_fields()->AddVarint(3, value);
                         }
@@ -2104,6 +4348,159 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     parse_pic:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                                                                                     input, this->mutable_pic()));
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_t_avatar;
+                    break;
+                }
+                    
+                    // required string t_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_t_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_avatar().data(), this->t_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_t_name;
+                    break;
+                }
+                    
+                    // required string t_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_t_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_name().data(), this->t_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_t_leve;
+                    break;
+                }
+                    
+                    // required string t_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_t_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_leve().data(), this->t_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_t_user_type;
+                    break;
+                }
+                    
+                    // required string t_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_t_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_user_type().data(), this->t_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_m_avatar;
+                    break;
+                }
+                    
+                    // required string m_avatar = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_m_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_avatar().data(), this->m_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(90)) goto parse_m_name;
+                    break;
+                }
+                    
+                    // required string m_name = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_m_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_name().data(), this->m_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_m_leve;
+                    break;
+                }
+                    
+                    // required string m_leve = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_m_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_leve().data(), this->m_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_m_user_type;
+                    break;
+                }
+                    
+                    // required string m_user_type = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_m_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_user_type().data(), this->m_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_user_type");
                     } else {
                         goto handle_unusual;
                     }
@@ -2125,17 +4522,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionPic)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionPic)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionPic)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionPic)
         return false;
 #undef DO_
     }
     
     void QuestionPic::SerializeWithCachedSizes(
                                                ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionPic)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionPic)
         // required int64 mid = 1;
         if (has_mid()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->mid(), output);
@@ -2146,7 +4543,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->tid(), output);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             ::google::protobuf::internal::WireFormatLite::WriteEnum(
                                                                     3, this->ctype(), output);
@@ -2158,16 +4555,106 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  4, this->pic(), output);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->time_stamp(), output);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->t_avatar(), output);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->t_name(), output);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->t_leve(), output);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->t_user_type(), output);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->m_avatar(), output);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->m_name(), output);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->m_leve(), output);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->m_user_type(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionPic)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionPic)
     }
     
     ::google::protobuf::uint8* QuestionPic::SerializeWithCachedSizesToArray(
                                                                             ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionPic)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionPic)
         // required int64 mid = 1;
         if (has_mid()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->mid(), target);
@@ -2178,7 +4665,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->tid(), target);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
                                                                                     3, this->ctype(), target);
@@ -2191,11 +4678,110 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                             4, this->pic(), target);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->time_stamp(), target);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->t_avatar(), target);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->t_name(), target);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->t_leve(), target);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->t_user_type(), target);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->m_avatar(), target);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->m_name(), target);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->m_leve(), target);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->m_user_type(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionPic)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionPic)
         return target;
     }
     
@@ -2217,7 +4803,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                         this->tid());
             }
             
-            // required .qschat.ChatRequestType ctype = 3;
+            // required .QSChat.ChatRequestType ctype = 3;
             if (has_ctype()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
@@ -2228,6 +4814,71 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::BytesSize(
                                                                         this->pic());
+            }
+            
+            // required string time_stamp = 5;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required string t_avatar = 6;
+            if (has_t_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_avatar());
+            }
+            
+            // required string t_name = 7;
+            if (has_t_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_name());
+            }
+            
+            // required string t_leve = 8;
+            if (has_t_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string t_user_type = 9;
+            if (has_t_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_user_type());
+            }
+            
+            // required string m_avatar = 10;
+            if (has_m_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_avatar());
+            }
+            
+            // required string m_name = 11;
+            if (has_m_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_name());
+            }
+            
+            // required string m_leve = 12;
+            if (has_m_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_leve());
+            }
+            
+            // required string m_user_type = 13;
+            if (has_m_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_user_type());
             }
             
         }
@@ -2269,6 +4920,35 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_pic()) {
                 set_pic(from.pic());
             }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_t_avatar()) {
+                set_t_avatar(from.t_avatar());
+            }
+            if (from.has_t_name()) {
+                set_t_name(from.t_name());
+            }
+            if (from.has_t_leve()) {
+                set_t_leve(from.t_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_t_user_type()) {
+                set_t_user_type(from.t_user_type());
+            }
+            if (from.has_m_avatar()) {
+                set_m_avatar(from.m_avatar());
+            }
+            if (from.has_m_name()) {
+                set_m_name(from.m_name());
+            }
+            if (from.has_m_leve()) {
+                set_m_leve(from.m_leve());
+            }
+            if (from.has_m_user_type()) {
+                set_m_user_type(from.m_user_type());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -2286,7 +4966,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionPic::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
         
         return true;
     }
@@ -2297,6 +4977,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(tid_, other->tid_);
             std::swap(ctype_, other->ctype_);
             std::swap(pic_, other->pic_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(t_avatar_, other->t_avatar_);
+            std::swap(t_name_, other->t_name_);
+            std::swap(t_leve_, other->t_leve_);
+            std::swap(t_user_type_, other->t_user_type_);
+            std::swap(m_avatar_, other->m_avatar_);
+            std::swap(m_name_, other->m_name_);
+            std::swap(m_leve_, other->m_leve_);
+            std::swap(m_user_type_, other->m_user_type_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -2319,12 +5008,21 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionVideo::kTidFieldNumber;
     const int QuestionVideo::kCtypeFieldNumber;
     const int QuestionVideo::kVideoFieldNumber;
+    const int QuestionVideo::kTimeStampFieldNumber;
+    const int QuestionVideo::kTAvatarFieldNumber;
+    const int QuestionVideo::kTNameFieldNumber;
+    const int QuestionVideo::kTLeveFieldNumber;
+    const int QuestionVideo::kTUserTypeFieldNumber;
+    const int QuestionVideo::kMAvatarFieldNumber;
+    const int QuestionVideo::kMNameFieldNumber;
+    const int QuestionVideo::kMLeveFieldNumber;
+    const int QuestionVideo::kMUserTypeFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionVideo::QuestionVideo()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.QuestionVideo)
+        // @@protoc_insertion_point(constructor:QSChat.QuestionVideo)
     }
     
     void QuestionVideo::InitAsDefaultInstance() {
@@ -2334,7 +5032,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.QuestionVideo)
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionVideo)
     }
     
     void QuestionVideo::SharedCtor() {
@@ -2344,17 +5042,53 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         tid_ = GOOGLE_LONGLONG(0);
         ctype_ = 8000;
         video_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     QuestionVideo::~QuestionVideo() {
-        // @@protoc_insertion_point(destructor:qschat.QuestionVideo)
+        // @@protoc_insertion_point(destructor:QSChat.QuestionVideo)
         SharedDtor();
     }
     
     void QuestionVideo::SharedDtor() {
         if (video_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete video_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_avatar_;
+        }
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_name_;
+        }
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_leve_;
+        }
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_user_type_;
+        }
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_avatar_;
+        }
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_name_;
+        }
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_leve_;
+        }
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_user_type_;
         }
         if (this != default_instance_) {
         }
@@ -2392,12 +5126,59 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 ::memset(&first, 0, n);                                \
 } while (0)
         
-        if (_has_bits_[0 / 32] & 15) {
+        if (_has_bits_[0 / 32] & 255) {
             ZR_(mid_, tid_);
             ctype_ = 8000;
             if (has_video()) {
                 if (video_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     video_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            if (has_t_avatar()) {
+                if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_avatar_->clear();
+                }
+            }
+            if (has_t_name()) {
+                if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_name_->clear();
+                }
+            }
+            if (has_t_leve()) {
+                if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 7936) {
+            if (has_t_user_type()) {
+                if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    t_user_type_->clear();
+                }
+            }
+            if (has_m_avatar()) {
+                if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_avatar_->clear();
+                }
+            }
+            if (has_m_name()) {
+                if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_name_->clear();
+                }
+            }
+            if (has_m_leve()) {
+                if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_leve_->clear();
+                }
+            }
+            if (has_m_user_type()) {
+                if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_user_type_->clear();
                 }
             }
         }
@@ -2413,7 +5194,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.QuestionVideo)
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionVideo)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -2448,7 +5229,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // required .qschat.ChatRequestType ctype = 3;
+                    // required .QSChat.ChatRequestType ctype = 3;
                 case 3: {
                     if (tag == 24) {
                     parse_ctype:
@@ -2456,8 +5237,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                         DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                              int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                                                                                            input, &value)));
-                        if (::qschat::ChatRequestType_IsValid(value)) {
-                            set_ctype(static_cast< ::qschat::ChatRequestType >(value));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
                         } else {
                             mutable_unknown_fields()->AddVarint(3, value);
                         }
@@ -2474,6 +5255,159 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     parse_video:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                                                                                     input, this->mutable_video()));
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_t_avatar;
+                    break;
+                }
+                    
+                    // required string t_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_t_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_avatar().data(), this->t_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_t_name;
+                    break;
+                }
+                    
+                    // required string t_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_t_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_name().data(), this->t_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_t_leve;
+                    break;
+                }
+                    
+                    // required string t_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_t_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_leve().data(), this->t_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_t_user_type;
+                    break;
+                }
+                    
+                    // required string t_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_t_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_t_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->t_user_type().data(), this->t_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "t_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_m_avatar;
+                    break;
+                }
+                    
+                    // required string m_avatar = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_m_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_avatar().data(), this->m_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(90)) goto parse_m_name;
+                    break;
+                }
+                    
+                    // required string m_name = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_m_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_name().data(), this->m_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_m_leve;
+                    break;
+                }
+                    
+                    // required string m_leve = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_m_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_leve().data(), this->m_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_m_user_type;
+                    break;
+                }
+                    
+                    // required string m_user_type = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_m_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_m_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->m_user_type().data(), this->m_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "m_user_type");
                     } else {
                         goto handle_unusual;
                     }
@@ -2495,17 +5429,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.QuestionVideo)
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionVideo)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.QuestionVideo)
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionVideo)
         return false;
 #undef DO_
     }
     
     void QuestionVideo::SerializeWithCachedSizes(
                                                  ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.QuestionVideo)
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionVideo)
         // required int64 mid = 1;
         if (has_mid()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->mid(), output);
@@ -2516,7 +5450,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->tid(), output);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             ::google::protobuf::internal::WireFormatLite::WriteEnum(
                                                                     3, this->ctype(), output);
@@ -2528,16 +5462,106 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  4, this->video(), output);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->time_stamp(), output);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->t_avatar(), output);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->t_name(), output);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->t_leve(), output);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->t_user_type(), output);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->m_avatar(), output);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->m_name(), output);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->m_leve(), output);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->m_user_type(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.QuestionVideo)
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionVideo)
     }
     
     ::google::protobuf::uint8* QuestionVideo::SerializeWithCachedSizesToArray(
                                                                               ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.QuestionVideo)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionVideo)
         // required int64 mid = 1;
         if (has_mid()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->mid(), target);
@@ -2548,7 +5572,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->tid(), target);
         }
         
-        // required .qschat.ChatRequestType ctype = 3;
+        // required .QSChat.ChatRequestType ctype = 3;
         if (has_ctype()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
                                                                                     3, this->ctype(), target);
@@ -2561,11 +5585,110 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                             4, this->video(), target);
         }
         
+        // required string time_stamp = 5;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->time_stamp(), target);
+        }
+        
+        // required string t_avatar = 6;
+        if (has_t_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_avatar().data(), this->t_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->t_avatar(), target);
+        }
+        
+        // required string t_name = 7;
+        if (has_t_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_name().data(), this->t_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->t_name(), target);
+        }
+        
+        // required string t_leve = 8;
+        if (has_t_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_leve().data(), this->t_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->t_leve(), target);
+        }
+        
+        // required string t_user_type = 9;
+        if (has_t_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->t_user_type().data(), this->t_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "t_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->t_user_type(), target);
+        }
+        
+        // required string m_avatar = 10;
+        if (has_m_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_avatar().data(), this->m_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->m_avatar(), target);
+        }
+        
+        // required string m_name = 11;
+        if (has_m_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_name().data(), this->m_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->m_name(), target);
+        }
+        
+        // required string m_leve = 12;
+        if (has_m_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_leve().data(), this->m_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->m_leve(), target);
+        }
+        
+        // required string m_user_type = 13;
+        if (has_m_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->m_user_type().data(), this->m_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "m_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->m_user_type(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.QuestionVideo)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionVideo)
         return target;
     }
     
@@ -2587,7 +5710,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                         this->tid());
             }
             
-            // required .qschat.ChatRequestType ctype = 3;
+            // required .QSChat.ChatRequestType ctype = 3;
             if (has_ctype()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
@@ -2598,6 +5721,71 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::BytesSize(
                                                                         this->video());
+            }
+            
+            // required string time_stamp = 5;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required string t_avatar = 6;
+            if (has_t_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_avatar());
+            }
+            
+            // required string t_name = 7;
+            if (has_t_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_name());
+            }
+            
+            // required string t_leve = 8;
+            if (has_t_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string t_user_type = 9;
+            if (has_t_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->t_user_type());
+            }
+            
+            // required string m_avatar = 10;
+            if (has_m_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_avatar());
+            }
+            
+            // required string m_name = 11;
+            if (has_m_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_name());
+            }
+            
+            // required string m_leve = 12;
+            if (has_m_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_leve());
+            }
+            
+            // required string m_user_type = 13;
+            if (has_m_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->m_user_type());
             }
             
         }
@@ -2639,6 +5827,35 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_video()) {
                 set_video(from.video());
             }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_t_avatar()) {
+                set_t_avatar(from.t_avatar());
+            }
+            if (from.has_t_name()) {
+                set_t_name(from.t_name());
+            }
+            if (from.has_t_leve()) {
+                set_t_leve(from.t_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_t_user_type()) {
+                set_t_user_type(from.t_user_type());
+            }
+            if (from.has_m_avatar()) {
+                set_m_avatar(from.m_avatar());
+            }
+            if (from.has_m_name()) {
+                set_m_name(from.m_name());
+            }
+            if (from.has_m_leve()) {
+                set_m_leve(from.m_leve());
+            }
+            if (from.has_m_user_type()) {
+                set_m_user_type(from.m_user_type());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -2656,7 +5873,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionVideo::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
         
         return true;
     }
@@ -2667,6 +5884,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(tid_, other->tid_);
             std::swap(ctype_, other->ctype_);
             std::swap(video_, other->video_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(t_avatar_, other->t_avatar_);
+            std::swap(t_name_, other->t_name_);
+            std::swap(t_leve_, other->t_leve_);
+            std::swap(t_user_type_, other->t_user_type_);
+            std::swap(m_avatar_, other->m_avatar_);
+            std::swap(m_name_, other->m_name_);
+            std::swap(m_leve_, other->m_leve_);
+            std::swap(m_user_type_, other->m_user_type_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -2685,14 +5911,563 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     // ===================================================================
     
 #ifndef _MSC_VER
+    const int QuestionSystem::kTitleFieldNumber;
+    const int QuestionSystem::kDescFieldNumber;
+    const int QuestionSystem::kTimeFieldNumber;
+    const int QuestionSystem::kMidFieldNumber;
+    const int QuestionSystem::kTypeFieldNumber;
+    const int QuestionSystem::kUrlFieldNumber;
+#endif  // !_MSC_VER
+    
+    QuestionSystem::QuestionSystem()
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        // @@protoc_insertion_point(constructor:QSChat.QuestionSystem)
+    }
+    
+    void QuestionSystem::InitAsDefaultInstance() {
+    }
+    
+    QuestionSystem::QuestionSystem(const QuestionSystem& from)
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        MergeFrom(from);
+        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionSystem)
+    }
+    
+    void QuestionSystem::SharedCtor() {
+        ::google::protobuf::internal::GetEmptyString();
+        _cached_size_ = 0;
+        title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        mid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        url_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+    }
+    
+    QuestionSystem::~QuestionSystem() {
+        // @@protoc_insertion_point(destructor:QSChat.QuestionSystem)
+        SharedDtor();
+    }
+    
+    void QuestionSystem::SharedDtor() {
+        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete title_;
+        }
+        if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete desc_;
+        }
+        if (time_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_;
+        }
+        if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete mid_;
+        }
+        if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete type_;
+        }
+        if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete url_;
+        }
+        if (this != default_instance_) {
+        }
+    }
+    
+    void QuestionSystem::SetCachedSize(int size) const {
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    }
+    const ::google::protobuf::Descriptor* QuestionSystem::descriptor() {
+        protobuf_AssignDescriptorsOnce();
+        return QuestionSystem_descriptor_;
+    }
+    
+    const QuestionSystem& QuestionSystem::default_instance() {
+        if (default_instance_ == NULL) protobuf_AddDesc_qschat_2eproto();
+        return *default_instance_;
+    }
+    
+    QuestionSystem* QuestionSystem::default_instance_ = NULL;
+    
+    QuestionSystem* QuestionSystem::New() const {
+        return new QuestionSystem;
+    }
+    
+    void QuestionSystem::Clear() {
+        if (_has_bits_[0 / 32] & 63) {
+            if (has_title()) {
+                if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    title_->clear();
+                }
+            }
+            if (has_desc()) {
+                if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    desc_->clear();
+                }
+            }
+            if (has_time()) {
+                if (time_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_->clear();
+                }
+            }
+            if (has_mid()) {
+                if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    mid_->clear();
+                }
+            }
+            if (has_type()) {
+                if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    type_->clear();
+                }
+            }
+            if (has_url()) {
+                if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    url_->clear();
+                }
+            }
+        }
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+        mutable_unknown_fields()->Clear();
+    }
+    
+    bool QuestionSystem::MergePartialFromCodedStream(
+                                                     ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+        ::google::protobuf::uint32 tag;
+        // @@protoc_insertion_point(parse_start:QSChat.QuestionSystem)
+        for (;;) {
+            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+            tag = p.first;
+            if (!p.second) goto handle_unusual;
+            switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+                    // required string title = 1;
+                case 1: {
+                    if (tag == 10) {
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_title()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->title().data(), this->title().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "title");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_desc;
+                    break;
+                }
+                    
+                    // required string desc = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_desc:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_desc()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->desc().data(), this->desc().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "desc");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_time;
+                    break;
+                }
+                    
+                    // required string time = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_time:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time().data(), this->time().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_mid;
+                    break;
+                }
+                    
+                    // required string mid = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_mid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_mid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->mid().data(), this->mid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "mid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_type;
+                    break;
+                }
+                    
+                    // required string type = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->type().data(), this->type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_url;
+                    break;
+                }
+                    
+                    // required string url = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_url:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_url()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->url().data(), this->url().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "url");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectAtEnd()) goto success;
+                    break;
+                }
+                    
+                default: {
+                handle_unusual:
+                    if (tag == 0 ||
+                        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                        goto success;
+                    }
+                    DO_(::google::protobuf::internal::WireFormat::SkipField(
+                                                                            input, tag, mutable_unknown_fields()));
+                    break;
+                }
+            }
+        }
+    success:
+        // @@protoc_insertion_point(parse_success:QSChat.QuestionSystem)
+        return true;
+    failure:
+        // @@protoc_insertion_point(parse_failure:QSChat.QuestionSystem)
+        return false;
+#undef DO_
+    }
+    
+    void QuestionSystem::SerializeWithCachedSizes(
+                                                  ::google::protobuf::io::CodedOutputStream* output) const {
+        // @@protoc_insertion_point(serialize_start:QSChat.QuestionSystem)
+        // required string title = 1;
+        if (has_title()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->title().data(), this->title().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "title");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  1, this->title(), output);
+        }
+        
+        // required string desc = 2;
+        if (has_desc()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->desc().data(), this->desc().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "desc");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->desc(), output);
+        }
+        
+        // required string time = 3;
+        if (has_time()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time().data(), this->time().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->time(), output);
+        }
+        
+        // required string mid = 4;
+        if (has_mid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->mid().data(), this->mid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "mid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->mid(), output);
+        }
+        
+        // required string type = 5;
+        if (has_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->type().data(), this->type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->type(), output);
+        }
+        
+        // required string url = 6;
+        if (has_url()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->url().data(), this->url().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "url");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->url(), output);
+        }
+        
+        if (!unknown_fields().empty()) {
+            ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+                                                                             unknown_fields(), output);
+        }
+        // @@protoc_insertion_point(serialize_end:QSChat.QuestionSystem)
+    }
+    
+    ::google::protobuf::uint8* QuestionSystem::SerializeWithCachedSizesToArray(
+                                                                               ::google::protobuf::uint8* target) const {
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionSystem)
+        // required string title = 1;
+        if (has_title()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->title().data(), this->title().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "title");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             1, this->title(), target);
+        }
+        
+        // required string desc = 2;
+        if (has_desc()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->desc().data(), this->desc().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "desc");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->desc(), target);
+        }
+        
+        // required string time = 3;
+        if (has_time()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time().data(), this->time().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->time(), target);
+        }
+        
+        // required string mid = 4;
+        if (has_mid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->mid().data(), this->mid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "mid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->mid(), target);
+        }
+        
+        // required string type = 5;
+        if (has_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->type().data(), this->type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->type(), target);
+        }
+        
+        // required string url = 6;
+        if (has_url()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->url().data(), this->url().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "url");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->url(), target);
+        }
+        
+        if (!unknown_fields().empty()) {
+            target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+                                                                                             unknown_fields(), target);
+        }
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionSystem)
+        return target;
+    }
+    
+    int QuestionSystem::ByteSize() const {
+        int total_size = 0;
+        
+        if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            // required string title = 1;
+            if (has_title()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->title());
+            }
+            
+            // required string desc = 2;
+            if (has_desc()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->desc());
+            }
+            
+            // required string time = 3;
+            if (has_time()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time());
+            }
+            
+            // required string mid = 4;
+            if (has_mid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->mid());
+            }
+            
+            // required string type = 5;
+            if (has_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->type());
+            }
+            
+            // required string url = 6;
+            if (has_url()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->url());
+            }
+            
+        }
+        if (!unknown_fields().empty()) {
+            total_size +=
+            ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+                                                                               unknown_fields());
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = total_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        return total_size;
+    }
+    
+    void QuestionSystem::MergeFrom(const ::google::protobuf::Message& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        const QuestionSystem* source =
+        ::google::protobuf::internal::dynamic_cast_if_available<const QuestionSystem*>(
+                                                                                       &from);
+        if (source == NULL) {
+            ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+        } else {
+            MergeFrom(*source);
+        }
+    }
+    
+    void QuestionSystem::MergeFrom(const QuestionSystem& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            if (from.has_title()) {
+                set_title(from.title());
+            }
+            if (from.has_desc()) {
+                set_desc(from.desc());
+            }
+            if (from.has_time()) {
+                set_time(from.time());
+            }
+            if (from.has_mid()) {
+                set_mid(from.mid());
+            }
+            if (from.has_type()) {
+                set_type(from.type());
+            }
+            if (from.has_url()) {
+                set_url(from.url());
+            }
+        }
+        mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+    }
+    
+    void QuestionSystem::CopyFrom(const ::google::protobuf::Message& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    void QuestionSystem::CopyFrom(const QuestionSystem& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    bool QuestionSystem::IsInitialized() const {
+        if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+        
+        return true;
+    }
+    
+    void QuestionSystem::Swap(QuestionSystem* other) {
+        if (other != this) {
+            std::swap(title_, other->title_);
+            std::swap(desc_, other->desc_);
+            std::swap(time_, other->time_);
+            std::swap(mid_, other->mid_);
+            std::swap(type_, other->type_);
+            std::swap(url_, other->url_);
+            std::swap(_has_bits_[0], other->_has_bits_[0]);
+            _unknown_fields_.Swap(&other->_unknown_fields_);
+            std::swap(_cached_size_, other->_cached_size_);
+        }
+    }
+    
+    ::google::protobuf::Metadata QuestionSystem::GetMetadata() const {
+        protobuf_AssignDescriptorsOnce();
+        ::google::protobuf::Metadata metadata;
+        metadata.descriptor = QuestionSystem_descriptor_;
+        metadata.reflection = QuestionSystem_reflection_;
+        return metadata;
+    }
+    
+    
+    // ===================================================================
+    
+#ifndef _MSC_VER
     const int AnswerWord::kResultFieldNumber;
     const int AnswerWord::kMessageFieldNumber;
+    const int AnswerWord::kMsgIdFieldNumber;
+    const int AnswerWord::kTimeStampFieldNumber;
+    const int AnswerWord::kFidFieldNumber;
+    const int AnswerWord::kFAvatarFieldNumber;
+    const int AnswerWord::kFNameFieldNumber;
+    const int AnswerWord::kFLeveFieldNumber;
+    const int AnswerWord::kFUserTypeFieldNumber;
+    const int AnswerWord::kFUnreadCountFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerWord::AnswerWord()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerWord)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerWord)
     }
     
     void AnswerWord::InitAsDefaultInstance() {
@@ -2702,7 +6477,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerWord)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerWord)
     }
     
     void AnswerWord::SharedCtor() {
@@ -2710,11 +6485,19 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         _cached_size_ = 0;
         result_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     AnswerWord::~AnswerWord() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerWord)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerWord)
         SharedDtor();
     }
     
@@ -2724,6 +6507,27 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete message_;
+        }
+        if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
         }
         if (this != default_instance_) {
         }
@@ -2751,7 +6555,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerWord::Clear() {
-        if (_has_bits_[0 / 32] & 3) {
+        if (_has_bits_[0 / 32] & 255) {
             if (has_result()) {
                 if (result_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     result_->clear();
@@ -2760,6 +6564,44 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_message()) {
                 if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     message_->clear();
+                }
+            }
+            if (has_msg_id()) {
+                if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 768) {
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
                 }
             }
         }
@@ -2771,7 +6613,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerWord)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerWord)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -2806,6 +6648,140 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(26)) goto parse_msg_id;
+                    break;
+                }
+                    
+                    // required string msg_id = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_msg_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id().data(), this->msg_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(40)) goto parse_fid;
+                    break;
+                }
+                    
+                    // required int64 fid = 5;
+                case 5: {
+                    if (tag == 40) {
+                    parse_fid:
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -2824,17 +6800,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerWord)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerWord)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerWord)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerWord)
         return false;
 #undef DO_
     }
     
     void AnswerWord::SerializeWithCachedSizes(
                                               ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerWord)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerWord)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2855,16 +6831,91 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   2, this->message(), output);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->msg_id(), output);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->time_stamp(), output);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->fid(), output);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->f_name(), output);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->f_unread_count(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerWord)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerWord)
     }
     
     ::google::protobuf::uint8* AnswerWord::SerializeWithCachedSizesToArray(
                                                                            ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerWord)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerWord)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2887,11 +6938,93 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              2, this->message(), target);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->msg_id(), target);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->time_stamp(), target);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->fid(), target);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->f_name(), target);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->f_unread_count(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerWord)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerWord)
         return target;
     }
     
@@ -2911,6 +7044,64 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->message());
+            }
+            
+            // required string msg_id = 3;
+            if (has_msg_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id());
+            }
+            
+            // required string time_stamp = 4;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required int64 fid = 5;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 6;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 7;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 8;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string f_user_type = 9;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+            // required string f_unread_count = 10;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
             }
             
         }
@@ -2946,6 +7137,32 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_message()) {
                 set_message(from.message());
             }
+            if (from.has_msg_id()) {
+                set_msg_id(from.msg_id());
+            }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -2963,7 +7180,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerWord::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
         
         return true;
     }
@@ -2972,6 +7189,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (other != this) {
             std::swap(result_, other->result_);
             std::swap(message_, other->message_);
+            std::swap(msg_id_, other->msg_id_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -2992,12 +7217,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 #ifndef _MSC_VER
     const int AnswerPic::kResultFieldNumber;
     const int AnswerPic::kPicFieldNumber;
+    const int AnswerPic::kMsgIdFieldNumber;
+    const int AnswerPic::kTimeStampFieldNumber;
+    const int AnswerPic::kFidFieldNumber;
+    const int AnswerPic::kFAvatarFieldNumber;
+    const int AnswerPic::kFNameFieldNumber;
+    const int AnswerPic::kFLeveFieldNumber;
+    const int AnswerPic::kFUserTypeFieldNumber;
+    const int AnswerPic::kFUnreadCountFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerPic::AnswerPic()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerPic)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerPic)
     }
     
     void AnswerPic::InitAsDefaultInstance() {
@@ -3007,7 +7240,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerPic)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerPic)
     }
     
     void AnswerPic::SharedCtor() {
@@ -3015,11 +7248,19 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         _cached_size_ = 0;
         result_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         pic_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     AnswerPic::~AnswerPic() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerPic)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerPic)
         SharedDtor();
     }
     
@@ -3029,6 +7270,27 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete pic_;
+        }
+        if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
         }
         if (this != default_instance_) {
         }
@@ -3056,7 +7318,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerPic::Clear() {
-        if (_has_bits_[0 / 32] & 3) {
+        if (_has_bits_[0 / 32] & 255) {
             if (has_result()) {
                 if (result_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     result_->clear();
@@ -3065,6 +7327,44 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_pic()) {
                 if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     pic_->clear();
+                }
+            }
+            if (has_msg_id()) {
+                if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 768) {
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
                 }
             }
         }
@@ -3076,7 +7376,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                 ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerPic)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerPic)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -3107,6 +7407,140 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(26)) goto parse_msg_id;
+                    break;
+                }
+                    
+                    // required string msg_id = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_msg_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id().data(), this->msg_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(40)) goto parse_fid;
+                    break;
+                }
+                    
+                    // required int64 fid = 5;
+                case 5: {
+                    if (tag == 40) {
+                    parse_fid:
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -3125,17 +7559,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerPic)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerPic)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerPic)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerPic)
         return false;
 #undef DO_
     }
     
     void AnswerPic::SerializeWithCachedSizes(
                                              ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerPic)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerPic)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3152,16 +7586,91 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  2, this->pic(), output);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->msg_id(), output);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->time_stamp(), output);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->fid(), output);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->f_name(), output);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->f_unread_count(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerPic)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerPic)
     }
     
     ::google::protobuf::uint8* AnswerPic::SerializeWithCachedSizesToArray(
                                                                           ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerPic)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerPic)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3180,11 +7689,93 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                             2, this->pic(), target);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->msg_id(), target);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->time_stamp(), target);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->fid(), target);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->f_name(), target);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->f_unread_count(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerPic)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerPic)
         return target;
     }
     
@@ -3204,6 +7795,64 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::BytesSize(
                                                                         this->pic());
+            }
+            
+            // required string msg_id = 3;
+            if (has_msg_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id());
+            }
+            
+            // required string time_stamp = 4;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required int64 fid = 5;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 6;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 7;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 8;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string f_user_type = 9;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+            // required string f_unread_count = 10;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
             }
             
         }
@@ -3239,6 +7888,32 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_pic()) {
                 set_pic(from.pic());
             }
+            if (from.has_msg_id()) {
+                set_msg_id(from.msg_id());
+            }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -3256,7 +7931,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerPic::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
         
         return true;
     }
@@ -3265,6 +7940,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (other != this) {
             std::swap(result_, other->result_);
             std::swap(pic_, other->pic_);
+            std::swap(msg_id_, other->msg_id_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -3285,12 +7968,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 #ifndef _MSC_VER
     const int AnswerVideo::kResultFieldNumber;
     const int AnswerVideo::kVideoFieldNumber;
+    const int AnswerVideo::kMsgIdFieldNumber;
+    const int AnswerVideo::kTimeStampFieldNumber;
+    const int AnswerVideo::kFidFieldNumber;
+    const int AnswerVideo::kFAvatarFieldNumber;
+    const int AnswerVideo::kFNameFieldNumber;
+    const int AnswerVideo::kFLeveFieldNumber;
+    const int AnswerVideo::kFUserTypeFieldNumber;
+    const int AnswerVideo::kFUnreadCountFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerVideo::AnswerVideo()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerVideo)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerVideo)
     }
     
     void AnswerVideo::InitAsDefaultInstance() {
@@ -3300,7 +7991,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerVideo)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerVideo)
     }
     
     void AnswerVideo::SharedCtor() {
@@ -3308,11 +7999,19 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         _cached_size_ = 0;
         result_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         video_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     AnswerVideo::~AnswerVideo() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerVideo)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerVideo)
         SharedDtor();
     }
     
@@ -3322,6 +8021,27 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (video_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete video_;
+        }
+        if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
         }
         if (this != default_instance_) {
         }
@@ -3349,7 +8069,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerVideo::Clear() {
-        if (_has_bits_[0 / 32] & 3) {
+        if (_has_bits_[0 / 32] & 255) {
             if (has_result()) {
                 if (result_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     result_->clear();
@@ -3358,6 +8078,44 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_video()) {
                 if (video_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     video_->clear();
+                }
+            }
+            if (has_msg_id()) {
+                if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 768) {
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
                 }
             }
         }
@@ -3369,7 +8127,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                   ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerVideo)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerVideo)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -3400,6 +8158,140 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(26)) goto parse_msg_id;
+                    break;
+                }
+                    
+                    // required string msg_id = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_msg_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id().data(), this->msg_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(40)) goto parse_fid;
+                    break;
+                }
+                    
+                    // required int64 fid = 5;
+                case 5: {
+                    if (tag == 40) {
+                    parse_fid:
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -3418,17 +8310,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerVideo)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerVideo)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerVideo)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerVideo)
         return false;
 #undef DO_
     }
     
     void AnswerVideo::SerializeWithCachedSizes(
                                                ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerVideo)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerVideo)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3445,16 +8337,91 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  2, this->video(), output);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->msg_id(), output);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->time_stamp(), output);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->fid(), output);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->f_name(), output);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->f_unread_count(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerVideo)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerVideo)
     }
     
     ::google::protobuf::uint8* AnswerVideo::SerializeWithCachedSizesToArray(
                                                                             ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerVideo)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerVideo)
         // required string result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3473,11 +8440,93 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                             2, this->video(), target);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->msg_id(), target);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->time_stamp(), target);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->fid(), target);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->f_name(), target);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->f_unread_count(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerVideo)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerVideo)
         return target;
     }
     
@@ -3497,6 +8546,64 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::BytesSize(
                                                                         this->video());
+            }
+            
+            // required string msg_id = 3;
+            if (has_msg_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id());
+            }
+            
+            // required string time_stamp = 4;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required int64 fid = 5;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 6;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 7;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 8;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string f_user_type = 9;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+            // required string f_unread_count = 10;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
             }
             
         }
@@ -3532,6 +8639,32 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_video()) {
                 set_video(from.video());
             }
+            if (from.has_msg_id()) {
+                set_msg_id(from.msg_id());
+            }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -3549,7 +8682,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerVideo::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
         
         return true;
     }
@@ -3558,6 +8691,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (other != this) {
             std::swap(result_, other->result_);
             std::swap(video_, other->video_);
+            std::swap(msg_id_, other->msg_id_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -3577,12 +8718,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     
 #ifndef _MSC_VER
     const int AnswerOnline::kResultFieldNumber;
+    const int AnswerOnline::kMsgIdFieldNumber;
+    const int AnswerOnline::kTimeStampFieldNumber;
+    const int AnswerOnline::kFidFieldNumber;
+    const int AnswerOnline::kFAvatarFieldNumber;
+    const int AnswerOnline::kFNameFieldNumber;
+    const int AnswerOnline::kFLeveFieldNumber;
+    const int AnswerOnline::kFUserTypeFieldNumber;
+    const int AnswerOnline::kFUnreadCountFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerOnline::AnswerOnline()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerOnline)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerOnline)
     }
     
     void AnswerOnline::InitAsDefaultInstance() {
@@ -3592,21 +8741,51 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerOnline)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerOnline)
     }
     
     void AnswerOnline::SharedCtor() {
+        ::google::protobuf::internal::GetEmptyString();
         _cached_size_ = 0;
         result_ = 0;
+        msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     AnswerOnline::~AnswerOnline() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerOnline)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerOnline)
         SharedDtor();
     }
     
     void AnswerOnline::SharedDtor() {
+        if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
+        }
         if (this != default_instance_) {
         }
     }
@@ -3633,7 +8812,45 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerOnline::Clear() {
-        result_ = 0;
+        if (_has_bits_[0 / 32] & 255) {
+            result_ = 0;
+            if (has_msg_id()) {
+                if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+        }
+        if (has_f_unread_count()) {
+            if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                f_unread_count_->clear();
+            }
+        }
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
         mutable_unknown_fields()->Clear();
     }
@@ -3642,7 +8859,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                    ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerOnline)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerOnline)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -3655,6 +8872,140 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                              ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                                                                                                                   input, &result_)));
                         set_has_result();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_msg_id;
+                    break;
+                }
+                    
+                    // required string msg_id = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_msg_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id().data(), this->msg_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(32)) goto parse_fid;
+                    break;
+                }
+                    
+                    // required int64 fid = 4;
+                case 4: {
+                    if (tag == 32) {
+                    parse_fid:
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
                     } else {
                         goto handle_unusual;
                     }
@@ -3676,42 +9027,199 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerOnline)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerOnline)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerOnline)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerOnline)
         return false;
 #undef DO_
     }
     
     void AnswerOnline::SerializeWithCachedSizes(
                                                 ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerOnline)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerOnline)
         // required int32 result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->result(), output);
+        }
+        
+        // required string msg_id = 2;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->msg_id(), output);
+        }
+        
+        // required string time_stamp = 3;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->time_stamp(), output);
+        }
+        
+        // required int64 fid = 4;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->fid(), output);
+        }
+        
+        // required string f_avatar = 5;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 6;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_name(), output);
+        }
+        
+        // required string f_leve = 7;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 8;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 9;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->f_unread_count(), output);
         }
         
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerOnline)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerOnline)
     }
     
     ::google::protobuf::uint8* AnswerOnline::SerializeWithCachedSizesToArray(
                                                                              ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerOnline)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerOnline)
         // required int32 result = 1;
         if (has_result()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->result(), target);
+        }
+        
+        // required string msg_id = 2;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->msg_id(), target);
+        }
+        
+        // required string time_stamp = 3;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->time_stamp(), target);
+        }
+        
+        // required int64 fid = 4;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->fid(), target);
+        }
+        
+        // required string f_avatar = 5;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 6;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_name(), target);
+        }
+        
+        // required string f_leve = 7;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 8;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 9;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->f_unread_count(), target);
         }
         
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerOnline)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerOnline)
         return target;
     }
     
@@ -3724,6 +9232,64 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::Int32Size(
                                                                         this->result());
+            }
+            
+            // required string msg_id = 2;
+            if (has_msg_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id());
+            }
+            
+            // required string time_stamp = 3;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required int64 fid = 4;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 5;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 6;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 7;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+            // required string f_user_type = 8;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string f_unread_count = 9;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
             }
             
         }
@@ -3756,6 +9322,32 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_result()) {
                 set_result(from.result());
             }
+            if (from.has_msg_id()) {
+                set_msg_id(from.msg_id());
+            }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -3773,7 +9365,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerOnline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+        if ((_has_bits_[0] & 0x000001ff) != 0x000001ff) return false;
         
         return true;
     }
@@ -3781,6 +9373,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     void AnswerOnline::Swap(AnswerOnline* other) {
         if (other != this) {
             std::swap(result_, other->result_);
+            std::swap(msg_id_, other->msg_id_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -3801,12 +9401,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
 #ifndef _MSC_VER
     const int AnswerOffline::kResultFieldNumber;
     const int AnswerOffline::kMsgFieldNumber;
+    const int AnswerOffline::kMsgIdFieldNumber;
+    const int AnswerOffline::kTimeStampFieldNumber;
+    const int AnswerOffline::kFidFieldNumber;
+    const int AnswerOffline::kFAvatarFieldNumber;
+    const int AnswerOffline::kFNameFieldNumber;
+    const int AnswerOffline::kFLeveFieldNumber;
+    const int AnswerOffline::kFUserTypeFieldNumber;
+    const int AnswerOffline::kFUnreadCountFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerOffline::AnswerOffline()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerOffline)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerOffline)
     }
     
     void AnswerOffline::InitAsDefaultInstance() {
@@ -3816,7 +9424,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerOffline)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerOffline)
     }
     
     void AnswerOffline::SharedCtor() {
@@ -3824,17 +9432,46 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         _cached_size_ = 0;
         result_ = 0;
         msg_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
     AnswerOffline::~AnswerOffline() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerOffline)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerOffline)
         SharedDtor();
     }
     
     void AnswerOffline::SharedDtor() {
         if (msg_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete msg_;
+        }
+        if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id_;
+        }
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
         }
         if (this != default_instance_) {
         }
@@ -3862,11 +9499,49 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerOffline::Clear() {
-        if (_has_bits_[0 / 32] & 3) {
+        if (_has_bits_[0 / 32] & 255) {
             result_ = 0;
             if (has_msg()) {
                 if (msg_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     msg_->clear();
+                }
+            }
+            if (has_msg_id()) {
+                if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id_->clear();
+                }
+            }
+            if (has_time_stamp()) {
+                if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    time_stamp_->clear();
+                }
+            }
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 768) {
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
                 }
             }
         }
@@ -3878,7 +9553,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerOffline)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerOffline)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -3911,6 +9586,140 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(26)) goto parse_msg_id;
+                    break;
+                }
+                    
+                    // required string msg_id = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_msg_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id().data(), this->msg_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_time_stamp;
+                    break;
+                }
+                    
+                    // required string time_stamp = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_time_stamp:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_time_stamp()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->time_stamp().data(), this->time_stamp().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "time_stamp");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(40)) goto parse_fid;
+                    break;
+                }
+                    
+                    // required int64 fid = 5;
+                case 5: {
+                    if (tag == 40) {
+                    parse_fid:
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -3929,17 +9738,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerOffline)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerOffline)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerOffline)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerOffline)
         return false;
 #undef DO_
     }
     
     void AnswerOffline::SerializeWithCachedSizes(
                                                  ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerOffline)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerOffline)
         // required int32 result = 1;
         if (has_result()) {
             ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->result(), output);
@@ -3955,16 +9764,91 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   2, this->msg(), output);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->msg_id(), output);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->time_stamp(), output);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(5, this->fid(), output);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->f_name(), output);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->f_unread_count(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerOffline)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerOffline)
     }
     
     ::google::protobuf::uint8* AnswerOffline::SerializeWithCachedSizesToArray(
                                                                               ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerOffline)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerOffline)
         // required int32 result = 1;
         if (has_result()) {
             target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->result(), target);
@@ -3981,11 +9865,93 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              2, this->msg(), target);
         }
         
+        // required string msg_id = 3;
+        if (has_msg_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id().data(), this->msg_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->msg_id(), target);
+        }
+        
+        // required string time_stamp = 4;
+        if (has_time_stamp()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->time_stamp().data(), this->time_stamp().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "time_stamp");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->time_stamp(), target);
+        }
+        
+        // required int64 fid = 5;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(5, this->fid(), target);
+        }
+        
+        // required string f_avatar = 6;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 7;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->f_name(), target);
+        }
+        
+        // required string f_leve = 8;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 9;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 10;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->f_unread_count(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerOffline)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerOffline)
         return target;
     }
     
@@ -4005,6 +9971,64 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->msg());
+            }
+            
+            // required string msg_id = 3;
+            if (has_msg_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id());
+            }
+            
+            // required string time_stamp = 4;
+            if (has_time_stamp()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->time_stamp());
+            }
+            
+            // required int64 fid = 5;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 6;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 7;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 8;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string f_user_type = 9;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+            // required string f_unread_count = 10;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
             }
             
         }
@@ -4040,6 +10064,32 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_msg()) {
                 set_msg(from.msg());
             }
+            if (from.has_msg_id()) {
+                set_msg_id(from.msg_id());
+            }
+            if (from.has_time_stamp()) {
+                set_time_stamp(from.time_stamp());
+            }
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -4057,7 +10107,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerOffline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
         
         return true;
     }
@@ -4066,6 +10116,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (other != this) {
             std::swap(result_, other->result_);
             std::swap(msg_, other->msg_);
+            std::swap(msg_id_, other->msg_id_);
+            std::swap(time_stamp_, other->time_stamp_);
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -4094,7 +10152,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     AnswerSpecial::AnswerSpecial()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerSpecial)
     }
     
     void AnswerSpecial::InitAsDefaultInstance() {
@@ -4104,7 +10162,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerSpecial)
     }
     
     void AnswerSpecial::SharedCtor() {
@@ -4119,7 +10177,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     AnswerSpecial::~AnswerSpecial() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerSpecial)
         SharedDtor();
     }
     
@@ -4193,7 +10251,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerSpecial)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -4295,17 +10353,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerSpecial)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerSpecial)
         return false;
 #undef DO_
     }
     
     void AnswerSpecial::SerializeWithCachedSizes(
                                                  ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerSpecial)
         // required string name = 1;
         if (has_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -4355,12 +10413,12 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerSpecial)
     }
     
     ::google::protobuf::uint8* AnswerSpecial::SerializeWithCachedSizesToArray(
                                                                               ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerSpecial)
         // required string name = 1;
         if (has_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -4414,7 +10472,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerSpecial)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerSpecial)
         return target;
     }
     
@@ -4557,7 +10615,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     AnswerSystem::AnswerSystem()
     : ::google::protobuf::Message() {
         SharedCtor();
-        // @@protoc_insertion_point(constructor:qschat.AnswerSystem)
+        // @@protoc_insertion_point(constructor:QSChat.AnswerSystem)
     }
     
     void AnswerSystem::InitAsDefaultInstance() {
@@ -4567,7 +10625,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     : ::google::protobuf::Message() {
         SharedCtor();
         MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:qschat.AnswerSystem)
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerSystem)
     }
     
     void AnswerSystem::SharedCtor() {
@@ -4583,7 +10641,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     AnswerSystem::~AnswerSystem() {
-        // @@protoc_insertion_point(destructor:qschat.AnswerSystem)
+        // @@protoc_insertion_point(destructor:QSChat.AnswerSystem)
         SharedDtor();
     }
     
@@ -4672,7 +10730,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                    ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
         ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:qschat.AnswerSystem)
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerSystem)
         for (;;) {
             ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
             tag = p.first;
@@ -4793,17 +10851,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
     success:
-        // @@protoc_insertion_point(parse_success:qschat.AnswerSystem)
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerSystem)
         return true;
     failure:
-        // @@protoc_insertion_point(parse_failure:qschat.AnswerSystem)
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerSystem)
         return false;
 #undef DO_
     }
     
     void AnswerSystem::SerializeWithCachedSizes(
                                                 ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:qschat.AnswerSystem)
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerSystem)
         // required string title = 1;
         if (has_title()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -4868,12 +10926,12 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
         }
-        // @@protoc_insertion_point(serialize_end:qschat.AnswerSystem)
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerSystem)
     }
     
     ::google::protobuf::uint8* AnswerSystem::SerializeWithCachedSizesToArray(
                                                                              ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:qschat.AnswerSystem)
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerSystem)
         // required string title = 1;
         if (has_title()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -4944,7 +11002,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
         }
-        // @@protoc_insertion_point(serialize_to_array_end:qschat.AnswerSystem)
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerSystem)
         return target;
     }
     
@@ -5086,6 +11144,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     
     // @@protoc_insertion_point(namespace_scope)
     
-}  // namespace qschat
+}  // namespace QSChat
 
 // @@protoc_insertion_point(global_scope)

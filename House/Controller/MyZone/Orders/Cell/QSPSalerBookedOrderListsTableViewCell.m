@@ -143,7 +143,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     QSOrderListItemData *orderData = (QSOrderListItemData*)Data;
 
-    if ([orderData getUserIsOwnerFlag]) {
+//    if ([orderData getUserIsOwnerFlag]) {
         //非房客
         if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
             
@@ -209,11 +209,11 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             }
         }
       
-        
-    }else{
-        //房客
-
-    }
+//        
+//    }else{
+//        //房客
+//
+//    }
     
     if (infoLabel) {
         

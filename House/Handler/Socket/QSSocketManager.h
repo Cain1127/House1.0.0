@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class QSUserSimpleDataModel;
+@class QSYSendMessageBaseModel;
 @interface QSSocketManager : NSObject
 
 /**
@@ -71,7 +72,7 @@
  *
  *  @since          1.0.0
  */
-+ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,QSUserSimpleDataModel *userInfo))callBack;
++ (void)registInstantMessageReceiveNotification:(void(^)(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage,QSUserSimpleDataModel *userInfo))callBack;
 + (void)offsInstantMessageReceiveNotification;
 
 @end

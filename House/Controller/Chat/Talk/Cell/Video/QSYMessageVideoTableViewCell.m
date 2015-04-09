@@ -8,12 +8,15 @@
 
 #import "QSYMessageVideoTableViewCell.h"
 
+#import "NSString+Calculation.h"
+
 #import "QSYSendMessageVideo.h"
 
 #import <objc/runtime.h>
 
 ///关联
 static char UserIconKey;//!<头像关联
+static char SecondKey;  //!<秒数关联
 
 @interface QSYMessageVideoTableViewCell ()
 
@@ -62,12 +65,17 @@ static char UserIconKey;//!<头像关联
     CGFloat xpointIcon = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
     CGFloat xpointArrow = xpointIcon + 40.0f + 3.0f;
     CGFloat xpointMessage = xpointArrow + 5.0f;
-    CGFloat widthMessage = SIZE_DEVICE_WIDTH * 3.0f / 5.0f;
+    CGFloat widthMessage = 120.0f;
+    CGFloat xpointSecond = xpointMessage + widthMessage + 2.0f;
+    CGFloat widthSecond = 40.0f;
+    CGFloat xpointIndicator = 10.0f;
     if (mMessageFromTypeMY == self.messageType) {
         
         xpointIcon = SIZE_DEVICE_WIDTH - 40.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
         xpointArrow = xpointIcon - 3.0f - 5.0f;
         xpointMessage = xpointArrow - widthMessage;
+        xpointSecond = xpointMessage - 2.0f - widthSecond;
+        xpointIndicator = widthMessage - 40.0f;
         
     }
     
@@ -92,6 +100,14 @@ static char UserIconKey;//!<头像关联
     }
     [self.contentView addSubview:arrowIndicator];
     
+    ///秒数
+    UILabel *secondLabel = [[UILabel alloc] initWithFrame:CGRectMake(xpointSecond, iconView.frame.origin.y, widthSecond, 50.0f)];
+    secondLabel.textAlignment = NSTextAlignmentRight;
+    secondLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    secondLabel.text = @"7''";
+    [self.contentView addSubview:secondLabel];
+    objc_setAssociatedObject(self, &SecondKey, secondLabel, OBJC_ASSOCIATION_ASSIGN);
+    
     ///消息图片底view
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 50.0f)];
     rootView.layer.cornerRadius = 4.0f;
@@ -102,6 +118,24 @@ static char UserIconKey;//!<头像关联
         
     }
     [self.contentView addSubview:rootView];
+    
+    ///语音图片
+    UIButton *indicatorView = [UIButton createBlockButtonWithFrame:CGRectMake(xpointIndicator, 0.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        
+        
+    }];
+    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_NORMAL] forState:UIControlStateNormal];
+    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_SELECTED] forState:UIControlStateSelected];
+    if (mMessageFromTypeMY) {
+        
+        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_NORMAL] forState:UIControlStateNormal];
+        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
+        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_SELECTED] forState:UIControlStateSelected];
+        
+    }
+    [rootView addSubview:indicatorView];
 
 }
 
@@ -111,13 +145,19 @@ static char UserIconKey;//!<头像关联
     
     ///更新头像
     UIImageView *icontView = objc_getAssociatedObject(self, &UserIconKey);
-    if (icontView) {
+    if (icontView && [model.f_avatar length] > 0) {
+        
+        [icontView loadImageWithURL:[model.f_avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        
+    }
+    
+    ///更新音频秒数
+    UILabel *secondLabel = objc_getAssociatedObject(self, &SecondKey);
+    if (secondLabel) {
         
         
         
     }
-    
-    ///更新音频
     
 }
 

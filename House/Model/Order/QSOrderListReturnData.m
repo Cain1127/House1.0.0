@@ -99,8 +99,7 @@
     if (self.ownerData&&self.ownerData.id_)
     {
         NSString *userID = [QSCoreDataManager getUserID];
-        //FIXME:测试！！
-        userID = @"1";
+ 
         if ([self.ownerData.id_ isEqual:userID]) {
             flag = YES;
         }

@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>10004</key>
+	<dict>
+		<key>url</key>
+		<string>order/appointCommit</string>
+		<key>class</key>
+		<string>QSPOrderDetailCancelOrAppointReturnDataModel</string>
+	</dict>
+	<key>10003</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailCancelOrAppointReturnDataModel</string>
+		<key>url</key>
+		<string>order/cancel</string>
+	</dict>
 	<key>5500</key>
 	<dict>
 		<key>class</key>

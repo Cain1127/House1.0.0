@@ -209,7 +209,7 @@
     self.isShowHouseInfoView = flag;
     self.isShowHousePriceView = flag;
     self.isShowAddressView = flag;
-    self.isShowOwnerInfoView = flag;
+    self.isShowPersonInfoView = flag;
     self.isShowActivitiesPhoneView = flag;
     self.isShowOtherPriceView = flag;
     self.isShowMyPriceView = flag;
@@ -260,7 +260,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowAddressView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -281,7 +281,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowAddressView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -301,7 +301,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowAddressView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -320,7 +320,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowCommentNoteTipsView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -340,7 +340,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -366,7 +366,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -383,7 +383,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -402,7 +402,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowOtherPriceView = YES;
             self.isShowMyPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
@@ -434,7 +434,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -457,7 +457,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -480,7 +480,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -500,7 +500,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowOtherPriceView = YES;
             self.isShowMyPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
@@ -521,7 +521,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -541,7 +541,7 @@
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -563,7 +563,7 @@
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -583,7 +583,7 @@
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -603,7 +603,7 @@
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowHousePriceView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
             
@@ -612,7 +612,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowOwnerInfoView = YES;
+            self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色

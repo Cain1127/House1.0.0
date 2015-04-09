@@ -11,6 +11,7 @@
 #import "CoreHeader.h"
 #include <objc/runtime.h>
 #import "QSOrderListReturnData.h"
+#import "NSString+Calculation.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -235,7 +236,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     if (contentImgView) {
         
 //        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
-        [contentImgView setImageWithURL:[NSURL URLWithString:[orderData getHouseSmallImgUrl]]];
+        [contentImgView setImageWithURL:[[orderData getHouseSmallImgUrl] getImageURL]];
         
     }
     

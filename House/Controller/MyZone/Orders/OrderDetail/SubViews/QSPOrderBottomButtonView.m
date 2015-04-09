@@ -218,7 +218,7 @@
     
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:buttonType];
     
-    if (_buttonNum == 2 && buttonStyle) {
+    if (_buttonNum == 1 && buttonStyle) {
         
         UIView *view = [self viewWithTag:bBottomButtonTypeOne];
         
