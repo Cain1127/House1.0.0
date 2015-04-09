@@ -28,9 +28,34 @@
 		182C881F1A7B244000DA64E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C881E1A7B244000DA64E9 /* QuartzCore.framework */; };
 		182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182C88201A7B244E00DA64E9 /* OpenGLES.framework */; };
 		183571D91AD1642100A29607 /* QSCollectionVerticalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */; };
-		183571DC1AD2558E00A29607 /* QSYMessageWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */; };
 		183571E01AD432A100A29607 /* public_sixform_hollow_150x170.png in Resources */ = {isa = PBXBuildFile; fileRef = 183571DF1AD432A100A29607 /* public_sixform_hollow_150x170.png */; };
 		183571E21AD4355000A29607 /* myzone_property_house_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 183571E11AD4355000A29607 /* myzone_property_house_default.png */; };
+		183571E51AD515E000A29607 /* QSYSendMessagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571E41AD515E000A29607 /* QSYSendMessagePicture.m */; };
+		183571EB1AD5163100A29607 /* QSYSendMessageVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571EA1AD5163100A29607 /* QSYSendMessageVideo.m */; };
+		183571EF1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571EE1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.m */; };
+		183571F31AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571F21AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.m */; };
+		183571F61AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571F51AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.m */; };
+		183571FD1AD608A900A29607 /* QSYMessageWordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571FC1AD608A900A29607 /* QSYMessageWordTableViewCell.m */; };
+		183572001AD608C400A29607 /* QSYMessagePictureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571FF1AD608C400A29607 /* QSYMessagePictureTableViewCell.m */; };
+		183572031AD608D700A29607 /* QSYMessageVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183572021AD608D700A29607 /* QSYMessageVideoTableViewCell.m */; };
+		183572171AD612AD00A29607 /* talk_contact_indicate_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572051AD612AD00A29607 /* talk_contact_indicate_arrow_highlighted.png */; };
+		183572181AD612AD00A29607 /* talk_contact_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572061AD612AD00A29607 /* talk_contact_indicate_arrow_normal.png */; };
+		183572191AD612AD00A29607 /* talk_contact_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572071AD612AD00A29607 /* talk_contact_sound_message_highlighted.png */; };
+		1835721A1AD612AD00A29607 /* talk_contact_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572081AD612AD00A29607 /* talk_contact_sound_message_normal.png */; };
+		1835721B1AD612AD00A29607 /* talk_contact_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572091AD612AD00A29607 /* talk_contact_sound_message_selected.png */; };
+		1835721C1AD612AD00A29607 /* talk_my_indicate_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720A1AD612AD00A29607 /* talk_my_indicate_arrow_highlighted.png */; };
+		1835721D1AD612AD00A29607 /* talk_my_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720B1AD612AD00A29607 /* talk_my_indicate_arrow_normal.png */; };
+		1835721E1AD612AD00A29607 /* talk_my_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720C1AD612AD00A29607 /* talk_my_sound_message_highlighted.png */; };
+		1835721F1AD612AD00A29607 /* talk_my_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720D1AD612AD00A29607 /* talk_my_sound_message_normal.png */; };
+		183572201AD612AD00A29607 /* talk_my_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720E1AD612AD00A29607 /* talk_my_sound_message_selected.png */; };
+		183572211AD612AD00A29607 /* talk_photo_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 1835720F1AD612AD00A29607 /* talk_photo_highlighted.png */; };
+		183572221AD612AD00A29607 /* talk_photo_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572101AD612AD00A29607 /* talk_photo_normal.png */; };
+		183572231AD612AD00A29607 /* talk_sound_can_record_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572111AD612AD00A29607 /* talk_sound_can_record_highlighted.png */; };
+		183572241AD612AD00A29607 /* talk_sound_can_record_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572121AD612AD00A29607 /* talk_sound_can_record_normal.png */; };
+		183572251AD612AD00A29607 /* talk_sound_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572131AD612AD00A29607 /* talk_sound_highlighted.png */; };
+		183572261AD612AD00A29607 /* talk_sound_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572141AD612AD00A29607 /* talk_sound_normal.png */; };
+		183572271AD612AD00A29607 /* talk_sound_recording.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572151AD612AD00A29607 /* talk_sound_recording.png */; };
+		183572281AD612AD00A29607 /* talk_sound_sending.png in Resources */ = {isa = PBXBuildFile; fileRef = 183572161AD612AD00A29607 /* talk_sound_sending.png */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
 		183CC6611A68FC8800B8F97D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6601A68FC8800B8F97D /* CoreGraphics.framework */; };
 		183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC6621A68FC8800B8F97D /* UIKit.framework */; };
@@ -468,20 +493,6 @@
 		18DFE8DE1AC990A500C216C3 /* QSYOwnerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8DD1AC990A500C216C3 /* QSYOwnerInfoViewController.m */; };
 		18DFE8E21AC9973A00C216C3 /* QSYCallTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8E11AC9973A00C216C3 /* QSYCallTipsPopView.m */; };
 		18DFE8E61AC9A29300C216C3 /* QSYTalkPTPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8E51AC9A29300C216C3 /* QSYTalkPTPViewController.m */; };
-		18DFE8F61AC9A8D700C216C3 /* talk_contact_indicate_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8E81AC9A8D700C216C3 /* talk_contact_indicate_arrow_highlighted.png */; };
-		18DFE8F71AC9A8D700C216C3 /* talk_contact_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8E91AC9A8D700C216C3 /* talk_contact_indicate_arrow_normal.png */; };
-		18DFE8F81AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8EA1AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png */; };
-		18DFE8F91AC9A8D700C216C3 /* talk_contact_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8EB1AC9A8D700C216C3 /* talk_contact_sound_message_normal.png */; };
-		18DFE8FA1AC9A8D700C216C3 /* talk_contact_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8EC1AC9A8D700C216C3 /* talk_contact_sound_message_selected.png */; };
-		18DFE8FB1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8ED1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png */; };
-		18DFE8FC1AC9A8D700C216C3 /* talk_my_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8EE1AC9A8D700C216C3 /* talk_my_indicate_arrow_normal.png */; };
-		18DFE8FD1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8EF1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png */; };
-		18DFE8FE1AC9A8D700C216C3 /* talk_my_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F01AC9A8D700C216C3 /* talk_my_sound_message_normal.png */; };
-		18DFE8FF1AC9A8D700C216C3 /* talk_my_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F11AC9A8D700C216C3 /* talk_my_sound_message_selected.png */; };
-		18DFE9001AC9A8D700C216C3 /* talk_photo_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F21AC9A8D700C216C3 /* talk_photo_highlighted.png */; };
-		18DFE9011AC9A8D700C216C3 /* talk_photo_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F31AC9A8D700C216C3 /* talk_photo_normal.png */; };
-		18DFE9021AC9A8D700C216C3 /* talk_sound_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F41AC9A8D700C216C3 /* talk_sound_highlighted.png */; };
-		18DFE9031AC9A8D700C216C3 /* talk_sound_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8F51AC9A8D700C216C3 /* talk_sound_normal.png */; };
 		18DFE9061AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE9041AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png */; };
 		18DFE9071AC9A8EA00C216C3 /* navigationbar_detail_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE9051AC9A8EA00C216C3 /* navigationbar_detail_normal.png */; };
 		18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */; };
@@ -708,6 +719,43 @@
 		CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC91AD503B200FEF74A /* houses_detail_supermarket_annotion.png */; };
 		CEA9CFD21AD503D500FEF74A /* houses_detail_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */; };
 		CEA9CFD61AD511B100FEF74A /* QSSearchMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9CFD51AD511B100FEF74A /* QSSearchMapViewController.m */; };
+		CEACB02B1AD618130010D455 /* houses_detail_rent_bag_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0191AD618130010D455 /* houses_detail_rent_bag_light.png */; };
+		CEACB02C1AD618130010D455 /* houses_detail_rent_bag.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01A1AD618130010D455 /* houses_detail_rent_bag.png */; };
+		CEACB02D1AD618130010D455 /* houses_detail_rent_food_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01B1AD618130010D455 /* houses_detail_rent_food_light.png */; };
+		CEACB02E1AD618130010D455 /* houses_detail_rent_food.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01C1AD618130010D455 /* houses_detail_rent_food.png */; };
+		CEACB02F1AD618130010D455 /* houses_detail_rent_appliance_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01D1AD618130010D455 /* houses_detail_rent_appliance_light.png */; };
+		CEACB0301AD618130010D455 /* houses_detail_rent_appliance.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01E1AD618130010D455 /* houses_detail_rent_appliance.png */; };
+		CEACB0311AD618130010D455 /* houses_detail_rent_kongtiao_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB01F1AD618130010D455 /* houses_detail_rent_kongtiao_light.png */; };
+		CEACB0321AD618130010D455 /* houses_detail_rent_kongtiao.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0201AD618130010D455 /* houses_detail_rent_kongtiao.png */; };
+		CEACB0331AD618130010D455 /* houses_detail_rent_net_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0211AD618130010D455 /* houses_detail_rent_net_light.png */; };
+		CEACB0341AD618130010D455 /* houses_detail_rent_net.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0221AD618130010D455 /* houses_detail_rent_net.png */; };
+		CEACB0351AD618130010D455 /* houses_detail_rent_nuanqi_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0231AD618130010D455 /* houses_detail_rent_nuanqi_light.png */; };
+		CEACB0361AD618130010D455 /* houses_detail_rent_nuanqi.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0241AD618130010D455 /* houses_detail_rent_nuanqi.png */; };
+		CEACB0371AD618130010D455 /* houses_detail_rent_park_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0251AD618130010D455 /* houses_detail_rent_park_light.png */; };
+		CEACB0381AD618130010D455 /* houses_detail_rent_park.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0261AD618130010D455 /* houses_detail_rent_park.png */; };
+		CEACB0391AD618130010D455 /* houses_detail_rent_tv_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0271AD618130010D455 /* houses_detail_rent_tv_light.png */; };
+		CEACB03A1AD618130010D455 /* houses_detail_rent_tv.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0281AD618130010D455 /* houses_detail_rent_tv.png */; };
+		CEACB03B1AD618130010D455 /* houses_detail_rent_xizao_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0291AD618130010D455 /* houses_detail_rent_xizao_light.png */; };
+		CEACB03C1AD618130010D455 /* houses_detail_rent_xizao.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB02A1AD618130010D455 /* houses_detail_rent_xizao.png */; };
+		CEACB03F1AD6257E0010D455 /* HouseDetailServiceInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEACB03E1AD6257E0010D455 /* HouseDetailServiceInfo.plist */; };
+		CEACB0531AD62E510010D455 /* house_detail_rent_nuanqi_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0411AD62E510010D455 /* house_detail_rent_nuanqi_light.png */; };
+		CEACB0541AD62E510010D455 /* house_detail_rent_nuanqi.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0421AD62E510010D455 /* house_detail_rent_nuanqi.png */; };
+		CEACB0551AD62E510010D455 /* house_detail_rent_park_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0431AD62E510010D455 /* house_detail_rent_park_light.png */; };
+		CEACB0561AD62E510010D455 /* house_detail_rent_park.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0441AD62E510010D455 /* house_detail_rent_park.png */; };
+		CEACB0571AD62E510010D455 /* house_detail_second_cheku_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0451AD62E510010D455 /* house_detail_second_cheku_light.png */; };
+		CEACB0581AD62E510010D455 /* house_detail_second_cheku.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0461AD62E510010D455 /* house_detail_second_cheku.png */; };
+		CEACB0591AD62E510010D455 /* house_detail_second_dianti_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0471AD62E510010D455 /* house_detail_second_dianti_light.png */; };
+		CEACB05A1AD62E510010D455 /* house_detail_second_dianti.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0481AD62E510010D455 /* house_detail_second_dianti.png */; };
+		CEACB05B1AD62E510010D455 /* house_detail_second_dixiashi_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0491AD62E510010D455 /* house_detail_second_dixiashi_light.png */; };
+		CEACB05C1AD62E510010D455 /* house_detail_second_dixiashi.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04A1AD62E510010D455 /* house_detail_second_dixiashi.png */; };
+		CEACB05D1AD62E510010D455 /* house_detail_second_gelou_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04B1AD62E510010D455 /* house_detail_second_gelou_light.png */; };
+		CEACB05E1AD62E510010D455 /* house_detail_second_gelou.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04C1AD62E510010D455 /* house_detail_second_gelou.png */; };
+		CEACB05F1AD62E510010D455 /* house_detail_second_huayuan_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04D1AD62E510010D455 /* house_detail_second_huayuan_light.png */; };
+		CEACB0601AD62E510010D455 /* house_detail_second_huayuan.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04E1AD62E510010D455 /* house_detail_second_huayuan.png */; };
+		CEACB0611AD62E510010D455 /* house_detail_second_loutai_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB04F1AD62E510010D455 /* house_detail_second_loutai_light.png */; };
+		CEACB0621AD62E510010D455 /* house_detail_second_loutai.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0501AD62E510010D455 /* house_detail_second_loutai.png */; };
+		CEACB0631AD62E510010D455 /* house_detail_second_ranqi_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0511AD62E510010D455 /* house_detail_second_ranqi_light.png */; };
+		CEACB0641AD62E510010D455 /* house_detail_second_ranqi.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0521AD62E510010D455 /* house_detail_second_ranqi.png */; };
 		CEBA35611AC5236900A1E082 /* QSActivityDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */; };
 		CEBA35641AC523B600A1E082 /* QSActivityDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35631AC523B600A1E082 /* QSActivityDetailDataModel.m */; };
 		CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC986C1ABD0A1F00A69F34 /* QSCustomAnnotationView.m */; };
@@ -779,10 +827,42 @@
 		182C88201A7B244E00DA64E9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		183571D71AD1642100A29607 /* QSCollectionVerticalFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionVerticalFlowLayout.h; path = FlowLayout/QSCollectionVerticalFlowLayout.h; sourceTree = "<group>"; };
 		183571D81AD1642100A29607 /* QSCollectionVerticalFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionVerticalFlowLayout.m; path = FlowLayout/QSCollectionVerticalFlowLayout.m; sourceTree = "<group>"; };
-		183571DA1AD2558E00A29607 /* QSYMessageWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMessageWordTableViewCell.h; path = Talk/Word/QSYMessageWordTableViewCell.h; sourceTree = "<group>"; };
-		183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMessageWordTableViewCell.m; path = Talk/Word/QSYMessageWordTableViewCell.m; sourceTree = "<group>"; };
 		183571DF1AD432A100A29607 /* public_sixform_hollow_150x170.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_sixform_hollow_150x170.png; sourceTree = "<group>"; };
 		183571E11AD4355000A29607 /* myzone_property_house_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_property_house_default.png; sourceTree = "<group>"; };
+		183571E31AD515E000A29607 /* QSYSendMessagePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessagePicture.h; sourceTree = "<group>"; };
+		183571E41AD515E000A29607 /* QSYSendMessagePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessagePicture.m; sourceTree = "<group>"; };
+		183571E91AD5163100A29607 /* QSYSendMessageVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageVideo.h; sourceTree = "<group>"; };
+		183571EA1AD5163100A29607 /* QSYSendMessageVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageVideo.m; sourceTree = "<group>"; };
+		183571ED1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMyzoneStatisticsReturnData.h; path = MyZone/QSYMyzoneStatisticsReturnData.h; sourceTree = "<group>"; };
+		183571EE1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMyzoneStatisticsReturnData.m; path = MyZone/QSYMyzoneStatisticsReturnData.m; sourceTree = "<group>"; };
+		183571F11AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMyzoneStatisticsRenantModel.h; path = Myzone/QSYMyzoneStatisticsRenantModel.h; sourceTree = "<group>"; };
+		183571F21AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMyzoneStatisticsRenantModel.m; path = Myzone/QSYMyzoneStatisticsRenantModel.m; sourceTree = "<group>"; };
+		183571F41AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMyzoneStatisticsOwnerModel.h; path = Myzone/QSYMyzoneStatisticsOwnerModel.h; sourceTree = "<group>"; };
+		183571F51AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMyzoneStatisticsOwnerModel.m; path = Myzone/QSYMyzoneStatisticsOwnerModel.m; sourceTree = "<group>"; };
+		183571FB1AD608A900A29607 /* QSYMessageWordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMessageWordTableViewCell.h; sourceTree = "<group>"; };
+		183571FC1AD608A900A29607 /* QSYMessageWordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMessageWordTableViewCell.m; sourceTree = "<group>"; };
+		183571FE1AD608C400A29607 /* QSYMessagePictureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMessagePictureTableViewCell.h; sourceTree = "<group>"; };
+		183571FF1AD608C400A29607 /* QSYMessagePictureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMessagePictureTableViewCell.m; sourceTree = "<group>"; };
+		183572011AD608D700A29607 /* QSYMessageVideoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMessageVideoTableViewCell.h; sourceTree = "<group>"; };
+		183572021AD608D700A29607 /* QSYMessageVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMessageVideoTableViewCell.m; sourceTree = "<group>"; };
+		183572051AD612AD00A29607 /* talk_contact_indicate_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_indicate_arrow_highlighted.png; sourceTree = "<group>"; };
+		183572061AD612AD00A29607 /* talk_contact_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_indicate_arrow_normal.png; sourceTree = "<group>"; };
+		183572071AD612AD00A29607 /* talk_contact_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_highlighted.png; sourceTree = "<group>"; };
+		183572081AD612AD00A29607 /* talk_contact_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_normal.png; sourceTree = "<group>"; };
+		183572091AD612AD00A29607 /* talk_contact_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_selected.png; sourceTree = "<group>"; };
+		1835720A1AD612AD00A29607 /* talk_my_indicate_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_highlighted.png; sourceTree = "<group>"; };
+		1835720B1AD612AD00A29607 /* talk_my_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_normal.png; sourceTree = "<group>"; };
+		1835720C1AD612AD00A29607 /* talk_my_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_highlighted.png; sourceTree = "<group>"; };
+		1835720D1AD612AD00A29607 /* talk_my_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_normal.png; sourceTree = "<group>"; };
+		1835720E1AD612AD00A29607 /* talk_my_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_selected.png; sourceTree = "<group>"; };
+		1835720F1AD612AD00A29607 /* talk_photo_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_highlighted.png; sourceTree = "<group>"; };
+		183572101AD612AD00A29607 /* talk_photo_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_normal.png; sourceTree = "<group>"; };
+		183572111AD612AD00A29607 /* talk_sound_can_record_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_can_record_highlighted.png; sourceTree = "<group>"; };
+		183572121AD612AD00A29607 /* talk_sound_can_record_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_can_record_normal.png; sourceTree = "<group>"; };
+		183572131AD612AD00A29607 /* talk_sound_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_highlighted.png; sourceTree = "<group>"; };
+		183572141AD612AD00A29607 /* talk_sound_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_normal.png; sourceTree = "<group>"; };
+		183572151AD612AD00A29607 /* talk_sound_recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_recording.png; sourceTree = "<group>"; };
+		183572161AD612AD00A29607 /* talk_sound_sending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_sending.png; sourceTree = "<group>"; };
 		183CC65B1A68FC8800B8F97D /* House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = House.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		183CC65E1A68FC8800B8F97D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		183CC6601A68FC8800B8F97D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1486,20 +1566,6 @@
 		18DFE8E11AC9973A00C216C3 /* QSYCallTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYCallTipsPopView.m; path = Call/QSYCallTipsPopView.m; sourceTree = "<group>"; };
 		18DFE8E41AC9A29300C216C3 /* QSYTalkPTPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYTalkPTPViewController.h; path = Talk/QSYTalkPTPViewController.h; sourceTree = "<group>"; };
 		18DFE8E51AC9A29300C216C3 /* QSYTalkPTPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTalkPTPViewController.m; path = Talk/QSYTalkPTPViewController.m; sourceTree = "<group>"; };
-		18DFE8E81AC9A8D700C216C3 /* talk_contact_indicate_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_indicate_arrow_highlighted.png; sourceTree = "<group>"; };
-		18DFE8E91AC9A8D700C216C3 /* talk_contact_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_indicate_arrow_normal.png; sourceTree = "<group>"; };
-		18DFE8EA1AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_highlighted.png; sourceTree = "<group>"; };
-		18DFE8EB1AC9A8D700C216C3 /* talk_contact_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_normal.png; sourceTree = "<group>"; };
-		18DFE8EC1AC9A8D700C216C3 /* talk_contact_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_selected.png; sourceTree = "<group>"; };
-		18DFE8ED1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_highlighted.png; sourceTree = "<group>"; };
-		18DFE8EE1AC9A8D700C216C3 /* talk_my_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_normal.png; sourceTree = "<group>"; };
-		18DFE8EF1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_highlighted.png; sourceTree = "<group>"; };
-		18DFE8F01AC9A8D700C216C3 /* talk_my_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_normal.png; sourceTree = "<group>"; };
-		18DFE8F11AC9A8D700C216C3 /* talk_my_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_selected.png; sourceTree = "<group>"; };
-		18DFE8F21AC9A8D700C216C3 /* talk_photo_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_highlighted.png; sourceTree = "<group>"; };
-		18DFE8F31AC9A8D700C216C3 /* talk_photo_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_normal.png; sourceTree = "<group>"; };
-		18DFE8F41AC9A8D700C216C3 /* talk_sound_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_highlighted.png; sourceTree = "<group>"; };
-		18DFE8F51AC9A8D700C216C3 /* talk_sound_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_normal.png; sourceTree = "<group>"; };
 		18DFE9041AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_detail_highlighted.png; sourceTree = "<group>"; };
 		18DFE9051AC9A8EA00C216C3 /* navigationbar_detail_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_detail_normal.png; sourceTree = "<group>"; };
 		18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSNewHouseActivityView.h; path = Detail/Activity/QSNewHouseActivityView.h; sourceTree = "<group>"; };
@@ -1866,6 +1932,43 @@
 		CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_annotion.png; sourceTree = "<group>"; };
 		CEA9CFD41AD511B100FEF74A /* QSSearchMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSearchMapViewController.h; sourceTree = "<group>"; };
 		CEA9CFD51AD511B100FEF74A /* QSSearchMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSearchMapViewController.m; sourceTree = "<group>"; };
+		CEACB0191AD618130010D455 /* houses_detail_rent_bag_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_bag_light.png; sourceTree = "<group>"; };
+		CEACB01A1AD618130010D455 /* houses_detail_rent_bag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_bag.png; sourceTree = "<group>"; };
+		CEACB01B1AD618130010D455 /* houses_detail_rent_food_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_food_light.png; sourceTree = "<group>"; };
+		CEACB01C1AD618130010D455 /* houses_detail_rent_food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_food.png; sourceTree = "<group>"; };
+		CEACB01D1AD618130010D455 /* houses_detail_rent_appliance_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_appliance_light.png; sourceTree = "<group>"; };
+		CEACB01E1AD618130010D455 /* houses_detail_rent_appliance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_appliance.png; sourceTree = "<group>"; };
+		CEACB01F1AD618130010D455 /* houses_detail_rent_kongtiao_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_kongtiao_light.png; sourceTree = "<group>"; };
+		CEACB0201AD618130010D455 /* houses_detail_rent_kongtiao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_kongtiao.png; sourceTree = "<group>"; };
+		CEACB0211AD618130010D455 /* houses_detail_rent_net_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_net_light.png; sourceTree = "<group>"; };
+		CEACB0221AD618130010D455 /* houses_detail_rent_net.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_net.png; sourceTree = "<group>"; };
+		CEACB0231AD618130010D455 /* houses_detail_rent_nuanqi_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_nuanqi_light.png; sourceTree = "<group>"; };
+		CEACB0241AD618130010D455 /* houses_detail_rent_nuanqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_nuanqi.png; sourceTree = "<group>"; };
+		CEACB0251AD618130010D455 /* houses_detail_rent_park_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_park_light.png; sourceTree = "<group>"; };
+		CEACB0261AD618130010D455 /* houses_detail_rent_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_park.png; sourceTree = "<group>"; };
+		CEACB0271AD618130010D455 /* houses_detail_rent_tv_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_tv_light.png; sourceTree = "<group>"; };
+		CEACB0281AD618130010D455 /* houses_detail_rent_tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_tv.png; sourceTree = "<group>"; };
+		CEACB0291AD618130010D455 /* houses_detail_rent_xizao_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_xizao_light.png; sourceTree = "<group>"; };
+		CEACB02A1AD618130010D455 /* houses_detail_rent_xizao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_rent_xizao.png; sourceTree = "<group>"; };
+		CEACB03E1AD6257E0010D455 /* HouseDetailServiceInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HouseDetailServiceInfo.plist; sourceTree = "<group>"; };
+		CEACB0411AD62E510010D455 /* house_detail_rent_nuanqi_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_rent_nuanqi_light.png; sourceTree = "<group>"; };
+		CEACB0421AD62E510010D455 /* house_detail_rent_nuanqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_rent_nuanqi.png; sourceTree = "<group>"; };
+		CEACB0431AD62E510010D455 /* house_detail_rent_park_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_rent_park_light.png; sourceTree = "<group>"; };
+		CEACB0441AD62E510010D455 /* house_detail_rent_park.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_rent_park.png; sourceTree = "<group>"; };
+		CEACB0451AD62E510010D455 /* house_detail_second_cheku_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_cheku_light.png; sourceTree = "<group>"; };
+		CEACB0461AD62E510010D455 /* house_detail_second_cheku.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_cheku.png; sourceTree = "<group>"; };
+		CEACB0471AD62E510010D455 /* house_detail_second_dianti_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_dianti_light.png; sourceTree = "<group>"; };
+		CEACB0481AD62E510010D455 /* house_detail_second_dianti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_dianti.png; sourceTree = "<group>"; };
+		CEACB0491AD62E510010D455 /* house_detail_second_dixiashi_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_dixiashi_light.png; sourceTree = "<group>"; };
+		CEACB04A1AD62E510010D455 /* house_detail_second_dixiashi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_dixiashi.png; sourceTree = "<group>"; };
+		CEACB04B1AD62E510010D455 /* house_detail_second_gelou_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_gelou_light.png; sourceTree = "<group>"; };
+		CEACB04C1AD62E510010D455 /* house_detail_second_gelou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_gelou.png; sourceTree = "<group>"; };
+		CEACB04D1AD62E510010D455 /* house_detail_second_huayuan_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_huayuan_light.png; sourceTree = "<group>"; };
+		CEACB04E1AD62E510010D455 /* house_detail_second_huayuan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_huayuan.png; sourceTree = "<group>"; };
+		CEACB04F1AD62E510010D455 /* house_detail_second_loutai_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_loutai_light.png; sourceTree = "<group>"; };
+		CEACB0501AD62E510010D455 /* house_detail_second_loutai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_loutai.png; sourceTree = "<group>"; };
+		CEACB0511AD62E510010D455 /* house_detail_second_ranqi_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_ranqi_light.png; sourceTree = "<group>"; };
+		CEACB0521AD62E510010D455 /* house_detail_second_ranqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_ranqi.png; sourceTree = "<group>"; };
 		CEBA355F1AC5236900A1E082 /* QSActivityDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailReturnData.h; sourceTree = "<group>"; };
 		CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActivityDetailReturnData.m; sourceTree = "<group>"; };
 		CEBA35621AC523B600A1E082 /* QSActivityDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailDataModel.h; sourceTree = "<group>"; };
@@ -2051,6 +2154,89 @@
 				182C881C1A7B0F8D00DA64E9 /* QSSecondHandHouseListReturnData.m */,
 			);
 			name = Second;
+			sourceTree = "<group>";
+		};
+		183571EC1AD52D8400A29607 /* MyZone */ = {
+			isa = PBXGroup;
+			children = (
+				183571ED1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.h */,
+				183571EE1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.m */,
+			);
+			name = MyZone;
+			sourceTree = "<group>";
+		};
+		183571F01AD52DE900A29607 /* Myzone */ = {
+			isa = PBXGroup;
+			children = (
+				183571F11AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.h */,
+				183571F21AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.m */,
+				183571F41AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.h */,
+				183571F51AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.m */,
+			);
+			name = Myzone;
+			sourceTree = "<group>";
+		};
+		183571F71AD608A900A29607 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				183571F81AD608A900A29607 /* Picture */,
+				183571F91AD608A900A29607 /* Video */,
+				183571FA1AD608A900A29607 /* Word */,
+			);
+			name = Cell;
+			path = Talk/Cell;
+			sourceTree = "<group>";
+		};
+		183571F81AD608A900A29607 /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				183571FE1AD608C400A29607 /* QSYMessagePictureTableViewCell.h */,
+				183571FF1AD608C400A29607 /* QSYMessagePictureTableViewCell.m */,
+			);
+			path = Picture;
+			sourceTree = "<group>";
+		};
+		183571F91AD608A900A29607 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				183572011AD608D700A29607 /* QSYMessageVideoTableViewCell.h */,
+				183572021AD608D700A29607 /* QSYMessageVideoTableViewCell.m */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		183571FA1AD608A900A29607 /* Word */ = {
+			isa = PBXGroup;
+			children = (
+				183571FB1AD608A900A29607 /* QSYMessageWordTableViewCell.h */,
+				183571FC1AD608A900A29607 /* QSYMessageWordTableViewCell.m */,
+			);
+			path = Word;
+			sourceTree = "<group>";
+		};
+		183572041AD612AD00A29607 /* Talk */ = {
+			isa = PBXGroup;
+			children = (
+				183572051AD612AD00A29607 /* talk_contact_indicate_arrow_highlighted.png */,
+				183572061AD612AD00A29607 /* talk_contact_indicate_arrow_normal.png */,
+				183572071AD612AD00A29607 /* talk_contact_sound_message_highlighted.png */,
+				183572081AD612AD00A29607 /* talk_contact_sound_message_normal.png */,
+				183572091AD612AD00A29607 /* talk_contact_sound_message_selected.png */,
+				1835720A1AD612AD00A29607 /* talk_my_indicate_arrow_highlighted.png */,
+				1835720B1AD612AD00A29607 /* talk_my_indicate_arrow_normal.png */,
+				1835720C1AD612AD00A29607 /* talk_my_sound_message_highlighted.png */,
+				1835720D1AD612AD00A29607 /* talk_my_sound_message_normal.png */,
+				1835720E1AD612AD00A29607 /* talk_my_sound_message_selected.png */,
+				1835720F1AD612AD00A29607 /* talk_photo_highlighted.png */,
+				183572101AD612AD00A29607 /* talk_photo_normal.png */,
+				183572111AD612AD00A29607 /* talk_sound_can_record_highlighted.png */,
+				183572121AD612AD00A29607 /* talk_sound_can_record_normal.png */,
+				183572131AD612AD00A29607 /* talk_sound_highlighted.png */,
+				183572141AD612AD00A29607 /* talk_sound_normal.png */,
+				183572151AD612AD00A29607 /* talk_sound_recording.png */,
+				183572161AD612AD00A29607 /* talk_sound_sending.png */,
+			);
+			path = Talk;
 			sourceTree = "<group>";
 		};
 		183CC6521A68FC8800B8F97D = {
@@ -3162,9 +3348,9 @@
 		18B563501A8366A4009779A0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				183572041AD612AD00A29607 /* Talk */,
 				18D0820B1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png */,
 				18D0820C1ACFC37C004FA20F /* chat_contact_list_delete_normal.png */,
-				18DFE8E71AC9A8D700C216C3 /* Talk */,
 				18BE12511A88BDAC0036245A /* chat_contact_nocontacts.png */,
 				18BE124B1A8893670036245A /* chat_message_recommend.png */,
 				18BE124C1A8893670036245A /* chat_message_system.png */,
@@ -3245,6 +3431,8 @@
 		18B563731A8366A4009779A0 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CEACB0401AD62E440010D455 /* Second */,
+				CEACB0181AD617470010D455 /* Rent */,
 				CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */,
 				18983A071AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png */,
 				18B563741A8366A4009779A0 /* houses_detail_activity_left.png */,
@@ -4005,6 +4193,7 @@
 		18CAFCB01A70E45A00C90C90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				183571EC1AD52D8400A29607 /* MyZone */,
 				18D081CE1ACE318B004FA20F /* Contact */,
 				18D0815C1ACC5B82004FA20F /* Message */,
 				18B0E23F1ACA9E1100C8EE9E /* Release */,
@@ -4037,6 +4226,7 @@
 		18CAFCB41A70E45A00C90C90 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				183571F01AD52DE900A29607 /* Myzone */,
 				18D081D21ACE3297004FA20F /* Contact */,
 				18D081581ACC59CE004FA20F /* Message */,
 				18DFE8C81AC8324800C216C3 /* Search */,
@@ -4103,6 +4293,10 @@
 				18D0814C1ACB9AB1004FA20F /* QSYSendMessageWord.m */,
 				18D0814E1ACB9B6D004FA20F /* QSYSendMessageBaseModel.h */,
 				18D0814F1ACB9B6D004FA20F /* QSYSendMessageBaseModel.m */,
+				183571E31AD515E000A29607 /* QSYSendMessagePicture.h */,
+				183571E41AD515E000A29607 /* QSYSendMessagePicture.m */,
+				183571E91AD5163100A29607 /* QSYSendMessageVideo.h */,
+				183571EA1AD5163100A29607 /* QSYSendMessageVideo.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -4196,55 +4390,6 @@
 				18D0815E1ACC5BAB004FA20F /* QSYPostMessageListReturnData.m */,
 			);
 			name = Message;
-			sourceTree = "<group>";
-		};
-		18D081601ACD3870004FA20F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				18D081651ACD38AC004FA20F /* System */,
-				18D081641ACD38A3004FA20F /* Special */,
-				18D081631ACD3897004FA20F /* Video */,
-				18D081621ACD388F004FA20F /* Picture */,
-				18D081611ACD3888004FA20F /* Word */,
-			);
-			name = Cell;
-			sourceTree = "<group>";
-		};
-		18D081611ACD3888004FA20F /* Word */ = {
-			isa = PBXGroup;
-			children = (
-				183571DA1AD2558E00A29607 /* QSYMessageWordTableViewCell.h */,
-				183571DB1AD2558E00A29607 /* QSYMessageWordTableViewCell.m */,
-			);
-			name = Word;
-			sourceTree = "<group>";
-		};
-		18D081621ACD388F004FA20F /* Picture */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Picture;
-			sourceTree = "<group>";
-		};
-		18D081631ACD3897004FA20F /* Video */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Video;
-			sourceTree = "<group>";
-		};
-		18D081641ACD38A3004FA20F /* Special */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Special;
-			sourceTree = "<group>";
-		};
-		18D081651ACD38AC004FA20F /* System */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = System;
 			sourceTree = "<group>";
 		};
 		18D0816A1ACD51EC004FA20F /* SaleAndRent */ = {
@@ -4776,32 +4921,11 @@
 		18DFE8E31AC9A25C00C216C3 /* Talk */ = {
 			isa = PBXGroup;
 			children = (
-				18D081601ACD3870004FA20F /* Cell */,
+				183571F71AD608A900A29607 /* Cell */,
 				18DFE8E41AC9A29300C216C3 /* QSYTalkPTPViewController.h */,
 				18DFE8E51AC9A29300C216C3 /* QSYTalkPTPViewController.m */,
 			);
 			name = Talk;
-			sourceTree = "<group>";
-		};
-		18DFE8E71AC9A8D700C216C3 /* Talk */ = {
-			isa = PBXGroup;
-			children = (
-				18DFE8E81AC9A8D700C216C3 /* talk_contact_indicate_arrow_highlighted.png */,
-				18DFE8E91AC9A8D700C216C3 /* talk_contact_indicate_arrow_normal.png */,
-				18DFE8EA1AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png */,
-				18DFE8EB1AC9A8D700C216C3 /* talk_contact_sound_message_normal.png */,
-				18DFE8EC1AC9A8D700C216C3 /* talk_contact_sound_message_selected.png */,
-				18DFE8ED1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png */,
-				18DFE8EE1AC9A8D700C216C3 /* talk_my_indicate_arrow_normal.png */,
-				18DFE8EF1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png */,
-				18DFE8F01AC9A8D700C216C3 /* talk_my_sound_message_normal.png */,
-				18DFE8F11AC9A8D700C216C3 /* talk_my_sound_message_selected.png */,
-				18DFE8F21AC9A8D700C216C3 /* talk_photo_highlighted.png */,
-				18DFE8F31AC9A8D700C216C3 /* talk_photo_normal.png */,
-				18DFE8F41AC9A8D700C216C3 /* talk_sound_highlighted.png */,
-				18DFE8F51AC9A8D700C216C3 /* talk_sound_normal.png */,
-			);
-			path = Talk;
 			sourceTree = "<group>";
 		};
 		18E2023C1AAFFA4900577872 /* Activity */ = {
@@ -5411,6 +5535,7 @@
 		CE520FF51ACCFBDB00D6230B /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CEACB03D1AD625230010D455 /* Service */,
 				CE520FF61ACCFBDB00D6230B /* Around */,
 			);
 			path = Detail;
@@ -5512,6 +5637,64 @@
 			);
 			name = SearchMap;
 			path = Detail/SearchMap;
+			sourceTree = "<group>";
+		};
+		CEACB0181AD617470010D455 /* Rent */ = {
+			isa = PBXGroup;
+			children = (
+				CEACB0191AD618130010D455 /* houses_detail_rent_bag_light.png */,
+				CEACB01A1AD618130010D455 /* houses_detail_rent_bag.png */,
+				CEACB01B1AD618130010D455 /* houses_detail_rent_food_light.png */,
+				CEACB01C1AD618130010D455 /* houses_detail_rent_food.png */,
+				CEACB01D1AD618130010D455 /* houses_detail_rent_appliance_light.png */,
+				CEACB01E1AD618130010D455 /* houses_detail_rent_appliance.png */,
+				CEACB01F1AD618130010D455 /* houses_detail_rent_kongtiao_light.png */,
+				CEACB0201AD618130010D455 /* houses_detail_rent_kongtiao.png */,
+				CEACB0211AD618130010D455 /* houses_detail_rent_net_light.png */,
+				CEACB0221AD618130010D455 /* houses_detail_rent_net.png */,
+				CEACB0231AD618130010D455 /* houses_detail_rent_nuanqi_light.png */,
+				CEACB0241AD618130010D455 /* houses_detail_rent_nuanqi.png */,
+				CEACB0251AD618130010D455 /* houses_detail_rent_park_light.png */,
+				CEACB0261AD618130010D455 /* houses_detail_rent_park.png */,
+				CEACB0271AD618130010D455 /* houses_detail_rent_tv_light.png */,
+				CEACB0281AD618130010D455 /* houses_detail_rent_tv.png */,
+				CEACB0291AD618130010D455 /* houses_detail_rent_xizao_light.png */,
+				CEACB02A1AD618130010D455 /* houses_detail_rent_xizao.png */,
+			);
+			path = Rent;
+			sourceTree = "<group>";
+		};
+		CEACB03D1AD625230010D455 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CEACB03E1AD6257E0010D455 /* HouseDetailServiceInfo.plist */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		CEACB0401AD62E440010D455 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				CEACB0411AD62E510010D455 /* house_detail_rent_nuanqi_light.png */,
+				CEACB0421AD62E510010D455 /* house_detail_rent_nuanqi.png */,
+				CEACB0431AD62E510010D455 /* house_detail_rent_park_light.png */,
+				CEACB0441AD62E510010D455 /* house_detail_rent_park.png */,
+				CEACB0451AD62E510010D455 /* house_detail_second_cheku_light.png */,
+				CEACB0461AD62E510010D455 /* house_detail_second_cheku.png */,
+				CEACB0471AD62E510010D455 /* house_detail_second_dianti_light.png */,
+				CEACB0481AD62E510010D455 /* house_detail_second_dianti.png */,
+				CEACB0491AD62E510010D455 /* house_detail_second_dixiashi_light.png */,
+				CEACB04A1AD62E510010D455 /* house_detail_second_dixiashi.png */,
+				CEACB04B1AD62E510010D455 /* house_detail_second_gelou_light.png */,
+				CEACB04C1AD62E510010D455 /* house_detail_second_gelou.png */,
+				CEACB04D1AD62E510010D455 /* house_detail_second_huayuan_light.png */,
+				CEACB04E1AD62E510010D455 /* house_detail_second_huayuan.png */,
+				CEACB04F1AD62E510010D455 /* house_detail_second_loutai_light.png */,
+				CEACB0501AD62E510010D455 /* house_detail_second_loutai.png */,
+				CEACB0511AD62E510010D455 /* house_detail_second_ranqi_light.png */,
+				CEACB0521AD62E510010D455 /* house_detail_second_ranqi.png */,
+			);
+			path = Second;
 			sourceTree = "<group>";
 		};
 		CEBA355D1AC514D500A1E082 /* ActivityDetail */ = {
@@ -5663,14 +5846,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEACB03B1AD618130010D455 /* houses_detail_rent_xizao_light.png in Resources */,
 				CE52100E1ACD0F1800D6230B /* houses_detail_market_normal.png in Resources */,
 				18B564701A8366A4009779A0 /* tabbar_chat_normal.png in Resources */,
 				47B8A1D81AC148010083C20A /* myzone_oorderlist_cell_talkprice_bt_normal.png in Resources */,
 				CE000DCF1A6F8064008FD309 /* QSWDeveloperActivityViewController.xib in Resources */,
 				18018AEB1A9FFF5800F35DEB /* houses_list_load_fail330x250.png in Resources */,
+				CEACB02D1AD618130010D455 /* houses_detail_rent_food_light.png in Resources */,
 				18B563F31A8366A4009779A0 /* developer_chat.png in Resources */,
 				18B564741A8366A4009779A0 /* tabbar_houses_normal.png in Resources */,
+				183572231AD612AD00A29607 /* talk_sound_can_record_highlighted.png in Resources */,
 				CE52100C1ACD0F1800D6230B /* houses_detail_hospital_normal.png in Resources */,
+				CEACB0351AD618130010D455 /* houses_detail_rent_nuanqi_light.png in Resources */,
 				18B5646E1A8366A4009779A0 /* share_weibo_highlighted.png in Resources */,
 				18BE12751A8A133D0036245A /* myzone_renant_order_deal_highlighted.png in Resources */,
 				18B5643B1A8366A4009779A0 /* icon80.png in Resources */,
@@ -5678,25 +5865,27 @@
 				478645EE1ACA41B300B41F0F /* myzone_oorderdetail_orther_price_bg.png in Resources */,
 				478645EA1ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_selected.png in Resources */,
 				18B564591A8366A4009779A0 /* navigationbar_turnback_highlighted.png in Resources */,
+				CEACB02B1AD618130010D455 /* houses_detail_rent_bag_light.png in Resources */,
 				18E202431AB04C4500577872 /* FilterFindHouseSecondHouseReset.plist in Resources */,
 				18BE12501A8894E20036245A /* public_vip_tag.png in Resources */,
-				18DFE8F61AC9A8D700C216C3 /* talk_contact_indicate_arrow_highlighted.png in Resources */,
 				1893009B1A6903540081D0AA /* Readme.rtf in Resources */,
 				475C3D6E1AB171120028608F /* myzone_community_noClinch_data_icon.png in Resources */,
-				18DFE8FC1AC9A8D700C216C3 /* talk_my_indicate_arrow_normal.png in Resources */,
 				18B564391A8366A4009779A0 /* icon57.png in Resources */,
 				475A4D5C1AC4F354009881CF /* myzone_oorderlist_cell_confirm_bt_normal.png in Resources */,
 				18B564631A8366A4009779A0 /* public_multiple_selected_highlighted.png in Resources */,
+				CEACB0611AD62E510010D455 /* house_detail_second_loutai_light.png in Resources */,
 				18C8A1351A6CA0F400BB9611 /* Images.xcassets in Resources */,
 				18B564081A8366A4009779A0 /* home_salehouse_normal.png in Resources */,
 				18BE124E1A8893670036245A /* chat_message_system.png in Resources */,
 				18B5644B1A8366A4009779A0 /* navigationbar_deploy_arrow_highlighted.png in Resources */,
 				47B8A1E11AC155DB0083C20A /* myzone_oorderlist_cell_remind_bt_selected.png in Resources */,
 				CE5210111ACD0F1800D6230B /* houses_detail_school_highlighted.png in Resources */,
+				CEACB0321AD618130010D455 /* houses_detail_rent_kongtiao.png in Resources */,
 				18B5645D1A8366A4009779A0 /* public_choice_arrow.png in Resources */,
 				18B0E2511ACAE59A00C8EE9E /* myzone_ask_list_setting_close_highlighted.png in Resources */,
 				CE5210121ACD0F1800D6230B /* houses_detail_school_normal.png in Resources */,
 				475C3D871AB284A30028608F /* myzone_oorderdetail_down_bt.png in Resources */,
+				CEACB0591AD62E510010D455 /* house_detail_second_dianti_light.png in Resources */,
 				18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */,
 				18BE12791A8AE4160036245A /* MyZoneInfo.plist in Resources */,
 				475C3D701AB171120028608F /* myzone_oorderlist_cell_ask_bt_selected.png in Resources */,
@@ -5707,19 +5896,21 @@
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
 				CEA9CFCB1AD503B200FEF74A /* houses_detail_catering_annotion.png in Resources */,
 				18B563EE1A8366A4009779A0 /* channelbar_indicate_arrow.png in Resources */,
+				CEACB0571AD62E510010D455 /* house_detail_second_cheku_light.png in Resources */,
 				CE5210071ACD0F1800D6230B /* houses_detail_bus_highlighted.png in Resources */,
 				18B564241A8366A4009779A0 /* houses_detail_video_normal.png in Resources */,
 				18B564611A8366A4009779A0 /* public_local_highlighted.png in Resources */,
 				CEA9CFD21AD503D500FEF74A /* houses_detail_annotion.png in Resources */,
+				1835721D1AD612AD00A29607 /* talk_my_indicate_arrow_normal.png in Resources */,
 				CEA9CFCD1AD503B200FEF74A /* houses_detail_market_annotion.png in Resources */,
 				18B563ED1A8366A4009779A0 /* channelbar_deploy_arrow_normal.png in Resources */,
 				CE5210141ACD0F1800D6230B /* houses_detail_supermarket_normal.png in Resources */,
-				18DFE8F91AC9A8D700C216C3 /* talk_contact_sound_message_normal.png in Resources */,
 				18B563F71A8366A4009779A0 /* developer_setting_hightlight.png in Resources */,
 				CE520FF81ACCFBDB00D6230B /* HouseDetailAroundInfo.plist in Resources */,
 				18B564601A8366A4009779A0 /* public_local_gray.png in Resources */,
 				18B564711A8366A4009779A0 /* tabbar_chat_selected.png in Resources */,
 				18BE12311A8869760036245A /* calendar_right_arrow.png in Resources */,
+				CEACB0541AD62E510010D455 /* house_detail_rent_nuanqi.png in Resources */,
 				47E0D4E11AAEDB9900B5C42A /* myzone_community_nocollected_data_icon.png in Resources */,
 				CEA9CFCE1AD503B200FEF74A /* houses_detail_metro_annotion.png in Resources */,
 				18B563FF1A8366A4009779A0 /* guide_tenant_haved.png in Resources */,
@@ -5731,6 +5922,7 @@
 				18B564501A8366A4009779A0 /* navigationbar_message_normal.png in Resources */,
 				47B8A1D01AC11CC50083C20A /* myzone_oorderlist_cell_reject_bt_normal.png in Resources */,
 				18DFE8B41AC7D09900C216C3 /* public_no_collected.png in Resources */,
+				183572171AD612AD00A29607 /* talk_contact_indicate_arrow_highlighted.png in Resources */,
 				47A207791AB9217C00F51797 /* myzone_calendar_day_selected_bt.png in Resources */,
 				18B5643D1A8366A4009779A0 /* 1240X2208.png in Resources */,
 				475C3D721AB171120028608F /* myzone_oorderlist_cell_call_bt_normal.png in Resources */,
@@ -5739,9 +5931,11 @@
 				18B5644A1A8366A4009779A0 /* navigationbar_corss_normal.png in Resources */,
 				18D0820D1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png in Resources */,
 				18B564581A8366A4009779A0 /* navigationbar_tool_normal.png in Resources */,
+				183572261AD612AD00A29607 /* talk_sound_normal.png in Resources */,
 				18EE34831AAC36F50053B909 /* public_arrow_highlighted60x60.png in Resources */,
 				18B5645B1A8366A4009779A0 /* public_appointment_commited.png in Resources */,
 				18DFE9001AC9A8D700C216C3 /* talk_photo_highlighted.png in Resources */,
+				CEACB0631AD62E510010D455 /* house_detail_second_ranqi_light.png in Resources */,
 				475A4D5D1AC4F354009881CF /* myzone_oorderlist_cell_confirm_bt_selected.png in Resources */,
 				18BE12721A8A133D0036245A /* myzone_renant_history_normal.png in Resources */,
 				18BE126C1A8A133D0036245A /* myzone_renant_beg_normal.png in Resources */,
@@ -5759,10 +5953,10 @@
 				475C3D751AB171120028608F /* myzone_oorderlist_cell_new_mark_tip.png in Resources */,
 				18B0E2561ACAEC9700C8EE9E /* myzone_ask_buy.png in Resources */,
 				475A4D611AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_selected.png in Resources */,
+				CEACB0361AD618130010D455 /* houses_detail_rent_nuanqi.png in Resources */,
 				47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */,
 				CE5210101ACD0F1800D6230B /* houses_detail_metro_normal.png in Resources */,
 				CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */,
-				18DFE8F81AC9A8D700C216C3 /* talk_contact_sound_message_highlighted.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */,
@@ -5770,6 +5964,7 @@
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
 				475C3D6F1AB171120028608F /* myzone_oorderlist_cell_ask_bt_normal.png in Resources */,
 				18B564311A8366A4009779A0 /* icon114.png in Resources */,
+				183572271AD612AD00A29607 /* talk_sound_recording.png in Resources */,
 				18B564471A8366A4009779A0 /* navigationbar_confirm_highlighted.png in Resources */,
 				18B564221A8366A4009779A0 /* houses_detail_user_icon_sixform.png in Resources */,
 				18BE12561A89F22F0036245A /* icon_default_158x158.png in Resources */,
@@ -5782,13 +5977,16 @@
 				18B5644E1A8366A4009779A0 /* navigationbar_maplist_normal.png in Resources */,
 				18B564551A8366A4009779A0 /* navigationbar_share_highlighted.png in Resources */,
 				18B564521A8366A4009779A0 /* navigationbar_search_normal.png in Resources */,
+				1835721F1AD612AD00A29607 /* talk_my_sound_message_normal.png in Resources */,
 				475C3D911AB2CC240028608F /* myzone_oorderdetail_map_bt_normal.png in Resources */,
-				18DFE8FA1AC9A8D700C216C3 /* talk_contact_sound_message_selected.png in Resources */,
+				1835721E1AD612AD00A29607 /* talk_my_sound_message_highlighted.png in Resources */,
 				475C3D731AB171120028608F /* myzone_oorderlist_cell_call_bt_selected.png in Resources */,
 				18B564671A8366A4009779A0 /* public_single_selected_highlighted.png in Resources */,
 				18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */,
 				183571E01AD432A100A29607 /* public_sixform_hollow_150x170.png in Resources */,
+				1835721B1AD612AD00A29607 /* talk_contact_sound_message_selected.png in Resources */,
 				18B564561A8366A4009779A0 /* navigationbar_share_normal.png in Resources */,
+				183572221AD612AD00A29607 /* talk_photo_normal.png in Resources */,
 				475C3D711AB171120028608F /* myzone_oorderlist_cell_buy_mark_tip.png in Resources */,
 				18B564511A8366A4009779A0 /* navigationbar_search_highlighted.png in Resources */,
 				18B5645F1A8366A4009779A0 /* public_loading.png in Resources */,
@@ -5799,9 +5997,12 @@
 				18B5641F1A8366A4009779A0 /* houses_detail_sizeform_totalscore.png in Resources */,
 				18DFE9061AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png in Resources */,
 				18BE12371A8869850036245A /* comparison_sixform.png in Resources */,
+				CEACB0641AD62E510010D455 /* house_detail_second_ranqi.png in Resources */,
+				183572191AD612AD00A29607 /* talk_contact_sound_message_highlighted.png in Resources */,
 				18B5640E1A8366A4009779A0 /* houses_detail_activity_right.png in Resources */,
 				18B5646C1A8366A4009779A0 /* share_wechat_highlighted.png in Resources */,
 				18B564271A8366A4009779A0 /* houses_broadband.png in Resources */,
+				1835721A1AD612AD00A29607 /* talk_contact_sound_message_normal.png in Resources */,
 				18D081EA1ACE7EFD004FA20F /* navigationbar_more_highlighted.png in Resources */,
 				18B564331A8366A4009779A0 /* icon144.png in Resources */,
 				18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */,
@@ -5813,12 +6014,13 @@
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
 				18DFE8D61AC95BEA00C216C3 /* navigationbar_add_normal.png in Resources */,
 				CE52100A1ACD0F1800D6230B /* houses_detail_catering_normal.png in Resources */,
-				18DFE8F71AC9A8D700C216C3 /* talk_contact_indicate_arrow_normal.png in Resources */,
 				47D2FE2D1ABC1B2E00651A5D /* myzone_order_result_icon.png in Resources */,
+				183572181AD612AD00A29607 /* talk_contact_indicate_arrow_normal.png in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18BE12521A88BDAC0036245A /* chat_contact_nocontacts.png in Resources */,
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
 				18DFE8B61AC7D09900C216C3 /* public_no_intention_community.png in Resources */,
+				CEACB0331AD618130010D455 /* houses_detail_rent_net_light.png in Resources */,
 				18DFE9031AC9A8D700C216C3 /* talk_sound_normal.png in Resources */,
 				184366971AB9843100A81374 /* FilterAdvanceRentHouse.plist in Resources */,
 				CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */,
@@ -5826,27 +6028,39 @@
 				18B564441A8366A4009779A0 /* navigationbar_collect_highlighted.png in Resources */,
 				475A4D601AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_normal.png in Resources */,
 				18BE12711A8A133D0036245A /* myzone_renant_history_highlighted.png in Resources */,
+				CEACB03C1AD618130010D455 /* houses_detail_rent_xizao.png in Resources */,
 				18DFE8B51AC7D09900C216C3 /* public_no_history.png in Resources */,
 				CEA9CFCA1AD503B200FEF74A /* houses_detail_bus_annotion.png in Resources */,
+				CEACB0531AD62E510010D455 /* house_detail_rent_nuanqi_light.png in Resources */,
 				18B563FA1A8366A4009779A0 /* guide_header_backgroud.png in Resources */,
+				CEACB03A1AD618130010D455 /* houses_detail_rent_tv.png in Resources */,
+				CEACB0391AD618130010D455 /* houses_detail_rent_tv_light.png in Resources */,
+				CEACB0621AD62E510010D455 /* house_detail_second_loutai.png in Resources */,
+				CEACB02C1AD618130010D455 /* houses_detail_rent_bag.png in Resources */,
 				18B563EB1A8366A4009779A0 /* channelbar_advancedfilter_normal.png in Resources */,
 				18B5643A1A8366A4009779A0 /* icon58.png in Resources */,
 				18B564621A8366A4009779A0 /* public_local_lightyellow.png in Resources */,
 				18B5641E1A8366A4009779A0 /* houses_detail_sizeform_housetype.png in Resources */,
 				18B5644D1A8366A4009779A0 /* navigationbar_maplist_highlighted.png in Resources */,
 				18B563F61A8366A4009779A0 /* developer_setting.png in Resources */,
+				183572211AD612AD00A29607 /* talk_photo_highlighted.png in Resources */,
 				18BE126F1A8A133D0036245A /* myzone_renant_community_highlighted.png in Resources */,
 				47B8A1DC1AC1502D0083C20A /* myzone_oorderlist_cell_askforprice_bt_normal.png in Resources */,
 				18B564361A8366A4009779A0 /* icon180.png in Resources */,
+				CEACB0341AD618130010D455 /* houses_detail_rent_net.png in Resources */,
 				18B5643F1A8366A4009779A0 /* 320X480.png in Resources */,
 				18BE12701A8A133D0036245A /* myzone_renant_community_normal.png in Resources */,
+				CEACB05D1AD62E510010D455 /* house_detail_second_gelou_light.png in Resources */,
 				478645EC1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_selected.png in Resources */,
 				18B564301A8366A4009779A0 /* icon1024.png in Resources */,
 				18B564771A8366A4009779A0 /* tabbar_myzone_selected.png in Resources */,
 				18B5646D1A8366A4009779A0 /* share_wechat_normal.png in Resources */,
 				18B564121A8366A4009779A0 /* houses_detail_calculate_normal.png in Resources */,
+				CEACB05C1AD62E510010D455 /* house_detail_second_dixiashi.png in Resources */,
 				475A4DA71AC55FC2009881CF /* myzone_oorderdetail_computer_bt_selected.png in Resources */,
 				18B5641A1A8366A4009779A0 /* houses_detail_refresh_normal.png in Resources */,
+				CEACB0581AD62E510010D455 /* house_detail_second_cheku.png in Resources */,
+				CEACB05B1AD62E510010D455 /* house_detail_second_dixiashi_light.png in Resources */,
 				18BE124A1A88935C0036245A /* public_sixform_hollow_80x80.png in Resources */,
 				18B564721A8366A4009779A0 /* tabbar_home_normal.png in Resources */,
 				18B5645A1A8366A4009779A0 /* navigationbar_turnback_normal.png in Resources */,
@@ -5856,18 +6070,22 @@
 				47A207761AB807D100F51797 /* myzone_calendar_month_bt_left.png in Resources */,
 				18B564071A8366A4009779A0 /* home_salehouse_highlighted.png in Resources */,
 				18B564291A8366A4009779A0 /* houses_features_mianshui.png in Resources */,
+				183572241AD612AD00A29607 /* talk_sound_can_record_normal.png in Resources */,
 				18B563F51A8366A4009779A0 /* developer_saling_house.png in Resources */,
+				183572201AD612AD00A29607 /* talk_my_sound_message_selected.png in Resources */,
 				18B564431A8366A4009779A0 /* 750X1334.png in Resources */,
 				18B564641A8366A4009779A0 /* public_multiple_selected_normal.png in Resources */,
 				18B564681A8366A4009779A0 /* public_single_selected_normal.png in Resources */,
 				18B5644C1A8366A4009779A0 /* navigationbar_deploy_arrow_normal.png in Resources */,
 				1843669B1AB9845700A81374 /* FilterAskRentHouse.plist in Resources */,
+				CEACB0371AD618130010D455 /* houses_detail_rent_park_light.png in Resources */,
 				18B5645E1A8366A4009779A0 /* public_delete_all.png in Resources */,
 				18B5640C1A8366A4009779A0 /* home_tenement_normal.png in Resources */,
 				18B563FD1A8366A4009779A0 /* guide_houses_haved_tip.png in Resources */,
 				CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */,
 				18B564111A8366A4009779A0 /* houses_detail_calculate_highlighted.png in Resources */,
 				18B572911AC16D1600C75682 /* descriptor.proto in Resources */,
+				1835721C1AD612AD00A29607 /* talk_my_indicate_arrow_highlighted.png in Resources */,
 				18B564411A8366A4009779A0 /* 640X960.png in Resources */,
 				18B564651A8366A4009779A0 /* public_row_arrow.png in Resources */,
 				18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */,
@@ -5879,6 +6097,7 @@
 				18FABD001A775E55007AC345 /* PushConfig.plist in Resources */,
 				18B0E24E1ACAE25700C8EE9E /* myzone_ask_list_setting_normal.png in Resources */,
 				18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */,
+				CEACB05E1AD62E510010D455 /* house_detail_second_gelou.png in Resources */,
 				475C3D921AB2CC240028608F /* myzone_oorderdetail_map_bt_pressed.png in Resources */,
 				18B563F41A8366A4009779A0 /* developer_chat_hightlight.png in Resources */,
 				478645E91ACA41B300B41F0F /* myzone_oorderdetail_accept_bt_normal.png in Resources */,
@@ -5887,8 +6106,10 @@
 				18D081EB1ACE7EFD004FA20F /* navigationbar_more_normal.png in Resources */,
 				18BE12731A8A133D0036245A /* myzone_renant_order_appointed_highlighted.png in Resources */,
 				18B564481A8366A4009779A0 /* navigationbar_confirm_normal.png in Resources */,
+				CEACB0311AD618130010D455 /* houses_detail_rent_kongtiao_light.png in Resources */,
 				18C8A0B81A6A32A400BB9611 /* AppTabbarInfo.plist in Resources */,
 				18B563F81A8366A4009779A0 /* guide_big_circle.png in Resources */,
+				183572281AD612AD00A29607 /* talk_sound_sending.png in Resources */,
 				18B564201A8366A4009779A0 /* houses_detail_starlevel_gray.png in Resources */,
 				18B564761A8366A4009779A0 /* tabbar_myzone_normal.png in Resources */,
 				478645EB1ACA41B300B41F0F /* myzone_oorderdetail_edite_price_bt_normal.png in Resources */,
@@ -5896,13 +6117,13 @@
 				47E0D4E21AAEDB9900B5C42A /* myzone_community_noorderList_data_icon.png in Resources */,
 				478645ED1ACA41B300B41F0F /* myzone_oorderdetail_my_price_bg.png in Resources */,
 				18B5646B1A8366A4009779A0 /* share_friends_normal.png in Resources */,
+				CEACB03F1AD6257E0010D455 /* HouseDetailServiceInfo.plist in Resources */,
 				18EC15961AC3A37800D2AD3A /* ReleaseSaleHouseAddinfo.plist in Resources */,
 				18B564531A8366A4009779A0 /* navigationbar_setting_highlighted.png in Resources */,
 				18BE12691A8A133D0036245A /* myzone_owner_recommend_renant_highlighted.png in Resources */,
 				18EC15891AC2A58A00D2AD3A /* ReleaseSaleHouse.plist in Resources */,
 				475C3D741AB171120028608F /* myzone_oorderlist_cell_cover_frame.png in Resources */,
 				18DFE8D11AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png in Resources */,
-				18DFE8FD1AC9A8D700C216C3 /* talk_my_sound_message_highlighted.png in Resources */,
 				18B564191A8366A4009779A0 /* houses_detail_refresh_highlighted.png in Resources */,
 				18B564051A8366A4009779A0 /* home_bridalchamber_highlighted.png in Resources */,
 				18B0E24D1ACAE25700C8EE9E /* myzone_ask_list_setting_highlighted.png in Resources */,
@@ -5910,12 +6131,15 @@
 				18DFE83D1AC66DA100C216C3 /* public_sixform_hollow_100x80.png in Resources */,
 				18BE12321A8869760036245A /* calendar_sixform.png in Resources */,
 				18B5644F1A8366A4009779A0 /* navigationbar_message_highlighted.png in Resources */,
-				18DFE9011AC9A8D700C216C3 /* talk_photo_normal.png in Resources */,
 				CED32B9B1AB6830B00F17C26 /* houses_detail_priceup.png in Resources */,
 				184366951AB9842100A81374 /* FilterAdvanceSecondHouse.plist in Resources */,
+				CEACB0561AD62E510010D455 /* house_detail_rent_park.png in Resources */,
 				18B564011A8366A4009779A0 /* guide_tenant_haved_tip.png in Resources */,
+				CEACB02E1AD618130010D455 /* houses_detail_rent_food.png in Resources */,
 				18B5642D1A8366A4009779A0 /* houses_mud.png in Resources */,
+				CEACB0551AD62E510010D455 /* house_detail_rent_park_light.png in Resources */,
 				18B564541A8366A4009779A0 /* navigationbar_setting_normal.png in Resources */,
+				CEACB0301AD618130010D455 /* houses_detail_rent_appliance.png in Resources */,
 				47B8A1D91AC148010083C20A /* myzone_oorderlist_cell_talkprice_bt_selected.png in Resources */,
 				18BE126B1A8A133D0036245A /* myzone_renant_beg_highlighted.png in Resources */,
 				CEA9CFCC1AD503B200FEF74A /* houses_detail_hospital_annotion.png in Resources */,
@@ -5925,6 +6149,7 @@
 				18B564061A8366A4009779A0 /* home_bridalchamber_normal.png in Resources */,
 				47B8A1E01AC155DB0083C20A /* myzone_oorderlist_cell_remind_bt_normal.png in Resources */,
 				18DFE8FE1AC9A8D700C216C3 /* talk_my_sound_message_normal.png in Resources */,
+				CEACB05F1AD62E510010D455 /* house_detail_second_huayuan_light.png in Resources */,
 				18B564021A8366A4009779A0 /* home_background.png in Resources */,
 				CE5210091ACD0F1800D6230B /* houses_detail_catering_highlighted.png in Resources */,
 				47B8A1CF1AC11CC50083C20A /* myzone_oorderlist_cell_accept_bt_selected.png in Resources */,
@@ -5939,24 +6164,27 @@
 				18B5643C1A8366A4009779A0 /* icon87.png in Resources */,
 				18B5643E1A8366A4009779A0 /* 1242X2208.png in Resources */,
 				18DFE8CE1AC8F29000C216C3 /* comparison_sixform.png in Resources */,
+				CEACB0381AD618130010D455 /* houses_detail_rent_park.png in Resources */,
 				18B5640A1A8366A4009779A0 /* home_secondhandhouse_normal.png in Resources */,
 				18B564001A8366A4009779A0 /* guide_tenant_haved_circle_tip.png in Resources */,
 				18B5641D1A8366A4009779A0 /* houses_detail_score.png in Resources */,
+				CEACB02F1AD618130010D455 /* houses_detail_rent_appliance_light.png in Resources */,
 				18B564381A8366A4009779A0 /* icon29.png in Resources */,
 				18B5646F1A8366A4009779A0 /* share_weibo_normal.png in Resources */,
 				1865E3D51AB1A47C00FAEC9E /* home_collected_increase_down.png in Resources */,
 				18018AEC1A9FFF5800F35DEB /* houses_list_load_fail690x350.png in Resources */,
+				CEACB05A1AD62E510010D455 /* house_detail_second_dianti.png in Resources */,
 				18DFE9021AC9A8D700C216C3 /* talk_sound_highlighted.png in Resources */,
 				CE5210081ACD0F1800D6230B /* houses_detail_bus_normal.png in Resources */,
 				CE5210131ACD0F1800D6230B /* houses_detail_supermarket_highlighted.png in Resources */,
+				CEACB0601AD62E510010D455 /* house_detail_second_huayuan.png in Resources */,
 				18EE34841AAC36F50053B909 /* public_arrow_normal60x60.png in Resources */,
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				1865E3D61AB1A47C00FAEC9E /* home_collected_increase_up.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
 				18B0E2521ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png in Resources */,
-				18DFE8FB1AC9A8D700C216C3 /* talk_my_indicate_arrow_highlighted.png in Resources */,
-				18DFE8FF1AC9A8D700C216C3 /* talk_my_sound_message_selected.png in Resources */,
 				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
+				183572251AD612AD00A29607 /* talk_sound_highlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6015,8 +6243,10 @@
 				18DFE8701AC6F3AF00C216C3 /* QSCoreDataManager+History.m in Sources */,
 				1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
+				183571FD1AD608A900A29607 /* QSYMessageWordTableViewCell.m in Sources */,
 				478646001ACEBB4000B41F0F /* QSPOrderDetailAppointAgainButtonView.m in Sources */,
 				18DFE8E61AC9A29300C216C3 /* QSYTalkPTPViewController.m in Sources */,
+				183571F31AD52E2200A29607 /* QSYMyzoneStatisticsRenantModel.m in Sources */,
 				184366AF1ABA5DBD00A81374 /* QSYAttentionCommunityViewController.m in Sources */,
 				475A4D7C1AC53789009881CF /* QSPOrderDetailRemarkRejectPriceView.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
@@ -6027,7 +6257,6 @@
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18B572971AC16D1600C75682 /* generated_message_util.cc in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
-				183571DC1AD2558E00A29607 /* QSYMessageWordTableViewCell.m in Sources */,
 				18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */,
 				1890B7821AB8475400B94E9B /* QSSocketManager.mm in Sources */,
 				CEBC98721ABD0A1F00A69F34 /* QSCustomCalloutView.m in Sources */,
@@ -6090,6 +6319,7 @@
 				18DFE8A41AC6F69E00C216C3 /* QSCDHistoryNewHouseDataModel.m in Sources */,
 				18DABAB01AAD4E1B00647E7C /* QSRateDataModel.m in Sources */,
 				18EE34761AABFD3F0053B909 /* QSCommunityDataModel.m in Sources */,
+				183571E51AD515E000A29607 /* QSYSendMessagePicture.m in Sources */,
 				184366AB1ABA5D9A00A81374 /* QSYCollectedHousesViewController.m in Sources */,
 				18AFA9C21AB2C9B900681071 /* QSVerticalCodeView.m in Sources */,
 				47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */,
@@ -6110,6 +6340,7 @@
 				CE52101C1ACE799D00D6230B /* QSHouseCommentDataModel.m in Sources */,
 				18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */,
 				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
+				183572001AD608C400A29607 /* QSYMessagePictureTableViewCell.m in Sources */,
 				18B572951AC16D1600C75682 /* extension_set_heavy.cc in Sources */,
 				18D081AA1ACD51EC004FA20F /* QSYReleaseRentHouseImageViewController.m in Sources */,
 				18D081F11ACE8170004FA20F /* QSYContactRemarkSettinViewController.m in Sources */,
@@ -6206,6 +6437,7 @@
 				CE172FAE1AB03CC8002A245C /* QSWRentHouseInfoDataModel.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */,
+				183571F61AD52E5400A29607 /* QSYMyzoneStatisticsOwnerModel.m in Sources */,
 				475C3DA31AB3DC5F0028608F /* QSOrderListOrderInfoDataModel.m in Sources */,
 				478646031AD3799900B41F0F /* QSPOrderDetailAcceptOrRejectApplicationView.m in Sources */,
 				18FBA5B21A786F41001372B3 /* QSGuideLookingforRoomViewController.m in Sources */,
@@ -6302,6 +6534,7 @@
 				18DFE8AB1AC7079D00C216C3 /* QSYComparisonViewController.m in Sources */,
 				18CAFCD31A70E45A00C90C90 /* QSBaseModel.m in Sources */,
 				18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */,
+				183571EF1AD52DB400A29607 /* QSYMyzoneStatisticsReturnData.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
 				18B572A51AC16D1600C75682 /* atomicops_internals_x86_gcc.cc in Sources */,
 				18AFA9E01AB3F07D00681071 /* QSCDUserDataModel.m in Sources */,
@@ -6319,6 +6552,7 @@
 				18EC15BE1AC3F67800D2AD3A /* QSYShowImageDetailViewController.m in Sources */,
 				18EE34671AABEE300053B909 /* QSScrollView.m in Sources */,
 				18C8A0CC1A6A4D3400BB9611 /* QSTabbar.m in Sources */,
+				183572031AD608D700A29607 /* QSYMessageVideoTableViewCell.m in Sources */,
 				1865E3D21AB191B000FAEC9E /* QSYSearchCommunityViewController.m in Sources */,
 				CE9703A21AC92FD000AE403E /* QSHouseTypeDetailReturnData.m in Sources */,
 				475A4D3E1AC3E65A009881CF /* QSPOrderDetailPersonInfoView.m in Sources */,
@@ -6361,6 +6595,7 @@
 				18DFE8C11AC7F98800C216C3 /* QSYRecommendRentHouseList.m in Sources */,
 				18D0814D1ACB9AB1004FA20F /* QSYSendMessageWord.m in Sources */,
 				18C8A1DD1A6D1D9C00BB9611 /* QSAdvertViewController.m in Sources */,
+				183571EB1AD5163100A29607 /* QSYSendMessageVideo.m in Sources */,
 				18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */,
 				18D081FE1ACE963D004FA20F /* QSYContactDetailInfoModel.m in Sources */,
 				18B572A61AC16D1600C75682 /* atomicops_internals_x86_msvc.cc in Sources */,

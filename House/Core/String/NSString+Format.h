@@ -36,4 +36,15 @@
  */
 + (BOOL) isValidateMobile:(NSString *)mobile;
 
+/**
+ *  @author yangshengmeng, 15-04-08 16:04:34
+ *
+ *  @brief  返回当前设置的uuid
+ *
+ *  @return 返回当前用户设置的uuid
+ *
+ *  @since  1.0.0
+ */
++ (NSString*)getDeviceUUID;
+
 @end

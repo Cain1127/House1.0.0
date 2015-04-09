@@ -527,13 +527,16 @@ typedef enum
 typedef enum
 {
     
-    qQSCustomProtocolChatMessageTypeWord    = 9000, //!<文字信息
-    qQSCustomProtocolChatMessageTypePicture = 9001, //!<图片信息
-    qQSCustomProtocolChatMessageTypeVideo   = 9002, //!<语音信息
-    qQSCustomProtocolChatMessageTypeOnLine  = 9003, //!<下线信息
-    qQSCustomProtocolChatMessageTypeOffLine = 9004, //!<上线信息
-    qQSCustomProtocolChatMessageTypeSpecial = 9005, //!<推荐房源
-    qQSCustomProtocolChatMessageTypeSystem  = 9006, //!<系统消息
+    qQSCustomProtocolChatMessageTypeWord            = 9000, //!<文字信息
+    qQSCustomProtocolChatMessageTypePicture         = 9001, //!<图片信息
+    qQSCustomProtocolChatMessageTypeVideo           = 9002, //!<语音信息
+    qQSCustomProtocolChatMessageTypeOnLine          = 9003, //!<下线信息
+    qQSCustomProtocolChatMessageTypeOffLine         = 9004, //!<上线信息
+    qQSCustomProtocolChatMessageTypeSpecial         = 9005, //!<推荐房源
+    qQSCustomProtocolChatMessageTypeSystem          = 9006, //!<系统消息
+    qQSCustomProtocolChatMessageTypeHistoryWord     = 9007, //!<历史文字消息
+    qQSCustomProtocolChatMessageTypeHistoryPicture  = 9008, //!<历史图片消息
+    qQSCustomProtocolChatMessageTypeHistoryVideo    = 9009, //!<历史音频消息
     
 }QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE;
 
@@ -642,7 +645,9 @@ typedef enum
     rRequestTypeMyZoneReleaseRentHouse,         //!<发布出租房
     rRequestTypeMyZoneReleaseSecondHandHouse,   //!<发布二手房
     rRequestTypeMyZoneEditAskRentPurpase,       //!<修改求租求购
-    rRequestTypeMyZoneDeleteAskRentPurpase,
+    rRequestTypeMyZoneDeleteAskRentPurpase,     //!<删除求租求购
+    
+    rRequestTypeMyZoneStatistics = 5500,        //!<个人中心的统计数据
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
@@ -657,6 +662,7 @@ typedef enum
     rRequestTypeLogin,                          //!<登录
     rRequestTypeLogout,                         //!<退出登录
     rRequestTypeReloadUserUnfo,                 //!<重新下载用户信息
+    rRequestTypeUPDateuserInfo,                 //!<更新用户信息
     
     rRequestTypeOrderCancelAppointment = 10003, //!<订单详情里取消预约订单
     rRequestTypeOrderCommitAppointment = 10004, //!<订单详情里接受预约订单

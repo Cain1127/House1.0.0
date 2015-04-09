@@ -238,7 +238,7 @@
         
     }
     
-    ///图片请求
+    ///图片上传
     if (rRequestTypeLoadImage == taskModel.requestType) {
         
         ///获取图片

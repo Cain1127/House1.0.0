@@ -11,8 +11,13 @@
 #import "QSYOwnerInfoViewController.h"
 
 #import "QSYMessageWordTableViewCell.h"
+#import "QSYMessageVideoTableViewCell.h"
+#import "QSYMessagePictureTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "NSString+Format.h"
+#import "NSString+Calculation.h"
+#import "NSDate+Formatter.h"
 
 #import "QSSocketManager.h"
 #import "QSCoreDataManager+User.h"
@@ -20,18 +25,24 @@
 #import "QSUserSimpleDataModel.h"
 #import "QSUserDataModel.h"
 #import "QSYSendMessageWord.h"
+#import "QSYSendMessageVideo.h"
+#import "QSYSendMessagePicture.h"
 
 #import "MJRefresh.h"
 
-@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "UIImage+Orientaion.h"
+#import "UIImage+Thumbnail.h"
 
-@property (nonatomic,retain) QSUserSimpleDataModel *userModel;      //!<当前聊天对象数据模型
-@property (nonatomic,retain) QSUserDataModel *myUserModel;          //!<当前用户数据模型
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@property (nonatomic,strong) UIView *rootView;                      //!<底view，方便滑动
-@property (nonatomic,strong) UITableView *messagesListView;         //!<消息列表view
-@property (nonatomic,retain) NSMutableArray *messagesDataSource;    //!<消息数据
-@property (nonatomic,retain) QSYSendMessageWord *wordMessageModel;  //!<文字消息模型
+@interface QSYTalkPTPViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+@property (nonatomic,retain) QSUserSimpleDataModel *userModel;              //!<当前聊天对象数据模型
+@property (nonatomic,retain) QSUserDataModel *myUserModel;                  //!<当前用户数据模型
+
+@property (nonatomic,strong) UIView *rootView;                              //!<底view，方便滑动
+@property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
+@property (nonatomic,retain) NSMutableArray *messagesDataSource;            //!<消息数据
 
 @end
 
@@ -51,12 +62,6 @@
         
         ///初始化数据源
         self.messagesDataSource = [[NSMutableArray alloc] init];
-        
-        ///初始化消息模型
-        self.wordMessageModel = [[QSYSendMessageWord alloc] init];
-        self.wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        self.wordMessageModel.fromID = [QSCoreDataManager getUserID];
-        self.wordMessageModel.toID = self.wordMessageModel.fromID;
         
     }
     
@@ -127,11 +132,18 @@
     lineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.rootView addSubview:lineLabel];
     
+    ///文字输入框
+    __block UITextField *inputField;
+    
     ///相机
     UIButton *cameraButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        ///弹出图片选择，或拍照
+        ///回收键盘
+        [inputField resignFirstResponder];
         
+        ///弹出提示
+        UIActionSheet *pickedImageAskSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"相册", nil];
+        [pickedImageAskSheet showInView:self.view];
         
     }];
     [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_NORMAL] forState:UIControlStateNormal];
@@ -139,7 +151,7 @@
     [self.rootView addSubview:cameraButton];
     
     ///文字输入框
-    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
+    inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
     inputField.borderStyle = UITextBorderStyleRoundedRect;
     inputField.delegate = self;
     inputField.placeholder = @"请输入信息……";
@@ -213,7 +225,8 @@
 {
 
     ///根据消息的类型，返回不同的高度
-    return 44.0f;
+    QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
+    return tempModel.showHeight + 30.0f;
 
 }
 
@@ -223,10 +236,10 @@
     
     ///消息类型
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
-    
     UITableViewCell *cellNormaMessage;
     
     switch (tempModel.msgType) {
+            ///文字聊天
         case qQSCustomProtocolChatMessageTypeWord:
         {
             
@@ -268,6 +281,82 @@
         }
             break;
             
+            ///图片聊天
+        case qQSCustomProtocolChatMessageTypePicture:
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessagePicture";
+                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
+                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessagePicture";
+                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
+                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            }
+            break;
+            
+            ///音频聊天
+        case qQSCustomProtocolChatMessageTypeVideo:
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessageVideo";
+                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
+                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessageVideo";
+                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellNormaMessage) {
+                    
+                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
+                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                
+            }
+            break;
+            
         default:
             break;
     }
@@ -297,11 +386,44 @@
     ///判断是否存在文字消息
     if ([textField.text length] > 0) {
         
-        self.wordMessageModel.message = textField.text;
+        ///保存消息
+        NSString *sendMessage = [NSString stringWithString:textField.text];
         textField.text = nil;
         
+        QSYSendMessageWord *wordMessageModel = [[QSYSendMessageWord alloc] init];
+        wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
+        wordMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_,@"");
+        wordMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
+        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
+        wordMessageModel.message = APPLICATION_NSSTRING_SETTING(sendMessage,@"");
+        wordMessageModel.timeStamp = APPLICATION_NSSTRING_SETTING([NSDate currentDateTimeStamp],@"");
+        
+        wordMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
+        wordMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
+        wordMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
+        wordMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        
+        wordMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
+        wordMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
+        wordMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
+        wordMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
+        
+        CGFloat showHeight = 30.0f;
+        CGFloat showWidth = [sendMessage calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
+        if (showWidth > (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f)) {
+            
+            showWidth = (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f);
+            showHeight = [sendMessage calculateStringDisplayHeightByFixedWidth:showWidth andFontSize:FONT_BODY_16];
+            
+        }
+        
+        showWidth = showWidth + 20.0f;
+        showHeight = showHeight + 20.0f;
+        wordMessageModel.showWidth = showWidth;
+        wordMessageModel.showHeight = showHeight;
+        
         ///显示当前自已发送的消息
-        [self.messagesDataSource addObject:self.wordMessageModel];
+        [self.messagesDataSource addObject:wordMessageModel];
         
         ///刷新消息列表
         [self.messagesListView reloadData];
@@ -310,7 +432,7 @@
         [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
         ///发送消息
-        [QSSocketManager sendMessageToPerson:self.wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
+        [QSSocketManager sendMessageToPerson:wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
             
             ///绑定消息回调
             [self.messagesDataSource addObject:model];
@@ -326,6 +448,255 @@
     }
     
     return YES;
+
+}
+
+#pragma mark - 选择图片时相册/拍照提示
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    ///从新拍照
+    if (0 == buttonIndex) {
+        
+        ///拍照：如果是要准备进行拍照，一定要判断设备是否支持拍照
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypeCamera]) {
+            
+            ///如果是拍照
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypeCamera];
+            
+        } else {
+            
+            ///如果不支持拍照
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前设备不支持拍照", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+    ///从相册选择图片
+    if (1 == buttonIndex) {
+        
+        //需要判断是否支持取本地相册
+        if ([UIImagePickerController isSourceTypeAvailable:
+             UIImagePickerControllerSourceTypePhotoLibrary]) {
+            
+            //如果支持取本地相册：则调用本地相册
+            [self loadImageWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            
+        } else {
+            
+            ///如果不支持读取相册
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法获取本地相册", 1.0f, ^(){})
+            
+        }
+        
+    }
+    
+}
+
+#pragma mark - 拍照或者从相册中选择图片
+///拍照 和 取本地相册，都是一个代理，不过是区分资源
+///UIImagePickerController 这是管理本地的控件器
+///UIImagePickerControllerSourceTypePhotoLibrary : 相册
+///UIImagePickerControllerSourceTypeCamera : 照相机
+///UIImagePickerControllerSourceTypeSavedPhotosAlbum : 胶卷
+- (void)loadImageWithSourceType:(UIImagePickerControllerSourceType)type
+{
+    if (type == UIImagePickerControllerSourceTypePhotoLibrary) {
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    } else if(type == UIImagePickerControllerSourceTypeCamera){
+        
+        //根据不同的资源类型，加载不同的界面
+        UIImagePickerController *pickVC = [[UIImagePickerController alloc] init];
+        pickVC.delegate = self;
+        pickVC.sourceType = type;
+        pickVC.allowsEditing = YES;//允许编辑
+        
+        //用模式跳转窗体
+        [self presentViewController:pickVC animated:YES completion:^{}];
+        
+    }
+    
+}
+
+#pragma mark - 获取拍照/本地图片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    
+    /*
+     *  将图片转化成NSData 存入应用的沙盒中
+     */
+    NSString *sourceType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([sourceType isEqualToString:(NSString *)kUTTypeImage]) {
+        
+        ///原图片
+        UIImage *pickedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+        
+        ///修改图片
+        UIImage *rightImage = [pickedImage fixOrientation:pickedImage];
+        
+        ///压缩图片
+        UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
+        
+        ///获取时间戳
+        NSString *timeStamp = [NSDate currentDateTimeStamp];
+        NSString *rootPath = [self getTalkImageSavePath];
+        NSString *savePath = [rootPath stringByAppendingString:timeStamp];
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 1.0f);
+        
+        ///保存本地
+        BOOL isSave = [imageData writeToFile:savePath atomically:YES];
+        if (!isSave) {
+            
+            ///提示发送失败
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"发送失败", 1.5f, ^(){})
+            return;
+            
+        }
+        
+        ///保存图片消息
+        QSYSendMessagePicture *pictureMessageModel = [[QSYSendMessagePicture alloc] init];
+        pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypePicture;
+        pictureMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_, @"");
+        pictureMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
+        pictureMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
+        pictureMessageModel.pictureURL = APPLICATION_NSSTRING_SETTING(savePath,@"");
+        
+        pictureMessageModel.timeStamp = [NSDate currentDateTimeStamp];
+        
+        pictureMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
+        pictureMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
+        pictureMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
+        pictureMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        
+        pictureMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
+        pictureMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
+        pictureMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
+        pictureMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
+        
+        CGFloat showWidth = smallImage.size.width;
+        showWidth = (showWidth > (SIZE_DEVICE_WIDTH * 2.0f / 5.0f)) ? (SIZE_DEVICE_WIDTH * 2.0f / 5.0f) : showWidth;
+        CGFloat showHeight = showWidth * (smallImage.size.height / smallImage.size.width);
+        showWidth = showWidth + 20.0f;
+        showHeight = showHeight + 20.0f;
+        pictureMessageModel.showWidth = showWidth;
+        pictureMessageModel.showHeight = showHeight;
+        
+        ///加载当前消息
+        [self.messagesDataSource addObject:pictureMessageModel];
+        
+        ///发送消息
+        
+        ///刷新数据
+        [self.messagesListView reloadData];
+        
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:^{}];
+    
+}
+
+#pragma mark - 聊天图片沙盒目录
+- (NSString *)getTalkImageSavePath
+{
+
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/image"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+
+}
+
+- (NSString *)getTalkVideoSavePath
+{
+    
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/video"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (NSString *)getContactRootPath
+{
+
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/contact"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
 
 }
 

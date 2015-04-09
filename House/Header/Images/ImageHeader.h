@@ -375,6 +375,14 @@
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_NORMAL @"talk_my_indicate_arrow_normal"
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_HIGHLIGHTED @"talk_my_indicate_arrow_highlighted"
 
+///消息：语音
+#define IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_NORMAL @"talk_contact_sound_message_normal"
+#define IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_HIGHLIGHTED @"talk_contact_sound_message_highlighted"
+#define IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_SELECTED @"talk_contact_sound_message_selected"
+#define IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_NORMAL @"talk_my_sound_message_normal"
+#define IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_HIGHLIGHTED @"talk_my_sound_message_highlighted"
+#define IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_SELECTED @"talk_my_sound_message_selected"
+
 #pragma mark - 个人中心相关图片
 
 /**

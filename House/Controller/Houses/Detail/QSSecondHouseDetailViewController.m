@@ -658,7 +658,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *priceLabel=[[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
-    priceLabel.text = houseInfoModel.house_price;
+    priceLabel.text = [NSString stringWithFormat:@"%.2f",[houseInfoModel.house_price floatValue]/10000.0f];
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
@@ -836,7 +836,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@/%@",houseInfoModel.floor_which,houseInfoModel.floor_num];
+    layerCountLabel.text=[NSString stringWithFormat:@"层数:%@/%@(%@)",houseInfoModel.floor_which,houseInfoModel.floor_num,houseInfoModel.elevator = @"Y" ? @"电梯房" : @""];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
     layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
@@ -909,66 +909,40 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat labelW = 60.0f;
     CGFloat labelY = imageY+imageH+8.0f;
     
-    QSImageView *bagStay=[[QSImageView alloc] initWithFrame:CGRectMake(0.0f, imageY, imageW,imageH )];
-    bagStay.image=[UIImage imageNamed:@"houses_bag"];
-    [view addSubview:bagStay];
+    ///获取plist配置文件
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"HouseDetailServiceInfo" ofType:@"plist"];
+    NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"House_Service"];
     
-    QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(0.0f, labelY, labelW,20.0f)];
-    bagStayLabel.text=@"拎包入住";
-    bagStayLabel.textAlignment=NSTextAlignmentLeft;
-    bagStayLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:bagStayLabel];
-    
-    
-    QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+gap, imageY, imageW, imageH)];
-    appliance.image=[UIImage imageNamed:@"houses_appliance"];
-    [view addSubview:appliance];
-    
-    QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, labelW,20.0f)];
-    applianceLabel.text=@"家电齐全";
-    applianceLabel.textAlignment=NSTextAlignmentLeft;
-    applianceLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:applianceLabel];
-    
-    
-    QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+gap, imageY, imageW, imageH)];
-    broadband.image=[UIImage imageNamed:@"houses_broadband"];
-    [view addSubview:broadband];
-    
-    QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, labelW,20.0f)];
-    broadbandLabel.text=@"宽带网络";
-    broadbandLabel.textAlignment=NSTextAlignmentLeft;
-    broadbandLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:broadbandLabel];
-    
-    
-    QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+gap, imageY, imageW, imageH)];
-    linegas.image=[UIImage imageNamed:@"houses_linegas"];
-    [view addSubview:linegas];
-    
-    QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, labelW,20.0f)];
-    linegasLabel.text=@"管道煤气";
-    linegasLabel.textAlignment=NSTextAlignmentLeft;
-    linegasLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:linegasLabel];
-    
-    
-    QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+gap, imageY, imageW, imageH)];
-    mud.image=[UIImage imageNamed:@"houses_mud"];
-    [view addSubview:mud];
-    
-    QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, labelW,20.0f)];
-    mudLabel.text=@"硅藻泥墙";
-    mudLabel.textAlignment=NSTextAlignmentLeft;
-    mudLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:mudLabel];
+    for (int i =0; i < [pathInfos count]; i++) {
+        
+        NSDictionary *infoDict = pathInfos[i];
+        
+        QSImageView *imageView=[[QSImageView alloc] initWithFrame:CGRectMake(i*(imageW+gap), imageY, imageW,imageH )];
+        imageView.image =[UIImage imageNamed:[infoDict valueForKey:@"normal"]] ;
+        imageView.highlightedImage = [UIImage imageNamed:[infoDict valueForKey:@"selected"]];
+        
+        if (i==3 || i==4) {
+            imageView.highlighted = NO;
+        }
+        else{
+        imageView.highlighted = YES;
+        }
+        [view addSubview:imageView];
+        
+        QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x, labelY, labelW,20.0f)];
+        bagStayLabel.text=[infoDict valueForKey:@"name"];
+        bagStayLabel.textAlignment=NSTextAlignmentLeft;
+        bagStayLabel.font=[UIFont systemFontOfSize:14.0f];
+        [view addSubview:bagStayLabel];
+        
+    }
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
     [view addSubview:bottomLineLabel];
     
-    view.contentSize = CGSizeMake(mud.frame.origin.x+mud.frame.size.width, view.frame.size.height);
+    view.contentSize = CGSizeMake([pathInfos count]*(imageW +gap)+gap , view.frame.size.height);
     
 }
 
@@ -1064,7 +1038,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///税金参考
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    consultLabel.text = [NSString stringWithFormat:@"%@小区均价",Districttitle];
+    consultLabel.text = [NSString stringWithFormat:@"%@小区均价",self.houseInfo.village_name];
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
@@ -1241,6 +1215,24 @@ static char LeftStarKey;            //!<左侧星级
 -(void)createCommentViewUI:(UIView *)view andCommentModel:(QSHouseCommentDataModel *)commentModel
 {
     
+    if (!commentModel.num) {
+        UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:view.bounds];
+        nNommentLabel.text = @"暂无评论";
+        nNommentLabel.font = [UIFont systemFontOfSize:20.0f];
+        nNommentLabel.textAlignment = NSTextAlignmentCenter;
+        [view addSubview:nNommentLabel];
+        
+        ///右侧箭头
+        QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+        arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [view addSubview:arrowView];
+        
+        ///分隔线
+        UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
+        bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+        [view addSubview:bottomLineLabel];
+    }
+    else{
     ///头像
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
@@ -1265,7 +1257,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评论内容
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    commentLabel.text = commentModel.content ? commentModel.content : @"null";
+    commentLabel.text = commentModel.content ? commentModel.content : @"0";
     commentLabel.textColor = COLOR_CHARACTERS_BLACK;
     commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:commentLabel];
@@ -1292,7 +1284,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
     [view addSubview:bottomLineLabel];
-    
+    }
 }
 
 #pragma mark -添加操作view
@@ -1476,6 +1468,8 @@ static char LeftStarKey;            //!<左侧星级
             self.userInfo=tempModel.detailInfo.user;
             
             ///创建详情UI
+            [self setNavigationBarTitle:(self.detailInfo.house.title ? self.detailInfo.house.title : @"详情")];
+
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI:tempModel.detailInfo.user.id_];
             

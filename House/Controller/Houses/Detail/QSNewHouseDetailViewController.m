@@ -997,7 +997,8 @@ static char LeftStarKey;            //!<左侧星级
     [tempRootView addSubview:tradeTipsLabel];
     
     UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
-    tradeTimeLabel.text = [QSCoreDataManager getHouseTradeTypeWithKey:tradeType];
+   
+    tradeTimeLabel.text =  [NSString stringWithFormat:@"%@(%@)",[QSCoreDataManager getHouseTradeTypeWithKey:tradeType],tradeType];
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [tempRootView addSubview:tradeTimeLabel];

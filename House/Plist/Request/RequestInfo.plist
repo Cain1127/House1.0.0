@@ -16,6 +16,20 @@
 		<key>url</key>
 		<string>order/cancel</string>
 	</dict>
+	<key>5500</key>
+	<dict>
+		<key>class</key>
+		<string>QSYMyzoneStatisticsReturnData</string>
+		<key>url</key>
+		<string>tj/personTotal</string>
+	</dict>
+	<key>9005</key>
+	<dict>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+		<key>url</key>
+		<string>user/update</string>
+	</dict>
 	<key>5007</key>
 	<dict>
 		<key>url</key>
