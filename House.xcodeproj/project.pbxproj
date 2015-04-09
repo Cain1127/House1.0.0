@@ -5993,6 +5993,7 @@
 				18DFE9061AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png in Resources */,
 				18BE12371A8869850036245A /* comparison_sixform.png in Resources */,
 				CEACB0641AD62E510010D455 /* house_detail_second_ranqi.png in Resources */,
+				183572191AD612AD00A29607 /* talk_contact_sound_message_highlighted.png in Resources */,
 				18B5640E1A8366A4009779A0 /* houses_detail_activity_right.png in Resources */,
 				18B5646C1A8366A4009779A0 /* share_wechat_highlighted.png in Resources */,
 				18B564271A8366A4009779A0 /* houses_broadband.png in Resources */,
