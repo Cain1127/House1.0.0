@@ -285,6 +285,8 @@
         
     }
     
+    NSLog(@"self.order_status: %@ statusStr: %@",self.order_status,statusStr);
+    
     return statusStr;
     
 }

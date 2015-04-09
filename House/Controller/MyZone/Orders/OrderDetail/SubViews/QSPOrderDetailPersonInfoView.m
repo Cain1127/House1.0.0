@@ -39,7 +39,7 @@
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-44.0f;
         
-        NSString *ownerName = @"";
+        NSString *personName = @"";
         
         NSString *phoneStr = @"";
         
@@ -49,21 +49,40 @@
             
             if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
                 
-                QSOrderListOrderInfoPersonInfoDataModel *owner = ((QSOrderDetailInfoDataModel*)orderData).saler_msg;
-                NSLog(@"owner:%@",owner);
+                QSOrderListOrderInfoPersonInfoDataModel *personInfo;
                 
-                if (owner && [owner isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeOwner) {
                     
-                    ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
+                    //业主角色
+                    personInfo = ((QSOrderDetailInfoDataModel*)orderData).buyer_msg;
                     
-                    phoneStr = owner.mobile;
+                }else if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeTenant) {
+                    //房客角色
                     
-                    NSRange strRange = [phoneStr rangeOfString:@"*"];
-                    if ( strRange.length > 0) {
+                    personInfo = ((QSOrderDetailInfoDataModel*)orderData).saler_msg;
+                    
+                }
+                
+                if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                    
+                    if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeOwner) {
+                        //业主角色
+                        personName = [NSString stringWithFormat:@"房客:%@",personInfo.username];
                         
-                        phoneTipStr = @"(预约成功后开放)";
+                    }else if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeTenant) {
+                        //房客角色
+                        personName = [NSString stringWithFormat:@"业主:%@",personInfo.username];
+                        
+                        NSRange strRange = [phoneStr rangeOfString:@"*"];
+                        if ( strRange.length > 0) {
+                            
+                            phoneTipStr = @"(预约成功后开放)";
+                            
+                        }
                         
                     }
+                    
+                    phoneStr = personInfo.mobile;
                     
                 }
                 
@@ -71,29 +90,38 @@
             
             if ([orderData isKindOfClass:[QSOrderListItemData class]]) {
                 
-                QSOrderListOwnerMsgDataModel *owner = ((QSOrderListItemData*)orderData).ownerData;
-                NSLog(@"owner:%@",owner);
-                if (owner && [owner isKindOfClass:[QSOrderListOwnerMsgDataModel class]]) {
-                    
-                    ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
-                    
-                    phoneStr = owner.mobile;
-                    
-                    NSRange strRange = [phoneStr rangeOfString:@"*"];
-                    if ( strRange.length > 0) {
-                        
-                        phoneTipStr = @"(预约成功后开放)";
-                        
-                    }
-                    
-                }
+//                QSOrderListpersonInfoMsgDataModel *personInfo = ((QSOrderListItemData*)orderData).ownerData;
+//                NSLog(@"personInfo:%@",personInfo);
+//                if (personInfo && [personInfo isKindOfClass:[QSOrderListpersonInfoMsgDataModel class]]) {
+//                    
+//                    if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeOwner) {
+//                        //业主角色
+//                        personName = [NSString stringWithFormat:@"房客:%@",personInfo.username];
+//                        
+//                    }else if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeTenant) {
+//                        //房客角色
+//                        
+//                        personName = [NSString stringWithFormat:@"业主:%@",personInfo.username];
+//                        
+//                        phoneStr = personInfo.mobile;
+//                        
+//                        NSRange strRange = [phoneStr rangeOfString:@"*"];
+//                        if ( strRange.length > 0) {
+//                            
+//                            phoneTipStr = @"(预约成功后开放)";
+//                            
+//                        }
+//                        
+//                    }
+//                    
+//                }
             }
         }
         
         //业主名
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, labelWidth, 22.0f)];
         [self.nameLabel setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
-        [self.nameLabel setText:ownerName];
+        [self.nameLabel setText:personName];
         [self addSubview:self.nameLabel];
         
         if (phoneStr&&![phoneStr isEqualToString:@""]) {
@@ -182,7 +210,7 @@
 - (void)setOrderData:(id)orderData
 {
     
-    NSString *ownerName = @"";
+    NSString *personName = @"";
     
     NSString *phoneStr = @"";
     
@@ -192,13 +220,13 @@
         
         if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
             
-            QSOrderListOrderInfoPersonInfoDataModel *owner = ((QSOrderDetailInfoDataModel*)orderData).saler_msg;
-            NSLog(@"owner:%@",owner);
-            if (owner && [owner isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+            QSOrderListOrderInfoPersonInfoDataModel *personInfo = ((QSOrderDetailInfoDataModel*)orderData).saler_msg;
+            NSLog(@"personInfo:%@",personInfo);
+            if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
                 
-                ownerName = [NSString stringWithFormat:@"业主:%@",owner.username];
+                personName = [NSString stringWithFormat:@"业主:%@",personInfo.username];
                 
-                NSString *tempPhoneStr = [NSString stringWithString:owner.mobile];
+                NSString *tempPhoneStr = [NSString stringWithString:personInfo.mobile];
                 BOOL hidePhone = YES;
                 if (hidePhone) {
                     if ([tempPhoneStr length]>=8) {
@@ -219,7 +247,7 @@
     CGFloat phoneLabelWidth = 0.0f;
     
     if (_nameLabel) {
-        [_nameLabel setText:ownerName];
+        [_nameLabel setText:personName];
         phoneLabelWidth = [phoneStr calculateStringDisplayWidthByFixedHeight:_nameLabel.frame.size.height andFontSize:FONT_BODY_16];
     }
     
