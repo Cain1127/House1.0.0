@@ -909,6 +909,9 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat labelW = 60.0f;
     CGFloat labelY = imageY+imageH+8.0f;
     
+    ///解析配套信息
+    NSString *installations = self.detailInfo.house.installation;
+    
     ///获取plist配置文件
     NSString *path = [[NSBundle mainBundle] pathForResource:@"HouseDetailServiceInfo" ofType:@"plist"];
     NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"House_Service"];
@@ -918,14 +921,20 @@ static char LeftStarKey;            //!<左侧星级
         NSDictionary *infoDict = pathInfos[i];
         
         QSImageView *imageView=[[QSImageView alloc] initWithFrame:CGRectMake(i*(imageW+gap), imageY, imageW,imageH )];
-        imageView.image =[UIImage imageNamed:[infoDict valueForKey:@"normal"]] ;
+        imageView.image =[UIImage imageNamed:[infoDict valueForKey:@"normal"]];
         imageView.highlightedImage = [UIImage imageNamed:[infoDict valueForKey:@"selected"]];
         
-        if (i==3 || i==4) {
+        NSString *installationKey = [infoDict valueForKey:@"installation_key"];
+        
+        NSRange isHaveRange = [installations rangeOfString:installationKey];
+        if (isHaveRange.length == 6) {
+            
+            imageView.highlighted = YES;
+            
+        } else {
+            
             imageView.highlighted = NO;
-        }
-        else{
-        imageView.highlighted = YES;
+            
         }
         [view addSubview:imageView];
         
@@ -1233,57 +1242,57 @@ static char LeftStarKey;            //!<左侧星级
         [view addSubview:bottomLineLabel];
     }
     else{
-    ///头像
-    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
-    userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
-    if ([commentModel.avatar length] > 0) {
+        ///头像
+        QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+        userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+        if ([commentModel.avatar length] > 0) {
+            
+            [userImageView loadImageWithURL:[commentModel.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+            
+        }
+        [view addSubview:userImageView];
         
-        [userImageView loadImageWithURL:[commentModel.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        ///头像六角
+        QSImageView *userIconSixForm = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, userImageView.frame.size.width, userImageView.frame.size.height)];
+        userIconSixForm.image = [UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW];
+        [userImageView addSubview:userIconSixForm];
         
-    }
-    [view addSubview:userImageView];
-    
-    ///头像六角
-    QSImageView *userIconSixForm = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, userImageView.frame.size.width, userImageView.frame.size.height)];
-    userIconSixForm.image = [UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW];
-    [userImageView addSubview:userIconSixForm];
-    
-    ///评论人名称，日期
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+2.5f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    userLabel.text = [NSString stringWithFormat:@"%@ %@",commentModel.nickname,commentModel.update_time];
-    userLabel.textColor = COLOR_CHARACTERS_BLACK;
-    userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
-    [view addSubview:userLabel];
-    
-    ///评论内容
-    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    commentLabel.text = commentModel.content ? commentModel.content : @"0";
-    commentLabel.textColor = COLOR_CHARACTERS_BLACK;
-    commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
-    [view addSubview:commentLabel];
-    
-    ///右侧箭头
-    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
-    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
-    [view addSubview:arrowView];
-    
-    UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-30.0f, arrowView.frame.origin.y-4.0f, 30.0f, 12.0f)];
-    houseCommentLabel.text = @"评论";
-    houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
-    houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
-    [view addSubview:houseCommentLabel];
-    
-    ///评论次数
-    UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 30.0f, 12.0f)];
-    commentCountLabel.text = commentModel.num ? commentModel.num : @"0";
-    commentCountLabel.textColor = COLOR_CHARACTERS_BLACK;
-    commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
-    [view addSubview:commentCountLabel];
-    
-    ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
-    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
-    [view addSubview:bottomLineLabel];
+        ///评论人名称，日期
+        UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+2.5f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
+        userLabel.text = [NSString stringWithFormat:@"%@ %@",commentModel.nickname,commentModel.update_time];
+        userLabel.textColor = COLOR_CHARACTERS_BLACK;
+        userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        [view addSubview:userLabel];
+        
+        ///评论内容
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
+        commentLabel.text = commentModel.content ? commentModel.content : @"0";
+        commentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        [view addSubview:commentLabel];
+        
+        ///右侧箭头
+        QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+        arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [view addSubview:arrowView];
+        
+        UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-30.0f, arrowView.frame.origin.y-4.0f, 30.0f, 12.0f)];
+        houseCommentLabel.text = @"评论";
+        houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:houseCommentLabel];
+        
+        ///评论次数
+        UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 30.0f, 12.0f)];
+        commentCountLabel.text = commentModel.num ? commentModel.num : @"0";
+        commentCountLabel.textColor = COLOR_CHARACTERS_BLACK;
+        commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:commentCountLabel];
+        
+        ///分隔线
+        UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
+        bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+        [view addSubview:bottomLineLabel];
     }
 }
 
@@ -1469,7 +1478,7 @@ static char LeftStarKey;            //!<左侧星级
             
             ///创建详情UI
             [self setNavigationBarTitle:(self.detailInfo.house.title ? self.detailInfo.house.title : @"详情")];
-
+            
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI:tempModel.detailInfo.user.id_];
             

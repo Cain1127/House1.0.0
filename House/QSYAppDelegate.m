@@ -15,6 +15,7 @@
 #import "QSBaseConfigurationReturnData.h"
 #import "QSYLoginReturnData.h"
 #import "QSUserDataModel.h"
+#import "QSMapManager.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"

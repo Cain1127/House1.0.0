@@ -984,7 +984,7 @@ static char LeftStarKey;            //!<左侧星级
     park.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_park_light"];
     [view addSubview:park];
     
-    QSLabel *parkLabel=[[QSLabel alloc] initWithFrame:CGRectMake(heating.frame.origin.x, labelY, labelW,20.0f)];
+    QSLabel *parkLabel=[[QSLabel alloc] initWithFrame:CGRectMake(park.frame.origin.x, labelY, labelW,20.0f)];
     parkLabel.text=@"带车位";
     parkLabel.textAlignment=NSTextAlignmentLeft;
     parkLabel.font=[UIFont systemFontOfSize:14.0f];
@@ -995,7 +995,7 @@ static char LeftStarKey;            //!<左侧星级
     tv.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_tv_light"];
     [view addSubview:tv];
     
-    QSLabel *tvLabel=[[QSLabel alloc] initWithFrame:CGRectMake(park.frame.origin.x, labelY, labelW,20.0f)];
+    QSLabel *tvLabel=[[QSLabel alloc] initWithFrame:CGRectMake(tv.frame.origin.x, labelY, labelW,20.0f)];
     tvLabel.text=@"带电视";
     tvLabel.textAlignment=NSTextAlignmentLeft;
     tvLabel.font=[UIFont systemFontOfSize:14.0f];

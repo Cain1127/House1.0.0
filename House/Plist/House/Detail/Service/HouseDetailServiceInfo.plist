@@ -11,6 +11,8 @@
 			<string>house_detail_second_ranqi_light</string>
 			<key>name</key>
 			<string>燃气/天燃气</string>
+			<key>installation_key</key>
+			<string>200401</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -19,6 +21,8 @@
 			<string>house_detail_rent_nuanqi_light</string>
 			<key>name</key>
 			<string>暖气</string>
+			<key>installation_key</key>
+			<string>200402</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -27,6 +31,8 @@
 			<string>house_detail_second_dianti_light</string>
 			<key>name</key>
 			<string>电梯</string>
+			<key>installation_key</key>
+			<string>200403</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -35,6 +41,8 @@
 			<string>house_detail_rent_park_light</string>
 			<key>name</key>
 			<string>车位</string>
+			<key>installation_key</key>
+			<string>200404</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -43,6 +51,8 @@
 			<string>house_detail_second_cheku_light</string>
 			<key>name</key>
 			<string>车库</string>
+			<key>installation_key</key>
+			<string>200405</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -51,6 +61,8 @@
 			<string>house_detail_second_dixiashi_light</string>
 			<key>name</key>
 			<string>地下室</string>
+			<key>installation_key</key>
+			<string>200406</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -59,6 +71,8 @@
 			<string>house_detail_second_huayuan_light</string>
 			<key>name</key>
 			<string>花园</string>
+			<key>installation_key</key>
+			<string>200407</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -67,6 +81,8 @@
 			<string>house_detail_second_loutai_light</string>
 			<key>name</key>
 			<string>露台</string>
+			<key>installation_key</key>
+			<string>200408</string>
 		</dict>
 		<dict>
 			<key>normal</key>
@@ -75,6 +91,8 @@
 			<string>house_detail_second_gelou_light</string>
 			<key>name</key>
 			<string>阁楼</string>
+			<key>installation_key</key>
+			<string>200409</string>
 		</dict>
 	</array>
 </dict>

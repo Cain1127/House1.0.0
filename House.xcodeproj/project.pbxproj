@@ -755,6 +755,7 @@
 		CEACB0621AD62E510010D455 /* house_detail_second_loutai.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0501AD62E510010D455 /* house_detail_second_loutai.png */; };
 		CEACB0631AD62E510010D455 /* house_detail_second_ranqi_light.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0511AD62E510010D455 /* house_detail_second_ranqi_light.png */; };
 		CEACB0641AD62E510010D455 /* house_detail_second_ranqi.png in Resources */ = {isa = PBXBuildFile; fileRef = CEACB0521AD62E510010D455 /* house_detail_second_ranqi.png */; };
+		CEACB0681AD6511F0010D455 /* QSMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CEACB0671AD6511F0010D455 /* QSMapManager.m */; };
 		CEBA35611AC5236900A1E082 /* QSActivityDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */; };
 		CEBA35641AC523B600A1E082 /* QSActivityDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA35631AC523B600A1E082 /* QSActivityDetailDataModel.m */; };
 		CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC986C1ABD0A1F00A69F34 /* QSCustomAnnotationView.m */; };
@@ -1966,6 +1967,8 @@
 		CEACB0501AD62E510010D455 /* house_detail_second_loutai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_loutai.png; sourceTree = "<group>"; };
 		CEACB0511AD62E510010D455 /* house_detail_second_ranqi_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_ranqi_light.png; sourceTree = "<group>"; };
 		CEACB0521AD62E510010D455 /* house_detail_second_ranqi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house_detail_second_ranqi.png; sourceTree = "<group>"; };
+		CEACB0661AD6511F0010D455 /* QSMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMapManager.h; sourceTree = "<group>"; };
+		CEACB0671AD6511F0010D455 /* QSMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMapManager.m; sourceTree = "<group>"; };
 		CEBA355F1AC5236900A1E082 /* QSActivityDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailReturnData.h; sourceTree = "<group>"; };
 		CEBA35601AC5236900A1E082 /* QSActivityDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActivityDetailReturnData.m; sourceTree = "<group>"; };
 		CEBA35621AC523B600A1E082 /* QSActivityDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailDataModel.h; sourceTree = "<group>"; };
@@ -2685,6 +2688,7 @@
 		1893007F1A6902E30081D0AA /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				CEACB0651AD6511F0010D455 /* MapManager */,
 				1890B77F1AB8474700B94E9B /* Socket */,
 				18C8A27D1A6EABFF00BB9611 /* DataMapping */,
 				189300811A6902E30081D0AA /* CoreData */,
@@ -5692,6 +5696,15 @@
 			path = Second;
 			sourceTree = "<group>";
 		};
+		CEACB0651AD6511F0010D455 /* MapManager */ = {
+			isa = PBXGroup;
+			children = (
+				CEACB0661AD6511F0010D455 /* QSMapManager.h */,
+				CEACB0671AD6511F0010D455 /* QSMapManager.m */,
+			);
+			path = MapManager;
+			sourceTree = "<group>";
+		};
 		CEBA355D1AC514D500A1E082 /* ActivityDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -5929,7 +5942,6 @@
 				183572261AD612AD00A29607 /* talk_sound_normal.png in Resources */,
 				18EE34831AAC36F50053B909 /* public_arrow_highlighted60x60.png in Resources */,
 				18B5645B1A8366A4009779A0 /* public_appointment_commited.png in Resources */,
-				18DFE9001AC9A8D700C216C3 /* talk_photo_highlighted.png in Resources */,
 				CEACB0631AD62E510010D455 /* house_detail_second_ranqi_light.png in Resources */,
 				475A4D5D1AC4F354009881CF /* myzone_oorderlist_cell_confirm_bt_selected.png in Resources */,
 				18BE12721A8A133D0036245A /* myzone_renant_history_normal.png in Resources */,
@@ -6016,7 +6028,6 @@
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
 				18DFE8B61AC7D09900C216C3 /* public_no_intention_community.png in Resources */,
 				CEACB0331AD618130010D455 /* houses_detail_rent_net_light.png in Resources */,
-				18DFE9031AC9A8D700C216C3 /* talk_sound_normal.png in Resources */,
 				184366971AB9843100A81374 /* FilterAdvanceRentHouse.plist in Resources */,
 				CE64AB4E1AAECB34002B9B89 /* houses_detail_busbutton_highlighted.png in Resources */,
 				18D0820E1ACFC37C004FA20F /* chat_contact_list_delete_normal.png in Resources */,
@@ -6143,7 +6154,6 @@
 				18BE126D1A8A133D0036245A /* myzone_renant_collect_highlighted.png in Resources */,
 				18B564061A8366A4009779A0 /* home_bridalchamber_normal.png in Resources */,
 				47B8A1E01AC155DB0083C20A /* myzone_oorderlist_cell_remind_bt_normal.png in Resources */,
-				18DFE8FE1AC9A8D700C216C3 /* talk_my_sound_message_normal.png in Resources */,
 				CEACB05F1AD62E510010D455 /* house_detail_second_huayuan_light.png in Resources */,
 				18B564021A8366A4009779A0 /* home_background.png in Resources */,
 				CE5210091ACD0F1800D6230B /* houses_detail_catering_highlighted.png in Resources */,
@@ -6169,7 +6179,6 @@
 				1865E3D51AB1A47C00FAEC9E /* home_collected_increase_down.png in Resources */,
 				18018AEC1A9FFF5800F35DEB /* houses_list_load_fail690x350.png in Resources */,
 				CEACB05A1AD62E510010D455 /* house_detail_second_dianti.png in Resources */,
-				18DFE9021AC9A8D700C216C3 /* talk_sound_highlighted.png in Resources */,
 				CE5210081ACD0F1800D6230B /* houses_detail_bus_normal.png in Resources */,
 				CE5210131ACD0F1800D6230B /* houses_detail_supermarket_highlighted.png in Resources */,
 				CEACB0601AD62E510010D455 /* house_detail_second_huayuan.png in Resources */,
@@ -6429,6 +6438,7 @@
 				18B5631C1A81AA40009779A0 /* QSCustomPickerView.m in Sources */,
 				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,
 				181524241ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m in Sources */,
+				CEACB0681AD6511F0010D455 /* QSMapManager.m in Sources */,
 				CE172FAE1AB03CC8002A245C /* QSWRentHouseInfoDataModel.m in Sources */,
 				18C8A1051A6A985B00BB9611 /* QSBlockButtonStyleModel+NavigationBar.m in Sources */,
 				47A2076D1AB7E46000F51797 /* FSCalendarHeader.m in Sources */,
