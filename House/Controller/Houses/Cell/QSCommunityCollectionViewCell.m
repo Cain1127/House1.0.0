@@ -12,6 +12,7 @@
 
 #import "QSNewHouseInfoDataModel.h"
 #import "QSCommunityDataModel.h"
+#import "QSCoreDataManager+App.h"
 
 #import "QSCoreDataManager+House.h"
 
@@ -162,7 +163,8 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 {
 
     ///更新地址信息
-    [self updateAddressInfo:tempModel.address];
+    [self updateAddressInfo:[QSCoreDataManager getStreetValWithStreetKey:tempModel.street]];
+
     
     ///更新标题信息
     [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];

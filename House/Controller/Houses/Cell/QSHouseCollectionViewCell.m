@@ -14,6 +14,7 @@
 #import "QSRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+House.h"
+#import "QSCoreDataManager+App.h"
 
 #include <objc/runtime.h>
 
@@ -232,7 +233,7 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseCommunityInfo:tempModel.village_name];
     
     ///更新详细街道信息
-    [self updateHouseStreetInfo:tempModel.address];
+    [self updateHouseStreetInfo:[QSCoreDataManager getStreetValWithStreetKey:tempModel.street]];
     
     ///更新房子面积信息
     [self updateHouseAreaInfo:[NSString stringWithFormat:@"%d",[tempModel.house_area intValue]]];
@@ -263,7 +264,7 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseCommunityInfo:tempModel.village_name];
     
     ///更新详细街道信息
-    [self updateHouseStreetInfo:tempModel.address];
+    [self updateHouseStreetInfo:[QSCoreDataManager getStreetValWithStreetKey:tempModel.street]];
     
     ///更新房子面积信息
     [self updateHouseAreaInfo:[NSString stringWithFormat:@"%d",[tempModel.house_area intValue]]];
