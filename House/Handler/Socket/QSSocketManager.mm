@@ -54,8 +54,10 @@ using namespace std;
 ///socket连接器
 @property (nonatomic,strong) AsyncSocket *tcpSocket;
 
+@property (nonatomic,copy) NSString *currentContactUserID;      //!<当前对话用户的ID
 @property (nonatomic,retain) QSUserSimpleDataModel *myUserMode; //!<当前用户的数据模型
 @property (nonatomic,copy) NSString *currentDeviceUUID;         //!<当前设备的UUID
+@property (atomic,retain) NSMutableArray *messageList;          //!<消息数据源
 
 @end
 
@@ -108,6 +110,7 @@ static QSSocketManager *_socketManager = nil;
     ///相关参数初始化
     self.myUserMode = (QSUserSimpleDataModel *)[QSCoreDataManager getCurrentUserDataModel];
     self.currentDeviceUUID = [NSString getDeviceUUID];
+    self.messageList = [[NSMutableArray alloc] init];
 
 }
 
@@ -194,6 +197,8 @@ static QSSocketManager *_socketManager = nil;
     ///保存回调
     if (callBack) {
         
+        ///保存当前消息用户
+        socketManager.currentContactUserID = wordMessageModel.toID;
         socketManager.currentTalkMessageCallBack = callBack;
         
     }
@@ -396,6 +401,7 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.msgType = qQSCustomProtocolChatMessageTypeWord;
     ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
     ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
+    ocWordModel.readTag = @"0";
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
@@ -425,13 +431,28 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.showHeight = showHeight;
 
     ///回调
-    if (self.currentTalkMessageCallBack) {
+    if (self.currentTalkMessageCallBack &&
+        [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
         
         self.currentTalkMessageCallBack(YES,ocWordModel);
         
     } else {
+        
+        ///保存消息
+        [self.messageList addObject:ocWordModel];
+        
+        ///回调离线消息数量
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"streetName == %@",@"0"];
+        NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+        
+        ///回调消息数量
+        if (self.currentUnReadMessageNumCallBack) {
+            
+            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            
+        }
     
-        ///回调通知
+        ///回调消息列表
         if (self.instantMessageNotification) {
             
             QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
@@ -568,7 +589,7 @@ void int32ToByte(int32_t i,char *bytes)
  */
 + (void)registCurrentUnReadMessageCountNotification:(void(^)(int msgNum))callBack
 {
-
+    
     QSSocketManager *manager = [self shareSocketManager];
     if (callBack) {
         

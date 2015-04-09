@@ -722,7 +722,15 @@
     [shared_mapping addAttributeMappingsFromArray:@[@"username",
                                                     @"mobile",
                                                     @"id_",
-                                                    @"level"
+                                                    @"level",
+                                                    @"user_type",
+//                                                    @"sex",
+                                                    @"avatar",
+//                                                    @"nickname",
+                                                    @"email",
+                                                    @"realname",
+                                                    @"tj_secondHouse_num",
+                                                    @"tj_rentHouse_num"
                                                     ]];
     
     return shared_mapping;

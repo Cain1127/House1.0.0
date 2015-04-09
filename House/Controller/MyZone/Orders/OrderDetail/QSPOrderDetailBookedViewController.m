@@ -78,6 +78,8 @@
 #import "QSNearInfoViewController.h"
 
 #import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
+#import "QSYTalkPTPViewController.h"
+#import "QSYPostMessageSimpleModel.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -520,6 +522,7 @@
             }
             
             switch (buttonType) {
+                    ///联系业主
                 case pPersonButtonTypePhone:
                     {
                         if (phoneStr&&![phoneStr isEqualToString:@""]) {
@@ -546,17 +549,19 @@
                             }];
                         }
                     }
-                    NSLog(@"电话");
                     break;
                 case pPersonButtonTypeAsk:
-                    
-                    NSLog(@"咨询");
+                    {
+//                        QSYPostMessageSimpleModel *tempModel = params;
+//                        
+//                        QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+//                        [self.navigationController pushViewController:talkVC animated:YES];
+                    }
                     
                     break;
                 default:
                     break;
             }
-            NSLog(@"askButton");
             
         }];
         [scrollView addSubview:self.personView];
