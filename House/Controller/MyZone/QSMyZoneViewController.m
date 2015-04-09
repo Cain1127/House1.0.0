@@ -42,8 +42,6 @@
 #import "QSPSalerBookedOrdersListsViewController.h"
 #import "QSPSalerTransactionOrderListViewController.h"
 
-#include "MJRefresh.h"
-
 ///关联
 static char UserIconKey;    //!<用户头像
 static char RenantRootView; //!<房客底view
@@ -137,10 +135,12 @@ static char OwnerRootView;  //!<业主底view
     ///功能UI
     [self createMyZoneFunctionUI:self.rootView andStartYPoint:170.0f];
     
-    ///开始就请求数据
-    [self.rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getMyZoneCalculationData)];
-    
-    [self.rootView.header beginRefreshing];
+    ///刷新数据
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self getMyZoneCalculationData];
+        
+    });
     
 }
 
@@ -283,7 +283,7 @@ static char OwnerRootView;  //!<业主底view
                     ///刷新数据
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -310,7 +310,7 @@ static char OwnerRootView;  //!<业主底view
                     ///刷新数据
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -336,7 +336,7 @@ static char OwnerRootView;  //!<业主底view
                     
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                 
@@ -362,7 +362,7 @@ static char OwnerRootView;  //!<业主底view
                     
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                 
@@ -389,7 +389,7 @@ static char OwnerRootView;  //!<业主底view
                     
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -415,7 +415,7 @@ static char OwnerRootView;  //!<业主底view
                     
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                 
@@ -443,7 +443,7 @@ static char OwnerRootView;  //!<业主底view
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新页面数据
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -631,7 +631,7 @@ static char OwnerRootView;  //!<业主底view
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新当前页面数据
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -657,7 +657,7 @@ static char OwnerRootView;  //!<业主底view
                     if (lLoginCheckActionTypeReLogin == flag) {
                         
                         ///刷新当前页面数据
-                        [self.rootView.header beginRefreshing];
+                        [self getMyZoneCalculationData];
                         
                     }
                     
@@ -688,7 +688,7 @@ static char OwnerRootView;  //!<业主底view
         [ownerView rebuildOwnerFunctionUI:[QSCoreDataManager getCurrentUserCountType]];
         
         ///重新请求数据
-        [self.rootView.header beginRefreshing];
+        [self getMyZoneCalculationData];
         
     }];
 
@@ -752,7 +752,7 @@ static char OwnerRootView;  //!<业主底view
     ///已经登录，才请求数据
     if (lLoginCheckActionTypeLogined == [self checkLogin]) {
         
-        ///显示HUD
+        ///HUD
         __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
         
         ///获取用户信息
@@ -761,26 +761,27 @@ static char OwnerRootView;  //!<业主底view
         ///请求数据
         [QSRequestManager requestDataWithType:rRequestTypeMyZoneStatistics andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            ///隐藏hud
-            [hud hiddenCustomHUD];
-            
             ///请求成功
             if (rRequestResultTypeSuccess == resultStatus) {
                 
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"下载成功", 1.0f, ^(){
-                
+                [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                    
                     ///刷新UI
                     self.statisticsData = resultData;
                     [self updateMyzoneUIWithLoginData];
-                
-                })
+                    
+                }];
                 
             } else {
             
                 ///提示信息
-                [self.rootView.header endRefreshing];
-                NSString *tipsString = @"下载失败";
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){})
+                NSString *tipsString = @"加载失败";
+                if (resultData) {
+                    
+                    tipsString = [resultData valueForKey:@"info"];
+                    
+                }
+                [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
                 
             }
             
@@ -797,13 +798,6 @@ static char OwnerRootView;  //!<业主底view
     [self updateRenantCountInfo];
     [self updateOwnerCountInfo];
     [self updateuserIcon];
-    
-    ///停止刷新动画
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.rootView.header endRefreshing];
-        
-    });
 
 }
 

@@ -385,7 +385,8 @@
 + (void)saveLoginCount:(NSString *)count andCallBack:(void(^)(BOOL flag))callBack
 {
 
-    
+    BOOL isSaveSuccess = [QSCoreDataManager updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count" andFieldNewValue:APPLICATION_NSSTRING_SETTING(count, @"")];
+    callBack(isSaveSuccess);
 
 }
 
@@ -409,7 +410,8 @@
 + (void)saveLoginPassword:(NSString *)psw andCallBack:(void(^)(BOOL flag))callBack
 {
 
-    
+    BOOL isSaveSuccess = [QSCoreDataManager updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"password" andFieldNewValue:APPLICATION_NSSTRING_SETTING(psw, @"")];
+    callBack(isSaveSuccess);
 
 }
 
