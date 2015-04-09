@@ -79,7 +79,8 @@ static char SettingKey;     //!<设置按钮关联
 {
 
     ///图片
-    QSImageView *houseImageView = [[QSImageView alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f, 75.0f, 85.0f)];
+    QSImageView *houseImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f, 75.0f, 75.0f)];
+    houseImageView.backgroundColor = COLOR_CHARACTERS_GRAY;
     houseImageView.image = [UIImage imageNamed:IMAGE_ZONE_MYPROPERTYLIST_HOUSE_DEFAULT];
     [self.contentView addSubview:houseImageView];
     objc_setAssociatedObject(self, &HouseImageKey, houseImageView, OBJC_ASSOCIATION_ASSIGN);
@@ -91,19 +92,19 @@ static char SettingKey;     //!<设置按钮关联
     objc_setAssociatedObject(self, &HouseTagKey, houseTagView, OBJC_ASSOCIATION_ASSIGN);
     
     ///六角
-    QSImageView *sixformImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, houseImageView.frame.size.height, houseImageView.frame.size.width)];
+    QSImageView *sixformImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, houseImageView.frame.size.width, houseImageView.frame.size.height)];
     sixformImageView.image = [UIImage imageNamed:IMAGE_USERICON_HOLLOW_150x170];
     [houseImageView addSubview:sixformImageView];
     
     ///室厅卫面积
-    UILabel *areaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseImageView.frame.origin.x + houseImageView.frame.size.width + 10.0f, houseImageView.frame.origin.y, 100.0f, 20.0f)];
+    UILabel *areaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseImageView.frame.origin.x + houseImageView.frame.size.width + 8.0f, houseImageView.frame.origin.y + 10.0f, 130.0f, 20.0f)];
     areaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
     areaInfoLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:areaInfoLabel];
     objc_setAssociatedObject(self, &HouseTypeKey, areaInfoLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///租金/售价
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 90.0f, areaInfoLabel.frame.origin.y, 90.0f, 40.0f)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 80.0f, areaInfoLabel.frame.origin.y - 10.0f, 80.0f, 40.0f)];
     priceLabel.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     priceLabel.layer.cornerRadius = 6.0f;
     priceLabel.layer.masksToBounds = YES;
@@ -113,35 +114,35 @@ static char SettingKey;     //!<设置按钮关联
     objc_setAssociatedObject(self, &PriceKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///地址信息
-    UILabel *addressInfo = [[UILabel alloc] initWithFrame:CGRectMake(areaInfoLabel.frame.origin.x, areaInfoLabel.frame.origin.y + areaInfoLabel.frame.size.height + 20.0f, 180.0f, 15.0f)];
+    UILabel *addressInfo = [[UILabel alloc] initWithFrame:CGRectMake(areaInfoLabel.frame.origin.x, areaInfoLabel.frame.origin.y + areaInfoLabel.frame.size.height + 10.0f, 180.0f, 15.0f)];
     addressInfo.textColor = COLOR_CHARACTERS_LIGHTLIGHTGRAY;
     addressInfo.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [self.contentView addSubview:addressInfo];
     objc_setAssociatedObject(self, &AddressInfoKey, addressInfo, OBJC_ASSOCIATION_ASSIGN);
     
     ///标签信息
-    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(addressInfo.frame.origin.x, addressInfo.frame.origin.y + addressInfo.frame.size.height + 10.0f, 180.0f, 20.0f)];
+    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(addressInfo.frame.origin.x, addressInfo.frame.origin.y + addressInfo.frame.size.height + 5.0f, 180.0f, 20.0f)];
     [self.contentView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesRootKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
     
     ///预约信息
-    UILabel *orderInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseImageView.frame.origin.x, houseImageView.frame.origin.y + houseImageView.frame.size.height + 20.0f, 200.0f, 20.0f)];
+    UILabel *orderInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseImageView.frame.origin.x, houseImageView.frame.origin.y + houseImageView.frame.size.height + 20.0f, 270.0f, 20.0f)];
     orderInfoLabel.textColor = COLOR_CHARACTERS_LIGHTLIGHTGRAY;
-    orderInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    orderInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [self.contentView addSubview:orderInfoLabel];
     objc_setAssociatedObject(self, &ReleaseDateKey, orderInfoLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///查看次数
-    UILabel *viewCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(55.0f, 0.0f, 40.0f, orderInfoLabel.frame.size.height)];
+    UILabel *viewCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(40.0f, 0.0f, 40.0f, orderInfoLabel.frame.size.height)];
     viewCountLabel.adjustsFontSizeToFitWidth = YES;
     viewCountLabel.textAlignment = NSTextAlignmentCenter;
     viewCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    viewCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    viewCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [orderInfoLabel addSubview:viewCountLabel];
     objc_setAssociatedObject(self, &ViewCountKey, viewCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///预约单
-    UILabel *orderCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(105.0f, 0.0f, 40.0f, orderInfoLabel.frame.size.height)];
+    UILabel *orderCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(115.0f, 0.0f, 40.0f, orderInfoLabel.frame.size.height)];
     orderCountLabel.adjustsFontSizeToFitWidth = YES;
     orderCountLabel.textAlignment = NSTextAlignmentCenter;
     orderCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
@@ -150,7 +151,7 @@ static char SettingKey;     //!<设置按钮关联
     objc_setAssociatedObject(self, &OrderCountKey, orderCountLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///展开按钮
-    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 44.0f, 165.0f - 44.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 44.0f, orderInfoLabel.frame.origin.y - 12.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         if (button.selected) {
             
@@ -170,7 +171,7 @@ static char SettingKey;     //!<设置按钮关联
     objc_setAssociatedObject(self, &SettingKey, settinButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
-    UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 165.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
+    UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 165.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
     topLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.contentView addSubview:topLineLabel];
 
@@ -238,7 +239,7 @@ static char SettingKey;     //!<设置按钮关联
     [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",[tempModel.rent_price floatValue]] andUnit:@"/月"];
     
     ///更新地址信息
-    [self updateHouseAddressInfo:[NSString stringWithFormat:@"%@|%@",[QSCoreDataManager getStreetValWithStreetKey:tempModel.street],tempModel.village_name]];
+    [self updateHouseAddressInfo:[NSString stringWithFormat:@"%@ | %@",[QSCoreDataManager getStreetValWithStreetKey:tempModel.street],tempModel.village_name]];
     
     ///更新发布日期
     [self updateHouseReleaseInfo:tempModel.update_time];
@@ -253,7 +254,7 @@ static char SettingKey;     //!<设置按钮关联
     [self updateHouseFeaturesInfo:tempModel.features];
 
     ///更新房源图片
-    [self updateHouseImage:tempModel.attach_thumb];
+    [self updateHouseImage:tempModel.attach_file];
 
 }
 
@@ -271,7 +272,7 @@ static char SettingKey;     //!<设置按钮关联
     [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",[tempModel.house_price floatValue] / 10000.0f] andUnit:@"万"];
     
     ///更新地址信息
-    [self updateHouseAddressInfo:[NSString stringWithFormat:@"%@|%@",[QSCoreDataManager getStreetValWithStreetKey:tempModel.street],tempModel.village_name]];
+    [self updateHouseAddressInfo:[NSString stringWithFormat:@"%@ | %@",[QSCoreDataManager getStreetValWithStreetKey:tempModel.street],tempModel.village_name]];
     
     ///更新发布日期
     [self updateHouseReleaseInfo:tempModel.update_time];
@@ -286,7 +287,7 @@ static char SettingKey;     //!<设置按钮关联
     [self updateHouseFeaturesInfo:tempModel.features];
 
     ///更新房源图片
-    [self updateHouseImage:tempModel.attach_thumb];
+    [self updateHouseImage:tempModel.attach_file];
 
 }
 
@@ -520,13 +521,13 @@ static char SettingKey;     //!<设置按钮关联
         
         if (tempString.length > 0) {
             
-            [tempString appendString:@"|"];
+            [tempString appendString:@" | "];
             
         }
         
         if ([areaInfo length] > 0) {
             
-            [tempString appendFormat:@"%.0f",[areaInfo floatValue]];
+            [tempString appendFormat:@"%.0f/%@",[areaInfo floatValue],APPLICATION_AREAUNIT];
             
         }
         
