@@ -898,7 +898,9 @@ static char LeftStarKey;            //!<左侧星级
     CGFloat labelY = imageY+imageH+8.0f;
     
     QSImageView *bagStay=[[QSImageView alloc] initWithFrame:CGRectMake(0.0f, imageY, imageW,imageH )];
-    bagStay.image=[UIImage imageNamed:@"houses_bag"];
+    bagStay.image=[UIImage imageNamed:@"houses_detail_rent_bag"];
+    bagStay.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_bag_light"];
+    bagStay.highlighted = YES;
     [view addSubview:bagStay];
     
     QSLabel *bagStayLabel=[[QSLabel alloc] initWithFrame:CGRectMake(0.0f, labelY, labelW,20.0f)];
@@ -909,7 +911,8 @@ static char LeftStarKey;            //!<左侧星级
     
     
     QSImageView *appliance=[[QSImageView alloc] initWithFrame:CGRectMake(bagStay.frame.size.width+gap, imageY, imageW, imageH)];
-    appliance.image=[UIImage imageNamed:@"houses_appliance"];
+    appliance.image=[UIImage imageNamed:@"houses_detail_rent_appliance"];
+    appliance.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_appliance_light"];
     [view addSubview:appliance];
     
     QSLabel *applianceLabel=[[QSLabel alloc] initWithFrame:CGRectMake(appliance.frame.origin.x, labelY, labelW,20.0f)];
@@ -920,43 +923,90 @@ static char LeftStarKey;            //!<左侧星级
     
     
     QSImageView *broadband=[[QSImageView alloc] initWithFrame:CGRectMake(appliance.frame.origin.x+appliance.frame.size.width+gap, imageY, imageW, imageH)];
-    broadband.image=[UIImage imageNamed:@"houses_broadband"];
+    broadband.image=[UIImage imageNamed:@"houses_detail_rent_net"];
+    broadband.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_net_light"];
     [view addSubview:broadband];
     
     QSLabel *broadbandLabel=[[QSLabel alloc] initWithFrame:CGRectMake(broadband.frame.origin.x, labelY, labelW,20.0f)];
-    broadbandLabel.text=@"宽带网络";
+    broadbandLabel.text=@"可上网";
     broadbandLabel.textAlignment=NSTextAlignmentLeft;
     broadbandLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:broadbandLabel];
     
     
     QSImageView *linegas=[[QSImageView alloc] initWithFrame:CGRectMake(broadband.frame.origin.x+broadband.frame.size.width+gap, imageY, imageW, imageH)];
-    linegas.image=[UIImage imageNamed:@"houses_linegas"];
+    linegas.image=[UIImage imageNamed:@"houses_detail_rent_xizao"];
+    linegas.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_xizao_light"];
     [view addSubview:linegas];
     
     QSLabel *linegasLabel=[[QSLabel alloc] initWithFrame:CGRectMake(linegas.frame.origin.x, labelY, labelW,20.0f)];
-    linegasLabel.text=@"管道煤气";
+    linegasLabel.text=@"可洗澡";
     linegasLabel.textAlignment=NSTextAlignmentLeft;
     linegasLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:linegasLabel];
     
     
     QSImageView *mud=[[QSImageView alloc] initWithFrame:CGRectMake(linegas.frame.origin.x+linegas.frame.size.width+gap, imageY, imageW, imageH)];
-    mud.image=[UIImage imageNamed:@"houses_mud"];
+    mud.image=[UIImage imageNamed:@"houses_detail_rent_food"];
+    mud.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_food_light"];
     [view addSubview:mud];
     
     QSLabel *mudLabel=[[QSLabel alloc] initWithFrame:CGRectMake(mud.frame.origin.x, labelY, labelW,20.0f)];
-    mudLabel.text=@"硅藻泥墙";
+    mudLabel.text=@"可做饭";
     mudLabel.textAlignment=NSTextAlignmentLeft;
     mudLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:mudLabel];
+    
+    QSImageView *air=[[QSImageView alloc] initWithFrame:CGRectMake(mud.frame.origin.x+mud.frame.size.width+gap, imageY, imageW, imageH)];
+    air.image=[UIImage imageNamed:@"houses_detail_rent_kongtiao"];
+    air.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_kongtiao_light"];
+    [view addSubview:air];
+    
+    QSLabel *airLabel=[[QSLabel alloc] initWithFrame:CGRectMake(air.frame.origin.x, labelY, labelW,20.0f)];
+    airLabel.text=@"空调房";
+    airLabel.textAlignment=NSTextAlignmentLeft;
+    airLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:airLabel];
+    
+    QSImageView *heating=[[QSImageView alloc] initWithFrame:CGRectMake(air.frame.origin.x+air.frame.size.width+gap, imageY, imageW, imageH)];
+    heating.image=[UIImage imageNamed:@"houses_detail_rent_nuanqi"];
+    heating.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_nuanqi_light"];
+    [view addSubview:heating];
+    
+    QSLabel *heatingLabel=[[QSLabel alloc] initWithFrame:CGRectMake(heating.frame.origin.x, labelY, labelW,20.0f)];
+    heatingLabel.text=@"有暖气";
+    heatingLabel.textAlignment=NSTextAlignmentLeft;
+    heatingLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:heatingLabel];
+    
+    QSImageView *park=[[QSImageView alloc] initWithFrame:CGRectMake(heating.frame.origin.x+heating.frame.size.width+gap, imageY, imageW, imageH)];
+    park.image=[UIImage imageNamed:@"houses_detail_rent_park"];
+    park.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_park_light"];
+    [view addSubview:park];
+    
+    QSLabel *parkLabel=[[QSLabel alloc] initWithFrame:CGRectMake(heating.frame.origin.x, labelY, labelW,20.0f)];
+    parkLabel.text=@"带车位";
+    parkLabel.textAlignment=NSTextAlignmentLeft;
+    parkLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:parkLabel];
+    
+    QSImageView *tv=[[QSImageView alloc] initWithFrame:CGRectMake(park.frame.origin.x+park.frame.size.width+gap, imageY, imageW, imageH)];
+    tv.image=[UIImage imageNamed:@"houses_detail_rent_tv"];
+    tv.highlightedImage = [UIImage imageNamed:@"houses_detail_rent_tv_light"];
+    [view addSubview:tv];
+    
+    QSLabel *tvLabel=[[QSLabel alloc] initWithFrame:CGRectMake(park.frame.origin.x, labelY, labelW,20.0f)];
+    tvLabel.text=@"带电视";
+    tvLabel.textAlignment=NSTextAlignmentLeft;
+    tvLabel.font=[UIFont systemFontOfSize:14.0f];
+    [view addSubview:tvLabel];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
     [view addSubview:bottomLineLabel];
     
-    view.contentSize = CGSizeMake(mud.frame.origin.x+mud.frame.size.width, view.frame.size.height);
+    view.contentSize = CGSizeMake(tv.frame.origin.x+tv.frame.size.width, view.frame.size.height);
     
 }
 
