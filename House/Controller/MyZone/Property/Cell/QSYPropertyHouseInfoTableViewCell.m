@@ -31,6 +31,7 @@ static char ViewCountKey;   //!<流量量关联
 static char OrderCountKey;  //!<订单关联
 static char ReleaseDateKey; //!<发布日期
 static char SettingKey;     //!<设置按钮关联
+static char BottomViewkey;  //!<附加功能view
 
 @interface QSYPropertyHouseInfoTableViewCell ()
 
@@ -156,10 +157,20 @@ static char SettingKey;     //!<设置按钮关联
         if (button.selected) {
             
             ///收缩事件
+            if (self.propertyListCellCallBack) {
+                
+                self.propertyListCellCallBack(pPropertyInfocellActionTypeCloseSetting);
+                
+            }
             
         } else {
         
             ///刷开事件
+            if (self.propertyListCellCallBack) {
+                
+                self.propertyListCellCallBack(pPropertyInfocellActionTypeSetting);
+                
+            }
         
         }
         
@@ -174,6 +185,96 @@ static char SettingKey;     //!<设置按钮关联
     UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 165.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
     topLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.contentView addSubview:topLineLabel];
+    
+    ///附加功能
+    UIView *buttonRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 166.0f, SIZE_DEFAULT_MAX_WIDTH, 0.0f)];
+    buttonRootView.clipsToBounds = YES;
+    [self.contentView addSubview:buttonRootView];
+    objc_setAssociatedObject(self, &BottomViewkey, buttonRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///编辑按钮
+    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, (buttonRootView.frame.size.width - 6.0f) / 4.0f, 42.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        if (self.propertyListCellCallBack) {
+            
+            self.propertyListCellCallBack(pPropertyInfocellActionTypeEdit);
+            
+        }
+        
+    }];
+    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
+    [editButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [editButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    editButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [buttonRootView addSubview:editButton];
+    
+    ///分隔线
+    UILabel *editLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(editButton.frame.origin.x + editButton.frame.size.width + 0.85f, 3.0f, 0.25f, 42.0f - 6.0f)];
+    editLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [buttonRootView addSubview:editLineLabel];
+    
+    ///删除按钮
+    UIButton *deleteButton = [UIButton createBlockButtonWithFrame:CGRectMake(editButton.frame.origin.x + editButton.frame.size.width + 2.0f, editButton.frame.origin.y, editButton.frame.size.width, editButton.frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        if (self.propertyListCellCallBack) {
+            
+            self.propertyListCellCallBack(pPropertyInfocellActionTypeDelete);
+            
+        }
+        
+    }];
+    [deleteButton setTitle:@"暂停发布" forState:UIControlStateNormal];
+    [deleteButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [deleteButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    deleteButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [buttonRootView addSubview:deleteButton];
+    
+    ///分隔线
+    UILabel *deleteLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(deleteButton.frame.origin.x + deleteButton.frame.size.width + 0.85f, 3.0f, 0.25f, 42.0f - 6.0f)];
+    deleteLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [buttonRootView addSubview:deleteLineLabel];
+    
+    ///推荐房客
+    UIButton *recommendButton = [UIButton createBlockButtonWithFrame:CGRectMake(deleteButton.frame.origin.x + deleteButton.frame.size.width + 2.0f, deleteButton.frame.origin.y, deleteButton.frame.size.width, deleteButton.frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        if (self.propertyListCellCallBack) {
+            
+            self.propertyListCellCallBack(pPropertyInfocellActionTypeRecommendRenant);
+            
+        }
+        
+    }];
+    [recommendButton setTitle:@"推荐房客" forState:UIControlStateNormal];
+    [recommendButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [recommendButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    recommendButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [buttonRootView addSubview:recommendButton];
+    
+    ///分隔线
+    UILabel *recommendLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(recommendButton.frame.origin.x + recommendButton.frame.size.width + 0.85f, 3.0f, 0.25f, 42.0f - 6.0f)];
+    recommendLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [buttonRootView addSubview:recommendLineLabel];
+    
+    ///刷新房源
+    UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(recommendButton.frame.origin.x + recommendButton.frame.size.width + 2.0f, recommendButton.frame.origin.y, recommendButton.frame.size.width, recommendButton.frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        if (self.propertyListCellCallBack) {
+            
+            self.propertyListCellCallBack(pPropertyInfocellActionTypeRefreshHouse);
+            
+        }
+        
+    }];
+    [refreshButton setTitle:@"刷新房源" forState:UIControlStateNormal];
+    [refreshButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
+    [refreshButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+    refreshButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [buttonRootView addSubview:refreshButton];
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 42.0f - 0.25f, buttonRootView.frame.size.width, 0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [buttonRootView addSubview:bottomLineLabel];
 
 }
 
@@ -557,7 +658,33 @@ static char SettingKey;     //!<设置按钮关联
 - (void)updateEditFunctionShowStatus:(BOOL)isShow
 {
 
-    
+    UIButton *settingButton = objc_getAssociatedObject(self, &SettingKey);
+    UIView *rootView = objc_getAssociatedObject(self, &BottomViewkey);
+    if (settingButton && rootView) {
+        
+        if (isShow) {
+            
+            ///修改图片图片样式
+            settingButton.selected = YES;
+            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_NORMAL] forState:UIControlStateNormal];
+            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_HIGHLIGHTED] forState:UIControlStateHighlighted];
+            
+            ///显示附加功能
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 42.0f);
+            
+        } else {
+        
+            ///修改图片图片样式
+            settingButton.selected = NO;
+            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_NORMAL] forState:UIControlStateNormal];
+            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
+            
+            ///显示附加功能
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 0.0f);
+        
+        }
+        
+    }
 
 }
 
