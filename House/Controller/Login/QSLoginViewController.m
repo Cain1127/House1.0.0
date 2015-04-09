@@ -48,7 +48,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 ///初始化
 - (instancetype)initWithCallBack:(void (^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack
 {
-
+    
     if (self = [super init]) {
         
         ///保存回调
@@ -61,18 +61,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     }
     
     return self;
-
+    
 }
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     
     ///设置标题
     [self setNavigationBarTitle:@"登录"];
-
+    
 }
 
 - (void)createMainShowUI
@@ -83,7 +83,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     rootView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:rootView];
     objc_setAssociatedObject(self, &InputLoginInfoRootViewKey, rootView, OBJC_ASSOCIATION_ASSIGN);
-
+    
     ///手机
     __block UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:TITLE_LOGIN_INPUTCOUNT_PLACEHOLD andLeftTipsInfo:TITLE_LOGIN_INPUTCOUNT_TIP andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     phoneField.delegate = self;
@@ -149,9 +149,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         if (![NSString isValidateMobile:phoneString]) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"手机号码应为11位数字，以13/14/15/17/18开头", 1.0f, ^(){
-            
+                
                 [phoneField becomeFirstResponder];
-            
+                
             })
             return;
         }
@@ -167,9 +167,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         if ([psw length] < 6) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入6位有效密码", 1.0f, ^(){
-            
+                
                 [passwordField becomeFirstResponder];
-            
+                
             })
             return;
             
@@ -214,7 +214,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///进入注册页面
         QSYRegistViewController *registVC = [[QSYRegistViewController alloc] initWithRegistCallBack:^(BOOL flag, NSString *count, NSString *psw) {
             
-           ///注册成功
+            ///注册成功
             if (flag) {
                 
                 phoneField.text = count;
@@ -240,22 +240,22 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         
     }];
     [rootView addSubview:forgetPasswordButton];
-
+    
 }
 
 #pragma mark - 回调键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-
+    
     [textField resignFirstResponder];
     
     return YES;
-
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
+    
     UIView *rootView = objc_getAssociatedObject(self, &InputLoginInfoRootViewKey);
     for (UIView *obj in [rootView subviews]) {
         
@@ -266,14 +266,14 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }
         
     }
-
+    
 }
 
 #pragma mark - 开始登录
 ///开始登录
 - (void)beginLoginAction:(NSString *)count andPassword:(NSString *)password
 {
-
+    
     ///显示HUD
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在登录"];
     
@@ -300,32 +300,39 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             ///修改用户登录状态
             [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                 
-                ///保存用户信息
-                QSYLoginReturnData *tempModel = resultData;
-                QSUserDataModel *userModel = tempModel.userInfo;
-                
-                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                [QSCoreDataManager saveLoginCount:count andCallBack:^(BOOL flag) {
                     
-                    ///显示提示信息
-                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
+                    [QSCoreDataManager saveLoginPassword:password andCallBack:^(BOOL flag) {
                         
-                        ///回调
-                        if (self.loginCallBack) {
-                            
-                            self.loginCallBack(lLoginCheckActionTypeReLogin);
-                            
-                        }
+                        QSYLoginReturnData *tempModel = resultData;
+                        QSUserDataModel *userModel = tempModel.userInfo;
                         
-                        [self.navigationController popViewControllerAnimated:YES];
-                    
-                    })
+                        [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                            
+                            ///显示提示信息
+                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
+                                
+                                ///回调
+                                if (self.loginCallBack) {
+                                    
+                                    self.loginCallBack(lLoginCheckActionTypeReLogin);
+                                    
+                                }
+                                
+                                [self.navigationController popViewControllerAnimated:YES];
+                                
+                            })
+                            
+                        }];
+                        
+                    }];
                     
                 }];
                 
             }];
             
         } else {
-        
+            
             NSString *tips = @"登录失败，请稍后再试";
             if (resultData) {
                 
@@ -336,17 +343,32 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             ///显示提示信息
             TIPS_ALERT_MESSAGE_ANDTURNBACK(tips, 1.5f, ^(){})
             
+            ///修改登录状态
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
+                
+                [QSCoreDataManager saveLoginCount:@"" andCallBack:^(BOOL flag) {
+                    
+                    [QSCoreDataManager saveLoginPassword:@"" andCallBack:^(BOOL flag) {
+                        
+                        
+                        
+                    }];
+                    
+                }];
+                
+            }];
+            
         }
         
     }];
-
+    
 }
 
 #pragma mark - 将本地的收藏/分享数据上传服务端
 ///将本地的收藏/分享数据上传服务端
 - (void)loadCollectedDataToServer
 {
-
+    
     ///添加
     [self addCollectedDataToServer];
     
@@ -358,12 +380,12 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 ///将本地未删除的记录，重新提交删除
 - (void)deleteCollectedData
 {
-
+    
     [self deleteCollectedCommunity];
     [self deleteCollectedNewHouse];
     [self deleteCollectedRentHouse];
     [self deleteCollectedSecondHandHouse];
-
+    
 }
 
 ///删除收藏的出租房
@@ -507,7 +529,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 ///删除关注的小区
 - (void)deleteCollectedCommunity
 {
-
+    
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeCommunity];
     
     for (QSCommunityHouseDetailDataModel *obj in deleteArray) {
@@ -547,18 +569,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }];
         
     }
-
+    
 }
 
 ///将本地未提交服务端的收藏/分享上传服务端
 - (void)addCollectedDataToServer
 {
-
+    
     [self addInttentionCommunityToServer];
     [self addCollectedNewHouseToServer];
     [self addCollectedRentHouseToServer];
     [self addCollectedSecondHandHouseToServer];
-
+    
 }
 
 ///将添加收藏的出租房，同步服务端
@@ -661,7 +683,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 ///将新收藏的二手房同步服务端
 - (void)addCollectedSecondHandHouseToServer
 {
-
+    
     NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeSecondHouse];
     
     ///发送到服务端
@@ -703,13 +725,13 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }];
         
     }
-
+    
 }
 
 ///将添加的关注小区，同步服务端
 - (void)addInttentionCommunityToServer
 {
-
+    
     ///小区
     NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeCommunity];
     
@@ -752,7 +774,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         }];
         
     }
-
+    
 }
 
 @end
