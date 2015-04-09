@@ -30,7 +30,7 @@
                          NSStringDrawingUsesLineFragmentOrigin |
                          NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     CGFloat height = resultSize.height;
-    return height;
+    return height + 10.0f;
 
 }
 
@@ -54,7 +54,7 @@
                          NSStringDrawingUsesLineFragmentOrigin |
                          NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
     CGFloat width = resultSize.width;
-    return width;
+    return width + 10.0f;
 
 }
 

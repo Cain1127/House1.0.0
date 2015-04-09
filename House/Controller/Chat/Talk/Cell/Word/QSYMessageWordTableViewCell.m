@@ -73,7 +73,7 @@ static char MessageKey; //!<消息体关联
     }
     
     ///头像
-    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, 15.0f, 40.0f, 40.0f)];
     iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
     [self.contentView addSubview:iconView];
     objc_setAssociatedObject(self, &UserIconKey, iconView, OBJC_ASSOCIATION_ASSIGN);
@@ -93,18 +93,21 @@ static char MessageKey; //!<消息体关联
     }
     [self.contentView addSubview:arrowIndicator];
     
-    ///消息体
-    UILabel *messageLabel = [[QSLabel alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y + 20.0f - 15.0f, widthMessage, 30.0f) andGap:3.0f];
-    messageLabel.layer.cornerRadius = 4.0f;
-    messageLabel.layer.masksToBounds = YES;
-    messageLabel.backgroundColor = COLOR_HEXCOLOR(0xe6e5ea);
+    ///消息底view
+    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 50.0f)];
+    rootView.layer.cornerRadius = 4.0f;
+    rootView.backgroundColor = COLOR_CHARACTERS_GRAY;
     if (mMessageFromTypeMY == self.messageType) {
         
-        ///ffcd0e/dfb100
-        messageLabel.backgroundColor = COLOR_HEXCOLOR(0xdfb100);
+        rootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
         
     }
-    [self.contentView addSubview:messageLabel];
+    [self.contentView addSubview:rootView];
+    
+    ///消息体
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f)];
+    messageLabel.numberOfLines = 0;
+    [rootView addSubview:messageLabel];
     objc_setAssociatedObject(self, &MessageKey, messageLabel, OBJC_ASSOCIATION_ASSIGN);
 
 }
@@ -123,9 +126,28 @@ static char MessageKey; //!<消息体关联
     
     ///更新消息
     UILabel *messageLabel = objc_getAssociatedObject(self, &MessageKey);
-    if (messageLabel && [model.message length] > 0) {
+    if (messageLabel) {
         
-        messageLabel.text = model.message;
+        ///更新消息体尺寸
+        UIView *rootView = messageLabel.superview;
+        if (mMessageFromTypeMY == self.messageType) {
+            
+            CGFloat originalWidth = rootView.frame.size.width;
+            rootView.frame = CGRectMake(rootView.frame.origin.x + (originalWidth - model.showWidth), rootView.frame.origin.y, model.showWidth, model.showHeight);
+            
+        } else {
+        
+            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, model.showWidth, model.showHeight);
+        
+        }
+        
+        messageLabel.frame = CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f);
+        
+        if ([model.message length] > 0) {
+            
+            messageLabel.text = model.message;
+            
+        }
         
     }
 
