@@ -140,6 +140,8 @@ static char OwnerRootView;  //!<业主底view
     ///开始就请求数据
     [self.rootView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getMyZoneCalculationData)];
     
+    [self.rootView.header beginRefreshing];
+    
 }
 
 ///创建头像

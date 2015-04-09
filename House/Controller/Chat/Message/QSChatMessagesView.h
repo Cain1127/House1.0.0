@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+///消息列表事件类型
+typedef enum
+{
+    
+    mMessageListActionTypeGotoTalk = 9,         //!<进入聊天窗口
+    mMessageListActionTypeGotoRecommendHouse,   //!<进入推荐房源
+    mMessageListActionTypeGotoSystemMessage,    //!<进入系统消息窗口
+    
+}MESSAGE_LIST_ACTION_TYPE;
+
 /**
  *  @brief  消息列表
  */
@@ -25,6 +35,6 @@
  *
  *  @since          1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType;
+- (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(MESSAGE_LIST_ACTION_TYPE actionType,id params))callBack;
 
 @end
