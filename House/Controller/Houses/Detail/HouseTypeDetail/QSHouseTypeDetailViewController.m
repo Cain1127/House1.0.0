@@ -303,7 +303,7 @@
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
     priceLabel.text = @"150";
-    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
     
@@ -339,8 +339,9 @@
     UILabel *areaLabel = [[UILabel alloc] init];
     areaLabel.translatesAutoresizingMaskIntoConstraints=NO;
     areaLabel.textAlignment=NSTextAlignmentRight;
-    areaLabel.text = houseTypeModel.house_area ? houseTypeModel.house_area : @"88";
-    areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+     NSString *areaString= [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
+    areaLabel.text = areaString ? areaString : @"0";
+    areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView1 addSubview:areaLabel];
     
