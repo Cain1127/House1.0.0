@@ -189,11 +189,13 @@
 {
     
     QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
-    buttonStyle.bgColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    buttonStyle.bgColor = [UIColor whiteColor];
     buttonStyle.cornerRadio = VIEW_SIZE_NORMAL_CORNERADIO;
-    buttonStyle.titleNormalColor = [UIColor whiteColor];
-    buttonStyle.titleHightedColor = [UIColor whiteColor];
+    buttonStyle.titleNormalColor = [UIColor blackColor];
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
     buttonStyle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
+    buttonStyle.borderColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    buttonStyle.borderWith = 0.5f;
     return buttonStyle;
     
 }

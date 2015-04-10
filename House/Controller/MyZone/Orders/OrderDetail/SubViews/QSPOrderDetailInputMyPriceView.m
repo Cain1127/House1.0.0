@@ -48,9 +48,9 @@
         
         [self addSubview:inputPriceTextField];
         
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10)];
+        self.showHeight = inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10;
         
-        self.showHeight = self.frame.size.height;
+//        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10)];
         
     }
     

@@ -234,6 +234,7 @@
                             
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
+                        [btVc setOrderID:self.orderDetailData.id_];
                         [self.navigationController pushViewController:btVc animated:YES];
                         
                     }
@@ -275,13 +276,14 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailCancelAppointmentButtonView:取消预约");
+                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
             }
             
         }];
-        [self.cancelAppointmentButtonView setCenterButtonType:nNormalButtonTypeCornerWhiteGray];
+        [self.cancelAppointmentButtonView setCenterButtonType:nNormalButtonTypeCornerYellow];
         [self.contentBgView addSubview:self.cancelAppointmentButtonView];
 
     }
@@ -294,6 +296,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailConfirmOrderDisableButtonView:不能点击房源非常满意，我要成交按钮");
+                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
@@ -1200,6 +1203,7 @@
 }
 
 #pragma mark - 请求接受预约订单
+
 - (void)commitAppointmentOrder
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];

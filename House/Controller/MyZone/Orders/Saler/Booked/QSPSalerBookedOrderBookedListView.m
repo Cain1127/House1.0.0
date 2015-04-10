@@ -276,7 +276,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 - (void)clickItemInHeaderViewWithData:(id)data withSection:(NSInteger)section
 {
     
-    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%d",data ,section);
+    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%ld",data ,(long)section);
     UITableView *tableView = objc_getAssociatedObject(self, &BookingListTableViewKey);
     
     if (_currentShowHeaderIndex==-1) {
@@ -443,5 +443,6 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     }
     
 }
+
 
 @end
