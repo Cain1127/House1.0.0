@@ -21,11 +21,14 @@
 @implementation QSMapManager
 
 ///初始化定位服务
-- (CLLocationManager *)locMgr
+-(instancetype)init
 {
-    if(![CLLocationManager locationServicesEnabled]) return nil;
+    self = [super init];
     
-    if (!_locMgr) {
+    if (self) {
+        
+        //if(![CLLocationManager locationServicesEnabled]) return nil;
+
         // 创建定位管理者
         self.locMgr = [[CLLocationManager alloc] init];
         
@@ -48,7 +51,7 @@
         }
         
     }
-    return _locMgr;
+    return self;
 }
 
 ///获取当前用户位置信息
@@ -133,14 +136,6 @@
 -(void)startUserLocation:(void(^)(BOOL isLocalSuccess,double longitude,double latitude))callBack
 {
     
-    if ([[[UIDevice currentDevice] systemVersion] doubleValue] > 8.0)
-    {
-        //设置定位权限 仅ios8有意义
-        [_locMgr requestWhenInUseAuthorization];// 前台定位
-        
-        [_locMgr requestAlwaysAuthorization];// 前后台同时定位
-    }
-    
     [self.locMgr startUpdatingLocation];
     
     if (callBack) {
@@ -163,7 +158,7 @@
  *  @since 1.0
  */
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
     if (self.userLoationCallBack) {

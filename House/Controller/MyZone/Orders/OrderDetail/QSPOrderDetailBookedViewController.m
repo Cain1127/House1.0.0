@@ -522,6 +522,7 @@
             }
             
             switch (buttonType) {
+                    ///联系业主
                 case pPersonButtonTypePhone:
                     {
                         if (phoneStr&&![phoneStr isEqualToString:@""]) {
@@ -548,11 +549,8 @@
                             }];
                         }
                     }
-                    NSLog(@"电话");
                     break;
                 case pPersonButtonTypeAsk:
-                    
-                    NSLog(@"咨询");
                     {
                         
                         if (personInfo) {
@@ -568,7 +566,6 @@
                 default:
                     break;
             }
-            NSLog(@"askButton");
             
         }];
         [scrollView addSubview:self.personView];

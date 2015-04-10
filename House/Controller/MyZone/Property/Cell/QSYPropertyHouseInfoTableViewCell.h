@@ -15,7 +15,7 @@ typedef enum
     pPropertyInfocellActionTypeSetting = 99,        //!<设置
     pPropertyInfocellActionTypeCloseSetting,        //!<关闭设置
     pPropertyInfocellActionTypeEdit,                //!<编辑
-    pPropertyInfocellActionTypeBookOrder,           //!<预约订单
+    pPropertyInfocellActionTypeDelete,              //!<暂停发布
     pPropertyInfocellActionTypeRecommendRenant,     //!<推荐房客
     pPropertyInfocellActionTypeRefreshHouse,        //!<刷新房源
 

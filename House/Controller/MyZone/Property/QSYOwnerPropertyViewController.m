@@ -37,6 +37,9 @@
 ///无记录提示框
 @property (nonatomic,strong) UILabel *noRecordsLabel;
 
+///当前展开的下标
+@property (nonatomic,assign) int releaseIndex;
+
 ///数据模型
 @property (nonatomic,retain) QSSecondHandHouseListReturnData *secondHousesModel;
 @property (nonatomic,retain) QSRentHouseListReturnData *rentModel;
@@ -64,6 +67,9 @@
         
         ///保存默认类型
         self.houseType = houseType;
+        
+        ///初始化当前的下标
+        self.releaseIndex = -1;
         
     }
     
@@ -264,6 +270,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
+    if (self.releaseIndex == indexPath.row) {
+        
+        return 165.0f + 44.0f;
+        
+    }
+    
     return 165.0f;
 
 }
@@ -286,9 +298,55 @@
         ///刷新数据
         [cellSecondHandHouse updateMyPropertyHouseInfo:self.secondHousesModel.secondHandHouseHeaderData.houseList[indexPath.row] andHouseType:fFilterMainTypeSecondHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
         
-            
+            switch (actionType) {
+                    ///显示附加功能
+                case pPropertyInfocellActionTypeSetting:
+                {
+                
+                    self.releaseIndex = (int)indexPath.row;
+                    [tableView reloadData];
+                
+                }
+                    break;
+                    
+                    ///关闭附加功能
+                case pPropertyInfocellActionTypeCloseSetting:
+                {
+                
+                    self.releaseIndex = -1;
+                    [tableView reloadData];
+                
+                }
+                    break;
+                    
+                    ///编辑
+                case pPropertyInfocellActionTypeEdit:
+                    
+                    break;
+                    
+                    ///暂停发布
+                case pPropertyInfocellActionTypeDelete:
+                    
+                    break;
+                    
+                    ///推荐房客
+                case pPropertyInfocellActionTypeRecommendRenant:
+                    
+                    break;
+                    
+                    ///刷新房源
+                case pPropertyInfocellActionTypeRefreshHouse:
+                    
+                    break;
+                    
+                default:
+                    break;
+            }
         
         }];
+        
+        ///刷新设置
+        [cellSecondHandHouse updateEditFunctionShowStatus:(self.releaseIndex == indexPath.row)];
         
         return cellSecondHandHouse;
         
@@ -309,9 +367,55 @@
         ///刷新数据
         [cellRentHouse updateMyPropertyHouseInfo:self.rentModel.headerData.rentHouseList[indexPath.row] andHouseType:fFilterMainTypeRentalHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
             
-            
+            switch (actionType) {
+                    ///显示附加功能
+                case pPropertyInfocellActionTypeSetting:
+                {
+                    
+                    self.releaseIndex = (int)indexPath.row;
+                    [tableView reloadData];
+                    
+                }
+                    break;
+                    
+                    ///关闭附加功能
+                case pPropertyInfocellActionTypeCloseSetting:
+                {
+                    
+                    self.releaseIndex = -1;
+                    [tableView reloadData];
+                    
+                }
+                    break;
+                    
+                    ///编辑
+                case pPropertyInfocellActionTypeEdit:
+                    
+                    break;
+                    
+                    ///暂停发布
+                case pPropertyInfocellActionTypeDelete:
+                    
+                    break;
+                    
+                    ///推荐房客
+                case pPropertyInfocellActionTypeRecommendRenant:
+                    
+                    break;
+                    
+                    ///刷新房源
+                case pPropertyInfocellActionTypeRefreshHouse:
+                    
+                    break;
+                    
+                default:
+                    break;
+            }
             
         }];
+        
+        ///刷新设置
+        [cellRentHouse updateEditFunctionShowStatus:(self.releaseIndex == indexPath.row)];
         
         return cellRentHouse;
         

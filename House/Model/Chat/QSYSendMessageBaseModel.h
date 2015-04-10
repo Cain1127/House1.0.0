@@ -15,6 +15,7 @@
 @property (nonatomic,copy) NSString *msgID;                                 //!<消息自身的ID
 @property (nonatomic,copy) NSString *fromID;                                //!<消息发出者的ID
 @property (nonatomic,copy) NSString *toID;                                  //!<消息接收者的ID
+@property (nonatomic,copy) NSString *readTag;                               //!<是否已读：1-已读
 
 @property (nonatomic,assign) CGFloat showWidth;                             //!<显示的宽度
 @property (nonatomic,assign) CGFloat showHeight;                            //!<显示的高度

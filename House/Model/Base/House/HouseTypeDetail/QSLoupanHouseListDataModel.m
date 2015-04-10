@@ -15,10 +15,11 @@
 ///解析规则
 + (RKObjectMapping *)objectMapping
 {
-    
-    RKObjectMapping *shared_mapping = nil;
-    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
-    
+//    
+//    RKObjectMapping *shared_mapping = nil;
+//    shared_mapping = [RKObjectMapping mappingForClass:[self class]];
+    RKObjectMapping *shared_mapping = [super objectMapping];
+
     
     ///推荐户型信息
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"photo" toKeyPath:@"photo" withMapping:[QSPhotoDataModel objectMapping]]];

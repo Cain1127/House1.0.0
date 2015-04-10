@@ -356,7 +356,8 @@ static char LeftStarKey;            //!<左侧星级
     
     ///头图片
     QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f)];
-    [headerImageView loadImageWithURL:[self.detailInfo.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    NSURL *tempURL = [self.detailInfo.loupan_building.attach_file getImageURL];
+    [headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     [infoRootView addSubview:headerImageView];
     
     ///主信息边框

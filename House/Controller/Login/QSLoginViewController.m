@@ -30,6 +30,8 @@
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
 
+#import "QSSocketManager.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -308,6 +310,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                         QSUserDataModel *userModel = tempModel.userInfo;
                         
                         [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                            
+                            ///进入应用即连接socket
+                            [QSSocketManager sendOnLineMessage];
                             
                             ///显示提示信息
                             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
