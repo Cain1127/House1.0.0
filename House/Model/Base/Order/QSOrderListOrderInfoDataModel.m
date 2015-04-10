@@ -86,7 +86,24 @@
         
         if ([self.order_status isEqualToString:@"500201"]) {
             //预约状态
-            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"接受";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+                QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
+                leftBt.bottionActionTag = [self.order_status integerValue];
+                leftBt.buttonName = @"拒绝";
+                leftBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_NORMAL;
+                leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_SELECTED;
+                [btList addObject:leftBt];
+                
+            }
         }else if ([self.order_status isEqualToString:@"500202"]) {
             //再预约中状态
         }else if ([self.order_status isEqualToString:@"500210"]) {

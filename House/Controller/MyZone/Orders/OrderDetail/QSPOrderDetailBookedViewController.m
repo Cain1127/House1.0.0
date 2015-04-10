@@ -81,6 +81,8 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYPostMessageSimpleModel.h"
 
+#import "QSPOrderDetailCommitInspectedReturnData.h"
+
 @interface QSPOrderDetailBookedViewController ()
 
 @property (nonatomic, strong) UIView *contentBgView;
@@ -705,7 +707,7 @@
     //!<预约结束评价提示View
     if (self.orderDetailData.isShowCommentNoteTipsView) {
         
-        self.commentNoteTipsView = [[QSPOrderDetailCommentNoteTipsView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY)];
+        self.commentNoteTipsView = [[QSPOrderDetailCommentNoteTipsView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData];
         [scrollView addSubview:self.commentNoteTipsView];
         ///将预约结束评价View引用添加进看房时间控件管理作动态高度扩展
         [self.showingsTimeView addAfterView:&_commentNoteTipsView];
@@ -721,10 +723,13 @@
         self.complaintAndCommentButtonView = [[QSPOrderDetailComplaintAndCommentButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
-                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要评价");
+                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要投诉");
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:评价房源");
+                    //TODO:还未做评价页面
+                    [self commitInspectedOrder];
+                    
                     break;
                 default:
                     break;
@@ -750,6 +755,7 @@
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:完成看房");
+                    [self commitInspectedOrder];
                     break;
                 default:
                     break;
@@ -1189,7 +1195,7 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })
@@ -1238,7 +1244,76 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
+#pragma mark - 确认完成看房
+
+- (void)commitInspectedOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	string	操作用户id
+//    order_id	true	string	订单id
+//    score	true	float	总体分数,满分10分(房客确认的时候才需要)
+//    manner_score	true	float	服务态度,满分10分(房客确认的时候才需要)
+//    desc	true	string	评价描述(房客确认的时候才需要)
+//    suitable	true	int	1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            [self.navigationController popViewControllerAnimated:YES];
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    [tempParam setObject:@"" forKey:@"score"];
+    [tempParam setObject:@"" forKey:@"manner_score"];
+    [tempParam setObject:@"" forKey:@"desc"];
+    [tempParam setObject:@"" forKey:@"suitable"];
+    
+    if (self.orderDetailData && [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+        
+        if (uUserCountTypeTenant == [self.orderDetailData getUserType]) {
+            
+            [tempParam setObject:@"8" forKey:@"score"];
+            [tempParam setObject:@"7" forKey:@"manner_score"];
+            [tempParam setObject:@"不合适，还没添加评价描述" forKey:@"desc"];
+            [tempParam setObject:@"1" forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+            
+        }
+    }
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCommitInspectedReturnData *headerModel = (QSPOrderDetailCommitInspectedReturnData*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })

@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>10013</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailCommitInspectedReturnData</string>
+		<key>url</key>
+		<string>order/commitInspected</string>
+	</dict>
 	<key>10004</key>
 	<dict>
 		<key>url</key>

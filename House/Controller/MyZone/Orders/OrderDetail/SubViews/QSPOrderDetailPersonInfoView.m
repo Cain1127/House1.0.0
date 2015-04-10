@@ -65,6 +65,8 @@
                 
                 if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
                     
+                    phoneStr = personInfo.mobile;
+                    
                     if ([((QSOrderDetailInfoDataModel*)orderData) getUserType] == uUserCountTypeOwner) {
                         //业主角色
                         personName = [NSString stringWithFormat:@"房客:%@",personInfo.username];
@@ -81,8 +83,6 @@
                         }
                         
                     }
-                    
-                    phoneStr = personInfo.mobile;
                     
                 }
                 

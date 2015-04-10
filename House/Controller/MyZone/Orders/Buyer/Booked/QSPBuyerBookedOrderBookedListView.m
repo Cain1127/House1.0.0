@@ -258,6 +258,11 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 - (void)getOrderListData
 {
     
+    UIView *nodataView = objc_getAssociatedObject(self, &BookingListNoDataViewKey);
+    if (nodataView) {
+        [nodataView setHidden:YES];
+    }
+    
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     //        请求参数
@@ -327,6 +332,7 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
                 NSLog(@"%@ Error:%@",headerModel.code,headerModel.info);
             }
             
+            [self reloadData];
         }
         
         [self endRefreshAnimination];

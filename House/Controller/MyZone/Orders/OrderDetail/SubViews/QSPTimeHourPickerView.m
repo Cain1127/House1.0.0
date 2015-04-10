@@ -216,7 +216,12 @@
         if ([pickerView numberOfComponents]==2) {
             
             NSInteger tempStartHourInt = 0;
-            NSString *startHourStr = [self.hourStartList objectAtIndex:row];
+            
+            NSString *startHourStr = nil;
+            if (row<[self.hourStartList count]) {
+                startHourStr = [self.hourStartList objectAtIndex:row];
+            }
+            
             if (startHourStr) {
                 NSArray *startList = [startHourStr componentsSeparatedByString:@":"];
                 if ([startList count]>0) {
@@ -248,8 +253,22 @@
 - (void)updateDataFormHour:(NSString*)startHourStr toHour:(NSString*)endHourStr
 {
     
+    NSLog(@"预约时段 startHourStr:%@ endHourStr:%@",startHourStr,endHourStr);
+    
     BOOL hadStartHour = NO;
     if (startHourStr) {
+        
+        //判断可能是时间戳
+        if ([startHourStr length]==10) {
+         
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"HH"];
+            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:startHourStr.integerValue];
+            startHourStr = [formatter stringFromDate:confromTimesp];
+            
+        }
         
         NSArray *startList = [startHourStr componentsSeparatedByString:@":"];
         if ([startList count]>0) {
@@ -267,6 +286,18 @@
     
     BOOL hadEndHour = NO;
     if (endHourStr) {
+        
+        //判断可能是时间戳
+        if ([endHourStr length]==10) {
+            
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"HH"];
+            NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:endHourStr.integerValue];
+            endHourStr = [formatter stringFromDate:confromTimesp];
+            
+        }
         
         NSArray *endList = [endHourStr componentsSeparatedByString:@":"];
         if ([endList count]>0) {

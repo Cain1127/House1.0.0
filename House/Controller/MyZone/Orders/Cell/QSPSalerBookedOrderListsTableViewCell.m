@@ -88,7 +88,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (500210 == button.tag  || 500213 == button.tag) {
             //打电话
             [self callPhone];
-        }else if (500203 == button.tag) {
+        }else if (500203 == button.tag || 500201 == button.tag) {
             //取消预约
             [self cancelAppointmentOrder];
         }
@@ -110,7 +110,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             //跳转去聊天
             [self goToChat];
             
-        }else if (500203 == button.tag) {
+        }else if (500203 == button.tag || 500201 == button.tag) {
             //接受预约
             [self commitAppointmentOrder];
         }
@@ -422,7 +422,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })
@@ -498,7 +498,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })

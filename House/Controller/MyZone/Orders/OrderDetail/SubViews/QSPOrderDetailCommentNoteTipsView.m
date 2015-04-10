@@ -8,14 +8,15 @@
 
 #import "QSPOrderDetailCommentNoteTipsView.h"
 #import "NSString+Calculation.h"
+#import "QSOrderDetailInfoDataModel.h"
 
 @implementation QSPOrderDetailCommentNoteTipsView
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint {
-    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f)];
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData{
+    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withOrderData:orderData];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData
 {
     
     if (self = [super initWithFrame:frame]) {
@@ -23,9 +24,27 @@
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
         
-        NSString *tipString = @"温馨提示：\n此次预约已结束，如您已实地了解过房源的具体情况，请您对该物业作出相应评价！";
+        NSString *tipString = @"";
+        NSString *remarkTipString = @"";
         
-        NSString *remarkTipString = @"如在48小时内没有作出任何评价，系统默认记录您对该房源的购买意向是初步合适。";
+        if (orderData && [orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+            
+            USER_COUNT_TYPE userType = [orderData getUserType];
+            
+            if (uUserCountTypeTenant == userType) {
+                //房客
+                tipString = @"温馨提示：\n此次预约已结束，如您已实地了解过房源的具体情况，请您对该物业作出相应评价！";
+                remarkTipString = @"(如在48小时内没有作出任何评价，系统默认记录您对该房源的购买意向是初步合适。)";
+                
+            }else if (uUserCountTypeOwner == userType) {
+                //业主
+                
+                tipString = @"温馨提示：\n此次预约已结束，如房客已实地了解过房源的具体情况，请您对该物业作出相应评价！";
+                remarkTipString = @"(如在24小时内没有作出任何评价，系统默认记录房客已完成看房，你的电话信息将对房客公开）";
+                
+            }
+            
+        }
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP);
         
