@@ -11,6 +11,7 @@
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
+#import "QSCommunityHouseListViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSCustomHUDView.h"
@@ -199,8 +200,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2.0f*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入小区二手房");
-        QSSecondHouseDetailViewController *shVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:dataModel.village.title andDetailID:dataModel.village.id_ andDetailType:fFilterMainTypeSecondHouse];
-        [self.navigationController pushViewController:shVC animated:YES];
+        QSCommunityHouseListViewController *scVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:dataModel.village.id_];
+        [self.navigationController pushViewController:scVC animated:YES];
         
     }];
     
@@ -209,8 +210,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"点击进入小区出租房");
-        QSRentHouseDetailViewController *rhVC = [[QSRentHouseDetailViewController alloc] initWithTitle:dataModel.village.title andDetailID:dataModel.village.id_ andDetailType:fFilterMainTypeRentalHouse];
-        [self.navigationController pushViewController:rhVC animated:YES];
+        QSCommunityHouseListViewController *rentVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeRentalHouse andVillageID:dataModel.village.id_];
+        [self.navigationController pushViewController:rentVC animated:YES];
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     

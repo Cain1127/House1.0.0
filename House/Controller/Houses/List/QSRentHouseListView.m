@@ -83,6 +83,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    if (indexPath.row == 0) {
+        
+        return;
+        
+    }
+    
     ///获取房子模型
     QSRentHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1];
     

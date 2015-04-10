@@ -62,4 +62,8 @@
 - (NSString *)getFeaturesPostParams;
 - (NSString *)getInstallationPostParams;
 
+///小区二手房/出租房请求参数封装
+- (NSDictionary *)getCommunitySecondHandHouseListParams;
+- (NSDictionary *)getCommunityRentHouseListParams;
+
 @end
