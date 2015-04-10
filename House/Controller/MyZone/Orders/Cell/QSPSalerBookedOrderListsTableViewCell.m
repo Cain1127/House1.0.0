@@ -11,6 +11,7 @@
 #import "CoreHeader.h"
 #include <objc/runtime.h>
 #import "QSOrderListReturnData.h"
+#import "QSYTalkPTPViewController.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -18,6 +19,13 @@ static char personNameLabelKey; //!<房客名字Label关联key
 static char infoLabelKey;       //!<时间,出价等简介Label关联key
 static char leftActionBtKey;    //!<右部左边按钮关联key
 static char rightActionBtKey;   //!<右部右边按钮关联key
+
+@interface QSPSalerBookedOrderListsTableViewCell ()
+
+@property(nonatomic,strong) QSOrderListItemData *orderData;
+@property(nonatomic,assign) NSInteger       selectedIndex;
+
+@end
 
 @implementation QSPSalerBookedOrderListsTableViewCell
 
@@ -72,7 +80,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+8, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (self.parentViewController) {
+        if (500210 == button.tag) {
+            //打电话
             
         }
         
@@ -88,9 +97,13 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
-        if (self.parentViewController) {
+        
+        if (500210 == button.tag) {
+            //跳转去聊天
+            [self goToChat];
             
         }
+        
         
     }];
     [self.contentView addSubview:rightBt];
@@ -106,6 +119,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 
 - (void)updateCellWith:(id)Data withIndex:(NSInteger)index
 {
+    _selectedIndex = index;
+    self.orderData = (QSOrderListItemData*)Data;
     
     [self setTag:index];
     
@@ -140,14 +155,12 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     if (!Data || ![Data isKindOfClass:[QSOrderListItemData class]]) {
         return;
     }
-    
-    QSOrderListItemData *orderData = (QSOrderListItemData*)Data;
 
 //    if ([orderData getUserIsOwnerFlag]) {
         //非房客
-        if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
             
-            QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:index];
+            QSOrderListOrderInfoDataModel *orderInfoData = [self.orderData.orderInfoList objectAtIndex:index];
             if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                 
                 if (stateLabel) {
@@ -217,7 +230,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (infoLabel) {
         
-        [infoLabel setAttributedText:[orderData getSummaryOnCellAttributedString]];
+        [infoLabel setAttributedText:[self.orderData getSummaryOnCellAttributedString]];
         
     }
 
@@ -244,6 +257,44 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+}
+
+- (void)goToChat
+{
+    
+    if (self.parentViewController && self.orderData) {
+        QSOrderListOrderInfoPersonInfoDataModel *personInfo = nil;
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    
+                    if (orderItem.buyer_msg && [orderItem.buyer_msg isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                        
+                        personInfo = orderItem.buyer_msg;
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        if (personInfo) {
+            
+            QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[personInfo transformToSimpleDataModel]];
+            [self.parentViewController.navigationController pushViewController:talkVC animated:YES];
+            
+        }
+        
+    }
+    
 }
 
 @end

@@ -554,10 +554,14 @@
                     
                     NSLog(@"咨询");
                     {
-                        QSYPostMessageSimpleModel *tempModel = params;
                         
-                        QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
-                        [self.navigationController pushViewController:talkVC animated:YES];
+                        if (personInfo) {
+                            
+                            QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[personInfo transformToSimpleDataModel]];
+                            [self.navigationController pushViewController:talkVC animated:YES];
+                            
+                        }
+                        
                     }
                     
                     break;

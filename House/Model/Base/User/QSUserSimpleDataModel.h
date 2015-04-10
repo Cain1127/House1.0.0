@@ -8,6 +8,8 @@
 
 #import "QSBaseModel.h"
 
+#define     SetModelParam(a)        if(self.a){userData.a=self.a;}else{userData.a=@"";}
+
 /**
  *  @author yangshengmeng, 15-02-12 17:02:48
  *

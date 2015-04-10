@@ -724,7 +724,6 @@
                                                     @"id_",
                                                     @"level",
                                                     @"user_type",
-//                                                    @"sex",
                                                     @"avatar",
 //                                                    @"nickname",
                                                     @"email",
@@ -734,6 +733,29 @@
                                                     ]];
     
     return shared_mapping;
+    
+}
+
+- (QSUserSimpleDataModel*)transformToSimpleDataModel
+{
+    
+    QSUserSimpleDataModel *userData = [[QSUserSimpleDataModel alloc] init];
+    
+    SetModelParam(username);
+    SetModelParam(mobile);
+    SetModelParam(id_);
+    SetModelParam(level);
+    SetModelParam(user_type);
+    SetModelParam(avatar);
+    SetModelParam(email);
+    SetModelParam(realname);
+    SetModelParam(tj_secondHouse_num);
+    SetModelParam(tj_rentHouse_num);
+    
+    //    SetModelParam(nickname);
+    userData.nickname = @"";
+    
+    return userData;
     
 }
 
