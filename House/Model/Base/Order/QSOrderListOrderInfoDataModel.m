@@ -525,6 +525,32 @@
     return timeStr;
 }
 
+//获取买家最近的出价，单位为万
+- (NSString*)getBuyerLastPrice
+{
+    CGFloat priceF = 0;
+    if (self.last_buyer_bid) {
+        priceF = [self.last_buyer_bid floatValue]/10000.0;
+    }
+    
+    NSInteger priceInt = (NSInteger)priceF;
+    
+    return [NSString stringWithFormat:@"%ld",(long)priceInt];
+}
+
+//获取卖家最近的出价，单位为万
+- (NSString*)getSalerLastPrice
+{
+    CGFloat priceF = 0;
+    if (self.last_saler_bid) {
+        priceF = [self.last_saler_bid floatValue]/10000.0;
+    }
+    
+    NSInteger priceInt = (NSInteger)priceF;
+    
+    return [NSString stringWithFormat:@"%ld",(long)priceInt];
+}
+
 @end
 
 @implementation QSOrderListOrderInfoPersonInfoDataModel

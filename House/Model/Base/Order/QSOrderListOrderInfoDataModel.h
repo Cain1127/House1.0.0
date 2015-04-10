@@ -56,6 +56,10 @@
 
 - (USER_COUNT_TYPE)getUserType; //获取用户身份
 
+- (NSString*)getBuyerLastPrice;     //获取买家最近的出价，单位为万
+
+- (NSString*)getSalerLastPrice;     //获取卖家最近的出价，单位为万
+
 @end
 
 @interface QSOrderListOrderInfoPersonInfoDataModel : QSBaseModel

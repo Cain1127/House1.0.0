@@ -82,6 +82,7 @@
 #import "QSYPostMessageSimpleModel.h"
 
 #import "QSPOrderDetailCommitInspectedReturnData.h"
+#import "QSPOrderDetailSubmitBidReturnData.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -194,6 +195,7 @@
         timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
         bargainList = self.orderDetailData.bargain_list;
+        
     }
     
     //
@@ -335,6 +337,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailSubmitPriceButtonView:提交出价按钮");
+                    [self submitMyInputPrice];
                     break;
                 default:
                     break;
@@ -634,10 +637,10 @@
     ///将输入我的出价View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_inputMyPriceView];
     [self.myPriceView addAfterView:&_inputMyPriceView];
-    viewContentOffsetY = _inputMyPriceView.frame.origin.y+_inputMyPriceView.frame.size.height;
     if (!self.orderDetailData.isShowInputMyPriceView) {
         SetHeightToZero(self.inputMyPriceView);
     }
+    viewContentOffsetY = _inputMyPriceView.frame.origin.y+_inputMyPriceView.frame.size.height;
     
     //!<最后成交价View
     if (self.orderDetailData.isShowTransactionPriceView) {
@@ -1170,7 +1173,7 @@
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-            [self.navigationController popViewControllerAnimated:YES];
+            
         })
         return;
     }
@@ -1221,7 +1224,7 @@
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-            [self.navigationController popViewControllerAnimated:YES];
+            
         })
         return;
     }
@@ -1274,7 +1277,7 @@
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-            [self.navigationController popViewControllerAnimated:YES];
+            
         })
         return;
     }
@@ -1324,6 +1327,71 @@
         [hud hiddenCustomHUD];
         
     }];
+}
+
+#pragma mark - 提交我的出价
+- (void)submitMyInputPrice
+{
+    
+    NSString *priceStr = nil;
+    if (self.inputMyPriceView) {
+        priceStr = [self.inputMyPriceView getInputPrice];
+    }
+    
+    if (!priceStr || [priceStr isEqualToString:@""]) {
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的出价", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	string	用户id
+//    order_id	true	string	订单id
+//    price	true	float	价格，没单位， 就是说如果是要传递200W过来请自己补齐后面的0，eg:200W 就是 2000000
+
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    [tempParam setObject:priceStr forKey:@"price"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailSubmitBidReturnData *headerModel = (QSPOrderDetailSubmitBidReturnData*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
 }
 
 @end

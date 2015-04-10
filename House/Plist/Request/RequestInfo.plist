@@ -23,6 +23,13 @@
 		<key>url</key>
 		<string>order/cancel</string>
 	</dict>
+	<key>10002</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailSubmitBidReturnData</string>
+		<key>url</key>
+		<string>order/bid</string>
+	</dict>
 	<key>5500</key>
 	<dict>
 		<key>class</key>
