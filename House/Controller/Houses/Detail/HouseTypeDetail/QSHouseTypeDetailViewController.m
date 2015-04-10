@@ -17,10 +17,9 @@
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
-#import "URLHeader.h"
 #import "QSBlockButton.h"
 #import "QSBlockButtonStyleModel.h"
-#import "URLHeader.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "QSScrollView.h"
 
@@ -259,11 +258,10 @@
     
     QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-50.0f-64.0f-104.0f)];
     
-    [headerImageView setImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    NSURL *imageUrl = [houseTypeModel.attach_file getImageURL];
     
-    NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",houseTypeModel.attach_file]];
-    
-    [headerImageView loadImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+//    [headerImageView loadImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    [headerImageView setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
     [view addSubview:headerImageView];
     
