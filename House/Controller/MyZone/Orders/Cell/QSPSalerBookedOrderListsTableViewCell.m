@@ -12,6 +12,8 @@
 #include <objc/runtime.h>
 #import "QSOrderListReturnData.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSYPopCustomView.h"
+#import "QSYCallTipsPopView.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -82,7 +84,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         NSLog(@"leftActionBt");
         if (500210 == button.tag) {
             //打电话
-            
+            [self callPhone];
         }
         
     }];
@@ -262,7 +264,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 - (void)goToChat
 {
     
-    if (self.parentViewController && self.orderData) {
+    if (self.orderData) {
         QSOrderListOrderInfoPersonInfoDataModel *personInfo = nil;
         if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
             
@@ -286,13 +288,69 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
         }
         
-        if (personInfo) {
+        if (self.parentViewController && personInfo) {
             
             QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[personInfo transformToSimpleDataModel]];
             [self.parentViewController.navigationController pushViewController:talkVC animated:YES];
             
         }
         
+    }
+    
+}
+
+- (void)callPhone
+{
+    
+    if (self.orderData) {
+        
+        NSString *phoneStr = nil;
+        NSString *ownerNameStr = nil;
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    
+                    phoneStr = orderItem.buyer_phone;
+                    ownerNameStr = orderItem.buyer_name;
+                    
+                }
+                
+            }
+            
+        }
+        
+        if (phoneStr&&![phoneStr isEqualToString:@""]) {
+                
+            ///弹出框
+            __block QSYPopCustomView *popView;
+            
+            QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:ownerNameStr andPhone:phoneStr andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
+                
+                ///回收弹框
+                [popView hiddenCustomPopview];
+                
+                ///确认打电话
+                if (cCallTipsCallBackActionTypeConfirm == actionType) {
+                    
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                    
+                }
+                
+            }];
+            
+            popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:callTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+            }];
+        }else{
+            NSLog(@"电话号码为空！");
+        }
     }
     
 }

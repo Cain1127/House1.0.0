@@ -492,7 +492,7 @@
         
     }
     
-    //业主信息栏
+    //业主/房客信息栏
     if (self.orderDetailData.isShowPersonInfoView) {
         
         self.personView = [[QSPOrderDetailPersonInfoView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(PERSON_INFO_BUTTON_TYPE buttonType,UIButton *button) {
@@ -500,26 +500,26 @@
             NSString *phoneStr = @"";
             NSString *ownerNameStr = @"";
             
-            QSOrderListOrderInfoPersonInfoDataModel *personInfo;
+            QSOrderListOrderInfoPersonInfoDataModel *personInfo = self.orderDetailData.saler_msg;
             
             if ([self.orderDetailData getUserType] == uUserCountTypeOwner) {
                 
                 //业主角色
-                personInfo = self.orderDetailData.buyer_msg;
+                phoneStr = self.orderDetailData.buyer_phone;
+                ownerNameStr = self.orderDetailData.buyer_name;
                 
             }else if ([self.orderDetailData getUserType] == uUserCountTypeTenant) {
                 //房客角色
                 
-                personInfo = self.orderDetailData.saler_msg;
+                if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                    
+                    ownerNameStr = personInfo.username;
+                    phoneStr = personInfo.mobile;
+                    
+                }
                 
             }
             
-            if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
-                
-                ownerNameStr = personInfo.username;
-                phoneStr = personInfo.mobile;
-                
-            }
             
             switch (buttonType) {
                     ///联系业主
