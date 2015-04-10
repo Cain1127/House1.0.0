@@ -36,9 +36,9 @@
 using namespace std;
 
 ///服务端地址
-//#define QS_SOCKET_SERVER_IP @"192.168.1.145"
+#define QS_SOCKET_SERVER_IP @"192.168.1.145"
 #define QS_SOCKET_SERVER_PORT 8000
-#define QS_SOCKET_SERVER_IP @"117.41.235.107"
+//#define QS_SOCKET_SERVER_IP @"117.41.235.107"
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
@@ -210,7 +210,7 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_mid(fromIDINT32);
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
-    sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:wordMessageModel.sendType]);
+    sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
     sendMessage.set_message([wordMessageModel.message UTF8String]);
     
     sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
@@ -442,7 +442,7 @@ static QSSocketManager *_socketManager = nil;
         [self.messageList addObject:ocWordModel];
         
         ///回调离线消息数量
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"streetName == %@",@"0"];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
         NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
         
         ///回调消息数量
