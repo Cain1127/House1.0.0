@@ -46,6 +46,7 @@
 static char UserIconKey;    //!<用户头像
 static char RenantRootView; //!<房客底view
 static char OwnerRootView;  //!<业主底view
+static char UserNameKey;    //!<用户名
 
 @interface QSMyZoneViewController ()
 
@@ -101,6 +102,14 @@ static char OwnerRootView;  //!<业主底view
     self.rootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 49.0f)];
     self.rootView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.rootView];
+    
+    ///中间标题
+    UILabel *titlaLabel = [[UILabel alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 120.0f) / 2.0f, 27.0f, 120.0f, 30.0f)];
+    titlaLabel.textAlignment = NSTextAlignmentCenter;
+    titlaLabel.font = [UIFont boldSystemFontOfSize:FONT_NAVIGATIONBAR_TITLE];
+    titlaLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [self.rootView addSubview:titlaLabel];
+    objc_setAssociatedObject(self, &UserNameKey, titlaLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///导航栏设置按钮
     UIButton *settingButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeLeft andButtonType:nNavigationBarButtonTypeSetting] andCallBack:^(UIButton *button) {
@@ -798,6 +807,20 @@ static char OwnerRootView;  //!<业主底view
     [self updateRenantCountInfo];
     [self updateOwnerCountInfo];
     [self updateuserIcon];
+    [self updateUserName];
+
+}
+
+///更新用户名
+- (void)updateUserName
+{
+
+    UILabel *userName = objc_getAssociatedObject(self, &UserNameKey);
+    if (userName && [self.userInfoData.username length] > 0) {
+        
+        userName.text = self.userInfoData.username;
+        
+    }
 
 }
 
