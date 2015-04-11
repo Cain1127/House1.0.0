@@ -29,6 +29,7 @@
 #import "NSString+Calculation.h"
 
 #import "QSCoreDataManager+User.h"
+#import "QSSocketManager.h"
 
 #import "QSYMyzoneStatisticsReturnData.h"
 #import "QSYMyzoneStatisticsRenantModel.h"
@@ -52,6 +53,9 @@ static char UserNameKey;    //!<用户名
 
 @property (nonatomic,assign) USER_COUNT_TYPE userType;  //!<用户类型
 @property (nonatomic,strong) QSScrollView *rootView;    //!<所有信息的底view
+
+///个人中心右上角系统消息数量提示
+@property (nonatomic,strong) UILabel *systemMessageCountTipsLabel;
 
 ///用户信息
 @property (nonatomic,retain) QSUserDataModel *userInfoData;
@@ -123,11 +127,29 @@ static char UserNameKey;    //!<用户名
     ///导航栏消息按钮
     UIButton *messageButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.rootView.frame.size.width - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:[QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeMessage] andCallBack:^(UIButton *button) {
         
+        ///隐藏数量提示
+        self.systemMessageCountTipsLabel.text = @"0";
+        self.systemMessageCountTipsLabel.hidden = YES;
+        
+        ///注销系统消息数量监听
+        [QSSocketManager offsSystemMessageReceiveNotification];
+        
         ///进入消息页
         [self gotoMessageViewController];
         
     }];
     [self.rootView addSubview:messageButton];
+    
+    ///系统消息数量提示
+    self.systemMessageCountTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(messageButton.frame.origin.x + messageButton.frame.size.width - 10.0f, messageButton.frame.origin.y + 10.0f, 20.0f, 20.0f)];
+    self.systemMessageCountTipsLabel.layer.cornerRadius = 10.0f;
+    self.systemMessageCountTipsLabel.layer.masksToBounds = YES;
+    self.systemMessageCountTipsLabel.textAlignment = NSTextAlignmentCenter;
+    self.systemMessageCountTipsLabel.textColor = [UIColor whiteColor];
+    self.systemMessageCountTipsLabel.backgroundColor = [UIColor redColor];
+    self.systemMessageCountTipsLabel.adjustsFontSizeToFitWidth = YES;
+    self.systemMessageCountTipsLabel.hidden = YES;
+    [self.rootView addSubview:self.systemMessageCountTipsLabel];
     
     ///头像背景
     QSImageView *iconRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 170.0f)];
@@ -859,6 +881,34 @@ static char UserNameKey;    //!<用户名
 ///个人中心出现时显示tabbar
 - (void)viewWillAppear:(BOOL)animated
 {
+    
+    ///注册系统消息监听
+    [QSSocketManager registSystemMessageReceiveNotification:^(int msgNum) {
+        
+        if (msgNum > 0) {
+            
+            NSString *tipsString;
+            if (msgNum > 99) {
+                
+                tipsString = @"99+";
+                
+            } else {
+            
+                tipsString = [NSString stringWithFormat:@"%d",msgNum];
+            
+            }
+            
+            self.systemMessageCountTipsLabel.text = tipsString;
+            self.systemMessageCountTipsLabel.hidden = NO;
+            
+        } else {
+        
+            self.systemMessageCountTipsLabel.text = @"0";
+            self.systemMessageCountTipsLabel.hidden = YES;
+        
+        }
+        
+    }];
     
     [self hiddenBottomTabbar:NO];
     [super viewWillAppear:animated];

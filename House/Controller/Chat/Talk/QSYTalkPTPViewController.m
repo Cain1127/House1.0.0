@@ -39,6 +39,7 @@
 
 @property (nonatomic,retain) QSUserSimpleDataModel *userModel;              //!<当前聊天对象数据模型
 @property (nonatomic,retain) QSUserDataModel *myUserModel;                  //!<当前用户数据模型
+@property (atomic,assign) BOOL isLocalMessage;                              //!<是否获取本地保存的消息
 
 @property (nonatomic,strong) UIView *rootView;                              //!<底view，方便滑动
 @property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
@@ -56,6 +57,9 @@
         
         ///保存对话人
         self.userModel = userModel;
+        
+        ///初始化消息获取的类型
+        self.isLocalMessage = NO;
         
         ///保存当前用户的信息
         self.myUserModel = [QSCoreDataManager getCurrentUserDataModel];
@@ -389,8 +393,35 @@
 - (void)loadUnReadMessage
 {
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///获取内存消息
+    if (!self.isLocalMessage) {
         
+        NSArray *unReadMessageList = [QSSocketManager getSpecialPersonMessage:self.userModel.id_];
+        if ([unReadMessageList count] > 0) {
+            
+            [self.messagesDataSource addObjectsFromArray:unReadMessageList];
+            
+            ///修改聊天消息的标识
+            self.isLocalMessage = YES;
+            
+        }
+        
+    } else {
+    
+        ///获取本地保存消息
+        QSYSendMessageBaseModel *tempModel = self.messagesDataSource[0];
+        NSArray *localMessageList = [QSSocketManager getSpecialPersonLocalMessage:self.userModel.id_ andStarTimeStamp:tempModel.timeStamp];
+        if ([localMessageList count] > 0) {
+            
+            [self.messagesDataSource insertObjects:localMessageList atIndexes:[NSIndexSet indexSetWithIndex:0]];
+            
+        }
+    
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.messagesListView reloadData];
         [self.messagesListView.header endRefreshing];
         
     });
@@ -572,7 +603,7 @@
         NSString *timeStamp = [NSDate currentDateTimeStamp];
         NSString *rootPath = [self getTalkImageSavePath];
         NSString *savePath = [rootPath stringByAppendingString:timeStamp];
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 1.0f);
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
         
         ///保存本地
         BOOL isSave = [imageData writeToFile:savePath atomically:YES];
@@ -612,13 +643,32 @@
         pictureMessageModel.showWidth = showWidth;
         pictureMessageModel.showHeight = showHeight;
         
+        ///发送消息
+#if 0
+       
+        [QSSocketManager sendMessageToPerson:pictureMessageModel andMessageType:qQSCustomProtocolChatMessageTypePicture andCallBack:^(BOOL flag, id model) {
+            
+            if (flag) {
+                
+                ///加载当前消息
+                [self.messagesDataSource addObject:pictureMessageModel];
+                
+                ///刷新数据
+                [self.messagesListView reloadData];
+                
+            }
+            
+        }];
+        
+#endif
+        
+#if 1
         ///加载当前消息
         [self.messagesDataSource addObject:pictureMessageModel];
         
-        ///发送消息
-        
         ///刷新数据
         [self.messagesListView reloadData];
+#endif
         
     }
     
@@ -717,6 +767,15 @@
     }
     
     return nil;
+
+}
+
+#pragma mark - 返回上一级页面时，注销当前用户聊天的监听
+- (void)gotoTurnBackAction
+{
+
+    [QSSocketManager offsCurrentTalkCallBack];
+    [super gotoTurnBackAction];
 
 }
 

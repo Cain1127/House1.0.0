@@ -20,7 +20,7 @@
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSCustomHUDView.h"
 #import "QSOrderDetailInfoDataModel.h"
-#import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
+#import "QSPOrderDetailActionReturnBaseDataModel.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -657,7 +657,7 @@
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         
         ///转换模型
         if (headerModel) {

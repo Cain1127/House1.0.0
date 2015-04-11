@@ -12,6 +12,8 @@
 #import "NSDate+Formatter.h"
 
 #import "QSYPostMessageSimpleModel.h"
+#import "QSYSendMessageSystem.h"
+#import "QSYSendMessageSpecial.h"
 #import "QSUserSimpleDataModel.h"
 
 #import <objc/runtime.h>
@@ -267,7 +269,7 @@ static char CommentInfoKey;     //!<简述信息key
  *
  *  @since          1.0.0
  */
-- (void)updateMessageTipsCellUI:(QSYPostMessageSimpleModel *)model
+- (void)updateNormalMessageTipsCellUI:(QSYPostMessageSimpleModel *)model
 {
 
     ///更新消息数量
@@ -284,6 +286,52 @@ static char CommentInfoKey;     //!<简述信息key
     
     ///更新用户头像
     [self updateIcon:model.fromUserInfo.avatar];
+
+}
+
+/**
+ *  @author         yangshengmeng, 15-04-11 11:04:23
+ *
+ *  @brief          更新系统的提示消息
+ *
+ *  @param model    系统消息数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateSystemMessageTipsCellUI:(QSYSendMessageSystem *)model
+{
+
+    ///更新消息数量
+    [self updateInfoCountTips:model.unread_count];
+    
+    ///更新日期
+    [self updateLastTime:model.timeStamp];
+    
+    ///更新最后消息
+    [self updateLastMessage:model.desc];
+
+}
+
+/**
+ *  @author         yangshengmeng, 15-04-11 11:04:04
+ *
+ *  @brief          更新推荐房源的提示消息
+ *
+ *  @param model    数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateRecommendMessageTipsCellUI:(QSYSendMessageSpecial *)model
+{
+
+    ///更新消息数量
+    [self updateInfoCountTips:model.unread_count];
+    
+    ///更新日期
+    [self updateLastTime:model.timeStamp];
+    
+    ///更新最后消息
+    [self updateLastMessage:model.desc];
 
 }
 
@@ -346,8 +394,37 @@ static char CommentInfoKey;     //!<简述信息key
     UILabel *label = objc_getAssociatedObject(self, &InfoCountTipsKey);
     if (label && tips) {
         
-        label.text = tips;
-        label.hidden = NO;
+        ///普通消息提示
+        int sumNum = [tips intValue];
+        
+        if (sumNum > 0) {
+            
+            ///推荐房源时，只显示红点，不需要数量
+            if (mMessageListCellTypeHouseRecommend == self.cellType) {
+                
+                label.text = nil;
+                label.hidden = NO;
+                return;
+                
+            }
+            
+            if (sumNum > 99) {
+                
+                label.text = @"99+";
+                label.hidden = NO;
+                
+            } else {
+            
+                label.text = tips;
+                label.hidden = NO;
+            
+            }
+            
+        } else {
+        
+            label.text = @"0";
+            label.hidden = YES;
+        }
         
     }
 

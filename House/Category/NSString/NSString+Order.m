@@ -128,8 +128,7 @@
                 
             }
             
-        } else if ([orderStatus isEqualToString:@"500257"] ||
-                   [orderStatus isEqualToString:@"500258"]) {
+        } else if ([orderStatus isEqualToString:@"500257"]) {
             
             if (currentUserOrderRole == uUserCountTypeOwner) {
                 
@@ -140,6 +139,10 @@
                 //房客角色
                 statusStr = @"已还价";
             }
+        } else if ([orderStatus isEqualToString:@"500258"]) {
+            
+            statusStr = @"议价成功";
+                
         } else if ([orderStatus isEqualToString:@"500259"]) {
             
             if (currentUserOrderRole == uUserCountTypeOwner) {
@@ -240,6 +243,19 @@
     }
     
     return userType;
+    
+}
+
++ (NSString*)conversionPriceUnitToWanWithPriceString:(NSString*)priceStr
+{
+    
+    CGFloat priceF = 0;
+    if (priceStr) {
+        priceF = [priceStr floatValue]/10000.0;
+    }
+    NSInteger priceInt = (NSInteger)priceF;
+    
+    return [NSString stringWithFormat:@"%ld",(long)priceInt];
     
 }
 

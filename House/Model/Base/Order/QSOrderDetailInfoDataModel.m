@@ -65,6 +65,13 @@
     
     USER_COUNT_TYPE userType = [self getUserType];
     
+    NSString *housePriceStr = self.house_msg.house_price;
+    if (housePriceStr) {
+        CGFloat pricef = [housePriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
     NSString *salerPriceStr = self.last_saler_bid;
     if (salerPriceStr) {
         CGFloat pricef = [salerPriceStr floatValue]/10000.0;
@@ -88,6 +95,9 @@
         userTypeStr = @"业主";
         myPriceStr = buyerPriceStr;
         otherPriceStr = salerPriceStr;
+        if ([otherPriceStr isEqualToString:housePriceStr]) {
+            otherPriceStr = @"";
+        }
         
     }else {
         //非房客身份
@@ -98,7 +108,8 @@
     }
     
     NSString* priceStr = otherPriceStr;
-    if (priceStr && ![priceStr isEqualToString:@""]) {
+    
+    if (priceStr && ![priceStr isEqualToString:@""] && ![priceStr isEqualToString:@"0"]) {
         
         NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
         
@@ -130,6 +141,13 @@
     
     USER_COUNT_TYPE userType = [self getUserType];
     
+    NSString *housePriceStr = self.house_msg.house_price;
+    if (housePriceStr) {
+        CGFloat pricef = [housePriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
     NSString *salerPriceStr = self.last_saler_bid;
     if (salerPriceStr) {
         CGFloat pricef = [salerPriceStr floatValue]/10000.0;
@@ -159,15 +177,30 @@
         userTypeStr = @"房客";
         myPriceStr = salerPriceStr;
         otherPriceStr = buyerPriceStr;
+        if ([myPriceStr isEqualToString:housePriceStr]) {
+            myPriceStr = @"";
+        }
         
     }
     
     NSString* priceStr = myPriceStr;
-    NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
+    NSString* tempString = @"";
+    
+    UIColor *textColor = COLOR_CHARACTERS_YELLOW;
+    
+    if (!priceStr || [priceStr isEqualToString:@""] || [priceStr isEqualToString:@"0"]) {
+        
+        tempString = @"输入您的还价";
+        textColor = COLOR_CHARACTERS_GRAY;
+    }else{
+        
+        tempString = [NSString stringWithFormat:@"%@万",priceStr];
+        textColor = COLOR_CHARACTERS_YELLOW;
+    }
     
     priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
     
-    [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
+    [priceInfoString addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, priceInfoString.length)];
     
     [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_16] range:NSMakeRange(0, priceInfoString.length)];
     [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
@@ -533,7 +566,7 @@
                 //FIXME: 混乱的按钮……
                 
                 self.isShowAppointAgainAndRejectPriceButtonView = YES;
-                
+                self.isShowConfirmOrderButtonView = YES;
                 
             }
         }else if ([self.order_status isEqualToString:@"500258"]) {

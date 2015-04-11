@@ -26,6 +26,8 @@ typedef enum
  *  @since  1.0.0
  */
 @class QSYPostMessageSimpleModel;
+@class QSYSendMessageSystem;
+@class QSYSendMessageSpecial;
 @interface QSChatMessageListTableViewCell : UITableViewCell
 
 /**
@@ -52,6 +54,28 @@ typedef enum
  *
  *  @since          1.0.0
  */
-- (void)updateMessageTipsCellUI:(QSYPostMessageSimpleModel *)model;
+- (void)updateNormalMessageTipsCellUI:(QSYPostMessageSimpleModel *)model;
+
+/**
+ *  @author         yangshengmeng, 15-04-11 11:04:23
+ *
+ *  @brief          更新系统的提示消息
+ *
+ *  @param model    系统消息数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateSystemMessageTipsCellUI:(QSYSendMessageSystem *)model;
+
+/**
+ *  @author         yangshengmeng, 15-04-11 11:04:04
+ *
+ *  @brief          更新推荐房源的提示消息
+ *
+ *  @param model    数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateRecommendMessageTipsCellUI:(QSYSendMessageSpecial *)model;
 
 @end
