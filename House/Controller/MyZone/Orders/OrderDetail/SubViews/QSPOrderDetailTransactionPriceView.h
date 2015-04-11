@@ -17,8 +17,8 @@
  *
  *  @return 控件
  */
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint;
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData;
 
-- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData;
 
 @end

@@ -293,4 +293,24 @@
     }
 }
 
+- (void)disableButtons
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
+    
+    for (UIView *view in [self subviews]) {
+        if (view && [view isKindOfClass:[QSBlockButton class]]) {
+            
+            QSBlockButton *button = (QSBlockButton*)view;
+            [button setEnabled:NO];
+            if (buttonStyle) {
+                
+                [button setButtonPropertyWithButtonStyle:buttonStyle];
+                
+            }
+        }
+    }
+    
+}
+
 @end

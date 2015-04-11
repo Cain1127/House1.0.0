@@ -73,5 +73,7 @@ typedef enum
 
 - (void)setRightBtBackgroundColor:(UIColor*)color;
 
+//禁用按钮
+- (void)disableButtons;
 
 @end

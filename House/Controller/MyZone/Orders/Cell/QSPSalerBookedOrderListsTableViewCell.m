@@ -15,7 +15,7 @@
 #import "QSYPopCustomView.h"
 #import "QSYCallTipsPopView.h"
 #import "QSCustomHUDView.h"
-#import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
+#import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSPSalerBookedOrdersListsViewController.h"
 
 ///关联
@@ -85,12 +85,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+8, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag  || 500213 == button.tag) {
+        if (500210 == button.tag  || 500213 == button.tag ) {
             //打电话
             [self callPhone];
         }else if (500203 == button.tag || 500201 == button.tag) {
             //取消预约
             [self cancelAppointmentOrder];
+        }else if (500252 == button.tag ){
+            //编辑还价
         }
         
     }];
@@ -106,13 +108,16 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         NSLog(@"rightActionBt");
         
-        if (500210 == button.tag  || 500213 == button.tag) {
+        if (500210 == button.tag  || 500213 == button.tag ) {
             //跳转去聊天
             [self goToChat];
             
         }else if (500203 == button.tag || 500201 == button.tag) {
             //接受预约
             [self commitAppointmentOrder];
+        }else if (500252 == button.tag ){
+            //同意还价
+            
         }
         
         
@@ -416,7 +421,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         
         ///转换模型
         if (headerModel) {
@@ -492,7 +497,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderCommitAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         
         ///转换模型
         if (headerModel) {

@@ -651,7 +651,8 @@ typedef enum
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
-    rRequestTypeOrderDetailData = 8001,         //!<订单详情
+    rRequestTypeOrderAppointmentDetailData = 8001,  //!<预约订单详情
+    rRequestTypeOrderTransationDetailData = 8002,   //!<成交订单详情
     rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据
     rRequestTypeBookOrderListData = 8008,       //!<预约订单列表数据
     
@@ -667,6 +668,9 @@ typedef enum
     rRequestTypeOrderSubmitBid = 10002,         //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003, //!<订单详情里取消预约订单
     rRequestTypeOrderCommitAppointment = 10004, //!<订单详情里接受预约订单
+    rRequestTypeOrderRejectPrice = 10005,       //!<订单详情里房主拒绝还价
+    rRequestTypeOrderSalerAcceptPrice = 10006,  //!<订单详情里房主接受价格
+    rRequestTypeOrderBuyerAcceptPrice = 10007,  //!<订单详情里房客成交
     
     rRequestTypeOrderCommitInspected = 10013,   //!<订单详情里完成看房
     

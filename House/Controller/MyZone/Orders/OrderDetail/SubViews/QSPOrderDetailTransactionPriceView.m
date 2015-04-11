@@ -7,27 +7,48 @@
 //
 
 #import "QSPOrderDetailTransactionPriceView.h"
-
+#import "QSOrderDetailInfoDataModel.h"
 #import "NSString+Calculation.h"
+#import "NSString+Order.h"
 
 @implementation QSPOrderDetailTransactionPriceView
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint{
-    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f)];
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData{
+    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withOrderData:orderData];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData{
     
     if (self = [super initWithFrame:frame]) {
         
         [self setClipsToBounds:YES];
         [self setUserInteractionEnabled:YES];
         
-        NSString *priceString = @"388";
+        QSOrderDetailInfoDataModel *tempOrderData = nil;
+        
+        if (orderData) {
+            
+            if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+                
+                tempOrderData = (QSOrderDetailInfoDataModel*)orderData;
+                
+            }
+        }
+        
+        if (!tempOrderData) {
+            NSLog(@"QSPOrderDetailMyPriceView orderdata 格式错误！");
+            return self;
+        }
+        
+        NSString *priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.last_saler_bid];
         
         NSString *infoString = [NSString stringWithFormat:@"最后成交价%@万",priceString];
         
         UIColor *color = COLOR_CHARACTERS_GRAY;//COLOR_CHARACTERS_LIGHTYELLOW;
+        
+        if ([@"500258" isEqualToString:tempOrderData.order_status]) {
+            color = COLOR_CHARACTERS_YELLOW;
+        }
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP);
         

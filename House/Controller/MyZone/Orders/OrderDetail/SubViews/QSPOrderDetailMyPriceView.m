@@ -103,6 +103,74 @@
         
         self.blockButtonCallBack = callBack;
         
+        
+        USER_COUNT_TYPE userType = [tempOrderData getUserType];
+        
+        NSString *housePriceStr = tempOrderData.house_msg.house_price;
+        if (housePriceStr) {
+            CGFloat pricef = [housePriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
+        
+        NSString *salerPriceStr = tempOrderData.last_saler_bid;
+        if (salerPriceStr) {
+            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
+        
+        NSString *buyerPriceStr = tempOrderData.last_buyer_bid;
+        if (buyerPriceStr) {
+            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
+        
+        NSString *myPriceStr = nil;
+        NSString *otherPriceStr = nil;
+        
+        NSString *userTypeStr = @"";
+        if (uUserCountTypeTenant==userType) {
+            //房客身份
+            userTypeStr = @"业主";
+            myPriceStr = buyerPriceStr;
+            otherPriceStr = salerPriceStr;
+            
+        }else {
+            //非房客身份
+            userTypeStr = @"房客";
+            myPriceStr = salerPriceStr;
+            otherPriceStr = buyerPriceStr;
+            if ([myPriceStr isEqualToString:housePriceStr]) {
+                myPriceStr = @"";
+            }
+            
+        }
+        
+        if (!myPriceStr || [myPriceStr isEqualToString:@""] || [myPriceStr isEqualToString:@"0"]) {
+            
+            [myPriceBgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_OTHER_PRICE_GRAY_BG]];
+            
+            [editePriceButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL] forState:UIControlStateNormal];
+            
+            [self.myNameTipLabel setTextColor:[UIColor whiteColor]];
+            [self.myPriceLabel.layer setBorderColor:COLOR_CHARACTERS_GRAY.CGColor];
+            
+        }
+        
+        if (uUserCountTypeTenant==userType) {
+            //房客身份
+            
+            if ([@"500252" isEqualToString:tempOrderData.order_status]) {
+                
+                [editePriceButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL] forState:UIControlStateNormal];
+                [editePriceButton setEnabled:NO];
+                
+            }
+            
+        }
+        
     }
     
     return self;

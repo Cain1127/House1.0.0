@@ -34,7 +34,7 @@
 
 - (void)updateViewsFlags;    //更新各种状态下Views显示组合
 
-- (QSOrderListOrderInfoPersonInfoDataModel*)getCurrentShowPersonInfo;   //获取当前状态下订单详情业主或者房客的数据
+//- (QSOrderListOrderInfoPersonInfoDataModel*)getCurrentShowPersonInfo;   //获取当前状态下订单详情业主或者房客的数据
 
 //ScrollView内
 @property (nonatomic,assign) BOOL isShowTitleView;              //!<详情标题View
