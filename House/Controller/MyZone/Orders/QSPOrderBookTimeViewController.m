@@ -20,6 +20,7 @@
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSCustomHUDView.h"
 #import "QSOrderDetailInfoDataModel.h"
+#import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -38,7 +39,7 @@
 @end
 
 @implementation QSPOrderBookTimeViewController
-@synthesize vcType, houseInfo;
+@synthesize vcType, houseInfo, orderID;
 
 #pragma mark - 初始化
 
@@ -116,9 +117,11 @@
             
             NSLog(@"buttomButtonsView clickButton：%d",buttonType);
             if (buttonType == bBottomButtonTypeLeft) {
-                //左边按钮
+                //左边取消按钮
+                [self cancelAppointmentOrder];
+                
             }else if (buttonType == bBottomButtonTypeRight) {
-                //右边按钮
+                //右边确定按钮
                 
                 if ([self checkInputSource]) {
                     [self resetAppointmentOrder];
@@ -436,7 +439,7 @@
         return;
     }
     
-//    //TODO:获取用户ID
+//    //获取用户ID
 //    NSString *userID = [QSCoreDataManager getUserID];
 //    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
@@ -549,12 +552,12 @@
 //    buyer_phone	true	string	联系电话(11位数字)
 //    order_id	true	string	订单id
 //    
-//    if (!self.houseInfo || ![self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
-//        NSLog(@"获取房源信息出错！");
-//        return;
-//    }
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        NSLog(@"订单ID有错！");
+        return;
+    }
     
-//    //TODO:获取用户ID
+//    //获取用户ID
 //    NSString *userID = [QSCoreDataManager getUserID];
 //    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
@@ -562,7 +565,7 @@
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
     [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
     [tempParam setObject:self.phoneNumField.text forKey:@"buyer_phone"];
-    [tempParam setObject:@"" forKey:@"order_id"];
+    [tempParam setObject:self.orderID forKey:@"order_id"];
     
     //    NSLog(@"请求参数：%@",tempParam);
     
@@ -573,12 +576,53 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
-                [self.navigationController popViewControllerAnimated:YES];
+                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
+                    
+                    switch (backType) {
+                        case oOrderSubmitResultBackTypeAuto:
+                            
+                            NSLog(@"auto back");
+                            [self.navigationController popViewControllerAnimated:NO];
+                            
+                            break;
+                        case oOrderSubmitResultBackTypeToDetail:
+                            
+                            NSLog(@"back 查看预约详情");
+                        {
+                            QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+                            [bookedVc setOrderID:headerModel.msg];
+                            [bookedVc setTurnBackDistanceStep:2];
+                            [self.navigationController pushViewController:bookedVc animated:NO];
+                            
+                        }
+                            break;
+                        case oOrderSubmitResultBackTypeToMoreHouse:
+                            
+                            NSLog(@"back 查看推荐房源");
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    
+                }];
+                
+                [self presentViewController:srVc animated:YES completion:^{
+                    
+                }];
             })
+            
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(bBookResultTypeSucess);
+            }
             
         }else{
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(bBookResultTypeFail);
+            }
         }
         
         [hud hiddenCustomHUD];
@@ -586,5 +630,56 @@
     }];
     
 }
+
+#pragma mark - 请求取消预约订单
+- (void)cancelAppointmentOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	int	用户id
+    //    order_id	true	string	订单id
+    //    cause	true	string	取消的原因，字符串（暂定）
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            [self.navigationController popViewControllerAnimated:YES];
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    //TODO:取消原因选择
+    [tempParam setObject:@"" forKey:@"cause"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        [self.navigationController popViewControllerAnimated:YES];
+                        
+                    }
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
 
 @end

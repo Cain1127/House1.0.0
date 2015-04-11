@@ -7,6 +7,7 @@
 //
 
 #import "QSBaseModel.h"
+#import "QSUserSimpleDataModel.h"
 
 @interface QSOrderListOwnerMsgDataModel : QSBaseModel
 
@@ -25,5 +26,8 @@
 @property (nonatomic,copy) NSString *tj_rentHouse_num;  //!<所发布的出租房数量
 
 - (NSString*)getUserTypeStr;        //获取用户类型显示字符串
+
+- (QSUserSimpleDataModel*)transformToSimpleDataModel;   //转换模型
+
 
 @end

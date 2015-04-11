@@ -98,7 +98,7 @@ static char MessageKey; //!<消息体关联
     ///消息底view
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 50.0f)];
     rootView.layer.cornerRadius = 4.0f;
-    rootView.backgroundColor = COLOR_CHARACTERS_GRAY;
+    rootView.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     if (mMessageFromTypeMY == self.messageType) {
         
         rootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
@@ -138,9 +138,9 @@ static char MessageKey; //!<消息体关联
             rootView.frame = CGRectMake(rootView.frame.origin.x + (originalWidth - model.showWidth), rootView.frame.origin.y, model.showWidth, model.showHeight);
             
         } else {
-        
+            
             rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, model.showWidth, model.showHeight);
-        
+            
         }
         
         messageLabel.frame = CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f);

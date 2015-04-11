@@ -414,7 +414,10 @@
 - (NSAttributedString*)priceStringWithTip:(NSString*)tipString withPricef:(CGFloat)pricef
 {
     
-    NSString *priceStr = [NSString stringWithFormat:@"%f",pricef];
+    pricef = pricef/10000.0;
+    NSInteger priceInt = (NSInteger)pricef;
+    
+    NSString *priceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
     NSString *tempString = [NSString stringWithFormat:@"%@%@万",tipString,priceStr];
     NSMutableAttributedString *summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
     [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tipString.length, priceStr.length)];

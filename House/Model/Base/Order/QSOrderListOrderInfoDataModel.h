@@ -7,6 +7,7 @@
 //
 
 #import "QSBaseModel.h"
+#import "QSUserSimpleDataModel.h"
 
 @interface QSOrderButtonActionModel : QSBaseModel
 
@@ -55,6 +56,10 @@
 
 - (USER_COUNT_TYPE)getUserType; //获取用户身份
 
+- (NSString*)getBuyerLastPrice;     //获取买家最近的出价，单位为万
+
+- (NSString*)getSalerLastPrice;     //获取卖家最近的出价，单位为万
+
 @end
 
 @interface QSOrderListOrderInfoPersonInfoDataModel : QSBaseModel
@@ -65,13 +70,16 @@
 @property (nonatomic,copy) NSString *level;         //!<
 
 @property (nonatomic,copy) NSString *user_type;     //!<用户类型:房客/业主...
-//@property (nonatomic,copy) NSString *sex;           //!<性别
 @property (nonatomic,copy) NSString *avatar;        //!<头像
 //@property (nonatomic,copy) NSString *nickname;      //!<昵称
 @property (nonatomic,copy) NSString *email;             //!<邮件
 @property (nonatomic,copy) NSString *realname;          //!<真名
 @property (nonatomic,copy) NSString *tj_secondHouse_num;//!<所发布的二手房数量
 @property (nonatomic,copy) NSString *tj_rentHouse_num;  //!<所发布的出租房数量
+
+
+- (QSUserSimpleDataModel*)transformToSimpleDataModel;
+
 
 @end
 

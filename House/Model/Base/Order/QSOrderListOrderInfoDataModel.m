@@ -9,6 +9,7 @@
 #import "QSOrderListOrderInfoDataModel.h"
 #import "QSCoreDataManager+User.h"
 #import <CoreText/CoreText.h>
+#import "NSString+Order.h"
 
 @implementation QSOrderListOrderInfoDataModel
 
@@ -65,225 +66,11 @@
     
 }
 
-////订单状态
-//- (NSString*)getStatusTitleWithCode:(NSString*)orderStatus
-//{
-//    
-//    NSString *statusStr = @"";
-//    
-//    if (orderStatus&&[orderStatus isKindOfClass:[NSString class]]) {
-//        
-//        if ([orderStatus isEqualToString:@"500201"] || [orderStatus isEqualToString:@"500213"] || [orderStatus isEqualToString:@"500203"]) {
-//            statusStr = @"待确认";
-//        }else if ([orderStatus isEqualToString:@"500210"]) {
-//            statusStr = @"待看房";
-//        }else if ([orderStatus isEqualToString:@"500230"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待确认已看房";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待评价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500231"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待确认已看房";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待议价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500232"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"已完成看房";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待评价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500202"]) {
-//            
-//        }else if ([orderStatus isEqualToString:@"500250"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"已完成看房";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待议价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500252"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"已还价";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待还价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500253"]) {
-//            statusStr = @"申请议价";
-//        }else if ([orderStatus isEqualToString:@"500254"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待议价/成交";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待议价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500257"] || [orderStatus isEqualToString:@"500258"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待还价";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"已还价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500259"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待议价/成交";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待议价";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500220"]) {
-//            statusStr = @"议价成功";
-//        }else if ([orderStatus isEqualToString:@"500221"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待确认成交";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待我确认";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500222"]) {
-//            if ([self getUserType] == uUserCountTypeOwner) {
-//                //业主角色
-//                statusStr = @"待确认成交";
-//            }else if ([self getUserType] == uUserCountTypeTenant) {
-//                //房客角色
-//                statusStr = @"待业主确认";
-//            }
-//        }else if ([orderStatus isEqualToString:@"500223"]) {
-//            statusStr = @"已成交";
-//        }else if ([orderStatus isEqualToString:@"500240"] || [orderStatus isEqualToString:@"500241"] || [orderStatus isEqualToString:@"500246"]) {
-//            statusStr = @"已取消";
-//        }
-//        
-//        //缺 成交订单  – 已取消 状态码未确定
-//        
-//    }
-//    
-//    return statusStr;
-//    
-//}
-
 //订单状态
 - (NSString*)getStatusTitle
 {
     
-    NSString *statusStr = @"";
-    
-    if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {
-        
-        if ([self.order_status isEqualToString:@"500201"] || [self.order_status isEqualToString:@"500213"] || [self.order_status isEqualToString:@"500203"]) {
-            statusStr = @"待确认";
-        }else if ([self.order_status isEqualToString:@"500210"]) {
-            statusStr = @"待看房";
-        }else if ([self.order_status isEqualToString:@"500230"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待确认已看房";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待评价";
-            }
-        }else if ([self.order_status isEqualToString:@"500231"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待确认已看房";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待议价";
-            }
-        }else if ([self.order_status isEqualToString:@"500232"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"已完成看房";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待评价";
-            }
-        }else if ([self.order_status isEqualToString:@"500202"]) {
-            
-        }else if ([self.order_status isEqualToString:@"500250"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"已完成看房";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待议价";
-            }
-        }else if ([self.order_status isEqualToString:@"500252"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"已还价";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待还价";
-            }
-        }else if ([self.order_status isEqualToString:@"500253"]) {
-            statusStr = @"申请议价";
-        }else if ([self.order_status isEqualToString:@"500254"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待议价/成交";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待议价";
-            }
-        }else if ([self.order_status isEqualToString:@"500257"] || [self.order_status isEqualToString:@"500258"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待还价";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"已还价";
-            }
-        }else if ([self.order_status isEqualToString:@"500259"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待议价/成交";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待议价";
-            }
-        }else if ([self.order_status isEqualToString:@"500220"]) {
-            statusStr = @"议价成功";
-        }else if ([self.order_status isEqualToString:@"500221"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待确认成交";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待我确认";
-            }
-        }else if ([self.order_status isEqualToString:@"500222"]) {
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                statusStr = @"待确认成交";
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                statusStr = @"待业主确认";
-            }
-        }else if ([self.order_status isEqualToString:@"500223"]) {
-            statusStr = @"已成交";
-        }else if ([self.order_status isEqualToString:@"500240"] || [self.order_status isEqualToString:@"500241"] || [self.order_status isEqualToString:@"500246"]) {
-            statusStr = @"已取消";
-        }
-        
-        //缺 成交订单  – 已取消 状态码未确定
-        
-    }
+    NSString *statusStr = [NSString getCurrentUserStatusTitleWithStatus:self.order_status andSalerID:self.saler_id andBuyerID:self.buyer_id];
     
     NSLog(@"self.order_status: %@ statusStr: %@",self.order_status,statusStr);
     
@@ -299,7 +86,24 @@
         
         if ([self.order_status isEqualToString:@"500201"]) {
             //预约状态
-            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"接受";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+                QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
+                leftBt.bottionActionTag = [self.order_status integerValue];
+                leftBt.buttonName = @"拒绝";
+                leftBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_NORMAL;
+                leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REJECT_BT_SELECTED;
+                [btList addObject:leftBt];
+                
+            }
         }else if ([self.order_status isEqualToString:@"500202"]) {
             //再预约中状态
         }else if ([self.order_status isEqualToString:@"500210"]) {
@@ -318,7 +122,7 @@
             leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
             [btList addObject:leftBt];
             
-        }else if ([self.order_status isEqualToString:@"500213"] || [self.order_status isEqualToString:@"500203"]) {
+        }else if ([self.order_status isEqualToString:@"500203"]) {
             //房客修改看房时间
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
@@ -355,6 +159,23 @@
                 [btList addObject:leftBt];
                 
             }
+            
+        }else if ([self.order_status isEqualToString:@"500213"]){
+            //业主同意房客修改看房时间
+            
+            QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+            rightBt.bottionActionTag = [self.order_status integerValue];
+            rightBt.buttonName = @"咨询";
+            rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL;
+            rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
+            [btList addObject:rightBt];
+            
+            QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
+            leftBt.bottionActionTag = [self.order_status integerValue];
+            leftBt.buttonName = @"电话";
+            leftBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
+            leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
+            [btList addObject:leftBt];
             
         }else if ([self.order_status isEqualToString:@"500230"]) {
             //看房待确认
@@ -704,6 +525,32 @@
     return timeStr;
 }
 
+//获取买家最近的出价，单位为万
+- (NSString*)getBuyerLastPrice
+{
+    CGFloat priceF = 0;
+    if (self.last_buyer_bid) {
+        priceF = [self.last_buyer_bid floatValue]/10000.0;
+    }
+    
+    NSInteger priceInt = (NSInteger)priceF;
+    
+    return [NSString stringWithFormat:@"%ld",(long)priceInt];
+}
+
+//获取卖家最近的出价，单位为万
+- (NSString*)getSalerLastPrice
+{
+    CGFloat priceF = 0;
+    if (self.last_saler_bid) {
+        priceF = [self.last_saler_bid floatValue]/10000.0;
+    }
+    
+    NSInteger priceInt = (NSInteger)priceF;
+    
+    return [NSString stringWithFormat:@"%ld",(long)priceInt];
+}
+
 @end
 
 @implementation QSOrderListOrderInfoPersonInfoDataModel
@@ -724,7 +571,6 @@
                                                     @"id_",
                                                     @"level",
                                                     @"user_type",
-//                                                    @"sex",
                                                     @"avatar",
 //                                                    @"nickname",
                                                     @"email",
@@ -734,6 +580,29 @@
                                                     ]];
     
     return shared_mapping;
+    
+}
+
+- (QSUserSimpleDataModel*)transformToSimpleDataModel
+{
+    
+    QSUserSimpleDataModel *userData = [[QSUserSimpleDataModel alloc] init];
+    
+    SetModelParam(username);
+    SetModelParam(mobile);
+    SetModelParam(id_);
+    SetModelParam(level);
+    SetModelParam(user_type);
+    SetModelParam(avatar);
+    SetModelParam(email);
+    SetModelParam(realname);
+    SetModelParam(tj_secondHouse_num);
+    SetModelParam(tj_rentHouse_num);
+    
+    //    SetModelParam(nickname);
+    userData.nickname = @"";
+    
+    return userData;
     
 }
 

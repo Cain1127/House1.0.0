@@ -12,6 +12,9 @@
 #include <objc/runtime.h>
 #import "QSOrderListReturnData.h"
 #import "NSString+Calculation.h"
+#import "QSYTalkPTPViewController.h"
+#import "QSYPopCustomView.h"
+#import "QSYCallTipsPopView.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -22,6 +25,14 @@ static char personNameLabelKey; //!<业主经济开发商Label关联key
 static char infoLabelKey;       //!<时间,出价等简介Label关联key
 static char leftActionBtKey;    //!<右部左边按钮关联key
 static char rightActionBtKey;   //!<右部右边按钮关联key
+
+@interface QSPBuyerBookedOrderListsTableViewCell ()
+
+@property(nonatomic,strong) QSOrderListItemData *orderData;
+@property(nonatomic,assign) NSInteger       selectedIndex;
+
+@end
+
 
 @implementation QSPBuyerBookedOrderListsTableViewCell
 
@@ -103,8 +114,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+20.0f, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (self.parentViewController) {
-            
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag) {
+            //打电话
+            [self callPhone];
         }
         
     }];
@@ -119,7 +131,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
-        if (self.parentViewController) {
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag) {
+            //跳转去聊天
+            [self goToChat];
             
         }
         
@@ -137,6 +151,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 
 - (void)updateCellWith:(id)Data
 {
+    
+    self.orderData = (QSOrderListItemData*)Data;
+    
     UIImageView *leftIconImgView = objc_getAssociatedObject(self, &leftTopTipViewKey);
     if (leftIconImgView) {
         [leftIconImgView setImage:nil];
@@ -184,10 +201,6 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         return;
     }
     
-    QSOrderListItemData *orderData = (QSOrderListItemData*)Data;
-    
-    
-    
     if (leftIconImgView) {
         
 //        //TODO: 图标逻辑
@@ -199,13 +212,13 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 //        
 //        //“新”图标
 //        [leftIconImgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_NEW_CION]];
-        [leftIconImgView setImage:[UIImage imageNamed:[orderData getHouseTypeImg]]];
+        [leftIconImgView setImage:[UIImage imageNamed:[self.orderData getHouseTypeImg]]];
     }
     
     if (nameLabel) {
         
 //        [nameLabel setText:@"法规科大菊花并非是他去韩国小区"];
-        [nameLabel setText:[orderData getHouseTitle]];
+        [nameLabel setText:[self.orderData getHouseTitle]];
         
     }
     
@@ -213,14 +226,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
 //        [stateLabel setText:@"预约待确认"];
         
-        if ([orderData getUserIsOwnerFlag]) {
+        if ([self.orderData getUserIsOwnerFlag]) {
             //非房客
             
         }else{
             //房客
-            if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+            if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
                 
-                QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
+                QSOrderListOrderInfoDataModel *orderInfoData = [self.orderData.orderInfoList objectAtIndex:0];
                 if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                     
                     [stateLabel setText:[orderInfoData getStatusTitle]];
@@ -236,7 +249,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     if (contentImgView) {
         
 //        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
-        [contentImgView setImageWithURL:[[orderData getHouseSmallImgUrl] getImageURL]];
+        [contentImgView setImageWithURL:[[self.orderData getHouseSmallImgUrl] getImageURL]];
         
     }
     
@@ -244,13 +257,13 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
 //        [personNameLabel setText:@"业主：奥巴马"];
         
-        if ([orderData getUserIsOwnerFlag]) {
+        if ([self.orderData getUserIsOwnerFlag]) {
             
             
         }else{
             //房客
-            if (orderData.ownerData) {
-                [personNameLabel setText:[NSString stringWithFormat:@"%@:%@",[orderData.ownerData getUserTypeStr],orderData.ownerData.username]];
+            if (self.orderData.ownerData) {
+                [personNameLabel setText:[NSString stringWithFormat:@"%@:%@",[self.orderData.ownerData getUserTypeStr],self.orderData.ownerData.username]];
             }
             
         }
@@ -259,18 +272,18 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (infoLabel) {
       
-        [infoLabel setAttributedText:[orderData getSummaryOnCellAttributedString]];
+        [infoLabel setAttributedText:[self.orderData getSummaryOnCellAttributedString]];
         
     }
     
-    if ([orderData getUserIsOwnerFlag]) {
+    if ([self.orderData getUserIsOwnerFlag]) {
         
         
     }else{
         //房客
-        if (orderData.orderInfoList&&[orderData.orderInfoList count]>0) {
+        if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
             
-            QSOrderListOrderInfoDataModel *orderInfoData = [orderData.orderInfoList objectAtIndex:0];
+            QSOrderListOrderInfoDataModel *orderInfoData = [self.orderData.orderInfoList objectAtIndex:0];
             if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                 
                 NSArray *btList = [orderInfoData getButtonSource];
@@ -347,5 +360,82 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 
     // Configure the view for the selected state
 }
+
+- (void)goToChat
+{
+    
+    if (self.orderData) {
+        
+        QSOrderListOwnerMsgDataModel *personInfo = nil;
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            if (self.orderData.ownerData && [self.orderData.ownerData isKindOfClass:[QSOrderListOwnerMsgDataModel class]]) {
+                
+                personInfo = self.orderData.ownerData;
+                
+            }
+            
+        }
+        
+        if (self.parentViewController && personInfo) {
+            
+            QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[personInfo transformToSimpleDataModel]];
+            [self.parentViewController.navigationController pushViewController:talkVC animated:YES];
+            
+        }
+        
+    }
+    
+}
+
+- (void)callPhone
+{
+    
+    if (self.orderData) {
+        
+        QSOrderListOwnerMsgDataModel *personInfo = nil;
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            if (self.orderData.ownerData && [self.orderData.ownerData isKindOfClass:[QSOrderListOwnerMsgDataModel class]]) {
+                
+                personInfo = self.orderData.ownerData;
+                
+            }
+            
+        }
+        
+        if (self.parentViewController && personInfo) {
+            
+            NSString *phoneStr = personInfo.mobile;
+            NSString *ownerNameStr = personInfo.username;
+            
+            if (phoneStr&&![phoneStr isEqualToString:@""]) {
+                
+                ///弹出框
+                __block QSYPopCustomView *popView;
+                
+                QSYCallTipsPopView *callTipsView = [[QSYCallTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 130.0f, SIZE_DEVICE_WIDTH, 130.0f) andName:ownerNameStr andPhone:phoneStr andCallBack:^(CALL_TIPS_CALLBACK_ACTION_TYPE actionType) {
+                    
+                    ///回收弹框
+                    [popView hiddenCustomPopview];
+                    
+                    ///确认打电话
+                    if (cCallTipsCallBackActionTypeConfirm == actionType) {
+                        
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneStr]]];
+                        
+                    }
+                    
+                }];
+                
+                popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:callTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                    
+                }];
+            }
+        }
+    }
+    
+}
+
 
 @end

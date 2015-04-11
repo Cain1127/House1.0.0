@@ -236,7 +236,6 @@
     
     ///消息类型
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
-    UITableViewCell *cellNormaMessage;
     
     switch (tempModel.msgType) {
             ///文字聊天
@@ -247,34 +246,38 @@
             if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
                 
                 static NSString *wordsMessageMYCell = @"myMessageWord";
-                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
-                if (nil == cellNormaMessage) {
+                QSYMessageWordTableViewCell *cellWordsMesssageMYCell = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellWordsMesssageMYCell) {
                     
-                    cellNormaMessage = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    cellWordsMesssageMYCell = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellWordsMesssageMYCell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
-                [(QSYMessageWordTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellWordsMesssageMYCell updateMessageWordUI:wordModel];
+                
+                return cellWordsMesssageMYCell;
                 
             } else {
                 
                 static NSString *wordsMessageFromCell = @"fromMessageWord";
-                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
-                if (nil == cellNormaMessage) {
+                QSYMessageWordTableViewCell *cellWordsMessageFrom = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellWordsMessageFrom) {
                     
-                    cellNormaMessage = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    cellWordsMessageFrom = [[QSYMessageWordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellWordsMessageFrom.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessageWord *wordModel = (QSYSendMessageWord *)tempModel;
-                [(QSYMessageWordTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellWordsMessageFrom updateMessageWordUI:wordModel];
+                
+                return cellWordsMessageFrom;
                 
             }
             
@@ -286,35 +289,39 @@
             ///消息归属类型
             if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
                 
-                static NSString *wordsMessageMYCell = @"myMessagePicture";
-                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
-                if (nil == cellNormaMessage) {
+                static NSString *pictureMessageMYCell = @"myMessagePicture";
+                QSYMessagePictureTableViewCell *cellPictureMessageMY = [tableView dequeueReusableCellWithIdentifier:pictureMessageMYCell];
+                if (nil == cellPictureMessageMY) {
                     
-                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    cellPictureMessageMY = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pictureMessageMYCell andMessageType:mMessageFromTypeMY];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellPictureMessageMY.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
-                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellPictureMessageMY updateMessageWordUI:wordModel];
+                
+                return cellPictureMessageMY;
                 
             } else {
                 
-                static NSString *wordsMessageFromCell = @"fromMessagePicture";
-                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
-                if (nil == cellNormaMessage) {
+                static NSString *pictureMessageFromCell = @"fromMessagePicture";
+                QSYMessagePictureTableViewCell *cellPictureMessageFrom = [tableView dequeueReusableCellWithIdentifier:pictureMessageFromCell];
+                if (nil == cellPictureMessageFrom) {
                     
-                    cellNormaMessage = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    cellPictureMessageFrom = [[QSYMessagePictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pictureMessageFromCell andMessageType:mMessageFromTypeFriends];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellPictureMessageFrom.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
-                [(QSYMessagePictureTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellPictureMessageFrom updateMessageWordUI:wordModel];
+                
+                return cellPictureMessageFrom;
                 
             }
             break;
@@ -324,41 +331,54 @@
             ///消息归属类型
             if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
                 
-                static NSString *wordsMessageMYCell = @"myMessageVideo";
-                cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
-                if (nil == cellNormaMessage) {
+                static NSString *videoMessageMYCell = @"myMessageVideo";
+                QSYMessageVideoTableViewCell *cellVideoMessageMY = [tableView dequeueReusableCellWithIdentifier:videoMessageMYCell];
+                if (nil == cellVideoMessageMY) {
                     
-                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    cellVideoMessageMY = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoMessageMYCell andMessageType:mMessageFromTypeMY];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellVideoMessageMY.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
-                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellVideoMessageMY updateMessageWordUI:wordModel];
+                
+                return cellVideoMessageMY;
                 
             } else {
                 
-                static NSString *wordsMessageFromCell = @"fromMessageVideo";
-                UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
-                if (nil == cellNormaMessage) {
+                static NSString *videoMessageFromCell = @"fromMessageVideo";
+                QSYMessageVideoTableViewCell *cellVideoMessageFrom = [tableView dequeueReusableCellWithIdentifier:videoMessageFromCell];
+                if (nil == cellVideoMessageFrom) {
                     
-                    cellNormaMessage = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    cellVideoMessageFrom = [[QSYMessageVideoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:videoMessageFromCell andMessageType:mMessageFromTypeFriends];
                     
                     ///取消选择样式
-                    cellNormaMessage.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cellVideoMessageFrom.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
                 
                 QSYSendMessageVideo *wordModel = (QSYSendMessageVideo *)tempModel;
-                [(QSYMessageVideoTableViewCell *)cellNormaMessage updateMessageWordUI:wordModel];
+                [cellVideoMessageFrom updateMessageWordUI:wordModel];
+                
+                return cellVideoMessageFrom;
                 
             }
             break;
             
         default:
             break;
+    }
+    
+    static NSString *normalCell = @"normalCell";
+    UITableViewCell *cellNormaMessage = [tableView dequeueReusableCellWithIdentifier:normalCell];
+    
+    if (nil == cellNormaMessage) {
+        
+        cellNormaMessage = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+        
     }
     
     return cellNormaMessage;

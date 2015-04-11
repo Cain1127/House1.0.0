@@ -413,4 +413,33 @@ static char TipsImageViewKey;               //!<指示三角形关联
     
 }
 
+- (void)reloadCurrentShowList
+{
+    
+    QSPSalerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPSalerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPSalerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    switch (self.selectedListType) {
+        case mSalerBookedOrderListTypeBooked:
+            if (waitForListView) {
+                [waitForListView getBookingListHeaderData];
+            }
+            break;
+        case mSalerBookedOrderListTypeCompleted:
+            if (completeListView) {
+                [completeListView getBookingListHeaderData];
+            }
+            break;
+        case mSalerBookedOrderListTypeCancel:
+            if (cancelListView) {
+                [cancelListView getBookingListHeaderData];
+            }
+            break;
+        default:
+            break;
+    }
+    
+}
+
 @end

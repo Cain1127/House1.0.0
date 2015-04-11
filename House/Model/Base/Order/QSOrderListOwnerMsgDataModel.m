@@ -38,6 +38,27 @@
     
 }
 
+- (QSUserSimpleDataModel*)transformToSimpleDataModel
+{
+    
+    QSUserSimpleDataModel *userData = [[QSUserSimpleDataModel alloc] init];
+    
+    SetModelParam(username);
+    SetModelParam(mobile);
+    SetModelParam(id_);
+    SetModelParam(level);
+    SetModelParam(user_type);
+    SetModelParam(avatar);
+    SetModelParam(email);
+    SetModelParam(realname);
+    SetModelParam(tj_secondHouse_num);
+    SetModelParam(tj_rentHouse_num);
+    SetModelParam(nickname);
+    
+    return userData;
+    
+}
+
 - (NSString*)getUserTypeStr
 {
     

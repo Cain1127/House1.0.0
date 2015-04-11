@@ -29,6 +29,10 @@ typedef enum
 - (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag))callBack; 
 
 @property ( nonatomic, assign ) BOOKTIME_VIEWCONTROLLER_TYPE vcType;
-@property ( nonatomic, strong ) id houseInfo;        //!<房源信息数据模型
+
+@property ( nonatomic, strong ) id houseInfo;           //!<新预约时只需要传房源信息数据模型
+
+
+@property ( nonatomic, strong ) NSString *orderID;      //!<修改订单时只需要传订单ID
 
 @end
