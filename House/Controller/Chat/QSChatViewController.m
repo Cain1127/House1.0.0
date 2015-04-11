@@ -120,6 +120,7 @@
                     
                     QSYPostMessageSimpleModel *tempModel = params;
                     QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+                    [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:talkVC animated:YES];
                     
                 }
@@ -318,6 +319,7 @@
             
                 QSYPostMessageSimpleModel *tempModel = params;
                 QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:tempModel.fromUserInfo];
+                [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:talkVC animated:YES];
             
             }

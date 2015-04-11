@@ -34,6 +34,7 @@
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+Collected.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "MJRefresh.h"
 
@@ -191,7 +192,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
     NSURL *tempURL = [dataModel.village.attach_file getImageURL];
-    [headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+//    [headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    [headerImageView setImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHouseInfo:dataModel.village];

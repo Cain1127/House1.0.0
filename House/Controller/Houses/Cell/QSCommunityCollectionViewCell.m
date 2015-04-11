@@ -9,11 +9,12 @@
 #import "QSCommunityCollectionViewCell.h"
 
 #import "NSString+Calculation.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "QSNewHouseInfoDataModel.h"
 #import "QSCommunityDataModel.h"
-#import "QSCoreDataManager+App.h"
 
+#import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+House.h"
 
 #import <objc/runtime.h>
@@ -290,7 +291,8 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
     if (bgImageView && [imgUrl length] > 0) {
         
-        [bgImageView loadImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
+//        [bgImageView loadImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
+        [bgImageView setImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
     } else {
     

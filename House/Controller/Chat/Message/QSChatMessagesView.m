@@ -16,7 +16,11 @@
 
 #import "QSYPostMessageListReturnData.h"
 #import "QSYPostMessageSimpleModel.h"
-#import "QSYSendMessageBaseModel.h"
+#import "QSYSendMessageWord.h"
+#import "QSYSendMessagePicture.h"
+#import "QSYSendMessageVideo.h"
+#import "QSYSendMessageSystem.h"
+#import "QSYSendMessageSpecial.h"
 #import "QSUserSimpleDataModel.h"
 
 #import "MJRefresh.h"
@@ -35,6 +39,8 @@ static char MessageListKey;//!<消息列表关联
 
 @property (nonatomic,assign) int systemInfoNumber;                          //!<系统消息项
 @property (nonatomic,retain) NSMutableArray *messageList;                   //!消息数据源
+@property (nonatomic,retain) QSYSendMessageSystem *systemMessage;           //!<系统消息
+@property (nonatomic,retain) QSYSendMessageSpecial *recommendHouseMessage;  //!<推荐房源消息
 
 @end
 
@@ -134,23 +140,100 @@ static char MessageListKey;//!<消息列表关联
     [messageList.header beginRefreshing];
     
     ///注册新消息通知
-    [QSSocketManager registInstantMessageReceiveNotification:^(int msgNum,NSString *lastComment,QSYSendMessageBaseModel *lastMessage, QSUserSimpleDataModel *userInfo) {
+    [QSSocketManager registInstantMessageReceiveNotification:^(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE msgType,int msgNum,NSString *lastComment,id tempModel,QSUserSimpleDataModel *userInfo) {
         
-        ///生成数据模型
-        QSYPostMessageSimpleModel *newInfoModel = [[QSYPostMessageSimpleModel alloc] init];
-        newInfoModel.id_ = lastMessage.msgID;
-        newInfoModel.from_id = lastMessage.fromID;
-        newInfoModel.to_id = lastMessage.toID;
-        newInfoModel.not_view = [NSString stringWithFormat:@"%d",msgNum];
-        newInfoModel.content = APPLICATION_NSSTRING_SETTING(lastComment, @"");
-        newInfoModel.time = lastMessage.timeStamp;
-        newInfoModel.fromUserInfo = userInfo;
+        switch (msgType) {
+                ///图片消息
+            case qQSCustomProtocolChatMessageTypePicture:
+                
+                ///语音消息
+            case qQSCustomProtocolChatMessageTypeVideo:
+                
+                ///文本消息
+            case qQSCustomProtocolChatMessageTypeWord:
+            {
+            
+                ///添加消息
+                QSYSendMessageBaseModel *lastMessage = tempModel;
+                int currentIndex = [self checkMessage:lastMessage.fromID];
+                if (0 <= currentIndex && currentIndex < [self.messageList count]) {
+                    
+                    QSYPostMessageSimpleModel *newInfoModel = self.messageList[currentIndex];
+                    newInfoModel.id_ = lastMessage.msgID;
+                    newInfoModel.from_id = lastMessage.fromID;
+                    newInfoModel.to_id = lastMessage.toID;
+                    newInfoModel.not_view = [NSString stringWithFormat:@"%d",msgNum];
+                    newInfoModel.content = APPLICATION_NSSTRING_SETTING(lastComment, @"");
+                    newInfoModel.time = lastMessage.timeStamp;
+                    newInfoModel.fromUserInfo = userInfo;
+                    
+                } else {
+                    
+                    QSYPostMessageSimpleModel *newInfoModel = [[QSYPostMessageSimpleModel alloc] init];
+                    newInfoModel.id_ = lastMessage.msgID;
+                    newInfoModel.from_id = lastMessage.fromID;
+                    newInfoModel.to_id = lastMessage.toID;
+                    newInfoModel.not_view = [NSString stringWithFormat:@"%d",msgNum];
+                    newInfoModel.content = APPLICATION_NSSTRING_SETTING(lastComment, @"");
+                    newInfoModel.time = lastMessage.timeStamp;
+                    newInfoModel.fromUserInfo = userInfo;
+                    [self.messageList addObject:newInfoModel];
+                    currentIndex = 0;
+                    
+                }
+            
+            }
+                break;
+                
+                ///系统消息
+            case qQSCustomProtocolChatMessageTypeSystem:
+            {
+            
+                QSYSendMessageSystem *systemModel = tempModel;
+                systemModel.unread_count = [NSString stringWithFormat:@"%d",msgNum];
+                self.systemMessage = systemModel;
+            
+            }
+                break;
+                
+                ///推荐房源
+            case qQSCustomProtocolChatMessageTypeSpecial:
+            {
+            
+                QSYSendMessageSpecial *recommendModel = tempModel;
+                recommendModel.unread_count = [NSString stringWithFormat:@"%d",msgNum];
+                self.recommendHouseMessage = recommendModel;
+            
+            }
+                break;
+                
+            default:
+                break;
+        }
         
         ///刷新数据
-        [self.messageList addObject:newInfoModel];
         [messageList reloadData];
         
     }];
+
+}
+
+#pragma mark - 判断原消息记录中是否已存在消息
+- (int)checkMessage:(NSString *)userID
+{
+
+    for (int i = 0;i < [self.messageList count];i++) {
+        
+        QSYPostMessageSimpleModel *obj = self.messageList[i];
+        if ([userID isEqualToString:obj.from_id]) {
+            
+            return i;
+            
+        }
+        
+    }
+    
+    return -1;
 
 }
 
@@ -161,12 +244,18 @@ static char MessageListKey;//!<消息列表关联
     int messageCount = (int)[self.messageList count];
     if (indexPath.row < messageCount) {
         
-        ///进入推荐房源列表
+        ///进入指定联系人的聊天窗口
         if (self.messageListCallBack) {
             
-            ///注销消息监听
-            [QSSocketManager offsInstantMessageReceiveNotification];
-            self.messageListCallBack(mMessageListActionTypeGotoTalk,self.messageList[indexPath.row]);
+            id tempModel = self.messageList[indexPath.row];
+            
+            ///删除列表中的记录
+            [self.messageList removeObjectAtIndex:indexPath.row];
+            
+            ///刷新列表
+            [tableView reloadData];
+            
+            self.messageListCallBack(mMessageListActionTypeGotoTalk,tempModel);
             
         }
         
@@ -177,6 +266,9 @@ static char MessageListKey;//!<消息列表关联
         ///进入房当前团队消息列表
         if (self.messageListCallBack) {
             
+            ///更新系统消息的数据
+            self.systemMessage.unread_count = @"0";
+            [tableView reloadData];
             self.messageListCallBack(mMessageListActionTypeGotoSystemMessage,nil);
             
         }
@@ -188,6 +280,8 @@ static char MessageListKey;//!<消息列表关联
         ///进入推荐房源列表
         if (self.messageListCallBack) {
             
+            self.recommendHouseMessage.unread_count = @"0";
+            [tableView reloadData];
             self.messageListCallBack(mMessageListActionTypeGotoRecommendHouse,nil);
             
         }
@@ -293,7 +387,7 @@ static char MessageListKey;//!<消息列表关联
         ///刷新数据
         if ([self.messageList count] > indexPath.row) {
             
-            [cellNormal updateMessageTipsCellUI:self.messageList[indexPath.row]];
+            [cellNormal updateNormalMessageTipsCellUI:self.messageList[indexPath.row]];
             
         }
         
@@ -321,6 +415,7 @@ static char MessageListKey;//!<消息列表关联
         }
         
         ///刷新系统消息
+        [cellSystem updateSystemMessageTipsCellUI:self.systemMessage];
         
         return cellSystem;
         
@@ -346,6 +441,7 @@ static char MessageListKey;//!<消息列表关联
         }
         
         ///刷新推荐房源消息
+        [cellRecommend updateRecommendMessageTipsCellUI:self.recommendHouseMessage];
         
         return cellRecommend;
         

@@ -470,8 +470,8 @@ typedef enum
 {
 
     rRentHouseLimitedTypeUnLimited = 990601,//!<男女不限
-    rRentHouseLimitedTypeMale,            //!<艰男生
-    rRentHouseLimitedTypeFemale,           //!<限女生
+    rRentHouseLimitedTypeMale,              //!<艰男生
+    rRentHouseLimitedTypeFemale,            //!<限女生
 
 }RENT_HOUSE_LIMITED_TYPE;
 

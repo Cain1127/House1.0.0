@@ -10,6 +10,7 @@
 
 @interface QSYSendMessageVideo : QSYSendMessageBaseModel
 
-@property (nonatomic,retain) UIImage *videoInfo;//!<音频聊天数据
+@property (nonatomic,copy) NSString *videoURL;//!<音频聊天数据
+@property (nonatomic,copy) NSString *playTime;//!<播放时长
 
 @end
