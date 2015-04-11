@@ -9,6 +9,7 @@
 #import "QSCommunityHouseListViewController.h"
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
+#import "QSWCommunityHouseListFilterSettingViewController.h"
 
 #import "QSCustomPickerView.h"
 
@@ -171,6 +172,23 @@ static char CollectionViewKey;          //!<列表
             
             ///隐藏所有弹窗
             [self hiddenAllPickerView];
+            
+            ///进入过滤设置
+            QSWCommunityHouseListFilterSettingViewController *filterSettingVC = [[QSWCommunityHouseListFilterSettingViewController alloc] initWithCurrentFilter:self.filterModel andCallBack:^(QSFilterDataModel *filterModel) {
+                
+                ///更新过滤
+                self.filterModel = filterModel;
+                
+                ///刷新数据
+                UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+                if ([collectionView respondsToSelector:@selector(reloadServerData:)]) {
+                    
+                    [collectionView performSelector:@selector(reloadServerData:) withObject:self.filterModel];
+                    
+                }
+                
+            }];
+            [self.navigationController pushViewController:filterSettingVC animated:YES];
             
         }];
         [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL] forState:UIControlStateNormal];

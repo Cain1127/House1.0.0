@@ -235,8 +235,10 @@
 {
     
     ///重置过滤器
+    self.filterModel = filterModel;
     
     ///开始头刷新
+    [self.header beginRefreshing];
     
 }
 

@@ -60,10 +60,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 @interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate,CLLocationManagerDelegate>
 {
-
+    
     MAMapView *_mapView;
     AMapSearchAPI *_search;
-
+    
     CLLocation *_currentLocation;  //!<用户当前地理位置
     
     CLLocationManager      *_locationmanager;
@@ -166,7 +166,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
     }];
     [self setNavigationBarMiddleView:self.houseListTypePickerView];
-
+    
     
 }
 
@@ -182,7 +182,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     [self initMapView];
     //[self initSearch];
-
+    
     
 }
 
@@ -447,8 +447,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             self.filterModel.filter_status = @"2";
             
             ///刷新数据
-
-//            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+            
+            //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
             //[collectionView.header beginRefreshing];
             
             ///保存过滤器
@@ -458,7 +458,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 if (isSuccess) {
                     
                     [self MapCommunityListHeaderRequest];
-
+                    
                     NSLog(@"====================过滤器保存成功=====================");
                     
                 } else {
@@ -490,8 +490,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.filterModel.filter_status = @"2";
         
         ///刷新数据
-
-//        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        
+        //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
         //[collectionView.header beginRefreshing];
         
         ///保存过滤器
@@ -502,7 +502,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
                 
                 [self geoAction];
-
+                
                 NSLog(@"====================过滤器保存成功=====================");
                 
             } else {
@@ -559,33 +559,33 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///根据不同的列表，进入同的详情页
     switch (self.listType) {
             ///进入新房详情
-//        case fFilterMainTypeNewHouse:
-//        {
-//            
-//            ///获取房子模型
-//            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
-//            
-//            ///进入详情页面
-//            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-//            [self hiddenBottomTabbar:YES];
-//            [self.navigationController pushViewController:detailVC animated:YES];
-//            
-//        }
-//            break;
+            //        case fFilterMainTypeNewHouse:
+            //        {
+            //
+            //            ///获取房子模型
+            //            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
+            //
+            //            ///进入详情页面
+            //            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
+            //            [self hiddenBottomTabbar:YES];
+            //            [self.navigationController pushViewController:detailVC animated:YES];
+            //
+            //        }
+            //            break;
             
             ///进入小区详情
-//        case fFilterMainTypeCommunity:
-//        {
-//            
-//            ///获取房子模型
-//            QSCommunityDataModel *houseInfoModel = dataModel;
-//            
-//            ///进入详情页面
-//            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-//            [self.navigationController pushViewController:detailVC animated:YES];
-//            
-//        }
-//            break;
+            //        case fFilterMainTypeCommunity:
+            //        {
+            //
+            //            ///获取房子模型
+            //            QSCommunityDataModel *houseInfoModel = dataModel;
+            //
+            //            ///进入详情页面
+            //            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+            //            [self.navigationController pushViewController:detailVC animated:YES];
+            //
+            //        }
+            //            break;
             
             ///进入二手房详情
         case fFilterMainTypeSecondHouse:
@@ -635,7 +635,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     _mapView.mapType = MAMapTypeStandard;
     
     [self.view addSubview:_mapView];
-
+    
     _mapView.showsUserLocation = YES;
     
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
@@ -648,12 +648,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     }
     
     else {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        ///发起用户定位
-        [self locateAction];
-        
-    });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            ///发起用户定位
+            [self locateAction];
+            
+        });
     }
     
 }
@@ -679,9 +679,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self MapCommunityListHeaderRequest];
-
+        
     });
-
+    
     
 }
 
@@ -699,7 +699,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         _currentLocation = [userLocation.location copy];
         
     }
-
+    
     [_locationmanager stopUpdatingLocation];
     
 }
@@ -710,7 +710,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     AMapGeocodeSearchRequest *request = [[AMapGeocodeSearchRequest alloc] init];
-
+    
     request.address=[NSString  stringWithFormat:@"%@%@%@%@",self.filterModel.province_val,self.filterModel.city_val,self.filterModel.district_val,self.filterModel.street_val];
     [_search AMapGeocodeSearch:request];
 }
@@ -728,7 +728,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     NSLog(@"地理编码数据 :%@", response);
     NSArray *geoArray=[[NSArray alloc] init];
     geoArray=response.geocodes;
-
+    
     for (id item in geoArray) {
         NSLog(@" item :%@",item);
         if (item&&[item isKindOfClass:[AMapGeocode class]]) {
@@ -739,10 +739,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             _longtude=location.longitude;
             
         }
-
+        
     }
     [self MapCommunityListHeaderRequest];
-
+    
 }
 
 #pragma mark --添加大头针气泡
@@ -750,7 +750,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)addAnnotations
 {
     
-//    QSMapCommunityDataModel *tempModel = [[QSMapCommunityDataModel alloc] init];
+    //    QSMapCommunityDataModel *tempModel = [[QSMapCommunityDataModel alloc] init];
     
     NSMutableArray *annoArray=[[NSMutableArray alloc] init];
     
@@ -775,7 +775,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
         [annoArray addObject:anno];
-     
+        
         [_mapView addAnnotation:anno];
         
         //黙认选中
@@ -825,7 +825,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 //{
 //
 //
-//    
+//
 //}
 
 /*!
@@ -853,7 +853,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     /// 当前用户坐标
     CGFloat clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 23.333;
     CGFloat clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 113.333;
-
+    
     ///网络请求坐标
     NSString *latitude=[NSString stringWithFormat:@"%f",_latitude ? _latitude : clatitude];
     NSString *longtude=[NSString stringWithFormat:@"%f",_longtude ? _longtude : clongitude];
@@ -862,16 +862,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     APPLICATION_LOG_INFO(@"网络请求经度", latitude);
     APPLICATION_LOG_INFO(@"网络请求纬度", longtude);
     ///请求参数
-     NSDictionary *dict = @{@"map_type" : map_type,
-                            @"now_page" : @"1",
-                            @"page_num" : @"5",
-                            @"range" : @"6000",
-                            @"latitude" : latitude,
-                            @"longitude" : longtude
-                            };
-
-    [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    NSDictionary *dict = @{@"map_type" : map_type,
+                           @"now_page" : @"1",
+                           @"page_num" : @"5",
+                           @"range" : @"6000",
+                           @"latitude" : latitude,
+                           @"longitude" : longtude
+                           };
     
+    [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
             
@@ -912,20 +912,20 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 });
             }
             else{
-            
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
-                     [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..."];
+                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..."];
                     
                 });
-            
+                
             }
-           
+            
             
         }
         
         else {
-        
+            
             NSLog(@"=====网络请求失败=======");
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -934,10 +934,19 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." ];
                 
             });
-        
+            
         }
     }];
     
+}
+
+#pragma mark - 重写返回事件，回收弹框
+- (void)gotoTurnBackAction
+{
+
+    [self hiddenAllPickerView];
+    [super gotoTurnBackAction];
+
 }
 
 @end

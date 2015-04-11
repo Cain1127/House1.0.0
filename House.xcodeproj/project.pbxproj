@@ -775,6 +775,7 @@
 		CED4EFF71A7405CE00979C1C /* QSWDeveloperHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CED4EFF61A7405CE00979C1C /* QSWDeveloperHomeViewController.xib */; };
 		CED9EA9A1AD8DBD90088C3AF /* QSWCommunitySecondHandHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9EA991AD8DBD90088C3AF /* QSWCommunitySecondHandHouseList.m */; };
 		CED9EA9D1AD8DC620088C3AF /* QSWCommunityRentHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9EA9C1AD8DC620088C3AF /* QSWCommunityRentHouseList.m */; };
+		CED9EAA21AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED9EAA11AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m */; };
 		CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D761AC0099E00EC215D /* QSCommunityDetailViewCell.m */; };
 		CEEB6D7E1AC00B9A00EC215D /* QSUserAssessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D7D1AC00B9A00EC215D /* QSUserAssessCell.m */; };
 		CEEB6D811AC01CC100EC215D /* QSUserAssessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D801AC01CC100EC215D /* QSUserAssessViewController.m */; };
@@ -2011,6 +2012,8 @@
 		CED9EA991AD8DBD90088C3AF /* QSWCommunitySecondHandHouseList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSWCommunitySecondHandHouseList.m; path = List/QSWCommunitySecondHandHouseList.m; sourceTree = "<group>"; };
 		CED9EA9B1AD8DC620088C3AF /* QSWCommunityRentHouseList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSWCommunityRentHouseList.h; path = List/QSWCommunityRentHouseList.h; sourceTree = "<group>"; };
 		CED9EA9C1AD8DC620088C3AF /* QSWCommunityRentHouseList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSWCommunityRentHouseList.m; path = List/QSWCommunityRentHouseList.m; sourceTree = "<group>"; };
+		CED9EAA01AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSWCommunityHouseListFilterSettingViewController.h; path = Filter/QSWCommunityHouseListFilterSettingViewController.h; sourceTree = "<group>"; };
+		CED9EAA11AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSWCommunityHouseListFilterSettingViewController.m; path = Filter/QSWCommunityHouseListFilterSettingViewController.m; sourceTree = "<group>"; };
 		CEEB6D751AC0099E00EC215D /* QSCommunityDetailViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCommunityDetailViewCell.h; sourceTree = "<group>"; };
 		CEEB6D761AC0099E00EC215D /* QSCommunityDetailViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCommunityDetailViewCell.m; sourceTree = "<group>"; };
 		CEEB6D7C1AC00B9A00EC215D /* QSUserAssessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserAssessCell.h; sourceTree = "<group>"; };
@@ -5749,6 +5752,7 @@
 		CEACB0691AD765E10010D455 /* CommunityHouseList */ = {
 			isa = PBXGroup;
 			children = (
+				CED9EA9E1AD8DF230088C3AF /* Filter */,
 				CEAB0C181AD7E431006E231C /* List */,
 				CEACB06A1AD766300010D455 /* QSCommunityHouseListViewController.h */,
 				CEACB06B1AD766300010D455 /* QSCommunityHouseListViewController.m */,
@@ -5788,6 +5792,15 @@
 			);
 			name = MapSearch;
 			path = Search/MapSearch;
+			sourceTree = "<group>";
+		};
+		CED9EA9E1AD8DF230088C3AF /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				CED9EAA01AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.h */,
+				CED9EAA11AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m */,
+			);
+			name = Filter;
 			sourceTree = "<group>";
 		};
 		CEEB6D741AC0099E00EC215D /* Cell */ = {
@@ -6644,6 +6657,7 @@
 				18B5633E1A8203BA009779A0 /* QSFilterDataModel.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
 				CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */,
+				CED9EAA21AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m in Sources */,
 				475A4D881AC5384D009881CF /* QSPOrderDetailComplaintAndCommentButtonView.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
 				478645F11ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m in Sources */,
