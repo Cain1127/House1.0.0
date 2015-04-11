@@ -114,7 +114,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+20.0f, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag) {
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500252 == button.tag ) {
             //打电话
             [self callPhone];
         }
@@ -131,7 +131,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
-        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag) {
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500252 == button.tag) {
             //跳转去聊天
             [self goToChat];
             

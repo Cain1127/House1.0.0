@@ -23,6 +23,18 @@
  *
  *  @since              1.0.0
  */
+
 + (NSString *)getCurrentUserStatusTitleWithStatus:(NSString*)orderStatus andSalerID:(NSString *)salerID andBuyerID:(NSString *)buyID;
+
+/**
+*  @author             CoolTea
+*
+*  @brief              将单位为元的价格字符串转换为单位为万的价格字符串
+*
+*  @return             单位为万的价格字符串
+*
+*  @since              1.0.0
+*/
++ (NSString*)conversionPriceUnitToWanWithPriceString:(NSString*)priceStr;
 
 @end

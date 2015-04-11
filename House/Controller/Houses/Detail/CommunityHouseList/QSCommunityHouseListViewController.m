@@ -9,27 +9,21 @@
 #import "QSCommunityHouseListViewController.h"
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
-#import "QSYShakeRecommendHouseViewController.h"
+#import "QSWCommunityHouseListFilterSettingViewController.h"
 
-#import "QSHouseListView.h"
-#import "QSRentHouseListView.h"
+#import "QSCustomPickerView.h"
+
+#import "QSWCommunitySecondHandHouseList.h"
+#import "QSWCommunityRentHouseList.h"
 
 #import "QSFilterDataModel.h"
 #import "QSHouseInfoDataModel.h"
-#import "QSCommunityDataModel.h"
-#import "QSNewHouseInfoDataModel.h"
 #import "QSRentHouseInfoDataModel.h"
 #import "QSBaseConfigurationDataModel.h"
 
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
-
-#import "QSCustomPickerView.h"
-#import "QSYPopCustomView.h"
-#import "QSYComparisonTipsPopView.h"
-
-#import "QSCustomHUDView.h"
 
 #import "MJRefresh.h"
 
@@ -50,9 +44,6 @@ static char CollectionViewKey;          //!<列表
 @property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
-@property (nonatomic,assign) BOOL isCanShake;                               //!<是否能摇一摇事件变量
-
-@property (nonatomic,retain) QSCustomHUDView *hud;                          //!<HUD
 @end
 
 @implementation QSCommunityHouseListViewController
@@ -78,6 +69,7 @@ static char CollectionViewKey;          //!<列表
         ///保存列表类型
         self.listType = mainType;
         self.village_id = village_id;
+        
         ///获取过滤器模型
         self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
         
@@ -180,6 +172,23 @@ static char CollectionViewKey;          //!<列表
             
             ///隐藏所有弹窗
             [self hiddenAllPickerView];
+            
+            ///进入过滤设置
+            QSWCommunityHouseListFilterSettingViewController *filterSettingVC = [[QSWCommunityHouseListFilterSettingViewController alloc] initWithCurrentFilter:self.filterModel andCallBack:^(QSFilterDataModel *filterModel) {
+                
+                ///更新过滤
+                self.filterModel = filterModel;
+                
+                ///刷新数据
+                UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+                if ([collectionView respondsToSelector:@selector(reloadServerData:)]) {
+                    
+                    [collectionView performSelector:@selector(reloadServerData:) withObject:self.filterModel];
+                    
+                }
+                
+            }];
+            [self.navigationController pushViewController:filterSettingVC animated:YES];
             
         }];
         [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL] forState:UIControlStateNormal];
@@ -372,13 +381,17 @@ static char CollectionViewKey;          //!<列表
     ///不限
     if ((pPickerCallBackActionTypeUnLimited == callBackType) && isCurrentModel) {
         
-        ///更新过滤器
+        ///更新过滤
         [self.filterModel setValue:@"" forKey:setKey];
         [self.filterModel setValue:@"" forKey:setVal];
         
         ///刷新数据
         UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        [collectionView.header beginRefreshing];
+        if ([collectionView respondsToSelector:@selector(reloadServerData:)]) {
+            
+            [collectionView performSelector:@selector(reloadServerData:) withObject:self.filterModel];
+            
+        }
         
     }
     
@@ -391,7 +404,11 @@ static char CollectionViewKey;          //!<列表
         
         ///刷新数据
         UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        [collectionView.header beginRefreshing];
+        if ([collectionView respondsToSelector:@selector(reloadServerData:)]) {
+            
+            [collectionView performSelector:@selector(reloadServerData:) withObject:self.filterModel];
+            
+        }
         
     }
     
@@ -415,92 +432,92 @@ static char CollectionViewKey;          //!<列表
         ///楼盘列表
         case fFilterMainTypeBuilding:
         
-        break;        
+        break;
         
         ///二手房列表
         case fFilterMainTypeSecondHouse:
         {
             
             ///瀑布流布局器
-            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSWCommunitySecondHandHouseList *listView = [[QSWCommunitySecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
-                ///过滤回调类型
-                switch (actionType) {
-                    ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                    
-                    [self gotoHouseDetail:tempModel];
-                    
-                    break;
-                    
-                    ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                    
-                    [self showNoRecordTips:YES];
-                    
-                    break;
-                    
-                    ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                    
-                    [self showNoRecordTips:NO];
-                    
-                    break;
-                    
-                    default:
-                    break;
-                }
+                                ///过滤回调类型
+                                switch (actionType) {
+                                    ///进入详情页
+                                    case hHouseListActionTypeGotoDetail:
                 
+                                    [self gotoHouseDetail:tempModel];
+                
+                                    break;
+                
+                                    ///显示暂无记录
+                                    case hHouseListActionTypeNoRecord:
+                
+                                    [self showNoRecordTips:YES];
+                
+                                    break;
+                
+                                    ///移除暂无记录
+                                    case hHouseListActionTypeHaveRecord:
+                                    
+                                    [self showNoRecordTips:NO];
+                                    
+                                    break;
+                                    
+                                    default:
+                                    break;
+                                }
+
             }];
             
             listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
+                    
         }
         break;
         
         ///出租房列表
-        case fFilterMainTypeRentalHouse:
-        {
-            
-            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-                
-                ///过滤回调类型
-                switch (actionType) {
-                    ///进入详情页
-                    case hHouseListActionTypeGotoDetail:
-                    
-                    [self gotoHouseDetail:tempModel];
-                    
-                    break;
-                    
-                    ///显示暂无记录
-                    case hHouseListActionTypeNoRecord:
-                    
-                    [self showNoRecordTips:YES];
-                    
-                    break;
-                    
-                    ///移除暂无记录
-                    case hHouseListActionTypeHaveRecord:
-                    
-                    [self showNoRecordTips:NO];
-                    
-                    break;
-                    
-                    default:
-                    break;
-                }
-                
-            }];
-            
-            listView.alwaysBounceVertical = YES;
-            [self.view addSubview:listView];
-            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-            
-        }
-        break;
+//        case fFilterMainTypeRentalHouse:
+//        {
+//            
+//            
+//            ///瀑布流布局器
+//            QSYCommunityRentHouseList *listView = [[QSYCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+//                
+//                ///过滤回调类型
+//                switch (actionType) {
+//                    ///进入详情页
+//                    case hHouseListActionTypeGotoDetail:
+//                    
+//                    [self gotoHouseDetail:tempModel];
+//                    
+//                    break;
+//                    
+//                    ///显示暂无记录
+//                    case hHouseListActionTypeNoRecord:
+//                    
+//                    [self showNoRecordTips:YES];
+//                    
+//                    break;
+//                    
+//                    ///移除暂无记录
+//                    case hHouseListActionTypeHaveRecord:
+//                    
+//                    [self showNoRecordTips:NO];
+//                    
+//                    break;
+//                    
+//                    default:
+//                    break;
+//                }
+//                
+//            }];
+//            
+//            listView.alwaysBounceVertical = YES;
+//            [self.view addSubview:listView];
+//            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);        }
+//        break;
         
         default:
         break;

@@ -2,31 +2,52 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>10005</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>order/fixedPrices</string>
+	</dict>
 	<key>10013</key>
 	<dict>
 		<key>class</key>
-		<string>QSPOrderDetailCommitInspectedReturnData</string>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
 		<key>url</key>
 		<string>order/commitInspected</string>
+	</dict>
+	<key>10007</key>
+	<dict>
+		<key>url</key>
+		<string>order/commit</string>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+	</dict>
+	<key>10006</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>order/accpetPrice</string>
 	</dict>
 	<key>10004</key>
 	<dict>
 		<key>url</key>
 		<string>order/appointCommit</string>
 		<key>class</key>
-		<string>QSPOrderDetailCancelOrAppointReturnDataModel</string>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
 	</dict>
 	<key>10003</key>
 	<dict>
 		<key>class</key>
-		<string>QSPOrderDetailCancelOrAppointReturnDataModel</string>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
 		<key>url</key>
 		<string>order/cancel</string>
 	</dict>
 	<key>10002</key>
 	<dict>
 		<key>class</key>
-		<string>QSPOrderDetailSubmitBidReturnData</string>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
 		<key>url</key>
 		<string>order/bid</string>
 	</dict>
@@ -155,6 +176,13 @@
 		<string>QSOrderDetailReturnData</string>
 		<key>url</key>
 		<string>order/get</string>
+	</dict>
+	<key>8002</key>
+	<dict>
+		<key>class</key>
+		<string>QSOrderDetailReturnData</string>
+		<key>url</key>
+		<string>commitOrder/get</string>
 	</dict>
 	<key>8003</key>
 	<dict>

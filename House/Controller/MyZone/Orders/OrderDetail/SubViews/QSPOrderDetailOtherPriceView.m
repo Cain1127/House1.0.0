@@ -89,7 +89,7 @@
             }
             
         }];
-        
+        [acceptButton setEnabled:NO];
         [self addSubview:acceptButton];
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, otherPriceBgView.frame.origin.y+otherPriceBgView.frame.size.height)];
@@ -99,6 +99,13 @@
         self.blockButtonCallBack = callBack;
         
         USER_COUNT_TYPE userType = [tempOrderData getUserType];
+        
+        NSString *housePriceStr = tempOrderData.house_msg.house_price;
+        if (housePriceStr) {
+            CGFloat pricef = [housePriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
         
         NSString *salerPriceStr = tempOrderData.last_saler_bid;
         if (salerPriceStr) {
@@ -123,12 +130,16 @@
             userTypeStr = @"业主";
             myPriceStr = buyerPriceStr;
             otherPriceStr = salerPriceStr;
+            if ([housePriceStr isEqualToString:otherPriceStr]) {
+                otherPriceStr = @"";
+            }
             
         }else {
             //非房客身份
             userTypeStr = @"房客";
             myPriceStr = salerPriceStr;
             otherPriceStr = buyerPriceStr;
+            
             
         }
         
@@ -143,6 +154,8 @@
             
             [self.otherNameTipLabel setTextColor:[UIColor blackColor]];
             [self.otherPriceLabel.layer setBorderColor:COLOR_CHARACTERS_YELLOW.CGColor];
+            
+            [acceptButton setEnabled:YES];
             
         }
         
