@@ -14,6 +14,9 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYPopCustomView.h"
 #import "QSYCallTipsPopView.h"
+#import "QSCustomHUDView.h"
+#import "QSPOrderDetailCancelOrAppointReturnDataModel.h"
+#import "QSPSalerBookedOrdersListsViewController.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -82,9 +85,12 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+8, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag) {
+        if (500210 == button.tag  || 500213 == button.tag) {
             //打电话
             [self callPhone];
+        }else if (500203 == button.tag || 500201 == button.tag) {
+            //取消预约
+            [self cancelAppointmentOrder];
         }
         
     }];
@@ -100,10 +106,13 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         NSLog(@"rightActionBt");
         
-        if (500210 == button.tag) {
+        if (500210 == button.tag  || 500213 == button.tag) {
             //跳转去聊天
             [self goToChat];
             
+        }else if (500203 == button.tag || 500201 == button.tag) {
+            //接受预约
+            [self commitAppointmentOrder];
         }
         
         
@@ -261,6 +270,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     // Configure the view for the selected state
 }
 
+#pragma mark - 按钮响应
+
+//跳转去聊天
 - (void)goToChat
 {
     
@@ -299,6 +311,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
 }
 
+//打电话操作
 - (void)callPhone
 {
     
@@ -354,5 +367,158 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }
     
 }
+
+#pragma mark - 请求取消预约订单
+- (void)cancelAppointmentOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	int	用户id
+    //    order_id	true	string	订单id
+    //    cause	true	string	取消的原因，字符串（暂定）
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+//            if (self.parentViewController){
+//                
+//                [self.parentViewController.navigationController popViewControllerAnimated:YES];
+//                
+//            }
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    [tempParam setObject:@"" forKey:@"cause"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                
+                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
+#pragma mark - 请求接受预约订单
+
+- (void)commitAppointmentOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	确认的用户id(房主)
+    //    order_id	true	string	订单id
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+//            if (self.parentViewController){
+//                
+//                [self.parentViewController.navigationController popViewControllerAnimated:YES];
+//                
+//            }
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCancelOrAppointReturnDataModel *headerModel = (QSPOrderDetailCancelOrAppointReturnDataModel*)resultData;
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                
+                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
 
 @end

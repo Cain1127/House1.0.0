@@ -63,21 +63,55 @@
     
     NSMutableAttributedString *priceInfoString = nil;
     
-    NSString* priceStr = @"";
+    USER_COUNT_TYPE userType = [self getUserType];
+    
+    NSString *salerPriceStr = self.last_saler_bid;
+    if (salerPriceStr) {
+        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *buyerPriceStr = self.last_buyer_bid;
+    if (buyerPriceStr) {
+        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *myPriceStr = nil;
+    NSString *otherPriceStr = nil;
+    
+    NSString *userTypeStr = @"";
+    if (uUserCountTypeTenant==userType) {
+        //房客身份
+        userTypeStr = @"业主";
+        myPriceStr = buyerPriceStr;
+        otherPriceStr = salerPriceStr;
+        
+    }else {
+        //非房客身份
+        userTypeStr = @"房客";
+        myPriceStr = salerPriceStr;
+        otherPriceStr = buyerPriceStr;
+        
+    }
+    
+    NSString* priceStr = otherPriceStr;
     if (priceStr && ![priceStr isEqualToString:@""]) {
         
         NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
         
         priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
         
-        [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, priceInfoString.length)];
+        [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
         
         [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_16] range:NSMakeRange(0, priceInfoString.length)];
         [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
         
     }else{
         
-        priceInfoString = [[NSMutableAttributedString alloc] initWithString:@"等待业主还价"];
+        priceInfoString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"等待%@还价",userTypeStr]];
         
         [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, priceInfoString.length)];
         
@@ -94,7 +128,41 @@
     
     NSMutableAttributedString *priceInfoString = nil;
     
-    NSString* priceStr = @"388";
+    USER_COUNT_TYPE userType = [self getUserType];
+    
+    NSString *salerPriceStr = self.last_saler_bid;
+    if (salerPriceStr) {
+        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *buyerPriceStr = self.last_buyer_bid;
+    if (buyerPriceStr) {
+        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *myPriceStr = nil;
+    NSString *otherPriceStr = nil;
+    
+    NSString *userTypeStr = @"";
+    if (uUserCountTypeTenant==userType) {
+        //房客身份
+        userTypeStr = @"业主";
+        myPriceStr = buyerPriceStr;
+        otherPriceStr = salerPriceStr;
+        
+    }else {
+        //非房客身份
+        userTypeStr = @"房客";
+        myPriceStr = salerPriceStr;
+        otherPriceStr = buyerPriceStr;
+        
+    }
+    
+    NSString* priceStr = myPriceStr;
     NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
     
     priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
@@ -113,8 +181,17 @@
     
     NSMutableAttributedString *countInfoString = nil;
     
-    NSString* countStr = @"999999";
-    NSString* otherType = @"业主";
+    NSString* countStr = @"0";
+    
+    USER_COUNT_TYPE userType = [self getUserType];
+    
+    NSString* otherType = @"对方";
+    
+    if (uUserCountTypeTenant == userType) {
+        otherType = @"业主";
+    }else if (uUserCountTypeOwner == userType) {
+        otherType = @"房客";
+    }
     
     if (self.bargain_list&&[self.bargain_list count]>0) {
         countStr = [NSString stringWithFormat:@"%lu",(unsigned long)[self.bargain_list count]];
@@ -151,13 +228,44 @@
         return itemInfoString;
     }
     
-    //FIXME: 缺房客与业主角色逻辑
-    NSString *myPriceStr = itemData.saler_bid;//@"290";
-    NSString *otherPriceStr = itemData.buyer_bid;//@"310";
+    USER_COUNT_TYPE userType = [self getUserType];
+    
+    NSString *salerPriceStr = itemData.saler_bid;//@"290";
+    if (salerPriceStr) {
+        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *buyerPriceStr = itemData.buyer_bid;//@"310";
+    if (buyerPriceStr) {
+        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+    }
+    
+    NSString *myPriceStr = nil;
+    NSString *otherPriceStr = nil;
+    
+    NSString *userTypeStr = @"";
+    if (uUserCountTypeTenant==userType) {
+        //房客身份
+        userTypeStr = @"业主";
+        myPriceStr = buyerPriceStr;
+        otherPriceStr = salerPriceStr;
+        
+    }else {
+        //非房客身份
+        userTypeStr = @"房客";
+        myPriceStr = salerPriceStr;
+        otherPriceStr = buyerPriceStr;
+        
+    }
+    
     
     NSString *myPriceInfoString = nil;
     
-    if (myPriceStr && ![myPriceStr isEqualToString:@""]) {
+    if (myPriceStr && ![myPriceStr isEqualToString:@""] && ![myPriceStr isEqualToString:@"0"]) {
         
         myPriceInfoString = [NSString stringWithFormat:@"我的出价%@万",myPriceStr];
         
@@ -172,16 +280,16 @@
         
     }
     
-    if (otherPriceStr && ![otherPriceStr isEqualToString:@""]) {
+    if (otherPriceStr && ![otherPriceStr isEqualToString:@""] && ![otherPriceStr isEqualToString:@"0"]) {
         
-        NSString *otherPriceString = [NSString stringWithFormat:@"业主还价%@万",otherPriceStr];
+        NSString *otherPriceString = [NSString stringWithFormat:@"%@还价%@万",userTypeStr,otherPriceStr];
         NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
         
         [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];
         
         [otherPriceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, otherPriceInfoString.length)];
         
-        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(4, otherPriceStr.length)];
+        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(2+userTypeStr.length, otherPriceStr.length)];
         
         if (itemInfoString) {
             

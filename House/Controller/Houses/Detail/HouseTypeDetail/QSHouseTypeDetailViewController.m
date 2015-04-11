@@ -13,6 +13,7 @@
 #import "QSLoupanHouseListDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSRequestManager.h"
+#import "QSLoupanPhaseDataModel.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -300,7 +301,8 @@
     UILabel *priceLabel=[[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
-    priceLabel.text = @"150";
+    NSString *priceString = [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]*[self.detailInfo.loupan_building.price_avg intValue]/10000];
+    priceLabel.text = priceString;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];

@@ -21,4 +21,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
+- (NSString*)getInputPrice;
+
 @end

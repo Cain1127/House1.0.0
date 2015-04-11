@@ -9,6 +9,12 @@
 #import "QSPOrderDetailInputMyPriceView.h"
 #import "NSString+Calculation.h"
 
+@interface QSPOrderDetailInputMyPriceView ()
+
+@property(nonatomic,strong) UITextField *priceTextField;
+
+@end
+
 @implementation QSPOrderDetailInputMyPriceView
 
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint{
@@ -48,14 +54,27 @@
         
         [self addSubview:inputPriceTextField];
         
-        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10)];
+        self.priceTextField = inputPriceTextField;
         
-        self.showHeight = self.frame.size.height;
+        self.showHeight = inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10;
+        
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.showHeight)];
         
     }
     
     return self;
     
+}
+
+- (NSString*)getInputPrice
+{
+    NSString *priceStr = nil;
+    
+    if (self.priceTextField) {
+        priceStr = [self.priceTextField text];
+    }
+    
+    return priceStr;
 }
 
 @end

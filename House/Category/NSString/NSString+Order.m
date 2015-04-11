@@ -33,12 +33,12 @@
     if (orderStatus&&[orderStatus isKindOfClass:[NSString class]]) {
         
         if ([orderStatus isEqualToString:@"500201"] ||
-            [orderStatus isEqualToString:@"500213"] ||
             [orderStatus isEqualToString:@"500203"]) {
             
             statusStr = @"待确认";
             
-        } else if ([orderStatus isEqualToString:@"500210"]) {
+        } else if ([orderStatus isEqualToString:@"500210"]||
+                   [orderStatus isEqualToString:@"500213"]) {
             
             statusStr = @"待看房";
             

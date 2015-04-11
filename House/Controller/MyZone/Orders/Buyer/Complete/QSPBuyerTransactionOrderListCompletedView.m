@@ -222,6 +222,11 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 - (void)getOrderListData
 {
     
+    UIView *nodataView = objc_getAssociatedObject(self, &CompleteListNoDataViewKey);
+    if (nodataView) {
+        [nodataView setHidden:YES];
+    }
+    
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     //        请求参数
@@ -290,6 +295,8 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
                 NSLog(@"%@ Error:%@",headerModel.code,headerModel.info);
             }
+            
+            [self reloadData];
             
         }
         

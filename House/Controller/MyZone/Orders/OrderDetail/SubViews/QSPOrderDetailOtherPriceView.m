@@ -58,7 +58,6 @@
         //对方还价标题
         self.otherNameTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, otherPriceBgView.frame.size.width-4, otherPriceBgView.frame.size.height)];
         [self.otherNameTipLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
-        [self.otherNameTipLabel setText:@"业主还价"];
         [self.otherNameTipLabel setTextColor:[UIColor whiteColor]];
         [self.otherNameTipLabel setTextAlignment:NSTextAlignmentCenter];
         [otherPriceBgView addSubview:self.otherNameTipLabel];
@@ -83,8 +82,6 @@
         ///接受议价按钮
         QSBlockButtonStyleModel *acceptButtonStyle = [[QSBlockButtonStyleModel alloc] init];
         acceptButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_NORMAL;
-        acceptButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_PRESSED;
-        acceptButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_PRESSED;
         UIButton *acceptButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, otherPriceBgView.frame.origin.y, 44, 44) andButtonStyle:acceptButtonStyle andCallBack:^(UIButton *button) {
             
             if (self.blockButtonCallBack) {
@@ -100,6 +97,54 @@
         self.showHeight = self.frame.size.height;
         
         self.blockButtonCallBack = callBack;
+        
+        USER_COUNT_TYPE userType = [tempOrderData getUserType];
+        
+        NSString *salerPriceStr = tempOrderData.last_saler_bid;
+        if (salerPriceStr) {
+            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
+        
+        NSString *buyerPriceStr = tempOrderData.last_buyer_bid;
+        if (buyerPriceStr) {
+            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        }
+        
+        NSString *myPriceStr = nil;
+        NSString *otherPriceStr = nil;
+        
+        NSString *userTypeStr = @"";
+        if (uUserCountTypeTenant==userType) {
+            //房客身份
+            userTypeStr = @"业主";
+            myPriceStr = buyerPriceStr;
+            otherPriceStr = salerPriceStr;
+            
+        }else {
+            //非房客身份
+            userTypeStr = @"房客";
+            myPriceStr = salerPriceStr;
+            otherPriceStr = buyerPriceStr;
+            
+        }
+        
+        
+        [self.otherNameTipLabel setText:[NSString stringWithFormat:@"%@还价",userTypeStr]];
+        
+        if (otherPriceStr && ![otherPriceStr isEqualToString:@""] && ![otherPriceStr isEqualToString:@"0"]) {
+            
+            [otherPriceBgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_MY_PRICE_YELLOW_BG]];
+            
+            [acceptButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_PRESSED] forState:UIControlStateNormal];
+            
+            [self.otherNameTipLabel setTextColor:[UIColor blackColor]];
+            [self.otherPriceLabel.layer setBorderColor:COLOR_CHARACTERS_YELLOW.CGColor];
+            
+        }
         
     }
     

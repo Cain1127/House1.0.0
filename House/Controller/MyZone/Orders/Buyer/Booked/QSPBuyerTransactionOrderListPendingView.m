@@ -251,6 +251,11 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
 - (void)getOrderListData
 {
     
+    UIView *nodataView = objc_getAssociatedObject(self, &PendingListNoDataViewKey);
+    if (nodataView) {
+        [nodataView setHidden:YES];
+    }
+    
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     //        请求参数
@@ -319,6 +324,8 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
                 NSLog(@"%@ Error:%@",headerModel.code,headerModel.info);
             }
+            
+            [self reloadData];
             
         }
         

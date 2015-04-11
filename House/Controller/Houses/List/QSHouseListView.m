@@ -376,6 +376,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    if (indexPath.row == 0) {
+        
+        return;
+        
+    }
+    
     ///获取房子模型
     QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
     

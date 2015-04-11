@@ -17,7 +17,7 @@
         [self setLeftBtTitle:@"拒绝预约"];
         [self setRightBtTitle:@"接受预约"];
         
-        [self setLeftButtonType:nNormalButtonTypeCornerWhite];
+        [self setLeftButtonType:nNormalButtonTypeCornerLightYellow];
         [self setRightButtonType:nNormalButtonTypeCornerYellow];
         
     }

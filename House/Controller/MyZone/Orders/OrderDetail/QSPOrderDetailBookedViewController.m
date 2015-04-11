@@ -81,6 +81,9 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYPostMessageSimpleModel.h"
 
+#import "QSPOrderDetailCommitInspectedReturnData.h"
+#import "QSPOrderDetailSubmitBidReturnData.h"
+
 @interface QSPOrderDetailBookedViewController ()
 
 @property (nonatomic, strong) UIView *contentBgView;
@@ -192,6 +195,7 @@
         timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
         bargainList = self.orderDetailData.bargain_list;
+        
     }
     
     //
@@ -234,6 +238,7 @@
                             
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
+                        [btVc setOrderID:self.orderDetailData.id_];
                         [self.navigationController pushViewController:btVc animated:YES];
                         
                     }
@@ -275,13 +280,14 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailCancelAppointmentButtonView:取消预约");
+                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
             }
             
         }];
-        [self.cancelAppointmentButtonView setCenterButtonType:nNormalButtonTypeCornerWhiteGray];
+        [self.cancelAppointmentButtonView setCenterButtonType:nNormalButtonTypeCornerYellow];
         [self.contentBgView addSubview:self.cancelAppointmentButtonView];
 
     }
@@ -294,6 +300,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailConfirmOrderDisableButtonView:不能点击房源非常满意，我要成交按钮");
+                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
@@ -330,6 +337,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailSubmitPriceButtonView:提交出价按钮");
+                    [self submitMyInputPrice];
                     break;
                 default:
                     break;
@@ -629,10 +637,10 @@
     ///将输入我的出价View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_inputMyPriceView];
     [self.myPriceView addAfterView:&_inputMyPriceView];
-    viewContentOffsetY = _inputMyPriceView.frame.origin.y+_inputMyPriceView.frame.size.height;
     if (!self.orderDetailData.isShowInputMyPriceView) {
         SetHeightToZero(self.inputMyPriceView);
     }
+    viewContentOffsetY = _inputMyPriceView.frame.origin.y+_inputMyPriceView.frame.size.height;
     
     //!<最后成交价View
     if (self.orderDetailData.isShowTransactionPriceView) {
@@ -702,7 +710,7 @@
     //!<预约结束评价提示View
     if (self.orderDetailData.isShowCommentNoteTipsView) {
         
-        self.commentNoteTipsView = [[QSPOrderDetailCommentNoteTipsView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY)];
+        self.commentNoteTipsView = [[QSPOrderDetailCommentNoteTipsView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData];
         [scrollView addSubview:self.commentNoteTipsView];
         ///将预约结束评价View引用添加进看房时间控件管理作动态高度扩展
         [self.showingsTimeView addAfterView:&_commentNoteTipsView];
@@ -718,10 +726,13 @@
         self.complaintAndCommentButtonView = [[QSPOrderDetailComplaintAndCommentButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
-                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要评价");
+                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要投诉");
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:评价房源");
+                    //TODO:还未做评价页面
+                    [self commitInspectedOrder];
+                    
                     break;
                 default:
                     break;
@@ -747,6 +758,7 @@
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:完成看房");
+                    [self commitInspectedOrder];
                     break;
                 default:
                     break;
@@ -1161,7 +1173,7 @@
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-            [self.navigationController popViewControllerAnimated:YES];
+            
         })
         return;
     }
@@ -1186,7 +1198,7 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })
@@ -1200,6 +1212,7 @@
 }
 
 #pragma mark - 请求接受预约订单
+
 - (void)commitAppointmentOrder
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
@@ -1211,7 +1224,7 @@
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-            [self.navigationController popViewControllerAnimated:YES];
+            
         })
         return;
     }
@@ -1234,7 +1247,7 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
                     
                     
                 })
@@ -1245,6 +1258,140 @@
         [hud hiddenCustomHUD];
         
     }];
+}
+
+#pragma mark - 确认完成看房
+
+- (void)commitInspectedOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	string	操作用户id
+//    order_id	true	string	订单id
+//    score	true	float	总体分数,满分10分(房客确认的时候才需要)
+//    manner_score	true	float	服务态度,满分10分(房客确认的时候才需要)
+//    desc	true	string	评价描述(房客确认的时候才需要)
+//    suitable	true	int	1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    [tempParam setObject:@"" forKey:@"score"];
+    [tempParam setObject:@"" forKey:@"manner_score"];
+    [tempParam setObject:@"" forKey:@"desc"];
+    [tempParam setObject:@"" forKey:@"suitable"];
+    
+    if (self.orderDetailData && [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+        
+        if (uUserCountTypeTenant == [self.orderDetailData getUserType]) {
+            
+            [tempParam setObject:@"8" forKey:@"score"];
+            [tempParam setObject:@"7" forKey:@"manner_score"];
+            [tempParam setObject:@"不合适，还没添加评价描述" forKey:@"desc"];
+            [tempParam setObject:@"1" forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+            
+        }
+    }
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailCommitInspectedReturnData *headerModel = (QSPOrderDetailCommitInspectedReturnData*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
+#pragma mark - 提交我的出价
+- (void)submitMyInputPrice
+{
+    
+    NSString *priceStr = nil;
+    if (self.inputMyPriceView) {
+        priceStr = [self.inputMyPriceView getInputPrice];
+    }
+    
+    if (!priceStr || [priceStr isEqualToString:@""]) {
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的出价", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+//    必选	类型及范围	说明
+//    user_id	true	string	用户id
+//    order_id	true	string	订单id
+//    price	true	float	价格，没单位， 就是说如果是要传递200W过来请自己补齐后面的0，eg:200W 就是 2000000
+
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    [tempParam setObject:priceStr forKey:@"price"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailSubmitBidReturnData *headerModel = (QSPOrderDetailSubmitBidReturnData*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
 }
 
 @end
