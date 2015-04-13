@@ -28,6 +28,8 @@
 {
     
     NSString *statusStr = @"";
+    
+    //用户角色：业主或者房客
     USER_COUNT_TYPE currentUserOrderRole = [self getCurrentUserTypeWithOrderSalerID:salerID andBuyerID:buyerID];
     
     if (orderStatus&&[orderStatus isKindOfClass:[NSString class]]) {
@@ -205,8 +207,6 @@
             statusStr = @"待确认成交";
             
         }
-        
-        //缺 成交订单  – 已取消 状态码未确定
         
     }
     

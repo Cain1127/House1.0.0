@@ -9,7 +9,7 @@
 #import "QSPOrderDetailInputMyPriceView.h"
 #import "NSString+Calculation.h"
 
-@interface QSPOrderDetailInputMyPriceView ()
+@interface QSPOrderDetailInputMyPriceView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong) UITextField *priceTextField;
 
@@ -51,7 +51,7 @@
         [inputPriceTextField.layer setMasksToBounds:YES];
         [inputPriceTextField.layer setBorderColor:COLOR_CHARACTERS_LIGHTYELLOW.CGColor];
         [inputPriceTextField.layer setBorderWidth:1.0f];
-        
+        [inputPriceTextField setDelegate:self];
         [self addSubview:inputPriceTextField];
         
         self.priceTextField = inputPriceTextField;
@@ -75,6 +75,13 @@
     }
     
     return priceStr;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
+    
+    [aTextfield resignFirstResponder];
+    
+    return YES;
 }
 
 @end

@@ -12,4 +12,6 @@
 
 @property ( nonatomic , strong ) NSString *orderID;
 
+@property ( nonatomic, assign ) FILTER_MAIN_TYPE houseType;
+
 @end

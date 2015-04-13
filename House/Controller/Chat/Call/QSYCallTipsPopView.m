@@ -63,7 +63,7 @@
     [self addSubview:tipsLabel];
     
     ///业主姓名
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipsLabel.frame.origin.x + tipsLabel.frame.size.width + 6.0f, 10.0f, 80.0f, 20.0f)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipsLabel.frame.origin.x + tipsLabel.frame.size.width + 6.0f, 10.0f, 180.0f, 20.0f)];
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.textColor = COLOR_CHARACTERS_BLACK;
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];

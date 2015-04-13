@@ -21,6 +21,8 @@
 #import "QSCustomHUDView.h"
 #import "QSOrderDetailInfoDataModel.h"
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
+#import "QSPOrderCancelReasonViewController.h"
+#import "QSYShakeRecommendHouseViewController.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -39,7 +41,7 @@
 @end
 
 @implementation QSPOrderBookTimeViewController
-@synthesize vcType, houseInfo, orderID;
+@synthesize vcType, houseType, houseInfo, orderID;
 
 #pragma mark - 初始化
 
@@ -258,6 +260,10 @@
             
             [self hideKeyboard];
             NSLog(@"cancelAppointmentBt");
+            QSPOrderCancelReasonViewController *crVc = [[QSPOrderCancelReasonViewController alloc] init];
+            [crVc setOrderID:self.orderID];
+            [crVc setHouseType:houseType];
+            [self.navigationController pushViewController:crVc animated:YES];
             
         }];
         [self.scrollView addSubview:cancelAppointmentBt];
@@ -504,7 +510,11 @@
                         case oOrderSubmitResultBackTypeToMoreHouse:
                             
                             NSLog(@"back 查看推荐房源");
-                            
+                            {
+                                QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:houseType];
+                                [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
+                                [shakeRecommendHouseVC setTurnBackDistanceStep:3];
+                            }
                             break;
                         default:
                             break;
@@ -601,7 +611,11 @@
                         case oOrderSubmitResultBackTypeToMoreHouse:
                             
                             NSLog(@"back 查看推荐房源");
-                            
+                            {
+                                QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:houseType];
+                                [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
+                                [shakeRecommendHouseVC setTurnBackDistanceStep:3];
+                            }
                             break;
                         default:
                             break;
@@ -648,6 +662,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             [self.navigationController popViewControllerAnimated:YES];
         })
+        [hud hiddenCustomHUD];
         return;
     }
     

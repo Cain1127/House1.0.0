@@ -248,6 +248,27 @@
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
                         [btVc setOrderID:self.orderDetailData.id_];
+                        if (self.orderDetailData.order_type &&[self.orderDetailData.order_type isKindOfClass:[NSString class]]) {
+                            
+                            //500101:一手房购买订单, 500102 二手房，500103出租房
+                            if ([self.orderDetailData.order_type isEqualToString:@"500101"])
+                            {
+                                
+                                [btVc setHouseType:fFilterMainTypeNewHouse];
+                                
+                            }else if ([self.orderDetailData.order_type isEqualToString:@"500102"])
+                            {
+                                
+                                [btVc setHouseType:fFilterMainTypeSecondHouse];
+                                
+                            }else if ([self.orderDetailData.order_type isEqualToString:@"500103"])
+                            {
+                                
+                                [btVc setHouseType:fFilterMainTypeRentalHouse];
+                                
+                            }
+                            
+                        }
                         [self.navigationController pushViewController:btVc animated:YES];
                         
                     }
@@ -426,6 +447,27 @@
                             }
                             
                         }];
+                        if (self.orderDetailData.order_type &&[self.orderDetailData.order_type isKindOfClass:[NSString class]]) {
+                            
+                            //500101:一手房购买订单, 500102 二手房，500103出租房
+                            if ([self.orderDetailData.order_type isEqualToString:@"500101"])
+                            {
+                                
+                                [bookTimeVc setHouseType:fFilterMainTypeNewHouse];
+                                
+                            }else if ([self.orderDetailData.order_type isEqualToString:@"500102"])
+                            {
+                                
+                                [bookTimeVc setHouseType:fFilterMainTypeSecondHouse];
+                                
+                            }else if ([self.orderDetailData.order_type isEqualToString:@"500103"])
+                            {
+                                
+                                [bookTimeVc setHouseType:fFilterMainTypeRentalHouse];
+                                
+                            }
+                            
+                        }
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
                         [bookTimeVc setHouseInfo:self.orderDetailData.house_msg];
                         [self.navigationController pushViewController:bookTimeVc animated:YES];
@@ -1204,6 +1246,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             [self.navigationController popViewControllerAnimated:YES];
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1269,6 +1312,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1291,8 +1335,13 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1320,6 +1369,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1340,8 +1390,13 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1373,6 +1428,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1409,8 +1465,13 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1452,6 +1513,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1473,8 +1535,13 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1503,6 +1570,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1523,7 +1591,12 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
@@ -1553,6 +1626,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1573,7 +1647,12 @@
         ///转换模型
         if (headerModel) {
             
-            if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
@@ -1603,6 +1682,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1658,6 +1738,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1713,6 +1794,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -1769,6 +1851,7 @@
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     

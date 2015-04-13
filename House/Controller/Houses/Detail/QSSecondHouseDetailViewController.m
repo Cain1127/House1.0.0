@@ -290,6 +290,7 @@ static char LeftStarKey;            //!<左侧星级
                             }
                             
                         }];
+                        [bookTimeVc setHouseType:fFilterMainTypeSecondHouse];
                         [bookTimeVc setVcType:bBookTypeViewControllerBook];
                         [bookTimeVc setHouseInfo:self.houseInfo];
                         [self.navigationController pushViewController:bookTimeVc animated:YES];

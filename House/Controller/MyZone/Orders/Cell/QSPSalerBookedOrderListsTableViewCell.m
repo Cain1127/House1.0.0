@@ -419,6 +419,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 //                
 //            }
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -496,6 +497,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 //                
 //            }
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
@@ -568,6 +570,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
 
@@ -642,6 +645,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
             
         })
+        [hud hiddenCustomHUD];
         return;
     }
     
