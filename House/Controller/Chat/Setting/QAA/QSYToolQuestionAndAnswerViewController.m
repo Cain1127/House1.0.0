@@ -7,6 +7,7 @@
 //
 
 #import "QSYToolQuestionAndAnswerViewController.h"
+#import "QSYToolQAADetailViewController.h"
 
 @interface QSYToolQuestionAndAnswerViewController ()
 

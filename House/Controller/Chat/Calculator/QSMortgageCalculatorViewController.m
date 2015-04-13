@@ -7,6 +7,7 @@
 //
 
 #import "QSMortgageCalculatorViewController.h"
+#import "QSYToolQAADetailViewController.h"
 
 #import "QSCustomSingleSelectedPopView.h"
 
@@ -30,18 +31,34 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
 
 @interface QSMortgageCalculatorViewController ()<UITextFieldDelegate>
 
-@property(nonatomic,assign) CGFloat housePrice;
+@property (nonatomic,assign) CGFloat housePrice;
+@property (assign) MORTGAGE_ACTION_TYPE loadType;//!<贷款类型
 
 @end
 
 @implementation QSMortgageCalculatorViewController
 
+#pragma mark - 初始化
+/**
+ *  @author             yangshengmeng, 15-04-13 15:04:16
+ *
+ *  @brief              根据给定的贷款总额，创建计算器
+ *
+ *  @param housePrice   贷款总额
+ *
+ *  @return             返回当前创建的计算器
+ *
+ *  @since              1.0.0
+ */
 -(instancetype)initWithHousePrice:(CGFloat )housePrice
 {
     
     if (self = [super init]) {
         
         self.housePrice = housePrice;
+        
+        ///初始化时的贷款类型
+        self.loadType = mMortgageBusinessType;
         
     }
     
@@ -54,6 +71,50 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"房贷计算"];
+    
+    ///说明
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeUserDetail];
+    
+    UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///进入说明页
+        switch (self.loadType) {
+                ///住房公积金说明
+            case mMortgageAccumulationType:
+            {
+            
+                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanAccumulation];
+                [self.navigationController pushViewController:detailVC animated:YES];
+            
+            }
+                break;
+                
+                ///商业贷款说明
+            case mMortgageBusinessType:
+            {
+                
+                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanBusiness];
+                [self.navigationController pushViewController:detailVC animated:YES];
+                
+            }
+                break;
+                
+                ///混合贷款说明
+            case mMortgageGrounpType:
+            {
+                
+                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanMix];
+                [self.navigationController pushViewController:detailVC animated:YES];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    [self setNavigationBarRightView:detailButton];
     
 }
 
@@ -97,6 +158,9 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         button.selected = YES;
         businessButton.selected = NO;
         groupButton.selected = NO;
+        
+        ///修改当前的贷款类型
+        self.loadType = mMortgageAccumulationType;
         
         ///切换列表
         accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
@@ -145,6 +209,9 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         button.selected = YES;
         accumulationButton.selected = NO;
         groupButton.selected = NO;
+        
+        ///修改当前的贷款类型
+        self.loadType = mMortgageBusinessType;
         
         ///坐标
         CGFloat xpoint = -SIZE_DEVICE_WIDTH;
@@ -203,6 +270,9 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         button.selected = YES;
         accumulationButton.selected = NO;
         businessButton.selected = NO;
+        
+        ///修改当前的贷款类型
+        self.loadType = mMortgageGrounpType;
         
         ///切换列表
         groupView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
