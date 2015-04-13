@@ -8,6 +8,8 @@
 
 #import "QSYChatToolViewController.h"
 #import "QSMortgageCalculatorViewController.h"
+#import "QSYToolContractViewController.h"
+#import "QSYToolQuestionAndAnswerViewController.h"
 
 @interface QSYChatToolViewController ()
 
@@ -71,6 +73,8 @@
     UIButton *qaButton = [UIButton createBlockButtonWithFrame:CGRectMake(calculatorButton.frame.origin.x + calculatorButton.frame.size.width + gapH, calculatorButton.frame.origin.y, width, height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///进入问答
+        QSYToolQuestionAndAnswerViewController *qaaVC = [[QSYToolQuestionAndAnswerViewController alloc] init];
+        [self.navigationController pushViewController:qaaVC animated:YES];
         
     }];
     [qaButton setImage:[UIImage imageNamed:IMAGE_CHAT_TOOL_QA_NORMAL] forState:UIControlStateNormal];
@@ -105,6 +109,8 @@
     UIButton *contractButton = [UIButton createBlockButtonWithFrame:CGRectMake(noiseButton.frame.origin.x + noiseButton.frame.size.width + gapH, noiseButton.frame.origin.y, width, height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///进入合同模板
+        QSYToolContractViewController *contractVC = [[QSYToolContractViewController alloc] init];
+        [self.navigationController pushViewController:contractVC animated:YES];
         
     }];
     [contractButton setImage:[UIImage imageNamed:IMAGE_CHAT_TOOL_CONTRACT_NORMAL] forState:UIControlStateNormal];
