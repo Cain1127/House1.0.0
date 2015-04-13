@@ -212,6 +212,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
             QSOrderListItemData *orderItem = [self.completeListDataSource objectAtIndex:indexPath.row];
             [bookedVc setOrderListItemData:orderItem];
         }
+        [bookedVc setOrderType:mOrderWithUserTypeTransaction];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
     

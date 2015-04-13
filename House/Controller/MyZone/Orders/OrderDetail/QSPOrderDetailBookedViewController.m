@@ -136,7 +136,7 @@
 @end
 
 @implementation QSPOrderDetailBookedViewController
-@synthesize orderListItemData, selectedIndex, orderID;
+@synthesize orderListItemData, selectedIndex, orderID, orderType;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
@@ -144,7 +144,13 @@
     
     [super createNavigationBarUI];
     
-    [self setNavigationBarTitle:TITLE_VIEWCONTROLLER_TITLE_BOOKINGORDERSLIST];
+    NSString *titleStr = @"订单详情";
+    if (orderType == mOrderWithUserTypeAppointment) {//预约订单
+        titleStr = TITLE_VIEWCONTROLLER_TITLE_BOOKINGORDERSLIST ;
+    }else if (orderType == mOrderWithUserTypeTransaction) {//成交订单
+        titleStr = TITLE_VIEWCONTROLLER_TITLE_TRANSATIONORDERSLIST ;
+    }
+    [self setNavigationBarTitle:titleStr];
     
 }
 
@@ -954,9 +960,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmBuyerButtonView:取消成交");
+                    [self cacelTransactionOrder];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmBuyerButtonView:提醒房客");
+                    [self noticeUserOnTransactionOrder];
                     break;
                 default:
                     break;
@@ -978,9 +986,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:取消成交");
+                    [self cacelTransactionOrder];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:提醒业主");
+                    [self noticeUserOnTransactionOrder];
                     break;
                 default:
                     break;
@@ -1003,9 +1013,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:取消成交");
+                    [self cacelTransactionOrder];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:确认成交");
+                    [self commitTransactionOrder];
                     break;
                 default:
                     break;
@@ -1205,7 +1217,14 @@
 //    NSString *userID = [QSCoreDataManager getUserID];
 //    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeOrderAppointmentDetailData andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    REQUEST_TYPE requestType;
+    if (orderType == mOrderWithUserTypeAppointment) {//预约订单
+        requestType = rRequestTypeOrderAppointmentDetailData;
+    }else if (orderType == mOrderWithUserTypeTransaction) {//成交订单
+        requestType = rRequestTypeOrderTransationDetailData;
+    }
+    
+    [QSRequestManager requestDataWithType:requestType andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         QSOrderDetailReturnData *headerModel = resultData;
         
@@ -1505,7 +1524,7 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1555,7 +1574,7 @@
         if (headerModel) {
             
             if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })
@@ -1606,6 +1625,177 @@
             
             if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
                 TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
+#pragma mark - 取消成交订单
+- (void)cacelTransactionOrder
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCancelTransation andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
+#pragma mark - 确认成交订单
+- (void)commitTransactionOrder
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitTransation andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
+
+#pragma mark - 成交订单提醒对方
+- (void)noticeUserOnTransactionOrder
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderTransationNoticeUser andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                     
                     
                 })

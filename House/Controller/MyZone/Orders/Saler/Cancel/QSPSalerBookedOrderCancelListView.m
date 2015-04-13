@@ -309,6 +309,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
                 [bookedVc setOrderListItemData:orderItem];
             }
         }
+        [bookedVc setOrderType:mOrderWithUserTypeAppointment];
         [bookedVc setSelectedIndex:indexPath.row];
         
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];

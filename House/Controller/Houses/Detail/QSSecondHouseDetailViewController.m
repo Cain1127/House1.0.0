@@ -299,6 +299,7 @@ static char LeftStarKey;            //!<左侧星级
                         ///已登录进入预约
                         QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
                         orderDetailPage.orderID = self.detailInfo.expandInfo.is_book;
+                        [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];
                         [self.navigationController pushViewController:orderDetailPage animated:YES];
                         
                     }
