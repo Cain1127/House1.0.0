@@ -8,10 +8,12 @@
 
 #import "QSYHistoryNewHouseListView.h"
 
-#import "QSCommunityCollectionViewCell.h"
+#import "QSAttentionCommunityCell.h"
 
 #import "QSNewHouseListReturnData.h"
 #import "QSNewHouseInfoDataModel.h"
+
+#import "QSCoreDataManager+History.h"
 
 #import "MJRefresh.h"
 
@@ -59,6 +61,9 @@
     
     if (self = [super initWithFrame:frame collectionViewLayout:defaultLayout]) {
         
+        ///初始化数据源
+        self.customDataSource = [[NSMutableArray alloc] init];
+        
         ///保存参数
         if (callBack) {
             
@@ -72,11 +77,10 @@
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"newHouseInfoCell"];
+        [self registerClass:[QSAttentionCommunityCell class] forCellWithReuseIdentifier:@"newHouseInfoCell"];
         
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(newHouseListHeaderRequest)];
-        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(newHouseListFooterRequest)];
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -91,24 +95,38 @@
 - (void)newHouseListHeaderRequest
 {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    ///获取本地数据
+    NSArray *tempArray = [QSCoreDataManager getLocalHistoryDataSourceWithType:fFilterMainTypeNewHouse];
+    
+    if ([tempArray count] > 0) {
+        
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+            
+        }
+        
+        [self.customDataSource removeAllObjects];
+        [self.customDataSource addObjectsFromArray:tempArray];
+        [self reloadData];
+        
+        [self.header endRefreshing];
+        
+    } else {
+        
+        [self.customDataSource removeAllObjects];
+        [self reloadData];
         
         [self.header endRefreshing];
         [self.footer endRefreshing];
         
-    });
-    
-}
-
-- (void)newHouseListFooterRequest
-{
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+            
+        }
         
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-        
-    });
+    }
     
 }
 
@@ -116,13 +134,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    if (self.isLocalData) {
-        
-        return [self.customDataSource count];
-        
-    }
-    
-    return 0;
+    return [self.customDataSource count];
     
 }
 
@@ -133,22 +145,13 @@
     static NSString *normalCellName = @"newHouseInfoCell";
     
     ///从复用队列中返回cell
-    QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
+    QSAttentionCommunityCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
     
     ///获取数据
-    QSNewHouseInfoDataModel *tempModel;
-    if (self.isLocalData) {
-        
-        tempModel = self.customDataSource[indexPath.row];
-        
-    } else {
-        
-        tempModel = self.dataSourceModel.headerData.houseList[indexPath.row];
-        
-    }
+    QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
     
     ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
+    [cellNormal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
     
     return cellNormal;
     

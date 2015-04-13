@@ -388,7 +388,6 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *addressRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(leftGap, featuresRootView.frame.origin.y + featuresRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
-        NSLog(@"点击定位");
         QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         
         [self.navigationController pushViewController:smVC animated:YES];
@@ -463,7 +462,6 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *otherInfoRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, priceLineRootView.frame.origin.y + priceLineRootView.frame.size.height + 40.0f, mainInfoWidth, 65.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入更多配套信息页面
-        NSLog(@"配套信息");
         QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         [self.navigationController pushViewController:nearInfoVC animated:YES];
         

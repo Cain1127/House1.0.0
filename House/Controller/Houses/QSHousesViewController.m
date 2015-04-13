@@ -1093,7 +1093,7 @@ static char PopViewKey;             //!<摇一摇view关联
 {
 
     ///判断是否满足比一比条件
-    if ([self.secondHandHouseBrowseCounts count] >= 3) {
+    if ([self.secondHandHouseBrowseCounts count] >= 10) {
         
         ///弹出比一比提示
         __block QSYPopCustomView *popView;
@@ -1136,7 +1136,7 @@ static char PopViewKey;             //!<摇一摇view关联
     }
     
     ///判断是否满足比一比条件
-    if ([self.rentHandHouseBrowseCounts count] >= 3) {
+    if ([self.rentHandHouseBrowseCounts count] >= 10) {
         
         ///弹出比一比提示
         __block QSYPopCustomView *popView;

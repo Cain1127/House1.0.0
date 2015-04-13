@@ -165,7 +165,6 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 
     ///更新地址信息
     [self updateAddressInfo:[QSCoreDataManager getStreetValWithStreetKey:tempModel.street]];
-
     
     ///更新标题信息
     [self updateTitleInfo:[NSString stringWithFormat:@"%.1f",[tempModel.price_avg floatValue] / 10000]];
