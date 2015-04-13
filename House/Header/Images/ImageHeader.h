@@ -383,6 +383,22 @@
 #define IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_HIGHLIGHTED @"talk_my_sound_message_highlighted"
 #define IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_SELECTED @"talk_my_sound_message_selected"
 
+///工具相关图片:计算器
+#define IMAGE_CHAT_TOOL_CACLULATOR_NORMAL @"chat_tool_caclulator_normal"
+#define IMAGE_CHAT_TOOL_CACLULATOR_HIGHLIGHTED @"chat_tool_caclulator_highlighted"
+
+///问答
+#define IMAGE_CHAT_TOOL_QA_NORMAL @"chat_tool_qa_normal"
+#define IMAGE_CHAT_TOOL_QA_HIGHLIGHTED @"chat_tool_qa_highlighted"
+
+///噪音测试
+#define IMAGE_CHAT_TOOL_NOISETEST_NORMAL @"chat_tool_noise_test_normal"
+#define IMAGE_CHAT_TOOL_NOISETEST_HIGHLIGHTED @"chat_tool_noise_test_highlighted"
+
+///合同
+#define IMAGE_CHAT_TOOL_CONTRACT_NORMAL @"chat_tool_contract_normal"
+#define IMAGE_CHAT_TOOL_CONTRACT_HIGHLIGHTED @"chat_tool_contract_highlighted"
+
 #pragma mark - 个人中心相关图片
 
 /**
