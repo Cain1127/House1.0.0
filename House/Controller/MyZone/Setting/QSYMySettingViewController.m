@@ -8,6 +8,9 @@
 
 #import "QSYMySettingViewController.h"
 
+#import "QSYPopCustomView.h"
+#import "QSYMySettingChangeUserReadNameTipsPopView.h"
+#import "QSYMySettingChangeUserGenderPopView.h"
 #import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -19,6 +22,7 @@
 #import "UIImage+Thumbnail.h"
 
 #import "QSYLoadImageReturnData.h"
+#import "QSUserDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -38,8 +42,12 @@ typedef enum
 
 ///关联
 static char IconImageViewKey;   //!<头像关联
+static char UserNameKey;        //!<用户名
+static char UserGenderKey;      //!<性别
 
 @interface QSYMySettingViewController () <UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+@property (nonatomic,retain) QSUserDataModel *userModel;    //!<用户信息数据模型
 
 @end
 
@@ -57,6 +65,9 @@ static char IconImageViewKey;   //!<头像关联
 - (void)createMainShowUI
 {
     
+    ///获取用户信息数据
+    self.userModel = [QSCoreDataManager getCurrentUserDataModel];
+    
     ///头像
     UILabel *msgTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 85.0f / 2.0f + 64.0f - 15.0f, 80.0f, 30.0f)];
     msgTipsLabel.text = @"头       像";
@@ -72,6 +83,11 @@ static char IconImageViewKey;   //!<头像关联
         
     }];
     iconImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_158];
+    if ([self.userModel.avatar length] > 0) {
+        
+        [iconImageView loadImageWithURL:[self.userModel.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_158]
+         ];
+    }
     [self.view addSubview:iconImageView];
     objc_setAssociatedObject(self, &IconImageViewKey, iconImageView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -89,7 +105,9 @@ static char IconImageViewKey;   //!<头像关联
     UITextField *nameField = [UITextField createCustomTextFieldWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, iconSepLabel.frame.origin.y + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"姓      名" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     nameField.delegate = self;
     nameField.tag = sSelfSettingFieldActionTypeName;
+    nameField.text = [self.userModel.realname length] > 0 ? self.userModel.realname : APPLICATION_NSSTRING_SETTING_NIL(self.userModel.username);
     [self.view addSubview:nameField];
+    objc_setAssociatedObject(self, &UserNameKey, nameField, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
     UILabel *nameSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameField.frame.origin.x + 5.0f, nameField.frame.origin.y + nameField.frame.size.height + 3.5f, nameField.frame.size.width - 10.0f, 0.25f)];
@@ -100,7 +118,9 @@ static char IconImageViewKey;   //!<头像关联
     UITextField *genderField = [UITextField createCustomTextFieldWithFrame:CGRectMake(nameField.frame.origin.x, nameField.frame.origin.y + nameField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, nameField.frame.size.width, nameField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"性       别" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     genderField.delegate = self;
     genderField.tag = sSelfSettingFieldActionTypeSex;
+    genderField.text = [self.userModel.sex intValue] == 1 ? @"男" : ([self.userModel.sex intValue] == 0 ? @"女" : nil);
     [self.view addSubview:genderField];
+    objc_setAssociatedObject(self, &UserGenderKey, genderField, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
     UILabel *genderSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(genderField.frame.origin.x + 5.0f, genderField.frame.origin.y + genderField.frame.size.height + 3.5f, genderField.frame.size.width - 10.0f, 0.25f)];
@@ -111,6 +131,7 @@ static char IconImageViewKey;   //!<头像关联
     UITextField *phoneField = [UITextField createCustomTextFieldWithFrame:CGRectMake(genderField.frame.origin.x, genderField.frame.origin.y + genderField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, genderField.frame.size.width, genderField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"手机号码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     phoneField.delegate = self;
     phoneField.tag = sSelfSettingFieldActionTypePhone;
+    phoneField.text = [NSString stringWithFormat:@"%@******%@",[self.userModel.mobile substringToIndex:3],[self.userModel.mobile substringFromIndex:9]];
     [self.view addSubview:phoneField];
     
     ///分隔线
@@ -118,10 +139,11 @@ static char IconImageViewKey;   //!<头像关联
     phoneSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:phoneSepLabel];
     
-    ///版本检测
+    ///账户密码
     UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(phoneField.frame.origin.x, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, phoneField.frame.size.width, phoneField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"账户密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     passwordField.delegate = self;
     passwordField.tag = sSelfSettingFieldActionTypeName;
+    passwordField.text = @"******";
     [self.view addSubview:passwordField];
     
     ///分隔线
@@ -140,7 +162,30 @@ static char IconImageViewKey;   //!<头像关联
         case sSelfSettingFieldActionTypeName:
         {
         
-            APPLICATION_LOG_INFO(@"姓名", @"")
+            __block QSYPopCustomView *popView;
+            
+            QSYMySettingChangeUserReadNameTipsPopView *tipsView = [[QSYMySettingChangeUserReadNameTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 178.0f, SIZE_DEVICE_WIDTH, 178.0f) andCallBack:^(MYSETTING_CHANGE_NAME_ACTION_TYPE actionType, id parmas) {
+                
+                ///回收弹出框
+                [popView hiddenCustomPopview];
+                
+                ///判断事件类型
+                if (mMysettingChangeNameActionTypeConfirm == actionType) {
+                    
+                    NSString *settingName = parmas;
+                    if ([settingName length] > 0) {
+                        
+                        [self changeUserRealName:settingName];
+                        
+                    }
+                    
+                }
+                
+            }];
+            
+            popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+            }];
         
         }
             break;
@@ -149,7 +194,30 @@ static char IconImageViewKey;   //!<头像关联
         case sSelfSettingFieldActionTypeSex:
         {
             
-            APPLICATION_LOG_INFO(@"性别", @"")
+            __block QSYPopCustomView *popView;
+            
+            QSYMySettingChangeUserGenderPopView *tipsView = [[QSYMySettingChangeUserGenderPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 189.0f, SIZE_DEVICE_WIDTH, 189.0f) andSelectedGender:self.userModel.sex andCallBack:^(MYSETTING_CHANGE_GENDER_ACTION_TYPE actionType, id parmas) {
+                
+                ///回收弹出框
+                [popView hiddenCustomPopview];
+                
+                ///判断事件类型
+                if (mMysettingChangeGenderActionTypeConfirm == actionType) {
+                    
+                    NSString *settingName = parmas;
+                    if ([settingName length] > 0) {
+                        
+                        [self changeUserGender:settingName];
+                        
+                    }
+                    
+                }
+                
+            }];
+            
+            popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+                
+            }];
             
         }
             break;
@@ -178,6 +246,122 @@ static char IconImageViewKey;   //!<头像关联
     }
     
     return NO;
+
+}
+
+#pragma mark - 修改用户性别
+- (void)changeUserGender:(NSString *)gender
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+
+    ///封装参数
+    NSDictionary *params = @{@"sex" : APPLICATION_NSSTRING_SETTING(gender, @"")};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeUPDateuserInfo andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///更新成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                if ([gender length] > 0) {
+                    
+                    ///更新当前保存的信息
+                    self.userModel.sex = gender;
+                    
+                    ///修改显示的信息
+                    UITextField *genderField = objc_getAssociatedObject(self, &UserGenderKey);
+                    if (genderField) {
+                        
+                        NSString *oldGender = genderField.text;
+                        genderField.text = ([self.userModel.sex intValue] == 0) ? @"女" : (([self.userModel.sex intValue] == 1) ? @"男" : oldGender);
+                        
+                    }
+                    
+                    ///更新用户信息
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [QSCoreDataManager reloadUserInfoFromServer];
+                        
+                    });
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            ///提示
+            NSString *tipsString = @"修改失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
+
+}
+
+#pragma mark - 修改用户真名
+- (void)changeUserRealName:(NSString *)realName
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+
+    ///封装参数
+    NSDictionary *params = @{@"username" : APPLICATION_NSSTRING_SETTING(realName, @"")};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeUPDateuserInfo andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///更新成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                if ([realName length] > 0) {
+                    
+                    ///更新当前保存的信息
+                    self.userModel.username = realName;
+                    
+                    ///修改显示的信息
+                    UITextField *nameField = objc_getAssociatedObject(self, &UserNameKey);
+                    if (nameField) {
+                        
+                        NSString *oldName = nameField.text;
+                        nameField.text = APPLICATION_NSSTRING_SETTING(realName, oldName);
+                        
+                    }
+                    
+                    ///更新用户信息
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [QSCoreDataManager reloadUserInfoFromServer];
+                        
+                    });
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            ///提示
+            NSString *tipsString = @"修改失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
 
 }
 

@@ -12,6 +12,10 @@
 		18018AF01AA00BA600F35DEB /* QSHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AEF1AA00BA600F35DEB /* QSHouseListView.m */; };
 		18018AF31AA0449200F35DEB /* QSCommunityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF21AA0449200F35DEB /* QSCommunityListView.m */; };
 		18018AF71AA05D7200F35DEB /* QSCommunityListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */; };
+		180CA3111ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA30A1ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m */; };
+		180CA3121ADA248F00D42493 /* QSYMySettingChangeMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA30D1ADA248F00D42493 /* QSYMySettingChangeMobileViewController.m */; };
+		180CA3131ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3101ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m */; };
+		180CA3171ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3161ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m */; };
 		181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */; };
 		181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F91ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m */; };
 		181524031ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524021ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m */; };
@@ -808,6 +812,14 @@
 		18018AF21AA0449200F35DEB /* QSCommunityListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListView.m; path = List/QSCommunityListView.m; sourceTree = "<group>"; };
 		18018AF51AA05D7200F35DEB /* QSCommunityListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityListReturnData.h; path = House/Community/QSCommunityListReturnData.h; sourceTree = "<group>"; };
 		18018AF61AA05D7200F35DEB /* QSCommunityListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityListReturnData.m; path = House/Community/QSCommunityListReturnData.m; sourceTree = "<group>"; };
+		180CA3091ADA248F00D42493 /* QSYMySettingChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMySettingChangePasswordViewController.h; sourceTree = "<group>"; };
+		180CA30A1ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMySettingChangePasswordViewController.m; sourceTree = "<group>"; };
+		180CA30C1ADA248F00D42493 /* QSYMySettingChangeMobileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMySettingChangeMobileViewController.h; sourceTree = "<group>"; };
+		180CA30D1ADA248F00D42493 /* QSYMySettingChangeMobileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMySettingChangeMobileViewController.m; sourceTree = "<group>"; };
+		180CA30F1ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYMySettingChangeUserReadNameTipsPopView.h; sourceTree = "<group>"; };
+		180CA3101ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMySettingChangeUserReadNameTipsPopView.m; sourceTree = "<group>"; };
+		180CA3151ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMySettingChangeUserGenderPopView.h; path = Setting/Gender/QSYMySettingChangeUserGenderPopView.h; sourceTree = "<group>"; };
+		180CA3161ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMySettingChangeUserGenderPopView.m; path = Setting/Gender/QSYMySettingChangeUserGenderPopView.m; sourceTree = "<group>"; };
 		181523F51ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHouseDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.h; sourceTree = "<group>"; };
 		181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedRentHouseDataModel.m; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.m; sourceTree = "<group>"; };
 		181523F81ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHousePhotoDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHousePhotoDataModel.h; sourceTree = "<group>"; };
@@ -2106,6 +2118,45 @@
 			name = Community;
 			sourceTree = "<group>";
 		};
+		180CA3081ADA248F00D42493 /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				180CA3091ADA248F00D42493 /* QSYMySettingChangePasswordViewController.h */,
+				180CA30A1ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m */,
+			);
+			name = Password;
+			path = Setting/Password;
+			sourceTree = "<group>";
+		};
+		180CA30B1ADA248F00D42493 /* Phone */ = {
+			isa = PBXGroup;
+			children = (
+				180CA30C1ADA248F00D42493 /* QSYMySettingChangeMobileViewController.h */,
+				180CA30D1ADA248F00D42493 /* QSYMySettingChangeMobileViewController.m */,
+			);
+			name = Phone;
+			path = Setting/Phone;
+			sourceTree = "<group>";
+		};
+		180CA30E1ADA248F00D42493 /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				180CA30F1ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.h */,
+				180CA3101ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m */,
+			);
+			name = Pop;
+			path = Setting/Pop;
+			sourceTree = "<group>";
+		};
+		180CA3141ADA2B1100D42493 /* Gender */ = {
+			isa = PBXGroup;
+			children = (
+				180CA3151ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.h */,
+				180CA3161ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m */,
+			);
+			name = Gender;
+			sourceTree = "<group>";
+		};
 		181523F21ABFDF5F00C609B0 /* NewHouse */ = {
 			isa = PBXGroup;
 			children = (
@@ -2148,6 +2199,10 @@
 		182997A21AB6DA0C00705DDB /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				180CA3141ADA2B1100D42493 /* Gender */,
+				180CA3081ADA248F00D42493 /* Password */,
+				180CA30B1ADA248F00D42493 /* Phone */,
+				180CA30E1ADA248F00D42493 /* Pop */,
 				182997A31AB6DA2900705DDB /* QSYMySettingViewController.h */,
 				182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */,
 				184366B81ABA630900A81374 /* QSYSystemSettingViewController.h */,
@@ -6350,6 +6405,7 @@
 				184366AF1ABA5DBD00A81374 /* QSYAttentionCommunityViewController.m in Sources */,
 				475A4D7C1AC53789009881CF /* QSPOrderDetailRemarkRejectPriceView.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
+				180CA3111ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m in Sources */,
 				18D0815F1ACC5BAB004FA20F /* QSYPostMessageListReturnData.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				475A4D401AC3E65A009881CF /* QSPOrderDetailTitleLabel.m in Sources */,
@@ -6490,6 +6546,7 @@
 				18EC15801AC29D2900D2AD3A /* QSReleaseHouseDataModel.m in Sources */,
 				18D082261AD14971004FA20F /* QSYDeleteAskRentAndBuyHouseTipsPopView.m in Sources */,
 				47E5DAAC1AD39D5F00A0A64F /* QSPOrderDetailAppointAgainOrCancelApplicationView.m in Sources */,
+				180CA3131ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m in Sources */,
 				1865E3C61AB165A100FAEC9E /* QSCollectedCommunityDataModel.m in Sources */,
 				CE7F505A1AC8EA30004E6032 /* QSHouseTypeDetailViewController.m in Sources */,
 				475A4D9A1AC5393F009881CF /* QSPOrderDetailConfirmOrderButtonView.m in Sources */,
@@ -6681,6 +6738,7 @@
 				18B572931AC16D1600C75682 /* dynamic_message.cc in Sources */,
 				478645F71ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m in Sources */,
 				475A4D411AC3E65A009881CF /* QSPTimeHourPickerView.m in Sources */,
+				180CA3121ADA248F00D42493 /* QSYMySettingChangeMobileViewController.m in Sources */,
 				18B572A91AC16D1600C75682 /* stringprintf.cc in Sources */,
 				18DFE8691AC6B49900C216C3 /* QSYHistoryNewHouseListView.m in Sources */,
 				18E2023F1AAFFA7300577872 /* QSNewHouseActivityView.m in Sources */,
@@ -6756,6 +6814,7 @@
 				182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */,
 				475A4D331AC3E65A009881CF /* QSPBuyerBookedOrderCompletedListView.m in Sources */,
 				CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */,
+				180CA3171ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m in Sources */,
 				475A4D311AC3E65A009881CF /* QSPBuyerBookedOrderCancelListView.m in Sources */,
 				475A4D4D1AC3E7BC009881CF /* QSPSalerBookedOrderCancelListView.m in Sources */,
 				475A4D341AC3E65A009881CF /* QSPBuyerTransactionOrderListCompletedView.m in Sources */,
@@ -6879,12 +6938,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6926,10 +6979,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chengliang Lv (34JYBUKU5J)";
 				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
