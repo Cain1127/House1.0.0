@@ -17,6 +17,14 @@
 		180CA3131ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3101ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m */; };
 		180CA3171ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3161ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m */; };
 		180CA31B1ADB95D100D42493 /* QSYChatToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA31A1ADB95D100D42493 /* QSYChatToolViewController.m */; };
+		180CA3251ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA31D1ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png */; };
+		180CA3261ADB9A8C00D42493 /* chat_tool_caclulator_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA31E1ADB9A8C00D42493 /* chat_tool_caclulator_normal.png */; };
+		180CA3271ADB9A8C00D42493 /* chat_tool_contract_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA31F1ADB9A8C00D42493 /* chat_tool_contract_highlighted.png */; };
+		180CA3281ADB9A8C00D42493 /* chat_tool_contract_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */; };
+		180CA3291ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */; };
+		180CA32A1ADB9A8C00D42493 /* chat_tool_noise_test_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */; };
+		180CA32B1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */; };
+		180CA32C1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */; };
 		181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */; };
 		181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F91ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m */; };
 		181524031ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524021ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m */; };
@@ -823,6 +831,14 @@
 		180CA3161ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMySettingChangeUserGenderPopView.m; path = Setting/Gender/QSYMySettingChangeUserGenderPopView.m; sourceTree = "<group>"; };
 		180CA3191ADB95D100D42493 /* QSYChatToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYChatToolViewController.h; path = Setting/QSYChatToolViewController.h; sourceTree = "<group>"; };
 		180CA31A1ADB95D100D42493 /* QSYChatToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYChatToolViewController.m; path = Setting/QSYChatToolViewController.m; sourceTree = "<group>"; };
+		180CA31D1ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_caclulator_highlighted.png; sourceTree = "<group>"; };
+		180CA31E1ADB9A8C00D42493 /* chat_tool_caclulator_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_caclulator_normal.png; sourceTree = "<group>"; };
+		180CA31F1ADB9A8C00D42493 /* chat_tool_contract_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_contract_highlighted.png; sourceTree = "<group>"; };
+		180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_contract_normal.png; sourceTree = "<group>"; };
+		180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_noise_test_highlighted.png; sourceTree = "<group>"; };
+		180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_noise_test_normal.png; sourceTree = "<group>"; };
+		180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_highlighted.png; sourceTree = "<group>"; };
+		180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_normal.png; sourceTree = "<group>"; };
 		181523F51ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHouseDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.h; sourceTree = "<group>"; };
 		181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedRentHouseDataModel.m; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.m; sourceTree = "<group>"; };
 		181523F81ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHousePhotoDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHousePhotoDataModel.h; sourceTree = "<group>"; };
@@ -2169,6 +2185,21 @@
 			name = Setting;
 			sourceTree = "<group>";
 		};
+		180CA31C1ADB9A8C00D42493 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				180CA31D1ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png */,
+				180CA31E1ADB9A8C00D42493 /* chat_tool_caclulator_normal.png */,
+				180CA31F1ADB9A8C00D42493 /* chat_tool_contract_highlighted.png */,
+				180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */,
+				180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */,
+				180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */,
+				180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */,
+				180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
 		181523F21ABFDF5F00C609B0 /* NewHouse */ = {
 			isa = PBXGroup;
 			children = (
@@ -3470,6 +3501,7 @@
 		18B563501A8366A4009779A0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				180CA31C1ADB9A8C00D42493 /* Tool */,
 				183572041AD612AD00A29607 /* Talk */,
 				18D0820B1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png */,
 				18D0820C1ACFC37C004FA20F /* chat_contact_list_delete_normal.png */,
@@ -6063,6 +6095,7 @@
 				475C3D701AB171120028608F /* myzone_oorderlist_cell_ask_bt_selected.png in Resources */,
 				18B563F21A8366A4009779A0 /* developer_actives.png in Resources */,
 				18B563FB1A8366A4009779A0 /* guide_houses_haved.png in Resources */,
+				180CA32B1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */,
 				1865E3BA1AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist in Resources */,
 				CE52100D1ACD0F1800D6230B /* houses_detail_market_highlighted.png in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
@@ -6101,6 +6134,7 @@
 				18BE12741A8A133D0036245A /* myzone_renant_order_appointed_normal.png in Resources */,
 				18B563F91A8366A4009779A0 /* guide_filter_header.png in Resources */,
 				18B5644A1A8366A4009779A0 /* navigationbar_corss_normal.png in Resources */,
+				180CA3281ADB9A8C00D42493 /* chat_tool_contract_normal.png in Resources */,
 				18D0820D1ACFC37C004FA20F /* chat_contact_list_delete_highlighted.png in Resources */,
 				18B564581A8366A4009779A0 /* navigationbar_tool_normal.png in Resources */,
 				183572261AD612AD00A29607 /* talk_sound_normal.png in Resources */,
@@ -6127,6 +6161,7 @@
 				CEACB0361AD618130010D455 /* houses_detail_rent_nuanqi.png in Resources */,
 				47E0D4E31AAEDB9900B5C42A /* myzone_community_novisit_data_icon.png in Resources */,
 				CE5210101ACD0F1800D6230B /* houses_detail_metro_normal.png in Resources */,
+				180CA3251ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png in Resources */,
 				CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
@@ -6180,6 +6215,7 @@
 				18B564351A8366A4009779A0 /* icon152.png in Resources */,
 				CED32B9A1AB6830B00F17C26 /* houses_detail_pricedown.png in Resources */,
 				18B564091A8366A4009779A0 /* home_secondhandhouse_highlighted.png in Resources */,
+				180CA3291ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png in Resources */,
 				475C3D881AB284A30028608F /* myzone_oorderdetail_up_bt.png in Resources */,
 				475C3D761AB171120028608F /* myzone_oorderlist_cell_rent_mark_tip.png in Resources */,
 				183CC66B1A68FC8800B8F97D /* InfoPlist.strings in Resources */,
@@ -6308,6 +6344,7 @@
 				CEACB02E1AD618130010D455 /* houses_detail_rent_food.png in Resources */,
 				18B5642D1A8366A4009779A0 /* houses_mud.png in Resources */,
 				CEACB0551AD62E510010D455 /* house_detail_rent_park_light.png in Resources */,
+				180CA3271ADB9A8C00D42493 /* chat_tool_contract_highlighted.png in Resources */,
 				18B564541A8366A4009779A0 /* navigationbar_setting_normal.png in Resources */,
 				CEACB0301AD618130010D455 /* houses_detail_rent_appliance.png in Resources */,
 				47B8A1D91AC148010083C20A /* myzone_oorderlist_cell_talkprice_bt_selected.png in Resources */,
@@ -6336,9 +6373,11 @@
 				CEACB0381AD618130010D455 /* houses_detail_rent_park.png in Resources */,
 				18B5640A1A8366A4009779A0 /* home_secondhandhouse_normal.png in Resources */,
 				18B564001A8366A4009779A0 /* guide_tenant_haved_circle_tip.png in Resources */,
+				180CA3261ADB9A8C00D42493 /* chat_tool_caclulator_normal.png in Resources */,
 				18B5641D1A8366A4009779A0 /* houses_detail_score.png in Resources */,
 				CEACB02F1AD618130010D455 /* houses_detail_rent_appliance_light.png in Resources */,
 				18B564381A8366A4009779A0 /* icon29.png in Resources */,
+				180CA32A1ADB9A8C00D42493 /* chat_tool_noise_test_normal.png in Resources */,
 				18B5646F1A8366A4009779A0 /* share_weibo_normal.png in Resources */,
 				1865E3D51AB1A47C00FAEC9E /* home_collected_increase_down.png in Resources */,
 				18018AEC1A9FFF5800F35DEB /* houses_list_load_fail690x350.png in Resources */,
@@ -6349,6 +6388,7 @@
 				18EE34841AAC36F50053B909 /* public_arrow_normal60x60.png in Resources */,
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				1865E3D61AB1A47C00FAEC9E /* home_collected_increase_up.png in Resources */,
+				180CA32C1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
 				18B0E2521ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png in Resources */,
 				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
