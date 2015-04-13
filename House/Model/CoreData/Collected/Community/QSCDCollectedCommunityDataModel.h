@@ -95,6 +95,7 @@
 @property (nonatomic, retain) NSString * tj_condition;
 @property (nonatomic, retain) NSString * tj_environment;
 @property (nonatomic, retain) NSString * isSelectedStatus;
+@property (nonatomic, retain) NSString * collected_id;
 
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSSet *houses;

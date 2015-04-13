@@ -176,7 +176,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateFeaturesWithArray:tempModel.features];
     
     ///更新背景图片
-    [self updateBackgroudImage:tempModel.attach_thumb];
+    [self updateBackgroudImage:tempModel.attach_file];
 
 }
 
@@ -194,7 +194,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateCommunityInfo:tempModel.title];
     
     ///更新背景图片
-    [self updateBackgroudImage:tempModel.attach_thumb];
+    [self updateBackgroudImage:tempModel.attach_file];
 
 }
 

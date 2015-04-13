@@ -32,12 +32,12 @@ typedef enum
  */
 typedef enum
 {
-
+    
     uUserCountTypeTenant = 100101,  //!<房客
     uUserCountTypeOwner,            //!<业主
     uUserCountTypeAgency,           //!<中介
     uUserCountTypeDeveloper         //!<开发商
-
+    
 }USER_COUNT_TYPE;                   //!<用户账号权限类型
 
 ///消息是自己的消息，还是别人的消息类型
@@ -61,7 +61,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseAveragerPriceTypeBelowTenThousand = 10000,//!<1万元以下
     hHouseAveragerPriceTypeBelowFifteenThousand,    //!<1万-1.5万
     hHouseAveragerPriceTypeBelowTwentyThousand,     //!<1.5万-2万
@@ -69,7 +69,7 @@ typedef enum
     hHouseAveragerPriceTypeBelowFortyThousand,      //!<3万-4万
     hHouseAveragerPriceTypeBelowFiftyThousand,      //!<4万-5万
     hHouseAveragerPriceTypeOverFiftyThousand        //!<5万以上
-
+    
 }HOUSE_AVERAGEPRICE_TYPE;                           //!<房源均价
 
 /*
@@ -80,11 +80,11 @@ typedef enum
  */
 typedef enum
 {
-
+    
     bBuildingStructureTypeTower = 200101,   //!<塔楼
     bBuildingStructureTypeBoard,            //!<板楼
     bBuildingStructureTypeBungalow          //!<平房
-
+    
 }BUILDING_STRUCTURE_TYPE;                   //!建筑结构
 
 /**
@@ -105,13 +105,13 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseDecorationTypeLuxurious = 200201, //!<豪华装修
     hHouseDecorationTypeRefined,            //!<精装修
     hHouseDecorationTypeMedium,             //!<中等装修
     hHouseDecorationTypeSimple,             //!<简装修
     hHouseDecorationTypeRough               //!<毛坯
-
+    
 }HOUSE_DECORATION_TYPE;                     //!<房子装修类型
 
 /*
@@ -127,7 +127,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseFeatureTypeMetro = 200301,    //!<地铁房
     hHouseFeatureTypeDegree,            //!<学位房
     hHouseFeatureTypeOverFiveOnly,      //!<满五唯一:满五年，唯一一套房
@@ -136,7 +136,7 @@ typedef enum
     hHouseFeatureTypeNotPurchase,       //!<不限购
     hHouseFeatureTypeEmergencySale,     //!<房东急售
     hHouseFeatureTypeTaxFree            //!<免税房
-
+    
 }HOUSE_FEATURE_TYPE;                    //!<房子的特色标签
 
 /**
@@ -181,7 +181,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     cCommunityInstallationTypeGas = 200401, //!<燃气/天然气
     cCommunityInstallationTypeHeating,      //!<暖气
     cCommunityInstallationTypeLift,         //!<电梯
@@ -190,7 +190,7 @@ typedef enum
     cCommunityInstallationTypeGarden,       //!<花园
     cCommunityInstallationTypeTerrace,      //!<露台
     cCommunityInstallationTypeLoft          //!<阁台
-
+    
 }COMMUNITY_INSTALLATION_TYPE;
 
 /**
@@ -209,13 +209,13 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseListMainTypeBuilding = 200501,   //!<楼盘
     hHouseListMainTypeNewHouse,            //!<新房
     hHouseListMainTypeCommunity,           //!<小区
     hHouseListMainTypeSecondHouse,         //!<二手房
     hHouseListMainTypeRenant               //!<出租房
-
+    
 }HOUSE_LIST_MAIN_TYPE;                      //!<应用中列表主要的过滤类型
 
 /**
@@ -230,10 +230,10 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseNatureTypeOverFiveYear = 200601,  //!<满五年
     hHouseNatureTypeFreeDuty                //!<免税
-
+    
 }HOUSE_NATURE_TYPE;                         //!<房屋性质
 
 /**
@@ -249,10 +249,10 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseRenantPropertyTypeEntire = 200701,//!<整租
     hHouseRenantPropertyTypeJoint           //!<合租
-
+    
 }HOUSE_RENANT_PROPERTY_TYPE;                //!<出租性质
 
 /**
@@ -268,10 +268,10 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseRenantPaymentStyleAA = 200801,    //!<押一付一
     hHouseRenantPaymentStyleTA              //!<押二付一
-
+    
 }HOUSE_RENANT_PAYMENT_STYLE;                //!<出租房的租金支付方式
 
 /**
@@ -288,13 +288,13 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseRoomNumberTypeOne = 200901,   //!<一房
     hHouseRoomNumberTypeTwo,            //!<二房
     hHouseRoomNumberTypeThree,          //!<三房
     hHouseRoomNumberTypeFour,           //!<四房
     hHouseRoomNumberTypeFive            //!<五房
-
+    
 }HOUSE_ROOM_NUMBER_TYPE;                //!<房子的房间数量类型
 
 /**
@@ -312,19 +312,19 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseHallNumberTypeOne = 201001,   //!<一厅
     hHouseHallNumberTypeTwo,            //!<二厅
     hHouseHallNumberTypeThree,          //!<三厅
     hHouseHallNumberTypeFour            //!<四厅
-
+    
 }HOUSE_HALL_NUMBER_TYPE;                //!<房子厅数量类型
 
 /**
  *  @author yangshengmeng, 15-01-27 11:01:28
  *
  *  @brief  房子的卫生间数量类型
- *  
+ *
  *  //户型结构-卫 生间
  *  house_wei" : "201101" "一";
  *  house_wei" : "201102" "二";
@@ -335,12 +335,12 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseToiletNumberTypeOne = 201101, //!<一卫
     hHouseToiletNumberTypeTwo,          //!<二卫
     hHouseToiletNumberTypeThree,        //!<三卫
     hHouseToiletNumberTypeFour          //!<四卫
-
+    
 }HOUSE_TOILET_NUMBER_TYPE;              //!<房子卫生间的数量类型
 
 /**
@@ -358,12 +358,12 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseKitchenNumberTypeOne = 201201,//!<一厨
     hHouseKitchenNumberTypeTwo,         //!<二厨
     hHouseKitchenNumberTypeThree,       //!<三厨
     hHouseKitchenNumberTypeFour         //!<四厨
-
+    
 }HOUSE_KITCHEN_NUMBER_TYPE;             //!<厨房的数量类型
 
 /**
@@ -381,12 +381,12 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseTerraceNumberTypeOne = 201301,//!<一阳台
     hHouseTerraceNumberTypeTwo,         //!<二阳台
     hHouseTerraceNumberTypeThree,       //!<三阳台
     hHouseTerraceNumberTypeFour         //!<四阳台
-
+    
 }HOUSE_TERRACE_NUMBER_TYPE;             //!<房子的阳台数量类型
 
 /**
@@ -406,14 +406,14 @@ typedef enum
  */
 typedef enum
 {
-
+    
     pPurpostPerchaseTypeJust = 201401,  //!<刚需房
     pPurpostPerchaseTypeImprove,        //!<改善房
     pPurpostPerchaseTypeMarriage,       //!<婚房
     pPurpostPerchaseTypeDegree,         //!<学位房
     pPurpostPerchaseTypeEndowment,      //!<养老房
     pPurpostPerchaseTypeInvestment      //!<投资房
-
+    
 }PURPOSE_PERCHASE_TYPE;                 //!<购房目的类型
 
 /**
@@ -428,7 +428,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseFaceTypeEast = 201501,    //!<朝东
     hHouseFaceTypeSoutheast,        //!<东南
     hHouseFaceTypeSouth,            //!<朝南
@@ -437,7 +437,7 @@ typedef enum
     hHouseFaceTypeNorthwest,        //!<西北
     hHouseFaceTypeNorth,            //!<朝北
     hHouseFaceTypeNortheast         //!<东北
-
+    
 }HOUSE_FACE_TYPE;                   //!<房子朝向类型
 
 /*
@@ -453,7 +453,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     hHouseRenantInstallationTypeTheBag = 201601,    //!<拎包入住
     hHouseRenantInstallationTypeAppliance,          //!<家电齐全
     hHouseRenantInstallationTypeNetworking,         //!<可上网
@@ -462,29 +462,29 @@ typedef enum
     hHouseRenantInstallationTypeAirCondiction,      //!<空调房
     hHouseRenantInstallationTypeHeating = 201607,   //!<有暖气
     hHouseRenantInstallationTypeParking             //!<带车位
-
+    
 }HOUSE_RENANT_INSTALLATION_TYPE;                    //!<出租房子的配套
 
 ///出租房的限制类型
 typedef enum
 {
-
+    
     rRentHouseLimitedTypeUnLimited = 990601,//!<男女不限
     rRentHouseLimitedTypeMale,              //!<艰男生
     rRentHouseLimitedTypeFemale,            //!<限女生
-
+    
 }RENT_HOUSE_LIMITED_TYPE;
 
 ///房子的状态类型
 typedef enum
 {
-
+    
     hHouseStatusTypeDeleted = -1,   //!<已删除
     hHouseStatusTypeUnRelease = 0,  //!<未发布
     hHouseStatusTypeReleased = 1,   //!<已发布
     hHouseStatusTypeRented = 2,     //!<已出租
     hHouseStatusTypeSaled = 3       //!<已出售
-
+    
 }HOUSE_STASUTS_TYPE;
 
 ///初始化时，过滤器类型
@@ -519,7 +519,7 @@ typedef enum
     hHouseListActionTypeHaveRecord,     //!<有记录
     hHouseListActionTypeGotoDetail,     //!<点击进入详情页
     hHouseListActionTypeShake,          //!<摇一摇
-
+    
     
 }HOUSE_LIST_ACTION_TYPE;
 
@@ -558,7 +558,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     rRequestResultTypeSuccess = 99,     //!<请求成功,服务端返回成功
     rRequestResultTypeFail,             //!<请求失败，服务端返回失败
     
@@ -571,7 +571,7 @@ typedef enum
     
     rRequestResultTypeNoNetworking,     //!<请求失败，无可用网络
     rRequestResultTypeBadNetworking     //!<请求失败，网络不稳定
-
+    
 }REQUEST_RESULT_STATUS;                 //!<网络请求结果标识
 
 /**
@@ -583,7 +583,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     rRequestHttpRequestTypeGet = 0, //!<GET请求
     rRequestHttpRequestTypePost     //!<POST请求
     
@@ -598,7 +598,7 @@ typedef enum
  */
 typedef enum
 {
-
+    
     rRequestTypeAdvert = 999,                   //!<广告信息请求：第一个请求
     rRequestTypeAppBaseInfo = 1000,             //!<应用中的基本信息版本请求：如可选城市
     rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
@@ -675,7 +675,7 @@ typedef enum
     rRequestTypeOrderCommitInspected = 10013,   //!<订单详情里完成看房
     
     rRequestTypeImage                           //!<图片请求：末尾请求
-
+    
 }REQUEST_TYPE;                                  //!<请求类型
 
 #endif

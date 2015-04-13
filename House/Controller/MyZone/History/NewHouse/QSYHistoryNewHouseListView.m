@@ -114,17 +114,17 @@
         
     } else {
         
-        [self.customDataSource removeAllObjects];
-        [self reloadData];
-        
-        [self.header endRefreshing];
-        [self.footer endRefreshing];
-        
         if (self.houseListTapCallBack) {
             
             self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
             
         }
+        
+        [self.customDataSource removeAllObjects];
+        [self reloadData];
+        
+        [self.header endRefreshing];
+        [self.footer endRefreshing];
         
     }
     

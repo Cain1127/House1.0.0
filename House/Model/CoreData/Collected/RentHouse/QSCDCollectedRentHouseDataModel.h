@@ -115,6 +115,7 @@
 @property (nonatomic, retain) NSString * commend;
 @property (nonatomic, retain) NSString * favorite_count;
 @property (nonatomic, retain) NSString * attention_count;
+@property (nonatomic, retain) NSString * collected_id;
 @property (nonatomic, retain) NSSet *photos;
 
 @end

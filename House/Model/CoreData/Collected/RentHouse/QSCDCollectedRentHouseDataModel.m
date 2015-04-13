@@ -113,6 +113,7 @@
 @dynamic commend;
 @dynamic favorite_count;
 @dynamic attention_count;
+@dynamic collected_id;
 @dynamic photos;
 
 @end

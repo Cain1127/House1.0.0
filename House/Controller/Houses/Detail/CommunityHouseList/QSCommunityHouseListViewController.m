@@ -86,7 +86,7 @@ static char CollectionViewKey;          //!<列表
     
     ///中间选择列表类型按钮
     QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:self.filterModel.filter_id];
-    self.houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *selectedKey, NSString *selectedVal) {
+    self.houseListTypePickerView = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 160.0f, 40.0f) andPickerType:cCustomPickerTypeCommunityHouseListMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *selectedKey, NSString *selectedVal) {
         
         ///如果是显示选择窗口，则隐藏其他窗口
         if (pPickerCallBackActionTypeShow == callBackType) {
@@ -439,7 +439,7 @@ static char CollectionViewKey;          //!<列表
         {
             
             ///瀑布流布局器
-            QSWCommunitySecondHandHouseList *listView = [[QSWCommunitySecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSWCommunitySecondHandHouseList *listView = [[QSWCommunitySecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                                 ///过滤回调类型
                                 switch (actionType) {
@@ -483,7 +483,7 @@ static char CollectionViewKey;          //!<列表
             
             
             ///瀑布流布局器
-            QSWCommunityRentHouseList *listView = [[QSWCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSWCommunityRentHouseList *listView = [[QSWCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {

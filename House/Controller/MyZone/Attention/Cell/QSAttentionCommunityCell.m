@@ -9,6 +9,7 @@
 #import "QSAttentionCommunityCell.h"
 
 #import "NSString+Calculation.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSWCommunityDataModel.h"
@@ -74,6 +75,7 @@ static char TitleInfoKey;       //!<标题关联
     addressLabel.textAlignment = NSTextAlignmentCenter;
     addressLabel.textColor = COLOR_CHARACTERS_BLACK;
     addressLabel.text = @"越秀区|北京路";
+    addressLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:addressLabel];
     objc_setAssociatedObject(self, &AddressInfoKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -84,10 +86,13 @@ static char TitleInfoKey;       //!<标题关联
     titleImageView.hidden = YES;
     [self.contentView addSubview:titleImageView];
     
-    ///特色标题底view
+    ///特色标签底view
     UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width - 50.0f * 3.0f - 12.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, titleImageView.frame.origin.y + titleImageView.frame.size.height + 5.0f, 50.0f * 3.0f + 12.0f, 25.0f)];
     [self.contentView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesRootViewKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///均价信息
+    
     
     ///小区信息
     UILabel *communityNameLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, featuresRootView.frame.origin.y, (self.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 5.0f) / 2.0f, 25.0f)];
@@ -159,9 +164,9 @@ static char TitleInfoKey;       //!<标题关联
     
     ///更新图片
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
-    if (bgImageView && model.village.attach_thumb) {
+    if (bgImageView && [model.village.attach_file length] > 0) {
         
-        [bgImageView loadImageWithURL:[model.village.attach_thumb getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
+        [bgImageView setImageWithURL:[model.village.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
     }
 
@@ -213,7 +218,7 @@ static char TitleInfoKey;       //!<标题关联
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
     if (bgImageView && [model.loupan_building.attach_file length] > 0) {
         
-        [bgImageView loadImageWithURL:[model.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
+        [bgImageView setImageWithURL:[model.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
     }
 

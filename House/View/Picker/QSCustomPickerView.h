@@ -14,6 +14,7 @@ typedef enum
     
     cCustomPickerTypeNavigationBarCity = 0,         //!<选择城市
     cCustomPickerTypeNavigationBarHouseMainType,    //!<房子的主要类型过滤
+    cCustomPickerTypeCommunityHouseListMainType,    //!<小区房源列表的类型选择：只能选择二手房/出租房
     
     cCustomPickerTypeChannelBarDistrict,            //!<频道栏地区选择
     cCustomPickerTypeChannelBarHouseType,           //!<频道栏户型选择

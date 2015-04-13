@@ -152,7 +152,7 @@
 	<key>5000</key>
 	<dict>
 		<key>class</key>
-		<string></string>
+		<string>QSCommunityListReturnData</string>
 		<key>url</key>
 		<string>focus/list</string>
 	</dict>

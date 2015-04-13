@@ -142,7 +142,7 @@ static char UserGenderKey;      //!<性别
     ///账户密码
     UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(phoneField.frame.origin.x, phoneField.frame.origin.y + phoneField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, phoneField.frame.size.width, phoneField.frame.size.height) andPlaceHolder:@"" andLeftTipsInfo:@"账户密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     passwordField.delegate = self;
-    passwordField.tag = sSelfSettingFieldActionTypeName;
+    passwordField.tag = sSelfSettingFieldActionTypePassword;
     passwordField.text = @"******";
     [self.view addSubview:passwordField];
     

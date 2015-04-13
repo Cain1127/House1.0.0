@@ -88,6 +88,7 @@
 @dynamic tj_condition;
 @dynamic tj_environment;
 @dynamic isSelectedStatus;
+@dynamic collected_id;
 @dynamic photos;
 @dynamic houses;
 
