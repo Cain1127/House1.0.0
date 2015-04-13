@@ -189,7 +189,7 @@
                 
             }
             
-        } else if ([orderStatus isEqualToString:@"500223"]) {
+        } else if ([orderStatus isEqualToString:@"500223"] || [orderStatus isEqualToString:@"500320"]) {
             
             statusStr = @"已成交";
             
@@ -198,6 +198,11 @@
                    [orderStatus isEqualToString:@"500246"]) {
             
             statusStr = @"已取消";
+            
+        } else if ([orderStatus isEqualToString:@"500301"] ||
+                   [orderStatus isEqualToString:@"500302"]) {
+            
+            statusStr = @"待确认成交";
             
         }
         

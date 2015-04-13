@@ -160,7 +160,7 @@ static char oepnActionBtKey;    //!<右部展开按钮关联key
 - (NSAttributedString*)orderNumStringWithCount:(NSInteger)count
 {
     
-    NSString *countStr = [NSString stringWithFormat:@"(%d)",count];
+    NSString *countStr = [NSString stringWithFormat:@"(%ld)",(long)count];
     NSString *lastString = @"条订单";//TODO:三种状态判断
     if (orderTypeName && ![orderTypeName isEqualToString:@""]) {
         lastString = [NSString stringWithFormat:@"条%@订单",orderTypeName];

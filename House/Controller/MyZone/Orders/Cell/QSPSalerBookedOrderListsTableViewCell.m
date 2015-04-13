@@ -118,7 +118,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500252 == button.tag ){
             //同意还价
             
+        }else if (500302 == button.tag ){
+            //提醒房客
+            [self noticeUserOnTransactionOrder];
+        }else if (500301 == button.tag ){
+            //确认完成订单
+            [self commitTransactionOrder];
         }
+        
         
         
     }];
@@ -203,6 +210,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.normalImg] forState:UIControlStateNormal];
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateHighlighted];
                             [rightBt setImage:[UIImage imageNamed:rightBtAction.highLightImg] forState:UIControlStateSelected];
+                            [rightBt setHidden:NO];
                             
                         }
                         
@@ -525,5 +533,152 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }];
 }
 
+#pragma mark - 成交订单提醒对方
+- (void)noticeUserOnTransactionOrder
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderTransationNoticeUser andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+//             [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
+#pragma mark - 确认成交订单
+- (void)commitTransactionOrder
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitTransation andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
 
 @end

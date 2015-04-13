@@ -241,6 +241,7 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
             QSOrderListItemData *orderItem = [self.pendingListDataSource objectAtIndex:indexPath.row];
             [bookedVc setOrderListItemData:orderItem];
         }
+        [bookedVc setOrderType:mOrderWithUserTypeTransaction];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
     

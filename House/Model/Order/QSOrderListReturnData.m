@@ -177,7 +177,9 @@
                     ||[orderInfoData.order_status isEqualToString:@"500220"]
                     ||[orderInfoData.order_status isEqualToString:@"500221"]
                     ||[orderInfoData.order_status isEqualToString:@"500222"]
-                    ||[orderInfoData.order_status isEqualToString:@"500223"]) {
+                    ||[orderInfoData.order_status isEqualToString:@"500223"]
+                    ||[orderInfoData.order_status isEqualToString:@"500301"]
+                    ||[orderInfoData.order_status isEqualToString:@"500302"]) {
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
@@ -376,8 +378,13 @@
                         summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue]];
                     }
                     
+                }else if ([orderInfoData.order_status isEqualToString:@"500301"]
+                          ||[orderInfoData.order_status isEqualToString:@"500302"]) {
+                    
+                    
+                    summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.house_price floatValue] WithSecondTip:@"万|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue]];
+                    
                 }
-                
                 
             }
         }
@@ -424,6 +431,35 @@
     //设置字体大小
     [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_12] range:NSMakeRange(0, summaryString.length)];
     [summaryString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_14] range:NSMakeRange(tipString.length, priceStr.length)];
+    return summaryString;
+    
+}
+
+- (NSAttributedString*)priceStringWithFirstTip:(NSString*)tip1String withFirstPricef:(CGFloat)price1f WithSecondTip:(NSString*)tip2String withSecondPricef:(CGFloat)price2f
+{
+    
+    price1f = price1f/10000.0;
+    NSInteger price1Int = (NSInteger)price1f;
+    NSString *price1Str = [NSString stringWithFormat:@"%ld",(long)price1Int];
+    
+    price2f = price2f/10000.0;
+    NSInteger price2Int = (NSInteger)price2f;
+    NSString *price2Str = [NSString stringWithFormat:@"%ld",(long)price2Int];
+    
+    NSMutableAttributedString *summaryString;
+    
+    if (price1Str&&[price1Str isKindOfClass:[NSString class]]) {
+        
+        NSString *tempString = [NSString stringWithFormat:@"%@%@%@%@万",tip1String,price1Str,tip2String,price2Str];
+        
+        summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
+        
+        [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, summaryString.length)];
+        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tip1String.length, price1Str.length)];
+        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tip1String.length+price1Str.length+tip2String.length, price2Str.length)];
+        
+    }
+
     return summaryString;
     
 }

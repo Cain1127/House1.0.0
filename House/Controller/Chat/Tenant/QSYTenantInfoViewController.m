@@ -486,6 +486,7 @@
         
         QSPOrderDetailBookedViewController *orderDetailVC = [[QSPOrderDetailBookedViewController alloc] init];
         orderDetailVC.orderID = self.orderInfo.id_;
+        [orderDetailVC setOrderType:mOrderWithUserTypeAppointment];
         [self.navigationController pushViewController:orderDetailVC animated:YES];
         return;
         

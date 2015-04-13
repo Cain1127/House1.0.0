@@ -767,6 +767,66 @@
                 
             }
             
+        }else if ([self.order_status isEqualToString:@"500302"]) {
+            //成交订单待房客确认成交
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowPersonInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                //取消成交、提醒房客
+                self.isShowCancelTransAndWarmBuyerButtonView = YES;
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                //取消成交、确定成交
+                self.isShowCancelTransAndCompleteButtonView = YES;
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500301"]) {
+            //成交订单待业主确认成交
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowPersonInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                //取消成交、确定成交
+                self.isShowCancelTransAndCompleteButtonView = YES;
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                //取消成交、提醒业主
+                self.isShowCancelTransAndWarmSalerButtonView = YES;
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500320"]) {
+            //成交订单已成交
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowPersonInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
+        }else if ([self.order_status isEqualToString:@"500340"]
+                  ||[self.order_status isEqualToString:@"500341"]
+                  ||[self.order_status isEqualToString:@"500346"]) {
+            //成交订单已取消
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowHousePriceView = YES;
+            self.isShowPersonInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+            
         }
         
         //缺 成交订单  – 已取消 状态码未确定

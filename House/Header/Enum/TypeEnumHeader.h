@@ -652,6 +652,10 @@ typedef enum
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
     
+    rRequestTypeOrderCancelTransation = 7001,   //!<订单详情里取消成交订单
+    rRequestTypeOrderCommitTransation = 7002,   //!<订单详情里确认成交订单
+    rRequestTypeOrderTransationNoticeUser = 7003,   //!<成交订单提醒对方
+    
     rRequestTypeOrderAppointmentDetailData = 8001,  //!<预约订单详情
     rRequestTypeOrderTransationDetailData = 8002,   //!<成交订单详情
     rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据

@@ -222,6 +222,7 @@ static char CancelListNoDataViewKey;      //!<已取消列表无数据关联
             QSOrderListItemData *orderItem = [self.cancelListDataSource objectAtIndex:indexPath.row];
             [bookedVc setOrderListItemData:orderItem];
         }
+        [bookedVc setOrderType:mOrderWithUserTypeAppointment];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }
