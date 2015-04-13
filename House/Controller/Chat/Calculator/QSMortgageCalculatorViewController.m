@@ -23,6 +23,10 @@
 
 #import <objc/runtime.h>
 
+///默认的顶部导航栏高度
+#define RATE_DEFAULT_ACCUMULATION_VALUE   4.05f      //!<公积金贷款利率
+#define RATE_DEFAULT_BUSINESS_VALUE       6.15f      //!<商业贷款利率
+
 ///关联
 static char accumulationTextFieldKey;   //!<公积金关联KEY
 static char BusinessViewKey;            //!<商业贷款关联KEY
@@ -382,12 +386,12 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     
     if (mortageType == mMortgageAccumulationType) {
         
-        rateResultLabel.text = @"4.05%";
+        rateResultLabel.text = [NSString stringWithFormat:@"%.2f", RATE_DEFAULT_ACCUMULATION_VALUE];
         
     }
     else
     {
-        rateResultLabel.text = @"6.15%";
+        rateResultLabel.text = [NSString stringWithFormat:@"%.2f", RATE_DEFAULT_BUSINESS_VALUE];
         
     }
     [rateView addSubview:rateResultLabel];
@@ -468,7 +472,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
             NSString *totalString = totalTextField.text;
             if ([totalString length] <= 0) {
                 
-                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请商业贷款总额", 1.0f, ^(){
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入商业贷款总额", 1.0f, ^(){
                     
                     [totalTextField becomeFirstResponder];
                     
@@ -478,15 +482,15 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
             }
             
             ///刷新数据
-            
+ 
             ///月均还款
-            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[accumulationTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeCalculateHousingAccumulationFundLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f]+[NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
+            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[accumulationTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeCalculateHousingAccumulationFundLoan andRate:RATE_DEFAULT_ACCUMULATION_VALUE/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f] + [NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
             
             ///还款总额
             repaymentToalResult.text = [NSString stringWithFormat:@"%.2f%@",[monthPaymentResult.text floatValue]*[yearResultLabel.text floatValue]*12.0f,@"元"];
             
             ///支付利息
-            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[totalTextField.text floatValue]*10000.0f,@"元"];
+            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[accumulationTextField.text floatValue]*10000.0f -[totalTextField.text floatValue]*10000.0f,@"元"];
             
         }
         

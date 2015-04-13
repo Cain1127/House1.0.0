@@ -61,12 +61,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @interface QSWHousesMapDistributionViewController ()<MAMapViewDelegate,AMapSearchDelegate,CLLocationManagerDelegate>
 {
     
-    MAMapView *_mapView;
-    AMapSearchAPI *_search;
-    
-    CLLocation *_currentLocation;  //!<用户当前地理位置
-    
-    CLLocationManager      *_locationmanager;
+    MAMapView *_mapView;                        //!<地图
+    AMapSearchAPI *_search;                     //!<搜索服务
+    CLLocation *_currentLocation;               //!<用户当前地理位置
+    CLLocationManager  *_locationmanager;       //!<定位管理器
     
 }
 
@@ -750,8 +748,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)addAnnotations
 {
     
-    //    QSMapCommunityDataModel *tempModel = [[QSMapCommunityDataModel alloc] init];
-    
     NSMutableArray *annoArray=[[NSMutableArray alloc] init];
     
     for (int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
@@ -777,9 +773,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         [annoArray addObject:anno];
         
         [_mapView addAnnotation:anno];
-        
-        //黙认选中
-        //[_mapView selectAnnotation:anno animated:YES];
         
     }
     
@@ -850,12 +843,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///显示HUD
     __block QSCustomHUDView *hud=[QSCustomHUDView showCustomHUD];
     /// 当前用户坐标
-    CGFloat clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 23.333;
-    CGFloat clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 113.333;
+    double clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 23.333;
+    double clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 113.333;
     
     ///网络请求坐标
-    NSString *latitude=[NSString stringWithFormat:@"%f",_latitude ? _latitude : clatitude];
-    NSString *longtude=[NSString stringWithFormat:@"%f",_longtude ? _longtude : clongitude];
+    NSString *latitude=[NSString stringWithFormat:@"%lf",_latitude ? _latitude : clatitude];
+    NSString *longtude=[NSString stringWithFormat:@"%lf",_longtude ? _longtude : clongitude];
     NSString *map_type=[NSString stringWithFormat:@"%d",(int)self.listType];
     
     APPLICATION_LOG_INFO(@"网络请求经度", latitude);
