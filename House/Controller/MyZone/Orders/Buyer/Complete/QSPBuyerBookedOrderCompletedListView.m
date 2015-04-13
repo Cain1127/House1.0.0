@@ -219,6 +219,7 @@ static char CompleteListNoDataViewKey;      //!<已看房列表无数据关联
             QSOrderListItemData *orderItem = [self.completeListDataSource objectAtIndex:indexPath.row];
             [bookedVc setOrderListItemData:orderItem];
         }
+        [bookedVc setOrderType:mOrderWithUserTypeAppointment];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }
 }

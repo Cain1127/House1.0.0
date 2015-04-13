@@ -9,6 +9,7 @@
 #import "QSYTenantInfoViewController.h"
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSYContactSettingViewController.h"
 
 #import "QSYAskRentAndBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
@@ -18,6 +19,7 @@
 #import "QSYCallTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSYAskRentAndBuyReturnData.h"
 #import "QSYContactDetailReturnData.h"
@@ -80,6 +82,44 @@
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:self.tenantName];
+    
+    ///说明
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeUserDetail];
+    
+    UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID andContactName:self.tenantName isFriends:self.contactInfo.contactInfo.id_ isImport:self.contactInfo.contactInfo.is_import andCallBack:^(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType, id params) {
+            
+            switch (actionType) {
+                    ///添加成为联系人
+                case cContactSettingCallBackActionTypeAddContact:
+                {
+                    
+                    self.contactInfo.contactInfo.id_ = params;
+                    [self.userInfoRootView reloadData];
+                    
+                }
+                    break;
+                    
+                    ///删除联系人
+                case cContactSettingCallBackActionTypeDeleteContact:
+                {
+                    
+                    self.contactInfo.contactInfo.id_ = @"0";
+                    [self.userInfoRootView reloadData];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }];
+        [self.navigationController pushViewController:contactSettingVC animated:YES];
+        
+    }];
+    [self setNavigationBarRightView:detailButton];
     
 }
 
@@ -473,6 +513,7 @@
         
         QSPOrderDetailBookedViewController *orderDetailVC = [[QSPOrderDetailBookedViewController alloc] init];
         orderDetailVC.orderID = self.orderInfo.id_;
+        [orderDetailVC setOrderType:mOrderWithUserTypeAppointment];
         [self.navigationController pushViewController:orderDetailVC animated:YES];
         return;
         

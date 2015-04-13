@@ -637,6 +637,8 @@ typedef enum
     rRequestTypeChatContactInfo,                //!<联系人信息
     rRequestTypeChatContactAdd,                 //!<添加联系人
     rRequestTypeChatContactInfoChange,          //!<联系人信息修改
+    rRequestTypeChatComplainContact,            //!<投诉联系人
+    rRequestTypeChatContactDelete,              //!<删除联系人
     
     rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
     rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
@@ -650,6 +652,10 @@ typedef enum
     rRequestTypeMyZoneStatistics = 5500,        //!<个人中心的统计数据
     
     rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
+    
+    rRequestTypeOrderCancelTransation = 7001,   //!<订单详情里取消成交订单
+    rRequestTypeOrderCommitTransation = 7002,   //!<订单详情里确认成交订单
+    rRequestTypeOrderTransationNoticeUser = 7003,   //!<成交订单提醒对方
     
     rRequestTypeOrderAppointmentDetailData = 8001,  //!<预约订单详情
     rRequestTypeOrderTransationDetailData = 8002,   //!<成交订单详情

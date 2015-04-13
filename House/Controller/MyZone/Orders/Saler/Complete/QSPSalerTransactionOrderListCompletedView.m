@@ -245,7 +245,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 - (void)clickItemInHeaderViewWithData:(id)data withSection:(NSInteger)section
 {
     
-    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%d",data ,section);
+    NSLog(@"clickItemInHeaderViewWithData %@ withSection:%ld",data ,(long)section);
     UITableView *tableView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
     
     if (_currentShowHeaderIndex==-1) {
@@ -267,8 +267,20 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 ///返回一共有多少条订单记录
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSInteger count = 0;
     
-    return [_completeListDataSource count];
+    if (_currentShowHeaderIndex != -1) {
+        if (section == _currentShowHeaderIndex) {
+            
+            if ([self.completeListDataSource objectAtIndex:section]&&[[self.completeListDataSource objectAtIndex:section] orderInfoList]&&[[[self.completeListDataSource objectAtIndex:section] orderInfoList] count]>0) {
+                
+                count = [[[self.completeListDataSource objectAtIndex:section] orderInfoList] count];
+                
+            }
+        }
+    }
+    
+    return count;
     
 }
 
@@ -295,6 +307,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
                 [bookedVc setOrderListItemData:orderItem];
             }
         }
+        [bookedVc setOrderType:mOrderWithUserTypeTransaction];
         [bookedVc setSelectedIndex:indexPath.row];
         [self.parentViewController.navigationController pushViewController:bookedVc animated:YES];
     }

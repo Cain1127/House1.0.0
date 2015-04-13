@@ -226,7 +226,7 @@ static char PhoneInfoKey;   //!<联系信息
 - (void)addContact:(UIButton *)button
 {
     
-    ///如果本来已添加，则不修改
+    ///如果本来已添加，则不动作
     if (button.selected) {
         
         return;

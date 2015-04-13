@@ -304,6 +304,7 @@ static char LeftStarKey;            //!<左侧星级
                         ///已登录进入预约
                         QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
                         orderDetailPage.orderID = self.detailInfo.expandInfo.is_book;
+                        [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];
                         [self.navigationController pushViewController:orderDetailPage animated:YES];
                         
                     }
@@ -1356,14 +1357,14 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
     
     ///如果未预约，则隐藏手机号
-    if ([self.detailInfo.expandInfo.is_book intValue] == 0) {
+    if ([self.detailInfo.expandInfo.is_book length] <= 0) {
         
         commentLabel.text = [NSString stringWithFormat:@"%@******%@ (%@) | 二手房(%@) | 出租(%@)",[userInfoModel.mobile substringToIndex:3],[userInfoModel.mobile substringFromIndex:9],@"未开放",userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
         
     }
     
     ///如果已经预约过，则显示电话号码
-    if (1 == [self.detailInfo.expandInfo.is_book intValue]) {
+    if (1 <= [self.detailInfo.expandInfo.is_book length]) {
         
         commentLabel.text = [NSString stringWithFormat:@"%@ | 二手房(%@) | 出租(%@)",userInfoModel.mobile,userInfoModel.tj_secondHouse_num,userInfoModel.tj_rentHouse_num];
         

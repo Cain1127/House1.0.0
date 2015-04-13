@@ -46,7 +46,7 @@
         
         UIColor *color = COLOR_CHARACTERS_GRAY;//COLOR_CHARACTERS_LIGHTYELLOW;
         
-        if ([@"500258" isEqualToString:tempOrderData.order_status]) {
+        if ([@"500258" isEqualToString:tempOrderData.order_status] || [@"500301" isEqualToString:tempOrderData.order_status] || [@"500302" isEqualToString:tempOrderData.order_status]|| [@"500320" isEqualToString:tempOrderData.order_status]) {
             color = COLOR_CHARACTERS_YELLOW;
         }
         

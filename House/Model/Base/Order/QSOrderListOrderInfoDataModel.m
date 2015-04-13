@@ -491,6 +491,52 @@
             leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
             [btList addObject:leftBt];
             
+        }else if ([self.order_status isEqualToString:@"500301"]) {
+            //客户确认成功
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"成交";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"提醒";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+                
+            }
+        }else if ([self.order_status isEqualToString:@"500302"]) {
+            //客户确认成功
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"提醒";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"成交";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+            }
         }else if ([self.order_status isEqualToString:@"500240"]) {
             //系统取消
         }else if ([self.order_status isEqualToString:@"500241"]) {

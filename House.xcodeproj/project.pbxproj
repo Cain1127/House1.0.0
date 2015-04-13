@@ -23,8 +23,12 @@
 		180CA3281ADB9A8C00D42493 /* chat_tool_contract_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */; };
 		180CA3291ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */; };
 		180CA32A1ADB9A8C00D42493 /* chat_tool_noise_test_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */; };
-		180CA32B1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */; };
-		180CA32C1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */; };
+		180CA32B1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3231ADB9A8C00D42493 /* chat_tool_qa_normal.png */; };
+		180CA32C1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 180CA3241ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */; };
+		180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */; };
+		180CA3341ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */; };
+		180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */; };
+		180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */; };
 		181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */; };
 		181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F91ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m */; };
 		181524031ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524021ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m */; };
@@ -837,8 +841,16 @@
 		180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_contract_normal.png; sourceTree = "<group>"; };
 		180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_noise_test_highlighted.png; sourceTree = "<group>"; };
 		180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_noise_test_normal.png; sourceTree = "<group>"; };
-		180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_highlighted.png; sourceTree = "<group>"; };
-		180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_normal.png; sourceTree = "<group>"; };
+		180CA3231ADB9A8C00D42493 /* chat_tool_qa_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_normal.png; sourceTree = "<group>"; };
+		180CA3241ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_tool_qa_highlighted.png; sourceTree = "<group>"; };
+		180CA32E1ADBA24100D42493 /* QSYToolContractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYToolContractViewController.h; path = Setting/Contract/QSYToolContractViewController.h; sourceTree = "<group>"; };
+		180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolContractViewController.m; path = Setting/Contract/QSYToolContractViewController.m; sourceTree = "<group>"; };
+		180CA3321ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYToolQuestionAndAnswerViewController.h; path = Setting/QAA/QSYToolQuestionAndAnswerViewController.h; sourceTree = "<group>"; };
+		180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQuestionAndAnswerViewController.m; path = Setting/QAA/QSYToolQuestionAndAnswerViewController.m; sourceTree = "<group>"; };
+		180CA3351ADBA35800D42493 /* QSYToolQAADetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYToolQAADetailViewController.h; path = Setting/QAA/QSYToolQAADetailViewController.h; sourceTree = "<group>"; };
+		180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQAADetailViewController.m; path = Setting/QAA/QSYToolQAADetailViewController.m; sourceTree = "<group>"; };
+		180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactComplaintViewController.h; path = Tenant/QSYContactComplaintViewController.h; sourceTree = "<group>"; };
+		180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactComplaintViewController.m; path = Tenant/QSYContactComplaintViewController.m; sourceTree = "<group>"; };
 		181523F51ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHouseDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.h; sourceTree = "<group>"; };
 		181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedRentHouseDataModel.m; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.m; sourceTree = "<group>"; };
 		181523F81ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHousePhotoDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHousePhotoDataModel.h; sourceTree = "<group>"; };
@@ -2179,6 +2191,8 @@
 		180CA3181ADB95AB00D42493 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				180CA3311ADBA26D00D42493 /* QAA */,
+				180CA32D1ADBA22400D42493 /* Contract */,
 				180CA3191ADB95D100D42493 /* QSYChatToolViewController.h */,
 				180CA31A1ADB95D100D42493 /* QSYChatToolViewController.m */,
 			);
@@ -2194,10 +2208,30 @@
 				180CA3201ADB9A8C00D42493 /* chat_tool_contract_normal.png */,
 				180CA3211ADB9A8C00D42493 /* chat_tool_noise_test_highlighted.png */,
 				180CA3221ADB9A8C00D42493 /* chat_tool_noise_test_normal.png */,
-				180CA3231ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */,
-				180CA3241ADB9A8C00D42493 /* chat_tool_qa_normal.png */,
+				180CA3231ADB9A8C00D42493 /* chat_tool_qa_normal.png */,
+				180CA3241ADB9A8C00D42493 /* chat_tool_qa_highlighted.png */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		180CA32D1ADBA22400D42493 /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				180CA32E1ADBA24100D42493 /* QSYToolContractViewController.h */,
+				180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */,
+			);
+			name = Contract;
+			sourceTree = "<group>";
+		};
+		180CA3311ADBA26D00D42493 /* QAA */ = {
+			isa = PBXGroup;
+			children = (
+				180CA3321ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.h */,
+				180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */,
+				180CA3351ADBA35800D42493 /* QSYToolQAADetailViewController.h */,
+				180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */,
+			);
+			name = QAA;
 			sourceTree = "<group>";
 		};
 		181523F21ABFDF5F00C609B0 /* NewHouse */ = {
@@ -4752,6 +4786,8 @@
 				18D081ED1ACE7FFC004FA20F /* QSYContactSettingViewController.m */,
 				18D081EF1ACE8170004FA20F /* QSYContactRemarkSettinViewController.h */,
 				18D081F01ACE8170004FA20F /* QSYContactRemarkSettinViewController.m */,
+				180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */,
+				180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */,
 			);
 			name = Tenant;
 			sourceTree = "<group>";
@@ -6095,7 +6131,7 @@
 				475C3D701AB171120028608F /* myzone_oorderlist_cell_ask_bt_selected.png in Resources */,
 				18B563F21A8366A4009779A0 /* developer_actives.png in Resources */,
 				18B563FB1A8366A4009779A0 /* guide_houses_haved.png in Resources */,
-				180CA32B1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */,
+				180CA32B1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */,
 				1865E3BA1AB137D600FAEC9E /* FilterFindHouseRenantHouseReset.plist in Resources */,
 				CE52100D1ACD0F1800D6230B /* houses_detail_market_highlighted.png in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
@@ -6388,7 +6424,7 @@
 				18EE34841AAC36F50053B909 /* public_arrow_normal60x60.png in Resources */,
 				18B564031A8366A4009779A0 /* home_bambooplate_highlighted.png in Resources */,
 				1865E3D61AB1A47C00FAEC9E /* home_collected_increase_up.png in Resources */,
-				180CA32C1ADB9A8C00D42493 /* chat_tool_qa_normal.png in Resources */,
+				180CA32C1ADB9A8C00D42493 /* chat_tool_qa_highlighted.png in Resources */,
 				18B564371A8366A4009779A0 /* icon240.png in Resources */,
 				18B0E2521ACAE59A00C8EE9E /* myzone_ask_list_setting_close_normal.png in Resources */,
 				18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */,
@@ -6504,6 +6540,7 @@
 				18B5729A1AC16D1600C75682 /* printer.cc in Sources */,
 				187CA8C81AA2FD7200841A7E /* QSNewHouseListReturnData.m in Sources */,
 				18D081A41ACD51EC004FA20F /* QSYReleasePickCommunityViewController.m in Sources */,
+				180CA3341ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m in Sources */,
 				18DABAAE1AAD4E1B00647E7C /* QSLoupanInfoDataModel.m in Sources */,
 				475C3DA01AB3D9F60028608F /* QSOrderListHouseInfoDataModel.m in Sources */,
 				18DFE8591AC69A9900C216C3 /* QSYCollectedSecondHandHouseListView.m in Sources */,
@@ -6662,6 +6699,7 @@
 				CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */,
 				18D081E41ACE7C43004FA20F /* QSYTenantInfoViewController.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
+				180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */,
 				478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */,
 				1815241B1ABFE31900C609B0 /* QSCDCollectedNewHouseAllHousesDataModel.m in Sources */,
 				18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */,
@@ -6687,6 +6725,7 @@
 				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
 				477B32771AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
+				180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */,
@@ -6865,6 +6904,7 @@
 				CE5210201ACE7A1200D6230B /* QSCommentListDataModel.m in Sources */,
 				18E8021B1A6FCF3200CA21D4 /* QSCoreDataManager+Advert.m in Sources */,
 				180CA31B1ADB95D100D42493 /* QSYChatToolViewController.m in Sources */,
+				180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */,
 				182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */,
 				475A4D331AC3E65A009881CF /* QSPBuyerBookedOrderCompletedListView.m in Sources */,
 				CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */,
@@ -6992,8 +7032,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7021,7 +7061,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7033,8 +7073,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7062,7 +7102,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

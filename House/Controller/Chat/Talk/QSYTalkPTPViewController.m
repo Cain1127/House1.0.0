@@ -86,7 +86,15 @@
     UIButton *userDetailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///判断用户类型
-        if (uUserCountTypeAgency == [self.userModel.user_type intValue]) {
+        if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
+            
+            QSYTenantInfoViewController *agentInfoVC = [[QSYTenantInfoViewController alloc] initWithName:self.userModel.username andAgentID:self.userModel.id_];
+            [self.navigationController pushViewController:agentInfoVC animated:YES];
+            
+        }
+        
+        ///普通房客户，则进入普通房客页面
+        if (uUserCountTypeTenant == [self.userModel.user_type intValue]) {
             
             QSYTenantInfoViewController *agentInfoVC = [[QSYTenantInfoViewController alloc] initWithName:self.userModel.username andAgentID:self.userModel.id_];
             [self.navigationController pushViewController:agentInfoVC animated:YES];

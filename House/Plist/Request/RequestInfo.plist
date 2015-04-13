@@ -2,6 +2,41 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>4006</key>
+	<dict>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+		<key>url</key>
+		<string>linkMan/del</string>
+	</dict>
+	<key>4005</key>
+	<dict>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+		<key>url</key>
+		<string>order/complaint</string>
+	</dict>
+	<key>7001</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>commitOrder/cancel</string>
+	</dict>
+	<key>7002</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>commitOrder/commit</string>
+	</dict>
+	<key>7003</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>commitOrder/notice</string>
+	</dict>
 	<key>10005</key>
 	<dict>
 		<key>class</key>
