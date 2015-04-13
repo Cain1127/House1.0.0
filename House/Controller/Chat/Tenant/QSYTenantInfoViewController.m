@@ -9,6 +9,7 @@
 #import "QSYTenantInfoViewController.h"
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSYContactSettingViewController.h"
 
 #import "QSYAskRentAndBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
@@ -18,6 +19,7 @@
 #import "QSYCallTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSYAskRentAndBuyReturnData.h"
 #import "QSYContactDetailReturnData.h"
@@ -80,6 +82,17 @@
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:self.tenantName];
+    
+    ///说明
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeUserDetail];
+    
+    UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID];
+        [self.navigationController pushViewController:contactSettingVC animated:YES];
+        
+    }];
+    [self setNavigationBarRightView:detailButton];
     
 }
 
