@@ -88,7 +88,7 @@
     
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID];
+        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID isFriends:([self.contactInfo.contactInfo.id_ intValue] > 0) isImport:self.contactInfo.contactInfo.is_import];
         [self.navigationController pushViewController:contactSettingVC animated:YES];
         
     }];

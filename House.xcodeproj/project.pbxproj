@@ -28,6 +28,7 @@
 		180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */; };
 		180CA3341ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */; };
 		180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */; };
+		180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */; };
 		181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */; };
 		181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F91ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m */; };
 		181524031ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524021ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m */; };
@@ -848,6 +849,8 @@
 		180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQuestionAndAnswerViewController.m; path = Setting/QAA/QSYToolQuestionAndAnswerViewController.m; sourceTree = "<group>"; };
 		180CA3351ADBA35800D42493 /* QSYToolQAADetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYToolQAADetailViewController.h; path = Setting/QAA/QSYToolQAADetailViewController.h; sourceTree = "<group>"; };
 		180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQAADetailViewController.m; path = Setting/QAA/QSYToolQAADetailViewController.m; sourceTree = "<group>"; };
+		180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactComplaintViewController.h; path = Tenant/QSYContactComplaintViewController.h; sourceTree = "<group>"; };
+		180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactComplaintViewController.m; path = Tenant/QSYContactComplaintViewController.m; sourceTree = "<group>"; };
 		181523F51ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHouseDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.h; sourceTree = "<group>"; };
 		181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedRentHouseDataModel.m; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.m; sourceTree = "<group>"; };
 		181523F81ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHousePhotoDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHousePhotoDataModel.h; sourceTree = "<group>"; };
@@ -4783,6 +4786,8 @@
 				18D081ED1ACE7FFC004FA20F /* QSYContactSettingViewController.m */,
 				18D081EF1ACE8170004FA20F /* QSYContactRemarkSettinViewController.h */,
 				18D081F01ACE8170004FA20F /* QSYContactRemarkSettinViewController.m */,
+				180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */,
+				180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */,
 			);
 			name = Tenant;
 			sourceTree = "<group>";
@@ -6720,6 +6725,7 @@
 				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
 				477B32771AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
+				180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				18C8A1331A6AB73E00BB9611 /* QSHouseKeySearchViewController.m in Sources */,
 				187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */,
