@@ -67,6 +67,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
+@property (assign) BOOL isRefresh;                          //!<标识视图出现时是否头部刷新
 
 ///详情信息的数据模型
 @property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;      //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
@@ -106,6 +107,7 @@ static char LeftStarKey;            //!<左侧星级
         self.title = title;
         self.detailID = detailID;
         self.detailType = detailType;
+        self.isRefresh = NO;
         
     }
     
@@ -121,6 +123,7 @@ static char LeftStarKey;            //!<左侧星级
         ///保存相关参数
         self.title = title;
         self.detailID = detailID;
+        self.isRefresh = NO;
         
     }
     
@@ -282,8 +285,7 @@ static char LeftStarKey;            //!<左侧星级
                             if (bBookResultTypeSucess == resultTag) {
                                 
                                 ///预约成功，刷新详情数据
-                                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                                [rootView.header beginRefreshing];
+                                self.isRefresh = YES;
                                 
                             }
                             
@@ -309,8 +311,7 @@ static char LeftStarKey;            //!<左侧星级
                 if (lLoginCheckActionTypeReLogin == flag) {
                     
                     ///刷新数据
-                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                    [rootView.header beginRefreshing];
+                    self.isRefresh = YES;
                     
                 }
                 
@@ -340,8 +341,7 @@ static char LeftStarKey;            //!<左侧星级
                 if (lLoginCheckActionTypeReLogin == flag) {
                     
                     ///刷新数据
-                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                    [rootView.header beginRefreshing];
+                    self.isRefresh = YES;
                     
                 }
                 
@@ -493,8 +493,7 @@ static char LeftStarKey;            //!<左侧星级
                 if (lLoginCheckActionTypeReLogin == flag) {
                     
                     ///刷新数据
-                    UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                    [rootView.header beginRefreshing];
+                    self.isRefresh = YES;
                     
                 }
                 
@@ -1416,8 +1415,7 @@ static char LeftStarKey;            //!<左侧星级
             ///新登录，刷新数据
             if (lLoginCheckActionTypeReLogin == flag) {
                 
-                UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-                [rootView.header beginRefreshing];
+                self.isRefresh = YES;
                 
             }
             
@@ -1770,6 +1768,21 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
+}
+
+#pragma mark - 视图加载后，判断是否进行头部刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    if (self.isRefresh) {
+        
+        self.isRefresh = NO;
+        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+        [rootView.header beginRefreshing];
+        
+    }
+    [super viewWillAppear:animated];
+
 }
 
 @end
