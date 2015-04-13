@@ -1221,7 +1221,102 @@ typedef enum
 - (void)addAskRentAndPurphase
 {
 
+    ///根据不同的类型，添加不同的求租求购
+    if (fFilterMainTypeRentalHouse == [self getFilterTypeWithFilterVCType]) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self addNewAskRentAndRentRecords];
+            
+        });
+        
+    }
     
+    if (fFilterMainTypeSecondHouse == [self getFilterTypeWithFilterVCType]) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self addNewAskRentAndBuyRecords];
+            
+        });
+        
+    }
+
+}
+
+- (void)addNewAskRentAndBuyRecords
+{
+    
+    NSDictionary *params = @{
+                             @"type" : @"2",
+                             @"cityid" : APPLICATION_NSSTRING_SETTING(self.filterModel.city_key, @""),
+                             @"areaid" : APPLICATION_NSSTRING_SETTING(self.filterModel.district_key, @""),
+                             @"street" : APPLICATION_NSSTRING_SETTING(self.filterModel.street_key, @""),
+                             @"intent" : APPLICATION_NSSTRING_SETTING(self.filterModel.buy_purpose_key, @""),
+                             @"price" : APPLICATION_NSSTRING_SETTING(self.filterModel.sale_price_key, @""),
+                             @"house_shi" : APPLICATION_NSSTRING_SETTING(self.filterModel.house_type_key, @""),
+                             @"house_area" : APPLICATION_NSSTRING_SETTING(self.filterModel.house_area_key, @""),
+                             @"property_type" : APPLICATION_NSSTRING_SETTING(self.filterModel.trade_type_key, @""),
+                             @"floor_which" : APPLICATION_NSSTRING_SETTING(self.filterModel.floor_key, @""),
+                             @"house_face" : APPLICATION_NSSTRING_SETTING(self.filterModel.house_face_key, @""),
+                             @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.filterModel.decoration_key, @""),
+                             @"features" : [self.filterModel getFeaturesPostParams],
+                             @"used_year" : APPLICATION_NSSTRING_SETTING(self.filterModel.used_year_key, @""),
+                             @"content" : APPLICATION_NSSTRING_SETTING(self.filterModel.comment, @"")};
+    
+    ///发布
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:@{@"rentPurchaseInfo" : params} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            APPLICATION_LOG_INFO(@"高级过滤->设置为求购", @"成功");
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"高级过滤->设置为求购", @"失败");
+            
+        }
+        
+    }];
+    
+}
+
+- (void)addNewAskRentAndRentRecords
+{
+    
+    NSDictionary *params = @{
+                             @"type" : @"1",
+                             @"rent_property" : APPLICATION_NSSTRING_SETTING(self.filterModel.rent_type_key, @""),
+                             @"cityid" : APPLICATION_NSSTRING_SETTING(self.filterModel.city_key, @""),
+                             @"areaid" : APPLICATION_NSSTRING_SETTING(self.filterModel.district_key, @""),
+                             @"street" : APPLICATION_NSSTRING_SETTING(self.filterModel.street_key, @""),
+                             @"price" : APPLICATION_NSSTRING_SETTING(self.filterModel.rent_price_key, @""),
+                             @"house_shi" : APPLICATION_NSSTRING_SETTING(self.filterModel.house_type_key, @""),
+                             @"property_type" : APPLICATION_NSSTRING_SETTING(self.filterModel.trade_type_key, @""),
+                             @"floor_which" : APPLICATION_NSSTRING_SETTING(self.filterModel.floor_key, @""),
+                             @"house_face" : APPLICATION_NSSTRING_SETTING(self.filterModel.house_face_key, @""),
+                             @"decoration_type" : APPLICATION_NSSTRING_SETTING(self.filterModel.decoration_key, @""),
+                             @"installation" : @"",
+                             @"payment" : APPLICATION_NSSTRING_SETTING(self.filterModel.rent_pay_type_key,@""),
+                             @"features" : [self.filterModel getFeaturesPostParams],
+                             @"content" : APPLICATION_NSSTRING_SETTING(self.filterModel.comment, @"")};
+    
+    ///发布
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAddAskRentPurpase andParams:@{@"rentPurchaseInfo" : params} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///发布成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            APPLICATION_LOG_INFO(@"高级过滤->设置为求租", @"成功");
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"高级过滤->设置为求租", @"失败");
+            
+        }
+        
+    }];
 
 }
 
