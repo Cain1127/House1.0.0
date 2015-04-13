@@ -162,7 +162,7 @@
         
         ///有户名有效性数据
         NSString *nameString = nameField.text;
-        if ([nameString length] > 0 && [nameString length] < 4) {
+        if ([nameString length] > 0 && [nameString length] < 2) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-11个字符", 1.0f, ^(){
             
