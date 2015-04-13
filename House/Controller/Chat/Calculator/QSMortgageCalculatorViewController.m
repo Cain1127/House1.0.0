@@ -24,9 +24,9 @@
 #import <objc/runtime.h>
 
 ///关联
-static char accumulationTextFieldKey;    //!<公积金关联KEY
-static char BusinessViewKey;        //!<商业贷款关联KEY
-static char GrounpViewKey;          //!<组合贷款关联KEY
+static char accumulationTextFieldKey;   //!<公积金关联KEY
+static char BusinessViewKey;            //!<商业贷款关联KEY
+static char GrounpViewKey;              //!<组合贷款关联KEY
 
 @interface QSMortgageCalculatorViewController ()<UITextFieldDelegate>
 
@@ -99,8 +99,8 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         groupButton.selected = NO;
         
         ///切换列表
-        accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
-        
+        accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
+        accumulationTextField.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:accumulationTextField];
         
         [self createMortgageView:accumulationTextField andMortgageType:mMortgageAccumulationType];
@@ -128,7 +128,6 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         objc_setAssociatedObject(self, &accumulationTextFieldKey, accumulationTextField, OBJC_ASSOCIATION_ASSIGN);
         
     }];
-    //accumulationButton.selected = YES;
     [self.view addSubview:accumulationButton];
     
     ///商业贷款
@@ -159,6 +158,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         
         ///切换列表
         businessView = [[UIView alloc] initWithFrame:CGRectMake(xpoint, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
+        businessView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:businessView];
         
         [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
@@ -206,6 +206,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
         
         ///切换列表
         groupView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
+        groupView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:groupView];
         [self createMortgageView:groupView andMortgageType:mMortgageGrounpType];
         ///获取当前正在显示的view
@@ -239,7 +240,7 @@ static char GrounpViewKey;          //!<组合贷款关联KEY
     [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
     
     ///指示三角
-    arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(businessButton.frame.size.width / 2.0f - 7.5f, businessButton.frame.origin.y + businessButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
+    arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(businessButton.frame.origin.x+businessButton.frame.size.width / 2.0f - 7.5f, businessButton.frame.origin.y + businessButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
     arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowIndicator];
     

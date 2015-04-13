@@ -799,7 +799,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         {
             annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
         }
-        //annotationView.image = [UIImage imageNamed:@"home_carpostion0"];
         
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = NO;

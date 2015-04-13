@@ -78,7 +78,7 @@
     
 }
 
-///添加房子位置大头针
+#pragma mark -添加房子位置大头针
 - (void)houseAddressAction
 {
     if (self.coordinate_x)
