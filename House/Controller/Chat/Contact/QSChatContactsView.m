@@ -229,7 +229,7 @@
             titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
             
         }
-        int persionNum = [self.contactDataSource[section] count];
+        int persionNum = (int)[self.contactDataSource[section] count];
         titleLabel.text = [NSString stringWithFormat:@"    重点关注联系人(%d)",persionNum];
         
         return titleLabel;
@@ -247,7 +247,7 @@
             titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
             
         }
-        int persionNum = [self.contactDataSource[section] count];
+        int persionNum = (int)[self.contactDataSource[section] count];
         titleLabel.text = [NSString stringWithFormat:@"    普通联系人(%d)",persionNum];
         
         return titleLabel;

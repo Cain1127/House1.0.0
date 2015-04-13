@@ -111,6 +111,24 @@
                 }
                     break;
                     
+                    ///设置为重点联系人
+                case cContactSettingCallBackActionTypeSetImport:
+                {
+                    
+                    self.contactInfo.contactInfo.is_import = @"1";
+                    
+                }
+                    break;
+                    
+                    ///设置为普通联系人
+                case cContactSettingCallBackActionTypeSetUNImport:
+                {
+                    
+                    self.contactInfo.contactInfo.is_import = @"0";
+                    
+                }
+                    break;
+                    
                 default:
                     break;
             }

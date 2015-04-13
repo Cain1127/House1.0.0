@@ -202,7 +202,25 @@ typedef enum
 - (void)setContactImport:(UISwitch *)onView
 {
 
-    
+    ///如若不是当前用户的联系人，则不能进行备注操作
+    if ([self.isFriends intValue] > 0) {
+        
+        if ([self.isImport intValue] == 1) {
+            
+            [self setContactAsUNImprt:onView];
+            
+        } else {
+        
+            [self setContactAsImprt:onView];
+        
+        }
+        
+    } else {
+        
+        NSString *tipsString = [NSString stringWithFormat:@"%@ 并不是您的联系人，请先添加联系人",self.contactName];
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.0f, ^(){})
+        
+    }
 
 }
 
@@ -244,7 +262,7 @@ typedef enum
         {
         
             ///如若不是当前用户的联系人，则不能进行备注操作
-            if (self.isFriends) {
+            if ([self.isFriends intValue] > 0) {
                 
                 QSYContactRemarkSettinViewController *remarkVC = [[QSYContactRemarkSettinViewController alloc] initWithContactID:self.contactID];
                 [self.navigationController pushViewController:remarkVC animated:YES];
@@ -289,6 +307,7 @@ typedef enum
             ///回调
             if (self.contactInfoChangeCallBack) {
                 
+                self.isFriends = @"0";
                 self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeDeleteContact,nil);
                 
             }
@@ -349,6 +368,94 @@ typedef enum
                 
             }
             [addButton setTitle:@"添加联系人" forState:UIControlStateNormal];
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
+
+}
+
+#pragma mark - 将联系人设置为重点联系人
+- (void)setContactAsImprt:(UISwitch *)onSwitch
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(self.isFriends, @""),
+                             @"is_import" : @"1"};
+    
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactInfoChange andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改按钮状态
+            onSwitch.on = YES;
+            self.isImport = @"1";
+            [hud hiddenCustomHUDWithFooterTips:@"添加成功" andDelayTime:1.5f];
+            
+            if (self.contactInfoChangeCallBack) {
+                
+                self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeSetImport,nil);
+                
+            }
+            
+        } else {
+            
+            NSString *tipsString = @"添加失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            onSwitch.on = NO;
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
+    
+}
+
+- (void)setContactAsUNImprt:(UISwitch *)onView
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(self.isFriends, @""),
+                             @"is_import" : @"0"};
+    
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactInfoChange andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改按钮状态
+            onView.on = NO;
+            self.isImport = @"0";
+            [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
+            
+            if (self.contactInfoChangeCallBack) {
+                
+                self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeSetUNImport,nil);
+                
+            }
+            
+        } else {
+            
+            NSString *tipsString = @"删除失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
             [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
             
         }

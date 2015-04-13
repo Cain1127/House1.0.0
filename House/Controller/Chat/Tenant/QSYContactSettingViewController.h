@@ -12,8 +12,10 @@
 typedef enum
 {
 
-    cContactSettingCallBackActionTypeAddContact = 99,
-    cContactSettingCallBackActionTypeDeleteContact,
+    cContactSettingCallBackActionTypeAddContact = 99,   //!<添加成为联系人
+    cContactSettingCallBackActionTypeDeleteContact,     //!<删除联系人
+    cContactSettingCallBackActionTypeSetImport,         //!<设置为重点关注
+    cContactSettingCallBackActionTypeSetUNImport,       //!<设置为非重点关注
 
 }CONTACT_SETTING_CALLBACK_ACTION_TYPE;
 

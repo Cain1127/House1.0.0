@@ -87,7 +87,7 @@ static char PhoneInfoKey;   //!<联系号码
     [deleteButton setImage:[UIImage imageNamed:IMAGE_CHAT_CONTACTLIST_DELETE_HIGHLIGHTED] forState:UIControlStateHighlighted];
     [self.contentView addSubview:deleteButton];
     
-    UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 80.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
+    UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 80.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
     sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.contentView addSubview:sepLabel];
 
