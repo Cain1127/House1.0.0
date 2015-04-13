@@ -190,7 +190,11 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 {
 
     switch (self.pickerType) {
-            ///导航栏三角图形
+            
+            ///小区房源列表
+        case cCustomPickerTypeCommunityHouseListMainType:
+            
+            ///导航栏房源主类型选择
         case cCustomPickerTypeNavigationBarHouseMainType:
             
             return [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_NORMAL];
@@ -229,7 +233,11 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 {
     
     switch (self.pickerType) {
-            ///导航栏-城市-三角图形
+            
+            ///小区房源列表
+        case cCustomPickerTypeCommunityHouseListMainType:
+            
+            ///导航栏-房源主类型选择
         case cCustomPickerTypeNavigationBarHouseMainType:
             
             return [UIImage imageNamed:IMAGE_NAVIGATIONBAR_DISPLAY_ARROW_HIGHLIGHTED];
@@ -272,6 +280,9 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             ///导航栏城市选择
         case cCustomPickerTypeNavigationBarCity:
             
+            ///小区房源列表
+        case cCustomPickerTypeCommunityHouseListMainType:
+            
             ///导航栏房子主类型选择
         case cCustomPickerTypeNavigationBarHouseMainType:
             
@@ -300,6 +311,9 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     switch (self.pickerType) {
             ///导航栏城市选择
         case cCustomPickerTypeNavigationBarCity:
+            
+            ///小区房源列表
+        case cCustomPickerTypeCommunityHouseListMainType:
             
             ///导航栏房子主类型选择
         case cCustomPickerTypeNavigationBarHouseMainType:
@@ -359,6 +373,20 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
             
             return userCurrentCity ? userCurrentCity : @"广州";
             
+        }
+            break;
+            
+            ///小区房源列表
+        case cCustomPickerTypeCommunityHouseListMainType:
+        {
+        
+            QSBaseConfigurationDataModel *filterModel = [[QSBaseConfigurationDataModel alloc] init];
+            filterModel.val = @"二手房";
+            filterModel.key = @"200504";
+            self.currentPickedModel = filterModel;
+            
+            return filterModel.val;
+        
         }
             break;
             
@@ -552,6 +580,9 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
     switch (self.pickerType) {
             ///导航栏城市选择窗口
         case cCustomPickerTypeNavigationBarCity:
+        
+            ///小区房源列表的类型选择
+        case cCustomPickerTypeCommunityHouseListMainType:
             
             ///列表房子主类型选择窗口
         case cCustomPickerTypeNavigationBarHouseMainType:
@@ -573,7 +604,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
 - (NSArray *)getPickerListDataSource
 {
     
-    ///城市选择类型
+    ///普通的房源选择类型
     if (cCustomPickerTypeNavigationBarHouseMainType == self.pickerType) {
         
         NSArray *tempArray = [QSCoreDataManager getHouseListMainType];
@@ -595,6 +626,35 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
                 [resultArray addObject:obj];
                 
             }
+            
+            ///二手房
+            if (fFilterMainTypeSecondHouse == [obj.key intValue]) {
+                
+                [resultArray addObject:obj];
+                
+            }
+            
+            ///出租房
+            if (fFilterMainTypeRentalHouse == [obj.key intValue]) {
+                
+                [resultArray addObject:obj];
+                
+            }
+            
+        }
+        
+        return [NSArray arrayWithArray:resultArray];
+        
+    }
+    
+    ///小区列表中的二手房和出租房选择
+    if (cCustomPickerTypeCommunityHouseListMainType == self.pickerType) {
+        
+        NSArray *tempArray = [QSCoreDataManager getHouseListMainType];
+        
+        ///过滤掉楼盘和楼栋
+        NSMutableArray *resultArray = [[NSMutableArray alloc] initWithArray:0];
+        for (QSBaseConfigurationDataModel *obj in tempArray) {
             
             ///二手房
             if (fFilterMainTypeSecondHouse == [obj.key intValue]) {
