@@ -23,8 +23,8 @@
 }
 
 @property(nonatomic,copy) NSString *title;                      //!<房子标题
-@property(nonatomic,assign) CGFloat coordinate_x;               //!<房子经度
-@property(nonatomic,assign) CGFloat coordinate_y;               //!<房子纬度
+@property(nonatomic,assign) double coordinate_x;               //!<房子经度
+@property(nonatomic,assign) double coordinate_y;               //!<房子纬度
 @property(nonatomic,strong) MAPointAnnotation *annotation;      //!<大头针气泡
 @property(nonatomic,strong) MAAnnotationView *annotationView;   //!<大头针
 
@@ -37,8 +37,8 @@
     if (self = [super init]) {
         
         self.title = title;
-        self.coordinate_x = [coordinate_x floatValue];
-        self.coordinate_y = [coordinate_y floatValue];
+        self.coordinate_x = [coordinate_x doubleValue];
+        self.coordinate_y = [coordinate_y doubleValue];
         
     }
 

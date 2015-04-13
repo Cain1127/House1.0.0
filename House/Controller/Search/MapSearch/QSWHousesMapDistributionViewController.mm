@@ -764,8 +764,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         APPLICATION_LOG_INFO(@"网络返回大头针经度坐标:", self.coordinate_x);
         APPLICATION_LOG_INFO(@"网络返回大头针纬度坐标:", self.coordinate_y);
         
-        CGFloat latitude= [self.coordinate_x floatValue];
-        CGFloat longitude=[self.coordinate_y floatValue];
+        double latitude= [self.coordinate_x doubleValue];
+        double longitude=[self.coordinate_y doubleValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         

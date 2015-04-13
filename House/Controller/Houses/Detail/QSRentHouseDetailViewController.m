@@ -658,7 +658,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *priceLabel=[[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
-    priceLabel.text = [NSString stringWithFormat:@"%.2f",[houseInfo.rent_price floatValue]/1000.0f];
+    priceLabel.text = [NSString stringWithFormat:@"%@",houseInfo.rent_price];
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
@@ -847,31 +847,15 @@ static char LeftStarKey;            //!<左侧星级
     decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];
     [view addSubview:decoreteLabel];
     
-    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    timeLabel.text=[NSString stringWithFormat:@"建筑时间:%@",@"需要问接口"];
-    timeLabel.textAlignment=NSTextAlignmentLeft;
-    timeLabel.font=[UIFont systemFontOfSize:14.0f];
-    [view addSubview:timeLabel];
+
     
-    UILabel *structureLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    structureLabel.textAlignment=NSTextAlignmentLeft;
-    structureLabel.font=[UIFont systemFontOfSize:14.0f];
-    structureLabel.text=[NSString stringWithFormat:@"结构:%@",@"接口暂无字段"];
-    [view addSubview:structureLabel];
-    
-    UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=[NSString stringWithFormat:@"使用年限:%@年",houseInfoModel.used_year];
-    propertyLabel.font=[UIFont systemFontOfSize:14.0f];
-    propertyLabel.textAlignment=NSTextAlignmentLeft;
-    [view addSubview:propertyLabel];
-    
-    UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, structureLabel.frame.origin.y+structureLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, decoreteLabel.frame.origin.y, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     stateLabel.textAlignment=NSTextAlignmentLeft;
     stateLabel.font=[UIFont systemFontOfSize:14.0f];
     stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status];
     [view addSubview:stateLabel];
     
-    UILabel *intakeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, structureLabel.frame.origin.y+structureLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
+    UILabel *intakeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     intakeLabel.text=[NSString stringWithFormat:@"交付时间:%@",houseInfoModel.lead_time];
     intakeLabel.font=[UIFont systemFontOfSize:14.0f];
     intakeLabel.textAlignment=NSTextAlignmentLeft;

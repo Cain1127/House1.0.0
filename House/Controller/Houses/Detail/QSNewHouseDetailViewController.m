@@ -637,7 +637,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:newPriceLabel];
     
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width - 95.0f - 35.0f, 0.0f, 95.0f, 25.0f)];
-    priceLabel.text = [NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan_building.price_avg floatValue]];
+    priceLabel.text = [NSString stringWithFormat:@"%d",[self.detailInfo.loupan_building.price_avg intValue]];
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
@@ -1200,7 +1200,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:volumeTipsLabel];
     
     UILabel *volumeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(volumeTipsLabel.frame.origin.x + volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.origin.y, infoWidth - 5.0f - volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.size.height)];
-    volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue] * 100.0f] stringByAppendingString:@"%"];
+    volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue]] stringByAppendingString:@"%"];
     volumeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     volumeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:volumeInfoLabel];
@@ -1213,7 +1213,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:greenTipsLabel];
     
     UILabel *greenInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(greenTipsLabel.frame.origin.x + greenTipsLabel.frame.size.width, greenTipsLabel.frame.origin.y, infoWidth - 5.0f - greenTipsLabel.frame.size.width, greenTipsLabel.frame.size.height)];
-    greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue] * 100.0f] stringByAppendingString:@"%"];
+    greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue]] stringByAppendingString:@"%"];
     greenInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     greenInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:greenInfoLabel];

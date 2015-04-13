@@ -45,8 +45,8 @@
 
 @property(nonatomic,copy) NSString *address;            //!<周边信息地址
 @property(nonatomic,copy) NSString *title;              //!<房子标题
-@property(nonatomic,assign) CGFloat coordinate_x;       //!<周边经度
-@property(nonatomic,assign) CGFloat coordinate_y;       //!<周边纬度
+@property(nonatomic,assign) double coordinate_x;       //!<周边经度
+@property(nonatomic,assign) double coordinate_y;       //!<周边纬度
 
 @property(nonatomic,strong) QSScrollView *mapInfoView;  //!<地图UI
 @property(nonatomic,strong) UITextView *infoTextView;   //!<底部说明信息UI
@@ -68,8 +68,8 @@
     if (self = [super init]) {
         
         self.address=address;
-        self.coordinate_x=[coordinate_x floatValue];
-        self.coordinate_y=[coordinate_y floatValue];
+        self.coordinate_x=[coordinate_x doubleValue];
+        self.coordinate_y=[coordinate_y doubleValue];
         self.title=title;
     }
     

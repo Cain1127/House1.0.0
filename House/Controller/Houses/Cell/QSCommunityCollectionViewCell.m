@@ -168,7 +168,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 
     
     ///更新标题信息
-    [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];
+    [self updateTitleInfo:[NSString stringWithFormat:@"%.1f",[tempModel.price_avg floatValue] / 10000]];
     
     ///更新小区信息
     [self updateCommunityInfo:tempModel.title];
@@ -189,7 +189,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateAddressInfo:tempModel.address];
     
     ///更新标题信息
-    [self updateTitleInfo:[NSString stringWithFormat:@"%d",[tempModel.price_avg intValue] / 10000]];
+    [self updateTitleInfo:[NSString stringWithFormat:@"%.1f",[tempModel.price_avg floatValue] / 10000]];
     
     ///更新小区信息
     [self updateCommunityInfo:tempModel.title];
