@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class QSCommunityHouseDetailDataModel;
+@class QSNewHouseDetailDataModel;
 @interface QSAttentionCommunityCell : UICollectionViewCell
 
 /**
@@ -21,5 +22,16 @@
  *  @since          1.0.0
  */
 - (void)updateIntentionCommunityInfoCellUIWithDataModel:(QSCommunityHouseDetailDataModel *)model;
+
+/**
+ *  @author         yangshengmeng, 15-04-13 09:04:11
+ *
+ *  @brief          刷新新房UI
+ *
+ *  @param model    收藏的数据模型
+ *
+ *  @since          1.0.0
+ */
+- (void)updateHistoryNewHouseInfoCellUIWithDataModel:(QSNewHouseDetailDataModel *)model;
 
 @end
