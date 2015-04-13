@@ -112,6 +112,7 @@
 @dynamic loan_procedures_fee;
 @dynamic loan_loan_year;
 @dynamic is_syserver;
+@synthesize collected_id;
 @dynamic photos;
 @dynamic activities;
 @dynamic recommend_houses;

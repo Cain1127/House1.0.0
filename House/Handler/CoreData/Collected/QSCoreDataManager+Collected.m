@@ -10,6 +10,8 @@
 
 #import "QSYAppDelegate.h"
 
+#import "QSCoreDataManager+User.h"
+
 #import "QSWCommunityDataModel.h"
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSUserBaseInfoDataModel.h"
@@ -120,7 +122,17 @@
 + (NSArray *)getLocalCollectedCommunityWith
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"collected_id = %@",userID];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -145,7 +157,17 @@
 + (NSArray *)getLocalCollectedNewHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"collected_id = %@",userID];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -170,7 +192,17 @@
 + (NSArray *)getLocalCollectedSecondHandHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"collected_id = %@",userID];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -195,7 +227,17 @@
 + (NSArray *)getLocalCollectedRentHouse
 {
 
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"collected_id = %@",userID];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
@@ -522,13 +564,23 @@
  */
 + (BOOL)checkCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 {
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     switch (collectedType) {
             ///新房
         case fFilterMainTypeNewHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            ///设置查询过滤
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
@@ -545,7 +597,8 @@
         case fFilterMainTypeCommunity:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
@@ -562,7 +615,8 @@
         case fFilterMainTypeSecondHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
@@ -579,7 +633,8 @@
         case fFilterMainTypeRentalHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
@@ -604,12 +659,21 @@
 + (id)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType
 {
 
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     switch (collectedType) {
             ///新房
         case fFilterMainTypeNewHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 return [self changeModel_NewHouse_CDModel_T_DetailMode:tempArray[0]];
@@ -625,7 +689,8 @@
         case fFilterMainTypeCommunity:
         {
         
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 return [self changeModel_Community_CDModel_T_DetailMode:tempArray[0]];
@@ -641,7 +706,8 @@
         case fFilterMainTypeSecondHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 return [self changeModel_SecondHandHouse_CDModel_T_DetailMode:tempArray[0]];
@@ -657,7 +723,8 @@
         case fFilterMainTypeRentalHouse:
         {
             
-            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andFieldKey:@"id_" andSearchKey:collectedID];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
                 return [self changeModel_RentHouse_CDModel_T_DetailMode:tempArray[0]];
@@ -794,17 +861,27 @@
         
     }
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     ///判断本地是否有数据
     if ([fetchResultArray count] > 0) {
         
         QSCDCollectedCommunityDataModel *cdCollectedModel = fetchResultArray[0];
         [self changeModel_Community_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDCollectedCommunityDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED inManagedObjectContext:tempContext];
         [self changeModel_Community_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     }
@@ -883,17 +960,27 @@
         
     }
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     ///判断本地是否有数据
     if ([fetchResultArray count] > 0) {
         
         QSCDCollectedCommunityDataModel *cdCollectedModel = fetchResultArray[0];
         [self changeModel_Community_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDCollectedCommunityDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED inManagedObjectContext:tempContext];
         [self changeModel_Community_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     }
@@ -1005,17 +1092,27 @@
         
     }
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     ///判断本地是否有数据
     if ([fetchResultArray count] > 0) {
         
         QSCDCollectedNewHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self changeModel_NewHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDCollectedNewHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED inManagedObjectContext:tempContext];
         [self changeModel_NewHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     }
@@ -1091,17 +1188,27 @@
         
     }
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     ///判断本地是否有数据
     if ([fetchResultArray count] > 0) {
         
         QSCDCollectedSecondHandHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self changeModel_SecondHandHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDCollectedSecondHandHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED inManagedObjectContext:tempContext];
         [self changeModel_SecondHandHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     }
@@ -1177,17 +1284,27 @@
         
     }
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     ///判断本地是否有数据
     if ([fetchResultArray count] > 0) {
         
         QSCDCollectedRentHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self changeModel_RentHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDCollectedRentHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED inManagedObjectContext:tempContext];
         [self changeModel_RentHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
     }
@@ -1243,6 +1360,16 @@
  */
 + (void)deleteCollectedDataWithID:(NSString *)collectedID isSyServer:(BOOL)isSyserver andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    ///当前用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and collected_id = %@",collectedID,userID];
 
     switch (dataType) {
             ///删除小区关注
@@ -1250,7 +1377,7 @@
         {
         
             ///获取本地模型
-            QSCDCollectedCommunityDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldSearchKey:collectedID];
+            QSCDCollectedCommunityDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andCustomPredicate:predicate];
             
             ///判断本地是否存在
             if (localModel) {
@@ -1316,7 +1443,7 @@
         {
             
             ///获取本地模型
-            QSCDCollectedNewHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andFieldName:@"id_" andFieldSearchKey:collectedID];
+            QSCDCollectedNewHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andCustomPredicate:predicate];
             
             ///判断本地是否存在
             if (localModel) {
@@ -1364,7 +1491,7 @@
         {
             
             ///获取本地模型
-            QSCDCollectedSecondHandHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andFieldName:@"id_" andFieldSearchKey:collectedID];
+            QSCDCollectedSecondHandHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andCustomPredicate:predicate];
             
             ///判断本地是否存在
             if (localModel) {
@@ -1418,7 +1545,7 @@
         {
             
             ///获取本地模型
-            QSCDCollectedRentHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andFieldName:@"id_" andFieldSearchKey:collectedID];
+            QSCDCollectedRentHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate];
             
             ///判断本地是否存在
             if (localModel) {

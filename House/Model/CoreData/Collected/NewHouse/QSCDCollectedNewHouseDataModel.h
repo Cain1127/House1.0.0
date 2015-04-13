@@ -110,10 +110,12 @@
 @property (nonatomic, retain) NSString * loan_procedures_fee;
 @property (nonatomic, retain) NSString * loan_loan_year;
 @property (nonatomic, retain) NSString * is_syserver;
+@property (nonatomic, retain) NSString * collected_id;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSSet *activities;
 @property (nonatomic, retain) NSSet *recommend_houses;
 @property (nonatomic, retain) NSSet *all_houses;
+
 @end
 
 @interface QSCDCollectedNewHouseDataModel (CoreDataGeneratedAccessors)

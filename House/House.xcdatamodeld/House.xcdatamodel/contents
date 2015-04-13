@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDApplicationInfoDataModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_token" optional="YES" attributeType="String" syncable="YES"/>
@@ -54,6 +54,7 @@
         <attribute name="catalog_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="checkin_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="community_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="community_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
@@ -232,6 +233,7 @@
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="building_structure" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="company_property" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="decoration_type" optional="YES" attributeType="String" syncable="YES"/>
@@ -363,6 +365,7 @@
         <attribute name="attention_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment_age" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment_avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -479,6 +482,7 @@
         <attribute name="building_structure" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="building_year" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="collected_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commend" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment_age" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="comment_avatar" optional="YES" attributeType="String" syncable="YES"/>
@@ -1080,17 +1084,18 @@
     <elements>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-137" positionY="153" width="128" height="90"/>
-        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="1215"/>
+        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="388"/>
+        <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="1230"/>
         <element name="QSCDCollectedCommunityHouseDataModel" positionX="-360" positionY="216" width="128" height="808"/>
         <element name="QSCDCollectedCommunityPhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
         <element name="QSCDCollectedNewHouseActivityDataModel" positionX="-342" positionY="234" width="128" height="253"/>
         <element name="QSCDCollectedNewHouseAllHousesDataModel" positionX="-351" positionY="225" width="128" height="358"/>
-        <element name="QSCDCollectedNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1558"/>
+        <element name="QSCDCollectedNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1575"/>
         <element name="QSCDCollectedNewHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
         <element name="QSCDCollectedNewHouseRecommendHousesDataModel" positionX="-360" positionY="216" width="128" height="358"/>
-        <element name="QSCDCollectedRentHouseDataModel" positionX="-333" positionY="243" width="128" height="1588"/>
+        <element name="QSCDCollectedRentHouseDataModel" positionX="-333" positionY="243" width="128" height="1605"/>
         <element name="QSCDCollectedRentHousePhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
-        <element name="QSCDCollectedSecondHandHouseDataModel" positionX="-369" positionY="207" width="128" height="1558"/>
+        <element name="QSCDCollectedSecondHandHouseDataModel" positionX="-369" positionY="207" width="128" height="1575"/>
         <element name="QSCDCollectedSecondHandHousePhotoDataModel" positionX="-360" positionY="216" width="128" height="148"/>
         <element name="QSCDConfigurationDataModel" positionX="-137" positionY="54" width="128" height="75"/>
         <element name="QSCDFilterDataModel" positionX="-587" positionY="279" width="128" height="613"/>
@@ -1106,6 +1111,5 @@
         <element name="QSCDHistorySecondHandHousePhotoDataModel" positionX="-137" positionY="261" width="128" height="148"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>
-        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="388"/>
     </elements>
 </model>

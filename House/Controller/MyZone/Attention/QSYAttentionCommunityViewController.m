@@ -12,18 +12,24 @@
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
 #import "QSAttentionCommunityCell.h"
+#import "QSCommunityCollectionViewCell.h"
 
 #import "QSCoreDataManager+Collected.h"
 
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSWCommunityDataModel.h"
+#import "QSCommunityListReturnData.h"
 
 #import "MJRefresh.h"
 
 @interface QSYAttentionCommunityViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 
+@property (assign) BOOL isLocalData;                            //!<是否本地数据
 @property (nonatomic,strong) QSCollectionView *collectionView;  //!<小区列表
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
+
+///网络请求的数据
+@property (nonatomic,retain) QSCommunityListReturnData *dataSourceModel;
 
 @end
 
@@ -37,6 +43,17 @@
         
         ///初始化数据源
         self.dataSource = [[NSMutableArray alloc] init];
+        
+        ///初始化数据是网络数据，还是本地数据
+        if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+            
+            self.isLocalData = NO;
+            
+        } else {
+        
+            self.isLocalData = YES;
+        
+        }
         
     }
     
@@ -91,12 +108,14 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    [self.collectionView registerClass:[QSAttentionCommunityCell class] forCellWithReuseIdentifier:@"communityCell"];
+    [self.collectionView registerClass:[QSAttentionCommunityCell class] forCellWithReuseIdentifier:@"communityCellLocal"];
+    [self.collectionView registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"communityCellNetwork"];
     [self.view addSubview:self.collectionView];
     
     ///添加刷新
     [self.collectionView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(communityListHeaderRequest)];
     [self.collectionView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(communityListFooterRequest)];
+    self.collectionView.footer.stateHidden = YES;
     
     ///开始就刷新
     [self.collectionView.header beginRefreshing];
@@ -108,7 +127,19 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *normalCellName = @"communityCell";
+    if (!self.isLocalData) {
+        
+        static NSString *networkCellName = @"communityCellNetwork";
+        QSCommunityCollectionViewCell *cellNetwork = [collectionView dequeueReusableCellWithReuseIdentifier:networkCellName forIndexPath:indexPath];
+        
+        ///刷新数据
+        [cellNetwork updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:fFilterMainTypeCommunity];
+        
+        return cellNetwork;
+        
+    }
+    
+    static NSString *normalCellName = @"communityCellLocal";
     
     ///从复用队列中返回cell
     QSAttentionCommunityCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
@@ -124,8 +155,14 @@
 ///返回一共有多少个小区/新房项
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+ 
+    if (self.isLocalData) {
+        
+        return [self.dataSource count];
+        
+    }
     
-    return [self.dataSource count];
+    return [self.dataSourceModel.communityListHeaderData.communityList count];
     
 }
 
@@ -133,11 +170,22 @@
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+ 
+    if (self.isLocalData) {
+        
+        ///获取房子模型
+        QSCommunityHouseDetailDataModel *houseInfoModel = self.dataSource[indexPath.row];
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.village.title andCommunityID:houseInfoModel.village.id_ andCommendNum:@"10" andHouseType:@"second"];
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    } else {
     
-    ///获取房子模型
-    QSCommunityHouseDetailDataModel *houseInfoModel = self.dataSource[indexPath.row];
-    QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.village.title andCommunityID:houseInfoModel.village.id_ andCommendNum:@"10" andHouseType:@"second"];
-    [self.navigationController pushViewController:detailVC animated:YES];
+        ///获取房子模型
+        QSCommunityDataModel *houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+        [self.navigationController pushViewController:detailVC animated:YES];
+    
+    }
     
 }
 
@@ -146,9 +194,70 @@
 {
 
     ///判断是否已登录
-    if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+    if (!self.isLocalData) {
+        
+        ///封装参数
+        NSDictionary *params = @{@"type" : @"200503",
+                                 @"page_num " : @"10",
+                                 @"now_page" : @"1"};
         
         ///获取网络数据
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///请求成功后，转换模型
+                QSCommunityListReturnData *resultDataModel = resultData;
+                
+                ///将数据模型置为nil
+                self.dataSourceModel = nil;
+                
+                ///判断是否有房子数据
+                if ([resultDataModel.communityListHeaderData.communityList count] > 0) {
+                    
+                    ///更新数据源
+                    self.dataSourceModel = resultDataModel;
+                    
+                }
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    ///刷新数据
+                    [self.collectionView reloadData];
+                    
+                    self.collectionView.footer.hidden = NO;
+                    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+                        [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+                        
+                        [self.collectionView.footer noticeNoMoreData];
+                        
+                    }
+                    
+                });
+                
+                ///结束刷新动画
+                [self.collectionView.header endRefreshing];
+                
+            } else if (rRequestResultTypeFail == resultStatus) {
+                
+                ///结束刷新动画
+                [self.collectionView.header endRefreshing];
+                
+                ///重置数据源
+                self.dataSourceModel = nil;
+                
+                ///刷新数据
+                [self.collectionView reloadData];
+                
+            } else {
+                
+                ///结束刷新动画
+                [self.collectionView.header endRefreshing];
+                
+            }
+            
+        }];
         
     } else {
     
@@ -157,8 +266,9 @@
         
         ///重载数据
         [self.collectionView reloadData];
+        self.collectionView.footer.stateHidden = NO;
+        [self.collectionView.footer noticeNoMoreData];
         [self.collectionView.header endRefreshing];
-        [self.collectionView.footer endRefreshing];
     
     }
 
@@ -169,17 +279,88 @@
 {
 
     ///判断是否已登录
-    if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+    if (!self.isLocalData) {
         
-        ///获取网络数据
+        ///判断是否最大页码
+        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
+            
+            self.collectionView.footer.hidden = NO;
+            if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+                [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+                
+                [self.collectionView.footer noticeNoMoreData];
+                
+            }
+            
+            ///结束刷新动画
+            [self.collectionView.header endRefreshing];
+            [self.collectionView.footer endRefreshing];
+            return;
+            
+        }
+        
+        ///封装参数：主要是添加页码控制
+        NSDictionary *params = @{@"type" : @"200503",
+                                 @"page_num " : @"10",
+                                 @"now_page" : self.dataSourceModel.communityListHeaderData.next_page};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///请求成功后，转换模型
+                QSCommunityListReturnData *resultDataModel = resultData;
+                
+                ///更改房子数据
+                NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.communityListHeaderData.communityList];
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                [localArray addObjectsFromArray:resultDataModel.communityListHeaderData.communityList];
+                self.dataSourceModel.communityListHeaderData.communityList = localArray;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    ///刷新数据
+                    [self.collectionView reloadData];
+                    
+                    self.collectionView.footer.hidden = NO;
+                    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+                        [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
+                        
+                        [self.collectionView.footer noticeNoMoreData];
+                        
+                    }
+                    
+                });
+                
+                ///结束刷新动画
+                [self.collectionView.footer endRefreshing];
+                
+            } else {
+                
+                ///结束刷新动画
+                [self.collectionView.footer endRefreshing];
+                
+            }
+            
+        }];
         
     } else {
         
         ///本地数据已一次取完
-        [self.collectionView.header endRefreshing];
         [self.collectionView.footer endRefreshing];
         
     }
+
+}
+
+#pragma mark - 重新校对数据
+- (void)updateLocalData
+{
+
+    
 
 }
 

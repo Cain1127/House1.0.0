@@ -439,7 +439,7 @@ static char CollectionViewKey;          //!<列表
         {
             
             ///瀑布流布局器
-            QSWCommunitySecondHandHouseList *listView = [[QSWCommunitySecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSWCommunitySecondHandHouseList *listView = [[QSWCommunitySecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                                 ///过滤回调类型
                                 switch (actionType) {
@@ -483,7 +483,7 @@ static char CollectionViewKey;          //!<列表
             
             
             ///瀑布流布局器
-            QSWCommunityRentHouseList *listView = [[QSWCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSWCommunityRentHouseList *listView = [[QSWCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {

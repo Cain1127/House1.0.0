@@ -113,6 +113,7 @@
 @property (nonatomic, retain) NSString * comment_vocation;
 @property (nonatomic, retain) NSString * comment_web;
 @property (nonatomic, retain) NSString * is_syserver;
+@property (nonatomic, retain) NSString * collected_id;
 @property (nonatomic, retain) NSSet *photos;
 @end
 

@@ -112,6 +112,7 @@
 @dynamic comment_vocation;
 @dynamic comment_web;
 @dynamic is_syserver;
+@dynamic collected_id;
 @dynamic photos;
 
 @end
