@@ -77,6 +77,21 @@
     
 }
 
+#pragma mark - 重新下载联系人消息
+/**
+ *  @author yangshengmeng, 15-04-13 18:04:18
+ *
+ *  @brief  重新获取联系人列表数据
+ *
+ *  @since  1.0.0
+ */
+- (void)regetContactListInfo
+{
+
+    [self.contactsListView.header beginRefreshing];
+
+}
+
 #pragma mark - UI重建
 /**
  *  @author yangshengmeng, 15-04-03 11:04:53
@@ -339,6 +354,9 @@
 {
 
     [QSRequestManager requestDataWithType:rRequestTypeChatContactList andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///清空原联系人
+        [self.contactDataSource removeAllObjects];
         
         if (rRequestResultTypeSuccess == resultStatus) {
             

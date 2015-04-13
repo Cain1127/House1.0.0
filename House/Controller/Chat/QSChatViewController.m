@@ -28,6 +28,9 @@
 
 @interface QSChatViewController ()
 
+@property (assign) BOOL isRefreshDidAppear;                                 //!<视图出现时，是否刷新
+@property (nonatomic,unsafe_unretained) QSChatContactsView *contactListView;//!<联系人视图
+
 @end
 
 @implementation QSChatViewController
@@ -187,6 +190,13 @@
                     if (uUserCountTypeAgency == [QSCoreDataManager getUserType]) {
                         
                         QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        contactVC.contactInfoChangeCallBack = ^(BOOL isChange){
+                        
+                            ///刷新数据
+                            self.isRefreshDidAppear = YES;
+                            self.contactListView = contactListView;
+                        
+                        };
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:contactVC animated:YES];
                         
@@ -196,6 +206,13 @@
                     if (uUserCountTypeTenant == [tempModel.contactUserInfo.user_type intValue]) {
                         
                         QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andAgentID:tempModel.linkman_id];
+                        contactVC.contactInfoChangeCallBack = ^(BOOL isChange){
+                            
+                            ///刷新数据
+                            self.isRefreshDidAppear = YES;
+                            self.contactListView = contactListView;
+                            
+                        };
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:contactVC animated:YES];
                         
@@ -205,6 +222,13 @@
                     if (uUserCountTypeOwner == [tempModel.contactUserInfo.user_type intValue]) {
                         
                         QSYOwnerInfoViewController *ownerVC = [[QSYOwnerInfoViewController alloc] initWithName:tempModel.contactUserInfo.username andOwnerID:tempModel.linkman_id andDefaultHouseType:fFilterMainTypeSecondHouse];
+                        ownerVC.contactInfoChangeCallBack = ^(BOOL isChange){
+                            
+                            ///刷新数据
+                            self.isRefreshDidAppear = YES;
+                            self.contactListView = contactListView;
+                            
+                        };
                         [self hiddenBottomTabbar:YES];
                         [self.navigationController pushViewController:ownerVC animated:YES];
                         
@@ -335,6 +359,24 @@
     QSYChatToolViewController *toolVC = [[QSYChatToolViewController alloc] init];
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:toolVC animated:YES];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+
+    [super viewDidAppear:animated];
+    
+    if (self.isRefreshDidAppear) {
+        
+        self.isRefreshDidAppear = NO;
+        if (self.contactListView) {
+            
+            [self.contactListView regetContactListInfo];
+            
+        }
+        
+    }
 
 }
 

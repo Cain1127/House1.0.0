@@ -42,6 +42,15 @@ typedef enum
 - (instancetype)initWithFrame:(CGRect)frame andUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(CONTACT_LIST_ACTION_TYPE actionType,id params))callBack;
 
 /**
+ *  @author yangshengmeng, 15-04-13 18:04:18
+ *
+ *  @brief  重新获取联系人列表数据
+ *
+ *  @since  1.0.0
+ */
+- (void)regetContactListInfo;
+
+/**
  *  @author yangshengmeng, 15-04-03 11:04:53
  *
  *  @brief  更新联系人列表

@@ -11,6 +11,15 @@
 @interface QSYOwnerInfoViewController : QSTurnBackViewController
 
 /**
+ *  @author yangshengmeng, 15-04-13 17:04:45
+ *
+ *  @brief  在联系人详情页面中，可能发生联系的关系变化，变化时通过以下block回调
+ *
+ *  @since  1.0.0
+ */
+@property (nonatomic,copy) void(^contactInfoChangeCallBack)(BOOL isChange);
+
+/**
  *  @author             yangshengmeng, 15-04-07 16:04:50
  *
  *  @brief              创建业主页面

@@ -98,6 +98,13 @@
                     self.contactInfo.contactInfo.id_ = params;
                     [self.userInfoRootView reloadData];
                     
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
+                    
                 }
                     break;
                     
@@ -108,6 +115,13 @@
                     self.contactInfo.contactInfo.id_ = @"0";
                     [self.userInfoRootView reloadData];
                     
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
+                    
                 }
                     break;
                     
@@ -117,6 +131,13 @@
                     
                     self.contactInfo.contactInfo.is_import = @"1";
                     
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
+                    
                 }
                     break;
                     
@@ -125,6 +146,13 @@
                 {
                     
                     self.contactInfo.contactInfo.is_import = @"0";
+                    
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
                     
                 }
                     break;
