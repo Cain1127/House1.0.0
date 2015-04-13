@@ -478,46 +478,46 @@ static char CollectionViewKey;          //!<列表
         break;
         
         ///出租房列表
-//        case fFilterMainTypeRentalHouse:
-//        {
-//            
-//            
-//            ///瀑布流布局器
-//            QSYCommunityRentHouseList *listView = [[QSYCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
-//                
-//                ///过滤回调类型
-//                switch (actionType) {
-//                    ///进入详情页
-//                    case hHouseListActionTypeGotoDetail:
-//                    
-//                    [self gotoHouseDetail:tempModel];
-//                    
-//                    break;
-//                    
-//                    ///显示暂无记录
-//                    case hHouseListActionTypeNoRecord:
-//                    
-//                    [self showNoRecordTips:YES];
-//                    
-//                    break;
-//                    
-//                    ///移除暂无记录
-//                    case hHouseListActionTypeHaveRecord:
-//                    
-//                    [self showNoRecordTips:NO];
-//                    
-//                    break;
-//                    
-//                    default:
-//                    break;
-//                }
-//                
-//            }];
-//            
-//            listView.alwaysBounceVertical = YES;
-//            [self.view addSubview:listView];
-//            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);        }
-//        break;
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            
+            ///瀑布流布局器
+            QSWCommunityRentHouseList *listView = [[QSWCommunityRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCommunitID:self.village_id andFilter:self.filterModel andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                ///过滤回调类型
+                switch (actionType) {
+                    ///进入详情页
+                    case hHouseListActionTypeGotoDetail:
+                    
+                    [self gotoHouseDetail:tempModel];
+                    
+                    break;
+                    
+                    ///显示暂无记录
+                    case hHouseListActionTypeNoRecord:
+                    
+                    [self showNoRecordTips:YES];
+                    
+                    break;
+                    
+                    ///移除暂无记录
+                    case hHouseListActionTypeHaveRecord:
+                    
+                    [self showNoRecordTips:NO];
+                    
+                    break;
+                    
+                    default:
+                    break;
+                }
+                
+            }];
+            
+            listView.alwaysBounceVertical = YES;
+            [self.view addSubview:listView];
+            objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);        }
+        break;
         
         default:
         break;
