@@ -11,6 +11,7 @@
 #import "QSCommunityDataModel.h"
 
 #import "NSString+Calculation.h"
+#import "UIImageView+AFNetworking.h"
 
 #import "QSCoreDataManager+House.h"
 
@@ -71,13 +72,13 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     objc_setAssociatedObject(self, &SelectedTipsKey, selectedTipsButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///中间标题信息
-    QSImageView *titleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(self.frame.size.width / 2.0f - 35.0f, bgImageView.frame.size.height - 39.5f, 70.0f, 79.0f)];
+    QSImageView *titleImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH / 2.0f - 35.0f, bgImageView.frame.size.height - 39.5f, 70.0f, 79.0f)];
     titleImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LIST_SIXFORM];
     [self createCommunityTitleInfoUI:titleImageView];
     [self.contentView addSubview:titleImageView];
     
     ///特色标题底view
-    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width - 50.0f * 3.0f - 12.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, titleImageView.frame.origin.y + titleImageView.frame.size.height + 5.0f, 50.0f * 3.0f + 12.0f, 25.0f)];
+    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 50.0f * 3.0f - 12.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, titleImageView.frame.origin.y + titleImageView.frame.size.height + 5.0f, 50.0f * 3.0f + 12.0f, 25.0f)];
     [self.contentView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesRootViewKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -90,7 +91,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     objc_setAssociatedObject(self, &CommunityInfoKey, communityNameLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
-    UILabel *sepLine = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.frame.size.height - 0.5f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
+    UILabel *sepLine = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, communityNameLabel.frame.origin.y + communityNameLabel.frame.size.height + 5.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
     sepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.contentView addSubview:sepLine];
 
@@ -134,7 +135,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
     [self updateCommunityInfo:tempModel.title];
     
     ///更新背景图片
-    [self updateBackgroudImage:tempModel.attach_thumb];
+    [self updateBackgroudImage:tempModel.attach_file];
     
     ///更新选择状态
     [self updateSelectedTipsStatus:tempModel.isSelectedStatus];
@@ -223,7 +224,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 {
     
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleInfoKey);
-    if (titleLabel && title) {
+    if (titleLabel && [title length] > 0) {
         
         titleLabel.text = title;
         
@@ -236,7 +237,7 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 {
     
     UILabel *label = objc_getAssociatedObject(self, &AddressInfoKey);
-    if (label && address) {
+    if (label && [address length] > 0) {
         
         label.text = address;
         
@@ -249,9 +250,9 @@ static char FeaturesRootViewKey;//!<特色标签的底view关联
 {
     
     UIImageView *bgImageView = objc_getAssociatedObject(self, &BackgroudImageKey);
-    if (bgImageView && imgUrl) {
+    if (bgImageView && [imgUrl length] > 0) {
         
-        [bgImageView loadImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
+        [bgImageView setImageWithURL:[imgUrl getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350]];
         
     }
     
