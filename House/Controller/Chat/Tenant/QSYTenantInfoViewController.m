@@ -88,7 +88,34 @@
     
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID isFriends:([self.contactInfo.contactInfo.id_ intValue] > 0) isImport:self.contactInfo.contactInfo.is_import];
+        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.tenantID andContactName:self.tenantName isFriends:self.contactInfo.contactInfo.id_ isImport:self.contactInfo.contactInfo.is_import andCallBack:^(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType, id params) {
+            
+            switch (actionType) {
+                    ///添加成为联系人
+                case cContactSettingCallBackActionTypeAddContact:
+                {
+                    
+                    self.contactInfo.contactInfo.id_ = params;
+                    [self.userInfoRootView reloadData];
+                    
+                }
+                    break;
+                    
+                    ///删除联系人
+                case cContactSettingCallBackActionTypeDeleteContact:
+                {
+                    
+                    self.contactInfo.contactInfo.id_ = @"0";
+                    [self.userInfoRootView reloadData];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }];
         [self.navigationController pushViewController:contactSettingVC animated:YES];
         
     }];

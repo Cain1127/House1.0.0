@@ -10,6 +10,8 @@
 #import "QSYContactRemarkSettinViewController.h"
 #import "QSYContactComplaintViewController.h"
 
+#import "QSCustomHUDView.h"
+
 #import "UITextField+CustomField.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -28,8 +30,11 @@ typedef enum
 
 @property (nonatomic,copy) NSString *contactID;     //!<联系人ID
 @property (nonatomic,copy) NSString *contactName;   //!<联系人姓名
-@property (assign) BOOL isFriends;                  //!<是否当前用户的联系人
+@property (nonatomic,copy) NSString *isFriends;     //!<是否当前用户的联系人
 @property (nonatomic,copy) NSString *isImport;      //!<是否重点联系人
+
+///联系人相关的设置变动时回调
+@property (nonatomic,copy) void(^contactInfoChangeCallBack)(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType,id params);
 
 @end
 
@@ -42,22 +47,32 @@ typedef enum
  *  @brief              根据联系人的ID，创建联系人信息设置页面
  *
  *  @param contactID    联系人ID
+ *  @param contactName  联系人名
  *  @param isFriend     是否是当前用户的联系人
  *  @param isImport     是否是重点联系人
+ *  @param callBack     联系人的部分设置回调：如添加成为联系人
  *
  *  @return             返回当前创建的联系人设置页面
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithContactID:(NSString *)contactID isFriends:(BOOL)isFriend isImport:(NSString *)isImport
+- (instancetype)initWithContactID:(NSString *)contactID andContactName:(NSString *)contactName isFriends:(NSString *)isFriend isImport:(NSString *)isImport andCallBack:(void(^)(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType,id params))callBack
 {
 
     if (self = [super init]) {
         
         ///保存投诉人的ID
         self.contactID = contactID;
+        self.contactName = contactName;
         self.isFriends = isFriend;
         self.isImport = isImport;
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.contactInfoChangeCallBack = callBack;
+            
+        }
         
         
     }
@@ -157,7 +172,7 @@ typedef enum
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     
     ///退出按钮
-    if (self.isFriends) {
+    if ([self.isFriends intValue] > 0) {
         
         buttonStyle.title = @"删除联系人";
         
@@ -168,13 +183,13 @@ typedef enum
     }
     UIButton *logoutButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - VIEW_SIZE_NORMAL_BUTTON_HEIGHT - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        if (self.isFriends) {
+        if ([self.isFriends intValue] > 0) {
             
-            
+            [self deleteContactAsContact:button];
             
         } else {
         
-            
+            [self addContactAsContact:button];
         
         }
         
@@ -248,6 +263,97 @@ typedef enum
             break;
     }
     return NO;
+
+}
+
+#pragma mark - 删除联系人
+- (void)deleteContactAsContact:(UIButton *)addButton
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(self.isFriends, @"")};
+    
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactDelete andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改按钮状态
+            [addButton setTitle:@"添加联系人" forState:UIControlStateNormal];
+            [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
+            
+            ///回调
+            if (self.contactInfoChangeCallBack) {
+                
+                self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeDeleteContact,nil);
+                
+            }
+            
+        } else {
+            
+            NSString *tipsString = @"删除失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [addButton setTitle:@"删除联系人" forState:UIControlStateNormal];
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
+
+}
+
+#pragma mark - 添加联系人
+- (void)addContactAsContact:(UIButton *)addButton
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"linkman_id" : APPLICATION_NSSTRING_SETTING(self.contactID, @""),
+                             @"remark" : @"",
+                             @"more_remark" : @""};
+    
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactAdd andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改按钮状态
+            [addButton setTitle:@"删除联系人" forState:UIControlStateNormal];
+            [hud hiddenCustomHUDWithFooterTips:@"添加成功" andDelayTime:1.5f];
+            
+            ///回调
+            if (self.contactInfoChangeCallBack) {
+                
+                self.isFriends = [resultData valueForKey:@"msg"];
+                self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeAddContact,[resultData valueForKey:@"msg"]);
+                
+            }
+            
+        } else {
+            
+            NSString *tipsString = @"添加失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [addButton setTitle:@"添加联系人" forState:UIControlStateNormal];
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
 
 }
 
