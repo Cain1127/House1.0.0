@@ -47,4 +47,6 @@
 @property (nonatomic,copy) NSString *rent_property;         //!<出租方式
 @property (nonatomic,copy) NSString *lead_time;             //!<房子的交付时间
 
+@property (nonatomic,copy) NSString *is_syserver;           //!<收藏是否已同步服务端
+
 @end

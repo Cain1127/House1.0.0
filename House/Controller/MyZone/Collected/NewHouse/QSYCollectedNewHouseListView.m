@@ -155,6 +155,13 @@
                         
                     }
                     
+                    ///更新本地数据
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [self updateLocalData];
+                        
+                    });
+                    
                 } else {
                     
                     self.footer.hidden = YES;
@@ -288,6 +295,13 @@
                 ///结束刷新动画
                 [self.footer endRefreshing];
                 
+                ///更新本地数据
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [self updateLocalData];
+                    
+                });
+                
             } else {
                 
                 ///结束刷新动画
@@ -332,7 +346,7 @@
         QSCommunityCollectionViewCell *cellServer = [collectionView dequeueReusableCellWithReuseIdentifier:serverCellName forIndexPath:indexPath];
         
         ///获取数据
-        QSNewHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
+        QSNewHouseInfoDataModel *tempModel = self.dataSourceModel.headerData.houseList[indexPath.row];
         
         ///刷新数据
         [cellServer updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
@@ -353,6 +367,43 @@
     [cellLocal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
     
     return cellLocal;
+    
+}
+
+#pragma mark - 重新校对数据
+- (void)updateLocalData
+{
+    
+    ///网络请求的收藏数据
+    NSArray *tempServerArray = [NSArray arrayWithArray:self.dataSourceModel.headerData.houseList];
+    
+    if ([tempServerArray count] <= 0) {
+        
+        return;
+        
+    }
+    
+    ///查找本地是否已存在对应收藏
+    for (int i = 0;i < [tempServerArray count];i++) {
+        
+        QSNewHouseInfoDataModel *serverModel = tempServerArray[i];
+        serverModel.is_syserver = @"1";
+        [QSCoreDataManager saveCollectedDataWithModel:serverModel andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+            
+            ///保存成功
+            if (flag) {
+                
+                APPLICATION_LOG_INFO(@"添加新房收藏->服务端数据更新本地数据", @"成功")
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加新房收藏->服务端数据更新本地数据", @"失败")
+                
+            }
+            
+        }];
+        
+    }
     
 }
 

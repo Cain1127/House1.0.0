@@ -259,7 +259,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
 #pragma mark - 进入登录页面
 - (void)gotoLoginViewController:(FILTER_MAIN_TYPE)houseType
 {
-
+    
     QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:^(LOGIN_CHECK_ACTION_TYPE flag) {
         
         ///判断是否登录成功
@@ -292,35 +292,11 @@ static char BuyerCountDataKey;      //!<当前房客总数
                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
+                UINavigationController *myzoneNavigationVC = homePageVC.viewControllers[3];
+                UIViewController *myzoneVC = myzoneNavigationVC.viewControllers[0];
+                [myzoneVC setValue:[NSString stringWithFormat:@"%d",houseType] forKey:@"is_release"];
+                
                 [self changeWindowRootViewController:homePageVC];
-                
-                ///进入出租，或者出售物业发布页面
-                UIViewController *myzoneVC = homePageVC.viewControllers[3];
-                if (fFilterMainTypeRentalHouse == houseType) {
-                    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-                    if ([myzoneVC respondsToSelector:@selector(gotoReleaseRentHouseMyzone)]) {
-                        
-                        [myzoneVC performSelector:@selector(gotoReleaseRentHouseMyzone)];
-                        
-                    }
-#pragma clang diagnostic pop
-                    
-                }
-                
-                if (fFilterMainTypeSecondHouse == houseType) {
-                    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-                    if ([myzoneVC respondsToSelector:@selector(gotoReleaseSaleHouseMyzone)]) {
-                        
-                        [myzoneVC performSelector:@selector(gotoReleaseSaleHouseMyzone)];
-                        
-                    }
-#pragma clang diagnostic pop
-                    
-                }
                 
             }
             

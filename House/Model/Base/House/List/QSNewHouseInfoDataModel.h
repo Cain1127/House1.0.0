@@ -43,4 +43,6 @@
 
 @property (nonatomic,copy) NSString *activity_name;         //!<活动名称
 
+@property (nonatomic,copy) NSString *is_syserver;           //!<是否已同步服务端:收藏时使用
+
 @end

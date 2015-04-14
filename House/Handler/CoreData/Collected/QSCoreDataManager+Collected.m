@@ -48,6 +48,7 @@
 #import "QSRateDataModel.h"
 #import "QSActivityDataModel.h"
 #import "QSHouseTypeDataModel.h"
+#import "QSNewHouseInfoDataModel.h"
 
 ///收藏CoreData实体名
 #define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED @"QSCDCollectedCommunityDataModel"
@@ -744,6 +745,86 @@
 
 }
 
++ (id)searchCollectedDataUnLimitedIDWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType
+{
+    
+    switch (collectedType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@",collectedID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_NewHouse_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+            
+        }
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@",collectedID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_Community_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+            
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@",collectedID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_SecondHandHouse_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+            
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@",collectedID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                return [self changeModel_RentHouse_CDModel_T_DetailMode:tempArray[0]];
+                
+            }
+            
+            return nil;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
 #pragma mark - 添加收藏/分享
 /**
  *  @author             yangshengmeng, 15-03-19 11:03:29
@@ -795,15 +876,37 @@
         
     }
     
-    ///根据不同的类型，保存不同的数据
-    if (fFilterMainTypeCommunity == dataType) {
-        
-        [self saveCommunityCollectedData:collectedModel andCallBack:callBack];
-        
-    } else {
-    
-        [self saveHouseCollectedData:collectedModel andType:dataType andCallBack:callBack];
-    
+    switch (dataType) {
+            ///保存新房
+        case fFilterMainTypeNewHouse:
+            
+            [self saveNewHouseCollectedData:collectedModel andCallBack:callBack];
+            
+            break;
+            
+            ///保存小区
+        case fFilterMainTypeCommunity:
+            
+            [self saveCommunityCollectedData:collectedModel andCallBack:callBack];
+            
+            break;
+            
+            ///保存二手房
+        case fFilterMainTypeSecondHouse:
+            
+            [self saveSecondHandHouseCollectedData:collectedModel andCallBack:callBack];
+            
+            break;
+            
+            ///保存出租房
+        case fFilterMainTypeRentalHouse:
+            
+            [self saveRentHouseCollectedData:collectedModel andCallBack:callBack];
+            
+            break;
+            
+        default:
+            break;
     }
     
 }
@@ -822,6 +925,159 @@
     if ([model isKindOfClass:[QSCommunityHouseDetailDataModel class]]) {
         
         [self saveCollectedCommunityWithDetailModel:(QSCommunityHouseDetailDataModel *)model andCallBack:callBack];
+        
+    }
+
+}
+
+///保存新房信息
++ (void)saveNewHouseCollectedData:(id)model andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    ///根据传进来的数据模型，调用不同的保存接口
+    if ([model isKindOfClass:[QSNewHouseInfoDataModel class]]) {
+        
+        [self saveCollectedNewHouseWithListModel:(QSNewHouseInfoDataModel *)model andCallBack:callBack];
+        
+    }
+    
+    if ([model isKindOfClass:[QSNewHouseDetailDataModel class]]) {
+        
+        [self saveCollectedNewHouseWithDetailModel:(QSNewHouseDetailDataModel *)model andCallBack:callBack];
+        
+    }
+    
+}
+
+///保存二手房信息
++ (void)saveSecondHandHouseCollectedData:(id)model andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    ///根据传进来的数据模型，调用不同的保存接口
+    if ([model isKindOfClass:[QSHouseInfoDataModel class]]) {
+        
+        [self saveCollectedSecondHandHouseWithListModel:(QSHouseInfoDataModel *)model andCallBack:callBack];
+        
+    }
+    
+    if ([model isKindOfClass:[QSSecondHouseDetailDataModel class]]) {
+        
+        [self saveCollectedSecondHandHouseWithDetailModel:(QSSecondHouseDetailDataModel *)model andCallBack:callBack];
+        
+    }
+    
+}
+
+///保存出租房信息
++ (void)saveRentHouseCollectedData:(id)model andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    ///根据传进来的数据模型，调用不同的保存接口
+    if ([model isKindOfClass:[QSRentHouseInfoDataModel class]]) {
+        
+        [self saveCollectedRentHouseWithListModel:(QSRentHouseInfoDataModel *)model andCallBack:callBack];
+        
+    }
+    
+    if ([model isKindOfClass:[QSRentHouseDetailDataModel class]]) {
+        
+        [self saveCollectedRentHouseWithDetailModel:(QSRentHouseDetailDataModel *)model andCallBack:callBack];
+        
+    }
+    
+}
+
+///根据列表中的新房收藏数据模型，保存收藏信息
++ (void)saveCollectedNewHouseWithListModel:(QSNewHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
+{
+
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        
+        NSLog(@"CoreData.SearchCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///判断本地是否有数据
+    if ([fetchResultArray count] > 0) {
+        
+        QSCDCollectedNewHouseDataModel *cdCollectedModel = fetchResultArray[0];
+        [self changeModel_NewHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    } else {
+        
+        QSCDCollectedNewHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED inManagedObjectContext:tempContext];
+        [self changeModel_NewHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    }
+    
+    ///判断是否保存成功
+    if (error) {
+        
+        NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    ///回调
+    if (callBack) {
+        
+        callBack(YES);
         
     }
 
@@ -926,6 +1182,198 @@
 
 }
 
+///根据列表中的二手房收藏数据模型，保存收藏信息
++ (void)saveCollectedSecondHandHouseWithListModel:(QSHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        
+        NSLog(@"CoreData.SearchCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///判断本地是否有数据
+    if ([fetchResultArray count] > 0) {
+        
+        QSCDCollectedSecondHandHouseDataModel *cdCollectedModel = fetchResultArray[0];
+        [self changeModel_SecondHandHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    } else {
+        
+        QSCDCollectedSecondHandHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED inManagedObjectContext:tempContext];
+        [self changeModel_SecondHandHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    }
+    
+    ///判断是否保存成功
+    if (error) {
+        
+        NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    ///回调
+    if (callBack) {
+        
+        callBack(YES);
+        
+    }
+    
+}
+
+///根据列表中的出租房收藏数据模型，保存收藏信息
++ (void)saveCollectedRentHouseWithListModel:(QSRentHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        
+        NSLog(@"CoreData.SearchCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///判断本地是否有数据
+    if ([fetchResultArray count] > 0) {
+        
+        QSCDCollectedRentHouseDataModel *cdCollectedModel = fetchResultArray[0];
+        [self changeModel_RentHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    } else {
+        
+        QSCDCollectedRentHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED inManagedObjectContext:tempContext];
+        [self changeModel_RentHouse_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.collected_id = userID;
+        [tempContext save:&error];
+        
+    }
+    
+    ///判断是否保存成功
+    if (error) {
+        
+        NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    ///回调
+    if (callBack) {
+        
+        callBack(YES);
+        
+    }
+    
+}
+
 ///根据详情中添加的小区关注数据模型，保存关注信息
 + (void)saveCollectedCommunityWithDetailModel:(QSCommunityHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
@@ -1023,39 +1471,6 @@
         
     }
     
-}
-
-///保存房源信息
-+ (void)saveHouseCollectedData:(id)model andType:(FILTER_MAIN_TYPE)type andCallBack:(void(^)(BOOL flag))callBack
-{
-
-    ///不同的类型，跑转到不同的保存方法中
-    switch (type) {
-            ///新房
-        case fFilterMainTypeNewHouse:
-            
-            [self saveCollectedNewHouseWithDetailModel:model andCallBack:callBack];
-            
-            break;
-            
-            ///二手房
-        case fFilterMainTypeSecondHouse:
-            
-            [self saveCollectedSecondHandHouseWithDetailModel:model andCallBack:callBack];
-            
-            break;
-            
-            ///出租房
-        case fFilterMainTypeRentalHouse:
-            
-            [self saveCollectedRentHouseWithDetailModel:model andCallBack:callBack];
-            
-            break;
-            
-        default:
-            break;
-    }
-
 }
 
 ///添加新房收藏
@@ -2053,6 +2468,7 @@
     cdCollectedModel.licence = collectedModel.loupan.licence;
     cdCollectedModel.parking_lot = collectedModel.loupan.parking_lot;
     cdCollectedModel.loupan_status = collectedModel.loupan.loupan_status;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
     
     ///业主信息
     cdCollectedModel.user_type = collectedModel.user.user_type;
@@ -2308,6 +2724,7 @@
     collectedModel.loupan.licence = cdCollectedModel.licence;
     collectedModel.loupan.parking_lot = cdCollectedModel.parking_lot;
     collectedModel.loupan.loupan_status = cdCollectedModel.loupan_status;
+    collectedModel.is_syserver = cdCollectedModel.is_syserver;
     
     ///业主信息
     collectedModel.user.id_ = cdCollectedModel.user_id;
@@ -2518,6 +2935,48 @@
 
 }
 
+///将小区列表的数据模型转换为本地保存的数据模型
++ (void)changeModel_NewHouse_ListMode_T_CDModel:(QSNewHouseInfoDataModel *)collectedModel andCDModel:(QSCDCollectedNewHouseDataModel *)cdCollectedModel andOperationContext:(NSManagedObjectContext *)tempContext
+{
+    
+    ///楼盘本身信息
+    cdCollectedModel.id_ = collectedModel.loupan_id;
+    cdCollectedModel.title = collectedModel.title;
+    cdCollectedModel.address = collectedModel.address;
+    cdCollectedModel.property_type = collectedModel.property_type;
+    cdCollectedModel.used_year = collectedModel.used_year;
+    cdCollectedModel.features = collectedModel.features;
+    cdCollectedModel.provinceid = collectedModel.provinceid;
+    cdCollectedModel.cityid = collectedModel.cityid;
+    cdCollectedModel.areaid = collectedModel.areaid;
+    cdCollectedModel.street = collectedModel.street;
+    cdCollectedModel.attach_file = collectedModel.attach_file;
+    cdCollectedModel.attach_thumb = collectedModel.attach_thumb;
+    cdCollectedModel.building_structure = collectedModel.building_structure;
+    cdCollectedModel.decoration_type = collectedModel.decoration_type;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
+    
+    ///具体某一期的信息
+    cdCollectedModel.phase_id = collectedModel.loupan_building_id;
+    cdCollectedModel.phase_title = collectedModel.title;
+    cdCollectedModel.phase_address = collectedModel.address;
+    cdCollectedModel.phase_property_type = collectedModel.property_type;
+    cdCollectedModel.phase_used_year = collectedModel.used_year;
+    cdCollectedModel.phase_features = collectedModel.features;
+    cdCollectedModel.phase_provinceid = collectedModel.provinceid;
+    cdCollectedModel.phase_cityid = collectedModel.cityid;
+    cdCollectedModel.phase_areaid = collectedModel.areaid;
+    cdCollectedModel.phase_street = collectedModel.street;
+    cdCollectedModel.phase_attach_file = collectedModel.attach_file;
+    cdCollectedModel.phase_attach_thumb = collectedModel.attach_thumb;
+    cdCollectedModel.phase_loupan_id = collectedModel.loupan_id;
+    cdCollectedModel.phase_loupan_periods = collectedModel.loupan_periods;
+    cdCollectedModel.phase_price_avg = collectedModel.price_avg;
+    cdCollectedModel.phase_min_house_area = collectedModel.min_house_area;
+    cdCollectedModel.phase_max_house_area = collectedModel.max_house_area;
+    
+}
+
 ///将显示端的二手房数据转换为本地化的数据模型
 + (void)changeModel_SecondHandHouse_DetailMode_T_CDModel:(QSSecondHouseDetailDataModel *)collectedModel andCDModel:(QSCDCollectedSecondHandHouseDataModel *)cdCollectedModel andOperationContext:(NSManagedObjectContext *)tempContext
 {
@@ -2578,6 +3037,7 @@
     cdCollectedModel.coordinate_y = collectedModel.house.coordinate_y;
     cdCollectedModel.tj_look_house_num = collectedModel.house.tj_look_house_num;
     cdCollectedModel.tj_wait_look_house_people = collectedModel.house.tj_wait_look_house_people;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
     
     ///业主信息
     cdCollectedModel.user_type = collectedModel.user.user_type;
@@ -2728,6 +3188,7 @@
     collectedModel.house.coordinate_y = cdCollectedModel.coordinate_y;
     collectedModel.house.tj_look_house_num = cdCollectedModel.tj_look_house_num;
     collectedModel.house.tj_wait_look_house_people = cdCollectedModel.tj_wait_look_house_people;
+    collectedModel.is_syserver = cdCollectedModel.is_syserver;
     
     ///业主信息
     collectedModel.user.id_ = cdCollectedModel.user_id;
@@ -2809,6 +3270,65 @@
     
     return collectedModel;
 
+}
+
+///将小区列表的数据模型转换为本地保存的数据模型
++ (void)changeModel_SecondHandHouse_ListMode_T_CDModel:(QSHouseInfoDataModel *)collectedModel andCDModel:(QSCDCollectedSecondHandHouseDataModel *)cdCollectedModel andOperationContext:(NSManagedObjectContext *)tempContext
+{
+    
+    ///二手房信息
+    cdCollectedModel.id_ = collectedModel.id_;
+    cdCollectedModel.user_id = collectedModel.user_id;
+    cdCollectedModel.introduce = collectedModel.introduce;
+    cdCollectedModel.title = collectedModel.title;
+    cdCollectedModel.title_second = collectedModel.title_second;
+    cdCollectedModel.address = collectedModel.address;
+    cdCollectedModel.floor_num = collectedModel.floor_num;
+    cdCollectedModel.property_type = collectedModel.property_type;
+    cdCollectedModel.used_year = collectedModel.used_year;
+    cdCollectedModel.installation = collectedModel.installation;
+    cdCollectedModel.features = collectedModel.features;
+    cdCollectedModel.view_count = collectedModel.view_count;
+    cdCollectedModel.provinceid = collectedModel.provinceid;
+    cdCollectedModel.cityid = collectedModel.cityid;
+    cdCollectedModel.areaid = collectedModel.areaid;
+    cdCollectedModel.street = collectedModel.street;
+    cdCollectedModel.commend = collectedModel.commend;
+    cdCollectedModel.attach_file = collectedModel.attach_file;
+    cdCollectedModel.attach_thumb = collectedModel.attach_thumb;
+    cdCollectedModel.favorite_count = collectedModel.favorite_count;
+    cdCollectedModel.attention_count = collectedModel.attention_count;
+    cdCollectedModel.status = collectedModel.status;
+    cdCollectedModel.name = collectedModel.name;
+    cdCollectedModel.tel = collectedModel.tel;
+    cdCollectedModel.content = collectedModel.content;
+    cdCollectedModel.village_id = collectedModel.village_id;
+    cdCollectedModel.village_name = collectedModel.village_name;
+    cdCollectedModel.building_structure = collectedModel.building_structure;
+    cdCollectedModel.floor_which = collectedModel.floor_which;
+    cdCollectedModel.house_face = collectedModel.house_face;
+    cdCollectedModel.decoration_type = collectedModel.decoration_type;
+    cdCollectedModel.house_area = collectedModel.house_area;
+    cdCollectedModel.house_shi = collectedModel.house_shi;
+    cdCollectedModel.house_ting = collectedModel.house_ting;
+    cdCollectedModel.house_wei = collectedModel.house_wei;
+    cdCollectedModel.house_chufang = collectedModel.house_chufang;
+    cdCollectedModel.house_yangtai = collectedModel.house_yangtai;
+    cdCollectedModel.cycle = collectedModel.cycle;
+    cdCollectedModel.time_interval_start = collectedModel.time_interval_start;
+    cdCollectedModel.time_interval_end = collectedModel.time_interval_end;
+    cdCollectedModel.entrust = collectedModel.entrust;
+    cdCollectedModel.entrust_company = collectedModel.entrust_company;
+    cdCollectedModel.video_url = collectedModel.video_url;
+    cdCollectedModel.negotiated = collectedModel.negotiated;
+    cdCollectedModel.reservation_num = collectedModel.reservation_num;
+    cdCollectedModel.house_no = collectedModel.house_no;
+    cdCollectedModel.building_year = collectedModel.building_year;
+    cdCollectedModel.house_price = collectedModel.house_price;
+    cdCollectedModel.house_nature = collectedModel.house_nature;
+    cdCollectedModel.elevator = collectedModel.elevator;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
+    
 }
 
 ///将显示端的出租房数据转换为本地化的数据模型
@@ -3107,6 +3627,67 @@
     }
     
     return collectedModel;
+    
+}
+
+///将小区列表的数据模型转换为本地保存的数据模型
++ (void)changeModel_RentHouse_ListMode_T_CDModel:(QSRentHouseInfoDataModel *)collectedModel andCDModel:(QSCDCollectedRentHouseDataModel *)cdCollectedModel andOperationContext:(NSManagedObjectContext *)tempContext
+{
+    
+    ///二手房信息
+    cdCollectedModel.id_ = collectedModel.id_;
+    cdCollectedModel.user_id = collectedModel.user_id;
+    cdCollectedModel.introduce = collectedModel.introduce;
+    cdCollectedModel.title = collectedModel.title;
+    cdCollectedModel.title_second = collectedModel.title_second;
+    cdCollectedModel.address = collectedModel.address;
+    cdCollectedModel.floor_num = collectedModel.floor_num;
+    cdCollectedModel.property_type = collectedModel.property_type;
+    cdCollectedModel.used_year = collectedModel.used_year;
+    cdCollectedModel.installation = collectedModel.installation;
+    cdCollectedModel.features = collectedModel.features;
+    cdCollectedModel.view_count = collectedModel.view_count;
+    cdCollectedModel.provinceid = collectedModel.provinceid;
+    cdCollectedModel.cityid = collectedModel.cityid;
+    cdCollectedModel.areaid = collectedModel.areaid;
+    cdCollectedModel.street = collectedModel.street;
+    cdCollectedModel.commend = collectedModel.commend;
+    cdCollectedModel.attach_file = collectedModel.attach_file;
+    cdCollectedModel.attach_thumb = collectedModel.attach_thumb;
+    cdCollectedModel.favorite_count = collectedModel.favorite_count;
+    cdCollectedModel.attention_count = collectedModel.attention_count;
+    cdCollectedModel.status = collectedModel.status;
+    cdCollectedModel.name = collectedModel.name;
+    cdCollectedModel.tel = collectedModel.tel;
+    cdCollectedModel.village_id = collectedModel.village_id;
+    cdCollectedModel.village_name = collectedModel.village_name;
+    cdCollectedModel.floor_which = collectedModel.floor_which;
+    cdCollectedModel.house_face = collectedModel.house_face;
+    cdCollectedModel.decoration_type = collectedModel.decoration_type;
+    cdCollectedModel.house_area = collectedModel.house_area;
+    cdCollectedModel.elevator = collectedModel.elevator;
+    cdCollectedModel.house_shi = collectedModel.house_shi;
+    cdCollectedModel.house_ting = collectedModel.house_ting;
+    cdCollectedModel.house_wei = collectedModel.house_wei;
+    cdCollectedModel.house_chufang = collectedModel.house_chufang;
+    cdCollectedModel.house_yangtai = collectedModel.house_yangtai;
+    cdCollectedModel.fee = collectedModel.fee;
+    cdCollectedModel.cycle = collectedModel.cycle;
+    cdCollectedModel.time_interval_start = collectedModel.time_interval_start;
+    cdCollectedModel.time_interval_end = collectedModel.time_interval_end;
+    cdCollectedModel.entrust = collectedModel.entrust;
+    cdCollectedModel.entrust_company = collectedModel.entrust_company;
+    cdCollectedModel.video_url = collectedModel.video_url;
+    cdCollectedModel.negotiated = collectedModel.negotiated;
+    cdCollectedModel.reservation_num = collectedModel.reservation_num;
+    cdCollectedModel.house_no = collectedModel.house_no;
+    cdCollectedModel.house_status = collectedModel.house_status;
+    cdCollectedModel.rent_price = collectedModel.rent_price;
+    cdCollectedModel.payment = collectedModel.payment;
+    cdCollectedModel.rent_property = collectedModel.rent_property;
+    cdCollectedModel.lead_time = collectedModel.lead_time;
+    cdCollectedModel.update_time = collectedModel.update_time;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
     
 }
 

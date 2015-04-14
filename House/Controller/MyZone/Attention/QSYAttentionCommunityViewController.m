@@ -275,6 +275,13 @@
                         
                     }
                     
+                    ///更新本地数据
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [self updateLocalData];
+                        
+                    });
+                    
                 } else {
                 
                     self.noRecordsView.hidden = NO;
@@ -399,6 +406,13 @@
                 ///结束刷新动画
                 [self.collectionView.footer endRefreshing];
                 
+                ///更新本地数据
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [self updateLocalData];
+                    
+                });
+                
             } else {
                 
                 ///结束刷新动画
@@ -421,7 +435,36 @@
 - (void)updateLocalData
 {
 
+    ///网络请求的收藏数据
+    NSArray *tempServerArray = [NSArray arrayWithArray:self.dataSourceModel.communityListHeaderData.communityList];
     
+    if ([tempServerArray count] <= 0) {
+        
+        return;
+        
+    }
+    
+    ///查找本地是否已存在对应收藏
+    for (int i = 0;i < [tempServerArray count];i++) {
+        
+        QSCommunityDataModel *serverModel = tempServerArray[i];
+        serverModel.is_syserver = @"1";
+        [QSCoreDataManager saveCollectedDataWithModel:serverModel andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+            
+            ///保存成功
+            if (flag) {
+                
+                APPLICATION_LOG_INFO(@"添加关注小区->服务端数据更新本地数据", @"成功")
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加关注小区->服务端数据更新本地数据", @"失败")
+                
+            }
+            
+        }];
+        
+    }
 
 }
 

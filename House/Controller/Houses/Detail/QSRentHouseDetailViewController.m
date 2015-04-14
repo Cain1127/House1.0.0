@@ -1479,6 +1479,13 @@ static char LeftStarKey;            //!<左侧星级
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     
+                    ///判断服务端是否已收藏
+                    if ([self.detailInfo.expandInfo.is_store intValue] ==1) {
+                        
+                        [self saveCollectedRentHouseWithStatus:YES];
+                        
+                    }
+                    
                     ///添加浏览记录
                     [self addBrowseRecords];
                     

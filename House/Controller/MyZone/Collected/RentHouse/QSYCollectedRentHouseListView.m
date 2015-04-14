@@ -151,6 +151,13 @@
                         
                     }
                     
+                    ///更新本地数据
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [self updateLocalData];
+                        
+                    });
+                    
                 } else {
                     
                     self.footer.hidden = YES;
@@ -285,6 +292,13 @@
                 ///结束刷新动画
                 [self.footer endRefreshing];
                 
+                ///更新本地数据
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [self updateLocalData];
+                    
+                });
+                
             } else {
                 
                 ///结束刷新动画
@@ -354,7 +368,7 @@
         QSHouseCollectionViewCell *cellServerHouse = [collectionView dequeueReusableCellWithReuseIdentifier:serverHouseCellIndentify forIndexPath:indexPath];
         
         ///刷新数据
-        [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1] andListType:fFilterMainTypeRentalHouse];
+        [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row] andListType:fFilterMainTypeRentalHouse];
         
         return cellServerHouse;
         
@@ -371,6 +385,43 @@
     [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
     
     return cellLocalHouse;
+    
+}
+
+#pragma mark - 重新校对数据
+- (void)updateLocalData
+{
+    
+    ///网络请求的收藏数据
+    NSArray *tempServerArray = [NSArray arrayWithArray:self.dataSourceModel.headerData.rentHouseList];
+    
+    if ([tempServerArray count] <= 0) {
+        
+        return;
+        
+    }
+    
+    ///查找本地是否已存在对应收藏
+    for (int i = 0;i < [tempServerArray count];i++) {
+        
+        QSRentHouseInfoDataModel *serverModel = tempServerArray[i];
+        serverModel.is_syserver = @"1";
+        [QSCoreDataManager saveCollectedDataWithModel:serverModel andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+            
+            ///保存成功
+            if (flag) {
+                
+                APPLICATION_LOG_INFO(@"添加出租房收藏->服务端数据更新本地数据", @"成功")
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"添加出租房收藏->服务端数据更新本地数据", @"失败")
+                
+            }
+            
+        }];
+        
+    }
     
 }
 

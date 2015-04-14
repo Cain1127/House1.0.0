@@ -35,5 +35,6 @@
 
 @property (nonatomic,copy) NSString *total_common_num;  //!<评论总数
 @property (nonatomic,copy) NSString *is_book;           //!<当前用户是否已预定
+@property (nonatomic,copy) NSString *is_store;          //!<是否已经收藏
 
 @end
