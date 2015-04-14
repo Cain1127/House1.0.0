@@ -7,6 +7,7 @@
 //
 
 #import "QSWDeveloperHomeViewController.h"
+#import "QSWDeveloperActivityViewController.h"
 
 #import "QSImageView+Block.h"
 
@@ -29,19 +30,22 @@
     
     
     [super createMainShowUI];
-    UIImageView *onSaleImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(15.0f, 20.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
+    UIImageView *onSaleImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(15.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
         APPLICATION_LOG_INFO(@"点击在线售楼", nil);
     }];
     onSaleImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SALING];
-    [self createOnsaleInfoUI:onSaleImageView andCount:@"108.0f"];
+    [self createOnsaleInfoUI:onSaleImageView andCount:@"108"];
     [self.view addSubview:onSaleImageView];
 
-    UIImageView *activityImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 15.0f-SIZE_DEVICE_WIDTH*160.0f/375.0f, 20.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
+    UIImageView *activityImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 15.0f-SIZE_DEVICE_WIDTH*160.0f/375.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
         APPLICATION_LOG_INFO(@"点击当前活动", nil);
+        QSWDeveloperActivityViewController *acVC = [[QSWDeveloperActivityViewController alloc]init];
+        [self.navigationController pushViewController:acVC animated:YES];
+        
     }];
     activityImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_ACTIVES];
 
-    [self createOnsaleInfoUI:activityImageView andCount:@"98.0f"];
+    [self createActivityInfoUI:activityImageView andCount:@"99"];
     [self.view addSubview:activityImageView];
     
     UIView *houseAttentionView=[[UIView alloc] initWithFrame:CGRectMake(35.0f, activityImageView.frame.origin.y+activityImageView.frame.size.height+20.0f, SIZE_DEVICE_WIDTH-70.0f, 25.0f+15.0f+5.0f+2*20.0f)];
@@ -49,7 +53,7 @@
     [self.view addSubview:houseAttentionView];
     
     UIImageView *settingImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(35.0f, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height+20.0f, SIZE_DEVICE_WIDTH*120.0f/375.0f, SIZE_DEVICE_WIDTH*133.0f/375.0f) andSingleTapCallBack:^{
-        APPLICATION_LOG_INFO(@"点击在线售楼", nil);
+        APPLICATION_LOG_INFO(@"点击设置", nil);
         settingImageView.highlighted = YES;
 
     }];
@@ -59,7 +63,7 @@
     ///说明文字
     UILabel *settingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
     settingLabel.text = @"设置";
-    settingLabel.center=CGPointMake(settingImageView.frame.size.width / 2.0f, settingImageView.frame.size.height/2.0f+10.0f);
+    settingLabel.center=CGPointMake(settingImageView.frame.size.width / 2.0f, settingImageView.frame.size.height/2.0f+20.0f);
     settingLabel.textAlignment = NSTextAlignmentCenter;
     settingLabel.textColor = COLOR_CHARACTERS_BLACK;
     settingLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
@@ -67,17 +71,18 @@
     [self.view addSubview:settingImageView];
     
     UIImageView *chatImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-35.0f-settingImageView.frame.size.width, settingImageView.frame.origin.y, settingImageView.frame.size.width, settingImageView.frame.size.height) andSingleTapCallBack:^{
-        APPLICATION_LOG_INFO(@"点击在线售楼", nil);
+        APPLICATION_LOG_INFO(@"点击消息", nil);
+        chatImageView.highlightedImage = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING_HIGHTLIGHT];
         chatImageView.highlighted = YES;
         
     }];
     chatImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING];
-    chatImageView.highlightedImage = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING_HIGHTLIGHT];
+
     
     ///说明文字
     UILabel *chatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
     chatLabel.text = @"消息";
-    chatLabel.center=CGPointMake(settingImageView.frame.size.width / 2.0f, settingImageView.frame.size.height/2.0f+10.0f);
+    chatLabel.center=CGPointMake(settingImageView.frame.size.width / 2.0f, settingImageView.frame.size.height/2.0f+20.0f);
     chatLabel.textAlignment = NSTextAlignmentCenter;
     chatLabel.textColor = COLOR_CHARACTERS_BLACK;
     chatLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
@@ -90,8 +95,17 @@
 - (void)createOnsaleInfoUI:(UIView *)view andCount:(NSString *)count
 {
     
+    ///说明文字
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, view.frame.size.width, 20.0f)];
+    titleLabel.text = @"在售楼盘";
+    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
+    [view addSubview:titleLabel];
+    
     ///在售楼盘数量
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,titleLabel.frame.origin.y-5.0f-30.0f, view.frame.size.width/2.0f+20.0f, 30.0f)];
     countLabel.text = count;
     countLabel.textAlignment = NSTextAlignmentRight;
     countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_35];
@@ -103,16 +117,6 @@
     unitLabel.text = @"个";
     unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     unitLabel.textColor = COLOR_CHARACTERS_BLACK;
-    [view addSubview:unitLabel];
-    
-    ///说明文字
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
-    titleLabel.text = @"在售楼盘";
-    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
-    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
-    [view addSubview:titleLabel];
     [view addSubview:unitLabel];
     
 }
@@ -120,9 +124,17 @@
 ///创建当前活UI
 - (void)createActivityInfoUI:(UIView *)view andCount:(NSString *)count
 {
+    ///说明文字
+    UILabel *activityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, view.frame.size.width, 20.0f)];
+    activityLabel.text = @"当前活动";
+    activityLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
+    activityLabel.textAlignment = NSTextAlignmentCenter;
+    activityLabel.textColor = COLOR_CHARACTERS_BLACK;
+    activityLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
+    [view addSubview:activityLabel];
     
     ///当前活动数量
-    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,activityLabel.frame.origin.y-5.0f-30.0f, view.frame.size.width/2.0f+15.0f, 30.0f)];
     countLabel.text = count;
     countLabel.textAlignment = NSTextAlignmentRight;
     countLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_35];
@@ -136,15 +148,7 @@
     unitLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:unitLabel];
     
-    ///说明文字
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
-    titleLabel.text = @"当前活动";
-    titleLabel.center=CGPointMake(view.frame.size.width / 2.0f, view.frame.size.height/2.0f+10.0f);
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = COLOR_CHARACTERS_BLACK;
-    titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
-    [view addSubview:titleLabel];
-    [view addSubview:unitLabel];
+
     
 }
 
