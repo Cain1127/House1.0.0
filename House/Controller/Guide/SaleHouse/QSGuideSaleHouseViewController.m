@@ -180,7 +180,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
             
         });
         
-        [self gotoLoginViewController];
+        [self gotoLoginViewController:fFilterMainTypeSecondHouse];
         
     }];
     saleHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -201,7 +201,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
             
         });
         
-        [self gotoLoginViewController];
+        [self gotoLoginViewController:fFilterMainTypeRentalHouse];
         
     }];
     rentalHouseButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -257,7 +257,7 @@ static char BuyerCountDataKey;      //!<当前房客总数
 }
 
 #pragma mark - 进入登录页面
-- (void)gotoLoginViewController
+- (void)gotoLoginViewController:(FILTER_MAIN_TYPE)houseType
 {
 
     QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:^(LOGIN_CHECK_ACTION_TYPE flag) {
@@ -269,13 +269,58 @@ static char BuyerCountDataKey;      //!<当前房客总数
             if (uUserCountTypeDeveloper == [QSCoreDataManager getUserType]) {
                 
                 ///进入开发商页面
+                QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
                 
+                UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:developerVC];
+                [developerVC.navigationController setNavigationBarHidden:YES];
+                
+                ///修改默认的用户类型
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                ///进入开发商模块
+                [self changeWindowRootViewController:navigationVC];
                 
             }
             
             if (uUserCountTypeOwner == [QSCoreDataManager getUserType]) {
                 
                 ///进入个人中心->发布房源页面
+                QSTabBarViewController *homePageVC = [[QSTabBarViewController alloc] initWithCurrentIndex:3];
+                homePageVC.selectedIndex = 3;
+                
+                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                [self changeWindowRootViewController:homePageVC];
+                
+                ///进入出租，或者出售物业发布页面
+                UIViewController *myzoneVC = homePageVC.viewControllers[3];
+                if (fFilterMainTypeRentalHouse == houseType) {
+                    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                    if ([myzoneVC respondsToSelector:@selector(gotoReleaseRentHouseMyzone)]) {
+                        
+                        [myzoneVC performSelector:@selector(gotoReleaseRentHouseMyzone)];
+                        
+                    }
+#pragma clang diagnostic pop
+                    
+                }
+                
+                if (fFilterMainTypeSecondHouse == houseType) {
+                    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+                    if ([myzoneVC respondsToSelector:@selector(gotoReleaseSaleHouseMyzone)]) {
+                        
+                        [myzoneVC performSelector:@selector(gotoReleaseSaleHouseMyzone)];
+                        
+                    }
+#pragma clang diagnostic pop
+                    
+                }
                 
             }
             
