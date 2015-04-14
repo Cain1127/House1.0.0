@@ -22,11 +22,6 @@
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-#import "QSHouseListView.h"
-#import "QSCommunityListView.h"
-#import "QSRentHouseListView.h"
-#import "QSNewHouseListView.h"
-
 #import "QSFilterDataModel.h"
 #import "QSHouseInfoDataModel.h"
 #import "QSCommunityDataModel.h"
@@ -179,8 +174,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     objc_setAssociatedObject(self, &ChannelButtonRootView, channelBarRootView, OBJC_ASSOCIATION_ASSIGN);
     
     [self initMapView];
-    //[self initSearch];
-    
     
 }
 
