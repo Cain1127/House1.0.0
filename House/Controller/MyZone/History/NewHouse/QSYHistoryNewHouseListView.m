@@ -71,7 +71,7 @@
             
         }
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
         self.dataSource = self;

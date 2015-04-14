@@ -12,6 +12,10 @@
 
 @property (nonatomic,copy) NSString *contactID;     //!<联系人ID
 @property (nonatomic,copy) NSString *contactName;   //!<联系人姓名
+@property (nonatomic,copy) NSString *orderID;       //!<订单ID
+
+///投诉后的回调
+@property (nonatomic,copy) void(^complaintCallBack)(BOOL isComplaint);
 
 @end
 
@@ -33,11 +37,38 @@
 - (instancetype)initWithContactID:(NSString *)contactID andContactName:(NSString *)contactName
 {
 
+    return [self initWithContactID:contactID andContactName:contactName andOrderID:nil andCallBack:nil];
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-04-14 11:04:08
+ *
+ *  @brief              创建订单投诉页面
+ *
+ *  @param contactID    被投诉人的ID
+ *  @param contactName  被投诉人的姓名
+ *  @param orderID      订单ID
+ *  @param callBack     投诉完成后的回调
+ *
+ *  @return             返回当前创建的投诉页面
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithContactID:(NSString *)contactID andContactName:(NSString *)contactName andOrderID:(NSString *)orderID andCallBack:(void(^)(BOOL isComplaint))callBack
+{
+
     if (self = [super init]) {
         
         ///保存参数
         self.contactID = contactID;
         self.contactName = contactName;
+        self.orderID = orderID;
+        if (callBack) {
+            
+            self.complaintCallBack = callBack;
+            
+        }
         
     }
     

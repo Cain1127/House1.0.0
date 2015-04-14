@@ -27,6 +27,7 @@
 @property (assign) BOOL isLocalData;                            //!<是否本地数据
 @property (nonatomic,strong) QSCollectionView *collectionView;  //!<小区列表
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
+@property (nonatomic,strong) UIView *noRecordsView;             //!<无记录提示页面
 
 ///网络请求的数据
 @property (nonatomic,retain) QSCommunityListReturnData *dataSourceModel;
@@ -92,6 +93,9 @@
 
 - (void)createMainShowUI
 {
+    
+    ///创建无记录页面
+    [self createNoRecordUI];
 
     ///瀑布流布局器
     UICollectionViewFlowLayout *defaultLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -119,6 +123,13 @@
     
     ///开始就刷新
     [self.collectionView.header beginRefreshing];
+
+}
+
+- (void)createNoRecordUI
+{
+
+    
 
 }
 
@@ -202,7 +213,7 @@
                                  @"now_page" : @"1"};
         
         ///获取网络数据
-        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionCommunityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///判断请求
             if (rRequestResultTypeSuccess == resultStatus) {
@@ -216,17 +227,15 @@
                 ///判断是否有房子数据
                 if ([resultDataModel.communityListHeaderData.communityList count] > 0) {
                     
+                    self.noRecordsView.hidden = YES;
+                    
                     ///更新数据源
                     self.dataSourceModel = resultDataModel;
-                    
-                }
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
                     ///刷新数据
                     [self.collectionView reloadData];
                     
-                    self.collectionView.footer.hidden = NO;
+                    self.collectionView.footer.stateHidden = NO;
                     if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
                         [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
                         
@@ -234,15 +243,21 @@
                         
                     }
                     
-                });
+                } else {
+                
+                    self.noRecordsView.hidden = NO;
+                    [self.collectionView reloadData];
+                    self.collectionView.footer.stateHidden = YES;
+                    
+                    ///刷新数据
+                    [self.collectionView reloadData];
+                
+                }
                 
                 ///结束刷新动画
                 [self.collectionView.header endRefreshing];
                 
-            } else if (rRequestResultTypeFail == resultStatus) {
-                
-                ///结束刷新动画
-                [self.collectionView.header endRefreshing];
+            } else {
                 
                 ///重置数据源
                 self.dataSourceModel = nil;
@@ -250,7 +265,7 @@
                 ///刷新数据
                 [self.collectionView reloadData];
                 
-            } else {
+                self.noRecordsView.hidden = NO;
                 
                 ///结束刷新动画
                 [self.collectionView.header endRefreshing];
@@ -262,12 +277,28 @@
     } else {
     
         ///获取本地数据
+        [self.dataSource removeAllObjects];
         [self.dataSource addObjectsFromArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeCommunity]];
         
         ///重载数据
         [self.collectionView reloadData];
-        self.collectionView.footer.stateHidden = NO;
-        [self.collectionView.footer noticeNoMoreData];
+        
+        if ([self.dataSource count] > 0) {
+            
+            ///显示无记录页
+            self.noRecordsView.hidden = YES;
+            
+            self.collectionView.footer.stateHidden = NO;
+            [self.collectionView.footer noticeNoMoreData];
+            
+            
+        } else {
+        
+            self.collectionView.footer.stateHidden = YES;
+            self.noRecordsView.hidden = NO;
+        
+        }
+        
         [self.collectionView.header endRefreshing];
     
     }
@@ -282,15 +313,11 @@
     if (!self.isLocalData) {
         
         ///判断是否最大页码
-        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
+        self.collectionView.footer.hidden = NO;
+        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+            [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
             
-            self.collectionView.footer.hidden = NO;
-            if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
-                [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
-                
-                [self.collectionView.footer noticeNoMoreData];
-                
-            }
+            [self.collectionView.footer noticeNoMoreData];
             
             ///结束刷新动画
             [self.collectionView.header endRefreshing];
@@ -304,7 +331,7 @@
                                  @"page_num " : @"10",
                                  @"now_page" : self.dataSourceModel.communityListHeaderData.next_page};
         
-        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionCommunityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///判断请求
             if (rRequestResultTypeSuccess == resultStatus) {
