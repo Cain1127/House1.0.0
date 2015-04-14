@@ -732,6 +732,7 @@
 		CE9703A91AC937AC00AE403E /* QSLoupanHouseViewDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9703A81AC937AC00AE403E /* QSLoupanHouseViewDataModel.m */; };
 		CE9703AC1AC938E800AE403E /* QSLoupanHouseListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9703AB1AC938E800AE403E /* QSLoupanHouseListDataModel.m */; };
 		CE98F2B11ADCB11A006594C9 /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98F2B01ADCB11A006594C9 /* QSWDeveloperHomeViewController.m */; };
+		CE98F2B41ADCF445006594C9 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE98F2B31ADCF445006594C9 /* QSWDeveloperActivityViewController.m */; };
 		CEA0871F1ACBC35800D6C7D1 /* QSNearInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA0871E1ACBC35800D6C7D1 /* QSNearInfoViewController.m */; };
 		CEA9CFCA1AD503B200FEF74A /* houses_detail_bus_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC31AD503B200FEF74A /* houses_detail_bus_annotion.png */; };
 		CEA9CFCB1AD503B200FEF74A /* houses_detail_catering_annotion.png in Resources */ = {isa = PBXBuildFile; fileRef = CEA9CFC41AD503B200FEF74A /* houses_detail_catering_annotion.png */; };
@@ -1985,6 +1986,8 @@
 		CE9703AB1AC938E800AE403E /* QSLoupanHouseListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLoupanHouseListDataModel.m; sourceTree = "<group>"; };
 		CE98F2AF1ADCB11A006594C9 /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE98F2B01ADCB11A006594C9 /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
+		CE98F2B21ADCF445006594C9 /* QSWDeveloperActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperActivityViewController.h; sourceTree = "<group>"; };
+		CE98F2B31ADCF445006594C9 /* QSWDeveloperActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperActivityViewController.m; sourceTree = "<group>"; };
 		CEA0871D1ACBC35800D6C7D1 /* QSNearInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNearInfoViewController.h; sourceTree = "<group>"; };
 		CEA0871E1ACBC35800D6C7D1 /* QSNearInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNearInfoViewController.m; sourceTree = "<group>"; };
 		CEA9CFC31AD503B200FEF74A /* houses_detail_bus_annotion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_bus_annotion.png; sourceTree = "<group>"; };
@@ -5808,6 +5811,8 @@
 			children = (
 				CE98F2AF1ADCB11A006594C9 /* QSWDeveloperHomeViewController.h */,
 				CE98F2B01ADCB11A006594C9 /* QSWDeveloperHomeViewController.m */,
+				CE98F2B21ADCF445006594C9 /* QSWDeveloperActivityViewController.h */,
+				CE98F2B31ADCF445006594C9 /* QSWDeveloperActivityViewController.m */,
 			);
 			path = Developer;
 			sourceTree = "<group>";
@@ -6831,6 +6836,7 @@
 				18B5633E1A8203BA009779A0 /* QSFilterDataModel.m in Sources */,
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
 				CEBC98711ABD0A1F00A69F34 /* QSCustomAnnotationView.m in Sources */,
+				CE98F2B41ADCF445006594C9 /* QSWDeveloperActivityViewController.m in Sources */,
 				CED9EAA21AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m in Sources */,
 				475A4D881AC5384D009881CF /* QSPOrderDetailComplaintAndCommentButtonView.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
