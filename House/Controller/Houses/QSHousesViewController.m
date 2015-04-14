@@ -24,7 +24,7 @@
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
-#import "QSHouseListView.h"
+#import "QSSecondHandHouseListView.h"
 #import "QSCommunityListView.h"
 #import "QSRentHouseListView.h"
 #import "QSNewHouseListView.h"
@@ -622,7 +622,7 @@ static char PopViewKey;             //!<摇一摇view关联
         case fFilterMainTypeNewHouse:
         {
         
-            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -664,8 +664,8 @@ static char PopViewKey;             //!<摇一摇view关联
         case fFilterMainTypeCommunity:
         {
         
-            ///创建小区/新房的列表UI
-            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            ///创建小区的列表UI
+            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -708,7 +708,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
         
             ///瀑布流布局器
-            QSHouseListView *listView = [[QSHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSSecondHandHouseListView *listView = [[QSSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -759,7 +759,7 @@ static char PopViewKey;             //!<摇一摇view关联
         case fFilterMainTypeRentalHouse:
         {
         
-            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andHouseListType:self.listType andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {

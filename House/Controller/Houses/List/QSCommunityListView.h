@@ -15,23 +15,20 @@
  *
  *  @since  1.0.0
  */
-@class QSFilterDataModel;
 @interface QSCommunityListView : UICollectionView
 
 /**
- *  @author             yangshengmeng, 15-02-27 10:02:57
+ *  @author         yangshengmeng, 15-04-14 14:04:02
  *
- *  @brief              根据大小、位置、列表类型、当前过滤条件及单击时的回调，创建小区/新房
+ *  @brief          创建小区列表
  *
- *  @param frame        大小和位置
- *  @param listType     列表类型
- *  @param filterModel  当前过滤器
- *  @param callBack     单击时的回调
+ *  @param frame    大小和位置
+ *  @param callBack 小区列表相关事件的回调
  *
- *  @return             返回当前创建的房子瀑布流列且
+ *  @return         返回当前创建的小区列表
  *
- *  @since              1.0.0
+ *  @since          1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
 
 @end

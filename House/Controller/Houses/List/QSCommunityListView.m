@@ -21,9 +21,6 @@
 
 @interface QSCommunityListView () <UICollectionViewDataSource,UICollectionViewDelegate>
 
-///当前列表类型
-@property (nonatomic,assign) FILTER_MAIN_TYPE listType;
-
 ///点击房源时的回调
 @property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
@@ -36,20 +33,18 @@
 
 #pragma mark - 初始化
 /**
- *  @author             yangshengmeng, 15-02-27 10:02:57
+ *  @author         yangshengmeng, 15-04-14 14:04:02
  *
- *  @brief              根据大小、位置、列表类型、当前过滤条件及单击时的回调，创建小区/新房
+ *  @brief          创建小区列表
  *
- *  @param frame        大小和位置
- *  @param listType     列表类型
- *  @param filterModel  当前过滤器
- *  @param callBack     单击时的回调
+ *  @param frame    大小和位置
+ *  @param callBack 小区列表相关事件的回调
  *
- *  @return             返回当前创建的房子瀑布流列且
+ *  @return         返回当前创建的小区列表
  *
- *  @since              1.0.0
+ *  @since          1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
+- (instancetype)initWithFrame:(CGRect)frame andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
 {
 
     ///瀑布流布局器
@@ -66,14 +61,13 @@
     if (self = [super initWithFrame:frame collectionViewLayout:defaultLayout]) {
         
         ///保存参数
-        self.listType = listType;
         if (callBack) {
             
             self.houseListTapCallBack = callBack;
             
         }
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.delegate = self;
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
@@ -94,17 +88,60 @@
 
 }
 
+#pragma mark - 返回每一个小区的信息cell
+///返回每一个小区/新房的信息cell
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *normalCellName = @"communityCell";
+    
+    ///从复用队列中返回cell
+    QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
+    
+    ///刷新数据
+    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:fFilterMainTypeCommunity];
+    
+    return cellNormal;
+    
+}
+
+#pragma mark - 返回一共有多少个小区/新房项
+///返回一共有多少个小区/新房项
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    return [self.dataSourceModel.communityListHeaderData.communityList count];
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    ///获取房子模型
+    QSCommunityDataModel *houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row ];
+    
+    ///回调
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
+        
+    }
+    
+}
+
 #pragma mark - 请求小区列表数据
 ///请求小区列表头数据
 - (void)communityListHeaderRequest
 {
     
     ///封装参数：主要是添加页码控制
-    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeCommunity]];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
-    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -156,13 +193,11 @@
             
             ///结束刷新动画
             [self.header endRefreshing];
-            [self.footer endRefreshing];
             
-        } else if (rRequestResultTypeFail == resultStatus) {
+        } else {
         
             ///结束刷新动画
             [self.header endRefreshing];
-            [self.footer endRefreshing];
             
             ///重置数据源
             self.dataSourceModel = nil;
@@ -171,25 +206,13 @@
             [self reloadData];
             
             ///由于是第一页，请求失败，显示暂无记录
+            self.footer.hidden = YES;
             if (self.houseListTapCallBack) {
                 
                 self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
                 
             }
         
-        } else {
-            
-            ///结束刷新动画
-            [self.header endRefreshing];
-            [self.footer endRefreshing];
-            
-            ///由于是第一页，请求失败，显示暂无记录
-            if (self.houseListTapCallBack) {
-                
-                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
-                
-            }
-            
         }
         
     }];
@@ -212,18 +235,17 @@
         }
         
         ///结束刷新动画
-        [self.header endRefreshing];
         [self.footer endRefreshing];
         return;
         
     }
     
     ///封装参数：主要是添加页码控制
-    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:self.listType]];
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeCommunity]];
     [temParams setObject:[NSString stringWithFormat:@"%@",self.dataSourceModel.communityListHeaderData.next_page] forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
-    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -255,110 +277,16 @@
             });
             
             ///结束刷新动画
-            [self.header endRefreshing];
             [self.footer endRefreshing];
             
         } else {
             
             ///结束刷新动画
-            [self.header endRefreshing];
             [self.footer endRefreshing];
             
         }
         
     }];
-    
-}
-
-#pragma mark - 返回每一个小区/新房的信息cell
-///返回每一个小区/新房的信息cell
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    static NSString *normalCellName = @"communityCell";
-    
-    ///从复用队列中返回cell
-    QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
-    
-    ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:self.listType];
-    
-    return cellNormal;
-
-}
-
-#pragma mark - 返回一共有多少个小区/新房项
-///返回一共有多少个小区/新房项
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-
-    return [self.dataSourceModel.communityListHeaderData.communityList count];
-
-}
-
-#pragma mark - 点击房源
-///点击房源
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    ///获取房子模型
-    QSCommunityDataModel *houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row ];
-    
-    ///回调
-    if (self.houseListTapCallBack) {
-        
-        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
-        
-    }
-    
-}
-
-#pragma mark - 根据不同的列表类型返回不同的请求类型
-///根据不同的列表类型返回不同的请求类型
-- (REQUEST_TYPE)getRequestType
-{
-    
-    switch (self.listType) {
-            ///楼盘
-        case fFilterMainTypeBuilding:
-            
-            return rRequestTypeBuilding;
-            
-            break;
-            
-            ///新房
-        case fFilterMainTypeNewHouse:
-            
-            return rRequestTypeNewHouse;
-            
-            break;
-            
-            ///小区
-        case fFilterMainTypeCommunity:
-            
-            return rRequestTypeCommunity;
-            
-            break;
-            
-            ///二手房
-        case fFilterMainTypeSecondHouse:
-            
-            return rRequestTypeSecondHandHouseList;
-            
-            break;
-            
-            ///出租房
-        case fFilterMainTypeRentalHouse:
-            
-            return rRequestTypeRentalHouse;
-            
-            break;
-            
-        default:
-            break;
-    }
-    
-    return rRequestTypeSecondHandHouseList;
     
 }
 
