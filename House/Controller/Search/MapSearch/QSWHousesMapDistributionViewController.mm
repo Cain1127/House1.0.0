@@ -437,11 +437,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///更新本地对应的过滤器
             self.filterModel.filter_status = @"2";
             
-            ///刷新数据
-            
-            //            UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-            //[collectionView.header beginRefreshing];
-            
             ///保存过滤器
             [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
                 
@@ -479,11 +474,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         ///更新本地对应的过滤器
         self.filterModel.filter_status = @"2";
-        
-        ///刷新数据
-        
-        //        UIView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
-        //[collectionView.header beginRefreshing];
         
         ///保存过滤器
         [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
@@ -651,7 +641,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 - (void)initSearch
 {
+    
     _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+    
 }
 
 ///用户定位
@@ -681,11 +673,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 {
     
-    //NSLog(@"用户定位跟踪数据: %@", userLocation.location);
-    
-    if (updatingLocation)
-        
-    {
+    if (updatingLocation) {
         
         _currentLocation = [userLocation.location copy];
         
@@ -704,6 +692,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     request.address=[NSString  stringWithFormat:@"%@%@%@%@",self.filterModel.province_val,self.filterModel.city_val,self.filterModel.district_val,self.filterModel.street_val];
     [_search AMapGeocodeSearch:request];
+    
 }
 
 ///地理编码结果返回
@@ -715,13 +704,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:
 (AMapGeocodeSearchResponse *)response
 {
-    //NSLog(@"请求地址:%@",request);
-    NSLog(@"地理编码数据 :%@", response);
-    NSArray *geoArray=[[NSArray alloc] init];
-    geoArray=response.geocodes;
     
+    NSArray *geoArray = response.geocodes;
     for (id item in geoArray) {
-        NSLog(@" item :%@",item);
+        
         if (item&&[item isKindOfClass:[AMapGeocode class]]) {
             
             AMapGeocode *tempdata = (AMapGeocode*)item;
@@ -732,6 +718,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         }
         
     }
+    
     [self MapCommunityListHeaderRequest];
     
 }
@@ -872,16 +859,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 ///请求成功后，转换模型
                 QSMapCommunityListReturnData *resultDataModel = resultData;
                 
-                QSMapCommunityListHeaderData *headerModel=[[QSMapCommunityListHeaderData alloc] init];
-                headerModel=resultDataModel.mapCommunityListHeaderData;
+                QSMapCommunityListHeaderData *headerModel = resultDataModel.mapCommunityListHeaderData;
                 NSLog(@"返回小区的数量:%@",headerModel.total_num);
                 
-                QSMapCommunityDataModel *tepmodel=[[QSMapCommunityDataModel alloc] init];
-                tepmodel=resultDataModel.mapCommunityListHeaderData.communityList[0];
+                QSMapCommunityDataModel *tepmodel = resultDataModel.mapCommunityListHeaderData.communityList[0];
                 NSLog(@"第一组小区房源套数:%@",tepmodel.total_num);
                 
-                QSMapCommunityDataSubModel *tepmodel1=[[QSMapCommunityDataSubModel alloc] init];
-                tepmodel1=tepmodel.mapCommunityDataSubModel;
+                QSMapCommunityDataSubModel *tepmodel1 = tepmodel.mapCommunityDataSubModel;
                 NSLog(@"第一组小区名称:%@",tepmodel1.title);
                 NSLog(@"第一组小区地址:%@",tepmodel1.address);
                 
