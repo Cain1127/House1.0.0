@@ -11,9 +11,11 @@
 #import "QSCollectionWaterFlowLayout.h"
 
 #import "QSHouseCollectionViewCell.h"
+#import "QSYHistoryHouseCollectionViewCell.h"
 
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSHouseInfoDataModel.h"
+#import "QSSecondHouseDetailDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -80,13 +82,14 @@
         ///初始化数据源
         self.customDataSource = [[NSMutableArray alloc] init];
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
+        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"localHouseCell"];
+        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"serverHouseCell"];
         
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
@@ -303,18 +306,32 @@
 #pragma mark - 返回每一个房源
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (!self.isLocalData) {
+        
+        static NSString *serverCellIndentify = @"serverHouseCell";
+        
+        ///从复用队列中获取房子信息的cell
+        QSHouseCollectionViewCell *cellServerHouse = [collectionView dequeueReusableCellWithReuseIdentifier:serverCellIndentify forIndexPath:indexPath];
+        
+        ///刷新数据
+        [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1] andListType:fFilterMainTypeSecondHouse];
+        
+        return cellServerHouse;
+        
+    }
 
     ///复用标识
-    static NSString *houseCellIndentify = @"houseCell";
+    static NSString *localCellIndentify = @"localHouseCell";
     
     ///从复用队列中获取房子信息的cell
-    QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
+    QSYHistoryHouseCollectionViewCell *cellLocalHouse = [collectionView dequeueReusableCellWithReuseIdentifier:localCellIndentify forIndexPath:indexPath];
     
     ///获取数据模型
-    QSHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
-    [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
+    QSSecondHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+    [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeSecondHouse andPickedBoxStatus:NO];
     
-    return cellHouse;
+    return cellLocalHouse;
     
 }
 

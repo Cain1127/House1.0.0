@@ -9,6 +9,7 @@
 #import "QSYCollectedNewHouseListView.h"
 
 #import "QSCommunityCollectionViewCell.h"
+#import "QSAttentionCommunityCell.h"
 
 #import "QSNewHouseListReturnData.h"
 #import "QSNewHouseInfoDataModel.h"
@@ -85,13 +86,14 @@
         ///初始化数据源
         self.customDataSource = [[NSMutableArray alloc] init];
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"newHouseInfoCell"];
+        [self registerClass:[QSAttentionCommunityCell class] forCellWithReuseIdentifier:@"localCell"];
+        [self registerClass:[QSCommunityCollectionViewCell class] forCellWithReuseIdentifier:@"serverCell"];
         
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(newHouseListHeaderRequest)];
@@ -300,18 +302,35 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    static NSString *normalCellName = @"newHouseInfoCell";
+    if (!self.isLocalData) {
+        
+        static NSString *serverCellName = @"serverCell";
+        
+        ///从复用队列中返回cell
+        QSCommunityCollectionViewCell *cellServer = [collectionView dequeueReusableCellWithReuseIdentifier:serverCellName forIndexPath:indexPath];
+        
+        ///获取数据
+        QSNewHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
+        
+        ///刷新数据
+        [cellServer updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
+        
+        return cellServer;
+        
+    }
+    
+    static NSString *localCellName = @"localCell";
     
     ///从复用队列中返回cell
-    QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
+    QSAttentionCommunityCell *cellLocal = [collectionView dequeueReusableCellWithReuseIdentifier:localCellName forIndexPath:indexPath];
     
     ///获取数据
-    QSNewHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
+    QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
     
     ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
+    [cellLocal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
     
-    return cellNormal;
+    return cellLocal;
     
 }
 
