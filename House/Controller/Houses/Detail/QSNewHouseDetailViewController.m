@@ -13,6 +13,7 @@
 #import "QSNearInfoViewController.h"
 #import "QSMortgageCalculatorViewController.h"
 #import "QSSearchMapViewController.h"
+#import "QSMortgageCalculatorViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -429,6 +430,8 @@ static char LeftStarKey;            //!<左侧星级
         
         ///进入计算器页面
         NSLog(@"月供参考");
+        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
+        [self.navigationController pushViewController:mcVC animated:YES];
         
     }];
     [self createProvideInfoUI:provideRootView];
@@ -442,6 +445,8 @@ static char LeftStarKey;            //!<左侧星级
         
         ///进入税金计算页面
         NSLog(@"税金参考");
+        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
+        [self.navigationController pushViewController:mcVC animated:YES];
         
     }];
     [self createTaxInfoUI:taxRootView];

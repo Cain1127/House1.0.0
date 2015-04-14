@@ -573,4 +573,23 @@
 ///我的物业列表中，房源图片的默认图片
 #define IMAGE_ZONE_MYPROPERTYLIST_HOUSE_DEFAULT @"myzone_property_house_default"
 
+/*!
+ *  @author wangshupeng, 15-04-14 12:04:40
+ *
+ *  @brief  开发商模块图片
+ *
+ *  @since 1.0.0
+ */
+
+///在售楼盘图片
+#define IMAGE_DEVELOPER_HOME_SALING              @"developer_saling_house"
+///当前活动图片
+#define IMAGE_DEVELOPER_HOME_ACTIVES             @"developer_actives"
+///设置图片
+#define IMAGE_DEVELOPER_HOME_SETTING             @"developer_setting"
+#define IMAGE_DEVELOPER_HOME_SETTING_HIGHTLIGHT  @"developer_setting_hightlight"
+///消息图片
+#define IMAGE_DEVELOPER_HOME_CHAT                @"developer_chat"
+#define IMAGE_DEVELOPER_HOME_CHAT_HIGHTLIGHT     @"developer_chat_hightlight"
+
 #endif
