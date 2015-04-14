@@ -131,17 +131,19 @@
                 ///判断是否有房子数据
                 if ([resultDataModel.headerData.rentHouseList count] > 0) {
                     
+                    if (self.houseListTapCallBack) {
+                        
+                        self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                        
+                    }
+                    
                     ///更新数据源
                     self.dataSourceModel = resultDataModel;
-                    
-                }
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
                     ///刷新数据
                     [self reloadData];
                     
-                    self.footer.hidden = NO;
+                    self.footer.stateHidden = NO;
                     if ([self.dataSourceModel.headerData.per_page intValue] ==
                         [self.dataSourceModel.headerData.next_page intValue]) {
                         
@@ -149,15 +151,24 @@
                         
                     }
                     
-                });
+                } else {
+                    
+                    self.footer.stateHidden = YES;
+                    if (self.houseListTapCallBack) {
+                        
+                        self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                        
+                    }
+                    
+                    ///刷新数据
+                    [self reloadData];
+                    
+                }
                 
                 ///结束刷新动画
                 [self.header endRefreshing];
                 
-            } else if (rRequestResultTypeFail == resultStatus) {
-                
-                ///结束刷新动画
-                [self.header endRefreshing];
+            } else {
                 
                 ///重置数据源
                 self.dataSourceModel = nil;
@@ -165,7 +176,12 @@
                 ///刷新数据
                 [self reloadData];
                 
-            } else {
+                self.footer.stateHidden = YES;
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
                 
                 ///结束刷新动画
                 [self.header endRefreshing];
@@ -177,12 +193,34 @@
     } else {
     
         ///获取本地数据
+        [self.customDataSource removeAllObjects];
         [self.customDataSource addObjectsFromArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeRentalHouse]];
         
         ///重载数据
         [self reloadData];
-        self.footer.stateHidden = NO;
-        [self.footer noticeNoMoreData];
+        
+        if ([self.customDataSource count] > 0) {
+            
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                
+            }
+            
+            self.footer.stateHidden = NO;
+            [self.footer noticeNoMoreData];
+            
+        } else {
+        
+            self.footer.stateHidden = YES;
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
+        
+        }
+        
         [self.header endRefreshing];
     
     }

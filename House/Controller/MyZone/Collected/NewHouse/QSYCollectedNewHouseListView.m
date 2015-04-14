@@ -115,97 +115,120 @@
 
     if (!self.isLocalData) {
         
-        if (!self.isLocalData) {
+        ///封装参数
+        NSDictionary *params = @{@"type" : @"200502",
+                                 @"page_num " : @"10",
+                                 @"now_page" : @"1"};
+        
+        ///获取网络数据
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneCollectedNewHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            ///封装参数
-            NSDictionary *params = @{@"type" : @"200502",
-                                     @"page_num " : @"10",
-                                     @"now_page" : @"1"};
-            
-            ///获取网络数据
-            [QSRequestManager requestDataWithType:rRequestTypeMyZoneCollectedNewHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
                 
-                ///判断请求
-                if (rRequestResultTypeSuccess == resultStatus) {
+                ///请求成功后，转换模型
+                QSNewHouseListReturnData *resultDataModel = resultData;
+                
+                ///将数据模型置为nil
+                self.dataSourceModel = nil;
+                
+                ///判断是否有房子数据
+                if ([resultDataModel.headerData.houseList count] > 0) {
                     
-                    ///请求成功后，转换模型
-                    QSNewHouseListReturnData *resultDataModel = resultData;
-                    
-                    ///将数据模型置为nil
-                    self.dataSourceModel = nil;
-                    
-                    ///判断是否有房子数据
-                    if ([resultDataModel.headerData.houseList count] > 0) {
+                    if (self.houseListTapCallBack) {
                         
-                        ///更新数据源
-                        self.dataSourceModel = resultDataModel;
+                        self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
                         
                     }
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        
-                        ///刷新数据
-                        [self reloadData];
-                        
-                        self.footer.hidden = NO;
-                        if ([self.dataSourceModel.headerData.per_page intValue] ==
-                            [self.dataSourceModel.headerData.next_page intValue]) {
-                            
-                            [self.footer noticeNoMoreData];
-                            
-                        }
-                        
-                    });
-                    
-                    ///结束刷新动画
-                    [self.header endRefreshing];
-                    
-                } else if (rRequestResultTypeFail == resultStatus) {
-                    
-                    ///结束刷新动画
-                    [self.header endRefreshing];
-                    
-                    ///重置数据源
-                    self.dataSourceModel = nil;
+                    ///更新数据源
+                    self.dataSourceModel = resultDataModel;
                     
                     ///刷新数据
                     [self reloadData];
                     
+                    self.footer.stateHidden = NO;
+                    if ([self.dataSourceModel.headerData.per_page intValue] ==
+                        [self.dataSourceModel.headerData.next_page intValue]) {
+                        
+                        [self.footer noticeNoMoreData];
+                        
+                    }
+                    
                 } else {
                     
-                    ///结束刷新动画
-                    [self.header endRefreshing];
+                    self.footer.stateHidden = YES;
+                    if (self.houseListTapCallBack) {
+                        
+                        self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                        
+                    }
+                    
+                    ///刷新数据
+                    [self reloadData];
                     
                 }
                 
-            }];
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            } else {
+                
+                ///重置数据源
+                self.dataSourceModel = nil;
+                
+                ///刷新数据
+                [self reloadData];
+                
+                self.footer.stateHidden = YES;
+                
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            }
             
-        } else {
-            
-            ///获取本地数据
-            [self.customDataSource addObjectsFromArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeSecondHouse]];
-            
-            ///重载数据
-            [self reloadData];
-            self.footer.stateHidden = NO;
-            [self.footer noticeNoMoreData];
-            [self.header endRefreshing];
-            
-        }
+        }];
         
     } else {
         
         ///获取本地数据
+        [self.customDataSource removeAllObjects];
         [self.customDataSource addObjectsFromArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeNewHouse]];
         
         ///重载数据
         [self reloadData];
-        self.footer.stateHidden = NO;
-        [self.footer noticeNoMoreData];
+        if ([self.customDataSource count] > 0) {
+            
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                
+            }
+            
+            self.footer.stateHidden = NO;
+            [self.footer noticeNoMoreData];
+            
+        } else {
+            
+            self.footer.stateHidden = YES;
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
+            
+        }
+        
         [self.header endRefreshing];
         
     }
-
+    
 }
 
 - (void)newHouseListFooterRequest
@@ -221,7 +244,6 @@
             [self.footer noticeNoMoreData];
             
             ///结束刷新动画
-            [self.header endRefreshing];
             [self.footer endRefreshing];
             return;
             
