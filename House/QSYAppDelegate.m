@@ -9,6 +9,7 @@
 #import "QSYAppDelegate.h"
 
 #import "QSAdvertViewController.h"
+#import "QSWDeveloperHomeViewController.h"
 
 #import "QSCityInfoReturnData.h"
 #import "QSConfigurationReturnData.h"
@@ -54,9 +55,32 @@
     ///非主线程任务操作线程初始化
     self.appDelegateOperationQueue = dispatch_queue_create(QUEUE_REQUEST_OPERATION, DISPATCH_QUEUE_CONCURRENT);
     
-    ///显示广告页
-    QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
-    self.window.rootViewController = advertVC;
+    ///判断是否是开发商
+    NSString *isDevelop = [[NSUserDefaults standardUserDefaults] objectForKey:@"is_develop"];
+    if ([isDevelop intValue] == 1) {
+        
+        ///进入开发商页面
+        QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
+        
+        UINavigationController *navigationVC = [[UINavigationController alloc] initWithRootViewController:developerVC];
+        [developerVC.navigationController setNavigationBarHidden:YES];
+        
+        ///修改默认的用户类型
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        self.window.rootViewController = navigationVC;
+        
+    } else {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
+        ///显示广告页
+        QSAdvertViewController *advertVC = [[QSAdvertViewController alloc] init];
+        self.window.rootViewController = advertVC;
+    
+    }
     
     ///开始自登录
     NSString *localCount = [QSCoreDataManager getLoginCount];

@@ -587,7 +587,7 @@ static char UserNameKey;    //!<用户名
                 break;
                 
             case oOwnerZoneActionTypeCommited:
-                //已成交
+                ///已成交
             {
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
@@ -723,6 +723,26 @@ static char UserNameKey;    //!<用户名
         
     }];
 
+}
+
+#pragma mark - 进入出售物业页面
+- (void)gotoReleaseSaleHouseMyzone
+{
+
+    QSYReleaseSaleHouseViewController *releaseRentHouseVC = [[QSYReleaseSaleHouseViewController alloc] init];
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+
+}
+
+#pragma mark - 进入出租物业页面
+- (void)gotoReleaseRentHouseMyzone
+{
+    
+    QSYReleaseRentHouseViewController *releaseRentHouseVC = [[QSYReleaseRentHouseViewController alloc] init];
+    [self hiddenBottomTabbar:YES];
+    [self.navigationController pushViewController:releaseRentHouseVC animated:YES];
+    
 }
 
 #pragma mark - 点击设置按钮
