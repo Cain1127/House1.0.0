@@ -463,7 +463,7 @@
             QSHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:houseType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:houseType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -477,7 +477,7 @@
             QSRentHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.village_name andDetailID:houseInfoModel.id_ andDetailType:houseType];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:houseType];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }

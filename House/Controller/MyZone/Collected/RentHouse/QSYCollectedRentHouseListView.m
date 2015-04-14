@@ -16,6 +16,7 @@
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
 #import "QSRentHouseDetailDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -385,6 +386,38 @@
     [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
     
     return cellLocalHouse;
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (self.isLocalData) {
+        
+        ///获取房子模型
+        QSRentHouseDetailDataModel *houseInfoModel = self.customDataSource[indexPath.row];
+        QSRentHouseInfoDataModel *tempModel = [[QSRentHouseInfoDataModel alloc] init];
+        tempModel.title = houseInfoModel.house.title;
+        tempModel.id_ = houseInfoModel.house.id_;
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    } else {
+        
+        ///获取房子模型
+        QSRentHouseInfoDataModel *tempModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row];
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    }
     
 }
 
