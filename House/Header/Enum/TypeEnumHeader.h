@@ -673,7 +673,7 @@ typedef enum
     
     rRequestTypeOrderSubmitBid = 10002,         //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003, //!<订单详情里取消预约订单
-    rRequestTypeOrderCommitAppointment = 10004, //!<订单详情里接受预约订单
+    rRequestTypeOrderCommitAppointment = 10004, //!<房主确认租/买客预约看房
     rRequestTypeOrderRejectPrice = 10005,       //!<订单详情里房主拒绝还价
     rRequestTypeOrderSalerAcceptPrice = 10006,  //!<订单详情里房主接受价格
     rRequestTypeOrderBuyerAcceptPrice = 10007,  //!<订单详情里房客成交

@@ -112,18 +112,25 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             //跳转去聊天
             [self goToChat];
             
-        }else if (500203 == button.tag || 500201 == button.tag) {
-            //接受预约
+        }else if (500203 == button.tag || 500201 == button.tag ) {
+            //房主接受客人的预约
             [self commitAppointmentOrder];
+            
+        }else if (500230 == button.tag ){
+            //房主确认租/买客预约看房
+            [self commitInspectedOrder];
+            
         }else if (500252 == button.tag ){
             //同意还价
             
         }else if (500302 == button.tag ){
             //提醒房客
             [self noticeUserOnTransactionOrder];
+            
         }else if (500301 == button.tag ){
             //确认完成订单
             [self commitTransactionOrder];
+            
         }
         
         
@@ -459,7 +466,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }];
 }
 
-#pragma mark - 请求接受预约订单
+#pragma mark - 房主接受客人的预约
 
 - (void)commitAppointmentOrder
 {
@@ -526,6 +533,91 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 
                 [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
                 
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
+
+#pragma mark - 房主确认完成看房
+- (void)commitInspectedOrder
+{
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	操作用户id
+    //    order_id	true	string	订单id
+    //    score	true	float	总体分数,满分10分(房客确认的时候才需要)
+    //    manner_score	true	float	服务态度,满分10分(房客确认的时候才需要)
+    //    desc	true	string	评价描述(房客确认的时候才需要)
+    //    suitable	true	int	1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject: orderID forKey:@"order_id"];
+    [tempParam setObject:@"" forKey:@"score"];
+    [tempParam setObject:@"" forKey:@"manner_score"];
+    [tempParam setObject:@"" forKey:@"desc"];
+    [tempParam setObject:@"" forKey:@"suitable"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                
+                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                
+            }
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
             }
             
         }
