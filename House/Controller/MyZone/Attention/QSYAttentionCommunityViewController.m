@@ -8,8 +8,10 @@
 
 #import "QSYAttentionCommunityViewController.h"
 #import "QSCommunityDetailViewController.h"
+#import "QSYHousesNormalListViewController.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "QSBlockButtonStyleModel+Normal.h"
 
 #import "QSAttentionCommunityCell.h"
 #import "QSCommunityCollectionViewCell.h"
@@ -119,17 +121,47 @@
     ///添加刷新
     [self.collectionView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(communityListHeaderRequest)];
     [self.collectionView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(communityListFooterRequest)];
-    self.collectionView.footer.stateHidden = YES;
+    self.collectionView.footer.hidden = YES;
     
     ///开始就刷新
     [self.collectionView.header beginRefreshing];
 
 }
 
+///搭建无关注小区的UI
 - (void)createNoRecordUI
 {
 
+    self.noRecordsView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
+    self.noRecordsView.hidden = YES;
+    [self.view addSubview:self.noRecordsView];
     
+    ///无记录说明信息
+    UIImageView *tipsImage = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 64.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f - 85.0f, 75.0f, 85.0f)];
+    tipsImage.image = [UIImage imageNamed:IMAGE_PUBLIC_NOCOLLECTED];
+    [self.noRecordsView addSubview:tipsImage];
+    
+    ///提示信息
+    UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsImage.frame.origin.y + tipsImage.frame.size.height + 15.0f, SIZE_DEFAULT_MAX_WIDTH, 20.0f)];
+    tipsLabel.text = @"暂无关注小区";
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    [self.noRecordsView addSubview:tipsLabel];
+    
+    ///按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    buttonStyle.title = @"看看附近小区";
+    
+    UIButton *lookButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 160.0f) / 2.0f, tipsLabel.frame.origin.y + tipsLabel.frame.size.height + 25.0f, 160.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///进入新的房源列表
+        QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeCommunity];
+        [self.navigationController pushViewController:houseListVC animated:YES];
+        
+    }];
+    lookButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+    [self.noRecordsView addSubview:lookButton];
 
 }
 
@@ -235,7 +267,7 @@
                     ///刷新数据
                     [self.collectionView reloadData];
                     
-                    self.collectionView.footer.stateHidden = NO;
+                    self.collectionView.footer.hidden = NO;
                     if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
                         [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
                         
@@ -247,7 +279,7 @@
                 
                     self.noRecordsView.hidden = NO;
                     [self.collectionView reloadData];
-                    self.collectionView.footer.stateHidden = YES;
+                    self.collectionView.footer.hidden = YES;
                     
                     ///刷新数据
                     [self.collectionView reloadData];
@@ -266,6 +298,8 @@
                 [self.collectionView reloadData];
                 
                 self.noRecordsView.hidden = NO;
+                
+                self.collectionView.footer.hidden = YES;
                 
                 ///结束刷新动画
                 [self.collectionView.header endRefreshing];
@@ -288,13 +322,13 @@
             ///显示无记录页
             self.noRecordsView.hidden = YES;
             
-            self.collectionView.footer.stateHidden = NO;
+            self.collectionView.footer.hidden = NO;
             [self.collectionView.footer noticeNoMoreData];
             
             
         } else {
         
-            self.collectionView.footer.stateHidden = YES;
+            self.collectionView.footer.hidden = YES;
             self.noRecordsView.hidden = NO;
         
         }
