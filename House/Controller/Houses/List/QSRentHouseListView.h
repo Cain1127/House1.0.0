@@ -15,31 +15,20 @@
  *
  *  @since  1.0.0
  */
-@class QSFilterDataModel;
 @interface QSRentHouseListView : UICollectionView
 
 /**
- *  @author             yangshengmeng, 15-02-27 10:02:57
+ *  @author         yangshengmeng, 15-04-14 13:04:11
  *
- *  @brief              根据大小、位置、列表类型、当前过滤条件及单击时的回调，创建出租房
+ *  @brief          创建出租一房列表
  *
- *  @param frame        大小和位置
- *  @param listType     列表类型
- *  @param filterModel  当前过滤器
- *  @param callBack     单击时的回调
+ *  @param frame    大小和位置
+ *  @param callBack 出租房列表相关事件回调
  *
- *  @return             返回当前创建的房子瀑布流列表
+ *  @return         返回当前创建的出租房列表
  *
- *  @since              1.0.0
+ *  @since          1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andHouseListType:(FILTER_MAIN_TYPE)listType andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
 
-/*!
- *  @author wangshupeng, 15-03-26 18:03:30
- *
- *  @brief  加载推荐的出租房
- *
- *  @since  1.0.0
- */
-- (void)loadRecommendHouse;
 @end

@@ -9,6 +9,7 @@
 #import "QSGuideSaleHouseViewController.h"
 #import "QSLoginViewController.h"
 #import "QSTabBarViewController.h"
+#import "QSWDeveloperHomeViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -259,7 +260,28 @@ static char BuyerCountDataKey;      //!<当前房客总数
 - (void)gotoLoginViewController
 {
 
-    QSLoginViewController *loginVC = [[QSLoginViewController alloc] init];
+    QSLoginViewController *loginVC = [[QSLoginViewController alloc] initWithCallBack:^(LOGIN_CHECK_ACTION_TYPE flag) {
+        
+        ///判断是否登录成功
+        if (lLoginCheckActionTypeReLogin == flag) {
+            
+            ///根据不同的用户类型，进入不同的页面
+            if (uUserCountTypeDeveloper == [QSCoreDataManager getUserType]) {
+                
+                ///进入开发商页面
+                
+                
+            }
+            
+            if (uUserCountTypeOwner == [QSCoreDataManager getUserType]) {
+                
+                ///进入个人中心->发布房源页面
+                
+            }
+            
+        }
+        
+    }];
     [self.navigationController pushViewController:loginVC animated:YES];
 
 }

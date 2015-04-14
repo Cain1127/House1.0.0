@@ -1,55 +1,52 @@
 //
-//  QSRentHouseListView.m
+//  QSSecondHandHouseListView.m
 //  House
 //
-//  Created by ysmeng on 15/3/1.
+//  Created by ysmeng on 15/4/14.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSRentHouseListView.h"
-#import "QSHouseListTitleCollectionViewCell.h"
-#import "QSHouseCollectionViewCell.h"
+#import "QSSecondHandHouseListView.h"
 
+#import "QSHouseCollectionViewCell.h"
+#import "QSHouseListTitleCollectionViewCell.h"
 #import "QSCollectionWaterFlowLayout.h"
 
-#import "QSFilterDataModel.h"
-#import "QSRentHouseListReturnData.h"
-#import "QSRentHouseInfoDataModel.h"
+#import "QSCoreDataManager+Filter.h"
+
+#import "QSSecondHandHouseListReturnData.h"
 
 #import "QSRequestManager.h"
-#import "QSCoreDataManager+Filter.h"
-#import "QSCoreDataManager+House.h"
-
 #import "MJRefresh.h"
 
-@interface QSRentHouseListView () <QSCollectionWaterFlowLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface QSSecondHandHouseListView () <QSCollectionWaterFlowLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 ///点击房源时的回调
 @property (nonatomic,copy) void (^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 ///数据源
-@property (nonatomic,retain) QSRentHouseListReturnData *dataSourceModel;
+@property (nonatomic,retain) QSSecondHandHouseListReturnData *dataSourceModel;
 
 @end
 
-@implementation QSRentHouseListView
+@implementation QSSecondHandHouseListView
 
 #pragma mark - 初始化
 /**
- *  @author         yangshengmeng, 15-04-14 13:04:11
+ *  @author         yangshengmeng, 15-04-14 13:04:50
  *
- *  @brief          创建出租一房列表
+ *  @brief          创建二手房列表
  *
  *  @param frame    大小和位置
- *  @param callBack 出租房列表相关事件回调
+ *  @param callBack 列表中的回调
  *
- *  @return         返回当前创建的出租房列表
+ *  @return         返回当前创建的二手房列表
  *
  *  @since          1.0.0
  */
 - (instancetype)initWithFrame:(CGRect)frame andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack
 {
-    
+
     ///瀑布流布局器
     QSCollectionWaterFlowLayout *defaultLayout = [[QSCollectionWaterFlowLayout alloc] initWithScrollDirection:UICollectionViewScrollDirectionVertical];
     defaultLayout.delegate = self;
@@ -72,8 +69,8 @@
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
         
         ///添加刷新
-        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
-        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
+        [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(houseListHeaderRequest)];
+        [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(houseListFooterRequest)];
         self.footer.hidden = YES;
         
         ///开始就刷新
@@ -82,30 +79,7 @@
     }
     
     return self;
-    
-}
 
-#pragma mark - 点击房源
-///点击房源
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if (indexPath.row == 0) {
-        
-        return;
-        
-    }
-    
-    ///获取房子模型
-    QSRentHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1];
-    
-    ///回调
-    if (self.houseListTapCallBack) {
-        
-        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
-        
-    }
-    
 }
 
 #pragma mark - 列表房源的个数
@@ -113,7 +87,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    NSInteger sumCount = [self.dataSourceModel.headerData.rentHouseList count];
+    NSInteger sumCount = [self.dataSourceModel.secondHandHouseHeaderData.houseList count];
     return (sumCount > 0) ? (sumCount + 1) : 0;
     
 }
@@ -188,7 +162,7 @@
         QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
         
         ///更新数据
-        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.headerData.total_num stringValue] andSubTitle:@"套出租房信息"];
+        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.secondHandHouseHeaderData.total_num stringValue] andSubTitle:@"套二手房信息"];
         
         return cellTitle;
         
@@ -201,35 +175,59 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1] andListType:fFilterMainTypeRentalHouse];
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1] andListType:fFilterMainTypeSecondHouse];
     
     return cellHouse;
     
 }
 
-#pragma mark - 请求数据
-///请求数据
-- (void)rentHouseListHeaderRequest
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///数量提醒项点击时，不动作
+    if (indexPath.row == 0) {
+        
+        return;
+        
+    }
+    
+    ///获取房子模型
+    QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    
+    ///回调
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,houseInfoModel);
+        
+    }
+    
+}
 
+#pragma mark - 请求数据
+///请求第一页的数据
+- (void)houseListHeaderRequest
+{
+    
     ///封装参数：主要是添加页码控制
-    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeRentalHouse]];
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeSecondHouse]];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///请求成功后，转换模型
-            QSRentHouseListReturnData *resultDataModel = resultData;
+            QSSecondHandHouseListReturnData *resultDataModel = resultData;
             
             ///将数据模型置为nil
             self.dataSourceModel = nil;
             
             ///判断是否有房子数据
-            if ([resultDataModel.headerData.rentHouseList count] <= 0) {
+            if ([resultDataModel.secondHandHouseHeaderData.houseList count] <= 0) {
                 
                 ///没有记录，显示暂无记录提示
                 if (self.houseListTapCallBack) {
@@ -254,16 +252,16 @@
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
+                ///刷新数据
+                [self reloadData];
+                
                 self.footer.hidden = NO;
-                if ([self.dataSourceModel.headerData.per_page intValue] ==
-                    [self.dataSourceModel.headerData.next_page intValue]) {
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
                     
                     [self.footer noticeNoMoreData];
                     
                 }
-                
-                ///刷新数据
-                [self reloadData];
                 
             });
             
@@ -271,12 +269,14 @@
             [self.header endRefreshing];
             
         } else {
-        
+            
             ///结束刷新动画
             [self.header endRefreshing];
             
-            ///重置数据
+            ///重置数据指针
             self.dataSourceModel = nil;
+            
+            ///刷新数据
             [self reloadData];
             
             ///由于是第一页，请求失败，显示暂无记录
@@ -286,51 +286,61 @@
                 self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
                 
             }
-        
+            
         }
         
     }];
-
+    
 }
 
 ///请求更多数据
-- (void)rentHouseListFooterRequest
+- (void)houseListFooterRequest
 {
     
     ///判断是否最大页码
-    if ([self.dataSourceModel.headerData.per_page intValue] == [self.dataSourceModel.headerData.next_page intValue]) {
+    if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] == [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
         
         ///结束刷新动画
+        self.footer.hidden = NO;
+        [self.footer noticeNoMoreData];
         [self.footer endRefreshing];
         return;
         
     }
     
     ///封装参数：主要是添加页码控制
-    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeRentalHouse]];
-    [temParams setObject:[NSString stringWithFormat:@"%@",self.dataSourceModel.headerData.next_page] forKey:@"now_page"];
+    NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeSecondHouse]];
+    [temParams setObject:self.dataSourceModel.secondHandHouseHeaderData.next_page forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///请求成功后，转换模型
-            QSRentHouseListReturnData *resultDataModel = resultData;
+            QSSecondHandHouseListReturnData *resultDataModel = resultData;
             
             ///更改房子数据
-            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.headerData.rentHouseList];
+            NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.secondHandHouseHeaderData.houseList];
             
             ///更新数据源
             self.dataSourceModel = resultDataModel;
-            [localArray addObjectsFromArray:resultDataModel.headerData.rentHouseList];
-            self.dataSourceModel.headerData.rentHouseList = localArray;
+            [localArray addObjectsFromArray:resultDataModel.secondHandHouseHeaderData.houseList];
+            self.dataSourceModel.secondHandHouseHeaderData.houseList = localArray;
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 ///刷新数据
                 [self reloadData];
+                
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                }
                 
             });
             
@@ -338,7 +348,7 @@
             [self.footer endRefreshing];
             
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if (([self.dataSourceModel.headerData.per_page intValue] + 1) % 8 == 0) {
+            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] + 1) % 8 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     
@@ -348,12 +358,6 @@
                 
             }
             
-            if ([self.dataSourceModel.headerData.per_page intValue] ==
-                [self.dataSourceModel.headerData.next_page intValue]) {
-                
-                [self.footer noticeNoMoreData];
-                
-            }
             
         } else {
             
