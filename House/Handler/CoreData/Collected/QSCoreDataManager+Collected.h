@@ -67,6 +67,7 @@
  */
 + (BOOL)checkCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 + (id)searchCollectedDataWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
++ (id)searchCollectedDataUnLimitedIDWithID:(NSString *)collectedID andCollectedType:(FILTER_MAIN_TYPE)collectedType;
 
 /**
  *  @author             yangshengmeng, 15-03-19 11:03:29

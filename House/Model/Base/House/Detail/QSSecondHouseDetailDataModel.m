@@ -57,7 +57,8 @@
     
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     [shared_mapping addAttributeMappingsFromArray:@[@"total_common_num",
-                                                    @"is_book"]];
+                                                    @"is_book",
+                                                    @"is_store"]];
     
     return shared_mapping;
     

@@ -375,7 +375,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark - 创建数据UI：网络请求后，按数据创建不同的UI
+#pragma mark - 刷新UI
 ///创建数据UI：网络请求后，按数据创建不同的UI
 - (void)createNewDetailInfoViewUI:(QSSecondHouseDetailDataModel *)dataModel
 {
@@ -530,7 +530,7 @@ static char LeftStarKey;            //!<左侧星级
 
 
 
-#pragma mark -添加评分view
+#pragma mark - 添加评分view
 ///添加评分view
 -(void)createScoreUI:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
 {
@@ -634,7 +634,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 
-#pragma mark -添加物业总价view
+#pragma mark - 添加物业总价view
 ///添加物业总价
 - (void)createHouseTotalUI:(UIView *)view andTotalModel:(QSWSecondHouseInfoDataModel *)houseInfoModel
 {
@@ -813,7 +813,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 
-#pragma mark -添加房子详情view
+#pragma mark - 添加房子详情view
 ///添加房子详情view
 -(void)createHouseDetailViewUI:(UIView *)view andDetailModel:(QSWSecondHouseInfoDataModel *)houseInfoModel
 {
@@ -897,7 +897,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房子服务按钮view
+#pragma mark - 添加房子服务按钮view
 ///添加房子服务按钮view
 -(void)createHouseServiceViewUI:(UIScrollView *)view
 {
@@ -956,7 +956,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房子价钱变动view
+#pragma mark - 添加房子价钱变动view
 ///添加房子价钱变动view
 -(void)createPriceChangeViewUI:(UIView *)view andPriceChangeModel:(QSHousePriceChangesDataModel *)priceChangeInfoModel
 {
@@ -1041,7 +1041,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加小区均价view
+#pragma mark - 添加小区均价view
 ///添加小区均价view
 -(void)createDistrictAveragePriceViewUI:(UIView *)view andTitle:(NSString *)Districttitle andAveragePrice:(NSString *)averagePrice
 {
@@ -1101,7 +1101,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加房源关注view
+#pragma mark - 添加房源关注view
 ///添加房源关注view
 -(void)createHouseAttentionViewUI:(UIView *)view andHouseInfo:(QSWSecondHouseInfoDataModel *)houseInfoModel
 {
@@ -1220,7 +1220,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -添加评论view
+#pragma mark - 添加评论view
 ///添加评论view
 -(void)createCommentViewUI:(UIView *)view andCommentModel:(QSHouseCommentDataModel *)commentModel
 {
@@ -1297,7 +1297,7 @@ static char LeftStarKey;            //!<左侧星级
     }
 }
 
-#pragma mark -添加操作view
+#pragma mark - 添加操作view
 ///添加操作view
 -(void)createOperateViewUI:(UIView *)view
 {
@@ -1490,6 +1490,13 @@ static char LeftStarKey;            //!<左侧星级
                 [self showInfoUI:YES];
                 
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    ///判断服务端是否已收藏
+                    if ([self.detailInfo.expandInfo.is_store intValue] ==1) {
+                        
+                        [self saveCollectedSecondHandHouseWithStatus:YES];
+                        
+                    }
                     
                     ///添加浏览记录
                     [self addBrowseRecords];

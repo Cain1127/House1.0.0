@@ -53,4 +53,6 @@
 @property (nonatomic,copy) NSString *house_nature;          //!<房子性质：满五/唯一
 @property (nonatomic,copy) NSString *elevator;              //!<是否有电梯：Y-有，N-无
 
+@property (nonatomic,copy) NSString *is_syserver;           //!<收藏是否已同步服务端
+
 @end

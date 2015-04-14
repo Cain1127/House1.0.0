@@ -25,6 +25,7 @@
 
 @interface QSYCollectedHousesViewController ()
 
+@property (assign) FILTER_MAIN_TYPE currentHouseType;       //!<记录当前房源类型
 @property (nonatomic,strong) UIView *noRecordsView;         //!<无记录提示页面
 @property (nonatomic,strong) UILabel *noRecordsTipsLabel;   //!<无记录提示页面
 @property (nonatomic,strong) UIButton *noRecordsButton;     //!<无记录提示页面
@@ -78,6 +79,7 @@
     __block UIButton *secondHandHouseButton;
     __block UIButton *rentHouseButton;
     __block UIButton *newHouseButton;
+    self.currentHouseType = fFilterMainTypeSecondHouse;
     
     ///尺寸
     CGFloat widthButton = SIZE_DEVICE_WIDTH / 3.0f;
@@ -103,6 +105,7 @@
         button.selected = YES;
         rentHouseButton.selected = NO;
         newHouseButton.selected = NO;
+        self.currentHouseType = fFilterMainTypeSecondHouse;
         
         ///切换列表
         secondHandHouseList = [[QSYCollectedSecondHandHouseListView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
@@ -186,6 +189,7 @@
         button.selected = YES;
         secondHandHouseButton.selected = NO;
         newHouseButton.selected = NO;
+        self.currentHouseType = fFilterMainTypeRentalHouse;
         
         ///坐标
         CGFloat xpoint = SIZE_DEVICE_WIDTH;
@@ -278,6 +282,7 @@
         button.selected = YES;
         rentHouseButton.selected = NO;
         secondHandHouseButton.selected = NO;
+        self.currentHouseType = fFilterMainTypeNewHouse;
         
         ///切换列表
         newHouseList = [[QSYCollectedNewHouseListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
@@ -422,7 +427,7 @@
     self.noRecordsButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 160.0f) / 2.0f, self.noRecordsTipsLabel.frame.origin.y + self.noRecordsTipsLabel.frame.size.height + 25.0f, 160.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入新的房源列表
-        QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeCommunity];
+        QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:self.currentHouseType];
         [self.navigationController pushViewController:houseListVC animated:YES];
         
     }];
