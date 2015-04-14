@@ -15,6 +15,11 @@
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
 
+#import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+Collected.h"
+
+#import "QSRequestManager.h"
+
 #import "MJRefresh.h"
 
 @interface QSYCollectedRentHouseListView () <QSCollectionWaterFlowLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
@@ -61,7 +66,21 @@
             
         }
         
-        self.backgroundColor = [UIColor blueColor];
+        ///初始化数据是网络数据，还是本地数据
+        if ([QSCoreDataManager isLogin]) {
+            
+            self.isLocalData = NO;
+            
+        } else {
+            
+            self.isLocalData = YES;
+            
+        }
+        
+        ///初始化数据源
+        self.customDataSource = [[NSMutableArray alloc] init];
+        
+        self.backgroundColor = [UIColor whiteColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
         self.dataSource = self;
@@ -72,6 +91,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
+        self.footer.stateHidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -86,24 +106,159 @@
 - (void)rentHouseListHeaderRequest
 {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (!self.isLocalData) {
         
+        ///封装参数
+        NSDictionary *params = @{@"type" : @"200505",
+                                 @"page_num " : @"10",
+                                 @"now_page" : @"1"};
+        
+        ///获取网络数据
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneCollectedRentHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///请求成功后，转换模型
+                QSRentHouseListReturnData *resultDataModel = resultData;
+                
+                ///将数据模型置为nil
+                self.dataSourceModel = nil;
+                
+                ///判断是否有房子数据
+                if ([resultDataModel.headerData.rentHouseList count] > 0) {
+                    
+                    ///更新数据源
+                    self.dataSourceModel = resultDataModel;
+                    
+                }
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    ///刷新数据
+                    [self reloadData];
+                    
+                    self.footer.hidden = NO;
+                    if ([self.dataSourceModel.headerData.per_page intValue] ==
+                        [self.dataSourceModel.headerData.next_page intValue]) {
+                        
+                        [self.footer noticeNoMoreData];
+                        
+                    }
+                    
+                });
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            } else if (rRequestResultTypeFail == resultStatus) {
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+                ///重置数据源
+                self.dataSourceModel = nil;
+                
+                ///刷新数据
+                [self reloadData];
+                
+            } else {
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            }
+            
+        }];
+        
+    } else {
+    
+        ///获取本地数据
+        [self.customDataSource addObjectsFromArray:[QSCoreDataManager getLocalCollectedDataSourceWithType:fFilterMainTypeRentalHouse]];
+        
+        ///重载数据
+        [self reloadData];
+        self.footer.stateHidden = NO;
+        [self.footer noticeNoMoreData];
         [self.header endRefreshing];
-        [self.footer endRefreshing];
-        
-    });
+    
+    }
     
 }
 
 - (void)rentHouseListFooterRequest
 {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    if (!self.isLocalData) {
         
-        [self.header endRefreshing];
+        ///判断是否最大页码
+        self.footer.hidden = NO;
+        if ([self.dataSourceModel.headerData.per_page intValue] ==
+            [self.dataSourceModel.headerData.next_page intValue]) {
+            
+            [self.footer noticeNoMoreData];
+            
+            ///结束刷新动画
+            [self.header endRefreshing];
+            [self.footer endRefreshing];
+            return;
+            
+        }
+        
+        ///封装参数：主要是添加页码控制
+        NSDictionary *params = @{@"type" : @"200505",
+                                 @"page_num " : @"10",
+                                 @"now_page" : self.dataSourceModel.headerData.next_page};
+        
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneCollectedRentHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
+                
+                ///请求成功后，转换模型
+                QSRentHouseListReturnData *resultDataModel = resultData;
+                
+                ///更改房子数据
+                NSMutableArray *localArray = [NSMutableArray arrayWithArray:self.dataSourceModel.headerData.rentHouseList];
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                [localArray addObjectsFromArray:resultDataModel.headerData.rentHouseList];
+                self.dataSourceModel.headerData.rentHouseList = localArray;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    ///刷新数据
+                    [self reloadData];
+                    
+                    self.footer.hidden = NO;
+                    if ([self.dataSourceModel.headerData.per_page intValue] ==
+                        [self.dataSourceModel.headerData.next_page intValue]) {
+                        
+                        [self.footer noticeNoMoreData];
+                        
+                    }
+                    
+                });
+                
+                ///结束刷新动画
+                [self.footer endRefreshing];
+                
+            } else {
+                
+                ///结束刷新动画
+                [self.footer endRefreshing];
+                
+            }
+            
+        }];
+        
+    } else {
+        
+        ///本地数据已一次取完
         [self.footer endRefreshing];
         
-    });
+    }
     
 }
 
@@ -141,7 +296,7 @@
         
     }
     
-    return 0;
+    return [self.dataSourceModel.headerData.rentHouseList count];
     
 }
 
@@ -156,16 +311,7 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///获取数据模型
-    QSRentHouseInfoDataModel *tempModel;
-    if (self.isLocalData) {
-        
-        tempModel = self.customDataSource[indexPath.row];
-        
-    } else {
-        
-        tempModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row];
-        
-    }
+    QSRentHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
     [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
     
     return cellHouse;

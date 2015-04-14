@@ -599,89 +599,93 @@ typedef enum
 typedef enum
 {
     
-    rRequestTypeAdvert = 999,                   //!<广告信息请求：第一个请求
-    rRequestTypeAppBaseInfo = 1000,             //!<应用中的基本信息版本请求：如可选城市
-    rRequestTypeAppBaseInfoConfiguration = 1001,//!<具体某个配置信息的请求
-    rRequestTypeAppBaseCityInfo = 1002,         //!<城市信息
+    rRequestTypeAdvert = 999,                           //!<广告信息请求：第一个请求
+    rRequestTypeAppBaseInfo = 1000,                     //!<应用中的基本信息版本请求：如可选城市
+    rRequestTypeAppBaseInfoConfiguration = 1001,        //!<具体某个配置信息的请求
+    rRequestTypeAppBaseCityInfo = 1002,                 //!<城市信息
     
-    rRequestTypeBuilding = 2000,                //!<楼盘列表请求
-    rRequestTypeNewHouse,                       //!<新房列表请求
-    rRequestTypeCommunity,                      //!<小区列表请求
-    rRequestTypeSecondHandHouseList,            //!<二手房列表请求
-    rRequestTypeRentalHouse,                    //!<出租房列表请求
+    rRequestTypeBuilding = 2000,                        //!<楼盘列表请求
+    rRequestTypeNewHouse = 2001,                        //!<新房列表请求
+    rRequestTypeCommunity = 2002,                       //!<小区列表请求
+    rRequestTypeSecondHandHouseList = 2003,             //!<二手房列表请求
+    rRequestTypeRentalHouse = 2004,                     //!<出租房列表请求
     
-    rRequestTypeNewHouseCollected = 2020,       //!<新房收藏
-    rRequestTypeCommunityIntention,             //!<小区关注
-    rRequestTypeSecondHandHouseCollected,       //!<二手房收藏
-    rRequestTypeRentalHouseCollected,           //!<出租房收藏
-    rRequestTypeNewHouseDeleteCollected,        //!<删除新房收藏
-    rRequestTypeCommunityDeleteIntention,       //!<删除小区关注
-    rRequestTypeSecondHandHouseDeleteCollected, //!<删除二手房收藏
-    rRequestTypeRentalHouseDeleteCollected,     //!<删除出租房收藏
+    rRequestTypeNewHouseCollected = 2020,               //!<新房收藏
+    rRequestTypeCommunityIntention = 2021,              //!<小区关注
+    rRequestTypeSecondHandHouseCollected = 2022,        //!<二手房收藏
+    rRequestTypeRentalHouseCollected = 2023,            //!<出租房收藏
+    rRequestTypeNewHouseDeleteCollected = 2024,         //!<删除新房收藏
+    rRequestTypeCommunityDeleteIntention = 2025,        //!<删除小区关注
+    rRequestTypeSecondHandHouseDeleteCollected = 2026,  //!<删除二手房收藏
+    rRequestTypeRentalHouseDeleteCollected = 2027,      //!<删除出租房收藏
     
-    rRequestTypeMapCommunity = 2045,            //!<地图小区列表请求
+    rRequestTypeMapCommunity = 2045,                    //!<地图小区列表请求
     
-    rRequestTypeNewHouseDetail = 2050,          //!<新房详情请求
-    rRequestTypeCommunityDetail,                //!<小区详情请求
-    rRequestTypeSecondHandHouseDetail,          //!<二手房详情请求
-    rRequestTypeRentalHouseDetail,              //!<出租房详情请求
+    rRequestTypeNewHouseDetail = 2050,                  //!<新房详情请求
+    rRequestTypeCommunityDetail = 2051,                 //!<小区详情请求
+    rRequestTypeSecondHandHouseDetail = 2052,           //!<二手房详情请求
+    rRequestTypeRentalHouseDetail = 2053,               //!<出租房详情请求
     
-    rRequestTypeActivityDetail = 2061,          //!<活动详情请求
-    rRequestHouseTypeDetail = 2062,             //!<户型详情请求
-    rRequestCommentListDetail = 2063,           //!<用户评论列表
+    rRequestTypeActivityDetail = 2061,                  //!<活动详情请求
+    rRequestHouseTypeDetail = 2062,                     //!<户型详情请求
+    rRequestCommentListDetail = 2063,                   //!<用户评论列表
     
-    rRequestTypeHomeCountData = 3000,           //!<首页统计数据
+    rRequestTypeHomeCountData = 3000,                   //!<首页统计数据
     
-    rRequestTypeChatMessageList = 4000,         //!<消息列表
-    rRequestTypeChatContactList,                //!<联系人列表
-    rRequestTypeChatContactInfo,                //!<联系人信息
-    rRequestTypeChatContactAdd,                 //!<添加联系人
-    rRequestTypeChatContactInfoChange,          //!<联系人信息修改
-    rRequestTypeChatComplainContact,            //!<投诉联系人
-    rRequestTypeChatContactDelete,              //!<删除联系人
+    rRequestTypeChatMessageList = 4000,                 //!<消息列表
+    rRequestTypeChatContactList = 4001,                 //!<联系人列表
+    rRequestTypeChatContactInfo = 4002,                 //!<联系人信息
+    rRequestTypeChatContactAdd = 4003,                  //!<添加联系人
+    rRequestTypeChatContactInfoChange = 4004,           //!<联系人信息修改
+    rRequestTypeChatComplainContact = 4005,             //!<投诉联系人
+    rRequestTypeChatContactDelete = 4006,               //!<删除联系人
     
-    rRequestTypeMyZoneIntentionList = 5000,     //!<关注小区列表
-    rRequestTypeMyZoneAskRentPurphaseList,      //!<求租求购列表
-    rRequestTypeMyZoneAddAskRentPurpase,        //!<添加求租求购
-    rRequestTypeLoadImage,                      //!<上传图片
-    rRequestTypeMyZoneReleaseRentHouse,         //!<发布出租房
-    rRequestTypeMyZoneReleaseSecondHandHouse,   //!<发布二手房
-    rRequestTypeMyZoneEditAskRentPurpase,       //!<修改求租求购
-    rRequestTypeMyZoneDeleteAskRentPurpase,     //!<删除求租求购
+    rRequestTypeMyZoneCollectedNewHouseList = 4997,     //!<收藏新房列表
+    rRequestTypeMyZoneCollectedRentHouseList = 4998,    //!<收藏出租房列表
+    rRequestTypeMyZoneCollectedSecondHouseList = 4999,  //!<收藏二手房列表
+    rRequestTypeMyZoneIntentionCommunityList = 5000,    //!<关注小区列表
     
-    rRequestTypeMyZoneStatistics = 5500,        //!<个人中心的统计数据
+    rRequestTypeMyZoneAskRentPurphaseList = 5001,       //!<求租求购列表
+    rRequestTypeMyZoneAddAskRentPurpase = 5002,         //!<添加求租求购
+    rRequestTypeLoadImage = 5003,                       //!<上传图片
+    rRequestTypeMyZoneReleaseRentHouse = 5004,          //!<发布出租房
+    rRequestTypeMyZoneReleaseSecondHandHouse = 5005,    //!<发布二手房
+    rRequestTypeMyZoneEditAskRentPurpase = 5006,        //!<修改求租求购
+    rRequestTypeMyZoneDeleteAskRentPurpase = 5007,      //!<删除求租求购
     
-    rRequestTypeTransationOrderListData = 6002, //!<成交订单列表数据
+    rRequestTypeMyZoneStatistics = 5500,                //!<个人中心的统计数据
     
-    rRequestTypeOrderCancelTransation = 7001,   //!<订单详情里取消成交订单
-    rRequestTypeOrderCommitTransation = 7002,   //!<订单详情里确认成交订单
-    rRequestTypeOrderTransationNoticeUser = 7003,   //!<成交订单提醒对方
+    rRequestTypeTransationOrderListData = 6002,         //!<成交订单列表数据
     
-    rRequestTypeOrderAppointmentDetailData = 8001,  //!<预约订单详情
-    rRequestTypeOrderTransationDetailData = 8002,   //!<成交订单详情
-    rRequestTypeOrderResetAppointment = 8003,   //!<修改预约订单数据
-    rRequestTypeBookOrderListData = 8008,       //!<预约订单列表数据
+    rRequestTypeOrderCancelTransation = 7001,           //!<订单详情里取消成交订单
+    rRequestTypeOrderCommitTransation = 7002,           //!<订单详情里确认成交订单
+    rRequestTypeOrderTransationNoticeUser = 7003,       //!<成交订单提醒对方
     
-    rRequestTypeOrderAddAppointment = 8011,     //!<添加预约订单数据
+    rRequestTypeOrderAppointmentDetailData = 8001,      //!<预约订单详情
+    rRequestTypeOrderTransationDetailData = 8002,       //!<成交订单详情
+    rRequestTypeOrderResetAppointment = 8003,           //!<修改预约订单数据
+    rRequestTypeBookOrderListData = 8008,               //!<预约订单列表数据
     
-    rRequestTypeSendPhoneVertical = 9000,       //!<发送手机验证码
-    rRequestTypeRegistPhone,                    //!<普通的手机注册
-    rRequestTypeLogin,                          //!<登录
-    rRequestTypeLogout,                         //!<退出登录
-    rRequestTypeReloadUserUnfo,                 //!<重新下载用户信息
-    rRequestTypeUPDateuserInfo,                 //!<更新用户信息
+    rRequestTypeOrderAddAppointment = 8011,             //!<添加预约订单数据
     
-    rRequestTypeOrderSubmitBid = 10002,         //!<提交我的出价
-    rRequestTypeOrderCancelAppointment = 10003, //!<订单详情里取消预约订单
-    rRequestTypeOrderCommitAppointment = 10004, //!<订单详情里接受预约订单
-    rRequestTypeOrderRejectPrice = 10005,       //!<订单详情里房主拒绝还价
-    rRequestTypeOrderSalerAcceptPrice = 10006,  //!<订单详情里房主接受价格
-    rRequestTypeOrderBuyerAcceptPrice = 10007,  //!<订单详情里房客成交
+    rRequestTypeSendPhoneVertical = 9000,               //!<发送手机验证码
+    rRequestTypeRegistPhone = 9001,                     //!<普通的手机注册
+    rRequestTypeLogin = 9002,                           //!<登录
+    rRequestTypeLogout = 9003,                          //!<退出登录
+    rRequestTypeReloadUserUnfo = 9004,                  //!<重新下载用户信息
+    rRequestTypeUPDateuserInfo = 9005,                  //!<更新用户信息
     
-    rRequestTypeOrderCommitInspected = 10013,   //!<订单详情里完成看房
+    rRequestTypeOrderSubmitBid = 10002,                 //!<提交我的出价
+    rRequestTypeOrderCancelAppointment = 10003,         //!<订单详情里取消预约订单
+    rRequestTypeOrderCommitAppointment = 10004,         //!<订单详情里接受预约订单
+    rRequestTypeOrderRejectPrice = 10005,               //!<订单详情里房主拒绝还价
+    rRequestTypeOrderSalerAcceptPrice = 10006,          //!<订单详情里房主接受价格
+    rRequestTypeOrderBuyerAcceptPrice = 10007,          //!<订单详情里房客成交
     
-    rRequestTypeImage                           //!<图片请求：末尾请求
+    rRequestTypeOrderCommitInspected = 10013,           //!<订单详情里完成看房
     
-}REQUEST_TYPE;                                  //!<请求类型
+    rRequestTypeImage                                   //!<图片请求：末尾请求
+    
+}REQUEST_TYPE;                                          //!<请求类型
 
 #endif

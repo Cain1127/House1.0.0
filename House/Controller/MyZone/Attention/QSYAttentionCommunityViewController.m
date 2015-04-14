@@ -202,7 +202,7 @@
                                  @"now_page" : @"1"};
         
         ///获取网络数据
-        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionCommunityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///判断请求
             if (rRequestResultTypeSuccess == resultStatus) {
@@ -282,15 +282,11 @@
     if (!self.isLocalData) {
         
         ///判断是否最大页码
-        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
+        self.collectionView.footer.hidden = NO;
+        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+            [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
             
-            self.collectionView.footer.hidden = NO;
-            if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
-                [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
-                
-                [self.collectionView.footer noticeNoMoreData];
-                
-            }
+            [self.collectionView.footer noticeNoMoreData];
             
             ///结束刷新动画
             [self.collectionView.header endRefreshing];
@@ -304,7 +300,7 @@
                                  @"page_num " : @"10",
                                  @"now_page" : self.dataSourceModel.communityListHeaderData.next_page};
         
-        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionCommunityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
             ///判断请求
             if (rRequestResultTypeSuccess == resultStatus) {

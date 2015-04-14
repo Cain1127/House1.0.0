@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>4997</key>
+	<dict>
+		<key>class</key>
+		<string>QSNewHouseListReturnData</string>
+		<key>url</key>
+		<string>focus/list</string>
+	</dict>
+	<key>4998</key>
+	<dict>
+		<key>class</key>
+		<string>QSRentHouseListReturnData</string>
+		<key>url</key>
+		<string>focus/list</string>
+	</dict>
+	<key>4999</key>
+	<dict>
+		<key>class</key>
+		<string>QSSecondHandHouseListReturnData</string>
+		<key>url</key>
+		<string>focus/list</string>
+	</dict>
 	<key>4006</key>
 	<dict>
 		<key>class</key>
