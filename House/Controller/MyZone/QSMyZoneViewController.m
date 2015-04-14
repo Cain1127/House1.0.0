@@ -53,6 +53,7 @@ static char UserNameKey;    //!<用户名
 
 @property (nonatomic,assign) USER_COUNT_TYPE userType;  //!<用户类型
 @property (nonatomic,strong) QSScrollView *rootView;    //!<所有信息的底view
+@property (nonatomic,copy) NSString *is_release;        //!<是否是指引页进入发布房源
 
 ///个人中心右上角系统消息数量提示
 @property (nonatomic,strong) UILabel *systemMessageCountTipsLabel;
@@ -248,7 +249,7 @@ static char UserNameKey;    //!<用户名
         }];
         
     }];
-    renantButton.selected = YES;
+    renantButton.selected = !([self.is_release length] > 0);
     [rootView addSubview:renantButton];
     
     ///业主按钮
@@ -276,6 +277,7 @@ static char UserNameKey;    //!<用户名
         }];
         
     }];
+    ownerButton.selected = ([self.is_release length] > 0);
     [rootView addSubview:ownerButton];
     
     ///个人主要功能项的开始坐标
@@ -287,13 +289,27 @@ static char UserNameKey;    //!<用户名
     [rootView addSubview:sepLabel];
     
     ///黄色提示
-    indicatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, ypoint - 5.0f, SIZE_DEVICE_WIDTH / 2.0f, 5.0f)];
+    CGFloat indicatorXPoint = 0.0f;
+    if ([self.is_release length] > 0) {
+        
+        indicatorXPoint = SIZE_DEVICE_WIDTH / 2.0f;
+        
+    }
+    indicatLabel = [[UILabel alloc] initWithFrame:CGRectMake(indicatorXPoint, ypoint - 5.0f, SIZE_DEVICE_WIDTH / 2.0f, 5.0f)];
     indicatLabel.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     [rootView addSubview:indicatLabel];
     
+    ///根据当前的发布类型，显示默认功能区
+    CGFloat tenantXPoint = 0.0f;
+    if ([self.is_release length] > 0) {
+        
+        tenantXPoint = -SIZE_DEVICE_WIDTH;
+        
+    }
+    
     ///加载房客主页
     CGFloat tenantViewHeight = SIZE_DEVICE_HEIGHT > 568.0f ? SIZE_DEVICE_HEIGHT - ypoint - 49.0f : 340.0f;
-    myZoneView = [[QSMyZoneTenantView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andCallBack:^(TENANT_ZONE_ACTION_TYPE actionType, id params) {
+    myZoneView = [[QSMyZoneTenantView alloc] initWithFrame:CGRectMake(tenantXPoint, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andCallBack:^(TENANT_ZONE_ACTION_TYPE actionType, id params) {
         
         switch (actionType) {
                 ///待看房点击
@@ -526,7 +542,7 @@ static char UserNameKey;    //!<用户名
     objc_setAssociatedObject(self, &RenantRootView, myZoneView, OBJC_ASSOCIATION_ASSIGN);
     
     ///业主页面
-    ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
+    ownerView = [[QSMyZoneOwnerView alloc] initWithFrame:CGRectMake(tenantXPoint + SIZE_DEVICE_WIDTH, ypoint, SIZE_DEVICE_WIDTH, tenantViewHeight) andUserType:self.userType andCallBack:^(OWNER_ZONE_ACTION_TYPE actionType, id params) {
         
         switch (actionType) {
             case oOwnerZoneActionTypeStayAround:
@@ -722,6 +738,27 @@ static char UserNameKey;    //!<用户名
         [self getMyZoneCalculationData];
         
     }];
+    
+    ///判断是否进入发布物业
+    if (fFilterMainTypeSecondHouse == [self.is_release intValue]) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self gotoReleaseSaleHouseMyzone];
+            
+        });
+        
+    }
+    
+    if (fFilterMainTypeRentalHouse == [self.is_release intValue]) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self gotoReleaseRentHouseMyzone];
+            
+        });
+        
+    }
 
 }
 
