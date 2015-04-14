@@ -94,7 +94,7 @@
         ///添加刷新
         [self addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(rentHouseListHeaderRequest)];
         [self addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(rentHouseListFooterRequest)];
-        self.footer.stateHidden = YES;
+        self.footer.hidden = YES;
         
         ///开始就刷新
         [self.header beginRefreshing];
@@ -143,7 +143,7 @@
                     ///刷新数据
                     [self reloadData];
                     
-                    self.footer.stateHidden = NO;
+                    self.footer.hidden = NO;
                     if ([self.dataSourceModel.headerData.per_page intValue] ==
                         [self.dataSourceModel.headerData.next_page intValue]) {
                         
@@ -153,7 +153,7 @@
                     
                 } else {
                     
-                    self.footer.stateHidden = YES;
+                    self.footer.hidden = YES;
                     if (self.houseListTapCallBack) {
                         
                         self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
@@ -176,7 +176,7 @@
                 ///刷新数据
                 [self reloadData];
                 
-                self.footer.stateHidden = YES;
+                self.footer.hidden = YES;
                 if (self.houseListTapCallBack) {
                     
                     self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
@@ -207,12 +207,12 @@
                 
             }
             
-            self.footer.stateHidden = NO;
+            self.footer.hidden = NO;
             [self.footer noticeNoMoreData];
             
         } else {
         
-            self.footer.stateHidden = YES;
+            self.footer.hidden = YES;
             if (self.houseListTapCallBack) {
                 
                 self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);

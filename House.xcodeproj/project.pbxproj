@@ -29,6 +29,8 @@
 		180CA3341ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */; };
 		180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */; };
 		180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */; };
+		180CA33D1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA33C1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m */; };
+		180CA3401ADCCA8600D42493 /* QSActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA33F1ADCCA8600D42493 /* QSActivityDetailViewController.m */; };
 		181523F71ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */; };
 		181523FA1ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181523F91ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.m */; };
 		181524031ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524021ABFE13700C609B0 /* QSCDCollectedSecondHandHousePhotoDataModel.m */; };
@@ -799,7 +801,6 @@
 		CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D761AC0099E00EC215D /* QSCommunityDetailViewCell.m */; };
 		CEEB6D7E1AC00B9A00EC215D /* QSUserAssessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D7D1AC00B9A00EC215D /* QSUserAssessCell.m */; };
 		CEEB6D811AC01CC100EC215D /* QSUserAssessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D801AC01CC100EC215D /* QSUserAssessViewController.m */; };
-		CEEB6D841AC1059A00EC215D /* QSActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D831AC1059A00EC215D /* QSActivityDetailViewController.m */; };
 		CEFA4DF61AAD2F010018C8F9 /* QSCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */; };
 		CEFA4DF71AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DF11AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m */; };
 		CEFA4DF81AAD2F010018C8F9 /* QSNewHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DF31AAD2F010018C8F9 /* QSNewHouseDetailViewController.m */; };
@@ -851,6 +852,10 @@
 		180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQAADetailViewController.m; path = Setting/QAA/QSYToolQAADetailViewController.m; sourceTree = "<group>"; };
 		180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactComplaintViewController.h; path = Tenant/QSYContactComplaintViewController.h; sourceTree = "<group>"; };
 		180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactComplaintViewController.m; path = Tenant/QSYContactComplaintViewController.m; sourceTree = "<group>"; };
+		180CA33B1ADCCA3B00D42493 /* QSYHousesNormalListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYHousesNormalListViewController.h; sourceTree = "<group>"; };
+		180CA33C1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYHousesNormalListViewController.m; sourceTree = "<group>"; };
+		180CA33E1ADCCA8600D42493 /* QSActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSActivityDetailViewController.h; path = Detail/Activity/QSActivityDetailViewController.h; sourceTree = "<group>"; };
+		180CA33F1ADCCA8600D42493 /* QSActivityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSActivityDetailViewController.m; path = Detail/Activity/QSActivityDetailViewController.m; sourceTree = "<group>"; };
 		181523F51ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHouseDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.h; sourceTree = "<group>"; };
 		181523F61ABFDFA500C609B0 /* QSCDCollectedRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedRentHouseDataModel.m; path = Collected/RentHouse/QSCDCollectedRentHouseDataModel.m; sourceTree = "<group>"; };
 		181523F81ABFDFA700C609B0 /* QSCDCollectedRentHousePhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedRentHousePhotoDataModel.h; path = Collected/RentHouse/QSCDCollectedRentHousePhotoDataModel.h; sourceTree = "<group>"; };
@@ -2072,8 +2077,6 @@
 		CEEB6D7D1AC00B9A00EC215D /* QSUserAssessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserAssessCell.m; sourceTree = "<group>"; };
 		CEEB6D7F1AC01CC100EC215D /* QSUserAssessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserAssessViewController.h; sourceTree = "<group>"; };
 		CEEB6D801AC01CC100EC215D /* QSUserAssessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserAssessViewController.m; sourceTree = "<group>"; };
-		CEEB6D821AC1059A00EC215D /* QSActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActivityDetailViewController.h; sourceTree = "<group>"; };
-		CEEB6D831AC1059A00EC215D /* QSActivityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActivityDetailViewController.m; sourceTree = "<group>"; };
 		CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDetailViewController.h; path = Detail/QSCommunityDetailViewController.h; sourceTree = "<group>"; };
 		CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDetailViewController.m; path = Detail/QSCommunityDetailViewController.m; sourceTree = "<group>"; };
 		CEFA4DF01AAD2F010018C8F9 /* QSSecondHouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSSecondHouseDetailViewController.h; path = Detail/QSSecondHouseDetailViewController.h; sourceTree = "<group>"; };
@@ -3048,6 +3051,8 @@
 				184950871A7CACF300CC00F7 /* Cell */,
 				18C8A0DD1A6A824B00BB9611 /* QSHousesViewController.h */,
 				18C8A0DE1A6A824B00BB9611 /* QSHousesViewController.m */,
+				180CA33B1ADCCA3B00D42493 /* QSYHousesNormalListViewController.h */,
+				180CA33C1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m */,
 			);
 			path = Houses;
 			sourceTree = "<group>";
@@ -5126,10 +5131,10 @@
 		18E2023C1AAFFA4900577872 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
+				180CA33E1ADCCA8600D42493 /* QSActivityDetailViewController.h */,
+				180CA33F1ADCCA8600D42493 /* QSActivityDetailViewController.m */,
 				18E2023D1AAFFA7300577872 /* QSNewHouseActivityView.h */,
 				18E2023E1AAFFA7300577872 /* QSNewHouseActivityView.m */,
-				CEEB6D821AC1059A00EC215D /* QSActivityDetailViewController.h */,
-				CEEB6D831AC1059A00EC215D /* QSActivityDetailViewController.m */,
 			);
 			name = Activity;
 			sourceTree = "<group>";
@@ -6607,6 +6612,7 @@
 				CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */,
 				18B572941AC16D1600C75682 /* extension_set.cc in Sources */,
 				477774221ABFBC8D000AD7D3 /* QSOrderDetailReturnData.m in Sources */,
+				180CA33D1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m in Sources */,
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18D081DD1ACE44F6004FA20F /* QSYContactListTableViewCell.m in Sources */,
 				18D0819F1ACD51EC004FA20F /* QSYAskRentAndSecondHandHouseTipsPopView.m in Sources */,
@@ -6755,7 +6761,6 @@
 				18EE34791AABFD3F0053B909 /* QSRentHouseInfoDataModel.m in Sources */,
 				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
 				18DFE8C41AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m in Sources */,
-				CEEB6D841AC1059A00EC215D /* QSActivityDetailViewController.m in Sources */,
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18AFAA061AB6B79600681071 /* GCDAsyncSocket.m in Sources */,
 				18D082221AD0264A004FA20F /* QSYAskRecommendRentHouseViewController.m in Sources */,
@@ -6849,6 +6854,7 @@
 				18DFE8CB1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m in Sources */,
 				18EC15B91AC3F0BB00D2AD3A /* UIImage+Orientaion.m in Sources */,
 				18CAFCCF1A70E45A00C90C90 /* QSAdvertInfoDataModel.m in Sources */,
+				180CA3401ADCCA8600D42493 /* QSActivityDetailViewController.m in Sources */,
 				18E932481A762C7000927DF2 /* QSCDConfigurationDataModel.m in Sources */,
 				CEEB6D7E1AC00B9A00EC215D /* QSUserAssessCell.m in Sources */,
 				18D081FB1ACE95DF004FA20F /* QSYContactDetailReturnData.m in Sources */,
