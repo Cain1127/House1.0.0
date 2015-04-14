@@ -119,6 +119,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500252 == button.tag ) {
             //打电话
             [self callPhone];
+        }else if (500232 == button.tag ){
+            //议价
+            
         }
         
     }];
@@ -143,6 +146,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500301 == button.tag ){
             //提醒业主
             [self noticeUserOnTransactionOrder];
+        }else if (500232 == button.tag ){
+            //预约成交
+            
         }
         
     }];

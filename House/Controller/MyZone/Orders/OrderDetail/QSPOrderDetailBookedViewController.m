@@ -1354,7 +1354,7 @@
     }];
 }
 
-#pragma mark - 请求接受预约订单
+#pragma mark - 房主接受客人的预约
 
 - (void)commitAppointmentOrder
 {
@@ -1409,8 +1409,7 @@
     }];
 }
 
-#pragma mark - 确认完成看房
-
+#pragma mark - 房主确认完成看房
 - (void)commitInspectedOrder
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];

@@ -10,6 +10,7 @@
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
 #import "QSNewHouseDetailViewController.h"
+#import "QSYHousesNormalListViewController.h"
 
 #import "QSYCollectedRentHouseListView.h"
 #import "QSYCollectedSecondHandHouseListView.h"
@@ -23,6 +24,10 @@
 #import "QSNewHouseInfoDataModel.h"
 
 @interface QSYCollectedHousesViewController ()
+
+@property (nonatomic,strong) UIView *noRecordsView;         //!<无记录提示页面
+@property (nonatomic,strong) UILabel *noRecordsTipsLabel;   //!<无记录提示页面
+@property (nonatomic,strong) UIButton *noRecordsButton;     //!<无记录提示页面
 
 @end
 
@@ -58,6 +63,8 @@
 
 - (void)createMainShowUI
 {
+    
+    [self createNoRecordUI];
     
     ///列表指针
     __block QSYCollectedRentHouseListView *rentHouseList;
@@ -100,8 +107,42 @@
         ///切换列表
         secondHandHouseList = [[QSYCollectedSecondHandHouseListView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            switch (actionType) {
+                    ///进入详情页
+                case hHouseListActionTypeGotoDetail:
+                {
+                    
+                    ///进入详情页
+                    [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+                    
+                }
+                    break;
+                    
+                    ///无收收藏
+                case hHouseListActionTypeNoRecord:
+                {
+                    
+                    self.noRecordsTipsLabel.text = @"暂无二手房源收藏历史";
+                    [self.noRecordsButton setTitle:@"看看二手房源" forState:UIControlStateNormal];
+                    self.noRecordsView.hidden = NO;
+                    [self.view bringSubviewToFront:self.noRecordsView];
+                    
+                };
+                    break;
+                    
+                    ///收收藏
+                case hHouseListActionTypeHaveRecord:
+                {
+                    
+                    self.noRecordsView.hidden = YES;
+                    [self.view sendSubviewToBack:self.noRecordsView];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
             
         }];
         [self.view addSubview:secondHandHouseList];
@@ -159,8 +200,42 @@
         ///切换列表
         rentHouseList = [[QSYCollectedRentHouseListView alloc] initWithFrame:CGRectMake(xpoint, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+            switch (actionType) {
+                    ///进入详情页
+                case hHouseListActionTypeGotoDetail:
+                {
+                    
+                    ///进入详情页
+                    [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+                    
+                }
+                    break;
+                    
+                    ///无收收藏
+                case hHouseListActionTypeNoRecord:
+                {
+                    
+                    self.noRecordsTipsLabel.text = @"暂无出租房源收藏历史";
+                    [self.noRecordsButton setTitle:@"看看出租房源" forState:UIControlStateNormal];
+                    self.noRecordsView.hidden = NO;
+                    [self.view bringSubviewToFront:self.noRecordsView];
+                    
+                };
+                    break;
+                    
+                    ///收收藏
+                case hHouseListActionTypeHaveRecord:
+                {
+                    
+                    self.noRecordsView.hidden = YES;
+                    [self.view sendSubviewToBack:self.noRecordsView];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
             
         }];
         [self.view addSubview:rentHouseList];
@@ -207,8 +282,42 @@
         ///切换列表
         newHouseList = [[QSYCollectedNewHouseListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
             
-            ///进入详情页
-            [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeNewHouse];
+            switch (actionType) {
+                    ///进入详情页
+                case hHouseListActionTypeGotoDetail:
+                {
+                    
+                    ///进入详情页
+                    [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeNewHouse];
+                    
+                }
+                    break;
+                    
+                    ///无收收藏
+                case hHouseListActionTypeNoRecord:
+                {
+                    
+                    self.noRecordsTipsLabel.text = @"暂无新房房源收藏历史";
+                    [self.noRecordsButton setTitle:@"看看新房房源" forState:UIControlStateNormal];
+                    self.noRecordsView.hidden = NO;
+                    [self.view bringSubviewToFront:self.noRecordsView];
+                    
+                };
+                    break;
+                    
+                    ///收收藏
+                case hHouseListActionTypeHaveRecord:
+                {
+                    
+                    self.noRecordsView.hidden = YES;
+                    [self.view sendSubviewToBack:self.noRecordsView];
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
             
         }];
         [self.view addSubview:newHouseList];
@@ -238,8 +347,42 @@
     
     secondHandHouseList = [[QSYCollectedSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
         
-        ///进入详情页
-        [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+        switch (actionType) {
+                ///进入详情页
+            case hHouseListActionTypeGotoDetail:
+            {
+            
+                ///进入详情页
+                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            
+            }
+                break;
+                
+                ///无收收藏
+            case hHouseListActionTypeNoRecord:
+            {
+            
+                self.noRecordsTipsLabel.text = @"暂无二手房源收藏历史";
+                [self.noRecordsButton setTitle:@"看看二手房源" forState:UIControlStateNormal];
+                self.noRecordsView.hidden = NO;
+                [self.view bringSubviewToFront:self.noRecordsView];
+            
+            };
+                break;
+                
+                ///收收藏
+            case hHouseListActionTypeHaveRecord:
+            {
+            
+                self.noRecordsView.hidden = YES;
+                [self.view sendSubviewToBack:self.noRecordsView];
+            
+            }
+                break;
+                
+            default:
+                break;
+        }
         
     }];
     [self.view addSubview:secondHandHouseList];
@@ -249,6 +392,43 @@
     arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowIndicator];
 
+}
+
+///搭建无关注小区的UI
+- (void)createNoRecordUI
+{
+    
+    self.noRecordsView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
+    self.noRecordsView.hidden = YES;
+    [self.view addSubview:self.noRecordsView];
+    
+    ///无记录说明信息
+    UIImageView *tipsImage = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 64.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f - 85.0f, 75.0f, 85.0f)];
+    tipsImage.image = [UIImage imageNamed:IMAGE_PUBLIC_NOCOLLECTED];
+    [self.noRecordsView addSubview:tipsImage];
+    
+    ///提示信息
+    self.noRecordsTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, tipsImage.frame.origin.y + tipsImage.frame.size.height + 15.0f, SIZE_DEFAULT_MAX_WIDTH, 20.0f)];
+    self.noRecordsTipsLabel.text = @"暂无二手房源收藏历史";
+    self.noRecordsTipsLabel.textAlignment = NSTextAlignmentCenter;
+    self.noRecordsTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    self.noRecordsTipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    [self.noRecordsView addSubview:self.noRecordsTipsLabel];
+    
+    ///按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
+    buttonStyle.title = @"看看二手房源";
+    
+    self.noRecordsButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 160.0f) / 2.0f, self.noRecordsTipsLabel.frame.origin.y + self.noRecordsTipsLabel.frame.size.height + 25.0f, 160.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///进入新的房源列表
+        QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeCommunity];
+        [self.navigationController pushViewController:houseListVC animated:YES];
+        
+    }];
+    self.noRecordsButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+    [self.noRecordsView addSubview:self.noRecordsButton];
+    
 }
 
 #pragma mark - 进入详情页面

@@ -22,7 +22,7 @@
 @end
 
 @implementation QSPOrderCancelReasonViewController
-@synthesize orderID,houseType;
+@synthesize orderID, houseType;
 
 #pragma mark - UI搭建
 - (void)createNavigationBarUI

@@ -10,8 +10,8 @@
 
 @interface QSPOrderCancelReasonViewController : QSTurnBackViewController
 
-@property ( nonatomic , strong ) NSString *orderID;
+@property ( nonatomic , strong ) NSString *orderID;         //!<订单ID
 
-@property ( nonatomic, assign ) FILTER_MAIN_TYPE houseType;
+@property ( nonatomic, assign ) FILTER_MAIN_TYPE houseType; //!<跳转推荐房源需传对应的房源类型
 
 @end
