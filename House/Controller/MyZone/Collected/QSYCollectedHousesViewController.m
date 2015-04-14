@@ -394,16 +394,16 @@
 
 }
 
-///搭建无关注小区的UI
+///搭建无收藏的UI
 - (void)createNoRecordUI
 {
     
-    self.noRecordsView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
+    self.noRecordsView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 44.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f)];
     self.noRecordsView.hidden = YES;
     [self.view addSubview:self.noRecordsView];
     
     ///无记录说明信息
-    UIImageView *tipsImage = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 64.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f - 85.0f, 75.0f, 85.0f)];
+    UIImageView *tipsImage = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 75.0f) / 2.0f, self.noRecordsView.frame.size.height / 2.0f - 85.0f, 75.0f, 85.0f)];
     tipsImage.image = [UIImage imageNamed:IMAGE_PUBLIC_NOCOLLECTED];
     [self.noRecordsView addSubview:tipsImage];
     

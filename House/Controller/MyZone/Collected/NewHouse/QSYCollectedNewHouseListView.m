@@ -332,7 +332,7 @@
         QSCommunityCollectionViewCell *cellServer = [collectionView dequeueReusableCellWithReuseIdentifier:serverCellName forIndexPath:indexPath];
         
         ///获取数据
-        QSNewHouseInfoDataModel *tempModel = self.customDataSource[indexPath.row];
+        QSNewHouseInfoDataModel *tempModel = self.dataSourceModel.headerData.houseList[indexPath.row];
         
         ///刷新数据
         [cellServer updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];

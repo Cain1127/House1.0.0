@@ -354,7 +354,7 @@
         QSHouseCollectionViewCell *cellServerHouse = [collectionView dequeueReusableCellWithReuseIdentifier:serverHouseCellIndentify forIndexPath:indexPath];
         
         ///刷新数据
-        [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1] andListType:fFilterMainTypeRentalHouse];
+        [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row] andListType:fFilterMainTypeRentalHouse];
         
         return cellServerHouse;
         
