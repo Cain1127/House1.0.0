@@ -13,6 +13,7 @@ typedef enum
     
     oOrderSubmitResultTypeBookSuccessed = 301,          //!<预约成功
     oOrderSubmitResultTypeCancelSuccessed,              //!<取消预约成功
+    oOrderSubmitResultTypeEvaluationListingsSuccessed,  //!<评价房源成功
     
 }ORDER_SUBMIT_RESULT_TYPE;
 

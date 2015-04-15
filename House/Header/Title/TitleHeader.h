@@ -230,6 +230,9 @@
 ///提交修改预约订单结果界面 - 已成功取消预约提示
 #define TITLE_MYZONE_ORDER_SUBMIT_CANCEL_SUCCESS_TIP    @"已成功取消预约"
 
+///房源评价结果界面 - 房源评价已成功提交提示
+#define TITLE_MYZONE_ORDER_SUBMIT_COMMENT_SUCCESS_TIP    @"房源评价已成功提交"
+
 ///提交修改预约订单结果界面 - 等待业主确认提示
 #define TITLE_MYZONE_ORDER_SUBMIT_WAIT_COMFIN_TIP    @"等待业主确认"
 

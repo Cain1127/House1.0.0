@@ -580,6 +580,14 @@
 		18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */; };
 		2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC7EE35972F87DBF30D83E4 /* libPods.a */; };
 		472757841AD7D46400A50333 /* QSPOrderCancelReasonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 472757831AD7D46400A50333 /* QSPOrderCancelReasonViewController.m */; };
+		47474F971ADE2E810049AE57 /* myzone_oorder_selected_bt_normal_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47474F951ADE2E810049AE57 /* myzone_oorder_selected_bt_normal_icon.png */; };
+		47474F981ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47474F961ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png */; };
+		47474F9B1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47474F9A1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m */; };
+		47474F9E1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47474F9D1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png */; };
+		474A6F871ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */; };
+		474A6F8A1ADD01330099E5CC /* QSPOrderCommentStarsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474A6F891ADD01330099E5CC /* QSPOrderCommentStarsView.m */; };
+		474A6F8D1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 474A6F8B1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png */; };
+		474A6F8E1ADD20A30099E5CC /* myzone_oorder_star_bt_pressed_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 474A6F8C1ADD20A30099E5CC /* myzone_oorder_star_bt_pressed_icon.png */; };
 		475A4D2F1AC3E65A009881CF /* QSPBuyerBookedOrderBookedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 475A4CFB1AC3E65A009881CF /* QSPBuyerBookedOrderBookedListView.m */; };
 		475A4D301AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 475A4CFD1AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m */; };
 		475A4D311AC3E65A009881CF /* QSPBuyerBookedOrderCancelListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 475A4D001AC3E65A009881CF /* QSPBuyerBookedOrderCancelListView.m */; };
@@ -1747,6 +1755,17 @@
 		18FBA5BD1A7879D2001372B3 /* QSCustomPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCustomPresentationViewController.m; path = Animination/QSCustomPresentationViewController.m; sourceTree = "<group>"; };
 		472757821AD7D46400A50333 /* QSPOrderCancelReasonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderCancelReasonViewController.h; sourceTree = "<group>"; };
 		472757831AD7D46400A50333 /* QSPOrderCancelReasonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderCancelReasonViewController.m; sourceTree = "<group>"; };
+		47474F951ADE2E810049AE57 /* myzone_oorder_selected_bt_normal_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorder_selected_bt_normal_icon.png; sourceTree = "<group>"; };
+		47474F961ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorder_selected_bt_pressed_icon.png; sourceTree = "<group>"; };
+		47474F991ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderCommentSelectedButtonView.h; sourceTree = "<group>"; };
+		47474F9A1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderCommentSelectedButtonView.m; sourceTree = "<group>"; };
+		47474F9D1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_order_result_submit_success_icon.png; sourceTree = "<group>"; };
+		474A6F851ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderEvaluationListingsViewController.h; sourceTree = "<group>"; };
+		474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderEvaluationListingsViewController.m; sourceTree = "<group>"; };
+		474A6F881ADD01330099E5CC /* QSPOrderCommentStarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderCommentStarsView.h; sourceTree = "<group>"; };
+		474A6F891ADD01330099E5CC /* QSPOrderCommentStarsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderCommentStarsView.m; sourceTree = "<group>"; };
+		474A6F8B1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorder_star_bt_normal_icon.png; sourceTree = "<group>"; };
+		474A6F8C1ADD20A30099E5CC /* myzone_oorder_star_bt_pressed_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_oorder_star_bt_pressed_icon.png; sourceTree = "<group>"; };
 		475A4CFA1AC3E65A009881CF /* QSPBuyerBookedOrderBookedListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBuyerBookedOrderBookedListView.h; sourceTree = "<group>"; };
 		475A4CFB1AC3E65A009881CF /* QSPBuyerBookedOrderBookedListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPBuyerBookedOrderBookedListView.m; sourceTree = "<group>"; };
 		475A4CFC1AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPBuyerTransactionOrderListPendingView.h; sourceTree = "<group>"; };
@@ -2954,6 +2973,7 @@
 		1893008A1A6902E30081D0AA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18B563AD1A8366A4009779A0 /* MyZone */,
 				18BE12331A8869850036245A /* Comparison */,
 				18BE122C1A8869760036245A /* Calendar */,
 				18B563491A8366A4009779A0 /* ChannelBar */,
@@ -2964,7 +2984,6 @@
 				18B563721A8366A4009779A0 /* Houses */,
 				18B563961A8366A4009779A0 /* Icon */,
 				18B563A51A8366A4009779A0 /* Launch */,
-				18B563AD1A8366A4009779A0 /* MyZone */,
 				18B563AE1A8366A4009779A0 /* NavigationBar */,
 				18B563C61A8366A4009779A0 /* Public */,
 				18B563D51A8366A4009779A0 /* Search */,
@@ -3719,6 +3738,11 @@
 		18B563AD1A8366A4009779A0 /* MyZone */ = {
 			isa = PBXGroup;
 			children = (
+				47474F9D1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png */,
+				47474F951ADE2E810049AE57 /* myzone_oorder_selected_bt_normal_icon.png */,
+				47474F961ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png */,
+				474A6F8B1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png */,
+				474A6F8C1ADD20A30099E5CC /* myzone_oorder_star_bt_pressed_icon.png */,
 				18B0E2531ACAEC9700C8EE9E /* myzone_ask_buy.png */,
 				18B0E2541ACAEC9700C8EE9E /* myzone_ask_rent_entire.png */,
 				18B0E2551ACAEC9700C8EE9E /* myzone_ask_rent_partner.png */,
@@ -5477,6 +5501,8 @@
 				475A4D291AC3E65A009881CF /* Saler */,
 				472757821AD7D46400A50333 /* QSPOrderCancelReasonViewController.h */,
 				472757831AD7D46400A50333 /* QSPOrderCancelReasonViewController.m */,
+				474A6F851ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.h */,
+				474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -5636,6 +5662,10 @@
 				47E5DAB41AD3AB8B00A0A64F /* QSPOrderDetailCancelTransAndWarmSalerButtonView.m */,
 				477B32751AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.h */,
 				477B32761AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.m */,
+				474A6F881ADD01330099E5CC /* QSPOrderCommentStarsView.h */,
+				474A6F891ADD01330099E5CC /* QSPOrderCommentStarsView.m */,
+				47474F991ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.h */,
+				47474F9A1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -6209,6 +6239,7 @@
 				18B563ED1A8366A4009779A0 /* channelbar_deploy_arrow_normal.png in Resources */,
 				CE5210141ACD0F1800D6230B /* houses_detail_supermarket_normal.png in Resources */,
 				18B563F71A8366A4009779A0 /* developer_setting_hightlight.png in Resources */,
+				47474F971ADE2E810049AE57 /* myzone_oorder_selected_bt_normal_icon.png in Resources */,
 				CE520FF81ACCFBDB00D6230B /* HouseDetailAroundInfo.plist in Resources */,
 				18B564601A8366A4009779A0 /* public_local_gray.png in Resources */,
 				18B564711A8366A4009779A0 /* tabbar_chat_selected.png in Resources */,
@@ -6262,6 +6293,7 @@
 				180CA3251ADB9A8C00D42493 /* chat_tool_caclulator_highlighted.png in Resources */,
 				CEA9CFD01AD503B200FEF74A /* houses_detail_supermarket_annotion.png in Resources */,
 				18B563EF1A8366A4009779A0 /* channelbar_sixform.png in Resources */,
+				474A6F8D1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png in Resources */,
 				18F99AD01A731E3500098FD6 /* FilterFindHouseSecondHouse.plist in Resources */,
 				18B5642E1A8366A4009779A0 /* houses_sixform.png in Resources */,
 				CEA9CFCF1AD503B200FEF74A /* houses_detail_school_annotion.png in Resources */,
@@ -6306,6 +6338,7 @@
 				18B5640E1A8366A4009779A0 /* houses_detail_activity_right.png in Resources */,
 				18B5646C1A8366A4009779A0 /* share_wechat_highlighted.png in Resources */,
 				18B564271A8366A4009779A0 /* houses_broadband.png in Resources */,
+				47474F9E1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png in Resources */,
 				1835721A1AD612AD00A29607 /* talk_contact_sound_message_normal.png in Resources */,
 				18D081EA1ACE7EFD004FA20F /* navigationbar_more_highlighted.png in Resources */,
 				18B564331A8366A4009779A0 /* icon144.png in Resources */,
@@ -6333,6 +6366,7 @@
 				475A4D601AC4F7EC009881CF /* myzone_oorderlist_cell_accept_price_bt_normal.png in Resources */,
 				18BE12711A8A133D0036245A /* myzone_renant_history_highlighted.png in Resources */,
 				CEACB03C1AD618130010D455 /* houses_detail_rent_xizao.png in Resources */,
+				474A6F8E1ADD20A30099E5CC /* myzone_oorder_star_bt_pressed_icon.png in Resources */,
 				18DFE8B51AC7D09900C216C3 /* public_no_history.png in Resources */,
 				CEA9CFCA1AD503B200FEF74A /* houses_detail_bus_annotion.png in Resources */,
 				CEACB0531AD62E510010D455 /* house_detail_rent_nuanqi_light.png in Resources */,
@@ -6462,6 +6496,7 @@
 				18B564661A8366A4009779A0 /* public_shake.png in Resources */,
 				18B564571A8366A4009779A0 /* navigationbar_tool_highlighted.png in Resources */,
 				CE52100F1ACD0F1800D6230B /* houses_detail_metro_highlighted.png in Resources */,
+				47474F981ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png in Resources */,
 				18DFE8D21AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png in Resources */,
 				18B564231A8366A4009779A0 /* houses_detail_video_highlighted.png in Resources */,
 				18B5643C1A8366A4009779A0 /* icon87.png in Resources */,
@@ -6556,12 +6591,14 @@
 				475A4D7C1AC53789009881CF /* QSPOrderDetailRemarkRejectPriceView.m in Sources */,
 				184950941A7CADF400CC00F7 /* QSHouseListTitleCollectionViewCell.m in Sources */,
 				180CA3111ADA248F00D42493 /* QSYMySettingChangePasswordViewController.m in Sources */,
+				474A6F871ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m in Sources */,
 				18D0815F1ACC5BAB004FA20F /* QSYPostMessageListReturnData.m in Sources */,
 				18C8A13B1A6CA3ED00BB9611 /* QSAutoScrollView.m in Sources */,
 				475A4D401AC3E65A009881CF /* QSPOrderDetailTitleLabel.m in Sources */,
 				18EC15861AC29D6800D2AD3A /* QSReleaseSaleHouseDataModel.m in Sources */,
 				183CC6711A68FC8800B8F97D /* QSYAppDelegate.m in Sources */,
 				18B572971AC16D1600C75682 /* generated_message_util.cc in Sources */,
+				474A6F8A1ADD01330099E5CC /* QSPOrderCommentStarsView.m in Sources */,
 				18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */,
 				1890B7821AB8475400B94E9B /* QSSocketManager.mm in Sources */,
 				18C8A0DF1A6A824B00BB9611 /* QSHousesViewController.m in Sources */,
@@ -6937,6 +6974,7 @@
 				18DABAAD1AAD4E1B00647E7C /* QSActivityDataModel.m in Sources */,
 				18C8A0C41A6A415500BB9611 /* QSLabel.m in Sources */,
 				CECBD3CA1ABAE91B00C5F9AF /* QSMapCommunityListReturnData.m in Sources */,
+				47474F9B1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m in Sources */,
 				18D0820A1ACF978C004FA20F /* QSYContactOrderInfoView.m in Sources */,
 				187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */,
 				18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */,

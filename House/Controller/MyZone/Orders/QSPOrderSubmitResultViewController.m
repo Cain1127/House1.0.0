@@ -9,7 +9,7 @@
 #import "QSPOrderSubmitResultViewController.h"
 #import "QSPOrderBottomButtonView.h"
 
-#define ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME   5.0f
+#define ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME   _resultType==oOrderSubmitResultTypeEvaluationListingsSuccessed?3.0f:5.0f
 
 @interface QSPOrderSubmitResultViewController ()
 
@@ -41,6 +41,9 @@
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH-75.0f)/2.0f, 0, 75.0f, 85.0f)];
     [imgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_SUBMIT_RESULT_ICON]];
+    if (oOrderSubmitResultTypeEvaluationListingsSuccessed == _resultType) {
+        [imgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_SUBMIT_RESULT_SUCCESS_ICON]];
+    }
     [contentBgView addSubview:imgView];
     
     //state label
@@ -101,6 +104,11 @@
         }];
         [buttonsView setCenterBtTitle:TITLE_MYZONE_ORDER_SUBMIT_MORE_HOUSE_BT];
         
+    }else if (_resultType == oOrderSubmitResultTypeEvaluationListingsSuccessed) {
+        
+        [stateLabel setText:TITLE_MYZONE_ORDER_SUBMIT_COMMENT_SUCCESS_TIP];
+        [tipLabel setText:@""];
+        
     }
     
     CGFloat offsetY = tipLabel.frame.origin.y + tipLabel.frame.size.height;
@@ -134,7 +142,7 @@
     }
     
     ///开启定时器
-    self.autoReturnTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(checkReturn:) userInfo:nil repeats:NO];
+    self.autoReturnTimer = [NSTimer scheduledTimerWithTimeInterval:ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME target:self selector:@selector(checkReturn:) userInfo:nil repeats:NO];
     
 }
 

@@ -85,6 +85,8 @@
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 
+#import "QSYContactComplaintViewController.h"
+#import "QSPOrderEvaluationListingsViewController.h"
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -843,13 +845,21 @@
         self.complaintAndCommentButtonView = [[QSPOrderDetailComplaintAndCommentButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
+                    
                     NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:我要投诉");
+                    [self complaintSaler];
+                    
                     break;
                 case bBottomButtonTypeRight:
-                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:评价房源");
-                    //TODO:还未做评价页面
-                    [self commitInspectedOrder];
                     
+                    NSLog(@"QSPOrderDetailComplaintAndCommentButtonView:评价房源");
+                    {
+                        
+                        QSPOrderEvaluationListingsViewController *elVc = [[QSPOrderEvaluationListingsViewController alloc] init];
+                        [elVc setOrderID:self.orderID];
+                        [self.navigationController pushViewController:elVc animated:YES];
+                        
+                    }
                     break;
                 default:
                     break;
@@ -1439,17 +1449,17 @@
     [tempParam setObject:@"" forKey:@"desc"];
     [tempParam setObject:@"" forKey:@"suitable"];
     
-    if (self.orderDetailData && [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
-        
-        if (uUserCountTypeTenant == [self.orderDetailData getUserType]) {
-            
-            [tempParam setObject:@"8" forKey:@"score"];
-            [tempParam setObject:@"7" forKey:@"manner_score"];
-            [tempParam setObject:@"不合适，还没添加评价描述" forKey:@"desc"];
-            [tempParam setObject:@"1" forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
-            
-        }
-    }
+//    if (self.orderDetailData && [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+//        
+//        if (uUserCountTypeTenant == [self.orderDetailData getUserType]) {
+//            
+//            [tempParam setObject:@"8" forKey:@"score"];
+//            [tempParam setObject:@"7" forKey:@"manner_score"];
+//            [tempParam setObject:@"不合适，还没添加评价描述" forKey:@"desc"];
+//            [tempParam setObject:@"1" forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
+//            
+//        }
+//    }
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -1888,6 +1898,30 @@
         [hud hiddenCustomHUD];
         
     }];
+    
+}
+
+#pragma mark - 投诉业主
+- (void)complaintSaler
+{
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    if (self.orderDetailData.saler_msg) {
+        
+        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithContactID:self.orderDetailData.saler_msg.id_ andContactName:self.orderDetailData.saler_msg.username andOrderID:self.orderID andCallBack:^(BOOL isComplaint) {
+            
+            
+        }];
+        [self.navigationController pushViewController:ccVc animated:YES];
+        
+    }
     
 }
 
