@@ -26,6 +26,7 @@
 
 @interface QSYAttentionCommunityViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 
+@property (assign) BOOL isRefreshIntentionList;                 //!<关注小区是否已变动：变动则刷新
 @property (assign) BOOL isLocalData;                            //!<是否本地数据
 @property (nonatomic,strong) QSCollectionView *collectionView;  //!<小区列表
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
@@ -46,6 +47,9 @@
         
         ///初始化数据源
         self.dataSource = [[NSMutableArray alloc] init];
+        
+        ///初始化关注刷新标识
+        self.isRefreshIntentionList = NO;
         
         ///初始化数据是网络数据，还是本地数据
         if (lLoginCheckActionTypeLogined == [self checkLogin]) {
@@ -125,6 +129,14 @@
     
     ///开始就刷新
     [self.collectionView.header beginRefreshing];
+    
+    ///注册关注列表变动监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        ///修改刷新标识
+        self.isRefreshIntentionList = YES;
+        
+    }];
 
 }
 
@@ -465,6 +477,29 @@
         }];
         
     }
+
+}
+
+#pragma mark - 视图将要出现/消失时根据数据变动处理事务
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isRefreshIntentionList) {
+        
+        [self.collectionView.header beginRefreshing];
+        
+    }
+
+}
+
+- (void)gotoTurnBackAction
+{
+
+    ///注销列表监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andCallBack:nil];
+    [super gotoTurnBackAction];
 
 }
 
