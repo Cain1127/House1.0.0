@@ -99,7 +99,7 @@ static char AssessCommentKey;   //!<评论内容关联key
     if (imageView && image) {
         
         //imageView.image=[UIImage imageNamed:image];
-        [imageView loadImageWithURL:[image getImageURL] placeholderImage:[UIImage imageNamed:@"icon80"]];
+        [imageView loadImageWithURL:[image getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
             
     }
     

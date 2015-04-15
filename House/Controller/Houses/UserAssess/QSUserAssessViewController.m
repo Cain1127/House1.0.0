@@ -58,6 +58,8 @@ static char AssessTableKey;   //!<评论内容关联key
 {
     
     UITableView *tableView=[[UITableView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_TAP, 15.0f, SIZE_DEVICE_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_TAP, SIZE_DEVICE_HEIGHT-64.0f)];
+    tableView.delegate = self;
+    tableView.dataSource = self;
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &AssessTableKey, tableView, OBJC_ASSOCIATION_ASSIGN);
     
