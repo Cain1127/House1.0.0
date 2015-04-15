@@ -643,7 +643,7 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeRecommend:
             {
             
-                QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] init];
+                QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] initWithRecommendType:rRecommendTenantTypeAll andPropertyType:nil];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:recommendVC animated:YES];
             

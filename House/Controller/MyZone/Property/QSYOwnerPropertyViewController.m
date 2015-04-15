@@ -9,6 +9,7 @@
 #import "QSYOwnerPropertyViewController.h"
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
+#import "QSYRecommendTenantViewController.h"
 
 #import "QSYPropertyHouseInfoTableViewCell.h"
 
@@ -21,6 +22,7 @@
 
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSRentHouseListReturnData.h"
+#import "QSRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -296,7 +298,8 @@
         }
         
         ///刷新数据
-        [cellSecondHandHouse updateMyPropertyHouseInfo:self.secondHousesModel.secondHandHouseHeaderData.houseList[indexPath.row] andHouseType:fFilterMainTypeSecondHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
+        QSHouseInfoDataModel *tempModel = self.secondHousesModel.secondHandHouseHeaderData.houseList[indexPath.row];
+        [cellSecondHandHouse updateMyPropertyHouseInfo:tempModel andHouseType:fFilterMainTypeSecondHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
         
             switch (actionType) {
                     ///显示附加功能
@@ -331,7 +334,12 @@
                     
                     ///推荐房客
                 case pPropertyInfocellActionTypeRecommendRenant:
-                    
+                {
+                
+                    QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] initWithRecommendType:rRecommendTenantTypeAppointedBuyHouse andPropertyType:tempModel.id_];
+                    [self.navigationController pushViewController:recommendVC animated:YES];
+                
+                }
                     break;
                     
                     ///刷新房源
@@ -365,7 +373,8 @@
         }
         
         ///刷新数据
-        [cellRentHouse updateMyPropertyHouseInfo:self.rentModel.headerData.rentHouseList[indexPath.row] andHouseType:fFilterMainTypeRentalHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
+        QSRentHouseInfoDataModel *tempModel = self.rentModel.headerData.rentHouseList[indexPath.row];
+        [cellRentHouse updateMyPropertyHouseInfo:tempModel andHouseType:fFilterMainTypeRentalHouse andCallBack:^(PROPERTY_INFOCELL_ACTION_TYPE actionType){
             
             switch (actionType) {
                     ///显示附加功能
@@ -400,7 +409,12 @@
                     
                     ///推荐房客
                 case pPropertyInfocellActionTypeRecommendRenant:
-                    
+                {
+                
+                    QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] initWithRecommendType:rRecommendTenantTypeAppointedRentHouse andPropertyType:tempModel.id_];
+                    [self.navigationController pushViewController:recommendVC animated:YES];
+                
+                }
                     break;
                     
                     ///刷新房源
