@@ -50,12 +50,11 @@ static char CollectionViewKey;      //!<collectionView的关联
 static char ChannelButtonRootView;  //!<频道栏底view关联
 static char PopViewKey;             //!<摇一摇view关联
 
-
 @interface QSHousesViewController ()
 
-@property (nonatomic,assign) FILTER_MAIN_TYPE listType;                     //!<列表类型
+@property (assign) FILTER_MAIN_TYPE houseType;                               //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;                //!<过滤模型
-@property (nonatomic,assign) BOOL isCanShake;                               //!<是否能摇一摇事件变量
+@property (assign) BOOL isCanShake;                                         //!<是否能摇一摇事件变量
 
 @property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView;   //!<导航栏列表类型选择
 @property (nonatomic,strong) QSCustomPickerView *distictPickerView;         //!<地区选择按钮
@@ -103,10 +102,10 @@ static char PopViewKey;             //!<摇一摇view关联
     if (self = [super init]) {
         
         ///保存列表类型
-        self.listType = mainType;
+        self.houseType = mainType;
         
         ///获取过滤器模型
-        self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
+        self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.houseType];
         
         ///注册通知
         [self registLocalHomePageActionNotification];
@@ -187,7 +186,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
             
             ///判断是否当前已是相同的列表
-            if (fFilterMainTypeNewHouse == self.listType) {
+            if (fFilterMainTypeNewHouse == self.houseType) {
                 
                 return;
                 
@@ -207,7 +206,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
             
             ///判断是否当前已是相同的列表
-            if (fFilterMainTypeRentalHouse == self.listType) {
+            if (fFilterMainTypeRentalHouse == self.houseType) {
                 
                 return;
                 
@@ -226,7 +225,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
             
             ///判断是否当前已是相同的列表
-            if (fFilterMainTypeSecondHouse == self.listType) {
+            if (fFilterMainTypeSecondHouse == self.houseType) {
                 
                 return;
                 
@@ -245,7 +244,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
             
             ///判断是否当前已是相同的列表
-            if (fFilterMainTypeCommunity == self.listType) {
+            if (fFilterMainTypeCommunity == self.houseType) {
                 
                 return;
                 
@@ -379,11 +378,11 @@ static char PopViewKey;             //!<摇一摇view关联
     CGFloat isAdvanceWith = 0.0f;
     
     ///如果是二手房/出租房，则创建高级筛选按钮
-    if (fFilterMainTypeSecondHouse == self.listType ||
-        fFilterMainTypeRentalHouse == self.listType) {
+    if (fFilterMainTypeSecondHouse == self.houseType ||
+        fFilterMainTypeRentalHouse == self.houseType) {
         
         ///过滤器类型
-        __block FILTER_SETTINGVC_TYPE filterVCType = (self.listType == fFilterMainTypeSecondHouse) ? fFilterSettingVCTypeHouseListSecondHouse : fFilterSettingVCTypeHouseListRentHouse;
+        __block FILTER_SETTINGVC_TYPE filterVCType = (self.houseType == fFilterMainTypeSecondHouse) ? fFilterSettingVCTypeHouseListSecondHouse : fFilterSettingVCTypeHouseListRentHouse;
         
         ///高级筛选按钮
         UIButton *advanceFilterButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width - 49.0f, 0.0f, 49.0f, 40.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
@@ -398,7 +397,7 @@ static char PopViewKey;             //!<摇一摇view关联
                 if (flag) {
                     
                     ///重新刷新数据
-                    [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",self.listType]];
+                    [self houseListTypeChangeAction:[NSString stringWithFormat:@"%d",self.houseType]];
                     
                 }
             
@@ -469,8 +468,8 @@ static char PopViewKey;             //!<摇一摇view关联
     CUSTOM_PICKER_TYPE houseType = cCustomPickerTypeChannelBarHouseType;
     
     ///新房/小区时，中间选择项为<均价选择>
-    if (fFilterMainTypeNewHouse == self.listType ||
-        fFilterMainTypeCommunity == self.listType) {
+    if (fFilterMainTypeNewHouse == self.houseType ||
+        fFilterMainTypeCommunity == self.houseType) {
         
         houseType = cCustomPickerTypeChannelBarAveragePrice;
         
@@ -480,8 +479,8 @@ static char PopViewKey;             //!<摇一摇view关联
         houseTypeSetKey = @"avg_price_key";
         houseTypeSetVal = @"avg_price_val";
         
-    } else if (fFilterMainTypeSecondHouse == self.listType ||
-               fFilterMainTypeRentalHouse == self.listType) {
+    } else if (fFilterMainTypeSecondHouse == self.houseType ||
+               fFilterMainTypeRentalHouse == self.houseType) {
         
         ///二手房/出租房，弹出户型价选择窗口
         houseType = cCustomPickerTypeChannelBarHouseType;
@@ -530,8 +529,8 @@ static char PopViewKey;             //!<摇一摇view关联
     CUSTOM_PICKER_TYPE priceType = cCustomPickerTypeChannelBarTotalPrice;
     
     ///新房/小区时，最后一个选择项为户型选择
-    if (fFilterMainTypeNewHouse == self.listType ||
-        fFilterMainTypeCommunity == self.listType) {
+    if (fFilterMainTypeNewHouse == self.houseType ||
+        fFilterMainTypeCommunity == self.houseType) {
         
         priceType = cCustomPickerTypeChannelBarHouseType;
         
@@ -541,7 +540,7 @@ static char PopViewKey;             //!<摇一摇view关联
         totalPriceSetKey = @"house_type_key";
         totalPriceSetVal = @"house_type_val";
         
-    } else if (fFilterMainTypeSecondHouse == self.listType) {
+    } else if (fFilterMainTypeSecondHouse == self.houseType) {
         
         ///二手房，弹出总价选择窗口
         priceType = cCustomPickerTypeChannelBarTotalPrice;
@@ -552,7 +551,7 @@ static char PopViewKey;             //!<摇一摇view关联
         totalPriceSetKey = @"sale_price_key";
         totalPriceSetVal = @"sale_price_val";
         
-    } else if (fFilterMainTypeRentalHouse == self.listType) {
+    } else if (fFilterMainTypeRentalHouse == self.houseType) {
         
         ///出租房，弹出租金选择窗口
         priceType = cCustomPickerTypeChannelBarRentPrice;
@@ -612,7 +611,7 @@ static char PopViewKey;             //!<摇一摇view关联
     }
 
     ///根据不同的类型，创建不同的列表UI
-    switch (self.listType) {
+    switch (self.houseType) {
             ///楼盘列表
         case fFilterMainTypeBuilding:
             
@@ -708,7 +707,7 @@ static char PopViewKey;             //!<摇一摇view关联
         {
         
             ///瀑布流布局器
-            QSSecondHandHouseListView *listView = [[QSSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSSecondHandHouseListView *listView = [[QSSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -860,7 +859,7 @@ static char PopViewKey;             //!<摇一摇view关联
         self.filterModel.filter_status = @"2";
         
         ///保存过滤器
-        [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+        [QSCoreDataManager updateFilterWithType:self.houseType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///保存成功后进入房子列表
             if (isSuccess) {
@@ -879,7 +878,7 @@ static char PopViewKey;             //!<摇一摇view关联
         }];
         
         ///将过滤器设置为当前用户的默认过滤器
-        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.houseType] andCallBack:^(BOOL isSuccess) {}];
         
     }
     
@@ -894,7 +893,7 @@ static char PopViewKey;             //!<摇一摇view关联
         self.filterModel.filter_status = @"2";
         
         ///保存过滤器
-        [QSCoreDataManager updateFilterWithType:self.listType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
+        [QSCoreDataManager updateFilterWithType:self.houseType andFilterDataModel:self.filterModel andUpdateCallBack:^(BOOL isSuccess) {
             
             ///保存成功后进入房子列表
             if (isSuccess) {
@@ -913,7 +912,7 @@ static char PopViewKey;             //!<摇一摇view关联
         }];
         
         ///将过滤器设置为当前用户的默认过滤器
-        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.listType] andCallBack:^(BOOL isSuccess) {}];
+        [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.houseType] andCallBack:^(BOOL isSuccess) {}];
         
     }
 
@@ -925,10 +924,10 @@ static char PopViewKey;             //!<摇一摇view关联
 {
 
     ///更新当前保存的列表类型
-    self.listType = [selectedKey intValue];
+    self.houseType = [selectedKey intValue];
     
     ///更新过滤器
-    self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
+    self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.houseType];
     
     ///更新用户默认过滤器
     [QSCoreDataManager updateCurrentUserDefaultFilter:selectedKey andCallBack:^(BOOL isSuccess) {}];
@@ -952,7 +951,7 @@ static char PopViewKey;             //!<摇一摇view关联
 - (void)gotoSearchViewController
 {
   
-    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] initWithHouseType:self.listType];
+    QSHouseKeySearchViewController *searchVC = [[QSHouseKeySearchViewController alloc] initWithHouseType:self.houseType];
     [self hiddenBottomTabbar:YES];
     [self.navigationController pushViewController:searchVC animated:YES];
     
@@ -975,7 +974,7 @@ static char PopViewKey;             //!<摇一摇view关联
 {
     
     ///根据不同的列表，进入同的详情页
-    switch (self.listType) {
+    switch (self.houseType) {
             ///进入新房详情
         case fFilterMainTypeNewHouse:
         {
@@ -984,7 +983,7 @@ static char PopViewKey;             //!<摇一摇view关联
             QSNewHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
+            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.houseType];
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
         
@@ -1014,7 +1013,7 @@ static char PopViewKey;             //!<摇一摇view关联
             QSHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -1030,7 +1029,7 @@ static char PopViewKey;             //!<摇一摇view关联
             QSRentHouseInfoDataModel *houseInfoModel = dataModel;
             
             ///进入详情页面
-            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.listType];
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -1110,7 +1109,7 @@ static char PopViewKey;             //!<摇一摇view关联
             if (cComparisonTipsActionTypeConfirm == actionType) {
                 
                 ///跟转到比一比页面
-                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
+                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.houseType];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:historyVC animated:YES];
                 
@@ -1153,7 +1152,7 @@ static char PopViewKey;             //!<摇一摇view关联
             if (cComparisonTipsActionTypeConfirm == actionType) {
                 
                 ///跟转到比一比页面
-                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.listType];
+                QSYBrowseHouseViewController *historyVC = [[QSYBrowseHouseViewController alloc] initWithHouseType:self.houseType];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:historyVC animated:YES];
                 
@@ -1243,7 +1242,7 @@ static char PopViewKey;             //!<摇一摇view关联
             self.isCanShake = NO;
             
             ///进入摇一摇推荐页面
-            QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:self.listType];
+            QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:self.houseType];
             [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
             
