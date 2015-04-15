@@ -134,7 +134,7 @@
         case fFilterMainTypeNewHouse:
         {
             
-            QSYSearchNewHouseList *listView = [[QSYSearchNewHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchNewHouseList *listView = [[QSYSearchNewHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -163,7 +163,7 @@
         {
             
             ///创建小区的列表UI
-            QSYSearchCommunityList *listView = [[QSYSearchCommunityList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchCommunityList *listView = [[QSYSearchCommunityList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -192,7 +192,7 @@
         {
             
             ///瀑布流布局器
-            QSYSearchSecondHandHouseList *listView = [[QSYSearchSecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSYSearchSecondHandHouseList *listView = [[QSYSearchSecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -219,7 +219,7 @@
         case fFilterMainTypeRentalHouse:
         {
             
-            QSYSearchRentHouseList *listView = [[QSYSearchRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchRentHouseList *listView = [[QSYSearchRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
