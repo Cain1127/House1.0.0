@@ -25,6 +25,12 @@ static QSCoreDataManager *_coredataManager = nil;
 ///个人中心基于用户信息更新后的回调
 @property (nonatomic,copy) COREDATACHANGEBLOCK myZoneUserInfoUpdateCallBack;
 
+///个人中心:小区关注变动时回调
+@property (nonatomic,copy) COREDATACHANGEBLOCK myZoneIntentionCommunityChangeCallBack;
+
+///个人中心:房源收藏变动时回调
+@property (nonatomic,copy) COREDATACHANGEBLOCK myZoneHouseCollectedChangeCallBack;
+
 @end
 
 @implementation QSCoreDataManager
@@ -140,6 +146,40 @@ static QSCoreDataManager *_coredataManager = nil;
             
             break;
             
+            ///个人中心：小区关注改变
+        case cCoredataDataTypeMyzoneCommunityIntention:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneIntentionCommunityChangeCallBack = changeCallBack;
+                
+            } else {
+            
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneIntentionCommunityChangeCallBack = nil;
+            
+            }
+            
+            break;
+            
+            ///个人中心：收藏房源改变
+        case cCoredataDataTypeMyzoneCollectedChange:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneHouseCollectedChangeCallBack = changeCallBack;
+                
+            } else {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.myZoneHouseCollectedChangeCallBack = nil;
+                
+            }
+            
+            break;
+            
         default:
             break;
             
@@ -216,6 +256,34 @@ static QSCoreDataManager *_coredataManager = nil;
             
         }
             
+            break;
+            
+            ///个人中心：收藏房源改变
+        case cCoredataDataTypeMyzoneCommunityIntention:
+        {
+        
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.myZoneIntentionCommunityChangeCallBack) {
+                
+                coredataManager.myZoneIntentionCommunityChangeCallBack(cCoredataDataTypeMyzoneCommunityIntention,changeType,nil,nil);
+                
+            }
+        
+        }
+            break;
+            
+            ///个人中心：收藏房源改变
+        case cCoredataDataTypeMyzoneCollectedChange:
+        {
+            
+            QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+            if (coredataManager.myZoneHouseCollectedChangeCallBack) {
+                
+                coredataManager.myZoneHouseCollectedChangeCallBack(cCoredataDataTypeMyzoneCollectedChange,changeType,nil,nil);
+                
+            }
+            
+        }
             break;
             
         default:

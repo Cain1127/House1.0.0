@@ -19,16 +19,22 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 
+#import "QSCoreDataManager.h"
+
 #import "QSHouseInfoDataModel.h"
 #import "QSRentHouseInfoDataModel.h"
 #import "QSNewHouseInfoDataModel.h"
 
+#import "MJRefresh.h"
+
 @interface QSYCollectedHousesViewController ()
 
-@property (assign) FILTER_MAIN_TYPE currentHouseType;       //!<记录当前房源类型
-@property (nonatomic,strong) UIView *noRecordsView;         //!<无记录提示页面
-@property (nonatomic,strong) UILabel *noRecordsTipsLabel;   //!<无记录提示页面
-@property (nonatomic,strong) UIButton *noRecordsButton;     //!<无记录提示页面
+@property (assign) BOOL isHouseCollectedChange;                             //!<房源收藏是否已变动
+@property (assign) FILTER_MAIN_TYPE currentHouseType;                       //!<记录当前房源类型
+@property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前列表指针
+@property (nonatomic,strong) UIView *noRecordsView;                         //!<无记录提示页面
+@property (nonatomic,strong) UILabel *noRecordsTipsLabel;                   //!<无记录提示页面
+@property (nonatomic,strong) UIButton *noRecordsButton;                     //!<无记录提示页面
 
 @end
 
@@ -66,6 +72,7 @@
 {
     
     [self createNoRecordUI];
+    self.isHouseCollectedChange = NO;
     
     ///列表指针
     __block QSYCollectedRentHouseListView *rentHouseList;
@@ -106,6 +113,7 @@
         rentHouseButton.selected = NO;
         newHouseButton.selected = NO;
         self.currentHouseType = fFilterMainTypeSecondHouse;
+        self.currentListView = nil;
         
         ///切换列表
         secondHandHouseList = [[QSYCollectedSecondHandHouseListView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
@@ -148,6 +156,7 @@
             }
             
         }];
+        self.currentListView = secondHandHouseList;
         [self.view addSubview:secondHandHouseList];
         
         ///获取当前正在显示的view
@@ -190,6 +199,7 @@
         secondHandHouseButton.selected = NO;
         newHouseButton.selected = NO;
         self.currentHouseType = fFilterMainTypeRentalHouse;
+        self.currentListView = nil;
         
         ///坐标
         CGFloat xpoint = SIZE_DEVICE_WIDTH;
@@ -242,6 +252,7 @@
             }
             
         }];
+        self.currentListView = rentHouseList;
         [self.view addSubview:rentHouseList];
         
         ///获取当前正在显示的view
@@ -283,6 +294,7 @@
         rentHouseButton.selected = NO;
         secondHandHouseButton.selected = NO;
         self.currentHouseType = fFilterMainTypeNewHouse;
+        self.currentListView = nil;
         
         ///切换列表
         newHouseList = [[QSYCollectedNewHouseListView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
@@ -325,6 +337,7 @@
             }
             
         }];
+        self.currentListView = newHouseList;
         [self.view addSubview:newHouseList];
         
         ///获取当前正在显示的view
@@ -350,6 +363,7 @@
     }];
     [self.view addSubview:newHouseButton];
     
+    ///一开始加载二手房
     secondHandHouseList = [[QSYCollectedSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
         
         switch (actionType) {
@@ -359,7 +373,7 @@
             
                 ///进入详情页
                 [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeSecondHouse];
-            
+                
             }
                 break;
                 
@@ -390,12 +404,20 @@
         }
         
     }];
+    self.currentListView = secondHandHouseList;
     [self.view addSubview:secondHandHouseList];
     
     ///指示三角
     arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(secondHandHouseButton.frame.size.width / 2.0f - 7.5f, secondHandHouseButton.frame.origin.y + secondHandHouseButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
     arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowIndicator];
+    
+    ///注册收藏变动监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        self.isHouseCollectedChange = YES;
+        
+    }];
 
 }
 
@@ -487,6 +509,29 @@
             break;
     }
 
+}
+
+#pragma mark - 视图将要出现/消失时根据数据变动处理事务
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+    
+    if (self.isHouseCollectedChange) {
+        
+        [self.currentListView.header beginRefreshing];
+        
+    }
+    
+}
+
+- (void)gotoTurnBackAction
+{
+    
+    ///注销列表监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andCallBack:nil];
+    [super gotoTurnBackAction];
+    
 }
 
 @end

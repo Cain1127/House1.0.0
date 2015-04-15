@@ -1044,6 +1044,9 @@
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
+        
     }
     
     ///判断是否保存成功
@@ -1139,6 +1142,9 @@
         [self changeModel_Community_ListMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
+        
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
         
     }
     
@@ -1239,6 +1245,9 @@
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
+        
     }
     
     ///判断是否保存成功
@@ -1335,6 +1344,9 @@
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
+        
     }
     
     ///判断是否保存成功
@@ -1430,6 +1442,9 @@
         [self changeModel_Community_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
+        
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
         
     }
     
@@ -1530,6 +1545,9 @@
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
+        
     }
     
     ///判断是否保存成功
@@ -1625,6 +1643,9 @@
         [self changeModel_SecondHandHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
+        
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
         
     }
     
@@ -1722,6 +1743,9 @@
         cdCollectedModel.collected_id = userID;
         [tempContext save:&error];
         
+        ///回调变动
+        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeIncrease andParamsID:nil andParams:nil];
+        
     }
     
     ///判断是否保存成功
@@ -1805,6 +1829,9 @@
                     ///回调关注变动
                     [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                     
+                    ///回调关注变动
+                    [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                    
                 } else {
                 
                     ///判断是否已联网删除
@@ -1814,6 +1841,9 @@
                         
                         ///回调关注变动
                         [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     } else {
                     
@@ -1828,6 +1858,9 @@
                                 
                                 ///回调关注变动
                                 [self performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                                
+                                ///回调关注变动
+                                [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                                 
                                 ///回调
                                 callBack(YES);
@@ -1868,12 +1901,18 @@
                     
                     [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                     
+                    ///回调关注变动
+                    [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                    
                 } else {
                     
                     ///判断是否已联网删除
                     if (isSyserver) {
                         
                         [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     } else {
                         
@@ -1883,6 +1922,9 @@
                         
                         ///保存本地
                         [self saveCollectedNewHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     }
                     
@@ -1916,6 +1958,9 @@
                     
                     [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                     
+                    ///回调关注变动
+                    [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                    
                     if (callBack) {
                         
                         callBack(YES);
@@ -1929,6 +1974,9 @@
                         
                         [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                         
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                        
                     } else {
                         
                         ///将本地的状态改为3
@@ -1937,6 +1985,9 @@
                         
                         ///保存本地
                         [self saveCollectedSecondHandHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     }
                     
@@ -1970,12 +2021,18 @@
                     
                     [self deleteEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
                     
+                    ///回调关注变动
+                    [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                    
                 } else {
                     
                     ///判断是否已联网删除
                     if (isSyserver) {
                         
                         [self deleteEntityWithKey:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED andFieldName:@"id_" andFieldValue:collectedID andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     } else {
                         
@@ -1985,6 +2042,9 @@
                         
                         ///保存本地
                         [self saveCollectedRentHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                        ///回调关注变动
+                        [self performCoredataChangeCallBack:cCoredataDataTypeMyzoneCollectedChange andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                         
                     }
                     
