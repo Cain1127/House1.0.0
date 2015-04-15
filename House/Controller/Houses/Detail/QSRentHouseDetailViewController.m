@@ -1773,8 +1773,12 @@ static char LeftStarKey;            //!<左侧星级
     if (self.isRefresh) {
         
         self.isRefresh = NO;
-        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
-        [rootView.header beginRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView.header beginRefreshing];
+            
+        });
         
     }
     [super viewWillAppear:animated];
