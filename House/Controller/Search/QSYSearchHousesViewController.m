@@ -45,6 +45,18 @@
 @implementation QSYSearchHousesViewController
 
 #pragma mark - 初始化
+/**
+ *  @author             yangshengmeng, 15-04-15 13:04:25
+ *
+ *  @brief              创建搜索房源列表
+ *
+ *  @param houseType    房源类型
+ *  @param searchKey    搜索的关键字
+ *
+ *  @return             返回当前创建的搜索列表
+ *
+ *  @since              1.0.0
+ */
 - (instancetype)initWithHouseType:(FILTER_MAIN_TYPE)houseType andSearchKey:(NSString *)searchKey;
 {
 
@@ -83,6 +95,9 @@
             
             ///保存类型
             self.houseType = [selectedKey intValue];
+            
+            ///刷新数据
+            [self createMainShowUI];
             
         }
         
@@ -134,7 +149,7 @@
         case fFilterMainTypeNewHouse:
         {
             
-            QSYSearchNewHouseList *listView = [[QSYSearchNewHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchNewHouseList *listView = [[QSYSearchNewHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -163,7 +178,7 @@
         {
             
             ///创建小区的列表UI
-            QSYSearchCommunityList *listView = [[QSYSearchCommunityList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchCommunityList *listView = [[QSYSearchCommunityList alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -192,7 +207,7 @@
         {
             
             ///瀑布流布局器
-            QSYSearchSecondHandHouseList *listView = [[QSYSearchSecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            QSYSearchSecondHandHouseList *listView = [[QSYSearchSecondHandHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -219,7 +234,7 @@
         case fFilterMainTypeRentalHouse:
         {
             
-            QSYSearchRentHouseList *listView = [[QSYSearchRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            QSYSearchRentHouseList *listView = [[QSYSearchRentHouseList alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andSearchKey:self.searchKey andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -339,7 +354,15 @@
         tempModel.search_time = [NSDate currentDateTimeStamp];
         tempModel.search_type = [NSString stringWithFormat:@"%d",self.houseType];
         
-        [QSCoreDataManager addLocalSearchHistory:tempModel andCallBack:^(BOOL flag) {}];
+        [QSCoreDataManager addLocalSearchHistory:tempModel andCallBack:^(BOOL flag) {
+        
+            if (flag && self.addNewSearchCallBack) {
+                
+                self.addNewSearchCallBack(YES,self.houseType);
+                
+            }
+        
+        }];
         
         ///刷新数据
         if (self.currentListView) {
@@ -353,6 +376,9 @@
         }
         
     }
+    
+    [textField resignFirstResponder];
+    
     return YES;
 
 }

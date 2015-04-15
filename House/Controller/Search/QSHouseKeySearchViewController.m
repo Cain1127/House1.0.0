@@ -25,6 +25,7 @@
 
 @interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
+@property (assign) BOOL isRefresh;                                  //!<视图出现时是否更新列表
 @property (nonatomic,strong) UITableView *searchItemView;           //!<列表
 @property (nonatomic,strong) UIView *noRecordsRootView;             //!<没有记录底view
 @property (nonatomic,strong) QSCustomPickerView *houseTypePicker;   //!<导航栏列表类型选择
@@ -43,6 +44,7 @@
         
         ///保存当前房源类型
         self.houseType = houseType;
+        self.isRefresh = NO;
         
     }
     
@@ -259,6 +261,17 @@
         
         ///进入房源搜索列表
         QSYSearchHousesViewController *searchHouseVC = [[QSYSearchHousesViewController alloc] initWithHouseType:self.houseType andSearchKey:tempModel.search_keywork];
+        searchHouseVC.addNewSearchCallBack = ^(BOOL isAdd,FILTER_MAIN_TYPE houseType){
+        
+            if (isAdd) {
+                
+                self.isRefresh = YES;
+                QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",houseType]];
+                [self.houseTypePicker resetPickerViewCurrentPickedModel:tempModel];
+                
+            }
+        
+        };
         [self.navigationController pushViewController:searchHouseVC animated:YES];
         
     }
@@ -320,12 +333,37 @@
         
         ///进入搜索房源结果页
         QSYSearchHousesViewController *searchHouseVC = [[QSYSearchHousesViewController alloc] initWithHouseType:self.houseType andSearchKey:inputString];
+        searchHouseVC.addNewSearchCallBack = ^(BOOL isAdd,FILTER_MAIN_TYPE houseType){
+            
+            if (isAdd) {
+                
+                self.isRefresh = YES;
+                QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",houseType]];
+                [self.houseTypePicker resetPickerViewCurrentPickedModel:tempModel];
+                
+            }
+            
+        };
         [self.navigationController pushViewController:searchHouseVC animated:YES];
         
     }
     
     return YES;
     
+}
+
+#pragma mark - 将要显示时判断是否需要主动刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isRefresh) {
+        
+        [self.searchItemView.header beginRefreshing];
+        
+    }
+
 }
 
 @end

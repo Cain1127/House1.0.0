@@ -65,6 +65,7 @@
         
         self.searchKey = searchKey;
         
+        self.backgroundColor = [UIColor clearColor];
         self.delegate = self;
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
