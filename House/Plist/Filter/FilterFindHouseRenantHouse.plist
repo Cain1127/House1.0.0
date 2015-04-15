@@ -15,7 +15,7 @@
 		<key>left_title</key>
 		<string>区      域</string>
 		<key>filter_key</key>
-		<string>district_val</string>
+		<string>street_val</string>
 	</dict>
 	<key>house_type</key>
 	<dict>

@@ -118,6 +118,9 @@ static char PopViewKey;             //!<摇一摇view关联
         ///选择不同的列表类型，事件处理
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///发送过滤器变更通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:selectedKey];
+            
             [self houseMainTypeChangeAction:selectedKey];
             
         }
@@ -765,6 +768,9 @@ static char PopViewKey;             //!<摇一摇view关联
         ///将过滤器设置为当前用户的默认过滤器
         [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.houseType] andCallBack:^(BOOL isSuccess) {}];
         
+        ///发送过滤器变更通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:[NSString stringWithFormat:@"%d",self.houseType]];
+        
     }
     
     ///选择了内容
@@ -798,6 +804,9 @@ static char PopViewKey;             //!<摇一摇view关联
         
         ///将过滤器设置为当前用户的默认过滤器
         [QSCoreDataManager updateCurrentUserDefaultFilter:[NSString stringWithFormat:@"%d",self.houseType] andCallBack:^(BOOL isSuccess) {}];
+        
+        ///发送过滤器变更通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:[NSString stringWithFormat:@"%d",self.houseType]];
         
     }
     

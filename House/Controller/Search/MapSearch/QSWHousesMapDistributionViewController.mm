@@ -32,6 +32,7 @@
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+User.h"
+#import "QSCoreDataManager+App.h"
 
 #import "QSMapCommunityDataModel.h"
 #import "QSMapCommunityListReturnData.h"
@@ -229,17 +230,26 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self.pricePickerView removePickerView:NO];
             [self.houseListTypePickerView removePickerView:NO];
             
-        } else {
+        } else if (pPickerCallBackActionTypePicked == callBackType) {
             
-            if (districtCurrentModel) {
-                
-                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:YES];
-                
-            } else {
-                
-                [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:NO];
-                
-            }
+            ///查找所在区信息
+            QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getDistrictModelWithStreetKey:pickedKey];
+            
+            ///更新所在区
+            self.filterModel.district_key = APPLICATION_NSSTRING_SETTING_NIL(tempModel.key);
+            self.filterModel.district_val = APPLICATION_NSSTRING_SETTING_NIL(tempModel.val);
+            
+            ///更新街道
+            [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:(districtCurrentModel ? YES : NO)];
+            
+        } else if (pPickerCallBackActionTypeUnLimited == callBackType) {
+            
+            ///清空原区信息和街道信息
+            self.filterModel.district_key = nil;
+            self.filterModel.district_val = nil;
+            
+            ///更新街道，并刷新数据
+            [self channelBarButtonAction:callBackType andPickedKey:pickedKey andPickedVal:pickedVal andResetKey:@"street_key" andResetVal:@"street_val" isCurrentModel:(districtCurrentModel ? YES : NO)];
             
         }
         
@@ -596,7 +606,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-#pragma mark--地图相关
+#pragma mark - 地图相关
 ///初始化地图
 - (void)initMapView
 
@@ -670,7 +680,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 ///定位跟踪代理事件
 - (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation
-
 {
     
     if (updatingLocation) {
@@ -683,7 +692,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-#pragma mark-地理编码
+#pragma mark - 地理编码
 ///发起地理编码
 - (void)geoAction
 {
@@ -723,7 +732,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
 }
 
-#pragma mark --添加大头针气泡
+#pragma mark - 添加大头针气泡
 
 - (void)addAnnotations
 {
