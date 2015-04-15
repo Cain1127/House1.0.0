@@ -12,6 +12,7 @@ typedef enum
 {
     
     bBookTypeViewControllerBook = 201,          //!<一个按钮
+    bBookTypeViewControllerBookAgain,           //!<一个按钮
     bBookTypeViewControllerChange,              //!<两个按钮时左按钮
     
 }BOOKTIME_VIEWCONTROLLER_TYPE;

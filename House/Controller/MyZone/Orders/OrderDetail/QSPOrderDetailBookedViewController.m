@@ -359,7 +359,7 @@
         }];
         [self.contentBgView addSubview:self.confirmOrderButtonView];
         
-        if ([@"500252" isEqualToString:self.orderDetailData.order_status]) {
+        if ([@"500252" isEqualToString:self.orderDetailData.order_status] || [@"500231" isEqualToString:self.orderDetailData.order_status]) {
             [self.confirmOrderButtonView disableButtons];
         }
         
@@ -882,10 +882,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:我要投诉");
+                    [self complaintBuyer];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:完成看房");
-                    [self commitInspectedOrder];
+                    [self salerCommitInspectedOrder];
                     break;
                 default:
                     break;
@@ -908,6 +909,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailAppointAgainButtonView:再次预约");
+                    [self appointmentAgainAction];
                     break;
                 default:
                     break;
@@ -929,6 +931,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailAppointAgainAndPriceAgainButtonView:再次预约");
+                    [self appointmentAgainAction];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainAndPriceAgainButtonView:我要议价");
@@ -938,6 +941,9 @@
             }
             
         }];
+        if ([@"500231" isEqualToString:self.orderDetailData.order_status]) {
+            [self.appointAgainAndPriceAgainButtonView disableButtons];
+        }
         [scrollView addSubview:self.appointAgainAndPriceAgainButtonView];
         ///将按钮View引用添加进看房时间控件管理作动态高度扩展
         [self.showingsTimeView addAfterView:&_appointAgainAndPriceAgainButtonView];
@@ -954,6 +960,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailAppointAgainAndRejectPriceButtonView:再次预约");
+                    [self appointmentAgainAction];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainAndRejectPriceButtonView:拒绝还价");
@@ -1117,9 +1124,11 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:再次预约");
+                    [self appointmentAgainAction];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:取消申请");
+                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
@@ -1142,9 +1151,22 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:再次预约");
+                    [self appointmentAgainAction];
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:申请议价");
+                    {
+                        TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil,@"是否向业主提出议价申请?",@"取消",@"确认",^(int buttonIndex) {
+                            
+                            ///判断按钮事件:0取消
+                            if (1 == buttonIndex) {
+                                
+                                [self buyerAskForBargainAgain];
+                                
+                            }
+                            
+                        })
+                    }
                     break;
                 default:
                     break;
@@ -1420,7 +1442,7 @@
 }
 
 #pragma mark - 房主确认完成看房
-- (void)commitInspectedOrder
+- (void)salerCommitInspectedOrder
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
@@ -1925,5 +1947,122 @@
     
 }
 
+#pragma mark - 投诉房客
+- (void)complaintBuyer
+{
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    if (self.orderDetailData.saler_msg) {
+        
+        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithContactID:self.orderDetailData.buyer_msg.id_ andContactName:self.orderDetailData.buyer_msg.username andOrderID:self.orderID andCallBack:^(BOOL isComplaint) {
+            
+            
+        }];
+        [self.navigationController pushViewController:ccVc animated:YES];
+        
+    }
+    
+}
+
+#pragma mark - 再次预约
+- (void)appointmentAgainAction{
+    
+    QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+        
+        if (bBookResultTypeSucess == resultTag) {
+            //修改成功,更新详情
+            [self getDetailData];
+        }
+        
+    }];
+    [btVc setVcType:bBookTypeViewControllerBookAgain];
+    [btVc setOrderID:self.orderDetailData.id_];
+    if (self.orderDetailData.order_type &&[self.orderDetailData.order_type isKindOfClass:[NSString class]]) {
+        
+        //500101:一手房购买订单, 500102 二手房，500103出租房
+        if ([self.orderDetailData.order_type isEqualToString:@"500101"])
+        {
+            
+            [btVc setHouseType:fFilterMainTypeNewHouse];
+            
+        }else if ([self.orderDetailData.order_type isEqualToString:@"500102"])
+        {
+            
+            [btVc setHouseType:fFilterMainTypeSecondHouse];
+            
+        }else if ([self.orderDetailData.order_type isEqualToString:@"500103"])
+        {
+            
+            [btVc setHouseType:fFilterMainTypeRentalHouse];
+            
+        }
+        
+    }
+    [self.navigationController pushViewController:btVc animated:YES];
+    
+}
+
+#pragma mark - 房客申请议价
+- (void)buyerAskForBargainAgain
+{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderAppointmentaApplyBargain andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self getDetailData];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
 
 @end

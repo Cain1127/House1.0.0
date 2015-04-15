@@ -85,7 +85,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+8, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag  || 500213 == button.tag ) {
+        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag ) {
             //打电话
             [self callPhone];
         }else if (500203 == button.tag || 500201 == button.tag) {
@@ -108,7 +108,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         NSLog(@"rightActionBt");
         
-        if (500210 == button.tag  || 500213 == button.tag ) {
+        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag ) {
             //跳转去聊天
             [self goToChat];
             
@@ -116,9 +116,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             //房主接受客人的预约
             [self commitAppointmentOrder];
             
-        }else if (500230 == button.tag ){
+        }else if ( 500230 == button.tag || 500231 == button.tag ){
             //房主确认租/买客预约看房
-            [self commitInspectedOrder];
+            [self salerCommitInspectedOrder];
             
         }else if (500252 == button.tag ){
             //同意还价
@@ -130,6 +130,10 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500301 == button.tag ){
             //确认完成订单
             [self commitTransactionOrder];
+            
+        }else if (500252 == button.tag ){
+            //业主接受价格
+            
             
         }
         
@@ -543,7 +547,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 }
 
 #pragma mark - 房主确认完成看房
-- (void)commitInspectedOrder
+- (void)salerCommitInspectedOrder
 {
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     

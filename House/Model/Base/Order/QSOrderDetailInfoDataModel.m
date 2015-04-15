@@ -391,6 +391,12 @@
 - (void)updateViewsFlags
 {
     
+    if ([self.order_status isEqualToString:@"500202"]) {
+        NSString *lastOrderStatus = self.o_expand_1;
+        self.o_expand_1 = self.order_status;
+        self.order_status = lastOrderStatus;
+    }
+    
     [self setAllViewsFlagWithFlag:NO];
     
     if (self.order_status&&[self.order_status isKindOfClass:[NSString class]]) {

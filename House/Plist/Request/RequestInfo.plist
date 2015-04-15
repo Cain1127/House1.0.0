@@ -254,6 +254,20 @@
 		<key>url</key>
 		<string>order/upAppoint</string>
 	</dict>
+	<key>8004</key>
+	<dict>
+		<key>class</key>
+		<string>QSPAppointmentOrderReturnData</string>
+		<key>url</key>
+		<string>order/bookAgain</string>
+	</dict>
+	<key>8005</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>order/applyBargain</string>
+	</dict>
 	<key>8011</key>
 	<dict>
 		<key>class</key>

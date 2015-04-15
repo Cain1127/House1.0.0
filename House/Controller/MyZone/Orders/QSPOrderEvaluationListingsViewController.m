@@ -228,72 +228,62 @@
     [tempParam setObject:[self.contentTextView text] forKey:@"desc"];
     [tempParam setObject:suitableStr forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
     
-//    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
-//    
-//    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-//        
-//        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
-//        
-//        if (rRequestResultTypeSuccess == resultStatus) {
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
-    
-    QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeEvaluationListingsSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
+    [QSRequestManager requestDataWithType:rRequestTypeOrderCommitInspected andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        switch (backType) {
-            case oOrderSubmitResultBackTypeAuto:
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+    
+            QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeEvaluationListingsSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
                 
-                NSLog(@"auto back");
-                {
-                    QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-                    [bookedVc setOrderID:self.orderID];
-                    [bookedVc setTurnBackDistanceStep:3];
-                    [bookedVc setOrderType:mOrderWithUserTypeAppointment];
-                    [self.navigationController pushViewController:bookedVc animated:NO];
+                switch (backType) {
+                    case oOrderSubmitResultBackTypeAuto:
+                        
+                        NSLog(@"auto back");
+                        {
+                            QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+                            [bookedVc setOrderID:self.orderID];
+                            [bookedVc setTurnBackDistanceStep:3];
+                            [bookedVc setOrderType:mOrderWithUserTypeAppointment];
+                            [self.navigationController pushViewController:bookedVc animated:NO];
+                        }
+                        
+                        break;
+                    default:
+                        break;
                 }
                 
-                break;
-            case oOrderSubmitResultBackTypeToDetail:
+            }];
+            
+            [self presentViewController:srVc animated:YES completion:^{
                 
-                NSLog(@"back 查看预约详情");
-                break;
-            case oOrderSubmitResultBackTypeToMoreHouse:
-                
-                NSLog(@"back 查看推荐房源");
-                break;
-            default:
-                break;
+            }];
+    
+        }
+
+        ///转换模型
+        if (headerModel) {
+
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
         }
         
-    }];
-    
-    [self presentViewController:srVc animated:YES completion:^{
+        [hud hiddenCustomHUD];
         
     }];
-    
-    
-//        }
-//
-//        ///转换模型
-//        if (headerModel) {
-//
-//            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
-//                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
-//                    
-//                    
-//                })
-//            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-//                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
-//                    
-//                    
-//                })
-//            }
-//            
-//        }
-//        
-//        [hud hiddenCustomHUD];
-//        
-//    }];
-    
+
 }
 
 

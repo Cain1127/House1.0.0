@@ -91,7 +91,7 @@
     CGFloat buttomViewHeight = 0.0f;
     
     //底部按钮
-    if (vcType == bBookTypeViewControllerBook) {
+    if (vcType == bBookTypeViewControllerBook || vcType == bBookTypeViewControllerBookAgain) {
         
         buttomButtonsView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointZero withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             
@@ -101,7 +101,15 @@
                 //中间按钮
                 if ([self checkInputSource]) {
                     
-                    [self addAppointmentOrder];
+                    if ( vcType == bBookTypeViewControllerBook) {
+                        //预约房源
+                        [self addAppointmentOrder];
+                        
+                    }else if ( vcType == bBookTypeViewControllerBookAgain) {
+                        //再次预约看房
+                        [self appointmentAgainOrder];
+                        
+                    }
 
                 }
             }
@@ -696,6 +704,104 @@
         [hud hiddenCustomHUD];
         
     }];
+}
+
+- (void)appointmentAgainOrder{
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+//    user_id	true	int	用户id
+//    order_id	true	string	订单id
+//    appoint_date	true	string	预定的日期 格式：2015-03-31
+//    appoint_start_time	true	string	预约的开始时间点 格式: 12:00
+//    appoint_end_time	true	string	预约的结束时间点 格式: 14:00
+//    buyer_name	true	string	购买者姓名
+//    buyer_phone	true	string	购买者电话 格式：13800138000
+    
+    if (!self.orderID || [self.orderID isEqualToString:@""]) {
+        NSLog(@"订单ID有错！");
+        return;
+    }
+    
+    //    //获取用户ID
+    //    NSString *userID = [QSCoreDataManager getUserID];
+    //    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
+    [tempParam setObject:[self.calendarView getSelectedDayStr] forKey:@"appoint_date"];
+    [tempParam setObject:[self.startHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_start_time"];
+    [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
+    [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
+    [tempParam setObject:self.phoneNumField.text forKey:@"buyer_phone"];
+    [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    //    NSLog(@"请求参数：%@",tempParam);
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderAppointmentAgain andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///转换模型
+        QSPAppointmentOrderReturnData *headerModel = resultData;
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeBookSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
+                    
+                    switch (backType) {
+                        case oOrderSubmitResultBackTypeAuto:
+                            
+                            NSLog(@"auto back");
+                            [self.navigationController popViewControllerAnimated:NO];
+                            
+                            break;
+                        case oOrderSubmitResultBackTypeToDetail:
+                            
+                            NSLog(@"back 查看预约详情");
+                        {
+                            QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
+                            [bookedVc setOrderID:self.orderID];
+                            [bookedVc setTurnBackDistanceStep:2];
+                            [bookedVc setOrderType:mOrderWithUserTypeAppointment];
+                            [self.navigationController pushViewController:bookedVc animated:NO];
+                            
+                        }
+                            break;
+                        case oOrderSubmitResultBackTypeToMoreHouse:
+                            
+                            NSLog(@"back 查看推荐房源");
+                        {
+                            QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:houseType];
+                            [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
+                            [shakeRecommendHouseVC setTurnBackDistanceStep:3];
+                        }
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    
+                }];
+                
+                [self presentViewController:srVc animated:YES completion:^{
+                    
+                }];
+            })
+            
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(bBookResultTypeSucess);
+            }
+            
+        }else{
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            if (self.blockButtonCallBack) {
+                self.blockButtonCallBack(bBookResultTypeFail);
+            }
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
 }
 
 

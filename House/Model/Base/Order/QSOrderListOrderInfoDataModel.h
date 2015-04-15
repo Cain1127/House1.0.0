@@ -42,7 +42,7 @@
 @property (nonatomic,strong) NSString *source_ask_for_id;   //!<来源求租/求购订单id
 @property (nonatomic,strong) NSString *last_operater_id;    //!<最后操作者id
 @property (nonatomic,strong) NSString *add_type;            //!<添加类型
-@property (nonatomic,strong) NSString *o_expand_1;          //!<
+@property (nonatomic,strong) NSString *o_expand_1;          //!<状态500202时保存上一个状态
 @property (nonatomic,strong) NSString *o_expand_2;          //!<
 
 

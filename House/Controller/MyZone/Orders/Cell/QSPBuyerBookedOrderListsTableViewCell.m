@@ -17,6 +17,7 @@
 #import "QSYCallTipsPopView.h"
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSCustomHUDView.h"
+#import "QSPOrderEvaluationListingsViewController.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -116,7 +117,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+20.0f, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500252 == button.tag ) {
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500231 == button.tag || 500252 == button.tag ) {
             //打电话
             [self callPhone];
         }else if (500232 == button.tag ){
@@ -136,7 +137,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *rightBt = [UIButton createBlockButtonWithFrame:CGRectMake(leftBt.frame.origin.x+leftBt.frame.size.width+4.0f, leftBt.frame.origin.y, leftBt.frame.size.width, leftBt.frame.size.height) andButtonStyle:rightActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"rightActionBt");
-        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500252 == button.tag) {
+        if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500231 == button.tag || 500252 == button.tag) {
             //跳转去聊天
             [self goToChat];
             
@@ -149,7 +150,11 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500232 == button.tag ){
             //预约成交
             
+        }else if (500230 == button.tag){
+            //评价房源
+            [self commitEvaluationListings];
         }
+        
         
     }];
     [self.contentView addSubview:rightBt];
@@ -599,6 +604,36 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         [hud hiddenCustomHUD];
         
     }];
+    
+}
+
+#pragma mark - 评价房源
+- (void)commitEvaluationListings{
+
+    if (self.parentViewController) {
+        QSPOrderEvaluationListingsViewController *elVc = [[QSPOrderEvaluationListingsViewController alloc] init];
+        NSString *orderID = nil;
+        
+        if (self.orderData) {
+            
+            if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                
+                NSArray *orderList = self.orderData.orderInfoList;
+                
+                if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                    
+                    QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                    
+                    if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                        orderID = orderItem.id_;
+                    }
+                }
+            }
+        }
+        [elVc setOrderID:orderID];
+        
+        [self.parentViewController.navigationController pushViewController:elVc animated:YES];
+    }
     
 }
 
