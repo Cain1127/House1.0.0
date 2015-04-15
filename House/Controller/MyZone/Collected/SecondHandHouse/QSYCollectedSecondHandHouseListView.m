@@ -16,6 +16,7 @@
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSHouseInfoDataModel.h"
 #import "QSSecondHouseDetailDataModel.h"
+#import "QSWSecondHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -384,6 +385,38 @@
     [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeSecondHouse andPickedBoxStatus:NO];
     
     return cellLocalHouse;
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (self.isLocalData) {
+        
+        ///获取房子模型
+        QSSecondHouseDetailDataModel *houseInfoModel = self.customDataSource[indexPath.row];
+        QSHouseInfoDataModel *tempModel = [[QSHouseInfoDataModel alloc] init];
+        tempModel.title = houseInfoModel.house.title;
+        tempModel.id_ = houseInfoModel.house.id_;
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    } else {
+        
+        ///获取房子模型
+        QSHouseInfoDataModel *tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row];
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    }
     
 }
 

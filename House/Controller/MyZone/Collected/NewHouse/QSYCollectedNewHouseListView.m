@@ -13,6 +13,9 @@
 
 #import "QSNewHouseListReturnData.h"
 #import "QSNewHouseInfoDataModel.h"
+#import "QSNewHouseDetailDataModel.h"
+#import "QSLoupanInfoDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -367,6 +370,39 @@
     [cellLocal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
     
     return cellLocal;
+    
+}
+
+#pragma mark - 点击房源
+///点击房源
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (self.isLocalData) {
+        
+        ///获取房子模型
+        QSNewHouseDetailDataModel *houseInfoModel = self.customDataSource[indexPath.row];
+        QSNewHouseInfoDataModel *tempModel = [[QSNewHouseInfoDataModel alloc] init];
+        tempModel.title = houseInfoModel.loupan_building.title;
+        tempModel.loupan_id = houseInfoModel.loupan_building.loupan_id;
+        tempModel.loupan_building_id = houseInfoModel.loupan_building.id_;
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    } else {
+        
+        ///获取房子模型
+        QSNewHouseInfoDataModel *tempModel = self.dataSourceModel.headerData.houseList[indexPath.row];
+        if (self.houseListTapCallBack) {
+            
+            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+            
+        }
+        
+    }
     
 }
 
