@@ -8,6 +8,9 @@
 
 #import "QSWDeveloperHomeViewController.h"
 #import "QSWDeveloperActivityViewController.h"
+#import "QSYChatToolViewController.h"
+#import "QSYSystemMessagesViewController.h"
+
 
 #import "QSImageView+Block.h"
 
@@ -53,9 +56,12 @@
     [self.view addSubview:houseAttentionView];
     
     UIImageView *settingImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(35.0f, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height+20.0f, SIZE_DEVICE_WIDTH*120.0f/375.0f, SIZE_DEVICE_WIDTH*133.0f/375.0f) andSingleTapCallBack:^{
+        
         APPLICATION_LOG_INFO(@"点击设置", nil);
         settingImageView.highlighted = YES;
-
+        QSYChatToolViewController *toolVC = [[QSYChatToolViewController alloc] init];
+        [self.navigationController pushViewController:toolVC animated:YES];
+        
     }];
     settingImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING];
     settingImageView.highlightedImage = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING_HIGHTLIGHT];
@@ -71,23 +77,26 @@
     [self.view addSubview:settingImageView];
     
     UIImageView *chatImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-35.0f-settingImageView.frame.size.width, settingImageView.frame.origin.y, settingImageView.frame.size.width, settingImageView.frame.size.height) andSingleTapCallBack:^{
+        
         APPLICATION_LOG_INFO(@"点击消息", nil);
-        chatImageView.highlightedImage = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING_HIGHTLIGHT];
+        chatImageView.highlightedImage = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_CHAT_HIGHTLIGHT];
         chatImageView.highlighted = YES;
+        QSYSystemMessagesViewController *smVC = [[QSYSystemMessagesViewController alloc] init];
+        [self.navigationController pushViewController:smVC animated:YES];
         
     }];
-    chatImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING];
+    chatImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_CHAT];
 
     
     ///说明文字
     UILabel *chatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
     chatLabel.text = @"消息";
-    chatLabel.center=CGPointMake(settingImageView.frame.size.width / 2.0f, settingImageView.frame.size.height/2.0f+20.0f);
+    chatLabel.center=CGPointMake(chatImageView.frame.size.width / 2.0f, chatImageView.frame.size.height/2.0f+20.0f);
     chatLabel.textAlignment = NSTextAlignmentCenter;
     chatLabel.textColor = COLOR_CHARACTERS_BLACK;
     chatLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [chatImageView addSubview:chatLabel];
-    [self.view addSubview:settingImageView];
+    [self.view addSubview:chatImageView];
     
 }
 
@@ -164,14 +173,14 @@
     
     ///间隙
     CGFloat width = 65.0f;
-    CGFloat gap = (view.frame.size.width - width * 3.0f) / 2.0f;
+    CGFloat gap = (view.frame.size.width - width * 3.0f) / 2.0f-10.0f;
     
     ///访问量
     UILabel *pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f+15.0f+5.0f, width, 15.0f)];
     pageLabel.text = @"访问量";
     pageLabel.textAlignment = NSTextAlignmentCenter;
     pageLabel.textColor = COLOR_CHARACTERS_GRAY;
-    pageLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+    pageLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:pageLabel];
     
     UILabel *pageCountLable = [[UILabel alloc] initWithFrame:CGRectMake(pageLabel.frame.origin.x, 20.0f, width / 2.0f + 5.0f, 25.0f)];
@@ -181,7 +190,7 @@
     pageCountLable.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:pageCountLable];
     
-    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(pageCountLable.frame.origin.x + pageCountLable.frame.size.width, SIZE_DEFAULT_MARGIN_LEFT_RIGHT+7.5f, 15.0f, 10.0f)];
+    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(pageCountLable.frame.origin.x + pageCountLable.frame.size.width, 20.0f+7.5f, 15.0f, 10.0f)];
     unitLabel.text = @"次";
     unitLabel.textAlignment = NSTextAlignmentLeft;
     unitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -221,16 +230,16 @@
     [view addSubview:sepLine1];
     
     ///最受欢迎
-    UILabel *welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), pageLabel.frame.origin.y, width, 15.0f)];
+    UILabel *welcomeLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * (width + gap), pageLabel.frame.origin.y, width+20.0f, 15.0f)];
     welcomeLabel.text = @"最受欢迎楼盘";
-    welcomeLabel.textAlignment = NSTextAlignmentCenter;
+    welcomeLabel.textAlignment = NSTextAlignmentLeft;
     welcomeLabel.textColor = COLOR_CHARACTERS_GRAY;
-    welcomeLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+    welcomeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:welcomeLabel];
     
-    UILabel *welcomeCountLable = [[UILabel alloc] initWithFrame:CGRectMake(welcomeLabel.frame.origin.x, 20.0f, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *welcomeCountLable = [[UILabel alloc] initWithFrame:CGRectMake(welcomeLabel.frame.origin.x, 20.0f, width + 20.0f, 25.0f)];
     welcomeCountLable.text =  @"青山108号";
-    welcomeCountLable.textAlignment = NSTextAlignmentRight;
+    welcomeCountLable.textAlignment = NSTextAlignmentLeft;
     welcomeCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     welcomeCountLable.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:welcomeCountLable];

@@ -49,7 +49,7 @@ static char SignUpCountKey;         //!<报名人数
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, userImageView.frame.origin.y, 200.0f, 17.0f)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [self.contentView addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
 
@@ -59,15 +59,15 @@ static char SignUpCountKey;         //!<报名人数
     [self.contentView addSubview:commentLabel];
     objc_setAssociatedObject(self, &CommentLabelKey, commentLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UILabel *signUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width-100.0f, commentLabel.frame.origin.y, 60.0f, 13.0f)];
+    UILabel *signUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width-120.0f, commentLabel.frame.origin.y, 80.0f, 13.0f)];
     signUpLabel.text = @"报名人数:";
     signUpLabel.textAlignment = NSTextAlignmentRight;
     signUpLabel.font = [UIFont systemFontOfSize:14.0f];
     [self.contentView addSubview:signUpLabel];
     
-    UILabel *signUpCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(signUpLabel.frame.origin.x, signUpLabel.frame.origin.y, 40.0f, signUpLabel.frame.size.height)];
+    UILabel *signUpCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(signUpLabel.frame.origin.x+signUpLabel.frame.size.width, signUpLabel.frame.origin.y, 40.0f, signUpLabel.frame.size.height)];
     signUpCountLabel.textAlignment = NSTextAlignmentLeft;
-    signUpCountLabel.font = [UIFont systemFontOfSize:18.0f];
+    signUpCountLabel.font = [UIFont systemFontOfSize:16.0f];
     signUpCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     [self.contentView addSubview:signUpCountLabel];
     objc_setAssociatedObject(self, &SignUpCountKey, signUpCountLabel, OBJC_ASSOCIATION_ASSIGN);
