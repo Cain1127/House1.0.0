@@ -110,6 +110,7 @@ static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
  *  @since      1.0.0
  */
 - (void)showNoRecordTips:(BOOL)flag;
+- (void)showNoRecordTips:(BOOL)flag andTips:(NSString *)tipsString;
 
 #pragma mark - 显示或者隐藏tabbar
 /**

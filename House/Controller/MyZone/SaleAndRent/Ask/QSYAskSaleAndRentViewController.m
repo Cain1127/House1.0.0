@@ -104,7 +104,7 @@
     UILabel *tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, self.noRecordsRootView.frame.size.height / 2.0f - 60.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
     tipsLabel.text = @"暂无求租求购记录\n马上发布吧！";
     tipsLabel.textAlignment = NSTextAlignmentCenter;
-    tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
+    tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     tipsLabel.numberOfLines = 2;
     [self.noRecordsRootView addSubview:tipsLabel];
     
