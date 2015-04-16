@@ -24,6 +24,9 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
 
 @interface QSSocketManager : NSObject
 
+///socket单例管理器
++ (QSSocketManager *)shareSocketManager;
+
 /**
  *  @author         yangshengmeng, 15-04-10 13:04:29
  *

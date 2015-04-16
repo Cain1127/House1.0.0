@@ -453,7 +453,9 @@
         wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
         wordMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_,@"");
         wordMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
-        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
+        
+        QSYSendMessageBaseModel *lastMessage = [self.messagesDataSource lastObject];
+        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING(lastMessage.deviceUUID,@"");
         wordMessageModel.message = APPLICATION_NSSTRING_SETTING(sendMessage,@"");
         wordMessageModel.timeStamp = APPLICATION_NSSTRING_SETTING([NSDate currentDateTimeStamp],@"");
         
@@ -626,10 +628,12 @@
         ///保存图片消息
         QSYSendMessagePicture *pictureMessageModel = [[QSYSendMessagePicture alloc] init];
         pictureMessageModel.msgType = qQSCustomProtocolChatMessageTypePicture;
-        pictureMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_, @"");
-        pictureMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
-        pictureMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING([NSString getDeviceUUID],@"");
-        pictureMessageModel.pictureURL = APPLICATION_NSSTRING_SETTING(savePath,@"");
+        pictureMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_, @"-1");
+        pictureMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"-1");
+        
+        QSYSendMessageBaseModel *lastMessage = [self.messagesDataSource lastObject];
+        pictureMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING(lastMessage.deviceUUID,@"-1");
+        pictureMessageModel.pictureURL = APPLICATION_NSSTRING_SETTING(savePath,@"-1");
         
         pictureMessageModel.timeStamp = [NSDate currentDateTimeStamp];
         

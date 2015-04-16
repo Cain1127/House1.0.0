@@ -411,8 +411,16 @@
                 case pPropertyInfocellActionTypeRecommendRenant:
                 {
                 
-                    QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] initWithRecommendType:rRecommendTenantTypeAppointedRentHouse andPropertyType:tempModel.id_];
-                    [self.navigationController pushViewController:recommendVC animated:YES];
+                    if ([tempModel.reservation_num intValue] > 0) {
+                        
+                        QSYRecommendTenantViewController *recommendVC = [[QSYRecommendTenantViewController alloc] initWithRecommendType:rRecommendTenantTypeAppointedRentHouse andPropertyType:tempModel.id_];
+                        [self.navigationController pushViewController:recommendVC animated:YES];
+                        
+                    } else {
+                    
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"暂无推荐房客", 1.0f, ^(){})
+                    
+                    }
                 
                 }
                     break;
@@ -552,6 +560,16 @@
 #pragma mark - 弹出发布物业提示框
 - (void)popReleaseHouseTipsView
 {
+    
+    ///判断当前是否已发布物业：不能超过5套物业
+    USER_COUNT_TYPE userType = [QSCoreDataManager getUserType];
+    int sumProperty = [QSCoreDataManager getUserPropertySumCount];
+    if ((uUserCountTypeAgency != userType) && sumProperty >= 5) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能发布5套物业", 1.5f, ^(){})
+        return;
+        
+    }
 
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;

@@ -216,6 +216,13 @@ static char NavigationBarKey;       //!<导航栏的关联key
 - (void)showNoRecordTips:(BOOL)flag
 {
     
+    [self showNoRecordTips:flag andTips:@"暂无记录"];
+
+}
+
+- (void)showNoRecordTips:(BOOL)flag andTips:(NSString *)tipsString
+{
+
     ///判断是否需要显示
     if (flag) {
         
@@ -224,31 +231,33 @@ static char NavigationBarKey;       //!<导航栏的关联key
             
             ///将提示移前
             self.noRecordLabel.hidden = NO;
+            self.noRecordLabel.text = ([tipsString length] > 0 ? tipsString : @"暂无记录");
             [self.view bringSubviewToFront:self.noRecordLabel];
             return;
             
         }
         
         ///没有则创建显示
-        self.noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, 140.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
-        self.noRecordLabel.text = @"暂无记录";
+        self.noRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30.0f, SIZE_DEVICE_HEIGHT / 2.0f - 60.0f, SIZE_DEVICE_WIDTH - 60.0f, 60.0f)];
+        self.noRecordLabel.text = ([tipsString length] > 0 ? tipsString : @"暂无记录");
         self.noRecordLabel.textAlignment = NSTextAlignmentCenter;
         self.noRecordLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-        self.noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+        self.noRecordLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
         [self.view addSubview:self.noRecordLabel];
         [self.view bringSubviewToFront:self.noRecordLabel];
         
     } else {
-    
+        
         ///不需要显示则移除
         if (self.noRecordLabel) {
             
             self.noRecordLabel.hidden = YES;
+            [self.view sendSubviewToBack:self.noRecordLabel];
             
         }
-    
+        
     }
-
+    
 }
 
 #pragma mark - 显示或者隐藏tabbar

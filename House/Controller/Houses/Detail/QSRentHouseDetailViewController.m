@@ -134,6 +134,7 @@ static char LeftStarKey;            //!<左侧星级
     return self;
     
 }
+
 #pragma mark - UI搭建
 ///重写导航栏，添加标题信息
 - (void)createNavigationBarUI

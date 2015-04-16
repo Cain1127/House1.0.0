@@ -38,4 +38,5 @@
  *  @since 1.0.0
  */
 - (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID;
+
 @end

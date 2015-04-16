@@ -457,7 +457,7 @@ static char PopViewKey;             //!<摇一摇view关联
                         ///显示暂无记录
                     case hHouseListActionTypeNoRecord:
                         
-                        [self showNoRecordTips:YES];
+                        [self showNoRecordTips:YES andTips:@"暂无新房房源"];
                         
                         break;
                         
@@ -500,7 +500,7 @@ static char PopViewKey;             //!<摇一摇view关联
                         ///显示暂无记录
                     case hHouseListActionTypeNoRecord:
                         
-                        [self showNoRecordTips:YES];
+                        [self showNoRecordTips:YES andTips:@"暂无小区记录"];
                         
                         break;
                         
@@ -543,7 +543,7 @@ static char PopViewKey;             //!<摇一摇view关联
                         ///显示暂无记录
                     case hHouseListActionTypeNoRecord:
                         
-                        [self showNoRecordTips:YES];
+                        [self showNoRecordTips:YES andTips:@"暂无二手房源"];
                         
                         break;
                         
@@ -594,7 +594,7 @@ static char PopViewKey;             //!<摇一摇view关联
                         ///显示暂无记录
                     case hHouseListActionTypeNoRecord:
                         
-                        [self showNoRecordTips:YES];
+                        [self showNoRecordTips:YES andTips:@"暂无出租房源"];
                         
                         break;
                         

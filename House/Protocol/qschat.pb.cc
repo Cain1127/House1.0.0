@@ -41,9 +41,6 @@ namespace QSChat {
         const ::google::protobuf::Descriptor* QuestionVideo_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         QuestionVideo_reflection_ = NULL;
-        const ::google::protobuf::Descriptor* QuestionSystem_descriptor_ = NULL;
-        const ::google::protobuf::internal::GeneratedMessageReflection*
-        QuestionSystem_reflection_ = NULL;
         const ::google::protobuf::Descriptor* AnswerWord_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         AnswerWord_reflection_ = NULL;
@@ -69,7 +66,6 @@ namespace QSChat {
         const ::google::protobuf::EnumDescriptor* ChatRequestType_descriptor_ = NULL;
         
     }  // namespace
-    
     
     void protobuf_AssignDesc_qschat_2eproto() {
         protobuf_AddDesc_qschat_2eproto();
@@ -134,11 +130,9 @@ namespace QSChat {
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionHistory));
         QuestionWord_descriptor_ = file->message_type(3);
-        static const int QuestionWord_offsets_[13] = {
+        static const int QuestionWord_offsets_[14] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, tid_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, ctype_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, message_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, time_stamp_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_avatar_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, t_name_),
@@ -148,6 +142,9 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, m_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, device_udid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, message_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionWord, ctype_),
         };
         QuestionWord_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -161,7 +158,7 @@ namespace QSChat {
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionWord));
         QuestionSpecial_descriptor_ = file->message_type(4);
-        static const int QuestionSpecial_offsets_[17] = {
+        static const int QuestionSpecial_offsets_[18] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, cid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, ctype_),
@@ -179,6 +176,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, m_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSpecial, device_udid_),
         };
         QuestionSpecial_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -192,7 +190,7 @@ namespace QSChat {
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionSpecial));
         QuestionPic_descriptor_ = file->message_type(5);
-        static const int QuestionPic_offsets_[13] = {
+        static const int QuestionPic_offsets_[14] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, tid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, ctype_),
@@ -206,6 +204,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, m_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionPic, device_udid_),
         };
         QuestionPic_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -219,7 +218,7 @@ namespace QSChat {
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionPic));
         QuestionVideo_descriptor_ = file->message_type(6);
-        static const int QuestionVideo_offsets_[13] = {
+        static const int QuestionVideo_offsets_[14] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, tid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, ctype_),
@@ -233,6 +232,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, m_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionVideo, device_udid_),
         };
         QuestionVideo_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -245,28 +245,8 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(QuestionVideo));
-        QuestionSystem_descriptor_ = file->message_type(7);
-        static const int QuestionSystem_offsets_[6] = {
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, title_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, desc_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, time_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, mid_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, type_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, url_),
-        };
-        QuestionSystem_reflection_ =
-        new ::google::protobuf::internal::GeneratedMessageReflection(
-                                                                     QuestionSystem_descriptor_,
-                                                                     QuestionSystem::default_instance_,
-                                                                     QuestionSystem_offsets_,
-                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, _has_bits_[0]),
-                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(QuestionSystem, _unknown_fields_),
-                                                                     -1,
-                                                                     ::google::protobuf::DescriptorPool::generated_pool(),
-                                                                     ::google::protobuf::MessageFactory::generated_factory(),
-                                                                     sizeof(QuestionSystem));
-        AnswerWord_descriptor_ = file->message_type(8);
-        static const int AnswerWord_offsets_[10] = {
+        AnswerWord_descriptor_ = file->message_type(7);
+        static const int AnswerWord_offsets_[11] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, message_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, msg_id_),
@@ -277,6 +257,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_user_type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerWord, device_udid_),
         };
         AnswerWord_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -289,8 +270,8 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerWord));
-        AnswerPic_descriptor_ = file->message_type(9);
-        static const int AnswerPic_offsets_[10] = {
+        AnswerPic_descriptor_ = file->message_type(8);
+        static const int AnswerPic_offsets_[11] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, pic_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, msg_id_),
@@ -301,6 +282,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_user_type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerPic, device_udid_),
         };
         AnswerPic_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -313,8 +295,8 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerPic));
-        AnswerVideo_descriptor_ = file->message_type(10);
-        static const int AnswerVideo_offsets_[10] = {
+        AnswerVideo_descriptor_ = file->message_type(9);
+        static const int AnswerVideo_offsets_[11] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, video_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, msg_id_),
@@ -325,6 +307,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_user_type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerVideo, device_udid_),
         };
         AnswerVideo_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -337,8 +320,8 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerVideo));
-        AnswerOnline_descriptor_ = file->message_type(11);
-        static const int AnswerOnline_offsets_[9] = {
+        AnswerOnline_descriptor_ = file->message_type(10);
+        static const int AnswerOnline_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, msg_id_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, time_stamp_),
@@ -348,6 +331,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_user_type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOnline, device_udid_),
         };
         AnswerOnline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -360,8 +344,8 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerOnline));
-        AnswerOffline_descriptor_ = file->message_type(12);
-        static const int AnswerOffline_offsets_[10] = {
+        AnswerOffline_descriptor_ = file->message_type(11);
+        static const int AnswerOffline_offsets_[11] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, msg_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, msg_id_),
@@ -372,6 +356,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_leve_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_user_type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, device_udid_),
         };
         AnswerOffline_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -384,13 +369,14 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerOffline));
-        AnswerSpecial_descriptor_ = file->message_type(13);
-        static const int AnswerSpecial_offsets_[5] = {
+        AnswerSpecial_descriptor_ = file->message_type(12);
+        static const int AnswerSpecial_offsets_[6] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, pic_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, desc_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, fid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, device_udid_),
         };
         AnswerSpecial_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -403,14 +389,15 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerSpecial));
-        AnswerSystem_descriptor_ = file->message_type(14);
-        static const int AnswerSystem_offsets_[6] = {
+        AnswerSystem_descriptor_ = file->message_type(13);
+        static const int AnswerSystem_offsets_[7] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, title_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, desc_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, time_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, mid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, type_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, url_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, device_udid_),
         };
         AnswerSystem_reflection_ =
         new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -452,8 +439,6 @@ namespace QSChat {
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  QuestionVideo_descriptor_, &QuestionVideo::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-                                                                                 QuestionSystem_descriptor_, &QuestionSystem::default_instance());
-            ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerWord_descriptor_, &AnswerWord::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerPic_descriptor_, &AnswerPic::default_instance());
@@ -486,8 +471,6 @@ namespace QSChat {
         delete QuestionPic_reflection_;
         delete QuestionVideo::default_instance_;
         delete QuestionVideo_reflection_;
-        delete QuestionSystem::default_instance_;
-        delete QuestionSystem_reflection_;
         delete AnswerWord::default_instance_;
         delete AnswerWord_reflection_;
         delete AnswerPic::default_instance_;
@@ -519,73 +502,77 @@ namespace QSChat {
                                                                      "\216\001\n\017QuestionHistory\022&\n\005ctype\030\001 \002(\0162\027.QSC"
                                                                      "hat.ChatRequestType\022\r\n\005token\030\002 \002(\t\022\013\n\003wi"
                                                                      "d\030\003 \002(\t\022\020\n\010page_num\030\004 \002(\t\022\024\n\014current_pag"
-                                                                     "e\030\005 \002(\t\022\017\n\007last_id\030\006 \002(\t\"\203\002\n\014QuestionWor"
-                                                                     "d\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022&\n\005ctype\030\003 \002"
-                                                                     "(\0162\027.QSChat.ChatRequestType\022\017\n\007message\030\004"
-                                                                     " \002(\t\022\022\n\ntime_stamp\030\005 \002(\t\022\020\n\010t_avatar\030\006 \002"
-                                                                     "(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t_leve\030\010 \002(\t\022\023\n\013t_"
-                                                                     "user_type\030\t \002(\t\022\020\n\010m_avatar\030\n \002(\t\022\016\n\006m_n"
-                                                                     "ame\030\013 \002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023\n\013m_user_type"
-                                                                     "\030\r \002(\t\"\271\002\n\017QuestionSpecial\022\013\n\003mid\030\001 \002(\003\022"
-                                                                     "\013\n\003cid\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.Cha"
-                                                                     "tRequestType\022\013\n\003fid\030\004 \002(\003\022\014\n\004type\030\005 \002(\t\022"
-                                                                     "\014\n\004name\030\006 \002(\t\022\013\n\003pic\030\007 \002(\t\022\014\n\004desc\030\010 \002(\t"
-                                                                     "\022\022\n\ntime_stamp\030\t \002(\t\022\020\n\010t_avatar\030\n \002(\t\022\016"
-                                                                     "\n\006t_name\030\013 \002(\t\022\016\n\006t_leve\030\014 \002(\t\022\023\n\013t_user"
-                                                                     "_type\030\r \002(\t\022\020\n\010m_avatar\030\016 \002(\t\022\016\n\006m_name\030"
-                                                                     "\017 \002(\t\022\016\n\006m_leve\030\020 \002(\t\022\023\n\013m_user_type\030\021 \002"
-                                                                     "(\t\"\376\001\n\013QuestionPic\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002"
-                                                                     " \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.ChatRequest"
-                                                                     "Type\022\013\n\003pic\030\004 \002(\014\022\022\n\ntime_stamp\030\005 \002(\t\022\020\n"
-                                                                     "\010t_avatar\030\006 \002(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t_lev"
-                                                                     "e\030\010 \002(\t\022\023\n\013t_user_type\030\t \002(\t\022\020\n\010m_avatar"
-                                                                     "\030\n \002(\t\022\016\n\006m_name\030\013 \002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023"
-                                                                     "\n\013m_user_type\030\r \002(\t\"\202\002\n\rQuestionVideo\022\013\n"
-                                                                     "\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027"
-                                                                     ".QSChat.ChatRequestType\022\r\n\005video\030\004 \002(\014\022\022"
-                                                                     "\n\ntime_stamp\030\005 \002(\t\022\020\n\010t_avatar\030\006 \002(\t\022\016\n\006"
-                                                                     "t_name\030\007 \002(\t\022\016\n\006t_leve\030\010 \002(\t\022\023\n\013t_user_t"
-                                                                     "ype\030\t \002(\t\022\020\n\010m_avatar\030\n \002(\t\022\016\n\006m_name\030\013 "
-                                                                     "\002(\t\022\016\n\006m_leve\030\014 \002(\t\022\023\n\013m_user_type\030\r \002(\t"
-                                                                     "\"c\n\016QuestionSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004des"
-                                                                     "c\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004ty"
-                                                                     "pe\030\005 \002(\t\022\013\n\003url\030\006 \002(\t\"\275\001\n\nAnswerWord\022\016\n\006"
-                                                                     "result\030\001 \002(\t\022\017\n\007message\030\002 \002(\t\022\016\n\006msg_id\030"
-                                                                     "\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020"
-                                                                     "\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_le"
-                                                                     "ve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_unrea"
-                                                                     "d_count\030\n \002(\t\"\270\001\n\tAnswerPic\022\016\n\006result\030\001 "
-                                                                     "\002(\t\022\013\n\003pic\030\002 \002(\014\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime"
-                                                                     "_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 "
-                                                                     "\002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f"
-                                                                     "_user_type\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t"
-                                                                     "\"\274\001\n\013AnswerVideo\022\016\n\006result\030\001 \002(\t\022\r\n\005vide"
-                                                                     "o\030\002 \002(\014\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_stamp\030\004 "
-                                                                     "\002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_"
-                                                                     "name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_user_typ"
-                                                                     "e\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t\"\256\001\n\014Answ"
-                                                                     "erOnline\022\016\n\006result\030\001 \002(\005\022\016\n\006msg_id\030\002 \002(\t"
-                                                                     "\022\022\n\ntime_stamp\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\020\n\010f_a"
-                                                                     "vatar\030\005 \002(\t\022\016\n\006f_name\030\006 \002(\t\022\016\n\006f_leve\030\007 "
-                                                                     "\002(\t\022\023\n\013f_user_type\030\010 \002(\t\022\026\n\016f_unread_cou"
-                                                                     "nt\030\t \002(\t\"\274\001\n\rAnswerOffline\022\016\n\006result\030\001 \002"
-                                                                     "(\005\022\013\n\003msg\030\002 \002(\t\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_"
-                                                                     "stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002"
-                                                                     "(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_"
-                                                                     "user_type\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t\""
-                                                                     "S\n\rAnswerSpecial\022\014\n\004name\030\001 \002(\t\022\013\n\003pic\030\002 "
-                                                                     "\002(\t\022\014\n\004desc\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\014\n\004type\030\005"
-                                                                     " \002(\t\"a\n\014AnswerSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004d"
-                                                                     "esc\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004"
-                                                                     "type\030\005 \002(\t\022\013\n\003url\030\006 \002(\t*\351\001\n\021QSChatMessag"
-                                                                     "eType\022\020\n\013QSCHAT_WORD\020\250F\022\017\n\nQSCHAT_PIC\020\251F"
-                                                                     "\022\021\n\014QSCHAT_VIDEO\020\252F\022\022\n\rQSCHAT_ONLINE\020\253F\022"
-                                                                     "\023\n\016QSCHAT_OFFLINE\020\254F\022\023\n\016QSCHAT_SPECIAL\020\255"
-                                                                     "F\022\022\n\rQSCHAT_SYSTEM\020\256F\022\030\n\023QSCHAT_HISTORY_"
-                                                                     "WORD\020\257F\022\027\n\022QSCHAT_HISTORY_PIC\020\260F\022\031\n\024QSCH"
-                                                                     "AT_HISTORY_VIDEO\020\261F*=\n\017ChatRequestType\022\024"
-                                                                     "\n\017ChatTypeSendPTP\020\300>\022\024\n\017ChatTypeSendPTG\020"
-                                                                     "\301>B$\n\032com.fangdangjia.fdj.structB\006QSChat", 3000);
+                                                                     "e\030\005 \002(\t\022\017\n\007last_id\030\006 \002(\t\"\230\002\n\014QuestionWor"
+                                                                     "d\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid\030\002 \002(\003\022\022\n\ntime_stam"
+                                                                     "p\030\003 \002(\t\022\020\n\010t_avatar\030\004 \002(\t\022\016\n\006t_name\030\005 \002("
+                                                                     "\t\022\016\n\006t_leve\030\006 \002(\t\022\023\n\013t_user_type\030\007 \002(\t\022\020"
+                                                                     "\n\010m_avatar\030\010 \002(\t\022\016\n\006m_name\030\t \002(\t\022\016\n\006m_le"
+                                                                     "ve\030\n \002(\t\022\023\n\013m_user_type\030\013 \002(\t\022\023\n\013device_"
+                                                                     "udid\030\014 \002(\t\022\017\n\007message\030\r \002(\t\022&\n\005ctype\030\016 \002"
+                                                                     "(\0162\027.QSChat.ChatRequestType\"\316\002\n\017Question"
+                                                                     "Special\022\013\n\003mid\030\001 \002(\003\022\013\n\003cid\030\002 \002(\003\022&\n\005cty"
+                                                                     "pe\030\003 \002(\0162\027.QSChat.ChatRequestType\022\013\n\003fid"
+                                                                     "\030\004 \002(\003\022\014\n\004type\030\005 \002(\t\022\014\n\004name\030\006 \002(\t\022\013\n\003pi"
+                                                                     "c\030\007 \002(\t\022\014\n\004desc\030\010 \002(\t\022\022\n\ntime_stamp\030\t \002("
+                                                                     "\t\022\020\n\010t_avatar\030\n \002(\t\022\016\n\006t_name\030\013 \002(\t\022\016\n\006t"
+                                                                     "_leve\030\014 \002(\t\022\023\n\013t_user_type\030\r \002(\t\022\020\n\010m_av"
+                                                                     "atar\030\016 \002(\t\022\016\n\006m_name\030\017 \002(\t\022\016\n\006m_leve\030\020 \002"
+                                                                     "(\t\022\023\n\013m_user_type\030\021 \002(\t\022\023\n\013device_udid\030\022"
+                                                                     " \002(\t\"\223\002\n\013QuestionPic\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid"
+                                                                     "\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.ChatReque"
+                                                                     "stType\022\013\n\003pic\030\004 \002(\014\022\022\n\ntime_stamp\030\005 \002(\t\022"
+                                                                     "\020\n\010t_avatar\030\006 \002(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t_l"
+                                                                     "eve\030\010 \002(\t\022\023\n\013t_user_type\030\t \002(\t\022\020\n\010m_avat"
+                                                                     "ar\030\n \002(\t\022\016\n\006m_name\030\013 \002(\t\022\016\n\006m_leve\030\014 \002(\t"
+                                                                     "\022\023\n\013m_user_type\030\r \002(\t\022\023\n\013device_udid\030\016 \002"
+                                                                     "(\t\"\227\002\n\rQuestionVideo\022\013\n\003mid\030\001 \002(\003\022\013\n\003tid"
+                                                                     "\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.ChatReque"
+                                                                     "stType\022\r\n\005video\030\004 \002(\014\022\022\n\ntime_stamp\030\005 \002("
+                                                                     "\t\022\020\n\010t_avatar\030\006 \002(\t\022\016\n\006t_name\030\007 \002(\t\022\016\n\006t"
+                                                                     "_leve\030\010 \002(\t\022\023\n\013t_user_type\030\t \002(\t\022\020\n\010m_av"
+                                                                     "atar\030\n \002(\t\022\016\n\006m_name\030\013 \002(\t\022\016\n\006m_leve\030\014 \002"
+                                                                     "(\t\022\023\n\013m_user_type\030\r \002(\t\022\023\n\013device_udid\030\016"
+                                                                     " \002(\t\"\322\001\n\nAnswerWord\022\016\n\006result\030\001 \002(\t\022\017\n\007m"
+                                                                     "essage\030\002 \002(\t\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_sta"
+                                                                     "mp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022"
+                                                                     "\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_use"
+                                                                     "r_type\030\t \002(\t\022\026\n\016f_unread_count\030\n \002(\t\022\023\n\013"
+                                                                     "device_udid\030\013 \002(\t\"\315\001\n\tAnswerPic\022\016\n\006resul"
+                                                                     "t\030\001 \002(\t\022\013\n\003pic\030\002 \002(\014\022\016\n\006msg_id\030\003 \002(\t\022\022\n\n"
+                                                                     "time_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avata"
+                                                                     "r\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022"
+                                                                     "\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_unread_count\030\n"
+                                                                     " \002(\t\022\023\n\013device_udid\030\013 \002(\t\"\321\001\n\013AnswerVide"
+                                                                     "o\022\016\n\006result\030\001 \002(\t\022\r\n\005video\030\002 \002(\014\022\016\n\006msg_"
+                                                                     "id\030\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002("
+                                                                     "\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f"
+                                                                     "_leve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_un"
+                                                                     "read_count\030\n \002(\t\022\023\n\013device_udid\030\013 \002(\t\"\303\001"
+                                                                     "\n\014AnswerOnline\022\016\n\006result\030\001 \002(\005\022\016\n\006msg_id"
+                                                                     "\030\002 \002(\t\022\022\n\ntime_stamp\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022"
+                                                                     "\020\n\010f_avatar\030\005 \002(\t\022\016\n\006f_name\030\006 \002(\t\022\016\n\006f_l"
+                                                                     "eve\030\007 \002(\t\022\023\n\013f_user_type\030\010 \002(\t\022\026\n\016f_unre"
+                                                                     "ad_count\030\t \002(\t\022\023\n\013device_udid\030\n \002(\t\"\321\001\n\r"
+                                                                     "AnswerOffline\022\016\n\006result\030\001 \002(\005\022\013\n\003msg\030\002 \002"
+                                                                     "(\t\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013"
+                                                                     "\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030"
+                                                                     "\007 \002(\t\022\016\n\006f_leve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002"
+                                                                     "(\t\022\026\n\016f_unread_count\030\n \002(\t\022\023\n\013device_udi"
+                                                                     "d\030\013 \002(\t\"h\n\rAnswerSpecial\022\014\n\004name\030\001 \002(\t\022\013"
+                                                                     "\n\003pic\030\002 \002(\t\022\014\n\004desc\030\003 \002(\t\022\013\n\003fid\030\004 \002(\003\022\014"
+                                                                     "\n\004type\030\005 \002(\t\022\023\n\013device_udid\030\006 \002(\t\"v\n\014Ans"
+                                                                     "werSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004desc\030\002 \002(\t\022\014"
+                                                                     "\n\004time\030\003 \002(\t\022\013\n\003mid\030\004 \002(\t\022\014\n\004type\030\005 \002(\t\022"
+                                                                     "\013\n\003url\030\006 \002(\t\022\023\n\013device_udid\030\007 \002(\t*\376\001\n\021QS"
+                                                                     "ChatMessageType\022\020\n\013QSCHAT_WORD\020\250F\022\017\n\nQSC"
+                                                                     "HAT_PIC\020\251F\022\021\n\014QSCHAT_VIDEO\020\252F\022\022\n\rQSCHAT_"
+                                                                     "ONLINE\020\253F\022\023\n\016QSCHAT_OFFLINE\020\254F\022\023\n\016QSCHAT"
+                                                                     "_SPECIAL\020\255F\022\022\n\rQSCHAT_SYSTEM\020\256F\022\030\n\023QSCHA"
+                                                                     "T_HISTORY_WORD\020\257F\022\027\n\022QSCHAT_HISTORY_PIC\020"
+                                                                     "\260F\022\031\n\024QSCHAT_HISTORY_VIDEO\020\261F\022\023\n\016QSCHAT_"
+                                                                     "HISTORY\020\262F*=\n\017ChatRequestType\022\024\n\017ChatTyp"
+                                                                     "eSendPTP\020\300>\022\024\n\017ChatTypeSendPTG\020\301>B$\n\032com"
+                                                                     ".fangdangjia.fdj.structB\006QSChat", 3151);
         ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
                                                                           "qschat.proto", &protobuf_RegisterTypes);
         QuestionOnline::default_instance_ = new QuestionOnline();
@@ -595,7 +582,6 @@ namespace QSChat {
         QuestionSpecial::default_instance_ = new QuestionSpecial();
         QuestionPic::default_instance_ = new QuestionPic();
         QuestionVideo::default_instance_ = new QuestionVideo();
-        QuestionSystem::default_instance_ = new QuestionSystem();
         AnswerWord::default_instance_ = new AnswerWord();
         AnswerPic::default_instance_ = new AnswerPic();
         AnswerVideo::default_instance_ = new AnswerVideo();
@@ -610,7 +596,6 @@ namespace QSChat {
         QuestionSpecial::default_instance_->InitAsDefaultInstance();
         QuestionPic::default_instance_->InitAsDefaultInstance();
         QuestionVideo::default_instance_->InitAsDefaultInstance();
-        QuestionSystem::default_instance_->InitAsDefaultInstance();
         AnswerWord::default_instance_->InitAsDefaultInstance();
         AnswerPic::default_instance_->InitAsDefaultInstance();
         AnswerVideo::default_instance_->InitAsDefaultInstance();
@@ -643,6 +628,7 @@ namespace QSChat {
             case 9007:
             case 9008:
             case 9009:
+            case 9010:
                 return true;
             default:
                 return false;
@@ -2042,8 +2028,6 @@ namespace QSChat {
 #ifndef _MSC_VER
     const int QuestionWord::kMidFieldNumber;
     const int QuestionWord::kTidFieldNumber;
-    const int QuestionWord::kCtypeFieldNumber;
-    const int QuestionWord::kMessageFieldNumber;
     const int QuestionWord::kTimeStampFieldNumber;
     const int QuestionWord::kTAvatarFieldNumber;
     const int QuestionWord::kTNameFieldNumber;
@@ -2053,6 +2037,9 @@ namespace QSChat {
     const int QuestionWord::kMNameFieldNumber;
     const int QuestionWord::kMLeveFieldNumber;
     const int QuestionWord::kMUserTypeFieldNumber;
+    const int QuestionWord::kDeviceUdidFieldNumber;
+    const int QuestionWord::kMessageFieldNumber;
+    const int QuestionWord::kCtypeFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionWord::QuestionWord()
@@ -2076,8 +2063,6 @@ namespace QSChat {
         _cached_size_ = 0;
         mid_ = GOOGLE_LONGLONG(0);
         tid_ = GOOGLE_LONGLONG(0);
-        ctype_ = 8000;
-        message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2087,6 +2072,9 @@ namespace QSChat {
         m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        ctype_ = 8000;
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -2096,9 +2084,6 @@ namespace QSChat {
     }
     
     void QuestionWord::SharedDtor() {
-        if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete message_;
-        }
         if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete time_stamp_;
         }
@@ -2125,6 +2110,12 @@ namespace QSChat {
         }
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_user_type_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
+        }
+        if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete message_;
         }
         if (this != default_instance_) {
         }
@@ -2164,12 +2155,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         
         if (_has_bits_[0 / 32] & 255) {
             ZR_(mid_, tid_);
-            ctype_ = 8000;
-            if (has_message()) {
-                if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    message_->clear();
-                }
-            }
             if (has_time_stamp()) {
                 if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     time_stamp_->clear();
@@ -2190,8 +2175,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     t_leve_->clear();
                 }
             }
-        }
-        if (_has_bits_[8 / 32] & 7936) {
             if (has_t_user_type()) {
                 if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     t_user_type_->clear();
@@ -2202,6 +2185,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     m_avatar_->clear();
                 }
             }
+        }
+        if (_has_bits_[8 / 32] & 16128) {
             if (has_m_name()) {
                 if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     m_name_->clear();
@@ -2217,6 +2202,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     m_user_type_->clear();
                 }
             }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
+                }
+            }
+            if (has_message()) {
+                if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    message_->clear();
+                }
+            }
+            ctype_ = 8000;
         }
         
 #undef OFFSET_OF_FIELD_
@@ -2261,50 +2257,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(24)) goto parse_ctype;
+                    if (input->ExpectTag(26)) goto parse_time_stamp;
                     break;
                 }
                     
-                    // required .QSChat.ChatRequestType ctype = 3;
+                    // required string time_stamp = 3;
                 case 3: {
-                    if (tag == 24) {
-                    parse_ctype:
-                        int value;
-                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                             int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                                                                                           input, &value)));
-                        if (::QSChat::ChatRequestType_IsValid(value)) {
-                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
-                        } else {
-                            mutable_unknown_fields()->AddVarint(3, value);
-                        }
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(34)) goto parse_message;
-                    break;
-                }
-                    
-                    // required string message = 4;
-                case 4: {
-                    if (tag == 34) {
-                    parse_message:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_message()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->message().data(), this->message().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "message");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(42)) goto parse_time_stamp;
-                    break;
-                }
-                    
-                    // required string time_stamp = 5;
-                case 5: {
-                    if (tag == 42) {
+                    if (tag == 26) {
                     parse_time_stamp:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_time_stamp()));
@@ -2315,13 +2274,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(50)) goto parse_t_avatar;
+                    if (input->ExpectTag(34)) goto parse_t_avatar;
                     break;
                 }
                     
-                    // required string t_avatar = 6;
-                case 6: {
-                    if (tag == 50) {
+                    // required string t_avatar = 4;
+                case 4: {
+                    if (tag == 34) {
                     parse_t_avatar:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_t_avatar()));
@@ -2332,13 +2291,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(58)) goto parse_t_name;
+                    if (input->ExpectTag(42)) goto parse_t_name;
                     break;
                 }
                     
-                    // required string t_name = 7;
-                case 7: {
-                    if (tag == 58) {
+                    // required string t_name = 5;
+                case 5: {
+                    if (tag == 42) {
                     parse_t_name:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_t_name()));
@@ -2349,13 +2308,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(66)) goto parse_t_leve;
+                    if (input->ExpectTag(50)) goto parse_t_leve;
                     break;
                 }
                     
-                    // required string t_leve = 8;
-                case 8: {
-                    if (tag == 66) {
+                    // required string t_leve = 6;
+                case 6: {
+                    if (tag == 50) {
                     parse_t_leve:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_t_leve()));
@@ -2366,13 +2325,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(74)) goto parse_t_user_type;
+                    if (input->ExpectTag(58)) goto parse_t_user_type;
                     break;
                 }
                     
-                    // required string t_user_type = 9;
-                case 9: {
-                    if (tag == 74) {
+                    // required string t_user_type = 7;
+                case 7: {
+                    if (tag == 58) {
                     parse_t_user_type:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_t_user_type()));
@@ -2383,13 +2342,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(82)) goto parse_m_avatar;
+                    if (input->ExpectTag(66)) goto parse_m_avatar;
                     break;
                 }
                     
-                    // required string m_avatar = 10;
-                case 10: {
-                    if (tag == 82) {
+                    // required string m_avatar = 8;
+                case 8: {
+                    if (tag == 66) {
                     parse_m_avatar:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_m_avatar()));
@@ -2400,13 +2359,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(90)) goto parse_m_name;
+                    if (input->ExpectTag(74)) goto parse_m_name;
                     break;
                 }
                     
-                    // required string m_name = 11;
-                case 11: {
-                    if (tag == 90) {
+                    // required string m_name = 9;
+                case 9: {
+                    if (tag == 74) {
                     parse_m_name:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_m_name()));
@@ -2417,13 +2376,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(98)) goto parse_m_leve;
+                    if (input->ExpectTag(82)) goto parse_m_leve;
                     break;
                 }
                     
-                    // required string m_leve = 12;
-                case 12: {
-                    if (tag == 98) {
+                    // required string m_leve = 10;
+                case 10: {
+                    if (tag == 82) {
                     parse_m_leve:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_m_leve()));
@@ -2434,13 +2393,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(106)) goto parse_m_user_type;
+                    if (input->ExpectTag(90)) goto parse_m_user_type;
                     break;
                 }
                     
-                    // required string m_user_type = 13;
-                case 13: {
-                    if (tag == 106) {
+                    // required string m_user_type = 11;
+                case 11: {
+                    if (tag == 90) {
                     parse_m_user_type:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                                                                                      input, this->mutable_m_user_type()));
@@ -2448,6 +2407,60 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                              this->m_user_type().data(), this->m_user_type().length(),
                                                                                              ::google::protobuf::internal::WireFormat::PARSE,
                                                                                              "m_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_message;
+                    break;
+                }
+                    
+                    // required string message = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_message:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_message()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->message().data(), this->message().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "message");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(112)) goto parse_ctype;
+                    break;
+                }
+                    
+                    // required .QSChat.ChatRequestType ctype = 14;
+                case 14: {
+                    if (tag == 112) {
+                    parse_ctype:
+                        int value;
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                                                                                           input, &value)));
+                        if (::QSChat::ChatRequestType_IsValid(value)) {
+                            set_ctype(static_cast< ::QSChat::ChatRequestType >(value));
+                        } else {
+                            mutable_unknown_fields()->AddVarint(14, value);
+                        }
                     } else {
                         goto handle_unusual;
                     }
@@ -2490,110 +2503,120 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->tid(), output);
         }
         
-        // required .QSChat.ChatRequestType ctype = 3;
-        if (has_ctype()) {
-            ::google::protobuf::internal::WireFormatLite::WriteEnum(
-                                                                    3, this->ctype(), output);
-        }
-        
-        // required string message = 4;
-        if (has_message()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->message().data(), this->message().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "message");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  4, this->message(), output);
-        }
-        
-        // required string time_stamp = 5;
+        // required string time_stamp = 3;
         if (has_time_stamp()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->time_stamp().data(), this->time_stamp().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "time_stamp");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  5, this->time_stamp(), output);
+                                                                                  3, this->time_stamp(), output);
         }
         
-        // required string t_avatar = 6;
+        // required string t_avatar = 4;
         if (has_t_avatar()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_avatar().data(), this->t_avatar().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "t_avatar");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  6, this->t_avatar(), output);
+                                                                                  4, this->t_avatar(), output);
         }
         
-        // required string t_name = 7;
+        // required string t_name = 5;
         if (has_t_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_name().data(), this->t_name().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "t_name");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  7, this->t_name(), output);
+                                                                                  5, this->t_name(), output);
         }
         
-        // required string t_leve = 8;
+        // required string t_leve = 6;
         if (has_t_leve()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_leve().data(), this->t_leve().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "t_leve");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  8, this->t_leve(), output);
+                                                                                  6, this->t_leve(), output);
         }
         
-        // required string t_user_type = 9;
+        // required string t_user_type = 7;
         if (has_t_user_type()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_user_type().data(), this->t_user_type().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "t_user_type");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  9, this->t_user_type(), output);
+                                                                                  7, this->t_user_type(), output);
         }
         
-        // required string m_avatar = 10;
+        // required string m_avatar = 8;
         if (has_m_avatar()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_avatar().data(), this->m_avatar().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "m_avatar");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  10, this->m_avatar(), output);
+                                                                                  8, this->m_avatar(), output);
         }
         
-        // required string m_name = 11;
+        // required string m_name = 9;
         if (has_m_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_name().data(), this->m_name().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "m_name");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  11, this->m_name(), output);
+                                                                                  9, this->m_name(), output);
         }
         
-        // required string m_leve = 12;
+        // required string m_leve = 10;
         if (has_m_leve()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_leve().data(), this->m_leve().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "m_leve");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  12, this->m_leve(), output);
+                                                                                  10, this->m_leve(), output);
         }
         
-        // required string m_user_type = 13;
+        // required string m_user_type = 11;
         if (has_m_user_type()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_user_type().data(), this->m_user_type().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
                                                                                  "m_user_type");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  13, this->m_user_type(), output);
+                                                                                  11, this->m_user_type(), output);
+        }
+        
+        // required string device_udid = 12;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->device_udid(), output);
+        }
+        
+        // required string message = 13;
+        if (has_message()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->message().data(), this->message().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "message");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->message(), output);
+        }
+        
+        // required .QSChat.ChatRequestType ctype = 14;
+        if (has_ctype()) {
+            ::google::protobuf::internal::WireFormatLite::WriteEnum(
+                                                                    14, this->ctype(), output);
         }
         
         if (!unknown_fields().empty()) {
@@ -2616,24 +2639,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->tid(), target);
         }
         
-        // required .QSChat.ChatRequestType ctype = 3;
-        if (has_ctype()) {
-            target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-                                                                                    3, this->ctype(), target);
-        }
-        
-        // required string message = 4;
-        if (has_message()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->message().data(), this->message().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "message");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             4, this->message(), target);
-        }
-        
-        // required string time_stamp = 5;
+        // required string time_stamp = 3;
         if (has_time_stamp()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->time_stamp().data(), this->time_stamp().length(),
@@ -2641,10 +2647,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "time_stamp");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             5, this->time_stamp(), target);
+                                                                             3, this->time_stamp(), target);
         }
         
-        // required string t_avatar = 6;
+        // required string t_avatar = 4;
         if (has_t_avatar()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_avatar().data(), this->t_avatar().length(),
@@ -2652,10 +2658,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "t_avatar");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             6, this->t_avatar(), target);
+                                                                             4, this->t_avatar(), target);
         }
         
-        // required string t_name = 7;
+        // required string t_name = 5;
         if (has_t_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_name().data(), this->t_name().length(),
@@ -2663,10 +2669,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "t_name");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             7, this->t_name(), target);
+                                                                             5, this->t_name(), target);
         }
         
-        // required string t_leve = 8;
+        // required string t_leve = 6;
         if (has_t_leve()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_leve().data(), this->t_leve().length(),
@@ -2674,10 +2680,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "t_leve");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             8, this->t_leve(), target);
+                                                                             6, this->t_leve(), target);
         }
         
-        // required string t_user_type = 9;
+        // required string t_user_type = 7;
         if (has_t_user_type()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->t_user_type().data(), this->t_user_type().length(),
@@ -2685,10 +2691,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "t_user_type");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             9, this->t_user_type(), target);
+                                                                             7, this->t_user_type(), target);
         }
         
-        // required string m_avatar = 10;
+        // required string m_avatar = 8;
         if (has_m_avatar()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_avatar().data(), this->m_avatar().length(),
@@ -2696,10 +2702,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "m_avatar");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             10, this->m_avatar(), target);
+                                                                             8, this->m_avatar(), target);
         }
         
-        // required string m_name = 11;
+        // required string m_name = 9;
         if (has_m_name()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_name().data(), this->m_name().length(),
@@ -2707,10 +2713,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "m_name");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             11, this->m_name(), target);
+                                                                             9, this->m_name(), target);
         }
         
-        // required string m_leve = 12;
+        // required string m_leve = 10;
         if (has_m_leve()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_leve().data(), this->m_leve().length(),
@@ -2718,10 +2724,10 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "m_leve");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             12, this->m_leve(), target);
+                                                                             10, this->m_leve(), target);
         }
         
-        // required string m_user_type = 13;
+        // required string m_user_type = 11;
         if (has_m_user_type()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->m_user_type().data(), this->m_user_type().length(),
@@ -2729,7 +2735,35 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                  "m_user_type");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             13, this->m_user_type(), target);
+                                                                             11, this->m_user_type(), target);
+        }
+        
+        // required string device_udid = 12;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->device_udid(), target);
+        }
+        
+        // required string message = 13;
+        if (has_message()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->message().data(), this->message().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "message");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->message(), target);
+        }
+        
+        // required .QSChat.ChatRequestType ctype = 14;
+        if (has_ctype()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+                                                                                    14, this->ctype(), target);
         }
         
         if (!unknown_fields().empty()) {
@@ -2758,82 +2792,89 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                         this->tid());
             }
             
-            // required .QSChat.ChatRequestType ctype = 3;
-            if (has_ctype()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
-            }
-            
-            // required string message = 4;
-            if (has_message()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->message());
-            }
-            
-            // required string time_stamp = 5;
+            // required string time_stamp = 3;
             if (has_time_stamp()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->time_stamp());
             }
             
-            // required string t_avatar = 6;
+            // required string t_avatar = 4;
             if (has_t_avatar()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->t_avatar());
             }
             
-            // required string t_name = 7;
+            // required string t_name = 5;
             if (has_t_name()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->t_name());
             }
             
-            // required string t_leve = 8;
+            // required string t_leve = 6;
             if (has_t_leve()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->t_leve());
             }
             
-        }
-        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-            // required string t_user_type = 9;
+            // required string t_user_type = 7;
             if (has_t_user_type()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->t_user_type());
             }
             
-            // required string m_avatar = 10;
+            // required string m_avatar = 8;
             if (has_m_avatar()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->m_avatar());
             }
             
-            // required string m_name = 11;
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string m_name = 9;
             if (has_m_name()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->m_name());
             }
             
-            // required string m_leve = 12;
+            // required string m_leve = 10;
             if (has_m_leve()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->m_leve());
             }
             
-            // required string m_user_type = 13;
+            // required string m_user_type = 11;
             if (has_m_user_type()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
                                                                          this->m_user_type());
+            }
+            
+            // required string device_udid = 12;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
+            // required string message = 13;
+            if (has_message()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->message());
+            }
+            
+            // required .QSChat.ChatRequestType ctype = 14;
+            if (has_ctype()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::EnumSize(this->ctype());
             }
             
         }
@@ -2869,12 +2910,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_tid()) {
                 set_tid(from.tid());
             }
-            if (from.has_ctype()) {
-                set_ctype(from.ctype());
-            }
-            if (from.has_message()) {
-                set_message(from.message());
-            }
             if (from.has_time_stamp()) {
                 set_time_stamp(from.time_stamp());
             }
@@ -2887,14 +2922,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_t_leve()) {
                 set_t_leve(from.t_leve());
             }
-        }
-        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
             if (from.has_t_user_type()) {
                 set_t_user_type(from.t_user_type());
             }
             if (from.has_m_avatar()) {
                 set_m_avatar(from.m_avatar());
             }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
             if (from.has_m_name()) {
                 set_m_name(from.m_name());
             }
@@ -2903,6 +2938,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
             if (from.has_m_user_type()) {
                 set_m_user_type(from.m_user_type());
+            }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
+            if (from.has_message()) {
+                set_message(from.message());
+            }
+            if (from.has_ctype()) {
+                set_ctype(from.ctype());
             }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -2921,7 +2965,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionWord::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
+        if ((_has_bits_[0] & 0x00003fff) != 0x00003fff) return false;
         
         return true;
     }
@@ -2930,8 +2974,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (other != this) {
             std::swap(mid_, other->mid_);
             std::swap(tid_, other->tid_);
-            std::swap(ctype_, other->ctype_);
-            std::swap(message_, other->message_);
             std::swap(time_stamp_, other->time_stamp_);
             std::swap(t_avatar_, other->t_avatar_);
             std::swap(t_name_, other->t_name_);
@@ -2941,6 +2983,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(m_name_, other->m_name_);
             std::swap(m_leve_, other->m_leve_);
             std::swap(m_user_type_, other->m_user_type_);
+            std::swap(device_udid_, other->device_udid_);
+            std::swap(message_, other->message_);
+            std::swap(ctype_, other->ctype_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -2976,6 +3021,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionSpecial::kMNameFieldNumber;
     const int QuestionSpecial::kMLeveFieldNumber;
     const int QuestionSpecial::kMUserTypeFieldNumber;
+    const int QuestionSpecial::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionSpecial::QuestionSpecial()
@@ -3014,6 +3060,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -3061,6 +3108,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_user_type_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -3164,9 +3214,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (has_m_user_type()) {
-            if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                m_user_type_->clear();
+        if (_has_bits_[16 / 32] & 196608) {
+            if (has_m_user_type()) {
+                if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    m_user_type_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
+                }
             }
         }
         
@@ -3468,6 +3525,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(146)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 18;
+                case 18: {
+                    if (tag == 146) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -3648,6 +3722,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   17, this->m_user_type(), output);
         }
         
+        // required string device_udid = 18;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  18, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -3822,6 +3906,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              17, this->m_user_type(), target);
         }
         
+        // required string device_udid = 18;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             18, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -3956,6 +4051,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->m_user_type());
             }
             
+            // required string device_udid = 18;
+            if (has_device_udid()) {
+                total_size += 2 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -4038,6 +4140,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_m_user_type()) {
                 set_m_user_type(from.m_user_type());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -4055,7 +4160,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionSpecial::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0001ffff) != 0x0001ffff) return false;
+        if ((_has_bits_[0] & 0x0003ffff) != 0x0003ffff) return false;
         
         return true;
     }
@@ -4079,6 +4184,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(m_name_, other->m_name_);
             std::swap(m_leve_, other->m_leve_);
             std::swap(m_user_type_, other->m_user_type_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -4110,6 +4216,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionPic::kMNameFieldNumber;
     const int QuestionPic::kMLeveFieldNumber;
     const int QuestionPic::kMUserTypeFieldNumber;
+    const int QuestionPic::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionPic::QuestionPic()
@@ -4144,6 +4251,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -4182,6 +4290,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_user_type_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -4248,7 +4359,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 7936) {
+        if (_has_bits_[8 / 32] & 16128) {
             if (has_t_user_type()) {
                 if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     t_user_type_->clear();
@@ -4272,6 +4383,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_m_user_type()) {
                 if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     m_user_type_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -4504,6 +4620,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(114)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 14;
+                case 14: {
+                    if (tag == 114) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -4645,6 +4778,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   13, this->m_user_type(), output);
         }
         
+        // required string device_udid = 14;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  14, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -4777,6 +4920,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              13, this->m_user_type(), target);
         }
         
+        // required string device_udid = 14;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             14, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -4881,6 +5035,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->m_user_type());
             }
             
+            // required string device_udid = 14;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -4949,6 +5110,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_m_user_type()) {
                 set_m_user_type(from.m_user_type());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -4966,7 +5130,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionPic::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
+        if ((_has_bits_[0] & 0x00003fff) != 0x00003fff) return false;
         
         return true;
     }
@@ -4986,6 +5150,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(m_name_, other->m_name_);
             std::swap(m_leve_, other->m_leve_);
             std::swap(m_user_type_, other->m_user_type_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -5017,6 +5182,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int QuestionVideo::kMNameFieldNumber;
     const int QuestionVideo::kMLeveFieldNumber;
     const int QuestionVideo::kMUserTypeFieldNumber;
+    const int QuestionVideo::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     QuestionVideo::QuestionVideo()
@@ -5051,6 +5217,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -5089,6 +5256,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_user_type_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -5155,7 +5325,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 7936) {
+        if (_has_bits_[8 / 32] & 16128) {
             if (has_t_user_type()) {
                 if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     t_user_type_->clear();
@@ -5179,6 +5349,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_m_user_type()) {
                 if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     m_user_type_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -5411,6 +5586,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(114)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 14;
+                case 14: {
+                    if (tag == 114) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -5552,6 +5744,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   13, this->m_user_type(), output);
         }
         
+        // required string device_udid = 14;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  14, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -5684,6 +5886,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              13, this->m_user_type(), target);
         }
         
+        // required string device_udid = 14;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             14, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -5788,6 +6001,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->m_user_type());
             }
             
+            // required string device_udid = 14;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -5856,6 +6076,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_m_user_type()) {
                 set_m_user_type(from.m_user_type());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -5873,7 +6096,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionVideo::IsInitialized() const {
-        if ((_has_bits_[0] & 0x00001fff) != 0x00001fff) return false;
+        if ((_has_bits_[0] & 0x00003fff) != 0x00003fff) return false;
         
         return true;
     }
@@ -5893,6 +6116,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(m_name_, other->m_name_);
             std::swap(m_leve_, other->m_leve_);
             std::swap(m_user_type_, other->m_user_type_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -5911,547 +6135,6 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     // ===================================================================
     
 #ifndef _MSC_VER
-    const int QuestionSystem::kTitleFieldNumber;
-    const int QuestionSystem::kDescFieldNumber;
-    const int QuestionSystem::kTimeFieldNumber;
-    const int QuestionSystem::kMidFieldNumber;
-    const int QuestionSystem::kTypeFieldNumber;
-    const int QuestionSystem::kUrlFieldNumber;
-#endif  // !_MSC_VER
-    
-    QuestionSystem::QuestionSystem()
-    : ::google::protobuf::Message() {
-        SharedCtor();
-        // @@protoc_insertion_point(constructor:QSChat.QuestionSystem)
-    }
-    
-    void QuestionSystem::InitAsDefaultInstance() {
-    }
-    
-    QuestionSystem::QuestionSystem(const QuestionSystem& from)
-    : ::google::protobuf::Message() {
-        SharedCtor();
-        MergeFrom(from);
-        // @@protoc_insertion_point(copy_constructor:QSChat.QuestionSystem)
-    }
-    
-    void QuestionSystem::SharedCtor() {
-        ::google::protobuf::internal::GetEmptyString();
-        _cached_size_ = 0;
-        title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        time_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        mid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        url_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        ::memset(_has_bits_, 0, sizeof(_has_bits_));
-    }
-    
-    QuestionSystem::~QuestionSystem() {
-        // @@protoc_insertion_point(destructor:QSChat.QuestionSystem)
-        SharedDtor();
-    }
-    
-    void QuestionSystem::SharedDtor() {
-        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete title_;
-        }
-        if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete desc_;
-        }
-        if (time_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete time_;
-        }
-        if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete mid_;
-        }
-        if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete type_;
-        }
-        if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete url_;
-        }
-        if (this != default_instance_) {
-        }
-    }
-    
-    void QuestionSystem::SetCachedSize(int size) const {
-        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-        _cached_size_ = size;
-        GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    }
-    const ::google::protobuf::Descriptor* QuestionSystem::descriptor() {
-        protobuf_AssignDescriptorsOnce();
-        return QuestionSystem_descriptor_;
-    }
-    
-    const QuestionSystem& QuestionSystem::default_instance() {
-        if (default_instance_ == NULL) protobuf_AddDesc_qschat_2eproto();
-        return *default_instance_;
-    }
-    
-    QuestionSystem* QuestionSystem::default_instance_ = NULL;
-    
-    QuestionSystem* QuestionSystem::New() const {
-        return new QuestionSystem;
-    }
-    
-    void QuestionSystem::Clear() {
-        if (_has_bits_[0 / 32] & 63) {
-            if (has_title()) {
-                if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    title_->clear();
-                }
-            }
-            if (has_desc()) {
-                if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    desc_->clear();
-                }
-            }
-            if (has_time()) {
-                if (time_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    time_->clear();
-                }
-            }
-            if (has_mid()) {
-                if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    mid_->clear();
-                }
-            }
-            if (has_type()) {
-                if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    type_->clear();
-                }
-            }
-            if (has_url()) {
-                if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    url_->clear();
-                }
-            }
-        }
-        ::memset(_has_bits_, 0, sizeof(_has_bits_));
-        mutable_unknown_fields()->Clear();
-    }
-    
-    bool QuestionSystem::MergePartialFromCodedStream(
-                                                     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-        ::google::protobuf::uint32 tag;
-        // @@protoc_insertion_point(parse_start:QSChat.QuestionSystem)
-        for (;;) {
-            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-            tag = p.first;
-            if (!p.second) goto handle_unusual;
-            switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-                    // required string title = 1;
-                case 1: {
-                    if (tag == 10) {
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_title()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->title().data(), this->title().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "title");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(18)) goto parse_desc;
-                    break;
-                }
-                    
-                    // required string desc = 2;
-                case 2: {
-                    if (tag == 18) {
-                    parse_desc:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_desc()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->desc().data(), this->desc().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "desc");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(26)) goto parse_time;
-                    break;
-                }
-                    
-                    // required string time = 3;
-                case 3: {
-                    if (tag == 26) {
-                    parse_time:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_time()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->time().data(), this->time().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "time");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(34)) goto parse_mid;
-                    break;
-                }
-                    
-                    // required string mid = 4;
-                case 4: {
-                    if (tag == 34) {
-                    parse_mid:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_mid()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->mid().data(), this->mid().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "mid");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(42)) goto parse_type;
-                    break;
-                }
-                    
-                    // required string type = 5;
-                case 5: {
-                    if (tag == 42) {
-                    parse_type:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_type()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->type().data(), this->type().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "type");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectTag(50)) goto parse_url;
-                    break;
-                }
-                    
-                    // required string url = 6;
-                case 6: {
-                    if (tag == 50) {
-                    parse_url:
-                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_url()));
-                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->url().data(), this->url().length(),
-                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "url");
-                    } else {
-                        goto handle_unusual;
-                    }
-                    if (input->ExpectAtEnd()) goto success;
-                    break;
-                }
-                    
-                default: {
-                handle_unusual:
-                    if (tag == 0 ||
-                        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-                        goto success;
-                    }
-                    DO_(::google::protobuf::internal::WireFormat::SkipField(
-                                                                            input, tag, mutable_unknown_fields()));
-                    break;
-                }
-            }
-        }
-    success:
-        // @@protoc_insertion_point(parse_success:QSChat.QuestionSystem)
-        return true;
-    failure:
-        // @@protoc_insertion_point(parse_failure:QSChat.QuestionSystem)
-        return false;
-#undef DO_
-    }
-    
-    void QuestionSystem::SerializeWithCachedSizes(
-                                                  ::google::protobuf::io::CodedOutputStream* output) const {
-        // @@protoc_insertion_point(serialize_start:QSChat.QuestionSystem)
-        // required string title = 1;
-        if (has_title()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->title().data(), this->title().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "title");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  1, this->title(), output);
-        }
-        
-        // required string desc = 2;
-        if (has_desc()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->desc().data(), this->desc().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "desc");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  2, this->desc(), output);
-        }
-        
-        // required string time = 3;
-        if (has_time()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->time().data(), this->time().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "time");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  3, this->time(), output);
-        }
-        
-        // required string mid = 4;
-        if (has_mid()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->mid().data(), this->mid().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "mid");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  4, this->mid(), output);
-        }
-        
-        // required string type = 5;
-        if (has_type()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->type().data(), this->type().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "type");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  5, this->type(), output);
-        }
-        
-        // required string url = 6;
-        if (has_url()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->url().data(), this->url().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "url");
-            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  6, this->url(), output);
-        }
-        
-        if (!unknown_fields().empty()) {
-            ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-                                                                             unknown_fields(), output);
-        }
-        // @@protoc_insertion_point(serialize_end:QSChat.QuestionSystem)
-    }
-    
-    ::google::protobuf::uint8* QuestionSystem::SerializeWithCachedSizesToArray(
-                                                                               ::google::protobuf::uint8* target) const {
-        // @@protoc_insertion_point(serialize_to_array_start:QSChat.QuestionSystem)
-        // required string title = 1;
-        if (has_title()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->title().data(), this->title().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "title");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             1, this->title(), target);
-        }
-        
-        // required string desc = 2;
-        if (has_desc()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->desc().data(), this->desc().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "desc");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             2, this->desc(), target);
-        }
-        
-        // required string time = 3;
-        if (has_time()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->time().data(), this->time().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "time");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             3, this->time(), target);
-        }
-        
-        // required string mid = 4;
-        if (has_mid()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->mid().data(), this->mid().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "mid");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             4, this->mid(), target);
-        }
-        
-        // required string type = 5;
-        if (has_type()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->type().data(), this->type().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "type");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             5, this->type(), target);
-        }
-        
-        // required string url = 6;
-        if (has_url()) {
-            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->url().data(), this->url().length(),
-                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "url");
-            target =
-            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             6, this->url(), target);
-        }
-        
-        if (!unknown_fields().empty()) {
-            target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-                                                                                             unknown_fields(), target);
-        }
-        // @@protoc_insertion_point(serialize_to_array_end:QSChat.QuestionSystem)
-        return target;
-    }
-    
-    int QuestionSystem::ByteSize() const {
-        int total_size = 0;
-        
-        if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-            // required string title = 1;
-            if (has_title()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->title());
-            }
-            
-            // required string desc = 2;
-            if (has_desc()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->desc());
-            }
-            
-            // required string time = 3;
-            if (has_time()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->time());
-            }
-            
-            // required string mid = 4;
-            if (has_mid()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->mid());
-            }
-            
-            // required string type = 5;
-            if (has_type()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->type());
-            }
-            
-            // required string url = 6;
-            if (has_url()) {
-                total_size += 1 +
-                ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->url());
-            }
-            
-        }
-        if (!unknown_fields().empty()) {
-            total_size +=
-            ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-                                                                               unknown_fields());
-        }
-        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-        _cached_size_ = total_size;
-        GOOGLE_SAFE_CONCURRENT_WRITES_END();
-        return total_size;
-    }
-    
-    void QuestionSystem::MergeFrom(const ::google::protobuf::Message& from) {
-        GOOGLE_CHECK_NE(&from, this);
-        const QuestionSystem* source =
-        ::google::protobuf::internal::dynamic_cast_if_available<const QuestionSystem*>(
-                                                                                       &from);
-        if (source == NULL) {
-            ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-        } else {
-            MergeFrom(*source);
-        }
-    }
-    
-    void QuestionSystem::MergeFrom(const QuestionSystem& from) {
-        GOOGLE_CHECK_NE(&from, this);
-        if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-            if (from.has_title()) {
-                set_title(from.title());
-            }
-            if (from.has_desc()) {
-                set_desc(from.desc());
-            }
-            if (from.has_time()) {
-                set_time(from.time());
-            }
-            if (from.has_mid()) {
-                set_mid(from.mid());
-            }
-            if (from.has_type()) {
-                set_type(from.type());
-            }
-            if (from.has_url()) {
-                set_url(from.url());
-            }
-        }
-        mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-    }
-    
-    void QuestionSystem::CopyFrom(const ::google::protobuf::Message& from) {
-        if (&from == this) return;
-        Clear();
-        MergeFrom(from);
-    }
-    
-    void QuestionSystem::CopyFrom(const QuestionSystem& from) {
-        if (&from == this) return;
-        Clear();
-        MergeFrom(from);
-    }
-    
-    bool QuestionSystem::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
-        
-        return true;
-    }
-    
-    void QuestionSystem::Swap(QuestionSystem* other) {
-        if (other != this) {
-            std::swap(title_, other->title_);
-            std::swap(desc_, other->desc_);
-            std::swap(time_, other->time_);
-            std::swap(mid_, other->mid_);
-            std::swap(type_, other->type_);
-            std::swap(url_, other->url_);
-            std::swap(_has_bits_[0], other->_has_bits_[0]);
-            _unknown_fields_.Swap(&other->_unknown_fields_);
-            std::swap(_cached_size_, other->_cached_size_);
-        }
-    }
-    
-    ::google::protobuf::Metadata QuestionSystem::GetMetadata() const {
-        protobuf_AssignDescriptorsOnce();
-        ::google::protobuf::Metadata metadata;
-        metadata.descriptor = QuestionSystem_descriptor_;
-        metadata.reflection = QuestionSystem_reflection_;
-        return metadata;
-    }
-    
-    
-    // ===================================================================
-    
-#ifndef _MSC_VER
     const int AnswerWord::kResultFieldNumber;
     const int AnswerWord::kMessageFieldNumber;
     const int AnswerWord::kMsgIdFieldNumber;
@@ -6462,6 +6145,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerWord::kFLeveFieldNumber;
     const int AnswerWord::kFUserTypeFieldNumber;
     const int AnswerWord::kFUnreadCountFieldNumber;
+    const int AnswerWord::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerWord::AnswerWord()
@@ -6493,6 +6177,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -6528,6 +6213,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -6593,7 +6281,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 768) {
+        if (_has_bits_[8 / 32] & 1792) {
             if (has_f_user_type()) {
                 if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_user_type_->clear();
@@ -6602,6 +6290,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_f_unread_count()) {
                 if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_unread_count_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -6782,6 +6475,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(90)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -6906,6 +6616,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   10, this->f_unread_count(), output);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -7020,6 +6740,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              10, this->f_unread_count(), target);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -7104,6 +6835,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->f_unread_count());
             }
             
+            // required string device_udid = 11;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -7163,6 +6901,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_f_unread_count()) {
                 set_f_unread_count(from.f_unread_count());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -7180,7 +6921,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerWord::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
+        if ((_has_bits_[0] & 0x000007ff) != 0x000007ff) return false;
         
         return true;
     }
@@ -7197,6 +6938,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(f_leve_, other->f_leve_);
             std::swap(f_user_type_, other->f_user_type_);
             std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -7225,6 +6967,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerPic::kFLeveFieldNumber;
     const int AnswerPic::kFUserTypeFieldNumber;
     const int AnswerPic::kFUnreadCountFieldNumber;
+    const int AnswerPic::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerPic::AnswerPic()
@@ -7256,6 +6999,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -7291,6 +7035,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -7356,7 +7103,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 768) {
+        if (_has_bits_[8 / 32] & 1792) {
             if (has_f_user_type()) {
                 if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_user_type_->clear();
@@ -7365,6 +7112,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_f_unread_count()) {
                 if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_unread_count_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -7541,6 +7293,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(90)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -7661,6 +7430,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   10, this->f_unread_count(), output);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -7771,6 +7550,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              10, this->f_unread_count(), target);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -7855,6 +7645,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->f_unread_count());
             }
             
+            // required string device_udid = 11;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -7914,6 +7711,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_f_unread_count()) {
                 set_f_unread_count(from.f_unread_count());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -7931,7 +7731,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerPic::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
+        if ((_has_bits_[0] & 0x000007ff) != 0x000007ff) return false;
         
         return true;
     }
@@ -7948,6 +7748,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(f_leve_, other->f_leve_);
             std::swap(f_user_type_, other->f_user_type_);
             std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -7976,6 +7777,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerVideo::kFLeveFieldNumber;
     const int AnswerVideo::kFUserTypeFieldNumber;
     const int AnswerVideo::kFUnreadCountFieldNumber;
+    const int AnswerVideo::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerVideo::AnswerVideo()
@@ -8007,6 +7809,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -8042,6 +7845,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -8107,7 +7913,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 768) {
+        if (_has_bits_[8 / 32] & 1792) {
             if (has_f_user_type()) {
                 if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_user_type_->clear();
@@ -8116,6 +7922,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_f_unread_count()) {
                 if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_unread_count_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -8292,6 +8103,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(90)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -8412,6 +8240,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   10, this->f_unread_count(), output);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -8522,6 +8360,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              10, this->f_unread_count(), target);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -8606,6 +8455,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->f_unread_count());
             }
             
+            // required string device_udid = 11;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -8665,6 +8521,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_f_unread_count()) {
                 set_f_unread_count(from.f_unread_count());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -8682,7 +8541,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerVideo::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
+        if ((_has_bits_[0] & 0x000007ff) != 0x000007ff) return false;
         
         return true;
     }
@@ -8699,6 +8558,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(f_leve_, other->f_leve_);
             std::swap(f_user_type_, other->f_user_type_);
             std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -8726,6 +8586,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerOnline::kFLeveFieldNumber;
     const int AnswerOnline::kFUserTypeFieldNumber;
     const int AnswerOnline::kFUnreadCountFieldNumber;
+    const int AnswerOnline::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerOnline::AnswerOnline()
@@ -8756,6 +8617,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -8785,6 +8647,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -8846,9 +8711,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (has_f_unread_count()) {
-            if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                f_unread_count_->clear();
+        if (_has_bits_[8 / 32] & 768) {
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
+                }
             }
         }
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -9009,6 +8881,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(82)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -9118,6 +9007,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   9, this->f_unread_count(), output);
         }
         
+        // required string device_udid = 10;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -9215,6 +9114,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              9, this->f_unread_count(), target);
         }
         
+        // required string device_udid = 10;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -9292,6 +9202,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->f_unread_count());
             }
             
+            // required string device_udid = 10;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -9348,6 +9265,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_f_unread_count()) {
                 set_f_unread_count(from.f_unread_count());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -9365,7 +9285,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerOnline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000001ff) != 0x000001ff) return false;
+        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
         
         return true;
     }
@@ -9381,6 +9301,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(f_leve_, other->f_leve_);
             std::swap(f_user_type_, other->f_user_type_);
             std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -9409,6 +9330,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerOffline::kFLeveFieldNumber;
     const int AnswerOffline::kFUserTypeFieldNumber;
     const int AnswerOffline::kFUnreadCountFieldNumber;
+    const int AnswerOffline::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerOffline::AnswerOffline()
@@ -9440,6 +9362,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -9472,6 +9395,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -9533,7 +9459,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                 }
             }
         }
-        if (_has_bits_[8 / 32] & 768) {
+        if (_has_bits_[8 / 32] & 1792) {
             if (has_f_user_type()) {
                 if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_user_type_->clear();
@@ -9542,6 +9468,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_f_unread_count()) {
                 if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     f_unread_count_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -9720,6 +9651,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(90)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -9839,6 +9787,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   10, this->f_unread_count(), output);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -9947,6 +9905,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              10, this->f_unread_count(), target);
         }
         
+        // required string device_udid = 11;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -10031,6 +10000,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->f_unread_count());
             }
             
+            // required string device_udid = 11;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -10090,6 +10066,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_f_unread_count()) {
                 set_f_unread_count(from.f_unread_count());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -10107,7 +10086,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerOffline::IsInitialized() const {
-        if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
+        if ((_has_bits_[0] & 0x000007ff) != 0x000007ff) return false;
         
         return true;
     }
@@ -10124,6 +10103,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(f_leve_, other->f_leve_);
             std::swap(f_user_type_, other->f_user_type_);
             std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -10147,6 +10127,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerSpecial::kDescFieldNumber;
     const int AnswerSpecial::kFidFieldNumber;
     const int AnswerSpecial::kTypeFieldNumber;
+    const int AnswerSpecial::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerSpecial::AnswerSpecial()
@@ -10173,6 +10154,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         fid_ = GOOGLE_LONGLONG(0);
         type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -10193,6 +10175,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         }
         if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete type_;
+        }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
         if (this != default_instance_) {
         }
@@ -10220,7 +10205,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerSpecial::Clear() {
-        if (_has_bits_[0 / 32] & 31) {
+        if (_has_bits_[0 / 32] & 63) {
             if (has_name()) {
                 if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     name_->clear();
@@ -10240,6 +10225,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_type()) {
                 if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     type_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -10335,6 +10325,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(50)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -10409,6 +10416,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   5, this->type(), output);
         }
         
+        // required string device_udid = 6;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -10468,6 +10485,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              5, this->type(), target);
         }
         
+        // required string device_udid = 6;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -10515,6 +10543,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->type());
             }
             
+            // required string device_udid = 6;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -10557,6 +10592,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_type()) {
                 set_type(from.type());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -10574,7 +10612,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerSpecial::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+        if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
         
         return true;
     }
@@ -10586,6 +10624,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(desc_, other->desc_);
             std::swap(fid_, other->fid_);
             std::swap(type_, other->type_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);
@@ -10610,6 +10649,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     const int AnswerSystem::kMidFieldNumber;
     const int AnswerSystem::kTypeFieldNumber;
     const int AnswerSystem::kUrlFieldNumber;
+    const int AnswerSystem::kDeviceUdidFieldNumber;
 #endif  // !_MSC_VER
     
     AnswerSystem::AnswerSystem()
@@ -10637,6 +10677,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         mid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         url_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         ::memset(_has_bits_, 0, sizeof(_has_bits_));
     }
     
@@ -10664,6 +10705,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete url_;
         }
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
+        }
         if (this != default_instance_) {
         }
     }
@@ -10690,7 +10734,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     void AnswerSystem::Clear() {
-        if (_has_bits_[0 / 32] & 63) {
+        if (_has_bits_[0 / 32] & 127) {
             if (has_title()) {
                 if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     title_->clear();
@@ -10719,6 +10763,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (has_url()) {
                 if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
                     url_->clear();
+                }
+            }
+            if (has_device_udid()) {
+                if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    device_udid_->clear();
                 }
             }
         }
@@ -10833,6 +10882,23 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
+                    if (input->ExpectTag(58)) goto parse_device_udid;
+                    break;
+                }
+                    
+                    // required string device_udid = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_device_udid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_device_udid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->device_udid().data(), this->device_udid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "device_udid");
+                    } else {
+                        goto handle_unusual;
+                    }
                     if (input->ExpectAtEnd()) goto success;
                     break;
                 }
@@ -10922,6 +10988,16 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   6, this->url(), output);
         }
         
+        // required string device_udid = 7;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->device_udid(), output);
+        }
+        
         if (!unknown_fields().empty()) {
             ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
                                                                              unknown_fields(), output);
@@ -10998,6 +11074,17 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              6, this->url(), target);
         }
         
+        // required string device_udid = 7;
+        if (has_device_udid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->device_udid().data(), this->device_udid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "device_udid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->device_udid(), target);
+        }
+        
         if (!unknown_fields().empty()) {
             target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
                                                                                              unknown_fields(), target);
@@ -11052,6 +11139,13 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->url());
             }
             
+            // required string device_udid = 7;
+            if (has_device_udid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->device_udid());
+            }
+            
         }
         if (!unknown_fields().empty()) {
             total_size +=
@@ -11097,6 +11191,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             if (from.has_url()) {
                 set_url(from.url());
             }
+            if (from.has_device_udid()) {
+                set_device_udid(from.device_udid());
+            }
         }
         mutable_unknown_fields()->MergeFrom(from.unknown_fields());
     }
@@ -11114,7 +11211,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool AnswerSystem::IsInitialized() const {
-        if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+        if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
         
         return true;
     }
@@ -11127,6 +11224,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(mid_, other->mid_);
             std::swap(type_, other->type_);
             std::swap(url_, other->url_);
+            std::swap(device_udid_, other->device_udid_);
             std::swap(_has_bits_[0], other->_has_bits_[0]);
             _unknown_fields_.Swap(&other->_unknown_fields_);
             std::swap(_cached_size_, other->_cached_size_);

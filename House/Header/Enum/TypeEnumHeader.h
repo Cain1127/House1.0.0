@@ -537,6 +537,7 @@ typedef enum
     qQSCustomProtocolChatMessageTypeHistoryWord     = 9007, //!<历史文字消息
     qQSCustomProtocolChatMessageTypeHistoryPicture  = 9008, //!<历史图片消息
     qQSCustomProtocolChatMessageTypeHistoryVideo    = 9009, //!<历史音频消息
+    qQSCustomProtocolChatMessageTypeHistory         = 9010, //!<获取指定联系人的历史消息
     
 }QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE;
 
@@ -653,6 +654,8 @@ typedef enum
     rRequestTypeMyZoneEditAskRentPurpase = 5006,        //!<修改求租求购
     rRequestTypeMyZoneDeleteAskRentPurpase = 5007,      //!<删除求租求购
     rRequestTypeMyZoneRecommendTenantList = 5008,       //!<推荐房客
+    rRequestTypeMyZoneAskRentPurphaseRentHouse = 5009,  //!<求租求购对应的推荐出租房列表
+    rRequestTypeMyZoneAskRentPurphaseSecondHouse = 5010,//!<求租求购对应的推荐二手房列表
     
     rRequestTypeMyZoneStatistics = 5500,                //!<个人中心的统计数据
 

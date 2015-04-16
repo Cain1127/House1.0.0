@@ -309,11 +309,11 @@ static QSSocketManager *_socketManager = nil;
     
     ///设置发送消息
     QSChat::QuestionOnline onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"") UTF8String]);
-    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"") UTF8String]);
-    onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"-1") UTF8String]);
+    onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"-1") UTF8String]);
     onLineMessage.set_device_info([deviceInfoString UTF8String]);
-    onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"") UTF8String]);
+    onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"-1") UTF8String]);
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
@@ -346,16 +346,16 @@ static QSSocketManager *_socketManager = nil;
 
     ///设置发送消息
     QSChat::QuestionHistory onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
     onLineMessage.set_ctype(QSChat::ChatTypeSendPTP);
-    onLineMessage.set_wid([APPLICATION_NSSTRING_SETTING(self.currentContactUserID,@"") UTF8String]);
+    onLineMessage.set_wid([APPLICATION_NSSTRING_SETTING(self.currentContactUserID,@"-1") UTF8String]);
     onLineMessage.set_page_num("999");
     onLineMessage.set_current_page("1");
     onLineMessage.set_last_id("-1");
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOnLine]);
+    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeHistory]);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -435,6 +435,7 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     sendMessage.set_message([wordMessageModel.message UTF8String]);
     
     sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
@@ -507,6 +508,7 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取图片
     NSData *imageData = [NSData dataWithContentsOfFile:wordMessageModel.pictureURL];
@@ -537,7 +539,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypePicture);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -593,6 +595,7 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取本地音频数据
     NSData *videoData = [NSData dataWithContentsOfFile:wordMessageModel.videoURL];
@@ -612,7 +615,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeVideo);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -867,6 +870,7 @@ static QSSocketManager *_socketManager = nil;
     } else {
         
         ///保存消息到内存容器
+        ocWordModel.readTag = @"0";
         [self.messageList addObject:ocWordModel];
         
         ///回调离线消息数量
@@ -1185,6 +1189,7 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
     ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
     ocWordModel.readTag = @"0";
+    ocWordModel.deviceUUID = [NSString stringWithUTF8String:cppWordModel.device_udid().c_str()];
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
@@ -1396,20 +1401,25 @@ static QSSocketManager *_socketManager = nil;
             
             return QSChat::QSCHAT_SYSTEM;
             
-            ///系统消息
+            ///历史文字消息
         case qQSCustomProtocolChatMessageTypeHistoryWord:
             
             return QSChat::QSCHAT_HISTORY_WORD;
             
-            ///系统消息
+            ///历史图片消息
         case qQSCustomProtocolChatMessageTypeHistoryPicture:
             
             return QSChat::QSCHAT_HISTORY_PIC;
             
-            ///系统消息
+            ///历史语音消息
         case qQSCustomProtocolChatMessageTypeHistoryVideo:
             
             return QSChat::QSCHAT_HISTORY_VIDEO;
+            
+            ///指定联系人的历史未读消息
+        case qQSCustomProtocolChatMessageTypeHistory:
+            
+            return QSChat::QSCHAT_HISTORY;
             
         default:
             break;
