@@ -41,9 +41,10 @@
 using namespace std;
 
 ///服务端地址
-//#define QS_SOCKET_SERVER_IP @"192.168.1.145"
+
+#define QS_SOCKET_SERVER_IP @"192.168.1.145"    //!<测试环境
 #define QS_SOCKET_SERVER_PORT 8000
-#define QS_SOCKET_SERVER_IP @"117.41.235.107"
+//#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
