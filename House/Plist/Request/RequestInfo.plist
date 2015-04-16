@@ -268,6 +268,13 @@
 		<key>url</key>
 		<string>order/applyBargain</string>
 	</dict>
+	<key>8008</key>
+	<dict>
+		<key>class</key>
+		<string>QSOrderListReturnData</string>
+		<key>url</key>
+		<string>order/phoneList</string>
+	</dict>
 	<key>8011</key>
 	<dict>
 		<key>class</key>
@@ -351,13 +358,6 @@
 		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
 		<string>user/add</string>
-	</dict>
-	<key>8008</key>
-	<dict>
-		<key>class</key>
-		<string>QSOrderListReturnData</string>
-		<key>url</key>
-		<string>order/phoneList</string>
 	</dict>
 	<key>9000</key>
 	<dict>

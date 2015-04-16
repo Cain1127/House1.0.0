@@ -567,6 +567,7 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeHavedAround:
                 //已看房
             {
+                
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
@@ -586,6 +587,7 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeWaitCommit:
                 //待成交
             {
+                
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
@@ -625,7 +627,18 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeAppointed:
             {
             
-                
+                QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
             
             }
                 break;
@@ -634,7 +647,18 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeDeal:
             {
             
-                
+                QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
             
             }
                 break;
