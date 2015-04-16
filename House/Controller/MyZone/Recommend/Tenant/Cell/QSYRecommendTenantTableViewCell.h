@@ -12,7 +12,8 @@
 typedef enum
 {
 
-    rRecommendTenantCellActionTypeTalk = 99,//!<聊天
+    rRecommendTenantCellActionTypeTalk = 99,    //!<聊天
+    rRecommendTenantCellActionTypeRecommend,    //!<推荐房源
 
 }RECOMMEND_TENANT_CELL_ACTION_TYPE;
 

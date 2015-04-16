@@ -640,7 +640,7 @@ static char BottomViewkey;  //!<脚功能区关联
         
         NSString *districtString = [QSCoreDataManager getDistrictValWithDistrictKey:districtKey];
         NSString *streetString = [QSCoreDataManager getStreetValWithStreetKey:streetKey];
-        addressLabel.text = [NSString stringWithFormat:@"%@|%@",districtString,streetString];
+        addressLabel.text = [NSString stringWithFormat:@"%@ | %@",districtString,streetString];
         
     }
 

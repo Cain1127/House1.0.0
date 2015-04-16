@@ -122,6 +122,14 @@
 
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 420.0f;
+
+}
+
+
 #pragma mark - 请求数据
 - (void)requestRecommendTenantsHeaderData
 {
@@ -142,15 +150,34 @@
     ///请求
     [QSRequestManager requestDataWithType:rRequestTypeMyZoneRecommendTenantList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
+        ///重置数据源
+        self.returnData = nil;
+        
         if (rRequestResultTypeSuccess == resultStatus) {
             
+            self.returnData = resultData;
             
             
-        } else {
-        
-            
-        
         }
+        
+        [self.tenantListView reloadData];
+        
+        ///如果已无更多数据，则显示脚刷新提示
+        if ([self.returnData.headerData.dataList count] > 0) {
+            
+            self.tenantListView.footer.hidden = NO;
+            
+            if ([self.returnData.headerData.per_page intValue] ==
+                [self.returnData.headerData.next_page intValue]) {
+                
+                [self.tenantListView.footer noticeNoMoreData];
+                
+            }
+            
+        }
+        
+        ///结束刷新
+        [self.tenantListView.header endRefreshing];
         
     }];
 
@@ -158,8 +185,64 @@
 
 - (void)requestRecommendTenantsFooterData
 {
-
     
+    if ([self.returnData.headerData.per_page intValue] ==
+        [self.returnData.headerData.next_page intValue]) {
+        
+        [self.tenantListView.footer noticeNoMoreData];
+        
+    }
+
+    ///封装参数
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"10" forKey:@"page_num"];
+    [params setObject:@"1" forKey:self.returnData.headerData.next_page];
+    [params setObject:@"" forKey:@"key"];
+    [params setObject:[self getPostRecommendType] forKey:@"referrals_type"];
+    
+    if ([self.propertyID length] > 0) {
+        
+        [params setObject:@"" forKey:@"source_id"];
+        
+    }
+    
+    ///请求
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneRecommendTenantList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///重置数据源
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYRecommendTenantListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.returnData.headerData.dataList];
+                self.returnData = resultData;
+                [tempArray addObjectsFromArray:self.returnData.headerData.dataList];
+                self.returnData.headerData.dataList = tempArray;
+                
+            }
+            
+        }
+        
+        [self.tenantListView reloadData];
+        
+        ///如果已无更多数据，则显示脚刷新提示
+        if ([self.returnData.headerData.dataList count] > 0) {
+            
+            self.tenantListView.footer.hidden = NO;
+            if ([self.returnData.headerData.per_page intValue] ==
+                [self.returnData.headerData.next_page intValue]) {
+                
+                [self.tenantListView.footer noticeNoMoreData];
+                
+            }
+            
+        }
+        
+        ///结束刷新
+        [self.tenantListView.header endRefreshing];
+        
+    }];
 
 }
 
