@@ -306,14 +306,20 @@
 {
     
     NSArray *resultList = [NSArray arrayWithArray:[self getEntityListWithKey:COREDATA_ENTITYNAME_USER_INFO andSortKeyWord:@"user_id" andAscend:YES]];
-    QSCDUserDataModel *cdUserModel = resultList[0];
     
-    if (nil) {
+    if (nil == resultList) {
         
         return nil;
         
     }
     
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    QSCDUserDataModel *cdUserModel = resultList[0];
     QSUserDataModel *userModel = [[QSUserDataModel alloc] init];
     userModel.id_ = cdUserModel.user_id;
     userModel.user_type = cdUserModel.user_count_type;
