@@ -62,15 +62,36 @@ typedef enum
 - (instancetype)init
 {
     
+    ///初始化发布数据模型
+    QSReleaseRentHouseDataModel *tempModel = [[QSReleaseRentHouseDataModel alloc] init];
+    tempModel.propertyStatus = rReleasePropertyStatusNew;
+    return [self initWithRentHouseModel:tempModel];
+    
+}
+
+/**
+ *  @author         yangshengmeng, 15-04-16 17:04:27
+ *
+ *  @brief          根据原有的物业信息，重新修改物业
+ *
+ *  @param model    物业数据类型
+ *
+ *  @return         返回当前创建的发布物业窗口
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithRentHouseModel:(QSReleaseRentHouseDataModel *)model
+{
+
     if (self = [super init]) {
         
         ///初始化发布数据模型
-        self.rentHouseReleaseModel = [[QSReleaseRentHouseDataModel alloc] init];
+        self.rentHouseReleaseModel = model;
         
     }
     
     return self;
-    
+
 }
 
 #pragma mark - UI搭建
@@ -214,6 +235,12 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    NSString *filterInfo = [self.rentHouseReleaseModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     ///保存地区和街道
     if (rReleaseRentHouseHomeActionTypeDistrice == [[tempDict valueForKey:@"action_type"] intValue]) {

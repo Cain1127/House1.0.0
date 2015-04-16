@@ -17,7 +17,7 @@
 		<key>left_title</key>
 		<string>区       域</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>district</string>
 	</dict>
 	<key>street</key>
 	<dict>
@@ -34,7 +34,7 @@
 		<key>left_title</key>
 		<string>所在街道</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>street</string>
 	</dict>
 	<key>community</key>
 	<dict>
@@ -48,10 +48,8 @@
 		<string>2</string>
 		<key>placehold</key>
 		<string></string>
-		<key>left_title</key>
-		<string>小区名称</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>community</string>
 	</dict>
 	<key>address</key>
 	<dict>
@@ -68,7 +66,7 @@
 		<key>left_title</key>
 		<string>详细地址</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>address</string>
 	</dict>
 	<key>house_type</key>
 	<dict>
@@ -85,7 +83,7 @@
 		<key>left_title</key>
 		<string>户       型</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>houseType</string>
 	</dict>
 	<key>area</key>
 	<dict>
@@ -102,7 +100,7 @@
 		<key>left_title</key>
 		<string>面       积</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>area</string>
 	</dict>
 	<key>rent_price</key>
 	<dict>
@@ -121,7 +119,7 @@
 		<key>left_title</key>
 		<string>租       金</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>rentPrice</string>
 	</dict>
 	<key>rent_pay_type</key>
 	<dict>
@@ -138,7 +136,7 @@
 		<key>left_title</key>
 		<string>支付方式</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>rentPaytype</string>
 	</dict>
 	<key>whether_price</key>
 	<dict>
@@ -155,7 +153,7 @@
 		<key>left_title</key>
 		<string>是否议价</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>whetherBargaining</string>
 	</dict>
 	<key>house_status</key>
 	<dict>
@@ -172,7 +170,7 @@
 		<key>left_title</key>
 		<string>房屋状态</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>houseStatus</string>
 	</dict>
 	<key>pay_time</key>
 	<dict>
@@ -189,7 +187,7 @@
 		<key>left_title</key>
 		<string>交付时间</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>leadTime</string>
 	</dict>
 	<key>rent_type</key>
 	<dict>
@@ -206,7 +204,7 @@
 		<key>left_title</key>
 		<string>出租方式</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>rentType</string>
 	</dict>
 </dict>
 </plist>

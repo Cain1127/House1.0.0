@@ -550,6 +550,15 @@ typedef enum
     
 }QSCUSTOM_PROTOCOL_CHAT_SEND_TYPE;
 
+///发布物业的类型
+typedef enum
+{
+    
+    rReleasePropertyStatusNew = 99, //!<新发布
+    rReleasePropertyStatusUpdate,   //!<更新原有物业
+    
+}RELEASE_PROPERTY_STATUS;
+
 /**
  *  @author yangshengmeng, 15-01-20 21:01:02
  *

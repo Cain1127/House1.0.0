@@ -905,7 +905,6 @@ static QSSocketManager *_socketManager = nil;
     } else {
         
         ///保存消息到内存容器
-        ocWordModel.readTag = @"0";
         [self.messageList addObject:ocWordModel];
         
         ///回调离线消息数量
@@ -932,7 +931,13 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.message,ocWordModel,userSimple);
+            int unreadCount = (int)[personArray count];
+            if ([ocWordModel.unread_count intValue] > unreadCount) {
+                
+                unreadCount = [ocWordModel.unread_count intValue];
+                
+            }
+            self.instantMessageNotification(ocWordModel.msgType,unreadCount,ocWordModel.message,ocWordModel,userSimple);
             
         }
         
