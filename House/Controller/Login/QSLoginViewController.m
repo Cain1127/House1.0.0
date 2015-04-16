@@ -311,7 +311,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                         
                         [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                             
-                            ///进入应用即连接socket
+                            ///重新发送上线
                             [QSSocketManager sendOnLineMessage];
                             
                             ///显示提示信息

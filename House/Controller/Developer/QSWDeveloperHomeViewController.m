@@ -7,6 +7,7 @@
 //
 
 #import "QSWDeveloperHomeViewController.h"
+#import "QSWDeveloperBuildingsViewController.h"
 #import "QSWDeveloperActivityViewController.h"
 #import "QSYChatToolViewController.h"
 #import "QSYSystemMessagesViewController.h"
@@ -34,13 +35,18 @@
     
     [super createMainShowUI];
     UIImageView *onSaleImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(15.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
+        
         APPLICATION_LOG_INFO(@"点击在线售楼", nil);
+        QSWDeveloperBuildingsViewController *VC = [[QSWDeveloperBuildingsViewController alloc]init];
+        [self.navigationController pushViewController:VC animated:YES];
+        
     }];
     onSaleImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SALING];
     [self createOnsaleInfoUI:onSaleImageView andCount:@"108"];
     [self.view addSubview:onSaleImageView];
 
     UIImageView *activityImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 15.0f-SIZE_DEVICE_WIDTH*160.0f/375.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
+        
         APPLICATION_LOG_INFO(@"点击当前活动", nil);
         QSWDeveloperActivityViewController *acVC = [[QSWDeveloperActivityViewController alloc]init];
         [self.navigationController pushViewController:acVC animated:YES];

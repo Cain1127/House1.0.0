@@ -163,6 +163,9 @@
         messageButton.selected = NO;
         button.selected = YES;
         
+        ///注销未读消息的监听
+        [QSSocketManager offsInstantMessageReceiveNotification];
+        
         ///创建联系人列表
         contactListView = [[QSChatContactsView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, 119.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 55.0f) andUserType:uUserCountTypeTenant andCallBack:^(CONTACT_LIST_ACTION_TYPE actionType, id params) {
             

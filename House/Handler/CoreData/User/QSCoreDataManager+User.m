@@ -212,7 +212,7 @@
         cdUserModel.user_id = userModel.id_;
         cdUserModel.user_count_type = userModel.user_type;
         cdUserModel.user_name = userModel.username;
-        cdUserModel.user_count = userModel.username;
+        cdUserModel.user_count = userModel.mobile;
         cdUserModel.email = userModel.email;
         cdUserModel.last_login_time = userModel.last_login_time;
         cdUserModel.ischeck_mail = userModel.ischeck_mail;
@@ -239,7 +239,7 @@
         cdUserModel.user_id = userModel.id_;
         cdUserModel.user_count_type = userModel.user_type;
         cdUserModel.user_name = userModel.username;
-        cdUserModel.user_count = userModel.username;
+        cdUserModel.user_count = userModel.mobile;
         cdUserModel.email = userModel.email;
         cdUserModel.last_login_time = userModel.last_login_time;
         cdUserModel.ischeck_mail = userModel.ischeck_mail;
@@ -306,19 +306,24 @@
 {
     
     NSArray *resultList = [NSArray arrayWithArray:[self getEntityListWithKey:COREDATA_ENTITYNAME_USER_INFO andSortKeyWord:@"user_id" andAscend:YES]];
-    QSCDUserDataModel *cdUserModel = resultList[0];
     
-    if (nil) {
+    if (nil == resultList) {
         
         return nil;
         
     }
     
+    if (0 >= [resultList count]) {
+        
+        return nil;
+        
+    }
+    
+    QSCDUserDataModel *cdUserModel = resultList[0];
     QSUserDataModel *userModel = [[QSUserDataModel alloc] init];
     userModel.id_ = cdUserModel.user_id;
     userModel.user_type = cdUserModel.user_count_type;
     userModel.username = cdUserModel.user_name;
-    userModel.username = cdUserModel.user_count;
     userModel.email = cdUserModel.email;
     userModel.last_login_time = cdUserModel.last_login_time;
     userModel.ischeck_mail = cdUserModel.ischeck_mail;
@@ -362,6 +367,38 @@
 
     NSString *userType = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"user_count_type"];
     return ([userType length] > 0 ? ([userType intValue]) : uUserCountTypeTenant);
+
+}
+
+/**
+ *  @author yangshengmeng, 15-04-16 11:04:50
+ *
+ *  @brief  获取当前用户发布的物业总数
+ *
+ *  @return 返回当前用户发布物业的总数
+ *
+ *  @since  1.0.0
+ */
++ (int)getUserPropertySumCount
+{
+
+    return [self getUserSalePropertySumCount] + [self getUserRentPropertySumCount];
+
+}
+
++ (int)getUserRentPropertySumCount
+{
+
+    NSString *tentNum = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"tj_rentHouse_num"];
+    return [tentNum intValue];
+
+}
+
++ (int)getUserSalePropertySumCount
+{
+
+    NSString *tentNum = (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andKeyword:@"tj_secondHouse_num"];
+    return [tentNum intValue];
 
 }
 

@@ -90,6 +90,9 @@
         [self autoLoginAction:localCount andPassword:psw];
         
     } else {
+        
+        ///进入应用即连接socket
+        [QSSocketManager sendOnLineMessage];
     
         ///将登录状态信息改为非登录
         [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
@@ -97,9 +100,6 @@
         }];
     
     }
-    
-    ///进入应用即连接socket
-//    [QSSocketManager sendOnLineMessage];
     
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
@@ -155,14 +155,24 @@
             ///修改用户登录状态
             [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                 
-                ///保存用户信息
-                QSYLoginReturnData *tempModel = resultData;
-                QSUserDataModel *userModel = tempModel.userInfo;
-                
-                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                [QSCoreDataManager saveLoginCount:count andCallBack:^(BOOL flag) {
                     
-                    ///打印提示信息
-                    APPLICATION_LOG_INFO(@"登录", @"登录成功")
+                    [QSCoreDataManager saveLoginPassword:password andCallBack:^(BOOL flag) {
+                        
+                        QSYLoginReturnData *tempModel = resultData;
+                        QSUserDataModel *userModel = tempModel.userInfo;
+                        
+                        [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                            
+                            ///重新发送上线
+                            [QSSocketManager sendOnLineMessage];
+                            
+                            ///显示提示信息
+                             APPLICATION_LOG_INFO(@"登录", @"成功")
+                            
+                        }];
+                        
+                    }];
                     
                 }];
                 
@@ -179,6 +189,17 @@
             
             ///打印提示信息
             APPLICATION_LOG_INFO(@"登录", tips)
+            
+            ///修改登录状态
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
+                
+                [QSCoreDataManager saveLoginCount:@"" andCallBack:^(BOOL flag) {
+                    
+                    [QSCoreDataManager saveLoginPassword:@"" andCallBack:^(BOOL flag) {}];
+                    
+                }];
+                
+            }];
             
         }
         

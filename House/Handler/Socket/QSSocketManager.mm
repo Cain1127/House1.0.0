@@ -41,9 +41,10 @@
 using namespace std;
 
 ///服务端地址
-#define QS_SOCKET_SERVER_IP @""// @"192.168.1.145"
+
+#define QS_SOCKET_SERVER_IP @"192.168.1.145"    //!<测试环境
 #define QS_SOCKET_SERVER_PORT 8000
-//#define QS_SOCKET_SERVER_IP @"117.41.235.107"
+//#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
@@ -66,6 +67,7 @@ using namespace std;
 @property (nonatomic,retain) QSUserSimpleDataModel *myUserMode; //!<当前用户的数据模型
 @property (nonatomic,copy) NSString *currentDeviceUUID;         //!<当前设备的UUID
 @property (atomic,retain) NSMutableArray *messageList;          //!<消息数据源
+@property (assign) BOOL isWaitConnect;                          //!<当前是否等连接中
 
 @end
 
@@ -100,6 +102,7 @@ static QSSocketManager *_socketManager = nil;
 
     ///开始连接socket
     self.tcpSocket = [[AsyncSocket alloc] initWithDelegate:self];
+    self.isWaitConnect = NO;
     
     NSError *error = nil;
     [self.tcpSocket connectToHost:QS_SOCKET_SERVER_IP onPort:QS_SOCKET_SERVER_PORT withTimeout:-1 error:&error];
@@ -150,7 +153,9 @@ static QSSocketManager *_socketManager = nil;
     ///临时数据
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:socketManager.messageList];
     NSMutableArray *resultArray = [NSMutableArray array];
-    for (int i = 0; i < [socketManager.messageList count]; i++) {
+    NSMutableArray *indexsArray = [NSMutableArray array];
+    NSInteger sumMessage = [tempArray count];
+    for (int i = 0; i < sumMessage; i++) {
         
         QSYSendMessageBaseModel *tempModel = socketManager.messageList[i];
         if ([tempModel.readTag isEqualToString:@"0"] &&
@@ -158,7 +163,7 @@ static QSSocketManager *_socketManager = nil;
             [tempModel.toID isEqualToString:socketManager.myUserMode.id_]) {
             
             [resultArray addObject:tempModel];
-            [tempArray removeObjectAtIndex:i];
+            [indexsArray addObject:[NSString stringWithFormat:@"%d",i]];
             
             ///保存一个数据
             tempModel.readTag = @"1";
@@ -180,22 +185,36 @@ static QSSocketManager *_socketManager = nil;
         
     }
     
-    ///更新本地数据
-    [socketManager.messageList removeAllObjects];
-    [socketManager.messageList addObjectsFromArray:tempArray];
-    
-    ///回调离线消息数量
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
-    NSArray *currentNoReadArray = [NSArray arrayWithArray:[socketManager.messageList filteredArrayUsingPredicate:predicate]];
-    
-    ///回调消息数量
-    if (socketManager.currentUnReadMessageNumCallBack) {
-        
-        socketManager.currentUnReadMessageNumCallBack((int)[currentNoReadArray count]);
-        
-    }
+    ///删除已取数据
+    [socketManager clearCautchMessage:[NSArray arrayWithArray:resultArray]];
     
     return [NSArray arrayWithArray:resultArray];
+
+}
+
+///删除指定的已读消息
+- (void)clearCautchMessage:(NSArray *)cautchMessage
+{
+    
+    ///遍历给定的已读数据
+    NSInteger sumCount = [cautchMessage count];
+    for (int i = sumCount; i > 0; i--) {
+        
+        int index = [cautchMessage[i - 1] intValue];
+        [self.messageList removeObjectAtIndex:index];
+        
+    }
+
+    ///回调离线消息数量
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
+    NSArray *currentNoReadArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+    
+    ///回调消息数量
+    if (self.currentUnReadMessageNumCallBack) {
+        
+        self.currentUnReadMessageNumCallBack((int)[currentNoReadArray count]);
+        
+    }
 
 }
 
@@ -309,11 +328,11 @@ static QSSocketManager *_socketManager = nil;
     
     ///设置发送消息
     QSChat::QuestionOnline onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"") UTF8String]);
-    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"") UTF8String]);
-    onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"-1") UTF8String]);
+    onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"-1") UTF8String]);
     onLineMessage.set_device_info([deviceInfoString UTF8String]);
-    onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"") UTF8String]);
+    onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"-1") UTF8String]);
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
@@ -346,16 +365,16 @@ static QSSocketManager *_socketManager = nil;
 
     ///设置发送消息
     QSChat::QuestionHistory onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
     onLineMessage.set_ctype(QSChat::ChatTypeSendPTP);
-    onLineMessage.set_wid([APPLICATION_NSSTRING_SETTING(self.currentContactUserID,@"") UTF8String]);
+    onLineMessage.set_wid([APPLICATION_NSSTRING_SETTING(self.currentContactUserID,@"-1") UTF8String]);
     onLineMessage.set_page_num("999");
     onLineMessage.set_current_page("1");
     onLineMessage.set_last_id("-1");
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOnLine]);
+    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeHistory]);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -435,19 +454,20 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
-    sendMessage.set_message([wordMessageModel.message UTF8String]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
+    sendMessage.set_message([APPLICATION_NSSTRING_SETTING(wordMessageModel.message,@"-1") UTF8String]);
     
-    sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
+    sendMessage.set_time_stamp([APPLICATION_NSSTRING_SETTING(wordMessageModel.timeStamp,@"-1") UTF8String]);
     
-    sendMessage.set_m_avatar([wordMessageModel.f_avatar UTF8String]);
-    sendMessage.set_m_name([wordMessageModel.f_name UTF8String]);
-    sendMessage.set_m_leve([wordMessageModel.f_leve UTF8String]);
-    sendMessage.set_m_user_type([wordMessageModel.f_user_type UTF8String]);
+    sendMessage.set_m_avatar([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_avatar,@"-1") UTF8String]);
+    sendMessage.set_m_name([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_name,@"-1") UTF8String]);
+    sendMessage.set_m_leve([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_leve,@"-1") UTF8String]);
+    sendMessage.set_m_user_type([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_user_type,@"-1") UTF8String]);
     
-    sendMessage.set_t_avatar([wordMessageModel.t_avatar UTF8String]);
-    sendMessage.set_t_name([wordMessageModel.t_name UTF8String]);
-    sendMessage.set_t_leve([wordMessageModel.t_leve UTF8String]);
-    sendMessage.set_t_user_type([wordMessageModel.t_user_type UTF8String]);
+    sendMessage.set_t_avatar([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_avatar,@"-1") UTF8String]);
+    sendMessage.set_t_name([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_name,@"-1") UTF8String]);
+    sendMessage.set_t_leve([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_leve,@"-1") UTF8String]);
+    sendMessage.set_t_user_type([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_user_type,@"-1") UTF8String]);
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
@@ -507,6 +527,7 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取图片
     NSData *imageData = [NSData dataWithContentsOfFile:wordMessageModel.pictureURL];
@@ -537,7 +558,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypePicture);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -593,6 +614,7 @@ static QSSocketManager *_socketManager = nil;
     int32_t toIDINT32 = [wordMessageModel.toID intValue];
     sendMessage.set_tid(toIDINT32);
     sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取本地音频数据
     NSData *videoData = [NSData dataWithContentsOfFile:wordMessageModel.videoURL];
@@ -612,7 +634,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeVideo);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -702,20 +724,36 @@ static QSSocketManager *_socketManager = nil;
 {
 
     APPLICATION_LOG_INFO(@"socket日志", @"socket连接已断开，正在重连")
-    NSError *error = nil;
-    [self.tcpSocket connectToHost:QS_SOCKET_SERVER_IP onPort:QS_SOCKET_SERVER_PORT withTimeout:-1 error:&error];
     
-    if (error) {
+    if (self.isWaitConnect) {
         
-        APPLICATION_LOG_INFO(@"socket日志->连接失败：", error)
         return;
         
-    } else {
-        
-        APPLICATION_LOG_INFO(@"socket日志->连接成功：", @"无错误")
-        [self sendOnLineMessage];
-        
     }
+    
+    ///将当前连接状态设置为待连接
+    self.isWaitConnect = YES;
+    
+    ///1秒后重连
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSError *error = nil;
+        self.isWaitConnect = NO;
+        [self.tcpSocket connectToHost:QS_SOCKET_SERVER_IP onPort:QS_SOCKET_SERVER_PORT withTimeout:-1 error:&error];
+        
+        if (error) {
+            
+            APPLICATION_LOG_INFO(@"socket日志->连接失败：", error)
+            return;
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"socket日志->连接成功：", @"无错误")
+            [self sendOnLineMessage];
+            
+        }
+        
+    });
 
 }
 
@@ -893,7 +931,13 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.message,ocWordModel,userSimple);
+            int unreadCount = (int)[personArray count];
+            if ([ocWordModel.unread_count intValue] > unreadCount) {
+                
+                unreadCount = [ocWordModel.unread_count intValue];
+                
+            }
+            self.instantMessageNotification(ocWordModel.msgType,unreadCount,ocWordModel.message,ocWordModel,userSimple);
             
         }
         
@@ -1185,6 +1229,7 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
     ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
     ocWordModel.readTag = @"0";
+    ocWordModel.deviceUUID = [NSString stringWithUTF8String:cppWordModel.device_udid().c_str()];
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
@@ -1396,20 +1441,25 @@ static QSSocketManager *_socketManager = nil;
             
             return QSChat::QSCHAT_SYSTEM;
             
-            ///系统消息
+            ///历史文字消息
         case qQSCustomProtocolChatMessageTypeHistoryWord:
             
             return QSChat::QSCHAT_HISTORY_WORD;
             
-            ///系统消息
+            ///历史图片消息
         case qQSCustomProtocolChatMessageTypeHistoryPicture:
             
             return QSChat::QSCHAT_HISTORY_PIC;
             
-            ///系统消息
+            ///历史语音消息
         case qQSCustomProtocolChatMessageTypeHistoryVideo:
             
             return QSChat::QSCHAT_HISTORY_VIDEO;
+            
+            ///指定联系人的历史未读消息
+        case qQSCustomProtocolChatMessageTypeHistory:
+            
+            return QSChat::QSCHAT_HISTORY;
             
         default:
             break;

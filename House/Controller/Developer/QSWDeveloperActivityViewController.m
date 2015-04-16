@@ -7,6 +7,7 @@
 //
 
 #import "QSWDeveloperActivityViewController.h"
+#import "QSWDeveloperActivityDetailViewController.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
@@ -20,6 +21,7 @@ static char OnlineActivityViewKey; //!<在线活动关联列表
 static char OverActivityViewKey;   //!<活动结束关联列表
 
 @interface QSWDeveloperActivityViewController ()<UITableViewDataSource,UITableViewDelegate>
+
 
 @end
 
@@ -191,7 +193,9 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-
+    QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:nil];
+    
+    [self.navigationController pushViewController:VC animated:YES];
 
 }
 

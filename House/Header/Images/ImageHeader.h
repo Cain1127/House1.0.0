@@ -371,7 +371,7 @@
 
 ///消息：非当前用户的消息提示三角
 #define IMAGE_CHAT_MESSAGE_SENDER_ARROW_NORMAL @"talk_contact_indicate_arrow_normal"
-#define IMAGE_CHAT_MESSAGE_SENDER_HIGHLIGHTED @"talk_contact_indicate_arrow_highlighted"
+#define IMAGE_CHAT_MESSAGE_SENDER_ARROW_HIGHLIGHTED @"talk_contact_indicate_arrow_highlighted"
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_NORMAL @"talk_my_indicate_arrow_normal"
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_HIGHLIGHTED @"talk_my_indicate_arrow_highlighted"
 
@@ -582,6 +582,17 @@
 #define IMAGE_ZONE_ASK_TAG_BUY @"myzone_ask_buy"
 #define IMAGE_ZONE_ASK_TAG_RENT_ENTIRE @"myzone_ask_rent_entire"
 #define IMAGE_ZONE_ASK_TAG_RENT_PARTNER @"myzone_ask_rent_partner"
+
+///房客信息中：推荐房源图片
+#define IMAGE_ZONE_TENANT_RECOMMEND_NORMAL @"myzone_contact_list_recommend_normal"
+#define IMAGE_ZONE_TENANT_RECOMMEND_HIGHLIGHTED @"myzone_contact_list_recommend_highlighted"
+
+///联系人信息列表中：联系按钮
+#define IMAGE_ZONE_CONTACT_TALK_NORMAL @"myzone_contact_list_talk_normal"
+#define IMAGE_ZONE_CONTACT_TALK_HIGHLIGHTED @"myzone_contact_list_talk_highlighted"
+
+///分隔三角
+#define IMAGE_ZONE_RECOMMEND_TENANT_SEPIMAGE @"myzone_recommend_tenant_sepimage"
 
 ///我的物业列表中，房源图片的默认图片
 #define IMAGE_ZONE_MYPROPERTYLIST_HOUSE_DEFAULT @"myzone_property_house_default"

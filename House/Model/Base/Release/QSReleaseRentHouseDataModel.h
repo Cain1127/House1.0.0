@@ -10,6 +10,7 @@
 
 @interface QSReleaseRentHouseDataModel : QSBaseModel
 
+@property (assign) RELEASE_PROPERTY_STATUS propertyStatus;          //!<物业状态
 @property (nonatomic,copy) NSString *district;                      //!<区域
 @property (nonatomic,copy) NSString *districtKey;                   //!<区域key
 @property (nonatomic,copy) NSString *street;                        //!<街道
