@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum
+{
+    
+    dDeveloperBuildingsActionTypeHeaderImage = 101,  //!<头像按钮事件
+    dDeveloperBuildingsActionTypeSignUp,             //!<活动报名
+    dDeveloperBuildingsActionTypeStopPublish,        //!<停止发布
+    
+}DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE;
+
 @interface QSWDeveloperBuildingsTableViewCell : UITableViewCell
 
--(void)updateDeveloperBulidingsModel;
+
+-(void)updateDeveloperBulidingsModel:(void(^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType))callBack;
 
 @end

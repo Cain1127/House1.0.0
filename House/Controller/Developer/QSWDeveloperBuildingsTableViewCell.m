@@ -25,6 +25,12 @@ static char PageCountLabelKey;  //!<浏览量
 static char OrderCountLabelKey; //!<预约量
 static char PublishTimeLabelKey;//!<发布时间
 
+@interface QSWDeveloperBuildingsTableViewCell()
+
+@property(nonatomic,copy) void(^developerBuildingsCellButtonCallBack)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType);               //!<开发商楼盘按钮事件回调
+
+@end
+
 @implementation QSWDeveloperBuildingsTableViewCell
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -45,6 +51,12 @@ static char PublishTimeLabelKey;//!<发布时间
     UIImageView *mainImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_MARGIN_LEFT_RIGHT, 20.0f, 100.0f, 100.0f) andSingleTapCallBack:^{
         
         NSLog(@"点击头像");
+        if (self.developerBuildingsCellButtonCallBack) {
+            
+            self.developerBuildingsCellButtonCallBack(dDeveloperBuildingsActionTypeHeaderImage);
+            
+
+        }
         
     }];
     [self.contentView addSubview:mainImageView];
@@ -146,7 +158,11 @@ static char PublishTimeLabelKey;//!<发布时间
     buttonStyle.title = @"活动报名";
     UIButton *checkDetailLabel = [QSBlockButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH/6.0f, 15.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        NSLog(@"点击活动报名");
+        if (self.developerBuildingsCellButtonCallBack) {
+            
+            self.developerBuildingsCellButtonCallBack(dDeveloperBuildingsActionTypeSignUp);
+            
+        }
         
     }];
     checkDetailLabel.center = CGPointMake(SIZE_DEVICE_WIDTH/6.0f+SIZE_DEVICE_WIDTH/12.0f, lineLabel.frame.origin.y+20.0f+7.5f);
@@ -160,7 +176,9 @@ static char PublishTimeLabelKey;//!<发布时间
     buttonStyle.title = @"暂停发布";
     UIButton *stopPublishLabel = [QSBlockButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH/6.0f, 15.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        NSLog(@"点击暂停发布");
+        if (self.developerBuildingsCellButtonCallBack) {
+            self.developerBuildingsCellButtonCallBack(dDeveloperBuildingsActionTypeStopPublish);
+        }
         
     }];
     stopPublishLabel.center = CGPointMake(SIZE_DEVICE_WIDTH-SIZE_DEVICE_WIDTH/6.0f-SIZE_DEVICE_WIDTH/12.0f, lineLabel.frame.origin.y+20.0f+7.5);
@@ -174,8 +192,14 @@ static char PublishTimeLabelKey;//!<发布时间
 }
 
 #pragma mark -更新楼盘数据
--(void)updateDeveloperBulidingsModel
+-(void)updateDeveloperBulidingsModel:(void (^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE))callBack
 {
+    
+    if (callBack) {
+        
+        self.developerBuildingsCellButtonCallBack = callBack;
+        
+    }
     
     UIImageView *imageView = objc_getAssociatedObject(self, &MainImageViewKey);
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleLabelKey);

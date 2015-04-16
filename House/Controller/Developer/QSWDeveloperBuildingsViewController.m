@@ -27,7 +27,7 @@ static char TableViewKey;   //!<楼盘列表
 
 -(void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"我的楼盘"];
     
@@ -35,10 +35,11 @@ static char TableViewKey;   //!<楼盘列表
 
 -(void)createMainShowUI
 {
-
+    
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f)];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &TableViewKey, tableView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -48,14 +49,14 @@ static char TableViewKey;   //!<楼盘列表
 #pragma mark -数据源方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     return 10;
     
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     return 225.0f;
     
 }
@@ -63,16 +64,41 @@ static char TableViewKey;   //!<楼盘列表
 #pragma mark -返回的第一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     static NSString *cellIdentifier = @"normalCell";
     QSWDeveloperBuildingsTableViewCell *cell = [tableView  dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell==nil) {
         
         cell = [[QSWDeveloperBuildingsTableViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH-SIZE_MARGIN_LEFT_RIGHT*2.0f, 225.0f)];
-    
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
     }
     
-    [cell updateDeveloperBulidingsModel];
+    [cell updateDeveloperBulidingsModel:^(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType) {
+        switch (actionType) {
+            case dDeveloperBuildingsActionTypeHeaderImage:
+                
+                NSLog(@"跳转楼盘详情");
+                
+                break;
+                
+            case dDeveloperBuildingsActionTypeSignUp:
+                
+                NSLog(@"活动报名");
+                
+                break;
+                
+            case dDeveloperBuildingsActionTypeStopPublish:
+                
+                NSLog(@"停止发布");
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
     
     return cell;
 }

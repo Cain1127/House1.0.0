@@ -85,6 +85,7 @@ static char TableViewKey; //!<活动列表
     if (cell == nil) {
         
         cell = [[QSWDeveloperActivityDetailTableViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 80.0f)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     

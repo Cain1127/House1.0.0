@@ -119,12 +119,19 @@ static char AssessTableKey;   //!<评论内容关联key
         
     }
     
+        QSCommentListDataModel *tempModel = [[QSCommentListDataModel alloc] init];
+
     if (self.dataSource) {
         ///获取模型
-        QSCommentListDataModel *tempModel = self.dataSource[indexPath.row];
+        tempModel = self.dataSource[indexPath.row];
+    }
+    
+    if (tempModel) {
         
         [cell updateAssessCellInfo:tempModel];
+
     }
+    
     
     ///取消选择样式
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -159,8 +166,11 @@ static char AssessTableKey;   //!<评论内容关联key
             QSCommentListReturnData *tempModel = resultData;
             
             self.dataSource = [[NSArray alloc] init];
-            ///保存数据模型
-            self.dataSource = tempModel.msgInfo.commentList;
+            if (tempModel.msgInfo.commentList) {
+                ///保存数据模型
+                self.dataSource = tempModel.msgInfo.commentList;
+            }
+          
             
             ///创建详情UI
             [tableView reloadData];
