@@ -88,6 +88,19 @@
 + (USER_COUNT_TYPE)getUserType;
 
 /**
+ *  @author yangshengmeng, 15-04-16 11:04:50
+ *
+ *  @brief  获取当前用户发布的物业总数
+ *
+ *  @return 返回当前用户发布物业的总数
+ *
+ *  @since  1.0.0
+ */
++ (int)getUserPropertySumCount;
++ (int)getUserRentPropertySumCount;
++ (int)getUserSalePropertySumCount;
+
+/**
  *  @author yangshengmeng, 15-03-16 10:03:37
  *
  *  @brief  返回登录账号
