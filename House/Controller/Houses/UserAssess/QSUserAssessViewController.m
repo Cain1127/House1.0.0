@@ -26,8 +26,8 @@ static char AssessTableKey;   //!<评论内容关联key
 
 @property (nonatomic,retain) NSArray *dataSource;                         //!<数据源
 @property (nonatomic,retain) QSCommentListDataModel *commentDataModel;    //!<模型数据
-@property (nonatomic,copy) NSString *type ;                                //!<房源类型
-@property (nonatomic,assign) int be_id;                                    //!<被评论的ID，如果是房源就填房源ID
+@property (nonatomic,copy) NSString *type ;                               //!<房源类型
+@property (nonatomic,assign) int be_id;                                   //!<被评论的ID，如果是房源就填房源ID
 
 @end
 
@@ -119,10 +119,12 @@ static char AssessTableKey;   //!<评论内容关联key
         
     }
     
-    ///获取模型
-    QSCommentListDataModel *tempModel = self.dataSource[indexPath.row];
-    
-    [cell updateAssessCellInfo:tempModel];
+    if (self.dataSource) {
+        ///获取模型
+        QSCommentListDataModel *tempModel = self.dataSource[indexPath.row];
+        
+        [cell updateAssessCellInfo:tempModel];
+    }
     
     ///取消选择样式
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

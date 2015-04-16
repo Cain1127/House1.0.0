@@ -723,6 +723,8 @@
 		CE4707491ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4707421ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.m */; };
 		CE47074A1ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4707441ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m */; };
 		CE47074B1ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4707461ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.m */; };
+		CE47074E1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE47074D1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m */; };
+		CE4707511ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4707501ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.m */; };
 		CE520FF81ACCFBDB00D6230B /* HouseDetailAroundInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE520FF71ACCFBDB00D6230B /* HouseDetailAroundInfo.plist */; };
 		CE5210071ACD0F1800D6230B /* houses_detail_bus_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = CE520FF91ACD0F1800D6230B /* houses_detail_bus_highlighted.png */; };
 		CE5210081ACD0F1800D6230B /* houses_detail_bus_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CE520FFA1ACD0F1800D6230B /* houses_detail_bus_normal.png */; };
@@ -1999,6 +2001,10 @@
 		CE4707441ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperActivityViewController.m; sourceTree = "<group>"; };
 		CE4707451ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperHomeViewController.h; sourceTree = "<group>"; };
 		CE4707461ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperHomeViewController.m; sourceTree = "<group>"; };
+		CE47074C1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperBuildingsViewController.h; sourceTree = "<group>"; };
+		CE47074D1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperBuildingsViewController.m; sourceTree = "<group>"; };
+		CE47074F1ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWDeveloperBuildingsTableViewCell.h; sourceTree = "<group>"; };
+		CE4707501ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWDeveloperBuildingsTableViewCell.m; sourceTree = "<group>"; };
 		CE520FF71ACCFBDB00D6230B /* HouseDetailAroundInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HouseDetailAroundInfo.plist; sourceTree = "<group>"; };
 		CE520FF91ACD0F1800D6230B /* houses_detail_bus_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_bus_highlighted.png; sourceTree = "<group>"; };
 		CE520FFA1ACD0F1800D6230B /* houses_detail_bus_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_bus_normal.png; sourceTree = "<group>"; };
@@ -5881,14 +5887,18 @@
 		CE47073C1ADF4F0700AD59E4 /* Developer */ = {
 			isa = PBXGroup;
 			children = (
-				CE47073D1ADF4F0700AD59E4 /* QSWDeveloperActivityDetailTableViewCell.h */,
-				CE47073E1ADF4F0700AD59E4 /* QSWDeveloperActivityDetailTableViewCell.m */,
+				CE47074C1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.h */,
+				CE47074D1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m */,
+				CE47074F1ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.h */,
+				CE4707501ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.m */,
 				CE47073F1ADF4F0700AD59E4 /* QSWDeveloperActivityDetailViewController.h */,
 				CE4707401ADF4F0700AD59E4 /* QSWDeveloperActivityDetailViewController.m */,
-				CE4707411ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.h */,
-				CE4707421ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.m */,
+				CE47073D1ADF4F0700AD59E4 /* QSWDeveloperActivityDetailTableViewCell.h */,
+				CE47073E1ADF4F0700AD59E4 /* QSWDeveloperActivityDetailTableViewCell.m */,
 				CE4707431ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.h */,
 				CE4707441ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m */,
+				CE4707411ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.h */,
+				CE4707421ADF4F0700AD59E4 /* QSWDeveloperActivityTableViewCell.m */,
 				CE4707451ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.h */,
 				CE4707461ADF4F0700AD59E4 /* QSWDeveloperHomeViewController.m */,
 			);
@@ -6645,6 +6655,7 @@
 				181524211ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m in Sources */,
 				18C8A0E51A6A826D00BB9611 /* QSChatViewController.m in Sources */,
 				18B572A01AC16D1600C75682 /* message.cc in Sources */,
+				CE4707511ADF520100AD59E4 /* QSWDeveloperBuildingsTableViewCell.m in Sources */,
 				18DFE8701AC6F3AF00C216C3 /* QSCoreDataManager+History.m in Sources */,
 				1865E3C91AB168DB00FAEC9E /* QSCoreDataManager+Collected.m in Sources */,
 				18CAFCD61A70E45A00C90C90 /* QSRequestTaskDataModel.m in Sources */,
@@ -6816,6 +6827,7 @@
 				18EE34751AABFD3F0053B909 /* QSBaseHouseInfoDataModel.m in Sources */,
 				18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */,
 				18B572AE1AC16D1600C75682 /* googletest.cc in Sources */,
+				CE47074E1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m in Sources */,
 				CE391F7B1ACA387000C298D7 /* QSSignUpViewController.m in Sources */,
 				478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */,
 				475A4D301AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m in Sources */,
