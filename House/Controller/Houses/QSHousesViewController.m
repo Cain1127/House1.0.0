@@ -772,14 +772,14 @@ static char PopViewKey;             //!<摇一摇view关联
                         ///显示暂无记录
                     case hHouseListActionTypeNoRecord:
                         
-                        [self showNoRecordTips:YES];
+                        [self showNoRecordTips:YES andTips:@"暂无出租房源"];
                         
                         break;
                         
                         ///移除暂无记录
                     case hHouseListActionTypeHaveRecord:
                         
-                        [self showNoRecordTips:YES andTips:@"暂无出租房源"];
+                        [self showNoRecordTips:NO];
                         
                         break;
                         
