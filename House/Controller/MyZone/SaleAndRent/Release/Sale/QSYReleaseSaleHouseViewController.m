@@ -43,7 +43,7 @@ typedef enum
 @interface QSYReleaseSaleHouseViewController () <UITextFieldDelegate>
 
 ///出售物业的数据模型
-@property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
+@property (atomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
 @property (nonatomic,strong) QSScrollView *pickedRootView;
 
 @property (nonatomic,unsafe_unretained) UITextField *districtField;
@@ -59,11 +59,31 @@ typedef enum
 ///初始化
 - (instancetype)init
 {
+    
+    QSReleaseSaleHouseDataModel *tempModel = [[QSReleaseSaleHouseDataModel alloc] init];
+    tempModel.propertyStatus = rReleasePropertyStatusNew;
+    return [self initWithSaleModel:tempModel];
+
+}
+
+/**
+ *  @author             yangshengmeng, 15-04-16 17:04:54
+ *
+ *  @brief              根据给定的发布物业数据模型，创建物业更新页面
+ *
+ *  @param saleModel    当前的物业信息数据模型
+ *
+ *  @return             返回当前更新物业信息的页面
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithSaleModel:(QSReleaseSaleHouseDataModel *)saleModel
+{
 
     if (self = [super init]) {
         
         ///初始化发布数据模型
-        self.saleHouseReleaseModel = [[QSReleaseSaleHouseDataModel alloc] init];
+        self.saleHouseReleaseModel = saleModel;
         
     }
     
@@ -213,6 +233,12 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
+    NSString *filterInfo = [self.saleHouseReleaseModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    if ([filterInfo length] > 0) {
+        
+        tempTextField.text = filterInfo;
+        
+    }
     
     ///保存地区和街道
     if (rReleaseSaleHouseHomeActionTypeDistrice == [[tempDict valueForKey:@"action_type"] intValue]) {
@@ -666,7 +692,7 @@ typedef enum
             
         } else {
             
-            self.saleHouseReleaseModel.address = nil;
+            self.saleHouseReleaseModel.salePrice = nil;
             self.saleHouseReleaseModel.salePriceKey = nil;
             
         }

@@ -212,7 +212,7 @@
         cdUserModel.user_id = userModel.id_;
         cdUserModel.user_count_type = userModel.user_type;
         cdUserModel.user_name = userModel.username;
-        cdUserModel.user_count = userModel.username;
+        cdUserModel.user_count = userModel.mobile;
         cdUserModel.email = userModel.email;
         cdUserModel.last_login_time = userModel.last_login_time;
         cdUserModel.ischeck_mail = userModel.ischeck_mail;
@@ -239,7 +239,7 @@
         cdUserModel.user_id = userModel.id_;
         cdUserModel.user_count_type = userModel.user_type;
         cdUserModel.user_name = userModel.username;
-        cdUserModel.user_count = userModel.username;
+        cdUserModel.user_count = userModel.mobile;
         cdUserModel.email = userModel.email;
         cdUserModel.last_login_time = userModel.last_login_time;
         cdUserModel.ischeck_mail = userModel.ischeck_mail;
@@ -318,7 +318,6 @@
     userModel.id_ = cdUserModel.user_id;
     userModel.user_type = cdUserModel.user_count_type;
     userModel.username = cdUserModel.user_name;
-    userModel.username = cdUserModel.user_count;
     userModel.email = cdUserModel.email;
     userModel.last_login_time = cdUserModel.last_login_time;
     userModel.ischeck_mail = cdUserModel.ischeck_mail;

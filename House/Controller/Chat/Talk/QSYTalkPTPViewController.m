@@ -451,23 +451,23 @@
         
         QSYSendMessageWord *wordMessageModel = [[QSYSendMessageWord alloc] init];
         wordMessageModel.msgType = qQSCustomProtocolChatMessageTypeWord;
-        wordMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_,@"");
-        wordMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"");
+        wordMessageModel.fromID = APPLICATION_NSSTRING_SETTING(self.myUserModel.id_,@"-1");
+        wordMessageModel.toID = APPLICATION_NSSTRING_SETTING(self.userModel.id_,@"-1");
         
         QSYSendMessageBaseModel *lastMessage = [self.messagesDataSource lastObject];
-        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING(lastMessage.deviceUUID,@"");
-        wordMessageModel.message = APPLICATION_NSSTRING_SETTING(sendMessage,@"");
-        wordMessageModel.timeStamp = APPLICATION_NSSTRING_SETTING([NSDate currentDateTimeStamp],@"");
+        wordMessageModel.deviceUUID = APPLICATION_NSSTRING_SETTING(lastMessage.deviceUUID,@"-1");
+        wordMessageModel.message = APPLICATION_NSSTRING_SETTING(sendMessage,@"-1");
+        wordMessageModel.timeStamp = APPLICATION_NSSTRING_SETTING([NSDate currentDateTimeStamp],@"-1");
         
-        wordMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
-        wordMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
-        wordMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
-        wordMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        wordMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"-1");
+        wordMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"-1");
+        wordMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"-1");
+        wordMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"-1");
         
-        wordMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
-        wordMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
-        wordMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
-        wordMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
+        wordMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"-1");
+        wordMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"-1");
+        wordMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"-1");
+        wordMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"-1");
         
         CGFloat showHeight = 30.0f;
         CGFloat showWidth = [sendMessage calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
@@ -637,15 +637,15 @@
         
         pictureMessageModel.timeStamp = [NSDate currentDateTimeStamp];
         
-        pictureMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"");
-        pictureMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"");
-        pictureMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"");
-        pictureMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"");
+        pictureMessageModel.f_name = APPLICATION_NSSTRING_SETTING(self.myUserModel.username,@"-1");
+        pictureMessageModel.f_avatar = APPLICATION_NSSTRING_SETTING(self.myUserModel.avatar,@"-1");
+        pictureMessageModel.f_leve = APPLICATION_NSSTRING_SETTING(self.myUserModel.level,@"-1");
+        pictureMessageModel.f_user_type = APPLICATION_NSSTRING_SETTING(self.myUserModel.user_type,@"-1");
         
-        pictureMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"");
-        pictureMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"");
-        pictureMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"");
-        pictureMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"");
+        pictureMessageModel.t_name = APPLICATION_NSSTRING_SETTING(self.userModel.username,@"-1");
+        pictureMessageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.userModel.avatar,@"-1");
+        pictureMessageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.userModel.level,@"-1");
+        pictureMessageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.userModel.user_type,@"-1");
         
         CGFloat showWidth = smallImage.size.width;
         showWidth = (showWidth > (SIZE_DEVICE_WIDTH * 2.0f / 5.0f)) ? (SIZE_DEVICE_WIDTH * 2.0f / 5.0f) : showWidth;
