@@ -157,7 +157,6 @@
             
             self.returnData = resultData;
             
-            
         }
         
         [self.tenantListView reloadData];
@@ -165,6 +164,7 @@
         ///如果已无更多数据，则显示脚刷新提示
         if ([self.returnData.headerData.dataList count] > 0) {
             
+            [self showNoRecordTips:NO];
             self.tenantListView.footer.hidden = NO;
             
             if ([self.returnData.headerData.per_page intValue] ==
@@ -174,6 +174,10 @@
                 
             }
             
+        } else {
+        
+            [self showNoRecordTips:YES andTips:@"暂无推荐房客"];
+        
         }
         
         ///结束刷新

@@ -653,6 +653,8 @@ typedef enum
     rRequestTypeMyZoneEditAskRentPurpase = 5006,        //!<修改求租求购
     rRequestTypeMyZoneDeleteAskRentPurpase = 5007,      //!<删除求租求购
     rRequestTypeMyZoneRecommendTenantList = 5008,       //!<推荐房客
+    rRequestTypeMyZoneAskRentPurphaseRentHouse = 5009,  //!<求租求购对应的推荐出租房列表
+    rRequestTypeMyZoneAskRentPurphaseSecondHouse = 5010,//!<求租求购对应的推荐二手房列表
     
     rRequestTypeMyZoneStatistics = 5500,                //!<个人中心的统计数据
 
