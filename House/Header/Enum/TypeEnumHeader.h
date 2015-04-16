@@ -537,6 +537,7 @@ typedef enum
     qQSCustomProtocolChatMessageTypeHistoryWord     = 9007, //!<历史文字消息
     qQSCustomProtocolChatMessageTypeHistoryPicture  = 9008, //!<历史图片消息
     qQSCustomProtocolChatMessageTypeHistoryVideo    = 9009, //!<历史音频消息
+    qQSCustomProtocolChatMessageTypeHistory         = 9010, //!<获取指定联系人的历史消息
     
 }QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE;
 
