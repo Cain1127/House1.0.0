@@ -371,7 +371,7 @@
 
 ///消息：非当前用户的消息提示三角
 #define IMAGE_CHAT_MESSAGE_SENDER_ARROW_NORMAL @"talk_contact_indicate_arrow_normal"
-#define IMAGE_CHAT_MESSAGE_SENDER_HIGHLIGHTED @"talk_contact_indicate_arrow_highlighted"
+#define IMAGE_CHAT_MESSAGE_SENDER_ARROW_HIGHLIGHTED @"talk_contact_indicate_arrow_highlighted"
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_NORMAL @"talk_my_indicate_arrow_normal"
 #define IMAGE_CHAT_MESSAGE_MY_ARROW_HIGHLIGHTED @"talk_my_indicate_arrow_highlighted"
 
