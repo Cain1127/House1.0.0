@@ -28,4 +28,6 @@
 
 #define FONT_BODY_35 35.0f
 
+#define FONT_BODY_40 40.0f
+
 #endif
