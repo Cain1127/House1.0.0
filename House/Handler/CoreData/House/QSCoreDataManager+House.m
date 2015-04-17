@@ -151,6 +151,25 @@
 
 }
 
++ (NSString *)getHouseIsNegotiatedPriceTypeWithKey:(NSString *)keyString
+{
+
+    if ([keyString isEqualToString:@"0"]) {
+        
+        return @"可议价";
+        
+    }
+    
+    if ([keyString isEqualToString:@"1"]) {
+        
+        return @"一口价";
+        
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-03-06 15:03:43
  *
@@ -1011,6 +1030,37 @@
 
 }
 
+
++ (QSBaseConfigurationDataModel *)getHouseInstallationModelWithKey:(NSString *)keyString andHouseType:(FILTER_MAIN_TYPE)filterType
+{
+
+    switch (filterType) {
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+        
+            return [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"installation" andSecondFieldName:@"key" andSecndFieldValue:keyString];
+        
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+        
+            return [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"installation_rent" andSecondFieldName:@"key" andSecndFieldValue:keyString];
+        
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37
  *
@@ -1065,6 +1115,32 @@
 
 }
 
++ (NSString *)getRentHouseStatusTypeValueWithKey:(NSString *)keyString
+{
+
+    if ([keyString isEqualToString:@"1"]) {
+        
+        return @"在租中";
+        
+    }
+    
+    if ([keyString isEqualToString:@"2"]) {
+        
+        return @"自住中";
+        
+    }
+    
+    
+    if ([keyString isEqualToString:@"3"]) {
+        
+        return @"吉屋";
+        
+    }
+    
+    return nil;
+
+}
+
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37
  *
@@ -1100,6 +1176,49 @@
         
     }
     return [NSArray arrayWithArray:houseUsedYearTypeList];
+
+}
+
++ (NSString *)getHousePropertyManagementFeeValueWithKey:(NSString *)keyString
+{
+
+    if ([keyString isEqualToString:@"1"]) {
+        
+        return @"1 元/月/㎡";
+        
+    }
+    
+    if ([keyString isEqualToString:@"2"]) {
+        
+        return @"2 元/月/㎡";
+        
+    }
+    
+    if ([keyString isEqualToString:@"3"]) {
+        
+        return @"3 元/月/㎡";
+        
+    }
+    
+    if ([keyString isEqualToString:@"4"]) {
+        
+        return @"4 元/月/㎡";
+        
+    }
+    
+    if ([keyString isEqualToString:@"5"]) {
+        
+        return @"5 元/月/㎡";
+        
+    }
+    
+    if ([keyString isEqualToString:@"6"]) {
+        
+        return @"6 元/月/㎡";
+        
+    }
+    
+    return nil;
 
 }
 

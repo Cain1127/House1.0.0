@@ -337,8 +337,8 @@
                 case pPropertyInfocellActionTypeEdit:
                 {
                     
-                    QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel changeToReleaseDataModel]];
-                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
+//                    QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel changeToReleaseDataModel]];
+//                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
                 
                 };
                     break;
@@ -421,8 +421,8 @@
                 case pPropertyInfocellActionTypeEdit:
                 {
                 
-                    QSYReleaseRentHouseViewController *updatePropertyVC = [[QSYReleaseRentHouseViewController alloc] initWithRentHouseModel:[tempModel changeToReleaseDataModel]];
-                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
+//                    QSYReleaseRentHouseViewController *updatePropertyVC = [[QSYReleaseRentHouseViewController alloc] initWithRentHouseModel:[tempModel changeToReleaseDataModel]];
+//                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
                 
                 }
                     break;
