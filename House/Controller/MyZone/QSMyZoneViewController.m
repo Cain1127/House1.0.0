@@ -567,6 +567,7 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeHavedAround:
                 //已看房
             {
+                
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
@@ -586,6 +587,7 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeWaitCommit:
                 //待成交
             {
+                
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
@@ -625,7 +627,18 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeAppointed:
             {
             
-                
+                QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerBookedOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
             
             }
                 break;
@@ -634,7 +647,18 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeDeal:
             {
             
-                
+                QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
+                if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
+                    
+                    [self checkLoginAndShowLogin];
+                    
+                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                    
+                    [bolVc setSelectedType:mSalerTransactionOrderListTypeCompleted];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:bolVc animated:YES];
+                    
+                }
             
             }
                 break;
@@ -790,6 +814,30 @@ static char UserNameKey;    //!<用户名
     ///进入设置页面
     QSYSystemSettingViewController *settingVC = [[QSYSystemSettingViewController alloc] init];
     [self hiddenBottomTabbar:YES];
+    settingVC.systemSettingCallBack = ^(SYSTEMSETTING_ACTION_TYPE actionType,id params){
+    
+        switch (actionType) {
+                ///登录
+            case sSystemSettingActionTypeLogin:
+            {
+                
+                [self getMyZoneCalculationData];
+                
+            }
+                break;
+                
+                ///登出
+            case sSystemSettingActionTypeLogout:
+                
+                [self getMyZoneCalculationData];
+                
+                break;
+                
+            default:
+                break;
+        }
+    
+    };
     [self.navigationController pushViewController:settingVC animated:YES];
 
 }
@@ -875,6 +923,12 @@ static char UserNameKey;    //!<用户名
             
         }];
         
+    } else {
+    
+        self.userInfoData = nil;
+        self.statisticsData = nil;
+        [self updateMyzoneUIWithLoginData];
+    
     }
 
 }
@@ -899,6 +953,10 @@ static char UserNameKey;    //!<用户名
         
         userName.text = self.userInfoData.username;
         
+    } else {
+    
+        userName.text = nil;
+    
     }
 
 }
@@ -930,6 +988,10 @@ static char UserNameKey;    //!<用户名
         
         [iconView loadImageWithURL:[self.userInfoData.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_158]];
         
+    } else {
+    
+        iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_158];
+    
     }
 
 }

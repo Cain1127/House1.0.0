@@ -68,6 +68,7 @@
     QSCollectionWaterFlowLayout *defaultLayout = [[QSCollectionWaterFlowLayout alloc] initWithScrollDirection:UICollectionViewScrollDirectionVertical];
     defaultLayout.delegate = self;
     
+    self.houseListView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) collectionViewLayout:defaultLayout];
     self.houseListView.backgroundColor = [UIColor clearColor];
     self.houseListView.delegate = self;
     self.houseListView.dataSource = self;
@@ -75,6 +76,7 @@
     self.houseListView.showsVerticalScrollIndicator = NO;
     [self.houseListView registerClass:[QSHouseListTitleCollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
     [self.houseListView registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
+    [self.view addSubview:self.houseListView];
     
     ///添加刷新
     [self.houseListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(requestHeaderData)];

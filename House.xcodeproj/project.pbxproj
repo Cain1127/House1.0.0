@@ -592,6 +592,7 @@
 		47474F981ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47474F961ADE2E810049AE57 /* myzone_oorder_selected_bt_pressed_icon.png */; };
 		47474F9B1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47474F9A1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m */; };
 		47474F9E1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 47474F9D1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png */; };
+		47474FA11ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47474FA01ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.m */; };
 		474A6F871ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */; };
 		474A6F8A1ADD01330099E5CC /* QSPOrderCommentStarsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 474A6F891ADD01330099E5CC /* QSPOrderCommentStarsView.m */; };
 		474A6F8D1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 474A6F8B1ADD20A30099E5CC /* myzone_oorder_star_bt_normal_icon.png */; };
@@ -1783,6 +1784,8 @@
 		47474F991ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderCommentSelectedButtonView.h; sourceTree = "<group>"; };
 		47474F9A1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderCommentSelectedButtonView.m; sourceTree = "<group>"; };
 		47474F9D1ADE42E00049AE57 /* myzone_order_result_submit_success_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myzone_order_result_submit_success_icon.png; sourceTree = "<group>"; };
+		47474F9F1ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderTipsButtonPopView.h; sourceTree = "<group>"; };
+		47474FA01ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderTipsButtonPopView.m; sourceTree = "<group>"; };
 		474A6F851ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderEvaluationListingsViewController.h; sourceTree = "<group>"; };
 		474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPOrderEvaluationListingsViewController.m; sourceTree = "<group>"; };
 		474A6F881ADD01330099E5CC /* QSPOrderCommentStarsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPOrderCommentStarsView.h; sourceTree = "<group>"; };
@@ -5585,6 +5588,8 @@
 				472757831AD7D46400A50333 /* QSPOrderCancelReasonViewController.m */,
 				474A6F851ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.h */,
 				474A6F861ADCFD600099E5CC /* QSPOrderEvaluationListingsViewController.m */,
+				47474F9F1ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.h */,
+				47474FA01ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.m */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -7116,6 +7121,7 @@
 				475A4D331AC3E65A009881CF /* QSPBuyerBookedOrderCompletedListView.m in Sources */,
 				CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */,
 				180CA3171ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m in Sources */,
+				47474FA11ADFAA9F0049AE57 /* QSPOrderTipsButtonPopView.m in Sources */,
 				475A4D311AC3E65A009881CF /* QSPBuyerBookedOrderCancelListView.m in Sources */,
 				475A4D4D1AC3E7BC009881CF /* QSPSalerBookedOrderCancelListView.m in Sources */,
 				475A4D341AC3E65A009881CF /* QSPBuyerTransactionOrderListCompletedView.m in Sources */,
@@ -7239,8 +7245,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7268,7 +7274,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7280,8 +7286,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7309,7 +7315,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

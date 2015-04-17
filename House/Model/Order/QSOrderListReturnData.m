@@ -360,10 +360,10 @@
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
-                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.transaction_price floatValue]];
+                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.last_saler_bid floatValue]];
                     }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
                         //房客角色
-                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.transaction_price floatValue]];
+                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.last_saler_bid floatValue]];
                     }
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500221"]

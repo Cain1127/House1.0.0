@@ -17,6 +17,7 @@
 #import "QSCustomHUDView.h"
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSPSalerBookedOrdersListsViewController.h"
+#import "QSPOrderTipsButtonPopView.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -93,6 +94,12 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             [self cancelAppointmentOrder];
         }else if (500252 == button.tag ){
             //编辑还价
+            QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithShareCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+            }];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
         }
         
     }];

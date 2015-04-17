@@ -68,6 +68,7 @@
     self.tenantListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) style:UITableViewStyleGrouped];
     self.tenantListView.showsHorizontalScrollIndicator = NO;
     self.tenantListView.showsVerticalScrollIndicator = NO;
+    self.tenantListView.backgroundColor = [UIColor clearColor];
     
     self.tenantListView.dataSource = self;
     self.tenantListView.delegate = self;
@@ -92,6 +93,7 @@
         
         cellTenantInfo = [[QSYRecommendTenantTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tenantInfoCell];
         cellTenantInfo.selectionStyle = UITableViewCellSelectionStyleNone;
+        cellTenantInfo.backgroundColor = [UIColor clearColor];
         
     }
     
