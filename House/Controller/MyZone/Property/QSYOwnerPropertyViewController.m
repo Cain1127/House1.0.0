@@ -236,11 +236,9 @@
     
     ///头部刷新
     [self.recordsListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getReleaseHouseHeaderData)];
-    [self.recordsListView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getReleaseHouseMoreData)];
     
     ///开始就头部刷新
     [self.recordsListView.header beginRefreshing];
-    self.recordsListView.footer.hidden = YES;
     
 }
 
@@ -557,13 +555,6 @@
         
     }];
     
-}
-
-- (void)getReleaseHouseMoreData
-{
-
-    
-
 }
 
 #pragma mark - 弹出发布物业提示框
