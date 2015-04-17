@@ -665,6 +665,8 @@ typedef enum
     rRequestTypeMyZoneRecommendTenantList = 5008,       //!<推荐房客
     rRequestTypeMyZoneAskRentPurphaseRentHouse = 5009,  //!<求租求购对应的推荐出租房列表
     rRequestTypeMyZoneAskRentPurphaseSecondHouse = 5010,//!<求租求购对应的推荐二手房列表
+    rRequestTypeMyZoneDeleteRentHouseProperty = 5011,   //!<删除出租物业
+    rRequestTypeMyZoneDeleteSaleHouseProperty = 5012,   //!<删除出售物业
     
     rRequestTypeMyZoneStatistics = 5500,                //!<个人中心的统计数据
 

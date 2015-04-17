@@ -11,6 +11,10 @@
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYRecommendTenantViewController.h"
 
+#import "QSYOwnerPropertyDeleteTipsPopView.h"
+#import "QSYPopCustomView.h"
+#import "QSCustomHUDView.h"
+
 #import "QSYPropertyHouseInfoTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -331,12 +335,21 @@
                     
                     ///编辑
                 case pPropertyInfocellActionTypeEdit:
+                {
                     
+                    QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel changeToReleaseDataModel]];
+                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
+                
+                };
                     break;
                     
                     ///暂停发布
                 case pPropertyInfocellActionTypeDelete:
+                {
                     
+                    [self deleteProperty:tempModel.id_ andPropertyType:fFilterMainTypeSecondHouse];
+                    
+                };
                     break;
                     
                     ///推荐房客
@@ -406,12 +419,21 @@
                     
                     ///编辑
                 case pPropertyInfocellActionTypeEdit:
-                    
+                {
+                
+                    QSYReleaseRentHouseViewController *updatePropertyVC = [[QSYReleaseRentHouseViewController alloc] initWithRentHouseModel:[tempModel changeToReleaseDataModel]];
+                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
+                
+                }
                     break;
                     
                     ///暂停发布
                 case pPropertyInfocellActionTypeDelete:
+                {
                     
+                    [self deleteProperty:tempModel.id_ andPropertyType:fFilterMainTypeRentalHouse];
+                
+                };
                     break;
                     
                     ///推荐房客
@@ -604,6 +626,73 @@
     
     ///弹出窗口
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+
+}
+
+#pragma mark - 删除物业
+- (void)deleteProperty:(NSString *)propertyID andPropertyType:(FILTER_MAIN_TYPE)houseType
+{
+
+    __block QSYPopCustomView *popView;
+    
+    QSYOwnerPropertyDeleteTipsPopView *tipsView = [[QSYOwnerPropertyDeleteTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 150.0f, SIZE_DEVICE_WIDTH, 150.0f) andCallBack:^(PROPERTY_DELETE_ACTION_TYPE actionType) {
+        
+        [popView hiddenCustomPopview];
+        
+        switch (actionType) {
+                
+                ///确认删除
+            case pPropertyDeleteActionTypeConfirm:
+            {
+                
+                ///显示HUD
+                QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+            
+                ///封装参数
+                NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(propertyID, @""),
+                                         @"status" : @"-1",
+                                         @"house_status" : @"-1"};
+                
+                ///根据类型生成请求
+                REQUEST_TYPE requestType = (fFilterMainTypeRentalHouse == houseType) ? rRequestTypeMyZoneDeleteRentHouseProperty : (fFilterMainTypeSecondHouse == houseType ? rRequestTypeMyZoneDeleteSaleHouseProperty : rRequestTypeMyZoneDeleteRentHouseProperty);
+                
+                [QSRequestManager requestDataWithType:requestType andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f andCallBack:^(BOOL flag){
+                        
+                            ///刷新数据
+                            [self.recordsListView.header beginRefreshing];
+                        
+                        }];
+                        
+                    } else {
+                    
+                        NSString *tipsString = @"删除失败";
+                        if (resultData) {
+                            
+                            tipsString = [resultData valueForKey:@"info"];
+                            
+                        }
+                        [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+                    
+                    }
+                    
+                }];
+            
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+    }];
 
 }
 

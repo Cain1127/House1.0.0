@@ -8,29 +8,25 @@
 
 #import "QSCustomHUDView.h"
 
+///HUD的状态
+typedef enum
+{
+
+    cCustomHUDStatusPrepareStar = 99,   //!<准备开始
+    cCustomHUDStatusLoading,            //!<正在进行中
+    cCustomHUDStatusPrepareEnd,         //!<准备结束
+
+}CUSTOM_HUD_STATUS;
+
 @interface QSCustomHUDView ()
 
-@property (nonatomic,copy) NSString *mainTips;      //!<主要提示信息
-@property (nonatomic,copy) NSString *headerTips;    //!<前置显示的提示信息
-@property (nonatomic,copy) NSString *footerTips;    //!<后置显示的提示信息
-@property (nonatomic,retain) NSTimer *loadingTimer; //!<加载定时器
+@property (assign) CUSTOM_HUD_STATUS hudStatus;                     //!<状态
+@property (nonatomic,copy) NSString *mainTips;                      //!<主要提示信息
+@property (nonatomic,copy) NSString *headerTips;                    //!<前置显示的提示信息
+@property (nonatomic,copy) NSString *footerTips;                    //!<后置显示的提示信息
+@property (nonatomic,retain) NSTimer *loadingTimer;                 //!<加载定时器
 @property (nonatomic,strong) UIActivityIndicatorView *indicatorView;//!<指示器
 @property (nonatomic,strong) UILabel *tipsLabel;                    //!<信息提示框
-
-/**
- *  @author             yangshengmeng, 15-01-27 14:01:34
- *
- *  @brief              根据给定的提示信息创建一个自定义的HUD
- *
- *  @param frame        位置和大小
- *  @param tips         主要提示信息，没有则不显示
- *  @param headerTips   前面先显示的提示信息
- *
- *  @return             返回当前创建的HUD
- *
- *  @since              1.0.0
- */
-- (instancetype)initWithFrame:(CGRect)frame andTips:(NSString *)tips andHeaderTips:(NSString *)headerTips;
 
 @end
 
@@ -122,7 +118,7 @@
 {
 
     ///动画退出
-    [self hiddenCustomHUDWithFooterTips:@"加载成功……"];
+    [self hiddenCustomHUDWithFooterTips:@"加载成功"];
 
 }
 
@@ -152,19 +148,42 @@
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)time
 {
 
-    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:time andCallBack:nil];
+    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:(time > 0.5f ? time : 0.5f) andCallBack:nil];
 
 }
 
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
 {
     
-    ///保存回调
-    void(^tempCallBack)(BOOL flag) = [callBack copy];
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        do {
+            
+            if (self.hudStatus == cCustomHUDStatusPrepareEnd) {
+                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    
+                    [self hiddenCustomHUDWhiteStatusEnd:footerTips andDelayTime:delayTime andCallBack:callBack];
+                    
+                });
+                
+                ///结束循环
+                break;
+                
+            }
+            
+        } while (1);
+        
+    });
+
+}
+
+- (void)hiddenCustomHUDWhiteStatusEnd:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
+{
+
     ///判断是否有退出时的提示信息
     if (footerTips) {
-            
+        
         self.tipsLabel.text = footerTips;
         
         ///按给定的时间显示后移除
@@ -177,9 +196,9 @@
             } completion:^(BOOL finished) {
                 
                 ///判断是否有回调
-                if (tempCallBack) {
+                if (callBack) {
                     
-                    tempCallBack(YES);
+                    callBack(YES);
                     
                 }
                 
@@ -190,7 +209,7 @@
         });
         
     } else {
-    
+        
         ///按给定的时间显示后移除
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -201,9 +220,9 @@
             } completion:^(BOOL finished) {
                 
                 ///判断是否有回调
-                if (tempCallBack) {
+                if (callBack) {
                     
-                    tempCallBack(YES);
+                    callBack(YES);
                     
                 }
                 
@@ -212,7 +231,7 @@
             }];
             
         });
-    
+        
     }
 
 }
@@ -225,20 +244,36 @@
         
         self.tipsLabel.text = self.headerTips;
         
-        ///0.5秒后显示主提示信息
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        ///0.3秒后显示主提示信息
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             self.tipsLabel.text = self.mainTips;
+            self.hudStatus = cCustomHUDStatusLoading;
+            
+        });
+        
+        ///主信息显示0.3秒后，修改显示状态
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            self.hudStatus = cCustomHUDStatusPrepareEnd;
             
         });
         
     } else {
     
         self.tipsLabel.text = self.mainTips;
+        self.hudStatus = cCustomHUDStatusLoading;
+        
+        ///主信息显示0.3秒后，修改显示状态
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            self.hudStatus = cCustomHUDStatusPrepareEnd;
+            
+        });
     
     }
     
-    ///转为系统指示
+    ///H开启UD指示器
     [self.indicatorView startAnimating];
 
 }
@@ -250,8 +285,9 @@
     if (self = [super initWithFrame:frame]) {
         
         ///保存提示信息
-        self.mainTips = tips;
-        self.headerTips = headerTips;
+        self.mainTips = [tips length] > 0 ? tips : @"努力加载中";
+        self.headerTips = [headerTips length] > 0 ? headerTips : @"准备加载";
+        self.hudStatus = cCustomHUDStatusPrepareStar;
         
         ///添加转动
         [self createCustomHUDUI];
