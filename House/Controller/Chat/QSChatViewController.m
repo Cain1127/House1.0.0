@@ -133,8 +133,8 @@
         ///动画移动
         [UIView animateWithDuration:0.3 animations:^{
             
-            messageListView.frame = CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f);
-            contactListView.frame = CGRectMake(SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f);
+            messageListView.frame = CGRectMake(0.0f, messageListView.frame.origin.y, messageListView.frame.size.width, messageListView.frame.size.height);
+            contactListView.frame = CGRectMake(SIZE_DEVICE_WIDTH, contactListView.frame.origin.y, contactListView.frame.size.width, contactListView.frame.size.height);
             tipsImage.frame = CGRectMake(SIZE_DEVICE_WIDTH / 4.0f - 8.0f, tipsImage.frame.origin.y, tipsImage.frame.size.width, tipsImage.frame.size.height);
             
         } completion:^(BOOL finished) {
@@ -295,8 +295,8 @@
         ///动画移动
         [UIView animateWithDuration:0.3 animations:^{
             
-            contactListView.frame = CGRectMake(0.0f, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f);
-            messageListView.frame = CGRectMake(-SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f);
+            contactListView.frame = CGRectMake(0.0f, contactListView.frame.origin.y, contactListView.frame.size.width, contactListView.frame.size.height);
+            messageListView.frame = CGRectMake(-SIZE_DEVICE_WIDTH, messageListView.frame.origin.y, messageListView.frame.size.width, messageListView.frame.size.height);
             tipsImage.frame = CGRectMake(SIZE_DEVICE_WIDTH * 3.0f / 4.0f - 8.0f, tipsImage.frame.origin.y, tipsImage.frame.size.width, tipsImage.frame.size.height);
             
         } completion:^(BOOL finished) {
