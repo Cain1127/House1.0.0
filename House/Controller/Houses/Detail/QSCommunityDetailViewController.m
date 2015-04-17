@@ -254,7 +254,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///设置数据源和代理
     infoRootView.delegate = self;
     infoRootView.scrollEnabled=YES;
-    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,_tabbleView.frame.origin.y+_tabbleView.frame.size.height);
+    infoRootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH,_tabbleView.frame.origin.y+_tabbleView.frame.size.height+10.0f);
     
 }
 
@@ -529,6 +529,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     ///开启滚动
         topView.contentSize = CGSizeMake((width * [packInfos count] + gap * ([packInfos count] + 1)) + 10.0f, topView.frame.size.height);
+    
+    ///分隔线
+    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
+    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+    [view addSubview:bottomLineLabel];
     
 }
 
