@@ -91,6 +91,15 @@
     
     UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///过滤
+        if (uUserCountTypeAgency != [QSCoreDataManager getUserType] &&
+            5 <= [QSCoreDataManager getUserPropertySumCount]) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能发布5套物业", 1.5f, ^(){})
+            return;
+            
+        }
+        
         ///弹出发布物业咨询页面
         [self popReleaseHouseTipsView];
         
