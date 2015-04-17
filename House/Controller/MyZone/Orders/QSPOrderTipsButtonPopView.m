@@ -81,7 +81,7 @@
     CGFloat width = (self.frame.size.width - 2.0f * xpoint - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP) / 2.0f;
     
     ///取消按钮
-    QSBlockButtonStyleModel *cancelButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhiteGray];
+    QSBlockButtonStyleModel *cancelButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     cancelButtonStyle.title = @"取消";
     
     UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, contentBackgroundView.frame.size.height-VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP-VIEW_SIZE_NORMAL_BUTTON_HEIGHT, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
