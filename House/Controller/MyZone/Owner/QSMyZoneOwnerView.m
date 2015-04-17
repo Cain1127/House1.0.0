@@ -554,7 +554,7 @@ static char RecommendKey;   //!<推荐房源关联key
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -568,6 +568,10 @@ static char RecommendKey;   //!<推荐房源关联key
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -584,7 +588,7 @@ static char RecommendKey;   //!<推荐房源关联key
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -598,6 +602,10 @@ static char RecommendKey;   //!<推荐房源关联key
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -614,7 +622,7 @@ static char RecommendKey;   //!<推荐房源关联key
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -628,6 +636,10 @@ static char RecommendKey;   //!<推荐房源关联key
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -642,7 +654,7 @@ static char RecommendKey;   //!<推荐房源关联key
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -656,6 +668,10 @@ static char RecommendKey;   //!<推荐房源关联key
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }

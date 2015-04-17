@@ -814,6 +814,30 @@ static char UserNameKey;    //!<用户名
     ///进入设置页面
     QSYSystemSettingViewController *settingVC = [[QSYSystemSettingViewController alloc] init];
     [self hiddenBottomTabbar:YES];
+    settingVC.systemSettingCallBack = ^(SYSTEMSETTING_ACTION_TYPE actionType,id params){
+    
+        switch (actionType) {
+                ///登录
+            case sSystemSettingActionTypeLogin:
+            {
+                
+                [self getMyZoneCalculationData];
+                
+            }
+                break;
+                
+                ///登出
+            case sSystemSettingActionTypeLogout:
+                
+                [self getMyZoneCalculationData];
+                
+                break;
+                
+            default:
+                break;
+        }
+    
+    };
     [self.navigationController pushViewController:settingVC animated:YES];
 
 }
@@ -899,6 +923,12 @@ static char UserNameKey;    //!<用户名
             
         }];
         
+    } else {
+    
+        self.userInfoData = nil;
+        self.statisticsData = nil;
+        [self updateMyzoneUIWithLoginData];
+    
     }
 
 }
@@ -923,6 +953,10 @@ static char UserNameKey;    //!<用户名
         
         userName.text = self.userInfoData.username;
         
+    } else {
+    
+        userName.text = nil;
+    
     }
 
 }
@@ -954,6 +988,10 @@ static char UserNameKey;    //!<用户名
         
         [iconView loadImageWithURL:[self.userInfoData.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_158]];
         
+    } else {
+    
+        iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_158];
+    
     }
 
 }

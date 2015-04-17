@@ -338,7 +338,6 @@ static char NavigationBarKey;       //!<导航栏的关联key
             if (lLoginCheckActionTypeReLogin == flag) {
                 
                 ///让相关UI重创
-                ///回调通知用户信息已修改
                 [QSCoreDataManager performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
                 
             }

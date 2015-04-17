@@ -526,6 +526,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
 
 }
@@ -556,6 +560,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -586,6 +594,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -614,6 +626,10 @@ static char HistoryKey;     //!<浏览足迹
         
         }
         
+    } else {
+    
+        label.text = @"0";
+    
     }
     
 }
@@ -640,6 +656,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"查看全部";
+    
     }
     
 }
@@ -666,6 +686,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"查看全部";
+    
     }
     
 }
@@ -692,6 +716,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"查看全部";
+    
     }
     
 }
@@ -718,6 +746,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"暂无收藏";
+    
     }
     
 }
@@ -744,6 +776,10 @@ static char HistoryKey;     //!<浏览足迹
             
         }
         
+    } else {
+    
+        label.text = @"暂无关注";
+    
     }
     
 }

@@ -123,21 +123,27 @@ typedef enum
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     
     ///退出按钮
-    buttonStyle.title = @"退出";
+    LOGIN_CHECK_ACTION_TYPE loginStatus = [self checkLogin];
+    buttonStyle.bgColorSelected = buttonStyle.bgColor;
+    buttonStyle.title = (lLoginCheckActionTypeLogined == loginStatus) ? @"退出" : @"登录";
     UIButton *logoutButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - VIEW_SIZE_NORMAL_BUTTON_HEIGHT - VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///判断当前是否已登录
-        if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        if (button.selected) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前并未登录", 1.0f, ^(){})
-            return;
+            button.selected = NO;
+            [button setTitle:@"登录" forState:UIControlStateNormal];
+            [self logoutAction];
             
+        } else {
+        
+            button.selected = YES;
+            [button setTitle:@"退出" forState:UIControlStateNormal];
+            [self checkLoginAndShowLogin];
+        
         }
         
-        ///退出登录
-        [self logoutAction];
-        
     }];
+    logoutButton.selected = (lLoginCheckActionTypeLogined == loginStatus) ? YES : NO;
     [self.view addSubview:logoutButton];
     
 }
@@ -236,13 +242,19 @@ typedef enum
                     
                     [hud hiddenCustomHUDWithFooterTips:@"退出成功"];
                     
+                    if (self.systemSettingCallBack) {
+                        
+                        self.systemSettingCallBack(sSystemSettingActionTypeLogout,nil);
+                        
+                    }
+                    
                 }
                 
             }];
             
         } else {
         
-            NSString *tipsString = @"退出成功";
+            NSString *tipsString = @"退出失败";
             if (resultData) {
                 
                 tipsString = [resultData valueForKey:@"info"];
