@@ -84,6 +84,13 @@ static char AssessCommentKey;   //!<评论内容关联key
 -(void)updateAssessCellInfo:(QSCommentListDataModel *)CommentDataModel
 {
 
+    if (nil == CommentDataModel.user_id) {
+        
+        self.textLabel.text = @"暂无评论";
+        return;
+        
+    }
+    
     [self updateAssessImageKey:CommentDataModel.userInfo.avatar];
     [self updateAssessUserKey:CommentDataModel.userInfo.username];
     [self updateAssessDateKey:CommentDataModel.create_time];

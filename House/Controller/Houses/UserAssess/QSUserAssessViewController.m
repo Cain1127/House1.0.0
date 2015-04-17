@@ -20,7 +20,7 @@
 
 static char AssessTableKey;   //!<评论内容关联key
 
-#define SIZE_DEFAULT_MARGIN_TAP (SIZE_DEVICE_WIDTH > 320.0f ? 30.0f : 20.0f)
+#define SIZE_DEFAULT_MARGIN_TAP (SIZE_DEVICE_WIDTH > 320.0f ? 25.0f : 20.0f)
 
 @interface QSUserAssessViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -57,9 +57,11 @@ static char AssessTableKey;   //!<评论内容关联key
 -(void)createMainShowUI
 {
     
-    UITableView *tableView=[[UITableView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_TAP, 15.0f, SIZE_DEVICE_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_TAP, SIZE_DEVICE_HEIGHT-64.0f)];
+    UITableView *tableView=[[UITableView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_TAP, 64.0f, SIZE_DEVICE_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_TAP, SIZE_DEVICE_HEIGHT-64.0f)];
     tableView.delegate = self;
     tableView.dataSource = self;
+    tableView.showsHorizontalScrollIndicator = NO;
+    tableView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &AssessTableKey, tableView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -101,7 +103,7 @@ static char AssessTableKey;   //!<评论内容关联key
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return self.dataSource.count ? self.dataSource.count : 10;
+    return self.dataSource.count ? self.dataSource.count : 1;
     //return 10;
     
 }
@@ -121,16 +123,15 @@ static char AssessTableKey;   //!<评论内容关联key
     
         QSCommentListDataModel *tempModel = [[QSCommentListDataModel alloc] init];
 
-    if (self.dataSource) {
+    if ([self.dataSource count]>0) {
         ///获取模型
         tempModel = self.dataSource[indexPath.row];
     }
     
-    if (tempModel) {
         
         [cell updateAssessCellInfo:tempModel];
 
-    }
+    
     
     
     ///取消选择样式
@@ -166,11 +167,10 @@ static char AssessTableKey;   //!<评论内容关联key
             QSCommentListReturnData *tempModel = resultData;
             
             self.dataSource = [[NSArray alloc] init];
-            if (tempModel.msgInfo.commentList) {
-                ///保存数据模型
-                self.dataSource = tempModel.msgInfo.commentList;
-            }
-          
+            
+            ///保存数据模型
+            self.dataSource = tempModel.msgInfo.commentList;
+            
             
             ///创建详情UI
             [tableView reloadData];

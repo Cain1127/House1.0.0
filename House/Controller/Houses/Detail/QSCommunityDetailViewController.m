@@ -443,7 +443,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:unitLabel];
     
     UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
-    
+    priceWeb.scrollView.bounces = NO;
     NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990202&",self.communityID];
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     priceWeb.backgroundColor=[UIColor whiteColor];
@@ -479,6 +479,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UITextView *infoTextView=[[UITextView alloc] initWithFrame:CGRectMake(10.0f, topView.frame.origin.y+topView.frame.size.height+15.0f, topView.frame.size.width-20.0f, 60.0f)];
     infoTextView.text = @"16号线公交:(体育西路),25号线公交:(林和西)";
     infoTextView.font = [UIFont systemFontOfSize:16.0f];
+    infoTextView.editable = NO;
     [view addSubview:infoTextView];
     
     ///底图

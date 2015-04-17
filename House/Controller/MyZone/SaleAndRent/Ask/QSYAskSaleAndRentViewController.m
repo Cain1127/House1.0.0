@@ -35,6 +35,7 @@
 @property (nonatomic,strong) UITableView *listView;                         //!<列表
 @property (nonatomic,retain) QSYAskRentAndBuyReturnData *dataSourceModel;   //!<数据源
 @property (nonatomic,assign) NSInteger releaseIndex;                        //!<当前展开的cell下标
+@property (assign) BOOL isRefresh;                                          //!<神力显示时是否刷新数据
 
 @end
 
@@ -95,11 +96,9 @@
     
     ///头部刷新
     [self.listView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getAskRentAndBuyData)];
-    [self.listView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getMoreRentAndBuyData)];
     
     ///开始就头部刷新
     [self.listView.header beginRefreshing];
-    self.listView.footer.hidden = YES;
 
 }
 
@@ -130,7 +129,7 @@
             if (isRelease) {
                 
                 ///列表刷新
-                [self.listView.header beginRefreshing];
+                self.isRefresh = YES;
                 
             }
             
@@ -150,7 +149,7 @@
             if (isRelease) {
                 
                 ///列表刷新
-                [self.listView.header beginRefreshing];
+                self.isRefresh = YES;
                 
             }
             
@@ -253,7 +252,7 @@
                     if (isRelease) {
                         
                         ///列表刷新
-                        [self.listView.header beginRefreshing];
+                        self.isRefresh = YES;
                         
                     }
                     
@@ -269,7 +268,7 @@
                     if (isRelease) {
                         
                         ///列表刷新
-                        [self.listView.header beginRefreshing];
+                        self.isRefresh = YES;
                         
                     }
                     
@@ -367,75 +366,6 @@
 
 }
 
-- (void)getMoreRentAndBuyData
-{
-
-    ///封装参数
-    int currentPage = [self.dataSourceModel.headerData.per_page intValue];
-    int nextPage = [self.dataSourceModel.headerData.next_page intValue];
-    
-    if (currentPage == nextPage) {
-        
-        [self.listView.header endRefreshing];
-        [self.listView.footer endRefreshing];
-        return;
-        
-    }
-    
-    ///显示脚
-    self.listView.footer.stateHidden = NO;
-    
-    NSDictionary *params = @{@"order" : @"update_time desc",
-                             @"page_num" : @"10",
-                             @"now_page" : self.dataSourceModel.headerData.next_page,
-                             @"type" : @"0",
-                             @"status" : @"1"};
-    
-    [QSRequestManager requestDataWithType:rRequestTypeMyZoneAskRentPurphaseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///请求成功
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            ///转换模型
-            QSYAskRentAndBuyReturnData *tempModel = resultData;
-            
-            ///原数据指针
-            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataSourceModel.headerData.dataList];
-            
-            ///判断是否有数据
-            if ([tempModel.headerData.dataList count] > 0) {
-                
-                self.dataSourceModel = tempModel;
-                [tempArray addObjectsFromArray:tempModel.headerData.dataList];
-                self.dataSourceModel.headerData.dataList = tempArray;
-                
-                ///刷新数据
-                [self.listView reloadData];
-                
-                ///结束刷新
-                [self.listView.header endRefreshing];
-                [self.listView.footer endRefreshing];
-                
-            } else {
-                
-                ///结束刷新
-                [self.listView.header endRefreshing];
-                [self.listView.footer endRefreshing];
-                
-            }
-            
-        } else {
-            
-            ///结束刷新
-            [self.listView.header endRefreshing];
-            [self.listView.footer endRefreshing];
-            
-        }
-        
-    }];
-
-}
-
 #pragma mark - 弹出求租求购咨询页
 - (void)popAskRentAndSecondHandHouseView
 {
@@ -458,7 +388,7 @@
                 if (isRelease) {
                     
                     ///列表刷新
-                    [self.listView.header beginRefreshing];
+                    self.isRefresh = YES;
                     
                 }
                 
@@ -476,7 +406,7 @@
                 if (isRelease) {
                     
                     ///列表刷新
-                    [self.listView.header beginRefreshing];
+                    self.isRefresh = YES;
                     
                 }
                 
@@ -545,6 +475,26 @@
     
     ///弹出窗口
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+
+}
+
+#pragma mark - 实图出现时判断是否需要刷新数据
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isRefresh) {
+        
+        self.isRefresh = NO;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.listView.header beginRefreshing];
+            
+        });
+        
+    }
 
 }
 
