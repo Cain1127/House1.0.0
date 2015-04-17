@@ -75,6 +75,7 @@
     self.houseListView.showsVerticalScrollIndicator = NO;
     [self.houseListView registerClass:[QSHouseListTitleCollectionViewCell class] forCellWithReuseIdentifier:@"titleCell"];
     [self.houseListView registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"houseCell"];
+    [self.view addSubview:self.houseListView];
     
     ///添加刷新
     [self.houseListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(requestHeaderData)];
