@@ -433,7 +433,7 @@ static char LeftStarKey;            //!<左侧星级
     [self createHouseTotalUI:houseTotalView andTotalModel:dataModel.house];
     
     ///房子详情
-    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*5.0f+4.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseTotalView.frame.origin.y+houseTotalView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHousesInfo:self.houseInfo];
     
     ///房子服务
@@ -820,13 +820,13 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-     houseTypeLabel.text=[NSString stringWithFormat:@"户型:%@室%@厅%@卫",houseInfoModel.house_shi,houseInfoModel.house_ting ? houseInfoModel.house_ting : @"0",houseInfoModel.house_wei ? houseInfoModel.house_wei : @"0"];
+     houseTypeLabel.text=[NSString stringWithFormat:@"户型:%@室%@厅%@卫",houseInfoModel.house_shi,houseInfoModel.house_ting ? houseInfoModel.house_ting : @"",houseInfoModel.house_wei ? houseInfoModel.house_wei : @""];
     houseTypeLabel.textAlignment=NSTextAlignmentLeft;
     houseTypeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:houseTypeLabel];
     
     UILabel *typeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    typeLabel.text = [NSString stringWithFormat:@"类型:%@",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type]];
+    typeLabel.text = [NSString stringWithFormat:@"类型:%@",[QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type] ? [QSCoreDataManager getHouseTradeTypeWithKey:houseInfoModel.property_type] : @""];
     typeLabel.textAlignment=NSTextAlignmentLeft;
     typeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:typeLabel];
@@ -834,7 +834,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *orientationsLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     orientationsLabel.textAlignment=NSTextAlignmentLeft;
     orientationsLabel.font=[UIFont systemFontOfSize:14.0f];
-    orientationsLabel.text=[NSString stringWithFormat:@"朝向:%@",[QSCoreDataManager getHouseFaceTypeWithKey:houseInfoModel.house_face]];
+    orientationsLabel.text=[NSString stringWithFormat:@"朝向:%@",[QSCoreDataManager getHouseFaceTypeWithKey:houseInfoModel.house_face] ? [QSCoreDataManager getHouseFaceTypeWithKey:houseInfoModel.house_face] : @""];
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
@@ -846,7 +846,7 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     decoreteLabel.textAlignment=NSTextAlignmentLeft;
     decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
-    decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];
+    decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] ? [QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] :@""];
     [view addSubview:decoreteLabel];
     
 
@@ -854,11 +854,11 @@ static char LeftStarKey;            //!<左侧星级
     UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, decoreteLabel.frame.origin.y, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     stateLabel.textAlignment=NSTextAlignmentLeft;
     stateLabel.font=[UIFont systemFontOfSize:14.0f];
-    stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status];
+    stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status ? houseInfoModel.house_status : @""];
     [view addSubview:stateLabel];
     
     UILabel *intakeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    intakeLabel.text=[NSString stringWithFormat:@"交付时间:%@",houseInfoModel.lead_time];
+    intakeLabel.text=[NSString stringWithFormat:@"交付时间:%@",houseInfoModel.lead_time ? houseInfoModel.lead_time : @""];
     intakeLabel.font=[UIFont systemFontOfSize:14.0f];
     intakeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:intakeLabel];
@@ -888,9 +888,11 @@ static char LeftStarKey;            //!<左侧星级
     
     ///获取出租房pist配置文件
     NSString *path = [[NSBundle mainBundle] pathForResource:@"HouseDetailServiceInfo" ofType:@"plist"];
+    
     ///取出对应字典数组
     NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"Rent_House_Service"];
  
+    ///遍历数组
     for (int i =0; i < [pathInfos count]; i++) {
         
         NSDictionary *infoDict = pathInfos[i];
@@ -920,7 +922,7 @@ static char LeftStarKey;            //!<左侧星级
         [view addSubview:bagStayLabel];
         
     }
-     
+    
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
@@ -937,7 +939,12 @@ static char LeftStarKey;            //!<左侧星级
     
     ///最近变价
     UILabel *newlyChangeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 15.0f)];
-    newlyChangeLabel.text=[NSString stringWithFormat:@"最近变价:%@",priceChangesModel.update_time];
+    
+    ///把数字转为有效时间
+    NSString *configTime = [NSString stringWithFormat:@"%@",[NSDate timeStampStringToNSDate:priceChangesModel.update_time]];
+    
+    ///只取到年月日即可
+    newlyChangeLabel.text=[NSString stringWithFormat:@"最近变价:%@",[configTime substringToIndex:10]];
     newlyChangeLabel.font=[UIFont systemFontOfSize:14.0f];
     newlyChangeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:newlyChangeLabel];
@@ -1182,7 +1189,8 @@ static char LeftStarKey;            //!<左侧星级
 -(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSHouseCommentDataModel *) commentModel
 {
     if (!commentModel.num) {
-        UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:view.bounds];
+        UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 20.0f)];
+        nNommentLabel.center = CGPointMake(60.0f, view.frame.size.height/2.0f);
         nNommentLabel.text = @"暂无评论";
         nNommentLabel.font = [UIFont systemFontOfSize:20.0f];
         nNommentLabel.textAlignment = NSTextAlignmentCenter;
@@ -1193,11 +1201,28 @@ static char LeftStarKey;            //!<左侧星级
         arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
         [view addSubview:arrowView];
         
+        UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-35.0f, arrowView.frame.origin.y-4.0f, 35.0f, 12.0f)];
+        houseCommentLabel.text = @"评论";
+        houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseCommentLabel.textAlignment = NSTextAlignmentCenter;
+        houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:houseCommentLabel];
+        
+        ///评论次数
+        UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 35.0f, 12.0f)];
+        commentCountLabel.text = commentModel.num ? commentModel.num : @"0";
+        commentCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        commentCountLabel.textAlignment = NSTextAlignmentCenter;
+        commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:commentCountLabel];
+        
+        
         ///分隔线
         UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
         bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
         [view addSubview:bottomLineLabel];
     }
+
     else
     {
     ///用户头像
@@ -1241,16 +1266,18 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:arrowView];
     
     ///评论
-    UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-30.0f, arrowView.frame.origin.y-4.0f, 30.0f, 12.0f)];
+    UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-35.0f, arrowView.frame.origin.y-4.0f, 35.0f, 12.0f)];
     houseCommentLabel.text = @"评论";
     houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseCommentLabel.textAlignment = NSTextAlignmentCenter;
     houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
     [view addSubview:houseCommentLabel];
     
     ///评论数
-    UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 30.0f, 12.0f)];
+    UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 35.0f, 12.0f)];
     commentCountLabel.text = commentModel.num ? commentModel.num : @"暂无";
-    commentCountLabel.textColor = COLOR_CHARACTERS_BLACK;
+    commentCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    commentCountLabel.textAlignment = NSTextAlignmentCenter;
     commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
     [view addSubview:commentCountLabel];
     

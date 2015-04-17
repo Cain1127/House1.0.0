@@ -655,8 +655,9 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:unitLabel];
     
     UIWebView *priceWeb=[[UIWebView alloc] initWithFrame:CGRectMake(0.0f, priceLabel.frame.origin.y+priceLabel.frame.size.height+5.0f, view.frame.size.width, 200.0f)];
-    
+    priceWeb.scrollView.bounces = NO;
     NSString *url=[NSString stringWithFormat:@"%@%@%@%@",URLFDangJiaAvgPriceTotal,@"?h=200",@"&total_type=990201&",self.loupanID];
+    
     [priceWeb loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     priceWeb.backgroundColor=[UIColor whiteColor];
     
@@ -936,12 +937,12 @@ static char LeftStarKey;            //!<左侧星级
         [view addSubview:infoLabel];
         
         ///单位
-        UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x + infoLabel.frame.size.width, infoLabel.frame.origin.y + infoLabel.frame.size.height - 12.0f, 15.0f, 10.0f)];
+        UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x + infoLabel.frame.size.width, infoLabel.frame.origin.y  + 2.5f, 15.0f, 10.0f)];
         unitLabel.text = APPLICATION_AREAUNIT;
         unitLabel.textAlignment = NSTextAlignmentLeft;
         unitLabel.textColor = COLOR_CHARACTERS_BLACK;
         unitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-        [sixFormImage addSubview:unitLabel];
+        [view addSubview:unitLabel];
         
     }
     
