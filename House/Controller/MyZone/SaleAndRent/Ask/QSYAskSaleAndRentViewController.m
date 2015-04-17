@@ -53,6 +53,15 @@
     
     self.addButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
+        ///判断当前是否可以发布求租求购
+        if (5 <= ([self.dataSourceModel.headerData.rent_num intValue] +
+            [self.dataSourceModel.headerData.purchase_num intValue])) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能发布5条求租求购信息", 1.5f, ^(){})
+            return;
+            
+        }
+        
         ///弹出求租求购咨询页面
         [self popAskRentAndSecondHandHouseView];
         
