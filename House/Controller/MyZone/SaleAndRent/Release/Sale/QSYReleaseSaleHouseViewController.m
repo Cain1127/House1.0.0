@@ -233,7 +233,8 @@ typedef enum
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
-    NSString *filterInfo = [self.saleHouseReleaseModel valueForKey:[tempDict valueForKey:@"filter_key"]];
+    NSString *keyString = [tempDict valueForKey:@"filter_key"];
+    NSString *filterInfo = [self.saleHouseReleaseModel valueForKey:keyString];
     if ([filterInfo length] > 0) {
         
         tempTextField.text = filterInfo;

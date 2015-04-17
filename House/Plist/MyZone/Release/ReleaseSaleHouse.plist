@@ -81,11 +81,11 @@
 		<key>order</key>
 		<string>4</string>
 		<key>placehold</key>
-		<string>address</string>
+		<string></string>
 		<key>left_title</key>
 		<string>详细地址</string>
 		<key>filter_key</key>
-		<string></string>
+		<string>address</string>
 	</dict>
 	<key>house_type</key>
 	<dict>

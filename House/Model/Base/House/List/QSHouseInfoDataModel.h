@@ -15,6 +15,7 @@
  *
  *  @since  1.0.0
  */
+@class QSReleaseSaleHouseDataModel;
 @interface QSHouseInfoDataModel : QSBaseHouseInfoDataModel
 
 @property (nonatomic,copy) NSString *name;                  //!<业主姓名
@@ -54,5 +55,16 @@
 @property (nonatomic,copy) NSString *elevator;              //!<是否有电梯：Y-有，N-无
 
 @property (nonatomic,copy) NSString *is_syserver;           //!<收藏是否已同步服务端
+
+/**
+ *  @author yangshengmeng, 15-04-17 12:04:54
+ *
+ *  @brief  将服务端的数据模型，转换为本地发布使用的数据模型
+ *
+ *  @return <#return value description#>
+ *
+ *  @since <#version number#>
+ */
+- (QSReleaseSaleHouseDataModel *)changeToReleaseDataModel;
 
 @end
