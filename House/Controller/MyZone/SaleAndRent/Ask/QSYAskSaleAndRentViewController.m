@@ -210,6 +210,14 @@
         
         if (aAskRentAndBuyCellActionTypeRecommend == actionType) {
             
+            ///判断是否有推荐房源
+            if (0 >= [tempModel.commend_num intValue]) {
+                
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(@"暂无推荐房源", 1.5f, ^(){})
+                return;
+                
+            }
+            
             if (1 == [tempModel.type intValue]) {
                 
                 QSYAskRecommendRentHouseViewController *recommendVC = [[QSYAskRecommendRentHouseViewController alloc] initWithRecommendID:tempModel.id_];
