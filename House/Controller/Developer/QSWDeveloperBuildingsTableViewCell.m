@@ -55,7 +55,6 @@ static char PublishTimeLabelKey;//!<发布时间
             
             self.developerBuildingsCellButtonCallBack(dDeveloperBuildingsActionTypeHeaderImage);
             
-
         }
         
     }];
@@ -82,35 +81,37 @@ static char PublishTimeLabelKey;//!<发布时间
     
     UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-70.0f-SIZE_MARGIN_LEFT_RIGHT, titleLabel.frame.origin.y, 70.0f, 35.0f)];
     priceRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-    priceRootView.layer.borderWidth = 6.0f;
+    priceRootView.layer.cornerRadius = 6.0f;
     [self.contentView addSubview:priceRootView];
     
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 7.5f, 50.0f, 20.0f)];
-  //  priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    UILabel *priceLabel = [[UILabel alloc] init];
+                           //initWithFrame:CGRectMake(0.0f, 7.5f, 50.0f, 20.0f)];
+    priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont systemFontOfSize:18.0f];
     [priceRootView addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceLabelKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(50.0f, 10.0f, 20.0f, 15.0f)];
-//    unitLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    UILabel *unitLabel = [[UILabel alloc] init];
+                          //initWithFrame:CGRectMake(50.0f, 10.0f, 20.0f, 15.0f)];
+    unitLabel.translatesAutoresizingMaskIntoConstraints = NO;
     unitLabel.textAlignment = NSTextAlignmentLeft;
     unitLabel.textColor = COLOR_CHARACTERS_GRAY;
     unitLabel.text = [NSString stringWithFormat:@"%@%@",@"/",APPLICATION_AREAUNIT];
     [priceRootView addSubview:unitLabel];
     
-//    ///约束参数
-//    NSDictionary *viewsVFL = NSDictionaryOfVariableBindings(priceLabel,unitLabel);
-//    
-//    ///约束
-//    NSString *hVFL_all = @"H:|-(>=2)-[priceLabel(>=30)]-2-[unitLabel(25)]-(>=2)-|";
-//    NSString *vVFL_priceLabel = @"V:|-7.5-[priceLabel(20)]";
-//    NSString *vVFL_unitLabel = @"V:|-10-[unitLabel(15)]";
-//    
-//    ///添加约束
-//    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hVFL_all options:0 metrics:nil views:viewsVFL]];
-//    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vVFL_priceLabel options:0 metrics:nil views:viewsVFL]];
-//    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vVFL_unitLabel options:0 metrics:nil views:viewsVFL]];
+    ///约束参数
+    NSDictionary *viewsVFL = NSDictionaryOfVariableBindings(priceLabel,unitLabel);
+    
+    ///约束
+    NSString *hVFL_all = @"H:|-(>=2)-[priceLabel(>=30)]-2-[unitLabel(25)]-(>=2)-|";
+    NSString *vVFL_priceLabel = @"V:|-7.5-[priceLabel(20)]";
+    NSString *vVFL_unitLabel = @"V:|-10-[unitLabel(15)]";
+    
+    ///添加约束
+    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:hVFL_all options:0 metrics:nil views:viewsVFL]];
+    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vVFL_priceLabel options:0 metrics:nil views:viewsVFL]];
+    [priceRootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vVFL_unitLabel options:0 metrics:nil views:viewsVFL]];
     
     UILabel *pageLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_MARGIN_LEFT_RIGHT, mainImageView.frame.origin.y+mainImageView.frame.size.height+10.0f, 50.0f, 20.0f)];
     pageLabel.text = @"浏览量:";
@@ -146,9 +147,9 @@ static char PublishTimeLabelKey;//!<发布时间
     [self.contentView addSubview:publishTimeLabel];
     objc_setAssociatedObject(self, &PublishTimeLabelKey, publishTimeLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_MARGIN_LEFT_RIGHT, publishTimeLabel.frame.origin.y+publishTimeLabel.frame.size.height+20.0f-0.25f, SIZE_DEVICE_WIDTH-SIZE_MARGIN_LEFT_RIGHT*2.0f, 0.25f)];
-    lineLabel.textColor = COLOR_CHARACTERS_GRAY;
-    [self.contentView addSubview:lineLabel];
+    UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(pageLabel.frame.origin.x, pageLabel.frame.origin.y+pageLabel.frame.size.height+20.0f, SIZE_DEVICE_WIDTH-2.0F*SIZE_MARGIN_LEFT_RIGHT, 0.25f)];
+    topLineLabel.backgroundColor = COLOR_CHARACTERS_GRAY;
+    [self.contentView addSubview:topLineLabel];
     
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClearGray];
     buttonStyle.cornerRadio = 6.0f;
@@ -165,12 +166,12 @@ static char PublishTimeLabelKey;//!<发布时间
         }
         
     }];
-    checkDetailLabel.center = CGPointMake(SIZE_DEVICE_WIDTH/6.0f+SIZE_DEVICE_WIDTH/12.0f, lineLabel.frame.origin.y+20.0f+7.5f);
+    checkDetailLabel.center = CGPointMake(SIZE_DEVICE_WIDTH/6.0f+SIZE_DEVICE_WIDTH/12.0f, topLineLabel.frame.origin.y+20.0f+7.5f);
 
     [self.contentView addSubview:checkDetailLabel];
     
-    UILabel *lineLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH/2.0f-0.25f, checkDetailLabel.frame.origin.y-10.0f, 0.25f, 35.0f)];
-    lineLabel1.textColor = COLOR_CHARACTERS_GRAY;
+    UILabel *lineLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH/2.0f-0.25f, topLineLabel.frame.origin.y+10.0f, 0.25f, 35.0f)];
+    lineLabel1.backgroundColor = COLOR_CHARACTERS_GRAY;
     [self.contentView addSubview:lineLabel1];
     
     buttonStyle.title = @"暂停发布";
@@ -181,11 +182,11 @@ static char PublishTimeLabelKey;//!<发布时间
         }
         
     }];
-    stopPublishLabel.center = CGPointMake(SIZE_DEVICE_WIDTH-SIZE_DEVICE_WIDTH/6.0f-SIZE_DEVICE_WIDTH/12.0f, lineLabel.frame.origin.y+20.0f+7.5);
+    stopPublishLabel.center = CGPointMake(SIZE_DEVICE_WIDTH-SIZE_DEVICE_WIDTH/6.0f-SIZE_DEVICE_WIDTH/12.0f, topLineLabel.frame.origin.y+20.0f+7.5);
     [self.contentView addSubview:stopPublishLabel];
     
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, stopPublishLabel.frame.origin.y+stopPublishLabel.frame.size.height+20.0f, SIZE_DEVICE_WIDTH, 0.25)];
-    bottomLineLabel.textColor = COLOR_CHARACTERS_GRAY;
+    bottomLineLabel.backgroundColor = COLOR_CHARACTERS_GRAY;
     [self.contentView addSubview:bottomLineLabel];
     
     

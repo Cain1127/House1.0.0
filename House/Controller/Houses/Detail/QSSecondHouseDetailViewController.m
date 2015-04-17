@@ -915,7 +915,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///获取plist配置文件
     NSString *path = [[NSBundle mainBundle] pathForResource:@"HouseDetailServiceInfo" ofType:@"plist"];
-    NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"House_Service"];
+    NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"Second_House_Service"];
     
     for (int i =0; i < [pathInfos count]; i++) {
         

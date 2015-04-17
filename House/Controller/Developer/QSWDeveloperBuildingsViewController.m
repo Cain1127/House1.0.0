@@ -43,6 +43,9 @@ static char TableViewKey;   //!<楼盘列表
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &TableViewKey, tableView, OBJC_ASSOCIATION_ASSIGN);
     
+    [tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBuildingsInfo)];
+    [tableView.header beginRefreshing];
+    
     
 }
 
@@ -69,7 +72,7 @@ static char TableViewKey;   //!<楼盘列表
     QSWDeveloperBuildingsTableViewCell *cell = [tableView  dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell==nil) {
         
-        cell = [[QSWDeveloperBuildingsTableViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH-SIZE_MARGIN_LEFT_RIGHT*2.0f, 225.0f)];
+        cell = [[QSWDeveloperBuildingsTableViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 225.0f)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
@@ -102,5 +105,15 @@ static char TableViewKey;   //!<楼盘列表
     
     return cell;
 }
+
+#pragma mark -网络请求
+-(void)getBuildingsInfo
+{
+
+    UITableView *tableView = objc_getAssociatedObject(self, &TableViewKey);
+    [tableView.header endRefreshing];
+
+}
+
 
 @end
