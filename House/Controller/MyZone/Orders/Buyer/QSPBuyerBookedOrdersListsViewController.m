@@ -414,5 +414,33 @@ typedef enum
     
 }
 
+- (void)reloadCurrentShowList
+{
+    
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    switch (self.selectedListType) {
+        case mBuyerBookedOrderListTypeBooked:
+            if (waitForListView) {
+                [waitForListView getBookingListHeaderData];
+            }
+            break;
+        case mBuyerBookedOrderListTypeCompleted:
+            if (completeListView) {
+                [completeListView getBookingListHeaderData];
+            }
+            break;
+        case mBuyerBookedOrderListTypeCancel:
+            if (cancelListView) {
+                [cancelListView getBookingListHeaderData];
+            }
+            break;
+        default:
+            break;
+    }
+    
+}
 
 @end

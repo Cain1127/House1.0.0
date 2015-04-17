@@ -223,8 +223,8 @@
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     [tempParam setObject:self.orderID forKey:@"order_id"];
-    [tempParam setObject:[NSString stringWithFormat:@"%d",[self.totalStarsView getSelectedIndex]*2] forKey:@"score"];
-    [tempParam setObject:[NSString stringWithFormat:@"%d",[self.salerStarsView getSelectedIndex]*2] forKey:@"manner_score"];
+    [tempParam setObject:[NSString stringWithFormat:@"%ld",[self.totalStarsView getSelectedIndex]*2] forKey:@"score"];
+    [tempParam setObject:[NSString stringWithFormat:@"%ld",[self.salerStarsView getSelectedIndex]*2] forKey:@"manner_score"];
     [tempParam setObject:[self.contentTextView text] forKey:@"desc"];
     [tempParam setObject:suitableStr forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
     

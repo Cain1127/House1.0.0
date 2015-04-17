@@ -18,6 +18,7 @@
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSCustomHUDView.h"
 #import "QSPOrderEvaluationListingsViewController.h"
+#import "QSPBuyerBookedOrdersListsViewController.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -153,7 +154,11 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500230 == button.tag){
             //评价房源
             [self commitEvaluationListings];
+        }else if (500220 == button.tag ){
+            //房客成交已看房
+            [self buyerAcceptPrice];
         }
+        
         
         
     }];
@@ -580,7 +585,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            //             [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
             
         }
         
@@ -634,6 +639,82 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         [self.parentViewController.navigationController pushViewController:elVc animated:YES];
     }
+    
+}
+
+
+#pragma mark - 房客成交
+- (void)buyerAcceptPrice
+{
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderBuyerAcceptPrice andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
     
 }
 

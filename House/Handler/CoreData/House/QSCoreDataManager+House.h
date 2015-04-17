@@ -15,6 +15,7 @@
  *
  *  @since  1.0.0
  */
+@class QSBaseConfigurationDataModel;
 @interface QSCoreDataManager (House)
 
 /**
@@ -51,6 +52,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseIsNegotiatedPriceType;
++ (NSString *)getHouseIsNegotiatedPriceTypeWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-03-06 15:03:43
@@ -277,6 +279,7 @@
  *  @since              1.0.0
  */
 + (NSArray *)getHouseInstallationTypes:(FILTER_MAIN_TYPE)filterType;
++ (QSBaseConfigurationDataModel *)getHouseInstallationModelWithKey:(NSString *)keyString andHouseType:(FILTER_MAIN_TYPE)filterType;
 
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37
@@ -299,6 +302,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getRentHouseStatusTypes;
++ (NSString *)getRentHouseStatusTypeValueWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37
@@ -310,6 +314,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHousePropertyManagementFees;
++ (NSString *)getHousePropertyManagementFeeValueWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37

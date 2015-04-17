@@ -401,7 +401,6 @@
 		18C8A2291A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2281A6E07A700BB9611 /* QSBlockButtonStyleModel+Normal.m */; };
 		18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A2761A6E904C00BB9611 /* QSRequestManager.m */; };
 		18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */; };
-		18CACE281AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CACE271AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m */; };
 		18CAFC9E1A70916C00C90C90 /* RequestInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */; };
 		18CAFCA41A70DEFC00C90C90 /* QSCoreDataManager+User.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCA31A70DEFC00C90C90 /* QSCoreDataManager+User.m */; };
 		18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCB31A70E45A00C90C90 /* QSAdvertReturnData.m */; };
@@ -1443,8 +1442,6 @@
 		18C8A2761A6E904C00BB9611 /* QSRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRequestManager.m; sourceTree = "<group>"; };
 		18C8A27E1A6EAC3800BB9611 /* QSDataMappingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSDataMappingManager.h; path = DataMapping/QSDataMappingManager.h; sourceTree = "<group>"; };
 		18C8A27F1A6EAC3800BB9611 /* QSDataMappingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSDataMappingManager.m; path = DataMapping/QSDataMappingManager.m; sourceTree = "<group>"; };
-		18CACE261AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYOwnerPropertyDeleteTipsPopView.h; path = Property/Pop/QSYOwnerPropertyDeleteTipsPopView.h; sourceTree = "<group>"; };
-		18CACE271AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYOwnerPropertyDeleteTipsPopView.m; path = Property/Pop/QSYOwnerPropertyDeleteTipsPopView.m; sourceTree = "<group>"; };
 		18CAFC9D1A70916C00C90C90 /* RequestInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = RequestInfo.plist; path = Request/RequestInfo.plist; sourceTree = "<group>"; };
 		18CAFCA01A70953E00C90C90 /* QueueHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QueueHeader.h; path = Queue/QueueHeader.h; sourceTree = "<group>"; };
 		18CAFCA21A70DEFC00C90C90 /* QSCoreDataManager+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+User.h"; path = "User/QSCoreDataManager+User.h"; sourceTree = "<group>"; };
@@ -4415,15 +4412,6 @@
 			name = DataMapping;
 			sourceTree = "<group>";
 		};
-		18CACE251AE0C8060053CA84 /* Pop */ = {
-			isa = PBXGroup;
-			children = (
-				18CACE261AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.h */,
-				18CACE271AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m */,
-			);
-			name = Pop;
-			sourceTree = "<group>";
-		};
 		18CAFC9C1A70913500C90C90 /* Request */ = {
 			isa = PBXGroup;
 			children = (
@@ -4810,7 +4798,6 @@
 		18D081BD1ACD88FE004FA20F /* Property */ = {
 			isa = PBXGroup;
 			children = (
-				18CACE251AE0C8060053CA84 /* Pop */,
 				18D082291AD1549A004FA20F /* Cell */,
 				18D081BE1ACD891D004FA20F /* QSYOwnerPropertyViewController.h */,
 				18D081BF1ACD891D004FA20F /* QSYOwnerPropertyViewController.m */,
@@ -6823,7 +6810,6 @@
 				18C8A0DC1A6A823300BB9611 /* QSMyZoneViewController.m in Sources */,
 				18D081DD1ACE44F6004FA20F /* QSYContactListTableViewCell.m in Sources */,
 				18D0819F1ACD51EC004FA20F /* QSYAskRentAndSecondHandHouseTipsPopView.m in Sources */,
-				18CACE281AE0C83F0053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m in Sources */,
 				477B327D1AD8C282004D374E /* QSPOrderDetailActionReturnBaseDataModel.m in Sources */,
 				475A4D941AC53919009881CF /* QSPOrderDetailCancelTransAndWarmBuyerButtonView.m in Sources */,
 				475A4D3D1AC3E65A009881CF /* QSPOrderDetailAddressView.m in Sources */,
@@ -7259,8 +7245,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7288,7 +7274,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7300,8 +7286,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7329,7 +7315,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e61ff8f6-c730-448d-b5d2-5b8653dfdfa9";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
