@@ -816,147 +816,169 @@ static QSSocketManager *_socketManager = nil;
 ///接收到数据之后执行
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    
-    APPLICATION_LOG_INFO(@"socket日志->接收返回信息", data)
-    
-    ///获取消息长度
-    char messageLengthBuf[4] = "\0";
-    [data getBytes:messageLengthBuf range:NSMakeRange(0, 4)];
-    int32_t messageLengthNetwork = intbytesToInt32(messageLengthBuf);
-    NTOHL(messageLengthNetwork);
-    
-    ///获取消息类型
-    char messageTypeBuf[4] = "\0";
-    [data getBytes:messageTypeBuf range:NSMakeRange(4, 4)];
-    int32_t messageTypeNetwork;
-    messageTypeNetwork = intbytesToInt32(messageTypeBuf);
-    NTOHL(messageTypeNetwork);
-    
-    ///根据不同的类型，转不同的模型
-    switch (messageTypeNetwork) {
-            ///上线
-        case QSChat::QSCHAT_ONLINE:
+ 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       
+        NSData *tempData = [NSData dataWithData:data];
+        do {
             
-            break;
+            ///获取消息长度
+            char messageLengthBuf[4] = "\0";
+            [tempData getBytes:messageLengthBuf range:NSMakeRange(0, 4)];
+            int32_t messageLengthNetwork = intbytesToInt32(messageLengthBuf);
+            NTOHL(messageLengthNetwork);
             
-            ///下线
-        case QSChat::QSCHAT_OFFLINE:
+            ///获取消息类型
+            char messageTypeBuf[4] = "\0";
+            [tempData getBytes:messageTypeBuf range:NSMakeRange(4, 4)];
+            int32_t messageTypeNetwork;
+            messageTypeNetwork = intbytesToInt32(messageTypeBuf);
+            NTOHL(messageTypeNetwork);
             
-            break;
+            ///根据不同的类型，转不同的模型
+            switch (messageTypeNetwork) {
+                    ///上线
+                case QSChat::QSCHAT_ONLINE:
+                    
+                    break;
+                    
+                    ///下线
+                case QSChat::QSCHAT_OFFLINE:
+                    
+                    break;
+                    
+                    ///文字聊天
+                case QSChat::QSCHAT_WORD:
+                {
+                    
+                    ///消息
+                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                    string messageString = string(messageBuf);
+                    
+                    ///返回的信息
+                    QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
+                    wordMessage.ParseFromString(messageString);
+                    
+                    ///转模型关回调
+                    [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
+                    
+                    ///更新消息数据列
+                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                    
+                }
+                    break;
+                    
+                    ///图片聊天
+                case QSChat::QSCHAT_PIC:
+                {
+                    
+                    ///消息
+                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                    string messageString = string(messageBuf);
+                    
+                    ///返回的信息
+                    QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
+                    wordMessage.ParseFromString(messageString);
+                    
+                    ///转模型关回调
+                    [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
+                    
+                    ///更新消息数据列
+                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                    
+                }
+                    break;
+                    
+                    ///音频聊天
+                case QSChat::QSCHAT_VIDEO:
+                {
+                    
+                    ///消息
+                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                    string messageString = string(messageBuf);
+                    
+                    ///返回的信息
+                    QSChat::AnswerVideo wordMessage = QSChat::AnswerVideo();
+                    wordMessage.ParseFromString(messageString);
+                    
+                    ///转模型关回调
+                    [self handleReceiveVideoMessage:[self talk_ChangeCPPToOCModel_Video:wordMessage]];
+                    
+                    ///更新消息数据列
+                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                    
+                }
+                    break;
+                    
+                    ///推荐房源消息
+                case QSChat::QSCHAT_SPECIAL:
+                    
+                    break;
+                    
+                    ///系统消息
+                case QSChat::QSCHAT_SYSTEM:
+                    
+                    break;
+                    
+                    ///历史文字聊天
+                case QSChat::QSCHAT_HISTORY_WORD:
+                {
+                    
+                    ///消息
+                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                    string messageString = string(messageBuf);
+                    
+                    ///返回的信息
+                    QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
+                    wordMessage.ParseFromString(messageString);
+                    
+                    ///转模型关回调
+                    [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
+                    
+                    ///更新消息数据列
+                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                    
+                }
+                    break;
+                    
+                    ///历史图片聊天
+                case QSChat::QSCHAT_HISTORY_PIC:
+                {
+                    
+                    ///消息
+                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                    string messageString = string(messageBuf);
+                    
+                    ///返回的信息
+                    QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
+                    wordMessage.ParseFromString(messageString);
+                    
+                    ///转模型关回调
+                    [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
+                    
+                    ///更新消息数据列
+                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                    
+                }
+                    break;
+                    
+                    ///历史音频聊天
+                case QSChat::QSCHAT_HISTORY_VIDEO:
+                    
+                    break;
+                    
+                default:
+                    break;
+            }
             
-            ///文字聊天
-        case QSChat::QSCHAT_WORD:
-        {
+        } while ([tempData length]);
         
-            ///消息
-            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-            string messageString = string(messageBuf);
-            
-            ///返回的信息
-            QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
-            wordMessage.ParseFromString(messageString);
-            
-            ///转模型关回调
-            [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
-            
-        }
-            break;
-            
-            ///图片聊天
-        case QSChat::QSCHAT_PIC:
-        {
-            
-            ///消息
-            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-            string messageString = string(messageBuf);
-            
-            ///返回的信息
-            QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
-            wordMessage.ParseFromString(messageString);
-            
-            ///转模型关回调
-            [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
-            
-        }
-            break;
-            
-            ///音频聊天
-        case QSChat::QSCHAT_VIDEO:
-        {
-            
-            ///消息
-            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-            string messageString = string(messageBuf);
-            
-            ///返回的信息
-            QSChat::AnswerVideo wordMessage = QSChat::AnswerVideo();
-            wordMessage.ParseFromString(messageString);
-            
-            ///转模型关回调
-            [self handleReceiveVideoMessage:[self talk_ChangeCPPToOCModel_Video:wordMessage]];
-            
-        }
-            break;
-            
-            ///推荐房源消息
-        case QSChat::QSCHAT_SPECIAL:
-            
-            break;
-            
-            ///系统消息
-        case QSChat::QSCHAT_SYSTEM:
-            
-            break;
-            
-            ///历史文字聊天
-        case QSChat::QSCHAT_HISTORY_WORD:
-        {
-            
-            ///消息
-            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-            string messageString = string(messageBuf);
-            
-            ///返回的信息
-            QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
-            wordMessage.ParseFromString(messageString);
-            
-            ///转模型关回调
-            [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
-            
-        }
-            break;
-            
-            ///历史图片聊天
-        case QSChat::QSCHAT_HISTORY_PIC:
-        {
-            
-            ///消息
-            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-            string messageString = string(messageBuf);
-            
-            ///返回的信息
-            QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
-            wordMessage.ParseFromString(messageString);
-            
-            ///转模型关回调
-            [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
-            
-        }
-            break;
-            
-            ///历史音频聊天
-        case QSChat::QSCHAT_HISTORY_VIDEO:
-            
-            break;
-            
-        default:
-            break;
-    }
+    });
     
 }
 
@@ -968,7 +990,11 @@ static QSSocketManager *_socketManager = nil;
     if (self.currentTalkMessageCallBack &&
         [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
         
-        self.currentTalkMessageCallBack(YES,ocWordModel);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
         ocWordModel.readTag = @"1";
@@ -998,7 +1024,11 @@ static QSSocketManager *_socketManager = nil;
         ///回调消息数量
         if (self.currentUnReadMessageNumCallBack) {
             
-            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
             
         }
         
@@ -1021,7 +1051,12 @@ static QSSocketManager *_socketManager = nil;
                 unreadCount = [ocWordModel.unread_count intValue];
                 
             }
-            self.instantMessageNotification(ocWordModel.msgType,unreadCount,ocWordModel.message,ocWordModel,userSimple);
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,unreadCount,ocWordModel.message,ocWordModel,userSimple);
+                
+            });
             
         }
         
@@ -1036,7 +1071,11 @@ static QSSocketManager *_socketManager = nil;
     if (self.currentTalkMessageCallBack &&
         [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
         
-        self.currentTalkMessageCallBack(YES,ocWordModel);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
         ocWordModel.readTag = @"1";
@@ -1066,7 +1105,11 @@ static QSSocketManager *_socketManager = nil;
         ///回调消息数量
         if (self.currentUnReadMessageNumCallBack) {
             
-            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
             
         }
         
@@ -1083,7 +1126,11 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],nil,ocWordModel,userSimple);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],nil,ocWordModel,userSimple);
+                
+            });
             
         }
         
@@ -1098,7 +1145,11 @@ static QSSocketManager *_socketManager = nil;
     if (self.currentTalkMessageCallBack &&
         [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
         
-        self.currentTalkMessageCallBack(YES,ocWordModel);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
         ocWordModel.readTag = @"1";
@@ -1128,7 +1179,11 @@ static QSSocketManager *_socketManager = nil;
         ///回调消息数量
         if (self.currentUnReadMessageNumCallBack) {
             
-            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
             
         }
         
@@ -1145,7 +1200,11 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],nil,ocWordModel,userSimple);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],nil,ocWordModel,userSimple);
+                
+            });
             
         }
         
@@ -1159,7 +1218,11 @@ static QSSocketManager *_socketManager = nil;
     ///回调
     if (self.currentTalkMessageCallBack) {
         
-        self.currentTalkMessageCallBack(YES,ocWordModel);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
         ocWordModel.readTag = @"1";
@@ -1189,7 +1252,11 @@ static QSSocketManager *_socketManager = nil;
         ///回调消息数量
         if (self.currentUnReadMessageNumCallBack) {
             
-            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
             
         }
         
@@ -1215,7 +1282,11 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType == %@",ocWordModel.fromID,ocWordModel.msgType];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,nil,userSimple);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,nil,userSimple);
+                
+            });
             
         }
         
@@ -1231,7 +1302,11 @@ static QSSocketManager *_socketManager = nil;
     if (self.currentTalkMessageCallBack &&
         [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
         
-        self.currentTalkMessageCallBack(YES,ocWordModel);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
         ocWordModel.readTag = @"1";
@@ -1277,7 +1352,11 @@ static QSSocketManager *_socketManager = nil;
         ///回调消息数量
         if (self.currentUnReadMessageNumCallBack) {
             
-            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
             
         }
         
@@ -1294,7 +1373,11 @@ static QSSocketManager *_socketManager = nil;
             NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType = %@",ocWordModel.fromID,ocWordModel.msgType];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
-            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,ocWordModel,userSimple);
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,ocWordModel,userSimple);
+                
+            });
             
         }
         
