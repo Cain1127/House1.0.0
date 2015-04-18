@@ -251,13 +251,13 @@ static char FeaturesKey;    //!<特色标签
     [self updateHouseStreetInfo:tempModel.address];
     
     ///更新房子面积信息
-    [self updateHouseAreaInfo:tempModel.house_area];
+    [self updateHouseAreaInfo:[NSString stringWithFormat:@"%d",[tempModel.house_area intValue]]];
     
     ///更新房子户型信息
     [self updateHouseTypeInfo:tempModel.house_shi and:tempModel.house_ting];
     
     ///更新中间标题
-    [self updateTitleWithTitle:tempModel.house_price];
+    [self updateTitleWithTitle:[NSString stringWithFormat:@"%d",[tempModel.house_price intValue]/10000]];
     [self updateTitleUnitWithUnit:@"万"];
     
     ///更新背景图片

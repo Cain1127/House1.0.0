@@ -65,7 +65,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (nonatomic,retain) NSArray *photoArray;                       //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *village_photo;           //!<图片模型
 
-@property (nonatomic,retain) NSArray *houseCommendArray;                //!<推荐数组
+@property (nonatomic,retain) NSArray *houseCommendArray;                //!<二手房推荐数组
+@property (nonatomic,retain) NSArray *houseCommendRentArray;            //!<出租房推荐数组
+
 @property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;   //!<推荐模型
 
 @property (nonatomic, strong) UITableView *tabbleView;                  //!<小区信息view
@@ -521,14 +523,14 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             }];
             
         }];
-
+        
         [titleButton addTarget:self action:@selector(changeChannelBarButtonStatus:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:titleButton];
         
     }
     
     ///开启滚动
-        topView.contentSize = CGSizeMake((width * [packInfos count] + gap * ([packInfos count] + 1)) + 10.0f, topView.frame.size.height);
+    topView.contentSize = CGSizeMake((width * [packInfos count] + gap * ([packInfos count] + 1)) + 10.0f, topView.frame.size.height);
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -581,10 +583,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 }
 
 #pragma mark -tableview数据源方法
-///添加每一行cell
+
+#pragma mark -返回推荐列表的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     static NSString * CellIdentifier = @"normalInfoCell";
     
     QSCommunityDetailViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -595,9 +598,21 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }
     
-    ///获取模型
-     self.houseCommendModel = self.houseCommendArray[indexPath.row];
     
+    if ([self.houseType isEqualToString:@"second"]) {
+        
+        ///获取二手房模型
+        self.houseCommendModel = self.houseCommendArray[indexPath.row];
+        
+    }
+    
+    else if([self.houseType isEqualToString:@"rent"])
+    {
+        
+        ///获取出租房模型
+        self.houseCommendModel = self.houseCommendRentArray[indexPath.row];
+        
+    }
     [cell updateCommunityInfoCellUIWithDataModel:self.houseCommendModel];
     ///取消选择样式
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -607,17 +622,44 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     return 100.0f;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
+    if([self.houseType isEqualToString:@"rent"]){
+        
+        return self.houseCommendRentArray.count;
+        
+    }
+    
     return self.houseCommendArray.count;
-
+    
 }
+
+#pragma mark -点击每行进入推荐列表详情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    self.houseCommendModel = self.houseCommendRentArray[indexPath.row];
+    if ([self.houseType isEqualToString:@"rent"]) {
+        
+        QSRentHouseDetailViewController *rentVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title  andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeRentalHouse];
+        [self.navigationController pushViewController:rentVC animated:YES];
+        
+    }
+
+    else{
+    
+        QSSecondHouseDetailViewController *scVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeSecondHouse];
+        [self.navigationController pushViewController:scVC animated:YES];
+        
+    }
+}
+
 
 #pragma mark - 请求小区详情信息
 ///请求新房详情信息
@@ -641,8 +683,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             ///保存数据模型
             self.detailInfo = tempModel.detailInfo;
             
-            self.houseInfo=tempModel.detailInfo.village;
-            self.houseCommendArray=tempModel.detailInfo.house_commend;
+            self.houseInfo = tempModel.detailInfo.village;
+            self.houseCommendArray = tempModel.detailInfo.house_commend_apartment;
+            self.houseCommendRentArray = tempModel.detailInfo.house_commend_rent;
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
@@ -696,17 +739,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [self deleteIntentionCommunity:button];
         
     } else {
-    
+        
         [self addIntentionCommunity:button];
-    
+        
     }
-
+    
 }
 
 ///删除关注
 - (void)deleteIntentionCommunity:(UIButton *)button
 {
-
+    
     ///显示HUD
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消关注"];
     
@@ -765,13 +808,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         button.selected = NO;
         
     }];
-
+    
 }
 
 ///添加关注
 - (void)addIntentionCommunity:(UIButton *)button
 {
-
+    
     ///显示HUD
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加关注"];
     
@@ -819,21 +862,21 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         button.selected = YES;
         
     }];
-
+    
 }
 
 #pragma mark - 将关注信息保存本地
 ///将收藏信息保存本地
 - (void)saveIntentionCommunityWithStatus:(BOOL)isSendServer
 {
-
+    
     ///当前小区是否同步服务端标识
     if (isSendServer) {
         
         self.detailInfo.is_syserver = @"1";
         
     } else {
-    
+        
         self.detailInfo.is_syserver = @"0";
         
     }
@@ -847,13 +890,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             APPLICATION_LOG_INFO(@"小区关注->保存本地", @"成功")
             
         } else {
-        
+            
             APPLICATION_LOG_INFO(@"小区关注->保存本地", @"失败")
-        
+            
         }
         
     }];
-
+    
 }
 
 #pragma mark - 取消关注
@@ -876,7 +919,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         }
         
     }];
-
+    
 }
 
 @end

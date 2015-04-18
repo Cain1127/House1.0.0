@@ -21,6 +21,7 @@
 #import "QSCDCollectedCommunityDataModel.h"
 #import "QSCDCollectedCommunityHouseDataModel.h"
 #import "QSCDCollectedCommunityPhotoDataModel.h"
+#import "QSCDCollectedCommunityRentHouseDataModel.h"
 
 #import "QSCDCollectedSecondHandHouseDataModel.h"
 #import "QSCDCollectedSecondHandHousePhotoDataModel.h"
@@ -53,7 +54,8 @@
 ///收藏CoreData实体名
 #define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED @"QSCDCollectedCommunityDataModel"
 #define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_PHOTO @"QSCDCollectedCommunityPhotoDataModel"
-#define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_HOUSE @"QSCDCollectedCommunityHouseDataModel.h"
+#define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_HOUSE @"QSCDCollectedCommunityHouseDataModel"
+#define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_RENTHOUSE @"QSCDCollectedCommunityRentHouseDataModel"
 
 #define COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED @"QSCDCollectedSecondHandHouseDataModel"
 #define COREDATA_ENTITYNAME_SECONDHANDHOUSE_COLLECTED_PHOTO @"QSCDCollectedSecondHandHousePhotoDataModel"
@@ -2177,9 +2179,9 @@
     
     ///清空记录
     [cdCollectedModel removeHouses:cdCollectedModel.houses];
-    if ([collectedModel.house_commend count] > 0) {
+    if ([collectedModel.house_commend_apartment count] > 0) {
         
-        for (QSHouseInfoDataModel *houseModel in collectedModel.house_commend) {
+        for (QSHouseInfoDataModel *houseModel in collectedModel.house_commend_apartment) {
             
             QSCDCollectedCommunityHouseDataModel *cdHouseModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_HOUSE inManagedObjectContext:tempContext];
             
@@ -2236,6 +2238,72 @@
             cdHouseModel.community = cdCollectedModel;
             
             [cdCollectedModel addHousesObject:cdHouseModel];
+            
+        }
+        
+    }
+    
+    ///清空记录
+    [cdCollectedModel removeRent_houses:cdCollectedModel.rent_houses];
+    if ([collectedModel.house_commend_rent count] > 0) {
+        
+        for (QSHouseInfoDataModel *houseModel in collectedModel.house_commend_rent) {
+            
+            QSCDCollectedCommunityRentHouseDataModel *cdHouseModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_COMMUNITY_COLLECTED_RENTHOUSE inManagedObjectContext:tempContext];
+            
+            cdHouseModel.id_ = houseModel.id_;
+            cdHouseModel.user_id = houseModel.user_id;
+            cdHouseModel.introduce = houseModel.introduce;
+            cdHouseModel.title = houseModel.title;
+            cdHouseModel.title_second = houseModel.title_second;
+            cdHouseModel.address = houseModel.address;
+            cdHouseModel.floor_num = houseModel.floor_num;
+            cdHouseModel.property_type = houseModel.property_type;
+            cdHouseModel.used_year = houseModel.used_year;
+            cdHouseModel.installation = houseModel.installation;
+            cdHouseModel.features = houseModel.features;
+            cdHouseModel.view_count = houseModel.view_count;
+            cdHouseModel.provinceid = houseModel.provinceid;
+            cdHouseModel.cityid = houseModel.cityid;
+            cdHouseModel.areaid = houseModel.areaid;
+            cdHouseModel.street = houseModel.street;
+            cdHouseModel.commend = houseModel.commend;
+            cdHouseModel.attach_file = houseModel.attach_file;
+            cdHouseModel.attach_thumb = houseModel.attach_thumb;
+            cdHouseModel.favorite_count = houseModel.favorite_count;
+            cdHouseModel.attention_count = houseModel.attention_count;
+            cdHouseModel.status = houseModel.status;
+            cdHouseModel.name = houseModel.name;
+            cdHouseModel.tel = houseModel.tel;
+            cdHouseModel.content = houseModel.content;
+            cdHouseModel.village_id = houseModel.village_id;
+            cdHouseModel.village_name = houseModel.village_name;
+            cdHouseModel.building_structure = houseModel.building_structure;
+            cdHouseModel.floor_which = houseModel.floor_which;
+            cdHouseModel.house_face = houseModel.house_face;
+            cdHouseModel.decoration_type = houseModel.decoration_type;
+            cdHouseModel.house_area = houseModel.house_area;
+            cdHouseModel.house_shi = houseModel.house_shi;
+            cdHouseModel.house_ting = houseModel.house_ting;
+            cdHouseModel.house_wei = houseModel.house_wei;
+            cdHouseModel.house_chufang = houseModel.house_chufang;
+            cdHouseModel.house_yangtai = houseModel.house_yangtai;
+            cdHouseModel.cycle = houseModel.cycle;
+            cdHouseModel.time_interval_start = houseModel.time_interval_start;
+            cdHouseModel.time_interval_end = houseModel.time_interval_end;
+            cdHouseModel.entrust = houseModel.entrust;
+            cdHouseModel.entrust_company = houseModel.entrust_company;
+            cdHouseModel.video_url = houseModel.video_url;
+            cdHouseModel.negotiated = houseModel.negotiated;
+            cdHouseModel.reservation_num = houseModel.reservation_num;
+            cdHouseModel.house_no = houseModel.house_no;
+            cdHouseModel.building_year = houseModel.building_year;
+            cdHouseModel.house_price = houseModel.house_price;
+            cdHouseModel.house_nature = houseModel.house_nature;
+            cdHouseModel.elevator = houseModel.elevator;
+            cdHouseModel.community = cdCollectedModel;
+            
+            [cdCollectedModel addRent_housesObject:cdHouseModel];
             
         }
         
@@ -2355,7 +2423,7 @@
     if ([cdCollectedModel.houses count] > 0) {
         
         NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-        for (QSCDCollectedCommunityHouseDataModel *cdHouseModel in collectedModel.house_commend) {
+        for (QSCDCollectedCommunityHouseDataModel *cdHouseModel in cdCollectedModel.houses) {
             
             QSHouseInfoDataModel *houseModel = [[QSHouseInfoDataModel alloc] init];
             
@@ -2413,7 +2481,72 @@
             [tempArray addObject:houseModel];
             
         }
-        collectedModel.house_commend = [NSArray arrayWithArray:tempArray];
+        collectedModel.house_commend_apartment = [NSArray arrayWithArray:tempArray];
+        
+    }
+    
+    if ([cdCollectedModel.rent_houses count] > 0) {
+        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        for (QSCDCollectedCommunityRentHouseDataModel *cdHouseModel in cdCollectedModel.rent_houses) {
+            
+            QSHouseInfoDataModel *houseModel = [[QSHouseInfoDataModel alloc] init];
+            
+            houseModel.id_ = cdHouseModel.id_;
+            houseModel.user_id = cdHouseModel.user_id;
+            houseModel.introduce = cdHouseModel.introduce;
+            houseModel.title = cdHouseModel.title;
+            houseModel.title_second = cdHouseModel.title_second;
+            houseModel.address = cdHouseModel.address;
+            houseModel.floor_num = cdHouseModel.floor_num;
+            houseModel.property_type = cdHouseModel.property_type;
+            houseModel.used_year = cdHouseModel.used_year;
+            houseModel.installation = cdHouseModel.installation;
+            houseModel.features = cdHouseModel.features;
+            houseModel.view_count = cdHouseModel.view_count;
+            houseModel.provinceid = cdHouseModel.provinceid;
+            houseModel.cityid = cdHouseModel.cityid;
+            houseModel.areaid = cdHouseModel.areaid;
+            houseModel.street = cdHouseModel.street;
+            houseModel.commend = cdHouseModel.commend;
+            houseModel.attach_file = cdHouseModel.attach_file;
+            houseModel.attach_thumb = cdHouseModel.attach_thumb;
+            houseModel.favorite_count = cdHouseModel.favorite_count;
+            houseModel.attention_count = cdHouseModel.attention_count;
+            houseModel.status = cdHouseModel.status;
+            houseModel.name = cdHouseModel.name;
+            houseModel.tel = cdHouseModel.tel;
+            houseModel.content = cdHouseModel.content;
+            houseModel.village_id = cdHouseModel.village_id;
+            houseModel.village_name = cdHouseModel.village_name;
+            houseModel.building_structure = cdHouseModel.building_structure;
+            houseModel.floor_which = cdHouseModel.floor_which;
+            houseModel.house_face = cdHouseModel.house_face;
+            houseModel.decoration_type = cdHouseModel.decoration_type;
+            houseModel.house_area = cdHouseModel.house_area;
+            houseModel.house_shi = cdHouseModel.house_shi;
+            houseModel.house_ting = cdHouseModel.house_ting;
+            houseModel.house_wei = cdHouseModel.house_wei;
+            houseModel.house_chufang = cdHouseModel.house_chufang;
+            houseModel.house_yangtai = cdHouseModel.house_yangtai;
+            houseModel.cycle = cdHouseModel.cycle;
+            houseModel.time_interval_start = cdHouseModel.time_interval_start;
+            houseModel.time_interval_end = cdHouseModel.time_interval_end;
+            houseModel.entrust = cdHouseModel.entrust;
+            houseModel.entrust_company = cdHouseModel.entrust_company;
+            houseModel.video_url = cdHouseModel.video_url;
+            houseModel.negotiated = cdHouseModel.negotiated;
+            houseModel.reservation_num = cdHouseModel.reservation_num;
+            houseModel.house_no = cdHouseModel.house_no;
+            houseModel.building_year = cdHouseModel.building_year;
+            houseModel.house_price = cdHouseModel.house_price;
+            houseModel.house_nature = cdHouseModel.house_nature;
+            houseModel.elevator = cdHouseModel.elevator;
+            
+            [tempArray addObject:houseModel];
+            
+        }
+        collectedModel.house_commend_rent = [NSArray arrayWithArray:tempArray];
         
     }
     

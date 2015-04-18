@@ -47,8 +47,11 @@
     ///图片
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"village_photo" toKeyPath:@"village_photo" withMapping:[QSPhotoDataModel objectMapping]]];
     
-    /// 推荐
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend" toKeyPath:@"house_commend" withMapping:[QSHouseInfoDataModel objectMapping]]];
+    /// 出租房推荐
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend_rent" toKeyPath:@"house_commend_rent" withMapping:[QSHouseInfoDataModel objectMapping]]];
+    
+    /// 小区推荐
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_commend_apartment" toKeyPath:@"house_commend_apartment" withMapping:[QSHouseInfoDataModel objectMapping]]];
     
     return shared_mapping;
     

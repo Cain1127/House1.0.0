@@ -19,11 +19,12 @@
 @class QSUserBaseInfoDataModel;
 @interface QSCommunityHouseDetailDataModel : QSBaseModel
 
-@property (nonatomic,retain) QSWCommunityDataModel *village;//!<小区详情基本模型
-@property (nonatomic,retain) QSUserBaseInfoDataModel *user; //!<小区用户基本模型
-@property (nonatomic,retain) NSArray *village_photo;        //!<小区图片集
-@property (nonatomic,retain) NSArray *house_commend;        //!<小区推荐
+@property (nonatomic,retain) QSWCommunityDataModel *village;        //!<小区详情基本模型
+@property (nonatomic,retain) QSUserBaseInfoDataModel *user;         //!<小区用户基本模型
+@property (nonatomic,retain) NSArray *village_photo;                //!<小区图片集
+@property (nonatomic,retain) NSArray *house_commend_rent;           //!<小区出租房推荐
+@property (nonatomic,retain) NSArray *house_commend_apartment;      //!<小区推荐
 
-@property (nonatomic,copy) NSString *is_syserver;           //!<是否已同步到服务端
+@property (nonatomic,copy) NSString *is_syserver;                   //!<是否已同步到服务端
 
 @end
