@@ -61,8 +61,9 @@
 + (NSString *)formatNSDateToTimeStamp:(NSDate *)date
 {
     
-    NSTimeInterval interval = [date timeIntervalSince1970];
-    return [NSString stringWithFormat:@"%f",interval];
+    NSDate *currentData = [NSDate date];
+    NSTimeInterval interval = [currentData timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%.2f",interval];
     
 }
 
@@ -79,9 +80,13 @@
  */
 + (NSString *)formatNSTimeToNSDateString:(NSString *)timeStamp
 {
-
-    NSDate *date = [self timeStampStringToNSDate:timeStamp];
-    return [NSString stringWithFormat:@"%@",date];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)[timeStamp intValue]];
+    NSString *dateString = [formatter stringFromDate:date];
+    
+    return dateString;
 
 }
 

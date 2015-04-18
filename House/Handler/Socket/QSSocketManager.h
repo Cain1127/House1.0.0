@@ -81,7 +81,7 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
  *
  *  @since          1.0.0
  */
-+ (void)sendMessageToPerson:(id)msgModel andMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack;
++ (void)sendMessageToPerson:(id)msgModel andMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType;
 
 /**
  *  @author         yangshengmeng, 15-03-17 19:03:27
@@ -93,7 +93,7 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
  *
  *  @since          1.0.0
  */
-+ (void)sendMessageToGroup:(id)msgModel andGroupID:(NSString *)groupID andCallBack:(void(^)(BOOL flag,id model))callBack;
++ (void)sendMessageToGroup:(id)msgModel andGroupID:(NSString *)groupID;
 
 /**
  *  @author yangshengmeng, 15-04-01 12:04:28
@@ -102,6 +102,7 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
  *
  *  @since  1.0.0
  */
++ (void)registCurrentTalkMessageNotificationWithUserID:(NSString *)userID andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack;
 + (void)offsCurrentTalkCallBack;
 
 /**

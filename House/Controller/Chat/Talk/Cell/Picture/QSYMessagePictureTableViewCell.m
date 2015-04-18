@@ -9,6 +9,7 @@
 #import "QSYMessagePictureTableViewCell.h"
 
 #import "NSString+Calculation.h"
+#import "NSDate+Formatter.h"
 
 #import "QSYSendMessagePicture.h"
 
@@ -17,6 +18,7 @@
 ///关联
 static char UserIconKey;    //!<头像关联
 static char ImageMessageKey;//!<图片消息
+static char TimeStampKey;   //!<时间戳
 
 @interface QSYMessagePictureTableViewCell ()
 
