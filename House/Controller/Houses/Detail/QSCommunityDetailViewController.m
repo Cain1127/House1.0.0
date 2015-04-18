@@ -53,23 +53,23 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,copy) NSString *title;                         //!<标题
-@property (nonatomic,copy) NSString *communityID;                   //!<小区的ID
-@property (nonatomic,copy) NSString *commendNum;                    //!<推荐房源的个数
-@property (nonatomic,copy) NSString *houseType;                     //!<推荐房源的类型：出租/二手
+@property (nonatomic,copy) NSString *title;                             //!<标题
+@property (nonatomic,copy) NSString *communityID;                       //!<小区的ID
+@property (nonatomic,copy) NSString *commendNum;                        //!<推荐房源的个数
+@property (nonatomic,copy) NSString *houseType;                         //!<推荐房源的类型：出租/二手
 
-///详情信息的数据模型
-@property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;        //!<返回的基本数据模型，模型下带有2个基本模型，2个数组模型
+//!<返回的基本数据模型，模型下带有2个基本模型，2个数组模型
+@property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;
 @property (nonatomic,retain) QSWCommunityDataModel *houseInfo;          //!<基本模型数据
 
-@property (nonatomic,retain) NSArray *photoArray;                      //!<图集数组
-@property (nonatomic,retain) QSPhotoDataModel *village_photo;          //!<图片模型
+@property (nonatomic,retain) NSArray *photoArray;                       //!<图集数组
+@property (nonatomic,retain) QSPhotoDataModel *village_photo;           //!<图片模型
 
-@property (nonatomic,retain) NSArray *houseCommendArray;                   //!<推荐数组
-@property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;       //!<推荐模型
+@property (nonatomic,retain) NSArray *houseCommendArray;                //!<推荐数组
+@property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;   //!<推荐模型
 
-@property (nonatomic, strong) UITableView *tabbleView;              //!<小区信息view
-//@property (nonatomic, retain) NSMutableArray *communityDataSource;  //!<小区推荐数据源
+@property (nonatomic, strong) UITableView *tabbleView;                  //!<小区信息view
+//@property (nonatomic, retain) NSMutableArray *communityDataSource;      //!<小区推荐数据源
 
 @end
 
@@ -643,9 +643,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             
             self.houseInfo=tempModel.detailInfo.village;
             self.houseCommendArray=tempModel.detailInfo.house_commend;
-            NSLog(@"出租房详情数据请求成功%@",tempModel.detailInfo.village);
-            NSLog(@"参数id%@",params);
-            NSLog(@"地址%@",self.houseInfo.address);
             
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
@@ -656,6 +653,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
                 [rootView.header endRefreshing];
                 [self showInfoUI:YES];
+                
+                ///判断是否已收藏
+                if (1 == [self.houseInfo.is_store intValue]) {
+                    
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [self saveIntentionCommunityWithStatus:YES];
+                        
+                    });
+                    
+                }
                 
             });
             

@@ -32,5 +32,6 @@
 @property (nonatomic,copy) NSString *max_house_area;//!<最大户型面积
 @property (nonatomic,copy) NSString *tj_condition;  //!<内部条件评分
 @property (nonatomic,copy) NSString *tj_environment;//!<周边环境评分
+@property (nonatomic,copy) NSString *is_store;      //!<是否已收藏
 
 @end

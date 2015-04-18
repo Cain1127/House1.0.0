@@ -97,6 +97,9 @@
         contactButton.selected = NO;
         button.selected = YES;
         
+        ///注销登录账号改变时，联系人改变的监听
+        [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeChatUserLoginChange andCallBack:nil];
+        
         ///创建消息列表
         messageListView = [[QSChatMessagesView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, 104.0f, SIZE_DEVICE_WIDTH, mainHeightFloat - 40.0f) andUserType:uUserCountTypeTenant andCallBack:^(MESSAGE_LIST_ACTION_TYPE actionType, id params) {
             

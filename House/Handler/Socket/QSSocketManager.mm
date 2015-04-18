@@ -145,6 +145,12 @@ static QSSocketManager *_socketManager = nil;
     ///判断给定用户是否是当前聊天用户，如若不是，则下载服务端的离线消息
     if (![personID isEqualToString:socketManager.currentContactUserID]) {
         
+        if ([socketManager.currentContactUserID length] <= 0) {
+            
+            socketManager.currentContactUserID = personID;
+            
+        }
+        
         ///下载服务端的消息
         [socketManager sendContactServerUnReadMessage];
         
@@ -316,6 +322,21 @@ static QSSocketManager *_socketManager = nil;
 
 }
 
+/**
+ *  @author yangshengmeng, 15-04-18 09:04:56
+ *
+ *  @brief  发送下线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)sendOffLineMessage
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    [socketManager sendOffLineMessage];
+
+}
+
 - (void)sendOnLineMessage
 {
 
@@ -351,6 +372,41 @@ static QSSocketManager *_socketManager = nil;
     ///再发主体信息
     [self.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:7002];
 
+}
+
+- (void)sendOffLineMessage
+{
+    
+    ///设置信息
+    NSString *deviceName = [UIDevice currentDevice].name;                   //获取设备所有者的名称
+    NSString *deviceType = [UIDevice currentDevice].model;                  //获取设备的类别
+    NSString *deviceSystemName = [UIDevice currentDevice].systemName;       //获取设备的类别
+    NSString *deviceSystemVersion = [UIDevice currentDevice].systemVersion; //获取设备的类别
+    NSString *deviceInfoString = [NSString stringWithFormat:@"%@的%@(%@ %@)",deviceName,deviceType,deviceSystemName,deviceSystemVersion];
+    
+    ///设置发送消息
+    QSChat::QuestionOffline onLineMessage;
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"-1") UTF8String]);
+    onLineMessage.set_info([APPLICATION_NSSTRING_SETTING(deviceInfoString,@"-1") UTF8String]);
+    
+    int length = onLineMessage.ByteSize();
+    int32_t messageLength = static_cast <int32_t> (length + 4);
+    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOnLine]);
+    
+    HTONL(messageLength);
+    HTONL(messageType);
+    
+    char *buf = new char[length];
+    onLineMessage.SerializeToArray(buf,length);
+    
+    ///先发送长度和类型
+    [self.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:7100];
+    [self.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:7101];
+    
+    ///再发主体信息
+    [self.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:7102];
+    
 }
 
 /**
@@ -700,7 +756,7 @@ static QSSocketManager *_socketManager = nil;
 
 }
 
-#pragma mark - socket调试
+#pragma mark - socket代理
 ///socket连接到服务器时执行
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
@@ -857,12 +913,40 @@ static QSSocketManager *_socketManager = nil;
             
             ///历史文字聊天
         case QSChat::QSCHAT_HISTORY_WORD:
+        {
             
+            ///消息
+            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+            string messageString = string(messageBuf);
+            
+            ///返回的信息
+            QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
+            wordMessage.ParseFromString(messageString);
+            
+            ///转模型关回调
+            [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
+            
+        }
             break;
             
             ///历史图片聊天
         case QSChat::QSCHAT_HISTORY_PIC:
+        {
             
+            ///消息
+            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+            [data getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+            string messageString = string(messageBuf);
+            
+            ///返回的信息
+            QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
+            wordMessage.ParseFromString(messageString);
+            
+            ///转模型关回调
+            [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
+            
+        }
             break;
             
             ///历史音频聊天

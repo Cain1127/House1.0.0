@@ -31,6 +31,9 @@ static QSCoreDataManager *_coredataManager = nil;
 ///个人中心:房源收藏变动时回调
 @property (nonatomic,copy) COREDATACHANGEBLOCK myZoneHouseCollectedChangeCallBack;
 
+///联系人列表:登录账号或状态改变时的监听
+@property (nonatomic,copy) COREDATACHANGEBLOCK chatLoginCountChangeContactCallBack;
+
 @end
 
 @implementation QSCoreDataManager
@@ -175,6 +178,23 @@ static QSCoreDataManager *_coredataManager = nil;
                 
                 QSCoreDataManager *coredataManager = [self shareCoreDataManager];
                 coredataManager.myZoneHouseCollectedChangeCallBack = nil;
+                
+            }
+            
+            break;
+            
+            ///登录状态改变时，回调通知刷新联系人列表
+        case cCoredataDataTypeChatUserLoginChange:
+            
+            if (changeCallBack) {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.chatLoginCountChangeContactCallBack = changeCallBack;
+                
+            } else {
+                
+                QSCoreDataManager *coredataManager = [self shareCoreDataManager];
+                coredataManager.chatLoginCountChangeContactCallBack = nil;
                 
             }
             

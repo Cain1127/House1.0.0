@@ -18,6 +18,7 @@ typedef enum
     cCoredataDataTypeAddSecondHandHouseHistory, //!<二手房浏览记录
     cCoredataDataTypeAddRentHouseHistory,       //!<出租房浏览记录
     cCoredataDataTypeMyZoneUserInfoChange,      //!<用户信息变动时，我的中心连动类型
+    cCoredataDataTypeChatUserLoginChange,       //!<联系人模块，用户登录状态改变时，修改联系人列表
 
 }COREDATA_DATA_TYPE;
 
@@ -25,10 +26,12 @@ typedef enum
 typedef enum
 {
     
-    dDataChangeTypeIncrease = 0,    //!<增加
-    dDataChangeTypeReduce,          //!<减少
-    dDataChangeTypeZero,            //!<已为0
-    dDataChangeTypeUserInfoChanged, //!<有变动
+    dDataChangeTypeIncrease = 0,        //!<增加
+    dDataChangeTypeReduce,              //!<减少
+    dDataChangeTypeZero,                //!<已为0
+    dDataChangeTypeUserInfoChanged,     //!<有变动
+    dDataChangeTypeLogout,              //!<从登录变为非登录状态
+    dDataChangeTypeLogoutCountChange,   //!<登录账号改变
     
 }DATA_CHANGE_TYPE;
 
