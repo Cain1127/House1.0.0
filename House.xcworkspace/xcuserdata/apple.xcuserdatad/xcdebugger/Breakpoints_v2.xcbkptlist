@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "House/Handler/Socket/QSSocketManager.mm"
-            timestampString = "451013014.501366"
+            timestampString = "451021944.732325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "823"
-            endingLineNumber = "823"
+            startingLineNumber = "931"
+            endingLineNumber = "931"
             landmarkName = "-onSocket:didReadData:withTag:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,13 +26,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "House/Handler/Socket/QSSocketManager.mm"
-            timestampString = "451013035.492821"
+            timestampString = "451022110.713808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "+getSpecialPersonMessage:"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
+            landmarkName = "-onSocket:didReadData:withTag:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[QSSocketManager onSocket:didReadData:withTag:]"
+                  moduleName = "House"
+                  urlString = "file:///Users/apple/Develop/iOS/workplace/github/House1.0.0/House/Handler/Socket/QSSocketManager.mm"
+                  timestampString = "451022110.727569"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "820"
+                  endingLineNumber = "820"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[QSSocketManager onSocket:didReadData:withTag:]_block_invoke"
+                  moduleName = "House"
+                  urlString = "file:///Users/apple/Develop/iOS/workplace/github/House1.0.0/House/Handler/Socket/QSSocketManager.mm"
+                  timestampString = "451022110.727785"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "820"
+                  endingLineNumber = "820"
+                  offsetFromSymbolStart = "66">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
