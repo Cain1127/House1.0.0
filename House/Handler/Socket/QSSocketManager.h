@@ -64,6 +64,15 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
 + (void)sendOnLineMessage;
 
 /**
+ *  @author yangshengmeng, 15-04-18 09:04:56
+ *
+ *  @brief  发送下线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)sendOffLineMessage;
+
+/**
  *  @author         yangshengmeng, 15-03-17 19:03:05
  *
  *  @brief          一对一聊天时，发送消息

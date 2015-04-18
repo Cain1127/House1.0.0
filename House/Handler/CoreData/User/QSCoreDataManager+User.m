@@ -148,6 +148,9 @@
     ///回调通知用户信息已修改
     [self performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
     
+    ///通知用户已退出，联系人列表改变
+    [self performCoredataChangeCallBack:cCoredataDataTypeChatUserLoginChange andChangeType:dDataChangeTypeLogout andParamsID:nil andParams:nil];
+    
     ///回调
     callBack(isSave);
 
@@ -289,8 +292,11 @@
             [appDelegate saveContextWithWait:NO];
             
         });
-        
+    
     }
+    
+    ///通知用户已退出，联系人列表改变
+    [self performCoredataChangeCallBack:cCoredataDataTypeChatUserLoginChange andChangeType:dDataChangeTypeLogout andParamsID:nil andParams:nil];
     
     ///回调
     if (callBack) {
@@ -342,7 +348,7 @@
     userModel.tj_secondHouse_num = cdUserModel.tj_secondHouse_num;
     
     return userModel;
-
+    
 }
 
 ///获取当前用户ID

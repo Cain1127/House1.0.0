@@ -33,6 +33,7 @@
  */
 @interface QSCommunityListHeaderData : QSMSGBaseDataModel
 
-@property (nonatomic,retain) NSArray *communityList;//!<列表数组
+@property (nonatomic,retain) NSArray *communityList;    //!<列表数组
+@property (nonatomic,retain) NSArray *referrals_list;   //!<推荐房源数组：搜索时使用
 
 @end

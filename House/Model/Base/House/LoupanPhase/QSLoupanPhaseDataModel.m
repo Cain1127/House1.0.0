@@ -31,7 +31,8 @@
                                                     @"min_house_area",
                                                     @"max_house_area",
                                                     @"tj_condition",
-                                                    @"tj_environment"]];
+                                                    @"tj_environment",
+                                                    @"is_store"]];
     
     return shared_mapping;
     

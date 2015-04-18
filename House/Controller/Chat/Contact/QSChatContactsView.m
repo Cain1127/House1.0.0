@@ -110,6 +110,34 @@
     }
     
     [self createChatContactsUI];
+    
+    ///注册登录改变时的监听
+    [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeChatUserLoginChange andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
+        
+        switch (changeType) {
+                ///登出
+            case dDataChangeTypeLogout:
+            {
+                
+                [self createChatContactsUI];
+                
+            }
+                break;
+                
+                ///登录账号改变
+            case dDataChangeTypeLogoutCountChange:
+            {
+                
+                [self createChatContactsUI];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
 
 }
 

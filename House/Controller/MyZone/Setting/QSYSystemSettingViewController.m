@@ -15,6 +15,8 @@
 
 #import "QSCoreDataManager+User.h"
 
+#import "QSSocketManager.h"
+
 ///不过的自定义按钮tag
 typedef enum
 {
@@ -235,6 +237,9 @@ typedef enum
         
         ///退出登录成功
         if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///发送退出消息
+            [QSSocketManager sendOffLineMessage];
             
             [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
                 
