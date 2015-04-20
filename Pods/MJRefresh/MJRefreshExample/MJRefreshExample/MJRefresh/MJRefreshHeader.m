@@ -185,6 +185,17 @@
         _scrollViewOriginalInset = _scrollView.contentInset;
     }
     
+    // 在刷新的 refreshing 状态，动态设置 content inset
+    if (self.state == MJRefreshHeaderStateRefreshing ) {
+        if(_scrollView.contentOffset.y >= -_scrollViewOriginalInset.top ) {
+            _scrollView.mj_insetT = _scrollViewOriginalInset.top;
+        } else {
+            _scrollView.mj_insetT = MIN(_scrollViewOriginalInset.top + self.mj_h,
+                                        _scrollViewOriginalInset.top - _scrollView.contentOffset.y);
+        }
+        return;
+    }
+    
     // 当前的contentOffset
     CGFloat offsetY = _scrollView.mj_offsetY;
     // 头部控件刚好出现的offsetY
@@ -266,6 +277,7 @@
                 
                 // 恢复inset和offset
                 [UIView animateWithDuration:MJRefreshSlowAnimationDuration delay:0.0 options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState animations:^{
+                    // 修复top值不断累加
                     _scrollView.mj_insetT -= self.mj_h;
                 } completion:nil];
             }

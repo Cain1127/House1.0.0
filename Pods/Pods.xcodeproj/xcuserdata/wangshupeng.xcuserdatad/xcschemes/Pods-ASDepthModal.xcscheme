@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "96B2FF00B44C3E6E5854144E"
+               BlueprintIdentifier = "FA924DA7133DEB431CD9F442"
                BuildableName = "libPods-ASDepthModal.a"
                BlueprintName = "Pods-ASDepthModal"
                ReferencedContainer = "container:Pods.xcodeproj">

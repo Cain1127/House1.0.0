@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_ASDepthModal 0
 #define COCOAPODS_VERSION_PATCH_ASDepthModal 0
 
+// DXYWeChatSDK
+#define COCOAPODS_POD_AVAILABLE_DXYWeChatSDK
+#define COCOAPODS_VERSION_MAJOR_DXYWeChatSDK 1
+#define COCOAPODS_VERSION_MINOR_DXYWeChatSDK 5
+#define COCOAPODS_VERSION_PATCH_DXYWeChatSDK 1
+
 // ISO8601DateFormatterValueTransformer
 #define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
 #define COCOAPODS_VERSION_MAJOR_ISO8601DateFormatterValueTransformer 0
@@ -76,13 +82,13 @@
 #define COCOAPODS_POD_AVAILABLE_MJRefresh
 #define COCOAPODS_VERSION_MAJOR_MJRefresh 1
 #define COCOAPODS_VERSION_MINOR_MJRefresh 4
-#define COCOAPODS_VERSION_PATCH_MJRefresh 1
+#define COCOAPODS_VERSION_PATCH_MJRefresh 5
 
 // RKValueTransformers
 #define COCOAPODS_POD_AVAILABLE_RKValueTransformers
 #define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
 #define COCOAPODS_VERSION_MINOR_RKValueTransformers 1
-#define COCOAPODS_VERSION_PATCH_RKValueTransformers 1
+#define COCOAPODS_VERSION_PATCH_RKValueTransformers 2
 
 // Reachability
 #define COCOAPODS_POD_AVAILABLE_Reachability

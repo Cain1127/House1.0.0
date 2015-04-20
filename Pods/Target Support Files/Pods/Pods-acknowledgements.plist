@@ -86,6 +86,15 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>® 1998 - 2014 Tencent All Rights Reserved.
+</string>
+			<key>Title</key>
+			<string>DXYWeChatSDK</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Apache License
 Version 2.0, January 2004
 http://www.apache.org/licenses/

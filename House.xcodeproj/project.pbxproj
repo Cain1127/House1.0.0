@@ -721,6 +721,9 @@
 		CE172FAE1AB03CC8002A245C /* QSWRentHouseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE172FAD1AB03CC8002A245C /* QSWRentHouseInfoDataModel.m */; };
 		CE2029871AE2034C00E78CEF /* QSCDCollectedCommunityRentHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2029861AE2034C00E78CEF /* QSCDCollectedCommunityRentHouseDataModel.m */; };
 		CE20298A1AE2037800E78CEF /* QSCDCollectedCommunityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2029891AE2037800E78CEF /* QSCDCollectedCommunityDataModel.m */; };
+		CE20298C1AE48B1200E78CEF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */; };
+		CE20298E1AE48B2500E78CEF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298D1AE48B2500E78CEF /* libz.dylib */; };
+		CE2029901AE48B3800E78CEF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298F1AE48B3800E78CEF /* libc++.dylib */; };
 		CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */; };
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
@@ -2000,6 +2003,9 @@
 		CE2029861AE2034C00E78CEF /* QSCDCollectedCommunityRentHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDCollectedCommunityRentHouseDataModel.m; sourceTree = "<group>"; };
 		CE2029881AE2037800E78CEF /* QSCDCollectedCommunityDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCDCollectedCommunityDataModel.h; sourceTree = "<group>"; };
 		CE2029891AE2037800E78CEF /* QSCDCollectedCommunityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCDCollectedCommunityDataModel.m; sourceTree = "<group>"; };
+		CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		CE20298D1AE48B2500E78CEF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CE20298F1AE48B3800E78CEF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		CE20B87E1AD260310057BFF2 /* QSMortgageCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMortgageCalculatorViewController.h; sourceTree = "<group>"; };
 		CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMortgageCalculatorViewController.m; sourceTree = "<group>"; };
 		CE2E0FAE1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHousesDetailReturnData.h; sourceTree = "<group>"; };
@@ -2163,6 +2169,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE2029901AE48B3800E78CEF /* libc++.dylib in Frameworks */,
+				CE20298E1AE48B2500E78CEF /* libz.dylib in Frameworks */,
+				CE20298C1AE48B1200E78CEF /* libsqlite3.dylib in Frameworks */,
 				18FABD071A776D07007AC345 /* CFNetwork.framework in Frameworks */,
 				18EC15B31AC3EDA300D2AD3A /* MobileCoreServices.framework in Frameworks */,
 				182C88211A7B244E00DA64E9 /* OpenGLES.framework in Frameworks */,
@@ -2522,6 +2531,9 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE20298F1AE48B3800E78CEF /* libc++.dylib */,
+				CE20298D1AE48B2500E78CEF /* libz.dylib */,
+				CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */,
 				18EC15B21AC3EDA300D2AD3A /* MobileCoreServices.framework */,
 				182C88201A7B244E00DA64E9 /* OpenGLES.framework */,
 				182C881E1A7B244000DA64E9 /* QuartzCore.framework */,
@@ -7266,8 +7278,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7307,8 +7319,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
