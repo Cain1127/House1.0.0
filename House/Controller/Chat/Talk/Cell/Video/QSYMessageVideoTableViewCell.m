@@ -9,14 +9,16 @@
 #import "QSYMessageVideoTableViewCell.h"
 
 #import "NSString+Calculation.h"
+#import "NSDate+Formatter.h"
 
 #import "QSYSendMessageVideo.h"
 
 #import <objc/runtime.h>
 
 ///关联
-static char UserIconKey;//!<头像关联
-static char SecondKey;  //!<秒数关联
+static char UserIconKey;    //!<头像关联
+static char SecondKey;      //!<秒数关联
+static char TimeStampKey;   //!<时间戳
 
 @interface QSYMessageVideoTableViewCell ()
 

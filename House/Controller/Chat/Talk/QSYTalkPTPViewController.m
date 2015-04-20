@@ -137,7 +137,6 @@
     [self.rootView addSubview:self.messagesListView];
     
     [self.messagesListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadUnReadMessage)];
-    [self.messagesListView.header beginRefreshing];
     
     ///分隔线
     UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.rootView.frame.size.height - 50.0f, SIZE_DEVICE_WIDTH, 0.25f)];
@@ -184,6 +183,62 @@
     ///注册键盘弹出和回收的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
+    
+    ///注册消息监听
+    [QSSocketManager registCurrentTalkMessageNotificationWithUserID:self.userModel.id_ andCallBack:^(BOOL flag, id messageModel) {
+        
+        ///绑定消息回调
+        [self addNewMessage:messageModel];
+        
+        ///排序
+        [self resortCurrentMessage];
+        
+        ///刷新消息列表
+        [self.messagesListView reloadData];
+        
+        ///显示最后一行
+        if ([self.messagesDataSource count] > 5) {
+            
+            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+        }
+        
+    }];
+    
+    ///开始就请求历史数据
+    [self.messagesListView.header beginRefreshing];
+
+}
+
+#pragma mark - 消息按时间排序
+- (void)resortCurrentMessage
+{
+
+    [self.messagesDataSource sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        
+        QSYSendMessageBaseModel *firstMessgae = obj1;
+        QSYSendMessageBaseModel *secondMessgae = obj2;
+        return [firstMessgae.timeStamp floatValue] > [secondMessgae.timeStamp floatValue];
+        
+    }];
+
+}
+
+#pragma mark - 添加消息
+- (void)addNewMessage:(QSYSendMessageBaseModel *)newMessage
+{
+
+    for (QSYSendMessageBaseModel *obj in self.messagesDataSource) {
+        
+        if ([obj.msgID isEqualToString:newMessage.msgID]) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    [self.messagesDataSource addObject:newMessage];
 
 }
 
@@ -238,7 +293,7 @@
 
     ///根据消息的类型，返回不同的高度
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
-    return tempModel.showHeight + 30.0f;
+    return tempModel.showHeight + 30.0f + 23.0f;
 
 }
 
@@ -493,18 +548,7 @@
         [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
         ///发送消息
-        [QSSocketManager sendMessageToPerson:wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL flag, id model) {
-            
-            ///绑定消息回调
-            [self.messagesDataSource addObject:model];
-            
-            ///刷新消息列表
-            [self.messagesListView reloadData];
-            
-            ///显示最后一行
-            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-            
-        }];
+        [QSSocketManager sendMessageToPerson:wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord];
         
     }
     
@@ -658,19 +702,7 @@
         ///发送消息
 #if 0
        
-        [QSSocketManager sendMessageToPerson:pictureMessageModel andMessageType:qQSCustomProtocolChatMessageTypePicture andCallBack:^(BOOL flag, id model) {
-            
-            if (flag) {
-                
-                ///加载当前消息
-                [self.messagesDataSource addObject:pictureMessageModel];
-                
-                ///刷新数据
-                [self.messagesListView reloadData];
-                
-            }
-            
-        }];
+        [QSSocketManager sendMessageToPerson:pictureMessageModel andMessageType:qQSCustomProtocolChatMessageTypePicture];
         
 #endif
         

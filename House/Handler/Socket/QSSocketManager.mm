@@ -143,6 +143,7 @@ static QSSocketManager *_socketManager = nil;
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
     ///判断给定用户是否是当前聊天用户，如若不是，则下载服务端的离线消息
+#if 0
     if (![personID isEqualToString:socketManager.currentContactUserID]) {
         
         if ([socketManager.currentContactUserID length] <= 0) {
@@ -155,6 +156,9 @@ static QSSocketManager *_socketManager = nil;
         [socketManager sendContactServerUnReadMessage];
         
     }
+#endif
+    ///下载服务端的消息
+    [socketManager sendContactServerUnReadMessage];
 
     ///临时数据
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:socketManager.messageList];
@@ -456,28 +460,28 @@ static QSSocketManager *_socketManager = nil;
  *
  *  @since          1.0.0
  */
-+ (void)sendMessageToPerson:(id)msgModel andMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
++ (void)sendMessageToPerson:(id)msgModel andMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType
 {
     
     switch (messageType) {
             ///文字聊天
         case qQSCustomProtocolChatMessageTypeWord:
             
-            [self sendWordMessageToPersion:msgModel andCallBack:callBack];
+            [self sendWordMessageToPersion:msgModel];
             
             break;
             
             ///图片聊天
         case qQSCustomProtocolChatMessageTypePicture:
             
-            [self sendPictureMessageToPersion:msgModel andCallBack:callBack];
+            [self sendPictureMessageToPersion:msgModel];
             
             break;
             
             ///音频聊天
         case qQSCustomProtocolChatMessageTypeVideo:
             
-            [self sendVideoMessageToPersion:msgModel andCallBack:callBack];
+            [self sendVideoMessageToPersion:msgModel];
             
             break;
             
@@ -487,21 +491,12 @@ static QSSocketManager *_socketManager = nil;
     
 }
 
-+ (void)sendWordMessageToPersion:(QSYSendMessageWord *)wordMessageModel andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
++ (void)sendWordMessageToPersion:(QSYSendMessageWord *)wordMessageModel
 {
     
     ///socket管理器
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
-    ///保存回调
-    if (callBack) {
-        
-        ///保存当前消息用户
-        socketManager.currentContactUserID = wordMessageModel.toID;
-        socketManager.currentTalkMessageCallBack = callBack;
-        
-    }
-
     QSChat::QuestionWord sendMessage;
     
     ///设置消息体
@@ -560,20 +555,11 @@ static QSSocketManager *_socketManager = nil;
 }
 
 ///发送图片信息
-+ (void)sendPictureMessageToPersion:(QSYSendMessagePicture *)wordMessageModel andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
++ (void)sendPictureMessageToPersion:(QSYSendMessagePicture *)wordMessageModel
 {
     
     ///socket管理器
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
-    
-    ///保存回调
-    if (callBack) {
-        
-        ///保存当前消息用户
-        socketManager.currentContactUserID = wordMessageModel.toID;
-        socketManager.currentTalkMessageCallBack = callBack;
-        
-    }
     
     QSChat::QuestionPic sendMessage;
     
@@ -590,9 +576,9 @@ static QSSocketManager *_socketManager = nil;
     
     if (0 >= [imageData length]) {
         
-        if (callBack) {
+        if (socketManager.currentTalkMessageCallBack) {
             
-            callBack(NO,nil);
+            socketManager.currentTalkMessageCallBack(NO,nil);
             
         }
         
@@ -647,20 +633,11 @@ static QSSocketManager *_socketManager = nil;
 }
 
 ///发送音频消息
-+ (void)sendVideoMessageToPersion:(QSYSendMessageVideo *)wordMessageModel andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
++ (void)sendVideoMessageToPersion:(QSYSendMessageVideo *)wordMessageModel
 {
     
     ///socket管理器
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
-    
-    ///保存回调
-    if (callBack) {
-        
-        ///保存当前消息用户
-        socketManager.currentContactUserID = wordMessageModel.toID;
-        socketManager.currentTalkMessageCallBack = callBack;
-        
-    }
     
     QSChat::QuestionVideo sendMessage;
     
@@ -732,9 +709,8 @@ static QSSocketManager *_socketManager = nil;
  *
  *  @since          1.0.0
  */
-+ (void)sendMessageToGroup:(id)msgModel andGroupID:(NSString *)groupID andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
++ (void)sendMessageToGroup:(id)msgModel andGroupID:(NSString *)groupID
 {
-
     
 
 }
@@ -747,6 +723,15 @@ static QSSocketManager *_socketManager = nil;
  *
  *  @since  1.0.0
  */
++ (void)registCurrentTalkMessageNotificationWithUserID:(NSString *)userID andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    socketManager.currentContactUserID = userID;
+    socketManager.currentTalkMessageCallBack = callBack;
+
+}
+
 + (void)offsCurrentTalkCallBack
 {
 
