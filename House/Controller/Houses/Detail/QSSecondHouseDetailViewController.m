@@ -1763,13 +1763,18 @@ static char LeftStarKey;            //!<左侧星级
                 ///朋友圈
             case sShareChoicesTypeFriends:
                 
+                [_delegate changeScene:WXSceneTimeline];
+
                 break;
                 
-                ///微信朋友圈
+                ///微信
             case sShareChoicesTypeWeChat:
                 
-                break;
+                ///发送消息给微信好友
+                [self sendMsgToWeChat];
                 
+                break;
+
             default:
                 break;
         }
@@ -1778,6 +1783,25 @@ static char LeftStarKey;            //!<左侧星级
     
     ///弹出窗口
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
+    
+}
+
+#pragma mark -微信/新浪分享
+- (void)sendMsgToWeChat
+{
+   
+    if (_delegate) {
+        
+        ///认证
+        [_delegate sendAuthRequest];
+        
+        ///会话类型
+        [_delegate changeScene:WXSceneSession];
+        
+        ///发送app内容
+        [_delegate sendAppContent];
+        
+    }
     
 }
 

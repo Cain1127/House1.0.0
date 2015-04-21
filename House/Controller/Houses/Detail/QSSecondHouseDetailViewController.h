@@ -7,6 +7,15 @@
 //
 
 #import "QSTurnBackViewController.h"
+#import "WXApiObject.h"
+
+@protocol sendMsgToWeChatViewDelegate <NSObject>
+
+- (void) sendAuthRequest;
+- (void) changeScene:(NSInteger)scene;
+- (void) sendAppContent;
+
+@end
 
 /**
  *  @author yangshengmeng, 15-01-31 14:01:36
@@ -34,5 +43,8 @@
 
 ///由小区进入接口
 - (instancetype)initWithTitle:(NSString *)title andDetailID:(NSString *)detailID;
+
+@property (nonatomic, assign) id<sendMsgToWeChatViewDelegate,NSObject> delegate;
+
 
 @end

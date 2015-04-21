@@ -724,6 +724,7 @@
 		CE20298C1AE48B1200E78CEF /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */; };
 		CE20298E1AE48B2500E78CEF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298D1AE48B2500E78CEF /* libz.dylib */; };
 		CE2029901AE48B3800E78CEF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298F1AE48B3800E78CEF /* libc++.dylib */; };
+		CE2029941AE4E7E100E78CEF /* QSWeChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2029931AE4E7E100E78CEF /* QSWeChatManager.m */; };
 		CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */; };
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
@@ -2006,6 +2007,8 @@
 		CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		CE20298D1AE48B2500E78CEF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CE20298F1AE48B3800E78CEF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		CE2029921AE4E7E100E78CEF /* QSWeChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWeChatManager.h; sourceTree = "<group>"; };
+		CE2029931AE4E7E100E78CEF /* QSWeChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWeChatManager.m; sourceTree = "<group>"; };
 		CE20B87E1AD260310057BFF2 /* QSMortgageCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMortgageCalculatorViewController.h; sourceTree = "<group>"; };
 		CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMortgageCalculatorViewController.m; sourceTree = "<group>"; };
 		CE2E0FAE1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHousesDetailReturnData.h; sourceTree = "<group>"; };
@@ -2950,6 +2953,7 @@
 		1893007F1A6902E30081D0AA /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				CE2029911AE4E79500E78CEF /* WeChat */,
 				CEACB0651AD6511F0010D455 /* MapManager */,
 				1890B77F1AB8474700B94E9B /* Socket */,
 				18C8A27D1A6EABFF00BB9611 /* DataMapping */,
@@ -5893,6 +5897,15 @@
 			path = SaleHouse;
 			sourceTree = "<group>";
 		};
+		CE2029911AE4E79500E78CEF /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				CE2029921AE4E7E100E78CEF /* QSWeChatManager.h */,
+				CE2029931AE4E7E100E78CEF /* QSWeChatManager.m */,
+			);
+			path = WeChat;
+			sourceTree = "<group>";
+		};
 		CE20B87D1AD260130057BFF2 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
@@ -6790,6 +6803,7 @@
 				CEC659BA1AB2D5ED00CC09E1 /* QSWSecondHouseInfoDataModel.m in Sources */,
 				18DFE8561AC69A4300C216C3 /* QSYCollectedRentHouseListView.m in Sources */,
 				CED32B971AB2D9E900F17C26 /* QSWCommunityDataModel.m in Sources */,
+				CE2029941AE4E7E100E78CEF /* QSWeChatManager.m in Sources */,
 				18DFE87D1AC6F52F00C216C3 /* QSCDHistorySecondHandHousePhotoDataModel.m in Sources */,
 				18DFE8A41AC6F69E00C216C3 /* QSCDHistoryNewHouseDataModel.m in Sources */,
 				18DABAB01AAD4E1B00647E7C /* QSRateDataModel.m in Sources */,
