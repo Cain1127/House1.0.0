@@ -862,7 +862,6 @@ static QSSocketManager *_socketManager = nil;
                         ///更新消息数据列
                         tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
                         
-                        
                     }];
                     
                 }

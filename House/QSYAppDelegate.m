@@ -107,9 +107,6 @@
         
         if (lLoginCheckActionTypeOffLine == loginStatus) {
             
-            ///将登录状态信息改为非登录
-            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {}];
-            
             NSString *tipsString = @"您已经下线";
             if ([info length] > 0) {
                 
@@ -118,12 +115,12 @@
             }
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 2.5f, ^(){
-            
+                
                 ///重新创建主页
                 QSTabBarViewController *rootView = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
                 rootView.selectedIndex = 0;
                 self.window.rootViewController = rootView;
-            
+                
             })
             
         }
