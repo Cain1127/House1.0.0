@@ -291,6 +291,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getWeeksPickedType;
++ (QSBaseConfigurationDataModel *)getWeekPickedModelWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37

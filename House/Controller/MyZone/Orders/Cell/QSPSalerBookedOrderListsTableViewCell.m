@@ -118,23 +118,23 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithSalerInputPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice wandCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
-                
-                if (actionType == oOrderButtonTipsActionTypeConfirm) {
-                    //提交还价
-                    if (popView) {
-                        
-                        [self submitMyInputPrice:[popView getInputPrice] ToOrderID:orderID];
-                        
-                    }
-                    
-                }
-                
-            }];
-            [popView setParentViewController:self.parentViewController];
-            if (self.parentViewController) {
-                [self.parentViewController.view addSubview:popView];
-            }
+//            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithSalerInputPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice wandCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//                
+//                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+//                    //提交还价
+//                    if (popView) {
+//                        
+//                        [self submitMyInputPrice:[popView getInputPrice] ToOrderID:orderID];
+//                        
+//                    }
+//                    
+//                }
+//                
+//            }];
+//            [popView setParentViewController:self.parentViewController];
+//            if (self.parentViewController) {
+//                [self.parentViewController.view addSubview:popView];
+//            }
         }
         
     }];
@@ -188,23 +188,23 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptBuyerPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice wandCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
-                
-                if (actionType == oOrderButtonTipsActionTypeConfirm) {
-                    //接受还价
-                    if (popView) {
-                        
-                        [self salerAcceptPriceWithOrderID:orderID];
-                        
-                    }
-                    
-                }
-                
-            }];
-            [popView setParentViewController:self.parentViewController];
-            if (self.parentViewController) {
-                [self.parentViewController.view addSubview:popView];
-            }
+//            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptBuyerPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice wandCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//                
+//                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+//                    //接受还价
+//                    if (popView) {
+//                        
+//                        [self salerAcceptPriceWithOrderID:orderID];
+//                        
+//                    }
+//                    
+//                }
+//                
+//            }];
+//            [popView setParentViewController:self.parentViewController];
+//            if (self.parentViewController) {
+//                [self.parentViewController.view addSubview:popView];
+//            }
         }else if (500302 == button.tag ){
             //提醒房客
             [self noticeUserOnTransactionOrder];

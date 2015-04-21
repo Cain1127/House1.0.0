@@ -107,11 +107,11 @@
 	<key>area</key>
 	<dict>
 		<key>right_title</key>
-		<string></string>
+		<string>㎡</string>
 		<key>action_type</key>
 		<string>26</string>
 		<key>type</key>
-		<string>1</string>
+		<string>9</string>
 		<key>order</key>
 		<string>6</string>
 		<key>placehold</key>

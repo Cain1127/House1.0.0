@@ -12,6 +12,15 @@
 #import "QSUserSimpleDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
+#import "QSReleaseRentHouseDataModel.h"
+
+#import "QSCoreDataManager+App.h"
+#import "QSCoreDataManager+House.h"
+
+#import "QSBaseConfigurationDataModel.h"
+
+#import "UIImageView+CacheImage.h"
+#import "NSString+Calculation.h"
 
 @implementation QSRentHouseDetailDataModel
 
@@ -44,6 +53,158 @@
     
 }
 
+/**
+ *  @author yangshengmeng, 15-04-17 12:04:40
+ *
+ *  @brief  将服务端的出租物业数据模型，转为发布物业时使用的临时数据模型
+ *
+ *  @return 返回发布物业的数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSReleaseRentHouseDataModel *)changeToReleaseDataModel
+{
+    
+    QSReleaseRentHouseDataModel *tempModel = [[QSReleaseRentHouseDataModel alloc] init];
+    
+    tempModel.propertyStatus = rReleasePropertyStatusUpdate;
+    tempModel.district = [QSCoreDataManager getDistrictValWithDistrictKey:self.house.areaid];
+    tempModel.districtKey = self.house.areaid;
+    tempModel.street = [QSCoreDataManager getStreetValWithStreetKey:self.house.street];
+    tempModel.streetKey = self.house.street;
+    tempModel.address = self.house.address;
+    tempModel.community = self.house.village_name;
+    tempModel.communityKey = self.house.village_id;
+    tempModel.houseType = [QSCoreDataManager getHouseTypeValueWithKey:self.house.house_shi];
+    tempModel.houseTypeKey = self.house.house_shi;
+    tempModel.area = self.house.house_area;
+    tempModel.areaKey = self.house.house_area;
+    tempModel.rentType = [QSCoreDataManager getHouseRentTypeWithKey:self.house.rent_property];
+    tempModel.rentTypeKey = self.house.rent_property;
+    tempModel.rentPrice = self.house.rent_price;
+    tempModel.rentPriceKey = self.house.rent_price;
+    tempModel.rentPaytype = [QSCoreDataManager getHouseRentTypeWithKey:self.house.payment];
+    tempModel.rentPaytypeKey = self.house.payment;
+    tempModel.leadTime = [QSCoreDataManager getRentHouseLeadTimeTypeWithKey:self.house.lead_time];
+    tempModel.leadTimeKey = self.house.lead_time;
+    tempModel.whetherBargaining = [QSCoreDataManager getHouseIsNegotiatedPriceTypeWithKey:self.house.negotiated];
+    
+    tempModel.whetherBargainingKey = self.house.negotiated;
+    tempModel.houseStatus = [QSCoreDataManager getRentHouseStatusTypeValueWithKey:self.house.house_status];
+    tempModel.houseStatusKey = self.house.house_status;
+    tempModel.limited = [QSCoreDataManager getRentHouseLimitedTypeWithKey:self.house.limited];
+    tempModel.limitedKey = self.house.limited;
+    tempModel.floor = [QSCoreDataManager getHouseFloorTypeWithKey:self.house.floor_which];
+    tempModel.floorKey = self.house.floor_which;
+    tempModel.face = [QSCoreDataManager getHouseFaceTypeWithKey:self.house.house_face];
+    tempModel.faceKey = self.house.house_face;
+    tempModel.decoration = [QSCoreDataManager getHouseDecorationTypeWithKey:self.house.decoration_type];
+    tempModel.decorationKey = self.house.decoration_type;
+    
+    tempModel.fee = [QSCoreDataManager getHousePropertyManagementFeeValueWithKey:self.house.fee];
+    tempModel.feeKey = self.house.fee;
+    tempModel.title = self.house.title;
+    tempModel.detailComment = self.house.introduce;
+    tempModel.userName = self.house.name;
+    tempModel.phone = self.house.tel;
+    tempModel.verCode = nil;
+    tempModel.starTime = self.house.time_interval_start;
+    tempModel.endTime = self.house.time_interval_end;
+    tempModel.video_url = self.house.video_url;
+    
+    ///配置
+    if ([self.house.installation length] > 0) {
+        
+        if (!tempModel.installationList) {
+            
+            tempModel.installationList = [[NSMutableArray alloc] init];
+            
+        }
+        
+        ///切分配置
+        NSMutableString *tempString = [NSMutableString string];
+        NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
+        for (int i = 0;i < [installKeyList count]; i++) {
+            
+            QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseInstallationModelWithKey:installKeyList[i] andHouseType:fFilterMainTypeRentalHouse];
+            [tempString appendString:installationModel.val];
+            [tempString appendString:@","];
+            [tempModel.installationList addObject:installationModel];
+            
+        }
+        
+        if ([tempString length] > 0) {
+            
+            [tempString deleteCharactersInRange:NSMakeRange(tempString.length - 1, 1)];
+            
+        }
+        tempModel.installationString = [NSString stringWithString:tempString];
+        
+    }
+    
+    ///可以预约日期信息
+    if ([self.house.cycle length] > 0) {
+        
+        if (!tempModel.weekInfos) {
+            
+            tempModel.weekInfos = [[NSMutableArray alloc] init];
+            
+        }
+        
+        NSMutableString *tempString = [NSMutableString string];
+        NSArray *weekKeyList = [self.house.cycle componentsSeparatedByString:@","];
+        for (int i = 0; i < [weekKeyList count]; i++) {
+            
+            QSBaseConfigurationDataModel *weekModel = [QSCoreDataManager getWeekPickedModelWithKey:weekKeyList[i]];
+            [tempString appendString:weekModel.val];
+            [tempString appendString:@","];
+            [tempModel.weekInfos addObject:weekModel];
+            
+        }
+        
+        if ([tempString length] > 0) {
+            
+            [tempString deleteCharactersInRange:NSMakeRange(tempString.length - 1, 1)];
+            
+        }
+        tempModel.installationString = [NSString stringWithString:tempString];
+        
+    }
+    
+    ///图片
+    if ([self.rentHouse_photo count] > 0) {
+        
+        if (!tempModel.imagesList) {
+            
+            tempModel.imagesList = [[NSMutableArray alloc] init];
+            
+        }
+        
+        ///转换模型半保存
+        for (int i = 0; i < [self.rentHouse_photo count]; i++) {
+            
+            QSReleaseRentHousePhotoDataModel *photoModel = [[QSReleaseRentHousePhotoDataModel alloc] init];
+            QSPhotoDataModel *detailPhotoModel = self.rentHouse_photo[i];
+            photoModel.originalImageURL = detailPhotoModel.attach_file;
+            photoModel.smallImageURL = detailPhotoModel.attach_thumb;
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+               
+                UIImageView *tempImageView = [[UIImageView alloc] init];
+                [tempImageView loadImageWithURL:[detailPhotoModel.attach_file getImageURL] placeholderImage:nil];
+                photoModel.image = tempImageView.image;
+                
+            });
+            
+            [tempModel.imagesList addObject:photoModel];
+            
+        }
+        
+    }
+    
+    return tempModel;
+    
+}
 
 @end
 

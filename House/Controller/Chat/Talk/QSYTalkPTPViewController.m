@@ -464,10 +464,10 @@
             
             [self.messagesDataSource addObjectsFromArray:unReadMessageList];
             
-            ///修改聊天消息的标识
-            self.isLocalMessage = YES;
-            
         }
+        
+        ///修改聊天消息的标识
+        self.isLocalMessage = YES;
         
     } else {
     

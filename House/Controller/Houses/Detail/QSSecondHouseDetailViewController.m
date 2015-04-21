@@ -1802,8 +1802,6 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -分享回调方法
-
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
     //根据`responseCode`得到发送结果,如果分享成功

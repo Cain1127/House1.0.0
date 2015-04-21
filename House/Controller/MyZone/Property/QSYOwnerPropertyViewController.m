@@ -27,6 +27,8 @@
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
+#import "QSRentHousesDetailReturnData.h"
+#import "QSSecondHousesDetailReturnData.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -337,8 +339,7 @@
                 case pPropertyInfocellActionTypeEdit:
                 {
                     
-//                    QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel changeToReleaseDataModel]];
-//                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
+                    [self getSecondHandHouseDetailInfo:tempModel.id_];
                 
                 };
                     break;
@@ -420,10 +421,10 @@
                     ///编辑
                 case pPropertyInfocellActionTypeEdit:
                 {
-                
-//                    QSYReleaseRentHouseViewController *updatePropertyVC = [[QSYReleaseRentHouseViewController alloc] initWithRentHouseModel:[tempModel changeToReleaseDataModel]];
-//                    [self.navigationController pushViewController:updatePropertyVC animated:YES];
-                
+                    
+                    ///下载详情信息
+                    [self getRentHouseDetailInfo:tempModel.id_];
+                    
                 }
                     break;
                     
@@ -694,6 +695,83 @@
         
     }];
 
+}
+
+#pragma mark - 下载物业详情信息
+- (void)getRentHouseDetailInfo:(NSString *)detailID
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在获取物业详细信息"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : detailID ? detailID : @""};
+    
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"获取成功" andDelayTime:2.0f andCallBack:^(BOOL flag) {
+                
+                ///转换模型
+                QSRentHousesDetailReturnData *tempModel = resultData;
+                
+                QSYReleaseRentHouseViewController *updatePropertyVC = [[QSYReleaseRentHouseViewController alloc] initWithRentHouseModel:[tempModel.detailInfo changeToReleaseDataModel]];
+                [self.navigationController pushViewController:updatePropertyVC animated:YES];
+                
+            }];
+            
+        } else {
+            
+            NSString *tipsString = @"获取出租房详情信息失败，请稍后再试";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:2.0f];
+            
+        }
+        
+    }];
+
+}
+
+- (void)getSecondHandHouseDetailInfo:(NSString *)detailID
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在获取物业详细信息"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : detailID ? detailID : @""};
+    
+    ///进行请求
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///转换模型
+            QSSecondHousesDetailReturnData *tempModel = resultData;
+            
+            QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel.detailInfo changeToReleaseDataModel]];
+            [self.navigationController pushViewController:updatePropertyVC animated:YES];
+            
+        } else {
+            
+            NSString *tipsString = @"获取二手房详情信息失败，请稍后再试";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:2.0f];
+            
+        }
+        
+    }];
+    
 }
 
 #pragma mark - 刷新物业列表

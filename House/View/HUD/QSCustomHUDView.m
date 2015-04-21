@@ -82,7 +82,7 @@ typedef enum
 + (instancetype)showCustomHUDWithTips:(NSString *)tips andHeaderTips:(NSString *)headerTips
 {
 
-    QSCustomHUDView *hudView = [[QSCustomHUDView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT) andTips:tips andHeaderTips:headerTips];
+    __block QSCustomHUDView *hudView = [[QSCustomHUDView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT) andTips:tips andHeaderTips:headerTips];
     
     ///使用自定义动画
     hudView.alpha = 0.0f;
@@ -97,6 +97,10 @@ typedef enum
         if (finished) {
             
             [hudView startCustomHUDAnimination];
+            
+        }else{
+            
+            [hudView removeFromSuperview];
             
         }
         

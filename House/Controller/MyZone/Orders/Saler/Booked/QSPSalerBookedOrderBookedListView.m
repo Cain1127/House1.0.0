@@ -15,6 +15,7 @@
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSOrderListReturnData.h"
 #import "QSCoreDataManager+User.h"
+#import "QSYHousesNormalListViewController.h"
 
 ///关联
 static char BookingListTableViewKey;    //!<待看房列表关联
@@ -96,10 +97,17 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_18];
     buttonStyle.title = @"看看二手房";
     
-    ///出售物业按钮
+    ///看看二手房按钮
     UIButton *secondHandHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(35.0f, nodataTipLabel.frame.origin.y + nodataTipLabel.frame.size.height + 12.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"secondHandHouseButton");
+        ///进入二手房源列表
+        if (self.parentViewController) {
+            
+            QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
+            [self.parentViewController.navigationController pushViewController:houseListVC animated:YES];
+            
+        }
         
     }];
     [noDataView addSubview:secondHandHouseButton];
@@ -112,6 +120,12 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     UIButton *renantHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(secondHandHouseButton.frame.origin.x + secondHandHouseButton.frame.size.width + 8.0f, secondHandHouseButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"renantHouseButton");
+        if (self.parentViewController) {
+            
+            QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeRentalHouse];
+            [self.parentViewController.navigationController pushViewController:houseListVC animated:YES];
+            
+        }
         
     }];
     [noDataView addSubview:renantHouseButton];
@@ -176,6 +190,8 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
 ///刷新数据
 - (void)reloadData
 {
+
+    _currentShowHeaderIndex = -1;
     
     UITableView *tableView = objc_getAssociatedObject(self, &BookingListTableViewKey);
     [tableView reloadData];
@@ -282,12 +298,17 @@ static char BookingListNoDataViewKey;   //!<待看房列表无数据关联
     if (_currentShowHeaderIndex==-1) {
         _currentShowHeaderIndex = section;
         if (tableView) {
+            
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:_currentShowHeaderIndex] withRowAnimation:UITableViewRowAnimationFade];
+            
         }
     }else {
+        
         NSInteger tempIndex = _currentShowHeaderIndex;
         _currentShowHeaderIndex = -1;
+        
         if (tableView) {
+            
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:tempIndex] withRowAnimation:UITableViewRowAnimationFade];
         }
     }

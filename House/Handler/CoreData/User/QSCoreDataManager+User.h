@@ -39,6 +39,7 @@
  *  @since  1.0.0
  */
 + (void)reloadUserInfoFromServer;
++ (void)logoutCurrentUserCount:(void(^)(BOOL isLogout))callBack;
 
 /**
  *  @author     yangshengmeng, 15-03-14 12:03:47
