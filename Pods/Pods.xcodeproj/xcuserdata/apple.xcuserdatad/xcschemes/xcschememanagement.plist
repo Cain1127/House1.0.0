@@ -79,6 +79,11 @@
 			<key>orderHint</key>
 			<integer>11</integer>
 		</dict>
+		<key>Pods-UMengSocial.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -100,6 +105,11 @@
 			<true/>
 		</dict>
 		<key>13476B086AA61CB785898AA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>19AF97AE0AB8974A844E5ACE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -129,7 +139,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>34CFF5BEE9DF7AFD5B242E72</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3D8F58F8ED415BCBB54C815F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3DA3CEE0430763DBE192ED86</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -154,12 +174,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>61E29FDDF92E7A2135287E03</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>65CE1B69856F4AF08C951870</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>692546B491C4DE1266086F29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F954B5D1BB8D8F8A6C9A533</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -174,7 +204,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9E3BCD7A4076F83C609D0F84</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C2F2FE990961A3AE877B6066</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C345691DD4FA4BBD76388A18</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -189,7 +229,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CE5943C3D8601F5E2AE52D78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DE31EAB1884C85EE4FF81DAA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DF1B179A394E572DF58FC1E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E894329410A600AFFF7A1507</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE959548BAF3E4E56B531602</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EF3024617D162DB73EE30C63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
