@@ -13,6 +13,7 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSCoreDataManager+User.h"
+#import "QSYHousesNormalListViewController.h"
 
 ///关联
 static char PendingListTableViewKey;    //!<待成交列表关联
@@ -94,6 +95,12 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     UIButton *secondHandHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(35.0f, nodataTipLabel.frame.origin.y + nodataTipLabel.frame.size.height + 12.0f, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"secondHandHouseButton");
+        if (self.parentViewController) {
+            
+            QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
+            [self.parentViewController.navigationController pushViewController:houseListVC animated:YES];
+            
+        }
         
     }];
     [noDataView addSubview:secondHandHouseButton];
@@ -106,6 +113,12 @@ static char PendingListNoDataViewKey;   //!<待成交列表无数据关联
     UIButton *renantHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(secondHandHouseButton.frame.origin.x + secondHandHouseButton.frame.size.width + 8.0f, secondHandHouseButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"renantHouseButton");
+        if (self.parentViewController) {
+            
+            QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeRentalHouse];
+            [self.parentViewController.navigationController pushViewController:houseListVC animated:YES];
+            
+        }
         
     }];
     [noDataView addSubview:renantHouseButton];

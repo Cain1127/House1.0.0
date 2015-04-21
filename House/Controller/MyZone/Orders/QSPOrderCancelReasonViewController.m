@@ -176,8 +176,7 @@
                         case oOrderSubmitResultBackTypeAuto:
                             
                             NSLog(@"auto back");
-                            [self.navigationController popViewControllerAnimated:NO];
-                            
+                            [self gotoTurnBackAction];
                             break;
                         case oOrderSubmitResultBackTypeToDetail:
                             

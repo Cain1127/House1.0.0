@@ -1186,6 +1186,17 @@
     
     //>***********中间ScrollView内容区
     
+    ///开启定时器
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(logicFrame:) userInfo:nil repeats:YES];
+    [timer fire];
+    
+}
+
+- (void)logicFrame:(NSTimer *)timer
+{
+    
+    NSLog(@"[self.view subviews]: %@ [self.navigationController.view subviews]:%@ [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]：%@",[self.view subviews] , [self.navigationController.view subviews], [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]);
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -1255,6 +1266,7 @@
 #pragma mark - 获取订单详情数据
 - (void)getDetailData
 {
+    
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
     if (!self.orderID || [self.orderID isEqualToString:@""]) {
@@ -1281,6 +1293,8 @@
         [hud hiddenCustomHUD];
         return;
     }
+    
+    [hud hiddenCustomHUD];
     
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     

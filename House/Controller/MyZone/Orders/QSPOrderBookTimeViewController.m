@@ -270,6 +270,7 @@
             NSLog(@"cancelAppointmentBt");
             QSPOrderCancelReasonViewController *crVc = [[QSPOrderCancelReasonViewController alloc] init];
             [crVc setOrderID:self.orderID];
+            [crVc setTurnBackDistanceStep:2];
             [crVc setHouseType:houseType];
             [self.navigationController pushViewController:crVc animated:YES];
             

@@ -145,7 +145,7 @@
 {
     
     [self setHidden:YES];
-    
+    [self removeFromSuperview];
 }
 
 - (void)updateData:(id)data
