@@ -17,6 +17,8 @@
 #import "QSYLoginReturnData.h"
 #import "QSUserDataModel.h"
 #import "QSMapManager.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
@@ -25,6 +27,15 @@
 #import "QSSocketManager.h"
 
 #import "QSCustomHUDView.h"
+
+///分享访问链接
+static NSString *const app_URL = @"http://www.baidu.com/";
+///友盟分享appkey
+static NSString *const shareSDK_Key = @"5535be0d67e58e4e96003357";
+ ///微信分享appID
+static NSString *const Wechat_Key = @"wxc1d288df9337eb74";
+///微信分享appSecret
+static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 
 @interface QSYAppDelegate ()
 
@@ -101,6 +112,27 @@
     
     }
     
+    ///注册被踢下线时的监听
+    [QSSocketManager registSocketServerOffLineNotification:^(LOGIN_CHECK_ACTION_TYPE loginStatus, NSString *info) {
+        
+        if (lLoginCheckActionTypeOffLine == loginStatus) {
+            
+            ///将登录状态信息改为非登录
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {}];
+            
+            NSString *tipsString = @"您已经下线";
+            if ([info length] > 0) {
+                
+                tipsString = info;
+                
+            }
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.5f, ^(){})
+            
+        }
+        
+    }];
+    
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
         
@@ -132,6 +164,12 @@
         [self downloadApplicationBasInfo];
         
     });
+    
+    ///设置友盟key
+    [UMSocialData setAppKey:shareSDK_Key];
+    
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+    [UMSocialWechatHandler setWXAppId:Wechat_Key appSecret:appSecret_Key url:app_URL];
     
     return YES;
     
@@ -584,5 +622,23 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     
 }
+
+#pragma mark - 分享系统回调
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+//{
+//    
+//    return  [UMSocialSnsService handleOpenURL:url];
+//    
+//}
+//- (BOOL)application:(UIApplication *)application
+//            openURL:(NSURL *)url
+//  sourceApplication:(NSString *)sourceApplication
+//         annotation:(id)annotation
+//{
+//    
+//    return  [UMSocialSnsService handleOpenURL:url];
+//    
+//}
+
 
 @end

@@ -22,6 +22,9 @@ typedef void(^CURRENT_TALK_MESSAGE_NOTIFICATION)(BOOL flag,id messageModel);
 ///指定消息类型的最新数量监听：一般用来监听系统消息
 typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
 
+///被踢下线时的监听
+typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,NSString *info);
+
 @interface QSSocketManager : NSObject
 
 ///socket单例管理器
@@ -138,5 +141,17 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
  */
 + (void)registSystemMessageReceiveNotification:(APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)callBack;
 + (void)offsSystemMessageReceiveNotification;
+
+/**
+ *  @author         yangshengmeng, 15-04-21 10:04:09
+ *
+ *  @brief          被踢下线时的回调监听
+ *
+ *  @param callBack 回调block
+ *
+ *  @since          1.0.0
+ */
++ (void)registSocketServerOffLineNotification:(SERVER_OFF_LINE_NOTIFICATION)callBack;
++ (void)offRegistSocketServerOffLineNotification;
 
 @end

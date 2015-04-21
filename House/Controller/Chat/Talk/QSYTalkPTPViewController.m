@@ -476,7 +476,11 @@
         NSArray *localMessageList = [QSSocketManager getSpecialPersonLocalMessage:self.userModel.id_ andStarTimeStamp:tempModel.timeStamp];
         if ([localMessageList count] > 0) {
             
-            [self.messagesDataSource insertObjects:localMessageList atIndexes:[NSIndexSet indexSetWithIndex:0]];
+            for (int i = [localMessageList count]; i > 0; i--) {
+                
+                [self.messagesDataSource insertObject:localMessageList[i-1] atIndex:0];
+                
+            }
             
         }
     

@@ -17,6 +17,9 @@
 #import "QSCommunityDetailViewController.h"
 #import "QSSearchMapViewController.h"
 
+#import "UMSocial.h"
+#import "WXApi.h"
+
 #import "QSAutoScrollView.h"
 #import "QSYShareChoicesView.h"
 #import "QSYPopCustomView.h"
@@ -62,7 +65,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate>
+@interface QSSecondHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate,WXApiDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -1752,21 +1755,39 @@ static char LeftStarKey;            //!<左侧星级
         
         ///加收弹出窗口
         [popView hiddenCustomPopview];
-        
+
         ///处理不同的分享事件
         switch (actionType) {
+                
+
                 ///新浪微博
             case sShareChoicesTypeXinLang:
+                
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:@"分享内嵌文字" shareImage:[UIImage imageNamed:@"icon57"] socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
                 break;
                 
                 ///朋友圈
             case sShareChoicesTypeFriends:
 
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:@"分享内嵌文字" shareImage:[UIImage imageNamed:@"icon57"] socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
                 break;
                 
                 ///微信
             case sShareChoicesTypeWeChat:
+                
+                //设置分享内容和回调对象
+
+                [[UMSocialControllerService defaultControllerService] setShareText:@"分享内嵌文字" shareImage:[UIImage imageNamed:@"icon57"] socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
                 break;
 
@@ -1780,6 +1801,21 @@ static char LeftStarKey;            //!<左侧星级
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
     
 }
+
+#pragma mark -分享回调方法
+
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        
+    }
+}
+
+
 
 #pragma mark - 添加浏览记录
 - (void)addBrowseRecords
