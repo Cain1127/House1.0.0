@@ -38,6 +38,8 @@
 	</dict>
 	<key>community</key>
 	<dict>
+		<key>left_title</key>
+		<string>小区名称</string>
 		<key>right_title</key>
 		<string></string>
 		<key>action_type</key>
@@ -47,7 +49,7 @@
 		<key>order</key>
 		<string>2</string>
 		<key>placehold</key>
-		<string>小区名称</string>
+		<string></string>
 		<key>filter_key</key>
 		<string>community</string>
 	</dict>
