@@ -9,6 +9,7 @@
 #import "QSLoginViewController.h"
 #import "QSYRegistViewController.h"
 #import "QSYForgetPasswordViewController.h"
+#import "QSWDeveloperHomeViewController.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -317,14 +318,34 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             ///显示提示信息
                             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
                                 
-                                ///回调
-                                if (self.loginCallBack) {
+                                ///判断是否是开发商
+                                if (uUserCountTypeDeveloper == [QSCoreDataManager getUserType]) {
                                     
-                                    self.loginCallBack(lLoginCheckActionTypeReLogin);
+                                    ///进入开发商模型
+                                    QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
                                     
-                                }
+                                    ///修改默认的用户类型
+                                    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                    
+                                    [self changeWindowRootViewController:developerVC];
+                                    
+                                } else {
+                                    
+                                    ///修改默认的用户类型
+                                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                    [[NSUserDefaults standardUserDefaults] synchronize];
                                 
-                                [self.navigationController popViewControllerAnimated:YES];
+                                    ///回调
+                                    if (self.loginCallBack) {
+                                        
+                                        self.loginCallBack(lLoginCheckActionTypeReLogin);
+                                        
+                                    }
+                                    
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                
+                                }
                                 
                             })
                             
