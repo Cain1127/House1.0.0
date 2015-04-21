@@ -119,6 +119,52 @@
 
 }
 
++ (void)logoutCurrentUserCount:(void(^)(BOOL isLogout))callBack
+{
+
+    ///退出登录状态
+    [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///退出登录成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    APPLICATION_LOG_INFO(@"退出登录", @"成功")
+                    if (callBack) {
+                        
+                        callBack(YES);
+                        
+                    }
+                    
+                }
+                
+            }];
+            
+        } else {
+            
+            NSString *tipsString = @"退出失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            APPLICATION_LOG_INFO(@"退出登录", tipsString)
+            
+            if (callBack) {
+                
+                callBack(NO);
+                
+            }
+            
+        }
+        
+    }];
+
+}
+
 /**
  *  @author     yangshengmeng, 15-03-14 12:03:47
  *

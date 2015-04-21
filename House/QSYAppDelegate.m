@@ -10,6 +10,7 @@
 
 #import "QSAdvertViewController.h"
 #import "QSWDeveloperHomeViewController.h"
+#import "QSTabBarViewController.h"
 
 #import "QSCityInfoReturnData.h"
 #import "QSConfigurationReturnData.h"
@@ -116,7 +117,14 @@
                 
             }
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.5f, ^(){})
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 2.5f, ^(){
+            
+                ///重新创建主页
+                QSTabBarViewController *rootView = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                rootView.selectedIndex = 0;
+                self.window.rootViewController = rootView;
+            
+            })
             
         }
         

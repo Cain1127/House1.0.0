@@ -2959,7 +2959,6 @@
 				18C8A27D1A6EABFF00BB9611 /* DataMapping */,
 				189300811A6902E30081D0AA /* CoreData */,
 				189300831A6902E30081D0AA /* Request */,
-				189300841A6902E30081D0AA /* User */,
 			);
 			name = Handler;
 			path = House/Handler;
@@ -2991,13 +2990,6 @@
 				18C8A2761A6E904C00BB9611 /* QSRequestManager.m */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		189300841A6902E30081D0AA /* User */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		189300851A6902E30081D0AA /* Header */ = {

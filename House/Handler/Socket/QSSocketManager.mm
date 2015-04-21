@@ -832,43 +832,39 @@ static QSSocketManager *_socketManager = nil;
                     ///下线
                 case QSChat::QSCHAT_OFFLINE:
                 {
-                
-                    ///设置下线
-                    [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
                     
-                        if (flag) {
+                    [QSCoreDataManager logoutCurrentUserCount:^(BOOL isLogout){
+                        
+                        ///为了保证能收到系统消息，重新发送上线
+                        [self sendOnLineMessage];
+                        
+                        ///消息
+                        char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
+                        [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
+                        string messageString = string(messageBuf);
+                        
+                        ///返回的信息
+                        QSChat::AnswerOffline offLineMessage = QSChat::AnswerOffline();
+                        offLineMessage.ParseFromString(messageString);
+                        
+                        ///回调通知当前已被踢下线
+                        if (self.serverOffLineNotification) {
                             
-                            ///为了保证能收到系统消息，重新发送上线
-                            [self sendOnLineMessage];
-                            
-                            ///消息
-                            char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-                            [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-                            string messageString = string(messageBuf);
-                            
-                            ///返回的信息
-                            QSChat::AnswerOffline offLineMessage = QSChat::AnswerOffline();
-                            offLineMessage.ParseFromString(messageString);
-                            
-                            ///回调通知当前已被踢下线
-                            if (self.serverOffLineNotification) {
+                            NSString *tipsString = [NSString stringWithUTF8String:offLineMessage.msg_id().c_str()];
+                            dispatch_sync(dispatch_get_main_queue(),^(){
                                 
-                                NSString *tipsString = [NSString stringWithUTF8String:offLineMessage.msg_id().c_str()];
-                                dispatch_sync(dispatch_get_main_queue(),^(){
+                                self.serverOffLineNotification(lLoginCheckActionTypeOffLine,tipsString);
                                 
-                                    self.serverOffLineNotification(lLoginCheckActionTypeOffLine,tipsString);
-                                
-                                });
-                                
-                            }
-                            
-                            ///更新消息数据列
-                            tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                            });
                             
                         }
-                    
+                        
+                        ///更新消息数据列
+                        tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                        
+                        
                     }];
-                
+                    
                 }
                     break;
                     
