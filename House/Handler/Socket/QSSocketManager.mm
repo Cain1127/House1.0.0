@@ -64,7 +64,6 @@ using namespace std;
 @property (nonatomic,strong) AsyncSocket *tcpSocket;
 
 @property (nonatomic,copy) NSString *currentContactUserID;      //!<当前对话用户的ID
-@property (nonatomic,retain) QSUserSimpleDataModel *myUserMode; //!<当前用户的数据模型
 @property (nonatomic,copy) NSString *currentDeviceUUID;         //!<当前设备的UUID
 @property (atomic,retain) NSMutableArray *messageList;          //!<消息数据源
 @property (assign) BOOL isWaitConnect;                          //!<当前是否等连接中
@@ -119,7 +118,6 @@ static QSSocketManager *_socketManager = nil;
     }
     
     ///相关参数初始化
-    self.myUserMode = (QSUserSimpleDataModel *)[QSCoreDataManager getCurrentUserDataModel];
     self.currentDeviceUUID = [NSString getDeviceUUID];
     self.messageList = [[NSMutableArray alloc] init];
 
@@ -159,6 +157,7 @@ static QSSocketManager *_socketManager = nil;
 #endif
     ///下载服务端的消息
     [socketManager sendContactServerUnReadMessage];
+    NSString *localUserID = [QSCoreDataManager getUserID];
 
     ///临时数据
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:socketManager.messageList];
@@ -170,7 +169,7 @@ static QSSocketManager *_socketManager = nil;
         QSYSendMessageBaseModel *tempModel = socketManager.messageList[i];
         if ([tempModel.readTag isEqualToString:@"0"] &&
             [tempModel.fromID isEqualToString:personID] &&
-            [tempModel.toID isEqualToString:socketManager.myUserMode.id_]) {
+            [tempModel.toID isEqualToString:localUserID]) {
             
             [resultArray addObject:tempModel];
             [indexsArray addObject:[NSString stringWithFormat:@"%d",i]];
@@ -196,7 +195,7 @@ static QSSocketManager *_socketManager = nil;
     }
     
     ///删除已取数据
-    [socketManager clearCautchMessage:[NSArray arrayWithArray:resultArray]];
+    [socketManager clearCautchMessage:[NSArray arrayWithArray:indexsArray]];
     
     return [NSArray arrayWithArray:resultArray];
 
@@ -1021,13 +1020,14 @@ static QSSocketManager *_socketManager = nil;
         if (self.instantMessageNotification) {
             
             QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+            
             userSimple.id_ = ocWordModel.fromID;
             userSimple.avatar = ocWordModel.f_avatar;
             userSimple.username = ocWordModel.f_name;
             userSimple.user_type = ocWordModel.f_user_type;
             userSimple.level = ocWordModel.f_leve;
             
-            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
+            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1")];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
             int unreadCount = (int)[personArray count];
@@ -1108,7 +1108,7 @@ static QSSocketManager *_socketManager = nil;
             userSimple.user_type = ocWordModel.f_user_type;
             userSimple.level = ocWordModel.f_leve;
             
-            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
+            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1")];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -1182,7 +1182,7 @@ static QSSocketManager *_socketManager = nil;
             userSimple.user_type = ocWordModel.f_user_type;
             userSimple.level = ocWordModel.f_leve;
             
-            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,self.myUserMode.id_];
+            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1")];
             NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
@@ -1385,7 +1385,7 @@ static QSSocketManager *_socketManager = nil;
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
-    ocWordModel.toID = self.myUserMode.id_;
+    ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
     ocWordModel.message = [NSString stringWithUTF8String:cppWordModel.message().c_str()];
     
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
@@ -1426,7 +1426,7 @@ static QSSocketManager *_socketManager = nil;
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
-    ocWordModel.toID = self.myUserMode.id_;
+    ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
     
     ///获取图片，保存本地
@@ -1483,7 +1483,7 @@ static QSSocketManager *_socketManager = nil;
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
-    ocWordModel.toID = self.myUserMode.id_;
+    ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
     
     ///获取音频消息
@@ -1524,7 +1524,7 @@ static QSSocketManager *_socketManager = nil;
     
     int64_t fIDINT32 = cppWordModel.fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
-    ocWordModel.toID = self.myUserMode.id_;
+    ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
     ocWordModel.message = [NSString stringWithUTF8String:cppWordModel.message().c_str()];
     
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
