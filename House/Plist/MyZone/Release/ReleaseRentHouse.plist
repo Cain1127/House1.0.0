@@ -47,7 +47,7 @@
 		<key>order</key>
 		<string>2</string>
 		<key>placehold</key>
-		<string></string>
+		<string>小区名称</string>
 		<key>filter_key</key>
 		<string>community</string>
 	</dict>
@@ -88,11 +88,11 @@
 	<key>area</key>
 	<dict>
 		<key>right_title</key>
-		<string></string>
+		<string>㎡</string>
 		<key>action_type</key>
 		<string>15</string>
 		<key>type</key>
-		<string>1</string>
+		<string>9</string>
 		<key>order</key>
 		<string>5</string>
 		<key>placehold</key>
