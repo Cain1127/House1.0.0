@@ -46,7 +46,7 @@
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"records" toKeyPath:@"dataList" withMapping:[QSYAskRentAndBuyDataModel objectMapping]]];
     
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"order_list" toKeyPath:@"orderList" withMapping:[QSYAskRentAndBuyDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"order_list" toKeyPath:@"orderList" withMapping:[QSYAskListOrderInfosModel objectMapping]]];
     
     return shared_mapping;
     
