@@ -1786,7 +1786,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-#pragma mark -微信/新浪分享
+#pragma mark - 微信/新浪分享
 - (void)sendMsgToWeChat
 {
    

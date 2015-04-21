@@ -20,6 +20,7 @@
 @class QSHousePriceChangesDataModel;
 @class QSHouseCommentDataModel;
 @class QSRentHouseDetailExpandInfoDataModel;
+@class QSReleaseRentHouseDataModel;
 @interface QSRentHouseDetailDataModel : QSBaseModel
 
 @property (nonatomic,retain) QSWRentHouseInfoDataModel *house;                      //!<出租房基本数据
@@ -28,6 +29,17 @@
 @property (nonatomic,retain) QSHouseCommentDataModel *comment;                      //!<评论
 @property (nonatomic,retain) QSRentHouseDetailExpandInfoDataModel *expandInfo;      //!<扩展信息
 @property (nonatomic,retain) NSArray *rentHouse_photo;                              //!<图集信息
+
+/**
+ *  @author yangshengmeng, 15-04-17 12:04:40
+ *
+ *  @brief  将服务端的出租物业数据模型，转为发布物业时使用的临时数据模型
+ *
+ *  @return 返回发布物业的数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSReleaseRentHouseDataModel *)changeToReleaseDataModel;
 
 @end    
 

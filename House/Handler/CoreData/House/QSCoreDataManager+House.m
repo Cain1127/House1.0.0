@@ -1088,6 +1088,58 @@
 
 }
 
++ (QSBaseConfigurationDataModel *)getWeekPickedModelWithKey:(NSString *)keyString
+{
+
+    QSBaseConfigurationDataModel *tempModel = [[QSBaseConfigurationDataModel alloc] init];
+    tempModel.key = keyString;
+    
+    if ([keyString isEqualToString:@"1"]) {
+        
+        tempModel.val = @"周一";
+        
+    }
+    
+    if ([keyString isEqualToString:@"2"]) {
+        
+        tempModel.val = @"周二";
+        
+    }
+    
+    if ([keyString isEqualToString:@"3"]) {
+        
+        tempModel.val = @"周三";
+        
+    }
+    
+    if ([keyString isEqualToString:@"4"]) {
+        
+        tempModel.val = @"周四";
+        
+    }
+    
+    if ([keyString isEqualToString:@"5"]) {
+        
+        tempModel.val = @"周五";
+        
+    }
+    
+    if ([keyString isEqualToString:@"6"]) {
+        
+        tempModel.val = @"周六";
+        
+    }
+    
+    if ([keyString isEqualToString:@"0"]) {
+        
+        tempModel.val = @"周天";
+        
+    }
+    
+    return tempModel;
+
+}
+
 /**
  *  @author yangshengmeng, 15-03-27 12:03:37
  *

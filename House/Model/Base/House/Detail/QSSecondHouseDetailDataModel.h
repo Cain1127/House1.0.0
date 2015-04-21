@@ -20,6 +20,7 @@
 @class QSHousePriceChangesDataModel;
 @class QSHouseCommentDataModel;
 @class QSSecondHandHouseDetailExpandInfoDataModel;
+@class QSReleaseSaleHouseDataModel;
 @interface QSSecondHouseDetailDataModel : QSBaseModel
 
 @property (nonatomic,retain) QSWSecondHouseInfoDataModel *house;                    //!<二手房基本数据
@@ -30,6 +31,15 @@
 @property (nonatomic,retain) NSArray *secondHouse_photo;                            //!<图集信息
 
 @property (nonatomic,copy) NSString *is_syserver;                                   //!<是否已同步服务端
+
+/**
+ *  @author yangshengmeng, 15-04-21 16:04:45
+ *
+ *  @brief  将二手房详情模型，转换为发布物业的数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSReleaseSaleHouseDataModel *)changeToReleaseDataModel;
 
 @end
 

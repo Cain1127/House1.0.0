@@ -143,21 +143,6 @@ static QSSocketManager *_socketManager = nil;
     
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     
-    ///判断给定用户是否是当前聊天用户，如若不是，则下载服务端的离线消息
-#if 0
-    if (![personID isEqualToString:socketManager.currentContactUserID]) {
-        
-        if ([socketManager.currentContactUserID length] <= 0) {
-            
-            socketManager.currentContactUserID = personID;
-            
-        }
-        
-        ///下载服务端的消息
-        [socketManager sendContactServerUnReadMessage];
-        
-    }
-#endif
     ///下载服务端的消息
     [socketManager sendContactServerUnReadMessage];
     NSString *localUserID = [QSCoreDataManager getUserID];
