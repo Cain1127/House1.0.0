@@ -101,6 +101,27 @@
     
     }
     
+    ///注册被踢下线时的监听
+    [QSSocketManager registSocketServerOffLineNotification:^(LOGIN_CHECK_ACTION_TYPE loginStatus, NSString *info) {
+        
+        if (lLoginCheckActionTypeOffLine == loginStatus) {
+            
+            ///将登录状态信息改为非登录
+            [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {}];
+            
+            NSString *tipsString = @"您已经下线";
+            if ([info length] > 0) {
+                
+                tipsString = info;
+                
+            }
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 1.5f, ^(){})
+            
+        }
+        
+    }];
+    
     ///通过子线程下载配置信息
     dispatch_async(self.appDelegateOperationQueue, ^{
         

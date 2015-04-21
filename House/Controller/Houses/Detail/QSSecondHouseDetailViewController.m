@@ -1763,7 +1763,7 @@ static char LeftStarKey;            //!<左侧星级
                 ///朋友圈
             case sShareChoicesTypeFriends:
                 
-                [_delegate changeScene:WXSceneTimeline];
+//                [_delegate changeScene:WXSceneTimeline];
 
                 break;
                 
@@ -1771,7 +1771,7 @@ static char LeftStarKey;            //!<左侧星级
             case sShareChoicesTypeWeChat:
                 
                 ///发送消息给微信好友
-                [self sendMsgToWeChat];
+//                [self sendMsgToWeChat];
                 
                 break;
 
@@ -1796,7 +1796,7 @@ static char LeftStarKey;            //!<左侧星级
         [_delegate sendAuthRequest];
         
         ///会话类型
-        [_delegate changeScene:WXSceneSession];
+//        [_delegate changeScene:WXSceneSession];
         
         ///发送app内容
         [_delegate sendAppContent];

@@ -16,6 +16,7 @@ typedef enum
     lLoginCheckActionTypeUnLogin = 99,  //!<未登录
     lLoginCheckActionTypeLogined,       //!<原来已登录
     lLoginCheckActionTypeReLogin,       //!<重新登录
+    lLoginCheckActionTypeOffLine,       //!<下线
     
 }LOGIN_CHECK_ACTION_TYPE;
 
