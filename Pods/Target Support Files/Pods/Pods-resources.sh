@@ -49,6 +49,18 @@ install_resource()
 }
           install_resource "AMap2DMap/MAMapKit.framework/Versions/2.4.2.19ad4bb/Resources/AMap.bundle"
                     install_resource "MJRefresh/MJRefreshExample/MJRefreshExample/MJRefresh/MJRefresh.bundle"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/UMSocialSDKResourcesNew.bundle"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/TencentOpenApi_IOS_Bundle.bundle"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSCommentDetailController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSCommentInputController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSCommentInputControlleriPad.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMShareEditViewController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMShareEditViewControlleriPad.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSLoginViewController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSnsAccountViewController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/SocialSDKXib/UMSShareListController.xib"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/en.lproj"
+                    install_resource "UMengSocial/umeng_ios_social_sdk_4.2.1_arm64_custom/UMSocial_Sdk_4.2.1/zh-Hans.lproj"
           
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

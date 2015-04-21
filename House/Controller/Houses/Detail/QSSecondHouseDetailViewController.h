@@ -7,7 +7,6 @@
 //
 
 #import "QSTurnBackViewController.h"
-#import "WXApiObject.h"
 
 @protocol sendMsgToWeChatViewDelegate <NSObject>
 

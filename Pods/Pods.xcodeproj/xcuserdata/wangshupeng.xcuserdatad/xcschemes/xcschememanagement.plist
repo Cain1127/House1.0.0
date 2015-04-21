@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-DXYWeChatSDK.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-ISO8601DateFormatterValueTransformer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -59,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-UMengSocial.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -67,62 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1E5D0F944C4A96ECAA899549</key>
+		<key>19AF97AE0AB8974A844E5ACE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2D6603A3D22D137220BD6D5B</key>
+		<key>34CFF5BEE9DF7AFD5B242E72</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D8F58F8ED415BCBB54C815F</key>
+		<key>3DA3CEE0430763DBE192ED86</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E55CDAA1C1FFC4FCCDB94B4</key>
+		<key>61E29FDDF92E7A2135287E03</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4072E608AA44503AB6B66CA8</key>
+		<key>7F954B5D1BB8D8F8A6C9A533</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>534142D588CEA040A2BB2C44</key>
+		<key>9E3BCD7A4076F83C609D0F84</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59609E69773A4998103481BD</key>
+		<key>C345691DD4FA4BBD76388A18</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>692546B491C4DE1266086F29</key>
+		<key>CE5943C3D8601F5E2AE52D78</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C25FA05D44A095DEDA8D234</key>
+		<key>DE31EAB1884C85EE4FF81DAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2F2FE990961A3AE877B6066</key>
+		<key>DF1B179A394E572DF58FC1E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CAA9A258658F45D76C297EB5</key>
+		<key>EE959548BAF3E4E56B531602</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA924DA7133DEB431CD9F442</key>
+		<key>EF3024617D162DB73EE30C63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
