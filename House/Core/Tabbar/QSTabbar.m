@@ -48,6 +48,7 @@
         
         ///初始化按钮数组容器
         self.tabbarButtonArray = [[NSMutableArray alloc] initWithCapacity:[array count]];
+        self.tabbarButtonTipsArray = [NSMutableArray array];
         
         ///创建UI
         [self createTabbarInitUI:array];
@@ -117,6 +118,7 @@
         tipsLabel.text = @"0";
         tipsLabel.textColor = [UIColor whiteColor];
         tipsLabel.adjustsFontSizeToFitWidth = YES;
+        tipsLabel.textAlignment = NSTextAlignmentCenter;
         tipsLabel.hidden = YES;
         
         ///添加单击时的状态更换
@@ -210,7 +212,7 @@
 {
 
     UILabel *tipsLabel = self.tabbarButtonTipsArray[index];
-    if ([tipsString length] > 0) {
+    if ([tipsString intValue] > 0) {
         
         tipsLabel.hidden = NO;
         tipsLabel.text = tipsString;

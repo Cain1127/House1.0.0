@@ -127,6 +127,7 @@
         ///判断当前是否选择发现，不是时显示消息提醒
         if (2 == self.selectedIndex) {
             
+            [self.customTabbarView setUpperRightCornerTipsWithString:@"0" andIndex:2];
             return;
             
         }
@@ -201,6 +202,7 @@
 {
 
     [super setSelectedIndex:selectedIndex];
+    [self.customTabbarView setUpperRightCornerTipsWithString:@"0" andIndex:selectedIndex];
     [self.customTabbarView setCurrentSelectedIndex:(int)selectedIndex];
 
 }
