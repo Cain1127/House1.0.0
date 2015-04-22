@@ -310,6 +310,13 @@
 		<key>url</key>
 		<string>Order/add</string>
 	</dict>
+	<key>3001</key>
+	<dict>
+		<key>url</key>
+		<string>tj/developersIndex</string>
+		<key>class</key>
+		<string>QSDeveloperReturnData</string>
+	</dict>
 	<key>2027</key>
 	<dict>
 		<key>url</key>

@@ -642,6 +642,7 @@ typedef enum
     rRequestCommentListDetail = 2063,                   //!<用户评论列表
 
     rRequestTypeHomeCountData = 3000,                   //!<首页统计数据
+    rRequestTypeDeveloperHomeCountData = 3001,          //!<开发商首页数据
 
     rRequestTypeChatMessageList = 4000,                 //!<消息列表
     rRequestTypeChatContactList = 4001,                 //!<联系人列表

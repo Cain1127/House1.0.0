@@ -46,6 +46,9 @@
 #import "QSCoreDataManager+Collected.h"
 #import "QSCoreDataManager+History.h"
 
+#import "UMSocial.h"
+#import "WXApi.h"
+
 #import "MJRefresh.h"
 
 #import <objc/runtime.h>
@@ -65,7 +68,7 @@ static char RightStarKey;           //!<右侧星级
 //static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate>
+@interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate,UMSocialUIDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
@@ -79,6 +82,8 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) NSArray *activityArray;                //!<活动列表
 
 @property (nonatomic,copy) NSMutableString *allAddress;             //!<拼装地址
+
+@property (nonatomic,strong) QSImageView *headerImageView;          //!<大图
 @end
 
 @implementation QSNewHouseDetailViewController
@@ -356,18 +361,18 @@ static char LeftStarKey;            //!<左侧星级
     }
     
     ///头图片
-    QSImageView *headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f)];
+    _headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f)];
     NSURL *tempURL = [self.detailInfo.loupan_building.attach_file getImageURL];
-    [headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
-    [infoRootView addSubview:headerImageView];
+    [_headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    [infoRootView addSubview:_headerImageView];
     
     ///主信息边框
     CGFloat leftGap = SIZE_DEVICE_WIDTH > 320.0f ? 35.0f : 15.0f;
     ///主信息框的宽
-    CGFloat mainInfoWidth = headerImageView.frame.size.width - 2.0f * leftGap;
+    CGFloat mainInfoWidth = _headerImageView.frame.size.width - 2.0f * leftGap;
     
     ///评分栏
-    UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, headerImageView.frame.origin.y + headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
+    UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, _headerImageView.frame.origin.y + _headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
     [self createScoreSubviews:scoreRootView andInsideScore:@"4.6"  andOverflowScore:@"8.8"  andAroundScore:@"3.4"];
     [infoRootView addSubview:scoreRootView];
     
@@ -1584,6 +1589,8 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareNewHouse:(UIButton *)button
 {
     
+      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@至%d/%@ %d",self.title,self.detailInfo.loupan_building.address,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.price_avg intValue]*[self.detailInfo.loupan_building.min_house_area intValue]];
+    
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;
     
@@ -1598,15 +1605,31 @@ static char LeftStarKey;            //!<左侧星级
                 ///新浪微博
             case sShareChoicesTypeXinLang:
                 
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
                 break;
                 
                 ///朋友圈
             case sShareChoicesTypeFriends:
                 
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
                 break;
                 
                 ///微信朋友圈
             case sShareChoicesTypeWeChat:
+                
+                //设置分享内容和回调对象
+                
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
                 break;
                 
@@ -1620,6 +1643,19 @@ static char LeftStarKey;            //!<左侧星级
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
     
 }
+
+#pragma mark - 分享后返回应用时的回调
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        
+    }
+}
+
 
 #pragma mark - 收藏当前新房
 ///收藏当前新房

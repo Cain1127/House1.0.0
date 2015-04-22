@@ -45,6 +45,9 @@
 #import "QSCoreDataManager+History.h"
 #import "QSCoreDataManager+User.h"
 
+#import "UMSocial.h"
+#import "WXApi.h"
+
 #import "MJRefresh.h"
 
 #import "QSPOrderBookTimeViewController.h"
@@ -64,7 +67,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSRentHouseDetailViewController () <UIScrollViewDelegate>
+@interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate>
 
 @property (nonatomic,copy) NSString *title;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -82,7 +85,7 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
-
+@property (nonatomic,strong) UIImageView *headerImageView;                  //!<大图
 @end
 
 @implementation QSRentHouseDetailViewController
@@ -411,17 +414,17 @@ static char LeftStarKey;            //!<左侧星级
     self.photoArray=dataModel.rentHouse_photo;
     
     ///主题图片
-    UIImageView *headerImageView=[[UIImageView alloc] init];
-    headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    headerImageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
+    _headerImageView=[[UIImageView alloc] init];
+    _headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
+    _headerImageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
     if ([dataModel.house.attach_file length] > 0) {
         
-        [headerImageView loadImageWithURL:[dataModel.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+        [_headerImageView loadImageWithURL:[dataModel.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
         
     }
     
     ///分数view
-    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, _headerImageView.frame.origin.y+_headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"");
         
@@ -511,7 +514,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }
     
-    [infoRootView addSubview:headerImageView];
+    [infoRootView addSubview:_headerImageView];
     [infoRootView addSubview:scoreView];
     [infoRootView addSubview:houseTotalView];
     [infoRootView addSubview:houseDetailView];
@@ -1498,6 +1501,8 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareRentHouse:(UIButton *)button
 {
     
+      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.title,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
+    
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;
     
@@ -1512,15 +1517,31 @@ static char LeftStarKey;            //!<左侧星级
                 ///新浪微博
             case sShareChoicesTypeXinLang:
                 
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
                 break;
                 
                 ///朋友圈
             case sShareChoicesTypeFriends:
                 
+                //设置分享内容和回调对象
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
                 break;
                 
                 ///微信朋友圈
             case sShareChoicesTypeWeChat:
+                
+                //设置分享内容和回调对象
+                
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                
+                [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
                 break;
                 
@@ -1533,6 +1554,18 @@ static char LeftStarKey;            //!<左侧星级
     ///弹出窗口
     popView = [QSYPopCustomView popCustomView:saleTipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {}];
     
+}
+
+#pragma mark - 分享后返回应用时的回调
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)
+    {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+        
+    }
 }
 
 #pragma mark - 收藏当前出租房

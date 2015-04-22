@@ -1751,7 +1751,7 @@ static char LeftStarKey;            //!<左侧星级
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;
     
-    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/m2 %@室%@厅 %@",self.title,self.houseInfo.address,self.houseInfo.house_area,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.house_price];
+    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@ %@室%@厅 %f万",self.title,self.houseInfo.address,[self.houseInfo.house_area intValue],APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,[self.houseInfo.house_price floatValue]/10000];
     ///提示选择窗口
     QSYShareChoicesView *saleTipsView = [[QSYShareChoicesView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 150.0f) andShareCallBack:^(SHARE_CHOICES_TYPE actionType) {
         
@@ -1804,6 +1804,7 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+#pragma mark - 分享后返回应用时的回调
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
 {
     //根据`responseCode`得到发送结果,如果分享成功

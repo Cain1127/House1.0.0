@@ -831,6 +831,8 @@
 		CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D761AC0099E00EC215D /* QSCommunityDetailViewCell.m */; };
 		CEEB6D7E1AC00B9A00EC215D /* QSUserAssessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D7D1AC00B9A00EC215D /* QSUserAssessCell.m */; };
 		CEEB6D811AC01CC100EC215D /* QSUserAssessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEB6D801AC01CC100EC215D /* QSUserAssessViewController.m */; };
+		CEF98A601AE74A81007DF8CE /* QSDeveloperReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A5F1AE74A81007DF8CE /* QSDeveloperReturnData.m */; };
+		CEF98A641AE75137007DF8CE /* QSDeveloperDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF98A631AE75137007DF8CE /* QSDeveloperDataModel.m */; };
 		CEFA4DF61AAD2F010018C8F9 /* QSCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */; };
 		CEFA4DF71AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DF11AAD2F010018C8F9 /* QSSecondHouseDetailViewController.m */; };
 		CEFA4DF81AAD2F010018C8F9 /* QSNewHouseDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFA4DF31AAD2F010018C8F9 /* QSNewHouseDetailViewController.m */; };
@@ -2156,6 +2158,10 @@
 		CEEB6D7D1AC00B9A00EC215D /* QSUserAssessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserAssessCell.m; sourceTree = "<group>"; };
 		CEEB6D7F1AC01CC100EC215D /* QSUserAssessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserAssessViewController.h; sourceTree = "<group>"; };
 		CEEB6D801AC01CC100EC215D /* QSUserAssessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserAssessViewController.m; sourceTree = "<group>"; };
+		CEF98A5E1AE74A81007DF8CE /* QSDeveloperReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDeveloperReturnData.h; sourceTree = "<group>"; };
+		CEF98A5F1AE74A81007DF8CE /* QSDeveloperReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperReturnData.m; sourceTree = "<group>"; };
+		CEF98A621AE75137007DF8CE /* QSDeveloperDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDeveloperDataModel.h; sourceTree = "<group>"; };
+		CEF98A631AE75137007DF8CE /* QSDeveloperDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperDataModel.m; sourceTree = "<group>"; };
 		CEFA4DEE1AAD2F010018C8F9 /* QSCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityDetailViewController.h; path = Detail/QSCommunityDetailViewController.h; sourceTree = "<group>"; };
 		CEFA4DEF1AAD2F010018C8F9 /* QSCommunityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityDetailViewController.m; path = Detail/QSCommunityDetailViewController.m; sourceTree = "<group>"; };
 		CEFA4DF01AAD2F010018C8F9 /* QSSecondHouseDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSSecondHouseDetailViewController.h; path = Detail/QSSecondHouseDetailViewController.h; sourceTree = "<group>"; };
@@ -2385,6 +2391,7 @@
 		182C88191A7B0F0A00DA64E9 /* House */ = {
 			isa = PBXGroup;
 			children = (
+				CEF98A5D1AE74A4C007DF8CE /* Developer */,
 				CE5210151ACE754500D6230B /* Comment */,
 				CE97039F1AC92F8A00AE403E /* HouseTypeDetail */,
 				CEBA355D1AC514D500A1E082 /* ActivityDetail */,
@@ -4499,6 +4506,7 @@
 		18CAFCB41A70E45A00C90C90 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				CEF98A611AE74F64007DF8CE /* Developer */,
 				183571F01AD52DE900A29607 /* Myzone */,
 				18D081D21ACE3297004FA20F /* Contact */,
 				18D081581ACC59CE004FA20F /* Message */,
@@ -6215,6 +6223,24 @@
 			path = UserAssess;
 			sourceTree = "<group>";
 		};
+		CEF98A5D1AE74A4C007DF8CE /* Developer */ = {
+			isa = PBXGroup;
+			children = (
+				CEF98A5E1AE74A81007DF8CE /* QSDeveloperReturnData.h */,
+				CEF98A5F1AE74A81007DF8CE /* QSDeveloperReturnData.m */,
+			);
+			path = Developer;
+			sourceTree = "<group>";
+		};
+		CEF98A611AE74F64007DF8CE /* Developer */ = {
+			isa = PBXGroup;
+			children = (
+				CEF98A621AE75137007DF8CE /* QSDeveloperDataModel.h */,
+				CEF98A631AE75137007DF8CE /* QSDeveloperDataModel.m */,
+			);
+			path = Developer;
+			sourceTree = "<group>";
+		};
 		F4AD990E4AF8F9F85ED4C216 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -6858,6 +6884,7 @@
 				18AFA9F31AB687A100681071 /* QSYRegistViewController.m in Sources */,
 				187CA8CB1AA2FE2A00841A7E /* QSRentHouseListReturnData.m in Sources */,
 				1865E3DA1AB271C900FAEC9E /* QSYSelectedCommunityTableViewCell.m in Sources */,
+				CEF98A601AE74A81007DF8CE /* QSDeveloperReturnData.m in Sources */,
 				18B5728F1AC16D1600C75682 /* descriptor.cc in Sources */,
 				18D081AE1ACD51EC004FA20F /* QSYReleaseSaleHouseAddInfoViewController.m in Sources */,
 				18AFA9F21AB687A100681071 /* QSYRegistSetPasswordViewController.m in Sources */,
@@ -7157,6 +7184,7 @@
 				180CA31B1ADB95D100D42493 /* QSYChatToolViewController.m in Sources */,
 				180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */,
 				182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */,
+				CEF98A641AE75137007DF8CE /* QSDeveloperDataModel.m in Sources */,
 				475A4D331AC3E65A009881CF /* QSPBuyerBookedOrderCompletedListView.m in Sources */,
 				CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */,
 				180CA3171ADA2B3E00D42493 /* QSYMySettingChangeUserGenderPopView.m in Sources */,
@@ -7284,8 +7312,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -7325,8 +7353,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

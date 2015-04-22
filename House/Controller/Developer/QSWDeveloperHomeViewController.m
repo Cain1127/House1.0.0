@@ -9,7 +9,7 @@
 #import "QSWDeveloperHomeViewController.h"
 #import "QSWDeveloperBuildingsViewController.h"
 #import "QSWDeveloperActivityViewController.h"
-#import "QSYChatToolViewController.h"
+#import "QSYSystemSettingViewController.h"
 #import "QSYSystemMessagesViewController.h"
 
 
@@ -65,8 +65,8 @@
         
         APPLICATION_LOG_INFO(@"点击设置", nil);
         settingImageView.highlighted = YES;
-        QSYChatToolViewController *toolVC = [[QSYChatToolViewController alloc] init];
-        [self.navigationController pushViewController:toolVC animated:YES];
+        QSYSystemSettingViewController *settigVC = [[QSYSystemSettingViewController alloc] init];
+        [self.navigationController pushViewController:settigVC animated:YES];
         
     }];
     settingImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SETTING];
