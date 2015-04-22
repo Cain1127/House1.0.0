@@ -52,6 +52,7 @@ typedef enum
 @property (nonatomic,unsafe_unretained) UITextField *streetField;
 @property (nonatomic,unsafe_unretained) UITextField *detailAddressField;
 @property (nonatomic,unsafe_unretained) UITextField *rentPriceField;
+@property (nonatomic,unsafe_unretained) UITextField *areaField;
 
 @end
 
@@ -268,6 +269,12 @@ typedef enum
         
     }
     
+    if (rReleaseRentHouseHomeActionTypeArea == [[tempDict valueForKey:@"action_type"] intValue]) {
+        
+        self.areaField = tempTextField;
+        
+    }
+    
     return tempTextField;
     
 }
@@ -319,11 +326,19 @@ typedef enum
         
     }
     
-    if ([self.rentHouseReleaseModel.areaKey length] <= 0) {
+    if ([self.areaField.text length] <= 0 ||
+        [self.rentHouseReleaseModel.areaKey length] <= 0) {
         
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择面积", 1.0f, ^(){})
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请填写面积", 1.0f, ^(){})
+        [self.areaField becomeFirstResponder];
         return NO;
         
+    } else {
+    
+        [self.areaField resignFirstResponder];
+        self.rentHouseReleaseModel.areaKey = self.rentPriceField.text;
+        self.rentHouseReleaseModel.area = self.rentPriceField.text;
+    
     }
     
     if ([self.rentPriceField.text length] <= 0) {
@@ -334,6 +349,7 @@ typedef enum
         
     } else {
     
+        [self.rentPriceField resignFirstResponder];
         self.rentHouseReleaseModel.rentPriceKey = self.rentPriceField.text;
         self.rentHouseReleaseModel.rentPrice = self.rentPriceField.text;
     
@@ -521,41 +537,6 @@ typedef enum
             
             ///面积
         case rReleaseRentHouseHomeActionTypeArea:
-        {
-            
-            ///回收详细地址弹出的键盘
-            [self.detailAddressField resignFirstResponder];
-            [self.rentPriceField resignFirstResponder];
-            
-            ///获取房子面积的数据
-            NSArray *intentArray = [QSCoreDataManager getHouseAreaType];
-            
-            ///显示房子面积选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.rentHouseReleaseModel.areaKey length] > 0 ? self.rentHouseReleaseModel.areaKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
-                
-                if (cCustomPopviewActionTypeSingleSelected == actionType) {
-                    
-                    ///转模型
-                    QSBaseConfigurationDataModel *tempModel = params;
-                    
-                    textField.text = tempModel.val;
-                    self.rentHouseReleaseModel.area = tempModel.val;
-                    self.rentHouseReleaseModel.areaKey = tempModel.key;
-                    
-                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
-                    
-                    textField.text = nil;
-                    self.rentHouseReleaseModel.area = nil;
-                    self.rentHouseReleaseModel.areaKey = nil;
-                    
-                }
-                
-            }];
-            
-            return NO;
-            
-        }
-            break;
             
             ///租金
         case rReleaseRentHouseHomeActionTypeRentPrice:
@@ -789,6 +770,17 @@ typedef enum
     
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+    [self.districtField resignFirstResponder];
+    [self.streetField resignFirstResponder];
+    [self.detailAddressField resignFirstResponder];
+    [self.rentPriceField resignFirstResponder];
+    [self.areaField resignFirstResponder];
+
+}
+
 #pragma mark - 详细地址编辑完成后保存地址信息
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -822,6 +814,23 @@ typedef enum
             
             self.rentHouseReleaseModel.rentPrice = nil;
             self.rentHouseReleaseModel.rentPriceKey = nil;
+            
+        }
+        
+    }
+    
+    if (rReleaseRentHouseHomeActionTypeArea == actionType) {
+        
+        NSString *inputString = textField.text;
+        if ([inputString length] > 0) {
+            
+            self.rentHouseReleaseModel.area = inputString;
+            self.rentHouseReleaseModel.areaKey = inputString;
+            
+        } else {
+            
+            self.rentHouseReleaseModel.area = nil;
+            self.rentHouseReleaseModel.areaKey = nil;
             
         }
         

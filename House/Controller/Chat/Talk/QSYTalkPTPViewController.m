@@ -470,7 +470,7 @@
         self.isLocalMessage = YES;
         
     } else {
-    
+        
         ///获取本地保存消息
         QSYSendMessageBaseModel *tempModel = self.messagesDataSource[0];
         NSArray *localMessageList = [QSSocketManager getSpecialPersonLocalMessage:self.userModel.id_ andStarTimeStamp:tempModel.timeStamp];

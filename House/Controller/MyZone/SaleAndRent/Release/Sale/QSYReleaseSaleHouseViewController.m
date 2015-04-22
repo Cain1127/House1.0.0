@@ -50,6 +50,7 @@ typedef enum
 @property (nonatomic,unsafe_unretained) UITextField *streetField;
 @property (nonatomic,unsafe_unretained) UITextField *detailAddressField;
 @property (nonatomic,unsafe_unretained) UITextField *SalePriceField;
+@property (nonatomic,unsafe_unretained) UITextField *areaField;
 
 @end
 
@@ -266,6 +267,12 @@ typedef enum
         
     }
     
+    if (rReleaseSaleHouseHomeActionTypeArea == [[tempDict valueForKey:@"action_type"] intValue]) {
+        
+        self.areaField = tempTextField;
+        
+    }
+    
     return tempTextField;
     
 }
@@ -331,12 +338,19 @@ typedef enum
     }
     
     ///面积
-    if ([self.saleHouseReleaseModel.area length] <= 0 ||
+    if ([self.areaField.text length] <= 0 ||
         [self.saleHouseReleaseModel.areaKey length] <= 0) {
         
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择面积", 1.0, ^(){})
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请填写面积", 1.0, ^(){})
+        [self.areaField becomeFirstResponder];
         return NO;
         
+    } else {
+    
+        [self.areaField resignFirstResponder];
+        self.saleHouseReleaseModel.areaKey = self.SalePriceField.text;
+        self.saleHouseReleaseModel.area = self.SalePriceField.text;
+    
     }
     
     ///售价
@@ -550,36 +564,8 @@ typedef enum
         case rReleaseSaleHouseHomeActionTypeArea:
         {
             
-            ///回收详细地址弹出的键盘
-            [self.detailAddressField resignFirstResponder];
-            [self.SalePriceField resignFirstResponder];
-            
-            ///获取房子面积的数据
-            NSArray *intentArray = [QSCoreDataManager getHouseAreaType];
-            
-            ///显示房子面积选择窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.areaKey length] > 0 ? self.saleHouseReleaseModel.areaKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
-                
-                if (cCustomPopviewActionTypeSingleSelected == actionType) {
-                    
-                    ///转模型
-                    QSBaseConfigurationDataModel *tempModel = params;
-                    
-                    textField.text = tempModel.val;
-                    self.saleHouseReleaseModel.area = tempModel.val;
-                    self.saleHouseReleaseModel.areaKey = tempModel.key;
-                    
-                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
-                    
-                    textField.text = nil;
-                    self.saleHouseReleaseModel.area = nil;
-                    self.saleHouseReleaseModel.areaKey = nil;
-                    
-                }
-                
-            }];
-            
-            return NO;
+            textField.returnKeyType = UIReturnKeyDone;
+            return YES;
             
         }
             break;
@@ -662,6 +648,17 @@ typedef enum
 
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    [self.districtField resignFirstResponder];
+    [self.streetField resignFirstResponder];
+    [self.detailAddressField resignFirstResponder];
+    [self.SalePriceField resignFirstResponder];
+    [self.areaField resignFirstResponder];
+    
+}
+
 #pragma mark - 详细地址编辑完成后保存地址信息
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -700,13 +697,29 @@ typedef enum
         
     }
     
+    if (rReleaseSaleHouseHomeActionTypeArea == actionType) {
+        
+        NSString *inputString = textField.text;
+        if ([inputString length] > 0) {
+        
+            self.saleHouseReleaseModel.area = [NSString stringWithFormat:@"%.2f",[inputString floatValue]];
+            self.saleHouseReleaseModel.areaKey = [NSString stringWithFormat:@"%.2f",[inputString floatValue]];
+        
+        } else {
+            
+            self.saleHouseReleaseModel.area = nil;
+            self.saleHouseReleaseModel.areaKey = nil;
+            
+        }
+        
+    }
+    
 }
 
 #pragma mark - 重写返回事件
 ///重写返回事件，返回时，提示清空发布信息
 - (void)gotoTurnBackAction
 {
-
     
     TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil,@"返回将会清空发布出售物业所填写的信息",@"取消",@"确认",^(int buttonIndex) {
         
