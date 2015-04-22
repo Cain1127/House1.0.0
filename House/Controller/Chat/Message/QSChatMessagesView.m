@@ -247,10 +247,11 @@ static char MessageListKey;//!<消息列表关联
         ///进入指定联系人的聊天窗口
         if (self.messageListCallBack) {
             
-            id tempModel = self.messageList[indexPath.row];
+            QSYPostMessageSimpleModel *tempModel = self.messageList[indexPath.row];
             
             ///删除列表中的记录
-            [self.messageList removeObjectAtIndex:indexPath.row];
+            tempModel.not_view = @"0";
+//            [self.messageList removeObjectAtIndex:indexPath.row];
             
             ///刷新列表
             [tableView reloadData];
