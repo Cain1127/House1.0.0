@@ -10,6 +10,7 @@
 #import "QSYRegistViewController.h"
 #import "QSYForgetPasswordViewController.h"
 #import "QSWDeveloperHomeViewController.h"
+#import "QSTabBarViewController.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Collected.h"
@@ -280,6 +281,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     ///显示HUD
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在登录"];
     
+    ///保存登录之前的用户类型
+    __block USER_COUNT_TYPE originalType = [QSCoreDataManager getUserType];
+    
     ///参数
     NSDictionary *params = @{@"mobile" : count,
                              @"password" : password};
@@ -318,24 +322,25 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             ///显示提示信息
                             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
                                 
-                                ///判断是否是开发商
-                                if (uUserCountTypeDeveloper == [QSCoreDataManager getUserType]) {
+                                ///新的用户类型
+                                USER_COUNT_TYPE newUserType = [userModel.user_type intValue];
+                                if (newUserType == originalType) {
                                     
-                                    ///进入开发商模型
-                                    QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
+                                    ///修改配置信息
+                                    if (uUserCountTypeDeveloper == newUserType) {
+                                        
+                                        ///修改默认的用户类型
+                                        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                                        [[NSUserDefaults standardUserDefaults] synchronize];
+                                        
+                                    } else {
+                                        
+                                        ///修改默认的用户类型
+                                        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                        [[NSUserDefaults standardUserDefaults] synchronize];
+                                        
+                                    }
                                     
-                                    ///修改默认的用户类型
-                                    [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
-                                    [[NSUserDefaults standardUserDefaults] synchronize];
-                                    
-                                    [self changeWindowRootViewController:developerVC];
-                                    
-                                } else {
-                                    
-                                    ///修改默认的用户类型
-                                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
-                                    [[NSUserDefaults standardUserDefaults] synchronize];
-                                
                                     ///回调
                                     if (self.loginCallBack) {
                                         
@@ -344,6 +349,53 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                     }
                                     
                                     [self.navigationController popViewControllerAnimated:YES];
+                                    
+                                } else {
+                                
+                                    ///新的用户类型和原用户类型相同，则直接返回上一级
+                                    if (uUserCountTypeDeveloper == newUserType) {
+                                        
+                                        ///进入开发商模型
+                                        QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
+                                        
+                                        ///修改默认的用户类型
+                                        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                                        [[NSUserDefaults standardUserDefaults] synchronize];
+                                        
+                                        [self changeWindowRootViewController:developerVC];
+                                        
+                                    } else {
+                                        
+                                        if (uUserCountTypeDeveloper == originalType) {
+                                            
+                                            ///修改默认的用户类型
+                                            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                            [[NSUserDefaults standardUserDefaults] synchronize];
+                                            
+                                            ///加载tabbar控制器
+                                            QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                                            
+                                            ///加载到rootViewController上
+                                            [self changeWindowRootViewController:tabbarVC];
+                                            
+                                        } else {
+                                        
+                                            ///修改默认的用户类型
+                                            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                            [[NSUserDefaults standardUserDefaults] synchronize];
+                                            
+                                            ///回调
+                                            if (self.loginCallBack) {
+                                                
+                                                self.loginCallBack(lLoginCheckActionTypeReLogin);
+                                                
+                                            }
+                                            
+                                            [self.navigationController popViewControllerAnimated:YES];
+                                        
+                                        }
+                                        
+                                    }
                                 
                                 }
                                 
