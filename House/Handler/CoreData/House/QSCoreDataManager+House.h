@@ -170,6 +170,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHousePropertyRightType;
++ (NSString *)getHousePropertyRightValueWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-02-05 14:02:40
@@ -255,6 +256,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseNatureTypes;
++ (NSString *)getHouseNatureValueWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-03-26 11:03:21
