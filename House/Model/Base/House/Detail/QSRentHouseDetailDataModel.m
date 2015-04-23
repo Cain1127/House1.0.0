@@ -67,6 +67,7 @@
     
     QSReleaseRentHouseDataModel *tempModel = [[QSReleaseRentHouseDataModel alloc] init];
     
+    tempModel.propertyID = self.house.id_;
     tempModel.propertyStatus = rReleasePropertyStatusUpdate;
     tempModel.district = [QSCoreDataManager getDistrictValWithDistrictKey:self.house.areaid];
     tempModel.districtKey = self.house.areaid;

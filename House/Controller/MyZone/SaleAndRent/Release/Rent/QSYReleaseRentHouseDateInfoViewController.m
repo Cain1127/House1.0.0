@@ -474,10 +474,18 @@ static char unExlusiveKey;  //!<非独家按钮关联
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在发布房源"];
     
     ///生成参数
-    NSDictionary *params = [self.rentHouseReleaseModel createReleaseRentHouseParams];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:[self.rentHouseReleaseModel createReleaseRentHouseParams]];
     
     ///发布房源
-    [QSRequestManager requestDataWithType:rRequestTypeMyZoneReleaseRentHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    REQUEST_TYPE requestType = rRequestTypeMyZoneReleaseRentHouse;
+    if (rReleasePropertyStatusUpdate == self.rentHouseReleaseModel.propertyStatus) {
+        
+        requestType = rRequestTypeMyZoneReleaseRentHouse;
+        [params setObject:self.rentHouseReleaseModel.propertyID forKey:@"id_"];
+        
+    }
+    
+    [QSRequestManager requestDataWithType:requestType andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///发布成功
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -487,7 +495,11 @@ static char unExlusiveKey;  //!<非独家按钮关联
                 ///刷新用户信息:由于发布物业后，房客升级为业主
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     
-                    [QSCoreDataManager reloadUserInfoFromServer];
+                    if (rReleasePropertyStatusNew == self.rentHouseReleaseModel.propertyStatus) {
+                        
+                        [QSCoreDataManager reloadUserInfoFromServer];
+                        
+                    }
                     
                 });
                 
