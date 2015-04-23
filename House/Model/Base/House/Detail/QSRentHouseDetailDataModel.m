@@ -19,7 +19,6 @@
 
 #import "QSBaseConfigurationDataModel.h"
 
-#import "UIImageView+CacheImage.h"
 #import "NSString+Calculation.h"
 
 @implementation QSRentHouseDetailDataModel
@@ -189,13 +188,9 @@
             photoModel.originalImageURL = detailPhotoModel.attach_file;
             photoModel.smallImageURL = detailPhotoModel.attach_thumb;
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-               
-                UIImageView *tempImageView = [[UIImageView alloc] init];
-                [tempImageView loadImageWithURL:[detailPhotoModel.attach_file getImageURL] placeholderImage:nil];
-                photoModel.image = tempImageView.image;
-                
-            });
+            ///请求图片
+            NSData *tempData = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[detailPhotoModel.attach_file getImageURL]] returningResponse:nil error:nil];
+            photoModel.image = [UIImage imageWithData:tempData];
             
             [tempModel.imagesList addObject:photoModel];
             

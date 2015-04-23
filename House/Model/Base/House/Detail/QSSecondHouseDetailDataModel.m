@@ -21,8 +21,6 @@
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+House.h"
 
-#import "UIImageView+AFNetworking.h"
-
 @implementation QSSecondHouseDetailDataModel
 
 ///解析规则
@@ -83,8 +81,8 @@
     tempModel.area = self.house.house_area;
     tempModel.areaKey = self.house.house_area;
     
-    tempModel.salePrice = [QSCoreDataManager getHouseRentTypeWithKey:self.house.price_avg];
-    tempModel.salePriceKey = self.house.price_avg;
+    tempModel.salePrice = [NSString stringWithFormat:@"%.2f",[self.house.house_price floatValue] / 10000];
+    tempModel.salePriceKey = [NSString stringWithFormat:@"%.2f",[self.house.house_price floatValue] / 10000];
     tempModel.negotiatedPrice = [QSCoreDataManager getHouseIsNegotiatedPriceTypeWithKey:self.house.negotiated];
     tempModel.negotiatedPriceKey = self.house.negotiated;
     tempModel.nature = [QSCoreDataManager getHouseNatureValueWithKey:self.house.house_nature];
@@ -186,9 +184,9 @@
             photoModel.originalImageURL = detailPhotoModel.attach_file;
             photoModel.smallImageURL = detailPhotoModel.attach_thumb;
             
-            UIImageView *tempImageView = [[UIImageView alloc] init];
-            [tempImageView loadImageWithURL:[detailPhotoModel.attach_file getImageURL] placeholderImage:nil];
-            photoModel.image = tempImageView.image;
+            ///请求图片
+            NSData *tempData = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:[detailPhotoModel.attach_file getImageURL]] returningResponse:nil error:nil];
+            photoModel.image = [UIImage imageWithData:tempData];
             
             [tempModel.imagesList addObject:photoModel];
             
