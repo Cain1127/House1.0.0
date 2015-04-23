@@ -31,11 +31,13 @@
 
 #import "QSWCommunityDataModel.h"
 #import "QSPhotoDataModel.h"
+#import "QSUserBaseInfoDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+Collected.h"
 #import "UIImageView+AFNetworking.h"
+#import "QSCoreDataManager+User.h"
 
 #import "MJRefresh.h"
 
@@ -48,7 +50,6 @@
 static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
 static char MainInfoRootViewKey;    //!<主信息的底view关联
-static char CollectedButtonkey;     //!<关注按钮关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -70,6 +71,7 @@ static char CollectedButtonkey;     //!<关注按钮关联
 @property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;   //!<推荐模型
 
 @property (nonatomic, strong) UITableView *tabbleView;                  //!<小区信息view
+@property (nonatomic,strong) UIButton *intentionButton;                 //!<关注按钮
 
 @end
 
@@ -113,21 +115,19 @@ static char CollectedButtonkey;     //!<关注按钮关联
 {
     
     [super createNavigationBarUI];
-    
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
     ///关注按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
     
-    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///关注小区
         [self intentionCommunity:button];
         
     }];
-    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
-    [self.view addSubview:intentionButton];
-    objc_setAssociatedObject(self, &CollectedButtonkey, intentionButton, OBJC_ASSOCIATION_ASSIGN);
+    self.intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
+    [self.view addSubview:self.intentionButton];
     
 }
 
@@ -191,13 +191,18 @@ static char CollectedButtonkey;     //!<关注按钮关联
     }
     
     ///收藏按钮
-    UIButton *collectedButton = objc_getAssociatedObject(self, &CollectedButtonkey);
-    if (collectedButton) {
+    NSString *localUserID = [QSCoreDataManager getUserID];
+    if ([localUserID isEqualToString:self.detailInfo.user.id_]) {
         
-        if (!collectedButton.selected &&
-            [self.detailInfo.village.is_store intValue] == 1) {
+        self.intentionButton.hidden = YES;
+        
+    } else {
+        
+        self.intentionButton.hidden = NO;
+        
+        if ([self.detailInfo.village.is_store intValue] == 1) {
             
-            collectedButton.selected = YES;
+            self.intentionButton.selected = YES;
             
         }
         
@@ -209,10 +214,10 @@ static char CollectedButtonkey;     //!<关注按钮关联
     NSURL *tempURL = [dataModel.village.attach_file getImageURL];
     [headerImageView setImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
-    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*4.0f+3.0f*5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
+    UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f * 4.0f + 3.0f * 5.0f + 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHouseInfo:dataModel.village];
     
-    QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2.0f*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0 * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y + houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0 * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f + 2.0f * SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
         QSCommunityHouseListViewController *scVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:dataModel.village.id_];
         [self.navigationController pushViewController:scVC animated:YES];

@@ -45,6 +45,7 @@
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+Collected.h"
 #import "QSCoreDataManager+History.h"
+#import "QSCoreDataManager+User.h"
 
 #import "UMSocial.h"
 #import "WXApi.h"
@@ -63,9 +64,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view关联Key
 
-//static char RightScoreKey;          //!<右侧评分
 static char RightStarKey;           //!<右侧星级
-//static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate,UMSocialUIDelegate>
@@ -84,6 +83,8 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,copy) NSMutableString *allAddress;             //!<拼装地址
 
 @property (nonatomic,strong) QSImageView *headerImageView;          //!<大图
+@property (nonatomic,strong) UIButton *intentionButton;             //!<收藏按钮
+
 @end
 
 @implementation QSNewHouseDetailViewController
@@ -132,14 +133,15 @@ static char LeftStarKey;            //!<左侧星级
     ///收藏按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
     
-    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///收藏新房
         [self collectNewHouse:button];
         
     }];
-    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.loupanID andCollectedType:fFilterMainTypeNewHouse];
-    [self.view addSubview:intentionButton];
+    self.intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.loupanID andCollectedType:fFilterMainTypeNewHouse];
+    self.intentionButton.hidden = YES;
+    [self.view addSubview:self.intentionButton];
     
     ///分享按钮
     QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
@@ -331,6 +333,24 @@ static char LeftStarKey;            //!<左侧星级
     for (UIView *obj in [infoRootView subviews]) {
         
         [obj removeFromSuperview];
+        
+    }
+    
+    ///收藏按钮
+    NSString *localUserID = [QSCoreDataManager getUserID];
+    if ([localUserID isEqualToString:self.detailInfo.user.id_]) {
+        
+        self.intentionButton.hidden = YES;
+        
+    } else {
+        
+        self.intentionButton.hidden = NO;
+        
+        if ([self.detailInfo.loupan_building.is_store intValue] == 1) {
+            
+            self.intentionButton.selected = YES;
+            
+        }
         
     }
     
