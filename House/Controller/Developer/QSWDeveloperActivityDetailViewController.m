@@ -137,7 +137,7 @@ static char TableViewKey; //!<活动列表
     UILabel *commentLibel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, titleLabel.frame.origin.y+titleLabel.frame.size.height+10.0f, SIZE_DEVICE_WIDTH, 15.0f)];
     commentLibel.font = [UIFont systemFontOfSize:14.0f];
     commentLibel.textAlignment = NSTextAlignmentCenter;
-    commentLibel.text = self.;
+    commentLibel.text = self.content;
     commentLibel.textColor = COLOR_CHARACTERS_GRAY;
     [headerView addSubview:commentLibel];
     
@@ -151,7 +151,7 @@ static char TableViewKey; //!<活动列表
     statusResultLabel.textAlignment = NSTextAlignmentLeft;
     statusResultLabel.textColor = COLOR_CHARACTERS_YELLOW;
     statusResultLabel.font = [UIFont systemFontOfSize:18.0f];
-    statusResultLabel.text = @"待看房";
+    statusResultLabel.text = self.status;
     [headerView addSubview:statusResultLabel];
     
     UILabel *signUpLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-35.0f-125.0f, statusResultLabel.frame.origin.y+2.5f, 75.0f, 15.0f)];
@@ -164,7 +164,7 @@ static char TableViewKey; //!<活动列表
     signUpCountLabel.textAlignment = NSTextAlignmentCenter;
     signUpCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     signUpCountLabel.font = [UIFont systemFontOfSize:18.0f];
-    signUpCountLabel.text = @"10" ;
+    signUpCountLabel.text = self.number ;
     [headerView addSubview:signUpCountLabel];
     
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, headerView.frame.size.height-0.25f, SIZE_DEVICE_WIDTH, 0.25f)];
