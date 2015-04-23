@@ -85,7 +85,7 @@
     {
         ///获取房子的大头针位置
         _annotation = [[MAPointAnnotation alloc] init];
-        _annotation.coordinate = CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
+        _annotation.coordinate = CLLocationCoordinate2DMake(self.coordinate_y, self.coordinate_x);
         _annotation.title = self.title;
         ///大头针加入地图
         [_mapView addAnnotation:_annotation];

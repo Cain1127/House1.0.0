@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QSNewHouseInfoDataModel.h"
 typedef enum
 {
     
@@ -20,6 +20,6 @@ typedef enum
 @interface QSWDeveloperBuildingsTableViewCell : UITableViewCell
 
 
--(void)updateDeveloperBulidingsModel:(void(^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType))callBack;
+-(void)updateDeveloperBulidingsModel:(QSNewHouseInfoDataModel *)houseModel andCallBack:(void(^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType))callBack;
 
 @end

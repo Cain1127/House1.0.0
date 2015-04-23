@@ -236,7 +236,7 @@
     {
         ///获取房子的大头针位置
         MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
-        annotation.coordinate = CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
+        annotation.coordinate = CLLocationCoordinate2DMake(self.coordinate_y, self.coordinate_x);
         
         ///大头针加入地图
         [_mapView addAnnotation:annotation];
@@ -274,7 +274,7 @@
     
     AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
     request.searchType = AMapSearchType_PlaceAround;
-    request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_x longitude:self.coordinate_y];
+    request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_y longitude:self.coordinate_x];
     
     request.keywords = keywords;
     
@@ -343,7 +343,7 @@
         //[self houseAddressAction];
         ///获取房子的大头针位置
         _annotation0 = [[MAPointAnnotation alloc] init];
-        _annotation0.coordinate = CLLocationCoordinate2DMake(self.coordinate_x, self.coordinate_y);
+        _annotation0.coordinate = CLLocationCoordinate2DMake(self.coordinate_y, self.coordinate_x);
         _annotation0.title=self.title;
         ///大头针加入地图
         [_mapView addAnnotation:_annotation0];

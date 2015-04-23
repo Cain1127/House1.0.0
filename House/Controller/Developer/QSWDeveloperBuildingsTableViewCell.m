@@ -193,7 +193,7 @@ static char PublishTimeLabelKey;//!<发布时间
 }
 
 #pragma mark -更新楼盘数据
--(void)updateDeveloperBulidingsModel:(void (^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE))callBack
+-(void)updateDeveloperBulidingsModel:(QSNewHouseInfoDataModel *)houseModel andCallBack:(void(^)(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType))callBack
 {
     
     if (callBack) {
@@ -211,9 +211,9 @@ static char PublishTimeLabelKey;//!<发布时间
     UILabel *publishLabel = objc_getAssociatedObject(self, &PublishTimeLabelKey);
     
     imageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_100];
-    titleLabel.text = @"珠江公寓";
-    adressLabel.text = @"广湛路-珠江路";
-    priceLabel.text = @"999";
+    titleLabel.text = houseModel.title;
+    adressLabel.text = houseModel.address;
+    priceLabel.text = [NSString stringWithFormat:@"%d",[houseModel.price_avg intValue]];
     pageLabel.text = @"888";
     orderLabel.text = @"345";
     publishLabel.text = [NSString stringWithFormat:@"%@%@",@"2015-04-15",@"发布"];

@@ -8,6 +8,9 @@
 
 #import "QSWDeveloperBuildingsViewController.h"
 
+#import "QSNewHouseListReturnData.h"
+#import "QSNewHouseInfoDataModel.h"
+
 #import "QSWDeveloperBuildingsTableViewCell.h"
 
 #import "MJRefresh.h"
@@ -20,6 +23,9 @@
 static char TableViewKey;   //!<楼盘列表
 
 @interface QSWDeveloperBuildingsViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic,retain) NSArray *houseListArray;       //!<楼盘列表
+@property (nonatomic,retain) QSNewHouseInfoDataModel *houseModel;  //!<楼盘数据
 
 @end
 
@@ -53,7 +59,7 @@ static char TableViewKey;   //!<楼盘列表
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 10;
+    return self.houseListArray.count;
     
 }
 
@@ -78,7 +84,9 @@ static char TableViewKey;   //!<楼盘列表
         
     }
     
-    [cell updateDeveloperBulidingsModel:^(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType) {
+    self.houseModel = self.houseListArray[indexPath.row];
+    
+    [cell updateDeveloperBulidingsModel:self.houseModel andCallBack:^(DEVELOPER_BUILDINGS_BUTTON_ACTION_TYPE actionType) {
         switch (actionType) {
             case dDeveloperBuildingsActionTypeHeaderImage:
                 
@@ -101,8 +109,9 @@ static char TableViewKey;   //!<楼盘列表
             default:
                 break;
         }
-    }];
-    
+
+    }
+     ];
     return cell;
 }
 
@@ -111,7 +120,28 @@ static char TableViewKey;   //!<楼盘列表
 {
 
     UITableView *tableView = objc_getAssociatedObject(self, &TableViewKey);
-    [tableView.header endRefreshing];
+    
+    
+    [QSRequestManager requestDataWithType:rRequestTypeNewHouse andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSNewHouseListReturnData *returnData = resultData;
+            QSNewHouseListHeaderData *headerList = returnData.headerData;
+            self.houseListArray = headerList.houseList;
+            
+        }
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [tableView reloadData];
+            
+            [tableView.header endRefreshing];
+
+        });
+    }
+     
+     ];
 
 }
 
