@@ -238,9 +238,8 @@
         self.changeOrderButtonView = [[QSPOrderDetailChangeOrderButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewBottomButtonOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeOne:
-                    NSLog(@"QSPOrderDetailChangeOrderButtonView:修改订单");
                     {
-                        QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+                        QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
                                 //修改成功,更新详情
@@ -440,9 +439,8 @@
         self.appointmentSalerAgainButtonView = [[QSPOrderDetailAppointmentSalerAgainButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewBottomButtonOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeOne:
-                    NSLog(@"QSPOrderDetailAppointmentSalerAgainButtonView:重新预约业主按钮按钮");
                     {
-                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString  *orderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
                                 [self getDetailData];
@@ -1988,7 +1986,7 @@
 #pragma mark - 再次预约
 - (void)appointmentAgainAction{
     
-    QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+    QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
         
         if (bBookResultTypeSucess == resultTag) {
             //修改成功,更新详情

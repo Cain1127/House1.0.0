@@ -14,10 +14,38 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59609E69773A4998103481BD"
-               BuildableName = "libPods-DXYWeChatSDK.a"
-               BlueprintName = "Pods-DXYWeChatSDK"
+               BlueprintIdentifier = "183CC65A1A68FC8800B8F97D"
+               BuildableName = "House.app"
+               BlueprintName = "House"
+               ReferencedContainer = "container:../House.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3DA3CEE0430763DBE192ED86"
+               BuildableName = "libPods.a"
+               BlueprintName = "Pods"
                ReferencedContainer = "container:Pods.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "183CC67A1A68FC8800B8F97D"
+               BuildableName = "HouseTests.xctest"
+               BlueprintName = "HouseTests"
+               ReferencedContainer = "container:../House.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +70,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59609E69773A4998103481BD"
-            BuildableName = "libPods-DXYWeChatSDK.a"
-            BlueprintName = "Pods-DXYWeChatSDK"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "183CC65A1A68FC8800B8F97D"
+            BuildableName = "House.app"
+            BlueprintName = "House"
+            ReferencedContainer = "container:../House.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +88,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59609E69773A4998103481BD"
-            BuildableName = "libPods-DXYWeChatSDK.a"
-            BlueprintName = "Pods-DXYWeChatSDK"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "183CC65A1A68FC8800B8F97D"
+            BuildableName = "House.app"
+            BlueprintName = "House"
+            ReferencedContainer = "container:../House.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

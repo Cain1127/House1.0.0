@@ -21,7 +21,12 @@
                                                     @"coordinate_y",
                                                     @"price_avg",
                                                     @"tj_look_house_num",
-                                                    @"tj_wait_look_house_people"
+                                                    @"tj_wait_look_house_people",
+                                                    @"tj_condition",
+                                                    @"tj_environment",
+                                                    @"intent_arr",
+                                                    @"book_num",
+                                                    @"is_store"
                                                     ]];
     
     return shared_mapping;

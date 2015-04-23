@@ -533,6 +533,14 @@
 
 }
 
++ (NSString *)getHousePropertyRightValueWithKey:(NSString *)keyString
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"used_year" andSecondFieldName:@"key" andSecndFieldValue:keyString];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-05 14:02:40
  *
@@ -922,6 +930,14 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (NSString *)getHouseNatureValueWithKey:(NSString *)keyString
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_nature" andSecondFieldName:@"key" andSecndFieldValue:keyString];
+    return tempModel.val;
 
 }
 

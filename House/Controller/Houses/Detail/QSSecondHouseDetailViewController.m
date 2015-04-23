@@ -284,7 +284,7 @@ static char LeftStarKey;            //!<左侧星级
                     if (0 >= [self.detailInfo.expandInfo.is_book length]) {
                         
                         ///已登录进入预约
-                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag) {
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
                                 

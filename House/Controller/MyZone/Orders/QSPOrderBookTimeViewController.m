@@ -36,7 +36,7 @@
 @property (nonatomic, strong) UITextField *personNameField;
 @property (nonatomic, strong) UITextField *phoneNumField;
 
-@property (nonatomic,copy) void(^blockButtonCallBack)(BOOKTIME_RESULT_TYPE resultTag);
+@property (nonatomic,copy) void(^blockButtonCallBack)(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID);
 
 @end
 
@@ -45,7 +45,7 @@
 
 #pragma mark - 初始化
 
-- (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag))callBack
+- (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID))callBack
 {
     if (self = [self init]) {
         
@@ -539,7 +539,7 @@
             })
             
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeSucess);
+                self.blockButtonCallBack(bBookResultTypeSucess,headerModel.msg);
             }
             
         }else{
@@ -547,7 +547,7 @@
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
             
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeFail);
+                self.blockButtonCallBack(bBookResultTypeFail,nil);
             }
         }
         
@@ -639,14 +639,14 @@
             })
             
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeSucess);
+                self.blockButtonCallBack(bBookResultTypeSucess,headerModel.msg);
             }
             
         }else{
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeFail);
+                self.blockButtonCallBack(bBookResultTypeFail,nil);
             }
         }
         
@@ -788,14 +788,14 @@
             })
             
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeSucess);
+                self.blockButtonCallBack(bBookResultTypeSucess,headerModel.msg);
             }
             
         }else{
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
             if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(bBookResultTypeFail);
+                self.blockButtonCallBack(bBookResultTypeFail,nil);
             }
         }
         

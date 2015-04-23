@@ -11,6 +11,7 @@
 @interface QSReleaseSaleHouseDataModel : QSBaseModel
 
 @property (assign) RELEASE_PROPERTY_STATUS propertyStatus;          //!<物业状态
+@property (nonatomic,copy) NSString *propertyID;                    //!<物业ID
 @property (nonatomic,copy) NSString *trandType;                     //!<物业类型
 @property (nonatomic,copy) NSString *trandTypeKey;                  //!<物业类型的Key
 @property (nonatomic,copy) NSString *district;                      //!<所在区
