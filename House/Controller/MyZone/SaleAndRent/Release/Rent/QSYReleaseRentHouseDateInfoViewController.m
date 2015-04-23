@@ -480,7 +480,7 @@ static char unExlusiveKey;  //!<非独家按钮关联
     REQUEST_TYPE requestType = rRequestTypeMyZoneReleaseRentHouse;
     if (rReleasePropertyStatusUpdate == self.rentHouseReleaseModel.propertyStatus) {
         
-        requestType = rRequestTypeMyZoneReleaseRentHouse;
+        requestType = rRequestTypeMyZoneUpdateRentHouseProperty;
         [params setObject:self.rentHouseReleaseModel.propertyID forKey:@"id_"];
         
     }
