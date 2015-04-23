@@ -20,17 +20,27 @@ static char TableViewKey; //!<活动列表
 @interface QSWDeveloperActivityDetailViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,copy) NSString *title;
+@property(nonatomic,copy) NSString *content;
+@property(nonatomic,copy) NSString *status;
+@property(nonatomic,copy) NSString *number;
+@property(nonatomic,copy) NSString *image;
+
 
 @end
 
 @implementation QSWDeveloperActivityDetailViewController
 
--(instancetype)initWithTitle:(NSString *)title
+-(instancetype)initWithTitle:(NSString *)title andConnet:(NSString *)content andStatus:(NSString *)status andSignUpNum:(NSString *)number andImage:(NSString *)image
 {
 
     if (self = [super init]) {
         
         self.title = title;
+        self.content = content;
+        self.status = status;
+        self.number = number;
+        self.image = image;
+
     }
 
     return self;

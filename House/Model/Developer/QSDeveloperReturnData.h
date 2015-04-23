@@ -21,6 +21,7 @@
 @property (nonatomic,copy) NSString *developers_activity_num; //!<活动总数
 @property (nonatomic,copy) NSString *total_view ;             //!<总浏览数
 @property (nonatomic,copy) NSString *book_num;                //!<总预约数
-@property (nonatomic,retain) NSArray *best_loupan;            //!<最好楼盘
+@property (nonatomic,copy) NSString *best_loupan;             //!<最好楼盘
+//@property (nonatomic,retain) NSArray *best_loupan;            //!<最好楼盘
 
 @end

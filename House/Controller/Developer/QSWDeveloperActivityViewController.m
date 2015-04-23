@@ -9,6 +9,9 @@
 #import "QSWDeveloperActivityViewController.h"
 #import "QSWDeveloperActivityDetailViewController.h"
 
+#import "QSDeveloperActivityListReturnData.h"
+#import "QSDeveloperActivityDataModel.h"
+
 #import "QSBlockButtonStyleModel+Normal.h"
 
 #import "QSWDeveloperActivityTableViewCell.h"
@@ -22,7 +25,9 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 
 @interface QSWDeveloperActivityViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-
+@property (nonatomic,retain)  QSDeveloperActivityListDataModel *activityListModel; //!<活动列表
+@property (nonatomic,retain)  NSMutableArray *activityArray;
+@property (nonatomic,retain)  QSDeveloperActivityDataModel *activityDataModel;     //!<活动基本数据
 @end
 
 @implementation QSWDeveloperActivityViewController
@@ -72,6 +77,15 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         onlineActivityView.showsVerticalScrollIndicator = NO;
         onlineActivityView.showsHorizontalScrollIndicator = NO;
         
+        objc_setAssociatedObject(self, &OnlineActivityViewKey, onlineActivityView, OBJC_ASSOCIATION_ASSIGN);
+
+        [onlineActivityView  addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOnlineInfo)];
+        
+        [onlineActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOnlineMoreInfo)];
+        
+        [onlineActivityView.header beginRefreshing];
+        [onlineActivityView.footer beginRefreshing];
+        
         [UITableView animateWithDuration:0.3 animations:^{
             
             arrowIndicator.frame = CGRectMake(button.frame.origin.x+button.frame.size.width/2.0f-7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
@@ -111,7 +125,12 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         overActivityView.showsVerticalScrollIndicator = NO;
         [self.view addSubview:overActivityView];
         objc_setAssociatedObject(self, &OverActivityViewKey, overActivityView, OBJC_ASSOCIATION_ASSIGN);
+        [overActivityView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOverInfo)];
         
+        [overActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOverMoreInfo)];
+        
+        [overActivityView.header beginRefreshing];
+        [overActivityView.footer beginRefreshing];
         [UITableView animateWithDuration:0.3 animations:^{
             arrowIndicator.frame = CGRectMake(button.frame.origin.x+button.frame.size.width/2.0f-7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
             
@@ -142,9 +161,10 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     [onlineActivityView  addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOnlineInfo)];
     
     [onlineActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOnlineMoreInfo)];
-    onlineActivityView.footer.hidden = YES;
+//    onlineActivityView.footer.hidden = YES;
     
     [onlineActivityView.header beginRefreshing];
+    [onlineActivityView.footer beginRefreshing];
     
     
     
@@ -166,7 +186,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 20;
+    return [self.activityListModel.page_num intValue] ? [self.activityListModel.page_num intValue] : 10;
 
 }
 
@@ -183,8 +203,14 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         
     }
 
+    self.activityDataModel = [[QSDeveloperActivityDataModel alloc] init];
+    if (0<self.activityListModel.records.count) {
+        
+        self.activityDataModel = self.activityListModel.records[indexPath.row];
+
+    }
     ///更新数据
-    [cell updateDeveloperActivityModel];
+    [cell updateDeveloperActivityModel:self.activityDataModel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -193,7 +219,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:nil];
+    QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:self.activityDataModel.title andConnet:self.activityDataModel.content andStatus:self.activityDataModel.status andSignUpNum:self.activityDataModel.apply_num andImage:self.activityDataModel.attach_thumb];
     
     [self.navigationController pushViewController:VC animated:YES];
 
@@ -205,14 +231,150 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 {
 
     UITableView *onlineView = objc_getAssociatedObject(self, &OnlineActivityViewKey);
-    [onlineView.header endRefreshing];
+    
+    NSDictionary *params = @{@"page_num":@"10",
+                             @"now_page":@"1",
+                             @"status":@"501001",
+                             @"key":@""
+                             };
+    
+    [QSRequestManager requestDataWithType:rRequestTypeDeveloperActivityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode)
+    {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSDeveloperActivityListReturnData *returnData = resultData;
+            self.activityListModel = returnData.msg;
+            
+        }
+        [onlineView.header endRefreshing];
+
+    }];
 
 }
-///脚部刷新
+
+///结束活动数据请求
+-(void)getOverInfo
+{
+    
+    UITableView *overView = objc_getAssociatedObject(self, &OverActivityViewKey);
+    
+    NSDictionary *params = @{@"page_num":@"10",
+                             @"now_page":@"1",
+                             @"status":@"501002",
+                             @"key":@""
+                             };
+    
+    [QSRequestManager requestDataWithType:rRequestTypeDeveloperActivityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode)
+     {
+         
+         if (rRequestResultTypeSuccess == resultStatus) {
+             
+             QSDeveloperActivityListReturnData *returnData = resultData;
+             self.activityListModel = returnData.msg;
+             
+         }
+         [overView.header endRefreshing];
+         
+     }];
+    
+}
+///当前活动脚部刷新
 -(void)getOnlineMoreInfo
 {
 
     UITableView *onlineView = objc_getAssociatedObject(self, &OnlineActivityViewKey);
-    [onlineView.footer endRefreshing];
+    
+    ///判断是否最大页码
+    if ([self.activityListModel.per_page intValue] == [self.activityListModel.next_page intValue]) {
+        
+        ///结束刷新动画
+        onlineView.footer.hidden = NO;
+        [onlineView.footer noticeNoMoreData];
+        [onlineView.footer endRefreshing];
+        return;
+        
+    }
+    NSDictionary *params = @{@"page_num":@"10",
+                             @"status":@"501001",
+                             @"key":@""
+                             };
+    [params setValue:self.activityListModel.next_page forKey:@"now_page"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeDeveloperActivityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode)
+     {
+         
+         if (rRequestResultTypeSuccess == resultStatus) {
+             
+             QSDeveloperActivityListReturnData *returnData = resultData;
+             self.activityListModel = returnData.msg;
+             
+         }
+         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             
+             ///刷新数据
+             [onlineView reloadData];
+             
+             onlineView.footer.hidden = NO;
+             if ([self.activityListModel.per_page intValue] ==
+                 [self.activityListModel.next_page intValue]) {
+                 
+                 [onlineView.footer noticeNoMoreData];
+                 
+             }
+             
+         });
+         
+     }];
+
+}
+
+///结束活动脚部刷新
+-(void)getOverMoreInfo
+{
+    
+    UITableView *overView = objc_getAssociatedObject(self, &OverActivityViewKey);
+    
+    ///判断是否最大页码
+    if ([self.activityListModel.per_page intValue] == [self.activityListModel.next_page intValue]) {
+        
+        ///结束刷新动画
+        overView.footer.hidden = NO;
+        [overView.footer noticeNoMoreData];
+        [overView.footer endRefreshing];
+        return;
+        
+    }
+    NSDictionary *params = @{@"page_num":@"10",
+                             @"status":@"501002",
+                             @"key":@""
+                             };
+    [params setValue:self.activityListModel.next_page forKey:@"now_page"];
+    [QSRequestManager requestDataWithType:rRequestTypeDeveloperActivityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode)
+     {
+         
+         if (rRequestResultTypeSuccess == resultStatus) {
+             
+             QSDeveloperActivityListReturnData *returnData = resultData;
+             self.activityListModel = returnData.msg;
+             
+         }
+         
+         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             
+             ///刷新数据
+             [overView reloadData];
+             
+             overView.footer.hidden = NO;
+             if ([self.activityListModel.per_page intValue] ==
+                 [self.activityListModel.next_page intValue]) {
+                 
+                 [overView.footer noticeNoMoreData];
+                 
+             }
+             
+         });
+     }];
+
 }
 @end

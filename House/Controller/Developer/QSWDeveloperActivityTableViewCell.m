@@ -8,6 +8,8 @@
 
 #import "QSWDeveloperActivityTableViewCell.h"
 
+#import "NSString+Calculation.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -74,25 +76,25 @@ static char SignUpCountKey;         //!<报名人数
 }
 
 #pragma mark -更新数据模型
--(void)updateDeveloperActivityModel
+-(void)updateDeveloperActivityModel:(QSDeveloperActivityDataModel *)dataModel
 {
 
     QSImageView *userImageView = objc_getAssociatedObject(self, &UserImageViewKey);
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
-    //    if ([self.detailInfo.user.avatar length] > 0) {
-    //
-    //        [userImageView loadImageWithURL:[self.detailInfo.user.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        if ([dataModel.attach_thumb length] > 0) {
     
-    //}
+            [userImageView loadImageWithURL:[dataModel.attach_thumb getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW]];
+    
+    }
     
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleLabelKey);
-    titleLabel.text = @"江南水乡";
+    titleLabel.text =dataModel.title ? dataModel.title : @"江南水乡";
     
     UILabel *commentLabel = objc_getAssociatedObject(self, &CommentLabelKey);
-    commentLabel.text = @"10月1日看房团";
+    commentLabel.text =dataModel.content ? dataModel.content : @"10月1日看房团";
     
     UILabel *signUpCountLabel = objc_getAssociatedObject(self, &SignUpCountKey);
-    signUpCountLabel.text = @"10";
+    signUpCountLabel.text =dataModel.apply_num ;
 }
 
 @end

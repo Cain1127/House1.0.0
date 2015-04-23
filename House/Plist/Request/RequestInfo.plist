@@ -310,6 +310,13 @@
 		<key>url</key>
 		<string>Order/add</string>
 	</dict>
+	<key>3002</key>
+	<dict>
+		<key>url</key>
+		<string>loupanActivity/list</string>
+		<key>class</key>
+		<string>QSDeveloperActivityListReturnData</string>
+	</dict>
 	<key>3001</key>
 	<dict>
 		<key>url</key>

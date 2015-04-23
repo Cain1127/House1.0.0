@@ -40,11 +40,12 @@
                                                     @"developers_loupan_num",
                                                     @"developers_activity_num",
                                                     @"total_view",
-                                                    @"book_num"
+                                                    @"book_num",
+                                                    @"best_loupan"
                                                     ]];
-    
-    ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"best_loupan" toKeyPath:@"best_loupan" withMapping:[QSDeveloperDataModel objectMapping]]];
+//    
+//    ///在超类的mapping规则之上添加子类mapping
+//    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"best_loupan" toKeyPath:@"best_loupan" withMapping:[QSDeveloperDataModel objectMapping]]];
     
     return shared_mapping;
     

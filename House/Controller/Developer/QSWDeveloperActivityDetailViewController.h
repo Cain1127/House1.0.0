@@ -21,7 +21,7 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithTitle:(NSString *)title;
+-(instancetype)initWithTitle:(NSString *)title andConnet:(NSString *)content andStatus:(NSString *)status andSignUpNum:(NSString *)number andImage:(NSString *)image;
 
 
 @end

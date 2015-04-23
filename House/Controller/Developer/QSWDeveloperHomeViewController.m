@@ -12,6 +12,7 @@
 #import "QSYSystemSettingViewController.h"
 #import "QSYSystemMessagesViewController.h"
 
+#import "QSDeveloperReturnData.h"
 
 #import "QSImageView+Block.h"
 
@@ -34,6 +35,17 @@
     
     
     [super createMainShowUI];
+    
+    [self getDeveloperInfo];
+    
+ 
+    
+}
+
+#pragma mark -网络请求成功创建UI
+-(void)createDeveloperUI:(QSDeveloperListReturnData *)dataModel
+{
+
     UIImageView *onSaleImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(15.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
         
         APPLICATION_LOG_INFO(@"点击在线售楼", nil);
@@ -42,9 +54,9 @@
         
     }];
     onSaleImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_SALING];
-    [self createOnsaleInfoUI:onSaleImageView andCount:@"108"];
+    [self createOnsaleInfoUI:onSaleImageView andCount:dataModel.developers_loupan_num];
     [self.view addSubview:onSaleImageView];
-
+    
     UIImageView *activityImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 15.0f-SIZE_DEVICE_WIDTH*160.0f/375.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
         
         APPLICATION_LOG_INFO(@"点击当前活动", nil);
@@ -53,12 +65,12 @@
         
     }];
     activityImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_ACTIVES];
-
-    [self createActivityInfoUI:activityImageView andCount:@"99"];
+    
+    [self createActivityInfoUI:activityImageView andCount:dataModel.developers_activity_num];
     [self.view addSubview:activityImageView];
     
     UIView *houseAttentionView=[[UIView alloc] initWithFrame:CGRectMake(35.0f, activityImageView.frame.origin.y+activityImageView.frame.size.height+20.0f, SIZE_DEVICE_WIDTH-70.0f, 25.0f+15.0f+5.0f+2*20.0f)];
-    [self createHouseAttentionViewUI:houseAttentionView ];
+    [self createHouseAttentionViewUI:houseAttentionView andDataModel:dataModel];
     [self.view addSubview:houseAttentionView];
     
     UIImageView *settingImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(35.0f, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height+20.0f, SIZE_DEVICE_WIDTH*120.0f/375.0f, SIZE_DEVICE_WIDTH*133.0f/375.0f) andSingleTapCallBack:^{
@@ -92,7 +104,7 @@
         
     }];
     chatImageView.image = [UIImage imageNamed:IMAGE_DEVELOPER_HOME_CHAT];
-
+    
     
     ///说明文字
     UILabel *chatLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,0.0f, 60.0f, 20.0f)];
@@ -103,7 +115,8 @@
     chatLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [chatImageView addSubview:chatLabel];
     [self.view addSubview:chatImageView];
-    
+
+
 }
 
 ///创建在售楼盘UI
@@ -169,7 +182,7 @@
 
 #pragma mark -添加访问量\预约量等UI
 ///添加房源关注view
--(void)createHouseAttentionViewUI:(UIView *)view
+-(void)createHouseAttentionViewUI:(UIView *)view andDataModel:(QSDeveloperListReturnData *)dataModel
 {
     
     ///分隔线
@@ -190,7 +203,7 @@
     [view addSubview:pageLabel];
     
     UILabel *pageCountLable = [[UILabel alloc] initWithFrame:CGRectMake(pageLabel.frame.origin.x, 20.0f, width / 2.0f + 5.0f, 25.0f)];
-    pageCountLable.text =  @"0";
+    pageCountLable.text =  dataModel.total_view;
     pageCountLable.textAlignment = NSTextAlignmentRight;
     pageCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     pageCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -217,7 +230,7 @@
     [view addSubview:medicalLabel];
     
     UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, pageCountLable.frame.origin.y, width / 2.0f + 5.0f, 25.0f)];
-    medicalCountLable.text =  @"0";
+    medicalCountLable.text =  dataModel.book_num;
     medicalCountLable.textAlignment = NSTextAlignmentRight;
     medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     medicalCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -244,7 +257,7 @@
     [view addSubview:welcomeLabel];
     
     UILabel *welcomeCountLable = [[UILabel alloc] initWithFrame:CGRectMake(welcomeLabel.frame.origin.x, 20.0f, width + 20.0f, 25.0f)];
-    welcomeCountLable.text =  @"青山108号";
+    welcomeCountLable.text =  dataModel.best_loupan;
     welcomeCountLable.textAlignment = NSTextAlignmentLeft;
     welcomeCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     welcomeCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -257,4 +270,20 @@
     
 }
 
+-(void)getDeveloperInfo
+{
+
+    [QSRequestManager requestDataWithType:rRequestTypeDeveloperHomeCountData andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSDeveloperReturnData *returnData = resultData;
+            QSDeveloperListReturnData *dataModel = returnData.msg;
+            [self createDeveloperUI:dataModel];
+            
+        }
+    }
+
+ ];
+}
 @end
