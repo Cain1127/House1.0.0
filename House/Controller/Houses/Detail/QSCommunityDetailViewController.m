@@ -39,8 +39,6 @@
 
 #import "MJRefresh.h"
 
-
-
 ///左右限隙宏
 #define SIZE_DEFAULT_HEIGHTTAP (SIZE_DEVICE_WIDTH >= 375.0f ? 20.0f : 15.0f)
 
@@ -50,6 +48,7 @@
 static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
 static char MainInfoRootViewKey;    //!<主信息的底view关联
+static char CollectedButtonkey;     //!<关注按钮关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -71,7 +70,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (nonatomic,retain) QSHouseInfoDataModel *houseCommendModel;   //!<推荐模型
 
 @property (nonatomic, strong) UITableView *tabbleView;                  //!<小区信息view
-//@property (nonatomic, retain) NSMutableArray *communityDataSource;      //!<小区推荐数据源
 
 @end
 
@@ -129,6 +127,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }];
     intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.communityID andCollectedType:fFilterMainTypeCommunity];
     [self.view addSubview:intentionButton];
+    objc_setAssociatedObject(self, &CollectedButtonkey, intentionButton, OBJC_ASSOCIATION_ASSIGN);
     
 }
 
@@ -191,6 +190,19 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }
     
+    ///收藏按钮
+    UIButton *collectedButton = objc_getAssociatedObject(self, &CollectedButtonkey);
+    if (collectedButton) {
+        
+        if (!collectedButton.selected &&
+            [self.detailInfo.village.is_store intValue] == 1) {
+            
+            collectedButton.selected = YES;
+            
+        }
+        
+    }
+    
     ///主题图片
     UIImageView *headerImageView=[[UIImageView alloc] init];
     headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
@@ -202,7 +214,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y+houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2.0f*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入小区二手房");
         QSCommunityHouseListViewController *scVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:dataModel.village.id_];
         [self.navigationController pushViewController:scVC animated:YES];
         
@@ -212,7 +223,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入小区出租房");
         QSCommunityHouseListViewController *rentVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeRentalHouse andVillageID:dataModel.village.id_];
         [self.navigationController pushViewController:rentVC animated:YES];
     }];
@@ -260,7 +270,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -添加房子详情view
+#pragma mark - 添加房子详情view
 ///添加房子详情view
 -(void)createHouseDetailViewUI:(UIView *)view andHouseInfo:(QSWCommunityDataModel *)houseInfo
 {
@@ -320,7 +330,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -小区二手房view
+#pragma mark - 小区二手房view
 ///小区二手房view
 -(void)createPriceChangeViewUI:(UIView *)view andSecondHouseNum:(NSString *)secondHouseNum
 {
@@ -366,7 +376,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -添加小区出租房view
+#pragma mark - 添加小区出租房view
 ///添加小区均价view
 -(void)createDistrictAveragePriceViewUI:(UIView *)view andRentHouseNum:(NSString *)rentHouseNum
 {
@@ -412,7 +422,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -小区房价走势view
+#pragma mark - 小区房价走势view
 ///添加物业总价
 - (void)createHouseTotalUI:(UIView *)view andPrice:(NSString *)price
 {
@@ -459,7 +469,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 }
 
 
-#pragma mark -添加房子服务按钮view
+#pragma mark - 添加房子服务按钮view
 ///添加房子服务按钮view
 -(void)createHouseServiceViewUI:(UIView *)view
 {
@@ -558,7 +568,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -添加更多配套view
+#pragma mark - 添加更多配套view
 ///更多配套
 -(void)createCommentViewUI:(UIView *)view
 {
@@ -582,9 +592,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -tableview数据源方法
+#pragma mark - tableview数据源方法
 
-#pragma mark -返回推荐列表的每一行
+#pragma mark - 返回推荐列表的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -640,7 +650,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
 }
 
-#pragma mark -点击每行进入推荐列表详情
+#pragma mark - 点击每行进入推荐列表详情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 

@@ -86,6 +86,8 @@ static char LeftStarKey;            //!<左侧星级
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
 @property (nonatomic,strong) UIImageView *headerImageView;                  //!<大图
+@property (nonatomic,strong) UIButton *intentionButton;                     //!<收藏按钮
+
 @end
 
 @implementation QSRentHouseDetailViewController
@@ -150,14 +152,15 @@ static char LeftStarKey;            //!<左侧星级
     ///收藏按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
     
-    UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///收藏出租房
         [self collectRentHouse:button];
         
     }];
-    intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeRentalHouse];
-    [self.view addSubview:intentionButton];
+    self.intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeRentalHouse];
+    self.intentionButton.hidden = YES;
+    [self.view addSubview:self.intentionButton];
     
     ///分享按钮
     QSBlockButtonStyleModel *buttonStyleShare = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeShare];
@@ -225,6 +228,22 @@ static char LeftStarKey;            //!<左侧星级
     ///发布当前房源的业主
     NSString *ownerID = self.detailInfo.user.id_;
     NSString *localUserID = [QSCoreDataManager getUserID];
+    
+    if ([localUserID isEqualToString:self.userInfo.id_]) {
+        
+        self.intentionButton.hidden = YES;
+        
+    } else {
+        
+        self.intentionButton.hidden = NO;
+        
+        if ([self.detailInfo.expandInfo.is_store intValue] == 1) {
+            
+            self.intentionButton.selected = YES;
+            
+        }
+        
+    }
     
     ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
     if ([localUserID isEqualToString:ownerID]) {

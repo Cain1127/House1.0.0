@@ -83,7 +83,9 @@ static char LeftStarKey;            //!<左侧星级
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
 
-@property (nonatomic, strong) UIImageView *headerImageView;
+@property (nonatomic,strong) UIImageView *headerImageView;
+@property (nonatomic,strong) UIButton *intentionButton;                     //!<收藏按钮
+
 @end
 
 @implementation QSSecondHouseDetailViewController
@@ -141,7 +143,6 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     [super createNavigationBarUI];
-    
     [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
     
     ///分享按钮
@@ -155,23 +156,18 @@ static char LeftStarKey;            //!<左侧星级
     }];
     [self.view addSubview:shareButton];
     
-    NSString *localUserID=[QSCoreDataManager getUserID];
-    ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
-    if (![localUserID isEqualToString:self.userInfo.id_]) {
+    ///收藏按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+    
+    self.intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///收藏按钮
-        QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
+        ///收藏二手房
+        [self collectSecondHouse:button];
         
-        UIButton *intentionButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 44.0f - 30.0f, 20.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-            
-            ///收藏二手房
-            [self collectSecondHouse:button];
-            
-        }];
-        intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeSecondHouse];
-        [self.view addSubview:intentionButton];
-        
-    }
+    }];
+    self.intentionButton.selected = [QSCoreDataManager checkCollectedDataWithID:self.detailID andCollectedType:fFilterMainTypeSecondHouse];
+    self.intentionButton.hidden = YES;
+    [self.view addSubview:self.intentionButton];
     
 }
 
@@ -405,6 +401,24 @@ static char LeftStarKey;            //!<左侧星级
     ///保存图片信息
     self.photoArray = dataModel.secondHouse_photo;
     
+    ///收藏按钮
+    NSString *localUserID = [QSCoreDataManager getUserID];
+    if ([localUserID isEqualToString:self.userInfo.id_]) {
+        
+        self.intentionButton.hidden = YES;
+        
+    } else {
+    
+        self.intentionButton.hidden = NO;
+        
+        if ([self.detailInfo.expandInfo.is_store intValue] == 1) {
+            
+            self.intentionButton.selected = YES;
+            
+        }
+    
+    }
+    
     ///主题图片
     _headerImageView=[[UIImageView alloc] init];
     _headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 560.0f / 1334.0f);
@@ -446,7 +460,6 @@ static char LeftStarKey;            //!<左侧星级
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入均价详情");
         ///进入详情页面
         QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"second"];
         [self.navigationController pushViewController:detailVC animated:YES];
@@ -472,7 +485,6 @@ static char LeftStarKey;            //!<左侧星级
     [self createCommentViewUI:commentView andCommentModel:dataModel.comment];
     
     ///判断是房客并且不是经纪人则加载该界面
-    NSString *localUserID=[QSCoreDataManager getUserID];
     if(![localUserID isEqualToString:self.userInfo.id_] &&
        (uUserCountTypeAgency != [QSCoreDataManager getUserType])) {
         
@@ -1519,7 +1531,7 @@ static char LeftStarKey;            //!<左侧星级
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     
                     ///判断服务端是否已收藏
-                    if ([self.detailInfo.expandInfo.is_store intValue] ==1) {
+                    if ([self.detailInfo.expandInfo.is_store intValue] == 1) {
                         
                         [self saveCollectedSecondHandHouseWithStatus:YES];
                         
@@ -1531,7 +1543,7 @@ static char LeftStarKey;            //!<左侧星级
                 });
                 
             });
-            
+        
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
