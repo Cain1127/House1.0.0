@@ -17,6 +17,7 @@
 @property (nonatomic,copy) NSString *tj_environment;            //!<周边环境评分
 @property (nonatomic,copy) NSString *book_num;                  //!<当前房源预约订单数量
 @property (nonatomic,copy) NSString *is_store;                  //!<当前用户是否已收藏
+@property (nonatomic,copy) NSString *intent_arr;                //!<购房目的:英文逗号分开
 
 @property (nonatomic,copy) NSString *tj_look_house_num;         //!<已看房人数
 @property (nonatomic,copy) NSString *tj_wait_look_house_people; //!<待看房数

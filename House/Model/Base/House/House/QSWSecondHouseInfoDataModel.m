@@ -24,7 +24,7 @@
                                                     @"tj_wait_look_house_people",
                                                     @"tj_condition",
                                                     @"tj_environment",
-//                                                    @"intent_arr",
+                                                    @"intent_arr",
                                                     @"book_num",
                                                     @"is_store"
                                                     ]];

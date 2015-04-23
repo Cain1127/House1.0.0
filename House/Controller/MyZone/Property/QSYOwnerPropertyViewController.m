@@ -752,11 +752,15 @@
         ///请求成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            ///转换模型
-            QSSecondHousesDetailReturnData *tempModel = resultData;
-            
-            QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel.detailInfo changeToReleaseDataModel]];
-            [self.navigationController pushViewController:updatePropertyVC animated:YES];
+            [hud hiddenCustomHUDWithFooterTips:@"获取成功" andDelayTime:2.0f andCallBack:^(BOOL flag) {
+                
+                ///转换模型
+                QSSecondHousesDetailReturnData *tempModel = resultData;
+                
+                QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[tempModel.detailInfo changeToReleaseDataModel]];
+                [self.navigationController pushViewController:updatePropertyVC animated:YES];
+                
+            }];
             
         } else {
             

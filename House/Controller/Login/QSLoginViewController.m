@@ -291,9 +291,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     ///登录
     [QSRequestManager requestDataWithType:rRequestTypeLogin andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        ///隐藏HUD
-        [hud hiddenCustomHUDWithFooterTips:@"正在登录"];
-        
         ///登录成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
@@ -319,8 +316,8 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             ///重新发送上线
                             [QSSocketManager sendOnLineMessage];
                             
-                            ///显示提示信息
-                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录成功", 1.5f, ^(){
+                            ///隐藏HUD
+                            [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                                 
                                 ///新的用户类型
                                 USER_COUNT_TYPE newUserType = [userModel.user_type intValue];
@@ -399,7 +396,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                 
                                 }
                                 
-                            })
+                            }];
                             
                         }];
                         
