@@ -7,6 +7,10 @@
 //
 
 #import "QSYComparisonViewController.h"
+#import "QSPOrderDetailBookedViewController.h"
+#import "QSPOrderBookTimeViewController.h"
+
+#import "QSCustomHUDView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "QSBlockButtonStyleModel+Normal.h"
@@ -239,24 +243,52 @@
     
     UIButton *appointButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpointAppoint, indicatorButton.frame.origin.y + indicatorButton.frame.size.height, widthAppoint, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///登录登录
-        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
-           
-            ///已登录
-            if (lLoginCheckActionTypeLogined == flag) {
+        ///已登录
+        if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+            
+            id tempDetailModel = self.houseOriginalList[0];
+            NSString *isBook = [[tempDetailModel valueForKey:@"expandInfo"] valueForKey:@"is_book"];
+            
+            ///判断是否已预约
+            if (0 >= [isBook length]) {
                 
+                if (fFilterMainTypeSecondHouse == self.houseType) {
+                    
+                    ///预约
+                    [self bookSecondHandHouse];
+                    
+                }
                 
+                if (fFilterMainTypeRentalHouse == self.houseType) {
+                    
+                    ///预约
+                    [self bookRentHouse];
+                    
+                }
                 
+            } else {
+            
+                if (fFilterMainTypeSecondHouse == self.houseType) {
+                    
+                    ///查看预约详情
+                    [self gotoSecondHandHouseBookOrderInfo];
+                    
+                }
+                
+                if (fFilterMainTypeRentalHouse == self.houseType) {
+                    
+                    ///查看预约详情
+                    [self gotoRentHouseBookOrderInfo];
+                    
+                }
+            
             }
             
-            ///重新登录
-            if (lLoginCheckActionTypeLogined == flag) {
-                
-                
-                
-            }
-            
-        }];
+        } else {
+        
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"登录后才可以进行预约", 1.5f, ^(){})
+        
+        }
         
     }];
     [self.infoRootView addSubview:appointButton];
@@ -272,11 +304,11 @@
         ///判断是收藏还是删除收藏
         if (button.selected) {
             
-            [self deleteHouseCollected];
+            [self deleteHouseCollected:button];
             
         } else {
             
-            [self addHouseCollected];
+            [self addHouseCollected:button];
             
         }
         
@@ -854,29 +886,247 @@
 }
 
 #pragma mark - 添加收藏
-- (void)addHouseCollected
+- (void)addHouseCollected:(UIButton *)button
 {
 
     ///判断是否存在数据
-    if (!self.houseList[1]) {
+    if (!self.houseList[0]) {
         
         return;
         
     }
+    
+    [self addCollectedHouse:button];
 
 }
 
+///添加收藏
+- (void)addCollectedHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在添加收藏"];
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        [self saveCollectedHouseWithStatus:NO];
+        button.selected = YES;
+        return;
+        
+    }
+    
+    ///封装参数
+    id tempMode = self.houseOriginalList[0];
+    NSString *houseID = [[tempMode valueForKey:@"house"] valueForKey:@"id_"];
+    NSDictionary *params = @{@"obj_id" : houseID,
+                             @"type" : [NSString stringWithFormat:@"%d",self.houseType]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"添加收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self saveCollectedHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = YES;
+        
+    }];
+    
+}
+
+///将收藏信息保存本地
+- (void)saveCollectedHouseWithStatus:(BOOL)isSendServer
+{
+    
+    id tempModel = self.houseOriginalList[0];
+    
+    ///当前小区是否同步服务端标识
+    if (isSendServer) {
+        
+        if (fFilterMainTypeRentalHouse == self.houseType) {
+            
+            QSRentHouseDetailDataModel *rentModel = tempModel;
+            rentModel.house.is_syserver = @"1";
+            
+        }
+        
+        if (fFilterMainTypeSecondHouse == self.houseType) {
+            
+            [tempModel setValue:@"1" forKey:@"is_syserver"];
+            
+        }
+        
+    } else {
+        
+        if (fFilterMainTypeRentalHouse == self.houseType) {
+            
+            QSRentHouseDetailDataModel *rentModel = tempModel;
+            rentModel.house.is_syserver = @"0";
+            
+        }
+        
+        if (fFilterMainTypeSecondHouse == self.houseType) {
+            
+            [tempModel setValue:@"0" forKey:@"is_syserver"];
+            
+        }
+        
+    }
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager saveCollectedDataWithModel:tempModel andCollectedType:self.houseType andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"房源收藏->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"房源收藏->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
+}
+
 #pragma mark - 删除收藏
-- (void)deleteHouseCollected
+- (void)deleteHouseCollected:(UIButton *)button
 {
 
     ///判断是否存在数据
-    if (!self.houseList[1]) {
+    if (!self.houseList[0]) {
         
         return;
         
     }
+    
+    [self deleteCollectedHouse:button];
 
+}
+
+///删除收藏
+- (void)deleteCollectedHouse:(UIButton *)button
+{
+    
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在取消收藏"];
+    
+    id tempModel = self.houseOriginalList[0];
+    NSString *houseID = [[tempModel valueForKey:@"house"] valueForKey:@"id_"];
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    NSString *isSyserver;
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        isSyserver = [tempModel valueForKey:@"is_syserver"];
+        
+    }
+    
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        isSyserver = [[tempModel valueForKey:@"house"] valueForKey:@"is_syserver"];
+        
+    }
+    
+    if (0 == [isSyserver intValue]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedHouseWithStatus:YES];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        [self deleteCollectedHouseWithStatus:NO];
+        button.selected = NO;
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : houseID,
+                             @"type" : [NSString stringWithFormat:@"%d",self.houseType]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"取消收藏房源成功"];
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedHouseWithStatus:YES];
+                
+            });
+            
+        } else {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [self deleteCollectedHouseWithStatus:NO];
+                
+            });
+            
+        }
+        
+        ///修改按钮状态为已收藏状态
+        button.selected = NO;
+        
+    }];
+    
+}
+
+///取消当前小区的关注
+- (void)deleteCollectedHouseWithStatus:(BOOL)isSendServer
+{
+    
+    ///保存关注小区到本地
+    [QSCoreDataManager deleteCollectedDataWithID:nil isSyServer:isSendServer andCollectedType:self.houseType andCallBack:^(BOOL flag) {
+        
+        ///显示保存信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"房源收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"房源收藏->删除", @"失败")
+            
+        }
+
+    }];
+    
 }
 
 #pragma mark - 模型转换
@@ -956,6 +1206,80 @@
     comparisonModel.decoration = [QSCoreDataManager getHouseDecorationTypeWithKey:rentModel.house.decoration_type];
     
     return comparisonModel;
+
+}
+
+#pragma mark - 预约
+- (void)bookSecondHandHouse
+{
+    
+    QSSecondHouseDetailDataModel *tempModel = self.houseOriginalList[0];
+    
+    ///进入预约
+    QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
+        
+        if (bBookResultTypeSucess == resultTag) {
+            
+            ///预约成功，刷新详情数据
+            tempModel.expandInfo.is_book = APPLICATION_NSSTRING_SETTING_NIL(orderID);
+            
+        }
+        
+    }];
+    [bookTimeVc setHouseType:fFilterMainTypeSecondHouse];
+    [bookTimeVc setVcType:bBookTypeViewControllerBook];
+    [bookTimeVc setHouseInfo:tempModel.house];
+    [self.navigationController pushViewController:bookTimeVc animated:YES];
+
+}
+
+- (void)bookRentHouse
+{
+    
+    QSRentHouseDetailDataModel *tempModel = self.houseOriginalList[0];
+
+    ///已登录进入预约
+    QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
+        
+        if (bBookResultTypeSucess == resultTag) {
+            
+            ///预约成功，刷新详情数据
+            tempModel.expandInfo.is_book = APPLICATION_NSSTRING_SETTING_NIL(orderID);
+            
+        }
+        
+    }];
+    [bookTimeVc setHouseType:fFilterMainTypeRentalHouse];
+    [bookTimeVc setVcType:bBookTypeViewControllerBook];
+    [bookTimeVc setHouseInfo:tempModel.house];
+    [self.navigationController pushViewController:bookTimeVc animated:YES];
+
+}
+
+#pragma mark - 查看预约信息
+- (void)gotoSecondHandHouseBookOrderInfo
+{
+    
+    QSSecondHouseDetailDataModel *tempModel = self.houseOriginalList[0];
+
+    ///已登录进入预约
+    QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
+    orderDetailPage.orderID = tempModel.expandInfo.is_book;
+    [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];
+    [self.navigationController pushViewController:orderDetailPage animated:YES];
+
+}
+
+- (void)gotoRentHouseBookOrderInfo
+{
+    
+    QSRentHouseDetailDataModel *tempModel = self.houseOriginalList[0];
+
+    ///已登录进入预约
+    QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
+    orderDetailPage.orderID = tempModel.expandInfo.is_book;
+    [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];
+    [self.navigationController pushViewController:orderDetailPage animated:YES];
 
 }
 

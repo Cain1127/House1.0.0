@@ -27,7 +27,7 @@ typedef enum
 
 @interface QSPOrderBookTimeViewController : QSTurnBackViewController
 
-- (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag))callBack; 
+- (instancetype)initWithSubmitCallBack:(void(^)(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID))callBack;
 
 @property ( nonatomic, assign ) BOOKTIME_VIEWCONTROLLER_TYPE vcType;
 
