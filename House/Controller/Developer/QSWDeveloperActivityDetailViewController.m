@@ -131,13 +131,13 @@ static char TableViewKey; //!<活动列表
     titleLabel.center = CGPointMake(SIZE_DEVICE_WIDTH/2.0f, headerImageView.frame.origin.y+headerImageView.frame.size.height+10.0f+10.0f);
     titleLabel.font = [UIFont systemFontOfSize:18.0f];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"江南水乡";
+    titleLabel.text = self.title;
     [headerView addSubview:titleLabel];
     
     UILabel *commentLibel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, titleLabel.frame.origin.y+titleLabel.frame.size.height+10.0f, SIZE_DEVICE_WIDTH, 15.0f)];
     commentLibel.font = [UIFont systemFontOfSize:14.0f];
     commentLibel.textAlignment = NSTextAlignmentCenter;
-    commentLibel.text = @"10月1日江南看房团";
+    commentLibel.text = self.;
     commentLibel.textColor = COLOR_CHARACTERS_GRAY;
     [headerView addSubview:commentLibel];
     
