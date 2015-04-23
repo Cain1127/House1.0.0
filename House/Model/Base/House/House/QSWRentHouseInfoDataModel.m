@@ -13,34 +13,30 @@
 ///解析规则
 + (RKObjectMapping *)objectMapping
 {
+    
     ///非继承
     RKObjectMapping *shared_mapping = nil;
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     
-    ///继承
-   // RKObjectMapping *shared_mapping = [super objectMapping];
-
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addAttributeMappingsFromArray:@[@"id_",
                                                     @"user_id",
                                                     @"house_no",
                                                     @"title",
                                                     @"title_second",
+                                                    
                                                     @"address",
                                                     @"village_id",
                                                     @"village_name",
+                                                    @"introduce",
                                                     @"content",
                                                     
                                                     @"floor_num",
                                                     @"floor_which",
                                                     @"house_face",
-                                                    @"decoration",
                                                     @"decoration_type",
                                                     @"used_year",
                                                     @"installation",
-                                                    @"rent_property",
-                                                    @"lead_time",
-                                                    
                                                     @"features",
                                                     
                                                     @"house_shi",
@@ -52,21 +48,49 @@
                                                     @"elevator",
                                                     
                                                     @"rent_price",
+                                                    @"payment",
+                                                    @"rent_property",
+                                                    @"lead_time",
+                                                    @"cycle",
+                                                    @"time_interval_start",
+                                                    @"time_interval_end",
+                                                    
+                                                    @"name",
+                                                    @"tel",
                                                     @"entrust",
-                                                    @"update_time",
+                                                    @"entrust_company",
+                                                    @"view_count",
+                                                    
+                                                    @"provinceid",
+                                                    @"cityid",
+                                                    @"areaid",
+                                                    @"street",
+                                                    @"commend",
                                                     @"attach_file",
                                                     @"attach_thumb",
-                                                    @"status",
                                                     
-                                                    @"view_count",
+                                                    @"status",
+                                                    @"create_time",
+                                                    @"house_status",
+                                                    @"fee",
+                                                    @"negotiated",
+                                                    @"video_url",
                                                     @"reservation_num",
+                                                    @"property_type",
+                                                    @"attention_count",
+                                                    @"favorite_count",
+                                                    @"tj_condition",
+                                                    @"tj_environment",
+                                                    
+                                                    @"coordinate_x",
+                                                    @"coordinate_y",
+                                                    @"book_num",
                                                     @"tj_look_house_num",
                                                     @"tj_wait_look_house_people",
                                                     @"price_avg",
-                                                    @"coordinate_x",
-                                                    @"coordinate_y"
-                                                    
-                                                    ]];
+                                                    @"building_structure",
+                                                    @"is_store",
+                                                    @"update_time"]];
     
     return shared_mapping;
     
