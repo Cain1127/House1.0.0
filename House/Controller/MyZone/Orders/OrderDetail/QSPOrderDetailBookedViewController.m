@@ -1184,17 +1184,6 @@
     
     //>***********中间ScrollView内容区
     
-    ///开启定时器
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.5f target:self selector:@selector(logicFrame:) userInfo:nil repeats:YES];
-    [timer fire];
-    
-}
-
-- (void)logicFrame:(NSTimer *)timer
-{
-    
-    NSLog(@"[self.view subviews]: %@ [self.navigationController.view subviews]:%@ [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]：%@",[self.view subviews] , [self.navigationController.view subviews], [[UIApplication sharedApplication].keyWindow.rootViewController.view subviews]);
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -1949,10 +1938,10 @@
     
     if (self.orderDetailData.saler_msg) {
         
-        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithContactID:self.orderDetailData.saler_msg.id_ andContactName:self.orderDetailData.saler_msg.username andOrderID:self.orderID andCallBack:^(BOOL isComplaint) {
-            
+        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithIndicteeId:nil andSueder:[self.orderDetailData getUserType]==uUserCountTypeTenant?@"BUYER":@"SALER" andOrderID:self.orderID WithDesc:@"订单投诉-投诉业主" andCallBack:^(BOOL isComplaint) {
             
         }];
+        
         [self.navigationController pushViewController:ccVc animated:YES];
         
     }
@@ -1973,10 +1962,15 @@
     
     if (self.orderDetailData.saler_msg) {
         
-        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithContactID:self.orderDetailData.buyer_msg.id_ andContactName:self.orderDetailData.buyer_msg.username andOrderID:self.orderID andCallBack:^(BOOL isComplaint) {
-            
+//        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithContactID:self.orderDetailData.buyer_msg.id_ andContactName:self.orderDetailData.buyer_msg.username andOrderID:self.orderID andCallBack:^(BOOL isComplaint) {
+//            
+//            
+//        }];
+        
+        QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithIndicteeId:nil andSueder:[self.orderDetailData getUserType]==uUserCountTypeTenant?@"BUYER":@"SALER" andOrderID:self.orderID WithDesc:@"订单投诉-投诉房客" andCallBack:^(BOOL isComplaint) {
             
         }];
+        
         [self.navigationController pushViewController:ccVc animated:YES];
         
     }
