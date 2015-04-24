@@ -216,7 +216,11 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
             
             ///判断是否已登录
-            
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                }
+            }];
             
             ///已登录重新刷新数据
             

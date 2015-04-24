@@ -627,7 +627,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     [self.view addSubview:_mapView];
     
-    _mapView.showsUserLocation = YES;
+//    _mapView.showsUserLocation = YES;
     
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     
@@ -814,7 +814,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
  @param mapView 地图View
  @param views 选中的annotation views
  */
-- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(QSCustomAnnotationView *)view
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
     
     NSString *idString = [view valueForKey:@"deteilID"];
@@ -832,8 +832,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///显示HUD
     __block QSCustomHUDView *hud=[QSCustomHUDView showCustomHUD];
     /// 当前用户坐标
-    double clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 23.333;
-    double clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 113.333;
+    double clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 113.333;
+    double clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 23.333;
     
     ///网络请求坐标
     NSString *latitude=[NSString stringWithFormat:@"%lf",_latitude ? _latitude : clatitude];
