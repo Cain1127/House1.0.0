@@ -192,7 +192,7 @@
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : @"10",
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         

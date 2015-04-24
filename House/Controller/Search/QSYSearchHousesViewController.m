@@ -217,6 +217,7 @@
                         [self gotoHouseDetail:tempModel];
                         
                         break;
+                        
                     default:
                         break;
                 }

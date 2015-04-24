@@ -37,6 +37,7 @@
     
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"records" toKeyPath:@"houseList" withMapping:[QSHouseInfoDataModel objectMapping]]];
+    
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"referrals_list" toKeyPath:@"referrals_list" withMapping:[QSHouseInfoDataModel objectMapping]]];
     
     return shared_mapping;

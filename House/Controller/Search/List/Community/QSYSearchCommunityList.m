@@ -220,7 +220,7 @@
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : self.dataSourceModel.communityListHeaderData.next_page,
                                 @"page_num" : @"10",
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
