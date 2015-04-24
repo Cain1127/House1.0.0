@@ -429,6 +429,8 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
         
         [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
             
+            
+            
         }];
         
     }];

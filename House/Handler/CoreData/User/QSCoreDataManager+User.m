@@ -121,6 +121,8 @@
 
 + (void)logoutCurrentUserCount:(void(^)(BOOL isLogout))callBack
 {
+    
+    
 
     ///退出登录状态
     [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -186,7 +188,7 @@
     [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_id" andFieldNewValue:@"0"];
     
     ///重置用户类型
-    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count_type" andFieldNewValue:@"0"];
+    [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"user_count_type" andFieldNewValue:@"-1"];
     
     ///清空登录密码
     [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"password" andFieldNewValue:@"0"];
