@@ -242,5 +242,7 @@
 ///提交修改预约订单结果界面 - 查看推荐房源 按钮
 #define TITLE_MYZONE_ORDER_SUBMIT_MORE_HOUSE_BT    @"查看推荐房源"
 
+///提交投诉结果界面 - 已成功提交投诉提示
+#define TITLE_MYZONE_ORDER_SUBMIT_COMPLAINT_SUCCESS_TIP    @"已成功提交投诉"
 
 #endif

@@ -102,15 +102,6 @@
 - (instancetype)initWithIndicteeId:(NSString *)indicteeId andSueder:(NSString *)sueder andOrderID:(NSString *)orderID WithDesc:(NSString*)desc andCallBack:(void(^)(BOOL isComplaint))callBack
 {
     
-    //请求参数
-    //必选	类型及范围	说明
-    //user_id	true	string	投诉者id
-    //order_id	true	string	订单id（在处理订单投诉时，此参数必须要传）
-    //complain_type	true	string	字符串，对应具体什么原因，直接保存字符串
-    //desc	true	string	投诉的附加内容
-    //indictee_id	true	string	被投诉者id（在处理投诉联系人时，此参数必须要传）
-    //sueder	true	string	投诉者，BUYER ： 买家投诉卖家，SALER ： 卖家投诉买家
-    
     if (self = [super init]) {
         
         ///保存参数
@@ -179,7 +170,7 @@
         
         switch (buttonType) {
             case bBottomButtonTypeOne:
-//                [self cancelAppointmentOrder];
+                [self submitComlaintInfo];
                 break;
                 
             default:
@@ -236,7 +227,7 @@
         cellSystem = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BookingOrderListsTableViewCellName];
         
         ///取消选择状态
-        //        [cellSystem setSelectionStyle:UITableViewCellSelectionStyleNone];
+//        [cellSystem setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cellSystem.textLabel setTextAlignment:NSTextAlignmentCenter];
         [cellSystem.textLabel setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
         
@@ -249,112 +240,91 @@
 }
 
 
-//#pragma mark - 请求取消预约订单
-//- (void)cancelAppointmentOrder
-//{
-//    
-//    if (!self.orderID || [self.orderID isEqualToString:@""]) {
-//        
-//        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
-//            
-//        })
-//        return;
-//    }
-//    
-//    NSIndexPath *selectedIndexPath = nil;
-//    if (self.complaintListTableView) {
-//        selectedIndexPath = [self.complaintListTableView indexPathForSelectedRow];
-//    }
-//    if (selectedIndexPath) {
-//        NSLog(@"selectedIndexPath : %ld",(long)selectedIndexPath.row);
-//        
-//    }else{
-//        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择您要取消预约的原因", 1.0f, ^(){})
-//        return;
-//    }
-//    
-//    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
-//    //    必选	类型及范围	说明
-//    //    user_id	true	int	用户id
-//    //    order_id	true	string	订单id
-//    //    cause	true	string	取消的原因，字符串（暂定）
-//    
-//    
-//    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
-//    
-//    [tempParam setObject:self.orderID forKey:@"order_id"];
-//    [tempParam setObject:[self.reasonList objectAtIndex:selectedIndexPath.row] forKey:@"cause"];
-//    
-//    [QSRequestManager requestDataWithType:rRequestTypeOrderCancelAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-//        
-//        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
-//        
-//        ///转换模型
-//        if (rRequestResultTypeSuccess == resultStatus) {
-//            
-//            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
-//                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeCancelSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
-//                    
-//                    switch (backType) {
-//                        case oOrderSubmitResultBackTypeAuto:
-//                            
-//                            NSLog(@"auto back");
-//                            [self gotoTurnBackAction];
-//                            break;
-//                        case oOrderSubmitResultBackTypeToDetail:
-//                            
-//                            NSLog(@"back 查看预约详情");
-//                            //                            {
-//                            //                                QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
-//                            //                                [bookedVc setOrderID:orderID];
-//                            //                                [bookedVc setTurnBackDistanceStep:4];
-//                            //                                [bookedVc setOrderType:mOrderWithUserTypeAppointment];
-//                            //                                [self.navigationController pushViewController:bookedVc animated:NO];
-//                            //                            }
-//                            break;
-//                        case oOrderSubmitResultBackTypeToMoreHouse:
-//                            
-//                            NSLog(@"back 查看推荐房源");
-//                        {
-//                            QSYShakeRecommendHouseViewController *shakeRecommendHouseVC = [[QSYShakeRecommendHouseViewController alloc] initWithHouseType:houseType];
-//                            [self.navigationController pushViewController:shakeRecommendHouseVC animated:YES];
-//                            [shakeRecommendHouseVC setTurnBackDistanceStep:4];
-//                        }
-//                            break;
-//                        default:
-//                            break;
-//                    }
-//                    
-//                    
-//                }];
-//                
-//                [self presentViewController:srVc animated:YES completion:^{
-//                    
-//                }];
-//            })
-//            
-//        }
-//        
-//        ///转换模型
-//        if (headerModel) {
-//            
-//            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
-//                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
-//                    
-//                    
-//                })
-//            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
-//                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
-//                    
-//                    
-//                })
-//            }
-//            
-//        }
-//        
-//        [hud hiddenCustomHUD];
-//        
-//    }];
-//}
+#pragma mark - 请求投诉
+- (void)submitComlaintInfo
+{
+
+    NSIndexPath *selectedIndexPath = nil;
+    if (self.complaintListTableView) {
+        selectedIndexPath = [self.complaintListTableView indexPathForSelectedRow];
+    }
+    if (selectedIndexPath) {
+        NSLog(@"selectedIndexPath : %ld",(long)selectedIndexPath.row);
+        
+    }else{
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择您要投诉的原因", 1.0f, ^(){})
+        return;
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //请求参数
+    //必选	类型及范围	说明
+    //user_id	true	string	投诉者id
+    //order_id	true	string	订单id（在处理订单投诉时，此参数必须要传）
+    //complain_type	true	string	字符串，对应具体什么原因，直接保存字符串
+    //desc	true	string	投诉的附加内容
+    //indictee_id	true	string	被投诉者id（在处理投诉联系人时，此参数必须要传）
+    //sueder	true	string	投诉者，BUYER ： 买家投诉卖家，SALER ： 卖家投诉买家
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:self.orderID?self.orderID:@"" forKey:@"order_id"];
+    [tempParam setObject:[self.reasonList objectAtIndex:selectedIndexPath.row] forKey:@"complaint_type"];
+    [tempParam setObject:self.desc?self.desc:@"" forKey:@"desc"];
+    [tempParam setObject:self.contactID?self.contactID:@"" forKey:@"indictee_id"];
+    [tempParam setObject:self.sueder?self.sueder:@"" forKey:@"sueder"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeChatComplainContact andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        ///转换模型
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                QSPOrderSubmitResultViewController *srVc = [[QSPOrderSubmitResultViewController alloc] initWithResultType:oOrderSubmitResultTypeSubmitComplaintSuccessed andAutoBackCallBack:^(ORDER_SUBMIT_RESULT_BACK_TYPE backType){
+                    
+                    switch (backType) {
+                        case oOrderSubmitResultBackTypeAuto:
+                            
+                            NSLog(@"auto back");
+                            [self gotoTurnBackAction];
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    
+                }];
+                
+                [self presentViewController:srVc animated:YES completion:^{
+                    
+                }];
+            })
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+}
 
 @end

@@ -159,6 +159,18 @@
             
         }
         
+        if (uUserCountTypeOwner==userType) {
+            //业主身份
+            
+            if ([@"500257" isEqualToString:tempOrderData.order_status]) {
+                
+                [acceptButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_NORMAL] forState:UIControlStateNormal];
+                [acceptButton setEnabled:NO];
+                
+            }
+            
+        }
+        
     }
     
     return self;

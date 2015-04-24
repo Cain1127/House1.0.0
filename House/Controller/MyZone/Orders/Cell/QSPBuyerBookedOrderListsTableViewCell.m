@@ -19,6 +19,7 @@
 #import "QSCustomHUDView.h"
 #import "QSPOrderEvaluationListingsViewController.h"
 #import "QSPBuyerBookedOrdersListsViewController.h"
+#import "QSPOrderTipsButtonPopView.h"
 
 ///关联
 static char leftTopTipViewKey;  //!<左上角图片关联key
@@ -123,7 +124,49 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             [self callPhone];
         }else if (500232 == button.tag ){
             //议价
+            NSString *houseName = @"";
+            NSString *housePrice = @"";
+            NSString *orderID = @"";
+            if (self.orderData) {
+                
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                    
+                    houseName = self.orderData.houseData.title;
+                    NSArray *orderList = self.orderData.orderInfoList;
+                    housePrice = self.orderData.houseData.house_price;
+                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+//                            housePrice = orderItem.last_saler_bid;
+                            orderID = orderItem.id_;
+                        }
+                        
+                    }
+                }
+            }
             
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    //提交还价
+                    if (popView) {
+                        
+                        [self submitMyInputPrice:[popView getInputPrice] ToOrderID:orderID];
+                        
+                    }
+                    
+                }
+                
+            }];
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+
         }
         
     }];
@@ -145,18 +188,101 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500302 == button.tag ){
             //确认成交订单
             [self commitTransactionOrder];
-        }else if (500301 == button.tag ){
+        }else if (500301 == button.tag || 500222 == button.tag){
             //提醒业主
             [self noticeUserOnTransactionOrder];
         }else if (500232 == button.tag ){
-            //预约成交
+            //成交预约订单
+            NSString *houseName = @"";
+            NSString *housePrice = @"";
+            NSString *orderID = @"";
+            if (self.orderData) {
+                
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                    
+                    houseName = self.orderData.houseData.title;
+                    NSArray *orderList = self.orderData.orderInfoList;
+                    
+                    housePrice = self.orderData.houseData.house_price;
+                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+//                            housePrice = orderItem.last_saler_bid;
+                            orderID = orderItem.id_;
+                        }
+                        
+                    }
+                }
+            }
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    //成交预约订单
+                    if (popView) {
+                        
+                        [self buyerOrSalerCommitAppointmentOrder];
+                        
+                    }
+                    
+                }
+                
+            }];
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
             
         }else if (500230 == button.tag){
             //评价房源
             [self commitEvaluationListings];
         }else if (500220 == button.tag ){
-            //房客成交已看房
-            [self buyerAcceptPrice];
+            //房客成交预约订单已看房
+            NSString *houseName = @"";
+            NSString *housePrice = @"";
+            NSString *orderID = @"";
+            if (self.orderData) {
+                
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                    
+                    houseName = self.orderData.houseData.title;
+                    NSArray *orderList = self.orderData.orderInfoList;
+                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+                            housePrice = orderItem.last_saler_bid;
+                            orderID = orderItem.id_;
+                        }
+                        
+                    }
+                }
+            }
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    //成交预约订单
+                    if (popView) {
+                        
+                        [self buyerOrSalerCommitAppointmentOrder];
+                        
+                    }
+                    
+                }
+                
+            }];
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
         }
         
         
@@ -643,8 +769,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 }
 
 
-#pragma mark - 房客成交
-- (void)buyerAcceptPrice
+#pragma mark - 房客或业主成交预约订单
+- (void)buyerOrSalerCommitAppointmentOrder
 {
     
     NSString *orderID = nil;
@@ -685,7 +811,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     [tempParam setObject:orderID forKey:@"order_id"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeOrderBuyerAcceptPrice andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeOrderBuyerOrSalerCommitOrder andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         
@@ -717,5 +843,72 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }];
     
 }
+
+#pragma mark - 提交我的出价
+- (void)submitMyInputPrice:(NSString*)priceStr ToOrderID:(NSString*)orderID
+{
+    
+    if (!priceStr || [priceStr isEqualToString:@""]) {
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的出价", 1.0f, ^(){
+            
+        })
+        return;
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    //    price	true	float	价格，没单位， 就是说如果是要传递200W过来请自己补齐后面的0，eg:200W 就是 2000000
+    
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    [tempParam setObject:priceStr forKey:@"price"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
 
 @end

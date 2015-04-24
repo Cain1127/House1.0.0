@@ -169,6 +169,16 @@
                 
             }
             
+        }else if (uUserCountTypeOwner==userType) {
+            //业主身份
+            
+            if ([@"500257" isEqualToString:tempOrderData.order_status]) {
+                
+                [editePriceButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL] forState:UIControlStateNormal];
+                [editePriceButton setEnabled:NO];
+                
+            }
+            
         }
         
     }

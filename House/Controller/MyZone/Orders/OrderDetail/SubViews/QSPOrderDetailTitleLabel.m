@@ -34,7 +34,7 @@
 //            [self setBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
 //            
 //        }else
-            if ([titleStr isEqualToString:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
+            if ([titleStr hasPrefix:TITLE_MYZONE_ORDER_DETAIL_CANCEL_TITLE_TIP]) {
                 
                 [self setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
                 

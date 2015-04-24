@@ -164,8 +164,6 @@
     self.contentBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.contentBgView];
     
-    [self getDetailData];
-    
 }
 
 - (void)createSubViewsUI
@@ -202,7 +200,7 @@
     
     if (self.orderDetailData) {
         
-        titleTip = [self.orderDetailData getStatusTitle];
+        titleTip = [NSString stringWithFormat:@"%@(%@)",[self.orderDetailData getStatusTitle],self.orderDetailData.order_status];
         timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
         bargainList = self.orderDetailData.bargain_list;
@@ -349,7 +347,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailConfirmOrderButtonView:房源非常满意，我要成交按钮");
-                    [self buyerAcceptPrice];
+                    [self buyerOrSalerCommitAppointmentOrder];
                     break;
                 default:
                     break;
@@ -395,6 +393,10 @@
             }
         }];
         [self.contentBgView addSubview:self.rejectPriceButtonView];
+        
+        if ([self.orderDetailData.order_status isEqualToString:@"500257"]) {
+            [self.rejectPriceButtonView disableButtons];
+        }
         
         viewBottomButtonOffsetY = SIZE_DEVICE_HEIGHT - (2*CONTENT_TOP_BOTTOM_OFFSETY+44.0f);
         self.submitPriceButtonView = [[QSPOrderDetailSubmitPriceButtonView alloc] initAtTopLeft:CGPointMake(0.0f, viewBottomButtonOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
@@ -1190,11 +1192,7 @@
 {
     [super viewDidAppear:animated];
     
-//    [self checkLoginAndShowLoginWithBlock:^(BOOL flag) {
-    
-//        [self getDetailData];
-    
-//    }];
+    [self getDetailData];
     
     ///注册键盘弹出监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
@@ -1280,8 +1278,6 @@
         [hud hiddenCustomHUD];
         return;
     }
-    
-    [hud hiddenCustomHUD];
     
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
@@ -1699,8 +1695,8 @@
     
 }
 
-#pragma mark - 房客成交
-- (void)buyerAcceptPrice
+#pragma mark - 房客或业主成交预约订单
+- (void)buyerOrSalerCommitAppointmentOrder
 {
     
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
@@ -1722,7 +1718,7 @@
     
     [tempParam setObject:self.orderID forKey:@"order_id"];
     
-    [QSRequestManager requestDataWithType:rRequestTypeOrderBuyerAcceptPrice andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeOrderBuyerOrSalerCommitOrder andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         

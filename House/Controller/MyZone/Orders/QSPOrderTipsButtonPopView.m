@@ -20,6 +20,7 @@
 
 @property (nonatomic,strong) NSString *houseTitle;
 @property (nonatomic,strong) NSString *housePrice;
+@property (nonatomic,assign) USER_COUNT_TYPE userType;
 
 
 @end
@@ -72,7 +73,17 @@
             
             ///出价身份
             UILabel *priceUserLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTitleLabel.frame.origin.y+houseTitleLabel.frame.size.height+12.0f, self.frame.size.width, 30.0f)];
-            priceUserLabel.text = @"房客还价";
+            
+            if (self.userType==uUserCountTypeTenant) {
+                
+                priceUserLabel.text = @"房客还价";
+                
+            }else if (self.userType==uUserCountTypeOwner) {
+                
+                priceUserLabel.text = @"业主还价";
+                
+            }
+            
             priceUserLabel.textAlignment = NSTextAlignmentCenter;
             priceUserLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
             priceUserLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -122,7 +133,17 @@
             
             ///出价身份
             UILabel *priceUserLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTitleLabel.frame.origin.y+houseTitleLabel.frame.size.height+12.0f, self.frame.size.width, 30.0f)];
-            priceUserLabel.text = @"房客还价";
+            
+            if (self.userType==uUserCountTypeTenant) {
+                
+                priceUserLabel.text = @"房客还价";
+                
+            }else if (self.userType==uUserCountTypeOwner) {
+                
+                priceUserLabel.text = @"业主还价";
+                
+            }
+            
             priceUserLabel.textAlignment = NSTextAlignmentCenter;
             priceUserLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
             priceUserLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -203,7 +224,7 @@
     
 }
 
-- (instancetype)initWithSalerInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice wandCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
@@ -213,6 +234,7 @@
         _viewType = oOrderButtonTipsViewTypeSalerInputPrice;
         self.houseTitle = houseTitle;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.userType = userType;
         
         ///搭建UI
         [self createTipAndButtonsUI];
@@ -230,7 +252,7 @@
     
 }
 
-- (instancetype)initWithAcceptBuyerPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice wandCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
@@ -240,6 +262,7 @@
         _viewType = oOrderButtonTipsViewTypeAcceptBuyerPrice;
         self.houseTitle = houseTitle;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.userType = userType;
         
         ///搭建UI
         [self createTipAndButtonsUI];

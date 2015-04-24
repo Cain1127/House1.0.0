@@ -9,7 +9,7 @@
 #import "QSPOrderSubmitResultViewController.h"
 #import "QSPOrderBottomButtonView.h"
 
-#define ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME   _resultType==oOrderSubmitResultTypeEvaluationListingsSuccessed?3.0f:5.0f
+#define ORDER_RESULT_AUTO_RETURN_TIME_OUT_TIME   _resultType==oOrderSubmitResultTypeEvaluationListingsSuccessed||_resultType==oOrderSubmitResultTypeSubmitComplaintSuccessed?3.0f:5.0f
 
 @interface QSPOrderSubmitResultViewController ()
 
@@ -41,7 +41,7 @@
     
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH-75.0f)/2.0f, 0, 75.0f, 85.0f)];
     [imgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_SUBMIT_RESULT_ICON]];
-    if (oOrderSubmitResultTypeEvaluationListingsSuccessed == _resultType) {
+    if (oOrderSubmitResultTypeEvaluationListingsSuccessed == _resultType || oOrderSubmitResultTypeSubmitComplaintSuccessed == _resultType) {
         [imgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_SUBMIT_RESULT_SUCCESS_ICON]];
     }
     [contentBgView addSubview:imgView];
@@ -108,6 +108,11 @@
         
         [stateLabel setText:TITLE_MYZONE_ORDER_SUBMIT_COMMENT_SUCCESS_TIP];
         [tipLabel setText:@""];
+        
+    }else if (_resultType == oOrderSubmitResultTypeSubmitComplaintSuccessed) {
+        
+        [stateLabel setText:TITLE_MYZONE_ORDER_SUBMIT_COMPLAINT_SUCCESS_TIP];
+        [tipLabel setText:@"我们将很快为您处理投诉"];
         
     }
     

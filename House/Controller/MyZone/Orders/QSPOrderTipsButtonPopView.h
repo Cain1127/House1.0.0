@@ -33,11 +33,31 @@ typedef enum
 
 - (instancetype)initWithView:(ORDER_BUTTON_TIPS_VIEW_TYPE)viewType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
-//业主输入房源出价
-- (instancetype)initWithSalerInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice wandCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+//输入房源出价
 
-//业主接受房客还价
-- (instancetype)initWithAcceptBuyerPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice wandCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+/**
+ *  初始化输入提交房价覆盖View
+ *
+ *  @param houseTitle 房源标题
+ *  @param buyerPrice 房源价格
+ *  @param userType   对方用户身份
+ *  @param callBack   回调
+ *
+ *  @return 返回房价输入界面
+ */
+- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
+/**
+ *  初始化业主/房客接受还价覆盖View
+ *
+ *  @param houseTitle 房源标题
+ *  @param buyerPrice 房源价格
+ *  @param userType   对方用户身份
+ *  @param callBack   回调
+ *
+ *  @return 业主/房客接受还价覆盖View界面
+ */
+- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 - (NSString*)getInputPrice;
 
