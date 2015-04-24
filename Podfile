@@ -6,5 +6,6 @@ pod 'Reachability', '~> 3.1.1'
 pod 'AMap2DMap', '~> 2.4.2'
 pod 'AMapSearch', '~> 2.4.1'
 pod 'MJRefresh', '~> 1.4.1'
-pod 'UMengSocial', '~> 4.2.1'
+pod 'UMengSocial', '~> 4.2.2'
+pod 'IQKeyboardManager', '~> 3.2.3'
 

@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_ASDepthModal 0
 #define COCOAPODS_VERSION_PATCH_ASDepthModal 0
 
+// IQKeyboardManager
+#define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
+#define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3
+#define COCOAPODS_VERSION_MINOR_IQKeyboardManager 2
+#define COCOAPODS_VERSION_PATCH_IQKeyboardManager 3
+
 // ISO8601DateFormatterValueTransformer
 #define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
 #define COCOAPODS_VERSION_MAJOR_ISO8601DateFormatterValueTransformer 0
@@ -112,5 +118,5 @@
 #define COCOAPODS_POD_AVAILABLE_UMengSocial
 #define COCOAPODS_VERSION_MAJOR_UMengSocial 4
 #define COCOAPODS_VERSION_MINOR_UMengSocial 2
-#define COCOAPODS_VERSION_PATCH_UMengSocial 1
+#define COCOAPODS_VERSION_PATCH_UMengSocial 2
 

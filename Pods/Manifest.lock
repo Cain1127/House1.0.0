@@ -23,6 +23,7 @@ PODS:
   - AMap2DMap (2.4.2)
   - AMapSearch (2.4.1)
   - ASDepthModal (1.0.0)
+  - IQKeyboardManager (3.2.3)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
   - MJRefresh (1.4.5)
@@ -35,29 +36,31 @@ PODS:
     - TransitionKit (= 2.1.0)
   - RKValueTransformers (1.1.2)
   - TransitionKit (2.1.0)
-  - UMengSocial (4.2.1)
+  - UMengSocial (4.2.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3.1)
   - AMap2DMap (~> 2.4.2)
   - AMapSearch (~> 2.4.1)
   - ASDepthModal (~> 1.0.0)
+  - IQKeyboardManager (~> 3.2.3)
   - MJRefresh (~> 1.4.1)
   - Reachability (~> 3.1.1)
   - RestKit/ObjectMapping (~> 0.23.3)
-  - UMengSocial (~> 4.2.1)
+  - UMengSocial (~> 4.2.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
   AMap2DMap: 6f19f93b3410c8105c34ef93dd9dbb537f7ea897
   AMapSearch: e48c562fc7713f7e5f719863a15141a847e16c04
   ASDepthModal: c84ba6596c8f6aef3cadacdc979d287ed2915c64
+  IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   MJRefresh: 4b24394e577ea399fbc926e5b6072317aae2c152
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: e761211cf026c0d56b01d0c2fa1fe8903dc4e4f3
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
   TransitionKit: bc306605fb5e05a743c18d42239dc0e211619547
-  UMengSocial: aedae57452047daa708306f23ff21883a07cd779
+  UMengSocial: c608958b8aec7831d2a0964b62fc4cd1ed0bd9c3
 
 COCOAPODS: 0.35.0
