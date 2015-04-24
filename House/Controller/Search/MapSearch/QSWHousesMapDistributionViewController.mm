@@ -832,13 +832,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///显示HUD
     __block QSCustomHUDView *hud=[QSCustomHUDView showCustomHUD];
     /// 当前用户坐标
-    double clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 113.333;
-    double clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 23.333;
+    double clatitude= _currentLocation.coordinate.latitude ? _currentLocation.coordinate.latitude : 113.23333;
+    double clongitude= _currentLocation.coordinate.longitude ? _currentLocation.coordinate.longitude : 23.16667;
     
     ///网络请求坐标
     NSString *latitude=[NSString stringWithFormat:@"%lf",_latitude ? _latitude : clatitude];
     NSString *longtude=[NSString stringWithFormat:@"%lf",_longtude ? _longtude : clongitude];
-    NSString *map_type=[NSString stringWithFormat:@"%d",(int)self.listType];
+    NSString *map_type=[NSString stringWithFormat:@"%ld",(long)self.listType];
     
     APPLICATION_LOG_INFO(@"网络请求经度", latitude);
     APPLICATION_LOG_INFO(@"网络请求纬度", longtude);
@@ -846,7 +846,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     NSDictionary *dict = @{@"map_type" : map_type,
                            @"now_page" : @"1",
                            @"page_num" : @"5",
-                           @"range" : @"6000",
+                           @"range" : @"10000",
                            @"latitude" : latitude,
                            @"longitude" : longtude
                            };
@@ -870,14 +870,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
                 QSMapCommunityListHeaderData *headerModel = resultDataModel.mapCommunityListHeaderData;
                 NSLog(@"返回小区的数量:%@",headerModel.total_num);
-                
-                QSMapCommunityDataModel *tepmodel = resultDataModel.mapCommunityListHeaderData.communityList[0];
-                NSLog(@"第一组小区房源套数:%@",tepmodel.total_num);
-                
-                QSMapCommunityDataSubModel *tepmodel1 = tepmodel.mapCommunityDataSubModel;
-                NSLog(@"第一组小区名称:%@",tepmodel1.title);
-                NSLog(@"第一组小区地址:%@",tepmodel1.address);
-                
                 
                 ///将数据模型置为nil
                 self.dataSourceModel = nil;

@@ -21,7 +21,7 @@
  *
  *  @since 1.0.0
  */
--(instancetype)initWithType:(NSString *)type andID:(int )be_id;
+-(instancetype)initWithType:(NSString *)type andID:(NSString *)be_id;
 
 
 @end

@@ -60,4 +60,20 @@
  */
 + (NSString *)formatNSTimeToNSDateString:(NSString *)timeStamp;
 
+/*!
+ *  @author             wangshupeng, 15-04-24 17:04:03
+ *
+ *  @brief              将时间戳转为时分秒格式
+ *
+ *  @param timeStamp    时间戳
+ *
+ *  @return             返回时分秒
+ *
+ *  @since              1.0.0
+ */
++ (NSString *)formatNSTimeToNSDateString_HHMMSS:(NSString *)timeStamp;
+
++ (NSString *)formatNSTimeToNSDateString_HHMM:(NSString *)timeStamp;
+
+
 @end

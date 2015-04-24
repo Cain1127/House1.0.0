@@ -24,16 +24,16 @@ static char AssessTableKey;   //!<评论内容关联key
 
 @interface QSUserAssessViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,retain) NSArray *dataSource;                         //!<数据源
-@property (nonatomic,retain) QSCommentListDataModel *commentDataModel;    //!<模型数据
-@property (nonatomic,copy) NSString *type ;                               //!<房源类型
-@property (nonatomic,assign) int be_id;                                   //!<被评论的ID，如果是房源就填房源ID
+@property (nonatomic,retain) NSArray *dataSource;                       //!<数据源
+@property (nonatomic,retain) QSCommentListDataModel *commentDataModel;  //!<模型数据
+@property (nonatomic,copy) NSString *type;                              //!<房源类型
+@property (nonatomic,copy) NSString *be_id;                             //!<被评论的ID，如果是房源就填房源ID
 
 @end
 
 @implementation QSUserAssessViewController
 
--(instancetype)initWithType:(NSString *)type andID:(int )be_id
+-(instancetype)initWithType:(NSString *)type andID:(NSString *)be_id
 {
 
     if (self=[super init]) {
@@ -62,6 +62,7 @@ static char AssessTableKey;   //!<评论内容关联key
     tableView.dataSource = self;
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.showsVerticalScrollIndicator = NO;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &AssessTableKey, tableView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -130,9 +131,6 @@ static char AssessTableKey;   //!<评论内容关联key
     
         
         [cell updateAssessCellInfo:tempModel];
-
-    
-    
     
     ///取消选择样式
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -140,20 +138,19 @@ static char AssessTableKey;   //!<评论内容关联key
     
 }
 
+
 -(void)getCommentListInfo
 {
 
     
-    NSString *nbe_id = [NSString stringWithFormat:@"%d",self.be_id];
     ///封装参数
-    NSDictionary *params = @{@"key" :@"",
+    NSDictionary *params = @{@"key" : @"",
                              @"page_num" : @"10",
                              @"now_page" : @"1",
                              @"order" : @"",
-                             @"type " : self.type,
-                             @"be_id" : nbe_id
+                             @"type" : self.type,
+                             @"be_id" : self.be_id
                              };
-    
     
     ///进行请求
     [QSRequestManager requestDataWithType:rRequestCommentListDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -187,6 +184,7 @@ static char AssessTableKey;   //!<评论内容关联key
             
             [tableView.header endRefreshing];
             
+            APPLICATION_LOG_INFO(@"%@", errorCode);
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取评论信息失败",1.0f,^(){
                 
                 ///推回上一页
