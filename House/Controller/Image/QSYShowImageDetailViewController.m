@@ -139,7 +139,7 @@
 {
 
     ///创建图片滚动页
-    QSAutoScrollView *imageShowView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:YES andCurrentPage:self.currentIndex andShowTime:4.0f andTapCallBack:^(id params) {}];
+    QSAutoScrollView *imageShowView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:YES andCurrentPage:self.currentIndex isAutoScroll:YES andShowTime:4.0f andTapCallBack:^(id params) {}];
     [self.view addSubview:imageShowView];
 
 }

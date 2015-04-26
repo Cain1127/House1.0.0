@@ -135,7 +135,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [super createMainShowUI];
     
     ///收藏滚动条
-    __block QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeTopToBottom andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+    __block QSAutoScrollView *colledtedView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 44.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeTopToBottom andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
         
         ///判断是否是有效收藏
         if ([@"default" isEqualToString:params]) {

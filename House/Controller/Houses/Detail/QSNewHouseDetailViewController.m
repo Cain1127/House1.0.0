@@ -368,16 +368,10 @@ static char LeftStarKey;            //!<左侧星级
         startYPoint = SIZE_DEVICE_WIDTH * 253.0f / 750.0f;
         
         ///活动栏
-        QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO andShowTime:3.0f andTapCallBack:^(id params) {
+        QSAutoScrollView *activityRootView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_WIDTH * 253.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
             
             QSActivityDetailViewController *gotoVC=[[QSActivityDetailViewController alloc] initWithactivityID:params andUserID:self.userID];
-            
             [self.navigationController pushViewController:gotoVC animated:YES];
-            
-            
-            NSLog(@"========================================");
-            NSLog(@"点击活动:%@",params);
-            NSLog(@"========================================");
             
         }];
         [infoRootView addSubview:activityRootView];

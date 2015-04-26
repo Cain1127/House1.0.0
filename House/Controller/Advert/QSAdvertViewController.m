@@ -213,7 +213,7 @@
     ///是否显示页码控制器
     BOOL isAutoScroll = [self.advertsDataSource count] > 1;
     
-    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:isAutoScroll andShowTime:showTime andTapCallBack:^(id params) {
+    QSAutoScrollView *autoScrollView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:isAutoScroll isAutoScroll:YES andShowTime:showTime andTapCallBack:^(id params) {
         
         ///如果回调的参数有效，跳转链接
         if (params) {
