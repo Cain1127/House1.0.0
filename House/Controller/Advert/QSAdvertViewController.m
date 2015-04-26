@@ -269,7 +269,7 @@
 {
 
     ///广告页的自定义view
-    QSImageView *advertView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)];
+    QSImageView *advertView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height)];
     
     ///广告数据模型
     QSAdvertInfoDataModel *model = self.advertsDataSource[index];

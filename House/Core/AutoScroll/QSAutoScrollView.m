@@ -109,6 +109,9 @@
         ///是否自滚动
         self.isAutoScroll = isAutoScroll;
         
+        ///按当前滚动框大小显示
+        self.clipsToBounds = YES;
+        
         ///保存显示时间：如果时间小于0.5，则默认2秒
         if (showTime > 0.5f) {
             
