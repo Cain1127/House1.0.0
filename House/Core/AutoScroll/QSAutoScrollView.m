@@ -20,8 +20,8 @@
 @property (nonatomic,copy) void(^autoScrollViewTapCallBack)(id params); //!<单击滚动view时的回调
 
 @property (nonatomic,strong) NSTimer *autoScrollTimer;                  //!<自滚动的定时器
-@property (nonatomic,unsafe_unretained) UIView *currentShowCell;        //!<当前显示的视图
-@property (nonatomic,unsafe_unretained) UIView *nextShowCell;           //!<准备显示视图
+@property (nonatomic,retain) UIView *currentShowCell;                   //!<当前显示的视图
+@property (nonatomic,retain) UIView *nextShowCell;                      //!<准备显示视图
 @property (nonatomic,strong) UIPageControl *pageControll;               //!<页码控制器
 
 @end
@@ -164,10 +164,16 @@
     ///获取滚动的页数
     self.sumPage = sumPage;
 
-    ///判断是否只有一个：如果只有一个，当前页码为0
-    if (1 == self.sumPage) {
+    ///当前页码修正
+    if (self.sumPage <= self.currentIndex) {
         
         ///更新相关参数
+        self.currentIndex = self.sumPage - 1;
+        
+    }
+    
+    if (0 >= self.currentIndex) {
+        
         self.currentIndex = 0;
         
     }
@@ -277,7 +283,7 @@
             self.nextShowCell.frame = CGRectMake(0.0f, -self.nextShowCell.frame.size.height, self.nextShowCell.frame.size.width, self.nextShowCell.frame.size.height);
             
             ///动画切换后刷新左右指针
-            [self animationChangeView:CGRectMake(0.0f, self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+            [self animationChangeView:CGRectMake(0.0f, self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
                 
                 ///更新当前显示的下标
                 self.currentIndex = [self getRightPrepareShowViewIndex];
@@ -308,7 +314,8 @@
                     self.nextShowCell.frame = CGRectMake(0.0f, -nextShowHeight, self.frame.size.width, nextShowHeight);
                     
                     ///加载
-                    [self insertSubview:self.nextShowCell atIndex:0];
+                    [self addSubview:self.nextShowCell];
+                    [self sendSubviewToBack:self.nextShowCell];
                     
                 }
                 
@@ -325,7 +332,7 @@
             self.nextShowCell.frame = CGRectMake(0.0f, self.nextShowCell.frame.size.height, self.nextShowCell.frame.size.width, self.nextShowCell.frame.size.height);
             
             ///动画切换后刷新左右指针
-            [self animationChangeView:CGRectMake(0.0f, -self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+            [self animationChangeView:CGRectMake(0.0f, -self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
                 
                 ///更新当前显示的下标
                 self.currentIndex = [self getLeftPrepareShowViewIndex];
@@ -355,7 +362,8 @@
                     self.nextShowCell.frame = CGRectMake(0.0f, nextShowHeight, self.frame.size.width, nextShowHeight);
                     
                     ///加载
-                    [self insertSubview:self.nextShowCell atIndex:0];
+                    [self addSubview:self.nextShowCell];
+                    [self sendSubviewToBack:self.nextShowCell];
                     
                 }
                 
@@ -372,7 +380,7 @@
             self.nextShowCell.frame = CGRectMake(-self.nextShowCell.frame.size.width, 0.0f, self.nextShowCell.frame.size.width, self.nextShowCell.frame.size.height);
             
             ///动画切换后刷新左右指针
-            [self animationChangeView:CGRectMake(self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+            [self animationChangeView:CGRectMake(self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
                 
                 ///更新当前显示的下标
                 self.currentIndex = [self getLeftPrepareShowViewIndex];
@@ -402,7 +410,8 @@
                     self.nextShowCell.frame = CGRectMake(-self.frame.size.width, 0.0f, self.frame.size.width, nextShowHeight);
                     
                     ///加载
-                    [self insertSubview:self.nextShowCell atIndex:0];
+                    [self addSubview:self.nextShowCell];
+                    [self sendSubviewToBack:self.nextShowCell];
                     
                 }
                 
@@ -419,7 +428,7 @@
             self.nextShowCell.frame = CGRectMake(self.nextShowCell.frame.size.width, 0.0f, self.nextShowCell.frame.size.width, self.nextShowCell.frame.size.height);
             
             ///动画切换后刷新左右指针
-            [self animationChangeView:CGRectMake(-self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+            [self animationChangeView:CGRectMake(-self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
                 
                 ///更新当前显示的下标
                 self.currentIndex = [self getRightPrepareShowViewIndex];
@@ -445,7 +454,8 @@
                     self.nextShowCell.frame = CGRectMake(self.frame.size.width, 0.0f, self.frame.size.width, nextShowHeight);
                     
                     ///加载
-                    [self insertSubview:self.nextShowCell atIndex:0];
+                    [self addSubview:self.nextShowCell];
+                    [self sendSubviewToBack:self.nextShowCell];
                     
                 }
                 
@@ -459,17 +469,14 @@
 }
 
 ///动画切换当前页面和将要显示页面
-- (void)animationChangeView:(CGRect)currentViewChangedFrame andWillShowView:(UIView *)view andShowingAction:(void(^)(void))showingAction andFinishCallBack:(void(^)(BOOL finish))callBack
+- (void)animationChangeView:(CGRect)currentViewChangedFrame andShowingAction:(void(^)(void))showingAction andFinishCallBack:(void(^)(BOOL finish))callBack
 {
-    
-    ///获取当前显示页的frame
-    CGRect currentShowFrame = self.currentShowCell.frame;
 
     ///动画插入
     [UIView animateWithDuration:0.3 animations:^{
         
         self.currentShowCell.frame = currentViewChangedFrame;
-        view.frame = CGRectMake(currentShowFrame.origin.x, currentShowFrame.origin.y, view.frame.size.width, view.frame.size.height);
+        self.nextShowCell.frame = CGRectMake(0.0f, 0.0f, self.nextShowCell.frame.size.width, self.nextShowCell.frame.size.height);
         
         showingAction();
         
@@ -608,7 +615,7 @@
     [self insertSubview:self.nextShowCell atIndex:0];
     
     ///动画显示
-    [self animationChangeView:CGRectMake(-self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+    [self animationChangeView:CGRectMake(-self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
     
         ///更新当前显示的下标
         self.currentIndex = [self getRightPrepareShowViewIndex];
@@ -640,7 +647,8 @@
                 self.nextShowCell.frame = CGRectMake(self.frame.size.width, 0.0f, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -654,7 +662,8 @@
                 self.nextShowCell.frame = CGRectMake(-self.frame.size.width, 0.0f, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -695,7 +704,7 @@
     [self insertSubview:self.nextShowCell atIndex:0];
     
     ///动画显示
-    [self animationChangeView:CGRectMake(self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+    [self animationChangeView:CGRectMake(self.currentShowCell.frame.size.width, 0.0f, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
     
         ///更新当前显示的下标
         self.currentIndex = [self getLeftPrepareShowViewIndex];
@@ -727,7 +736,8 @@
                 self.nextShowCell.frame = CGRectMake(-self.frame.size.width, 0.0f, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -741,7 +751,8 @@
                 self.nextShowCell.frame = CGRectMake(self.frame.size.width, 0.0f, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -783,7 +794,7 @@
     [self insertSubview:self.nextShowCell atIndex:0];
     
     ///动画显示
-    [self animationChangeView:CGRectMake(0.0f, -self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+    [self animationChangeView:CGRectMake(0.0f, -self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
     
         ///更新当前显示的下标
         self.currentIndex = [self getLeftPrepareShowViewIndex];
@@ -815,7 +826,8 @@
                 self.nextShowCell.frame = CGRectMake(0.0f, newheightNextCell, self.frame.size.width, newheightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -828,7 +840,8 @@
                 self.nextShowCell.frame = CGRectMake(0.0f, -newheightNextCell, self.frame.size.width, newheightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -870,7 +883,7 @@
     [self insertSubview:self.nextShowCell atIndex:0];
     
     ///动画显示
-    [self animationChangeView:CGRectMake(0.0f, self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andWillShowView:self.nextShowCell andShowingAction:^(void){
+    [self animationChangeView:CGRectMake(0.0f, self.currentShowCell.frame.size.height, self.currentShowCell.frame.size.width, self.currentShowCell.frame.size.height) andShowingAction:^(void){
     
         ///更新当前显示的下标
         self.currentIndex = [self getRightPrepareShowViewIndex];
@@ -898,7 +911,8 @@
                 self.nextShowCell.frame = CGRectMake(0.0f, -newHeightNextCell, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
@@ -912,7 +926,8 @@
                 self.nextShowCell.frame = CGRectMake(0.0f, newHeightNextCell, self.frame.size.width, newHeightNextCell);
                 
                 ///加载
-                [self insertSubview:self.nextShowCell atIndex:0];
+                [self addSubview:self.nextShowCell];
+                [self sendSubviewToBack:self.nextShowCell];
                 
             }
             
