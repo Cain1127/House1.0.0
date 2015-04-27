@@ -238,6 +238,9 @@
 #define IMAGE_HOME_COLLECTED_INCREASE_UP @"home_collected_increase_up"
 #define IMAGE_HOME_COLLECTED_INCREASE_DOWN @"home_collected_increase_down"
 
+///推荐房源的头图片
+#define IMAGE_HOME_RECOMMEND_HOUSE_HEADER_DEFAULT @"home_recommend_house_header_default"
+
 #pragma mark - 找房页相关图片资源
 /**
  *  @author yangshengmeng, 15-01-31 15:01:21

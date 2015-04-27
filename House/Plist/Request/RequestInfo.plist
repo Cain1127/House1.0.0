@@ -49,7 +49,7 @@
 		<key>class</key>
 		<string>QSYRecommendTenantListReturnData</string>
 		<key>url</key>
-		<string>focus/list</string>
+		<string>rentPurchaseInfo/referralsUser</string>
 	</dict>
 	<key>4997</key>
 	<dict>

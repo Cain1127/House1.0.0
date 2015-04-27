@@ -415,6 +415,7 @@
 		18CAFCE41A720B5000C90C90 /* NSObject+Calculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE31A720B5000C90C90 /* NSObject+Calculate.m */; };
 		18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */; };
 		18CC73371AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC73361AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.m */; };
+		18CC733B1AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC733A1AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.m */; };
 		18D0814D1ACB9AB1004FA20F /* QSYSendMessageWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D0814C1ACB9AB1004FA20F /* QSYSendMessageWord.m */; };
 		18D081501ACB9B6D004FA20F /* QSYSendMessageBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D0814F1ACB9B6D004FA20F /* QSYSendMessageBaseModel.m */; };
 		18D0815B1ACC59FC004FA20F /* QSYPostMessageSimpleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D0815A1ACC59FC004FA20F /* QSYPostMessageSimpleModel.m */; };
@@ -1481,6 +1482,8 @@
 		18CAFCE71A720EEE00C90C90 /* QSFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSFilterViewController.m; path = Filter/QSFilterViewController.m; sourceTree = "<group>"; };
 		18CC73351AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHomeRecommendSecondHouseViewController.h; path = Recommend/QSYHomeRecommendSecondHouseViewController.h; sourceTree = "<group>"; };
 		18CC73361AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHomeRecommendSecondHouseViewController.m; path = Recommend/QSYHomeRecommendSecondHouseViewController.m; sourceTree = "<group>"; };
+		18CC73391AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHomeRecommendHouseHeaderCollectionViewCell.h; path = Recommend/Cell/QSYHomeRecommendHouseHeaderCollectionViewCell.h; sourceTree = "<group>"; };
+		18CC733A1AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHomeRecommendHouseHeaderCollectionViewCell.m; path = Recommend/Cell/QSYHomeRecommendHouseHeaderCollectionViewCell.m; sourceTree = "<group>"; };
 		18D0814B1ACB9AB1004FA20F /* QSYSendMessageWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageWord.h; sourceTree = "<group>"; };
 		18D0814C1ACB9AB1004FA20F /* QSYSendMessageWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageWord.m; sourceTree = "<group>"; };
 		18D0814E1ACB9B6D004FA20F /* QSYSendMessageBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageBaseModel.h; sourceTree = "<group>"; };
@@ -4673,10 +4676,20 @@
 		18CC73341AEE0DA200789D39 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
+				18CC73381AEE164400789D39 /* Cell */,
 				18CC73351AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.h */,
 				18CC73361AEE0E5000789D39 /* QSYHomeRecommendSecondHouseViewController.m */,
 			);
 			name = Recommend;
+			sourceTree = "<group>";
+		};
+		18CC73381AEE164400789D39 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18CC73391AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.h */,
+				18CC733A1AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		18D081581ACC59CE004FA20F /* Message */ = {
@@ -6973,6 +6986,7 @@
 				18D081A71ACD51EC004FA20F /* QSYReleaseRentHouseAddinfoViewController.m in Sources */,
 				475A4D421AC3E65A009881CF /* QSPOrderBookTimeViewController.m in Sources */,
 				18B5631C1A81AA40009779A0 /* QSCustomPickerView.m in Sources */,
+				18CC733B1AEE166800789D39 /* QSYHomeRecommendHouseHeaderCollectionViewCell.m in Sources */,
 				18B5632F1A81ADD9009779A0 /* QSMultiplePickerView.m in Sources */,
 				181524241ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m in Sources */,
 				CEACB0681AD6511F0010D455 /* QSMapManager.m in Sources */,
@@ -7338,8 +7352,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
@@ -7384,8 +7398,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
