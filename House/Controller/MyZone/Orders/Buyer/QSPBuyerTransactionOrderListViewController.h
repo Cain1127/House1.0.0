@@ -21,4 +21,6 @@ typedef enum
 
 - (void)setSelectedType:(MYZONE_BUYER_TRANSACTION_ORDER_LIST_TYPE)type;
 
+- (void)reloadCurrentShowList;
+
 @end

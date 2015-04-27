@@ -197,7 +197,8 @@
             
         } else if ([orderStatus isEqualToString:@"500240"] ||
                    [orderStatus isEqualToString:@"500241"] ||
-                   [orderStatus isEqualToString:@"500246"]) {
+                   [orderStatus isEqualToString:@"500246"] ||
+                   [orderStatus isEqualToString:@"500341"]) {
             
             statusStr = @"已取消";
             

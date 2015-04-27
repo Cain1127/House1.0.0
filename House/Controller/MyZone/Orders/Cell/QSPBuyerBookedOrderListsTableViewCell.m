@@ -19,6 +19,7 @@
 #import "QSCustomHUDView.h"
 #import "QSPOrderEvaluationListingsViewController.h"
 #import "QSPBuyerBookedOrdersListsViewController.h"
+#import "QSPBuyerTransactionOrderListViewController.h"
 #import "QSPOrderTipsButtonPopView.h"
 
 ///关联
@@ -682,7 +683,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                if ([self.parentViewController isKindOfClass:[QSPBuyerBookedOrdersListsViewController class]]) {
+                    [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+                else if ([self.parentViewController isKindOfClass:[QSPBuyerTransactionOrderListViewController class]]) {
+                    [(QSPBuyerTransactionOrderListViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+            }
             
         }
         
@@ -758,7 +766,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                if ([self.parentViewController isKindOfClass:[QSPBuyerBookedOrdersListsViewController class]]) {
+                    [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+                else if ([self.parentViewController isKindOfClass:[QSPBuyerTransactionOrderListViewController class]]) {
+                    [(QSPBuyerTransactionOrderListViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+            }
             
         }
         
@@ -864,7 +879,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                if ([self.parentViewController isKindOfClass:[QSPBuyerBookedOrdersListsViewController class]]) {
+                    [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+                else if ([self.parentViewController isKindOfClass:[QSPBuyerTransactionOrderListViewController class]]) {
+                    [(QSPBuyerTransactionOrderListViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+            }
             
         }
         
@@ -930,7 +952,14 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                if ([self.parentViewController isKindOfClass:[QSPBuyerBookedOrdersListsViewController class]]) {
+                    [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+                else if ([self.parentViewController isKindOfClass:[QSPBuyerTransactionOrderListViewController class]]) {
+                    [(QSPBuyerTransactionOrderListViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+            }
             
         }
         

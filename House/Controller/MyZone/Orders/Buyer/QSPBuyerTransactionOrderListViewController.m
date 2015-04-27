@@ -420,6 +420,35 @@ static char TipsImageViewKey;               //!<指示三角形关联
     
 }
 
+- (void)reloadCurrentShowList
+{
+    
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    switch (self.selectedListType) {
+        case mBuyerTransactionOrderListTypePending:
+            if (pendingListView) {
+                [pendingListView getPendingListHeaderData];
+            }
+            break;
+        case mBuyerTransactionOrderListTypeCompleted:
+            if (completeListView) {
+                [completeListView getCompleteListHeaderData];
+            }
+            break;
+        case mBuyerTransactionOrderListTypeCancel:
+            if (cancelListView) {
+                [cancelListView getCancelListHeaderData];
+            }
+            break;
+        default:
+            break;
+    }
+    
+}
+
 - (void)reloadAllShowList
 {
     

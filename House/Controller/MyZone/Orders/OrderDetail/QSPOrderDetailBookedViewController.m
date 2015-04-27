@@ -88,6 +88,8 @@
 #import "QSYContactComplaintViewController.h"
 #import "QSPOrderEvaluationListingsViewController.h"
 
+#import "QSMortgageCalculatorViewController.h"
+
 @interface QSPOrderDetailBookedViewController ()
 
 @property (nonatomic, strong) UIView *contentBgView;
@@ -200,7 +202,7 @@
     
     if (self.orderDetailData) {
         
-        titleTip = [NSString stringWithFormat:@"%@(%@)",[self.orderDetailData getStatusTitle],self.orderDetailData.order_status];
+        titleTip = [NSString stringWithFormat:@"%@(%@)[%@]",[self.orderDetailData getStatusTitle],self.orderDetailData.order_status,self.orderID];
         timeArray = [NSMutableArray arrayWithArray:self.orderDetailData.appoint_list];
         houseData = self.orderDetailData.house_msg;
         bargainList = self.orderDetailData.bargain_list;
@@ -568,7 +570,29 @@
     if (self.orderDetailData.isShowHousePriceView) {
         
         self.housePriceView = [[QSPOrderDetailHousePriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withHouseData:houseData andCallBack:^(UIButton *button) {
-            NSLog(@" clickBt");
+            
+            NSLog(@"price compute clickBt");
+            
+            NSString *totalPrice = @"";
+            
+            if (houseData) {
+                
+                if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+                    
+                    QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+                    
+                    totalPrice = data.house_price;
+                }
+            }
+            
+            if (totalPrice&& totalPrice.floatValue>0) {
+                
+                QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:totalPrice.floatValue/10000.0f];
+                
+                [self.navigationController pushViewController:mcVC animated:YES];
+                
+            }
+            
         }];
         [scrollView addSubview:_housePriceView];
         ///将房源价格引用添加进看房时间控件管理作动态高度扩展
