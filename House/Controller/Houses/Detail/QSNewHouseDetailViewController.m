@@ -384,8 +384,10 @@ static char LeftStarKey;            //!<左侧星级
     
     QSLoupanInfoDataModel *coordinateModel=[[QSLoupanInfoDataModel alloc] init];
     coordinateModel=self.detailInfo.loupan;
-    NSString *coordinate_x=coordinateModel.coordinate_x;
-    NSString *coordinate_y=coordinateModel.coordinate_y;
+    
+    NSString *coordinate_x = ([coordinateModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? coordinateModel.coordinate_x : coordinateModel.coordinate_y;
+    
+    NSString *coordinate_y = ([coordinateModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? coordinateModel.coordinate_y : coordinateModel.coordinate_x;
     
     ///地址信息
     QSBlockView *addressRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(leftGap, featuresRootView.frame.origin.y + featuresRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f) andSingleTapCallBack:^(BOOL flag) {
