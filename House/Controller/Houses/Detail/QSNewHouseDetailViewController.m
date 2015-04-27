@@ -70,7 +70,7 @@ static char LeftStarKey;            //!<左侧星级
 
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate,UMSocialUIDelegate>
 
-@property (nonatomic,copy) NSString *title;                         //!<标题
+@property (nonatomic,copy) NSString *tempTitle;                     //!<标题
 @property (nonatomic,copy) NSString *loupanID;                      //!<详情的ID
 @property (nonatomic,copy) NSString *buildingID;                    //!<楼栋ID
 @property (nonatomic,copy) NSString *userID;                        //!<业主ID
@@ -83,7 +83,6 @@ static char LeftStarKey;            //!<左侧星级
 
 @property (nonatomic,copy) NSMutableString *allAddress;             //!<拼装地址
 
-@property (nonatomic,strong) QSImageView *headerImageView;          //!<大图
 @property (nonatomic,strong) UIButton *intentionButton;             //!<收藏按钮
 
 @end
@@ -111,7 +110,7 @@ static char LeftStarKey;            //!<左侧星级
     if (self = [super init]) {
         
         ///保存相关参数
-        self.title = title;
+        self.tempTitle = title;
         self.loupanID = loupanID;
         self.buildingID = buildingID;
         self.detailType = detailType;
@@ -127,8 +126,7 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     [super createNavigationBarUI];
-    
-    [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+    [self setNavigationBarTitle:(self.tempTitle ? self.tempTitle : @"详情")];
     
     ///收藏按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
@@ -278,47 +276,6 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
-//#pragma mark - 联系业主
-/////客服热线
-//- (void)customButtonClick:(id)sender
-//{
-//
-//    [self makeCall:sender];
-//
-//}
-//
-//#pragma mark - 打电话事件
-//- (void)makeCall:(NSString *)number
-//{
-//
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
-//                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
-//                                              cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
-//    alertView.tag = kCallAlertViewTag;
-//    self.phoneNumber = number;
-//    [alertView show];
-//    return;
-//
-//}
-
-#pragma mark - 打电话代理事件
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (alertView.tag == kCallAlertViewTag) {
-        
-        if (buttonIndex == 1) {
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",self.phoneNumber]]];
-            
-        }
-        
-    }
-    
-}
-
-
-
 #pragma mark - 显示信息UI:网络请求成功后才显示UI
 ///显示信息UI:网络请求成功后才显示UI
 - (void)showInfoUI:(BOOL)flag
@@ -390,24 +347,28 @@ static char LeftStarKey;            //!<左侧星级
             [self.navigationController pushViewController:gotoVC animated:YES];
             
         }];
+        activityRootView.tag = 123456;
         [infoRootView addSubview:activityRootView];
         
     }
     
     ///头图片
-    _headerImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f)];
-    NSURL *tempURL = [self.detailInfo.loupan_building.attach_file getImageURL];
-    [_headerImageView loadImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
-    [infoRootView addSubview:_headerImageView];
+    QSAutoScrollView *headerImageView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
+        
+        APPLICATION_LOG_INFO(@"头图片", params)
+        
+    }];
+    headerImageView.tag = 123457;
+    [infoRootView addSubview:headerImageView];
     
     ///主信息边框
     CGFloat leftGap = SIZE_DEVICE_WIDTH > 320.0f ? 35.0f : 15.0f;
     
     ///主信息框的宽
-    CGFloat mainInfoWidth = _headerImageView.frame.size.width - 2.0f * leftGap;
+    CGFloat mainInfoWidth = headerImageView.frame.size.width - 2.0f * leftGap;
     
     ///评分栏
-    UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, _headerImageView.frame.origin.y + _headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
+    UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, headerImageView.frame.origin.y + headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
     [self createScoreSubviews:scoreRootView andInsideScore:@"4.6"  andOverflowScore:@"8.8"  andAroundScore:@"3.4"];
     [infoRootView addSubview:scoreRootView];
     
@@ -1063,7 +1024,6 @@ static char LeftStarKey;            //!<左侧星级
     ///计算器
     UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, 0.0f, 30.0f, 30.0f) andSingleTapCallBack:^{
         
-        NSLog(@"点击计算器");
         QSMortgageCalculatorViewController *calculatorVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:[totalPrice floatValue]*0.7f/10000];
         [self.navigationController pushViewController:calculatorVC animated:YES];
         
@@ -1509,6 +1469,24 @@ static char LeftStarKey;            //!<左侧星级
 - (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
 {
     
+    if (autoScrollView.tag == 123456) {
+        
+        return (int)[self.detailInfo.loupan_activity count];
+        
+    }
+    
+    if (autoScrollView.tag == 123457) {
+        
+        if ([self.detailInfo.loupanBuilding_photo count] > 0) {
+            
+            return (int)[self.detailInfo.loupanBuilding_photo count];
+            
+        }
+        
+        return 1;
+        
+    }
+    
     return (int)[self.detailInfo.loupan_activity count];
     
 }
@@ -1516,6 +1494,35 @@ static char LeftStarKey;            //!<左侧星级
 ///每个下标的广告页
 - (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
+    
+    ///头图片
+    if (autoScrollView.tag == 123457) {
+        
+        QSImageView *imageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height)];
+        imageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
+        
+        if ([self.detailInfo.loupanBuilding_photo count] > 0) {
+            
+            QSPhotoDataModel *photoModel = self.detailInfo.loupanBuilding_photo[index];
+            if ([photoModel.attach_file length] > 0) {
+                
+                [imageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+                
+            }
+            
+        } else {
+        
+            if ([self.detailInfo.loupan_building.attach_file length] > 0) {
+                
+                [imageView loadImageWithURL:[self.detailInfo.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+                
+            }
+        
+        }
+        
+        return imageView;
+        
+    }
     
     QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
     
@@ -1542,6 +1549,12 @@ static char LeftStarKey;            //!<左侧星级
 ///每一个广告页的返回参数
 - (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
 {
+    
+    if (autoScrollView.tag == 123457) {
+        
+        return @"headerImage";
+        
+    }
     
     ///获取模型
     QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
@@ -1634,23 +1647,39 @@ static char LeftStarKey;            //!<左侧星级
         ///加收弹出窗口
         [popView hiddenCustomPopview];
         
+        //设置分享内容和回调对象
+        NSData *imageData = [NSURLConnection
+                             sendSynchronousRequest:[NSURLRequest requestWithURL:[self.detailInfo.loupan_building.attach_file getImageURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0f]
+                             returningResponse:nil
+                             error:nil];
+        
+        ///分享图片
+        UIImage *tempImage = [UIImage imageNamed:@"icon240"];
+        if ([imageData length] > 0) {
+            
+            tempImage = [UIImage imageWithData:imageData];
+            
+        }
+        
         ///处理不同的分享事件
         switch (actionType) {
                 ///新浪微博
             case sShareChoicesTypeXinLang:
+            {
                 
                 //设置分享内容和回调对象
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
+            }
                 break;
                 
                 ///朋友圈
             case sShareChoicesTypeFriends:
                 
                 //设置分享内容和回调对象
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
@@ -1660,8 +1689,7 @@ static char LeftStarKey;            //!<左侧星级
             case sShareChoicesTypeWeChat:
                 
                 //设置分享内容和回调对象
-                
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 

@@ -53,7 +53,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 @interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,copy) NSString *title;                             //!<标题
+@property (nonatomic,copy) NSString *tempTitle;                         //!<标题
 @property (nonatomic,copy) NSString *communityID;                       //!<小区的ID
 @property (nonatomic,copy) NSString *commendNum;                        //!<推荐房源的个数
 @property (nonatomic,copy) NSString *houseType;                         //!<推荐房源的类型：出租/二手
@@ -98,7 +98,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     if (self = [super init]) {
         
         ///保存相关参数
-        self.title = title;
+        self.tempTitle = title;
         self.communityID = communityID;
         self.commendNum = commendNum;
         self.houseType = houseType;
@@ -115,7 +115,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 {
     
     [super createNavigationBarUI];
-    [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+    [self setNavigationBarTitle:(self.tempTitle ? self.tempTitle : @"详情")];
     
     ///关注按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
