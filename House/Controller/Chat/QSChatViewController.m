@@ -336,7 +336,13 @@
         switch (actionType) {
                 ///推荐房源
             case mMessageListActionTypeGotoRecommendHouse:
+            {
                 
+                QSYHomeRecommendSecondHouseViewController *recommendSecondHouseVC = [[QSYHomeRecommendSecondHouseViewController alloc] init];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:recommendSecondHouseVC animated:YES];
+                
+            }
                 break;
                 
                 ///进入系统消息页

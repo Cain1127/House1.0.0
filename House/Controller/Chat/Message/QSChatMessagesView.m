@@ -251,7 +251,6 @@ static char MessageListKey;//!<消息列表关联
             
             ///删除列表中的记录
             tempModel.not_view = @"0";
-//            [self.messageList removeObjectAtIndex:indexPath.row];
             
             ///刷新列表
             [tableView reloadData];
