@@ -51,7 +51,7 @@ static char DetailRootViewKey;      //!<所有信息的view
 static char BottomButtonRootViewKey;//!<底部按钮的底view关联
 static char MainInfoRootViewKey;    //!<主信息的底view关联
 
-@interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface QSCommunityDetailViewController () <UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,QSAutoScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *tempTitle;                         //!<标题
 @property (nonatomic,copy) NSString *communityID;                       //!<小区的ID
@@ -209,10 +209,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     ///主题图片
-    UIImageView *headerImageView=[[UIImageView alloc] init];
-    headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    NSURL *tempURL = [dataModel.village.attach_file getImageURL];
-    [headerImageView setImageWithURL:tempURL placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
+        
+        APPLICATION_LOG_INFO(@"点击头图片", params)
+        
+    }];
     
     UIView *houseDetailView = [[UIView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y+headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f * 4.0f + 3.0f * 5.0f + 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT)];
     [self createHouseDetailViewUI:houseDetailView andHouseInfo:dataModel.village];
@@ -686,6 +687,58 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
 }
 
+#pragma mark - 头图片自滚动设置
+///自滚动的总数
+- (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
+{
+    
+    if ([self.detailInfo.village_photo count] > 0) {
+        
+        return (int)[self.detailInfo.village_photo count];
+        
+    }
+    
+    return 1;
+    
+}
+
+///每个下标的广告页
+- (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+    
+    QSImageView *imageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height)];
+    imageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
+    
+    if ([self.detailInfo.village_photo count] > 0) {
+        
+        QSPhotoDataModel *photoModel = self.detailInfo.village_photo[index];
+        if ([photoModel.attach_file length] > 0) {
+            
+            [imageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+            
+        }
+        
+    } else {
+        
+        if ([self.detailInfo.village.attach_file length] > 0) {
+            
+            [imageView loadImageWithURL:[self.detailInfo.village.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+            
+        }
+        
+    }
+    
+    return imageView;
+    
+}
+
+///每一个广告页的返回参数
+- (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+    
+    return @"headerImage";
+    
+}
 
 #pragma mark - 请求小区详情信息
 ///请求新房详情信息
