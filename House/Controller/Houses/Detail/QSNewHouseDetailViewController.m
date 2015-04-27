@@ -70,11 +70,11 @@ static char LeftStarKey;            //!<左侧星级
 
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate,UMSocialUIDelegate>
 
-@property (nonatomic,copy) NSString *title;                 //!<标题
-@property (nonatomic,copy) NSString *loupanID;              //!<详情的ID
-@property (nonatomic,copy) NSString *buildingID;            //!<楼栋ID
-@property (nonatomic,copy) NSString *userID;                //!<业主ID
-@property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
+@property (nonatomic,copy) NSString *title;                         //!<标题
+@property (nonatomic,copy) NSString *loupanID;                      //!<详情的ID
+@property (nonatomic,copy) NSString *buildingID;                    //!<楼栋ID
+@property (nonatomic,copy) NSString *userID;                        //!<业主ID
+@property (nonatomic,assign) FILTER_MAIN_TYPE detailType;           //!<详情的类型
 
 @property (nonatomic,retain) QSNewHouseDetailDataModel *detailInfo; //!<详情信息的数据模型
 
@@ -206,7 +206,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:sepLabel];
     
     ///根据是否有活动，创建不同的功能按钮
-    if ([self.detailInfo.loupan_activity count]>0) {
+    if ([self.detailInfo.loupan_activity count] > 0) {
         
         ///按钮风格
         QSBlockButtonStyleModel *buttonStyel = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
@@ -214,10 +214,9 @@ static char LeftStarKey;            //!<左侧星级
         ///免费通话按钮
         buttonStyel.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
-
-                    ///免费通话
-            [self contactHouseOwner:self.detailInfo.user.mobile andOwer:self.detailInfo.user.nickname];
             
+            ///免费通话
+            [self contactHouseOwner:self.detailInfo.user.mobile andOwer:self.detailInfo.user.nickname];
             
         }];
         [view addSubview:callFreeButton];
@@ -231,8 +230,8 @@ static char LeftStarKey;            //!<左侧星级
         ///免费通话按钮
         buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_FREECALL;
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-                    
-                    ///免费通话
+            
+            ///免费通话
             [self contactHouseOwner:self.detailInfo.user.mobile andOwer:self.detailInfo.user.nickname];
             
         }];
@@ -283,15 +282,15 @@ static char LeftStarKey;            //!<左侧星级
 /////客服热线
 //- (void)customButtonClick:(id)sender
 //{
-//    
+//
 //    [self makeCall:sender];
-//    
+//
 //}
 //
 //#pragma mark - 打电话事件
 //- (void)makeCall:(NSString *)number
 //{
-//    
+//
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"联系业主"
 //                                                        message:[NSString stringWithFormat:@"呼叫 %@",number] delegate:self
 //                                              cancelButtonTitle:nil otherButtonTitles:@"取消",@"确定", nil];
@@ -299,7 +298,7 @@ static char LeftStarKey;            //!<左侧星级
 //    self.phoneNumber = number;
 //    [alertView show];
 //    return;
-//    
+//
 //}
 
 #pragma mark - 打电话代理事件
@@ -403,6 +402,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///主信息边框
     CGFloat leftGap = SIZE_DEVICE_WIDTH > 320.0f ? 35.0f : 15.0f;
+    
     ///主信息框的宽
     CGFloat mainInfoWidth = _headerImageView.frame.size.width - 2.0f * leftGap;
     
@@ -425,6 +425,7 @@ static char LeftStarKey;            //!<左侧星级
     coordinateModel=self.detailInfo.loupan;
     NSString *coordinate_x=coordinateModel.coordinate_x;
     NSString *coordinate_y=coordinateModel.coordinate_y;
+    
     ///地址信息
     QSBlockView *addressRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(leftGap, featuresRootView.frame.origin.y + featuresRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f) andSingleTapCallBack:^(BOOL flag) {
         
@@ -469,7 +470,6 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *provideRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, houseTypeRootView.frame.origin.y + houseTypeRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入计算器页面
-        NSLog(@"月供参考");
         QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
         [self.navigationController pushViewController:mcVC animated:YES];
         
@@ -484,7 +484,6 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *taxRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, provideRootView.frame.origin.y + provideRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入税金计算页面
-        NSLog(@"税金参考");
         QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
         [self.navigationController pushViewController:mcVC animated:YES];
         
@@ -1042,7 +1041,7 @@ static char LeftStarKey;            //!<左侧星级
     [tempRootView addSubview:tradeTipsLabel];
     
     UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
-   
+    
     tradeTimeLabel.text =  [NSString stringWithFormat:@"%@(%@)",[QSCoreDataManager getHouseTradeTypeWithKey:tradeType],tradeType];
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
@@ -1519,7 +1518,7 @@ static char LeftStarKey;            //!<左侧星级
 {
     
     QSActivityDataModel *activityModel = self.detailInfo.loupan_activity[index];
-
+    
     ///创建活动页
     QSNewHouseActivityView *activityView = [[QSNewHouseActivityView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height) andSignUpButtonCallBack:^(ACTIVITY_CALLBACK_ACTION_TYPE actionType) {
         
@@ -1624,7 +1623,7 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareNewHouse:(UIButton *)button
 {
     
-      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@至%d/%@ %d",self.title,self.detailInfo.loupan_building.address,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.price_avg intValue]*[self.detailInfo.loupan_building.min_house_area intValue]];
+    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@至%d/%@ %d",self.title,self.detailInfo.loupan_building.address,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.price_avg intValue]*[self.detailInfo.loupan_building.min_house_area intValue]];
     
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;

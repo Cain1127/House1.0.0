@@ -14,6 +14,7 @@
 #import "QSYSearchCommunityViewController.h"
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
+#import "QSYHomeRecommendSecondHouseViewController.h"
 
 #import "NSDate+Formatter.h"
 
@@ -303,7 +304,9 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     buttonStyle.imagesHighted = IMAGE_HOME_COMMUNITYRECOMMAND_HIGHLIGHTED;
     UIButton *recommandHouseButton = [UIButton createCustomStyleButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH * 3.0f / 4.0f - 30.0f, saleHouseButton.frame.origin.y, saleHouseButton.frame.size.width, saleHouseButton.frame.size.height) andButtonStyle:buttonStyle andCustomButtonStyle:cCustomButtonStyleBottomTitle andTitleSize:15.0f andMiddleGap:2.0f andCallBack:^(UIButton *button) {
         
-        
+        QSYHomeRecommendSecondHouseViewController *recommendSecondHouseVC = [[QSYHomeRecommendSecondHouseViewController alloc] init];
+        [self hiddenBottomTabbar:YES];
+        [self.navigationController pushViewController:recommendSecondHouseVC animated:YES];
         
     }];
     recommandHouseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
