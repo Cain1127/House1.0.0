@@ -331,10 +331,19 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
 
     [self showListWithType:self.selectedListType];
 
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    [self reloadAllShowList];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -441,6 +450,28 @@ typedef enum
             break;
     }
     
+}
+
+- (void)reloadAllShowList
+{
+    
+    QSPBuyerBookedOrderBookedListView *waitForListView = objc_getAssociatedObject(self, &BookingListTableViewKey);
+    QSPBuyerBookedOrderCompletedListView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerBookedOrderCancelListView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    if (waitForListView) {
+        [waitForListView getBookingListHeaderData];
+    }
+
+    if (completeListView) {
+        [completeListView getBookingListHeaderData];
+    }
+ 
+    
+    if (cancelListView) {
+        [cancelListView getBookingListHeaderData];
+    }
+
 }
 
 @end

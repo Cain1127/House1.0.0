@@ -22,8 +22,9 @@ typedef enum
 typedef enum
 {
     
-    oOrderButtonTipsViewTypeSalerInputPrice = 101,      //!<业主输入房源出价
-    oOrderButtonTipsViewTypeAcceptBuyerPrice,           //!<业主接受房客还价
+    oOrderButtonTipsViewTypeSalerInputPrice = 101,          //!<业主输入房源出价
+    oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice,   //!<业主/房客成交价格
+    oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice,        //!<业主/房客接受房客还价
     
 }ORDER_BUTTON_TIPS_VIEW_TYPE;
 
@@ -45,10 +46,10 @@ typedef enum
  *
  *  @return 返回房价输入界面
  */
-- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 /**
- *  初始化业主/房客接受还价覆盖View
+ *  初始化业主/房客预约阶段接受成交还价覆盖View
  *
  *  @param houseTitle 房源标题
  *  @param buyerPrice 房源价格
@@ -57,7 +58,18 @@ typedef enum
  *
  *  @return 业主/房客接受还价覆盖View界面
  */
-- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
+/**
+ *  初始化业主/房客成交阶段接受成交还价覆盖View
+ *
+ *  @param buyerPrice 房源价格
+ *  @param userType   对方用户身份
+ *  @param callBack   回调
+ *
+ *  @return 业主/房客接受还价覆盖View界面
+ */
+- (instancetype)initWithAcceptPriceVieWithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 - (NSString*)getInputPrice;
 

@@ -14,6 +14,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-- (void)getBookingListHeaderData;
+- (void)getPendingListHeaderData;
 
 @end

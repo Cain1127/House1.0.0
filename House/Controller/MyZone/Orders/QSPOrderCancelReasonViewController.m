@@ -176,7 +176,9 @@
                         case oOrderSubmitResultBackTypeAuto:
                             
                             NSLog(@"auto back");
+                            [self setTurnBackDistanceStep:2];
                             [self gotoTurnBackAction];
+                            
                             break;
                         case oOrderSubmitResultBackTypeToDetail:
                             

@@ -320,7 +320,7 @@ static char TipsImageViewKey;               //!<指示三角形关联
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
     
@@ -331,6 +331,15 @@ static char TipsImageViewKey;               //!<指示三角形关联
         }
     
     }];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [super viewDidAppear:animated];
+    
+    [self reloadAllShowList];
     
 }
 
@@ -407,6 +416,28 @@ static char TipsImageViewKey;               //!<指示三角形关联
             break;
         default:
             break;
+    }
+    
+}
+
+- (void)reloadAllShowList
+{
+    
+    QSPBuyerTransactionOrderListPendingView *pendingListView = objc_getAssociatedObject(self, &PendingListTableViewKey);
+    QSPBuyerTransactionOrderListCompletedView *completeListView = objc_getAssociatedObject(self, &CompleteListTableViewKey);
+    QSPBuyerTransactionOrderListCancelView *cancelListView = objc_getAssociatedObject(self, &CancelListTableViewKey);
+    
+    if (pendingListView) {
+        [pendingListView getPendingListHeaderData];
+    }
+    
+    if (completeListView) {
+        [completeListView getCompleteListHeaderData];
+    }
+    
+    
+    if (cancelListView) {
+        [cancelListView getCancelListHeaderData];
     }
     
 }

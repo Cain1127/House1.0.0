@@ -122,7 +122,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500231 == button.tag || 500252 == button.tag ) {
             //打电话
             [self callPhone];
-        }else if (500232 == button.tag ){
+        }else if ( 500232 == button.tag || 500257 == button.tag ){
             //议价
             NSString *houseName = @"";
             NSString *housePrice = @"";
@@ -141,7 +141,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                         
                         if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                             
-//                            housePrice = orderItem.last_saler_bid;
+                            if (500257 == button.tag) {
+                                housePrice = orderItem.last_saler_bid;
+                            }
                             orderID = orderItem.id_;
                         }
                         
@@ -149,7 +151,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //提交还价
@@ -187,7 +189,51 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
         }else if (500302 == button.tag ){
             //确认成交订单
-            [self commitTransactionOrder];
+            
+            NSString *houseName = @"";
+            NSString *housePrice = @"";
+            NSString *orderID = @"";
+            if (self.orderData) {
+                
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                    
+                    houseName = self.orderData.houseData.title;
+                    NSArray *orderList = self.orderData.orderInfoList;
+                    
+                    housePrice = self.orderData.houseData.house_price;
+                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+                            housePrice = orderItem.last_saler_bid;
+                            orderID = orderItem.id_;
+                        }
+                        
+                    }
+                }
+            }
+
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    //确认成交订单
+                    if (popView) {
+                        
+                        [self commitTransactionOrder];
+                        
+                    }
+                    
+                }
+                
+            }];
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+            
         }else if (500301 == button.tag || 500222 == button.tag){
             //提醒业主
             [self noticeUserOnTransactionOrder];
@@ -219,7 +265,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //成交预约订单
@@ -240,7 +286,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500230 == button.tag){
             //评价房源
             [self commitEvaluationListings];
-        }else if (500220 == button.tag ){
+        }else if (500220 == button.tag || 500258 == button.tag ){
             //房客成交预约订单已看房
             NSString *houseName = @"";
             NSString *housePrice = @"";
@@ -266,7 +312,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeOwner andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //成交预约订单
@@ -636,6 +682,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
+            [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
             
         }
         

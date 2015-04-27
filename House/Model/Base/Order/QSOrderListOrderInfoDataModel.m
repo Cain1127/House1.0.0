@@ -185,7 +185,7 @@
                 //业主角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"完成看房";
+                rightBt.buttonName = @"确认完成预约看房";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -206,7 +206,7 @@
                 //业主角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"完成看房";
+                rightBt.buttonName = @"确认完成预约看房";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ACCEPT_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -251,7 +251,7 @@
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
+                rightBt.buttonName = @"成交-成交预约订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -376,7 +376,7 @@
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
+                rightBt.buttonName = @"成交-成交预约订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -452,7 +452,7 @@
             //成功
             QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
             rightBt.bottionActionTag = [self.order_status integerValue];
-            rightBt.buttonName = @"成交";
+            rightBt.buttonName = @"成交-房客成交已看房订单";
             rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
             rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
             [btList addObject:rightBt];
@@ -527,7 +527,7 @@
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
+                rightBt.buttonName = @"成交-确认完成订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -560,7 +560,7 @@
                 //房客角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
+                rightBt.buttonName = @"成交待成交订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];

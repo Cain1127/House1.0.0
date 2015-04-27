@@ -117,7 +117,7 @@
             
         }
             break;
-        case oOrderButtonTipsViewTypeAcceptBuyerPrice:
+        case oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice:
         {
             //修改白色背景高度
             CGFloat contentHeight = 200.0f;
@@ -164,6 +164,36 @@
             
         }
             break;
+        case oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice:
+        {
+            //修改白色背景高度
+            CGFloat contentHeight = 180.0f;
+            [self.contentBackgroundView setFrame:CGRectMake(self.contentBackgroundView.frame.origin.x, SIZE_DEVICE_HEIGHT - contentHeight, self.contentBackgroundView.frame.size.width, contentHeight)];
+            
+            ///房源出价信息
+            UILabel *priceTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 32.0f, self.frame.size.width, 60.0f)];
+            priceTipLabel.textAlignment = NSTextAlignmentCenter;
+            priceTipLabel.numberOfLines = 0;
+            priceTipLabel.textColor = COLOR_CHARACTERS_BLACK;
+            priceTipLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+            [self.contentBackgroundView addSubview:priceTipLabel];
+            
+            NSString *userTypeStr = @"";
+            if (self.userType==uUserCountTypeTenant) {
+                
+                userTypeStr = @"房客";
+                
+            }else if (self.userType==uUserCountTypeOwner) {
+                
+                userTypeStr = @"业主";
+                
+            }
+            
+            NSString *infoStr = [NSString stringWithFormat:@"%@还价为%@万元，\n是否确认成交?",userTypeStr,self.housePrice];
+            priceTipLabel.text = infoStr;
+            
+        }
+            break;
         default:
             break;
     }
@@ -195,6 +225,10 @@
     QSBlockButtonStyleModel *confirmButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
     confirmButtonStyle.title = @"确定";
     
+    if (oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice == _viewType) {
+        confirmButtonStyle.title = @"成交";
+    }
+    
     UIButton *confirmButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width / 2.0f + 4.0f, cancelButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:confirmButtonStyle andCallBack:^(UIButton *button) {
         
         ///回调
@@ -224,7 +258,7 @@
     
 }
 
-- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
@@ -252,14 +286,14 @@
     
 }
 
-- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithBuyerPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
         ///背景颜色
         self.backgroundColor = [UIColor clearColor];
         
-        _viewType = oOrderButtonTipsViewTypeAcceptBuyerPrice;
+        _viewType = oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice;
         self.houseTitle = houseTitle;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
         self.userType = userType;
@@ -277,6 +311,34 @@
     }
     
     return self;
+}
+
+- (instancetype)initWithAcceptPriceVieWithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+{
+    
+    if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
+        
+        ///背景颜色
+        self.backgroundColor = [UIColor clearColor];
+        
+        _viewType = oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice;
+        self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.userType = userType;
+        
+        ///搭建UI
+        [self createTipAndButtonsUI];
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.buttonTipsCallBack = callBack;
+            
+        }
+        
+    }
+    
+    return self;
+    
 }
 
 - (instancetype)initWithView:(ORDER_BUTTON_TIPS_VIEW_TYPE)viewType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack

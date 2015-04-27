@@ -86,7 +86,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     UIButton *leftBt = [UIButton createBlockButtonWithFrame:CGRectMake(MY_ZONE_ORDER_LIST_CELL_WIDTH-70.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+8, 30.0f, 34.0f) andButtonStyle:leftActionBtStyle andCallBack:^(UIButton *button) {
         
         NSLog(@"leftActionBt");
-        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag || 500232 == button.tag ) {
+        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag || 500232 == button.tag  || 500258 == button.tag ) {
             //打电话
             [self callPhone];
         }else if (500203 == button.tag || 500201 == button.tag) {
@@ -118,7 +118,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //提交还价
@@ -150,7 +150,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         NSLog(@"rightActionBt");
         
-        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag || 500232 == button.tag ) {
+        if (500210 == button.tag  || 500213 == button.tag || 500250 == button.tag || 500232 == button.tag || 500258 == button.tag ) {
             //跳转去聊天
             [self goToChat];
             
@@ -162,7 +162,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             //房主确认租/买客预约看房
             [self salerCommitInspectedOrder];
             
-        }else if (500252 == button.tag || 500220 == button.tag ){  
+        }else if (500252 == button.tag || 500220 == button.tag || 500222 == button.tag){
             //同意还价
             NSString *houseName = @"";
             NSString *housePrice = @"";
@@ -188,7 +188,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithBuyerPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //接受还价

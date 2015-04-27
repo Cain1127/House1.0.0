@@ -23,6 +23,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 @property (nonatomic,strong) NSMutableArray *completeListDataSource;     //!已成交列表数据源
 
 @property (nonatomic,strong) NSNumber       *loadNextPage;              //!下一页数据页码
+@property (nonatomic,assign) NSInteger      getDataStep;                //!<当前请求数据的次数
 
 @end
 
@@ -36,6 +37,7 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
         
         ///初始化
         self.completeListDataSource  = [NSMutableArray arrayWithCapacity:0];
+        _getDataStep = 0;
         
         ///UI搭建
         [self createCompleteListUI];
@@ -103,6 +105,11 @@ static char CompleteListNoDataViewKey;   //!<已成交列表无数据关联
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        _getDataStep++;
+        if (_getDataStep == 2) {
+            return ;
+        }
         
         self.loadNextPage = [NSNumber numberWithInt:0];
         
