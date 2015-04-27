@@ -523,7 +523,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 return;
                 
             }
-            NSLog(@"点击公交");
             
             [QSMapManager updateNearSearchModel:[infoDict valueForKey:@"keywords"] andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
                 
@@ -531,9 +530,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 infoTextView.text = resultInfo;
                 
             }];
-            
-            ///刷新数据
-            //[self searchAction:[infoDict valueForKey:@"keywords"]];
             
             ///移动六角形
             [UIView animateWithDuration:0.3f animations:^{
@@ -546,7 +542,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
             
-            NSLog(@"%@",resultInfo);
             infoTextView.text = resultInfo;
             
         }];

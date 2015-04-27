@@ -749,8 +749,10 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:featuresRootView];
     [self createFeaturesSubviews:featuresRootView andDataSource:houseInfo.features];
     
-    NSString *coordinate_x=houseInfo.coordinate_x;
-    NSString *coordinate_y=houseInfo.coordinate_y;
+    NSString *coordinate_x = ([houseInfo.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfo.coordinate_x : houseInfo.coordinate_y;
+    
+    NSString *coordinate_y = ([houseInfo.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfo.coordinate_y : houseInfo.coordinate_x;
+
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
         
@@ -879,8 +881,10 @@ static char LeftStarKey;            //!<左侧星级
     stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status ? houseInfoModel.house_status : @""];
     [view addSubview:stateLabel];
     
+    NSString *leadTime =[[NSDate formatNSTimeToNSDateString:houseInfoModel.lead_time] substringToIndex:10];
+    
     UILabel *intakeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, stateLabel.frame.origin.y+stateLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    intakeLabel.text=[NSString stringWithFormat:@"交付时间:%@",houseInfoModel.lead_time ? houseInfoModel.lead_time : @""];
+    intakeLabel.text=[NSString stringWithFormat:@"交付时间:%@",leadTime ? leadTime : @""];
     intakeLabel.font=[UIFont systemFontOfSize:14.0f];
     intakeLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:intakeLabel];

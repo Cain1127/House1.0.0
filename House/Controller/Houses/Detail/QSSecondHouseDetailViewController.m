@@ -743,8 +743,9 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:featuresRootView];
     [self createFeaturesSubviews:featuresRootView andDataSource:houseInfoModel.features];
     
-    NSString *coordinate_x=houseInfoModel.coordinate_x;
-    NSString *coordinate_y=houseInfoModel.coordinate_y;
+    NSString *coordinate_x = ([houseInfoModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfoModel.coordinate_x : houseInfoModel.coordinate_y;
+
+    NSString *coordinate_y = ([houseInfoModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfoModel.coordinate_y : houseInfoModel.coordinate_x;
     
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击查看地图");
