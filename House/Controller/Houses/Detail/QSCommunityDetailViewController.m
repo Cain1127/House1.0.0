@@ -38,7 +38,7 @@
 #import "QSCoreDataManager+Collected.h"
 #import "UIImageView+AFNetworking.h"
 #import "QSCoreDataManager+User.h"
-
+#import "QSMapManager.h"
 #import "MJRefresh.h"
 
 ///左右限隙宏
@@ -494,7 +494,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:topView];
     
     UITextView *infoTextView=[[UITextView alloc] initWithFrame:CGRectMake(10.0f, topView.frame.origin.y+topView.frame.size.height+15.0f, topView.frame.size.width-20.0f, 60.0f)];
-    infoTextView.text = @"16号线公交:(体育西路),25号线公交:(林和西)";
     infoTextView.font = [UIFont systemFontOfSize:16.0f];
     infoTextView.editable = NO;
     [view addSubview:infoTextView];
@@ -524,8 +523,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 
             }
             NSLog(@"点击公交");
-            ///更换类型
-            //self.mapLineType = i +101;
+            
+            [QSMapManager updateNearSearchModel:[infoDict valueForKey:@"keywords"] andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
+                
+                NSLog(@"%@",resultInfo);
+                infoTextView.text = resultInfo;
+                
+            }];
             
             ///刷新数据
             //[self searchAction:[infoDict valueForKey:@"keywords"]];

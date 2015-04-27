@@ -17,34 +17,23 @@
  */
 @interface QSMapManager : NSObject
 
-/*!
- *  @author wangshupeng, 15-01-29 18:01:37
- *
- *  @brief  返回地图管理器
- *
- *  @return 返回当前地图管理器
- *
- *  @since  1.0.0
- */
-//+ (instancetype)shareMapManager;
++ (QSMapManager *)shareMapManager;
 
 /*!
- *  @author wangshupeng, 15-01-29 18:01:14
+ *  @author wangshupeng, 15-04-01 18:04:36
  *
- *  @brief  获取当前用户的当前位置信息
+ *  @brief  初始化周边地址与经纬度信息
  *
- *  @since  1.0.0
+ *  @param address      地址
+ *  @param coordinate_x 经度
+ *  @param coordinate_y 纬度
+ *
+ *  @return 周边信息地址与经纬度
+ *
+ *  @since 1.0.0
  */
-- (void)getUserLocation:(void (^)(BOOL isLocalSuccess,NSString *placename))CallBack;
+//-(instancetype)initWithAddress:(NSString *)address andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y;
 
-///用户地理位置定位的回调
-@property (nonatomic,copy) void(^userPlacenameCallBack)(BOOL isLocalSuccess,NSString *placename);
-
-
-
-///用户经纬度位置定位的回调
--(void)startUserLocation:(void(^)(BOOL isLocalSuccess,double longitude,double latitude))callBack;
-
-@property (nonatomic,copy) void(^userLoationCallBack)(BOOL isLocalSuccess,double longitude,double latitude);
++(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo))callBack;
 
 @end

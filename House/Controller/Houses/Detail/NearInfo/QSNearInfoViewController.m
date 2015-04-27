@@ -50,7 +50,7 @@
 
 @property(nonatomic,strong) QSScrollView *mapInfoView;  //!<地图UI
 @property(nonatomic,strong) UITextView *infoTextView;   //!<底部说明信息UI
-@property (nonatomic,assign) MAP_DETAIL_BUTTON_ACTION_TYPE mapLineType;
+@property(nonatomic,assign) MAP_DETAIL_BUTTON_ACTION_TYPE mapLineType;
 
 @property(nonatomic,copy) NSMutableString *resultNameString;
 @property(nonatomic,copy) NSMutableString *resultAddressString;

@@ -7,206 +7,145 @@
 //
 
 #import "QSMapManager.h"
-#import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
+#import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchAPI.h>
 
-@interface QSMapManager () <CLLocationManagerDelegate,MKMapViewDelegate>
+#define APIKey      @"0f36774bd285a275b3b8e496e45fe6d9"
 
-@property (nonatomic,strong) CLLocationManager *locMgr; //!<定位服务管理器
-@property (nonatomic,strong) CLGeocoder *geocoder; //!<地址编码管理器
+@interface QSMapManager () <AMapSearchDelegate,MAMapViewDelegate>
+{
+    MAMapView *_mapView;
+    AMapSearchAPI *_search;
+    NSArray *_pois;
 
+}
+
+@property(nonatomic,copy) NSString *address;                            //!<周边信息地址
+@property(nonatomic,assign) double coordinate_x;                        //!<周边经度
+@property(nonatomic,assign) double coordinate_y;                        //!<周边纬度
+
+@property(nonatomic,copy) void (^ MapNearSearchActionBack)(NSString* resultInfo);                                                        //!<附近信息回调
 
 @end
 
+static QSMapManager *_QSMapManager= nil;
+
 @implementation QSMapManager
 
-///初始化定位服务
--(instancetype)init
-{
-    self = [super init];
-    
-    if (self) {
-        
-        //if(![CLLocationManager locationServicesEnabled]) return nil;
-
-        // 创建定位管理者
-        self.locMgr = [[CLLocationManager alloc] init];
-        
-        //
-        // 设置代理
-        self.locMgr.delegate=self;
-        
-        self.locMgr.desiredAccuracy=kCLLocationAccuracyBest;
-        self.locMgr.distanceFilter=10000.0f;
-        //启动位置更新
-        [self.locMgr startUpdatingLocation];
-        
-        //__IPHONE_OS_VERSION_MAX_ALLOWED
-        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0) {
-            
-            //使用期间
-            [self.locMgr requestWhenInUseAuthorization];
-            //始终
-            //or [self.locationManage requestAlwaysAuthorization]
-        }
-        
-    }
-    return self;
-}
-
-///获取当前用户位置信息
-- (void)getUserLocation:(void (^)(BOOL isLocalSuccess,NSString *placename))CallBack
+#pragma mark - socket单例管理器
+///socket单例管理器
++ (QSMapManager *)shareMapManager
 {
     
-    ///1.定位
-    //QSMapManager *manager=[[QSMapManager alloc]init];
-    
-    ///定位当前用户经纬度
-    [self startUserLocation:^(BOOL isLocalSuccess, double longitude, double latitude) {
+    if (nil == _QSMapManager) {
         
-        ///判断是否定位成功
-        if (!isLocalSuccess) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
             
-            NSLog(@"=================用户经纬度定位失败=====================");
-            return;
+            _QSMapManager = [[QSMapManager alloc] init];
+            [_QSMapManager initParams];            
             
-        }
+        });
         
-        //成功打印出经纬度
-        NSLog(@"================获取用户经纬度成功====================");
-        NSLog(@"用户经纬度：%.6f--%.6f",longitude,latitude);
-        NSLog(@"===================================================");
-        
-        ///如果定位成功，则开始地址反地理编码
-        //1.包装位置
-        CLLocationDegrees latitud=latitude;
-        CLLocationDegrees longitud=longitude;
-        
-        CLLocation *loc = [[CLLocation alloc] initWithLatitude:latitud
-                                                     longitude:longitud];
-        //2.反地理编码
-        CLGeocoder *geocoder=[[CLGeocoder alloc]init];
-        
-        [geocoder reverseGeocodeLocation:loc completionHandler:^(NSArray *placemarks, NSError *error) {
-            
-            if (error) {//有错误
-                NSLog(@"========================================");
-                NSLog(@"============无法获取当前用户位置===========");
-                NSLog(@"========================================");
-            }
-            
-            else{//编码成功
-                
-                //取出最前面的地址
-                CLPlacemark *pm=[placemarks firstObject];
-                
-                ///设置成功时的回调
-                self.userPlacenameCallBack(YES,pm.name);
-                
-                //获取具体地址
-                NSLog(@"============当前用户地址名==============");
-                NSLog(@"%@",pm.name);
-                NSLog(@"======================================");
-                
-                
-                //打印出所有的信息
-                
-                //            NSLog(@"总共找到%d个地址",placemarks.count);
-                //            for (CLPlacemark *pm in placemarks) {
-                //                NSLog(@"------地址开始-------");
-                //                NSLog(@"%f %f %@",pm.location.coordinate.latitude, pm.location.coordinate.longitude, pm.name);
-                //                [pm.addressDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                //                    NSLog(@"%@ %@",key,obj);
-                //                }];
-                //                NSLog(@"--------地址结束-------");
-                //           }
-                
-            }
-            
-        }];
-        
-    }];
-    if (CallBack) {
-        self.userPlacenameCallBack=CallBack;
     }
+    
+    return _QSMapManager;
     
 }
 
-#pragma mark -开启定位服务
--(void)startUserLocation:(void(^)(BOOL isLocalSuccess,double longitude,double latitude))callBack
+-(void)initParams
 {
-    
-    [self.locMgr startUpdatingLocation];
-    
+
+    _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+
+}
+
++(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo))callBack;
+{
+
+    _QSMapManager = [QSMapManager shareMapManager];
+
     if (callBack) {
         
-        ///保存用户位置定位的回调
-        self.userLoationCallBack=callBack;
+        _QSMapManager.MapNearSearchActionBack = callBack;
+        
     }
+    
+    _QSMapManager.coordinate_x=[coordinate_x doubleValue];
+    _QSMapManager.coordinate_y=[coordinate_y doubleValue];
+    
+    [_QSMapManager searchAction:searchInfo];
+
+}
+
+- (void)searchAction:(NSString *)keywords
+{
+    if (!self.coordinate_x || _search == nil)
+    {
+        NSLog(@"search failed");
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
+        
+        return;
+    }
+
+    
+    AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
+    request.searchType = AMapSearchType_PlaceAround;
+    request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_y longitude:self.coordinate_x];
+    
+    request.keywords = keywords;
+    
+    [_search AMapPlaceSearch:request];
     
 }
 
-#pragma mark - CLLocationManagerDelegate
-/*!
- *  @author wangshupeng, 15-01-30 18:01:29
- *
- *  @brief  只要定位到用户就会调用
- *
- *  @param manager   定位服务
- *  @param locations 用户坐标数组对象
- *
- *  @since 1.0
- */
+#pragma mark - 地图搜索代理方法回调
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+- (void)searchRequest:(id)request didFailWithError:(NSError *)error
+{
+    ///搜索失败提示
+    NSLog(@"request :%@, error :%@", request, error);
+    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"搜索失败", 1.0f, ^(){})
+    
+}
+
+///房子周边信息回调
+- (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
 {
     
-    if (self.userLoationCallBack) {
+    NSLog(@"request: %@", request);
+    NSLog(@"response: %@", response);
+    if (response.pois.count > 0)
+    {
         
-        // 1.取出位置对象
-        CLLocation *loc = [locations firstObject];
+        _pois = [NSArray arrayWithArray:response.pois];
         
-        // 2.取出经纬度
-        CLLocationCoordinate2D coordinate = loc.coordinate;
+        NSMutableString *resultNameString = [[NSMutableString alloc] init];
+        NSMutableString *resultAddressString = [[NSMutableString alloc] init];
         
-        //3.设置成功的回调
-        self.userLoationCallBack(YES,coordinate.longitude,coordinate.latitude);
+        for (int i = 0; i < response.pois.count;i++) {
+            
+            AMapPOI *poi = _pois[i];
+            
+            ///获取返回的大头针位置
+            MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+            annotation.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+            annotation.title = poi.name;
+            annotation.subtitle=poi.address;
+            
+            
+            ///拼接搜索反回结果
+            [resultNameString appendString:poi.name];
+            [resultAddressString appendString:poi.address];
+            
+        }
         
-        // 3.打印经纬度
-        NSLog(@"didUpdateLocations定位坐标代理方法回调成功------%f %f", coordinate.latitude, coordinate.longitude);
+        self.MapNearSearchActionBack(resultNameString);
+      
         
     }
     
-    // 停止定位(省电措施：只要不想用定位服务，就马上停止定位服务)
-    [manager stopUpdatingLocation];
 }
 
-#pragma mark - 定位代理（iOS8新增）
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
-{
-    switch (status) {
-        case kCLAuthorizationStatusNotDetermined:
-            if ([self.locMgr respondsToSelector:@selector(requestAlwaysAuthorization)])
-            {
-                [self.locMgr requestWhenInUseAuthorization];
-            }
-            break;
-        default:
-            break;
-    }
-}
-
-///**
-// *  计算2个经纬度之间的直线距离
-// */
-//- (void)countLineDistance
-//{
-//    // 计算2个经纬度之间的直线距离
-//    CLLocation *loc1 = [[CLLocation alloc] initWithLatitude:40 longitude:116];
-//    CLLocation *loc2 = [[CLLocation alloc] initWithLatitude:41 longitude:116];
-//    CLLocationDistance distance = [loc1 distanceFromLocation:loc2];
-//    NSLog(@"%f", distance);
-//}
-//
 
 @end
