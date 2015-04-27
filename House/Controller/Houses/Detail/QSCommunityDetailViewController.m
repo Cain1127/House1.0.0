@@ -543,6 +543,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             
         }];
         
+        [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
+            
+            NSLog(@"%@",resultInfo);
+            infoTextView.text = resultInfo;
+            
+        }];
+        
         [titleButton addTarget:self action:@selector(changeChannelBarButtonStatus:) forControlEvents:UIControlEventTouchUpInside];
         [topView addSubview:titleButton];
         
