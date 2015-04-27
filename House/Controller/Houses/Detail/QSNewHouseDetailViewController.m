@@ -117,7 +117,7 @@ static char LeftStarKey;            //!<左侧星级
         self.loupanID = loupanID;
         self.buildingID = buildingID;
         self.detailType = detailType;
-        
+        self.isRefresh = YES;
     }
     
     return self;
@@ -224,12 +224,11 @@ static char LeftStarKey;            //!<左侧星级
                     
                     ///免费通话
                     [self customButtonClick:@"0201304545"];
+                    ///已登录重新刷新数据
+                    self.isRefresh = YES;
                     
                 }
             }];
-            
-            ///已登录重新刷新数据
-            
             
         }];
         [view addSubview:callFreeButton];
@@ -245,11 +244,17 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///判断是否已登录
-            
-            ///免费通话
-            [self customButtonClick:@"0201304545"];
-            ///已登录重新刷新数据
-            
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    ///免费通话
+                    [self customButtonClick:@"0201304545"];
+                    
+                    ///已登录重新刷新数据
+                    self.isRefresh = YES;
+                }
+                
+            }];
             
         }];
         [view addSubview:callFreeButton];
