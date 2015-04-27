@@ -48,7 +48,7 @@
     QSCollectionVerticalFlowLayout *defaultLayout = [[QSCollectionVerticalFlowLayout alloc] initWithItemWidth:width];
     defaultLayout.delegate = self;
     
-    self.houseListView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) collectionViewLayout:defaultLayout];
+    self.houseListView = [[UICollectionView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 10.0f) collectionViewLayout:defaultLayout];
     self.houseListView.showsHorizontalScrollIndicator = NO;
     self.houseListView.showsVerticalScrollIndicator = NO;
     self.houseListView.dataSource = self;

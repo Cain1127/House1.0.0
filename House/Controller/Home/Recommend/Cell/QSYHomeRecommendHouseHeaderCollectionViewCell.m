@@ -64,6 +64,7 @@ static char AddressKey; //!<地址信息关联
     
     ///其他信息底view
     UIView *infoRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y + headerImageView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH, heightInfo)];
+    [self createMainHouseInfo:infoRootView];
     infoRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     [self.contentView addSubview:infoRootView];
 
@@ -76,6 +77,7 @@ static char AddressKey; //!<地址信息关联
     UILabel *priceLabel = [[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    priceLabel.adjustsFontSizeToFitWidth = YES;
     [rootView addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -90,14 +92,17 @@ static char AddressKey; //!<地址信息关联
     UILabel *areaLabel = [[UILabel alloc] init];
     areaLabel.translatesAutoresizingMaskIntoConstraints = NO;
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    areaLabel.textAlignment = NSTextAlignmentRight;
+    areaLabel.adjustsFontSizeToFitWidth = YES;
     [rootView addSubview:areaLabel];
-    objc_setAssociatedObject(self, &AreaKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &AreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///面积单位
     UILabel *areaUnitLabel = [[UILabel alloc] init];
     areaUnitLabel.translatesAutoresizingMaskIntoConstraints = NO;
     areaUnitLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     areaUnitLabel.text = @"/㎡";
+    areaUnitLabel.textAlignment = NSTextAlignmentRight;
     [rootView addSubview:areaUnitLabel];
     
     ///标题信息
@@ -118,7 +123,7 @@ static char AddressKey; //!<地址信息关联
     NSDictionary *viewDict = NSDictionaryOfVariableBindings(priceLabel,priceUnitLabel,areaLabel,areaUnitLabel,titleLabel,addressLabel);
     
     ///约束
-    NSString *___hVFL_price = @"H:|-20-[priceLabel(>=40)][priceUnitLabel(20)]-(>=80)-[areaLabel(>=40)][areaUnitLabel(20)]-20-|";
+    NSString *___hVFL_price = @"H:|-20-[priceLabel(>=40,<=120)]-0-[priceUnitLabel(20)]-(>=10)-[areaLabel(>=40,<=80)]-0-[areaUnitLabel(30)]-20-|";
     NSString *___hVFL_title = @"H:|-20-[titleLabel]-20-|";
     NSString *___hVFL_address = @"H:|-20-[addressLabel]-20-|";
     NSString *___vVFL_most = @"V:|-20-[priceLabel(30)]-10-[titleLabel(15)]-10-[addressLabel(15)]-20-|";
@@ -238,7 +243,7 @@ static char AddressKey; //!<地址信息关联
     UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
     if ([salePrice length] > 0) {
         
-        priceLabel.text = salePrice;
+        priceLabel.text = [NSString stringWithFormat:@"%.0f",[salePrice floatValue] / 10000];
         
     } else {
     
