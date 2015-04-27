@@ -12,6 +12,7 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYChatToolViewController.h"
 #import "QSYHomeRecommendSecondHouseViewController.h"
+#import "QSYSystemMessagesViewController.h"
 
 #import "QSChatContactsView.h"
 #import "QSChatMessagesView.h"
@@ -118,7 +119,13 @@
                     
                     ///进入系统消息页
                 case mMessageListActionTypeGotoSystemMessage:
+                {
                     
+                    QSYSystemMessagesViewController *systemMessage = [[QSYSystemMessagesViewController alloc] init];
+                    [self hiddenBottomTabbar:YES];
+                    [self.navigationController pushViewController:systemMessage animated:YES];
+                    
+                }
                     break;
                     
                     ///进入聊天
@@ -347,7 +354,13 @@
                 
                 ///进入系统消息页
             case mMessageListActionTypeGotoSystemMessage:
-                
+            {
+            
+                QSYSystemMessagesViewController *systemMessage = [[QSYSystemMessagesViewController alloc] init];
+                [self hiddenBottomTabbar:YES];
+                [self.navigationController pushViewController:systemMessage animated:YES];
+            
+            }
                 break;
                 
                 ///进入聊天
