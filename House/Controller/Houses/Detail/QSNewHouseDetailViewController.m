@@ -85,6 +85,9 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,strong) QSImageView *headerImageView;          //!<大图
 @property (nonatomic,strong) UIButton *intentionButton;             //!<收藏按钮
 
+@property (assign) BOOL isRefresh;                          //!<标识视图出现时是否头部刷新
+
+
 @end
 
 @implementation QSNewHouseDetailViewController
@@ -218,6 +221,9 @@ static char LeftStarKey;            //!<左侧星级
             ///判断是否已登录
             [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
                 if (lLoginCheckActionTypeLogined == flag) {
+                    
+                    ///免费通话
+                    [self customButtonClick:@"0201304545"];
                     
                 }
             }];
@@ -1885,6 +1891,25 @@ static char LeftStarKey;            //!<左侧星级
         }
         
     }];
+    
+}
+
+#pragma mark - 视图加载后，判断是否进行头部刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    if (self.isRefresh) {
+        
+        self.isRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView.header beginRefreshing];
+            
+        });
+        
+    }
+    [super viewWillAppear:animated];
     
 }
 
