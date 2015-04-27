@@ -239,7 +239,7 @@ static char LeftStarKey;            //!<左侧星级
         buttonStyle.title = TITLE_HOUSES_DETAIL_NEW_LOOKHOUSE;
         UIButton *lookHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(callFreeButton.frame.origin.x + callFreeButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, callFreeButton.frame.origin.y, callFreeButton.frame.size.width, callFreeButton.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithtitle:self.title andloupanID:self.loupanID anduserID:self.userID];
+            QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithtitle:self.tempTitle andloupanID:self.loupanID anduserID:self.userID];
             [self.navigationController pushViewController:VC animated:YES];
             
         }];
@@ -393,7 +393,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *addressRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(leftGap, featuresRootView.frame.origin.y + featuresRootView.frame.size.height + 10.0f, mainInfoWidth, 20.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
-        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.tempTitle andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         
         [self.navigationController pushViewController:smVC animated:YES];
         
@@ -469,7 +469,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *otherInfoRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, priceLineRootView.frame.origin.y + priceLineRootView.frame.size.height + 40.0f, mainInfoWidth, 65.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入更多配套信息页面
-        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:self.allAddress andTitle:self.tempTitle andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         [self.navigationController pushViewController:nearInfoVC animated:YES];
         
     }];
@@ -1638,7 +1638,7 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareNewHouse:(UIButton *)button
 {
     
-    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@至%d/%@ %d",self.title,self.detailInfo.loupan_building.address,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.price_avg intValue]*[self.detailInfo.loupan_building.min_house_area intValue]];
+    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %d/%@至%d/%@ %d",self.tempTitle,self.detailInfo.loupan_building.address,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.min_house_area intValue],APPLICATION_AREAUNIT,[self.detailInfo.loupan_building.price_avg intValue]*[self.detailInfo.loupan_building.min_house_area intValue]];
     
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;

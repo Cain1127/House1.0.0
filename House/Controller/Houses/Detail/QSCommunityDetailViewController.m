@@ -245,8 +245,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseServiceView.frame.origin.y+houseServiceView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP)andSingleTapCallBack:^(BOOL flag) {
         
         ///进入地图：需要传经纬度
-        NSLog(@"点击进入更多配套");
-        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:dataModel.village.address andTitle:self.title  andCoordinate_x:dataModel.village.coordinate_x andCoordinate_y:dataModel.village.coordinate_y];
+        QSNearInfoViewController *nearInfoVC=[[QSNearInfoViewController alloc] initWithAddress:dataModel.village.address andTitle:self.tempTitle  andCoordinate_x:dataModel.village.coordinate_x andCoordinate_y:dataModel.village.coordinate_y];
         [self.navigationController pushViewController:nearInfoVC animated:YES];
         
         

@@ -69,7 +69,7 @@ static char LeftStarKey;            //!<左侧星级
 
 @interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate>
 
-@property (nonatomic,copy) NSString *title;                 //!<标题
+@property (nonatomic,copy) NSString *tempTitle;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 @property (assign) BOOL isRefresh;                          //!<标识视图出现时是否头部刷新
@@ -85,7 +85,6 @@ static char LeftStarKey;            //!<左侧星级
 @property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
 
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
-@property (nonatomic,strong) UIImageView *headerImageView;                  //!<大图
 @property (nonatomic,strong) UIButton *intentionButton;                     //!<收藏按钮
 
 @end
@@ -112,7 +111,7 @@ static char LeftStarKey;            //!<左侧星级
     if (self = [super init]) {
         
         ///保存相关参数
-        self.title = title;
+        self.tempTitle = title;
         self.detailID = detailID;
         self.detailType = detailType;
         self.isRefresh = NO;
@@ -130,7 +129,7 @@ static char LeftStarKey;            //!<左侧星级
     if (self = [super init]) {
         
         ///保存相关参数
-        self.title = title;
+        self.tempTitle = title;
         self.detailID = detailID;
         self.isRefresh = NO;
         
@@ -147,7 +146,7 @@ static char LeftStarKey;            //!<左侧星级
     
     [super createNavigationBarUI];
     
-    [self setNavigationBarTitle:(self.title ? self.title : @"详情")];
+    [self setNavigationBarTitle:(self.tempTitle ? self.tempTitle : @"详情")];
     
     ///收藏按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCollected];
@@ -433,17 +432,14 @@ static char LeftStarKey;            //!<左侧星级
     self.photoArray=dataModel.rentHouse_photo;
     
     ///主题图片
-    _headerImageView=[[UIImageView alloc] init];
-    _headerImageView.frame = CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334);
-    _headerImageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
-    if ([dataModel.house.attach_file length] > 0) {
+    QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 560.0f / 1334.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
         
-        [_headerImageView loadImageWithURL:[dataModel.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+        APPLICATION_LOG_INFO(@"查看图集", params);
         
-    }
+    }];
     
     ///分数view
-    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, _headerImageView.frame.origin.y+_headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y + headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
         
         NSLog(@"");
         
@@ -533,7 +529,7 @@ static char LeftStarKey;            //!<左侧星级
         
     }
     
-    [infoRootView addSubview:_headerImageView];
+    [infoRootView addSubview:headerImageView];
     [infoRootView addSubview:scoreView];
     [infoRootView addSubview:houseTotalView];
     [infoRootView addSubview:houseDetailView];
@@ -756,7 +752,7 @@ static char LeftStarKey;            //!<左侧星级
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
         
-        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.title andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
+        QSSearchMapViewController *smVC = [[QSSearchMapViewController alloc]initWithTitle:self.tempTitle andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y];
         
         [self.navigationController pushViewController:smVC animated:YES];
         
@@ -1432,6 +1428,59 @@ static char LeftStarKey;            //!<左侧星级
     
 }
 
+#pragma mark - 头图片自滚动设置
+///自滚动的总数
+- (int)numberOfScrollPage:(QSAutoScrollView *)autoScrollView
+{
+    
+    if ([self.detailInfo.rentHouse_photo count] > 0) {
+        
+        return (int)[self.detailInfo.rentHouse_photo count];
+        
+    }
+    
+    return 1;
+    
+}
+
+///每个下标的广告页
+- (UIView *)autoScrollViewShowView:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+    
+    QSImageView *imageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, autoScrollView.frame.size.width, autoScrollView.frame.size.height)];
+    imageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG];
+    
+    if ([self.detailInfo.rentHouse_photo count] > 0) {
+        
+        QSPhotoDataModel *photoModel = self.detailInfo.rentHouse_photo[index];
+        if ([photoModel.attach_file length] > 0) {
+            
+            [imageView loadImageWithURL:[photoModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+            
+        }
+        
+    } else {
+        
+        if ([self.detailInfo.house.attach_file length] > 0) {
+            
+            [imageView loadImageWithURL:[self.detailInfo.house.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+            
+        }
+        
+    }
+    
+    return imageView;
+    
+}
+
+///每一个广告页的返回参数
+- (id)autoScrollViewTapCallBackParams:(QSAutoScrollView *)autoScrollView viewForShowAtIndex:(int)index
+{
+    
+    return @"headerImage";
+    
+}
+
 #pragma mark - 请求详情信息
 - (void)getRentHouseDetailInfo
 {
@@ -1524,7 +1573,7 @@ static char LeftStarKey;            //!<左侧星级
 - (void)shareRentHouse:(UIButton *)button
 {
     
-      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.title,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
+      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.tempTitle,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
     
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;
@@ -1535,13 +1584,27 @@ static char LeftStarKey;            //!<左侧星级
         ///加收弹出窗口
         [popView hiddenCustomPopview];
         
+        //设置分享内容和回调对象
+        NSData *imageData = [NSURLConnection
+                             sendSynchronousRequest:[NSURLRequest requestWithURL:[self.detailInfo.house.attach_file getImageURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0f]
+                             returningResponse:nil
+                             error:nil];
+        
+        ///分享图片
+        UIImage *tempImage = [UIImage imageNamed:@"icon240"];
+        if ([imageData length] > 0) {
+            
+            tempImage = [UIImage imageWithData:imageData];
+            
+        }
+        
         ///处理不同的分享事件
         switch (actionType) {
                 ///新浪微博
             case sShareChoicesTypeXinLang:
                 
                 //设置分享内容和回调对象
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
@@ -1551,7 +1614,7 @@ static char LeftStarKey;            //!<左侧星级
             case sShareChoicesTypeFriends:
                 
                 //设置分享内容和回调对象
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
@@ -1561,8 +1624,7 @@ static char LeftStarKey;            //!<左侧星级
             case sShareChoicesTypeWeChat:
                 
                 //设置分享内容和回调对象
-                
-                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:self.headerImageView.image socialUIDelegate:self];
+                [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
