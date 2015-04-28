@@ -210,7 +210,7 @@
         [vertificationCodeField resignFirstResponder];
         
         ///修改手机
-//        [self gotoResetPhoneAction:phoneString];
+        [self gotoResetPhoneAction:phoneString];
         
     }];
     [self.view addSubview:loginButton];
@@ -221,7 +221,12 @@
 - (void)gotoResetPhoneAction:(NSString *)newPhone
 {
 
-//    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改手机"];
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改手机"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"mobile" : APPLICATION_NSSTRING_SETTING(newPhone, @"")};
+    
+//    [];
 
 }
 
