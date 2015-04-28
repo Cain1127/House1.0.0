@@ -782,7 +782,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         }
         
         // 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
-        annotationView.canShowCallout = NO;
+        annotationView.canShowCallout = YES;
         
         ///更新大头针数据
         [annotationView  updateAnnotation:annotation andHouseType:self.listType];
