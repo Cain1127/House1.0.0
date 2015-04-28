@@ -118,11 +118,11 @@ static char CommentKey;     //!<备注
     [self.contentView addSubview:sepImageView];
     
     UILabel *headerSep = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, sepImageView.frame.origin.y + sepImageView.frame.size.height, iconView.frame.size.width / 2.0f - 7.0f, 0.25f)];
-    headerSep.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    headerSep.backgroundColor = COLOR_CHARACTERS_GRAY;
     [self.contentView addSubview:headerSep];
     
     UILabel *footerSep = [[UILabel alloc] initWithFrame:CGRectMake(sepImageView.frame.origin.x + sepImageView.frame.size.width, sepImageView.frame.origin.y + sepImageView.frame.size.height, SIZE_DEVICE_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT - sepImageView.frame.origin.x - sepImageView.frame.size.width, 0.25f)];
-    footerSep.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    footerSep.backgroundColor = COLOR_CHARACTERS_GRAY;
     [self.contentView addSubview:footerSep];
     
     ///地址信息
