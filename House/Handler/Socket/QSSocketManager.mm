@@ -818,6 +818,13 @@ static QSSocketManager *_socketManager = nil;
                 case QSChat::QSCHAT_OFFLINE:
                 {
                     
+                    ///判断当前是否已下线
+                    if (![QSCoreDataManager isLogin]) {
+                        
+                        return;
+                        
+                    }
+                    
                     [QSCoreDataManager logoutCurrentUserCount:^(BOOL isLogout){
                         
                         ///为了保证能收到系统消息，重新发送上线

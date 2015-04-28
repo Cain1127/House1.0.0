@@ -105,11 +105,28 @@
     buttonStyle.title = @"确认";
     UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 64.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///密码有效性数据
+        ///旧密码有效性校验
+        NSString *oldPswString = oldPasswordField.text;
+        if ([oldPswString length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入旧密码",1.5f,^(){
+            
+                [oldPasswordField becomeFirstResponder];
+            
+            });
+            return;
+            
+        }
+        
+        ///新密码有效性校验
         NSString *pswString = passwordField.text;
         if ([pswString length] <= 0) {
             
-            [passwordField becomeFirstResponder];
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入新密码",1.5f,^(){
+                
+                [passwordField becomeFirstResponder];
+                
+            });
             return;
             
         }
@@ -145,7 +162,7 @@
         [confirmPasswordField resignFirstResponder];
         
         ///登录事件
-        [self resetLoginPassword:pswString andOldPhone:nil];
+        [self resetLoginPassword:pswString andOldPhone:oldPswString];
         
     }];
     [self.view addSubview:loginButton];

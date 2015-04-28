@@ -299,87 +299,44 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 
                 [self loadCollectedDataToServer];
                 
-            });
-            
-            ///修改用户登录状态
-            [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
-                
-                [QSCoreDataManager saveLoginCount:count andCallBack:^(BOOL flag) {
+                ///修改用户登录状态
+                [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                     
-                    [QSCoreDataManager saveLoginPassword:password andCallBack:^(BOOL flag) {
+                    [QSCoreDataManager saveLoginCount:count andCallBack:^(BOOL flag) {
                         
-                        QSYLoginReturnData *tempModel = resultData;
-                        QSUserDataModel *userModel = tempModel.userInfo;
-                        
-                        [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                        [QSCoreDataManager saveLoginPassword:password andCallBack:^(BOOL flag) {
                             
-                            ///重新发送上线
-                            [QSSocketManager sendOnLineMessage];
+                            QSYLoginReturnData *tempModel = resultData;
+                            QSUserDataModel *userModel = tempModel.userInfo;
                             
-                            ///隐藏HUD
-                            [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                            [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                                 
-                                ///新的用户类型
-                                USER_COUNT_TYPE newUserType = [userModel.user_type intValue];
-                                if (newUserType == originalType) {
-                                    
-                                    ///修改配置信息
-                                    if (uUserCountTypeDeveloper == newUserType) {
-                                        
-                                        ///修改默认的用户类型
-                                        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
-                                        [[NSUserDefaults standardUserDefaults] synchronize];
-                                        
-                                    } else {
-                                        
-                                        ///修改默认的用户类型
-                                        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
-                                        [[NSUserDefaults standardUserDefaults] synchronize];
-                                        
-                                    }
-                                    
-                                    ///回调
-                                    if (self.loginCallBack) {
-                                        
-                                        self.loginCallBack(lLoginCheckActionTypeReLogin);
-                                        
-                                    }
-                                    
-                                    [self.navigationController popViewControllerAnimated:YES];
-                                    
-                                } else {
+                                ///重新发送上线
+                                [QSSocketManager sendOnLineMessage];
                                 
-                                    ///新的用户类型和原用户类型相同，则直接返回上一级
-                                    if (uUserCountTypeDeveloper == newUserType) {
+                                ///隐藏HUD
+                                dispatch_sync(dispatch_get_main_queue(), ^{
+                                   
+                                    [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                                         
-                                        ///进入开发商模型
-                                        QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
-                                        
-                                        ///修改默认的用户类型
-                                        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
-                                        [[NSUserDefaults standardUserDefaults] synchronize];
-                                        
-                                        [self changeWindowRootViewController:developerVC];
-                                        
-                                    } else {
-                                        
-                                        if (uUserCountTypeDeveloper == originalType) {
+                                        ///新的用户类型
+                                        USER_COUNT_TYPE newUserType = [userModel.user_type intValue];
+                                        if (newUserType == originalType) {
                                             
-                                            ///修改默认的用户类型
-                                            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
-                                            [[NSUserDefaults standardUserDefaults] synchronize];
-                                            
-                                            ///加载tabbar控制器
-                                            QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
-                                            
-                                            ///加载到rootViewController上
-                                            [self changeWindowRootViewController:tabbarVC];
-                                            
-                                        } else {
-                                        
-                                            ///修改默认的用户类型
-                                            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
-                                            [[NSUserDefaults standardUserDefaults] synchronize];
+                                            ///修改配置信息
+                                            if (uUserCountTypeDeveloper == newUserType) {
+                                                
+                                                ///修改默认的用户类型
+                                                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                
+                                            } else {
+                                                
+                                                ///修改默认的用户类型
+                                                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                
+                                            }
                                             
                                             ///回调
                                             if (self.loginCallBack) {
@@ -389,12 +346,59 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                             }
                                             
                                             [self.navigationController popViewControllerAnimated:YES];
-                                        
+                                            
+                                        } else {
+                                            
+                                            ///新的用户类型和原用户类型相同，则直接返回上一级
+                                            if (uUserCountTypeDeveloper == newUserType) {
+                                                
+                                                ///进入开发商模型
+                                                QSWDeveloperHomeViewController *developerVC = [[QSWDeveloperHomeViewController alloc] init];
+                                                
+                                                ///修改默认的用户类型
+                                                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_develop"];
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                
+                                                [self changeWindowRootViewController:developerVC];
+                                                
+                                            } else {
+                                                
+                                                if (uUserCountTypeDeveloper == originalType) {
+                                                    
+                                                    ///修改默认的用户类型
+                                                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    
+                                                    ///加载tabbar控制器
+                                                    QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
+                                                    
+                                                    ///加载到rootViewController上
+                                                    [self changeWindowRootViewController:tabbarVC];
+                                                    
+                                                } else {
+                                                    
+                                                    ///修改默认的用户类型
+                                                    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_develop"];
+                                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                                    
+                                                    ///回调
+                                                    if (self.loginCallBack) {
+                                                        
+                                                        self.loginCallBack(lLoginCheckActionTypeReLogin);
+                                                        
+                                                    }
+                                                    
+                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                    
+                                                }
+                                                
+                                            }
+                                            
                                         }
                                         
-                                    }
-                                
-                                }
+                                    }];
+                                    
+                                });
                                 
                             }];
                             
@@ -404,7 +408,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     
                 }];
                 
-            }];
+            });
             
         } else {
             
@@ -416,7 +420,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             }
             
             ///显示提示信息
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(tips, 1.5f, ^(){})
+            [hud hiddenCustomHUDWithFooterTips:tips andDelayTime:1.5f];
             
             ///修改登录状态
             [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
