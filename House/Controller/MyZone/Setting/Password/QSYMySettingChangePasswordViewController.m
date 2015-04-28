@@ -63,9 +63,21 @@
 
 - (void)createMainShowUI
 {
+    
+    ///原密码
+    __block UITextField *oldPasswordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 64.0f + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"输入旧密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    oldPasswordField.delegate = self;
+    oldPasswordField.keyboardType = UIKeyboardTypeASCIICapable;
+    oldPasswordField.secureTextEntry = YES;
+    [self.view addSubview:oldPasswordField];
+    
+    ///分隔线
+    UILabel *oldPswLineLable = [[UILabel alloc] initWithFrame:CGRectMake(oldPasswordField.frame.origin.x + 5.0f, oldPasswordField.frame.origin.y + oldPasswordField.frame.size.height + 3.5f, oldPasswordField.frame.size.width - 10.0f, 0.5f)];
+    oldPswLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    [self.view addSubview:oldPswLineLable];
 
     ///密码
-    __block UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 64.0f + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"输入6-20位登录密码" andLeftTipsInfo:@"设置密码：" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    __block UITextField *passwordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, oldPasswordField.frame.origin.y + oldPasswordField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"输入新密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     passwordField.delegate = self;
     passwordField.keyboardType = UIKeyboardTypeASCIICapable;
     passwordField.secureTextEntry = YES;
@@ -77,21 +89,21 @@
     [self.view addSubview:pswLineLable];
     
     ///确认密码
-    __block UITextField *confirmPasswordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, passwordField.frame.origin.y + passwordField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"再次输入设置密码" andLeftTipsInfo:@"确认密码：" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
+    __block UITextField *confirmPasswordField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, passwordField.frame.origin.y + passwordField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"确定新密码" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftTipsBlack];
     confirmPasswordField.delegate = self;
     confirmPasswordField.keyboardType = UIKeyboardTypeASCIICapable;
     confirmPasswordField.secureTextEntry = YES;
     [self.view addSubview:confirmPasswordField];
     
     ///分隔线
-    UILabel *confirmPswLineLable = [[UILabel alloc] initWithFrame:CGRectMake(confirmPasswordField.frame.origin.x + 5.0f, SIZE_DEVICE_HEIGHT - 64.0f - 15.0f, passwordField.frame.size.width - 10.0f, 0.5f)];
+    UILabel *confirmPswLineLable = [[UILabel alloc] initWithFrame:CGRectMake(confirmPasswordField.frame.origin.x + 5.0f, confirmPasswordField.frame.origin.y + confirmPasswordField.frame.size.height + 3.5f, confirmPasswordField.frame.size.width - 10.0f, 0.5f)];
     confirmPswLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:confirmPswLineLable];
     
     ///重置按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     buttonStyle.title = @"确认";
-    UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, confirmPasswordField.frame.origin.y + confirmPasswordField.frame.size.height + 6.0f * VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    UIButton *loginButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 64.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///密码有效性数据
         NSString *pswString = passwordField.text;
