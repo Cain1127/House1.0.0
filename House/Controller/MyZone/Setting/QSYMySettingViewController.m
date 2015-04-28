@@ -7,6 +7,8 @@
 //
 
 #import "QSYMySettingViewController.h"
+#import "QSYMySettingChangeMobileViewController.h"
+#import "QSYMySettingChangePasswordViewController.h"
 
 #import "QSYPopCustomView.h"
 #import "QSYMySettingChangeUserReadNameTipsPopView.h"
@@ -226,7 +228,8 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePhone:
         {
             
-            APPLICATION_LOG_INFO(@"手机", @"")
+            QSYMySettingChangeMobileViewController *changePhoneVC = [[QSYMySettingChangeMobileViewController alloc] init];
+            [self.navigationController pushViewController:changePhoneVC animated:YES];
             
         }
             break;
@@ -235,7 +238,8 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePassword:
         {
             
-            APPLICATION_LOG_INFO(@"密码", @"")
+            QSYMySettingChangePasswordViewController *changePSWVC = [[QSYMySettingChangePasswordViewController alloc] init];
+            [self.navigationController pushViewController:changePSWVC animated:YES];
             
         }
             break;
