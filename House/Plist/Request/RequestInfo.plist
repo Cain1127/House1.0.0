@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>9008</key>
+	<dict>
+		<key>url</key>
+		<string>user/changeMobile</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
 	<key>9007</key>
 	<dict>
 		<key>url</key>

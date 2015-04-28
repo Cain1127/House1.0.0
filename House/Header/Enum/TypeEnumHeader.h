@@ -700,6 +700,7 @@ typedef enum
     rRequestTypeUPDateuserInfo = 9005,                  //!<更新用户信息
     rRequestTypeResetLoginPassword = 9006,              //!<重置密码
     rRequestTypeForgetLoginPassword = 9007,             //!<密码密码并修改
+    rRequestTypeResetMobile = 9008,                     //!<修改手机
     
     rRequestTypeOrderSubmitBid = 10002,                 //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003,         //!<订单详情里取消预约订单
