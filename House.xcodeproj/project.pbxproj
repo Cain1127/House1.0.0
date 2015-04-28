@@ -5501,10 +5501,10 @@
 		18F5E0A51ADE0F2800DA927E /* MapSearch */ = {
 			isa = PBXGroup;
 			children = (
-				18F5E0A61ADE0F2800DA927E /* QSCustomAnnotationView.h */,
-				18F5E0A71ADE0F2800DA927E /* QSCustomAnnotationView.m */,
 				18F5E0A81ADE0F2800DA927E /* QSCustomCalloutView.h */,
 				18F5E0A91ADE0F2800DA927E /* QSCustomCalloutView.m */,
+				18F5E0A61ADE0F2800DA927E /* QSCustomAnnotationView.h */,
+				18F5E0A71ADE0F2800DA927E /* QSCustomAnnotationView.m */,
 				18F5E0AA1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.h */,
 				18F5E0AB1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.mm */,
 			);

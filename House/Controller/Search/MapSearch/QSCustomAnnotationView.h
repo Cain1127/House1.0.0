@@ -19,6 +19,7 @@
  *  @brief  更新大头针数据
  *
  *  @since 1.0.0
- */-(void)updateAnnotation:(id <MAAnnotation>)annotation;
+ */
+-(void)updateAnnotation:(id <MAAnnotation>)annotation andHouseType:(FILTER_MAIN_TYPE)houseType;
 
 @end

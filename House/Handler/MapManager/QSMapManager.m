@@ -59,7 +59,7 @@ static QSMapManager *_QSMapManager= nil;
     _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
 
 }
-
+///根据提供的搜索信息查找附近相关信息
 +(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo))callBack;
 {
 
@@ -104,7 +104,6 @@ static QSMapManager *_QSMapManager= nil;
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error
 {
     ///搜索失败提示
-    NSLog(@"request :%@, error :%@", request, error);
     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"搜索失败", 1.0f, ^(){})
     
 }
@@ -113,8 +112,6 @@ static QSMapManager *_QSMapManager= nil;
 - (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
 {
     
-    NSLog(@"request: %@", request);
-    NSLog(@"response: %@", response);
     if (response.pois.count > 0)
     {
         
@@ -141,8 +138,7 @@ static QSMapManager *_QSMapManager= nil;
         }
         
         self.MapNearSearchActionBack(resultNameString);
-      
-        
+              
     }
     
 }

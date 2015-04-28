@@ -99,17 +99,35 @@ static char PriceUnitKey;   //!<价钱单位
     [self addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey,titleLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///均价label
-    UILabel *avgLabel=[[UILabel alloc] initWithFrame:CGRectMake(15.0f, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 35.0f, 15.0f)];
-    avgLabel.text=@"均价:";
-    avgLabel.font=[UIFont systemFontOfSize:14];
-    avgLabel.textAlignment=NSTextAlignmentRight;
-    [self addSubview:avgLabel];
-    objc_setAssociatedObject(self, &AvgLabelKey, avgLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    if (fFilterMainTypeNewHouse==self.houseType) {
+        ///均价label
+        UILabel *avgLabel=[[UILabel alloc] initWithFrame:CGRectMake(15.0f, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 35.0f, 15.0f)];
+        avgLabel.text=@"均价:";
+        avgLabel.font=[UIFont systemFontOfSize:14];
+        avgLabel.textAlignment=NSTextAlignmentRight;
+        [self addSubview:avgLabel];
+        objc_setAssociatedObject(self, &AvgLabelKey, avgLabel, OBJC_ASSOCIATION_ASSIGN);
+        
+        
+        /// 添加价钱label
+        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 35.0f, 20.0f)];
+        priceLabel.font = [UIFont systemFontOfSize:18];
+        priceLabel.textColor = [UIColor blackColor];
+        priceLabel.text = self.subtitle ? self.subtitle : @"999";
+        priceLabel.textAlignment=NSTextAlignmentRight;
+        [self addSubview:priceLabel];
+        objc_setAssociatedObject(self, &PriceLabelKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
+        
+        ///单位
+        UILabel *priceUnitLabel=[[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x+priceLabel.frame.size.width, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
+        priceUnitLabel.font=[UIFont systemFontOfSize:14.0f];
+        priceUnitLabel.text=@"万";
+        [self addSubview:priceUnitLabel];
+        objc_setAssociatedObject(self, &PriceUnitKey, priceUnitLabel, OBJC_ASSOCIATION_ASSIGN);
+    }
     
     /// 添加价钱label
-     UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 35.0f, 20.0f)];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,titleLabel.frame.origin.y+titleLabel.frame.size.height+4.0f, 60.0f, 20.0f)];
     priceLabel.font = [UIFont systemFontOfSize:18];
     priceLabel.textColor = [UIColor blackColor];
     priceLabel.text = self.subtitle ? self.subtitle : @"999";
@@ -120,7 +138,7 @@ static char PriceUnitKey;   //!<价钱单位
     ///单位
     UILabel *priceUnitLabel=[[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x+priceLabel.frame.size.width, titleLabel.frame.origin.y+titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
     priceUnitLabel.font=[UIFont systemFontOfSize:14.0f];
-    priceUnitLabel.text=@"万";
+    priceUnitLabel.text=@"套";
     [self addSubview:priceUnitLabel];
     objc_setAssociatedObject(self, &PriceUnitKey, priceUnitLabel, OBJC_ASSOCIATION_ASSIGN);
     

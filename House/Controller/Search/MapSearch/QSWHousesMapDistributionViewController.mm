@@ -565,18 +565,19 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             //            break;
             
             ///进入小区详情
-            //        case fFilterMainTypeCommunity:
-            //        {
-            //
-            //            ///获取房子模型
-            //            QSCommunityDataModel *houseInfoModel = dataModel;
-            //
-            //            ///进入详情页面
-            //            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-            //            [self.navigationController pushViewController:detailVC animated:YES];
-            //
-            //        }
-            //            break;
+                    case fFilterMainTypeCommunity:
+                    {
+            
+                        return ;
+//                        ///获取房子模型
+//                        QSCommunityDataModel *houseInfoModel = dataModel;
+//            
+//                        ///进入详情页面
+//                        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
+//                        [self.navigationController pushViewController:detailVC animated:YES];
+            
+                    }
+                        break;
             
             ///进入二手房详情
         case fFilterMainTypeSecondHouse:
@@ -609,7 +610,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 #pragma mark - 地图相关
 ///初始化地图
 - (void)initMapView
-
 {
     
     [MAMapServices sharedServices].apiKey = APIKey;
@@ -627,7 +627,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     [self.view addSubview:_mapView];
     
-//    _mapView.showsUserLocation = YES;
+    _mapView.showsUserLocation = NO;
     
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     
@@ -675,7 +675,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
     });
     
-    
 }
 
 ///定位跟踪代理事件
@@ -707,7 +706,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 ///地理编码结果返回
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error
 {
+    
     NSLog(@"地理编码错误返回数据 :%@, error :%@", request, error);
+    
 }
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:
@@ -733,7 +734,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 }
 
 #pragma mark - 添加大头针气泡
-
 - (void)addAnnotations
 {
     
@@ -744,10 +744,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         QSMapCommunityDataModel *tempModel = self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
         self.title=tempModel.mapCommunityDataSubModel.title;
         self.subtitle=tempModel.total_num;
+        
         self.coordinate_x=tempModel.mapCommunityDataSubModel.coordinate_x;
         self.coordinate_y=tempModel.mapCommunityDataSubModel.coordinate_y;
-        APPLICATION_LOG_INFO(@"网络返回大头针经度坐标:", self.coordinate_x);
-        APPLICATION_LOG_INFO(@"网络返回大头针纬度坐标:", self.coordinate_y);
         
         double latitude= [self.coordinate_y doubleValue];
         double longitude=[self.coordinate_x doubleValue];
@@ -784,30 +783,17 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         // 设置为NO，用以调用自定义的calloutView
         annotationView.canShowCallout = NO;
-        //annotationView.mapdeteilID=[]
         
         ///更新大头针数据
-        [annotationView  updateAnnotation:annotation];
+        [annotationView  updateAnnotation:annotation andHouseType:self.listType];
         
         // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
-        annotationView.centerOffset = CGPointMake(0, -18);
+        annotationView.centerOffset = CGPointMake(0, -35);
         return annotationView;
     }
     
     return nil;
 }
-
-/*!
- @brief 当mapView新添加annotation views时，调用此接口
- @param mapView 地图View
- @param views 新添加的annotation views
- */
-//- (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
-//{
-//
-//
-//
-//}
 
 /*!
  @brief 当选中一个annotation views时，调用此接口
@@ -816,7 +802,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
  */
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
-    
+
     NSString *idString = [view valueForKey:@"deteilID"];
     NSString *titleString = [view valueForKey:@"title"];
     
@@ -840,12 +826,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     NSString *longtude=[NSString stringWithFormat:@"%lf",_longtude ? _longtude : clongitude];
     NSString *map_type=[NSString stringWithFormat:@"%ld",(long)self.listType];
     
-    APPLICATION_LOG_INFO(@"网络请求经度", latitude);
-    APPLICATION_LOG_INFO(@"网络请求纬度", longtude);
+    APPLICATION_LOG_INFO(@"网络请求纬度", latitude);
+    APPLICATION_LOG_INFO(@"网络请求经度", longtude);
     ///请求参数
     NSDictionary *dict = @{@"map_type" : map_type,
                            @"now_page" : @"1",
-                           @"page_num" : @"5",
+                           @"page_num" : @"10",
                            @"range" : @"10000",
                            @"latitude" : latitude,
                            @"longitude" : longtude
@@ -856,8 +842,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            APPLICATION_LOG_INFO(@"地图列表数据返回成功", resultData);
-            
             if (resultData) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     
@@ -867,10 +851,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
                 ///请求成功后，转换模型
                 QSMapCommunityListReturnData *resultDataModel = resultData;
-                
-                QSMapCommunityListHeaderData *headerModel = resultDataModel.mapCommunityListHeaderData;
-                NSLog(@"返回小区的数量:%@",headerModel.total_num);
-                
+                                
                 ///将数据模型置为nil
                 self.dataSourceModel = nil;
                 self.dataSourceModel=resultDataModel;

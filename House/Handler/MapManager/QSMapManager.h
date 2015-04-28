@@ -17,6 +17,15 @@
  */
 @interface QSMapManager : NSObject
 
+/*!
+ *  @author wangshupeng, 15-04-28 09:04:55
+ *
+ *  @brief  单例创建
+ *
+ *  @return 地图管理者
+ *
+ *  @since 1.0.0
+ */
 + (QSMapManager *)shareMapManager;
 
 /*!
@@ -24,16 +33,14 @@
  *
  *  @brief  初始化周边地址与经纬度信息
  *
- *  @param address      地址
+ *  @param address      搜索信息
  *  @param coordinate_x 经度
  *  @param coordinate_y 纬度
  *
- *  @return 周边信息地址与经纬度
+ *  @return 周边服务信息
  *
  *  @since 1.0.0
  */
-//-(instancetype)initWithAddress:(NSString *)address andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y;
-
 +(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo))callBack;
 
 @end

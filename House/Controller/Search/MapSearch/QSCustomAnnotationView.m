@@ -27,13 +27,10 @@
         {
             self.calloutView = [[QSCustomCalloutView alloc] initWithFrame:CGRectMake(0, 0, kCalloutWidth, kCalloutHeight)];
             
-            self.frame = CGRectMake(0, 0, _calloutView.frame.size.width, _calloutView.frame.size.height + 60);
+            self.frame = CGRectMake(0, 0, _calloutView.frame.size.width, _calloutView.frame.size.height );
             
-            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
+            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.0f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.0f + self.calloutOffset.y);
         }
-        
-        [self updateAnnotation:self.annotation];
-        
         [self addSubview:self.calloutView];
         
 
@@ -42,9 +39,10 @@
     
 }
 
--(void)updateAnnotation:(id <MAAnnotation>)annotation
+-(void)updateAnnotation:(id <MAAnnotation>)annotation andHouseType:(FILTER_MAIN_TYPE)houseType
 {
 
+    self.calloutView.houseType = houseType;
     NSString *title = annotation.title;
     NSArray *tempArray = [title componentsSeparatedByString:@"#"];
     self.calloutView.title = tempArray[0];
@@ -55,36 +53,36 @@
 }
 
 
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-//{
-//    if (self.selected == selected)
-//    {
-//        return;
-//    }
-//    
-//    if (selected)
-//    {
-//        if (self.calloutView == nil)
-//        {
-//            self.calloutView = [[QSCustomCalloutView alloc] initWithFrame:CGRectMake(0, 0, kCalloutWidth, kCalloutHeight)];
-//            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
-//        }
-//        
-//        self.calloutView.title = self.annotation.title;
-//        self.calloutView.subtitle = self.annotation.subtitle;
-//        
-//        [self addSubview:self.calloutView];
-//    }
-//    else
-//    {
-//        [self.calloutView removeFromSuperview];
-//    }
-//    
-//    [super setSelected:selected animated:animated];
-//}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    if (self.selected == selected)
+    {
+        return;
+    }
+    
+    if (selected)
+    {
+        if (self.calloutView == nil)
+        {
+            self.calloutView = [[QSCustomCalloutView alloc] initWithFrame:CGRectMake(0, 0, kCalloutWidth, kCalloutHeight)];
+            self.calloutView.center = CGPointMake(CGRectGetWidth(self.bounds) / 2.f + self.calloutOffset.x,-CGRectGetHeight(self.calloutView.bounds) / 2.f + self.calloutOffset.y);
+        }
+        
+        self.calloutView.title = self.annotation.title;
+        self.calloutView.subtitle = self.annotation.subtitle;
+        
+        [self addSubview:self.calloutView];
+    }
+    else
+    {
+        [self.calloutView removeFromSuperview];
+    }
+    
+    [super setSelected:selected animated:animated];
+}
 
 
-/// 重写此函数,⽤用以实现点击calloutView判断为点击该annotationView
+/// 重写此函数,用以实现点击calloutView判断为点击该annotationView
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     BOOL inside = [super pointInside:point withEvent:event];
     if (!inside && self.selected)

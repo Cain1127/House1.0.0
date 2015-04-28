@@ -10,7 +10,8 @@
 
 @interface QSCustomCalloutView : UIView
 
-@property (nonatomic, copy) NSString *title; //!<小区名
-@property (nonatomic, copy) NSString *subtitle; //!<价钱
+@property (nonatomic, copy) NSString *title;                //!<小区名
+@property (nonatomic, copy) NSString *subtitle;             //!<价钱
+@property (nonatomic,assign)FILTER_MAIN_TYPE houseType;     //!<房源类型
 
 @end

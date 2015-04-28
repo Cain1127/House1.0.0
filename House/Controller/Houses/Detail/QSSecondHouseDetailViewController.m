@@ -1834,8 +1834,7 @@ static char LeftStarKey;            //!<左侧星级
         }
 
         ///处理不同的分享事件
-        switch (actionType) {
-                
+        switch (actionType) {                
 
                 ///新浪微博
             case sShareChoicesTypeXinLang:
