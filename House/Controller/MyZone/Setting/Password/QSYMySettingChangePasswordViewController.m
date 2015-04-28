@@ -158,7 +158,7 @@
     
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改"];
 
-    NSDictionary *params = @{@"old_psw " : APPLICATION_NSSTRING_SETTING(oldPhone, @""),
+    NSDictionary *params = @{@"old_psw" : APPLICATION_NSSTRING_SETTING(oldPhone, @""),
                              @"new_psw" : APPLICATION_NSSTRING_SETTING(newPsw, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeResetLoginPassword andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
