@@ -13,6 +13,7 @@
 #import "QSYAskRecommendSecondHouseViewController.h"
 
 #import "QSYAskRentAndBuyTableViewCell.h"
+#import "QSYAskRentAndBuyRentTableViewCell.h"
 
 #import "QSYPopCustomView.h"
 #import "QSCustomHUDView.h"
@@ -183,11 +184,90 @@
 
 }
 
-#pragma mark - 返回收藏记录
+#pragma mark - 返回求租求购记录
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    __block QSYAskRentAndBuyDataModel *tempModel = self.dataSourceModel.headerData.dataList[indexPath.row];
+    
+    ///判断是否求租
+    if ([tempModel.type intValue] == 1) {
+        
+        static NSString *normalCell = @"askRentHouseCell";
+        QSYAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+        if (nil == cellNormal) {
+            
+            cellNormal = [[QSYAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+            cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+            cellNormal.backgroundColor = [UIColor whiteColor];
+            
+        }
+        
+        ///刷新UI
+        [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
+            
+            ///根据不同的事件，进入不同的页面
+            if (aAskRentAndBuyRentCellActionTypeSetting == actionType) {
+                
+                self.releaseIndex = indexPath.row;
+                [self.listView reloadData];
+                
+            }
+            
+            if (aAskRentAndBuyRentCellActionTypeSettingClose == actionType) {
+                
+                self.releaseIndex = -1;
+                [self.listView reloadData];
+                
+            }
+            
+            if (aAskRentAndBuyRentCellActionTypeRecommend == actionType) {
+                
+                ///判断是否有推荐房源
+                if (0 >= [tempModel.commend_num intValue]) {
+                    
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"暂无推荐房源", 1.5f, ^(){})
+                    return;
+                    
+                }
+                
+                QSYAskRecommendRentHouseViewController *recommendVC = [[QSYAskRecommendRentHouseViewController alloc] initWithRecommendID:tempModel.id_];
+                [self.navigationController pushViewController:recommendVC animated:YES];
+                
+            }
+            
+            if (aAskRentAndBuyRentCellActionTypeEdit == actionType) {
+                
+                QSYAskRentHouseViewController *rentEditVC = [[QSYAskRentHouseViewController alloc] initWithModel:[tempModel change_AskDataModel_TO_FilterModel] andReleaseStatus:rRenthouseReleaseStatusTypeRerelease andCallBack:^(BOOL isRelease) {
+                    
+                    if (isRelease) {
+                        
+                        ///列表刷新
+                        self.isRefresh = YES;
+                        
+                    }
+                    
+                }];
+                [self.navigationController pushViewController:rentEditVC animated:YES];
+                
+            }
+            
+            if (aAskRentAndBuyRentCellActionTypeDelete == actionType) {
+                
+                [self popAskRentAndBuyDeleteTips:tempModel.id_];
+                
+            }
+            
+        }];
+        
+        ///更新附加功能栏是否显示
+        [cellNormal updateButtonActionStatus:(indexPath.row == self.releaseIndex)];
+        
+        return cellNormal;
+        
+    }
 
-    static NSString *normalCell = @"normalCell";
+    static NSString *normalCell = @"askBuyHouseCell";
     QSYAskRentAndBuyTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
     if (nil == cellNormal) {
         
@@ -198,7 +278,6 @@
     }
     
     ///刷新UI
-    __block QSYAskRentAndBuyDataModel *tempModel = self.dataSourceModel.headerData.dataList[indexPath.row];
     [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
         
         ///根据不同的事件，进入不同的页面
@@ -226,56 +305,24 @@
                 
             }
             
-            if (1 == [tempModel.type intValue]) {
-                
-                QSYAskRecommendRentHouseViewController *recommendVC = [[QSYAskRecommendRentHouseViewController alloc] initWithRecommendID:tempModel.id_];
-                [self.navigationController pushViewController:recommendVC animated:YES];
-                
-            }
-            
-            if (2 == [tempModel.type intValue]) {
-                
-                QSYAskRecommendSecondHouseViewController *recommendVC = [[QSYAskRecommendSecondHouseViewController alloc] initWithRecommendID:tempModel.id_];
-                [self.navigationController pushViewController:recommendVC animated:YES];
-                
-            }
+            QSYAskRecommendSecondHouseViewController *recommendVC = [[QSYAskRecommendSecondHouseViewController alloc] initWithRecommendID:tempModel.id_];
+            [self.navigationController pushViewController:recommendVC animated:YES];
             
         }
         
         if (aAskRentAndBuyCellActionTypeEdit == actionType) {
             
-            ///根据不同的类型，进入不同的编辑页面
-            if (1 == [tempModel.type intValue]) {
+            QSYAskSecondHandHouseViewController *secondHouseEditVC = [[QSYAskSecondHandHouseViewController alloc] initWithModel:[tempModel change_AskDataModel_TO_FilterModel] andReleaseStatus:bBuyhouseReleaseStatusTypeRerelease andCallBack:^(BOOL isRelease) {
                 
-                QSYAskRentHouseViewController *rentEditVC = [[QSYAskRentHouseViewController alloc] initWithModel:[tempModel change_AskDataModel_TO_FilterModel] andReleaseStatus:rRenthouseReleaseStatusTypeRerelease andCallBack:^(BOOL isRelease) {
+                if (isRelease) {
                     
-                    if (isRelease) {
-                        
-                        ///列表刷新
-                        self.isRefresh = YES;
-                        
-                    }
+                    ///列表刷新
+                    self.isRefresh = YES;
                     
-                }];
-                [self.navigationController pushViewController:rentEditVC animated:YES];
+                }
                 
-            }
-            
-            if (2 == [tempModel.type intValue]) {
-                
-                QSYAskSecondHandHouseViewController *secondHouseEditVC = [[QSYAskSecondHandHouseViewController alloc] initWithModel:[tempModel change_AskDataModel_TO_FilterModel] andReleaseStatus:bBuyhouseReleaseStatusTypeRerelease andCallBack:^(BOOL isRelease) {
-                    
-                    if (isRelease) {
-                        
-                        ///列表刷新
-                        self.isRefresh = YES;
-                        
-                    }
-                    
-                }];
-                [self.navigationController pushViewController:secondHouseEditVC animated:YES];
-                
-            }
+            }];
+            [self.navigationController pushViewController:secondHouseEditVC animated:YES];
             
         }
         

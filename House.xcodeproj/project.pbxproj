@@ -346,6 +346,7 @@
 		18B572B01AC16D1600C75682 /* unknown_field_set.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18B572861AC16D1600C75682 /* unknown_field_set.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B572B11AC16D1600C75682 /* wire_format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18B572881AC16D1600C75682 /* wire_format.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B572B21AC16D1600C75682 /* wire_format_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18B5728A1AC16D1600C75682 /* wire_format_lite.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		18B972911AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972901AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m */; };
 		18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE12271A8862C20036245A /* QSChatContactsView.m */; };
 		18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE122A1A8862DB0036245A /* QSChatMessagesView.m */; };
 		18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122D1A8869760036245A /* calendar_left_arrow.png */; };
@@ -1365,6 +1366,8 @@
 		18B5728A1AC16D1600C75682 /* wire_format_lite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wire_format_lite.cc; sourceTree = "<group>"; };
 		18B5728B1AC16D1600C75682 /* wire_format_lite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite.h; sourceTree = "<group>"; };
 		18B5728C1AC16D1600C75682 /* wire_format_lite_inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite_inl.h; sourceTree = "<group>"; };
+		18B9728F1AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYAskRentAndBuyRentTableViewCell.h; sourceTree = "<group>"; };
+		18B972901AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYAskRentAndBuyRentTableViewCell.m; sourceTree = "<group>"; };
 		18BE12261A8862C20036245A /* QSChatContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatContactsView.h; path = Contact/QSChatContactsView.h; sourceTree = "<group>"; };
 		18BE12271A8862C20036245A /* QSChatContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatContactsView.m; path = Contact/QSChatContactsView.m; sourceTree = "<group>"; };
 		18BE12291A8862DB0036245A /* QSChatMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessagesView.h; path = Message/QSChatMessagesView.h; sourceTree = "<group>"; };
@@ -4739,6 +4742,8 @@
 			children = (
 				18D0816D1ACD51EC004FA20F /* QSYAskRentAndBuyTableViewCell.h */,
 				18D0816E1ACD51EC004FA20F /* QSYAskRentAndBuyTableViewCell.m */,
+				18B9728F1AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.h */,
+				18B972901AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -7009,6 +7014,7 @@
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
 				180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */,
 				478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */,
+				18B972911AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m in Sources */,
 				1815241B1ABFE31900C609B0 /* QSCDCollectedNewHouseAllHousesDataModel.m in Sources */,
 				18A88EB61A8CA8AA00596E11 /* QSHouseDetailReturnData.m in Sources */,
 				1835722F1AD7A2FC00A29607 /* QSCoreDataManager+Message.m in Sources */,
