@@ -21,14 +21,14 @@
 		<key>class</key>
 		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
-		<string>secondHouse/updateModel</string>
+		<string>secondHouse/stop</string>
 	</dict>
 	<key>5011</key>
 	<dict>
 		<key>class</key>
 		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
-		<string>rentPurchaseInfo/referralsHouseList</string>
+		<string>rentHouse/stop</string>
 	</dict>
 	<key>5010</key>
 	<dict>

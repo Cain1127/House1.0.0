@@ -650,9 +650,7 @@
                 QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
             
                 ///封装参数
-                NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(propertyID, @""),
-                                         @"status" : @"-1",
-                                         @"house_status" : @"-1"};
+                NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(propertyID, @"")};
                 
                 ///根据类型生成请求
                 REQUEST_TYPE requestType = (fFilterMainTypeRentalHouse == houseType) ? rRequestTypeMyZoneDeleteRentHouseProperty : (fFilterMainTypeSecondHouse == houseType ? rRequestTypeMyZoneDeleteSaleHouseProperty : rRequestTypeMyZoneDeleteRentHouseProperty);
