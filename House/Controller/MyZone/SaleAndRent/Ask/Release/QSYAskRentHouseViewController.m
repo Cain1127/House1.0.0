@@ -305,6 +305,12 @@ typedef enum
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     
+    if ([self.commentField isFirstResponder]) {
+        
+        return NO;
+        
+    }
+    
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
     
