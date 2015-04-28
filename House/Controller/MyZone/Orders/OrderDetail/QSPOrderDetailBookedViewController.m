@@ -239,6 +239,7 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     {
+                        
                         QSPOrderBookTimeViewController *btVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString *orderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
@@ -249,6 +250,9 @@
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
                         [btVc setOrderID:self.orderDetailData.id_];
+                        if (self.orderDetailData.house_msg) {
+                            [btVc setHouseInfo:self.orderDetailData.house_msg];
+                        }
                         if (self.orderDetailData.order_type &&[self.orderDetailData.order_type isKindOfClass:[NSString class]]) {
                             
                             //500101:一手房购买订单, 500102 二手房，500103出租房
@@ -1551,6 +1555,19 @@
         })
         return;
     }
+    
+    NSScanner* scan = [NSScanner scannerWithString:priceStr];
+    float val;
+    BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+    
+    if (!flag) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
+            
+        })
+        
+    }
+    
     
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     

@@ -47,6 +47,7 @@
         [inputPriceTextField setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
         [inputPriceTextField setReturnKeyType:UIReturnKeyDone];
         [inputPriceTextField setBorderStyle:UITextBorderStyleRoundedRect];
+        [inputPriceTextField setKeyboardType:UIKeyboardTypeDecimalPad];
         [inputPriceTextField.layer setCornerRadius:VIEW_SIZE_NORMAL_CORNERADIO];
         [inputPriceTextField.layer setMasksToBounds:YES];
         [inputPriceTextField.layer setBorderColor:COLOR_CHARACTERS_LIGHTYELLOW.CGColor];
