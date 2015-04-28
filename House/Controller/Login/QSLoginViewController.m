@@ -311,11 +311,11 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             
                             [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                                 
-                                ///重新发送上线
-                                [QSSocketManager sendOnLineMessage];
-                                
                                 ///隐藏HUD
                                 dispatch_sync(dispatch_get_main_queue(), ^{
+                                    
+                                    ///重新发送上线
+                                    [QSSocketManager sendOnLineMessage];
                                    
                                     [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                                         
