@@ -62,4 +62,41 @@ typedef void(^SHOWIMAGECALLBACKBLOCK)(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType
  */
 - (instancetype)initWithImages:(NSArray *)images andCurrentIndex:(int)index andTitle:(NSString *)title andType:(SHOW_IMAGE_ORIGINAL_VCTYPE)vcType andCallBack:(SHOWIMAGECALLBACKBLOCK)callBack;
 
+/**
+ *  @author             yangshengmeng, 15-04-28 09:04:17
+ *
+ *  @brief              创建一个图片浏览窗口，通过给定的图片url
+ *
+ *  @param urlsList     图片集数组，其中必须包涵图片字段的内容项
+ *  @param imageKey     图片字段
+ *  @param currentIndex 当前显示页
+ *  @param title        标题
+ *  @param vcType       图片集查看类型
+ *  @param callBack     图片集查看器的事件回调
+ *
+ *  @return             返回当前创建的图片集查看器
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithImageURLs:(NSArray *)urlsList andURLKey:(NSString *)imageKey andCurrentIndex:(int)currentIndex andTitle:(NSString *)title andType:(SHOW_IMAGE_ORIGINAL_VCTYPE)vcType andCallBack:(SHOWIMAGECALLBACKBLOCK)callBack;
+
+/**
+ *  @author             yangshengmeng, 15-04-28 09:04:35
+ *
+ *  @brief              根据给定的图片根请求地址和图片集中图片urlKVC的关键字，创建一个图片查看器
+ *
+ *  @param urlsList     图片url的集合
+ *  @param imageKey     图片相对地址所在的KVC字关键字
+ *  @param rootURL      图片请求的根地址
+ *  @param currentIndex 当前显示图片的下标
+ *  @param title        标题
+ *  @param vcType       图片集类型
+ *  @param callBack     图片集查看器相关事件
+ *
+ *  @return             返回当前创建的图片集查看器
+ *
+ *  @since              1.0.0
+ */
+- (instancetype)initWithImageURLs:(NSArray *)urlsList andURLKey:(NSString *)imageKey andImageRootURL:(NSString *)rootURL andCurrentIndex:(int)currentIndex andTitle:(NSString *)title andType:(SHOW_IMAGE_ORIGINAL_VCTYPE)vcType andCallBack:(SHOWIMAGECALLBACKBLOCK)callBack;
+
 @end

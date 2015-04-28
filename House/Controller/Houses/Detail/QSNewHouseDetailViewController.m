@@ -14,6 +14,7 @@
 #import "QSMortgageCalculatorViewController.h"
 #import "QSSearchMapViewController.h"
 #import "QSMortgageCalculatorViewController.h"
+#import "QSYShowImageDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSNewHouseActivityView.h"
@@ -353,9 +354,25 @@ static char LeftStarKey;            //!<左侧星级
     }
     
     ///头图片
-    QSAutoScrollView *headerImageView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
+    __block QSAutoScrollView *headerImageView = [[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, startYPoint, infoRootView.frame.size.width, infoRootView.frame.size.width * 562.0f / 750.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
         
-        APPLICATION_LOG_INFO(@"头图片", params)
+        ///封装图片数组
+        if ([self.detailInfo.loupanBuilding_photo count] > 0) {
+            
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImageURLs:self.detailInfo.loupanBuilding_photo andURLKey:@"attach_file" andImageRootURL:URLFDangJiaImageIPHome andCurrentIndex:[params intValue] andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+            
+        } else {
+            
+            UIImageView *tempImageView = [headerImageView subviews][0];
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImage:tempImageView.image andTitle:@"查看图片" andType:sShowImageOriginalVCTypeSingleEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+            
+        }
         
     }];
     headerImageView.tag = 123457;

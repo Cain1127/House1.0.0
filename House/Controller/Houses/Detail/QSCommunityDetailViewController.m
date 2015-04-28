@@ -12,6 +12,7 @@
 #import "QSRentHouseDetailViewController.h"
 #import "QSNearInfoViewController.h"
 #import "QSCommunityHouseListViewController.h"
+#import "QSYShowImageDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSCustomHUDView.h"
@@ -209,9 +210,25 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     ///主题图片
-    QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
+    __block QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT*560/1334) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
         
-        APPLICATION_LOG_INFO(@"点击头图片", params)
+        ///封装图片数组
+        if ([self.detailInfo.village_photo count] > 0) {
+            
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImageURLs:self.detailInfo.village_photo andURLKey:@"attach_file" andImageRootURL:URLFDangJiaImageIPHome andCurrentIndex:[params intValue] andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+            
+        } else {
+        
+            UIImageView *tempImageView = [headerImageView subviews][0];
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImage:tempImageView.image andTitle:@"查看图片" andType:sShowImageOriginalVCTypeSingleEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+        
+        }
         
     }];
     
