@@ -297,8 +297,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             ///通过子线程提交收藏数据/分享数据
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                [self loadCollectedDataToServer];
-                
                 ///修改用户登录状态
                 [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                     
@@ -312,7 +310,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                                 
                                 ///隐藏HUD
-                                dispatch_sync(dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
                                     
                                     ///重新发送上线
                                     [QSSocketManager sendOnLineMessage];
@@ -407,6 +405,12 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     }];
                     
                 }];
+                
+            });
+            
+            dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+               
+                [self loadCollectedDataToServer];
                 
             });
             
