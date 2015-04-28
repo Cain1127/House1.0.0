@@ -16,4 +16,6 @@
 
 - (void)setCanAppointCycle:(NSString*)cycleStr;
 
+- (void)reloadData;
+
 @end

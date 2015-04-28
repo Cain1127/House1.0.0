@@ -1589,6 +1589,9 @@
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     [tempParam setObject:self.orderID forKey:@"order_id"];
+    
+    //价格单位从万转元
+    priceStr = [NSString stringWithFormat:@"%f",priceStr.floatValue*10000];
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -2027,6 +2030,9 @@
     }];
     [btVc setVcType:bBookTypeViewControllerBookAgain];
     [btVc setOrderID:self.orderDetailData.id_];
+    if (self.orderDetailData.house_msg) {
+        [btVc setHouseInfo:self.orderDetailData.house_msg];
+    }
     if (self.orderDetailData.order_type &&[self.orderDetailData.order_type isKindOfClass:[NSString class]]) {
         
         //500101:一手房购买订单, 500102 二手房，500103出租房

@@ -40,7 +40,12 @@
             return self;
         }
         
+        
         NSString *priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.last_saler_bid];
+        
+        if ([@"500220" isEqualToString:tempOrderData.order_status]) {
+            priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.transaction_price];
+        }
         
         NSString *infoString = [NSString stringWithFormat:@"最后成交价%@万",priceString];
         

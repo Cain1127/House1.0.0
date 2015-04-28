@@ -33,6 +33,7 @@
                                                     @"buyer_phone",
                                                     @"last_buyer_bid",
                                                     @"last_saler_bid",
+                                                    @"transaction_price",
                                                     @"buyer_id",
                                                     @"saler_id",
                                                     @"appoint_date",

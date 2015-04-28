@@ -959,6 +959,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     [tempParam setObject:orderID forKey:@"order_id"];
+    
+    //价格单位从万转元
+    priceStr = [NSString stringWithFormat:@"%f",priceStr.floatValue*10000];
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {

@@ -324,6 +324,13 @@
 		<key>url</key>
 		<string>order/applyBargain</string>
 	</dict>
+	<key>8006</key>
+	<dict>
+		<key>class</key>
+		<string>QSPOrderDetailActionReturnBaseDataModel</string>
+		<key>url</key>
+		<string>order/decideBargain</string>
+	</dict>
 	<key>8008</key>
 	<dict>
 		<key>class</key>

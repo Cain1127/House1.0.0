@@ -687,6 +687,7 @@ typedef enum
     rRequestTypeOrderResetAppointment = 8003,           //!<修改预约订单数据
     rRequestTypeOrderAppointmentAgain = 8004,           //!<再次预约预约订单数据
     rRequestTypeOrderAppointmentaApplyBargain = 8005,   //!<预约订单申请议价
+    rRequestTypeOrderAppointmentAcceptOrRejectApplyBargain = 8006,   //!<预约订单接受拒绝再议价
     rRequestTypeBookOrderListData = 8008,               //!<预约订单列表数据
     
     rRequestTypeOrderAddAppointment = 8011,             //!<添加预约订单数据
