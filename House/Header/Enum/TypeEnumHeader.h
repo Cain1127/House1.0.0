@@ -697,6 +697,8 @@ typedef enum
     rRequestTypeLogout = 9003,                          //!<退出登录
     rRequestTypeReloadUserUnfo = 9004,                  //!<重新下载用户信息
     rRequestTypeUPDateuserInfo = 9005,                  //!<更新用户信息
+    rRequestTypeResetLoginPassword = 9006,              //!<重置密码
+    rRequestTypeForgetLoginPassword = 9007,             //!<密码密码并修改
     
     rRequestTypeOrderSubmitBid = 10002,                 //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003,         //!<订单详情里取消预约订单

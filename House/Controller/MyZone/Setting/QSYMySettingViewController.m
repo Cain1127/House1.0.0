@@ -228,7 +228,11 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePhone:
         {
             
-            QSYMySettingChangeMobileViewController *changePhoneVC = [[QSYMySettingChangeMobileViewController alloc] init];
+            QSYMySettingChangeMobileViewController *changePhoneVC = [[QSYMySettingChangeMobileViewController alloc] initWithPhone:self.userModel.mobile andCallBack:^(BOOL isChange, NSString *newPhone) {
+                
+                ///更新用户信息
+                
+            }];
             [self.navigationController pushViewController:changePhoneVC animated:YES];
             
         }
@@ -238,7 +242,14 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePassword:
         {
             
-            QSYMySettingChangePasswordViewController *changePSWVC = [[QSYMySettingChangePasswordViewController alloc] init];
+            QSYMySettingChangePasswordViewController *changePSWVC = [[QSYMySettingChangePasswordViewController alloc] initWithPassword:self.userModel.mobile andCallBack:^(BOOL isChange, NSString *newPsw) {
+                
+                ///更新本地登录密码
+                [QSCoreDataManager saveLoginPassword:newPsw andCallBack:^(BOOL flag) {
+                    
+                }];
+                
+            }];
             [self.navigationController pushViewController:changePSWVC animated:YES];
             
         }
