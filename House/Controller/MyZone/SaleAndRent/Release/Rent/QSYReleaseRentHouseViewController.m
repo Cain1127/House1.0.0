@@ -134,10 +134,6 @@ typedef enum
     }];
     [self.view addSubview:commitButton];
     
-    ///注册键盘弹出监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
-    
 }
 
 ///搭建设置信息输入栏
@@ -177,43 +173,6 @@ typedef enum
         view.contentSize = CGSizeMake(view.frame.size.width, (([tempInfoArray count] * (44.0f + 8.0f)) + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP) + 20.0f);
         
     }
-    
-}
-
-#pragma mark - 键盘弹出和回收
-- (void)keyboarShowAction:(NSNotification *)sender
-{
-    
-    //上移：需要知道键盘高度和移动时间
-    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
-                              64.0f - keyBoardRect.size.height,
-                              self.pickedRootView.frame.size.width,
-                              self.pickedRootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.pickedRootView.frame = frame;
-        
-    }];
-    
-}
-
-- (void)keyboarHideAction:(NSNotification *)sender
-{
-    
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
-                              64.0f,
-                              self.pickedRootView.frame.size.width,
-                              self.pickedRootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.pickedRootView.frame = frame;
-        
-    }];
     
 }
 
@@ -401,6 +360,24 @@ typedef enum
 ///点击textField时的事件：不进入编辑模式，只跳转
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    
+    if ([self.detailAddressField isFirstResponder]) {
+        
+        return NO;
+        
+    }
+    
+    if ([self.rentPriceField isFirstResponder]) {
+        
+        return NO;
+        
+    }
+    
+    if ([self.areaField isFirstResponder]) {
+        
+        return NO;
+        
+    }
     
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];

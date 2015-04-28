@@ -113,47 +113,6 @@
     }];
     [self addSubview:rentButton];
     
-    ///注册键盘弹出监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-#pragma mark - 键盘弹出和回收
-- (void)keyboarShowAction:(NSNotification *)sender
-{
-    
-    //上移：需要知道键盘高度和移动时间
-    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.frame.origin.x,
-                              self.ypoint - keyBoardRect.size.height,
-                              self.frame.size.width,
-                              self.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.frame = frame;
-        
-    }];
-    
-}
-
-- (void)keyboarHideAction:(NSNotification *)sender
-{
-    
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.frame.origin.x,
-                              self.ypoint,
-                              self.frame.size.width,
-                              self.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.frame = frame;
-        
-    }];
-    
 }
 
 #pragma mark - 回收键盘

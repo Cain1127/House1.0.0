@@ -275,53 +275,6 @@ typedef enum
         
     }
     
-    ///注册键盘弹出监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-#pragma mark - 键盘弹出和回收
-- (void)keyboarShowAction:(NSNotification *)sender
-{
-    
-    ///获取底view
-    UIView *rootView = [self.commentField superview];
-    
-    //上移：需要知道键盘高度和移动时间
-    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(rootView.frame.origin.x,
-                              64.0f - keyBoardRect.size.height,
-                              rootView.frame.size.width,
-                              rootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        rootView.frame = frame;
-        
-    }];
-    
-}
-
-- (void)keyboarHideAction:(NSNotification *)sender
-{
-    
-    ///获取底view
-    UIView *rootView = [self.commentField superview];
-    
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(rootView.frame.origin.x,
-                              64.0f,
-                              rootView.frame.size.width,
-                              rootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        rootView.frame = frame;
-        
-    }];
-    
 }
 
 #pragma mark - 创建右剪头控制
