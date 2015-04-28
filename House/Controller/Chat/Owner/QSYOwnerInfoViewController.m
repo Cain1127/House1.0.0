@@ -225,8 +225,16 @@
     buttonStyle.title = @"打电话";
     UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///打电话
-        [self callContactOwner];
+        if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+            
+            ///打电话
+            [self callContactOwner];
+            
+        } else {
+        
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
+        
+        }
         
     }];
     [self.view addSubview:callButton];
