@@ -124,7 +124,22 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                     //提交还价
                     if (popView) {
                         
-                        [self submitMyInputPrice:[popView getInputPrice] ToOrderID:orderID];
+                        NSString *inputPrice = [popView getInputPrice];
+                        NSScanner* scan = [NSScanner scannerWithString:inputPrice];
+                        float val;
+                        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+                        
+                        if (flag) {
+                            
+                            [self submitMyInputPrice:inputPrice ToOrderID:orderID];
+                            
+                        }else {
+                            
+                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
+                                
+                            })
+                            
+                        }
                         
                     }
                     

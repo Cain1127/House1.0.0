@@ -145,7 +145,7 @@ static char oepnActionBtKey;    //!<右部展开按钮关联key
     }
 
     if (contentImgView) {
-        [contentImgView setImageWithURL:[[self.sectionData getHouseSmallImgUrl] getImageURL]];
+        [contentImgView setImageWithURL:[[self.sectionData getHouseLargeImgUrl] getImageURL]];
     }
     
     if ([self.sectionData orderInfoList]&&[[self.sectionData orderInfoList] count]>0)

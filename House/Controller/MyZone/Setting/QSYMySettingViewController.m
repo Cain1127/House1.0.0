@@ -7,6 +7,8 @@
 //
 
 #import "QSYMySettingViewController.h"
+#import "QSYMySettingChangeMobileViewController.h"
+#import "QSYMySettingChangePasswordViewController.h"
 
 #import "QSYPopCustomView.h"
 #import "QSYMySettingChangeUserReadNameTipsPopView.h"
@@ -226,7 +228,12 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePhone:
         {
             
-            APPLICATION_LOG_INFO(@"手机", @"")
+            QSYMySettingChangeMobileViewController *changePhoneVC = [[QSYMySettingChangeMobileViewController alloc] initWithPhone:self.userModel.mobile andCallBack:^(BOOL isChange, NSString *newPhone) {
+                
+                ///更新用户信息
+                
+            }];
+            [self.navigationController pushViewController:changePhoneVC animated:YES];
             
         }
             break;
@@ -235,7 +242,15 @@ static char UserGenderKey;      //!<性别
         case sSelfSettingFieldActionTypePassword:
         {
             
-            APPLICATION_LOG_INFO(@"密码", @"")
+            QSYMySettingChangePasswordViewController *changePSWVC = [[QSYMySettingChangePasswordViewController alloc] initWithPassword:self.userModel.mobile andCallBack:^(BOOL isChange, NSString *newPsw) {
+                
+                ///更新本地登录密码
+                [QSCoreDataManager saveLoginPassword:newPsw andCallBack:^(BOOL flag) {
+                    
+                }];
+                
+            }];
+            [self.navigationController pushViewController:changePSWVC animated:YES];
             
         }
             break;

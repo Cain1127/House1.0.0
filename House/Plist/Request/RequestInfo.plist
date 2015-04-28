@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>9007</key>
+	<dict>
+		<key>url</key>
+		<string>user/forgetPsw</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
+	<key>9006</key>
+	<dict>
+		<key>url</key>
+		<string>user/changePsw</string>
+		<key>class</key>
+		<string>QSYSendVerticalCodeReturnData</string>
+	</dict>
 	<key>5014</key>
 	<dict>
 		<key>url</key>
@@ -21,14 +35,14 @@
 		<key>class</key>
 		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
-		<string>secondHouse/updateModel</string>
+		<string>secondHouse/stop</string>
 	</dict>
 	<key>5011</key>
 	<dict>
 		<key>class</key>
 		<string>QSYSendVerticalCodeReturnData</string>
 		<key>url</key>
-		<string>rentPurchaseInfo/referralsHouseList</string>
+		<string>rentHouse/stop</string>
 	</dict>
 	<key>5010</key>
 	<dict>

@@ -158,7 +158,22 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                     //提交还价
                     if (popView) {
                         
-                        [self submitMyInputPrice:[popView getInputPrice] ToOrderID:orderID];
+                        NSString *inputPrice = [popView getInputPrice];
+                        NSScanner* scan = [NSScanner scannerWithString:inputPrice];
+                        float val;
+                        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+                        
+                        if (flag) {
+                            
+                            [self submitMyInputPrice:inputPrice ToOrderID:orderID];
+                            
+                        }else {
+                            
+                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
+                                
+                            })
+                            
+                        }
                         
                     }
                     
@@ -446,7 +461,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     if (contentImgView) {
         
 //        [contentImgView setImageWithURL:[NSURL URLWithString:@"http://admin.9dxz.com/files/%E5%A7%AC%E6%9D%BE%E8%8C%B8%E7%82%96%E9%B8%A1%E7%88%AA.jpg"]];
-        [contentImgView setImageWithURL:[[self.orderData getHouseSmallImgUrl] getImageURL]];
+        [contentImgView setImageWithURL:[[self.orderData getHouseLargeImgUrl] getImageURL]];
         
     }
     

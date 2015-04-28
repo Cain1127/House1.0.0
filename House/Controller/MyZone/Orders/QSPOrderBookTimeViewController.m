@@ -760,7 +760,7 @@
                         {
                             QSPOrderDetailBookedViewController *bookedVc = [[QSPOrderDetailBookedViewController alloc] init];
                             [bookedVc setOrderID:self.orderID];
-                            [bookedVc setTurnBackDistanceStep:2];
+                            [bookedVc setTurnBackDistanceStep:3];
                             [bookedVc setOrderType:mOrderWithUserTypeAppointment];
                             [self.navigationController pushViewController:bookedVc animated:NO];
                             

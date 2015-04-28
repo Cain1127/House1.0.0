@@ -352,7 +352,6 @@
 		18BE12311A8869760036245A /* calendar_right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122E1A8869760036245A /* calendar_right_arrow.png */; };
 		18BE12321A8869760036245A /* calendar_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122F1A8869760036245A /* calendar_sixform.png */; };
 		18BE12361A8869850036245A /* comparison_appointment.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12341A8869850036245A /* comparison_appointment.png */; };
-		18BE12371A8869850036245A /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12351A8869850036245A /* comparison_sixform.png */; };
 		18BE12401A8878420036245A /* QSChatMessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */; };
 		18BE12461A88934F0036245A /* icon_default_80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12431A88934F0036245A /* icon_default_80x80.png */; };
 		18BE12471A88934F0036245A /* icon_default_100x100.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE12441A88934F0036245A /* icon_default_100x100.png */; };
@@ -469,6 +468,7 @@
 		18D082231AD0264A004FA20F /* QSYAskRecommendSecondHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082211AD0264A004FA20F /* QSYAskRecommendSecondHouseViewController.m */; };
 		18D082261AD14971004FA20F /* QSYDeleteAskRentAndBuyHouseTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D082251AD14971004FA20F /* QSYDeleteAskRentAndBuyHouseTipsPopView.m */; };
 		18D0822C1AD154C1004FA20F /* QSYPropertyHouseInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D0822B1AD154C1004FA20F /* QSYPropertyHouseInfoTableViewCell.m */; };
+		18D333BD1AEF5AD9007FE870 /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D333BC1AEF5AD9007FE870 /* comparison_sixform.png */; };
 		18D79CCB1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */; };
 		18DABA8A1AAD3C1F00647E7C /* QSPhotoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA891AAD3C1F00647E7C /* QSPhotoDataModel.m */; };
 		18DABA951AAD405D00647E7C /* QSUserBaseInfoDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DABA941AAD405D00647E7C /* QSUserBaseInfoDataModel.m */; };
@@ -508,7 +508,6 @@
 		18DFE8C11AC7F98800C216C3 /* QSYRecommendRentHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8C01AC7F98800C216C3 /* QSYRecommendRentHouseList.m */; };
 		18DFE8C41AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8C31AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m */; };
 		18DFE8CB1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DFE8CA1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m */; };
-		18DFE8CE1AC8F29000C216C3 /* comparison_sixform.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */; };
 		18DFE8D11AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */; };
 		18DFE8D21AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */; };
 		18DFE8D51AC95BEA00C216C3 /* navigationbar_add_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DFE8D31AC95BEA00C216C3 /* navigationbar_add_highlighted.png */; };
@@ -1374,7 +1373,6 @@
 		18BE122E1A8869760036245A /* calendar_right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_right_arrow.png; sourceTree = "<group>"; };
 		18BE122F1A8869760036245A /* calendar_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar_sixform.png; sourceTree = "<group>"; };
 		18BE12341A8869850036245A /* comparison_appointment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_appointment.png; sourceTree = "<group>"; };
-		18BE12351A8869850036245A /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
 		18BE123E1A8878420036245A /* QSChatMessageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessageListTableViewCell.h; path = Message/QSChatMessageListTableViewCell.h; sourceTree = "<group>"; };
 		18BE123F1A8878420036245A /* QSChatMessageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatMessageListTableViewCell.m; path = Message/QSChatMessageListTableViewCell.m; sourceTree = "<group>"; };
 		18BE12431A88934F0036245A /* icon_default_80x80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_default_80x80.png; sourceTree = "<group>"; };
@@ -1587,6 +1585,7 @@
 		18D082251AD14971004FA20F /* QSYDeleteAskRentAndBuyHouseTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYDeleteAskRentAndBuyHouseTipsPopView.m; sourceTree = "<group>"; };
 		18D0822A1AD154C1004FA20F /* QSYPropertyHouseInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYPropertyHouseInfoTableViewCell.h; path = Property/Cell/QSYPropertyHouseInfoTableViewCell.h; sourceTree = "<group>"; };
 		18D0822B1AD154C1004FA20F /* QSYPropertyHouseInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYPropertyHouseInfoTableViewCell.m; path = Property/Cell/QSYPropertyHouseInfoTableViewCell.m; sourceTree = "<group>"; };
+		18D333BC1AEF5AD9007FE870 /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
 		18D79CC91A7B834700DAEE5C /* QSCollectionWaterFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCollectionWaterFlowLayout.h; path = FlowLayout/QSCollectionWaterFlowLayout.h; sourceTree = "<group>"; };
 		18D79CCA1A7B834700DAEE5C /* QSCollectionWaterFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionWaterFlowLayout.m; path = FlowLayout/QSCollectionWaterFlowLayout.m; sourceTree = "<group>"; };
 		18DABA881AAD3C1F00647E7C /* QSPhotoDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPhotoDataModel.h; path = Photo/QSPhotoDataModel.h; sourceTree = "<group>"; };
@@ -1659,7 +1658,6 @@
 		18DFE8C31AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRecommendSecondHandHouseList.m; path = Shake/List/QSYRecommendSecondHandHouseList.m; sourceTree = "<group>"; };
 		18DFE8C91AC8326000C216C3 /* QSLocalSearchHistoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSLocalSearchHistoryDataModel.h; path = Search/QSLocalSearchHistoryDataModel.h; sourceTree = "<group>"; };
 		18DFE8CA1AC8326000C216C3 /* QSLocalSearchHistoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSLocalSearchHistoryDataModel.m; path = Search/QSLocalSearchHistoryDataModel.m; sourceTree = "<group>"; };
-		18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_sixform.png; sourceTree = "<group>"; };
 		18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_recommend_house_indecator_highlighted.png; sourceTree = "<group>"; };
 		18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comparison_recommend_house_indecator_normal.png; sourceTree = "<group>"; };
 		18DFE8D31AC95BEA00C216C3 /* navigationbar_add_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_add_highlighted.png; sourceTree = "<group>"; };
@@ -4186,7 +4184,6 @@
 			isa = PBXGroup;
 			children = (
 				18BE12341A8869850036245A /* comparison_appointment.png */,
-				18BE12351A8869850036245A /* comparison_sixform.png */,
 			);
 			path = Comparison;
 			sourceTree = "<group>";
@@ -5220,9 +5217,9 @@
 		18DFE8CC1AC8F29000C216C3 /* Comparison */ = {
 			isa = PBXGroup;
 			children = (
+				18D333BC1AEF5AD9007FE870 /* comparison_sixform.png */,
 				18DFE8CF1AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png */,
 				18DFE8D01AC9008C00C216C3 /* comparison_recommend_house_indecator_normal.png */,
-				18DFE8CD1AC8F29000C216C3 /* comparison_sixform.png */,
 			);
 			path = Comparison;
 			sourceTree = "<group>";
@@ -6530,9 +6527,9 @@
 				18B563EC1A8366A4009779A0 /* channelbar_deploy_arrow_highlighted.png in Resources */,
 				18B5646A1A8366A4009779A0 /* share_friends_highlighted.png in Resources */,
 				18B564341A8366A4009779A0 /* icon150.png in Resources */,
+				18D333BD1AEF5AD9007FE870 /* comparison_sixform.png in Resources */,
 				18B5641F1A8366A4009779A0 /* houses_detail_sizeform_totalscore.png in Resources */,
 				18DFE9061AC9A8EA00C216C3 /* navigationbar_detail_highlighted.png in Resources */,
-				18BE12371A8869850036245A /* comparison_sixform.png in Resources */,
 				CEACB0641AD62E510010D455 /* house_detail_second_ranqi.png in Resources */,
 				183572191AD612AD00A29607 /* talk_contact_sound_message_highlighted.png in Resources */,
 				18B5640E1A8366A4009779A0 /* houses_detail_activity_right.png in Resources */,
@@ -6704,7 +6701,6 @@
 				18B564231A8366A4009779A0 /* houses_detail_video_highlighted.png in Resources */,
 				18B5643C1A8366A4009779A0 /* icon87.png in Resources */,
 				18B5643E1A8366A4009779A0 /* 1242X2208.png in Resources */,
-				18DFE8CE1AC8F29000C216C3 /* comparison_sixform.png in Resources */,
 				CEACB0381AD618130010D455 /* houses_detail_rent_park.png in Resources */,
 				18B5640A1A8366A4009779A0 /* home_secondhandhouse_normal.png in Resources */,
 				18B564001A8366A4009779A0 /* guide_tenant_haved_circle_tip.png in Resources */,
@@ -7358,8 +7354,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
@@ -7404,8 +7400,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",

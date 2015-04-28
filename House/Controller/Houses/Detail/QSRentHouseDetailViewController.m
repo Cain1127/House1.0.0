@@ -14,6 +14,7 @@
 #import "QSYOwnerInfoViewController.h"
 #import "QSCommunityDetailViewController.h"
 #import "QSSearchMapViewController.h"
+#import "QSYShowImageDetailViewController.h"
 
 #import "QSAutoScrollView.h"
 #import "QSYPopCustomView.h"
@@ -67,7 +68,7 @@ static char RightStarKey;           //!<右侧星级
 static char LeftScoreKey;           //!<左侧评分
 static char LeftStarKey;            //!<左侧星级
 
-@interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate>
+@interface QSRentHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate,QSAutoScrollViewDelegate>
 
 @property (nonatomic,copy) NSString *tempTitle;                 //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
@@ -432,9 +433,25 @@ static char LeftStarKey;            //!<左侧星级
     self.photoArray=dataModel.rentHouse_photo;
     
     ///主题图片
-    QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 560.0f / 1334.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
+    __block QSAutoScrollView *headerImageView=[[QSAutoScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 560.0f / 1334.0f) andDelegate:self andScrollDirectionType:aAutoScrollDirectionTypeRightToLeft andShowPageIndex:NO isAutoScroll:YES andShowTime:3.0f andTapCallBack:^(id params) {
         
-        APPLICATION_LOG_INFO(@"查看图集", params);
+        ///封装图片数组
+        if ([self.detailInfo.rentHouse_photo count] > 0) {
+            
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImageURLs:self.detailInfo.rentHouse_photo andURLKey:@"attach_file" andImageRootURL:URLFDangJiaImageIPHome andCurrentIndex:[params intValue] andTitle:@"查看图片" andType:sShowImageOriginalVCTypeMultiEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+            
+        } else {
+            
+            UIImageView *tempImageView = [headerImageView subviews][0];
+            QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImage:tempImageView.image andTitle:@"查看图片" andType:sShowImageOriginalVCTypeSingleEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                
+            }];
+            [self.navigationController pushViewController:imageShowVC animated:YES];
+            
+        }
         
     }];
     

@@ -22,7 +22,6 @@
     
 }
 
-@property(nonatomic,copy) NSString *title;                      //!<房子标题
 @property(nonatomic,assign) double coordinate_x;                //!<房子经度
 @property(nonatomic,assign) double coordinate_y;                //!<房子纬度
 @property(nonatomic,strong) MAPointAnnotation *annotation;      //!<大头针气泡

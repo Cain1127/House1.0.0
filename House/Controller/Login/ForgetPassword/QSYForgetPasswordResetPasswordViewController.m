@@ -11,6 +11,10 @@
 #import "QSBlockButtonStyleModel+Normal.h"
 #import "UITextField+CustomField.h"
 
+#import "QSCustomHUDView.h"
+
+#import "QSCoreDataManager+User.h"
+
 @interface QSYForgetPasswordResetPasswordViewController () <UITextFieldDelegate>
 
 @property (nonatomic,copy) NSString *phone;     //!<手机号码
@@ -141,7 +145,42 @@
 - (void)resetLoginPassword:(NSString *)pswString
 {
     
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改"];
     
+    NSDictionary *params = @{@"mobile" : APPLICATION_NSSTRING_SETTING(self.phone, @""),
+                             @"password" : APPLICATION_NSSTRING_SETTING(pswString, @""),
+                             @"verCode" : APPLICATION_NSSTRING_SETTING(self.verCode, @"")};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeForgetLoginPassword andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///修改成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改本地登录密码
+            [QSCoreDataManager saveLoginPassword:pswString andCallBack:^(BOOL flag) {
+                
+                [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                    
+                    ///返回登录
+                    APPLICATION_JUMP_BACK_STEPVC(3)
+                    
+                }];
+                
+            }];
+            
+        } else {
+        
+            NSString *tipsString = @"修改失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+        
+        }
+        
+    }];
 
 }
 

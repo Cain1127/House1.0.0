@@ -10,4 +10,18 @@
 
 @interface QSYMySettingChangePasswordViewController : QSTurnBackViewController
 
+/**
+ *  @author         yangshengmeng, 15-04-28 14:04:59
+ *
+ *  @brief          创建一个密码修改页面
+ *
+ *  @param psw      原密码
+ *  @param callBack 修改后的回调
+ *
+ *  @return         返回当前创建的修改密码页面
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithPassword:(NSString *)psw andCallBack:(void(^)(BOOL isChange,NSString *newPsw))callBack;
+
 @end

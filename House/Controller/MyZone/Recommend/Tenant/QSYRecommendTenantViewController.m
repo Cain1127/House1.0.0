@@ -7,6 +7,7 @@
 //
 
 #import "QSYRecommendTenantViewController.h"
+#import "QSYTalkPTPViewController.h"
 
 #import "QSYRecommendTenantTableViewCell.h"
 
@@ -93,17 +94,21 @@
         
         cellTenantInfo = [[QSYRecommendTenantTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tenantInfoCell];
         cellTenantInfo.selectionStyle = UITableViewCellSelectionStyleNone;
-        cellTenantInfo.backgroundColor = [UIColor clearColor];
         
     }
     
     ///刷新数据
-    [cellTenantInfo updateRecommendTenantInfoCellUI:nil andCallBack:^(RECOMMEND_TENANT_CELL_ACTION_TYPE actionType, id params) {
+    [cellTenantInfo updateRecommendTenantInfoCellUI:self.returnData.headerData.dataList[indexPath.row] andCallBack:^(RECOMMEND_TENANT_CELL_ACTION_TYPE actionType, id params) {
         
         switch (actionType) {
                 ///进入聊天
             case rRecommendTenantCellActionTypeTalk:
-                
+            {
+            
+                QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:params];
+                [self.navigationController pushViewController:talkVC animated:YES];
+            
+            }
                 break;
                 
             default:
@@ -135,6 +140,8 @@
 #pragma mark - 请求数据
 - (void)requestRecommendTenantsHeaderData
 {
+    
+    self.tenantListView.footer.hidden = YES;
 
     ///封装参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -178,6 +185,7 @@
             
         } else {
         
+            [self.tenantListView.footer resetNoMoreData];
             [self showNoRecordTips:YES andTips:@"暂无推荐房客"];
         
         }
@@ -222,7 +230,7 @@
             if ([tempModel.headerData.dataList count] > 0) {
                 
                 NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.returnData.headerData.dataList];
-                self.returnData = resultData;
+                self.returnData = tempModel;
                 [tempArray addObjectsFromArray:self.returnData.headerData.dataList];
                 self.returnData.headerData.dataList = tempArray;
                 
