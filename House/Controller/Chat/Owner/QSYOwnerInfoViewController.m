@@ -9,6 +9,8 @@
 #import "QSYOwnerInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
 #import "QSYContactSettingViewController.h"
+#import "QSRentHouseDetailViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 
 #import "QSYContactInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
@@ -25,6 +27,7 @@
 #import "QSYContactDetailInfoModel.h"
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSRentHouseListReturnData.h"
+#import "QSRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -468,9 +471,44 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:nil andListType:self.houseType];
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.housesSource[indexPath.row - 2] andListType:self.houseType];
     
     return cellHouse;
+
+}
+
+#pragma mark - 进入详情
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (indexPath.row <= 1) {
+        
+        return;
+        
+    }
+    
+    ///根据不同的类型，进入不同的详情页
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        ///获取房子模型
+        QSRentHouseInfoDataModel *houseInfoModel = self.housesSource[indexPath.row - 2];
+        
+        ///进入详情页面
+        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    }
+    
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        ///获取房子模型
+        QSHouseInfoDataModel *houseInfoModel = self.housesSource[indexPath.row - 2];
+        
+        ///进入详情页面
+        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    }
 
 }
 

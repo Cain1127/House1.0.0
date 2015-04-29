@@ -111,10 +111,14 @@ static char PhoneInfoKey;   //!<联系号码
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneInfoKey);
     UIImageView *iconView = objc_getAssociatedObject(self, &IconKey);
     
-    if (nameLabel) {
+    if ([model.contactUserInfo.username length] > 0) {
         
         nameLabel.text = model.contactUserInfo.username;
         
+    } else {
+    
+        nameLabel.text = @"raixu";
+    
     }
     
     if (vipLabel) {
@@ -123,16 +127,24 @@ static char PhoneInfoKey;   //!<联系号码
         
     }
     
-    if (phoneLabel) {
+    if ([model.contactUserInfo.mobile length] == 11) {
         
         phoneLabel.text = model.contactUserInfo.mobile;
         
+    } else {
+    
+        phoneLabel.text = @"暂无";
+    
     }
     
-    if (iconView && [model.contactUserInfo.avatar length] > 0) {
+    if ([model.contactUserInfo.avatar length] > 0) {
         
         [iconView loadImageWithURL:[model.contactUserInfo.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
         
+    } else {
+    
+        iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+    
     }
 
 }
