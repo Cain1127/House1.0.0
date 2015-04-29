@@ -7,12 +7,14 @@
 //
 
 #import <MAMapKit/MAMapKit.h>
-#import "QSCustomCalloutView.h"
+//#import "QSCustomCalloutView.h"
 @interface QSCustomAnnotationView : MAAnnotationView
 
-@property (nonatomic, strong) QSCustomCalloutView *calloutView; //!<自定义大头针的子view
 @property (nonatomic, copy) NSString *deteilID;                 //!<单据ID
 @property (nonatomic,copy) NSString *title;                     //!<标题
+@property (nonatomic,copy) NSString *buildingID;                //!<新房中，楼栋ID
+@property (nonatomic, copy) NSString *subtitle;                 //!<价钱
+@property (nonatomic,assign)FILTER_MAIN_TYPE houseType;         //!<房源类型
 /*!
  *  @author wangshupeng, 15-03-27 16:03:57
  *
@@ -20,6 +22,6 @@
  *
  *  @since 1.0.0
  */
--(void)updateAnnotation:(id <MAAnnotation>)annotation andHouseType:(FILTER_MAIN_TYPE)houseType;
+-(void)updateAnnotation:(id <MAAnnotation>)annotation andHouseType:(FILTER_MAIN_TYPE)houseType andCallBack:(void(^)(NSString *detailID,NSString *title,FILTER_MAIN_TYPE houseType,NSString *buildingID))callBack;
 
 @end

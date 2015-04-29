@@ -68,7 +68,7 @@ static char LeftStarKey;            //!<左侧星级
 
 @interface QSSecondHouseDetailViewController () <UIScrollViewDelegate,UMSocialUIDelegate,WXApiDelegate,QSAutoScrollViewDelegate>
 
-@property (nonatomic,copy) NSString *tempTitle;                 //!<标题
+@property (nonatomic,copy) NSString *tempTitle;             //!<标题
 @property (nonatomic,copy) NSString *detailID;              //!<详情的ID
 @property (nonatomic,assign) FILTER_MAIN_TYPE detailType;   //!<详情的类型
 @property (assign) BOOL isRefresh;                          //!<标识视图出现时是否头部刷新

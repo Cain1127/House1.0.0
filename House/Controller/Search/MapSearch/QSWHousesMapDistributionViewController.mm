@@ -544,7 +544,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 
 #pragma mark - 点击房源进入房源详情页
 ///点击房源
-- (void)gotoHouseDetail:(NSString *)title andDetailID:(NSString *)detailID
+- (void)gotoHouseDetail:(NSString *)title andDetailID:(NSString *)detailID andBuildingID:(NSString *)buildingID
 {
     
     ///根据不同的列表，进入同的详情页
@@ -614,37 +614,32 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     [MAMapServices sharedServices].apiKey = APIKey;
     
+    ///初始化地图
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 104.0f, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-104.0f)];
-    
     _mapView.delegate = self;
-    
-    _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, kDefaultControlMargin);
-    
-    _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, kDefaultControlMargin);
-    
-    // 2.设置地图类型
     _mapView.mapType = MAMapTypeStandard;
-    
+    _mapView.showsUserLocation = YES;
+    [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     [self.view addSubview:_mapView];
     
-    _mapView.showsUserLocation = NO;
-    
-    [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
-    
+    ///初始化搜索条件
     [self initSearch];
     
+    ///如果当前
     if (self.filterModel.street_val) {
+        
         ///发起地理编码
         [self geoAction];
-    }
-    
-    else {
+        
+    } else {
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             ///发起用户定位
             [self locateAction];
             
         });
+        
     }
     
 }
@@ -659,6 +654,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 ///用户定位
 - (void)locateAction
 {
+    
     if (_mapView.userTrackingMode != MAUserTrackingModeFollow)
     {
         [_mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
@@ -739,23 +735,23 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     NSMutableArray *annoArray=[[NSMutableArray alloc] init];
     
-    for (int i=0; i<[self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
+    for (int i = 0; i < [self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
         
         QSMapCommunityDataModel *tempModel = self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
-        self.title=tempModel.mapCommunityDataSubModel.title;
-        self.subtitle=tempModel.total_num;
+        self.title = tempModel.mapCommunityDataSubModel.title;
+        self.subtitle = tempModel.total_num;
         
-        self.coordinate_x=tempModel.mapCommunityDataSubModel.coordinate_x;
-        self.coordinate_y=tempModel.mapCommunityDataSubModel.coordinate_y;
+        self.coordinate_x = tempModel.mapCommunityDataSubModel.coordinate_x;
+        self.coordinate_y = tempModel.mapCommunityDataSubModel.coordinate_y;
         
-        double latitude= [self.coordinate_y doubleValue];
-        double longitude=[self.coordinate_x doubleValue];
+        double latitude = [self.coordinate_y doubleValue];
+        double longitude = [self.coordinate_x doubleValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         
         NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.id_];
         anno.title = tempTitle;
-        anno.subtitle=self.subtitle;
+        anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
         [annoArray addObject:anno];
@@ -781,33 +777,22 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
         }
         
-        // 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
-        annotationView.canShowCallout = YES;
-        
+        /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
+        annotationView.canShowCallout = NO;
+        /// 设置偏移量
+        annotationView.centerOffset = CGPointMake(0.0f, -annotationView.frame.size.height/2.0f);
         ///更新大头针数据
-        [annotationView  updateAnnotation:annotation andHouseType:self.listType];
-        
-        // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
-//        annotationView.centerOffset = CGPointMake(0, -35);
+        [annotationView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+            
+            [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+            
+        }];
+    
         return annotationView;
+        
     }
     
     return nil;
-}
-
-/*!
- @brief 当选中一个annotation views时，调用此接口
- @param mapView 地图View
- @param views 选中的annotation views
- */
-- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
-{
-
-    NSString *idString = [view valueForKey:@"deteilID"];
-    NSString *titleString = [view valueForKey:@"title"];
-    
-    [self gotoHouseDetail:titleString andDetailID:idString];
-    
 }
 
 #pragma mark - 请求小区列表数据

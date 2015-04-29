@@ -553,7 +553,6 @@
 		18EE34831AAC36F50053B909 /* public_arrow_highlighted60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE34811AAC36F50053B909 /* public_arrow_highlighted60x60.png */; };
 		18EE34841AAC36F50053B909 /* public_arrow_normal60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EE34821AAC36F50053B909 /* public_arrow_normal60x60.png */; };
 		18F5E0B01ADE0F2800DA927E /* QSCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5E0A71ADE0F2800DA927E /* QSCustomAnnotationView.m */; };
-		18F5E0B11ADE0F2800DA927E /* QSCustomCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5E0A91ADE0F2800DA927E /* QSCustomCalloutView.m */; };
 		18F5E0B21ADE0F2800DA927E /* QSWHousesMapDistributionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18F5E0AB1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.mm */; };
 		18F5E0B31ADE0F2800DA927E /* QSHouseKeySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5E0AD1ADE0F2800DA927E /* QSHouseKeySearchViewController.m */; };
 		18F5E0B41ADE0F2800DA927E /* QSYSearchHousesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5E0AF1ADE0F2800DA927E /* QSYSearchHousesViewController.m */; };
@@ -1737,8 +1736,6 @@
 		18EE34821AAC36F50053B909 /* public_arrow_normal60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_arrow_normal60x60.png; sourceTree = "<group>"; };
 		18F5E0A61ADE0F2800DA927E /* QSCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomAnnotationView.h; sourceTree = "<group>"; };
 		18F5E0A71ADE0F2800DA927E /* QSCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomAnnotationView.m; sourceTree = "<group>"; };
-		18F5E0A81ADE0F2800DA927E /* QSCustomCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCustomCalloutView.h; sourceTree = "<group>"; };
-		18F5E0A91ADE0F2800DA927E /* QSCustomCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCustomCalloutView.m; sourceTree = "<group>"; };
 		18F5E0AA1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWHousesMapDistributionViewController.h; sourceTree = "<group>"; };
 		18F5E0AB1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSWHousesMapDistributionViewController.mm; sourceTree = "<group>"; };
 		18F5E0AC1ADE0F2800DA927E /* QSHouseKeySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHouseKeySearchViewController.h; sourceTree = "<group>"; };
@@ -5498,8 +5495,6 @@
 		18F5E0A51ADE0F2800DA927E /* MapSearch */ = {
 			isa = PBXGroup;
 			children = (
-				18F5E0A81ADE0F2800DA927E /* QSCustomCalloutView.h */,
-				18F5E0A91ADE0F2800DA927E /* QSCustomCalloutView.m */,
 				18F5E0A61ADE0F2800DA927E /* QSCustomAnnotationView.h */,
 				18F5E0A71ADE0F2800DA927E /* QSCustomAnnotationView.m */,
 				18F5E0AA1ADE0F2800DA927E /* QSWHousesMapDistributionViewController.h */,
@@ -7156,7 +7151,6 @@
 				18C8A0C01A6A38FD00BB9611 /* QSNavigationBar.m in Sources */,
 				18F5E0C21ADE0FD400DA927E /* QSYSearchRentHouseList.m in Sources */,
 				CED9EAA21AD8DF5C0088C3AF /* QSWCommunityHouseListFilterSettingViewController.m in Sources */,
-				18F5E0B11ADE0F2800DA927E /* QSCustomCalloutView.m in Sources */,
 				475A4D881AC5384D009881CF /* QSPOrderDetailComplaintAndCommentButtonView.m in Sources */,
 				182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */,
 				478645F11ACA6FB400B41F0F /* QSPAppointmentOrderReturnData.m in Sources */,
