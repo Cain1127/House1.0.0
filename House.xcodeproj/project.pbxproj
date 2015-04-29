@@ -728,6 +728,7 @@
 		CE2029901AE48B3800E78CEF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE20298F1AE48B3800E78CEF /* libc++.dylib */; };
 		CE2029981AE5FC8700E78CEF /* QSShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2029971AE5FC8700E78CEF /* QSShareManager.m */; };
 		CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */; };
+		CE2BF4EE1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */; };
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
 		CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */; };
@@ -2022,6 +2023,7 @@
 		CE2029971AE5FC8700E78CEF /* QSShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSShareManager.m; sourceTree = "<group>"; };
 		CE20B87E1AD260310057BFF2 /* QSMortgageCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMortgageCalculatorViewController.h; sourceTree = "<group>"; };
 		CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMortgageCalculatorViewController.m; sourceTree = "<group>"; };
+		CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_map_arrow_up.png; sourceTree = "<group>"; };
 		CE2E0FAE1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHousesDetailReturnData.h; sourceTree = "<group>"; };
 		CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRentHousesDetailReturnData.m; sourceTree = "<group>"; };
 		CE2E0FB11AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHouseDetailDataModel.h; sourceTree = "<group>"; };
@@ -3716,6 +3718,7 @@
 		18B563731A8366A4009779A0 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */,
 				CEACB0401AD62E440010D455 /* Second */,
 				CEACB0181AD617470010D455 /* Rent */,
 				CEA9CFD11AD503D500FEF74A /* houses_detail_annotion.png */,
@@ -6592,6 +6595,7 @@
 				18B564771A8366A4009779A0 /* tabbar_myzone_selected.png in Resources */,
 				18B5646D1A8366A4009779A0 /* share_wechat_normal.png in Resources */,
 				18B564121A8366A4009779A0 /* houses_detail_calculate_normal.png in Resources */,
+				CE2BF4EE1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png in Resources */,
 				CEACB05C1AD62E510010D455 /* house_detail_second_dixiashi.png in Resources */,
 				475A4DA71AC55FC2009881CF /* myzone_oorderdetail_computer_bt_selected.png in Resources */,
 				18B5641A1A8366A4009779A0 /* houses_detail_refresh_normal.png in Resources */,
@@ -7354,8 +7358,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
@@ -7400,8 +7404,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",

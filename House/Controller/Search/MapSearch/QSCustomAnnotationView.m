@@ -38,8 +38,6 @@
         
         ///信息展示view
         self.annoView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 70.0f)];
-        self.annoView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-        self.annoView.layer.cornerRadius = 6.0f;
         [self initSubViews];
         
         ///大头针大小
@@ -76,22 +74,27 @@
 - (void)initSubViews
 {
     
+    UIView *connetView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _annoView.frame.size.width, 55.0f)];
+    connetView.backgroundColor = COLOR_CHARACTERS_YELLOW;
+    connetView.layer.cornerRadius = 6.0f;
+    [self.annoView addSubview:connetView];
+    
     /// 添加标题label
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, kPortraitMargin, kTitleWidth, kTitleHeight)];
     self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.text = self.title ? self.title : @"测试地址";
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_annoView addSubview:self.titleLabel];
+    [connetView addSubview:self.titleLabel];
     
-    if (fFilterMainTypeNewHouse == self.houseType) {
+    if (fFilterMainTypeNewHouse == self.houseType || fFilterMainTypeCommunity == self.houseType) {
         
         ///均价label
         UILabel *avgLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, self.titleLabel.frame.origin.y+self.titleLabel.frame.size.height+8.0f, 35.0f, 15.0f)];
         avgLabel.text = @"均价:";
         avgLabel.font = [UIFont systemFontOfSize:14];
         avgLabel.textAlignment = NSTextAlignmentRight;
-        [_annoView addSubview:avgLabel];
+        [connetView addSubview:avgLabel];
         
         
         /// 添加价钱label
@@ -100,13 +103,19 @@
         priceLabel.textColor = [UIColor blackColor];
         priceLabel.text = self.subtitle ? self.subtitle : @"999";
         priceLabel.textAlignment = NSTextAlignmentRight;
-        [_annoView addSubview:priceLabel];
+        [connetView addSubview:priceLabel];
         
         ///单位
         UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x+priceLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
         priceUnitLabel.font = [UIFont systemFontOfSize:14.0f];
         priceUnitLabel.text = @"万";
-        [_annoView addSubview:priceUnitLabel];
+        [connetView addSubview:priceUnitLabel];
+        
+        ///向下箭头
+        UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+        arrowImageView.center = CGPointMake(60.0f, 60.0f);
+        arrowImageView.image = [UIImage imageNamed:@"houses_detail_map_arrow_up"];
+        [self.annoView addSubview:arrowImageView];
         return;
         
     }
@@ -117,16 +126,21 @@
     self.subTitleLabel.textColor = [UIColor blackColor];
     self.subTitleLabel.text = self.subtitle ? self.subtitle : @"999";
     self.subTitleLabel.textAlignment = NSTextAlignmentRight;
-    [_annoView addSubview:self.subTitleLabel];
+    [connetView addSubview:self.subTitleLabel];
     
     ///单位
     UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.subTitleLabel.frame.origin.x+self.subTitleLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
     priceUnitLabel.font = [UIFont systemFontOfSize:14.0f];
     priceUnitLabel.text = @"套";
-    [_annoView addSubview:priceUnitLabel];
+    [connetView addSubview:priceUnitLabel];
+    
+    ///向下箭头
+    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+    arrowImageView.center = CGPointMake(60.0f, 60.0f);
+    arrowImageView.image = [UIImage imageNamed:@"houses_detail_map_arrow_up"];
+    [self.annoView addSubview:arrowImageView];
     
 }
-
 
 #pragma mark - 刷新UI
 -(void)updateAnnotation:(id <MAAnnotation>)annotation andHouseType:(FILTER_MAIN_TYPE)houseType andCallBack:(void(^)(NSString *detailID,NSString *title,FILTER_MAIN_TYPE houseType,NSString *buildingID))callBack

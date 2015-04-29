@@ -550,34 +550,27 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///根据不同的列表，进入同的详情页
     switch (self.listType) {
             ///进入新房详情
-            //        case fFilterMainTypeNewHouse:
-            //        {
-            //
-            //            ///获取房子模型
-            //            QSNewHouseInfoDataModel *houseInfoModel = dataModel;
-            //
-            //            ///进入详情页面
-            //            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.listType];
-            //            [self hiddenBottomTabbar:YES];
-            //            [self.navigationController pushViewController:detailVC animated:YES];
-            //
-            //        }
-            //            break;
+        case fFilterMainTypeNewHouse:
+        {
+            
+            ///进入详情页面
+            QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:title andLoupanID:detailID andLoupanBuildingID:detailID andDetailType:self.listType];
+            [self hiddenBottomTabbar:YES];
+            [self.navigationController pushViewController:detailVC animated:YES];
+            
+        }
+            break;
             
             ///进入小区详情
-                    case fFilterMainTypeCommunity:
-                    {
+        case fFilterMainTypeCommunity:
+        {
             
-                        return ;
-//                        ///获取房子模型
-//                        QSCommunityDataModel *houseInfoModel = dataModel;
-//            
-//                        ///进入详情页面
-//                        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-//                        [self.navigationController pushViewController:detailVC animated:YES];
+            ///进入详情页面
+            QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:title andCommunityID:detailID andCommendNum:nil andHouseType:nil];
+            [self.navigationController pushViewController:detailVC animated:YES];
             
-                    }
-                        break;
+        }
+            break;
             
             ///进入二手房详情
         case fFilterMainTypeSecondHouse:
@@ -787,7 +780,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
             
         }];
-    
+        
         return annotationView;
         
     }
@@ -836,7 +829,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
                 ///请求成功后，转换模型
                 QSMapCommunityListReturnData *resultDataModel = resultData;
-                                
+                
                 ///将数据模型置为nil
                 self.dataSourceModel = nil;
                 self.dataSourceModel=resultDataModel;
@@ -879,10 +872,10 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 #pragma mark - 重写返回事件，回收弹框
 - (void)gotoTurnBackAction
 {
-
+    
     [self hiddenAllPickerView];
     [super gotoTurnBackAction];
-
+    
 }
 
 @end

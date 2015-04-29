@@ -29,6 +29,28 @@
 + (QSMapManager *)shareMapManager;
 
 /*!
+ *  @author wangshupeng, 15-04-29 15:04:35
+ *
+ *  @brief  获取当前用户经纬度
+ *
+ *  @param callBack 经纬度
+ *
+ *  @since 1.0.0
+ */
++(void)getUserLocation:(void (^)(BOOL isLocationSuccess,double longitude,double latitude))callBack;
+
+/*!
+ *  @author wangshupeng, 15-04-29 15:04:26
+ *
+ *  @brief  获取当前用户位置的地理名称
+ *
+ *  @param callBack 用户地理名称
+ *
+ *  @since 1.0.0
+ */
++(void)getUserLocationPlaceName:(void (^)(BOOL isLocationSuccess, NSString *placeName))callBack;
+
+/*!
  *  @author wangshupeng, 15-04-01 18:04:36
  *
  *  @brief  初始化周边地址与经纬度信息

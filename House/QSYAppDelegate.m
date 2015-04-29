@@ -29,6 +29,8 @@
 
 #import "QSCustomHUDView.h"
 
+#import "QSMapManager.h"
+
 ///分享访问链接
 static NSString *const app_URL = @"http://www.baidu.com/";
 ///友盟分享appkey
@@ -176,6 +178,17 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     //设置微信AppId，设置分享url，默认使用友盟的网址
     [UMSocialWechatHandler setWXAppId:Wechat_Key appSecret:appSecret_Key url:app_URL];
     
+    ///获取当前用户经纬度
+    [QSMapManager getUserLocation:^(BOOL isLocationSuccess, double longitude, double latitude) {
+        
+        if (!isLocationSuccess){
+            NSLog(@"=====获取当前用户经纬度失败=====");
+            return ;
+        }
+        NSLog(@"=====当前用户经度:%lf=====",longitude);
+        NSLog(@"=====当前用户纬度:%lf=====",latitude);
+    }];
+
     return YES;
     
 }
