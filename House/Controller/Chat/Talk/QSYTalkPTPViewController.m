@@ -316,6 +316,7 @@
             
             ///图片聊天
         case qQSCustomProtocolChatMessageTypePicture:
+            
             ///消息归属类型
             if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
                 
@@ -452,6 +453,8 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.messagesListView reloadData];
+        ///显示最后一行
+        [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         [self.messagesListView.header endRefreshing];
         
     });
