@@ -585,6 +585,14 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:title andDetailID:detailID andDetailType:self.listType];
+            
+            ///删除物业后的回调
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -596,6 +604,14 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:title andDetailID:detailID andDetailType:self.listType];
+            
+            ///删除物业后的回调
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+                
+                
+                
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }

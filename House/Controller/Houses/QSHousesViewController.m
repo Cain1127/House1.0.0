@@ -55,6 +55,7 @@ static char PopViewKey;             //!<摇一摇view关联
 @property (assign) FILTER_MAIN_TYPE houseType;                              //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;                //!<过滤模型
 @property (assign) BOOL isCanShake;                                         //!<是否能摇一摇事件变量
+@property (assign) BOOL isNeedRefresh;                                      //!<是否需要发起主动刷新
 
 @property (nonatomic,strong) QSCustomPickerView *houseListTypePickerView;   //!<导航栏列表类型选择
 @property (nonatomic,strong) QSCustomPickerView *distictPickerView;         //!<地区选择按钮
@@ -1012,6 +1013,14 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+            
+            ///删除物业时回调刷新
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh  = YES;
+            
+            };
+            
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -1028,6 +1037,13 @@ static char PopViewKey;             //!<摇一摇view关联
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+            
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh = YES;
+            
+            };
+            
             [self hiddenBottomTabbar:YES];
             
             [self.navigationController pushViewController:detailVC animated:YES];
@@ -1184,6 +1200,19 @@ static char PopViewKey;             //!<摇一摇view关联
 
     [self hiddenBottomTabbar:NO];
     [super viewWillAppear:animated];
+    
+    ///判断是否需要刷新列表
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        UICollectionView *collectionView = objc_getAssociatedObject(self, &CollectionViewKey);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [collectionView.header beginRefreshing];
+            
+        });
+        
+    }
 
 }
 

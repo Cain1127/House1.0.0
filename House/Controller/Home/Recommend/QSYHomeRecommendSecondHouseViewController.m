@@ -23,6 +23,7 @@
 
 @property (nonatomic,strong) UICollectionView *houseListView;                   //!<推荐房源列表
 @property (nonatomic,retain) QSSecondHandHouseListReturnData *dataSourceModel;  //!<数据源
+@property (assign) BOOL isNeedRefresh;                                          //!<是否需要刷新
 
 @end
 
@@ -181,6 +182,14 @@
         
         ///进入详情页面
         QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:fFilterMainTypeSecondHouse];
+        
+        ///删除物业后的回调
+        detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+            self.isNeedRefresh = YES;
+        
+        };
+        
         [self.navigationController pushViewController:detailVC animated:YES];
         
         return;
@@ -199,6 +208,14 @@
     
     ///进入详情页
     QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:fFilterMainTypeSecondHouse];
+    
+    ///删除物业后的回调
+    detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+        self.isNeedRefresh = YES;
+        
+    };
+    
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }
@@ -255,6 +272,25 @@
         }
         
     }];
+
+}
+
+#pragma mark - 视图显示时刷新数据
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.houseListView.header beginRefreshing];
+            
+        });
+        
+    }
 
 }
 

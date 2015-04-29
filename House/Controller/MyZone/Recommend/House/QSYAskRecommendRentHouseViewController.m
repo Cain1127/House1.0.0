@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString *recommendID;                       //!<求租记录的ID
 @property (nonatomic,strong) UICollectionView *houseListView;           //!<列表
 @property (nonatomic,retain) QSRentHouseListReturnData *dataSourceModel;//!<数据源
+@property (assign) BOOL isNeedRefresh;                                  //!<是否需要主动刷新
 
 @end
 
@@ -190,6 +191,14 @@
     ///获取房子模型
     QSRentHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row - 1];
     QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:fFilterMainTypeRentalHouse];
+    
+    ///删除物业时的回调
+    detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+    
+        self.isNeedRefresh = YES;
+    
+    };
+    
     [self.navigationController pushViewController:detailVC animated:YES];
     
 }
@@ -328,6 +337,25 @@
         
     }];
     
+}
+
+#pragma mark - 将要显示时判断是否需要刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.houseListView.header beginRefreshing];
+            
+        });
+        
+    }
+
 }
 
 @end
