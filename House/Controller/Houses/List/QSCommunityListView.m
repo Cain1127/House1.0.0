@@ -137,6 +137,7 @@
 {
     
     ///封装参数：主要是添加页码控制
+    self.footer.hidden = YES;
     NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeCommunity]];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
@@ -186,6 +187,10 @@
                     [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
                     
                     [self.footer noticeNoMoreData];
+                    
+                } else {
+                    
+                    [self.footer resetNoMoreData];
                     
                 }
                 

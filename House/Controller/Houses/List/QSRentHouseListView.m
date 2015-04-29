@@ -213,6 +213,7 @@
 {
 
     ///封装参数：主要是添加页码控制
+    self.footer.hidden = YES;
     NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeRentalHouse]];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
@@ -260,6 +261,10 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
                 ///刷新数据
@@ -338,7 +343,7 @@
             [self.footer endRefreshing];
             
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if (([self.dataSourceModel.headerData.per_page intValue] + 1) % 8 == 0) {
+            if (([self.dataSourceModel.headerData.per_page intValue]) % 8 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     

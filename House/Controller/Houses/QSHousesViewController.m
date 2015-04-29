@@ -732,7 +732,6 @@ static char PopViewKey;             //!<摇一摇view关联
                         
                         break;
                         
-                        
                         ///摇一摇
                     case hHouseListActionTypeShake:
                         
@@ -740,7 +739,6 @@ static char PopViewKey;             //!<摇一摇view关联
                         
                         break;
 
-                        
                     default:
                         break;
                 }
