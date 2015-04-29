@@ -37,6 +37,7 @@
     
     ///在超类的mapping规则之上添加子类mapping
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"buyer" toKeyPath:@"renantData" withMapping:[QSYMyzoneStatisticsRenantModel objectMapping]]];
+    
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"saler" toKeyPath:@"ownerData" withMapping:[QSYMyzoneStatisticsOwnerModel objectMapping]]];
     
     return shared_mapping;

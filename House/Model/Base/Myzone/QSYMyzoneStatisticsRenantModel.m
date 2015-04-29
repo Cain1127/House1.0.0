@@ -25,7 +25,10 @@
                                                     @"transaction_ok",
                                                     @"transaction_all",
                                                     @"store_rent",
-                                                    @"store_apartment"]];
+                                                    @"store_apartment",
+                                                    @"store_village",
+                                                    @"book_wait_bid",
+                                                    @"ask_for_total"]];
     
     return shared_mapping;
     

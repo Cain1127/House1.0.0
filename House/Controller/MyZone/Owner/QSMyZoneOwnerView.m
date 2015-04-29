@@ -122,7 +122,7 @@ static char RecommendKey;   //!<推荐房源关联key
     ///待看房信息
     UIView *stayAroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, view.frame.size.height)];
     stayAroundView.tag = oOwnerZoneActionTypeStayAround;
-    [self createChannelButtonUI:stayAroundView andTitle:@"待看房" andKey:StayAroundKey];
+    [self createChannelButtonUI:stayAroundView andTitle:@"待看房" andKey:&StayAroundKey];
     [view addSubview:stayAroundView];
     [self addSingleTagForChannelRootView:stayAroundView];
     
@@ -134,7 +134,7 @@ static char RecommendKey;   //!<推荐房源关联key
     ///已看房
     UIView *havedAroundView = [[UIView alloc] initWithFrame:CGRectMake(stayAroundView.frame.size.width + 0.5f, 0.0f, width, view.frame.size.height)];
     havedAroundView.tag = oOwnerZoneActionTypeHavedAround;
-    [self createChannelButtonUI:havedAroundView andTitle:@"已看房" andKey:HavedAroundKey];
+    [self createChannelButtonUI:havedAroundView andTitle:@"已看房" andKey:&HavedAroundKey];
     [view addSubview:havedAroundView];
     [self addSingleTagForChannelRootView:havedAroundView];
     
@@ -146,7 +146,7 @@ static char RecommendKey;   //!<推荐房源关联key
     ///待成交
     UIView *waitCommitView = [[UIView alloc] initWithFrame:CGRectMake(havedAroundView.frame.origin.x + havedAroundView.frame.size.width + 0.5f, 0.0f, width, view.frame.size.height)];
     waitCommitView.tag = oOwnerZoneActionTypeWaitCommit;
-    [self createChannelButtonUI:waitCommitView andTitle:@"待成交" andKey:WaitCommitKey];
+    [self createChannelButtonUI:waitCommitView andTitle:@"待成交" andKey:&WaitCommitKey];
     [view addSubview:waitCommitView];
     [self addSingleTagForChannelRootView:waitCommitView];
     
@@ -158,7 +158,7 @@ static char RecommendKey;   //!<推荐房源关联key
     ///待成交
     UIView *commitedView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width - width, 0.0f, width, view.frame.size.height)];
     commitedView.tag = oOwnerZoneActionTypeCommited;
-    [self createChannelButtonUI:commitedView andTitle:@"已成交" andKey:CommitedKey];
+    [self createChannelButtonUI:commitedView andTitle:@"已成交" andKey:&CommitedKey];
     [view addSubview:commitedView];
     [self addSingleTagForChannelRootView:commitedView];
     
@@ -166,7 +166,7 @@ static char RecommendKey;   //!<推荐房源关联key
 
 #pragma mark - 导航栏按钮的基本UI创建
 ///导航栏按钮的基本UI创建
-- (void)createChannelButtonUI:(UIView *)view andTitle:(NSString *)title andKey:(char)key
+- (void)createChannelButtonUI:(UIView *)view andTitle:(NSString *)title andKey:(const void *)key
 {
     
     ///数量提示
@@ -178,7 +178,7 @@ static char RecommendKey;   //!<推荐房源关联key
     countLabel.layer.cornerRadius = 17.0f;
     countLabel.layer.masksToBounds = YES;
     [view addSubview:countLabel];
-    objc_setAssociatedObject(self, &key, countLabel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, key, countLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, countLabel.frame.origin.y + countLabel.frame.size.height, view.frame.size.width, 15.0f)];
@@ -263,8 +263,8 @@ static char RecommendKey;   //!<推荐房源关联key
         tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
         tipsLabel.textAlignment = NSTextAlignmentCenter;
         OWNER_ZONE_ACTION_TYPE buttonActionType = [[infoModel valueForKey:@"subtitle_tag"] intValue];
-        char tipsLabelKey = [self getAssociationKeyWithButtonType:buttonActionType];
-        objc_setAssociatedObject(self, &tipsLabelKey, tipsLabel, OBJC_ASSOCIATION_ASSIGN);
+        const void *tipsLabelKey = [self getAssociationKeyWithButtonType:buttonActionType];
+        objc_setAssociatedObject(self, tipsLabelKey, tipsLabel, OBJC_ASSOCIATION_ASSIGN);
         
         [view addSubview:button];
         [view addSubview:tipsLabel];
@@ -326,35 +326,35 @@ static char RecommendKey;   //!<推荐房源关联key
 
 #pragma mark - 根据不同的按钮返回不同的关联key
 ///根据不同的按钮返回不同的关联key
-- (char)getAssociationKeyWithButtonType:(OWNER_ZONE_ACTION_TYPE)buttonType
+- (const void *)getAssociationKeyWithButtonType:(OWNER_ZONE_ACTION_TYPE)buttonType
 {
     
     switch (buttonType) {
             ///预约我的订单
         case oOwnerZoneActionTypeAppointed:
             
-            return AppointedKey;
+            return &AppointedKey;
             
             break;
             
             ///已完成订单
         case oOwnerZoneActionTypeDeal:
             
-            return DealKey;
+            return &DealKey;
             
             break;
             
             ///物业管理
         case oOwnerZoneActionTypeProprerty:
             
-            return PropertyKey;
+            return &PropertyKey;
             
             break;
             
             ///推荐房客
         case oOwnerZoneActionTypeRecommend:
             
-            return RecommendKey;
+            return &RecommendKey;
             
             break;
             
@@ -362,7 +362,7 @@ static char RecommendKey;   //!<推荐房源关联key
             break;
     }
     
-    return StayAroundKey;
+    return &StayAroundKey;
     
 }
 
@@ -539,6 +539,110 @@ static char RecommendKey;   //!<推荐房源关联key
     [self updateHavedAroundCount:model.book_ok];
     [self updateWaitCommitAroundCount:model.transaction_wait];
     [self updateCommitedCount:model.transaction_ok];
+    [self updateRecommendTenantCount:model.referrals_tenant];
+    [self updatePropertyCount:[NSString stringWithFormat:@"%d",[model.tenement_apartment intValue] + [model.tenement_rent intValue]]];
+    [self updateAppointedOrderCount:model.book_all];
+    [self updateDealOrderCount:model.transaction_all];
+
+}
+
+///更新推荐房客
+- (void)updateRecommendTenantCount:(NSString *)newInfo
+{
+    
+    UILabel *label = objc_getAssociatedObject(self, &RecommendKey);
+    if ([newInfo intValue] > 0) {
+        
+        if ([newInfo intValue] > 99) {
+            
+            label.text = @"99+条记录";
+            
+        } else {
+            
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
+            
+        }
+        
+    } else {
+        
+        label.text = @"查看全部";
+        
+    }
+    
+}
+
+///更新物业数量
+- (void)updatePropertyCount:(NSString *)newInfo
+{
+    
+    UILabel *label = objc_getAssociatedObject(self, &PropertyKey);
+    if ([newInfo intValue] > 0) {
+        
+        if ([newInfo intValue] > 99) {
+            
+            label.text = @"99+条记录";
+            
+        } else {
+            
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
+            
+        }
+        
+    } else {
+        
+        label.text = @"查看全部";
+        
+    }
+    
+}
+
+///更新成交订单
+- (void)updateDealOrderCount:(NSString *)newInfo
+{
+    
+    UILabel *label = objc_getAssociatedObject(self, &DealKey);
+    if ([newInfo intValue] > 0) {
+        
+        if ([newInfo intValue] > 99) {
+            
+            label.text = @"99+条记录";
+            
+        } else {
+            
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
+            
+        }
+        
+    } else {
+        
+        label.text = @"查看全部";
+        
+    }
+    
+}
+
+///更新预约订单
+- (void)updateAppointedOrderCount:(NSString *)newInfo
+{
+
+    UILabel *label = objc_getAssociatedObject(self, &AppointedKey);
+    if ([newInfo intValue] > 0) {
+        
+        if ([newInfo intValue] > 99) {
+            
+            label.text = @"99+条记录";
+            
+        } else {
+        
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
+        
+        }
+        
+    } else {
+    
+        label.text = @"查看全部";
+    
+    }
 
 }
 
@@ -548,8 +652,6 @@ static char RecommendKey;   //!<推荐房源关联key
     
     UILabel *label = objc_getAssociatedObject(self, &StayAroundKey);
     if (label && newInfo) {
-        
-        label.text = newInfo;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
@@ -564,6 +666,7 @@ static char RecommendKey;   //!<推荐房源关联key
             
         } else {
             
+            label.text = @"0";
             label.backgroundColor = [UIColor clearColor];
             
         }
