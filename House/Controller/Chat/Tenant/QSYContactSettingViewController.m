@@ -264,7 +264,19 @@ typedef enum
             ///如若不是当前用户的联系人，则不能进行备注操作
             if ([self.isFriends intValue] > 0) {
                 
-                QSYContactRemarkSettinViewController *remarkVC = [[QSYContactRemarkSettinViewController alloc] initWithContactID:self.contactID];
+                QSYContactRemarkSettinViewController *remarkVC = [[QSYContactRemarkSettinViewController alloc] initWithContactID:self.contactID andChangeCallBack:^(BOOL isChange) {
+                    
+                    if (isChange) {
+                        
+                        if (self.contactInfoChangeCallBack) {
+                            
+                            self.contactInfoChangeCallBack(cContactSettingCallBackActionTypeRemarkContact,nil);
+                            
+                        }
+                        
+                    }
+                    
+                }];
                 [self.navigationController pushViewController:remarkVC animated:YES];
                 
             } else {

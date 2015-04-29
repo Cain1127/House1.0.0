@@ -134,7 +134,7 @@ static char PhoneInfoKey;   //!<联系信息
     self.linkManID = userModel.linkman_id;
     
     ///更新用户名
-    [self updateUserName:userModel.username];
+    [self updateUserName:APPLICATION_NSSTRING_SETTING(userModel.remark, userModel.username)];
     
     ///更新vip标识
     [self updateUserVIPTag:userModel.level];

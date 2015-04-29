@@ -11,6 +11,7 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYContactSettingViewController.h"
 
+#import "QSYAskRentAndBuyRentTableViewCell.h"
 #import "QSYAskRentAndBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
 #import "QSYContactOrderInfoView.h"
@@ -25,6 +26,7 @@
 #import "QSYContactDetailReturnData.h"
 #import "QSYContactDetailInfoModel.h"
 #import "QSYAskListOrderInfosModel.h"
+#import "QSYAskRentAndBuyDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -157,6 +159,23 @@
                 }
                     break;
                     
+                    ///备注联系人
+                case cContactSettingCallBackActionTypeRemarkContact:
+                {
+                    
+                    self.contactInfo.contactInfo.remark = APPLICATION_NSSTRING_SETTING_NIL(params);
+                    [self.userInfoRootView reloadData];
+                    
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
+                    
+                }
+                    break;
+                    
                 default:
                     break;
             }
@@ -222,8 +241,16 @@
     buttonStyle.title = @"打电话";
     UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///打电话
-        [self callContact];
+        if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+            
+            ///打电话
+            [self callContact];
+            
+        } else {
+        
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
+        
+        }
         
     }];
     [self.view addSubview:callButton];
@@ -475,8 +502,34 @@
         
     }
     
+    __block QSYAskRentAndBuyDataModel *tempModel = self.askDataSource[indexPath.row - self.askDataStarStep];
+    
+    ///判断是否求租
+    if ([tempModel.type intValue] == 1) {
+        
+        static NSString *normalCell = @"askRentHouseCell";
+        QSYAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+        if (nil == cellNormal) {
+            
+            cellNormal = [[QSYAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+            cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
+            cellNormal.backgroundColor = [UIColor whiteColor];
+            
+        }
+        
+        ///刷新UI
+        [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
+            
+            
+            
+        }];
+        
+        return cellNormal;
+        
+    }
+    
     ///求租求购列表
-    static NSString *normalCell = @"normalCell";
+    static NSString *normalCell = @"askBuyHouseCell";
     QSYAskRentAndBuyTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
     if (nil == cellNormal) {
         
@@ -486,40 +539,9 @@
     }
     
     ///刷新UI
-    [cellNormal updateAskRentAndBuyInfoCellUI:self.askDataSource[indexPath.row - self.askDataStarStep] andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
+    [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
         
-        ///根据不同的事件，进入不同的页面
-        if (aAskRentAndBuyCellActionTypeSetting == actionType) {
-            
-            self.releaseIndex = indexPath.row;
-            [tableView reloadData];
-            
-        }
         
-        if (aAskRentAndBuyCellActionTypeSettingClose == actionType) {
-            
-            self.releaseIndex = -1;
-            [tableView reloadData];
-            
-        }
-        
-        if (aAskRentAndBuyCellActionTypeRecommend == actionType) {
-            
-            
-            
-        }
-        
-        if (aAskRentAndBuyCellActionTypeEdit == actionType) {
-            
-            
-            
-        }
-        
-        if (aAskRentAndBuyCellActionTypeDelete == actionType) {
-            
-            
-            
-        }
         
     }];
     

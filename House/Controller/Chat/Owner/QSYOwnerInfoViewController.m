@@ -157,6 +157,23 @@
                 }
                     break;
                     
+                    ///备注联系人
+                case cContactSettingCallBackActionTypeRemarkContact:
+                {
+                    
+                    self.contactInfo.contactInfo.remark = APPLICATION_NSSTRING_SETTING_NIL(params);
+                    [self.userInfoRootView reloadData];
+                    
+                    ///回调通知联系人改变
+                    if (self.contactInfoChangeCallBack) {
+                        
+                        self.contactInfoChangeCallBack(YES);
+                        
+                    }
+                    
+                }
+                    break;
+                    
                 default:
                     break;
             }

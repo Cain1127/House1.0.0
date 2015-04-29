@@ -21,6 +21,6 @@
  *
  *  @since              1.0.0
  */
-- (instancetype)initWithContactID:(NSString *)contactID;
+- (instancetype)initWithContactID:(NSString *)contactID andChangeCallBack:(void(^)(BOOL isChange))callBack;
 
 @end
