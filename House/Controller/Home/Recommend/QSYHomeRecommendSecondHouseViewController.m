@@ -148,7 +148,8 @@
         QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
         
         ///更新数据
-        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.secondHandHouseHeaderData.total_num stringValue] andSubTitle:@"套二手房信息"];
+        NSString *houseCount = [self.dataSourceModel.secondHandHouseHeaderData.total_num intValue] > 10 ? @"10" : [self.dataSourceModel.secondHandHouseHeaderData.total_num stringValue];
+        [cellTitle updateTitleInfoWithTitle:houseCount andSubTitle:@"套二手房信息"];
         
         return cellTitle;
         
