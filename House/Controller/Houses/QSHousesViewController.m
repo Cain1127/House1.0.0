@@ -52,7 +52,7 @@ static char PopViewKey;             //!<摇一摇view关联
 
 @interface QSHousesViewController ()
 
-@property (assign) FILTER_MAIN_TYPE houseType;                               //!<列表类型
+@property (assign) FILTER_MAIN_TYPE houseType;                              //!<列表类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;                //!<过滤模型
 @property (assign) BOOL isCanShake;                                         //!<是否能摇一摇事件变量
 

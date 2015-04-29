@@ -175,7 +175,12 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1] andListType:fFilterMainTypeSecondHouse];
+    id tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    if (tempModel) {
+        
+        [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
+        
+    }
     
     return cellHouse;
     
@@ -211,6 +216,7 @@
 {
     
     ///封装参数：主要是添加页码控制
+    self.footer.hidden = YES;
     NSMutableDictionary *temParams = [NSMutableDictionary dictionaryWithDictionary:[QSCoreDataManager getHouseListRequestParams:fFilterMainTypeSecondHouse]];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
@@ -250,7 +256,7 @@
                 
             }
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 ///刷新数据
                 [self reloadData];
@@ -261,6 +267,10 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
             });

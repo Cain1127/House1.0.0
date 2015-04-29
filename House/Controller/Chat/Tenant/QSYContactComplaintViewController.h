@@ -38,21 +38,4 @@
  */
 - (instancetype)initWithIndicteeId:(NSString *)indicteeId andSueder:(NSString *)sueder andOrderID:(NSString *)orderID WithDesc:(NSString*)desc andCallBack:(void(^)(BOOL isComplaint))callBack;
 
-///**
-// *  @author             yangshengmeng, 15-04-14 11:04:08
-// *
-// *  @brief              创建订单投诉页面
-// *
-// *  @param contactID    被投诉人的ID
-// *  @param contactName  被投诉人的姓名
-// *  @param orderID      订单ID
-// *  @param callBack     投诉完成后的回调
-// *
-// *  @return             返回当前创建的投诉页面
-// *
-// *  @since              1.0.0
-// */
-//- (instancetype)initWithContactID:(NSString *)contactID andContactName:(NSString *)contactName andOrderID:(NSString *)orderID andCallBack:(void(^)(BOOL isComplaint))callBack;
-
-
 @end
