@@ -117,7 +117,7 @@
             //投诉联系人
             self.reasonList = [NSArray arrayWithObjects:@"中介骚扰", @"虚假房源", @"爽约，不诚实", @"态度恶劣", @"广告骚扰", nil];
             
-        }else{
+        } else {
             
             if ([self.sueder isEqualToString:@"BUYER"]) {
                 
@@ -170,7 +170,9 @@
         
         switch (buttonType) {
             case bBottomButtonTypeOne:
+                
                 [self submitComlaintInfo];
+                
                 break;
                 
             default:
