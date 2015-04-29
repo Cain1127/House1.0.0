@@ -1,76 +1,70 @@
 //
-//  QSYAskRentAndBuyTableViewCell.m
+//  QSYTenantAskRentAndBuyBuyTableViewCell.m
 //  House
 //
-//  Created by ysmeng on 15/3/31.
+//  Created by ysmeng on 15/4/29.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
-#import "QSYAskRentAndBuyTableViewCell.h"
-
-#import "UIImageView+CacheImage.h"
-#import "NSString+Calculation.h"
+#import "QSYTenantAskRentAndBuyBuyTableViewCell.h"
 
 #import "QSYAskRentAndBuyDataModel.h"
 
-#import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+House.h"
+#import "QSCoreDataManager+App.h"
 
 #import <objc/runtime.h>
 
 ///关联
-static char HouseTagKey;    //!<房子左上角标识图片key
-static char AddressKey;     //!<地址key
+static char HouseTagKey;    //!<房源标签
+static char AddressKey;     //!<地址信息
 static char TargetKey;      //!<购房目的
-static char HouseNumberKey; //!<房子的数量信息关闻
-static char PriceKey;       //!<金钱关联
-static char AreaKey;        //!<面积关联
+static char HouseNumberKey; //!<几室几厅
+static char PriceKey;       //!<售价
+static char AreaKey;        //!<面积
 static char TradeTypeKey;   //!<物业类型
 static char DecorationKey;  //!<装修类型
-static char FaceKey;        //!<朝向类型
+static char FaceKey;        //!<朝向
 static char FloorKey;       //!<楼层
 static char UserYearKey;    //!<房龄
-static char FeaturesKey;    //!<标签底view
+static char FeaturesKey;    //!<特色标签
 static char CommentKey;     //!<备注信息
-static char RecommendHouse; //!<推荐房源数量
-static char BottomViewkey;  //!<脚功能区关联
-static char SettingButton;  //!<设置按钮
 
-@interface QSYAskRentAndBuyTableViewCell ()
+@interface QSYTenantAskRentAndBuyBuyTableViewCell ()
 
 ///求租求购信息页上的回调
-@property (nonatomic,copy) void(^askRentAndBuyCellCallBack)(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType);
+@property (nonatomic,copy) void(^askRentAndBuyCellCallBack)(TENANT_ASK_RENTANDBUY_BUY_CELL_ACTION_TYPE actionType);
 
 @end
 
-@implementation QSYAskRentAndBuyTableViewCell
+@implementation QSYTenantAskRentAndBuyBuyTableViewCell
 
 #pragma mark - 初始化
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-
+    
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         ///白色背景
         self.backgroundColor = [UIColor whiteColor];
         
         ///搭建UI
-        [self createAskRendAndBuyCellUI];
+        [self createTenantAskBuyCellUI];
         
     }
     
     return self;
-
+    
 }
 
 #pragma mark - UI搭建
-- (void)createAskRendAndBuyCellUI
+- (void)createTenantAskBuyCellUI
 {
-    
-    ///所有信息的底view
-    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH, 332.0f + 44.0f)];
-    [self.contentView addSubview:rootView];
 
+    ///所有信息的底view
+    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.0f, SIZE_DEFAULT_MAX_WIDTH, 332.0f)];
+    [self.contentView addSubview:rootView];
+    
     ///标识
     QSImageView *houseTagImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 18.0f)];
     houseTagImageView.hidden = YES;
@@ -84,7 +78,7 @@ static char SettingButton;  //!<设置按钮
     [rootView addSubview:addressLabel];
     objc_setAssociatedObject(self, &AddressKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///购买目的或者租金支付方式
+    ///购买目的
     UILabel *targetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, addressLabel.frame.origin.y + addressLabel.frame.size.height + 5.0f, 120.0f, 15.0f)];
     targetLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     targetLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -238,149 +232,25 @@ static char SettingButton;  //!<设置按钮
     [rootView addSubview:commentLabel];
     objc_setAssociatedObject(self, &CommentKey, commentLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///推荐房源
-    UIButton *recommendHouseButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height + 10.0f, 120.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        ///回调
-        if (self.askRentAndBuyCellCallBack) {
-            
-            self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeRecommend);
-            
-        }
-        
-    }];
-    [recommendHouseButton setTitle:@"推荐房源(      条)" forState:UIControlStateNormal];
-    recommendHouseButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    recommendHouseButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [recommendHouseButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
-    [rootView addSubview:recommendHouseButton];
-    
-    ///推荐房源数量
-    UILabel *recommendHouseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0f, 0.0f, 30.0f, 20.0f)];
-    recommendHouseNumLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    recommendHouseNumLabel.font = [UIFont systemFontOfSize:15.0f];
-    [recommendHouseButton addSubview:recommendHouseNumLabel];
-    objc_setAssociatedObject(self, &RecommendHouse, recommendHouseNumLabel, OBJC_ASSOCIATION_ASSIGN);
-    
-    ///附加功能底view
-    __block UIView *buttonRootView;
-    
-    ///展开按钮
-    UIButton *settinButton = [UIButton createBlockButtonWithFrame:CGRectMake(rootView.frame.size.width - 44.0f, recommendHouseButton.frame.origin.y - 12.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        ///回调展开
-        if (button.selected) {
-            
-            button.selected = NO;
-            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_NORMAL] forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
-            
-            ///收缩底部功能栏
-            [UIView animateWithDuration:0.3f animations:^{
-                
-                buttonRootView.frame = CGRectMake(buttonRootView.frame.origin.x, buttonRootView.frame.origin.y, buttonRootView.frame.size.width, 0.0f);
-                
-            }];
-            
-            if (self.askRentAndBuyCellCallBack) {
-                
-                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSettingClose);
-                
-            }
-            
-        } else {
-        
-            button.selected = YES;
-            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_NORMAL] forState:UIControlStateNormal];
-            [button setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_HIGHLIGHTED] forState:UIControlStateHighlighted];
-            
-            [UIView animateWithDuration:0.3f animations:^{
-                
-                buttonRootView.frame = CGRectMake(buttonRootView.frame.origin.x, buttonRootView.frame.origin.y, buttonRootView.frame.size.width, 43.0f);
-                
-            }];
-            
-            if (self.askRentAndBuyCellCallBack) {
-                
-                self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeSetting);
-                
-            }
-        
-        }
-        
-    }];
-    [settinButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_NORMAL] forState:UIControlStateNormal];
-    [settinButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
-    settinButton.selected = NO;
-    [rootView addSubview:settinButton];
-    
     ///分隔线
-    UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, recommendHouseButton.frame.origin.y + recommendHouseButton.frame.size.height + 20.0f - 0.25f, rootView.frame.size.width, 0.25f)];
+    UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, commentLabel.frame.origin.y + commentLabel.frame.size.height + 20.0f - 0.25f, rootView.frame.size.width, 0.25f)];
     topLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [rootView addSubview:topLineLabel];
-    
-    CGFloat ypointEditButton = recommendHouseButton.frame.origin.y + recommendHouseButton.frame.size.height + 21.0f;
-    
-    ///按钮底view
-    buttonRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypointEditButton, rootView.frame.size.width, 0.0f)];
-    buttonRootView.clipsToBounds = YES;
-    [rootView addSubview:buttonRootView];
-    objc_setAssociatedObject(self, &BottomViewkey, buttonRootView, OBJC_ASSOCIATION_ASSIGN);
-    
-    ///编辑按钮
-    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, (buttonRootView.frame.size.width - 8.0f) / 2.0f, 42.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        if (self.askRentAndBuyCellCallBack) {
-            
-            self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeEdit);
-            
-        }
-        
-    }];
-    [editButton setTitle:@"编辑" forState:UIControlStateNormal];
-    [editButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
-    [editButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
-    [buttonRootView addSubview:editButton];
-    
-    ///分隔线
-    UILabel *editLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(buttonRootView.frame.size.width / 2.0f, 3.0f, 0.25f, 43.0f - 6.0f)];
-    editLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [buttonRootView addSubview:editLineLabel];
-    
-    ///删除按钮
-    UIButton *deleteButton = [UIButton createBlockButtonWithFrame:CGRectMake(editButton.frame.origin.x + editButton.frame.size.width + 8.0f, editButton.frame.origin.y, editButton.frame.size.width, editButton.frame.size.height) andButtonStyle:nil andCallBack:^(UIButton *button) {
-        
-        if (self.askRentAndBuyCellCallBack) {
-            
-            self.askRentAndBuyCellCallBack(aAskRentAndBuyCellActionTypeDelete);
-            
-        }
-        
-    }];
-    [deleteButton setTitle:@"删除" forState:UIControlStateNormal];
-    [deleteButton setTitleColor:COLOR_CHARACTERS_LIGHTGRAY forState:UIControlStateNormal];
-    [deleteButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
-    [buttonRootView addSubview:deleteButton];
-    
-    ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 43.0f - 0.25f, buttonRootView.frame.size.width, 0.25f)];
-    bottomLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [buttonRootView addSubview:bottomLineLabel];
 
 }
 
 #pragma mark - 刷新UI
 /**
- *  @author         yangshengmeng, 15-03-31 18:03:40
+ *  @author         yangshengmeng, 15-04-29 22:04:36
  *
- *  @brief          根据数据模型刷新UI
+ *  @brief          刷新房客求购信息
  *
- *  @param model    求租求购的数据模型
- *  @param callBack cell上的事件回调
+ *  @param model    求购信息数据模型
+ *  @param callBack 求购信息的回调
  *
  *  @since          1.0.0
  */
-- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isShowSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType))callBack
+- (void)updateTenantAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andCallBack:(void(^)(TENANT_ASK_RENTANDBUY_BUY_CELL_ACTION_TYPE actionType))callBack
 {
 
     ///保存回调
@@ -389,9 +259,6 @@ static char SettingButton;  //!<设置按钮
         self.askRentAndBuyCellCallBack = callBack;
         
     }
-    
-    ///设置按钮状态
-    [self updateButtonActionStatus:isShowSettingButton];
     
     ///地址信息
     [self updateHouseAddress:model.areaid andStreetKey:model.street];
@@ -414,13 +281,10 @@ static char SettingButton;  //!<设置按钮
     ///备注信息
     [self updateCommentInfo:model.content];
     
-    ///推荐房源数量
-    [self updateRecommendNumber:model.commend_num];
-    
     ///室厅信息更新
     [self updateHouseNumberInfo:model.house_shi andTingNum:model.house_ting];
     
-    ///更新面积
+    ///更新面积:model.areaid
     [self updateHouseArea:[QSCoreDataManager getHouseAreaTypeWithKey:model.areaid]];
     
     ///求租求购标识
@@ -429,180 +293,116 @@ static char SettingButton;  //!<设置按钮
     ///更新物业类型
     [self updateRentPayType:[QSCoreDataManager getPerpostPerchaseTypeWithKey:model.intent]];
     
-    ///更新售价
+    ///更新价钱信息
     [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",([model.price floatValue]) / 10000]];
     
     ///更新标签
     [self updateFeatures:model.features andHouseType:fFilterMainTypeSecondHouse];
+
+}
+
+///更新金钱信息
+- (void)updatePriceInfo:(NSString *)priceString
+{
     
-}
-
-/**
- *  @author         yangshengmeng, 15-04-05 18:04:13
- *
- *  @brief          更新底部功能按钮的状态
- *
- *  @param isShow   YES-显示
- *
- *  @since          1.0.0
- */
-- (void)updateButtonActionStatus:(BOOL)isShow
-{
-
-    UIView *rootView = objc_getAssociatedObject(self, &BottomViewkey);
-    if (rootView) {
+    UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
+    if (priceLabel && priceString) {
         
-        if (isShow) {
-            
-            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 43.0f);
-            
-        } else {
+        priceLabel.text = priceString;
         
-            rootView.frame = CGRectMake(rootView.frame.origin.x, rootView.frame.origin.y, rootView.frame.size.width, 0.0f);
+    } else {
         
-        }
-        
-        ///调整设置按钮
-        [self updateSettingButton:isShow];
+        priceLabel.text = nil;
         
     }
-
-}
-
-///更新设置按钮的隐藏状态
-- (void)updateSettingButton:(BOOL)flag
-{
-
-    UIButton *settingButton = objc_getAssociatedObject(self, &SettingButton);
-    if (settingButton) {
-        
-        if (flag) {
-            
-            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_NORMAL] forState:UIControlStateNormal];
-            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_CLOSE_HIGHLIGHTED] forState:UIControlStateHighlighted];
-            settingButton.selected = YES;
-            
-        } else {
-            
-            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_NORMAL] forState:UIControlStateNormal];
-            [settingButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
-            settingButton.selected = NO;
-            
-        }
-        
-    }
-
-}
-
-///备注
-- (void)updateCommentInfo:(NSString *)comment
-{
-
-    UILabel *commentLabel = objc_getAssociatedObject(self, &CommentKey);
-    if (commentLabel && comment) {
-        
-        commentLabel.text = comment;
-        
-    }
-
-}
-
-///更新推荐房源数量
-- (void)updateRecommendNumber:(NSString *)num
-{
-
-    UILabel *recommendLabel = objc_getAssociatedObject(self, &RecommendHouse);
-    if (recommendLabel && num) {
-        
-        recommendLabel.text = num;
-        
-    }
-
+    
 }
 
 ///楼层
 - (void)updateHouseFloor:(NSString *)floor
 {
-
+    
     UILabel *floorLabel = objc_getAssociatedObject(self, &FloorKey);
     if (floorLabel && floor) {
         
         floorLabel.text = floor;
         
     }
-
+    
 }
 
 ///朝向
 - (void)updateHouseFace:(NSString *)face
 {
-
+    
     UILabel *faceLabel = objc_getAssociatedObject(self, &FaceKey);
     if (faceLabel && face) {
         
         faceLabel.text = face;
         
     }
-
+    
 }
 
 ///装修类型
 - (void)updateDecoration:(NSString *)decoration
 {
-
+    
     UILabel *decorationLabel = objc_getAssociatedObject(self, &DecorationKey);
     if (decorationLabel && decoration) {
         
         decorationLabel.text = decoration;
         
     }
-
+    
 }
 
 ///物业类型
 - (void)updateTradeType:(NSString *)tradeType
 {
-
+    
     UILabel *tradeLabel = objc_getAssociatedObject(self, &TradeTypeKey);
     if (tradeLabel && tradeType) {
         
         tradeLabel.text = tradeType;
         
     }
-
+    
 }
 
 ///更新房龄
 - (void)updateHouseUseYear:(NSString *)useYear
 {
-
+    
     UILabel *useYearLabel = objc_getAssociatedObject(self, &UserYearKey);
     if (useYearLabel && useYear) {
         
         useYearLabel.text = useYear;
         
     }
-
+    
 }
 
 ///更新房子标识图片
 - (void)updateHouseTagImage:(NSString *)imageName
 {
-
+    
     UIImageView *tagImageView = objc_getAssociatedObject(self, &HouseTagKey);
     if (tagImageView && imageName) {
+        
+        ///IMAGE_ZONE_ASK_TAG_BUY
         
         tagImageView.image = [UIImage imageNamed:imageName];
         tagImageView.hidden = NO;
         
     }
-
+    
 }
 
 ///更新地址信息
 - (void)updateHouseAddress:(NSString *)districtKey andStreetKey:(NSString *)streetKey
 {
-
+    
     UILabel *addressLabel = objc_getAssociatedObject(self, &AddressKey);
     if (addressLabel && districtKey && streetKey) {
         
@@ -611,26 +411,26 @@ static char SettingButton;  //!<设置按钮
         addressLabel.text = [NSString stringWithFormat:@"%@ | %@",districtString,streetString];
         
     }
-
+    
 }
 
 ///更新购房目的或者租金支付方式
 - (void)updateRentPayType:(NSString *)info
 {
-
+    
     UILabel *payTypeLabel = objc_getAssociatedObject(self, &TargetKey);
     if (payTypeLabel && info) {
         
         payTypeLabel.text = info;
         
     }
-
+    
 }
 
 ///更新几室几厅
 - (void)updateHouseNumberInfo:(NSString *)houseNum andTingNum:(NSString *)tingNum
 {
-
+    
     UILabel *numberLabel = objc_getAssociatedObject(self, &HouseNumberKey);
     if (numberLabel && houseNum) {
         
@@ -643,34 +443,17 @@ static char SettingButton;  //!<设置按钮
         numberLabel.text = showString;
         
     } else {
-    
+        
         numberLabel.text = nil;
-    
-    }
-
-}
-
-///更新金钱信息
-- (void)updatePriceInfo:(NSString *)priceString
-{
-
-    UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
-    if (priceLabel && priceString) {
         
-        priceLabel.text = priceString;
-        
-    } else {
-    
-        priceLabel.text = nil;
-    
     }
-
+    
 }
 
 ///更新标签
 - (void)updateFeatures:(NSString *)featureString andHouseType:(FILTER_MAIN_TYPE)houseType
 {
-
+    
     UIView *rootView = objc_getAssociatedObject(self, &FeaturesKey);
     if (rootView && [featureString length] > 0) {
         
@@ -709,20 +492,33 @@ static char SettingButton;  //!<设置按钮
         }
         
     }
-
+    
 }
 
 ///更新面积
 - (void)updateHouseArea:(NSString *)area
 {
-
+    
     UILabel *labelArea = objc_getAssociatedObject(self, &AreaKey);
     if (labelArea && area) {
         
         labelArea.text = [NSString stringWithFormat:@"%.0f",[area floatValue]];
         
     }
+    
+}
 
+///备注
+- (void)updateCommentInfo:(NSString *)comment
+{
+    
+    UILabel *commentLabel = objc_getAssociatedObject(self, &CommentKey);
+    if (commentLabel && comment) {
+        
+        commentLabel.text = comment;
+        
+    }
+    
 }
 
 @end

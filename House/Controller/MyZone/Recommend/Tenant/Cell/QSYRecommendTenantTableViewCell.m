@@ -126,7 +126,7 @@ static char CommentKey;     //!<备注
     [self.contentView addSubview:footerSep];
     
     ///地址信息
-    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, iconView.frame.origin.y + iconView.frame.size.height + 30.0f, 180.0f, 20.0f)];
+    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, iconView.frame.origin.y + iconView.frame.size.height + 30.0f, 180.0f, 20.0f)];
     addressLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     addressLabel.textColor = COLOR_CHARACTERS_BLACK;
     [self.contentView addSubview:addressLabel];
