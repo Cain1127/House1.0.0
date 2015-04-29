@@ -148,8 +148,16 @@ static QSMapManager *_QSMapManager= nil;
 #pragma mark - 返地理编码回调
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
 {
-
-    self.userLocationPlaceNameCallBack(YES,response.regeocode.formattedAddress);
+    ///返回市区镇地址
+    AMapAddressComponent *addressComment = [[AMapAddressComponent alloc] init];
+    addressComment = response.regeocode.addressComponent;
+    NSString *address = [NSString stringWithFormat:@"%@%@%@",addressComment.city,addressComment.district,addressComment.township];
+    
+    ///返回省市区街道格式化地址
+    //NSString *formattedAddress = response.regeocode.formattedAddress;
+    
+    self.userLocationPlaceNameCallBack(YES,address);
+    
     
 }
 
