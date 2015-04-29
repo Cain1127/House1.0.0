@@ -365,7 +365,11 @@
                     
                     ///刷新房源
                 case pPropertyInfocellActionTypeRefreshHouse:
-                    
+                {
+                
+                    [tableView.header beginRefreshing];
+                
+                }
                     break;
                     
                 default:
@@ -457,7 +461,11 @@
                     
                     ///刷新房源
                 case pPropertyInfocellActionTypeRefreshHouse:
-                    
+                {
+                
+                    [tableView.header beginRefreshing];
+                
+                }
                     break;
                     
                 default:
