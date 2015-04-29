@@ -24,8 +24,10 @@
                                                     @"transaction_wait",
                                                     @"transaction_ok",
                                                     @"transaction_all",
-                                                    @"store_rent",
-                                                    @"store_apartment"]];
+                                                    @"tenement_rent",
+                                                    @"tenement_apartment",
+                                                    @"book_wait_bid",
+                                                    @"referrals_tenant"]];
     
     return shared_mapping;
     

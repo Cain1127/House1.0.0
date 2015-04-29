@@ -112,7 +112,7 @@ static char HistoryKey;     //!<浏览足迹
     ///待看房信息
     UIView *stayAroundView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, view.frame.size.height)];
     stayAroundView.tag = tTenantZoneActionTypeStayAround;
-    [self createChannelButtonUI:stayAroundView andTitle:@"待看房" andKey:StayAroundKey];
+    [self createChannelButtonUI:stayAroundView andTitle:@"待看房" andKey:&StayAroundKey];
     [view addSubview:stayAroundView];
     [self addSingleTagForChannelRootView:stayAroundView];
 
@@ -124,7 +124,7 @@ static char HistoryKey;     //!<浏览足迹
     ///已看房
     UIView *havedAroundView = [[UIView alloc] initWithFrame:CGRectMake(stayAroundView.frame.size.width + 0.5f, 0.0f, width, view.frame.size.height)];
     havedAroundView.tag = tTenantZoneActionTypeHavedAround;
-    [self createChannelButtonUI:havedAroundView andTitle:@"已看房" andKey:HavedAroundKey];
+    [self createChannelButtonUI:havedAroundView andTitle:@"已看房" andKey:&HavedAroundKey];
     [view addSubview:havedAroundView];
     [self addSingleTagForChannelRootView:havedAroundView];
     
@@ -136,7 +136,7 @@ static char HistoryKey;     //!<浏览足迹
     ///待成交
     UIView *waitCommitView = [[UIView alloc] initWithFrame:CGRectMake(havedAroundView.frame.origin.x + havedAroundView.frame.size.width + 0.5f, 0.0f, width, view.frame.size.height)];
     waitCommitView.tag = tTenantZoneActionTypeWaitCommit;
-    [self createChannelButtonUI:waitCommitView andTitle:@"待成交" andKey:WaitCommitKey];
+    [self createChannelButtonUI:waitCommitView andTitle:@"待成交" andKey:&WaitCommitKey];
     [view addSubview:waitCommitView];
     [self addSingleTagForChannelRootView:waitCommitView];
     
@@ -148,7 +148,7 @@ static char HistoryKey;     //!<浏览足迹
     ///待成交
     UIView *commitedView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width - width, 0.0f, width, view.frame.size.height)];
     commitedView.tag = tTenantZoneActionTypeCommited;
-    [self createChannelButtonUI:commitedView andTitle:@"已成交" andKey:CommitedKey];
+    [self createChannelButtonUI:commitedView andTitle:@"已成交" andKey:&CommitedKey];
     [view addSubview:commitedView];
     [self addSingleTagForChannelRootView:commitedView];
 
@@ -156,7 +156,7 @@ static char HistoryKey;     //!<浏览足迹
 
 #pragma mark - 导航栏按钮的基本UI创建
 ///导航栏按钮的基本UI创建
-- (void)createChannelButtonUI:(UIView *)view andTitle:(NSString *)title andKey:(char)key
+- (void)createChannelButtonUI:(UIView *)view andTitle:(NSString *)title andKey:(const void *)key
 {
 
     ///数量提示
@@ -168,7 +168,7 @@ static char HistoryKey;     //!<浏览足迹
     countLabel.layer.cornerRadius = 17.0f;
     countLabel.layer.masksToBounds = YES;
     [view addSubview:countLabel];
-    objc_setAssociatedObject(self, &key, countLabel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, key, countLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///标题
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, countLabel.frame.origin.y + countLabel.frame.size.height, view.frame.size.width, 15.0f)];
@@ -254,8 +254,8 @@ static char HistoryKey;     //!<浏览足迹
         tipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
         tipsLabel.textAlignment = NSTextAlignmentCenter;
         TENANT_ZONE_ACTION_TYPE buttonType = [[infoModel valueForKey:@"subtitle_tag"] intValue];
-        char tipsLabelKey = [self getAssociationKeyWithButtonType:buttonType];
-        objc_setAssociatedObject(self, &tipsLabelKey, tipsLabel, OBJC_ASSOCIATION_ASSIGN);
+        const void *tipsLabelKey = [self getAssociationKeyWithButtonType:buttonType];
+        objc_setAssociatedObject(self, tipsLabelKey, tipsLabel, OBJC_ASSOCIATION_ASSIGN);
         
         [view addSubview:button];
         [view addSubview:tipsLabel];
@@ -266,49 +266,49 @@ static char HistoryKey;     //!<浏览足迹
 
 #pragma mark - 根据不同的按钮返回不同的关联key
 ///根据不同的按钮返回不同的关联key
-- (char)getAssociationKeyWithButtonType:(TENANT_ZONE_ACTION_TYPE)buttonType
+- (const void *)getAssociationKeyWithButtonType:(TENANT_ZONE_ACTION_TYPE)buttonType
 {
 
     switch (buttonType) {
             ///预约订单
         case tTenantZoneActionTypeAppointed:
             
-            return AppointedKey;
+            return &AppointedKey;
             
             break;
             
             ///已完成订单
         case tTenantZoneActionTypeDeal:
             
-            return DealKey;
+            return &DealKey;
             
             break;
             
             ///求租求购
         case tTenantZoneActionTypeBeg:
             
-            return BegKey;
+            return &BegKey;
             
             break;
             
             ///收藏房源
         case tTenantZoneActionTypeCollected:
             
-            return CollectKey;
+            return &CollectKey;
             
             break;
             
             ///关注小区
         case tTenantZoneActionTypeCommunity:
             
-            return CommunityKey;
+            return &CommunityKey;
             
             break;
             
             ///浏览记录
         case tTenantZoneActionTypeHistory:
             
-            return HistoryKey;
+            return &HistoryKey;
             
             break;
             
@@ -316,7 +316,7 @@ static char HistoryKey;     //!<浏览足迹
             break;
     }
     
-    return StayAroundKey;
+    return &StayAroundKey;
 
 }
 
@@ -494,9 +494,9 @@ static char HistoryKey;     //!<浏览足迹
     [self updateCommitedCount:model.transaction_ok];
     [self updateAppointedOrderCount:model.book_all];
     [self updateDealOrderCount:model.transaction_all];
-    [self updateBegCount:model.store_rent];
-    [self updateCollectCount:model.store_apartment];
-    [self updateCommunityCount:model.store_rent];
+    [self updateBegCount:model.ask_for_total];
+    [self updateCollectCount:[NSString stringWithFormat:@"%d",[model.store_rent intValue] + [model.store_apartment intValue]]];
+    [self updateCommunityCount:model.store_village];
 
 }
 
@@ -512,7 +512,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = label.text = @"99+条记录";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -546,7 +546,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -580,7 +580,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -612,7 +612,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = label.text = @"99+";;
             label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else if (0 < [newInfo intValue]) {
@@ -644,7 +644,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             
         } else if (0 < [newInfo intValue]) {
             
@@ -674,7 +674,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             
         } else if (0 < [newInfo intValue]) {
             
@@ -704,7 +704,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             
         } else if (0 < [newInfo intValue]) {
             
@@ -734,7 +734,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+个房源";
             
         } else if (0 < [newInfo intValue]) {
             
@@ -764,7 +764,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+个小区";
             
         } else if (0 < [newInfo intValue]) {
             
@@ -794,7 +794,7 @@ static char HistoryKey;     //!<浏览足迹
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = [NSString stringWithFormat:@"%@+",newInfo];
+            label.text = @"99+条记录";
             
         } else if (0 < [newInfo intValue]) {
         
