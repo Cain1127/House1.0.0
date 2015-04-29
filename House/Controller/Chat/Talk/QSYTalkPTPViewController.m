@@ -201,8 +201,12 @@
         
     }];
     
-    ///开始就请求历史数据
-    [self.messagesListView.header beginRefreshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        ///开始就请求历史数据
+        [self.messagesListView.header beginRefreshing];
+        
+    });
 
 }
 
@@ -431,11 +435,11 @@
     } else {
         
         ///获取本地保存消息
-        QSYSendMessageBaseModel *tempModel = self.messagesDataSource[0];
+        QSYSendMessageBaseModel *tempModel = [self.messagesDataSource count] > 0 ? self.messagesDataSource[0] : nil;
         NSArray *localMessageList = [QSSocketManager getSpecialPersonLocalMessage:self.userModel.id_ andStarTimeStamp:tempModel.timeStamp];
         if ([localMessageList count] > 0) {
             
-            for (int i = [localMessageList count]; i > 0; i--) {
+            for (int i = (int)[localMessageList count]; i > 0; i--) {
                 
                 [self.messagesDataSource insertObject:localMessageList[i-1] atIndex:0];
                 

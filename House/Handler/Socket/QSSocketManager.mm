@@ -194,8 +194,7 @@ static QSSocketManager *_socketManager = nil;
 {
     
     ///遍历给定的已读数据
-    NSInteger sumCount = [cautchMessage count];
-    for (int i = sumCount; i > 0; i--) {
+    for (int i = (int)[cautchMessage count]; i > 0; i--) {
         
         int index = [cautchMessage[i - 1] intValue];
         [self.messageList removeObjectAtIndex:index];
