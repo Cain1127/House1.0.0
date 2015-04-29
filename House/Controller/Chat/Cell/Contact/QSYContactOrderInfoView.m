@@ -28,7 +28,7 @@ static char AppointTimeKey; //!<订单预约人的联系方式
 
     if (self = [super initWithFrame:frame]) {
         
-        
+        [self createContactOrderInfoUI];
         
     }
     
@@ -55,7 +55,7 @@ static char AppointTimeKey; //!<订单预约人的联系方式
     objc_setAssociatedObject(self, &OrderStatusKey, orderStatusLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///预约客户
-    UILabel *appointUserNameTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, communityLabel.frame.origin.y + communityLabel.frame.size.height + 10.0f, 60.0f, 15.0f)];
+    UILabel *appointUserNameTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, communityLabel.frame.origin.y + communityLabel.frame.size.height + 10.0f, 80.0f, 15.0f)];
     appointUserNameTipsLabel.text = @"预约客户:";
     appointUserNameTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     appointUserNameTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
@@ -67,8 +67,8 @@ static char AppointTimeKey; //!<订单预约人的联系方式
     objc_setAssociatedObject(self, &UserNameKey, userNameLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///预约时间
-    UILabel *appointTimeTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, appointUserNameTipsLabel.frame.origin.y + appointUserNameTipsLabel.frame.size.height + 5.0f, 60.0f, 15.0f)];
-    appointTimeTipsLabel.text = @"预约客户:";
+    UILabel *appointTimeTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, appointUserNameTipsLabel.frame.origin.y + appointUserNameTipsLabel.frame.size.height + 5.0f, 80.0f, 15.0f)];
+    appointTimeTipsLabel.text = @"预约时间:";
     appointTimeTipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     appointTimeTipsLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
     [self addSubview:appointTimeTipsLabel];
@@ -98,7 +98,7 @@ static char AppointTimeKey; //!<订单预约人的联系方式
 - (void)updateContactOrderInfo:(QSYAskListOrderInfosModel *)model
 {
 
-    [self updateAppointedTime:[NSDate formatNSTimeToNSDateString:model.appoint_date]];
+    [self updateAppointedTime:[NSString stringWithFormat:@"%@ %@",model.appoint_date,model.appoint_start_time]];
     [self updateOrderStatus:[NSString getCurrentUserStatusTitleWithStatus:model.order_status andSalerID:model.saler_id andBuyerID:model.buyer_id]];
     [self updateAppointedUserName:model.buyer_name];
     [self updateCommunityInfo:model.buyer_name];
