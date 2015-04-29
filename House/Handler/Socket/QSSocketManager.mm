@@ -194,8 +194,7 @@ static QSSocketManager *_socketManager = nil;
 {
     
     ///遍历给定的已读数据
-    NSInteger sumCount = [cautchMessage count];
-    for (int i = sumCount; i > 0; i--) {
+    for (int i = (int)[cautchMessage count]; i > 0; i--) {
         
         int index = [cautchMessage[i - 1] intValue];
         [self.messageList removeObjectAtIndex:index];
@@ -383,7 +382,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = onLineMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOnLine]);
+    int32_t messageType = static_cast <int32_t> ([self talk_ChangeOCEnumToCPP_MessageType:qQSCustomProtocolChatMessageTypeOffLine]);
     
     HTONL(messageLength);
     HTONL(messageType);

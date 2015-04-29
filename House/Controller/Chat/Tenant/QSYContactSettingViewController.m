@@ -233,7 +233,9 @@ typedef enum
         case cContactSettingFieldActionTypeComplaint:
         {
         
-            QSYContactComplaintViewController *complainVC = [[QSYContactComplaintViewController alloc] initWithContactID:self.contactID andContactName:self.contactName];
+            QSYContactComplaintViewController *complainVC = [[QSYContactComplaintViewController alloc] initWithIndicteeId:self.contactID andSueder:nil andOrderID:nil WithDesc:nil andCallBack:^(BOOL isComplaint) {
+                
+            }];
             [self.navigationController pushViewController:complainVC animated:YES];
         
         }

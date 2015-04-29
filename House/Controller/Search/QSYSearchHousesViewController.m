@@ -31,11 +31,14 @@
 #import "QSHouseInfoDataModel.h"
 #import "QSRentHouseInfoDataModel.h"
 
+#import "MJRefresh.h"
+
 @interface QSYSearchHousesViewController () <UITextFieldDelegate>
 
 @property (nonatomic,assign) FILTER_MAIN_TYPE houseType;                    //!<房源类型
 @property (nonatomic,copy) NSString *searchKey;                             //!<搜索关键字
 @property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前列表指针
+@property (assign) BOOL isNeedRefresh;                                      //!<是否需要刷新
 
 ///导航栏选择器
 @property (nonatomic,strong) QSCustomPickerView *houseTypePicker;
@@ -281,7 +284,6 @@
             
             ///进入详情页面
             QSNewHouseDetailViewController *detailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andLoupanID:houseInfoModel.loupan_id andLoupanBuildingID:houseInfoModel.loupan_building_id andDetailType:self.houseType];
-            [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -296,7 +298,6 @@
             
             ///进入详情页面
             QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:houseInfoModel.title andCommunityID:houseInfoModel.id_ andCommendNum:@"10" andHouseType:@"second"];
-            [self hiddenBottomTabbar:YES];
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -311,7 +312,13 @@
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
-            [self hiddenBottomTabbar:YES];
+            
+            ///删除物业时刷新
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh = YES;
+            
+            };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
@@ -327,7 +334,12 @@
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
-            [self hiddenBottomTabbar:YES];
+            
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh = YES;
+            
+            };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
@@ -381,6 +393,25 @@
     [textField resignFirstResponder];
     
     return YES;
+
+}
+
+#pragma mark - 视图将要显示时判断是否刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.currentListView.header beginRefreshing];
+            
+        });
+        
+    }
 
 }
 

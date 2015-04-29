@@ -58,6 +58,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (nonatomic,copy) NSString *communityID;                       //!<小区的ID
 @property (nonatomic,copy) NSString *commendNum;                        //!<推荐房源的个数
 @property (nonatomic,copy) NSString *houseType;                         //!<推荐房源的类型：出租/二手
+@property (assign) BOOL isNeedRefresh;                                  //!<是否需要主动发起刷新
 
 //!<返回的基本数据模型，模型下带有2个基本模型，2个数组模型
 @property (nonatomic,retain) QSCommunityHouseDetailDataModel *detailInfo;
@@ -686,13 +687,26 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     if ([self.houseType isEqualToString:@"rent"]) {
         
         QSRentHouseDetailViewController *rentVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title  andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeRentalHouse];
+        
+        rentVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+            self.isNeedRefresh = YES;
+        
+        };
+        
         [self.navigationController pushViewController:rentVC animated:YES];
         
-    }
-
-    else{
+    } else {
     
         QSSecondHouseDetailViewController *scVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeSecondHouse];
+        
+        ///删除物业时回调
+        scVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+            self.isNeedRefresh = YES;
+        
+        };
+        
         [self.navigationController pushViewController:scVC animated:YES];
         
     }
@@ -749,6 +763,26 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     return @"headerImage";
     
+}
+
+#pragma mark - 将要显示时，判断是否需要主动发起刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [rootView.header beginRefreshing];
+            
+        });
+        
+    }
+
 }
 
 #pragma mark - 请求小区详情信息

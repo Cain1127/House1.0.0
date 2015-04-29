@@ -486,6 +486,14 @@
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:houseType];
+            
+            ///删除物业回调
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isHouseCollectedChange = YES;
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -500,6 +508,13 @@
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.title andDetailID:houseInfoModel.id_ andDetailType:houseType];
+            
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isHouseCollectedChange = YES;
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -519,6 +534,7 @@
     
     if (self.isHouseCollectedChange) {
         
+        self.isHouseCollectedChange = NO;
         [self.currentListView.header beginRefreshing];
         
     }

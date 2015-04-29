@@ -17,6 +17,7 @@
 #import "QSCommunityDetailViewController.h"
 #import "QSSearchMapViewController.h"
 #import "QSYShowImageDetailViewController.h"
+#import "QSYReleaseSaleHouseViewController.h"
 
 #import "UMSocial.h"
 #import "WXApi.h"
@@ -26,6 +27,7 @@
 #import "QSYPopCustomView.h"
 #import "QSCustomHUDView.h"
 #import "QSYCallTipsPopView.h"
+#import "QSYOwnerPropertyDeleteTipsPopView.h"
 
 #import "QSImageView+Block.h"
 #import "UIImageView+CacheImage.h"
@@ -231,7 +233,7 @@ static char LeftStarKey;            //!<左侧星级
         UIButton *stopSaleButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 8.0f, 88.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///发送停售状态
-            
+            [self deleteProperty];
             
         }];
         stopSaleButton.backgroundColor=[UIColor grayColor];
@@ -244,7 +246,8 @@ static char LeftStarKey;            //!<左侧星级
         editButtonStyle.title = TITLE_HOUSES_DETAIL_SECOND_EDIT;
         UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(stopSaleButton.frame.origin.x + stopSaleButton.frame.size.width + SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.origin.y, view.frame.size.width-stopSaleButton.frame.size.width-30.0f-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, stopSaleButton.frame.size.height) andButtonStyle:editButtonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击编辑按钮事件");
+            QSYReleaseSaleHouseViewController *updatePropertyVC = [[QSYReleaseSaleHouseViewController alloc] initWithSaleModel:[self.detailInfo changeToReleaseDataModel]];
+            [self.navigationController pushViewController:updatePropertyVC animated:YES];
             
         }];
         [view addSubview:editButton];
@@ -257,7 +260,9 @@ static char LeftStarKey;            //!<左侧星级
         refreshButtonStyle.imagesHighted = @"houses_detail_refresh_highlighted";
         UIButton *refreshButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width-30.0f, editButton.frame.origin.y+7.0f, 30.0f, 30.0f) andButtonStyle:refreshButtonStyle andCallBack:^(UIButton *button) {
             
-            NSLog(@"点击刷新按钮事件");
+            ///刷新数据
+            UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
+            [rootView.header beginRefreshing];
             
         }];
         [view addSubview:refreshButton];
@@ -1626,6 +1631,76 @@ static char LeftStarKey;            //!<左侧星级
         
     }];
     
+}
+
+#pragma mark - 暂停发布物业
+- (void)deleteProperty
+{
+
+    __block QSYPopCustomView *popView;
+    
+    QSYOwnerPropertyDeleteTipsPopView *tipsView = [[QSYOwnerPropertyDeleteTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 150.0f, SIZE_DEVICE_WIDTH, 150.0f) andCallBack:^(PROPERTY_DELETE_ACTION_TYPE actionType) {
+        
+        [popView hiddenCustomPopview];
+        
+        switch (actionType) {
+                
+                ///确认删除
+            case pPropertyDeleteActionTypeConfirm:
+            {
+                
+                ///显示HUD
+                QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+                
+                ///封装参数
+                NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(self.detailInfo.house.id_, @"")};
+                
+                ///删除物业
+                [QSRequestManager requestDataWithType:rRequestTypeMyZoneDeleteSaleHouseProperty andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f andCallBack:^(BOOL flag){
+                            
+                            ///暂停发布后，返回上一级页面
+                            if (self.deletePropertyCallBack) {
+                                
+                                self.deletePropertyCallBack(YES);
+                                
+                            }
+                            
+                            ///返回上一页
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+                            
+                        }];
+                        
+                    } else {
+                        
+                        NSString *tipsString = @"删除失败";
+                        if (resultData) {
+                            
+                            tipsString = [resultData valueForKey:@"info"];
+                            
+                        }
+                        [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+                        
+                    }
+                    
+                }];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }];
+    
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+    }];
+
 }
 
 #pragma mark - 收藏二手房

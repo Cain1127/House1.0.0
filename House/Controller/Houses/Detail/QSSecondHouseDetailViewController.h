@@ -18,6 +18,9 @@
  */
 @interface QSSecondHouseDetailViewController : QSTurnBackViewController
 
+///删除物业时的回调
+@property (nonatomic,copy) void(^deletePropertyCallBack)(BOOL isDelete);
+
 /**
  *  @author             yangshengmeng, 15-02-12 12:02:39
  *f

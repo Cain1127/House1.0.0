@@ -175,6 +175,12 @@ static char IncreaseUnitKey;//!<涨幅单位关联
     CGFloat increasePrice = newPrice - oldPrice;
     CGFloat isChange = newPrice - oldPrice;
     
+    if (oldPrice < 1.0f) {
+        
+        return;
+        
+    }
+    
     if (isChange < 0.0) {
         
         isChange = isChange * (-1.0f);

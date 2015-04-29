@@ -248,7 +248,7 @@
             
         } else {
         
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"当前用户并未预约您，暂时无法查看联系电话", 1.0f, ^(){})
         
         }
         

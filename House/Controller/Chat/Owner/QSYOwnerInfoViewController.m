@@ -9,6 +9,8 @@
 #import "QSYOwnerInfoViewController.h"
 #import "QSYTalkPTPViewController.h"
 #import "QSYContactSettingViewController.h"
+#import "QSRentHouseDetailViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 
 #import "QSYContactInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
@@ -25,6 +27,7 @@
 #import "QSYContactDetailInfoModel.h"
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSRentHouseListReturnData.h"
+#import "QSRentHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -38,6 +41,7 @@
 @property (nonatomic,strong) UICollectionView *userInfoRootView;        //!<用户信息底view
 @property (nonatomic,retain) NSMutableArray *housesSource;              //!<房源列表
 @property (nonatomic,retain) QSYContactDetailReturnData *contactInfo;   //!<联系人信息
+@property (assign) BOOL isNeedRefresh;                                  //!<是否需要刷新
 
 @end
 
@@ -468,9 +472,58 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:nil andListType:self.houseType];
+    [cellHouse updateHouseInfoCellUIWithDataModel:self.housesSource[indexPath.row - 2] andListType:self.houseType];
     
     return cellHouse;
+
+}
+
+#pragma mark - 进入详情
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (indexPath.row <= 1) {
+        
+        return;
+        
+    }
+    
+    ///根据不同的类型，进入不同的详情页
+    if (fFilterMainTypeRentalHouse == self.houseType) {
+        
+        ///获取房子模型
+        QSRentHouseInfoDataModel *houseInfoModel = self.housesSource[indexPath.row - 2];
+        
+        ///进入详情页面
+        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+        
+        detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+            self.isNeedRefresh = YES;
+        
+        };
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    }
+    
+    if (fFilterMainTypeSecondHouse == self.houseType) {
+        
+        ///获取房子模型
+        QSHouseInfoDataModel *houseInfoModel = self.housesSource[indexPath.row - 2];
+        
+        ///进入详情页面
+        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.houseType];
+        
+        detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+        
+            self.isNeedRefresh = YES;
+        
+        };
+        
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    }
 
 }
 
@@ -636,6 +689,25 @@
         
     }];
     
+}
+
+#pragma mark - 将要显示时判断是否刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.userInfoRootView.header beginRefreshing];
+            
+        });
+        
+    }
+
 }
 
 @end

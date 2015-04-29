@@ -12,6 +12,7 @@
 #import "QSYSendMessagePicture.h"
 #import "QSYSendMessageVideo.h"
 #import "QSYSendMessageSystem.h"
+#import "NSDate+Formatter.h"
 
 #import "QSCoreDataManager+User.h"
 
@@ -39,12 +40,14 @@
     
     ///获取给定用户发送的离线消息
     NSString *currentUserID = [QSCoreDataManager getUserID];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fromID == %@ && toID = %@ && timeStamp < %@",APPLICATION_NSSTRING_SETTING(personID, @""),APPLICATION_NSSTRING_SETTING(currentUserID, @""),timeStamp];
+    NSString *originalTime = [NSDate currentDateTimeStamp];
+    NSString *starTime = APPLICATION_NSSTRING_SETTING(timeStamp, originalTime);
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fromID == %@ && toID = %@ && timeStamp < %@",APPLICATION_NSSTRING_SETTING(personID, @""),APPLICATION_NSSTRING_SETTING(currentUserID, @"1"),starTime];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:YES];
     NSArray *persionSendArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_MESSAGE andCustomPredicate:predicate andCustomSort:sort];
     
     ///获取我发送指定用户的离线消息
-    predicate = [NSPredicate predicateWithFormat:@"fromID == %@ && toID = %@ && timeStamp < %@",APPLICATION_NSSTRING_SETTING(currentUserID, @""),APPLICATION_NSSTRING_SETTING(personID, @""),timeStamp];
+    predicate = [NSPredicate predicateWithFormat:@"fromID == %@ && toID = %@ && timeStamp < %@",APPLICATION_NSSTRING_SETTING(currentUserID, @""),APPLICATION_NSSTRING_SETTING(personID, @""),starTime];
     NSArray *mySendArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_MESSAGE andCustomPredicate:predicate andCustomSort:sort];
     
     ///如果两个数组都为空，直接返回
@@ -80,7 +83,50 @@
     
     }
     
-    return [NSArray arrayWithArray:tempResultArray];
+    ///转换模型
+    NSMutableArray *resultTempArray = [NSMutableArray array];
+    for (int i = 0; i < [tempResultArray count]; i++) {
+        
+        QSCDChatMessagesDataModel *tempModel = tempResultArray[i];
+        switch ([tempModel.msgType intValue]) {
+                ///文字消息
+            case qQSCustomProtocolChatMessageTypeHistoryWord:
+            case qQSCustomProtocolChatMessageTypeWord:
+                
+                [resultTempArray addObject:[self message_ChangeMessageWordCDModel_TO_OCModel:tempModel]];
+                
+                break;
+                
+                ///图片消息
+            case qQSCustomProtocolChatMessageTypeHistoryPicture:
+            case qQSCustomProtocolChatMessageTypePicture:
+                
+                [resultTempArray addObject:[self message_ChangeMessagePictureCDModel_TO_OCModel:tempModel]];
+                
+                break;
+                
+                ///语音消息
+            case qQSCustomProtocolChatMessageTypeHistoryVideo:
+            case qQSCustomProtocolChatMessageTypeVideo:
+                
+                [resultTempArray addObject:[self message_ChangeMessageVideoCDModel_TO_OCModel:tempModel]];
+                
+                break;
+                
+                ///系统消息
+            case qQSCustomProtocolChatMessageTypeSystem:
+                
+                [resultTempArray addObject:[self message_ChangeMessageSystemCDModel_TO_OCModel:tempModel]];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:resultTempArray];
 
 }
 

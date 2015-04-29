@@ -252,7 +252,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 {
     
     [textField resignFirstResponder];
-    
     return YES;
     
 }

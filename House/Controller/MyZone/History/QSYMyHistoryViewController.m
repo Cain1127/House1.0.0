@@ -27,9 +27,13 @@
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
 
+#import "MJRefresh.h"
+
 @interface QSYMyHistoryViewController ()
 
-@property (nonatomic,strong) UIView *noRecordsRootView;//!<无记录底view
+@property (nonatomic,strong) UIView *noRecordsRootView;                     //!<无记录底view
+@property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前房源列表
+@property (assign) BOOL isNeedRefresh;                                      //!<是否需要刷新
 
 @end
 
@@ -136,6 +140,7 @@
             
         }];
         [self.view addSubview:secondHandHouseList];
+        self.currentListView = secondHandHouseList;
         
         ///获取当前正在显示的view
         UIView *tempView = rentHouseList ? rentHouseList : newHouseList;
@@ -216,6 +221,7 @@
             
         }];
         [self.view addSubview:rentHouseList];
+        self.currentListView = rentHouseList;
         
         ///获取当前正在显示的view
         UIView *tempView = secondHandHouseList ? secondHandHouseList : newHouseList;
@@ -284,6 +290,7 @@
             
         }];
         [self.view addSubview:newHouseList];
+        self.currentListView = newHouseList;
         
         ///获取当前正在显示的view
         UIView *tempView = secondHandHouseList ? secondHandHouseList : rentHouseList;
@@ -398,6 +405,14 @@
             
             ///进入详情页面
             QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:houseInfoModel.house.village_name andDetailID:houseInfoModel.house.id_ andDetailType:houseType];
+            
+            ///删除物业时回调
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh = YES;
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -412,6 +427,13 @@
             
             ///进入详情页面
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:houseInfoModel.house.village_name andDetailID:houseInfoModel.house.id_ andDetailType:houseType];
+            
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+            
+                self.isNeedRefresh = YES;
+            
+            };
+            
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
@@ -419,6 +441,25 @@
             
         default:
             break;
+    }
+    
+}
+
+#pragma mark - 视图将要显示时判断是否刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+ 
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.currentListView.header beginRefreshing];
+            
+        });
+        
     }
     
 }
