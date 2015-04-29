@@ -14,6 +14,8 @@
 
 #import "QSBlockButtonStyleModel+Normal.h"
 
+#import "QSCoreDataManager+User.h"
+
 #define ___VERCODE_AUTOWRITE_TO_FIELD___
 
 @interface QSYMySettingChangeMobileViewController ()<UITextFieldDelegate>
@@ -210,7 +212,7 @@
         [vertificationCodeField resignFirstResponder];
         
         ///修改手机
-//        [self gotoResetPhoneAction:phoneString];
+        [self gotoResetPhoneAction:phoneString];
         
     }];
     [self.view addSubview:loginButton];
@@ -221,7 +223,44 @@
 - (void)gotoResetPhoneAction:(NSString *)newPhone
 {
 
-//    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改手机"];
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改手机"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"mobile" : APPLICATION_NSSTRING_SETTING(newPhone, @"")};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeResetMobile andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///修改成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+               
+                ///重新下载用户信息
+                [QSCoreDataManager reloadUserInfoFromServer];
+                
+            });
+            
+            ///显示提示
+            [hud hiddenCustomHUDWithFooterTips:@"修改成功" andDelayTime:2.5f andCallBack:^(BOOL flag) {
+                
+                ///返回上一页
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            }];
+            
+        } else {
+        
+            NSString *tipsString = @"修改失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+        
+        }
+        
+    }];
 
 }
 

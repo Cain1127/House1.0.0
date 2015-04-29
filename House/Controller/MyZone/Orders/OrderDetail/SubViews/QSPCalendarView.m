@@ -12,6 +12,8 @@
 @interface QSPCalendarView ()<FSCalendarDelegate>
 
 @property ( strong, nonatomic ) NSDate *selectedDate;
+@property ( strong, nonatomic ) FSCalendarHeader *header;
+@property ( strong, nonatomic ) FSCalendar *calendar;
 
 @end
 
@@ -36,19 +38,19 @@
             cycleList = [cycle componentsSeparatedByString:@","];
         }
         
-        FSCalendarHeader *header = [[FSCalendarHeader alloc] initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44)];
-        [self addSubview:header];
+        self.header = [[FSCalendarHeader alloc] initWithFrame:CGRectMake(0, 0, SIZE_DEVICE_WIDTH, 44)];
+        [self addSubview:self.header];
         ///分隔线
-        UILabel *headerBottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, header.frame.origin.y+header.frame.size.height-0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
+        UILabel *headerBottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.header.frame.origin.y+self.header.frame.size.height-0.5f, SIZE_DEVICE_WIDTH, 0.5f)];
         [headerBottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
         
-        FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, header.frame.origin.y+header.frame.size.height, SIZE_DEVICE_WIDTH, 580.0f*SIZE_DEVICE_WIDTH/750.0f) withCycleList:cycleList];
-        calendar.header = header;
-        calendar.delegate = self;
-        [self addSubview:calendar];
+        self.calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, self.header.frame.origin.y+self.header.frame.size.height, SIZE_DEVICE_WIDTH, 580.0f*SIZE_DEVICE_WIDTH/750.0f) withCycleList:cycleList];
+        self.calendar.header = self.header;
+        self.calendar.delegate = self;
+        [self addSubview:self.calendar];
     
         //上个月按钮
-        UIImageView *leftBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(header.frame.origin.x, header.frame.origin.y, 100.0f/375.0f*SIZE_DEVICE_WIDTH, header.frame.size.height)];
+        UIImageView *leftBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(self.header.frame.origin.x, self.header.frame.origin.y, 100.0f/375.0f*SIZE_DEVICE_WIDTH, self.header.frame.size.height)];
         [leftBtBgView setBackgroundColor:COLOR_CHARACTERS_YELLOW];
         [self addSubview:leftBtBgView];
         
@@ -59,13 +61,13 @@
         QSBlockButtonStyleModel *leftBtStyle = [[QSBlockButtonStyleModel alloc] init];
         UIButton *leftBt = [UIButton createBlockButtonWithFrame:leftBtBgView.frame andButtonStyle:leftBtStyle andCallBack:^(UIButton *button) {
             
-            [calendar goToNextMonth:PGCalendarMonthLast];
+            [self.calendar goToNextMonth:PGCalendarMonthLast];
             
         }];
         [self addSubview:leftBt];
         
         //下个月按钮
-        UIImageView *rightBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-leftBtBgView.frame.size.width, header.frame.origin.y, leftBtBgView.frame.size.width, header.frame.size.height)];
+        UIImageView *rightBtBgView = [[UIImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-leftBtBgView.frame.size.width, self.header.frame.origin.y, leftBtBgView.frame.size.width, self.header.frame.size.height)];
         [rightBtBgView setBackgroundColor:COLOR_CHARACTERS_YELLOW];
         [self addSubview:rightBtBgView];
         
@@ -76,7 +78,7 @@
         QSBlockButtonStyleModel *rightBtStyle = [[QSBlockButtonStyleModel alloc] init];
         UIButton *rightBt = [UIButton createBlockButtonWithFrame:rightBtBgView.frame andButtonStyle:rightBtStyle andCallBack:^(UIButton *button) {
             
-            [calendar goToNextMonth:PGCalendarMonthNext];
+            [self.calendar goToNextMonth:PGCalendarMonthNext];
             
         }];
         
@@ -85,7 +87,7 @@
         [self addSubview:headerBottomLineLablel];
         
         ///分隔线
-        UILabel *bottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, calendar.frame.origin.y+calendar.frame.size.height+0.5f + 8.0f, SIZE_DEVICE_WIDTH, 0.5f)];
+        UILabel *bottomLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.calendar.frame.origin.y+self.calendar.frame.size.height+0.5f + 8.0f, SIZE_DEVICE_WIDTH, 0.5f)];
         [bottomLineLablel setBackgroundColor:COLOR_CHARACTERS_LIGHTGRAY];
         [self addSubview:bottomLineLablel];
         
@@ -123,6 +125,15 @@
 - (void)setCanAppointCycle:(NSString*)cycleStr
 {
     
+    
+}
+
+- (void)reloadData
+{
+
+    if (self.calendar) {
+        [self.calendar reloadData];
+    }
     
 }
 

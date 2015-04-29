@@ -150,6 +150,10 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             if (self.parentViewController) {
                 [self.parentViewController.view addSubview:popView];
             }
+        }else if (500253 == button.tag ){
+            //拒绝再议价
+            [self acceptOrRejectApplyBargain:NO];
+            
         }
         
     }];
@@ -200,6 +204,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                         }
                         
                     }
+                    
+                    
                 }
             }
             
@@ -232,6 +238,10 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500257 == button.tag ){
             //成交预约订单
             [self buyerOrSalerCommitAppointmentOrder];
+            
+        }else if (500253 == button.tag ){
+            //接受再议价
+            [self acceptOrRejectApplyBargain:YES];
             
         }
         
@@ -911,6 +921,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
     
     [tempParam setObject:orderID forKey:@"order_id"];
+    
+    //价格单位从万转元
+    priceStr = [NSString stringWithFormat:@"%f",priceStr.floatValue*10000];
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -1077,6 +1090,87 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }];
     
 }
+
+#pragma mark - 预约订单接受或拒绝再议价，flag: YES是接受，NO是拒绝不接受
+- (void)acceptOrRejectApplyBargain:(BOOL)flag
+{
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    if (flag) {
+        [tempParam setObject:@"1" forKey:@"result"];
+    }else {
+        [tempParam setObject:@"0" forKey:@"result"];
+    }
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderAppointmentAcceptOrRejectApplyBargain andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
 
 
 @end

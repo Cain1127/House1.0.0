@@ -268,7 +268,7 @@ static char UserGenderKey;      //!<性别
 - (void)changeUserGender:(NSString *)gender
 {
     
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改"];
 
     ///封装参数
     NSDictionary *params = @{@"sex" : APPLICATION_NSSTRING_SETTING(gender, @"")};
@@ -326,7 +326,7 @@ static char UserGenderKey;      //!<性别
 - (void)changeUserRealName:(NSString *)realName
 {
     
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在修改"];
 
     ///封装参数
     NSDictionary *params = @{@"username" : APPLICATION_NSSTRING_SETTING(realName, @"")};

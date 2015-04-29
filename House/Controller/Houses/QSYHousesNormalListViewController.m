@@ -953,4 +953,14 @@ static char PopViewKey;             //!<摇一摇view关联
     
 }
 
+#pragma mark - 重写返回事件
+- (void)gotoTurnBackAction
+{
+
+    ///回收所有弹框
+    [self hiddenAllPickerView];
+    [super gotoTurnBackAction];
+
+}
+
 @end

@@ -101,7 +101,7 @@
     tempModel.decoration = [QSCoreDataManager getHouseDecorationTypeWithKey:self.house.decoration_type];
     tempModel.decorationKey = self.house.decoration_type;
     
-    tempModel.fee = [QSCoreDataManager getHousePropertyManagementFeeValueWithKey:self.house.fee];
+    tempModel.fee = self.house.fee;
     tempModel.feeKey = self.house.fee;
     tempModel.title = self.house.title;
     tempModel.detailComment = self.house.introduce;
@@ -167,7 +167,7 @@
             [tempString deleteCharactersInRange:NSMakeRange(tempString.length - 1, 1)];
             
         }
-        tempModel.installationString = [NSString stringWithString:tempString];
+        tempModel.weekInfoString = [NSString stringWithString:tempString];
         
     }
     

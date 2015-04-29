@@ -38,6 +38,8 @@ typedef enum
 ///发布出租房时的暂存模型
 @property (nonatomic,retain) QSReleaseRentHouseDataModel *rentHouseReleaseModel;
 
+@property (nonatomic,unsafe_unretained) UITextField *feeField;//!<物业管理费输入框
+
 @end
 
 @implementation QSYReleaseRentHouseAddinfoViewController
@@ -154,7 +156,13 @@ typedef enum
     int index = [orderString intValue];
     
     ///显示信息栏
-    UITextField *tempTextField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andPlaceHolder:[tempDict valueForKey:@"placehold"] andLeftTipsInfo:[tempDict valueForKey:@"left_title"] andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:[[tempDict valueForKey:@"type"] intValue]];
+    UITextField *tempTextField = [UITextField
+                                  createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f + index * (8.0f + 44.0f), SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f)
+                                  andPlaceHolder:[tempDict valueForKey:@"placehold"]
+                                  andLeftTipsInfo:[tempDict valueForKey:@"left_title"]
+                                  andRightTipsInfo:[tempDict valueForKey:@"right_title"]
+                                  andLeftTipsTextAlignment:NSTextAlignmentCenter
+                                  andTextFieldStyle:[[tempDict valueForKey:@"type"] intValue]];
     tempTextField.font = [UIFont systemFontOfSize:FONT_BODY_16];
     tempTextField.delegate = self;
     [tempTextField setValue:[tempDict valueForKey:@"action_type"] forKey:@"customFlag"];
@@ -162,6 +170,13 @@ typedef enum
     if ([filterInfo length] > 0) {
         
         tempTextField.text = filterInfo;
+        
+    }
+    
+    ///保存地区和街道
+    if (rReleaseRentHouseAddinfoActionTypeFee == [[tempDict valueForKey:@"action_type"] intValue]) {
+        
+        self.feeField = tempTextField;
         
     }
     
@@ -173,6 +188,12 @@ typedef enum
 ///点击textField时的事件：不进入编辑模式，只跳转
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    
+    if ([self.feeField isFirstResponder]) {
+        
+        return NO;
+        
+    }
     
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];
@@ -368,32 +389,8 @@ typedef enum
         case rReleaseRentHouseAddinfoActionTypeFee:
         {
         
-            ///获取物业管理费选择项数组
-            NSArray *intentArray = [QSCoreDataManager getHousePropertyManagementFees];
-            
-            ///显示物业管理费选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.rentHouseReleaseModel.feeKey length] > 0 ? self.rentHouseReleaseModel.feeKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
-                
-                if (cCustomPopviewActionTypeSingleSelected == actionType) {
-                    
-                    QSBaseConfigurationDataModel *tempModel = params;
-                    
-                    ///拼装显示信息
-                    textField.text = tempModel.val;
-                    self.rentHouseReleaseModel.fee = tempModel.val;
-                    self.rentHouseReleaseModel.feeKey = tempModel.key;
-                    
-                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
-                    
-                    textField.text = nil;
-                    self.rentHouseReleaseModel.fee = nil;
-                    self.rentHouseReleaseModel.feeKey = nil;
-                    
-                }
-                
-            }];
-            
-            return NO;
+            textField.returnKeyType = UIReturnKeyDone;
+            return YES;
         
         }
             break;
@@ -418,6 +415,28 @@ typedef enum
     NSString *infoPath = [[NSBundle mainBundle] pathForResource:infoFileName ofType:PLIST_FILE_TYPE];
     return [NSDictionary dictionaryWithContentsOfFile:infoPath];
     
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+
+    int actionType = [[textField valueForKey:@"customFlag"] intValue];
+    if (rReleaseRentHouseAddinfoActionTypeFee == actionType &&
+        [textField.text length] > 0) {
+        
+        self.rentHouseReleaseModel.fee = textField.text;
+        self.rentHouseReleaseModel.feeKey = textField.text;
+        
+    }
+
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+    [textField resignFirstResponder];
+    return YES;
+
 }
 
 @end

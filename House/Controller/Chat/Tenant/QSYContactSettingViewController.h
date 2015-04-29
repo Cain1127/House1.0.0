@@ -16,6 +16,7 @@ typedef enum
     cContactSettingCallBackActionTypeDeleteContact,     //!<删除联系人
     cContactSettingCallBackActionTypeSetImport,         //!<设置为重点关注
     cContactSettingCallBackActionTypeSetUNImport,       //!<设置为非重点关注
+    cContactSettingCallBackActionTypeRemarkContact,     //!<备注联系人
 
 }CONTACT_SETTING_CALLBACK_ACTION_TYPE;
 

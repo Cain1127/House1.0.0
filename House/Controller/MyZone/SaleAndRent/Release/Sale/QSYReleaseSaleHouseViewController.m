@@ -172,47 +172,6 @@ typedef enum
         
     }
     
-    ///注册键盘弹出监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarShowAction:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboarHideAction:) name:UIKeyboardWillHideNotification object:nil];
-    
-}
-
-#pragma mark - 键盘弹出和回收
-- (void)keyboarShowAction:(NSNotification *)sender
-{
-
-    //上移：需要知道键盘高度和移动时间
-    CGRect keyBoardRect = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
-                              64.0f - keyBoardRect.size.height,
-                              self.pickedRootView.frame.size.width,
-                              self.pickedRootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.pickedRootView.frame = frame;
-        
-    }];
-
-}
-
-- (void)keyboarHideAction:(NSNotification *)sender
-{
-
-    NSTimeInterval anTime;
-    [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&anTime];
-    CGRect frame = CGRectMake(self.pickedRootView.frame.origin.x,
-                              64.0f,
-                              self.pickedRootView.frame.size.width,
-                              self.pickedRootView.frame.size.height);
-    [UIView animateWithDuration:anTime animations:^{
-        
-        self.pickedRootView.frame = frame;
-        
-    }];
-
 }
 
 #pragma mark - 创建右剪头控件
@@ -386,6 +345,25 @@ typedef enum
 ///点击textField时的事件：不进入编辑模式，只跳转
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    
+    ///判断当前输入框的编辑状态
+    if ([self.detailAddressField isFirstResponder]) {
+        
+        return NO;
+        
+    }
+    
+    if ([self.SalePriceField isFirstResponder]) {
+        
+        return NO;
+        
+    }
+    
+    if ([self.areaField isFirstResponder]) {
+        
+        return NO;
+        
+    }
     
     ///分发事件
     int actionType = [[textField valueForKey:@"customFlag"] intValue];

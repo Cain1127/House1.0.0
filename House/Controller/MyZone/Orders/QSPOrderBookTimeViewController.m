@@ -292,6 +292,12 @@
 {
     
     [super viewDidAppear:animated];
+    
+    if (self.calendarView) {
+        
+        [self.calendarView reloadData];
+        
+    }
     ///添加键盘缩放通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -462,7 +468,17 @@
     [tempParam setObject:[self.endHour stringByReplacingOccurrencesOfString:@" " withString:@"0"] forKey:@"appoint_end_time"];
     [tempParam setObject:self.personNameField.text forKey:@"buyer_name"];
     [tempParam setObject:self.phoneNumField.text forKey:@"buyer_phone"];
-    [tempParam setObject:@"500102" forKey:@"order_type"];
+    
+    if (self.houseType == fFilterMainTypeSecondHouse) {
+        
+        [tempParam setObject:@"500102" forKey:@"order_type"];
+        
+    }else if (self.houseType == fFilterMainTypeRentalHouse) {
+        
+        [tempParam setObject:@"500103" forKey:@"order_type"];
+        
+    }
+    
     [tempParam setObject:@"" forKey:@"source_ask_for_id"];
     [tempParam setObject:@"0" forKey:@"add_type"];
     
