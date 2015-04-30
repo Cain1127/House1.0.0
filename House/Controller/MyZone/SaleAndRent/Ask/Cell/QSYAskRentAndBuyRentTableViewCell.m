@@ -21,15 +21,13 @@
 ///关联
 static char HouseTagKey;    //!<房子左上角标识图片key
 static char AddressKey;     //!<地址key
-static char TargetKey;      //!<购房目的或者租金支付方式
+static char PaymentKey;     //!<购房目的或者租金支付方式
 static char HouseNumberKey; //!<房子的数量信息关闻
-static char PriceKey;       //!<金钱关联
-static char PriceUnitKey;   //!<金钱单位
+static char PriceKey;       //!<租金
 static char TradeTypeKey;   //!<物业类型
 static char DecorationKey;  //!<装修类型
 static char FaceKey;        //!<朝向类型
 static char FloorKey;       //!<楼层
-static char UserYearKey;    //!<房龄
 static char FeaturesKey;    //!<标签底view
 static char CommentKey;     //!<备注信息
 static char RecommendHouse; //!<推荐房源数量
@@ -89,7 +87,7 @@ static char BottomViewkey;  //!<脚功能区关联
     targetLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     targetLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:targetLabel];
-    objc_setAssociatedObject(self, &TargetKey, targetLabel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &PaymentKey, targetLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///总价-租金
     UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, targetLabel.frame.origin.y + targetLabel.frame.size.height + 10.0f, (rootView.frame.size.width - 8.0f) / 2.0f, 44.0f)];
@@ -110,9 +108,8 @@ static char BottomViewkey;  //!<脚功能区关联
     priceUnitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     priceUnitLabel.textColor = COLOR_CHARACTERS_BLACK;
     priceUnitLabel.textAlignment = NSTextAlignmentLeft;
-    priceUnitLabel.text = @"万";
+    priceUnitLabel.text = @"元以下";
     [priceRootView addSubview:priceUnitLabel];
-    objc_setAssociatedObject(self, &PriceUnitKey, priceUnitLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///几室几厅底
     UIView *houseNumRootView = [[UIView alloc] initWithFrame:CGRectMake(priceRootView.frame.origin.x + priceRootView.frame.size.width + 8.0f, priceRootView.frame.origin.y, priceRootView.frame.size.width, priceRootView.frame.size.height)];
@@ -196,24 +193,8 @@ static char BottomViewkey;  //!<脚功能区关联
     [rootView addSubview:floorInfoLabel];
     objc_setAssociatedObject(self, &FloorKey, floorInfoLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///房龄
-    UILabel *usedYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, floorLabel.frame.origin.y + floorLabel.frame.size.height + 5.0f, widthTitle, 15.0f)];
-    usedYearLabel.text  =@"房  龄";
-    usedYearLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-    usedYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    [rootView addSubview:usedYearLabel];
-    
-    ///内容项
-    UILabel *usedYearInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(usedYearLabel.frame.origin.x + usedYearLabel.frame.size.width + 5.0f, usedYearLabel.frame.origin.y, widthValue, 15.0f)];
-    usedYearInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
-    usedYearInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
-    usedYearInfoLabel.textAlignment = NSTextAlignmentLeft;
-    usedYearInfoLabel.adjustsFontSizeToFitWidth = YES;
-    [rootView addSubview:usedYearInfoLabel];
-    objc_setAssociatedObject(self, &UserYearKey, usedYearInfoLabel, OBJC_ASSOCIATION_ASSIGN);
-    
     ///标签
-    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, usedYearLabel.frame.origin.y + usedYearLabel.frame.size.height + 10.0f, rootView.frame.size.width, 20.0f)];
+    UIView *featuresRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, faceLabel.frame.origin.y + faceLabel.frame.size.height + 10.0f, rootView.frame.size.width, 20.0f)];
     [rootView addSubview:featuresRootView];
     objc_setAssociatedObject(self, &FeaturesKey, featuresRootView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -368,7 +349,7 @@ static char BottomViewkey;  //!<脚功能区关联
  *
  *  @since          1.0.0
  */
-- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isHidenSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType))callBack
+- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isShowSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType))callBack
 {
     
     ///保存回调
@@ -377,6 +358,9 @@ static char BottomViewkey;  //!<脚功能区关联
         self.askRentAndBuyCellCallBack = callBack;
         
     }
+    
+    ///设置按钮状态
+    [self updateButtonActionStatus:isShowSettingButton];
     
     ///地址信息
     [self updateHouseAddress:model.areaid andStreetKey:model.street];
@@ -393,9 +377,6 @@ static char BottomViewkey;  //!<脚功能区关联
     ///楼层
     [self updateHouseFloor:[QSCoreDataManager getHouseFloorTypeWithKey:model.floor_which]];
     
-    ///房龄
-    [self updateHouseUseYear:[QSCoreDataManager getHouseUsedYearTypeWithKey:model.used_year]];
-    
     ///备注信息
     [self updateCommentInfo:model.content];
     
@@ -410,19 +391,21 @@ static char BottomViewkey;  //!<脚功能区关联
         
         [self updateHouseTagImage:IMAGE_ZONE_ASK_TAG_RENT_ENTIRE];
         
-    }
-    
-    if (hHouseRenantPropertyTypeJoint == [model.rent_property intValue]) {
+    } else if (hHouseRenantPropertyTypeJoint == [model.rent_property intValue]) {
         
         [self updateHouseTagImage:IMAGE_ZONE_ASK_TAG_RENT_PARTNER];
         
+    } else {
+    
+        [self updateHouseTagImage:nil];
+    
     }
     
     ///更新租金支付方式
     [self updateRentPayType:[QSCoreDataManager getHouseRentTypeWithKey:model.payment]];
     
     ///更新价钱信息
-    [self updatePriceInfo:model.price AndUnit:@"元以下"];
+    [self updatePriceInfo:model.price];
     
     ///更新标签
     [self updateFeatures:model.features andHouseType:fFilterMainTypeRentalHouse];
@@ -564,29 +547,20 @@ static char BottomViewkey;  //!<脚功能区关联
     
 }
 
-///更新房龄
-- (void)updateHouseUseYear:(NSString *)useYear
-{
-    
-    UILabel *useYearLabel = objc_getAssociatedObject(self, &UserYearKey);
-    if (useYearLabel && useYear) {
-        
-        useYearLabel.text = useYear;
-        
-    }
-    
-}
-
 ///更新房子标识图片
 - (void)updateHouseTagImage:(NSString *)imageName
 {
     
     UIImageView *tagImageView = objc_getAssociatedObject(self, &HouseTagKey);
-    if (tagImageView && imageName) {
+    if (tagImageView && [imageName length] > 0) {
         
         tagImageView.image = [UIImage imageNamed:imageName];
         tagImageView.hidden = NO;
         
+    } else {
+    
+        tagImageView.hidden = YES;
+    
     }
     
 }
@@ -606,11 +580,11 @@ static char BottomViewkey;  //!<脚功能区关联
     
 }
 
-///更新购房目的或者租金支付方式
+///更新租金支付方式
 - (void)updateRentPayType:(NSString *)info
 {
     
-    UILabel *payTypeLabel = objc_getAssociatedObject(self, &TargetKey);
+    UILabel *payTypeLabel = objc_getAssociatedObject(self, &PaymentKey);
     if (payTypeLabel && info) {
         
         payTypeLabel.text = info;
@@ -643,7 +617,7 @@ static char BottomViewkey;  //!<脚功能区关联
 }
 
 ///更新金钱信息
-- (void)updatePriceInfo:(NSString *)priceString AndUnit:(NSString *)unitString
+- (void)updatePriceInfo:(NSString *)priceString
 {
     
     UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
@@ -651,13 +625,10 @@ static char BottomViewkey;  //!<脚功能区关联
         
         priceLabel.text = priceString;
         
-    }
+    } else {
     
-    UILabel *unitLabel = objc_getAssociatedObject(self, &PriceUnitKey);
-    if (unitLabel && unitString) {
-        
-        unitLabel.text = unitString;
-        
+        priceLabel.text = nil;
+    
     }
     
 }

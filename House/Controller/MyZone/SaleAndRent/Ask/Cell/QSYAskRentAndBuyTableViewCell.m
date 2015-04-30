@@ -21,10 +21,9 @@
 ///关联
 static char HouseTagKey;    //!<房子左上角标识图片key
 static char AddressKey;     //!<地址key
-static char TargetKey;      //!<购房目的或者租金支付方式
+static char TargetKey;      //!<购房目的
 static char HouseNumberKey; //!<房子的数量信息关闻
 static char PriceKey;       //!<金钱关联
-static char PriceUnitKey;   //!<金钱单位
 static char AreaKey;        //!<面积关联
 static char TradeTypeKey;   //!<物业类型
 static char DecorationKey;  //!<装修类型
@@ -34,8 +33,8 @@ static char UserYearKey;    //!<房龄
 static char FeaturesKey;    //!<标签底view
 static char CommentKey;     //!<备注信息
 static char RecommendHouse; //!<推荐房源数量
-static char SettingButton;  //!<设置按钮
 static char BottomViewkey;  //!<脚功能区关联
+static char SettingButton;  //!<设置按钮
 
 @interface QSYAskRentAndBuyTableViewCell ()
 
@@ -121,7 +120,6 @@ static char BottomViewkey;  //!<脚功能区关联
     priceUnitLabel.textAlignment = NSTextAlignmentLeft;
     priceUnitLabel.text = @"万";
     [priceRootView addSubview:priceUnitLabel];
-    objc_setAssociatedObject(self, &PriceUnitKey, priceUnitLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///面积
     UIView *areaRootView = [[UIView alloc] initWithFrame:CGRectMake(priceRootView.frame.origin.x + priceRootView.frame.size.width + 8.0f, priceRootView.frame.origin.y, priceRootView.frame.size.width, priceRootView.frame.size.height)];
@@ -315,7 +313,6 @@ static char BottomViewkey;  //!<脚功能区关联
     [settinButton setImage:[UIImage imageNamed:IMAGE_ZONE_ASK_SETTING_HIGHLIGHTED] forState:UIControlStateHighlighted];
     settinButton.selected = NO;
     [rootView addSubview:settinButton];
-    objc_setAssociatedObject(self, &SettingButton, settinButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
     UILabel *topLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, recommendHouseButton.frame.origin.y + recommendHouseButton.frame.size.height + 20.0f - 0.25f, rootView.frame.size.width, 0.25f)];
@@ -383,7 +380,7 @@ static char BottomViewkey;  //!<脚功能区关联
  *
  *  @since          1.0.0
  */
-- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isHidenSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType))callBack
+- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isShowSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType))callBack
 {
 
     ///保存回调
@@ -392,6 +389,9 @@ static char BottomViewkey;  //!<脚功能区关联
         self.askRentAndBuyCellCallBack = callBack;
         
     }
+    
+    ///设置按钮状态
+    [self updateButtonActionStatus:isShowSettingButton];
     
     ///地址信息
     [self updateHouseAddress:model.areaid andStreetKey:model.street];
@@ -420,7 +420,7 @@ static char BottomViewkey;  //!<脚功能区关联
     ///室厅信息更新
     [self updateHouseNumberInfo:model.house_shi andTingNum:model.house_ting];
     
-    ///更新面积:model.areaid
+    ///更新面积
     [self updateHouseArea:[QSCoreDataManager getHouseAreaTypeWithKey:model.areaid]];
     
     ///求租求购标识
@@ -429,8 +429,8 @@ static char BottomViewkey;  //!<脚功能区关联
     ///更新物业类型
     [self updateRentPayType:[QSCoreDataManager getPerpostPerchaseTypeWithKey:model.intent]];
     
-    ///更新价钱信息
-    [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",([model.price floatValue]) / 10000] AndUnit:@"万"];
+    ///更新售价
+    [self updatePriceInfo:[NSString stringWithFormat:@"%.0f",([model.price floatValue]) / 10000]];
     
     ///更新标签
     [self updateFeatures:model.features andHouseType:fFilterMainTypeSecondHouse];
@@ -651,7 +651,7 @@ static char BottomViewkey;  //!<脚功能区关联
 }
 
 ///更新金钱信息
-- (void)updatePriceInfo:(NSString *)priceString AndUnit:(NSString *)unitString
+- (void)updatePriceInfo:(NSString *)priceString
 {
 
     UILabel *priceLabel = objc_getAssociatedObject(self, &PriceKey);
@@ -659,13 +659,10 @@ static char BottomViewkey;  //!<脚功能区关联
         
         priceLabel.text = priceString;
         
-    }
+    } else {
     
-    UILabel *unitLabel = objc_getAssociatedObject(self, &PriceUnitKey);
-    if (unitLabel && unitString) {
-        
-        unitLabel.text = unitString;
-        
+        priceLabel.text = nil;
+    
     }
 
 }

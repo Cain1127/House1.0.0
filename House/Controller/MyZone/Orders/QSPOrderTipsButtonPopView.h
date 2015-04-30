@@ -25,7 +25,7 @@ typedef enum
     oOrderButtonTipsViewTypeSalerInputPrice = 101,          //!<业主输入房源出价
     oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice,   //!<业主/房客成交价格
     oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice,        //!<业主/房客接受房客还价
-    
+    oOrderButtonTipsViewTypeAcceptOrRejectAppointment,      //!<接受拒绝再预约
 }ORDER_BUTTON_TIPS_VIEW_TYPE;
 
 @interface QSPOrderTipsButtonPopView : UIView
@@ -70,6 +70,19 @@ typedef enum
  *  @return 业主/房客接受还价覆盖View界面
  */
 - (instancetype)initWithAcceptPriceVieWithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
+
+/**
+ *  初始化接受拒绝再预约覆盖View
+ *
+ *  @param 预约时间信息 预约时间提示信息
+ *  @param userType   对方用户身份
+ *  @param callBack   回调
+ *
+ *  @return 接受拒绝再预约覆盖View界面
+ */
+- (instancetype)initWithAcceptOrRejectAppointmentViewWithTip:(NSString*)tipInfo withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
 
 - (NSString*)getInputPrice;
 

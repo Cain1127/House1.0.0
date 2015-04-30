@@ -63,7 +63,7 @@ typedef enum
 + (instancetype)showCustomHUDWithTips:(NSString *)tips
 {
 
-    return [self showCustomHUDWithTips:tips andHeaderTips:@"准备加载……"];
+    return [self showCustomHUDWithTips:tips andHeaderTips:tips];
 
 }
 
@@ -98,7 +98,7 @@ typedef enum
             
             [hudView startCustomHUDAnimination];
             
-        }else{
+        } else {
             
             [hudView removeFromSuperview];
             
@@ -152,12 +152,22 @@ typedef enum
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)time
 {
 
-    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:(time > 0.5f ? time : 0.5f) andCallBack:nil];
+    [self hiddenCustomHUDWithFooterTips:footerTips andDelayTime:(time > 0.3f ? time : 0.3f) andCallBack:nil];
 
 }
 
 - (void)hiddenCustomHUDWithFooterTips:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    if (self.hudStatus == cCustomHUDStatusPrepareEnd) {
+        
+        
+        [self hiddenCustomHUDWhiteStatusEnd:footerTips andDelayTime:delayTime andCallBack:callBack];
+        
+        ///结束循环
+        return;
+        
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -165,7 +175,7 @@ typedef enum
             
             if (self.hudStatus == cCustomHUDStatusPrepareEnd) {
                 
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [self hiddenCustomHUDWhiteStatusEnd:footerTips andDelayTime:delayTime andCallBack:callBack];
                     
@@ -184,6 +194,9 @@ typedef enum
 
 - (void)hiddenCustomHUDWhiteStatusEnd:(NSString *)footerTips andDelayTime:(CGFloat)delayTime andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    ///重置延迟时间
+    CGFloat tempDelayTime = delayTime > 0.0f ? (delayTime < 15.0f ? delayTime : 1.0f) : 1.0f;
 
     ///判断是否有退出时的提示信息
     if (footerTips) {
@@ -191,7 +204,7 @@ typedef enum
         self.tipsLabel.text = footerTips;
         
         ///按给定的时间显示后移除
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(tempDelayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [UIView animateWithDuration:0.3 animations:^{
                 
@@ -215,7 +228,7 @@ typedef enum
     } else {
         
         ///按给定的时间显示后移除
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(tempDelayTime + 0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [UIView animateWithDuration:0.3 animations:^{
                 
@@ -248,6 +261,9 @@ typedef enum
         
         self.tipsLabel.text = self.headerTips;
         
+        ///H开启UD指示器
+        [self.indicatorView startAnimating];
+        
         ///0.3秒后显示主提示信息
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -256,7 +272,7 @@ typedef enum
             
         });
         
-        ///主信息显示0.3秒后，修改显示状态
+        ///主信息显示0.6秒后，修改显示状态
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             self.hudStatus = cCustomHUDStatusPrepareEnd;
@@ -268,6 +284,9 @@ typedef enum
         self.tipsLabel.text = self.mainTips;
         self.hudStatus = cCustomHUDStatusLoading;
         
+        ///H开启UD指示器
+        [self.indicatorView startAnimating];
+        
         ///主信息显示0.3秒后，修改显示状态
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
@@ -276,9 +295,6 @@ typedef enum
         });
     
     }
-    
-    ///H开启UD指示器
-    [self.indicatorView startAnimating];
 
 }
 

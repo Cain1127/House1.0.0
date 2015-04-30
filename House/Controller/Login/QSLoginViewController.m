@@ -278,7 +278,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 {
     
     ///显示HUD
-    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在登录"];
+    __block QSCustomHUDView *mbHUD = [QSCustomHUDView showCustomHUDWithTips:@"正在登录"];
     
     ///保存登录之前的用户类型
     __block USER_COUNT_TYPE originalType = [QSCoreDataManager getUserType];
@@ -295,7 +295,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             
             ///通过子线程提交收藏数据/分享数据
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
+            
                 ///修改用户登录状态
                 [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
                     
@@ -311,10 +311,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                 ///隐藏HUD
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     
-                                    ///重新发送上线
-                                    [QSSocketManager sendOnLineMessage];
-                                   
-                                    [hud hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                                    [mbHUD hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                                         
                                         ///新的用户类型
                                         USER_COUNT_TYPE newUserType = [userModel.user_type intValue];
@@ -346,7 +343,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                             
                                         } else {
                                             
-                                            ///新的用户类型和原用户类型相同，则直接返回上一级
+                                            ///新的用户类型为开发商
                                             if (uUserCountTypeDeveloper == newUserType) {
                                                 
                                                 ///进入开发商模型
@@ -393,6 +390,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                             
                                         }
                                         
+                                        ///重新发送上线
+                                        [QSSocketManager sendOnLineMessage];
+                                        
                                     }];
                                     
                                 });
@@ -406,7 +406,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 }];
                 
             });
-            
+        
             dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                
                 [self loadCollectedDataToServer];
@@ -423,7 +423,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             }
             
             ///显示提示信息
-            [hud hiddenCustomHUDWithFooterTips:tips andDelayTime:1.5f];
+            [mbHUD hiddenCustomHUDWithFooterTips:tips andDelayTime:1.5f];
             
             ///修改登录状态
             [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {

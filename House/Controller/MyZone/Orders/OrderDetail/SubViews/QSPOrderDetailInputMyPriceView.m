@@ -78,6 +78,17 @@
     return priceStr;
 }
 
+- (void)setPrice:(NSString*)priceStr
+{
+    
+    if (self.priceTextField) {
+        
+        [self.priceTextField setText:priceStr];
+        
+    }
+    
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)aTextfield {
     
     [aTextfield resignFirstResponder];

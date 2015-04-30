@@ -27,7 +27,6 @@
 		180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */; };
 		180CA3341ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */; };
 		180CA3371ADBA35800D42493 /* QSYToolQAADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */; };
-		180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */; };
 		180CA33D1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA33C1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m */; };
 		180CA3401ADCCA8600D42493 /* QSActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA33F1ADCCA8600D42493 /* QSActivityDetailViewController.m */; };
 		180CA3431ADCE3CF00D42493 /* QSSecondHandHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3421ADCE3CF00D42493 /* QSSecondHandHouseListView.m */; };
@@ -347,6 +346,12 @@
 		18B572B11AC16D1600C75682 /* wire_format.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18B572881AC16D1600C75682 /* wire_format.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B572B21AC16D1600C75682 /* wire_format_lite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18B5728A1AC16D1600C75682 /* wire_format_lite.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B972911AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972901AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m */; };
+		18B972A91AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B9729E1AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.m */; };
+		18B972AA1AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972A01AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.m */; };
+		18B972AB1AF1281F00652890 /* QSYContactComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972A21AF1281F00652890 /* QSYContactComplaintViewController.m */; };
+		18B972AC1AF1281F00652890 /* QSYContactRemarkSettinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972A41AF1281F00652890 /* QSYContactRemarkSettinViewController.m */; };
+		18B972AD1AF1281F00652890 /* QSYContactSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972A61AF1281F00652890 /* QSYContactSettingViewController.m */; };
+		18B972AE1AF1281F00652890 /* QSYTenantInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972A81AF1281F00652890 /* QSYTenantInfoViewController.m */; };
 		18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE12271A8862C20036245A /* QSChatContactsView.m */; };
 		18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE122A1A8862DB0036245A /* QSChatMessagesView.m */; };
 		18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122D1A8869760036245A /* calendar_left_arrow.png */; };
@@ -450,11 +455,8 @@
 		18D081D91ACE3854004FA20F /* QSYLoginTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081D81ACE3854004FA20F /* QSYLoginTipsPopView.m */; };
 		18D081DD1ACE44F6004FA20F /* QSYContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081DC1ACE44F6004FA20F /* QSYContactListTableViewCell.m */; };
 		18D081E01ACE68CF004FA20F /* NSString+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081DF1ACE68CF004FA20F /* NSString+Sort.m */; };
-		18D081E41ACE7C43004FA20F /* QSYTenantInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081E31ACE7C43004FA20F /* QSYTenantInfoViewController.m */; };
 		18D081EA1ACE7EFD004FA20F /* navigationbar_more_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D081E81ACE7EFD004FA20F /* navigationbar_more_highlighted.png */; };
 		18D081EB1ACE7EFD004FA20F /* navigationbar_more_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D081E91ACE7EFD004FA20F /* navigationbar_more_normal.png */; };
-		18D081EE1ACE7FFC004FA20F /* QSYContactSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081ED1ACE7FFC004FA20F /* QSYContactSettingViewController.m */; };
-		18D081F11ACE8170004FA20F /* QSYContactRemarkSettinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081F01ACE8170004FA20F /* QSYContactRemarkSettinViewController.m */; };
 		18D081F81ACE8728004FA20F /* QSYContactInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081F71ACE8728004FA20F /* QSYContactInfoView.m */; };
 		18D081FB1ACE95DF004FA20F /* QSYContactDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081FA1ACE95DF004FA20F /* QSYContactDetailReturnData.m */; };
 		18D081FE1ACE963D004FA20F /* QSYContactDetailInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D081FD1ACE963D004FA20F /* QSYContactDetailInfoModel.m */; };
@@ -885,8 +887,6 @@
 		180CA3331ADBA28F00D42493 /* QSYToolQuestionAndAnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQuestionAndAnswerViewController.m; path = Setting/QAA/QSYToolQuestionAndAnswerViewController.m; sourceTree = "<group>"; };
 		180CA3351ADBA35800D42493 /* QSYToolQAADetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYToolQAADetailViewController.h; path = Setting/QAA/QSYToolQAADetailViewController.h; sourceTree = "<group>"; };
 		180CA3361ADBA35800D42493 /* QSYToolQAADetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYToolQAADetailViewController.m; path = Setting/QAA/QSYToolQAADetailViewController.m; sourceTree = "<group>"; };
-		180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactComplaintViewController.h; path = Tenant/QSYContactComplaintViewController.h; sourceTree = "<group>"; };
-		180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactComplaintViewController.m; path = Tenant/QSYContactComplaintViewController.m; sourceTree = "<group>"; };
 		180CA33B1ADCCA3B00D42493 /* QSYHousesNormalListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYHousesNormalListViewController.h; sourceTree = "<group>"; };
 		180CA33C1ADCCA3B00D42493 /* QSYHousesNormalListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYHousesNormalListViewController.m; sourceTree = "<group>"; };
 		180CA33E1ADCCA8600D42493 /* QSActivityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSActivityDetailViewController.h; path = Detail/Activity/QSActivityDetailViewController.h; sourceTree = "<group>"; };
@@ -1368,6 +1368,18 @@
 		18B5728C1AC16D1600C75682 /* wire_format_lite_inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wire_format_lite_inl.h; sourceTree = "<group>"; };
 		18B9728F1AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYAskRentAndBuyRentTableViewCell.h; sourceTree = "<group>"; };
 		18B972901AF0013300652890 /* QSYAskRentAndBuyRentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYAskRentAndBuyRentTableViewCell.m; sourceTree = "<group>"; };
+		18B9729D1AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYTenantAskRentAndBuyBuyTableViewCell.h; sourceTree = "<group>"; };
+		18B9729E1AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYTenantAskRentAndBuyBuyTableViewCell.m; sourceTree = "<group>"; };
+		18B9729F1AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYTenantAskRentAndBuyRentTableViewCell.h; sourceTree = "<group>"; };
+		18B972A01AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYTenantAskRentAndBuyRentTableViewCell.m; sourceTree = "<group>"; };
+		18B972A11AF1281F00652890 /* QSYContactComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYContactComplaintViewController.h; sourceTree = "<group>"; };
+		18B972A21AF1281F00652890 /* QSYContactComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactComplaintViewController.m; sourceTree = "<group>"; };
+		18B972A31AF1281F00652890 /* QSYContactRemarkSettinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYContactRemarkSettinViewController.h; sourceTree = "<group>"; };
+		18B972A41AF1281F00652890 /* QSYContactRemarkSettinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactRemarkSettinViewController.m; sourceTree = "<group>"; };
+		18B972A51AF1281F00652890 /* QSYContactSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYContactSettingViewController.h; sourceTree = "<group>"; };
+		18B972A61AF1281F00652890 /* QSYContactSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactSettingViewController.m; sourceTree = "<group>"; };
+		18B972A71AF1281F00652890 /* QSYTenantInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYTenantInfoViewController.h; sourceTree = "<group>"; };
+		18B972A81AF1281F00652890 /* QSYTenantInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYTenantInfoViewController.m; sourceTree = "<group>"; };
 		18BE12261A8862C20036245A /* QSChatContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatContactsView.h; path = Contact/QSChatContactsView.h; sourceTree = "<group>"; };
 		18BE12271A8862C20036245A /* QSChatContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatContactsView.m; path = Contact/QSChatContactsView.m; sourceTree = "<group>"; };
 		18BE12291A8862DB0036245A /* QSChatMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessagesView.h; path = Message/QSChatMessagesView.h; sourceTree = "<group>"; };
@@ -1554,14 +1566,8 @@
 		18D081DC1ACE44F6004FA20F /* QSYContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactListTableViewCell.m; path = Message/QSYContactListTableViewCell.m; sourceTree = "<group>"; };
 		18D081DE1ACE68CF004FA20F /* NSString+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Sort.h"; sourceTree = "<group>"; };
 		18D081DF1ACE68CF004FA20F /* NSString+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sort.m"; sourceTree = "<group>"; };
-		18D081E21ACE7C43004FA20F /* QSYTenantInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYTenantInfoViewController.h; path = Tenant/QSYTenantInfoViewController.h; sourceTree = "<group>"; };
-		18D081E31ACE7C43004FA20F /* QSYTenantInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTenantInfoViewController.m; path = Tenant/QSYTenantInfoViewController.m; sourceTree = "<group>"; };
 		18D081E81ACE7EFD004FA20F /* navigationbar_more_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_more_highlighted.png; sourceTree = "<group>"; };
 		18D081E91ACE7EFD004FA20F /* navigationbar_more_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationbar_more_normal.png; sourceTree = "<group>"; };
-		18D081EC1ACE7FFC004FA20F /* QSYContactSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactSettingViewController.h; path = Tenant/QSYContactSettingViewController.h; sourceTree = "<group>"; };
-		18D081ED1ACE7FFC004FA20F /* QSYContactSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactSettingViewController.m; path = Tenant/QSYContactSettingViewController.m; sourceTree = "<group>"; };
-		18D081EF1ACE8170004FA20F /* QSYContactRemarkSettinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactRemarkSettinViewController.h; path = Tenant/QSYContactRemarkSettinViewController.h; sourceTree = "<group>"; };
-		18D081F01ACE8170004FA20F /* QSYContactRemarkSettinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYContactRemarkSettinViewController.m; path = Tenant/QSYContactRemarkSettinViewController.m; sourceTree = "<group>"; };
 		18D081F61ACE8728004FA20F /* QSYContactInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYContactInfoView.h; sourceTree = "<group>"; };
 		18D081F71ACE8728004FA20F /* QSYContactInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYContactInfoView.m; sourceTree = "<group>"; };
 		18D081F91ACE95DF004FA20F /* QSYContactDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYContactDetailReturnData.h; path = Contact/QSYContactDetailReturnData.h; sourceTree = "<group>"; };
@@ -3106,9 +3112,9 @@
 		189300AB1A690C880081D0AA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18B9729B1AF1281F00652890 /* Tenant */,
 				180CA3181ADB95AB00D42493 /* Setting */,
 				CE20B87D1AD260130057BFF2 /* Calculator */,
-				18D081E11ACE7B5A004FA20F /* Tenant */,
 				18DFE8E31AC9A25C00C216C3 /* Talk */,
 				18DFE8DF1AC9971A00C216C3 /* Call */,
 				18DFE8D71AC9903C00C216C3 /* Owner */,
@@ -4155,6 +4161,33 @@
 			path = testing;
 			sourceTree = "<group>";
 		};
+		18B9729B1AF1281F00652890 /* Tenant */ = {
+			isa = PBXGroup;
+			children = (
+				18B9729C1AF1281F00652890 /* Cell */,
+				18B972A11AF1281F00652890 /* QSYContactComplaintViewController.h */,
+				18B972A21AF1281F00652890 /* QSYContactComplaintViewController.m */,
+				18B972A31AF1281F00652890 /* QSYContactRemarkSettinViewController.h */,
+				18B972A41AF1281F00652890 /* QSYContactRemarkSettinViewController.m */,
+				18B972A51AF1281F00652890 /* QSYContactSettingViewController.h */,
+				18B972A61AF1281F00652890 /* QSYContactSettingViewController.m */,
+				18B972A71AF1281F00652890 /* QSYTenantInfoViewController.h */,
+				18B972A81AF1281F00652890 /* QSYTenantInfoViewController.m */,
+			);
+			path = Tenant;
+			sourceTree = "<group>";
+		};
+		18B9729C1AF1281F00652890 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18B9729D1AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.h */,
+				18B9729E1AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.m */,
+				18B9729F1AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.h */,
+				18B972A01AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		18BE12241A8862690036245A /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -4908,21 +4941,6 @@
 				18D081D81ACE3854004FA20F /* QSYLoginTipsPopView.m */,
 			);
 			name = Login;
-			sourceTree = "<group>";
-		};
-		18D081E11ACE7B5A004FA20F /* Tenant */ = {
-			isa = PBXGroup;
-			children = (
-				18D081E21ACE7C43004FA20F /* QSYTenantInfoViewController.h */,
-				18D081E31ACE7C43004FA20F /* QSYTenantInfoViewController.m */,
-				18D081EC1ACE7FFC004FA20F /* QSYContactSettingViewController.h */,
-				18D081ED1ACE7FFC004FA20F /* QSYContactSettingViewController.m */,
-				18D081EF1ACE8170004FA20F /* QSYContactRemarkSettinViewController.h */,
-				18D081F01ACE8170004FA20F /* QSYContactRemarkSettinViewController.m */,
-				180CA3381ADBBA5600D42493 /* QSYContactComplaintViewController.h */,
-				180CA3391ADBBA5600D42493 /* QSYContactComplaintViewController.m */,
-			);
-			name = Tenant;
 			sourceTree = "<group>";
 		};
 		18D081F51ACE8728004FA20F /* Contact */ = {
@@ -6852,6 +6870,7 @@
 				180D27501AEE44AE0077BDE8 /* QSYSystemMessageReturnData.m in Sources */,
 				18E802261A6FD07B00CA21D4 /* QSCoreDataManager+App.m in Sources */,
 				184366B31ABA5EE800A81374 /* QSYMyHistoryViewController.m in Sources */,
+				18B972AB1AF1281F00652890 /* QSYContactComplaintViewController.m in Sources */,
 				18B572AA1AC16D1600C75682 /* structurally_valid.cc in Sources */,
 				18C8A0BD1A6A373A00BB9611 /* QSImageView.m in Sources */,
 				18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */,
@@ -6875,7 +6894,6 @@
 				47A2076C1AB7E46000F51797 /* FSCalendarCell.m in Sources */,
 				18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */,
 				475A4D701AC53723009881CF /* QSPOrderDetailMyPriceView.m in Sources */,
-				18D081EE1ACE7FFC004FA20F /* QSYContactSettingViewController.m in Sources */,
 				475A4D591AC401F7009881CF /* QSPSalerTransactionOrderListViewController.m in Sources */,
 				18D081501ACB9B6D004FA20F /* QSYSendMessageBaseModel.m in Sources */,
 				475A4DA31AC5396E009881CF /* QSPOrderDetailChangeAppointmentButtonView.m in Sources */,
@@ -6889,12 +6907,12 @@
 				18F5E0B01ADE0F2800DA927E /* QSCustomAnnotationView.m in Sources */,
 				1815241E1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m in Sources */,
 				CE52101C1ACE799D00D6230B /* QSHouseCommentDataModel.m in Sources */,
+				18B972AC1AF1281F00652890 /* QSYContactRemarkSettinViewController.m in Sources */,
 				18B5631B1A81AA40009779A0 /* QSDistrictPickerView.m in Sources */,
 				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
 				183572001AD608C400A29607 /* QSYMessagePictureTableViewCell.m in Sources */,
 				18B572951AC16D1600C75682 /* extension_set_heavy.cc in Sources */,
 				18D081AA1ACD51EC004FA20F /* QSYReleaseRentHouseImageViewController.m in Sources */,
-				18D081F11ACE8170004FA20F /* QSYContactRemarkSettinViewController.m in Sources */,
 				184366CC1ABA82E700A81374 /* QSCDCollectedCommunityHouseDataModel.m in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
 				CEA0871F1ACBC35800D6C7D1 /* QSNearInfoViewController.m in Sources */,
@@ -6933,6 +6951,7 @@
 				18AFA9F21AB687A100681071 /* QSYRegistSetPasswordViewController.m in Sources */,
 				CE2029871AE2034C00E78CEF /* QSCDCollectedCommunityRentHouseDataModel.m in Sources */,
 				18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */,
+				18B972A91AF1281F00652890 /* QSYTenantAskRentAndBuyBuyTableViewCell.m in Sources */,
 				18F5E0D81ADE5B7A00DA927E /* QSYRecommendTenantListReturnData.m in Sources */,
 				475A4D441AC3E65A009881CF /* QSPSalerBookedOrdersListsViewController.m in Sources */,
 				CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */,
@@ -6964,6 +6983,7 @@
 				CE47074E1ADF51D100AD59E4 /* QSWDeveloperBuildingsViewController.m in Sources */,
 				CE391F7B1ACA387000C298D7 /* QSSignUpViewController.m in Sources */,
 				478645E21AC8E6DA00B41F0F /* QSPSalerTransactionBookedOrderLIstHeaderView.m in Sources */,
+				18B972AA1AF1281F00652890 /* QSYTenantAskRentAndBuyRentTableViewCell.m in Sources */,
 				475A4D301AC3E65A009881CF /* QSPBuyerTransactionOrderListPendingView.m in Sources */,
 				18DFE8631AC6B40600C216C3 /* QSYHistoryRentHouseList.m in Sources */,
 				18CAFCE81A720EEE00C90C90 /* QSFilterViewController.m in Sources */,
@@ -7009,7 +7029,6 @@
 				18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */,
 				475A4D971AC5392D009881CF /* QSPOrderDetailChangeOrderButtonView.m in Sources */,
 				CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */,
-				18D081E41ACE7C43004FA20F /* QSYTenantInfoViewController.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
 				180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */,
 				478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */,
@@ -7040,7 +7059,6 @@
 				477B32771AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.m in Sources */,
 				CE47074A1ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
-				180CA33A1ADBBA5600D42493 /* QSYContactComplaintViewController.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */,
 				18F5E0D31ADE5B3200DA927E /* QSYMyzoneStatisticsReturnData.m in Sources */,
@@ -7109,6 +7127,7 @@
 				18F5E0BF1ADE0FC600DA927E /* QSYSearchNewHouseList.m in Sources */,
 				18EDA5361ABB229A0024EEAF /* QSYShareChoicesView.m in Sources */,
 				18F5E0BC1ADE0FB200DA927E /* QSYSearchCommunityList.m in Sources */,
+				18B972AD1AF1281F00652890 /* QSYContactSettingViewController.m in Sources */,
 				18F99AD61A733AA000098FD6 /* QSTextField.m in Sources */,
 				18B572A51AC16D1600C75682 /* atomicops_internals_x86_gcc.cc in Sources */,
 				18AFA9E01AB3F07D00681071 /* QSCDUserDataModel.m in Sources */,
@@ -7145,6 +7164,7 @@
 				18DFE8E21AC9973A00C216C3 /* QSYCallTipsPopView.m in Sources */,
 				475A4D821AC537B7009881CF /* QSPOrderDetailCommentNoteTipsView.m in Sources */,
 				18AFA9D11AB2F4C300681071 /* QSNetworkVerticalCodeView.m in Sources */,
+				18B972AE1AF1281F00652890 /* QSYTenantInfoViewController.m in Sources */,
 				18B572931AC16D1600C75682 /* dynamic_message.cc in Sources */,
 				478645F71ACE2A8B00B41F0F /* QSPOrderDetalSubBaseView.m in Sources */,
 				18F5E0B31ADE0F2800DA927E /* QSHouseKeySearchViewController.m in Sources */,

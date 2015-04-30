@@ -13,4 +13,6 @@
 - (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withRemarkTip:(NSString*)tipStr;
 - (instancetype)initWithFrame:(CGRect)frame withRemarkTip:(NSString*)tipStr;
 
+- (void)setTitleTip:(NSString*)titleTip;
+
 @end

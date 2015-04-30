@@ -33,7 +33,7 @@ typedef enum
  *
  *  @since          1.0.0
  */
-- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isHidenSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType))callBack;
+- (void)updateAskRentAndBuyInfoCellUI:(QSYAskRentAndBuyDataModel *)model andSettingButtonStatus:(BOOL)isShowSettingButton andCallBack:(void(^)(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType))callBack;
 
 /**
  *  @author         yangshengmeng, 15-04-05 18:04:13

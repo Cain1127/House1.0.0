@@ -893,7 +893,7 @@ static char UserNameKey;    //!<用户名
         self.isRefreshing = YES;
         
         ///显示HUD
-        __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+        __block QSCustomHUDView *mbHUD = [QSCustomHUDView showCustomHUDWithTips:@"正在加载"];
         
         ///获取用户信息
         self.userInfoData = [QSCoreDataManager getCurrentUserDataModel];
@@ -904,7 +904,7 @@ static char UserNameKey;    //!<用户名
             ///请求成功
             if (rRequestResultTypeSuccess == resultStatus) {
                 
-                [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                [mbHUD hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                     
                     ///刷新UI
                     self.statisticsData = resultData;
@@ -922,7 +922,7 @@ static char UserNameKey;    //!<用户名
                     tipsString = [resultData valueForKey:@"info"];
                     
                 }
-                [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+                [mbHUD hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
                 self.isRefreshing = NO;
                 
             }

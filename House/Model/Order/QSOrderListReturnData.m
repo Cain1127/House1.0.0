@@ -150,14 +150,14 @@
 }
 
 //获取订单列表房源标题下方第一个Label显示的名字身份简介字符串
-- (NSString*)getPersonInfoOnCellString
+- (NSString*)getPersonInfoOnCellStringWithSelectIndex:(NSInteger)index
 {
     
     NSString *personName = @"";
     
-    if (self.orderInfoList&&[self.orderInfoList count]>0) {
+    if (self.orderInfoList&&[self.orderInfoList count]>index) {
         
-        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:0];
+        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:index];
         if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
             if (orderInfoData.order_status&&[orderInfoData.order_status isKindOfClass:[NSString class]]) {
                 
@@ -208,14 +208,14 @@
 }
 
 //获取订单列表房源标题下方第二个Label显示的时间价格等简介字符串
-- (NSAttributedString*)getSummaryOnCellAttributedString
+- (NSAttributedString*)getSummaryOnCellAttributedStringWithSelectIndex:(NSInteger)index
 {
     
     NSAttributedString *summaryString = nil;
     
     if (self.orderInfoList&&[self.orderInfoList count]>0) {
         
-        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:0];
+        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:index];
         if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
             if (orderInfoData.order_status&&[orderInfoData.order_status isKindOfClass:[NSString class]]) {
                 

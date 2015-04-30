@@ -22,6 +22,9 @@
 @property (nonatomic,strong) NSString *housePrice;
 @property (nonatomic,assign) USER_COUNT_TYPE userType;
 
+@property (nonatomic,strong) NSString *tipStr;
+
+@property (nonatomic,assign) BOOL clickBgToCloseFlag;
 
 @end
 
@@ -46,8 +49,14 @@
             
         }
         
-        [self hideView];
+        if (self.clickBgToCloseFlag) {
+            
+            [self hideView];
+            
+        }
+        
     }];
+    
     [bgBt setTag:_viewType];
     [self addSubview:bgBt];
     
@@ -195,6 +204,23 @@
             
         }
             break;
+        case oOrderButtonTipsViewTypeAcceptOrRejectAppointment:
+        {
+            //修改白色背景高度
+            CGFloat contentHeight = 180.0f;
+            [self.contentBackgroundView setFrame:CGRectMake(self.contentBackgroundView.frame.origin.x, SIZE_DEVICE_HEIGHT - contentHeight, self.contentBackgroundView.frame.size.width, contentHeight)];
+            
+            ///预约时间信息
+            UILabel *priceTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 32.0f, self.frame.size.width, 60.0f)];
+            priceTipLabel.textAlignment = NSTextAlignmentCenter;
+            priceTipLabel.numberOfLines = 0;
+            priceTipLabel.textColor = COLOR_CHARACTERS_BLACK;
+            priceTipLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+            priceTipLabel.text = self.tipStr;
+            [self.contentBackgroundView addSubview:priceTipLabel];
+            
+        }
+            break;
         default:
             break;
     }
@@ -206,6 +232,10 @@
     ///取消按钮
     QSBlockButtonStyleModel *cancelButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerLightYellow];
     cancelButtonStyle.title = @"取消";
+    
+    if (oOrderButtonTipsViewTypeAcceptOrRejectAppointment == _viewType) {
+        cancelButtonStyle.title = @"拒绝预约";
+    }
     
     UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, self.contentBackgroundView.frame.size.height-VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP-VIEW_SIZE_NORMAL_BUTTON_HEIGHT, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
         
@@ -228,6 +258,8 @@
     
     if (oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice == _viewType) {
         confirmButtonStyle.title = @"成交";
+    }else if (oOrderButtonTipsViewTypeAcceptOrRejectAppointment == _viewType) {
+        confirmButtonStyle.title = @"接受预约";
     }
     
     UIButton *confirmButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width / 2.0f + 4.0f, cancelButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:confirmButtonStyle andCallBack:^(UIButton *button) {
@@ -270,6 +302,7 @@
         self.houseTitle = houseTitle;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
         self.userType = userType;
+        self.clickBgToCloseFlag = YES;
         
         ///搭建UI
         [self createTipAndButtonsUI];
@@ -298,6 +331,7 @@
         self.houseTitle = houseTitle;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
         self.userType = userType;
+        self.clickBgToCloseFlag = YES;
         
         ///搭建UI
         [self createTipAndButtonsUI];
@@ -325,6 +359,36 @@
         _viewType = oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice;
         self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
         self.userType = userType;
+        self.clickBgToCloseFlag = YES;
+        
+        ///搭建UI
+        [self createTipAndButtonsUI];
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.buttonTipsCallBack = callBack;
+            
+        }
+        
+    }
+    
+    return self;
+    
+}
+
+- (instancetype)initWithAcceptOrRejectAppointmentViewWithTip:(NSString*)tipInfo withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+{
+    
+    if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
+        
+        ///背景颜色
+        self.backgroundColor = [UIColor clearColor];
+        
+        _viewType = oOrderButtonTipsViewTypeAcceptOrRejectAppointment;
+        self.tipStr = tipInfo;
+        self.userType = userType;
+        self.clickBgToCloseFlag = NO;
         
         ///搭建UI
         [self createTipAndButtonsUI];
@@ -351,6 +415,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         _viewType = viewType;
+        self.clickBgToCloseFlag = YES;
         
         ///搭建UI
         [self createTipAndButtonsUI];

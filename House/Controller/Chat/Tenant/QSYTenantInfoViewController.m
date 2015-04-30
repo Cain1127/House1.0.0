@@ -11,8 +11,8 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYContactSettingViewController.h"
 
-#import "QSYAskRentAndBuyRentTableViewCell.h"
-#import "QSYAskRentAndBuyTableViewCell.h"
+#import "QSYTenantAskRentAndBuyRentTableViewCell.h"
+#import "QSYTenantAskRentAndBuyBuyTableViewCell.h"
 #import "QSYContactInfoView.h"
 #import "QSYContactOrderInfoView.h"
 #import "QSYContactAppointmentCreditInfoView.h"
@@ -316,7 +316,7 @@
         
     }
     
-    return 332.0f + 44.0f;
+    return 332.0f;
     
 }
 
@@ -508,17 +508,17 @@
     if ([tempModel.type intValue] == 1) {
         
         static NSString *normalCell = @"askRentHouseCell";
-        QSYAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+        QSYTenantAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
         if (nil == cellNormal) {
             
-            cellNormal = [[QSYAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+            cellNormal = [[QSYTenantAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
             cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
             cellNormal.backgroundColor = [UIColor whiteColor];
             
         }
         
         ///刷新UI
-        [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
+        [cellNormal updateTenantAskRentAndBuyInfoCellUI:tempModel andCallBack:^(TENANT_ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
             
             
             
@@ -530,16 +530,16 @@
     
     ///求租求购列表
     static NSString *normalCell = @"askBuyHouseCell";
-    QSYAskRentAndBuyTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+    QSYTenantAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
     if (nil == cellNormal) {
         
-        cellNormal = [[QSYAskRentAndBuyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+        cellNormal = [[QSYTenantAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
         cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     
     ///刷新UI
-    [cellNormal updateAskRentAndBuyInfoCellUI:tempModel andSettingButtonStatus:(indexPath.row == self.releaseIndex) andCallBack:^(ASK_RENTANDBUY_CELL_ACTION_TYPE actionType) {
+    [cellNormal updateTenantAskRentAndBuyInfoCellUI:tempModel andCallBack:^(TENANT_ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
         
         
         
