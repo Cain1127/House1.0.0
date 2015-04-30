@@ -1138,7 +1138,7 @@
     
     comparisonModel.houseID = rentModel.house.id_;
     comparisonModel.communityName = rentModel.house.village_name;
-    comparisonModel.score = @"8";
+    comparisonModel.score = [NSString stringWithFormat:@"%.1f",[rentModel.house.tj_condition floatValue] + [rentModel.house.tj_environment floatValue]];
     comparisonModel.districe = [QSCoreDataManager getDistrictValWithDistrictKey:rentModel.house.areaid];
     comparisonModel.street = [QSCoreDataManager getStreetValWithStreetKey:rentModel.house.street];
     comparisonModel.address = rentModel.house.address;
@@ -1174,7 +1174,7 @@
     
     comparisonModel.houseID = rentModel.house.id_;
     comparisonModel.communityName = rentModel.house.village_name;
-    comparisonModel.score = @"7";
+    comparisonModel.score = [NSString stringWithFormat:@"%.1f",[rentModel.house.tj_condition floatValue] + [rentModel.house.tj_environment floatValue]];
     comparisonModel.districe = [QSCoreDataManager getDistrictValWithDistrictKey:rentModel.house.areaid];
     comparisonModel.street = [QSCoreDataManager getStreetValWithStreetKey:rentModel.house.street];
     comparisonModel.address = rentModel.house.address;
@@ -1185,7 +1185,7 @@
     comparisonModel.lift = [rentModel.house.elevator isEqualToString:@"Y"] ? @"有电梯" : @"无电梯";
     
     ///总价
-    CGFloat totalPrice = [rentModel.house.house_area floatValue] * [rentModel.house.price_avg floatValue];
+    CGFloat totalPrice = [rentModel.house.house_price floatValue];
     
     ///代款利率
     CGFloat monthRate = 0.46;
