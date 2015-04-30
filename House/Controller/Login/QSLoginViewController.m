@@ -310,7 +310,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                 
                                 ///隐藏HUD
                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                    
+                                
                                     [mbHUD hiddenCustomHUDWithFooterTips:@"登录成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                                         
                                         ///新的用户类型
@@ -396,7 +396,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                     }];
                                     
                                 });
-                                
+                             
                             }];
                             
                         }];

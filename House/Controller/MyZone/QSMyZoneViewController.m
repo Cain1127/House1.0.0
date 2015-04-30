@@ -54,7 +54,6 @@ static char UserNameKey;    //!<用户名
 @property (nonatomic,assign) USER_COUNT_TYPE userType;  //!<用户类型
 @property (nonatomic,strong) QSScrollView *rootView;    //!<所有信息的底view
 @property (nonatomic,copy) NSString *is_release;        //!<是否是指引页进入发布房源
-@property (assign) BOOL isRefreshing;                   //!<当前是否处于刷新状态
 @property (assign) BOOL isNeedRefresh;                  //!<是否需要刷新
 
 ///个人中心右上角系统消息数量提示
@@ -883,15 +882,7 @@ static char UserNameKey;    //!<用户名
 
     ///已经登录，才请求数据
     if (lLoginCheckActionTypeLogined == [self checkLogin]) {
-        
-        if (self.isRefreshing) {
-            
-            return;
-            
-        }
-        
-        self.isRefreshing = YES;
-        
+
         ///显示HUD
         __block QSCustomHUDView *mbHUD = [QSCustomHUDView showCustomHUDWithTips:@"正在加载"];
         
@@ -909,7 +900,6 @@ static char UserNameKey;    //!<用户名
                     ///刷新UI
                     self.statisticsData = resultData;
                     [self updateMyzoneUIWithLoginData];
-                    self.isRefreshing = NO;
                     
                 }];
                 
@@ -923,7 +913,6 @@ static char UserNameKey;    //!<用户名
                     
                 }
                 [mbHUD hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
-                self.isRefreshing = NO;
                 
             }
             
@@ -934,7 +923,6 @@ static char UserNameKey;    //!<用户名
         self.userInfoData = nil;
         self.statisticsData = nil;
         [self updateMyzoneUIWithLoginData];
-        self.isRefreshing = NO;
     
     }
 
@@ -1036,11 +1024,15 @@ static char UserNameKey;    //!<用户名
         
     }];
     
-    ///判断是否需要主动发起刷新
     if (self.isNeedRefresh) {
         
-        [self getMyZoneCalculationData];
         self.isNeedRefresh = NO;
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self getMyZoneCalculationData];
+            
+        });
         
     }
     

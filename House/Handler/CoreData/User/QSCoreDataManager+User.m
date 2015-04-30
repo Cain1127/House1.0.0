@@ -121,8 +121,6 @@
 
 + (void)logoutCurrentUserCount:(void(^)(BOOL isLogout))callBack
 {
-    
-    
 
     ///退出登录状态
     [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
