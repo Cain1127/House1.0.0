@@ -393,7 +393,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     UILabel *infoLabel = objc_getAssociatedObject(self, &infoLabelKey);
     if (infoLabel) {
-        [infoLabel setText:@""];
+        [infoLabel setAttributedText:nil];
     }
     
     UIButton *rightBt = objc_getAssociatedObject(self, &rightActionBtKey);
@@ -484,7 +484,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     if (infoLabel) {
       
-        [infoLabel setAttributedText:[self.orderData getSummaryOnCellAttributedString]];
+        [infoLabel setAttributedText:[self.orderData getSummaryOnCellAttributedStringWithSelectIndex:_selectedIndex]];
         
     }
     
@@ -937,6 +937,27 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
         })
         return;
+    }
+    
+    NSString *housePrice = @"";
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            housePrice = self.orderData.houseData.house_price;
+            
+        }
+    }
+    
+    if (housePrice.floatValue<priceStr.floatValue*10000) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入小于房价的金额", 1.0f, ^(){
+            
+        })
+        
+        return;
+        
     }
     
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];

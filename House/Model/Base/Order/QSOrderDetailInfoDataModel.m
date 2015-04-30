@@ -264,10 +264,23 @@
     USER_COUNT_TYPE userType = [self getUserType];
     
     NSString *salerPriceStr = itemData.saler_bid;//@"290";
+    if ([salerPriceStr isEqualToString:@"-1"]) {
+        salerPriceStr = @"拒绝还价";
+    }
     if (salerPriceStr) {
-        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        //判断是不是数字
+        NSScanner* scan = [NSScanner scannerWithString:salerPriceStr];
+        float val;
+        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+        
+        if (flag) {
+            
+            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
+        
     }
     
     NSString *buyerPriceStr = itemData.buyer_bid;//@"310";
@@ -298,40 +311,87 @@
     
     NSString *myPriceInfoString = nil;
     
-    if (myPriceStr && ![myPriceStr isEqualToString:@""] && ![myPriceStr isEqualToString:@"0"]) {
+    if (myPriceStr && ![myPriceStr isEqualToString:@""]) {
         
-        myPriceInfoString = [NSString stringWithFormat:@"我的出价%@万",myPriceStr];
+        //判断是不是数字
+        NSScanner* scan = [NSScanner scannerWithString:myPriceStr];
+        float val;
+        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
         
-        itemInfoString = [[NSMutableAttributedString alloc] initWithString:myPriceInfoString];
-        
-        [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, itemInfoString.length)];
-        
-        [itemInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, itemInfoString.length)];
-        
-        [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(4, myPriceStr.length)];
-        
+        if (flag) {
+            
+            myPriceInfoString = [NSString stringWithFormat:@"我的出价%@万",myPriceStr];
+            
+            itemInfoString = [[NSMutableAttributedString alloc] initWithString:myPriceInfoString];
+            
+            [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, itemInfoString.length)];
+            
+            [itemInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, itemInfoString.length)];
+            
+            [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(4, myPriceStr.length)];
+            
+        }else {
+            
+            myPriceInfoString = [NSString stringWithFormat:@"我%@",myPriceStr];
+            
+            itemInfoString = [[NSMutableAttributedString alloc] initWithString:myPriceInfoString];
+            
+            [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, itemInfoString.length)];
+            
+            [itemInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, itemInfoString.length)];
+            
+        }
         
     }
     
-    if (otherPriceStr && ![otherPriceStr isEqualToString:@""] && ![otherPriceStr isEqualToString:@"0"]) {
+    if (otherPriceStr && ![otherPriceStr isEqualToString:@""]) {
         
-        NSString *otherPriceString = [NSString stringWithFormat:@"%@还价%@万",userTypeStr,otherPriceStr];
-        NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
+        //判断是不是数字
+        NSScanner* scan = [NSScanner scannerWithString:otherPriceStr];
+        float val;
+        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
         
-        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];
-        
-        [otherPriceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, otherPriceInfoString.length)];
-        
-        [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(2+userTypeStr.length, otherPriceStr.length)];
-        
-        if (itemInfoString) {
+        if (flag) {
             
-            [itemInfoString appendAttributedString:[[NSAttributedString alloc] initWithString:@"|"]];
-            [itemInfoString appendAttributedString:otherPriceInfoString];
+            NSString *otherPriceString = [NSString stringWithFormat:@"%@还价%@万",userTypeStr,otherPriceStr];
+            NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
             
-        }else{
+            [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];
             
-            itemInfoString = otherPriceInfoString;
+            [otherPriceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, otherPriceInfoString.length)];
+            
+            [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(2+userTypeStr.length, otherPriceStr.length)];
+            
+            if (itemInfoString) {
+                
+                [itemInfoString appendAttributedString:[[NSAttributedString alloc] initWithString:@"|"]];
+                [itemInfoString appendAttributedString:otherPriceInfoString];
+                
+            }else{
+                
+                itemInfoString = otherPriceInfoString;
+                
+            }
+
+        }else {
+            
+            NSString *otherPriceString = [NSString stringWithFormat:@"%@%@",userTypeStr,otherPriceStr];
+            NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
+            
+            [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];
+            
+            [otherPriceInfoString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, otherPriceInfoString.length)];
+            
+            if (itemInfoString) {
+                
+                [itemInfoString appendAttributedString:[[NSAttributedString alloc] initWithString:@"|"]];
+                [itemInfoString appendAttributedString:otherPriceInfoString];
+                
+            }else{
+                
+                itemInfoString = otherPriceInfoString;
+                
+            }
             
         }
         

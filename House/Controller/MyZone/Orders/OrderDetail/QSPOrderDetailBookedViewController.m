@@ -76,7 +76,7 @@
 
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
-#import "QSNearInfoViewController.h"
+#import "QSSearchMapViewController.h"
 
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSYTalkPTPViewController.h"
@@ -89,6 +89,9 @@
 #import "QSPOrderEvaluationListingsViewController.h"
 
 #import "QSMortgageCalculatorViewController.h"
+
+#import "QSPOrderTipsButtonPopView.h"
+
 
 @interface QSPOrderDetailBookedViewController ()
 
@@ -615,14 +618,14 @@
                 NSLog(@"QSOrderDetailInfoDataModel 错误");
                 return;
             }
+            
             if (self.orderDetailData.house_msg) {
                 
                 //房源坐标
                 //            self.orderDetailData.house_msg.coordinate_x;
                 //            self.orderDetailData.house_msg.coordinate_y;
-                QSNearInfoViewController *mapNearVC = [[QSNearInfoViewController alloc] initWithAddress:self.orderDetailData.house_msg.address andTitle:self.orderDetailData.house_msg.name andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
-                
-                [self.navigationController pushViewController:mapNearVC animated:YES];
+                QSSearchMapViewController *mapSearchVC = [[QSSearchMapViewController alloc] initWithTitle:self.orderDetailData.house_msg.name andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
+                [self.navigationController pushViewController:mapSearchVC animated:YES];
                 
             }
             
@@ -814,8 +817,8 @@
         
     }
     
-    //!<备注:拒绝还价将视为取消订单View
-    if (self.orderDetailData.isShowRemarkRejectPriceView) {
+    //!<备注:拒绝还价将视为取消订单View  需要显示，或者特殊显示时提示
+    if (self.orderDetailData.isShowRemarkRejectPriceView || (self.orderDetailData.o_expand_1&&[self.orderDetailData.o_expand_1 isKindOfClass:[NSString class]]&&[self.orderDetailData.o_expand_1 isEqualToString:@"500202"])) {
         
         self.remarkRejectPriceView = [[QSPOrderDetailRemarkRejectPriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withRemarkTip:@"备注：拒绝还价将视为取消订单"];
         [scrollView addSubview:self.remarkRejectPriceView];
@@ -826,7 +829,7 @@
         viewContentOffsetY = self.remarkRejectPriceView.frame.origin.y+self.remarkRejectPriceView.frame.size.height;
         
     }
-
+    
     //!<订单取消原因：业主取消预约View
     if (self.orderDetailData.isShowOrderCancelByOwnerTipView) {
         
@@ -1214,6 +1217,97 @@
     
     //>***********中间ScrollView内容区
     
+    
+    if (self.orderDetailData.o_expand_1) {
+        
+        if ([self.orderDetailData.o_expand_1 isKindOfClass:[NSString class]]) {
+            
+            if ([self.orderDetailData.o_expand_1 isEqualToString:@"500202"]) {
+                
+                //设置提示信息
+                if (self.remarkRejectPriceView) {
+                    
+                    
+                    NSString *tipStr = @"";
+                    
+                    if (uUserCountTypeTenant == [self.orderDetailData getUserType]) {
+                        
+                        tipStr = @"温馨提示：你已再次预约业主看房，订单将暂时不可操作，待再次看房时间结束后开启。";
+                        
+                    }else if (uUserCountTypeOwner == [self.orderDetailData getUserType]) {
+                        
+                        tipStr = @"温馨提示：房客已再次预约你看房，订单将暂时不可操作，待再次看房时间结束后开启。";
+                        
+                    }
+                    
+                    [self.remarkRejectPriceView setTitleTip:tipStr];
+                    
+                }
+                
+                //禁用按钮  QSPOrderBottomButtonView
+                
+                for (UIView *view in [scrollView subviews]) {
+                    
+                    if ([view isKindOfClass:[QSPOrderBottomButtonView class]]) {
+                        
+                        [(QSPOrderBottomButtonView*)view disableButtons];
+                        
+                    }
+                    
+                }
+                
+                for (UIView *view in [self.contentBgView subviews]) {
+                    
+                    if ([view isKindOfClass:[QSPOrderBottomButtonView class]]) {
+                        
+                        [(QSPOrderBottomButtonView*)view disableButtons];
+                        
+                    }
+                    
+                }
+                
+                if (uUserCountTypeOwner == [self.orderDetailData getUserType]) {
+                    //业主
+                    
+                    NSArray *timeList = self.orderDetailData.appoint_list;
+                    
+                    if (timeList&&[timeList isKindOfClass:[NSArray class]]) {
+                        
+                        //FIXME: 依赖预约时间列表的排序
+                        QSOrderDetailAppointTimeDataModel *timeItem = [timeList objectAtIndex:[timeList count]-1];
+                        
+                        if (timeItem&&[timeItem isKindOfClass:[QSOrderDetailAppointTimeDataModel class]]) {
+                            
+                            QSPOrderTipsButtonPopView *acceptOrRejectAppointmentPopView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptOrRejectAppointmentViewWithTip:[NSString stringWithFormat:@"房客再次预约看房\n预约时间:%@",timeItem.time] withUserType:[self.orderDetailData getUserType] andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                                
+                                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                    
+                                    //拒绝再次预约
+                                    [self cancelAppointmentOrder];
+                                    
+                                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                    
+                                    //接受再次预约
+                                    [self commitAppointmentOrder];
+                                    
+                                }
+                                
+                            }];
+                            
+                            [self.navigationController.view addSubview:acceptOrRejectAppointmentPopView];
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -1313,9 +1407,6 @@
 //    user_id	true	string	获取的用户id
     
     [tempParam setObject:self.orderID forKey:@"id_"];
-//    //TODO:获取用户ID
-//    NSString *userID = [QSCoreDataManager getUserID];
-//    [tempParam setObject:(userID ? userID : @"1") forKey:@"user_id"];
     
     REQUEST_TYPE requestType;
     if (orderType == mOrderWithUserTypeAppointment) {//预约订单
@@ -1550,10 +1641,38 @@
     }
     
     if (!priceStr || [priceStr isEqualToString:@""]) {
+        
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入您的出价", 1.0f, ^(){
             
         })
         return;
+        
+    }
+    NSString *housePrice = @"";
+    
+    if (self.orderDetailData) {
+        
+        if (self.orderDetailData || [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+            
+            housePrice = self.orderDetailData.house_msg.house_price;
+            
+        }
+    }
+    
+    if (housePrice.floatValue<priceStr.floatValue*10000) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入小于房价的金额", 1.0f, ^(){
+            
+            if (self.inputMyPriceView ) {
+                
+                [self.inputMyPriceView setPrice:@""];
+                
+            }
+            
+        })
+        
+        return;
+        
     }
     
     NSScanner* scan = [NSScanner scannerWithString:priceStr];

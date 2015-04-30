@@ -23,4 +23,6 @@
 
 - (NSString*)getInputPrice;
 
+- (void)setPrice:(NSString*)priceStr;
+
 @end
