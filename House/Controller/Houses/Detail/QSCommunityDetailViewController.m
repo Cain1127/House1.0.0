@@ -317,7 +317,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:orientationsLabel];
     
     UILabel *layerCountLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, houseTypeLabel.frame.origin.y+houseTypeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    layerCountLabel.text=[NSString stringWithFormat:@"绿化率:%@",houseInfo.green_rate];
+    layerCountLabel.text=[NSString stringWithFormat:@"停车位:%@",houseInfo.parking_lot];
     layerCountLabel.textAlignment=NSTextAlignmentLeft;
     layerCountLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:layerCountLabel];
@@ -325,7 +325,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     decoreteLabel.textAlignment=NSTextAlignmentLeft;
     decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
-    decoreteLabel.text=[NSString stringWithFormat:@"容积率:%@",houseInfo.volume_rate];
+    decoreteLabel.text=[NSString stringWithFormat:@"容积率:%.2f",[houseInfo.volume_rate floatValue]];
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
@@ -341,7 +341,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:structureLabel];
     
     UILabel *propertyLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, timeLabel.frame.origin.y+timeLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    propertyLabel.text=[NSString stringWithFormat:@"使用年限:%@",houseInfo.used_year];
+    propertyLabel.text=[NSString stringWithFormat:@"总建筑面积:%@",houseInfo.areabuilt];
     propertyLabel.font=[UIFont systemFontOfSize:14.0f];
     propertyLabel.textAlignment=NSTextAlignmentLeft;
     [view addSubview:propertyLabel];
