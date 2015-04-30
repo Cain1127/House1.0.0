@@ -8,10 +8,14 @@
 
 #import "QSYTenantDetailRecommendAparmentHouseViewController.h"
 
+#import "QSYTenantDetailRecommendAparmentTableViewCell.h"
+
 @interface QSYTenantDetailRecommendAparmentHouseViewController ()
 
 ///选择物业后的回调
 @property (nonatomic,copy) void(^pickedHouseCallBack)(BOOL isPicked,QSBaseModel *houseModel,NSString *commend);
+
+@property (nonatomic,strong) UICollectionView *houseListView;//!<房源列表
 
 @end
 

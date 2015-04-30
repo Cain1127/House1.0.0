@@ -66,9 +66,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view关联Key
 
-static char RightStarKey;           //!<右侧星级
-static char LeftStarKey;            //!<左侧星级
-
 @interface QSNewHouseDetailViewController () <QSAutoScrollViewDelegate,UIAlertViewDelegate,UMSocialUIDelegate>
 
 @property (nonatomic,copy) NSString *tempTitle;                     //!<标题
@@ -386,7 +383,7 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评分栏
     UIView *scoreRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, headerImageView.frame.origin.y + headerImageView.frame.size.height - 45.0f, mainInfoWidth, 90.0f)];
-    [self createScoreSubviews:scoreRootView andInsideScore:@"4.6"  andOverflowScore:@"8.8"  andAroundScore:@"3.4"];
+    [self createScoreSubviews:scoreRootView andInsideScore:self.detailInfo.loupan_building.tj_condition  andAroundScore:self.detailInfo.loupan_building.tj_environment];
     [infoRootView addSubview:scoreRootView];
     
     ///均价栏
@@ -1387,7 +1384,7 @@ static char LeftStarKey;            //!<左侧星级
 
 #pragma mark - 评分栏子UI搭建
 ///评分栏子UI搭建
-- (void)createScoreSubviews:(UIView *)view andInsideScore:(NSString *)insideScore  andOverflowScore:(NSString *)overflowScore  andAroundScore:(NSString *)aroundScore
+- (void)createScoreSubviews:(UIView *)view andInsideScore:(NSString *)insideScore andAroundScore:(NSString *)aroundScore
 {
     
     ///中间评分底view
@@ -1396,6 +1393,7 @@ static char LeftStarKey;            //!<左侧星级
     [view addSubview:mainScoreRootView];
     
     ///中间评分
+    NSString *overflowScore = [NSString stringWithFormat:@"%.1f",[insideScore floatValue] + [aroundScore floatValue]];
     UILabel *titleScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 15.0f, mainScoreRootView.frame.size.width - 10.0f - 15.0f, 30.0f)];
     titleScoreLabel.text = overflowScore;
     titleScoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
@@ -1408,21 +1406,41 @@ static char LeftStarKey;            //!<左侧星级
     titleUnitLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [mainScoreRootView addSubview:titleUnitLabel];
     
+    ///说明文字
+    NSString *tipsString = @"不合盘";
+    if ([overflowScore floatValue] >= 4.0f) {
+        
+        tipsString = @"一般盘";
+        
+    }
+    
+    if ([overflowScore floatValue] >= 6.0f) {
+        
+        tipsString = @"舒适盘";
+        
+    }
+    
+    if ([overflowScore floatValue] >= 8.0f) {
+        
+        tipsString = @"超值盘";
+        
+    }
+    
     ///超值盘
     UILabel *titleTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleScoreLabel.frame.origin.x, titleScoreLabel.frame.origin.y + titleScoreLabel.frame.size.height, mainScoreRootView.frame.size.width - 10.0f, 20.0f)];
-    titleTipsLabel.text = @"超值盘";
+    titleTipsLabel.text = tipsString;
     titleTipsLabel.textAlignment = NSTextAlignmentCenter;
     titleTipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
     [mainScoreRootView addSubview:titleTipsLabel];
     
     ///右侧评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:insideScore andStarKey:RightStarKey];
+    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:insideScore];
     [view addSubview:rightScoreRootView];
     
     ///左侧评分底view
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore andStarKey:LeftStarKey];
+    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore];
     [view addSubview:leftScoreRootView];
     
 }
@@ -1436,7 +1454,7 @@ static char LeftStarKey;            //!<左侧星级
 }
 
 ///创建详情评分UI
-- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(NSString*)scoreKey andStarKey:(char)starKey
+- (void)createDetailScoreInfoUI:(UIView *)view andDetailTitle:(NSString *)detailTitle andScoreKey:(NSString*)score
 {
     
     ///头图片
@@ -1446,12 +1464,11 @@ static char LeftStarKey;            //!<左侧星级
     
     ///评分
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(3.0f, 5.0f, view.frame.size.width - 8.0f - 15.0f, 25.0f)];
-    scoreLabel.text = scoreKey;
+    scoreLabel.text = score;
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     scoreLabel.textColor = COLOR_CHARACTERS_YELLOW;
     [view addSubview:scoreLabel];
-    objc_setAssociatedObject(self, &scoreKey, scoreLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///单位
     UILabel *unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(scoreLabel.frame.origin.x + scoreLabel.frame.size.width, scoreLabel.frame.origin.y + scoreLabel.frame.size.height - 20.0f, 20.0f, 20.0f)];
@@ -1473,7 +1490,7 @@ static char LeftStarKey;            //!<左侧星级
     starRootImageView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_STAR_GRAY];
     [view addSubview:starRootImageView];
     
-    UIView *starRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, starRootImageView.frame.size.height)];
+    UIView *starRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, starRootImageView.frame.size.width * [score floatValue] / 5.0f, starRootImageView.frame.size.height)];
     starRootView.clipsToBounds = YES;
     [starRootImageView addSubview:starRootView];
     
