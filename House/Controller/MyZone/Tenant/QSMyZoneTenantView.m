@@ -505,30 +505,25 @@ static char HistoryKey;     //!<浏览足迹
 {
 
     UILabel *label = objc_getAssociatedObject(self, &StayAroundKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
-        label.text = newInfo;
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = label.text = @"99+条记录";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+            label.text = label.text = @"99+";
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
     
         label.text = @"0";
+        label.backgroundColor = [UIColor clearColor];
     
     }
 
@@ -539,31 +534,26 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &HavedAroundKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
-        label.text = newInfo;
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = @"99+条记录";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+            label.text = label.text = @"99+";
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
-    
+        
         label.text = @"0";
-    
+        label.backgroundColor = [UIColor clearColor];
+        
     }
     
 }
@@ -573,31 +563,26 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &WaitCommitKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
-        label.text = newInfo;
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = @"99+条记录";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+            label.text = label.text = @"99+";
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
-    
+        
         label.text = @"0";
-    
+        label.backgroundColor = [UIColor clearColor];
+        
     }
     
 }
@@ -607,29 +592,26 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &CommitedKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
+        
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
-            label.text = label.text = @"99+";;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+            label.text = label.text = @"99+";
             
         } else {
-        
-            label.backgroundColor = [UIColor clearColor];
-        
+            
+            label.text = newInfo;
+            
         }
         
     } else {
-    
+        
         label.text = @"0";
-    
+        label.backgroundColor = [UIColor clearColor];
+        
     }
     
 }
@@ -639,20 +621,16 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &AppointedKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+条记录";
             
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
-            
         } else {
             
-            label.text = @"查看全部";
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
             
         }
         
@@ -669,20 +647,16 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &DealKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+条记录";
             
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
-            
         } else {
             
-            label.text = @"查看全部";
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
             
         }
         
@@ -699,20 +673,16 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &BegKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+条记录";
             
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
-            
         } else {
             
-            label.text = @"查看全部";
+            label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
             
         }
         
@@ -729,20 +699,16 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &CollectKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+个房源";
             
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = [NSString stringWithFormat:@"%@个房源",newInfo];
-            
         } else {
             
-            label.text = @"暂无收藏";
+            label.text = [NSString stringWithFormat:@"%@个房源",newInfo];
             
         }
         
@@ -759,20 +725,16 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &CommunityKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+个小区";
             
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = [NSString stringWithFormat:@"%@个小区",newInfo];
-            
         } else {
             
-            label.text = @"暂无关注";
+            label.text = [NSString stringWithFormat:@"%@个小区",newInfo];
             
         }
         
@@ -789,21 +751,17 @@ static char HistoryKey;     //!<浏览足迹
 {
     
     UILabel *label = objc_getAssociatedObject(self, &HistoryKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+条记录";
             
-        } else if (0 < [newInfo intValue]) {
+        } else {
         
             label.text = [NSString stringWithFormat:@"%@条记录",newInfo];
         
-        } else {
-            
-            label.text = @"暂无浏览";
-            
         }
         
     }

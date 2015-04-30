@@ -14,6 +14,8 @@
 
 #import "QSYMyzoneStatisticsOwnerModel.h"
 
+#import "QSCoreDataManager+User.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -535,14 +537,29 @@ static char RecommendKey;   //!<推荐房源关联key
 - (void)updateOwnerCountInfo:(QSYMyzoneStatisticsOwnerModel *)model
 {
 
-    [self updateStayAroundCount:model.book_wait];
-    [self updateHavedAroundCount:model.book_ok];
-    [self updateWaitCommitAroundCount:model.transaction_wait];
-    [self updateCommitedCount:model.transaction_ok];
-    [self updateRecommendTenantCount:model.referrals_tenant];
+    [self updateStayAroundCount:APPLICATION_NSSTRING_SETTING(model.book_wait, @"0")];
+    [self updateHavedAroundCount:APPLICATION_NSSTRING_SETTING(model.book_ok, @"0")];
+    [self updateWaitCommitAroundCount:APPLICATION_NSSTRING_SETTING(model.transaction_wait, @"0")];
+    [self updateCommitedCount:APPLICATION_NSSTRING_SETTING(model.transaction_ok, @"0")];
+    
+    //!<判断数据模型
+    if (nil == model) {
+        
+        return;
+        
+    }
+    
+    ///如果当前用户是普通房客，也不刷新业主UI
+    if (uUserCountTypeTenant == [QSCoreDataManager getUserType]) {
+        
+        return;
+        
+    }
+    
+    [self updateRecommendTenantCount:APPLICATION_NSSTRING_SETTING(model.referrals_tenant, @"0")];
     [self updatePropertyCount:[NSString stringWithFormat:@"%d",[model.tenement_apartment intValue] + [model.tenement_rent intValue]]];
-    [self updateAppointedOrderCount:model.book_all];
-    [self updateDealOrderCount:model.transaction_all];
+    [self updateAppointedOrderCount:APPLICATION_NSSTRING_SETTING(model.book_all, @"0")];
+    [self updateDealOrderCount:APPLICATION_NSSTRING_SETTING(model.transaction_all, @"0")];
 
 }
 
@@ -651,29 +668,25 @@ static char RecommendKey;   //!<推荐房源关联key
 {
     
     UILabel *label = objc_getAssociatedObject(self, &StayAroundKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
+        
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else {
             
-            label.text = @"0";
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
     
         label.text = @"0";
+        label.backgroundColor = [UIColor clearColor];
     
     }
     
@@ -684,30 +697,25 @@ static char RecommendKey;   //!<推荐房源关联key
 {
     
     UILabel *label = objc_getAssociatedObject(self, &HavedAroundKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
-        label.text = newInfo;
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
     
         label.text = @"0";
+        label.backgroundColor = [UIColor clearColor];
     
     }
     
@@ -718,30 +726,25 @@ static char RecommendKey;   //!<推荐房源关联key
 {
     
     UILabel *label = objc_getAssociatedObject(self, &WaitCommitKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
         
-        label.text = newInfo;
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
     
         label.text = @"0";
+        label.backgroundColor = [UIColor clearColor];
     
     }
     
@@ -752,28 +755,25 @@ static char RecommendKey;   //!<推荐房源关联key
 {
     
     UILabel *label = objc_getAssociatedObject(self, &CommitedKey);
-    if (label && newInfo) {
+    if ([newInfo intValue] > 0) {
+        
+        label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///判断数量是0或大于零
         if (100 <= [newInfo intValue]) {
             
             label.text = @"99+";
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
-            
-        } else if (0 < [newInfo intValue]) {
-            
-            label.text = newInfo;
-            label.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
             
         } else {
             
-            label.backgroundColor = [UIColor clearColor];
+            label.text = newInfo;
             
         }
         
     } else {
     
         label.text = @"0";
+        label.backgroundColor = [UIColor clearColor];
     
     }
     

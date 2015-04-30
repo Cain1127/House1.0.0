@@ -26,6 +26,7 @@ PODS:
   - IQKeyboardManager (3.2.3)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
+  - MBProgressHUD (0.9.1)
   - MJRefresh (1.4.5)
   - Reachability (3.1.1)
   - RestKit/ObjectMapping (0.23.3):
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - AMapSearch (~> 2.4.1)
   - ASDepthModal (~> 1.0.0)
   - IQKeyboardManager (~> 3.2.3)
+  - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 1.4.1)
   - Reachability (~> 3.1.1)
   - RestKit/ObjectMapping (~> 0.23.3)
@@ -56,6 +58,7 @@ SPEC CHECKSUMS:
   ASDepthModal: c84ba6596c8f6aef3cadacdc979d287ed2915c64
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: 4b24394e577ea399fbc926e5b6072317aae2c152
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: e761211cf026c0d56b01d0c2fa1fe8903dc4e4f3

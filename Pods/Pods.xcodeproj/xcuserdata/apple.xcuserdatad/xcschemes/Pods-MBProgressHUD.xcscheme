@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "577A6B215D10185AF418C005"
-               BuildableName = "libPods-RKValueTransformers.a"
-               BlueprintName = "Pods-RKValueTransformers"
+               BlueprintIdentifier = "8FB6EBE4E43B8199FC0CC269"
+               BuildableName = "libPods-MBProgressHUD.a"
+               BlueprintName = "Pods-MBProgressHUD"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

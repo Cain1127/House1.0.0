@@ -8,4 +8,4 @@ pod 'AMapSearch', '~> 2.4.1'
 pod 'MJRefresh', '~> 1.4.1'
 pod 'UMengSocial', '~> 4.2.2'
 pod 'IQKeyboardManager', '~> 3.2.3'
-
+pod 'MBProgressHUD', '~> 0.9.1'

@@ -132,15 +132,41 @@ typedef enum
         
         if (button.selected) {
             
-            button.selected = NO;
-            [button setTitle:@"登录" forState:UIControlStateNormal];
-            [self logoutAction];
+            [self logoutAction:button];
             
         } else {
         
-            button.selected = YES;
-            [button setTitle:@"退出" forState:UIControlStateNormal];
-            [self checkLoginAndShowLogin];
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                switch (flag) {
+                        ///登录后
+                    case lLoginCheckActionTypeLogined:
+                        
+                    case lLoginCheckActionTypeReLogin:
+                    {
+                    
+                        button.selected = YES;
+                        [button setTitle:@"退出" forState:UIControlStateNormal];
+                    
+                    }
+                        break;
+                        
+                    case lLoginCheckActionTypeUnLogin:
+                        
+                    case lLoginCheckActionTypeOffLine:
+                    {
+                        
+                        button.selected = NO;
+                        [button setTitle:@"登录" forState:UIControlStateNormal];
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }];
         
         }
         
@@ -226,7 +252,7 @@ typedef enum
 }
 
 #pragma mark - 退出登录
-- (void)logoutAction
+- (void)logoutAction:(UIButton *)button
 {
     
     ///显示HUD
@@ -252,6 +278,9 @@ typedef enum
                         self.systemSettingCallBack(sSystemSettingActionTypeLogout,nil);
                         
                     }
+                    
+                    button.selected = NO;
+                    [button setTitle:@"登录" forState:UIControlStateNormal];
                     
                 }
                 

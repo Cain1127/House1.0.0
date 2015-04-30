@@ -82,13 +82,15 @@
  */
 - (void)changeWindowRootViewController:(UIViewController *)newVC
 {
-
-    ///重置新控制器的模态动画位置
-    newVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    newVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     
+#if 1
+    [UIApplication sharedApplication].keyWindow.rootViewController = newVC;
+#endif
+
+#if 0
+    QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = newVC;
+#endif
     
 }
 
