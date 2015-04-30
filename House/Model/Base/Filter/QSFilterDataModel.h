@@ -59,6 +59,9 @@
 @property (nonatomic, retain) NSMutableArray *installations;//!<配套信息
 @property (nonatomic, retain) NSMutableArray *features_list;//!<特色标签
 
+///清空过滤条件
+- (void)clearFilterInfo;
+
 - (NSString *)getFeaturesPostParams;
 - (NSString *)getInstallationPostParams;
 

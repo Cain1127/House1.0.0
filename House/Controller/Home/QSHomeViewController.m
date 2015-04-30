@@ -526,7 +526,172 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 - (void)houseTypeSingleTapAction:(UITapGestureRecognizer *)tap
 {
 
-    NSLog(@"tap = %d",tap.view.tag);
+    int tempTag = tap.view.tag;
+    switch (tempTag) {
+            ///一房房源
+        case hHeaderHouseTypeActionOne:
+        {
+        
+            ///获取本地过滤
+            QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+            
+            ///设置过滤器为有效状态
+            filterModel.filter_status = @"2";
+            
+            ///清空过滤条件
+            [filterModel clearFilterInfo];
+            
+            ///设置户型
+            filterModel.house_type_key = @"1";
+            filterModel.house_type_val = @"一室";
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:fFilterMainTypeSecondHouse andFilterDataModel:filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///发送过滤器改动通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:filterModel.filter_id];
+                
+                ///显示房源
+                self.tabBarController.selectedIndex = 1;
+                
+            }];
+            
+            return;
+        
+        }
+            
+            ///两房房源
+        case hHeaderHouseTypeActionTwo:
+        {
+        
+            ///获取本地过滤
+            QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+            
+            ///设置过滤器为有效状态
+            filterModel.filter_status = @"2";
+            
+            ///清空过滤条件
+            [filterModel clearFilterInfo];
+            
+            ///设置户型
+            filterModel.house_type_key = @"2";
+            filterModel.house_type_val = @"二室";
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:fFilterMainTypeSecondHouse andFilterDataModel:filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///发送过滤器改动通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:filterModel.filter_id];
+                
+                ///显示房源
+                self.tabBarController.selectedIndex = 1;
+                
+            }];
+            
+            return;
+        
+        }
+            
+            ///三房房源
+        case hHeaderHouseTypeActionThree:
+        {
+        
+            ///获取本地过滤
+            QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+            
+            ///设置过滤器为有效状态
+            filterModel.filter_status = @"2";
+            
+            ///清空过滤条件
+            [filterModel clearFilterInfo];
+            
+            ///设置户型
+            filterModel.house_type_key = @"3";
+            filterModel.house_type_val = @"三室";
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:fFilterMainTypeSecondHouse andFilterDataModel:filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///发送过滤器改动通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:filterModel.filter_id];
+                
+                ///显示房源
+                self.tabBarController.selectedIndex = 1;
+                
+            }];
+            
+            return;
+        
+        }
+            
+            ///四房房源
+        case hHeaderHouseTypeActionFour:
+        {
+        
+            ///获取本地过滤
+            QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+            
+            ///设置过滤器为有效状态
+            filterModel.filter_status = @"2";
+            
+            ///清空过滤条件
+            [filterModel clearFilterInfo];
+            
+            ///设置户型
+            filterModel.house_type_key = @"4";
+            filterModel.house_type_val = @"四室";
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:fFilterMainTypeSecondHouse andFilterDataModel:filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///发送过滤器改动通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:filterModel.filter_id];
+                
+                ///显示房源
+                self.tabBarController.selectedIndex = 1;
+                
+            }];
+            
+            return;
+        
+        }
+            
+            ///五房房源
+        case hHeaderHouseTypeActionFive:
+        {
+        
+            ///获取本地过滤
+            QSFilterDataModel *filterModel = [QSCoreDataManager getLocalFilterWithType:fFilterMainTypeSecondHouse];
+            
+            ///设置过滤器为有效状态
+            filterModel.filter_status = @"2";
+            
+            ///清空过滤条件
+            [filterModel clearFilterInfo];
+            
+            ///设置户型
+            filterModel.house_type_key = @"5";
+            filterModel.house_type_val = @"五室";
+            
+            ///保存过滤器
+            [QSCoreDataManager updateFilterWithType:fFilterMainTypeSecondHouse andFilterDataModel:filterModel andUpdateCallBack:^(BOOL isSuccess) {
+                
+                ///发送过滤器改动通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:nHouseMapListFilterInfoChanggeActionNotification object:filterModel.filter_id];
+                
+                ///显示房源
+                self.tabBarController.selectedIndex = 1;
+                
+            }];
+            
+            return;
+        
+        }
+            break;
+            
+        default:
+            break;
+    }
 
 }
 
