@@ -10,6 +10,8 @@
 #import "QSPOrderDetailBookedViewController.h"
 #import "QSYTalkPTPViewController.h"
 #import "QSYContactSettingViewController.h"
+#import "QSYTenantDetailRecommendRentHouseViewController.h"
+#import "QSYTenantDetailRecommendAparmentHouseViewController.h"
 
 #import "QSYTenantAskRentAndBuyRentTableViewCell.h"
 #import "QSYTenantAskRentAndBuyBuyTableViewCell.h"
@@ -520,7 +522,22 @@
         ///刷新UI
         [cellNormal updateTenantAskRentAndBuyInfoCellUI:tempModel andCallBack:^(TENANT_ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
             
-            
+            switch (actionType) {
+                    ///推荐房源
+                case tTenantAskRentAndBuyRentCellActionTypeRecommendHouse:
+                {
+                
+                    QSYTenantDetailRecommendRentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendRentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
+                        
+                    }];
+                    [self.navigationController pushViewController:pickedHouseVC animated:YES];
+                
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
             
         }];
         
@@ -530,18 +547,33 @@
     
     ///求租求购列表
     static NSString *normalCell = @"askBuyHouseCell";
-    QSYTenantAskRentAndBuyRentTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
+    QSYTenantAskRentAndBuyBuyTableViewCell *cellNormal = [tableView dequeueReusableCellWithIdentifier:normalCell];
     if (nil == cellNormal) {
         
-        cellNormal = [[QSYTenantAskRentAndBuyRentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
+        cellNormal = [[QSYTenantAskRentAndBuyBuyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:normalCell];
         cellNormal.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     
     ///刷新UI
-    [cellNormal updateTenantAskRentAndBuyInfoCellUI:tempModel andCallBack:^(TENANT_ASK_RENTANDBUY_RENT_CELL_ACTION_TYPE actionType) {
+    [cellNormal updateTenantAskRentAndBuyInfoCellUI:tempModel andCallBack:^(TENANT_ASK_RENTANDBUY_BUY_CELL_ACTION_TYPE actionType) {
         
-        
+        switch (actionType) {
+                ///推荐房源
+            case tTenantAskRentAndBuyBuyCellActionTypeRecommendHouse:
+            {
+                
+                QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
+                    
+                }];
+                [self.navigationController pushViewController:pickedHouseVC animated:YES];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
         
     }];
     
