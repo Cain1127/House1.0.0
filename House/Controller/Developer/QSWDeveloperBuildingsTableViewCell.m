@@ -13,7 +13,7 @@
 #import "QSImageView+Block.h"
 #import <objc/runtime.h>
 
-#define SIZE_MARGIN_LEFT_RIGHT ([[UIScreen mainScreen] bounds].size.width >= 375.0f ? 35.0f : 25.0f)
+#define SIZE_MARGIN_LEFT_RIGHT ([[UIScreen mainScreen] bounds].size.width >= 375.0f ? 25.0f : 15.0f)
 
 
 ///关联
@@ -66,9 +66,9 @@ static char PublishTimeLabelKey;//!<发布时间
     bgSixImageView.image = [UIImage imageNamed:@"public_sixform_hollow_100x80"];
     [mainImageView addSubview:bgSixImageView];
 
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(mainImageView.frame.origin.x+mainImageView.frame.size.width+10.0f, mainImageView.frame.origin.y+27.5f, 120.0f, 20.0f)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(mainImageView.frame.origin.x+mainImageView.frame.size.width+5.0f, mainImageView.frame.origin.y+27.5f, SIZE_DEVICE_WIDTH-2.0f*SIZE_MARGIN_LEFT_RIGHT-100.0f-5.0f-80.0f, 20.0f)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
-    titleLabel.font = [UIFont systemFontOfSize:18.0f];
+    titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [self.contentView addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -79,7 +79,7 @@ static char PublishTimeLabelKey;//!<发布时间
     [self.contentView addSubview:adressLabel];
     objc_setAssociatedObject(self, &AdressLabelKey, adressLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-70.0f-SIZE_MARGIN_LEFT_RIGHT, titleLabel.frame.origin.y, 70.0f, 35.0f)];
+    UIView *priceRootView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-80.0f-SIZE_MARGIN_LEFT_RIGHT, titleLabel.frame.origin.y, 80.0f, 35.0f)];
     priceRootView.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
     priceRootView.layer.cornerRadius = 6.0f;
     [self.contentView addSubview:priceRootView];
@@ -88,7 +88,7 @@ static char PublishTimeLabelKey;//!<发布时间
                            //initWithFrame:CGRectMake(0.0f, 7.5f, 50.0f, 20.0f)];
     priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     priceLabel.textAlignment = NSTextAlignmentRight;
-    priceLabel.font = [UIFont systemFontOfSize:18.0f];
+    priceLabel.font = [UIFont systemFontOfSize:16.0f];
     [priceRootView addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceLabelKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -104,7 +104,7 @@ static char PublishTimeLabelKey;//!<发布时间
     NSDictionary *viewsVFL = NSDictionaryOfVariableBindings(priceLabel,unitLabel);
     
     ///约束
-    NSString *hVFL_all = @"H:|-(>=2)-[priceLabel(>=30)]-2-[unitLabel(25)]-(>=2)-|";
+    NSString *hVFL_all = @"H:|-(>=2)-[priceLabel(>=45)]-1-[unitLabel(25)]-(>=2)-|";
     NSString *vVFL_priceLabel = @"V:|-7.5-[priceLabel(20)]";
     NSString *vVFL_unitLabel = @"V:|-10-[unitLabel(15)]";
     
@@ -214,9 +214,9 @@ static char PublishTimeLabelKey;//!<发布时间
     titleLabel.text = houseModel.title;
     adressLabel.text = houseModel.address;
     priceLabel.text = [NSString stringWithFormat:@"%d",[houseModel.price_avg intValue]];
-    pageLabel.text = @"888";
-    orderLabel.text = @"345";
-    publishLabel.text = [NSString stringWithFormat:@"%@%@",@"2015-04-15",@"发布"];
+    pageLabel.text = @"0";
+    orderLabel.text = @"0";
+    publishLabel.text = [NSString stringWithFormat:@"%@%@",@"2015-00-00",@"发布"];
   
 
 }

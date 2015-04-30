@@ -352,6 +352,13 @@
 		<key>url</key>
 		<string>Order/add</string>
 	</dict>
+	<key>3003</key>
+	<dict>
+		<key>url</key>
+		<string>order/activityOrderList</string>
+		<key>class</key>
+		<string>QSDeveloperActivityDetailListReturnData</string>
+	</dict>
 	<key>3002</key>
 	<dict>
 		<key>url</key>

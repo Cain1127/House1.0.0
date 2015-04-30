@@ -62,7 +62,7 @@ static char SignUpCountLabelKey;    //!<报名人数
     UILabel *signUpCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(signUpLabel.frame.origin.x+signUpLabel.frame.size.width+5.0f, signUpLabel.frame.origin.y, 60.0f, signUpLabel.frame.size.height)];
     signUpCountLabel.textAlignment = NSTextAlignmentLeft;
     signUpCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    signUpCountLabel.text = @"99";
+    signUpCountLabel.text = @"";
     signUpCountLabel.font = [UIFont systemFontOfSize:16.0f];
     [self.contentView addSubview:signUpCountLabel];
     
@@ -75,16 +75,16 @@ static char SignUpCountLabelKey;    //!<报名人数
 }
 
 #pragma mark -更新数据
--(void)updateActivityDetailModel
+-(void)updateActivityDetailModel:(QSDeveloperActivityDetailDataModel *)dataModel
 {
 
     UILabel *tenantLabel = objc_getAssociatedObject(self, &TenantLabelKey);
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneLabelKey);
     UILabel *signUpCountLabel = objc_getAssociatedObject(self, &SignUpCountLabelKey);
     
-    tenantLabel.text = [NSString stringWithFormat:@"%@%@",@"房客: ",@"abc"];
-    phoneLabel.text = @"1365969504";
-    signUpCountLabel.text = @"12";
+    tenantLabel.text = [NSString stringWithFormat:@"%@%@",@"房客: ",dataModel.buyer_name ? dataModel.buyer_name : @""];
+    phoneLabel.text = dataModel.buyer_phone ? dataModel.buyer_phone : @"";
+    signUpCountLabel.text = dataModel.o_expand_2 ? dataModel.o_expand_2 : @"";
 
 
 }

@@ -731,6 +731,8 @@
 		CE2029981AE5FC8700E78CEF /* QSShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2029971AE5FC8700E78CEF /* QSShareManager.m */; };
 		CE20B8801AD260310057BFF2 /* QSMortgageCalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */; };
 		CE2BF4EE1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */; };
+		CE2BF4F11AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF4F01AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m */; };
+		CE2BF4F41AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF4F31AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m */; };
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
 		CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */; };
@@ -2030,6 +2032,10 @@
 		CE20B87E1AD260310057BFF2 /* QSMortgageCalculatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMortgageCalculatorViewController.h; sourceTree = "<group>"; };
 		CE20B87F1AD260310057BFF2 /* QSMortgageCalculatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMortgageCalculatorViewController.m; sourceTree = "<group>"; };
 		CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = houses_detail_map_arrow_up.png; sourceTree = "<group>"; };
+		CE2BF4EF1AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDeveloperActivityDetailListReturnData.h; sourceTree = "<group>"; };
+		CE2BF4F01AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperActivityDetailListReturnData.m; sourceTree = "<group>"; };
+		CE2BF4F21AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDeveloperActivityDetailDataModel.h; sourceTree = "<group>"; };
+		CE2BF4F31AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperActivityDetailDataModel.m; sourceTree = "<group>"; };
 		CE2E0FAE1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHousesDetailReturnData.h; sourceTree = "<group>"; };
 		CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRentHousesDetailReturnData.m; sourceTree = "<group>"; };
 		CE2E0FB11AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHouseDetailDataModel.h; sourceTree = "<group>"; };
@@ -6102,6 +6108,8 @@
 				CE946C751AE8A36600940506 /* QSDeveloperActivityListReturnData.m */,
 				CE946C761AE8A36600940506 /* QSDeveloperReturnData.h */,
 				CE946C771AE8A36600940506 /* QSDeveloperReturnData.m */,
+				CE2BF4EF1AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.h */,
+				CE2BF4F01AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m */,
 			);
 			path = Developer;
 			sourceTree = "<group>";
@@ -6296,6 +6304,8 @@
 				CEF98A631AE75137007DF8CE /* QSDeveloperDataModel.m */,
 				CE946C701AE8A2FB00940506 /* QSDeveloperActivityDataModel.h */,
 				CE946C711AE8A2FB00940506 /* QSDeveloperActivityDataModel.m */,
+				CE2BF4F21AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.h */,
+				CE2BF4F31AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m */,
 			);
 			path = Developer;
 			sourceTree = "<group>";
@@ -6827,6 +6837,7 @@
 				18A88EBD1A8CA96B00596E11 /* QSUserSimpleDataModel.m in Sources */,
 				18DABA8A1AAD3C1F00647E7C /* QSPhotoDataModel.m in Sources */,
 				18FBA5BE1A7879D2001372B3 /* QSCustomPresentationViewController.m in Sources */,
+				CE2BF4F11AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m in Sources */,
 				47A207701AB7E46000F51797 /* UIView+FSExtension.m in Sources */,
 				181524181ABFE31800C609B0 /* QSCDCollectedNewHousePhotoDataModel.m in Sources */,
 				18B563191A81AA40009779A0 /* QSCustomHUDView.m in Sources */,
@@ -7215,6 +7226,7 @@
 				47474F9B1ADE2F110049AE57 /* QSPOrderCommentSelectedButtonView.m in Sources */,
 				18D0820A1ACF978C004FA20F /* QSYContactOrderInfoView.m in Sources */,
 				187CA8D11AA3066700841A7E /* QSNewHouseListView.m in Sources */,
+				CE2BF4F41AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m in Sources */,
 				18B563361A81C7B5009779A0 /* QSDistrictListView.m in Sources */,
 				CE8926FB1AB127AB005D97D4 /* QSSecondHousesDetailReturnData.m in Sources */,
 				475A4D501AC3FE78009881CF /* QSPSalerTransactionOrderListPendingView.m in Sources */,

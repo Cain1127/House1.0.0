@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QSDeveloperActivityDetailDataModel.h"
 
 @interface QSWDeveloperActivityDetailTableViewCell : UITableViewCell
 
--(void)updateActivityDetailModel;
+-(void)updateActivityDetailModel:(QSDeveloperActivityDetailDataModel *)dataModel;
 
 @end

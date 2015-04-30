@@ -88,10 +88,10 @@ static char SignUpCountKey;         //!<报名人数
     }
     
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleLabelKey);
-    titleLabel.text =dataModel.title ? dataModel.title : @"江南水乡";
+    titleLabel.text =dataModel.title ? dataModel.title : @"接口返回数据为空";
     
     UILabel *commentLabel = objc_getAssociatedObject(self, &CommentLabelKey);
-    commentLabel.text =dataModel.content ? dataModel.content : @"10月1日看房团";
+    commentLabel.text =dataModel.content ? dataModel.content : @"接口返回数据为空";
     
     UILabel *signUpCountLabel = objc_getAssociatedObject(self, &SignUpCountKey);
     signUpCountLabel.text =dataModel.apply_num ;

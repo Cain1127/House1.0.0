@@ -73,6 +73,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
 @property (nonatomic,retain) QSCustomHUDView *hud;                          //!<HUD
+@property (assign) BOOL isRefresh;                                          //!<标识视图出现时是否头部刷新
 
 ///数据源
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
@@ -582,7 +583,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             ///删除物业后的回调
             detailVC.deletePropertyCallBack = ^(BOOL isDelete){
             
-                
+                self.isRefresh = YES;
             
             };
             
@@ -893,6 +894,25 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     [super gotoTurnBackAction];
     
 }
+
+#pragma mark - 视图加载后，判断是否进行头部刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    if (self.isRefresh) {
+        
+        self.isRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self MapCommunityListHeaderRequest];
+            
+        });
+        
+    }
+    [super viewWillAppear:animated];
+    
+}
+
 
 @end
 

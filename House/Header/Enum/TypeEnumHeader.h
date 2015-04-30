@@ -645,7 +645,8 @@ typedef enum
     
     rRequestTypeDeveloperHomeCountData = 3001,          //!<开发商首页数据
     rRequestTypeDeveloperActivityList =3002,            //!<开发商活动列表
-
+    rRequestTypeDeveloperActivityDetailList = 3003,     //!<开发商活动详情列表
+    
     rRequestTypeChatMessageList = 4000,                 //!<消息列表
     rRequestTypeChatContactList = 4001,                 //!<联系人列表
     rRequestTypeChatContactInfo = 4002,                 //!<联系人信息

@@ -26,7 +26,6 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 @interface QSWDeveloperActivityViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,retain)  QSDeveloperActivityListDataModel *activityListModel; //!<活动列表
-@property (nonatomic,retain)  NSMutableArray *activityArray;
 @property (nonatomic,retain)  QSDeveloperActivityDataModel *activityDataModel;     //!<活动基本数据
 @end
 
@@ -145,8 +144,6 @@ static char OverActivityViewKey;   //!<活动结束关联列表
             
         }];
         
-        
-        
     }];
     [self.view addSubview:overButton];
     
@@ -186,7 +183,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return [self.activityListModel.page_num intValue] ? [self.activityListModel.page_num intValue] : 10;
+    return [self.activityListModel.records count];
 
 }
 
@@ -207,7 +204,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     if (0<self.activityListModel.records.count) {
         
         self.activityDataModel = self.activityListModel.records[indexPath.row];
-
+        
     }
     ///更新数据
     [cell updateDeveloperActivityModel:self.activityDataModel];
@@ -219,7 +216,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:self.activityDataModel.title andConnet:self.activityDataModel.content andStatus:self.activityDataModel.status andSignUpNum:self.activityDataModel.apply_num andImage:self.activityDataModel.attach_thumb];
+    QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:self.activityDataModel.title andConnet:self.activityDataModel.content andStatus:self.activityDataModel.status andSignUpNum:self.activityDataModel.apply_num andImage:self.activityDataModel.attach_thumb andactivityID:self.activityDataModel.id_];
     
     [self.navigationController pushViewController:VC animated:YES];
 
@@ -245,6 +242,25 @@ static char OverActivityViewKey;   //!<活动结束关联列表
             
             QSDeveloperActivityListReturnData *returnData = resultData;
             self.activityListModel = returnData.msg;
+            
+            [onlineView reloadData];
+            
+            ///判断是否有数据
+            if ([self.activityListModel.records count] > 0) {
+                
+                [self showNoRecordTips:NO];
+                
+            } else {
+                
+                [self showNoRecordTips:YES andTips:@"暂无活动"];
+                
+            }
+            
+        } else {
+            
+            self.activityListModel = nil;
+            [onlineView reloadData];
+            [self showNoRecordTips:YES andTips:@"暂无活动"];
             
         }
         [onlineView.header endRefreshing];
@@ -272,6 +288,24 @@ static char OverActivityViewKey;   //!<活动结束关联列表
              
              QSDeveloperActivityListReturnData *returnData = resultData;
              self.activityListModel = returnData.msg;
+             [overView reloadData];
+             
+             ///判断是否有数据
+             if ([self.activityListModel.records count] > 0) {
+                 
+                 [self showNoRecordTips:NO];
+                 
+             } else {
+                 
+                 [self showNoRecordTips:YES andTips:@"暂无活动"];
+                 
+             }
+             
+         } else {
+             
+             self.activityListModel = nil;
+             [overView reloadData];
+             [self showNoRecordTips:YES andTips:@"暂无活动"];
              
          }
          [overView.header endRefreshing];
