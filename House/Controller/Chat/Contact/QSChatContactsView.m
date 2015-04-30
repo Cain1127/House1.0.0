@@ -11,6 +11,7 @@
 #import "QSYContactListTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+Normal.h"
+#import "QSCustomHUDView.h"
 
 #import "QSYContactsListReturnData.h"
 #import "QSYContactInfoSimpleModel.h"
@@ -347,12 +348,14 @@
     }
     
     ///刷新数据
-    [cellNormal updateContacterInfoWithModel:self.contactDataSource[indexPath.section][indexPath.row]];
+    QSYContactInfoSimpleModel *tempModel = self.contactDataSource[indexPath.section][indexPath.row];
+    [cellNormal updateContacterInfoWithModel:tempModel];
     
     ///注册删除事件
     cellNormal.deleteConactCallBack = ^(BOOL isDelete){
     
-        
+        ///删除联系人
+        [self deleteContactAction:tempModel.id_];
     
     };
     
@@ -374,6 +377,46 @@
         }
         
     }
+
+}
+
+#pragma mark - 删除联系人
+- (void)deleteContactAction:(NSString *)contactID
+{
+
+    ///显示HUD
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///封装参数
+    NSDictionary *params = @{@"id_" : APPLICATION_NSSTRING_SETTING(contactID, @"")};
+    
+    ///添加联系人
+    [QSRequestManager requestDataWithType:rRequestTypeChatContactDelete andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///添加成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///修改按钮状态
+            [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                ///刷新数据
+                [self.contactsListView.header beginRefreshing];
+                
+            }];
+        
+        } else {
+            
+            NSString *tipsString = @"删除失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
 
 }
 
