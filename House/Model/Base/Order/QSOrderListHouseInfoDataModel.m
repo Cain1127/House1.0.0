@@ -28,6 +28,7 @@
                                                     @"attach_file",
                                                     @"attach_thumb",
                                                     @"house_price",
+                                                    @"rent_price",
                                                     @"house_area"]];
     return shared_mapping;
     

@@ -26,6 +26,8 @@
 
 @property (nonatomic,assign) BOOL clickBgToCloseFlag;
 
+@property (nonatomic,strong) NSString *houseType;
+
 @end
 
 @implementation QSPOrderTipsButtonPopView
@@ -99,6 +101,10 @@
             [self.contentBackgroundView addSubview:priceUserLabel];
             
             NSString *infoString = [NSString stringWithFormat:@"%@万",self.housePrice];
+            if ([self.houseType isEqualToString:@"500103"]) {
+                infoString = [NSString stringWithFormat:@"%@元",self.housePrice];
+            }
+            
             NSMutableAttributedString *priceInfoString = [[NSMutableAttributedString alloc] initWithString:infoString];
             [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
             
@@ -160,6 +166,9 @@
             [self.contentBackgroundView addSubview:priceUserLabel];
             
             NSString *infoString = [NSString stringWithFormat:@"%@万",self.housePrice];
+            if ([self.houseType isEqualToString:@"500103"]) {
+                infoString = [NSString stringWithFormat:@"%@元",self.housePrice];
+            }
             NSMutableAttributedString *priceInfoString = [[NSMutableAttributedString alloc] initWithString:infoString];
             [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
             
@@ -200,6 +209,9 @@
             }
             
             NSString *infoStr = [NSString stringWithFormat:@"%@还价为%@万元，\n是否确认成交?",userTypeStr,self.housePrice];
+            if ([self.houseType isEqualToString:@"500103"]) {
+                infoStr = [NSString stringWithFormat:@"%@还价为%@元，\n是否确认成交?",userTypeStr,self.housePrice];
+            }
             priceTipLabel.text = infoStr;
             
         }
@@ -291,7 +303,7 @@
     
 }
 
-- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType withHouseType:(NSString*)houseType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
@@ -300,7 +312,13 @@
         
         _viewType = oOrderButtonTipsViewTypeSalerInputPrice;
         self.houseTitle = houseTitle;
-        self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.houseType = houseType;
+        
+        self.housePrice = buyerPrice;
+        if (![self.houseType isEqualToString:@"500103"]) {
+            self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        }
+        
         self.userType = userType;
         self.clickBgToCloseFlag = YES;
         
@@ -320,7 +338,7 @@
     
 }
 
-- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithAcceptPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType withHouseType:(NSString*)houseType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
         
@@ -329,7 +347,13 @@
         
         _viewType = oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice;
         self.houseTitle = houseTitle;
-        self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.houseType = houseType;
+        
+        self.housePrice = buyerPrice;
+        if (![self.houseType isEqualToString:@"500103"]) {
+            self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        }
+        
         self.userType = userType;
         self.clickBgToCloseFlag = YES;
         
@@ -348,7 +372,7 @@
     return self;
 }
 
-- (instancetype)initWithAcceptPriceVieWithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+- (instancetype)initWithAcceptPriceVieWithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType withHouseType:(NSString*)houseType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
 {
     
     if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
@@ -357,7 +381,13 @@
         self.backgroundColor = [UIColor clearColor];
         
         _viewType = oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice;
-        self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        self.houseType = houseType;
+        
+        self.housePrice = buyerPrice;
+        if (![self.houseType isEqualToString:@"500103"]) {
+            self.housePrice = [NSString conversionPriceUnitToWanWithPriceString:buyerPrice];
+        }
+        
         self.userType = userType;
         self.clickBgToCloseFlag = YES;
         

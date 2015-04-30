@@ -65,25 +65,45 @@
     
     USER_COUNT_TYPE userType = [self getUserType];
     
+    NSString *houseType = self.order_type;
+    
     NSString *housePriceStr = self.house_msg.house_price;
     if (housePriceStr) {
-        CGFloat pricef = [housePriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [housePriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
+        
     }
     
     NSString *salerPriceStr = self.last_saler_bid;
     if (salerPriceStr) {
-        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
+        
     }
     
     NSString *buyerPriceStr = self.last_buyer_bid;
     if (buyerPriceStr) {
-        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
+        
     }
     
     NSString *myPriceStr = nil;
@@ -113,6 +133,12 @@
         
         NSString* tempString = [NSString stringWithFormat:@"%@万",priceStr];
         
+        if ([houseType isEqualToString:@"500103"]) {
+            
+            tempString = [NSString stringWithFormat:@"%@元",priceStr];
+            
+        }
+        
         priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
         
         [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(0, priceInfoString.length)];
@@ -141,25 +167,43 @@
     
     USER_COUNT_TYPE userType = [self getUserType];
     
+    NSString *houseType = self.order_type;
+    
     NSString *housePriceStr = self.house_msg.house_price;
     if (housePriceStr) {
-        CGFloat pricef = [housePriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [housePriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
     }
     
     NSString *salerPriceStr = self.last_saler_bid;
     if (salerPriceStr) {
-        CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
+        
     }
     
     NSString *buyerPriceStr = self.last_buyer_bid;
     if (buyerPriceStr) {
-        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
     }
     
     NSString *myPriceStr = nil;
@@ -195,6 +239,13 @@
     }else{
         
         tempString = [NSString stringWithFormat:@"%@万",priceStr];
+        
+        if ([houseType isEqualToString:@"500103"]) {
+            
+            tempString = [NSString stringWithFormat:@"%@元",priceStr];
+            
+        }
+        
         textColor = COLOR_CHARACTERS_YELLOW;
     }
     
@@ -275,19 +326,28 @@
         
         if (flag) {
             
-            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
-            
+            if (![self.order_type isEqualToString:@"500103"]) {
+                
+                CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+                NSInteger priceInt = (NSInteger)pricef;
+                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                
+            }
+
         }
         
     }
     
     NSString *buyerPriceStr = itemData.buyer_bid;//@"310";
     if (buyerPriceStr) {
-        CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-        NSInteger priceInt = (NSInteger)pricef;
-        buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        
+        if (![self.order_type isEqualToString:@"500103"]) {
+            
+            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+            NSInteger priceInt = (NSInteger)pricef;
+            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            
+        }
     }
     
     NSString *myPriceStr = nil;
@@ -322,6 +382,12 @@
             
             myPriceInfoString = [NSString stringWithFormat:@"我的出价%@万",myPriceStr];
             
+            if ([self.order_type isEqualToString:@"500103"]) {
+                
+                myPriceInfoString = [NSString stringWithFormat:@"我的出价%@元",myPriceStr];
+                
+            }
+            
             itemInfoString = [[NSMutableAttributedString alloc] initWithString:myPriceInfoString];
             
             [itemInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, itemInfoString.length)];
@@ -354,6 +420,13 @@
         if (flag) {
             
             NSString *otherPriceString = [NSString stringWithFormat:@"%@还价%@万",userTypeStr,otherPriceStr];
+            
+            if ([self.order_type isEqualToString:@"500103"]) {
+                
+                otherPriceString = [NSString stringWithFormat:@"%@还价%@元",userTypeStr,otherPriceStr];
+                
+            }
+            
             NSMutableAttributedString *otherPriceInfoString = [[NSMutableAttributedString alloc] initWithString:otherPriceString];
             
             [otherPriceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_BLACK range:NSMakeRange(0, otherPriceInfoString.length)];

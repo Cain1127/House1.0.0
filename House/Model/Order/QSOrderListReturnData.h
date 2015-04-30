@@ -41,7 +41,7 @@
 
 - (BOOL)getUserIsOwnerFlag;         //YES：是业主   NO：房客
 
-- (NSString*)getPersonInfoOnCellString;               //获取订单列表房源标题下方第一个Label显示的名字身份简介字符串
+- (NSString*)getPersonInfoOnCellStringWithSelectIndex:(NSInteger)index;               //获取订单列表房源标题下方第一个Label显示的名字身份简介字符串
 
 - (NSAttributedString*)getSummaryOnCellAttributedStringWithSelectIndex:(NSInteger)index;        //获取订单列表房源标题下方第二个Label显示的时间价格等简介字符串
 
