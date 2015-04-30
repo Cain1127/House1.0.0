@@ -397,6 +397,8 @@ static QSSocketManager *_socketManager = nil;
     ///再发主体信息
     [self.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:7102];
     
+    self.isWaitConnect = YES;
+    
 }
 
 /**

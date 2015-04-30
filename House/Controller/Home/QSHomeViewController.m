@@ -47,6 +47,18 @@
 
 #import <objc/runtime.h>
 
+///户型单击事件
+typedef enum
+{
+
+    hHeaderHouseTypeActionOne = 4823,   //!<1房房源
+    hHeaderHouseTypeActionTwo,          //!<2房房源
+    hHeaderHouseTypeActionThree,        //!<3房房源
+    hHeaderHouseTypeActionFour,         //!<4房房源
+    hHeaderHouseTypeActionFive,         //!<5房房源
+
+}HEADER_HOUSETYPE_ACTION;
+
 ///关联
 static char OneHouseTypeDataKey;    //!<一房房源关联
 static char TwoHouseTypeDataKey;    //!<一房房源关联
@@ -333,9 +345,15 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     CGFloat width = (view.frame.size.width - 10.0f) / 3.0f;
     
     ///一房房源
+    UITapGestureRecognizer *singleTapGestureOne = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(houseTypeSingleTapAction:)];
+    singleTapGestureOne.numberOfTapsRequired = 1;
+    singleTapGestureOne.numberOfTouchesRequired = 1;
+    
     UIView *oneHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, ypoint, width, height)];
     UIView *oneLabel = [self createHouseTypeInfoViewUI:oneHouseTypeRootView andHouseTypeTitle:@"一房房源"];
+    oneHouseTypeRootView.tag = hHeaderHouseTypeActionOne;
     [view addSubview:oneHouseTypeRootView];
+    [oneHouseTypeRootView addGestureRecognizer:singleTapGestureOne];
     objc_setAssociatedObject(self, &OneHouseTypeDataKey, oneLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
@@ -344,9 +362,15 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [view addSubview:oneMiddelLineLabel];
     
     ///二房房源
+    UITapGestureRecognizer *singleTapGestureTwo = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(houseTypeSingleTapAction:)];
+    singleTapGestureTwo.numberOfTapsRequired = 1;
+    singleTapGestureTwo.numberOfTouchesRequired = 1;
+    
     UIView *twoHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - width / 2.0f, ypoint, width, height)];
     UIView *twoLabel = [self createHouseTypeInfoViewUI:twoHouseTypeRootView andHouseTypeTitle:@"二房房源"];
+    twoHouseTypeRootView.tag = hHeaderHouseTypeActionTwo;
     [view addSubview:twoHouseTypeRootView];
+    [twoHouseTypeRootView addGestureRecognizer:singleTapGestureTwo];
     objc_setAssociatedObject(self, &TwoHouseTypeDataKey, twoLabel, OBJC_ASSOCIATION_ASSIGN);
     
     UILabel *twoMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + width / 2.0f + 2.25f, ypoint, 0.5f, height)];
@@ -354,26 +378,44 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     [view addSubview:twoMiddelLineLabel];
     
     ///三房房源
+    UITapGestureRecognizer *singleTapGestureThree = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(houseTypeSingleTapAction:)];
+    singleTapGestureThree.numberOfTapsRequired = 1;
+    singleTapGestureThree.numberOfTouchesRequired = 1;
+    
     UIView *threeHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width - width, ypoint, width, height)];
     UIView *threeLabel = [self createHouseTypeInfoViewUI:threeHouseTypeRootView andHouseTypeTitle:@"三房房源"];
+    threeHouseTypeRootView.tag = hHeaderHouseTypeActionThree;
     [view addSubview:threeHouseTypeRootView];
+    [threeHouseTypeRootView addGestureRecognizer:singleTapGestureThree];
     objc_setAssociatedObject(self, &ThreeHouseTypeDataKey, threeLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///四房房源
-    UIView *foutHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 10.0f - width, ypoint + middleGap + height, width, height)];
-    UIView *fourLabel = [self createHouseTypeInfoViewUI:foutHouseTypeRootView andHouseTypeTitle:@"四房房源"];
-    [view addSubview:foutHouseTypeRootView];
+    UITapGestureRecognizer *singleTapGestureFour = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(houseTypeSingleTapAction:)];
+    singleTapGestureFour.numberOfTapsRequired = 1;
+    singleTapGestureFour.numberOfTouchesRequired = 1;
+    
+    UIView *fourHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 10.0f - width, ypoint + middleGap + height, width, height)];
+    UIView *fourLabel = [self createHouseTypeInfoViewUI:fourHouseTypeRootView andHouseTypeTitle:@"四房房源"];
+    fourHouseTypeRootView.tag = hHeaderHouseTypeActionFour;
+    [view addSubview:fourHouseTypeRootView];
+    [fourHouseTypeRootView addGestureRecognizer:singleTapGestureFour];
     objc_setAssociatedObject(self, &FourHouseTypeDataKey, fourLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///分隔线
-    UILabel *fourMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 0.25f, foutHouseTypeRootView.frame.origin.y, 0.5f, height)];
+    UILabel *fourMiddelLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - 0.25f, fourHouseTypeRootView.frame.origin.y, 0.5f, height)];
     fourMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [view addSubview:fourMiddelLineLabel];
     
     ///五房房源
-    UIView *fiveHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + 10.0f, foutHouseTypeRootView.frame.origin.y, width, height)];
+    UITapGestureRecognizer *singleTapGestureFive = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(houseTypeSingleTapAction:)];
+    singleTapGestureFive.numberOfTapsRequired = 1;
+    singleTapGestureFive.numberOfTouchesRequired = 1;
+    
+    UIView *fiveHouseTypeRootView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f + 10.0f, fourHouseTypeRootView.frame.origin.y, width, height)];
     UIView *fiveLabel = [self createHouseTypeInfoViewUI:fiveHouseTypeRootView andHouseTypeTitle:@"五房房源"];
+    fiveHouseTypeRootView.tag = hHeaderHouseTypeActionFive;
     [view addSubview:fiveHouseTypeRootView];
+    [fiveHouseTypeRootView addGestureRecognizer:singleTapGestureFive];
     objc_setAssociatedObject(self, &FiveHouseTypeDataKey, fiveLabel, OBJC_ASSOCIATION_ASSIGN);
 
 }
@@ -477,6 +519,14 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     renantTipsLabel.textAlignment = NSTextAlignmentCenter;
     renantTipsLabel.center = CGPointMake(renantHouse.frame.size.width / 2.0f, renantHouse.frame.size.height / 2.0f + 12.0f);
     [renantHouse addSubview:renantTipsLabel];
+
+}
+
+#pragma mark - 点击户型统计
+- (void)houseTypeSingleTapAction:(UITapGestureRecognizer *)tap
+{
+
+    NSLog(@"tap = %d",tap.view.tag);
 
 }
 
