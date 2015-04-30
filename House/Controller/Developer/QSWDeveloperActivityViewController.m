@@ -81,9 +81,9 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         [onlineActivityView  addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOnlineInfo)];
         
         [onlineActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOnlineMoreInfo)];
+        onlineActivityView.footer.hidden = YES;
         
         [onlineActivityView.header beginRefreshing];
-        [onlineActivityView.footer beginRefreshing];
         
         [UITableView animateWithDuration:0.3 animations:^{
             
@@ -107,10 +107,10 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     
     buttonStyle.title = @"结束活动";
     overButton = [UIButton createBlockButtonWithFrame:CGRectMake(onlineButton.frame.origin.x+onlineButton.frame.size.width, onlineButton.frame.origin.y, onlineButton.frame.size.width, onlineButton.frame.size.height) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        NSLog(@"点击结束活动");
+        
         if (button.selected) {
             
-            return ;
+            return;
             
         }
         button.selected = YES;
@@ -124,12 +124,12 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         overActivityView.showsVerticalScrollIndicator = NO;
         [self.view addSubview:overActivityView];
         objc_setAssociatedObject(self, &OverActivityViewKey, overActivityView, OBJC_ASSOCIATION_ASSIGN);
-        [overActivityView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOverInfo)];
         
+        [overActivityView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOverInfo)];
         [overActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOverMoreInfo)];
+        overActivityView.footer.hidden = YES;
         
         [overActivityView.header beginRefreshing];
-        [overActivityView.footer beginRefreshing];
         [UITableView animateWithDuration:0.3 animations:^{
             arrowIndicator.frame = CGRectMake(button.frame.origin.x+button.frame.size.width/2.0f-7.5f, arrowIndicator.frame.origin.y, arrowIndicator.frame.size.width, arrowIndicator.frame.size.height);
             
@@ -222,7 +222,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 
 }
 
-#pragma mark -网络数据请求
+#pragma mark -网络数据头部刷新请求
 ///当前活动数据请求
 -(void)getOnlineInfo
 {
@@ -249,22 +249,36 @@ static char OverActivityViewKey;   //!<活动结束关联列表
             if ([self.activityListModel.records count] > 0) {
                 
                 [self showNoRecordTips:NO];
+                onlineView.footer.hidden = NO;
+                if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
+                    
+                    [onlineView.footer noticeNoMoreData];
+                    
+                } else {
+                    
+                    [onlineView.footer resetNoMoreData];
+                    
+                }
                 
             } else {
                 
                 [self showNoRecordTips:YES andTips:@"暂无活动"];
+                onlineView.footer.hidden = YES;
                 
             }
+            
+            ///判断是否显示脚部刷新
             
         } else {
             
             self.activityListModel = nil;
             [onlineView reloadData];
             [self showNoRecordTips:YES andTips:@"暂无活动"];
+            onlineView.footer.hidden = YES;
             
         }
         [onlineView.header endRefreshing];
-
+        
     }];
 
 }
@@ -274,6 +288,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 {
     
     UITableView *overView = objc_getAssociatedObject(self, &OverActivityViewKey);
+    overView.footer.hidden = YES;
     
     NSDictionary *params = @{@"page_num":@"10",
                              @"now_page":@"1",
@@ -294,18 +309,32 @@ static char OverActivityViewKey;   //!<活动结束关联列表
              if ([self.activityListModel.records count] > 0) {
                  
                  [self showNoRecordTips:NO];
+                 overView.footer.hidden = NO;
+                 if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
+                     
+                     [overView.footer noticeNoMoreData];
+                     
+                 } else {
+                 
+                     [overView.footer resetNoMoreData];
+                 
+                 }
                  
              } else {
                  
                  [self showNoRecordTips:YES andTips:@"暂无活动"];
+                 overView.footer.hidden = YES;
                  
              }
+             
+             ///判断是否显示脚部刷新
              
          } else {
              
              self.activityListModel = nil;
              [overView reloadData];
              [self showNoRecordTips:YES andTips:@"暂无活动"];
+             overView.footer.hidden = YES;
              
          }
          [overView.header endRefreshing];
@@ -313,6 +342,8 @@ static char OverActivityViewKey;   //!<活动结束关联列表
      }];
     
 }
+
+#pragma mark -网络数据脚部刷新请求
 ///当前活动脚部刷新
 -(void)getOnlineMoreInfo
 {
@@ -341,23 +372,47 @@ static char OverActivityViewKey;   //!<活动结束关联列表
          if (rRequestResultTypeSuccess == resultStatus) {
              
              QSDeveloperActivityListReturnData *returnData = resultData;
-             self.activityListModel = returnData.msg;
              
-         }
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             
-             ///刷新数据
-             [onlineView reloadData];
-             
-             onlineView.footer.hidden = NO;
-             if ([self.activityListModel.per_page intValue] ==
-                 [self.activityListModel.next_page intValue]) {
+             ///判断是否需要刷新数据
+             if ([returnData.msg.records count] > 0) {
                  
-                 [onlineView.footer noticeNoMoreData];
+                 NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.activityListModel.records];
+                 self.activityListModel = returnData.msg;
+                 
+                 ///将新数据添加到原数据之中
+                 [tempArray addObjectsFromArray:returnData.msg.records];
+                 
+                 self.activityListModel.records = [NSArray arrayWithArray:tempArray];
+                 
+                 ///刷新数据
+                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     
+                     ///刷新数据
+                     [onlineView reloadData];
+                     
+                 });
                  
              }
              
-         });
+             ///脚部刷新设置
+             onlineView.footer.hidden = NO;
+             if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
+                 
+                 [onlineView.footer noticeNoMoreData];
+                 
+             } else {
+                 
+                 [onlineView.footer resetNoMoreData];
+                 
+             }
+             
+             [onlineView.footer endRefreshing];
+             
+         } else {
+         
+             [onlineView.footer endRefreshing];
+         
+         }
          
      }];
 
@@ -390,24 +445,48 @@ static char OverActivityViewKey;   //!<活动结束关联列表
          if (rRequestResultTypeSuccess == resultStatus) {
              
              QSDeveloperActivityListReturnData *returnData = resultData;
-             self.activityListModel = returnData.msg;
              
-         }
-         
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             
-             ///刷新数据
-             [overView reloadData];
-             
-             overView.footer.hidden = NO;
-             if ([self.activityListModel.per_page intValue] ==
-                 [self.activityListModel.next_page intValue]) {
+             ///判断是否需要刷新数据
+             if ([returnData.msg.records count] > 0) {
                  
-                 [overView.footer noticeNoMoreData];
+                 NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.activityListModel.records];
+                 self.activityListModel = returnData.msg;
+                 
+                 ///将新数据添加到原数据之中
+                 [tempArray addObjectsFromArray:returnData.msg.records];
+                 
+                 self.activityListModel.records = [NSArray arrayWithArray:tempArray];
+                 
+                 ///刷新数据
+                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     
+                     ///刷新数据
+                     [overView reloadData];
+                     
+                 });
                  
              }
              
-         });
+             ///脚部刷新设置
+             overView.footer.hidden = NO;
+             if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
+                 
+                 [overView.footer noticeNoMoreData];
+                 
+             } else {
+                 
+                 [overView.footer resetNoMoreData];
+                 
+             }
+             
+             [overView.footer endRefreshing];
+             
+         } else {
+             
+             [overView.footer endRefreshing];
+             
+         }
+         
      }];
 
 }
