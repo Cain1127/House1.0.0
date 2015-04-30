@@ -18,6 +18,7 @@
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSPSalerBookedOrdersListsViewController.h"
 #import "QSPOrderTipsButtonPopView.h"
+#import "QSPSalerTransactionOrderListViewController.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -97,6 +98,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             NSString *houseName = @"";
             NSString *housePrice = @"";
             NSString *orderID = @"";
+            NSString *houseType = @"";
+            
             if (self.orderData) {
                 
                 if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
@@ -112,13 +115,15 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                             
                             housePrice = orderItem.last_buyer_bid;
                             orderID = orderItem.id_;
+                            houseType = orderItem.order_type;
+                            
                         }
                         
                     }
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant withHouseType:houseType andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //提交还价
@@ -186,6 +191,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             NSString *houseName = @"";
             NSString *housePrice = @"";
             NSString *orderID = @"";
+            NSString *houseType = @"";
+            
             if (self.orderData) {
                 
                 if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
@@ -201,6 +208,8 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                             
                             housePrice = orderItem.last_buyer_bid;
                             orderID = orderItem.id_;
+                            houseType = orderItem.order_type;
+                            
                         }
                         
                     }
@@ -209,7 +218,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
             }
             
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeTenant withHouseType:houseType andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeConfirm) {
                     //接受还价
@@ -567,7 +576,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
             if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
                 
-                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                if (self.parentViewController) {
+                    
+                    if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                        
+                        [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                        
+                    }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                        
+                        [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -643,7 +664,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
             if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
                 
-                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                if (self.parentViewController) {
+                    
+                    if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                        
+                        [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                        
+                    }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                        
+                        [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -711,7 +744,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
             if (self.parentViewController && [self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
                 
-                [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                if (self.parentViewController) {
+                    
+                    if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                        
+                        [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                        
+                    }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                        
+                        [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                        
+                    }
+                    
+                }
                 
             }
             
@@ -788,7 +833,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-//             [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         
@@ -863,7 +920,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         
@@ -903,16 +972,41 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     
     NSString *housePrice = @"";
     
+    NSString *houseType = @"";
+    
+    if (self.orderData.orderInfoList&&[self.orderData.orderInfoList count]>0) {
+        
+        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderData.orderInfoList objectAtIndex:_selectedIndex];
+        if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+            
+            houseType = orderInfoData.order_type;
+            
+        }
+    }
+    
     if (self.orderData) {
         
         if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
             
             housePrice = self.orderData.houseData.house_price;
             
+            if ([houseType isEqualToString:@"500103"]) {
+                
+                housePrice = self.orderData.houseData.rent_price;
+                
+            }
         }
     }
     
-    if (housePrice.floatValue<priceStr.floatValue*10000) {
+    CGFloat priceF = priceStr.floatValue*10000;
+    
+    if ([houseType isEqualToString:@"500103"]) {
+        
+        priceF = priceStr.floatValue;
+        
+    }
+    
+    if (housePrice.floatValue<priceF) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入小于房价的金额", 1.0f, ^(){
             
@@ -945,7 +1039,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     [tempParam setObject:orderID forKey:@"order_id"];
     
     //价格单位从万转元
-    priceStr = [NSString stringWithFormat:@"%f",priceStr.floatValue*10000];
+    priceStr = [NSString stringWithFormat:@"%f",priceF];
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -954,7 +1048,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         
@@ -1011,7 +1117,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         
@@ -1086,7 +1204,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         
@@ -1166,7 +1296,19 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+            if (self.parentViewController) {
+                
+                if ([self.parentViewController isKindOfClass:[QSPSalerBookedOrdersListsViewController class]]) {
+                    
+                    [(QSPSalerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                    
+                }else if ([self.parentViewController isKindOfClass:[QSPSalerTransactionOrderListViewController class]]) {
+                    
+                    [(QSPSalerTransactionOrderListViewController*)(self.parentViewController) reloadAllShowList];
+                    
+                }
+                
+            }
             
         }
         

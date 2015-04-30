@@ -640,11 +640,11 @@
         
     }
     
+    ///删除均价
+    [tempDictionary removeObjectForKey:@"price_avg"];
+    
     ///出租房时，封装的是租金
     if (fFilterMainTypeRentalHouse == filterType) {
-        
-        ///删除均价
-        [tempDictionary removeObjectForKey:@"price_avg"];
         
         ///租金
         [tempDictionary setObject:(filterModel.rent_price_key ? filterModel.rent_price_key : @"") forKey:@"rent_price"];

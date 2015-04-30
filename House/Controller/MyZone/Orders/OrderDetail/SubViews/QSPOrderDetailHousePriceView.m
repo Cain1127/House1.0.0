@@ -10,6 +10,7 @@
 #import "NSString+Calculation.h"
 #import "CoreHeader.h"
 #import "QSOrderListHouseInfoDataModel.h"
+#import "QSOrderDetailInfoDataModel.h"
 
 @interface QSPOrderDetailHousePriceView ()
 
@@ -20,14 +21,14 @@
 
 @implementation QSPOrderDetailHousePriceView
 
-- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack
+- (instancetype)initAtTopLeft:(CGPoint)topLeftPoint withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack
 {
     
-    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withHouseData:houseData andCallBack:callBack];
+    return [self initWithFrame:CGRectMake(topLeftPoint.x, topLeftPoint.y, SIZE_DEVICE_WIDTH, 0.0f) withOrderData:orderData andCallBack:callBack];
     
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withHouseData:(id)houseData andCallBack:(void(^)(UIButton *button))callBack
+- (instancetype)initWithFrame:(CGRect)frame withOrderData:(id)orderData andCallBack:(void(^)(UIButton *button))callBack
 {
     if (self = [super initWithFrame:frame]) {
         
@@ -37,17 +38,33 @@
         //房价
         NSAttributedString *priceInfoString = nil;
         
-        if (houseData) {
+        //房源类型
+        NSString *houseType = @"";
+        
+        if (orderData && [orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
             
-            if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+            houseType = ((QSOrderDetailInfoDataModel*)orderData).order_type;
+            
+            QSOrderListHouseInfoDataModel *houseData = ((QSOrderDetailInfoDataModel*)orderData).house_msg;
+            if (orderData) {
                 
-                QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
-                
-                NSString *totalPrice = data.house_price;
-                NSString *areaStr = data.house_area;
-                
-                priceInfoString = [self priceInfoStringWithTotalPrice:totalPrice withAreaStr:areaStr];
+                if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+                    
+                    QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+                    
+                    NSString *areaStr = data.house_area;
+                    
+                    NSString *totalPrice = data.house_price;
+                    if ([houseType isEqualToString:@"500103"]) {
+                        totalPrice = data.rent_price;
+                        
+                        
+                    }
+                    
+                    priceInfoString = [self priceInfoStringWithTotalPrice:totalPrice withAreaStr:areaStr withHouseType:houseType];
+                }
             }
+            
         }
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP)-44.0f;
@@ -65,19 +82,26 @@
             [self.priceLabel setAttributedText:priceInfoString];
         }
         
-        ///计算器按钮
-        QSBlockButtonStyleModel *computerButtonStyle = [[QSBlockButtonStyleModel alloc] init];
-        computerButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_NORMAL;
-        computerButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED;
-        computerButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED;
-        UIButton *computerButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, self.priceLabel.frame.origin.y+(self.priceLabel.frame.size.height-44.0f)/2.f, 44.0f, 44.0f) andButtonStyle:computerButtonStyle andCallBack:^(UIButton *button) {
+        //非出租房
+        if (![houseType isEqualToString:@"500103"]) {
             
-            NSLog(@"computerButton");
-            if (self.blockButtonCallBack) {
-                self.blockButtonCallBack(button);
-            }
+            ///计算器按钮
+            QSBlockButtonStyleModel *computerButtonStyle = [[QSBlockButtonStyleModel alloc] init];
+            computerButtonStyle.imagesNormal = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_NORMAL;
+            computerButtonStyle.imagesHighted = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED;
+            computerButtonStyle.imagesSelected = IMAGE_ZONE_ORDER_DETAIL_COMPUTER_BT_PRESSED;
+            UIButton *computerButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP-44, self.priceLabel.frame.origin.y+(self.priceLabel.frame.size.height-44.0f)/2.f, 44.0f, 44.0f) andButtonStyle:computerButtonStyle andCallBack:^(UIButton *button) {
+                
+                NSLog(@"computerButton");
+                if (self.blockButtonCallBack) {
+                    self.blockButtonCallBack(button);
+                }
+                
+            }];
+
+            [self addSubview:computerButton];
             
-        }];
+        }
         
 //        ///大的点击区域
 //        UIButton *clickBt = [UIButton createBlockButtonWithFrame:CGRectMake(self.priceLabel.frame.origin.x, self.priceLabel.frame.origin.y, computerButton.frame.origin.x+computerButton.frame.size.width+10, self.priceLabel.frame.size.height) andButtonStyle:[[QSBlockButtonStyleModel alloc] init] andCallBack:^(UIButton *button) {
@@ -89,7 +113,6 @@
 //        }];
 //        [self addSubview:clickBt];
         
-        [self addSubview:computerButton];
         
         ///最下方边界区域
         UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, self.priceLabel.frame.origin.y+self.priceLabel.frame.size.height, (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP), CONTENT_TOP_BOTTOM_OFFSETY)];
@@ -113,7 +136,7 @@
     
 }
 
-- (NSAttributedString*)priceInfoStringWithTotalPrice:(NSString*)totalPriceStr withAreaStr:(NSString*)areaStr
+- (NSAttributedString*)priceInfoStringWithTotalPrice:(NSString*)totalPriceStr withAreaStr:(NSString*)areaStr withHouseType:(NSString*)houseType
 {
 
     NSString *perPriceStr = @"";
@@ -131,14 +154,22 @@
                 
                 CGFloat perPricef = totalPriceStr.floatValue/areaf;
                 //转换单位为万的价格
-                perPriceStr = [NSString stringWithFormat:@"%.1f",perPricef/10000];
+                if (![houseType isEqualToString:@"500103"]) {
+                    
+                    perPriceStr = [NSString stringWithFormat:@"%.1f",perPricef/10000];
+                    
+                }
                 
             }
             
         }
         
         //转换单位为万的价格
-        totalPriceStr = [NSString stringWithFormat:@"%d",(int)(totalPriceStr.floatValue/10000.0)];
+        if (![houseType isEqualToString:@"500103"]) {
+            
+            totalPriceStr = [NSString stringWithFormat:@"%d",(int)(totalPriceStr.floatValue/10000.0)];
+            
+        }
         
     }
     
@@ -156,6 +187,13 @@
         }else{
             
             NSString* tempString = [NSString stringWithFormat:@"售价:%@万|单价:%@万/㎡",totalPriceStr,perPriceStr];
+            
+            if ([houseType isEqualToString:@"500103"]) {
+                
+                tempString = [NSString stringWithFormat:@"租金:%@元/月，面积:%@㎡",totalPriceStr,areaStr];
+                
+            }
+            
             priceInfoString = [[NSMutableAttributedString alloc] initWithString:tempString];
             [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(3, totalPriceStr.length)];
             [priceInfoString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(8+totalPriceStr.length, perPriceStr.length)];
@@ -172,21 +210,26 @@
     
 }
 
-- (void)setHouseData:(id)houseData{
+- (void)setOrderData:(id)orderData{
     
     //房价
     NSAttributedString *priceInfoString = nil;
     
-    if (houseData) {
+    if (orderData && [orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
         
-        if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+        QSOrderListHouseInfoDataModel *houseData = ((QSOrderDetailInfoDataModel*)orderData).house_msg;
+        
+        if (houseData) {
             
-            QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
-            
-            NSString *totalPrice = data.house_price;
-            NSString *areaStr = data.house_area;
-            
-            priceInfoString = [self priceInfoStringWithTotalPrice:totalPrice withAreaStr:areaStr];
+            if ([houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
+                
+                QSOrderListHouseInfoDataModel *data = (QSOrderListHouseInfoDataModel*)houseData;
+                
+                NSString *totalPrice = data.house_price;
+                NSString *areaStr = data.house_area;
+                
+                priceInfoString = [self priceInfoStringWithTotalPrice:totalPrice withAreaStr:areaStr withHouseType:((QSOrderDetailInfoDataModel*)orderData).order_type];
+            }
         }
     }
     

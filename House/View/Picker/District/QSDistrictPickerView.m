@@ -9,16 +9,16 @@
 #import "QSDistrictPickerView.h"
 #import "QSBlockButtonStyleModel+Normal.h"
 
-#import "QSCDBaseConfigurationDataModel.h"
+#import "QSBaseConfigurationDataModel.h"
 
 @interface QSDistrictPickerView ()
 
 ///选择地区完成后的回调
-@property (nonatomic,copy) void(^districtPickeredCallBack)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *districtModel,QSCDBaseConfigurationDataModel *streetModel);
+@property (nonatomic,copy) void(^districtPickeredCallBack)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *districtModel,QSBaseConfigurationDataModel *streetModel);
 
 @property (nonatomic,assign) BOOL isUnLimited;                                          //!<当前是否是不限
-@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentSelectedDistrict;   //!<当前选择的区
-@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentSelectedStreet;     //!<当前选择的街道
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedDistrict;   //!<当前选择的区
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedStreet;     //!<当前选择的街道
 
 @end
 
@@ -26,20 +26,20 @@
 
 #pragma mark - 初始化
 /**
- *  @author                     yangshengmeng, 15-01-28 17:01:03
+ *  @author                    yangshengmeng, 15-01-28 17:01:03
  *
- *  @brief                      根据给定的大小的位置，初始化一个地区选择view，同时只展现到给定的选择级别
+ *  @brief                     根据给定的大小的位置，初始化一个地区选择view，同时只展现到给定的选择级别
  *
  *  @param frame               大小位置
  *  @param selectedDistrictKey 当前处于选择状态的区key
  *  @param selectedStreetKey   当前处于选择状态的街道key
  *  @param callBack            选择地点后的回调
  *
- *  @return                     返回当前创建的地区选择窗口对象
+ *  @return                    返回当前创建的地区选择窗口对象
  *
- *  @since                      1.0.0
+ *  @since                     1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack
+- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *distictModel,QSBaseConfigurationDataModel *streetModel))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -48,7 +48,7 @@
         self.backgroundColor = [UIColor whiteColor];
         
         ///初始化时，表示不限
-        self.isUnLimited = selectedStreetKey ? NO : YES;
+        self.isUnLimited = [selectedStreetKey length] > 0 ? NO : YES;
         
         ///保存回调
         if (callBack) {
@@ -74,7 +74,7 @@
     QSDistrictListView *districtListView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height - 84.0f) andSelectedStreetKey:selectedStreetKey andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel, QSCDBaseConfigurationDataModel *streetModel) {
         
         ///判断选择的状态
-        if (cCustomDistrictPickerActionTypeUnLimitedDistrict == pickedActionType) {
+        if (cCustomDistrictPickerActionTypeUnLimitedStreet == pickedActionType) {
             
             ///标记为不限
             self.isUnLimited = YES;
@@ -121,7 +121,7 @@
             ///判断是否不限
             if (self.isUnLimited) {
                 
-                self.districtPickeredCallBack(cCustomDistrictPickerActionTypeUnLimitedDistrict,nil,nil);
+                self.districtPickeredCallBack(cCustomDistrictPickerActionTypeUnLimitedStreet,nil,nil);
                 
             } else {
             

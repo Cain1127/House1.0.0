@@ -38,11 +38,13 @@
         
         QSOrderDetailInfoDataModel *tempOrderData = nil;
         
+        NSString *houseType = @"";
         if (orderData) {
             
             if ([orderData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
                 
                 tempOrderData = (QSOrderDetailInfoDataModel*)orderData;
+                houseType = tempOrderData.order_type;
                 
             }
         }
@@ -102,23 +104,41 @@
         
         NSString *housePriceStr = tempOrderData.house_msg.house_price;
         if (housePriceStr) {
-            CGFloat pricef = [housePriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            if ([houseType isEqualToString:@"500103"]) {
+                
+            }else{
+                
+                CGFloat pricef = [housePriceStr floatValue]/10000.0;
+                NSInteger priceInt = (NSInteger)pricef;
+                housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                
+            }
         }
         
         NSString *salerPriceStr = tempOrderData.last_saler_bid;
         if (salerPriceStr) {
-            CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            if ([houseType isEqualToString:@"500103"]) {
+                
+            }else{
+                
+                CGFloat pricef = [salerPriceStr floatValue]/10000.0;
+                NSInteger priceInt = (NSInteger)pricef;
+                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                
+            }
         }
         
         NSString *buyerPriceStr = tempOrderData.last_buyer_bid;
         if (buyerPriceStr) {
-            CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            if ([houseType isEqualToString:@"500103"]) {
+                
+            }else{
+                
+                CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
+                NSInteger priceInt = (NSInteger)pricef;
+                buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                
+            }
         }
         
         NSString *myPriceStr = nil;

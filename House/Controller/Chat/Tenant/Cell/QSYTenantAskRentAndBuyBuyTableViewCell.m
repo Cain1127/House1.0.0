@@ -78,6 +78,20 @@ static char CommentKey;     //!<备注信息
     [rootView addSubview:addressLabel];
     objc_setAssociatedObject(self, &AddressKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
+    ///推送房源按钮
+    UIButton *recommendButton = [UIButton createBlockButtonWithFrame:CGRectMake(rootView.frame.size.width - 44.0f, addressLabel.frame.origin.y - 7.0f, 30.0f, 34.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        if (self.askRentAndBuyCellCallBack) {
+            
+            self.askRentAndBuyCellCallBack(tTenantAskRentAndBuyBuyCellActionTypeRecommendHouse);
+            
+        }
+        
+    }];
+    [recommendButton setImage:[UIImage imageNamed:IMAGE_CHAT_TENANT_DETAIL_RECOMMEND_NORMAL] forState:UIControlStateNormal];
+    [recommendButton setImage:[UIImage imageNamed:IMAGE_CHAT_TENANT_DETAIL_RECOMMEND_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [rootView addSubview:recommendButton];
+    
     ///购买目的
     UILabel *targetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, addressLabel.frame.origin.y + addressLabel.frame.size.height + 5.0f, 120.0f, 15.0f)];
     targetLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];

@@ -157,4 +157,18 @@
     
 }
 
+#pragma mark - 进入新房详情
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    ///获取数据
+    QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
+        
+    }
+
+}
+
 @end

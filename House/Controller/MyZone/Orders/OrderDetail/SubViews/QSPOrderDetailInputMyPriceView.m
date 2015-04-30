@@ -41,29 +41,37 @@
         [markTipLabel setNumberOfLines:0];
         [self addSubview:markTipLabel];
         
-        UITextField *inputPriceTextField = [[UITextField alloc]initWithFrame:CGRectMake(markTipLabel.frame.origin.x, markTipLabel.frame.origin.y + markTipLabel.frame.size.height+6, labelWidth, 44.0f)];
-        [inputPriceTextField setBackgroundColor:[UIColor whiteColor]];
-        [inputPriceTextField setPlaceholder:@"输入您的房源估价"];
-        [inputPriceTextField setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
-        [inputPriceTextField setReturnKeyType:UIReturnKeyDone];
-        [inputPriceTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [inputPriceTextField setKeyboardType:UIKeyboardTypeDecimalPad];
-        [inputPriceTextField.layer setCornerRadius:VIEW_SIZE_NORMAL_CORNERADIO];
-        [inputPriceTextField.layer setMasksToBounds:YES];
-        [inputPriceTextField.layer setBorderColor:COLOR_CHARACTERS_LIGHTYELLOW.CGColor];
-        [inputPriceTextField.layer setBorderWidth:1.0f];
-        [inputPriceTextField setDelegate:self];
-        [self addSubview:inputPriceTextField];
+        self.priceTextField = [[UITextField alloc]initWithFrame:CGRectMake(markTipLabel.frame.origin.x, markTipLabel.frame.origin.y + markTipLabel.frame.size.height+6, labelWidth, 44.0f)];
+        [self.priceTextField setBackgroundColor:[UIColor whiteColor]];
+        [self.priceTextField setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
+        [self.priceTextField setReturnKeyType:UIReturnKeyDone];
+        [self.priceTextField setBorderStyle:UITextBorderStyleRoundedRect];
+        [self.priceTextField setKeyboardType:UIKeyboardTypeDecimalPad];
+        [self.priceTextField.layer setCornerRadius:VIEW_SIZE_NORMAL_CORNERADIO];
+        [self.priceTextField.layer setMasksToBounds:YES];
+        [self.priceTextField.layer setBorderColor:COLOR_CHARACTERS_LIGHTYELLOW.CGColor];
+        [self.priceTextField.layer setBorderWidth:1.0f];
+        [self.priceTextField setDelegate:self];
+        [self addSubview:self.priceTextField];
         
-        self.priceTextField = inputPriceTextField;
-        
-        self.showHeight = inputPriceTextField.frame.origin.y+inputPriceTextField.frame.size.height + 10;
+        self.showHeight = self.priceTextField.frame.origin.y+self.priceTextField.frame.size.height + 10;
         
         [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.showHeight)];
         
     }
     
     return self;
+    
+}
+
+- (void)setPlaceholder:(NSString*)placeholder
+{
+    
+    if (self.priceTextField) {
+        
+        [self.priceTextField setPlaceholder:placeholder];
+        
+    }
     
 }
 

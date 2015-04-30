@@ -25,4 +25,6 @@
 
 - (void)setPrice:(NSString*)priceStr;
 
+- (void)setPlaceholder:(NSString*)placeholder;
+
 @end

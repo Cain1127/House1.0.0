@@ -576,7 +576,7 @@
     ///房源价格
     if (self.orderDetailData.isShowHousePriceView) {
         
-        self.housePriceView = [[QSPOrderDetailHousePriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withHouseData:houseData andCallBack:^(UIButton *button) {
+        self.housePriceView = [[QSPOrderDetailHousePriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
             
             NSLog(@"price compute clickBt");
             
@@ -624,7 +624,7 @@
                 //房源坐标
                 //            self.orderDetailData.house_msg.coordinate_x;
                 //            self.orderDetailData.house_msg.coordinate_y;
-                QSSearchMapViewController *mapSearchVC = [[QSSearchMapViewController alloc] initWithTitle:self.orderDetailData.house_msg.name andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
+                QSSearchMapViewController *mapSearchVC = [[QSSearchMapViewController alloc] initWithTitle:self.orderDetailData.house_msg.title andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
                 [self.navigationController pushViewController:mapSearchVC animated:YES];
                 
             }
@@ -783,6 +783,17 @@
     
     //!<输入我的出价View
     self.inputMyPriceView = [[QSPOrderDetailInputMyPriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY)];
+    
+    if ([self.orderDetailData.order_type isEqualToString:@"500103"]) {
+        //出租房出价
+        [self.inputMyPriceView setPlaceholder:@"输入您的房源估价（单位为元）"];
+        
+    }else {
+        
+        [self.inputMyPriceView setPlaceholder:@"输入您的房源估价(单位为万元)"];
+        
+    }
+    
     [scrollView addSubview:self.inputMyPriceView];
     ///将输入我的出价View引用添加进看房时间控件管理作动态高度扩展
     [self.showingsTimeView addAfterView:&_inputMyPriceView];
@@ -1648,6 +1659,19 @@
         return;
         
     }
+    
+    NSScanner* scan = [NSScanner scannerWithString:priceStr];
+    float val;
+    BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+    
+    if (!flag) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
+            
+        })
+        
+    }
+    
     NSString *housePrice = @"";
     
     if (self.orderDetailData) {
@@ -1655,11 +1679,21 @@
         if (self.orderDetailData || [self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
             
             housePrice = self.orderDetailData.house_msg.house_price;
-            
+            if ([self.orderDetailData.order_type isEqualToString:@"500103"]) {
+                //出租房
+                housePrice = self.orderDetailData.house_msg.rent_price;
+            }
         }
     }
     
-    if (housePrice.floatValue<priceStr.floatValue*10000) {
+    CGFloat inputPriceF = priceStr.floatValue*10000;
+    
+    if ([self.orderDetailData.order_type isEqualToString:@"500103"])
+    {
+        inputPriceF = priceStr.floatValue;
+    }
+    
+    if (housePrice.floatValue < inputPriceF) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入小于房价的金额", 1.0f, ^(){
             
@@ -1672,18 +1706,6 @@
         })
         
         return;
-        
-    }
-    
-    NSScanner* scan = [NSScanner scannerWithString:priceStr];
-    float val;
-    BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
-    
-    if (!flag) {
-        
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
-            
-        })
         
     }
     
@@ -1709,8 +1731,13 @@
     
     [tempParam setObject:self.orderID forKey:@"order_id"];
     
-    //价格单位从万转元
-    priceStr = [NSString stringWithFormat:@"%f",priceStr.floatValue*10000];
+    if (![self.orderDetailData.order_type isEqualToString:@"500103"]) {
+        
+        //价格单位从万转元
+        priceStr = [NSString stringWithFormat:@"%f",inputPriceF];
+        
+    }
+    
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {

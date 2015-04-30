@@ -250,13 +250,13 @@
                                 {
                                     if (self.houseData&&[self.houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
                                         
-                                        summaryString = [self priceStringWithTip:@"售价:" withPricef:[self.houseData.house_price floatValue]];
+                                        summaryString = [self priceStringWithTip:@"售价:" withPricef:[self.houseData.house_price floatValue] withIndex:index];
                                     }
                                 }else if ([orderInfoData.order_type isEqualToString:@"500103"])
                                 {
                                     if (self.houseData&&[self.houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
                                         
-                                        summaryString = [self priceStringWithTip:@"租金:" withPricef:[self.houseData.house_price floatValue]];
+                                        summaryString = [self priceStringWithTip:@"租金:" withPricef:[self.houseData.rent_price floatValue] withIndex:index];
                                     }
                                 }
                             }
@@ -276,20 +276,20 @@
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
-                        summaryString = [self priceStringWithTip:@"房客议价:" withPricef:[orderInfoData.last_buyer_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"房客议价:" withPricef:[orderInfoData.last_buyer_bid floatValue] withIndex:index];
                     }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
                         //房客角色
-                        summaryString = [self priceStringWithTip:@"我还价:" withPricef:[orderInfoData.last_buyer_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"我还价:" withPricef:[orderInfoData.last_buyer_bid floatValue] withIndex:index];
                     }
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500258"]) {
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
-                        summaryString = [self priceStringWithTip:@"协议价格:" withPricef:[orderInfoData.last_saler_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"协议价格:" withPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
                     }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
                         //房客角色
-                        summaryString = [self priceStringWithTip:@"协议价格:" withPricef:[orderInfoData.last_saler_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"协议价格:" withPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
                     }
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500253"]
@@ -302,7 +302,7 @@
                             //是否一口价 1：是； 0：否
                             if (self.houseData.negotiated && [self.houseData.negotiated isEqualToString:@"1"]) {
                                 
-                                summaryString = [self priceStringWithTip:@"一口价:" withPricef:[self.houseData.house_price floatValue]];
+                                summaryString = [self priceStringWithTip:@"一口价:" withPricef:[self.houseData.house_price floatValue] withIndex:index];
                                 
                             }
                             
@@ -314,7 +314,7 @@
                             //是否一口价 1：是； 0：否
                             if (self.houseData.negotiated && [self.houseData.negotiated isEqualToString:@"1"]) {
                                 
-                                summaryString = [self priceStringWithTip:@"一口价:" withPricef:[self.houseData.house_price floatValue]];
+                                summaryString = [self priceStringWithTip:@"一口价:" withPricef:[self.houseData.house_price floatValue] withIndex:index];
                                 
                             }
                         }
@@ -324,10 +324,10 @@
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
-                        summaryString = [self priceStringWithTip:@"我出价:" withPricef:[orderInfoData.last_saler_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"我出价:" withPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
                     }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
                         //房客角色
-                        summaryString = [self priceStringWithTip:@"业主还价:" withPricef:[orderInfoData.last_saler_bid floatValue]];
+                        summaryString = [self priceStringWithTip:@"业主还价:" withPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
                     }
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500259"]) {
@@ -344,13 +344,13 @@
                             {
                                 if (self.houseData&&[self.houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
                                     
-                                    summaryString = [self priceStringWithTip:@"售价:" withPricef:[self.houseData.house_price floatValue]];
+                                    summaryString = [self priceStringWithTip:@"售价:" withPricef:[self.houseData.house_price floatValue] withIndex:index];
                                 }
                             }else if ([orderInfoData.order_type isEqualToString:@"500103"])
                             {
                                 if (self.houseData&&[self.houseData isKindOfClass:[QSOrderListHouseInfoDataModel class]]) {
                                     
-                                    summaryString = [self priceStringWithTip:@"租金:" withPricef:[self.houseData.house_price floatValue]];
+                                    summaryString = [self priceStringWithTip:@"租金:" withPricef:[self.houseData.rent_price floatValue] withIndex:index];
                                 }
                             }
                         }
@@ -363,17 +363,25 @@
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
-                        summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue]];
+                        summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
                     }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
                         //房客角色
-                        summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue]];
+                        summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
                     }
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500301"]
                           ||[orderInfoData.order_status isEqualToString:@"500302"]) {
                     
+                    if ([orderInfoData.order_type isEqualToString:@"500103"]) {
+                        
+                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.rent_price floatValue] WithSecondTip:@"元|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
+                        
+                    }else{
+                        
+                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.house_price floatValue] WithSecondTip:@"万|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
+                        
+                    }
                     
-                    summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.house_price floatValue] WithSecondTip:@"万|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue]];
                     
                 }
                 
@@ -409,14 +417,41 @@
     
 }
 
-- (NSAttributedString*)priceStringWithTip:(NSString*)tipString withPricef:(CGFloat)pricef
+- (NSAttributedString*)priceStringWithTip:(NSString*)tipString withPricef:(CGFloat)pricef withIndex:(NSInteger)index
 {
     
-    pricef = pricef/10000.0;
-    NSInteger priceInt = (NSInteger)pricef;
+    NSString *houseType = @"";
     
-    NSString *priceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
-    NSString *tempString = [NSString stringWithFormat:@"%@%@万",tipString,priceStr];
+    if ([self.orderInfoList count]-1>=index) {
+        
+        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:index];
+        if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+            if (orderInfoData.order_status&&[orderInfoData.order_status isKindOfClass:[NSString class]]) {
+                
+                houseType = orderInfoData.order_type;
+                
+            }
+        }
+        
+    }
+    
+    NSString *priceStr = @"";
+    NSString *tempString = @"";
+    
+    if (![houseType isEqualToString:@"500103"]) {
+        
+        pricef = pricef/10000.0;
+        NSInteger priceInt = (NSInteger)pricef;
+        priceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+        tempString = [NSString stringWithFormat:@"%@%@万",tipString,priceStr];
+        
+    }else {
+        
+        priceStr = [NSString stringWithFormat:@"%ld",(long)((NSInteger)pricef)];
+        tempString = [NSString stringWithFormat:@"%@%@元",tipString,priceStr];
+        
+    }
+    
     NSMutableAttributedString *summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
     [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tipString.length, priceStr.length)];
     //设置字体大小
@@ -426,22 +461,54 @@
     
 }
 
-- (NSAttributedString*)priceStringWithFirstTip:(NSString*)tip1String withFirstPricef:(CGFloat)price1f WithSecondTip:(NSString*)tip2String withSecondPricef:(CGFloat)price2f
+- (NSAttributedString*)priceStringWithFirstTip:(NSString*)tip1String withFirstPricef:(CGFloat)price1f WithSecondTip:(NSString*)tip2String withSecondPricef:(CGFloat)price2f withIndex:(NSInteger)index
 {
     
-    price1f = price1f/10000.0;
-    NSInteger price1Int = (NSInteger)price1f;
-    NSString *price1Str = [NSString stringWithFormat:@"%ld",(long)price1Int];
+    NSString *houseType = @"";
     
-    price2f = price2f/10000.0;
-    NSInteger price2Int = (NSInteger)price2f;
-    NSString *price2Str = [NSString stringWithFormat:@"%ld",(long)price2Int];
+    if ([self.orderInfoList count]-1>=index) {
+        
+        QSOrderListOrderInfoDataModel *orderInfoData = [self.orderInfoList objectAtIndex:index];
+        if (orderInfoData&&[orderInfoData isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+            if (orderInfoData.order_status&&[orderInfoData.order_status isKindOfClass:[NSString class]]) {
+                
+                houseType = orderInfoData.order_type;
+                
+            }
+        }
+        
+    }
+    
+    NSString *price1Str;
+    NSString *price2Str;
+    
+    if ([houseType isEqualToString:@"500103"]) {
+        
+        price1Str = [NSString stringWithFormat:@"%ld", (long)((NSInteger)price1f)];
+        price2Str = [NSString stringWithFormat:@"%ld", (long)((NSInteger)price2f)];
+        
+    }else {
+        
+        price1f = price1f/10000.0;
+        NSInteger price1Int = (NSInteger)price1f;
+        price1Str = [NSString stringWithFormat:@"%ld",(long)price1Int];
+        
+        price2f = price2f/10000.0;
+        NSInteger price2Int = (NSInteger)price2f;
+        price2Str = [NSString stringWithFormat:@"%ld",(long)price2Int];
+    }
     
     NSMutableAttributedString *summaryString;
     
     if (price1Str&&[price1Str isKindOfClass:[NSString class]]) {
         
         NSString *tempString = [NSString stringWithFormat:@"%@%@%@%@万",tip1String,price1Str,tip2String,price2Str];
+        
+        if ([houseType isEqualToString:@"500103"]) {
+        
+            tempString = [NSString stringWithFormat:@"%@%@%@%@元",tip1String,price1Str,tip2String,price2Str];
+            
+        }
         
         summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
         

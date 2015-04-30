@@ -402,6 +402,10 @@
 #define IMAGE_CHAT_TOOL_CONTRACT_NORMAL @"chat_tool_contract_normal"
 #define IMAGE_CHAT_TOOL_CONTRACT_HIGHLIGHTED @"chat_tool_contract_highlighted"
 
+///普通房客信息页->推荐房源图片
+#define IMAGE_CHAT_TENANT_DETAIL_RECOMMEND_NORMAL @"chat_contact_detail_recommend_normal"
+#define IMAGE_CHAT_TENANT_DETAIL_RECOMMEND_HIGHLIGHTED @"chat_contact_detail_recommend_highlighted"
+
 #pragma mark - 个人中心相关图片
 
 /**

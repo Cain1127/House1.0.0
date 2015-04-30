@@ -35,6 +35,47 @@
 
 }
 
+///清空过滤条件
+- (void)clearFilterInfo
+{
+    
+    self.buy_purpose_key = nil;
+    self.buy_purpose_val = nil;
+    self.decoration_key = nil;
+    self.decoration_val = nil;
+    self.des = nil;
+    self.district_key = nil;
+    self.district_val = nil;
+    self.floor_key = nil;
+    self.floor_val = nil;
+    self.house_area_key = nil;
+    self.house_area_val = nil;
+    self.house_face_key = nil;
+    self.house_face_val = nil;
+    self.house_type_key = nil;
+    self.house_type_val = nil;
+    self.rent_pay_type_key = nil;
+    self.rent_pay_type_val = nil;
+    self.rent_price_key = nil;
+    self.rent_price_val = nil;
+    self.rent_type_key = nil;
+    self.rent_type_val = nil;
+    self.sale_price_key = nil;
+    self.sale_price_val = nil;
+    self.avg_price_key = nil;
+    self.avg_price_val = nil;
+    self.street_key = nil;
+    self.street_val = nil;
+    self.trade_type_key = nil;
+    self.trade_type_val = nil;
+    self.used_year_val = nil;
+    self.used_year_key = nil;
+    self.comment = nil;
+    [self.installations removeAllObjects];
+    [self.features_list removeAllObjects];
+
+}
+
 - (NSString *)getFeaturesPostParams
 {
 

@@ -18,6 +18,7 @@
 @property (nonatomic,copy) NSString *address;           //!<地址
 @property (nonatomic,copy) NSString *negotiated;        //!<是否一口价 1：是； 0：否
 @property (nonatomic,copy) NSString *house_price;       //!<房价
+@property (nonatomic,copy) NSString *rent_price;        //!<出租价
 @property (nonatomic,copy) NSString *house_area;        //!<面积
 @property (nonatomic,copy) NSString *attach_file;       //!<房源大图URL
 @property (nonatomic,copy) NSString *attach_thumb;      //!<房源小图URL
