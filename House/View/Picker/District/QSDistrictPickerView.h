@@ -12,7 +12,7 @@
 /**
  *  @brief  地区选择窗口
  */
-@class QSCDBaseConfigurationDataModel;
+@class QSBaseConfigurationDataModel;
 @interface QSDistrictPickerView : UIView
 
 /**
@@ -29,6 +29,6 @@
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack;
+- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *distictModel,QSBaseConfigurationDataModel *streetModel))callBack;
 
 @end

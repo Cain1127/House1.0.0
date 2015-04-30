@@ -34,7 +34,7 @@
     districtPopView.customPopviewTapCallBack = callBack;
     
     ///地区选择view
-    QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 84.0f, districtPopView.frame.size.width, districtPopView.frame.size.height - 84.0f) andSelectedStreetKey:selectedStreetKey andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel, QSCDBaseConfigurationDataModel *streetModel) {
+    QSDistrictPickerView *districtPickerView = [[QSDistrictPickerView alloc] initWithFrame:CGRectMake(0.0f, 84.0f, districtPopView.frame.size.width, districtPopView.frame.size.height - 84.0f) andSelectedStreetKey:selectedStreetKey andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSBaseConfigurationDataModel *distictModel, QSBaseConfigurationDataModel *streetModel) {
         
         ///选择一个街道
         if (cCustomDistrictPickerActionTypePickedStreet == pickedActionType) {
@@ -46,6 +46,10 @@
             
             districtPopView.customPopviewTapCallBack(cCustomPopviewActionTypeSingleSelected,tempReturnModel,-1);
             
+        } else if (cCustomDistrictPickerActionTypeUnLimitedStreet == pickedActionType) {
+        
+            districtPopView.customPopviewTapCallBack(cCustomPopviewActionTypeUnLimited,streetModel,-1);
+        
         } else {
             
             districtPopView.customPopviewTapCallBack(cCustomPopviewActionTypeCancel,streetModel,-1);
