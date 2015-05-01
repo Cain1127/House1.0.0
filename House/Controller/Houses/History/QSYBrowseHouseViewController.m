@@ -20,6 +20,7 @@
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
+#import "QSHouseInfoDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -81,6 +82,20 @@
             return;
             
         }
+        
+        ///排序
+        [self.pickedHouseList sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            
+            
+            NSObject *tempModel1 = [obj1 valueForKey:@"house"];
+            NSObject *tempModel2 = [obj2 valueForKey:@"house"];
+            
+            CGFloat sumScore1 = [[tempModel1 valueForKey:@"tj_condition"] floatValue] + [[tempModel1 valueForKey:@"tj_environment"] floatValue];
+            CGFloat sumScore2 = [[tempModel2 valueForKey:@"tj_condition"] floatValue] + [[tempModel2 valueForKey:@"tj_environment"] floatValue];
+            
+            return sumScore1 < sumScore2;
+            
+        }];
         
         ///进入比一比页面
         QSYComparisonViewController *comparisonVC = [[QSYComparisonViewController alloc] initWithPickedHouseList:self.pickedHouseList andHouseType:self.houseType];
