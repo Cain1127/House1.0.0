@@ -8,16 +8,25 @@
 
 #import "QSYTenantDetailRecommendAparmentTableViewCell.h"
 
+#import "QSHouseInfoDataModel.h"
+
 @implementation QSYTenantDetailRecommendAparmentTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
+#pragma mark - 刷新UI
+/**
+ *  @author             yangshengmeng, 15-05-01 12:05:26
+ *
+ *  @brief              根据给定的数据模型，刷新UI
+ *
+ *  @param tempModel    房源数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateTenantDetailRecommendAparmentUI:(QSHouseInfoDataModel *)tempModel
+{
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+    
 
-    // Configure the view for the selected state
 }
 
 @end

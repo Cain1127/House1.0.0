@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSYTenantDetailRecommendAparmentTableViewCell : UITableViewCell
+@class QSHouseInfoDataModel;
+@interface QSYTenantDetailRecommendAparmentTableViewCell : UICollectionViewCell
+
+/**
+ *  @author             yangshengmeng, 15-05-01 12:05:26
+ *
+ *  @brief              根据给定的数据模型，刷新UI
+ *
+ *  @param tempModel    房源数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateTenantDetailRecommendAparmentUI:(QSHouseInfoDataModel *)tempModel;
 
 @end

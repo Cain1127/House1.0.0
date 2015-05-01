@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSYTenantDetailRecommendRentTableViewCell : UITableViewCell
+@class QSRentHouseInfoDataModel;
+@interface QSYTenantDetailRecommendRentTableViewCell : UICollectionViewCell
+
+/**
+ *  @author             yangshengmeng, 15-05-01 12:05:38
+ *
+ *  @brief              刷新UI
+ *
+ *  @param tempModel    数据模型
+ *
+ *  @since              1.0.0
+ */
+- (void)updateTenantDetailRecommendRentUI:(QSRentHouseInfoDataModel *)tempModel;
 
 @end
