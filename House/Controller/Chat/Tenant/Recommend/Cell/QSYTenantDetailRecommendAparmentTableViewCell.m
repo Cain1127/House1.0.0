@@ -17,14 +17,15 @@
 
 #import <objc/runtime.h>
 
-static char HouseImageKey;  //!<房源图片关联
-static char HouseTagKey;    //!<房源标签关联
-static char TitleLabelKey;  //!<标题信息关联
-static char HouseTypeKey;   //!<户型关联
-static char HouseAreaKey;   //!<房源面积关联
-static char HouseStreetKey; //!<街道信息关联
-static char CommunityKey;   //!<小区关联
-static char FeaturesKey;    //!<特色标签关联
+static char HouseImageKey;      //!<房源图片关联
+static char HouseTagKey;        //!<房源标签关联
+static char TitleLabelKey;      //!<标题信息关联
+static char HouseTypeKey;       //!<户型关联
+static char HouseAreaKey;       //!<房源面积关联
+static char HouseStreetKey;     //!<街道信息关联
+static char CommunityKey;       //!<小区关联
+static char FeaturesKey;        //!<特色标签关联
+static char SelectedTipsKey;    //!<选择提示图片
 
 @implementation QSYTenantDetailRecommendAparmentTableViewCell
 
@@ -57,6 +58,13 @@ static char FeaturesKey;    //!<特色标签关联
     houseImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL330x250];
     [self.contentView addSubview:houseImageView];
     objc_setAssociatedObject(self, &HouseImageKey, houseImageView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///选择提示框
+    UIButton *selectedTipsButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 28.0f, 8.0f, 20.0f, 20.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {}];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_NORMAL] forState:UIControlStateNormal];
+    [selectedTipsButton setImage:[UIImage imageNamed:IMAGE_PUBLIC_SINGLE_SELECTED_HIGHLIGHTED] forState:UIControlStateSelected];
+    [self.contentView addSubview:selectedTipsButton];
+    objc_setAssociatedObject(self, &SelectedTipsKey, selectedTipsButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///左上角标签
     QSImageView *houseTagImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 18.0f)];
@@ -174,6 +182,21 @@ static char FeaturesKey;    //!<特色标签关联
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllBottom metrics:nil views:___viewsVFL]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_title options:0 metrics:nil views:___viewsVFL]];
     
+}
+
+#pragma mark - 选择cell时设置标签
+- (void)setSelected:(BOOL)selected
+{
+    
+    [super setSelected:selected];
+
+    UIButton *tipsButton = objc_getAssociatedObject(self, &SelectedTipsKey);
+    if (tipsButton) {
+        
+        tipsButton.selected = selected;
+        
+    }
+
 }
 
 #pragma mark - 刷新UI
