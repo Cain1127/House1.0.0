@@ -11,6 +11,7 @@
 #import "QSAdvertViewController.h"
 #import "QSWDeveloperHomeViewController.h"
 #import "QSTabBarViewController.h"
+#import "QSLoginViewController.h"
 
 #import "QSCityInfoReturnData.h"
 #import "QSConfigurationReturnData.h"
@@ -181,10 +182,13 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     ///获取当前用户经纬度
     [QSMapManager getUserLocation:^(BOOL isLocationSuccess, double longitude, double latitude) {
         
-        if (!isLocationSuccess){
+        if (!isLocationSuccess) {
+            
             NSLog(@"=====获取当前用户经纬度失败=====");
             return ;
+            
         }
+        
         NSLog(@"=====当前用户经度:%lf=====",longitude);
         NSLog(@"=====当前用户纬度:%lf=====",latitude);
     }];
@@ -225,6 +229,13 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
                             
                             ///显示提示信息
                              APPLICATION_LOG_INFO(@"登录", @"成功")
+                            
+                            ///重置收藏和关注记录
+                            dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                
+                                [QSLoginViewController loadCollectedDataToServer];
+                                
+                            });
                             
                         }];
                         

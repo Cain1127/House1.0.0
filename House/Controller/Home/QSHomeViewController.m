@@ -989,7 +989,7 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
                 [hud hiddenCustomHUD];
                 
             });
-            
+                        
         } else {
         
             ///显示提示信息

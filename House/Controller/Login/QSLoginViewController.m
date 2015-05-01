@@ -414,7 +414,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         
             dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                
-                [self loadCollectedDataToServer];
+                [[self class] loadCollectedDataToServer];
                 
             });
             
@@ -453,7 +453,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 #pragma mark - 将本地的收藏/分享数据上传服务端
 ///将本地的收藏/分享数据上传服务端
-- (void)loadCollectedDataToServer
++ (void)loadCollectedDataToServer
 {
     
     ///下载同步服务端数据
@@ -468,7 +468,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///下载服务端收藏信息
-- (void)downloadServerCollectedData
++ (void)downloadServerCollectedData
 {
     
     dispatch_group_t downloadGroup = dispatch_group_create();
@@ -628,7 +628,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///保存服务端关注小区
-- (void)saveServerIntentionCommunity:(NSArray *)tempServerArray
++ (void)saveServerIntentionCommunity:(NSArray *)tempServerArray
 {
 
     if ([tempServerArray count] <= 0) {
@@ -662,7 +662,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///保存服务端收藏出租房
-- (void)saveServerCollectedRentHouse:(NSArray *)tempServerArray
++ (void)saveServerCollectedRentHouse:(NSArray *)tempServerArray
 {
 
     if ([tempServerArray count] <= 0) {
@@ -696,7 +696,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///保存服务端收藏二手房
-- (void)saveServerCollectedSecondHandHouse:(NSArray *)tempServerArray
++ (void)saveServerCollectedSecondHandHouse:(NSArray *)tempServerArray
 {
 
     if ([tempServerArray count] <= 0) {
@@ -730,7 +730,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///保存服务端新房
-- (void)saveServerCollectedNewHouse:(NSArray *)tempServerArray
++ (void)saveServerCollectedNewHouse:(NSArray *)tempServerArray
 {
 
     if ([tempServerArray count] <= 0) {
@@ -764,7 +764,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将本地未删除的记录，重新提交删除
-- (void)deleteCollectedData
++ (void)deleteCollectedData
 {
     
     [self deleteCollectedCommunity];
@@ -775,7 +775,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///删除收藏的出租房
-- (void)deleteCollectedRentHouse
++ (void)deleteCollectedRentHouse
 {
     
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeRentalHouse];
@@ -821,7 +821,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///删除收藏的新房
-- (void)deleteCollectedNewHouse
++ (void)deleteCollectedNewHouse
 {
     
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeNewHouse];
@@ -867,7 +867,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///删除收藏的二手房
-- (void)deleteCollectedSecondHandHouse
++ (void)deleteCollectedSecondHandHouse
 {
     
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeSecondHouse];
@@ -913,7 +913,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///删除关注的小区
-- (void)deleteCollectedCommunity
++ (void)deleteCollectedCommunity
 {
     
     NSArray *deleteArray = [QSCoreDataManager getDeleteUnCommitedCollectedDataSoucre:fFilterMainTypeCommunity];
@@ -959,7 +959,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将本地未提交服务端的收藏/分享上传服务端
-- (void)addCollectedDataToServer
++ (void)addCollectedDataToServer
 {
     
     [self addInttentionCommunityToServer];
@@ -970,7 +970,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将添加收藏的出租房，同步服务端
-- (void)addCollectedRentHouseToServer
++ (void)addCollectedRentHouseToServer
 {
     
     ///出租房
@@ -1019,7 +1019,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将收藏的新房同步服务端
-- (void)addCollectedNewHouseToServer
++ (void)addCollectedNewHouseToServer
 {
     
     NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeNewHouse];
@@ -1067,7 +1067,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将新收藏的二手房同步服务端
-- (void)addCollectedSecondHandHouseToServer
++ (void)addCollectedSecondHandHouseToServer
 {
     
     NSArray *communityList = [QSCoreDataManager getUncommitedCollectedDataSource:fFilterMainTypeSecondHouse];
@@ -1115,7 +1115,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 }
 
 ///将添加的关注小区，同步服务端
-- (void)addInttentionCommunityToServer
++ (void)addInttentionCommunityToServer
 {
     
     ///小区
