@@ -364,6 +364,7 @@
 		18B972FE1AF2278E00652890 /* QSYTenantDetailRecommendAparmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972FD1AF2278E00652890 /* QSYTenantDetailRecommendAparmentTableViewCell.m */; };
 		18B973011AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */; };
 		18B973051AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */; };
+		18B973081AF386F400652890 /* QSYSendMessageRecommendHouse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */; };
 		18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE12271A8862C20036245A /* QSChatContactsView.m */; };
 		18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE122A1A8862DB0036245A /* QSChatMessagesView.m */; };
 		18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122D1A8869760036245A /* calendar_left_arrow.png */; };
@@ -1406,6 +1407,8 @@
 		18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTenantDetailRecommendRentTableViewCell.m; path = Recommend/Cell/QSYTenantDetailRecommendRentTableViewCell.m; sourceTree = "<group>"; };
 		18B973031AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRecommendHuoseMessageTipsPopView.h; path = Pop/QSYRecommendHuoseMessageTipsPopView.h; sourceTree = "<group>"; };
 		18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRecommendHuoseMessageTipsPopView.m; path = Pop/QSYRecommendHuoseMessageTipsPopView.m; sourceTree = "<group>"; };
+		18B973061AF386F400652890 /* QSYSendMessageRecommendHouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageRecommendHouse.h; sourceTree = "<group>"; };
+		18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageRecommendHouse.m; sourceTree = "<group>"; };
 		18BE12261A8862C20036245A /* QSChatContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatContactsView.h; path = Contact/QSChatContactsView.h; sourceTree = "<group>"; };
 		18BE12271A8862C20036245A /* QSChatContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatContactsView.m; path = Contact/QSChatContactsView.m; sourceTree = "<group>"; };
 		18BE12291A8862DB0036245A /* QSChatMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessagesView.h; path = Message/QSChatMessagesView.h; sourceTree = "<group>"; };
@@ -4692,6 +4695,8 @@
 				183572351AD7A88800A29607 /* QSYSendMessageSystem.m */,
 				183572371AD8AB9800A29607 /* QSYSendMessageSpecial.h */,
 				183572381AD8AB9800A29607 /* QSYSendMessageSpecial.m */,
+				18B973061AF386F400652890 /* QSYSendMessageRecommendHouse.h */,
+				18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -7234,6 +7239,7 @@
 				18B563221A81AA40009779A0 /* QSCustomSelectedView.m in Sources */,
 				18DFE8E21AC9973A00C216C3 /* QSYCallTipsPopView.m in Sources */,
 				475A4D821AC537B7009881CF /* QSPOrderDetailCommentNoteTipsView.m in Sources */,
+				18B973081AF386F400652890 /* QSYSendMessageRecommendHouse.m in Sources */,
 				18AFA9D11AB2F4C300681071 /* QSNetworkVerticalCodeView.m in Sources */,
 				18B972AE1AF1281F00652890 /* QSYTenantInfoViewController.m in Sources */,
 				18B572931AC16D1600C75682 /* dynamic_message.cc in Sources */,

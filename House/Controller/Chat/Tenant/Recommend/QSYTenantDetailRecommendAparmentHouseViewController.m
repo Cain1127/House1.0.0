@@ -12,12 +12,18 @@
 #import "QSHouseListTitleCollectionViewCell.h"
 #import "QSYRecommendHuoseMessageTipsPopView.h"
 #import "QSYPopCustomView.h"
+#import "QSCustomHUDView.h"
+
+#import "NSDate+Formatter.h"
 
 #import "QSCollectionWaterFlowLayout.h"
 
 #import "QSSecondHandHouseListReturnData.h"
+#import "QSYSendMessageRecommendHouse.h"
 
 #import "QSCoreDataManager+User.h"
+#import "QSSocketManager.h"
+#import "QSCoreDataManager+Message.h"
 
 #import "MJRefresh.h"
 
@@ -163,16 +169,59 @@
     ///弹出提示
     QSYRecommendHuoseMessageTipsPopView *tipsView = [[QSYRecommendHuoseMessageTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 228.0f, SIZE_DEVICE_WIDTH, 228.0f) andHouseModel:houseInfoModel andHouseType:fFilterMainTypeSecondHouse andCallBack:^(RECOMMEND_HOUSE_MESSAGE_ACTION_TYPE actionType, NSString *titleString) {
         
+        ///回收弹出框
+        [popView hiddenCustomPopview];
+        
         ///确认推送房源
         if (rRecommendHouseMessageActionTypeConfirm == actionType) {
             
+            __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在推送"];
             
+            ///转换模型
+            QSYSendMessageRecommendHouse *messageModel = [[QSYSendMessageRecommendHouse alloc] init];
+            messageModel.fromID = APPLICATION_NSSTRING_SETTING(houseInfoModel.user_id, @"-1");
+            messageModel.readTag = @"0";
+            messageModel.timeStamp = [NSDate currentDateTimeStamp];
+            messageModel.title = @"";
+            messageModel.f_name = APPLICATION_NSSTRING_SETTING(houseInfoModel.name, @"-1");
+            messageModel.f_avatar = APPLICATION_NSSTRING_SETTING(houseInfoModel.user_id, @"-1");
+            messageModel.unread_count = @"1";
+            messageModel.msgType = qQSCustomProtocolChatMessageTypeSystem;
+            
+            ///发送消息
+            [QSSocketManager sendMessageToPerson:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse];
+            
+            ///保存本地
+            [QSCoreDataManager saveMessageData:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse andCallBack:^(BOOL isSave) {
+                
+            }];
+            
+            ///隐藏HUD
+            [hud hiddenCustomHUDWithFooterTips:@"已发送" andDelayTime:2.0f andCallBack:^(BOOL flag) {
+                
+                ///返回上一页
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            }];
+            
+        }
+        
+        ///取消
+        if (rRecommendHouseMessageActionTypeCancel == actionType) {
+            
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
             
         }
         
     }];
     
     popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+        if (cCustomPopviewActionTypeDefault == actionType) {
+            
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            
+        }
         
     }];
     

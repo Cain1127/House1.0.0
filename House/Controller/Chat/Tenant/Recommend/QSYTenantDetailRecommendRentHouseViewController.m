@@ -12,13 +12,16 @@
 #import "QSHouseListTitleCollectionViewCell.h"
 #import "QSYRecommendHuoseMessageTipsPopView.h"
 #import "QSYPopCustomView.h"
+#import "QSCustomHUDView.h"
 
 #import "QSCollectionWaterFlowLayout.h"
 
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
+#import "QSYSendMessageRecommendHouse.h"
 
 #import "QSCoreDataManager+User.h"
+#import "QSSocketManager.h"
 
 #import "MJRefresh.h"
 
@@ -165,9 +168,22 @@
             
         }
         
+        ///取消
+        if (rRecommendHouseMessageActionTypeCancel == actionType) {
+            
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            
+        }
+        
     }];
     
     popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+        if (cCustomPopviewActionTypeDefault == actionType) {
+            
+            [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+            
+        }
         
     }];
     
