@@ -363,6 +363,7 @@
 		18B972FA1AF20FA100652890 /* QSYTenantDetailRecommendAparmentHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972F91AF20FA100652890 /* QSYTenantDetailRecommendAparmentHouseViewController.m */; };
 		18B972FE1AF2278E00652890 /* QSYTenantDetailRecommendAparmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B972FD1AF2278E00652890 /* QSYTenantDetailRecommendAparmentTableViewCell.m */; };
 		18B973011AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */; };
+		18B973051AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */; };
 		18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE12271A8862C20036245A /* QSChatContactsView.m */; };
 		18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE122A1A8862DB0036245A /* QSChatMessagesView.m */; };
 		18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122D1A8869760036245A /* calendar_left_arrow.png */; };
@@ -1403,6 +1404,8 @@
 		18B972FD1AF2278E00652890 /* QSYTenantDetailRecommendAparmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTenantDetailRecommendAparmentTableViewCell.m; path = Recommend/Cell/QSYTenantDetailRecommendAparmentTableViewCell.m; sourceTree = "<group>"; };
 		18B972FF1AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYTenantDetailRecommendRentTableViewCell.h; path = Recommend/Cell/QSYTenantDetailRecommendRentTableViewCell.h; sourceTree = "<group>"; };
 		18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYTenantDetailRecommendRentTableViewCell.m; path = Recommend/Cell/QSYTenantDetailRecommendRentTableViewCell.m; sourceTree = "<group>"; };
+		18B973031AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRecommendHuoseMessageTipsPopView.h; path = Pop/QSYRecommendHuoseMessageTipsPopView.h; sourceTree = "<group>"; };
+		18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRecommendHuoseMessageTipsPopView.m; path = Pop/QSYRecommendHuoseMessageTipsPopView.m; sourceTree = "<group>"; };
 		18BE12261A8862C20036245A /* QSChatContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatContactsView.h; path = Contact/QSChatContactsView.h; sourceTree = "<group>"; };
 		18BE12271A8862C20036245A /* QSChatContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatContactsView.m; path = Contact/QSChatContactsView.m; sourceTree = "<group>"; };
 		18BE12291A8862DB0036245A /* QSChatMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessagesView.h; path = Message/QSChatMessagesView.h; sourceTree = "<group>"; };
@@ -4216,6 +4219,7 @@
 		18B972F41AF20A5A00652890 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
+				18B973021AF374BB00652890 /* Pop */,
 				18B972FB1AF2276200652890 /* Cell */,
 				18B972F51AF20F8100652890 /* QSYTenantDetailRecommendRentHouseViewController.h */,
 				18B972F61AF20F8100652890 /* QSYTenantDetailRecommendRentHouseViewController.m */,
@@ -4234,6 +4238,15 @@
 				18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		18B973021AF374BB00652890 /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				18B973031AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.h */,
+				18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */,
+			);
+			name = Pop;
 			sourceTree = "<group>";
 		};
 		18BE12241A8862690036245A /* Message */ = {
@@ -7145,6 +7158,7 @@
 				18EE34791AABFD3F0053B909 /* QSRentHouseInfoDataModel.m in Sources */,
 				18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */,
 				18DFE8C41AC7F9A300C216C3 /* QSYRecommendSecondHandHouseList.m in Sources */,
+				18B973051AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m in Sources */,
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18AFAA061AB6B79600681071 /* GCDAsyncSocket.m in Sources */,
 				18D082221AD0264A004FA20F /* QSYAskRecommendRentHouseViewController.m in Sources */,

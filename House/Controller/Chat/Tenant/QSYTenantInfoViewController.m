@@ -572,12 +572,12 @@
             {
                 
                 ///判断是否存在出租物业
-                if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
-                    
-                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
-                    return;
-                    
-                }
+//                if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
+//                    
+//                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
+//                    return;
+//                    
+//                }
                 
                 QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                     

@@ -10,6 +10,8 @@
 
 #import "QSYTenantDetailRecommendAparmentTableViewCell.h"
 #import "QSHouseListTitleCollectionViewCell.h"
+#import "QSYRecommendHuoseMessageTipsPopView.h"
+#import "QSYPopCustomView.h"
 
 #import "QSCollectionWaterFlowLayout.h"
 
@@ -154,9 +156,26 @@
     }
     
     ///获取房子模型
-//    QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    __block QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    
+    __block QSYPopCustomView *popView;
     
     ///弹出提示
+    QSYRecommendHuoseMessageTipsPopView *tipsView = [[QSYRecommendHuoseMessageTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 228.0f, SIZE_DEVICE_WIDTH, 228.0f) andHouseModel:houseInfoModel andHouseType:fFilterMainTypeSecondHouse andCallBack:^(RECOMMEND_HOUSE_MESSAGE_ACTION_TYPE actionType, NSString *titleString) {
+        
+        ///确认推送房源
+        if (rRecommendHouseMessageActionTypeConfirm == actionType) {
+            
+            
+            
+        }
+        
+    }];
+    
+    popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+        
+    }];
+    
 }
 
 #pragma mark - 瀑布流配置
