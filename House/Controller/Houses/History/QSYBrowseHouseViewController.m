@@ -86,7 +86,6 @@
         ///排序
         [self.pickedHouseList sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             
-            
             NSObject *tempModel1 = [obj1 valueForKey:@"house"];
             NSObject *tempModel2 = [obj2 valueForKey:@"house"];
             
