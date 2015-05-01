@@ -136,6 +136,7 @@ static char SelectedBoxKey; //!<选择标识
     streetLabel.textAlignment = NSTextAlignmentLeft;
     streetLabel.textColor = COLOR_CHARACTERS_GRAY;
     streetLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    streetLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:streetLabel];
     objc_setAssociatedObject(self, &HouseStreetKey, streetLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -146,6 +147,7 @@ static char SelectedBoxKey; //!<选择标识
     communityLabel.textAlignment = NSTextAlignmentRight;
     communityLabel.textColor = COLOR_CHARACTERS_GRAY;
     communityLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    communityLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:communityLabel];
     objc_setAssociatedObject(self, &CommunityKey, communityLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -153,7 +155,7 @@ static char SelectedBoxKey; //!<选择标识
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=60)]-5-[communityLabel(>=60)]|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束

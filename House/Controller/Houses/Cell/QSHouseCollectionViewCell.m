@@ -127,6 +127,7 @@ static char FeaturesKey;    //!<特色标签
     streetLabel.textAlignment = NSTextAlignmentLeft;
     streetLabel.textColor = COLOR_CHARACTERS_GRAY;
     streetLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    streetLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:streetLabel];
     objc_setAssociatedObject(self, &HouseStreetKey, streetLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -137,6 +138,7 @@ static char FeaturesKey;    //!<特色标签
     communityLabel.textAlignment = NSTextAlignmentRight;
     communityLabel.textColor = COLOR_CHARACTERS_GRAY;
     communityLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    communityLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:communityLabel];
     objc_setAssociatedObject(self, &CommunityKey, communityLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -144,7 +146,7 @@ static char FeaturesKey;    //!<特色标签
     NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(streetLabel,communityLabel);
     
     ///约束
-    NSString *___hVFL_all = @"H:|[streetLabel(>=40)]-5-[communityLabel(>=80)]|";
+    NSString *___hVFL_all = @"H:|[streetLabel(>=60)]-5-[communityLabel(>=60)]|";
     NSString *___vVFL_street = @"V:|[streetLabel(15)]|";
     
     ///添加约束
@@ -246,7 +248,7 @@ static char FeaturesKey;    //!<特色标签
     [self updateTitleUnitWithUnit:@"元/月"];
     
     ///更新背景图片
-    [self updateHouseImage:tempModel.attach_thumb];
+    [self updateHouseImage:tempModel.attach_file];
     
     ///更新左上角标签
     [self updateHouseTagImage:tempModel.rent_property andListType:fFilterMainTypeRentalHouse];
@@ -277,7 +279,7 @@ static char FeaturesKey;    //!<特色标签
     [self updateTitleUnitWithUnit:@"万"];
     
     ///更新背景图片
-    [self updateHouseImage:tempModel.attach_thumb];
+    [self updateHouseImage:tempModel.attach_file];
     
     ///更新左上角标签
     [self updateHouseTagImage:tempModel.house_nature andListType:fFilterMainTypeSecondHouse];
@@ -431,9 +433,7 @@ static char FeaturesKey;    //!<特色标签
             
         } else if (fFilterMainTypeRentalHouse == listType) {
             
-            ///出租房
-            
-            ///判断是否满足两个条件
+            ///判断标签图片类型
             int isFreeRange = [tag intValue];
             
             ///整租
