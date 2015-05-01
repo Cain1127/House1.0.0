@@ -456,14 +456,14 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 - (void)loadCollectedDataToServer
 {
     
+    ///下载同步服务端数据
+    [self downloadServerCollectedData];
+    
     ///添加
     [self addCollectedDataToServer];
     
     ///删除
     [self deleteCollectedData];
-    
-    ///下载同步服务端数据
-    [self downloadServerCollectedData];
     
 }
 
