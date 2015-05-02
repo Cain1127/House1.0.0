@@ -1630,7 +1630,6 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
     
     ///获取音频消息
-    
     ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
     ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
     ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
