@@ -14,14 +14,19 @@
 #import "QSYPopCustomView.h"
 #import "QSCustomHUDView.h"
 
+#import "NSDate+Formatter.h"
+
 #import "QSCollectionWaterFlowLayout.h"
 
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
 #import "QSYSendMessageRecommendHouse.h"
+#import "QSUserSimpleDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSSocketManager.h"
+#import "QSCoreDataManager+Message.h"
+#import "QSCoreDataManager+App.h"
 
 #import "MJRefresh.h"
 
@@ -164,7 +169,70 @@
         ///确认推送房源
         if (rRecommendHouseMessageActionTypeConfirm == actionType) {
             
+            __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在推送"];
+            QSUserSimpleDataModel *currentUserModel = (QSUserSimpleDataModel *)[QSCoreDataManager getCurrentUserDataModel];
             
+            ///转换模型
+            QSYSendMessageRecommendHouse *messageModel = [[QSYSendMessageRecommendHouse alloc] init];
+            messageModel.deviceUUID = APPLICATION_NSSTRING_SETTING(houseInfoModel.user_id, @"-1");
+            messageModel.msgID = @"-1";
+            messageModel.fromID = [QSCoreDataManager getUserID];
+            messageModel.toID = APPLICATION_NSSTRING_SETTING(self.tenantModel.id_, @"-1");
+            messageModel.readTag = @"0";
+            messageModel.showWidth = SIZE_DEVICE_WIDTH * 3.0f / 4.0f;
+            messageModel.showHeight = 70.0f;
+            messageModel.timeStamp = [NSDate currentDateTimeStamp];
+            
+            messageModel.f_name = APPLICATION_NSSTRING_SETTING(currentUserModel.username, @"-1");
+            messageModel.f_user_type = APPLICATION_NSSTRING_SETTING(currentUserModel.user_type, @"-1");
+            messageModel.f_leve = APPLICATION_NSSTRING_SETTING(currentUserModel.level, @"-1");
+            messageModel.f_avatar = APPLICATION_NSSTRING_SETTING(currentUserModel.avatar, @"-1");
+            
+            messageModel.t_name = APPLICATION_NSSTRING_SETTING(self.tenantModel.username, @"-1");
+            messageModel.t_user_type = APPLICATION_NSSTRING_SETTING(self.tenantModel.user_type, @"-1");
+            messageModel.t_leve = APPLICATION_NSSTRING_SETTING(self.tenantModel.level, @"-1");
+            messageModel.t_avatar = APPLICATION_NSSTRING_SETTING(self.tenantModel.avatar, @"-1");
+            
+            messageModel.unread_count = @"1";
+            messageModel.sendType = qQSCustomProtocolChatSendTypePTP;
+            messageModel.msgType = qQSCustomProtocolChatMessageTypeRecommendHouse;
+            
+            ///房源消息
+            messageModel.houseID = APPLICATION_NSSTRING_SETTING(houseInfoModel.id_, @"-1");
+            messageModel.houseType = [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse];
+            messageModel.originalImage = APPLICATION_NSSTRING_SETTING(houseInfoModel.attach_file, @"-1");
+            messageModel.smallImage = APPLICATION_NSSTRING_SETTING(houseInfoModel.attach_thumb, @"-1");
+            
+            ///区域
+            NSString *districtString = [QSCoreDataManager getDistrictValWithDistrictKey:houseInfoModel.areaid];
+            messageModel.district = APPLICATION_NSSTRING_SETTING(districtString, @"-1");
+            messageModel.districtKey = APPLICATION_NSSTRING_SETTING(houseInfoModel.areaid, @"-1");
+            
+            ///街道
+            NSString *streetString = [QSCoreDataManager getStreetValWithStreetKey:houseInfoModel.street];
+            messageModel.street = APPLICATION_NSSTRING_SETTING(streetString, @"-1");
+            messageModel.streetKey = APPLICATION_NSSTRING_SETTING(houseInfoModel.street, @"-1");
+            messageModel.houseTing = APPLICATION_NSSTRING_SETTING(houseInfoModel.house_ting, @"-1");
+            messageModel.houseShi = APPLICATION_NSSTRING_SETTING(houseInfoModel.house_shi, @"-1");
+            messageModel.houseArea = APPLICATION_NSSTRING_SETTING(houseInfoModel.house_area, @"-1");
+            messageModel.rentPrice = APPLICATION_NSSTRING_SETTING(houseInfoModel.rent_price, @"-1");
+            messageModel.title = APPLICATION_NSSTRING_SETTING(houseInfoModel.title, @"-1");
+            
+            ///发送消息
+            [QSSocketManager sendMessageToPerson:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse];
+            
+            ///保存本地
+            [QSCoreDataManager saveMessageData:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse andCallBack:^(BOOL isSave) {
+                
+            }];
+            
+            ///隐藏HUD
+            [hud hiddenCustomHUDWithFooterTips:@"已发送" andDelayTime:2.0f andCallBack:^(BOOL flag) {
+                
+                ///返回上一页
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            }];
             
         }
         

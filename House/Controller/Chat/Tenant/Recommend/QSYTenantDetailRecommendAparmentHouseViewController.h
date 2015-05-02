@@ -9,7 +9,10 @@
 #import "QSTurnBackViewController.h"
 
 @class QSBaseModel;
+@class QSUserSimpleDataModel;
 @interface QSYTenantDetailRecommendAparmentHouseViewController : QSTurnBackViewController
+
+@property (nonatomic,retain) QSUserSimpleDataModel *tenantModel;//!<推送房源的房客信息
 
 /**
  *  @author         yangshengmeng, 15-04-30 15:04:08
