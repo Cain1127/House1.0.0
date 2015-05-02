@@ -10,6 +10,7 @@
 
 #import "NSString+Calculation.h"
 #import "UIImageView+AFNetworking.h"
+#import "QSBlockButtonStyleModel+Normal.h"
 
 #import "QSCommunityHouseDetailDataModel.h"
 #import "QSWCommunityDataModel.h"
@@ -28,6 +29,7 @@ static char BackgroudImageKey;  //!<背景图片关联
 static char CommunityInfoKey;   //!<小区信息关联
 static char FeaturesRootViewKey;//!<特色标签
 static char TitleInfoKey;       //!<标题关联
+static char DeleteButton;       //!<删除按钮
 
 @implementation QSAttentionCommunityCell
 
@@ -48,6 +50,8 @@ static char TitleInfoKey;       //!<标题关联
     
     if (self = [super initWithFrame:frame]) {
         
+        _isEditing = NO;
+        
         ///UI搭建
         [self createCommunityCellUI];
         
@@ -67,6 +71,14 @@ static char TitleInfoKey;       //!<标题关联
     bgImageView.image = [UIImage imageNamed:IMAGE_HOUSES_LOADING_FAIL690x350];
     [self.contentView addSubview:bgImageView];
     objc_setAssociatedObject(self, &BackgroudImageKey, bgImageView, OBJC_ASSOCIATION_ASSIGN);
+    
+    ///编辑状态图示
+    QSBlockButtonStyleModel *deleteButtonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeDeleteChoice];
+    
+    UIButton *deleteButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 30.0f - SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 5.0f, 25.0f, 25.0f) andButtonStyle:deleteButtonStyle andCallBack:^(UIButton *button) {}];
+    deleteButton.hidden = !_isEditing;
+    [self.contentView addSubview:deleteButton];
+    objc_setAssociatedObject(self, &DeleteButton, deleteButton, OBJC_ASSOCIATION_ASSIGN);
     
     ///地址信息
     UILabel *addressLabel = [[QSLabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT + 8.0f, 0.0f, 120.0f, 30.0f)];
@@ -130,6 +142,36 @@ static char TitleInfoKey;       //!<标题关联
     subTitleLabel.text = [NSString stringWithFormat:@"万/%@",APPLICATION_AREAUNIT];
     [view addSubview:subTitleLabel];
     
+}
+
+#pragma mark - 删除状态
+- (void)setIsEditing:(BOOL)isEditing
+{
+
+    ///编辑状态
+    _isEditing = isEditing;
+    UIButton *deleteButton = objc_getAssociatedObject(self, &DeleteButton);
+    deleteButton.hidden = !isEditing;
+
+}
+
+- (void)setSelected:(BOOL)selected
+{
+
+    [super setSelected:selected];
+    
+    ///判断当前是否是编辑状态
+    if (self.isEditing) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            UIButton *deleteButton = objc_getAssociatedObject(self, &DeleteButton);
+            deleteButton.selected = selected;
+            
+        });
+        
+    }
+
 }
 
 #pragma mark - 刷新UI

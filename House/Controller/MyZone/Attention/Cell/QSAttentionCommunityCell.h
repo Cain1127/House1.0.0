@@ -12,6 +12,8 @@
 @class QSNewHouseDetailDataModel;
 @interface QSAttentionCommunityCell : UICollectionViewCell
 
+@property (nonatomic,assign) BOOL isEditing;//!<是否编辑状态
+
 /**
  *  @author         yangshengmeng, 15-03-24 22:03:51
  *

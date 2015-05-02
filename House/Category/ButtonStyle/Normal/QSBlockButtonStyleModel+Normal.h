@@ -12,16 +12,17 @@
 typedef enum
 {
 
-    nNormalButtonTypeCornerWhite = 400,     //!<普通白色底灰色圆角框按钮
-    nNormalButtonTypeCornerYellow,          //!<普通黄色圆角按钮
-    nNormalButtonTypeCornerLightYellow,     //!<浅黄色圆角按钮
-    nNormalButtonTypeCornerWhiteGray,       //!<白字圆角灰底按钮
-    nNormalButtonTypeCornerWhiteLightYellowBorder,       //!<普通白色底浅黄圆角框按钮
+    nNormalButtonTypeCornerWhite = 400,                 //!<普通白色底灰色圆角框按钮
+    nNormalButtonTypeCornerYellow,                      //!<普通黄色圆角按钮
+    nNormalButtonTypeCornerLightYellow,                 //!<浅黄色圆角按钮
+    nNormalButtonTypeCornerWhiteGray,                   //!<白字圆角灰底按钮
+    nNormalButtonTypeCornerWhiteLightYellowBorder,      //!<普通白色底浅黄圆角框按钮
     
-    nNormalButtonTypeClearGray,             //!<灰字白底按钮
-    nNormalButtonTypeClearLightGray,        //!<浅灰字白底按钮
+    nNormalButtonTypeClearGray,                         //!<灰字白底按钮
+    nNormalButtonTypeClearLightGray,                    //!<浅灰字白底按钮
+    nNormalButtonTypeDeleteChoice,                      //!<选择记录删除指示按钮
     
-    nNormalButtonTypeClear                  //!<黑字白色按钮
+    nNormalButtonTypeClear                              //!<黑字白色按钮
 
 }NORMAL_BUTTON_TYPE;
 

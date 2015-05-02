@@ -82,11 +82,29 @@
             return [self ceateNormalCornerWhiteLightYellowBorderButton];
             
             break;
+            
+            ///选择记录删除提示图标
+        case nNormalButtonTypeDeleteChoice:
+            
+            return [self createNormalButtonTypeDeleteChoice];
+            
+            break;
+            
         default:
             break;
     }
     
     return nil;
+
+}
+
++ (QSBlockButtonStyleModel *)createNormalButtonTypeDeleteChoice
+{
+
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.imagesNormal = IMAGE_ZONE_DELETE_NORMAL;
+    buttonStyle.imagesSelected = IMAGE_ZONE_DELETE_HIGHLIGHTED;
+    return buttonStyle;
 
 }
 

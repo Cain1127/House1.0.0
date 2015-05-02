@@ -17,6 +17,8 @@
  */
 @interface QSCommunityCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic,assign) BOOL isEditing;//!<是否编辑状态
+
 /**
  *  @author             yangshengmeng, 15-02-12 18:02:39
  *
