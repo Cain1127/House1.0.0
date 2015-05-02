@@ -69,6 +69,7 @@ static char TableViewKey; //!<活动列表
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f) style:UITableViewStyleGrouped];
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.showsVerticalScrollIndicator = NO;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.view addSubview:tableView];
     objc_setAssociatedObject(self, &TableViewKey, tableView, OBJC_ASSOCIATION_ASSIGN);

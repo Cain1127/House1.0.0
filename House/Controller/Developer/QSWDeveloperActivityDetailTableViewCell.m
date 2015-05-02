@@ -67,10 +67,14 @@ static char SignUpCountLabelKey;    //!<报名人数
     [self.contentView addSubview:signUpCountLabel];
     
     UIImageView *touchImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(SIZE_DEVICE_WIDTH-70.0f, 20.0f, 35.0f, 40.0f) andSingleTapCallBack:^{
-        NSLog(@"点击头像");
+        NSLog(@"打电话");
     }];
     touchImageView.image = [UIImage imageNamed:IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL];
     [self.contentView addSubview:touchImageView];
+    
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, 80.0f-0.25f, SIZE_DEVICE_WIDTH-2.0f*35.0f, 0.25f)];
+    lineLabel.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
+    [self.contentView addSubview:lineLabel];
     
 }
 

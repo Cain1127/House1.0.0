@@ -75,6 +75,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         [self.view addSubview:onlineActivityView];
         onlineActivityView.showsVerticalScrollIndicator = NO;
         onlineActivityView.showsHorizontalScrollIndicator = NO;
+        onlineActivityView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         objc_setAssociatedObject(self, &OnlineActivityViewKey, onlineActivityView, OBJC_ASSOCIATION_ASSIGN);
 
@@ -100,7 +101,6 @@ static char OverActivityViewKey;   //!<活动结束关联列表
             
         }];
         
-        
     }];
     onlineButton.selected =YES;
     [self.view addSubview:onlineButton];
@@ -122,6 +122,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         overActivityView.dataSource = self;
         overActivityView.showsHorizontalScrollIndicator = NO;
         overActivityView.showsVerticalScrollIndicator = NO;
+        overActivityView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:overActivityView];
         objc_setAssociatedObject(self, &OverActivityViewKey, overActivityView, OBJC_ASSOCIATION_ASSIGN);
         
@@ -152,6 +153,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     onlineActivityView.dataSource = self;
     onlineActivityView.showsHorizontalScrollIndicator = NO;
     onlineActivityView.showsVerticalScrollIndicator = NO;
+    onlineActivityView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self.view addSubview:onlineActivityView];
     objc_setAssociatedObject(self, &OnlineActivityViewKey, onlineActivityView, OBJC_ASSOCIATION_ASSIGN);
@@ -196,7 +198,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     
     if (cell == nil) {
         
-        cell = [[QSWDeveloperActivityTableViewCell alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH-70.0f, 80.0f)];
+        cell = [[QSWDeveloperActivityTableViewCell alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT+10.0f, 0.0f, SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-20.0f, 80.0f)];
         
     }
 

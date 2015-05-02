@@ -73,6 +73,10 @@ static char SignUpCountKey;         //!<报名人数
     signUpCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
     [self.contentView addSubview:signUpCountLabel];
     objc_setAssociatedObject(self, &SignUpCountKey, signUpCountLabel, OBJC_ASSOCIATION_ASSIGN);
+    
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 80.0f-0.25f, SIZE_DEVICE_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT-20.0f, 0.25f)];
+    lineLabel.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
+    [self.contentView addSubview:lineLabel];
 }
 
 #pragma mark -更新数据模型
