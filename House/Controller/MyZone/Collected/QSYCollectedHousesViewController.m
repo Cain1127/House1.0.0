@@ -535,7 +535,11 @@
     if (self.isHouseCollectedChange) {
         
         self.isHouseCollectedChange = NO;
-        [self.currentListView.header beginRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.currentListView.header beginRefreshing];
+            
+        });
         
     }
     

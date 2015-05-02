@@ -153,8 +153,12 @@ static char DeleteButton;       //!<删除按钮状态
     ///判断当前是否是编辑状态
     if (self.isEditing) {
         
-        UIButton *deleteButton = objc_getAssociatedObject(self, &DeleteButton);
-        deleteButton.selected = selected;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            UIButton *deleteButton = objc_getAssociatedObject(self, &DeleteButton);
+            deleteButton.selected = selected;
+            
+        });
         
     }
     
