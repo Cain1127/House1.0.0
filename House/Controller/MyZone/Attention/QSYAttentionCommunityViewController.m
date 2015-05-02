@@ -29,7 +29,9 @@
 @property (assign) BOOL isRefreshIntentionList;                 //!<关注小区是否已变动：变动则刷新
 @property (assign) BOOL isLocalData;                            //!<是否本地数据
 @property (nonatomic,strong) QSCollectionView *collectionView;  //!<小区列表
+@property (assign) BOOL isEditing;                              //!<当前是否是编辑状态
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
+@property (nonatomic,retain) NSMutableArray *seletedDataSource; //!<删除关注时的数据源
 @property (nonatomic,strong) UIView *noRecordsView;             //!<无记录提示页面
 
 ///网络请求的数据
@@ -47,9 +49,11 @@
         
         ///初始化数据源
         self.dataSource = [[NSMutableArray alloc] init];
+        self.seletedDataSource = [NSMutableArray array];
         
         ///初始化关注刷新标识
         self.isRefreshIntentionList = NO;
+        self.isEditing = NO;
         
         ///初始化数据是网络数据，还是本地数据
         if (lLoginCheckActionTypeLogined == [self checkLogin]) {
@@ -84,11 +88,19 @@
         ///当前非编辑状态，进入删除状态
         if (button.selected) {
             
+            self.isEditing = NO;
             button.selected = NO;
+            [self.collectionView reloadData];
             
         } else {
         
-            button.selected = YES;
+            if ([self.dataSource count] > 0) {
+                
+                self.isEditing = YES;
+                button.selected = YES;
+                [self.collectionView reloadData];
+                
+            }
         
         }
         
@@ -115,7 +127,7 @@
     defaultLayout.minimumInteritemSpacing = 0.0f;
     
     self.collectionView = [[QSCollectionView alloc] initWithFrame:CGRectMake(0.0f, 84.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 84.0f) collectionViewLayout:defaultLayout andHorizontalScroll:NO andVerticalScroll:YES];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerClass:[QSAttentionCommunityCell class] forCellWithReuseIdentifier:@"communityCellLocal"];
@@ -167,7 +179,7 @@
     
     UIButton *lookButton = [UIButton createBlockButtonWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 160.0f) / 2.0f, tipsLabel.frame.origin.y + tipsLabel.frame.size.height + 25.0f, 160.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///进入新的房源列表
+        ///进入小区列表
         QSYHousesNormalListViewController *houseListVC = [[QSYHousesNormalListViewController alloc] initWithHouseType:fFilterMainTypeCommunity];
         [self.navigationController pushViewController:houseListVC animated:YES];
         
@@ -189,6 +201,7 @@
         
         ///刷新数据
         [cellNetwork updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:fFilterMainTypeCommunity];
+        cellNetwork.isEditing = self.isEditing;
         
         return cellNetwork;
         
@@ -201,6 +214,8 @@
     
     ///刷新数据
     [cellNormal updateIntentionCommunityInfoCellUIWithDataModel:self.dataSource[indexPath.row]];
+    cellNormal.isEditing = self.isEditing;
+    cellNormal.selected = [self isSelectedIndexPath:indexPath];
     
     return cellNormal;
     
@@ -225,6 +240,34 @@
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///编辑状态
+    if (self.isEditing) {
+        
+        ///已存在，则删除
+        for (int i = 0; i < [self.seletedDataSource count]; i++) {
+            
+            NSIndexPath *selectedPath = self.seletedDataSource[i];
+            if (selectedPath.section == indexPath.section &&
+                selectedPath.row == indexPath.row) {
+                
+                [self.seletedDataSource removeObjectAtIndex:i];
+                [collectionView reloadData];
+                return;
+                
+            }
+            
+        }
+        
+        ///添加
+        [self.seletedDataSource addObject:indexPath];
+        
+        ///显示选择
+        [collectionView reloadData];
+        
+        return;
+        
+    }
  
     if (self.isLocalData) {
         
@@ -242,6 +285,25 @@
     
     }
     
+}
+
+#pragma mark - 检测当前index是否已选择
+- (BOOL)isSelectedIndexPath:(NSIndexPath *)indexPath
+{
+
+    for (int i = 0; i < [self.seletedDataSource count]; i++) {
+        
+        NSIndexPath *selectedPath = self.seletedDataSource[i];
+        if (selectedPath.section == indexPath.section &&
+            selectedPath.row == indexPath.row) {
+            
+            return YES;
+            
+        }
+        
+    }
+    return NO;
+
 }
 
 #pragma mark - 请求最新的数据
@@ -272,6 +334,7 @@
                 if ([resultDataModel.communityListHeaderData.communityList count] > 0) {
                     
                     self.noRecordsView.hidden = YES;
+                    [self.view sendSubviewToBack:self.noRecordsView];
                     
                     ///更新数据源
                     self.dataSourceModel = resultDataModel;
@@ -297,6 +360,7 @@
                 } else {
                 
                     self.noRecordsView.hidden = NO;
+                    [self.view bringSubviewToFront:self.noRecordsView];
                     [self.collectionView reloadData];
                     self.collectionView.footer.hidden = YES;
                     
@@ -317,6 +381,7 @@
                 [self.collectionView reloadData];
                 
                 self.noRecordsView.hidden = NO;
+                [self.view bringSubviewToFront:self.noRecordsView];
                 
                 self.collectionView.footer.hidden = YES;
                 
@@ -340,6 +405,7 @@
             
             ///显示无记录页
             self.noRecordsView.hidden = YES;
+            [self.view sendSubviewToBack:self.noRecordsView];
             
             self.collectionView.footer.hidden = NO;
             [self.collectionView.footer noticeNoMoreData];
@@ -349,6 +415,7 @@
         
             self.collectionView.footer.hidden = YES;
             self.noRecordsView.hidden = NO;
+            [self.view bringSubviewToFront:self.noRecordsView];
         
         }
         

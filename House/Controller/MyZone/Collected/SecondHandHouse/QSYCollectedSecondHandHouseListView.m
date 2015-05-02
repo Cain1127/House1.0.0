@@ -89,7 +89,7 @@
         self.dataSource = self;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
-        [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"localHouseCell"];
+        [self registerClass:[QSYHistoryHouseCollectionViewCell class] forCellWithReuseIdentifier:@"localHouseCell"];
         [self registerClass:[QSHouseCollectionViewCell class] forCellWithReuseIdentifier:@"serverHouseCell"];
         
         ///添加刷新

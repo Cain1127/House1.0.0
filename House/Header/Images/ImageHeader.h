@@ -604,6 +604,10 @@
 ///我的物业列表中，房源图片的默认图片
 #define IMAGE_ZONE_MYPROPERTYLIST_HOUSE_DEFAULT @"myzone_property_house_default"
 
+///收藏和关注删除标示图片
+#define IMAGE_ZONE_DELETE_NORMAL @"myzone_delete_image_normal"
+#define IMAGE_ZONE_DELETE_HIGHLIGHTED @"myzone_delete_image_highlighted"
+
 /*!
  *  @author wangshupeng, 15-04-14 12:04:40
  *
