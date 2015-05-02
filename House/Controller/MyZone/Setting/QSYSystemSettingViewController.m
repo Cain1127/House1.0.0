@@ -7,6 +7,7 @@
 //
 
 #import "QSYSystemSettingViewController.h"
+#import "QSOpinionFeedbackViewController.h"
 
 #import "QSCustomHUDView.h"
 
@@ -186,6 +187,8 @@ typedef enum
         {
             
             APPLICATION_LOG_INFO(@"意见返馈", @"")
+            QSOpinionFeedbackViewController *obVC = [[QSOpinionFeedbackViewController alloc]init];
+            [self.navigationController pushViewController:obVC animated:YES];
             
         }
             break;

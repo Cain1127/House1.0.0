@@ -741,6 +741,7 @@
 		CE2BF4EE1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2BF4ED1AF0EA8800DD6015 /* houses_detail_map_arrow_up.png */; };
 		CE2BF4F11AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF4F01AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m */; };
 		CE2BF4F41AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF4F31AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m */; };
+		CE2BF4F81AF4F6E100DD6015 /* QSOpinionFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2BF4F71AF4F6E100DD6015 /* QSOpinionFeedbackViewController.m */; };
 		CE2E0FB01AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */; };
 		CE2E0FB31AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FB21AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.m */; };
 		CE2E0FC11AAFF693004DEE1E /* QSHousePriceChangesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2E0FC01AAFF693004DEE1E /* QSHousePriceChangesDataModel.m */; };
@@ -2058,6 +2059,8 @@
 		CE2BF4F01AF206F800DD6015 /* QSDeveloperActivityDetailListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperActivityDetailListReturnData.m; sourceTree = "<group>"; };
 		CE2BF4F21AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDeveloperActivityDetailDataModel.h; sourceTree = "<group>"; };
 		CE2BF4F31AF208D500DD6015 /* QSDeveloperActivityDetailDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDeveloperActivityDetailDataModel.m; sourceTree = "<group>"; };
+		CE2BF4F61AF4F6E100DD6015 /* QSOpinionFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOpinionFeedbackViewController.h; sourceTree = "<group>"; };
+		CE2BF4F71AF4F6E100DD6015 /* QSOpinionFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOpinionFeedbackViewController.m; sourceTree = "<group>"; };
 		CE2E0FAE1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHousesDetailReturnData.h; sourceTree = "<group>"; };
 		CE2E0FAF1AAFEB25004DEE1E /* QSRentHousesDetailReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSRentHousesDetailReturnData.m; sourceTree = "<group>"; };
 		CE2E0FB11AAFEB8D004DEE1E /* QSRentHouseDetailDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSRentHouseDetailDataModel.h; sourceTree = "<group>"; };
@@ -2401,6 +2404,7 @@
 		182997A21AB6DA0C00705DDB /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				CE2BF4F51AF4F6B400DD6015 /* OpinionFeedback */,
 				180CA3141ADA2B1100D42493 /* Gender */,
 				180CA3081ADA248F00D42493 /* Password */,
 				180CA30B1ADA248F00D42493 /* Phone */,
@@ -6036,6 +6040,15 @@
 			path = Calculator;
 			sourceTree = "<group>";
 		};
+		CE2BF4F51AF4F6B400DD6015 /* OpinionFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				CE2BF4F61AF4F6E100DD6015 /* QSOpinionFeedbackViewController.h */,
+				CE2BF4F71AF4F6E100DD6015 /* QSOpinionFeedbackViewController.m */,
+			);
+			path = OpinionFeedback;
+			sourceTree = "<group>";
+		};
 		CE2E0FB71AAFF34D004DEE1E /* House */ = {
 			isa = PBXGroup;
 			children = (
@@ -7167,6 +7180,7 @@
 				18B5631E1A81AA40009779A0 /* QSCustomDistrictSelectedPopView.m in Sources */,
 				18AFAA061AB6B79600681071 /* GCDAsyncSocket.m in Sources */,
 				18D082221AD0264A004FA20F /* QSYAskRecommendRentHouseViewController.m in Sources */,
+				CE2BF4F81AF4F6E100DD6015 /* QSOpinionFeedbackViewController.m in Sources */,
 				18AFA9F01AB687A100681071 /* QSYForgetPasswordViewController.m in Sources */,
 				18C8A2771A6E904C00BB9611 /* QSRequestManager.m in Sources */,
 				475A4D911AC538F2009881CF /* QSPOrderDetailRejectAndAcceptAppointmentButtonView.m in Sources */,
@@ -7458,8 +7472,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
@@ -7504,8 +7518,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
