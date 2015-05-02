@@ -439,7 +439,7 @@
         
         QSRentHouseInfoDataModel *serverModel = tempServerArray[i];
         serverModel.is_syserver = @"1";
-        [QSCoreDataManager saveCollectedDataWithModel:serverModel andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+        [QSCoreDataManager saveCollectedDataWithModel:serverModel andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
             
             ///保存成功
             if (flag) {

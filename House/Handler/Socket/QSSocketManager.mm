@@ -31,6 +31,7 @@
 #import "QSYSendMessageVideo.h"
 #import "QSYSendMessageSystem.h"
 #import "QSYSendMessageSpecial.h"
+#import "QSYSendMessageRecommendHouse.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+User.h"
@@ -473,12 +474,20 @@ static QSSocketManager *_socketManager = nil;
             
             break;
             
+            ///抢着房源
+        case qQSCustomProtocolChatMessageTypeRecommendHouse:
+            
+            [self sendVideoMessageToPersion:msgModel];
+            
+            break;
+            
         default:
             break;
     }
     
 }
 
+///发送文字消息
 + (void)sendWordMessageToPersion:(QSYSendMessageWord *)wordMessageModel
 {
     
@@ -687,6 +696,73 @@ static QSSocketManager *_socketManager = nil;
     
 }
 
++ (void)sendRecommendHouseMessageToPersion:(QSYSendMessageRecommendHouse *)wordMessageModel
+{
+    
+#if 0
+    
+    ///socket管理器
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    
+    QSChat::QuestionWord sendMessage;
+    
+    ///设置消息体
+    int32_t fromIDINT32 = [wordMessageModel.fromID intValue];
+    sendMessage.set_mid(fromIDINT32);
+    int32_t toIDINT32 = [wordMessageModel.toID intValue];
+    sendMessage.set_tid(toIDINT32);
+    sendMessage.set_ctype([socketManager talk_ChangeOCEnumToCPP_SendType:qQSCustomProtocolChatSendTypePTP]);
+    sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
+    sendMessage.set_message([APPLICATION_NSSTRING_SETTING(wordMessageModel.message,@"-1") UTF8String]);
+    
+    sendMessage.set_time_stamp([APPLICATION_NSSTRING_SETTING(wordMessageModel.timeStamp,@"-1") UTF8String]);
+    
+    sendMessage.set_m_avatar([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_avatar,@"-1") UTF8String]);
+    sendMessage.set_m_name([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_name,@"-1") UTF8String]);
+    sendMessage.set_m_leve([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_leve,@"-1") UTF8String]);
+    sendMessage.set_m_user_type([APPLICATION_NSSTRING_SETTING(wordMessageModel.f_user_type,@"-1") UTF8String]);
+    
+    sendMessage.set_t_avatar([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_avatar,@"-1") UTF8String]);
+    sendMessage.set_t_name([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_name,@"-1") UTF8String]);
+    sendMessage.set_t_leve([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_leve,@"-1") UTF8String]);
+    sendMessage.set_t_user_type([APPLICATION_NSSTRING_SETTING(wordMessageModel.t_user_type,@"-1") UTF8String]);
+    
+    int length = sendMessage.ByteSize();
+    int32_t messageLength = static_cast <int32_t> (length + 4);
+    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    
+    HTONL(messageLength);
+    HTONL(messageType);
+    
+    ///头信息
+    char *buf = new char[length];
+    sendMessage.SerializeToArray(buf,length);
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8000];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8001];
+    
+    ///发主体信息
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8002];
+    
+    ///保存消息
+    wordMessageModel.readTag = @"1";
+    [QSCoreDataManager saveMessageData:wordMessageModel andMessageType:qQSCustomProtocolChatMessageTypeWord andCallBack:^(BOOL isSave) {
+        
+        if (isSave) {
+            
+            APPLICATION_LOG_INFO(@"聊天消息保存日志->发出消息", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"聊天消息保存日志->发出消息", @"失败")
+            
+        }
+        
+    }];
+    
+#endif
+    
+}
+
 /**
  *  @author         yangshengmeng, 15-03-17 19:03:27
  *
@@ -860,6 +936,9 @@ static QSSocketManager *_socketManager = nil;
                 }
                     break;
                     
+                    ///历史文字聊天
+                case QSChat::QSCHAT_HISTORY_WORD:
+                    
                     ///文字聊天
                 case QSChat::QSCHAT_WORD:
                 {
@@ -881,6 +960,9 @@ static QSSocketManager *_socketManager = nil;
                     
                 }
                     break;
+                    
+                    ///历史图片聊天
+                case QSChat::QSCHAT_HISTORY_PIC:
                     
                     ///图片聊天
                 case QSChat::QSCHAT_PIC:
@@ -904,6 +986,9 @@ static QSSocketManager *_socketManager = nil;
                 }
                     break;
                     
+                    ///历史文字聊天
+                case QSChat::QSCHAT_HISTORY_VIDEO:
+                    
                     ///音频聊天
                 case QSChat::QSCHAT_VIDEO:
                 {
@@ -926,6 +1011,10 @@ static QSSocketManager *_socketManager = nil;
                 }
                     break;
                     
+                    ///历史推送房源消息
+                    
+                    ///推送房源消息
+                    
                     ///推荐房源消息
                 case QSChat::QSCHAT_SPECIAL:
                     
@@ -933,55 +1022,6 @@ static QSSocketManager *_socketManager = nil;
                     
                     ///系统消息
                 case QSChat::QSCHAT_SYSTEM:
-                    
-                    break;
-                    
-                    ///历史文字聊天
-                case QSChat::QSCHAT_HISTORY_WORD:
-                {
-                    
-                    ///消息
-                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-                    string messageString = string(messageBuf);
-                    
-                    ///返回的信息
-                    QSChat::AnswerWord wordMessage = QSChat::AnswerWord();
-                    wordMessage.ParseFromString(messageString);
-                    
-                    ///转模型关回调
-                    [self handleReceiveWordMessage:[self talk_ChangeCPPToOCModel_Word:wordMessage]];
-                    
-                    ///更新消息数据列
-                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
-                    
-                }
-                    break;
-                    
-                    ///历史图片聊天
-                case QSChat::QSCHAT_HISTORY_PIC:
-                {
-                    
-                    ///消息
-                    char *messageBuf = (char *)malloc(messageLengthNetwork - 4);
-                    [tempData getBytes:messageBuf range:NSMakeRange(8, messageLengthNetwork - 4)];
-                    string messageString = string(messageBuf);
-                    
-                    ///返回的信息
-                    QSChat::AnswerPic wordMessage = QSChat::AnswerPic();
-                    wordMessage.ParseFromString(messageString);
-                    
-                    ///转模型关回调
-                    [self handleReceivePictureMessage:[self talk_ChangeCPPToOCModel_Picture:wordMessage]];
-                    
-                    ///更新消息数据列
-                    tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
-                    
-                }
-                    break;
-                    
-                    ///历史音频聊天
-                case QSChat::QSCHAT_HISTORY_VIDEO:
                     
                     break;
                     
@@ -1166,6 +1206,80 @@ static QSSocketManager *_socketManager = nil;
         });
         
         ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
+        ocWordModel.readTag = @"1";
+        [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+            
+            if (isSave) {
+                
+                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"成功")
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"失败")
+                
+            }
+            
+        }];
+        
+    } else {
+        
+        ///保存消息
+        [self.messageList addObject:ocWordModel];
+        
+        ///回调离线消息数量
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
+        NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+        
+        ///回调消息数量
+        if (self.currentUnReadMessageNumCallBack) {
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+                
+            });
+            
+        }
+        
+        ///回调消息列表
+        if (self.instantMessageNotification) {
+            
+            QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+            userSimple.id_ = ocWordModel.fromID;
+            userSimple.avatar = ocWordModel.f_avatar;
+            userSimple.username = ocWordModel.f_name;
+            userSimple.user_type = ocWordModel.f_user_type;
+            userSimple.level = ocWordModel.f_leve;
+            
+            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and toID == %@",ocWordModel.fromID,APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1")];
+            NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],nil,ocWordModel,userSimple);
+                
+            });
+            
+        }
+        
+    }
+    
+}
+
+- (void)handleReceiveRecommendHouseMessage:(QSYSendMessageRecommendHouse *)ocWordModel
+{
+    
+    ///回调
+    if (self.currentTalkMessageCallBack &&
+        [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentTalkMessageCallBack(YES,ocWordModel);
+            
+        });
+        
+        ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本地
         ocWordModel.readTag = @"1";
         [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
             
@@ -1516,7 +1630,6 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
     
     ///获取音频消息
-    
     ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
     ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
     ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
@@ -1536,6 +1649,47 @@ static QSSocketManager *_socketManager = nil;
 //    showHeight = showHeight + 20.0f;
 //    ocWordModel.showWidth = showWidth;
 //    ocWordModel.showHeight = showHeight;
+    
+    return ocWordModel;
+    
+}
+
+- (QSYSendMessageRecommendHouse *)talk_ChangeCPPToOCModel_RecommendHouse:(QSChat::AnswerVideo)cppWordModel
+{
+    
+    ///OC数据模型
+    QSYSendMessageRecommendHouse *ocWordModel = [[QSYSendMessageRecommendHouse alloc] init];
+    ocWordModel.msgType = qQSCustomProtocolChatMessageTypeRecommendHouse;
+    ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
+    ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
+    ocWordModel.readTag = @"0";
+    
+    int64_t fIDINT32 = cppWordModel.fid();
+    ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
+    ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
+    ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
+    
+    ///获取音频消息
+    
+    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
+    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
+    ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
+    ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
+    ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.f_unread_count().c_str()];
+    
+    //    CGFloat showHeight = 30.0f;
+    //    CGFloat showWidth = [ocWordModel.message calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
+    //    if (showWidth > (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f)) {
+    //
+    //        showWidth = (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f);
+    //        showHeight = [ocWordModel.message calculateStringDisplayHeightByFixedWidth:showWidth andFontSize:FONT_BODY_16];
+    //
+    //    }
+    
+    //    showWidth = showWidth + 20.0f;
+    //    showHeight = showHeight + 20.0f;
+    //    ocWordModel.showWidth = showWidth;
+    //    ocWordModel.showHeight = showHeight;
     
     return ocWordModel;
     

@@ -30,4 +30,13 @@
  */
 - (instancetype)initWithCallBack:(void(^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack;
 
+/**
+ *  @author yangshengmeng, 15-05-01 12:05:19
+ *
+ *  @brief  刷新本地收藏和关注记录
+ *
+ *  @since  1.0.0
+ */
++ (void)loadCollectedDataToServer;
+
 @end

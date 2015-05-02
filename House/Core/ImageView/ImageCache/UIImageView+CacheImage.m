@@ -43,14 +43,16 @@
 - (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag
 {
     
+    ///先显示默认图片
+    if (placeholderImage) {
+        
+        self.image = placeholderImage;
+        
+    }
+    
     ///基本校验
     if (nil == url) {
         
-        if (placeholderImage) {
-            
-            self.image = placeholderImage;
-            
-        }
         return;
         
     }
@@ -61,16 +63,15 @@
         
     }
     
-    ///获取本地图片
-    NSString *imageCacheFilePath = [self getCacheImageWithURL:url];
-    
-    ///本地是否已有缓存
-    if (imageCacheFilePath) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        __block UIImage *tempImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:imageCacheFilePath]];
+        ///获取本地图片
+        NSString *imageCacheFilePath = [self getCacheImageWithURL:url];
         
-        ///获取image，判断是否需要缩小
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        ///本地是否已有缓存
+        if (imageCacheFilePath) {
+            
+            __block UIImage *tempImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:imageCacheFilePath]];
             
             ///判断是否需要压缩
             if (flag) {
@@ -85,14 +86,14 @@
                 
             });
             
-        });
+            return;
+            
+        }
         
-        return;
+        ///本地没有缓存，进行网络请求
+        [self requestImageDataWithURL:url placeholderImage:placeholderImage isCommpressed:flag];
         
-    }
-    
-    ///本地没有缓存，进行网络请求
-    [self requestImageDataWithURL:url placeholderImage:placeholderImage isCommpressed:flag];
+    });
     
 }
 
@@ -101,54 +102,48 @@
 - (void)requestImageDataWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag
 {
     
-    ///异步请求
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    ///封装请求3秒超时
+    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0f];
+    
+    ///请求数据
+    NSData *imageData = [NSURLConnection sendSynchronousRequest:imageRequest returningResponse:nil error:nil];
+    
+    ///判断是否获取成功
+    if (iImageValidTypeValid == [self checkJPEGValid:imageData]) {
         
-        ///封装请求3秒超时
-        NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0f];
+        ///将数据转为图片
+        __block UIImage *showImage = [UIImage imageWithData:imageData];
         
-        ///请求数据
-        NSData *imageData = [NSURLConnection sendSynchronousRequest:imageRequest returningResponse:nil error:nil];
-        
-        ///判断是否获取成功
-        if (imageData) {
+        ///判断是否需要压缩
+        if (flag) {
             
-            ///压缩图片，并显示
-            __block UIImage *showImage = [UIImage imageWithData:imageData];
-            
-            ///判断是否需要压缩
-            if (flag) {
-                
-                showImage = [self compressedImageFitToSelf:showImage];
-                
-            }
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                
-                self.image = showImage;
-                
-            });
-            
-            ///把图片保存在本地
-            [self saveImageWithImage:imageData andIndentify:[self getImageCacheIdentifyWithURL:url]];
-            
-        } else {
-            
-            ///加载默认图片
-            if (placeholderImage) {
-                
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    
-                    self.image = placeholderImage;
-                    
-                });
-                
-            }
+            showImage = [self compressedImageFitToSelf:showImage];
             
         }
         
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.image = showImage;
+            
+        });
         
-    });
+        ///把图片保存在本地
+        [self saveImageWithImage:imageData andIndentify:[self getImageCacheIdentifyWithURL:url]];
+        
+    } else {
+        
+        ///加载默认图片
+        if (placeholderImage) {
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                self.image = placeholderImage;
+                
+            });
+            
+        }
+        
+    }
     
 }
 
@@ -309,6 +304,47 @@
     }
     
     return tempImage;
+    
+}
+
+#pragma mark - 图片检测
+- (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData
+{
+    
+    ///非图片
+    if ([tempData length] < 4) return iImageValidTypeInValid;
+    
+    const unsigned char * bytes = (const unsigned char *)[tempData bytes];
+    
+    ///头信息缺失
+    if (bytes[0] != 0xFF || bytes[1] != 0xD8) return iImageValidTypeHeaderInValid;
+    
+    ///图片尾信息缺失
+    if (bytes[[tempData length] - 2] != 0xFF ||
+        bytes[[tempData length] - 1] != 0xD9) return iImageValidTypeFooterInValid;
+    
+    ///图片完整
+    return iImageValidTypeValid;
+    
+}
+
++ (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData
+{
+    
+    ///非图片
+    if ([tempData length] < 4) return iImageValidTypeInValid;
+    
+    const unsigned char * bytes = (const unsigned char *)[tempData bytes];
+    
+    ///头信息缺失
+    if (bytes[0] != 0xFF || bytes[1] != 0xD8) return iImageValidTypeHeaderInValid;
+    
+    ///图片尾信息缺失
+    if (bytes[[tempData length] - 2] != 0xFF ||
+        bytes[[tempData length] - 1] != 0xD9) return iImageValidTypeFooterInValid;
+    
+    ///图片完整
+    return iImageValidTypeValid;
     
 }
 

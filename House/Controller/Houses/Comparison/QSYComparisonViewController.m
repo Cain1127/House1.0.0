@@ -323,6 +323,7 @@
     addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     addressLabel.adjustsFontSizeToFitWidth = YES;
     addressLabel.text = [NSString stringWithFormat:@"%@|%@",tempModel.districe,tempModel.street];
+    addressLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:addressLabel];
     
     ///分隔线
@@ -342,6 +343,7 @@
     areaLabel.textAlignment = NSTextAlignmentRight;
     areaLabel.textColor = COLOR_CHARACTERS_YELLOW;
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    areaLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:areaLabel];
     
     ///单位
@@ -358,6 +360,7 @@
     houseTypeLabel.textAlignment = NSTextAlignmentCenter;
     houseTypeLabel.textColor = COLOR_CHARACTERS_BLACK;
     houseTypeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    houseTypeLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:houseTypeLabel];
     
     ///分隔线
@@ -379,6 +382,7 @@
         totalPriceLabel.textAlignment = NSTextAlignmentRight;
         totalPriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
         totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        totalPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:totalPriceLabel];
         
         ///单位
@@ -395,6 +399,7 @@
         avgPriceLabel.textAlignment = NSTextAlignmentCenter;
         avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
         avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        avgPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:avgPriceLabel];
         
         ///分隔线
@@ -410,6 +415,7 @@
         downPaymentLabel.textAlignment = NSTextAlignmentRight;
         downPaymentLabel.textColor = COLOR_CHARACTERS_YELLOW;
         downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        downPaymentLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:downPaymentLabel];
         
         ///单位
@@ -427,6 +433,7 @@
         monthPriceLabel.textAlignment = NSTextAlignmentCenter;
         monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
         monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        monthPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:monthPriceLabel];
         
         ///分隔线
@@ -440,6 +447,7 @@
         buildYearLabel.textAlignment = NSTextAlignmentRight;
         buildYearLabel.textColor = COLOR_CHARACTERS_YELLOW;
         buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        buildYearLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:buildYearLabel];
         
         ///单位
@@ -456,6 +464,7 @@
         rightYearLabel.textAlignment = NSTextAlignmentCenter;
         rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
         rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        rightYearLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rightYearLabel];
         
         ///分隔线
@@ -479,6 +488,7 @@
         rentPrice.textAlignment = NSTextAlignmentRight;
         rentPrice.textColor = COLOR_CHARACTERS_YELLOW;
         rentPrice.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        rentPrice.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rentPrice];
         
         ///单位
@@ -496,6 +506,7 @@
         rentPayTypeLable.textAlignment = NSTextAlignmentCenter;
         rentPayTypeLable.textColor = COLOR_CHARACTERS_BLACK;
         rentPayTypeLable.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        rentPayTypeLable.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rentPayTypeLable];
         
         ///分隔线
@@ -509,6 +520,7 @@
         leadTimeLabel.textAlignment = NSTextAlignmentRight;
         leadTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
         leadTimeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        leadTimeLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:leadTimeLabel];
         
         ///出租房当前状态
@@ -517,6 +529,7 @@
         houseStatusLabel.textAlignment = NSTextAlignmentCenter;
         houseStatusLabel.textColor = COLOR_CHARACTERS_BLACK;
         houseStatusLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        houseStatusLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:houseStatusLabel];
         
         ///分隔线
@@ -535,6 +548,7 @@
     liftRateLabel.textAlignment = NSTextAlignmentCenter;
     liftRateLabel.textColor = COLOR_CHARACTERS_GRAY;
     liftRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    liftRateLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:liftRateLabel];
     
     ///是否有电梯
@@ -556,6 +570,7 @@
     faceLabel.textAlignment = NSTextAlignmentCenter;
     faceLabel.textColor = COLOR_CHARACTERS_GRAY;
     faceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    faceLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:faceLabel];
     
     ///装修
@@ -564,6 +579,7 @@
     decorationLabel.textAlignment = NSTextAlignmentCenter;
     decorationLabel.textColor = COLOR_CHARACTERS_BLACK;
     decorationLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    decorationLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:decorationLabel];
     
     ///设置滚动
@@ -599,6 +615,7 @@
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.textColor = COLOR_CHARACTERS_YELLOW;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    scoreLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:scoreLabel];
     
     ///评分单位
@@ -675,6 +692,7 @@
         totalPriceLabel.textAlignment = NSTextAlignmentRight;
         totalPriceLabel.textColor = COLOR_CHARACTERS_GRAY;
         totalPriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        totalPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:totalPriceLabel];
         
         ///单位
@@ -691,6 +709,7 @@
         avgPriceLabel.textAlignment = NSTextAlignmentCenter;
         avgPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
         avgPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        avgPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:avgPriceLabel];
         
         ///首付信息
@@ -701,6 +720,7 @@
         downPaymentLabel.textAlignment = NSTextAlignmentRight;
         downPaymentLabel.textColor = COLOR_CHARACTERS_GRAY;
         downPaymentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        downPaymentLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:downPaymentLabel];
         
         ///单位
@@ -718,6 +738,7 @@
         monthPriceLabel.textAlignment = NSTextAlignmentCenter;
         monthPriceLabel.textColor = COLOR_CHARACTERS_BLACK;
         monthPriceLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        monthPriceLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:monthPriceLabel];
         
         ///建筑时间
@@ -726,6 +747,7 @@
         buildYearLabel.textAlignment = NSTextAlignmentRight;
         buildYearLabel.textColor = COLOR_CHARACTERS_GRAY;
         buildYearLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        buildYearLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:buildYearLabel];
         
         ///单位
@@ -742,6 +764,7 @@
         rightYearLabel.textAlignment = NSTextAlignmentCenter;
         rightYearLabel.textColor = COLOR_CHARACTERS_BLACK;
         rightYearLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        rightYearLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rightYearLabel];
         
         ///重置ypoint
@@ -760,6 +783,7 @@
         rentPrice.textAlignment = NSTextAlignmentRight;
         rentPrice.textColor = COLOR_CHARACTERS_YELLOW;
         rentPrice.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        rentPrice.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rentPrice];
         
         ///单位
@@ -777,6 +801,7 @@
         rentPayTypeLable.textAlignment = NSTextAlignmentCenter;
         rentPayTypeLable.textColor = COLOR_CHARACTERS_BLACK;
         rentPayTypeLable.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        rentPayTypeLable.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:rentPayTypeLable];
         
         ///入住时间
@@ -785,6 +810,7 @@
         leadTimeLabel.textAlignment = NSTextAlignmentRight;
         leadTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
         leadTimeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        leadTimeLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:leadTimeLabel];
         
         ///出租房当前状态
@@ -793,6 +819,7 @@
         houseStatusLabel.textAlignment = NSTextAlignmentCenter;
         houseStatusLabel.textColor = COLOR_CHARACTERS_BLACK;
         houseStatusLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+        houseStatusLabel.adjustsFontSizeToFitWidth = YES;
         [self.infoRootView addSubview:houseStatusLabel];
         
         ///重置ypoint
@@ -806,6 +833,7 @@
     liftRateLabel.textAlignment = NSTextAlignmentCenter;
     liftRateLabel.textColor = COLOR_CHARACTERS_GRAY;
     liftRateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    liftRateLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:liftRateLabel];
     
     ///是否有电梯
@@ -822,6 +850,7 @@
     faceLabel.textAlignment = NSTextAlignmentCenter;
     faceLabel.textColor = COLOR_CHARACTERS_GRAY;
     faceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    faceLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:faceLabel];
     
     ///装修
@@ -830,6 +859,7 @@
     decorationLabel.textAlignment = NSTextAlignmentCenter;
     decorationLabel.textColor = COLOR_CHARACTERS_BLACK;
     decorationLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    decorationLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:decorationLabel];
 
 }
@@ -849,6 +879,7 @@
     titleLabel.text = tempModel.communityName;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     [view addSubview:titleLabel];
     
@@ -857,6 +888,7 @@
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width / 2.0f - scoreWidth, titleLabel.frame.origin.y + titleLabel.frame.size.height, scoreWidth, heightMiddel)];
     scoreLabel.text = tempModel.score;
     scoreLabel.textAlignment = NSTextAlignmentRight;
+    scoreLabel.adjustsFontSizeToFitWidth = YES;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     [view addSubview:scoreLabel];
     
@@ -1138,7 +1170,7 @@
     
     comparisonModel.houseID = rentModel.house.id_;
     comparisonModel.communityName = rentModel.house.village_name;
-    comparisonModel.score = @"8";
+    comparisonModel.score = [NSString stringWithFormat:@"%.1f",[rentModel.house.tj_condition floatValue] + [rentModel.house.tj_environment floatValue]];
     comparisonModel.districe = [QSCoreDataManager getDistrictValWithDistrictKey:rentModel.house.areaid];
     comparisonModel.street = [QSCoreDataManager getStreetValWithStreetKey:rentModel.house.street];
     comparisonModel.address = rentModel.house.address;
@@ -1174,7 +1206,7 @@
     
     comparisonModel.houseID = rentModel.house.id_;
     comparisonModel.communityName = rentModel.house.village_name;
-    comparisonModel.score = @"7";
+    comparisonModel.score = [NSString stringWithFormat:@"%.1f",[rentModel.house.tj_condition floatValue] + [rentModel.house.tj_environment floatValue]];
     comparisonModel.districe = [QSCoreDataManager getDistrictValWithDistrictKey:rentModel.house.areaid];
     comparisonModel.street = [QSCoreDataManager getStreetValWithStreetKey:rentModel.house.street];
     comparisonModel.address = rentModel.house.address;
@@ -1185,10 +1217,10 @@
     comparisonModel.lift = [rentModel.house.elevator isEqualToString:@"Y"] ? @"有电梯" : @"无电梯";
     
     ///总价
-    CGFloat totalPrice = [rentModel.house.house_area floatValue] * [rentModel.house.price_avg floatValue];
+    CGFloat totalPrice = [rentModel.house.house_price floatValue];
     
     ///代款利率
-    CGFloat monthRate = 0.46;
+    CGFloat monthRate = 0.48;
     
     comparisonModel.price = [NSString stringWithFormat:@"%.0f",totalPrice / 10000.0f];
     comparisonModel.avg_price = [NSString stringWithFormat:@"%.2f",[rentModel.house.price_avg floatValue]];

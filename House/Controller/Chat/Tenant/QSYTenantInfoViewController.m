@@ -526,6 +526,14 @@
                     ///推荐房源
                 case tTenantAskRentAndBuyRentCellActionTypeRecommendHouse:
                 {
+                    
+                    ///判断是否存在出租物业
+                    if (0 >= [QSCoreDataManager getUserRentPropertySumCount]) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出租物业", 1.5f, ^(){})
+                        return;
+                        
+                    }
                 
                     QSYTenantDetailRecommendRentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendRentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                         
@@ -562,6 +570,14 @@
                 ///推荐房源
             case tTenantAskRentAndBuyBuyCellActionTypeRecommendHouse:
             {
+                
+                ///判断是否存在出租物业
+//                if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
+//                    
+//                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
+//                    return;
+//                    
+//                }
                 
                 QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                     

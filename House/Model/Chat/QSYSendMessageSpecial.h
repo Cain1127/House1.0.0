@@ -23,8 +23,8 @@
 @property (nonatomic,copy) NSString *timeStamp;                             //!<时间戳
 @property (nonatomic,copy) NSString *title;                                 //!<标题
 @property (nonatomic,copy) NSString *desc;                                  //!<信息内容
-@property (nonatomic,copy) NSString *f_name;                                //!<系统消息
-@property (nonatomic,copy) NSString *f_avatar;                              //!<系统消息图片名
+@property (nonatomic,copy) NSString *f_name;                                //!<推送房源
+@property (nonatomic,copy) NSString *f_avatar;                              //!<房源图片url
 @property (nonatomic,copy) NSString *unread_count;                          //!<未读消息的数量
 @property (nonatomic,assign) QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE msgType;   //!<消息类型
 

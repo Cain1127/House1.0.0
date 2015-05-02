@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+///图片完整性检测类型
+typedef enum
+{
+
+    iImageValidTypeInValid = 999,   //!<无效图片Data
+    iImageValidTypeHeaderInValid,   //!<图片Data头信息缺失
+    iImageValidTypeFooterInValid,   //!<图片尾信息缺失
+    iImageValidTypeValid,           //!<图片完整
+
+}IMAGE_VALID_TYPE;
+
 /**
  *  @author yangshengmeng, 15-01-21 15:01:31
  *
@@ -29,5 +40,19 @@
  */
 - (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage;
 - (void)loadImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage isCommpressed:(BOOL)flag;
+
+/**
+ *  @author         yangshengmeng, 15-05-01 16:05:27
+ *
+ *  @brief          检测图片是否有效
+ *
+ *  @param tempData 图片二进制信息
+ *
+ *  @return         返回检测结果
+ *
+ *  @since          1.0.0
+ */
+- (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData;
++ (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData;
 
 @end

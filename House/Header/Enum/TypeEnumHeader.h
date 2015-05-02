@@ -539,6 +539,7 @@ typedef enum
     qQSCustomProtocolChatMessageTypeHistoryPicture  = 9008, //!<历史图片消息
     qQSCustomProtocolChatMessageTypeHistoryVideo    = 9009, //!<历史音频消息
     qQSCustomProtocolChatMessageTypeHistory         = 9010, //!<获取指定联系人的历史消息
+    qQSCustomProtocolChatMessageTypeRecommendHouse  = 9011, //!<业主推送房源的类型
     
 }QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE;
 
