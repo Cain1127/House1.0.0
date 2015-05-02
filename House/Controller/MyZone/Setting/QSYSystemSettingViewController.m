@@ -30,7 +30,7 @@ typedef enum
     
 }SETTING_FIELD_ACTION_TYPE;
 
-@interface QSYSystemSettingViewController () <UITextFieldDelegate>
+@interface QSYSystemSettingViewController () <UITextFieldDelegate,UIAlertViewDelegate>
 
 @end
 
@@ -199,6 +199,14 @@ typedef enum
             
             APPLICATION_LOG_INFO(@"推荐评分", @"")
             
+//            NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Bundle display name"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"去给'%@'打分吧！",@"房当家"]
+                                                                message:@"您的评价对我们很重要"
+                                                               delegate:self
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"稍后评价",@"去评价",nil];
+            [alertView show];
+            
         }
             break;
             
@@ -237,6 +245,20 @@ typedef enum
     return NO;
     
 }
+
+#pragma mark --应用评分代理方法
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    if (1==buttonIndex) {
+        
+        NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",490062954];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        
+    }
+
+}
+
 
 #pragma mark - 是否接收系统抢着消息设置
 - (void)acceptSystemMessageSetting:(UISwitch *)switchUI
