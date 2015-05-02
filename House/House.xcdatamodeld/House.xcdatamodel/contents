@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDApplicationInfoDataModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_token" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,25 +16,39 @@
     </entity>
     <entity name="QSCDChatMessagesDataModel" representedClassName="QSCDChatMessagesDataModel" syncable="YES">
         <attribute name="deviceUUID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="district" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="districtKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="f_avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="f_leve" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="f_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="f_user_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fromID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="houseArea" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="houseID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="housePrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="houseShi" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="houseTing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="houseType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="msgID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="msgType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="originalImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pictureURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="playTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rentPrice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sendType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="showHeight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="showWidth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="smallImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="t_avatar" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="t_leve" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="t_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="t_user_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unread_count" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="videoURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -1138,10 +1152,11 @@
     <elements>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-137" positionY="153" width="128" height="90"/>
-        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="388"/>
+        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="600"/>
         <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="1243"/>
         <element name="QSCDCollectedCommunityHouseDataModel" positionX="-360" positionY="216" width="128" height="808"/>
         <element name="QSCDCollectedCommunityPhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>
+        <element name="QSCDCollectedCommunityRentHouseDataModel" positionX="-378" positionY="198" width="128" height="808"/>
         <element name="QSCDCollectedNewHouseActivityDataModel" positionX="-342" positionY="234" width="128" height="253"/>
         <element name="QSCDCollectedNewHouseAllHousesDataModel" positionX="-351" positionY="225" width="128" height="358"/>
         <element name="QSCDCollectedNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1575"/>
@@ -1165,6 +1180,5 @@
         <element name="QSCDHistorySecondHandHousePhotoDataModel" positionX="-137" positionY="261" width="128" height="148"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>
-        <element name="QSCDCollectedCommunityRentHouseDataModel" positionX="-378" positionY="198" width="128" height="808"/>
     </elements>
 </model>

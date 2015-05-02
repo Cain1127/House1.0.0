@@ -12,6 +12,8 @@
 #import "QSYSendMessagePicture.h"
 #import "QSYSendMessageVideo.h"
 #import "QSYSendMessageSystem.h"
+#import "QSYSendMessageRecommendHouse.h"
+
 #import "NSDate+Formatter.h"
 
 #import "QSCoreDataManager+User.h"
@@ -113,6 +115,11 @@
                 
                 break;
                 
+                ///推荐房源消息
+            case qQSCustomProtocolChatMessageTypeRecommendHouse:
+                
+                [resultTempArray addObject:[self message_ChangeMessageRecommendHouseCDModel_TO_OCModel:tempModel]];
+                
                 ///系统消息
             case qQSCustomProtocolChatMessageTypeSystem:
                 
@@ -181,6 +188,15 @@
         }
             break;
             
+            ///推送房源
+        case qQSCustomProtocolChatMessageTypeRecommendHouse:
+        {
+            
+            [self saveRecommendMessage:messageModel andCallBack:callBack];
+            
+        }
+            break;
+            
             ///系统消息
         case qQSCustomProtocolChatMessageTypeSystem:
         {
@@ -194,6 +210,92 @@
             break;
     }
 
+}
+
+///保存文字消息
++ (void)saveRecommendMessage:(QSYSendMessageRecommendHouse *)wordModel andCallBack:(void(^)(BOOL isSave))callBack
+{
+    
+    __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
+    
+    ///创建私有context
+    NSManagedObjectContext *tempContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    tempContext.parentContext = mainContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:COREDATA_ENTITYNAME_MESSAGE inManagedObjectContext:tempContext];
+    [fetchRequest setEntity:entity];
+    
+    ///设置查询过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timeStamp == %@",wordModel.timeStamp];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error=nil;
+    NSArray *fetchResultArray = [tempContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        
+        NSLog(@"CoreData.SearchCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///判断本地是否有数据
+    if ([fetchResultArray count] > 0) {
+        
+        QSCDChatMessagesDataModel *cdCollectedModel = fetchResultArray[0];
+        [self message_ChangeMessageRecommendHouseOCModel_TO_CDModel:cdCollectedModel andOCModel:wordModel];
+        [tempContext save:&error];
+        
+    } else {
+        
+        QSCDChatMessagesDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_MESSAGE inManagedObjectContext:tempContext];
+        [self message_ChangeMessageRecommendHouseOCModel_TO_CDModel:cdCollectedModel andOCModel:wordModel];
+        [tempContext save:&error];
+        
+    }
+    
+    ///判断是否保存成功
+    if (error) {
+        
+        NSLog(@"CoreData.SaveCollectedData.Error:%@",error);
+        if (callBack) {
+            
+            callBack(NO);
+            
+        }
+        return;
+        
+    }
+    
+    ///保存数据到本地
+    if ([NSThread isMainThread]) {
+        
+        [appDelegate saveContextWithWait:YES];
+        
+    } else {
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [appDelegate saveContextWithWait:NO];
+            
+        });
+        
+    }
+    
+    ///回调
+    if (callBack) {
+        
+        callBack(YES);
+        
+    }
+    
 }
 
 ///保存文字消息
@@ -740,6 +842,101 @@
     ocModel.msgType = [cdModel.msgType intValue];
     ocModel.videoURL = APPLICATION_NSSTRING_SETTING(cdModel.videoURL, @"");
     ocModel.playTime = APPLICATION_NSSTRING_SETTING(cdModel.playTime, @"");
+    
+    return ocModel;
+    
+}
+
++ (void)message_ChangeMessageRecommendHouseOCModel_TO_CDModel:(QSCDChatMessagesDataModel *)cdModel andOCModel:(QSYSendMessageRecommendHouse *)ocModel
+{
+    
+    cdModel.deviceUUID = APPLICATION_NSSTRING_SETTING(ocModel.deviceUUID, @"");
+    cdModel.msgID = APPLICATION_NSSTRING_SETTING(ocModel.msgID, @"");
+    cdModel.fromID = APPLICATION_NSSTRING_SETTING(ocModel.fromID, @"");
+    cdModel.toID = APPLICATION_NSSTRING_SETTING(ocModel.toID, @"");
+    cdModel.readTag = APPLICATION_NSSTRING_SETTING(ocModel.readTag, @"");
+    
+    NSString *showWidthString = [NSString stringWithFormat:@"%.2f",ocModel.showWidth];
+    NSString *showHeightString = [NSString stringWithFormat:@"%.2f",ocModel.showHeight];
+    cdModel.showWidth = APPLICATION_NSSTRING_SETTING(showWidthString, @"");
+    cdModel.showHeight = APPLICATION_NSSTRING_SETTING(showHeightString, @"");
+    
+    cdModel.timeStamp = APPLICATION_NSSTRING_SETTING(ocModel.timeStamp, @"");
+    cdModel.f_name = APPLICATION_NSSTRING_SETTING(ocModel.f_name, @"");
+    cdModel.f_user_type = APPLICATION_NSSTRING_SETTING(ocModel.f_user_type, @"");
+    cdModel.f_leve = APPLICATION_NSSTRING_SETTING(ocModel.f_leve, @"");
+    cdModel.f_avatar = APPLICATION_NSSTRING_SETTING(ocModel.f_avatar, @"");
+    cdModel.t_name = APPLICATION_NSSTRING_SETTING(ocModel.t_name, @"");
+    cdModel.t_user_type = APPLICATION_NSSTRING_SETTING(ocModel.t_user_type, @"");
+    cdModel.t_leve = APPLICATION_NSSTRING_SETTING(ocModel.t_leve, @"");
+    cdModel.t_avatar = APPLICATION_NSSTRING_SETTING(ocModel.t_avatar, @"");
+    cdModel.unread_count = APPLICATION_NSSTRING_SETTING(ocModel.unread_count, @"");
+    
+    NSString *sendTypeString = [NSString stringWithFormat:@"%d",ocModel.sendType];
+    NSString *msgTypeString = [NSString stringWithFormat:@"%d",ocModel.msgType];
+    cdModel.sendType = APPLICATION_NSSTRING_SETTING(sendTypeString, @"");
+    cdModel.msgType = APPLICATION_NSSTRING_SETTING(msgTypeString, @"");
+    
+    cdModel.houseID = APPLICATION_NSSTRING_SETTING(ocModel.houseID, @"-1");
+    cdModel.houseType = APPLICATION_NSSTRING_SETTING(ocModel.houseType, @"-1");
+    cdModel.originalImage = APPLICATION_NSSTRING_SETTING(ocModel.originalImage, @"-1");
+    cdModel.smallImage = APPLICATION_NSSTRING_SETTING(ocModel.smallImage, @"-1");
+    cdModel.district = APPLICATION_NSSTRING_SETTING(ocModel.district, @"-1");
+    cdModel.districtKey = APPLICATION_NSSTRING_SETTING(ocModel.districtKey, @"-1");
+    cdModel.street = APPLICATION_NSSTRING_SETTING(ocModel.street, @"-1");
+    cdModel.streetKey = APPLICATION_NSSTRING_SETTING(ocModel.streetKey, @"-1");
+    cdModel.houseTing = APPLICATION_NSSTRING_SETTING(ocModel.houseTing, @"-1");
+    cdModel.houseShi = APPLICATION_NSSTRING_SETTING(ocModel.houseShi, @"-1");
+    cdModel.houseArea = APPLICATION_NSSTRING_SETTING(ocModel.houseArea, @"-1");
+    cdModel.housePrice = APPLICATION_NSSTRING_SETTING(ocModel.housePrice, @"-1");
+    cdModel.rentPrice = APPLICATION_NSSTRING_SETTING(ocModel.rentPrice, @"-1");
+    cdModel.title = APPLICATION_NSSTRING_SETTING(ocModel.title, @"-1");
+    
+}
+
++ (QSYSendMessageRecommendHouse *)message_ChangeMessageRecommendHouseCDModel_TO_OCModel:(QSCDChatMessagesDataModel *)cdModel
+{
+    
+    ///OC的消息数据模型
+    QSYSendMessageRecommendHouse *ocModel = [[QSYSendMessageRecommendHouse alloc] init];
+    
+    ocModel.deviceUUID = APPLICATION_NSSTRING_SETTING(cdModel.deviceUUID, @"");
+    ocModel.msgID = APPLICATION_NSSTRING_SETTING(cdModel.msgID, @"");
+    ocModel.fromID = APPLICATION_NSSTRING_SETTING(cdModel.fromID, @"");
+    ocModel.toID = APPLICATION_NSSTRING_SETTING(cdModel.toID, @"");
+    ocModel.readTag = APPLICATION_NSSTRING_SETTING(cdModel.readTag, @"");
+    
+    ocModel.showWidth = [cdModel.showWidth floatValue];
+    ocModel.showHeight = [cdModel.showHeight floatValue];
+    
+    ocModel.timeStamp = APPLICATION_NSSTRING_SETTING(cdModel.timeStamp, @"");
+    ocModel.f_name = APPLICATION_NSSTRING_SETTING(cdModel.f_name, @"");
+    ocModel.f_user_type = APPLICATION_NSSTRING_SETTING(cdModel.f_user_type, @"");
+    ocModel.f_leve = APPLICATION_NSSTRING_SETTING(cdModel.f_leve, @"");
+    ocModel.f_avatar = APPLICATION_NSSTRING_SETTING(cdModel.f_avatar, @"");
+    ocModel.t_name = APPLICATION_NSSTRING_SETTING(cdModel.t_name, @"");
+    ocModel.t_user_type = APPLICATION_NSSTRING_SETTING(cdModel.t_user_type, @"");
+    ocModel.t_leve = APPLICATION_NSSTRING_SETTING(cdModel.t_leve, @"");
+    ocModel.t_avatar = APPLICATION_NSSTRING_SETTING(cdModel.t_avatar, @"");
+    ocModel.unread_count = APPLICATION_NSSTRING_SETTING(cdModel.unread_count, @"");
+    
+    ocModel.sendType = [cdModel.sendType intValue];
+    ocModel.msgType = [cdModel.msgType intValue];
+    
+    ocModel.houseID = APPLICATION_NSSTRING_SETTING(cdModel.houseID, @"-1");
+    ocModel.houseType = APPLICATION_NSSTRING_SETTING(cdModel.houseType, @"-1");
+    ocModel.originalImage = APPLICATION_NSSTRING_SETTING(cdModel.originalImage, @"-1");
+    ocModel.smallImage = APPLICATION_NSSTRING_SETTING(cdModel.smallImage, @"-1");
+    ocModel.district = APPLICATION_NSSTRING_SETTING(cdModel.district, @"-1");
+    ocModel.districtKey = APPLICATION_NSSTRING_SETTING(cdModel.districtKey, @"-1");
+    ocModel.street = APPLICATION_NSSTRING_SETTING(cdModel.street, @"-1");
+    ocModel.streetKey = APPLICATION_NSSTRING_SETTING(cdModel.streetKey, @"-1");
+    ocModel.houseTing = APPLICATION_NSSTRING_SETTING(cdModel.houseTing, @"-1");
+    ocModel.houseShi = APPLICATION_NSSTRING_SETTING(cdModel.houseShi, @"-1");
+    ocModel.houseArea = APPLICATION_NSSTRING_SETTING(cdModel.houseArea, @"-1");
+    ocModel.housePrice = APPLICATION_NSSTRING_SETTING(cdModel.housePrice, @"-1");
+    ocModel.rentPrice = APPLICATION_NSSTRING_SETTING(cdModel.rentPrice, @"-1");
+    ocModel.title = APPLICATION_NSSTRING_SETTING(cdModel.title, @"-1");
     
     return ocModel;
     

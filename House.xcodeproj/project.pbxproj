@@ -49,7 +49,6 @@
 		183572001AD608C400A29607 /* QSYMessagePictureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183571FF1AD608C400A29607 /* QSYMessagePictureTableViewCell.m */; };
 		183572031AD608D700A29607 /* QSYMessageVideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183572021AD608D700A29607 /* QSYMessageVideoTableViewCell.m */; };
 		1835722F1AD7A2FC00A29607 /* QSCoreDataManager+Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 1835722E1AD7A2FC00A29607 /* QSCoreDataManager+Message.m */; };
-		183572331AD7A73400A29607 /* QSCDChatMessagesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 183572321AD7A73400A29607 /* QSCDChatMessagesDataModel.m */; };
 		183572361AD7A88800A29607 /* QSYSendMessageSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 183572351AD7A88800A29607 /* QSYSendMessageSystem.m */; };
 		183572391AD8AB9800A29607 /* QSYSendMessageSpecial.m in Sources */ = {isa = PBXBuildFile; fileRef = 183572381AD8AB9800A29607 /* QSYSendMessageSpecial.m */; };
 		183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183CC65E1A68FC8800B8F97D /* Foundation.framework */; };
@@ -365,6 +364,7 @@
 		18B973011AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973001AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m */; };
 		18B973051AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */; };
 		18B973081AF386F400652890 /* QSYSendMessageRecommendHouse.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */; };
+		18B9730B1AF4978C00652890 /* QSCDChatMessagesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B9730A1AF4978C00652890 /* QSCDChatMessagesDataModel.m */; };
 		18BE12281A8862C20036245A /* QSChatContactsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE12271A8862C20036245A /* QSChatContactsView.m */; };
 		18BE122B1A8862DB0036245A /* QSChatMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BE122A1A8862DB0036245A /* QSChatMessagesView.m */; };
 		18BE12301A8869760036245A /* calendar_left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BE122D1A8869760036245A /* calendar_left_arrow.png */; };
@@ -945,8 +945,6 @@
 		183572021AD608D700A29607 /* QSYMessageVideoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYMessageVideoTableViewCell.m; sourceTree = "<group>"; };
 		1835722D1AD7A2FC00A29607 /* QSCoreDataManager+Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+Message.h"; path = "Message/QSCoreDataManager+Message.h"; sourceTree = "<group>"; };
 		1835722E1AD7A2FC00A29607 /* QSCoreDataManager+Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSCoreDataManager+Message.m"; path = "Message/QSCoreDataManager+Message.m"; sourceTree = "<group>"; };
-		183572311AD7A73400A29607 /* QSCDChatMessagesDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDChatMessagesDataModel.h; path = Message/QSCDChatMessagesDataModel.h; sourceTree = "<group>"; };
-		183572321AD7A73400A29607 /* QSCDChatMessagesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDChatMessagesDataModel.m; path = Message/QSCDChatMessagesDataModel.m; sourceTree = "<group>"; };
 		183572341AD7A88800A29607 /* QSYSendMessageSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageSystem.h; sourceTree = "<group>"; };
 		183572351AD7A88800A29607 /* QSYSendMessageSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageSystem.m; sourceTree = "<group>"; };
 		183572371AD8AB9800A29607 /* QSYSendMessageSpecial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageSpecial.h; sourceTree = "<group>"; };
@@ -1409,6 +1407,8 @@
 		18B973041AF374DC00652890 /* QSYRecommendHuoseMessageTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRecommendHuoseMessageTipsPopView.m; path = Pop/QSYRecommendHuoseMessageTipsPopView.m; sourceTree = "<group>"; };
 		18B973061AF386F400652890 /* QSYSendMessageRecommendHouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageRecommendHouse.h; sourceTree = "<group>"; };
 		18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageRecommendHouse.m; sourceTree = "<group>"; };
+		18B973091AF4978C00652890 /* QSCDChatMessagesDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDChatMessagesDataModel.h; path = Message/QSCDChatMessagesDataModel.h; sourceTree = "<group>"; };
+		18B9730A1AF4978C00652890 /* QSCDChatMessagesDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDChatMessagesDataModel.m; path = Message/QSCDChatMessagesDataModel.m; sourceTree = "<group>"; };
 		18BE12261A8862C20036245A /* QSChatContactsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatContactsView.h; path = Contact/QSChatContactsView.h; sourceTree = "<group>"; };
 		18BE12271A8862C20036245A /* QSChatContactsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSChatContactsView.m; path = Contact/QSChatContactsView.m; sourceTree = "<group>"; };
 		18BE12291A8862DB0036245A /* QSChatMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSChatMessagesView.h; path = Message/QSChatMessagesView.h; sourceTree = "<group>"; };
@@ -2508,8 +2508,8 @@
 		183572301AD7A70F00A29607 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				183572311AD7A73400A29607 /* QSCDChatMessagesDataModel.h */,
-				183572321AD7A73400A29607 /* QSCDChatMessagesDataModel.m */,
+				18B973091AF4978C00652890 /* QSCDChatMessagesDataModel.h */,
+				18B9730A1AF4978C00652890 /* QSCDChatMessagesDataModel.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -7133,6 +7133,7 @@
 				18B563181A81AA40009779A0 /* QSTurnBackViewController.m in Sources */,
 				477B32771AD8AE25004D374E /* QSPOrderDetailRejectPriceButtonView.m in Sources */,
 				CE47074A1ADF4F0700AD59E4 /* QSWDeveloperActivityViewController.m in Sources */,
+				18B9730B1AF4978C00652890 /* QSCDChatMessagesDataModel.m in Sources */,
 				18CAFCD41A70E45A00C90C90 /* QSConfigurationReturnData.m in Sources */,
 				18E8021E1A6FCF5000CA21D4 /* QSCoreDataManager+SearchHistory.m in Sources */,
 				187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */,
@@ -7157,7 +7158,6 @@
 				18B0E2431ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m in Sources */,
 				18AFA9F61AB68ABD00681071 /* QSYForgetPasswordResetPasswordViewController.m in Sources */,
 				18D081CD1ACE26CD004FA20F /* QSYRentSecondHouseTipsViewController.m in Sources */,
-				183572331AD7A73400A29607 /* QSCDChatMessagesDataModel.m in Sources */,
 				18C8A2801A6EAC3800BB9611 /* QSDataMappingManager.m in Sources */,
 				475A4D4A1AC3E721009881CF /* QSPSalerBookedOrderCompletedListView.m in Sources */,
 				18EE34791AABFD3F0053B909 /* QSRentHouseInfoDataModel.m in Sources */,

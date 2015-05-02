@@ -2,7 +2,7 @@
 //  QSCDChatMessagesDataModel.m
 //  House
 //
-//  Created by ysmeng on 15/4/10.
+//  Created by ysmeng on 15/5/2.
 //  Copyright (c) 2015年 广州七升网络科技有限公司. All rights reserved.
 //
 
@@ -12,27 +12,41 @@
 @implementation QSCDChatMessagesDataModel
 
 @dynamic deviceUUID;
-@dynamic msgID;
-@dynamic fromID;
-@dynamic toID;
-@dynamic readTag;
-@dynamic showWidth;
-@dynamic showHeight;
-@dynamic timeStamp;
+@dynamic f_avatar;
+@dynamic f_leve;
 @dynamic f_name;
 @dynamic f_user_type;
-@dynamic f_leve;
-@dynamic f_avatar;
+@dynamic fromID;
+@dynamic message;
+@dynamic msgID;
+@dynamic msgType;
+@dynamic pictureURL;
+@dynamic playTime;
+@dynamic readTag;
+@dynamic sendType;
+@dynamic showHeight;
+@dynamic showWidth;
+@dynamic t_avatar;
+@dynamic t_leve;
 @dynamic t_name;
 @dynamic t_user_type;
-@dynamic t_leve;
-@dynamic t_avatar;
+@dynamic timeStamp;
+@dynamic toID;
 @dynamic unread_count;
-@dynamic sendType;
-@dynamic msgType;
-@dynamic message;
-@dynamic pictureURL;
 @dynamic videoURL;
-@dynamic playTime;
+@dynamic houseID;
+@dynamic houseType;
+@dynamic originalImage;
+@dynamic smallImage;
+@dynamic district;
+@dynamic districtKey;
+@dynamic street;
+@dynamic streetKey;
+@dynamic houseTing;
+@dynamic houseShi;
+@dynamic houseArea;
+@dynamic housePrice;
+@dynamic rentPrice;
+@dynamic title;
 
 @end
