@@ -371,6 +371,8 @@
         
         ///刷新数据
         [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row] andListType:fFilterMainTypeSecondHouse];
+        cellServerHouse.isEditing = self.isEditing;
+        cellServerHouse.selected = [self isSelectedIndexPath:indexPath];
         
         return cellServerHouse;
         
@@ -385,6 +387,8 @@
     ///获取数据模型
     QSSecondHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
     [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeSecondHouse andPickedBoxStatus:NO];
+    cellLocalHouse.isEditing = self.isEditing;
+    cellLocalHouse.selected = [self isSelectedIndexPath:indexPath];
     
     return cellLocalHouse;
     
@@ -394,6 +398,33 @@
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///判断当前是否是编辑状态
+    if (self.isEditing) {
+        
+        ///已存在，则删除
+        for (int i = 0; i < [self.seletedDataSource count]; i++) {
+            
+            NSIndexPath *selectedPath = self.seletedDataSource[i];
+            if (selectedPath.section == indexPath.section &&
+                selectedPath.row == indexPath.row) {
+                
+                [self.seletedDataSource removeObjectAtIndex:i];
+                [collectionView reloadData];
+                return;
+                
+            }
+            
+        }
+        
+        ///添加
+        [self.seletedDataSource addObject:indexPath];
+        
+        ///显示选择
+        [collectionView reloadItemsAtIndexPaths:self.seletedDataSource];
+        return;
+        
+    }
     
     if (self.isLocalData) {
         
