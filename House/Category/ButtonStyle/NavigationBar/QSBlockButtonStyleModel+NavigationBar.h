@@ -30,6 +30,7 @@ typedef enum
     nNavigationBarButtonTypeCollected,          //!<收藏/关注按钮
     nNavigationBarButtonTypeShare,              //!<分享按钮
     nNavigationBarButtonTypeEdit,               //!<编辑按钮
+    nNavigationBarButtonTypeClear,              //!<清空记录
     nNavigationBarButtonTypeCommit,             //!<提交确认按钮
     nNavigationBarButtonTypeAdd,                //!<添加按钮-加号图片
     nNavigationBarButtonTypeCancel,             //!<右侧取消按钮-打叉图片

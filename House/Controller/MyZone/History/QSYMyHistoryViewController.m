@@ -33,6 +33,7 @@
 
 @property (nonatomic,strong) UIView *noRecordsRootView;                     //!<无记录底view
 @property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前房源列表
+@property (assign) BOOL isClearHistory;                                     //!<是否清空记录
 @property (assign) BOOL isNeedRefresh;                                      //!<是否需要刷新
 
 @end
@@ -47,7 +48,7 @@
     [self setNavigationBarTitle:@"浏览记录"];
     
     ///编辑按钮
-    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeEdit];
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeClear];
     
     UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
@@ -55,9 +56,11 @@
         if (button.selected) {
             
             button.selected = NO;
+            self.isClearHistory = NO;
             
         } else {
             
+            self.isClearHistory = YES;
             button.selected = YES;
             
         }

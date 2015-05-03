@@ -30,6 +30,7 @@
 @property (nonatomic,copy) void(^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 @property (nonatomic,retain) NSMutableArray *customDataSource;  //!<数据源
+@property (nonatomic,retain) NSMutableArray *seletedDataSource; //!<当前选择删除的数据源
 @property (nonatomic,assign) BOOL isLocalData;                  //!<是否是本地数据
 
 ///网络请求返回的数据模型
@@ -88,6 +89,7 @@
         
         ///初始化数据源
         self.customDataSource = [[NSMutableArray alloc] init];
+        self.seletedDataSource = [NSMutableArray array];
         
         self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
@@ -357,6 +359,8 @@
         
         ///刷新数据
         [cellServer updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
+        cellServer.isEditing = self.isEditing;
+        cellServer.selected = [self isSelectedIndexPath:indexPath];
         
         return cellServer;
         
@@ -372,6 +376,8 @@
     
     ///刷新数据
     [cellLocal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
+    cellLocal.isEditing = self.isEditing;
+    cellLocal.selected = [self isSelectedIndexPath:indexPath];
     
     return cellLocal;
     
@@ -381,6 +387,33 @@
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///判断当前是否是编辑状态
+    if (self.isEditing) {
+        
+        ///已存在，则删除
+        for (int i = 0; i < [self.seletedDataSource count]; i++) {
+            
+            NSIndexPath *selectedPath = self.seletedDataSource[i];
+            if (selectedPath.section == indexPath.section &&
+                selectedPath.row == indexPath.row) {
+                
+                [self.seletedDataSource removeObjectAtIndex:i];
+                [collectionView reloadData];
+                return;
+                
+            }
+            
+        }
+        
+        ///添加
+        [self.seletedDataSource addObject:indexPath];
+        
+        ///显示选择
+        [collectionView reloadData];
+        return;
+        
+    }
     
     if (self.isLocalData) {
         
@@ -407,6 +440,25 @@
         }
         
     }
+    
+}
+
+#pragma mark - 检测当前index是否已选择
+- (BOOL)isSelectedIndexPath:(NSIndexPath *)indexPath
+{
+    
+    for (int i = 0; i < [self.seletedDataSource count]; i++) {
+        
+        NSIndexPath *selectedPath = self.seletedDataSource[i];
+        if (selectedPath.section == indexPath.section &&
+            selectedPath.row == indexPath.row) {
+            
+            return YES;
+            
+        }
+        
+    }
+    return NO;
     
 }
 
@@ -445,6 +497,39 @@
         
     }
     
+}
+
+#pragma mark - 设置编辑状态
+/**
+ *  @author             yangshengmeng, 15-05-03 12:05:28
+ *
+ *  @brief              通过给定的数字设置当前的编辑状态
+ *
+ *  @param isEditing    0-未编辑状态；1-编辑状态
+ *
+ *  @since              1.0.0
+ */
+- (void)setIsEditingWithNumber:(NSNumber *)isEditing
+{
+    
+    if ([isEditing intValue] == 1) {
+        
+        self.isEditing = YES;
+        
+    } else {
+        
+        self.isEditing = NO;
+        
+    }
+    
+}
+
+- (void)setIsEditing:(BOOL)isEditing
+{
+    
+    _isEditing = isEditing;
+    [self reloadData];
+
 }
 
 @end

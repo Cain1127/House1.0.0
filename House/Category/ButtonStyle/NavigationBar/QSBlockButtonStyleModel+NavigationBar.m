@@ -130,6 +130,13 @@
             
             break;
             
+            ///清空记录
+        case nNavigationBarButtonTypeClear:
+            
+            return [self createNavigationBarClearButtonStyle];
+            
+            break;
+            
             ///提交确认按钮
         case nNavigationBarButtonTypeCommit:
             
@@ -226,6 +233,21 @@
     buttonStyle.imagesHighted = IMAGE_NAVIGATIONBAR_CONFIRM_HIGHLIGHTED;
     return buttonStyle;
 
+}
+
+#pragma mark - 清空按钮
++ (QSBlockButtonStyleModel *)createNavigationBarClearButtonStyle
+{
+    
+    QSBlockButtonStyleModel *buttonStyle = [[QSBlockButtonStyleModel alloc] init];
+    buttonStyle.title = @"编辑";
+    buttonStyle.titleSelected = @"清空";
+    buttonStyle.titleNormalColor = COLOR_CHARACTERS_GRAY;
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_14];
+    
+    return buttonStyle;
+    
 }
 
 #pragma mark - 编辑按钮

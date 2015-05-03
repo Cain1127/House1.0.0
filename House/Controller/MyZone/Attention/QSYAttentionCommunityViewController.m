@@ -202,6 +202,7 @@
         ///刷新数据
         [cellNetwork updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:fFilterMainTypeCommunity];
         cellNetwork.isEditing = self.isEditing;
+        cellNetwork.selected = [self isSelectedIndexPath:indexPath];
         
         return cellNetwork;
         

@@ -32,6 +32,7 @@
 @property (assign) BOOL isHouseCollectedChange;                             //!<房源收藏是否已变动
 @property (assign) FILTER_MAIN_TYPE currentHouseType;                       //!<记录当前房源类型
 @property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前列表指针
+@property (nonatomic,strong) UIButton *editButton;                          //!<导航栏编辑按钮
 @property (nonatomic,strong) UIView *noRecordsView;                         //!<无记录提示页面
 @property (nonatomic,strong) UILabel *noRecordsTipsLabel;                   //!<无记录提示页面
 @property (nonatomic,strong) UIButton *noRecordsButton;                     //!<无记录提示页面
@@ -50,21 +51,39 @@
     ///编辑按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeEdit];
     
-    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+        
+        ///判断当前是否有数据
+        if (!self.noRecordsView.hidden) {
+            
+            return;
+            
+        }
         
         ///当前非编辑状态，进入删除状态
         if (button.selected) {
             
             button.selected = NO;
+            if ([self.currentListView respondsToSelector:@selector(setIsEditingWithNumber:)]) {
+                
+                [self.currentListView performSelector:@selector(setIsEditingWithNumber:) withObject:@(0)];
+                
+            }
             
         } else {
             
             button.selected = YES;
+            if ([self.currentListView respondsToSelector:@selector(setIsEditingWithNumber:)]) {
+                
+                [self.currentListView performSelector:@selector(setIsEditingWithNumber:) withObject:@(1)];
+                
+            }
             
         }
         
     }];
-    [self setNavigationBarRightView:editButton];
+    self.editButton.hidden = YES;
+    [self setNavigationBarRightView:self.editButton];
 
 }
 
@@ -136,6 +155,7 @@
                     self.noRecordsTipsLabel.text = @"暂无二手房源收藏历史";
                     [self.noRecordsButton setTitle:@"看看二手房源" forState:UIControlStateNormal];
                     self.noRecordsView.hidden = NO;
+                    self.editButton.hidden = YES;
                     [self.view bringSubviewToFront:self.noRecordsView];
                     
                 };
@@ -146,6 +166,7 @@
                 {
                     
                     self.noRecordsView.hidden = YES;
+                    self.editButton.hidden = NO;
                     [self.view sendSubviewToBack:self.noRecordsView];
                     
                 }
@@ -232,6 +253,7 @@
                     self.noRecordsTipsLabel.text = @"暂无出租房源收藏历史";
                     [self.noRecordsButton setTitle:@"看看出租房源" forState:UIControlStateNormal];
                     self.noRecordsView.hidden = NO;
+                    self.editButton.hidden = YES;
                     [self.view bringSubviewToFront:self.noRecordsView];
                     
                 };
@@ -242,6 +264,7 @@
                 {
                     
                     self.noRecordsView.hidden = YES;
+                    self.editButton.hidden = NO;
                     [self.view sendSubviewToBack:self.noRecordsView];
                     
                 }
@@ -317,6 +340,7 @@
                     self.noRecordsTipsLabel.text = @"暂无新房房源收藏历史";
                     [self.noRecordsButton setTitle:@"看看新房房源" forState:UIControlStateNormal];
                     self.noRecordsView.hidden = NO;
+                    self.editButton.hidden = YES;
                     [self.view bringSubviewToFront:self.noRecordsView];
                     
                 };
@@ -327,6 +351,7 @@
                 {
                     
                     self.noRecordsView.hidden = YES;
+                    self.editButton.hidden = NO;
                     [self.view sendSubviewToBack:self.noRecordsView];
                     
                 }
@@ -384,6 +409,7 @@
                 self.noRecordsTipsLabel.text = @"暂无二手房源收藏历史";
                 [self.noRecordsButton setTitle:@"看看二手房源" forState:UIControlStateNormal];
                 self.noRecordsView.hidden = NO;
+                self.editButton.hidden = YES;
                 [self.view bringSubviewToFront:self.noRecordsView];
             
             };
@@ -394,6 +420,7 @@
             {
             
                 self.noRecordsView.hidden = YES;
+                self.editButton.hidden = NO;
                 [self.view sendSubviewToBack:self.noRecordsView];
             
             }
