@@ -261,6 +261,7 @@
 
 }
 
+#pragma mark - 返回本地添加未上传服务端的记录
 /**
  *  @author yangshengmeng, 15-03-12 14:03:30
  *
@@ -406,6 +407,7 @@
     
 }
 
+#pragma mark - 查询本地已删除，未上传服务端的数据
 /**
  *  @author     yangshengmeng, 15-03-19 23:03:11
  *
@@ -553,6 +555,7 @@
     
 }
 
+#pragma mark - 查询本地是否收藏
 /**
  *  @author                 yangshengmeng, 15-03-19 15:03:27
  *
@@ -992,6 +995,14 @@
 ///根据列表中的新房收藏数据模型，保存收藏信息
 + (void)saveCollectedNewHouseWithListModel:(QSNewHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
@@ -1005,7 +1016,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1020,14 +1031,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1091,6 +1094,14 @@
 ///根据列表中添加的小区关注数据模型，保存关注信息
 + (void)saveCollectedCommunityWithListModel:(QSCommunityDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
@@ -1104,7 +1115,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1119,14 +1130,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1194,6 +1197,14 @@
 + (void)saveCollectedSecondHandHouseWithListModel:(QSHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1206,7 +1217,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1221,14 +1232,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1293,6 +1296,14 @@
 + (void)saveCollectedRentHouseWithListModel:(QSRentHouseInfoDataModel *)collectedModel andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1305,7 +1316,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1320,14 +1331,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1392,6 +1395,14 @@
 + (void)saveCollectedCommunityWithDetailModel:(QSCommunityHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1404,7 +1415,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.village.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.village.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1419,14 +1430,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1494,6 +1497,14 @@
 + (void)saveCollectedNewHouseWithDetailModel:(QSNewHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1506,7 +1517,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.loupan.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.loupan.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1521,14 +1532,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1593,6 +1596,14 @@
 + (void)saveCollectedSecondHandHouseWithDetailModel:(QSSecondHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1605,7 +1616,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.house.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.house.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1620,14 +1631,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
@@ -1692,6 +1695,14 @@
 + (void)saveCollectedRentHouseWithDetailModel:(QSRentHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
     
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
     
@@ -1704,7 +1715,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.house.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && collected_id == %@",collectedModel.house.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -1719,14 +1730,6 @@
             
         }
         return;
-        
-    }
-    
-    ///用户ID
-    NSString *userID = [QSCoreDataManager getUserID];
-    if ([userID length] <= 0) {
-        
-        userID = @"-1";
         
     }
     
