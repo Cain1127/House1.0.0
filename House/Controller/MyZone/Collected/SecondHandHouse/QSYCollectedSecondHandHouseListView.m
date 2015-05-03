@@ -12,6 +12,7 @@
 
 #import "QSHouseCollectionViewCell.h"
 #import "QSYHistoryHouseCollectionViewCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSHouseInfoDataModel.h"
@@ -538,7 +539,180 @@
 {
     
     _isEditing = isEditing;
-    [self reloadData];
+    
+    ///判断是否是删除
+    if (!isEditing && [self.seletedDataSource count] > 0) {
+        
+        [self deleteCollectedSecondHandHouse];
+        
+    } else {
+    
+        [self reloadData];
+    
+    }
+    
+}
+
+- (void)deleteCollectedSecondHandHouse
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///数据数据源
+    __block NSMutableArray *tempArray = [NSMutableArray array];
+    
+    ///判断是否是本地数据
+    if (self.isLocalData) {
+        
+        [tempArray addObjectsFromArray:self.customDataSource];
+        
+    } else {
+        
+        [tempArray addObjectsFromArray:self.dataSourceModel.secondHandHouseHeaderData.houseList];
+        
+    }
+    
+    __block NSMutableIndexSet *tempIndexSet = [NSMutableIndexSet indexSet];
+    
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    dispatch_apply([self.seletedDataSource count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i){
+        
+        ///进入队列
+        dispatch_group_enter(downloadGroup);
+        
+        NSIndexPath *indexPath = self.seletedDataSource[i];
+        [tempIndexSet addIndex:indexPath.row];
+        
+        NSString *houseID;
+        if (self.isLocalData) {
+            
+            QSSecondHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+            houseID = tempModel.house.id_;
+            
+        } else {
+        
+            QSHouseInfoDataModel *tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row];
+            houseID = tempModel.id_;
+        
+        }
+        
+        [self deleteCollectedSecondHandHouse:houseID andCallBack:^(BOOL isFinish) {
+            
+            ///离开队列
+            dispatch_group_leave(downloadGroup);
+            
+        }];
+        
+    });
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        
+        ///所有任务完成
+        [tempArray removeObjectsAtIndexes:tempIndexSet];
+        if (self.isLocalData) {
+            
+            [self.customDataSource removeAllObjects];
+            [self.customDataSource addObjectsFromArray:tempArray];
+            
+        } else {
+            
+            self.dataSourceModel.secondHandHouseHeaderData.houseList = [NSArray arrayWithArray:tempArray];
+            
+        }
+        
+        ///刷新数据
+        [self reloadData];
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
+        
+    });
+
+}
+
+///删除收藏
+- (void)deleteCollectedSecondHandHouse:(NSString *)houseID andCallBack:(void(^)(BOOL isFinish))callBack
+{
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSSecondHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:houseID andCollectedType:fFilterMainTypeSecondHouse];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///删除本地数据
+        [self deleteCollectedSecondHandHouseWithStatus:YES andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (![QSCoreDataManager isLogin]) {
+        
+        ///删除本地数据
+        [self deleteCollectedSecondHandHouseWithStatus:NO andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : houseID,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self deleteCollectedSecondHandHouseWithStatus:YES andCollectedID:houseID];
+            
+        } else {
+            
+            [self deleteCollectedSecondHandHouseWithStatus:NO andCollectedID:houseID];
+            
+        }
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+    }];
+    
+}
+
+///取消当前房源的收藏
+- (void)deleteCollectedSecondHandHouseWithStatus:(BOOL)isSendServer andCollectedID:(NSString *)houseID
+{
+    
+    ///删除本地收藏房源
+    [QSCoreDataManager deleteCollectedDataWithID:houseID isSyServer:isSendServer andCollectedType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
+        
+        ///显示删除信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"失败")
+            
+        }
+        
+    }];
     
 }
 
