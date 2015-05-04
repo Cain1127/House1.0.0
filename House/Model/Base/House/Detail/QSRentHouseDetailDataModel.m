@@ -7,12 +7,12 @@
 //
 
 #import "QSRentHouseDetailDataModel.h"
-#import "QSHouseCommentDataModel.h"
 #import "QSHousePriceChangesDataModel.h"
 #import "QSUserSimpleDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSReleaseRentHouseDataModel.h"
+#import "QSDetailCommentListReturnData.h"
 
 #import "QSCoreDataManager+App.h"
 #import "QSCoreDataManager+House.h"
@@ -40,7 +40,7 @@
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"price_changes" toKeyPath:@"price_changes" withMapping:[QSHousePriceChangesDataModel objectMapping]]];
     
     ///评论
-    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"comment" toKeyPath:@"comment" withMapping:[QSHouseCommentDataModel objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"comment" toKeyPath:@"comment" withMapping:[QSDetailCommentListReturnData objectMapping]]];
     
     ///图片
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"rentHouse_photo" toKeyPath:@"rentHouse_photo" withMapping:[QSPhotoDataModel objectMapping]]];

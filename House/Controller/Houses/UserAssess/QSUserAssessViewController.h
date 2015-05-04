@@ -7,7 +7,6 @@
 //
 
 #import "QSTurnBackViewController.h"
-#import "QSHouseCommentDataModel.h"
 @interface QSUserAssessViewController : QSTurnBackViewController
 
 /*!

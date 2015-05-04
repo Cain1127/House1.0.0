@@ -13,8 +13,6 @@
 #import "QSCommentListReturnData.h"
 #import "QSCommentListDataModel.h"
 
-#import "QSHouseCommentDataModel.h"
-
 #import "MJRefresh.h"
 #include <objc/runtime.h>
 
@@ -35,23 +33,24 @@ static char AssessTableKey;   //!<评论内容关联key
 
 -(instancetype)initWithType:(NSString *)type andID:(NSString *)be_id
 {
-
+    
     if (self=[super init]) {
         
         self.type=type;
         self.be_id=be_id;
+        
     }
-
+    
     return self;
+    
 }
 
 -(void)createNavigationBarUI
 {
-
-    [super createNavigationBarUI];
     
+    [super createNavigationBarUI];
     [self setNavigationBarTitle:@"用户评价"];
-
+    
 }
 
 -(void)createMainShowUI
@@ -95,8 +94,8 @@ static char AssessTableKey;   //!<评论内容关联key
 #pragma mark - 数据源方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    return 40.0f+2.0f*SIZE_DEFAULT_MARGIN_TAP;
+    
+    return 40.0f + 2.0f * SIZE_DEFAULT_MARGIN_TAP;
     
 }
 
@@ -105,7 +104,6 @@ static char AssessTableKey;   //!<评论内容关联key
 {
     
     return self.dataSource.count ? self.dataSource.count : 1;
-    //return 10;
     
 }
 
@@ -122,15 +120,15 @@ static char AssessTableKey;   //!<评论内容关联key
         
     }
     
-        QSCommentListDataModel *tempModel = [[QSCommentListDataModel alloc] init];
-
+    QSCommentListDataModel *tempModel = [[QSCommentListDataModel alloc] init];
+    
     if ([self.dataSource count]>0) {
         ///获取模型
         tempModel = self.dataSource[indexPath.row];
     }
     
-        
-        [cell updateAssessCellInfo:tempModel];
+    
+    [cell updateAssessCellInfo:tempModel];
     
     ///取消选择样式
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -141,7 +139,6 @@ static char AssessTableKey;   //!<评论内容关联key
 
 -(void)getCommentListInfo
 {
-
     
     ///封装参数
     NSDictionary *params = @{@"key" : @"",
@@ -156,7 +153,7 @@ static char AssessTableKey;   //!<评论内容关联key
     [QSRequestManager requestDataWithType:rRequestCommentListDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         UITableView *tableView = objc_getAssociatedObject(self, &AssessTableKey);
-
+        
         ///请求成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
@@ -177,13 +174,11 @@ static char AssessTableKey;   //!<评论内容关联key
                 
                 [self showInfoUI:YES];
                 
-                
             });
             
         } else {
             
             [tableView.header endRefreshing];
-            
             APPLICATION_LOG_INFO(@"%@", errorCode);
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"获取评论信息失败",1.0f,^(){
                 
@@ -195,9 +190,7 @@ static char AssessTableKey;   //!<评论内容关联key
         }
         
     }];
-
-
-
+    
 }
 
 @end

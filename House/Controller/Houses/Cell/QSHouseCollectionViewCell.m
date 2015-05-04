@@ -358,7 +358,7 @@ static char DeleteButton;   //!<删除标识
     UILabel *label = objc_getAssociatedObject(self, &HouseAreaKey);
     if (label && area) {
         
-        label.text = [NSString stringWithFormat:@"%@/%@",area,APPLICATION_AREAUNIT];
+        label.text = [NSString stringWithFormat:@"%@%@",area,APPLICATION_AREAUNIT];
         
     }
 

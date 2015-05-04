@@ -18,7 +18,7 @@
 @class QSWSecondHouseInfoDataModel;
 @class QSUserSimpleDataModel;
 @class QSHousePriceChangesDataModel;
-@class QSHouseCommentDataModel;
+@class QSDetailCommentListReturnData;
 @class QSSecondHandHouseDetailExpandInfoDataModel;
 @class QSReleaseSaleHouseDataModel;
 @interface QSSecondHouseDetailDataModel : QSBaseModel
@@ -26,7 +26,7 @@
 @property (nonatomic,retain) QSWSecondHouseInfoDataModel *house;                    //!<二手房基本数据
 @property (nonatomic,retain) QSUserSimpleDataModel *user;                           //!<业主信息
 @property (nonatomic,retain) QSHousePriceChangesDataModel *price_changes;           //!<钱价变动
-@property (nonatomic,retain) QSHouseCommentDataModel *comment;                      //!<评论
+@property (nonatomic,retain) QSDetailCommentListReturnData *comment;                //!<评论返回数据
 @property (nonatomic,retain) QSSecondHandHouseDetailExpandInfoDataModel *expandInfo;//!<扩展信息
 @property (nonatomic,retain) NSArray *secondHouse_photo;                            //!<图集信息
 

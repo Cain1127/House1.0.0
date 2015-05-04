@@ -36,11 +36,12 @@
 #import "QSRentHouseDetailDataModel.h"
 
 #import "QSHousePriceChangesDataModel.h"
-#import "QSHouseCommentDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
 #import "QSUserSimpleDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSHouseTypeDataModel.h"
+#import "QSDetailCommentListReturnData.h"
+#import "QSCommentListDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
@@ -77,7 +78,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (nonatomic,retain) QSWRentHouseInfoDataModel *houseInfo;          //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
-@property (nonatomic,retain) QSHouseCommentDataModel *commentInfo;          //!<评论信息
+@property (nonatomic,retain) QSDetailCommentListReturnData *commentInfo;    //!<评论信息
 
 @property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
@@ -427,7 +428,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///保存价钱变动信息
     self.priceChangesInfo=dataModel.price_changes;
     ///保存评论信息
-    self.commentInfo=dataModel.comment;
+    self.commentInfo = dataModel.comment;
     
     ///保存图片信息
     self.photoArray=dataModel.rentHouse_photo;
@@ -487,7 +488,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///均价详情
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入小区详情");
         ///进入详情页面
         QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"rent"];
         [self.navigationController pushViewController:detailVC animated:YES];
@@ -503,13 +503,18 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///房源评论
     QSBlockView *commentView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseAttentionView.frame.origin.y+houseAttentionView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
         
-        NSLog(@"点击进入评论");
-            QSUserAssessViewController *assessVC = [[QSUserAssessViewController alloc] initWithType:@"990106" andID:self.detailID ];
+        ///判断是否存在评论
+        if ([self.commentInfo.total_num intValue] <= 0) {
+            
+            return;
+            
+        }
+        
+        QSUserAssessViewController *assessVC = [[QSUserAssessViewController alloc] initWithType:@"990106" andID:self.detailID ];
         [self.navigationController pushViewController:assessVC animated:YES];
         
         
     }];
-    
     [self createCommentViewUI:commentView andCommentInfo:self.commentInfo];
     
     ///判断是房客并且不是经纪人则加载该界面
@@ -784,7 +789,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     NSString *coordinate_x = ([houseInfo.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfo.coordinate_x : houseInfo.coordinate_y;
     
     NSString *coordinate_y = ([houseInfo.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfo.coordinate_y : houseInfo.coordinate_x;
-
+    
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
         NSLog(@"点击定位");
         
@@ -815,7 +820,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     [view addSubview:mapView];
     
-
+    
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -876,7 +881,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 {
     
     UILabel *houseTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-     houseTypeLabel.text=[NSString stringWithFormat:@"户型:%@室%@厅%@卫",houseInfoModel.house_shi,houseInfoModel.house_ting ? houseInfoModel.house_ting : @"",houseInfoModel.house_wei ? houseInfoModel.house_wei : @""];
+    houseTypeLabel.text=[NSString stringWithFormat:@"户型:%@室%@厅%@卫",houseInfoModel.house_shi,houseInfoModel.house_ting ? houseInfoModel.house_ting : @"",houseInfoModel.house_wei ? houseInfoModel.house_wei : @""];
     houseTypeLabel.textAlignment=NSTextAlignmentLeft;
     houseTypeLabel.font=[UIFont systemFontOfSize:14.0f];
     [view addSubview:houseTypeLabel];
@@ -905,7 +910,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] ? [QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] :@""];
     [view addSubview:decoreteLabel];
     
-
+    
     
     UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, decoreteLabel.frame.origin.y, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     stateLabel.textAlignment=NSTextAlignmentLeft;
@@ -949,7 +954,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     ///取出对应字典数组
     NSArray *pathInfos = [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:@"Rent_House_Service"];
- 
+    
     ///遍历数组
     for (int i =0; i < [pathInfos count]; i++) {
         
@@ -1010,7 +1015,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///价格变动label
     UILabel *consultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, newlyChangeLabel.frame.origin.y+newlyChangeLabel.frame.size.height+5.0f, 70.0f, 15.0f)];
     consultLabel.text = @"价格变动:";
-
+    
     consultLabel.textColor = COLOR_CHARACTERS_BLACK;
     consultLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [view addSubview:consultLabel];
@@ -1244,9 +1249,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 
 #pragma mark - 添加评论view
 ///添加评论view
--(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSHouseCommentDataModel *) commentModel
+-(void)createCommentViewUI:(UIView *)view andCommentInfo:(QSDetailCommentListReturnData *)commentModel
 {
-    if (!commentModel.num) {
+    if ([commentModel.total_num intValue] <= 0) {
+        
         UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 20.0f)];
         nNommentLabel.center = CGPointMake(60.0f, view.frame.size.height/2.0f);
         nNommentLabel.text = @"暂无评论";
@@ -1268,82 +1274,84 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         ///评论次数
         UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 35.0f, 12.0f)];
-        commentCountLabel.text = commentModel.num ? commentModel.num : @"0";
+        commentCountLabel.text = @"0";
         commentCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
         commentCountLabel.textAlignment = NSTextAlignmentCenter;
         commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
         [view addSubview:commentCountLabel];
         
+        ///分隔线
+        UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
+        bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
+        [view addSubview:bottomLineLabel];
+        
+    } else {
+        
+        QSCommentListDataModel *tempModel = commentModel.commentList[0];
+        
+        ///用户头像
+        QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+        userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+        if ([tempModel.owner_msg.avatar length] > 0) {
+            
+            [userImageView loadImageWithURL:[tempModel.owner_msg.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+            
+        }
+        [view addSubview:userImageView];
+        
+        ///头像六角
+        QSImageView *userIconSixForm = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, userImageView.frame.size.width, userImageView.frame.size.height)];
+        userIconSixForm.image = [UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW];
+        [userImageView addSubview:userIconSixForm];
+        
+        ///用户名
+        UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 70.0f, 15.0f)];
+        userLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.order_msg.buyer_name, @"暂无");
+        userLabel.textColor = COLOR_CHARACTERS_BLACK;
+        userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        [view addSubview:userLabel];
+        
+        UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 100.0f, 15.0f)];
+        timeLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.order_msg.add_time, @"未知");
+        timeLabel.textColor = COLOR_CHARACTERS_BLACK;
+        timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        [view addSubview:timeLabel];
+        
+        ///评论内容
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
+        commentLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.desc, @"暂无");
+        commentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+        [view addSubview:commentLabel];
+        
+        ///右侧箭头
+        QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
+        arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
+        [view addSubview:arrowView];
+        
+        ///评论
+        UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-35.0f, arrowView.frame.origin.y-4.0f, 35.0f, 12.0f)];
+        houseCommentLabel.text = @"评论";
+        houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseCommentLabel.textAlignment = NSTextAlignmentCenter;
+        houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:houseCommentLabel];
+        
+        ///评论数
+        UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 35.0f, 12.0f)];
+        commentCountLabel.text = APPLICATION_NSSTRING_SETTING([commentModel.total_num stringValue], @"0");
+        commentCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
+        commentCountLabel.textAlignment = NSTextAlignmentCenter;
+        commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
+        [view addSubview:commentCountLabel];
         
         ///分隔线
         UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
         bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
         [view addSubview:bottomLineLabel];
-    }
-
-    else
-    {
-    ///用户头像
-    QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
-    userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
-    if ([commentModel.avatar length] > 0) {
-        
-        [userImageView loadImageWithURL:[commentModel.avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
         
     }
-    [view addSubview:userImageView];
     
-    ///头像六角
-    QSImageView *userIconSixForm = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, userImageView.frame.size.width, userImageView.frame.size.height)];
-    userIconSixForm.image = [UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW];
-    [userImageView addSubview:userIconSixForm];
-    
-    ///用户名
-    UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userImageView.frame.origin.x+userImageView.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 70.0f, 15.0f)];
-    userLabel.text = commentModel.title ? commentModel.title : @"暂无";
-    userLabel.textColor = COLOR_CHARACTERS_BLACK;
-    userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
-    [view addSubview:userLabel];
-    
-    UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 100.0f, 15.0f)];
-    timeLabel.text = commentModel.update_time;
-    timeLabel.textColor = COLOR_CHARACTERS_BLACK;
-    timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
-    [view addSubview:timeLabel];
-    
-    ///评论内容
-    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
-    commentLabel.text = commentModel.content ? commentModel.content : @"暂无";
-    commentLabel.textColor = COLOR_CHARACTERS_BLACK;
-    commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
-    [view addSubview:commentLabel];
-    
-    ///右侧箭头
-    QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f , view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
-    arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
-    [view addSubview:arrowView];
-    
-    ///评论
-    UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-35.0f, arrowView.frame.origin.y-4.0f, 35.0f, 12.0f)];
-    houseCommentLabel.text = @"评论";
-    houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
-        houseCommentLabel.textAlignment = NSTextAlignmentCenter;
-    houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
-    [view addSubview:houseCommentLabel];
-    
-    ///评论数
-    UILabel *commentCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(houseCommentLabel.frame.origin.x, houseCommentLabel.frame.origin.y+houseCommentLabel.frame.size.height+3.0f, 35.0f, 12.0f)];
-    commentCountLabel.text = commentModel.num ? commentModel.num : @"暂无";
-    commentCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    commentCountLabel.textAlignment = NSTextAlignmentCenter;
-    commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
-    [view addSubview:commentCountLabel];
-    
-    ///分隔线
-    UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
-    bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
-    [view addSubview:bottomLineLabel];
-    }
 }
 
 #pragma mark - 添加业主view
@@ -1538,7 +1546,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             self.houseInfo = tempModel.detailInfo.house;
             
             [self setNavigationBarTitle:( tempModel.detailInfo.house.title? tempModel.detailInfo.house.title : @"详情")];
-
+            
             ///创建详情UI
             [self createNewDetailInfoViewUI:tempModel.detailInfo];
             [self createBottomButtonViewUI];
@@ -1657,7 +1665,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 #pragma mark - 添加浏览记录
 - (void)addBrowseRecords
 {
-
+    
     ///判断登录状态
     if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
         
@@ -1669,12 +1677,12 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [self addHistorySecondHandHouseToServer];
         
     }
-
+    
 }
 
 - (void)saveBrowseRecordsToLocal
 {
-
+    
     [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andHistoryType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
         
         if (flag) {
@@ -1688,7 +1696,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         }
         
     }];
-
+    
 }
 
 - (void)addHistorySecondHandHouseToServer
@@ -1725,7 +1733,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (void)shareRentHouse:(UIButton *)button
 {
     
-      NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.tempTitle,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
+    NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.tempTitle,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
     
     ///弹出窗口的指针
     __block QSYPopCustomView *popView = nil;

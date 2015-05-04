@@ -26,7 +26,6 @@
 #import "QSCDCollectedSecondHandHouseDataModel.h"
 #import "QSCDCollectedSecondHandHousePhotoDataModel.h"
 #import "QSSecondHouseDetailDataModel.h"
-#import "QSHouseCommentDataModel.h"
 #import "QSHousePriceChangesDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
@@ -34,7 +33,6 @@
 #import "QSCDCollectedRentHouseDataModel.h"
 #import "QSCDCollectedRentHousePhotoDataModel.h"
 #import "QSRentHouseDetailDataModel.h"
-#import "QSHouseCommentDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
 
 #import "QSCDCollectedNewHouseDataModel.h"
@@ -50,6 +48,8 @@
 #import "QSActivityDataModel.h"
 #import "QSHouseTypeDataModel.h"
 #import "QSNewHouseInfoDataModel.h"
+#import "QSDetailCommentListReturnData.h"
+#import "QSCommentListDataModel.h"
 
 ///收藏CoreData实体名
 #define COREDATA_ENTITYNAME_COMMUNITY_COLLECTED @"QSCDCollectedCommunityDataModel"
@@ -3257,34 +3257,6 @@
     cdCollectedModel.price_change_create_time = collectedModel.price_changes.create_time;
     cdCollectedModel.price_changes_num = collectedModel.price_changes.price_changes_num;
     
-    ///评论信息
-    cdCollectedModel.comment_id_ = collectedModel.comment.id_;
-    cdCollectedModel.comment_user_id = collectedModel.comment.user_id;
-    cdCollectedModel.comment_type = collectedModel.comment.type;
-    cdCollectedModel.comment_obj_id = collectedModel.comment.obj_id;
-    cdCollectedModel.comment_title = collectedModel.comment.title;
-    cdCollectedModel.comment_content = collectedModel.comment.content;
-    cdCollectedModel.comment_update_time = collectedModel.comment.update_time;
-    cdCollectedModel.comment_status = collectedModel.comment.status;
-    cdCollectedModel.comment_create_time = collectedModel.comment.create_time;
-    cdCollectedModel.comment_num = collectedModel.comment.num;
-    cdCollectedModel.comment_user_type = collectedModel.comment.user_type;
-    cdCollectedModel.comment_email = collectedModel.comment.email;
-    cdCollectedModel.comment_mobile = collectedModel.comment.mobile;
-    cdCollectedModel.comment_realname = collectedModel.comment.realname;
-    cdCollectedModel.comment_sex = collectedModel.comment.sex;
-    cdCollectedModel.comment_avatar = collectedModel.comment.avatar;
-    cdCollectedModel.comment_nickname = collectedModel.comment.nickname;
-    cdCollectedModel.comment_username = collectedModel.comment.username;
-    cdCollectedModel.comment_sign = collectedModel.comment.sign;
-    cdCollectedModel.comment_web = collectedModel.comment.web;
-    cdCollectedModel.comment_qq = collectedModel.comment.qq;
-    cdCollectedModel.comment_age = collectedModel.comment.age;
-    cdCollectedModel.comment_idcard = collectedModel.comment.idcard;
-    cdCollectedModel.comment_vocation = collectedModel.comment.vocation;
-    cdCollectedModel.comment_tj_secondHouse_num = collectedModel.comment.tj_secondHouse_num;
-    cdCollectedModel.comment_tj_rentHouse_num = collectedModel.comment.tj_rentHouse_num;
-    
     ///图片
     if ([collectedModel.secondHouse_photo count] > 0) {
         
@@ -3326,7 +3298,7 @@
     collectedModel.house = [[QSWSecondHouseInfoDataModel alloc] init];
     collectedModel.user = [[QSUserSimpleDataModel alloc] init];
     collectedModel.price_changes = [[QSHousePriceChangesDataModel alloc] init];
-    collectedModel.comment = [[QSHouseCommentDataModel alloc] init];
+    collectedModel.comment = [[QSDetailCommentListReturnData alloc] init];
 
     ///二手房信息
     collectedModel.house.id_ = cdCollectedModel.id_;
@@ -3408,34 +3380,6 @@
     collectedModel.price_changes.update_time = cdCollectedModel.price_change_update_time;
     collectedModel.price_changes.create_time = cdCollectedModel.price_change_create_time;
     collectedModel.price_changes.price_changes_num = cdCollectedModel.price_changes_num;
-    
-    ///评论信息
-    collectedModel.comment.id_ = cdCollectedModel.comment_id_;
-    collectedModel.comment.user_id = cdCollectedModel.comment_user_id;
-    collectedModel.comment.type = cdCollectedModel.comment_type;
-    collectedModel.comment.obj_id = cdCollectedModel.comment_obj_id;
-    collectedModel.comment.title = cdCollectedModel.comment_title;
-    collectedModel.comment.content = cdCollectedModel.comment_content;
-    collectedModel.comment.update_time = cdCollectedModel.comment_update_time;
-    collectedModel.comment.status = cdCollectedModel.comment_status;
-    collectedModel.comment.create_time = cdCollectedModel.comment_create_time;
-    collectedModel.comment.num = cdCollectedModel.comment_num;
-    collectedModel.comment.user_type = cdCollectedModel.comment_user_type;
-    collectedModel.comment.email = cdCollectedModel.comment_email;
-    collectedModel.comment.mobile = cdCollectedModel.comment_mobile;
-    collectedModel.comment.realname = cdCollectedModel.comment_realname;
-    collectedModel.comment.sex = cdCollectedModel.comment_sex;
-    collectedModel.comment.avatar = cdCollectedModel.comment_avatar;
-    collectedModel.comment.nickname = cdCollectedModel.comment_nickname;
-    collectedModel.comment.username = cdCollectedModel.comment_username;
-    collectedModel.comment.sign = cdCollectedModel.comment_sign;
-    collectedModel.comment.web = cdCollectedModel.comment_web;
-    collectedModel.comment.qq = cdCollectedModel.comment_qq;
-    collectedModel.comment.age = cdCollectedModel.comment_age;
-    collectedModel.comment.idcard = cdCollectedModel.comment_idcard;
-    collectedModel.comment.vocation = cdCollectedModel.comment_vocation;
-    collectedModel.comment.tj_secondHouse_num = cdCollectedModel.comment_tj_secondHouse_num;
-    collectedModel.comment.tj_rentHouse_num = cdCollectedModel.comment_tj_rentHouse_num;
     
     ///图片
     if ([cdCollectedModel.photos count] > 0) {
@@ -3613,34 +3557,6 @@
     cdCollectedModel.price_create_time = collectedModel.price_changes.create_time;
     cdCollectedModel.price_changes_num = collectedModel.price_changes.price_changes_num;
     
-    ///评论信息
-    cdCollectedModel.comment_id_ = collectedModel.comment.id_;
-    cdCollectedModel.comment_user_id = collectedModel.comment.user_id;
-    cdCollectedModel.comment_type = collectedModel.comment.type;
-    cdCollectedModel.comment_obj_id = collectedModel.comment.obj_id;
-    cdCollectedModel.comment_title = collectedModel.comment.title;
-    cdCollectedModel.comment_content = collectedModel.comment.content;
-    cdCollectedModel.comment_update_time = collectedModel.comment.update_time;
-    cdCollectedModel.comment_status = collectedModel.comment.status;
-    cdCollectedModel.comment_create_time = collectedModel.comment.create_time;
-    cdCollectedModel.comment_num = collectedModel.comment.num;
-    cdCollectedModel.comment_user_type = collectedModel.comment.user_type;
-    cdCollectedModel.comment_email = collectedModel.comment.email;
-    cdCollectedModel.comment_mobile = collectedModel.comment.mobile;
-    cdCollectedModel.comment_realname = collectedModel.comment.realname;
-    cdCollectedModel.comment_sex = collectedModel.comment.sex;
-    cdCollectedModel.comment_avatar = collectedModel.comment.avatar;
-    cdCollectedModel.comment_nickname = collectedModel.comment.nickname;
-    cdCollectedModel.comment_username = collectedModel.comment.username;
-    cdCollectedModel.comment_sign = collectedModel.comment.sign;
-    cdCollectedModel.comment_web = collectedModel.comment.web;
-    cdCollectedModel.comment_qq = collectedModel.comment.qq;
-    cdCollectedModel.comment_age = collectedModel.comment.age;
-    cdCollectedModel.comment_idcard = collectedModel.comment.idcard;
-    cdCollectedModel.comment_vocation = collectedModel.comment.vocation;
-    cdCollectedModel.comment_tj_secondHouse_num = collectedModel.comment.tj_secondHouse_num;
-    cdCollectedModel.comment_tj_rentHouse_num = collectedModel.comment.tj_rentHouse_num;
-    
     ///图片
     if ([collectedModel.rentHouse_photo count] > 0) {
         
@@ -3682,7 +3598,7 @@
     collectedModel.house = [[QSWRentHouseInfoDataModel alloc] init];
     collectedModel.user = [[QSUserSimpleDataModel alloc] init];
     collectedModel.price_changes = [[QSHousePriceChangesDataModel alloc] init];
-    collectedModel.comment = [[QSHouseCommentDataModel alloc] init];
+    collectedModel.comment = [[QSDetailCommentListReturnData alloc] init];
     
     ///二手房信息
     collectedModel.house.id_ = cdCollectedModel.id_;
@@ -3766,34 +3682,6 @@
     collectedModel.price_changes.update_time = cdCollectedModel.price_update_time;
     collectedModel.price_changes.create_time = cdCollectedModel.price_create_time;
     collectedModel.price_changes.price_changes_num = cdCollectedModel.price_changes_num;
-    
-    ///评论信息
-    collectedModel.comment.id_ = cdCollectedModel.comment_id_;
-    collectedModel.comment.user_id = cdCollectedModel.comment_user_id;
-    collectedModel.comment.type = cdCollectedModel.comment_type;
-    collectedModel.comment.obj_id = cdCollectedModel.comment_obj_id;
-    collectedModel.comment.title = cdCollectedModel.comment_title;
-    collectedModel.comment.content = cdCollectedModel.comment_content;
-    collectedModel.comment.update_time = cdCollectedModel.comment_update_time;
-    collectedModel.comment.status = cdCollectedModel.comment_status;
-    collectedModel.comment.create_time = cdCollectedModel.comment_create_time;
-    collectedModel.comment.num = cdCollectedModel.comment_num;
-    collectedModel.comment.user_type = cdCollectedModel.comment_user_type;
-    collectedModel.comment.email = cdCollectedModel.comment_email;
-    collectedModel.comment.mobile = cdCollectedModel.comment_mobile;
-    collectedModel.comment.realname = cdCollectedModel.comment_realname;
-    collectedModel.comment.sex = cdCollectedModel.comment_sex;
-    collectedModel.comment.avatar = cdCollectedModel.comment_avatar;
-    collectedModel.comment.nickname = cdCollectedModel.comment_nickname;
-    collectedModel.comment.username = cdCollectedModel.comment_username;
-    collectedModel.comment.sign = cdCollectedModel.comment_sign;
-    collectedModel.comment.web = cdCollectedModel.comment_web;
-    collectedModel.comment.qq = cdCollectedModel.comment_qq;
-    collectedModel.comment.age = cdCollectedModel.comment_age;
-    collectedModel.comment.idcard = cdCollectedModel.comment_idcard;
-    collectedModel.comment.vocation = cdCollectedModel.comment_vocation;
-    collectedModel.comment.tj_secondHouse_num = cdCollectedModel.comment_tj_secondHouse_num;
-    collectedModel.comment.tj_rentHouse_num = cdCollectedModel.comment_tj_rentHouse_num;
     
     ///图片
     if ([cdCollectedModel.photos count] > 0) {
