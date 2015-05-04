@@ -96,6 +96,9 @@
         ///选择不同的列表类型，事件处理
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///清空输入框的内容
+            seachTextField.text = nil;
+            
             ///保存类型
             self.houseType = [selectedKey intValue];
             
@@ -145,6 +148,17 @@
         
     }
     
+    ///无记录提示UI
+    UILabel *tipsLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f, SIZE_DEVICE_WIDTH, 44.0f)];
+    tipsLabel.hidden = YES;
+    tipsLabel.text = @"抱谦，我们未找到符合条件的房源，以下是为你推荐的房源";
+    tipsLabel.textAlignment = NSTextAlignmentCenter;
+    tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    tipsLabel.backgroundColor = COLOR_CHARACTERS_LIGHTYELLOW;
+    tipsLabel.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:tipsLabel];
+    [self.view sendSubviewToBack:tipsLabel];
+    
     ///根据不同的类型，创建不同的列表UI
     switch (self.houseType) {
             
@@ -161,6 +175,50 @@
                         
                         [self gotoHouseDetail:tempModel];
                         
+                        break;
+                        
+                        ///搜索结果集有数据
+                    case hHouseListActionTypeSearchHaveResult:
+                    {
+                        
+                        ///判断是否需要移动
+                        if (tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = YES;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 20.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
+                        ///搜索结果集无数据
+                    case hHouseListActionTypeSearchNoResult:
+                    {
+                        
+                        ///当前已显示提示
+                        if (!tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = NO;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 64.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f + 44.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f);
+                            
+                        }];
+                        
+                    }
                         break;
                         
                     default:
@@ -192,6 +250,50 @@
                         
                         break;
                         
+                        ///搜索结果集有数据
+                    case hHouseListActionTypeSearchHaveResult:
+                    {
+                        
+                        ///判断是否需要移动
+                        if (tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = YES;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 20.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
+                        ///搜索结果集无数据
+                    case hHouseListActionTypeSearchNoResult:
+                    {
+                        
+                        ///当前已显示提示
+                        if (!tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = NO;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 64.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f + 44.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
                     default:
                         break;
                 }
@@ -221,6 +323,50 @@
                         
                         break;
                         
+                        ///搜索结果集有数据
+                    case hHouseListActionTypeSearchHaveResult:
+                    {
+                        
+                        ///判断是否需要移动
+                        if (tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = YES;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 20.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
+                        ///搜索结果集无数据
+                    case hHouseListActionTypeSearchNoResult:
+                    {
+                        
+                        ///当前已显示提示
+                        if (!tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = NO;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 64.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f + 44.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
                     default:
                         break;
                 }
@@ -247,6 +393,50 @@
                         
                         [self gotoHouseDetail:tempModel];
                         
+                        break;
+                        
+                        ///搜索结果集有数据
+                    case hHouseListActionTypeSearchHaveResult:
+                    {
+                        
+                        ///判断是否需要移动
+                        if (tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = YES;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 20.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f);
+                            
+                        }];
+                        
+                    }
+                        break;
+                        
+                        ///搜索结果集无数据
+                    case hHouseListActionTypeSearchNoResult:
+                    {
+                        
+                        ///当前已显示提示
+                        if (!tipsLabel.hidden) {
+                            
+                            return;
+                            
+                        }
+                        
+                        [UIView animateWithDuration:0.3f animations:^{
+                            
+                            tipsLabel.hidden = NO;
+                            tipsLabel.frame = CGRectMake(tipsLabel.frame.origin.x, 64.0f, tipsLabel.frame.size.width, tipsLabel.frame.size.height);
+                            self.currentListView.frame = CGRectMake(self.currentListView.frame.origin.x, 64.0f + 44.0f, self.currentListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 44.0f);
+                            
+                        }];
+                        
+                    }
                         break;
                         
                     default:

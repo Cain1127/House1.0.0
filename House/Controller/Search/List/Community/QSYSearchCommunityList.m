@@ -101,7 +101,17 @@
     QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
     
     ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.communityListHeaderData.communityList[indexPath.row] andListType:fFilterMainTypeCommunity];
+    QSCommunityDataModel *tempModel;
+    if ([self.dataSourceModel.communityListHeaderData.communityList count] > 0) {
+        
+        tempModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
+        
+    } else if ([self.dataSourceModel.communityListHeaderData.referrals_list count] > 0) {
+        
+        tempModel = self.dataSourceModel.communityListHeaderData.referrals_list[indexPath.row];
+        
+    }
+    [cellNormal updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeCommunity];
     
     return cellNormal;
     
@@ -110,8 +120,13 @@
 ///返回一共有多少个小区/新房项
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
-    return [self.dataSourceModel.communityListHeaderData.communityList count];
+ 
+    if ([self.dataSourceModel.communityListHeaderData.communityList count] > 0) {
+        
+        return [self.dataSourceModel.communityListHeaderData.communityList count];
+        
+    }
+    return [self.dataSourceModel.communityListHeaderData.referrals_list count];
     
 }
 
@@ -120,7 +135,16 @@
 {
     
     ///获取房子模型
-    QSCommunityDataModel *houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row ];
+    QSCommunityDataModel *houseInfoModel;
+    if ([self.dataSourceModel.communityListHeaderData.communityList count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
+        
+    } else if ([self.dataSourceModel.communityListHeaderData.referrals_list count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.communityListHeaderData.referrals_list[indexPath.row];
+        
+    }
     
     ///回调
     if (self.houseListTapCallBack) {
@@ -134,11 +158,13 @@
 #pragma mark - 请求数据
 - (void)requestHeaderData
 {
+    
+    self.footer.hidden = YES;
 
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : @"10",
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeCommunity andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -157,12 +183,12 @@
                 ///更新数据源
                 self.dataSourceModel = resultDataModel;
                 
-            }
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                ///刷新数据
-                [self reloadData];
+                ///回调牛奶索集有数据
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchHaveResult,nil);
+                    
+                }
                 
                 self.footer.hidden = NO;
                 if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
@@ -170,12 +196,45 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
-            });
+            } else if ([resultDataModel.communityListHeaderData.referrals_list count] > 0) {
             
-            ///结束刷新动画
-            [self.header endRefreshing];
+                self.dataSourceModel = resultDataModel;
+                
+                ///回调搜索集无结果
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchNoResult,nil);
+                    
+                }
+                
+                self.footer.hidden = NO;
+                [self.footer noticeNoMoreData];
+            
+            } else {
+            
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+            
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            });
             
         } else {
             
@@ -184,12 +243,13 @@
             
             ///重置数据源
             self.dataSourceModel = nil;
-            
-            ///刷新数据
             [self reloadData];
             
-            ///由于是第一页，请求失败，显示暂无记录
-            self.footer.hidden = YES;
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
             
         }
         
@@ -201,17 +261,12 @@
 {
 
     ///判断是否最大页码
-    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] == [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
-        
-        self.footer.hidden = NO;
-        if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
-            [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
-            
-            [self.footer noticeNoMoreData];
-            
-        }
+    if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
+        [self.dataSourceModel.communityListHeaderData.total_page intValue]) {
         
         ///结束刷新动画
+        self.footer.hidden = NO;
+        [self.footer noticeNoMoreData];
         [self.footer endRefreshing];
         return;
         
@@ -251,10 +306,10 @@
                     
                 }
                 
+                ///结束刷新动画
+                [self.footer endRefreshing];
+                
             });
-            
-            ///结束刷新动画
-            [self.footer endRefreshing];
             
         } else {
             

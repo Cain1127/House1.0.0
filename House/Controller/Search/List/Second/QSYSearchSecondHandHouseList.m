@@ -114,7 +114,18 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1] andListType:fFilterMainTypeSecondHouse];
+    QSHouseInfoDataModel *tempModel;
+    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) {
+        
+        tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+        
+    } else if ([self.dataSourceModel.secondHandHouseHeaderData.referrals_list count] > 0) {
+    
+        tempModel = self.dataSourceModel.secondHandHouseHeaderData.referrals_list[indexPath.row - 1];
+    
+    }
+    
+    [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
     
     return cellHouse;
     
@@ -126,7 +137,8 @@
 {
     
     NSInteger sumCount = [self.dataSourceModel.secondHandHouseHeaderData.houseList count];
-    return (sumCount > 0) ? (sumCount + 1) : 0;
+    NSInteger sumRecommendCount = [self.dataSourceModel.secondHandHouseHeaderData.referrals_list count];
+    return (sumCount > 0) ? (sumCount + 1) : (sumRecommendCount > 0 ? (sumRecommendCount + 1) : 0);
     
 }
 
@@ -137,7 +149,6 @@
     return (SIZE_DEVICE_WIDTH - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
     
 }
-
 
 ///返回不同的cell的高度
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
@@ -164,14 +175,6 @@
     
 }
 
-///返回当前的section数量
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    
-    return 1;
-    
-}
-
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -184,7 +187,16 @@
     }
     
     ///获取房子模型
-    QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    QSHouseInfoDataModel *houseInfoModel;
+    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+        
+    } else if ([self.dataSourceModel.secondHandHouseHeaderData.referrals_list count] > 0) {
+    
+        houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.referrals_list[indexPath.row - 1];
+    
+    }
     
     ///回调
     if (self.houseListTapCallBack) {
@@ -200,6 +212,7 @@
 {
     
     ///封装参数：主要是添加页码控制
+    self.footer.hidden = YES;
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : @"10",
                                 @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
@@ -221,12 +234,12 @@
                 ///更新数据源
                 self.dataSourceModel = resultDataModel;
                 
-            }
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                ///刷新数据
-                [self reloadData];
+                ///回调通知存在搜索结果
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchHaveResult,nil);
+                    
+                }
                 
                 self.footer.hidden = NO;
                 if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
@@ -234,12 +247,47 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                    
+                    [self.footer resetNoMoreData];
+                    
                 }
                 
-            });
+            } else if ([resultDataModel.secondHandHouseHeaderData.referrals_list count] > 0) {
             
-            ///结束刷新动画
-            [self.header endRefreshing];
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                
+                ///回调通知不存在搜索结果
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchNoResult,nil);
+                    
+                }
+                
+                self.footer.hidden = NO;
+                [self.footer noticeNoMoreData];
+            
+            } else {
+                
+                ///回调通知无记录
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+                
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
+            });
             
         } else {
             
@@ -248,12 +296,14 @@
             
             ///重置数据指针
             self.dataSourceModel = nil;
-            
-            ///刷新数据
             [self reloadData];
             
-            ///由于是第一页，请求失败，显示暂无记录
-            self.footer.hidden = YES;
+            ///回调暂无数据
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
             
         }
         
@@ -278,7 +328,7 @@
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : self.dataSourceModel.secondHandHouseHeaderData.next_page,
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -307,15 +357,19 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                    
+                    [self.footer resetNoMoreData];
+                    
                 }
+                
+                ///结束刷新动画
+                [self.footer endRefreshing];
                 
             });
             
-            ///结束刷新动画
-            [self.footer endRefreshing];
-            
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] + 1) % 8 == 0) {
+            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue]) % 8 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     
@@ -324,7 +378,6 @@
                 }
                 
             }
-            
             
         } else {
             
