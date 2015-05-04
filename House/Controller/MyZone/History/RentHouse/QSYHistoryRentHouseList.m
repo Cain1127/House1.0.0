@@ -86,6 +86,8 @@
     QSYHistoryHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     [cellHouse updateHouseInfoCellUIWithDataModel:self.customDataSource[indexPath.row] andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
+    cellHouse.isEditing = self.isEditing;
+    cellHouse.selected = YES;
     
     return cellHouse;
     
@@ -118,6 +120,12 @@
 #pragma mark - 点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (self.isEditing) {
+        
+        return;
+        
+    }
 
     if ([self.customDataSource count] > 0) {
         
@@ -169,6 +177,56 @@
     
     }
     
+}
+
+#pragma mark - 设置编辑状态
+/**
+ *  @author             yangshengmeng, 15-05-03 12:05:28
+ *
+ *  @brief              通过给定的数字设置当前的编辑状态
+ *
+ *  @param isEditing    0-未编辑状态；1-编辑状态
+ *
+ *  @since              1.0.0
+ */
+- (void)setIsEditingWithNumber:(NSNumber *)isEditing
+{
+    
+    if ([isEditing intValue] == 1) {
+        
+        self.isEditing = YES;
+        
+    } else {
+        
+        self.isEditing = NO;
+        
+    }
+    
+}
+
+- (void)setIsEditing:(BOOL)isEditing
+{
+    
+    _isEditing = isEditing;
+    
+    ///判断是否是删除
+    if (!isEditing && [self.customDataSource count] > 0) {
+        
+        [self clearHistoryRentHouse];
+        
+    } else {
+    
+        [self reloadData];
+    
+    }
+    
+}
+
+- (void)clearHistoryRentHouse
+{
+
+    
+
 }
 
 @end

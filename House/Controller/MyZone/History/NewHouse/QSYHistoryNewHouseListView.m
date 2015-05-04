@@ -152,6 +152,8 @@
     
     ///刷新数据
     [cellNormal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
+    cellNormal.isEditing = self.isEditing;
+    cellNormal.selected = YES;
     
     return cellNormal;
     
@@ -160,6 +162,12 @@
 #pragma mark - 进入新房详情
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (self.isEditing) {
+        
+        return;
+        
+    }
 
     ///获取数据
     QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
@@ -169,6 +177,31 @@
         
     }
 
+}
+
+- (void)setIsEditing:(BOOL)isEditing
+{
+    
+    _isEditing = isEditing;
+    
+    ///判断是否是删除
+    if (!isEditing && [self.customDataSource count] > 0) {
+        
+        [self clearHistoryNewHouse];
+        
+    } else {
+        
+        [self reloadData];
+        
+    }
+    
+}
+
+- (void)clearHistoryNewHouse
+{
+    
+    
+    
 }
 
 @end
