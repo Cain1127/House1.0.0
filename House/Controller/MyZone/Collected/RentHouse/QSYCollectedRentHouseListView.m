@@ -12,6 +12,7 @@
 
 #import "QSHouseCollectionViewCell.h"
 #import "QSYHistoryHouseCollectionViewCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSRentHouseListReturnData.h"
 #import "QSRentHouseInfoDataModel.h"
@@ -31,6 +32,7 @@
 @property (nonatomic,copy) void(^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
 @property (nonatomic,retain) NSMutableArray *customDataSource;  //!<数据源
+@property (nonatomic,retain) NSMutableArray *seletedDataSource; //!<当前选择删除的数据源
 @property (nonatomic,assign) BOOL isLocalData;                  //!<是否是本地数据
 
 ///网络请求返回的数据模型
@@ -82,6 +84,7 @@
         
         ///初始化数据源
         self.customDataSource = [[NSMutableArray alloc] init];
+        self.seletedDataSource = [NSMutableArray array];
         
         self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
@@ -370,6 +373,8 @@
         
         ///刷新数据
         [cellServerHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.headerData.rentHouseList[indexPath.row] andListType:fFilterMainTypeRentalHouse];
+        cellServerHouse.isEditing = self.isEditing;
+        cellServerHouse.selected = [self isSelectedIndexPath:indexPath];
         
         return cellServerHouse;
         
@@ -384,6 +389,8 @@
     ///获取数据模型
     QSRentHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
     [cellLocalHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
+    cellLocalHouse.isEditing = self.isEditing;
+    cellLocalHouse.selected = [self isSelectedIndexPath:indexPath];
     
     return cellLocalHouse;
     
@@ -393,6 +400,33 @@
 ///点击房源
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///判断当前是否是编辑状态
+    if (self.isEditing) {
+        
+        ///已存在，则删除
+        for (int i = 0; i < [self.seletedDataSource count]; i++) {
+            
+            NSIndexPath *selectedPath = self.seletedDataSource[i];
+            if (selectedPath.section == indexPath.section &&
+                selectedPath.row == indexPath.row) {
+                
+                [self.seletedDataSource removeObjectAtIndex:i];
+                [collectionView reloadData];
+                return;
+                
+            }
+            
+        }
+        
+        ///添加
+        [self.seletedDataSource addObject:indexPath];
+        
+        ///显示选择
+        [collectionView reloadItemsAtIndexPaths:self.seletedDataSource];
+        return;
+        
+    }
     
     if (self.isLocalData) {
         
@@ -418,6 +452,25 @@
         }
         
     }
+    
+}
+
+#pragma mark - 检测当前index是否已选择
+- (BOOL)isSelectedIndexPath:(NSIndexPath *)indexPath
+{
+    
+    for (int i = 0; i < [self.seletedDataSource count]; i++) {
+        
+        NSIndexPath *selectedPath = self.seletedDataSource[i];
+        if (selectedPath.section == indexPath.section &&
+            selectedPath.row == indexPath.row) {
+            
+            return YES;
+            
+        }
+        
+    }
+    return NO;
     
 }
 
@@ -455,6 +508,212 @@
         }];
         
     }
+    
+}
+
+#pragma mark - 设置编辑状态
+/**
+ *  @author             yangshengmeng, 15-05-03 12:05:28
+ *
+ *  @brief              通过给定的数字设置当前的编辑状态
+ *
+ *  @param isEditing    0-未编辑状态；1-编辑状态
+ *
+ *  @since              1.0.0
+ */
+- (void)setIsEditingWithNumber:(NSNumber *)isEditing
+{
+    
+    if ([isEditing intValue] == 1) {
+        
+        self.isEditing = YES;
+        
+    } else {
+        
+        self.isEditing = NO;
+        
+    }
+    
+}
+
+- (void)setIsEditing:(BOOL)isEditing
+{
+    
+    _isEditing = isEditing;
+    
+    ///判断是否是删除
+    if (!isEditing && [self.seletedDataSource count] > 0) {
+        
+        [self deleteCollectedRentHouse];
+        
+    } else {
+        
+        [self reloadData];
+        
+    }
+    
+}
+
+- (void)deleteCollectedRentHouse
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///数据数据源
+    __block NSMutableArray *tempArray = [NSMutableArray array];
+    
+    ///判断是否是本地数据
+    if (self.isLocalData) {
+        
+        [tempArray addObjectsFromArray:self.customDataSource];
+        
+    } else {
+        
+        [tempArray addObjectsFromArray:self.dataSourceModel.headerData.rentHouseList];
+        
+    }
+    
+    __block NSMutableIndexSet *tempIndexSet = [NSMutableIndexSet indexSet];
+    
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    dispatch_apply([self.seletedDataSource count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i){
+        
+        ///进入队列
+        dispatch_group_enter(downloadGroup);
+        
+        NSIndexPath *indexPath = self.seletedDataSource[i];
+        [tempIndexSet addIndex:indexPath.row];
+        
+        NSString *houseID;
+        if (self.isLocalData) {
+            
+            QSRentHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+            houseID = tempModel.house.id_;
+            
+        } else {
+            
+            QSRentHouseInfoDataModel *tempModel = self.dataSourceModel.headerData.rentHouseList[indexPath.row];
+            houseID = tempModel.id_;
+            
+        }
+        
+        [self deleteCollectedRentHouse:houseID andCallBack:^(BOOL isFinish) {
+            
+            ///离开队列
+            dispatch_group_leave(downloadGroup);
+            
+        }];
+        
+    });
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        
+        ///所有任务完成
+        [tempArray removeObjectsAtIndexes:tempIndexSet];
+        if (self.isLocalData) {
+            
+            [self.customDataSource removeAllObjects];
+            [self.customDataSource addObjectsFromArray:tempArray];
+            
+        } else {
+            
+            self.dataSourceModel.headerData.rentHouseList = [NSArray arrayWithArray:tempArray];
+            
+        }
+        
+        ///刷新数据
+        [self reloadData];
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
+        
+    });
+    
+}
+
+///删除收藏
+- (void)deleteCollectedRentHouse:(NSString *)houseID andCallBack:(void(^)(BOOL isFinish))callBack
+{
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSRentHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:houseID andCollectedType:fFilterMainTypeRentalHouse];
+    if (0 == [localDataModel.house.is_syserver intValue]) {
+        
+        ///删除本地数据
+        [self deleteCollectedRentHouseWithStatus:YES andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (![QSCoreDataManager isLogin]) {
+        
+        ///删除本地数据
+        [self deleteCollectedRentHouseWithStatus:NO andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : houseID,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDeleteCollected andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self deleteCollectedRentHouseWithStatus:YES andCollectedID:houseID];
+            
+        } else {
+            
+            [self deleteCollectedRentHouseWithStatus:NO andCollectedID:houseID];
+            
+        }
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+    }];
+    
+}
+
+///取消当前房源的收藏
+- (void)deleteCollectedRentHouseWithStatus:(BOOL)isSendServer andCollectedID:(NSString *)houseID
+{
+    
+    ///删除本地收藏房源
+    [QSCoreDataManager deleteCollectedDataWithID:houseID isSyServer:isSendServer andCollectedType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+        
+        ///显示删除信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"二手房收藏->删除", @"失败")
+            
+        }
+        
+    }];
     
 }
 

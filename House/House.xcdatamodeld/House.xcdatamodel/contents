@@ -766,6 +766,7 @@
         <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="green_rate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="heating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="history_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_no" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idcard" optional="YES" attributeType="String" syncable="YES"/>
@@ -926,6 +927,7 @@
         <attribute name="fee" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="floor_which" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="history_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_face" optional="YES" attributeType="String" syncable="YES"/>
@@ -1043,6 +1045,7 @@
         <attribute name="features" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="floor_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="floor_which" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="history_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_area" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_chufang" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="house_face" optional="YES" attributeType="String" syncable="YES"/>
@@ -1171,12 +1174,12 @@
         <element name="QSCDFilterFeaturesDataModel" positionX="-378" positionY="369" width="128" height="88"/>
         <element name="QSCDHistoryNewHouseActivityDataModel" positionX="-360" positionY="216" width="128" height="253"/>
         <element name="QSCDHistoryNewHouseAllHouseDataModel" positionX="-351" positionY="225" width="128" height="358"/>
-        <element name="QSCDHistoryNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1573"/>
+        <element name="QSCDHistoryNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1590"/>
         <element name="QSCDHistoryNewHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
         <element name="QSCDHistoryNewHouseRecommendHousesDataModel" positionX="-342" positionY="234" width="128" height="358"/>
-        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1603"/>
+        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1620"/>
         <element name="QSCDHistoryRentHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
-        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="317" width="128" height="1573"/>
+        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="317" width="128" height="1590"/>
         <element name="QSCDHistorySecondHandHousePhotoDataModel" positionX="-137" positionY="261" width="128" height="148"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>

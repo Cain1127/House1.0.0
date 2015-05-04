@@ -186,7 +186,6 @@ typedef enum
         case sSettingFieldActionTypeOpinionFeedback:
         {
             
-            APPLICATION_LOG_INFO(@"意见返馈", @"")
             QSOpinionFeedbackViewController *obVC = [[QSOpinionFeedbackViewController alloc]init];
             [self.navigationController pushViewController:obVC animated:YES];
             
@@ -196,8 +195,6 @@ typedef enum
             ///推荐评分
         case sSettingFieldActionTypeRecommendScore:
         {
-            
-            APPLICATION_LOG_INFO(@"推荐评分", @"")
             
 //            NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Bundle display name"];
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"去给'%@'打分吧！",@"房当家"]
@@ -306,6 +303,9 @@ typedef enum
                     
                     button.selected = NO;
                     [button setTitle:@"登录" forState:UIControlStateNormal];
+                    
+                    ///通知关注小区改变
+                    [QSCoreDataManager performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
                     
                 }
                 

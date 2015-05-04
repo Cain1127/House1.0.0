@@ -34,9 +34,6 @@
 ///数据源
 @property (nonatomic,retain) QSSecondHandHouseListReturnData *dataSourceModel;
 
-///页码
-@property (nonatomic,assign) int currentPage;
-
 @end
 
 @implementation QSWCommunitySecondHandHouseList
@@ -52,7 +49,6 @@
     if (self = [super initWithFrame:frame collectionViewLayout:defaultLayout]) {
         
         ///保存参数
-        
         self.communityID = communityID;
         self.filterModel = filterModel;
         self.backgroundColor = [UIColor whiteColor];
@@ -70,7 +66,6 @@
         
         ///开始就刷新
         [self.header beginRefreshing];
-        
         
     }
     
@@ -122,7 +117,6 @@
     
 }
 
-#pragma mark - 返回当前的section数量
 ///返回当前的section数量
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -199,53 +193,16 @@
     
 }
 
-#pragma mark - 根据不同的列表类型返回不同的请求类型
-///根据不同的列表类型返回不同的请求类型
-- (REQUEST_TYPE)getRequestType
-{
-    
-    switch ([self.filterModel.filter_id intValue]) {
-            
-            ///二手房
-        case fFilterMainTypeSecondHouse:
-            
-            return rRequestTypeSecondHandHouseList;
-            
-            break;
-            
-            ///出租房
-        case fFilterMainTypeRentalHouse:
-            
-            return rRequestTypeRentalHouse;
-            
-            break;
-            
-        default:
-            break;
-    }
-    
-    return rRequestTypeSecondHandHouseList;
-    
-}
-
-#pragma mark - 加载推荐房源
+#pragma mark - 重新加载推荐房源
 
 - (void)reloadServerData:(QSFilterDataModel *)filterModel
 {
     
     ///重置过滤器
+    self.filterModel = filterModel;
     
     ///开始头刷新
-    
-}
-
-#pragma mark - 结束刷新动画
-///结束刷新动画
-- (void)endRefreshAnimination
-{
-    
-    [self.header endRefreshing];
-    [self.footer endRefreshing];
+    [self.header beginRefreshing];
     
 }
 
@@ -254,22 +211,22 @@
 - (void)houseListHeaderRequest
 {
     
-    ///封装参数：主要是添加页码控制
+    ///隐藏脚部刷新
+    self.footer.hidden = YES;
+    
+    ///封装参数
     NSMutableDictionary *temParams = [[self.filterModel getCommunitySecondHandHouseListParams] mutableCopy];
     [temParams setObject:APPLICATION_NSSTRING_SETTING(self.communityID, @"") forKey:@"village_id"];
     [temParams setObject:@"1" forKey:@"now_page"];
     [temParams setObject:@"10" forKey:@"page_num"];
     
-    [QSRequestManager requestDataWithType:[self getRequestType] andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///请求成功后，转换模型
             QSSecondHandHouseListReturnData *resultDataModel = resultData;
-            
-            ///修改当前页码
-            self.currentPage = 1;
             
             ///将数据模型置为nil
             self.dataSourceModel = nil;
@@ -309,17 +266,21 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
             });
             
             ///结束刷新动画
-            [self endRefreshAnimination];
+            [self.header endRefreshing];
             
-        } else if (rRequestResultTypeFail == resultStatus) {
+        } else {
             
             ///结束刷新动画
-            [self endRefreshAnimination];
+            [self.header endRefreshing];
             
             ///重置数据指针
             self.dataSourceModel = nil;
@@ -334,24 +295,11 @@
                 
             }
             
-        } else {
-            
-            ///结束刷新动画
-            [self endRefreshAnimination];
-            
-            ///由于是第一页，请求失败，显示暂无记录
-            if (self.houseListTapCallBack) {
-                
-                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
-                
-            }
-            
         }
         
     }];
     
 }
-
 
 ///请求更多数据
 - (void)houseListFooterRequest
@@ -361,15 +309,69 @@
     if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] == [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
         
         ///结束刷新动画
-        
+        [self.footer noticeNoMoreData];
+        [self.footer endRefreshing];
         return;
         
     }
     
     ///封装参数：主要是添加页码控制
     NSMutableDictionary *temParams = [[self.filterModel getCommunitySecondHandHouseListParams] mutableCopy];
-    [temParams setObject:APPLICATION_NSSTRING_SETTING(self.communityID, @"") forKey:@""];
+    [temParams setObject:APPLICATION_NSSTRING_SETTING(self.communityID, @"") forKey:@"village_id"];
+    [temParams setObject:self.dataSourceModel.secondHandHouseHeaderData.next_page forKey:@"now_page"];
+    [temParams setObject:@"10" forKey:@"page_num"];
     
+    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            ///请求成功后，转换模型
+            QSSecondHandHouseListReturnData *resultDataModel = resultData;
+            
+            ///判断是否有房子数据
+            if ([resultDataModel.secondHandHouseHeaderData.houseList count] > 0) {
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                
+                NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.dataSourceModel.secondHandHouseHeaderData.houseList];
+                self.dataSourceModel = resultDataModel;
+                [tempArray addObjectsFromArray:resultDataModel.secondHandHouseHeaderData.houseList];
+                self.dataSourceModel.secondHandHouseHeaderData.houseList = [NSArray arrayWithArray:tempArray];
+                
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
+                
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                } else {
+                    
+                    [self.footer resetNoMoreData];
+                    
+                }
+                
+            });
+            
+            ///结束刷新动画
+            [self.footer endRefreshing];
+            
+        } else {
+            
+            ///结束刷新动画
+            [self.footer endRefreshing];
+            
+        }
+        
+    }];
     
 }
 

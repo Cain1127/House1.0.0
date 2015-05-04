@@ -115,8 +115,10 @@
 @property (nonatomic, retain) NSString * view_count;
 @property (nonatomic, retain) NSString * village_id;
 @property (nonatomic, retain) NSString * village_name;
+@property (nonatomic, retain) NSString * history_id;
 @property (nonatomic, retain) NSDate * create_time;
 @property (nonatomic, retain) NSSet *photos;
+
 @end
 
 @interface QSCDHistoryRentHouseDataModel (CoreDataGeneratedAccessors)

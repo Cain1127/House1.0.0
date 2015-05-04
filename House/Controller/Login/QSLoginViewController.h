@@ -31,6 +31,15 @@
 - (instancetype)initWithCallBack:(void(^)(LOGIN_CHECK_ACTION_TYPE flag))loginCallBack;
 
 /**
+ *  @author yangshengmeng, 15-05-03 20:05:17
+ *
+ *  @brief  将本地浏览记录和服务端记录合并
+ *
+ *  @since  1.0.0
+ */
++ (void)loadHistoryDataToServer;
+
+/**
  *  @author yangshengmeng, 15-05-01 12:05:19
  *
  *  @brief  刷新本地收藏和关注记录

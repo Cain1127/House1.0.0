@@ -112,6 +112,7 @@
 @dynamic view_count;
 @dynamic village_id;
 @dynamic village_name;
+@dynamic history_id;
 @dynamic create_time;
 @dynamic photos;
 

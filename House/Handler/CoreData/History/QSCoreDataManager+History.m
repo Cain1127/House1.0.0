@@ -38,6 +38,8 @@
 #import "QSActivityDataModel.h"
 #import "QSHouseTypeDataModel.h"
 
+#import "QSCoreDataManager+User.h"
+
 ///浏览记录相关实体名
 #define COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY @"QSCDHistorySecondHandHouseDataModel"
 #define COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY_PHOTO @"QSCDHistorySecondHandHousePhotoDataModel"
@@ -100,14 +102,30 @@
 + (NSArray *)getLocalHistoryNewHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"history_id = %@",userID];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"create_time" ascending:YES];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:sort];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
     for (QSCDHistoryNewHouseDataModel *obj in tempArray) {
         
-        QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:obj];
-        [tempResultArray addObject:tempModel];
+        if ([obj.is_syserver intValue] == 0 ||
+            [obj.is_syserver intValue] == 1) {
+            
+            QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
         
     }
     
@@ -119,14 +137,30 @@
 + (NSArray *)getLocalHistorySecondHandHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"history_id = %@",userID];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"create_time" ascending:YES];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:sort];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
     for (QSCDHistorySecondHandHouseDataModel *obj in tempArray) {
         
-        QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:obj];
-        [tempResultArray addObject:tempModel];
+        if ([obj.is_syserver intValue] == 0 ||
+            [obj.is_syserver intValue] == 1) {
+            
+            QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
         
     }
     
@@ -138,14 +172,262 @@
 + (NSArray *)getLocalHistoryRentHouse
 {
     
-    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andSortKeyWord:@"create_time" andAscend:YES];
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    ///过滤
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"history_id = %@",userID];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"create_time" ascending:YES];
+    
+    NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:sort];
     
     ///转换模型
     NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
     for (QSCDHistoryRentHouseDataModel *obj in tempArray) {
         
-        QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:obj];
-        [tempResultArray addObject:tempModel];
+        if ([obj.is_syserver intValue] == 0 ||
+            [obj.is_syserver intValue] == 1) {
+            
+            QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+#pragma mark - 返回本地添加未上传服务端的记录
+/**
+ *  @author yangshengmeng, 15-03-12 14:03:30
+ *
+ *  @brief  查询未上传服务端的浏览记录
+ *
+ *  @return 返回本地保存中，未上传服务端的浏览记录
+ *
+ *  @since  1.0.0
+ */
++ (NSArray *)getUncommitedHistoryDataSource:(FILTER_MAIN_TYPE)type
+{
+    
+    switch (type) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return [self getLocalUnCommitHistoryNewHouse];
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            return [self getLocalUnCommitHistorySecondHandHouse];
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            return [self getLocalUnCommitHistoryRentHouse];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+    
+}
+
+///返回收藏中，未上传服务端的新房列表
++ (NSArray *)getLocalUnCommitHistoryNewHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistoryNewHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 0) {
+            
+            QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+///返回收藏中，未上传服务端的二手房列表
++ (NSArray *)getLocalUnCommitHistorySecondHandHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistorySecondHandHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 0) {
+            
+            QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+///返回收藏中，未上传服务端的出租房列表
++ (NSArray *)getLocalUnCommitHistoryRentHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistoryRentHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 0) {
+            
+            QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+#pragma mark - 查询本地已删除，未上传服务端的数据
+/**
+ *  @author     yangshengmeng, 15-03-19 23:03:11
+ *
+ *  @brief      根据类型，查询删除的浏览，并且未同步服务端的记录
+ *
+ *  @param type 类型
+ *
+ *  @return     返回未同步服务端删除的数据
+ *
+ *  @since      1.0.0
+ */
++ (NSArray *)getDeleteUnCommitedHistoryDataSoucre:(FILTER_MAIN_TYPE)type
+{
+    
+    switch (type) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+            
+            return [self getLocalUnCommitDeletedHistoryNewHouse];
+            
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+            
+            return [self getLocalUnCommitDeletedHistorySecondHandHouse];
+            
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+            
+            return [self getLocalUnCommitDeletedHistoryRentHouse];
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+    
+}
+
+///返回本地已删除，未同步服务端的新房列表
++ (NSArray *)getLocalUnCommitDeletedHistoryNewHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistoryNewHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 3) {
+            
+            QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+///返回本地已删除，未同步服务端的二手房列表
++ (NSArray *)getLocalUnCommitDeletedHistorySecondHandHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistorySecondHandHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 3) {
+            
+            QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
+        
+    }
+    
+    return [NSArray arrayWithArray:tempResultArray];
+    
+}
+
+///返回本地已删除，未同步服务端的出租房列表
++ (NSArray *)getLocalUnCommitDeletedHistoryRentHouse
+{
+    
+    NSArray *tempArray = [self getEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
+    
+    ///转换模型
+    NSMutableArray *tempResultArray = [[NSMutableArray alloc] init];
+    for (QSCDHistoryRentHouseDataModel *obj in tempArray) {
+        
+        ///只返回可用的数据
+        if ([obj.is_syserver intValue] == 3) {
+            
+            QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:obj];
+            [tempResultArray addObject:tempModel];
+            
+        }
         
     }
     
@@ -166,28 +448,28 @@
  *
  *  @since                  1.0.0
  */
-+ (void)saveHistoryDataWithModel:(id)collectedModel andCollectedType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
++ (void)saveHistoryDataWithModel:(id)historyModel andHistoryType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
 {
 
     switch (dataType) {
             ///新房
         case fFilterMainTypeNewHouse:
             
-            [self saveHistoryNewHouseWithDetailModel:collectedModel andCallBack:callBack];
+            [self saveHistoryNewHouseWithDetailModel:historyModel andCallBack:callBack];
             
             break;
             
             ///二手房
         case fFilterMainTypeSecondHouse:
             
-            [self saveHistorySecondHandHouseWithDetailModel:collectedModel andCallBack:callBack];
+            [self saveHistorySecondHandHouseWithDetailModel:historyModel andCallBack:callBack];
             
             break;
             
             ///出租房
         case fFilterMainTypeRentalHouse:
             
-            [self saveHistoryRentHouseWithDetailModel:collectedModel andCallBack:callBack];
+            [self saveHistoryRentHouseWithDetailModel:historyModel andCallBack:callBack];
             
             break;
             
@@ -200,6 +482,13 @@
 ///添加出租房浏览记录
 + (void)saveHistoryRentHouseWithDetailModel:(QSRentHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
@@ -213,7 +502,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.house.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && history_id == %@",collectedModel.house.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -236,12 +525,14 @@
         
         QSCDHistoryRentHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self histtory_ChangeModel_RentHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDHistoryRentHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY inManagedObjectContext:tempContext];
         [self histtory_ChangeModel_RentHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     }
@@ -289,6 +580,13 @@
 ///添二手房浏览记录
 + (void)saveHistorySecondHandHouseWithDetailModel:(QSSecondHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
@@ -302,7 +600,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.house.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && history_id == %@",collectedModel.house.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -325,12 +623,14 @@
         
         QSCDHistorySecondHandHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self histtory_ChangeModel_SecondHandHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDHistorySecondHandHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY inManagedObjectContext:tempContext];
         [self histtory_ChangeModel_SecondHandHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     }
@@ -378,6 +678,14 @@
 ///添加新房浏览记录
 + (void)saveHistoryNewHouseWithDetailModel:(QSNewHouseDetailDataModel *)collectedModel  andCallBack:(void(^)(BOOL flag))callBack
 {
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
 
     __block QSYAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *mainContext = [appDelegate mainObjectContext];
@@ -391,7 +699,7 @@
     [fetchRequest setEntity:entity];
     
     ///设置查询过滤
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@",collectedModel.loupan.id_];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ == %@ && history_id == %@",collectedModel.loupan.id_,userID];
     [fetchRequest setPredicate:predicate];
     
     NSError *error=nil;
@@ -414,12 +722,14 @@
         
         QSCDHistoryNewHouseDataModel *cdCollectedModel = fetchResultArray[0];
         [self histtory_ChangeModel_NewHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     } else {
         
         QSCDHistoryNewHouseDataModel *cdCollectedModel = [NSEntityDescription insertNewObjectForEntityForName:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY inManagedObjectContext:tempContext];
         [self histtory_ChangeModel_NewHouse_DetailMode_T_CDModel:collectedModel andCDModel:cdCollectedModel andOperationContext:tempContext];
+        cdCollectedModel.history_id = userID;
         [tempContext save:&error];
         
     }
@@ -459,6 +769,204 @@
         
     }
 
+}
+
+#pragma mark - 删除本地浏览记录
+/**
+ *  @author yangshengmeng, 15-05-03 20:05:49
+ *
+ *  @brief  删除所有的浏览记录
+ *
+ *  @since  1.0.0
+ */
++ (void)deleteAllHistoryData
+{
+
+    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
+    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
+    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
+
+}
+
+/**
+ *  @author                 yangshengmeng, 15-03-19 19:03:11
+ *
+ *  @brief                  删除给定的浏览数据
+ *
+ *  @param collectedModel   浏览的数据模型
+ *  @param dataType         类型
+ *  @param callBack         删除后的回调
+ *
+ *  @since                  1.0.0
+ */
++ (void)deleteHistoryDataWithID:(NSString *)historyID isSyServer:(BOOL)isSyserver andHistoryType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
+{
+    
+    ///当前用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and history_id = %@",historyID,userID];
+    
+    switch (dataType) {
+            ///删除新房浏览记录
+        case fFilterMainTypeNewHouse:
+        {
+            
+            ///获取本地模型
+            QSCDHistoryNewHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andCustomPredicate:predicate];
+            
+            ///判断本地是否存在
+            if (localModel) {
+                
+                ///判断当前收藏是否已上传服务端：未上传，直接删除
+                if ([localModel.is_syserver intValue] == 0) {
+                    
+                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                    
+                } else {
+                    
+                    ///判断是否已联网删除
+                    if (isSyserver) {
+                        
+                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                        
+                    } else {
+                        
+                        ///将本地的状态改为3
+                        QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:localModel];
+                        tempModel.is_syserver = @"3";
+                        
+                        ///保存本地
+                        [self saveHistoryNewHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                    }
+                    
+                }
+                
+            } else {
+                
+                if (callBack) {
+                    
+                    callBack(NO);
+                    
+                }
+                
+            }
+            
+        }
+            break;
+            
+            ///删除二手房收藏
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            ///获取本地模型
+            QSCDHistorySecondHandHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andCustomPredicate:predicate];
+            
+            ///判断本地是否存在
+            if (localModel) {
+                
+                ///判断当前收藏是否已上传服务端：未上传，直接删除
+                if ([localModel.is_syserver intValue] == 0) {
+                    
+                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                    
+                    if (callBack) {
+                        
+                        callBack(YES);
+                        
+                    }
+                    
+                } else {
+                    
+                    ///判断是否已联网删除
+                    if (isSyserver) {
+                        
+                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                        
+                    } else {
+                        
+                        ///将本地的状态改为3
+                        QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:localModel];
+                        tempModel.is_syserver = @"3";
+                        
+                        ///保存本地
+                        [self saveHistorySecondHandHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                    }
+                    
+                }
+                
+            } else {
+                
+                if (callBack) {
+                    
+                    callBack(NO);
+                    
+                }
+                
+            }
+            
+        }
+            break;
+            
+            ///删除出租房收藏
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            ///获取本地模型
+            QSCDHistoryRentHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andCustomPredicate:predicate];
+            
+            ///判断本地是否存在
+            if (localModel) {
+                
+                ///判断当前收藏是否已上传服务端：未上传，直接删除
+                if ([localModel.is_syserver intValue] == 0) {
+                    
+                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                    
+                } else {
+                    
+                    ///判断是否已联网删除
+                    if (isSyserver) {
+                        
+                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
+                        
+                    } else {
+                        
+                        ///将本地的状态改为3
+                        QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:localModel];
+                        tempModel.house.is_syserver = @"3";
+                        
+                        ///保存本地
+                        [self saveHistoryRentHouseWithDetailModel:tempModel andCallBack:callBack];
+                        
+                    }
+                    
+                }
+                
+            } else {
+                
+                if (callBack) {
+                    
+                    callBack(NO);
+                    
+                }
+                
+            }
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 #pragma mark - 新房数据模型转换

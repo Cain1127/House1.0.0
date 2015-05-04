@@ -10,6 +10,8 @@
 
 @interface QSYCollectedSecondHandHouseListView : UICollectionView
 
+@property (nonatomic,assign) BOOL isEditing;//!<设置编辑状态
+
 /**
  *  @author         yangshengmeng, 15-01-30 08:01:06
  *
@@ -23,5 +25,16 @@
  *  @since          1.0.0
  */
 - (instancetype)initWithFrame:(CGRect)frame andCallBack:(void(^)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel))callBack;
+
+/**
+ *  @author             yangshengmeng, 15-05-03 12:05:28
+ *
+ *  @brief              通过给定的数字设置当前的编辑状态
+ *
+ *  @param isEditing    0-未编辑状态；1-编辑状态
+ *
+ *  @since              1.0.0
+ */
+- (void)setIsEditingWithNumber:(NSNumber *)isEditing;
 
 @end

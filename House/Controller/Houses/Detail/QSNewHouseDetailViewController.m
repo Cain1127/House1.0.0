@@ -1952,7 +1952,24 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
 - (void)addBrowseRecords
 {
     
-    [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andCollectedType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+    ///判断登录状态
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        self.detailInfo.is_syserver = @"0";
+        [self saveBrowseRecordsToLocal];
+        
+    } else {
+        
+        [self addHistorySecondHandHouseToServer];
+        
+    }
+    
+}
+
+- (void)saveBrowseRecordsToLocal
+{
+
+    [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andHistoryType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
         
         if (flag) {
             
@@ -1961,6 +1978,35 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
         } else {
             
             APPLICATION_LOG_INFO(@"新房浏览记录添加", @"失败")
+            
+        }
+        
+    }];
+
+}
+
+- (void)addHistorySecondHandHouseToServer
+{
+    
+    NSDictionary *paramsDict = @{@"view_id" : self.detailInfo.loupan.id_,
+                                 @"view_time" : [NSDate currentDateTimeStamp],
+                                 @"view_type" : @"990103"};
+    
+    ///封装参数
+    NSDictionary *params = @{@"ViewLogArr" : @[paramsDict]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeAddHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///同步成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            self.detailInfo.is_syserver = @"1";
+            [self saveBrowseRecordsToLocal];
+            
+        } else {
+            
+            self.detailInfo.is_syserver = @"0";
+            [self saveBrowseRecordsToLocal];
             
         }
         

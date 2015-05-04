@@ -10,6 +10,8 @@
 
 @interface QSYHistoryHouseCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic,assign) BOOL isEditing;//!<是否编辑状态
+
 ///刷新UI
 - (void)updateHouseInfoCellUIWithDataModel:(id)model andHouseType:(FILTER_MAIN_TYPE)filterType;
 
