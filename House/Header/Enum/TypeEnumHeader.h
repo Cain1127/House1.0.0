@@ -632,7 +632,9 @@ typedef enum
     rRequestTypeRentalHouseDeleteCollected = 2027,      //!<删除出租房收藏
     rRequestTypeAddHistoryHouse = 2028,                 //!<添加浏览记录
     rRequestTypeDeleteHistoryHouse = 2029,              //!<删除浏览记录
-    rRequestTypeHistoryHouseList = 2030,                //!<浏览记录列表
+    rRequestTypeHistoryNewHouseList = 2030,             //!<新房浏览记录列表
+    rRequestTypeHistorySecondHandHouseList = 2031,      //!<二手房浏览记录列表
+    rRequestTypeHistoryRentHouseList = 2032,            //!<出租房浏览记录列表
     
     rRequestTypeMapCommunity = 2045,                    //!<地图小区列表请求
     
