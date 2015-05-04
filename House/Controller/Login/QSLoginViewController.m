@@ -787,7 +787,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                              @"page_num" : @"9999",
                              @"now_page" : @"1"};
     
-    [QSRequestManager requestDataWithType:rRequestTypeHistoryHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeHistoryNewHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -853,7 +853,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                              @"page_num" : @"9999",
                              @"now_page" : @"1"};
     
-    [QSRequestManager requestDataWithType:rRequestTypeHistoryHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeHistoryRentHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -918,7 +918,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                              @"page_num" : @"9999",
                              @"now_page" : @"1"};
     
-    [QSRequestManager requestDataWithType:rRequestTypeHistoryHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+    [QSRequestManager requestDataWithType:rRequestTypeHistorySecondHandHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
