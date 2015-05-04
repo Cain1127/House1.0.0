@@ -114,7 +114,18 @@
     QSHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
     ///刷新数据
-    [cellHouse updateHouseInfoCellUIWithDataModel:self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1] andListType:fFilterMainTypeSecondHouse];
+    QSHouseInfoDataModel *tempModel;
+    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) {
+        
+        tempModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+        
+    } else if ([self.dataSourceModel.secondHandHouseHeaderData.referrals_list count] > 0) {
+    
+        tempModel = self.dataSourceModel.secondHandHouseHeaderData.referrals_list[indexPath.row - 1];
+    
+    }
+    
+    [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeSecondHouse];
     
     return cellHouse;
     
@@ -126,7 +137,8 @@
 {
     
     NSInteger sumCount = [self.dataSourceModel.secondHandHouseHeaderData.houseList count];
-    return (sumCount > 0) ? (sumCount + 1) : 0;
+    NSInteger sumRecommendCount = [self.dataSourceModel.secondHandHouseHeaderData.referrals_list count];
+    return (sumCount > 0) ? (sumCount + 1) : (sumRecommendCount > 0 ? (sumRecommendCount + 1) : 0);
     
 }
 
@@ -184,7 +196,16 @@
     }
     
     ///获取房子模型
-    QSHouseInfoDataModel *houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+    QSHouseInfoDataModel *houseInfoModel;
+    if ([self.dataSourceModel.secondHandHouseHeaderData.houseList count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.houseList[indexPath.row - 1];
+        
+    } else if ([self.dataSourceModel.secondHandHouseHeaderData.referrals_list count] > 0) {
+    
+        houseInfoModel = self.dataSourceModel.secondHandHouseHeaderData.referrals_list[indexPath.row - 1];
+    
+    }
     
     ///回调
     if (self.houseListTapCallBack) {
@@ -200,6 +221,7 @@
 {
     
     ///封装参数：主要是添加页码控制
+    self.footer.hidden = YES;
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : @"10",
                                 @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
@@ -221,6 +243,25 @@
                 ///更新数据源
                 self.dataSourceModel = resultDataModel;
                 
+                ///回调通知存在搜索结果
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchHaveResult,nil);
+                    
+                }
+                
+            } else if ([resultDataModel.secondHandHouseHeaderData.referrals_list count] > 0) {
+            
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+                
+                ///回调通知不存在搜索结果
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchNoResult,nil);
+                    
+                }
+            
             }
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -234,6 +275,10 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
             });
@@ -254,6 +299,13 @@
             
             ///由于是第一页，请求失败，显示暂无记录
             self.footer.hidden = YES;
+            
+            ///回调暂无数据
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
             
         }
         
@@ -307,6 +359,10 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                    
+                    [self.footer resetNoMoreData];
+                    
                 }
                 
             });
@@ -324,7 +380,6 @@
                 }
                 
             }
-            
             
         } else {
             

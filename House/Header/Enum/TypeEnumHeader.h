@@ -516,11 +516,12 @@ typedef enum
 typedef enum
 {
     
-    hHouseListActionTypeNoRecord = 99,  //!<无记录
-    hHouseListActionTypeHaveRecord,     //!<有记录
-    hHouseListActionTypeGotoDetail,     //!<点击进入详情页
-    hHouseListActionTypeShake,          //!<摇一摇
-    
+    hHouseListActionTypeNoRecord = 99,      //!<无记录
+    hHouseListActionTypeHaveRecord,         //!<有记录
+    hHouseListActionTypeGotoDetail,         //!<点击进入详情页
+    hHouseListActionTypeShake,              //!<摇一摇
+    hHouseListActionTypeSearchHaveResult,   //!<搜索时存在搜索结果
+    hHouseListActionTypeSearchNoResult,     //!<搜索时没有搜索结果，只有推荐结果
     
 }HOUSE_LIST_ACTION_TYPE;
 
