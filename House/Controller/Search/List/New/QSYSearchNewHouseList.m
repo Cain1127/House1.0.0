@@ -101,7 +101,17 @@
     QSCommunityCollectionViewCell *cellNormal = [collectionView dequeueReusableCellWithReuseIdentifier:normalCellName forIndexPath:indexPath];
     
     ///刷新数据
-    [cellNormal updateCommunityInfoCellUIWithDataModel:self.dataSourceModel.headerData.houseList[indexPath.row] andListType:fFilterMainTypeNewHouse];
+    QSNewHouseInfoDataModel *tempModel;
+    if ([self.dataSourceModel.headerData.houseList count] > 0) {
+        
+        tempModel = self.dataSourceModel.headerData.houseList[indexPath.row];
+        
+    } else if ([self.dataSourceModel.headerData.referrals_list count] > 0) {
+        
+        tempModel = self.dataSourceModel.headerData.referrals_list[indexPath.row];
+        
+    }
+    [cellNormal updateCommunityInfoCellUIWithDataModel:tempModel andListType:fFilterMainTypeNewHouse];
     
     return cellNormal;
     
@@ -111,7 +121,12 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return [self.dataSourceModel.headerData.houseList count];
+    if ([self.dataSourceModel.headerData.houseList count] > 0) {
+        
+        return [self.dataSourceModel.headerData.houseList count];
+        
+    }
+    return [self.dataSourceModel.headerData.referrals_list count];
     
 }
 
@@ -120,7 +135,16 @@
 {
     
     ///获取房子模型
-    QSNewHouseInfoDataModel *houseInfoModel = self.dataSourceModel.headerData.houseList[indexPath.row];
+    QSNewHouseInfoDataModel *houseInfoModel;
+    if ([self.dataSourceModel.headerData.houseList count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.headerData.houseList[indexPath.row];
+        
+    } else if ([self.dataSourceModel.headerData.referrals_list count] > 0) {
+        
+        houseInfoModel = self.dataSourceModel.headerData.referrals_list[indexPath.row];
+        
+    }
     
     ///回调
     if (self.houseListTapCallBack) {
@@ -134,6 +158,8 @@
 #pragma mark - 请求数据
 - (void)requestHeaderData
 {
+    
+    self.footer.hidden = YES;
     
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : @"1",
@@ -157,9 +183,12 @@
                 ///更新数据源
                 self.dataSourceModel = resultDataModel;
                 
-            }
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                ///回调搜索集有数据
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchHaveResult,nil);
+                    
+                }
                 
                 self.footer.hidden = NO;
                 if ([self.dataSourceModel.headerData.per_page intValue] ==
@@ -167,15 +196,47 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
+                
+            } else if ([resultDataModel.headerData.referrals_list count] > 0) {
+                
+                ///更新数据源
+                self.dataSourceModel = resultDataModel;
+            
+                ///回调搜索集暂无数据
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeSearchNoResult,nil);
+                    
+                }
+                
+                self.footer.hidden = NO;
+                [self.footer noticeNoMoreData];
+            
+            } else {
+            
+                ///回调暂无数据
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+            
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 ///刷新数据
                 [self reloadData];
                 
+                ///结束刷新动画
+                [self.header endRefreshing];
+                
             });
-            
-            ///结束刷新动画
-            [self.header endRefreshing];
             
         } else {
             
@@ -184,12 +245,14 @@
             
             ///重置数据
             self.dataSourceModel = nil;
-            
-            ///刷新数据
             [self reloadData];
             
-            ///由于是第一页，请求失败，显示暂无记录
-            self.footer.hidden = YES;
+            ///回调暂无数据
+            if (self.houseListTapCallBack) {
+                
+                self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                
+            }
             
         }
         
@@ -204,6 +267,8 @@
     if ([self.dataSourceModel.headerData.per_page intValue] == [self.dataSourceModel.headerData.next_page intValue]) {
         
         ///结束刷新动画
+        self.footer.hidden = NO;
+        [self.footer noticeNoMoreData];
         [self.footer endRefreshing];
         return;
         
@@ -212,7 +277,7 @@
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : self.dataSourceModel.headerData.next_page,
                                 @"page_num" : @"10",
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeNewHouse andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -239,12 +304,16 @@
                     
                     [self.footer noticeNoMoreData];
                     
+                } else {
+                
+                    [self.footer resetNoMoreData];
+                
                 }
                 
+                ///结束刷新动画
+                [self.footer endRefreshing];
+                
             });
-            
-            ///结束刷新动画
-            [self.footer endRefreshing];
             
         } else {
             

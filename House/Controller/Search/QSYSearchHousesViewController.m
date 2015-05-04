@@ -96,6 +96,9 @@
         ///选择不同的列表类型，事件处理
         if (pPickerCallBackActionTypePicked == callBackType) {
             
+            ///清空输入框的内容
+            seachTextField.text = nil;
+            
             ///保存类型
             self.houseType = [selectedKey intValue];
             

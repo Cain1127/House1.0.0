@@ -150,7 +150,6 @@
     
 }
 
-
 ///返回不同的cell的高度
 - (CGFloat)customWaterFlowLayout:(QSCollectionWaterFlowLayout *)collectionViewLayout collectionView:(UICollectionView *)collectionView defaultScrollSizeOfItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,14 +172,6 @@
 {
     
     return (SIZE_DEVICE_WIDTH > 320.0f ? 20.0f : 15.0f);
-    
-}
-
-///返回当前的section数量
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    
-    return 1;
     
 }
 
@@ -250,6 +241,18 @@
                     
                 }
                 
+                self.footer.hidden = NO;
+                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
+                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
+                    
+                    [self.footer noticeNoMoreData];
+                    
+                } else {
+                    
+                    [self.footer resetNoMoreData];
+                    
+                }
+                
             } else if ([resultDataModel.secondHandHouseHeaderData.referrals_list count] > 0) {
             
                 ///更新数据源
@@ -261,7 +264,19 @@
                     self.houseListTapCallBack(hHouseListActionTypeSearchNoResult,nil);
                     
                 }
+                
+                self.footer.hidden = NO;
+                [self.footer noticeNoMoreData];
             
+            } else {
+                
+                ///回调通知无记录
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeNoRecord,nil);
+                    
+                }
+                
             }
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -269,22 +284,10 @@
                 ///刷新数据
                 [self reloadData];
                 
-                self.footer.hidden = NO;
-                if ([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] ==
-                    [self.dataSourceModel.secondHandHouseHeaderData.next_page intValue]) {
-                    
-                    [self.footer noticeNoMoreData];
-                    
-                } else {
-                
-                    [self.footer resetNoMoreData];
-                
-                }
+                ///结束刷新动画
+                [self.header endRefreshing];
                 
             });
-            
-            ///结束刷新动画
-            [self.header endRefreshing];
             
         } else {
             
@@ -293,12 +296,7 @@
             
             ///重置数据指针
             self.dataSourceModel = nil;
-            
-            ///刷新数据
             [self reloadData];
-            
-            ///由于是第一页，请求失败，显示暂无记录
-            self.footer.hidden = YES;
             
             ///回调暂无数据
             if (self.houseListTapCallBack) {
@@ -330,7 +328,7 @@
     ///封装参数：主要是添加页码控制
     NSDictionary *temParams = @{@"now_page" : @"1",
                                 @"page_num" : self.dataSourceModel.secondHandHouseHeaderData.next_page,
-                                @"commend" : @"Y"};
+                                @"key" : APPLICATION_NSSTRING_SETTING(self.searchKey, @"")};
     
     [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:temParams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -365,13 +363,13 @@
                     
                 }
                 
+                ///结束刷新动画
+                [self.footer endRefreshing];
+                
             });
             
-            ///结束刷新动画
-            [self.footer endRefreshing];
-            
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue] + 1) % 8 == 0) {
+            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue]) % 8 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     
