@@ -238,6 +238,14 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *priceChangeView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0 * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, houseDetailView.frame.origin.y + houseDetailView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH - 2.0 * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f + 2.0f * SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
+        ///判断
+        if ([dataModel.village.tj_secondHouse_num intValue] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"此小区暂无二手房源", 1.5f, ^(){})
+            return;
+            
+        }
+        
         QSCommunityHouseListViewController *scVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:dataModel.village.id_];
         [self.navigationController pushViewController:scVC animated:YES];
         
@@ -247,8 +255,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f+2*SIZE_DEFAULT_HEIGHTTAP) andSingleTapCallBack:^(BOOL flag) {
         
+        ///判断
+        if ([dataModel.village.tj_rentHouse_num intValue] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"此小区暂无出租房源", 1.5f, ^(){})
+            return;
+            
+        }
+        
         QSCommunityHouseListViewController *rentVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeRentalHouse andVillageID:dataModel.village.id_];
         [self.navigationController pushViewController:rentVC animated:YES];
+        
     }];
     [self createDistrictAveragePriceViewUI:districtAveragePriceView andRentHouseNum:dataModel.village.tj_rentHouse_num];
     

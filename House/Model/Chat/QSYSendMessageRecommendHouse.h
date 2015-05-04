@@ -11,6 +11,7 @@
 @interface QSYSendMessageRecommendHouse : QSYSendMessageBaseModel
 
 @property (nonatomic,copy) NSString *houseID;           //!<房源ID
+@property (nonatomic,copy) NSString *buildingID;        //!<房源的楼栋ID
 @property (nonatomic,copy) NSString *houseType;         //!<房源类型
 @property (nonatomic,copy) NSString *originalImage;     //!<房源图片url
 @property (nonatomic,copy) NSString *smallImage;        //!<房源图片url
