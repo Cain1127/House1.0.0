@@ -1057,6 +1057,35 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     ///单位
     UILabel *unitLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -15.0f-5.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
+    
+    ///金额
+    UILabel *changePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x -40.0f- 2.0f, arrowView.frame.origin.y+1.5f, 40.0f, 20.0f)];
+    
+    NSString *localUserID=[QSCoreDataManager getUserID];
+    ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
+    if ([localUserID isEqualToString:self.userInfo.id_]) {
+
+        
+        unitLabel2.text = @"%";
+        unitLabel2.textAlignment = NSTextAlignmentLeft;
+        unitLabel2.textColor = COLOR_CHARACTERS_BLACK;
+        unitLabel2.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+        [view addSubview:unitLabel2];
+        
+        ///变化价格
+        NSString *changeCount = [NSString stringWithFormat:@"%d",[priceChangeInfoModel.revised_price intValue]/10000 - [priceChangeInfoModel.before_price intValue]/10000];
+        
+        ///百分数
+        NSString *changePrice = [NSString stringWithFormat:@"%d",abs([changeCount intValue])/[priceChangeInfoModel.revised_price intValue]/10000*100];
+        changePriceLabel.text = changePrice;
+        changePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        changePriceLabel.textAlignment = NSTextAlignmentRight;
+        changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [view addSubview:changePriceLabel];
+        return;
+    }
+    else {
+    ///单位
     unitLabel2.text = @"万";
     unitLabel2.textAlignment = NSTextAlignmentLeft;
     unitLabel2.textColor = COLOR_CHARACTERS_BLACK;
@@ -1064,33 +1093,15 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:unitLabel2];
     
     ///金额
-    UILabel *changePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x -40.0f- 2.0f, arrowView.frame.origin.y+1.5f, 40.0f, 20.0f)];
-    NSString *changePrice = [NSString stringWithFormat:@"%.2f",[priceChangeInfoModel.revised_price floatValue] - [priceChangeInfoModel.before_price floatValue]];
+    NSString *changePrice = [NSString stringWithFormat:@"%d",[priceChangeInfoModel.revised_price intValue]/10000 - [priceChangeInfoModel.before_price intValue]/10000];
     changePriceLabel.text = changePrice;
     changePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     changePriceLabel.textAlignment = NSTextAlignmentRight;
     changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [view addSubview:changePriceLabel];
-    
-   
-    ///单位
-    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(changePriceLabel.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
-    unitLabel1.text = @"万";
-    unitLabel1.textAlignment = NSTextAlignmentLeft;
-    unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
-    unitLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
-    [view addSubview:unitLabel1];
-    
-    ///金额
-    UILabel *changeCountLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -50.0f- 2.0f, arrowView.frame.origin.y+1.5f, 50.0f, 20.0f)];
-    changeCountLabel1.text = [NSString stringWithFormat:@"%.2f",[priceChangeInfoModel.revised_price floatValue]];
-    changeCountLabel1.textColor = COLOR_CHARACTERS_YELLOW;
-    changeCountLabel1.textAlignment = NSTextAlignmentRight;
-    changeCountLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [view addSubview:changeCountLabel1];
-    
+    }
     ///变动图标
-    UIImageView *unitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(changePriceLabel.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
+    UIImageView *unitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x  -30.0f-2.0f -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
     
     if ([changePriceLabel.text intValue] >= 0) {
         
@@ -1105,8 +1116,23 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     [view addSubview:unitImageView];
+   
+    ///单位
+    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitImageView.frame.origin.x -15.0f-10.0f-2.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
+    unitLabel1.text = @"万";
+    unitLabel1.textAlignment = NSTextAlignmentLeft;
+    unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
+    unitLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    [view addSubview:unitLabel1];
     
-    
+    ///金额
+    UILabel *changeCountLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -50.0f- 2.0f, arrowView.frame.origin.y+1.5f, 50.0f, 20.0f)];
+    changeCountLabel1.text = [NSString stringWithFormat:@"%2.f",[priceChangeInfoModel.revised_price floatValue]/10000.0f];
+    changeCountLabel1.textColor = COLOR_CHARACTERS_YELLOW;
+    changeCountLabel1.textAlignment = NSTextAlignmentRight;
+    changeCountLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:changeCountLabel1];
+        
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
