@@ -261,7 +261,7 @@
     
     NSURL *imageUrl = [houseTypeModel.attach_file getImageURL];
     
-//    [headerImageView loadImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
+    //    [headerImageView loadImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     [headerImageView setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
     
     [view addSubview:headerImageView];
@@ -339,7 +339,7 @@
     UILabel *areaLabel = [[UILabel alloc] init];
     areaLabel.translatesAutoresizingMaskIntoConstraints=NO;
     areaLabel.textAlignment=NSTextAlignmentRight;
-     NSString *areaString= [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
+    NSString *areaString= [NSString stringWithFormat:@"%d",[houseTypeModel.house_area intValue]];
     areaLabel.text = areaString ? areaString : @"0";
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;

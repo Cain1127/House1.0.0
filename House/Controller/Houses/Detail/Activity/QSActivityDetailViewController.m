@@ -112,7 +112,7 @@ static char RootViewKey;     //!<顶部信息关联key
 #pragma mark -网络请求成功后创建UI
 -(void)createActivityDetailInfoViewUI:(QSActivityDetailDataModel *)detailInfo
 {
-
+    
     QSScrollView *rootView=objc_getAssociatedObject(self, &RootViewKey);
     
     UIView *topView=[[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 83.0f)];
@@ -135,7 +135,7 @@ static char RootViewKey;     //!<顶部信息关联key
     rootView.delegate=self;
     rootView.scrollEnabled=YES;
     rootView.contentSize=CGSizeMake(SIZE_DEVICE_WIDTH, rootView.frame.size.height+100.0f);
-
+    
 }
 
 -(void)createTopUI:(UIView *)view
@@ -192,7 +192,7 @@ static char RootViewKey;     //!<顶部信息关联key
 
 -(void)getActivityDetailInfo
 {
-
+    
     ///封装参数
     NSDictionary *params = @{@"id_" : self.activityID};
     
@@ -235,8 +235,8 @@ static char RootViewKey;     //!<顶部信息关联key
         }
         
     }];
-
-
+    
+    
 }
 
 @end

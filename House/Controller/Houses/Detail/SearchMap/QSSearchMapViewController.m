@@ -40,7 +40,7 @@
         self.coordinate_y = [coordinate_y doubleValue];
         
     }
-
+    
     return self;
 }
 
@@ -49,14 +49,14 @@
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:self.title ? self.title:@"房源位置"];
-
+    
 }
 
 -(void)createMainShowUI
 {
-
+    
     [self initMapView];
-
+    
 }
 
 - (void)initMapView
@@ -66,7 +66,7 @@
     _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f)];
     
     _mapView.delegate = self;
-
+    
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
     
     [self.view addSubview:_mapView];
@@ -111,12 +111,12 @@
             // 设置中心点偏移，使得标注底部中间点成为经纬度对应点
             _annotationView.centerOffset = CGPointMake(0, -18);
         }
-
+        
         _annotationView.canShowCallout = YES;
-
+        
         _annotationView.annotation = annotation;
         _annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
-
+        
         return _annotationView;
     }
     

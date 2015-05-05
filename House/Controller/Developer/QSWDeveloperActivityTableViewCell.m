@@ -22,13 +22,13 @@ static char SignUpCountKey;         //!<报名人数
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
-
+    
     if (self = [super initWithFrame:frame]) {
         
         [self createActivityInfoCellUI];
         
     }
-
+    
     return self;
     
 }
@@ -36,11 +36,11 @@ static char SignUpCountKey;         //!<报名人数
 #pragma mark -创建UI
 -(void)createActivityInfoCellUI
 {
-
+    
     
     ///业主
     QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
-
+    
     [self.contentView addSubview:userImageView];
     objc_setAssociatedObject(self, &UserImageViewKey, userImageView, OBJC_ASSOCIATION_ASSIGN);
     
@@ -54,7 +54,7 @@ static char SignUpCountKey;         //!<报名人数
     titleLabel.font = [UIFont systemFontOfSize:16.0f];
     [self.contentView addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.frame.origin.x, titleLabel.frame.origin.y+titleLabel.frame.size.height+10.0f, 150.0f, 13.0f)];
     commentLabel.textAlignment = NSTextAlignmentLeft;
     commentLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -82,13 +82,13 @@ static char SignUpCountKey;         //!<报名人数
 #pragma mark -更新数据模型
 -(void)updateDeveloperActivityModel:(QSDeveloperActivityDataModel *)dataModel
 {
-
+    
     QSImageView *userImageView = objc_getAssociatedObject(self, &UserImageViewKey);
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
-        if ([dataModel.attach_thumb length] > 0) {
-    
-            [userImageView loadImageWithURL:[dataModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW]];
-    
+    if ([dataModel.attach_thumb length] > 0) {
+        
+        [userImageView loadImageWithURL:[dataModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW]];
+        
     }
     
     UILabel *titleLabel = objc_getAssociatedObject(self, &TitleLabelKey);

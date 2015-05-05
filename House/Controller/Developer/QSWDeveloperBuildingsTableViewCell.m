@@ -35,11 +35,11 @@ static char PublishTimeLabelKey;//!<发布时间
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
-
+    
     if (self = [super initWithFrame:frame]) {
         [self createCellInfoUI];
     }
-
+    
     return self;
 }
 
@@ -65,7 +65,7 @@ static char PublishTimeLabelKey;//!<发布时间
     ///白色六边背景
     bgSixImageView.image = [UIImage imageNamed:@"public_sixform_hollow_100x80"];
     [mainImageView addSubview:bgSixImageView];
-
+    
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(mainImageView.frame.origin.x+mainImageView.frame.size.width+5.0f, mainImageView.frame.origin.y+27.5f, SIZE_DEVICE_WIDTH-2.0f*SIZE_MARGIN_LEFT_RIGHT-100.0f-5.0f-80.0f, 20.0f)];
     titleLabel.textAlignment = NSTextAlignmentLeft;
     titleLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -85,7 +85,7 @@ static char PublishTimeLabelKey;//!<发布时间
     [self.contentView addSubview:priceRootView];
     
     UILabel *priceLabel = [[UILabel alloc] init];
-                           //initWithFrame:CGRectMake(0.0f, 7.5f, 50.0f, 20.0f)];
+    //initWithFrame:CGRectMake(0.0f, 7.5f, 50.0f, 20.0f)];
     priceLabel.translatesAutoresizingMaskIntoConstraints = NO;
     priceLabel.textAlignment = NSTextAlignmentRight;
     priceLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -93,7 +93,7 @@ static char PublishTimeLabelKey;//!<发布时间
     objc_setAssociatedObject(self, &PriceLabelKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
     UILabel *unitLabel = [[UILabel alloc] init];
-                          //initWithFrame:CGRectMake(50.0f, 10.0f, 20.0f, 15.0f)];
+    //initWithFrame:CGRectMake(50.0f, 10.0f, 20.0f, 15.0f)];
     unitLabel.translatesAutoresizingMaskIntoConstraints = NO;
     unitLabel.textAlignment = NSTextAlignmentLeft;
     unitLabel.textColor = COLOR_CHARACTERS_GRAY;
@@ -167,7 +167,7 @@ static char PublishTimeLabelKey;//!<发布时间
         
     }];
     checkDetailLabel.center = CGPointMake(SIZE_DEVICE_WIDTH/6.0f+SIZE_DEVICE_WIDTH/12.0f, topLineLabel.frame.origin.y+20.0f+7.5f);
-
+    
     [self.contentView addSubview:checkDetailLabel];
     
     UILabel *lineLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH/2.0f-0.25f, topLineLabel.frame.origin.y+10.0f, 0.25f, 35.0f)];
@@ -217,8 +217,8 @@ static char PublishTimeLabelKey;//!<发布时间
     pageLabel.text = @"0";
     orderLabel.text = @"0";
     publishLabel.text = [NSString stringWithFormat:@"%@%@",@"2015-00-00",@"发布"];
-  
-
+    
+    
 }
 
 @end

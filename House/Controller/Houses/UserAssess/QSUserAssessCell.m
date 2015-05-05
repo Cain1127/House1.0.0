@@ -35,16 +35,16 @@ static char AssessCommentKey;   //!<评论内容关联key
     if (self) {
         
         [self createAssessCellUI];
-    
+        
     }
-
+    
     return self;
     
 }
 
 -(void)createAssessCellUI
 {
-
+    
     CGFloat viewW=SIZE_DEVICE_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_TAP;
     //CGFloat viewH=70.0f;
     
@@ -64,7 +64,7 @@ static char AssessCommentKey;   //!<评论内容关联key
     userLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
     [self.contentView addSubview:userLabel];
     objc_setAssociatedObject(self, &AssessUserKey, userLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
     
     UILabel *dataLabel=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+5.0f, userLabel.frame.origin.y, 120.0f, 15.0f)];
     dataLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -72,7 +72,7 @@ static char AssessCommentKey;   //!<评论内容关联key
     dataLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:dataLabel];
     objc_setAssociatedObject(self, &AssessDateKey, dataLabel, OBJC_ASSOCIATION_ASSIGN);
-
+    
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(viewW-100.0f, dataLabel.frame.origin.y, 100.0f, 15.0f)];
     timeLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -91,12 +91,12 @@ static char AssessCommentKey;   //!<评论内容关联key
     UILabel *sepLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_TAP, 40.0f + 2.0f * SIZE_DEFAULT_MARGIN_TAP - 0.25f, SIZE_DEFAULT_MAX_WIDTH, 0.25f)];
     sepLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.contentView addSubview:sepLineLabel];
-
+    
 }
 
 -(void)updateAssessCellInfo:(QSCommentListDataModel *)CommentDataModel
 {
-
+    
     if (nil == CommentDataModel.evaluater_id) {
         
         self.textLabel.text = @"暂无评论";
@@ -109,18 +109,18 @@ static char AssessCommentKey;   //!<评论内容关联key
     [self updateAssessDateKey:CommentDataModel.order_msg.add_time];
     [self updateAssessTimeKey:CommentDataModel.order_msg.modefy_time];
     [self updateAssessCommentKey:CommentDataModel.desc];
-
+    
 }
 
 -(void)updateAssessImageKey:(NSString*)image
 {
-
+    
     QSImageView *imageView=objc_getAssociatedObject(self, &AssessImageKey);
     if (imageView && image) {
         
         //imageView.image=[UIImage imageNamed:image];
         [imageView loadImageWithURL:[image getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
-            
+        
     }
     
 }
@@ -133,14 +133,14 @@ static char AssessCommentKey;   //!<评论内容关联key
         userLabel.text=userName;
         
     }
-
+    
 }
 
 -(void)updateAssessDateKey:(NSString *)data
 {
     
     
-     UILabel *dataLabel=objc_getAssociatedObject(self, &AssessDateKey);
+    UILabel *dataLabel=objc_getAssociatedObject(self, &AssessDateKey);
     if (dataLabel && [data length] > 0) {
         
         ///把数字转为有效时间
@@ -155,12 +155,12 @@ static char AssessCommentKey;   //!<评论内容关联key
         dataLabel.text = nil;
         
     }
-
+    
 }
 
 -(void)updateAssessTimeKey:(NSString *)time
 {
-
+    
     UILabel *timeLabel=objc_getAssociatedObject(self, &AssessTimeKey);
     if (timeLabel && [time length] > 0) {
         
@@ -169,24 +169,24 @@ static char AssessCommentKey;   //!<评论内容关联key
         
         ///只取到年月日即可
         timeLabel.text = APPLICATION_NSSTRING_SETTING(configTime, @"");
-
+        
     } else {
         
         timeLabel.text = nil;
         
     }
-
+    
 }
 
 -(void)updateAssessCommentKey:(NSString *)comment
 {
-
-
+    
+    
     UILabel *commentLabel=objc_getAssociatedObject(self, &AssessCommentKey);
     if (comment) {
         commentLabel.text=comment;
     }
-
+    
 }
 
 @end

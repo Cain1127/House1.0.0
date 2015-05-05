@@ -222,13 +222,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             [self.navigationController pushViewController:imageShowVC animated:YES];
             
         } else {
-        
+            
             UIImageView *tempImageView = [headerImageView subviews][0];
             QSYShowImageDetailViewController *imageShowVC = [[QSYShowImageDetailViewController alloc] initWithImage:tempImageView.image andTitle:@"查看图片" andType:sShowImageOriginalVCTypeSingleEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
                 
             }];
             [self.navigationController pushViewController:imageShowVC animated:YES];
-        
+            
         }
         
     }];
@@ -699,29 +699,29 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 #pragma mark - 点击每行进入推荐列表详情
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     self.houseCommendModel = self.houseCommendRentArray[indexPath.row];
     if ([self.houseType isEqualToString:@"rent"]) {
         
         QSRentHouseDetailViewController *rentVC = [[QSRentHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title  andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeRentalHouse];
         
         rentVC.deletePropertyCallBack = ^(BOOL isDelete){
-        
+            
             self.isNeedRefresh = YES;
-        
+            
         };
         
         [self.navigationController pushViewController:rentVC animated:YES];
         
     } else {
-    
+        
         QSSecondHouseDetailViewController *scVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:self.houseCommendModel.title andDetailID:self.houseCommendModel.id_ andDetailType:fFilterMainTypeSecondHouse];
         
         ///删除物业时回调
         scVC.deletePropertyCallBack = ^(BOOL isDelete){
-        
+            
             self.isNeedRefresh = YES;
-        
+            
         };
         
         [self.navigationController pushViewController:scVC animated:YES];
@@ -785,7 +785,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 #pragma mark - 将要显示时，判断是否需要主动发起刷新
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     [super viewWillAppear:animated];
     
     if (self.isNeedRefresh) {
@@ -799,7 +799,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         });
         
     }
-
+    
 }
 
 #pragma mark - 请求小区详情信息

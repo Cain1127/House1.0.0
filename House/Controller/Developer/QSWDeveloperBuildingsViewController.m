@@ -109,7 +109,7 @@ static char TableViewKey;   //!<楼盘列表
             default:
                 break;
         }
-
+        
     }
      ];
     
@@ -119,7 +119,7 @@ static char TableViewKey;   //!<楼盘列表
 #pragma mark -网络请求
 -(void)getBuildingsInfo
 {
-
+    
     UITableView *tableView = objc_getAssociatedObject(self, &TableViewKey);
     
     
@@ -138,12 +138,12 @@ static char TableViewKey;   //!<楼盘列表
             [tableView reloadData];
             
             [tableView.header endRefreshing];
-
+            
         });
     }
      
      ];
-
+    
 }
 
 
