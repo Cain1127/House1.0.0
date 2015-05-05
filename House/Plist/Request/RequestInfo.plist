@@ -7,21 +7,21 @@
 		<key>url</key>
 		<string>viewLog/list</string>
 		<key>class</key>
-		<string>QSRentHouseListReturnData</string>
+		<string>QSYHistoryRentHouseListReturnData</string>
 	</dict>
 	<key>2031</key>
 	<dict>
 		<key>url</key>
 		<string>viewLog/list</string>
 		<key>class</key>
-		<string>QSSecondHandHouseListReturnData</string>
+		<string>QSYHistorySecondHandHouseListReturnData</string>
 	</dict>
 	<key>2030</key>
 	<dict>
 		<key>url</key>
 		<string>viewLog/list</string>
 		<key>class</key>
-		<string>QSNewHouseListReturnData</string>
+		<string>QSYHistoryNewHouseListReturnData</string>
 	</dict>
 	<key>2029</key>
 	<dict>

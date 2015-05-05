@@ -39,6 +39,16 @@
 #import "QSSecondHandHouseListReturnData.h"
 #import "QSRentHouseListReturnData.h"
 
+#import "QSYHistoryRentHouseListReturnData.h"
+#import "QSYHistorySecondHandHouseListReturnData.h"
+#import "QSYHistoryNewHouseListReturnData.h"
+#import "QSYHistoryListNewHouseDataModel.h"
+#import "QSYHistoryListRentHouseDataModel.h"
+#import "QSYHistoryListSecondHandHouseDataModel.h"
+#import "QSRentHousesDetailReturnData.h"
+#import "QSNewHousesDetailReturnData.h"
+#import "QSSecondHousesDetailReturnData.h"
+
 #import "QSSocketManager.h"
 
 #import <objc/runtime.h>
@@ -677,22 +687,20 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 + (void)deleteHistoryNewHouseData
 {
     
-    return;
-
     ///封装参数
-    NSDictionary *params = @{@"id_" : @""};
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
     
     [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///删除成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            
+            [self deleteHistoryHouseToLocal:YES andHouseType:fFilterMainTypeNewHouse];
             
         } else {
-        
-            APPLICATION_LOG_INFO(@"删除服务端浏览记录", @"失败")
-        
+            
+            [self deleteHistoryHouseToLocal:NO andHouseType:fFilterMainTypeNewHouse];
+            
         }
         
     }];
@@ -702,21 +710,19 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 + (void)deleteHistorySecondHandHouseData
 {
     
-    return;
-    
     ///封装参数
-    NSDictionary *params = @{@"id_" : @""};
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
     
     [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///删除成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            
+            [self deleteHistoryHouseToLocal:YES andHouseType:fFilterMainTypeSecondHouse];
             
         } else {
             
-            APPLICATION_LOG_INFO(@"删除服务端浏览记录", @"失败")
+            [self deleteHistoryHouseToLocal:NO andHouseType:fFilterMainTypeSecondHouse];
             
         }
         
@@ -727,21 +733,19 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 + (void)deleteHistoryRentHouseData
 {
     
-    return;
-    
     ///封装参数
-    NSDictionary *params = @{@"id_" : @""};
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse]};
     
     [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///删除成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            
+            [self deleteHistoryHouseToLocal:YES andHouseType:fFilterMainTypeRentalHouse];
             
         } else {
             
-            APPLICATION_LOG_INFO(@"删除服务端浏览记录", @"失败")
+            [self deleteHistoryHouseToLocal:NO andHouseType:fFilterMainTypeRentalHouse];
             
         }
         
@@ -749,22 +753,10 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     
 }
 
-+ (void)deleteHistoryHouseToLocal:(NSString *)historyID isSyServer:(BOOL)isSyServer andHouseType:(FILTER_MAIN_TYPE)houseType
++ (void)deleteHistoryHouseToLocal:(BOOL)isSyServer andHouseType:(FILTER_MAIN_TYPE)houseType
 {
     
-    [QSCoreDataManager deleteHistoryDataWithID:historyID isSyServer:isSyServer andHistoryType:houseType andCallBack:^(BOOL flag) {
-        
-        if (flag) {
-            
-            APPLICATION_LOG_INFO(@"浏览记录同步服务端后保存本地", @"成功")
-            
-        } else {
-            
-            APPLICATION_LOG_INFO(@"浏览记录同步服务端后保存本地", @"失败")
-            
-        }
-        
-    }];
+    [QSCoreDataManager deleteAllHistoryDataWithType:houseType isSysServer:isSyServer];
     
 }
 
@@ -792,21 +784,21 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSNewHouseListReturnData *tempModel = resultData;
-//            if ([tempModel.headerData.houseList count] > 0) {
-//                
-//                for (int i = 0; i < [tempModel.headerData.houseList count]; i++) {
-//                    
-//                    QSNewHouseInfoDataModel *newHouseModel = tempModel.headerData.houseList[i];
-//                    [self downloadServerHistoryNewHouseDetailData:newHouseModel.loupan_id andBuildingID:newHouseModel.loupan_building_id];
-//                    
-//                }
-//                
-//            } else {
-//            
-//                APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"服务端数据为空")
-//            
-//            }
+            QSYHistoryNewHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
+                    
+                    QSYHistoryListNewHouseDataModel *newHouseModel = tempModel.headerData.dataList[i];
+                    [self downloadServerHistoryNewHouseDetailData:newHouseModel.houseInfo.loupan_id andBuildingID:newHouseModel.houseInfo.loupan_building_id];
+                    
+                }
+                
+            } else {
+            
+                APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"服务端数据为空")
+            
+            }
             
         } else {
         
@@ -830,9 +822,10 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///请求成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSNewHouseDetailDataModel *tempModel = resultData;
+            QSNewHousesDetailReturnData *returnModel = resultData;
+            QSNewHouseDetailDataModel *tempModel = returnModel.detailInfo;
             tempModel.is_syserver = @"1";
-            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeNewHouse];
             
         } else {
         
@@ -858,21 +851,21 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSRentHouseListReturnData *tempModel = resultData;
-//            if ([tempModel.headerData.rentHouseList count] > 0) {
-//                
-//                for (int i = 0; i < [tempModel.headerData.rentHouseList count]; i++) {
-//                    
-//                    QSRentHouseInfoDataModel *rentHouseModel = tempModel.headerData.rentHouseList[i];
-//                    [self downloadServerHistoryRentHouseDetailData:rentHouseModel.id_];
-//                    
-//                }
-//                
-//            } else {
-//                
-//                APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"服务端数据为空")
-//                
-//            }
+            QSYHistoryRentHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
+                    
+                    QSYHistoryListRentHouseDataModel *rentHouseModel = tempModel.headerData.dataList[i];
+                    [self downloadServerHistoryRentHouseDetailData:rentHouseModel.view_id];
+                    
+                }
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"服务端数据为空")
+                
+            }
             
         } else {
             
@@ -895,9 +888,10 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///请求成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSRentHouseDetailDataModel *tempModel = resultData;
+            QSRentHousesDetailReturnData *returnModel = resultData;
+            QSRentHouseDetailDataModel *tempModel = returnModel.detailInfo;
             tempModel.house.is_syserver = @"1";
-            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeSecondHouse];
+            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeRentalHouse];
             
         } else {
             
@@ -923,21 +917,21 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///下载成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSSecondHandHouseListReturnData *tempModel = resultData;
-//            if ([tempModel.secondHandHouseHeaderData.houseList count] > 0) {
-//                
-//                for (int i = 0; i < [tempModel.secondHandHouseHeaderData.houseList count]; i++) {
-//                    
-//                    QSHouseInfoDataModel *secondHouseModel = tempModel.secondHandHouseHeaderData.houseList[i];
-//                    [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.id_];
-//                    
-//                }
-//                
-//            } else {
-//                
-//                APPLICATION_LOG_INFO(@"下载服务端浏览二手房信息", @"服务端数据为空")
-//                
-//            }
+            QSYHistorySecondHandHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
+                    
+                    QSYHistoryListSecondHandHouseDataModel *secondHouseModel = tempModel.headerData.dataList[i];
+                    [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.view_id];
+                    
+                }
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"下载服务端浏览二手房信息", @"服务端数据为空")
+                
+            }
             
         } else {
             
@@ -960,7 +954,8 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         ///请求成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            QSSecondHouseDetailDataModel *tempModel = resultData;
+            QSSecondHousesDetailReturnData *returnModel = resultData;
+            QSSecondHouseDetailDataModel *tempModel = returnModel.detailInfo;
             tempModel.is_syserver = @"1";
             [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeSecondHouse];
             
