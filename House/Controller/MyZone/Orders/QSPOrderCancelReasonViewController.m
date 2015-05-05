@@ -47,7 +47,7 @@
     
     [self.view addSubview:titleLabel];
     
-    self.reasonList = [NSMutableArray arrayWithObjects:@"中介骚扰", @"发布虚假信息", @"没有空", @"不想看了", @"其他原因", nil];
+    self.reasonList = [NSMutableArray arrayWithObjects:@"突然有事，没空", @"不想看了", @"等不及了，放弃预定", @"尝鲜功能，没打算去", @"其他原因", nil];
     
     QSPOrderBottomButtonView *submitBtView = [[QSPOrderBottomButtonView alloc] initAtTopLeft:CGPointMake(0.0f, 0.0f) withButtonCount:1 andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
         
