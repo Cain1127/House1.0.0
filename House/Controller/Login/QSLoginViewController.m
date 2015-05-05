@@ -790,7 +790,14 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
                     
                     QSYHistoryListNewHouseDataModel *newHouseModel = tempModel.headerData.dataList[i];
-                    [self downloadServerHistoryNewHouseDetailData:newHouseModel.houseInfo.loupan_id andBuildingID:newHouseModel.houseInfo.loupan_building_id];
+                    
+                    BOOL isSave = [QSCoreDataManager checkDataIsSaveToLocal:newHouseModel.houseInfo.loupan_id andHouseType:fFilterMainTypeNewHouse];
+                    
+                    if (!isSave) {
+                        
+                        [self downloadServerHistoryNewHouseDetailData:newHouseModel.houseInfo.loupan_id andBuildingID:newHouseModel.houseInfo.loupan_building_id];
+                        
+                    }
                     
                 }
                 
@@ -857,8 +864,15 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
                     
                     QSYHistoryListRentHouseDataModel *rentHouseModel = tempModel.headerData.dataList[i];
-                    [self downloadServerHistoryRentHouseDetailData:rentHouseModel.view_id];
                     
+                    BOOL isSave = [QSCoreDataManager checkDataIsSaveToLocal:rentHouseModel.view_id andHouseType:fFilterMainTypeRentalHouse];
+                    
+                    if (!isSave) {
+                        
+                        [self downloadServerHistoryRentHouseDetailData:rentHouseModel.view_id];
+                        
+                    }
+                
                 }
                 
             } else {
@@ -923,7 +937,14 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 for (int i = 0; i < [tempModel.headerData.dataList count]; i++) {
                     
                     QSYHistoryListSecondHandHouseDataModel *secondHouseModel = tempModel.headerData.dataList[i];
-                    [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.view_id];
+                    
+                    BOOL isSave = [QSCoreDataManager checkDataIsSaveToLocal:secondHouseModel.view_id andHouseType:fFilterMainTypeSecondHouse];
+                    
+                    if (!isSave) {
+                        
+                        [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.view_id];
+                        
+                    }
                     
                 }
                 

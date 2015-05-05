@@ -643,7 +643,8 @@
             NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_COLLECTED andCustomPredicate:predicate andCustomSort:nil];
             if ([tempArray count] > 0) {
                 
-                NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
+                NSObject *tempModel = [tempArray[0] valueForKey:@"house"];
+                NSString *status = [tempModel valueForKey:@"is_syserver"];
                 return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
                 
             }
