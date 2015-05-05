@@ -1169,7 +1169,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     busLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
     [view addSubview:busLabel];
     
-    UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width-18.0f, 25.0f)];
     busCountLable.text = houseInfoModel.view_count ? houseInfoModel.view_count : @"0";
     busCountLable.textAlignment = NSTextAlignmentRight;
     busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
@@ -1195,7 +1195,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     techLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:techLabel];
     
-    UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, busCountLable.frame.origin.y, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, busCountLable.frame.origin.y, width / 2.0f + 10.0f, 25.0f)];
     techCountLable.text = houseInfoModel.attention_count ? houseInfoModel.attention_count : @"0";
     techCountLable.textAlignment = NSTextAlignmentRight;
     techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
@@ -1221,7 +1221,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     medicalLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
     [view addSubview:medicalLabel];
     
-    UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 10.0f, 25.0f)];
     medicalCountLable.text = houseInfoModel.tj_wait_look_house_people ? houseInfoModel.tj_wait_look_house_people : @"0";
     medicalCountLable.textAlignment = NSTextAlignmentRight;
     medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
@@ -1247,7 +1247,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     foodLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [view addSubview:foodLabel];
     
-    UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 5.0f, 25.0f)];
+    UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, width / 2.0f + 10.0f, 25.0f)];
     foodCountLable.text = houseInfoModel.reservation_num ? houseInfoModel.reservation_num : @"0";
     foodCountLable.textAlignment = NSTextAlignmentRight;
     foodCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
@@ -1334,15 +1334,28 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [view addSubview:userLabel];
         
         UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x+userLabel.frame.size.width+5.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 100.0f, 15.0f)];
-        timeLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.order_msg.add_time, @"未知");
-        timeLabel.textColor = COLOR_CHARACTERS_BLACK;
+        
+        if ([tempModel.order_msg.add_time length] > 0) {
+            
+            ///把数字转为有效时间
+            NSString *configTime = [NSString stringWithFormat:@"%@",[NSDate timeStampStringToNSDate:tempModel.order_msg.add_time]];
+            timeLabel.text = APPLICATION_NSSTRING_SETTING([configTime substringToIndex:10], @"未知");
+            
+        }
+        else {
+        
+            timeLabel.text = nil;
+            
+        }
+  
+        timeLabel.textColor = COLOR_CHARACTERS_GRAY;
         timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
         [view addSubview:timeLabel];
         
         ///评论内容
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-40.0f-50.0f, 15.0f)];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, view.frame.size.width-40.0f-50.0f, 15.0f)];
         commentLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.desc, @"暂无");
-        commentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        commentLabel.textColor = COLOR_CHARACTERS_GRAY;
         commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
         [view addSubview:commentLabel];
         
@@ -1354,7 +1367,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         ///评论
         UILabel *houseCommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(view.frame.size.width-arrowView.frame.size.width-3.0f-35.0f, arrowView.frame.origin.y-4.0f, 35.0f, 12.0f)];
         houseCommentLabel.text = @"评论";
-        houseCommentLabel.textColor = COLOR_CHARACTERS_BLACK;
+        houseCommentLabel.textColor = COLOR_CHARACTERS_GRAY;
         houseCommentLabel.textAlignment = NSTextAlignmentCenter;
         houseCommentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
         [view addSubview:houseCommentLabel];
