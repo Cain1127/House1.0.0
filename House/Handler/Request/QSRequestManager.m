@@ -114,7 +114,7 @@
             QSRequestTaskDataModel *tempTaskModel = _taskPool[i];
             
             ///参数标识
-            BOOL isParamsSame = tempTaskModel.requestParams == taskModel.requestParams;
+            BOOL isParamsSame = (tempTaskModel.requestParams == taskModel.requestParams);
             
             ///如果原来已有对应的消息，则不再添加
             if (isParamsSame &&
