@@ -26,6 +26,8 @@ typedef enum
     oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice,   //!<业主/房客成交价格
     oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice,        //!<业主/房客接受房客还价
     oOrderButtonTipsViewTypeAcceptOrRejectAppointment,      //!<接受拒绝再预约
+    oOrderButtonTipsViewTypeSelectAction,                   //!<选择标题
+    
 }ORDER_BUTTON_TIPS_VIEW_TYPE;
 
 @interface QSPOrderTipsButtonPopView : UIView
@@ -47,6 +49,13 @@ typedef enum
  *  @return 返回房价输入界面
  */
 - (instancetype)initWithInputPriceVieWithHouseTitle:(NSString*)houseTitle WithPrice:(NSString*)buyerPrice withUserType:(USER_COUNT_TYPE)userType withHouseType:(NSString*)houseType  andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
+/**
+ *  获取输入的房价
+ *
+ *  @return 输入的房价
+ */
+- (NSString*)getInputPrice;
 
 /**
  *  初始化业主/房客预约阶段接受成交还价覆盖View
@@ -84,6 +93,8 @@ typedef enum
 - (instancetype)initWithAcceptOrRejectAppointmentViewWithTip:(NSString*)tipInfo withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 
-- (NSString*)getInputPrice;
+
+- (instancetype)initWithActionSelectedWithTip:(NSString*)tipTitle andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
+
 
 @end

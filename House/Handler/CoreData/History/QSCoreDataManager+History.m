@@ -773,35 +773,18 @@
 
 #pragma mark - 删除本地浏览记录
 /**
- *  @author yangshengmeng, 15-05-03 20:05:49
+ *  @author             yangshengmeng, 15-05-05 10:05:28
  *
- *  @brief  删除所有的浏览记录
+ *  @brief              删除对应类型的浏览记录
  *
- *  @since  1.0.0
+ *  @param houseType    房源类型
+ *  @param issyServer   是否已删除服务端数据
+ *
+ *  @since              1.0.0
  */
-+ (void)deleteAllHistoryData
++ (void)deleteAllHistoryDataWithType:(FILTER_MAIN_TYPE)houseType isSysServer:(BOOL)issyServer
 {
 
-    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
-    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
-    [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
-
-}
-
-/**
- *  @author                 yangshengmeng, 15-03-19 19:03:11
- *
- *  @brief                  删除给定的浏览数据
- *
- *  @param collectedModel   浏览的数据模型
- *  @param dataType         类型
- *  @param callBack         删除后的回调
- *
- *  @since                  1.0.0
- */
-+ (void)deleteHistoryDataWithID:(NSString *)historyID isSyServer:(BOOL)isSyserver andHistoryType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack
-{
-    
     ///当前用户ID
     NSString *userID = [QSCoreDataManager getUserID];
     if ([userID length] <= 0) {
@@ -810,153 +793,84 @@
         
     }
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and history_id = %@",historyID,userID];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"history_id = %@",userID];
     
-    switch (dataType) {
-            ///删除新房浏览记录
+    switch (houseType) {
+            ///新房
         case fFilterMainTypeNewHouse:
         {
             
-            ///获取本地模型
-            QSCDHistoryNewHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andCustomPredicate:predicate];
+            if (issyServer) {
+                
+                [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY];
+                return;
+                
+            }
+        
+            NSArray *newHouseArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
             
-            ///判断本地是否存在
-            if (localModel) {
+            for (int i = 0; i < [newHouseArray count]; i++) {
                 
-                ///判断当前收藏是否已上传服务端：未上传，直接删除
-                if ([localModel.is_syserver intValue] == 0) {
+                QSCDHistoryNewHouseDataModel *localModel = newHouseArray[i];
+                QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:localModel];
+                tempModel.is_syserver = @"3";
+                [self saveHistoryNewHouseWithDetailModel:tempModel andCallBack:^(BOOL flag) {
                     
-                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                    
-                } else {
-                    
-                    ///判断是否已联网删除
-                    if (isSyserver) {
-                        
-                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                        
-                    } else {
-                        
-                        ///将本地的状态改为3
-                        QSNewHouseDetailDataModel *tempModel = [self histtory_ChangeModel_NewHouse_CDModel_T_DetailMode:localModel];
-                        tempModel.is_syserver = @"3";
-                        
-                        ///保存本地
-                        [self saveHistoryNewHouseWithDetailModel:tempModel andCallBack:callBack];
-                        
-                    }
-                    
-                }
-                
-            } else {
-                
-                if (callBack) {
-                    
-                    callBack(NO);
-                    
-                }
+                }];
                 
             }
             
         }
             break;
             
-            ///删除二手房收藏
+            ///二手房
         case fFilterMainTypeSecondHouse:
         {
             
-            ///获取本地模型
-            QSCDHistorySecondHandHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andCustomPredicate:predicate];
+            if (issyServer) {
+                
+                [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY];
+                return;
+                
+            }
             
-            ///判断本地是否存在
-            if (localModel) {
+            NSArray *secondHouseArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
+            
+            for (int i = 0; i < [secondHouseArray count]; i++) {
                 
-                ///判断当前收藏是否已上传服务端：未上传，直接删除
-                if ([localModel.is_syserver intValue] == 0) {
+                QSCDHistorySecondHandHouseDataModel *localModel = secondHouseArray[i];
+                QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:localModel];
+                tempModel.is_syserver = @"3";
+                [self saveHistorySecondHandHouseWithDetailModel:tempModel andCallBack:^(BOOL flag) {
                     
-                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                    
-                    if (callBack) {
-                        
-                        callBack(YES);
-                        
-                    }
-                    
-                } else {
-                    
-                    ///判断是否已联网删除
-                    if (isSyserver) {
-                        
-                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                        
-                    } else {
-                        
-                        ///将本地的状态改为3
-                        QSSecondHouseDetailDataModel *tempModel = [self histtory_ChangeModel_SecondHandHouse_CDModel_T_DetailMode:localModel];
-                        tempModel.is_syserver = @"3";
-                        
-                        ///保存本地
-                        [self saveHistorySecondHandHouseWithDetailModel:tempModel andCallBack:callBack];
-                        
-                    }
-                    
-                }
-                
-            } else {
-                
-                if (callBack) {
-                    
-                    callBack(NO);
-                    
-                }
+                }];
                 
             }
             
         }
             break;
             
-            ///删除出租房收藏
+            ///出租房
         case fFilterMainTypeRentalHouse:
         {
             
-            ///获取本地模型
-            QSCDHistoryRentHouseDataModel *localModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andCustomPredicate:predicate];
+            if (issyServer) {
+                
+                [self clearEntityListWithEntityName:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY];
+                return;
+                
+            }
             
-            ///判断本地是否存在
-            if (localModel) {
+            NSArray *rentHouseArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
+            
+            for (int i = 0; i < [rentHouseArray count]; i++) {
                 
-                ///判断当前收藏是否已上传服务端：未上传，直接删除
-                if ([localModel.is_syserver intValue] == 0) {
+                QSCDHistoryRentHouseDataModel *localModel = rentHouseArray[i];
+                QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:localModel];
+                tempModel.house.is_syserver = @"3";
+                [self saveHistoryRentHouseWithDetailModel:tempModel andCallBack:^(BOOL flag) {
                     
-                    [self deleteEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                    
-                } else {
-                    
-                    ///判断是否已联网删除
-                    if (isSyserver) {
-                        
-                        [self deleteEntityWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andFieldName:@"id_" andFieldValue:historyID andCallBack:callBack];
-                        
-                    } else {
-                        
-                        ///将本地的状态改为3
-                        QSRentHouseDetailDataModel *tempModel = [self histtory_ChangeModel_RentHouse_CDModel_T_DetailMode:localModel];
-                        tempModel.house.is_syserver = @"3";
-                        
-                        ///保存本地
-                        [self saveHistoryRentHouseWithDetailModel:tempModel andCallBack:callBack];
-                        
-                    }
-                    
-                }
-                
-            } else {
-                
-                if (callBack) {
-                    
-                    callBack(NO);
-                    
-                }
+                }];
                 
             }
             
@@ -966,7 +880,7 @@
         default:
             break;
     }
-    
+
 }
 
 #pragma mark - 新房数据模型转换

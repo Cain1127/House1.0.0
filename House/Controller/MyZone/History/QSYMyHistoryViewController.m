@@ -33,7 +33,6 @@
 
 @property (nonatomic,strong) UIView *noRecordsRootView;                     //!<无记录底view
 @property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前房源列表
-@property (assign) BOOL isClearHistory;                                     //!<是否清空记录
 @property (assign) BOOL isNeedRefresh;                                      //!<是否需要刷新
 
 @end
@@ -56,12 +55,20 @@
         if (button.selected) {
             
             button.selected = NO;
-            self.isClearHistory = NO;
+            if ([self.currentListView respondsToSelector:@selector(setIsEditingWithNumber:)]) {
+                
+                [self.currentListView performSelector:@selector(setIsEditingWithNumber:) withObject:@(0)];
+                
+            }
             
         } else {
             
-            self.isClearHistory = YES;
             button.selected = YES;
+            if ([self.currentListView respondsToSelector:@selector(setIsEditingWithNumber:)]) {
+                
+                [self.currentListView performSelector:@selector(setIsEditingWithNumber:) withObject:@(1)];
+                
+            }
             
         }
         
@@ -346,6 +353,7 @@
         }
         
     }];
+    self.currentListView = secondHandHouseList;
     [self.view addSubview:secondHandHouseList];
     
     ///指示三角

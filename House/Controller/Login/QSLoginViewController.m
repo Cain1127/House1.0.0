@@ -793,20 +793,20 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         if (rRequestResultTypeSuccess == resultStatus) {
             
             QSNewHouseListReturnData *tempModel = resultData;
-            if ([tempModel.headerData.houseList count] > 0) {
-                
-                for (int i = 0; i < [tempModel.headerData.houseList count]; i++) {
-                    
-                    QSNewHouseInfoDataModel *newHouseModel = tempModel.headerData.houseList[i];
-                    [self downloadServerHistoryNewHouseDetailData:newHouseModel.loupan_id andBuildingID:newHouseModel.loupan_building_id];
-                    
-                }
-                
-            } else {
-            
-                APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"服务端数据为空")
-            
-            }
+//            if ([tempModel.headerData.houseList count] > 0) {
+//                
+//                for (int i = 0; i < [tempModel.headerData.houseList count]; i++) {
+//                    
+//                    QSNewHouseInfoDataModel *newHouseModel = tempModel.headerData.houseList[i];
+//                    [self downloadServerHistoryNewHouseDetailData:newHouseModel.loupan_id andBuildingID:newHouseModel.loupan_building_id];
+//                    
+//                }
+//                
+//            } else {
+//            
+//                APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"服务端数据为空")
+//            
+//            }
             
         } else {
         
@@ -859,20 +859,20 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         if (rRequestResultTypeSuccess == resultStatus) {
             
             QSRentHouseListReturnData *tempModel = resultData;
-            if ([tempModel.headerData.rentHouseList count] > 0) {
-                
-                for (int i = 0; i < [tempModel.headerData.rentHouseList count]; i++) {
-                    
-                    QSRentHouseInfoDataModel *rentHouseModel = tempModel.headerData.rentHouseList[i];
-                    [self downloadServerHistoryRentHouseDetailData:rentHouseModel.id_];
-                    
-                }
-                
-            } else {
-                
-                APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"服务端数据为空")
-                
-            }
+//            if ([tempModel.headerData.rentHouseList count] > 0) {
+//                
+//                for (int i = 0; i < [tempModel.headerData.rentHouseList count]; i++) {
+//                    
+//                    QSRentHouseInfoDataModel *rentHouseModel = tempModel.headerData.rentHouseList[i];
+//                    [self downloadServerHistoryRentHouseDetailData:rentHouseModel.id_];
+//                    
+//                }
+//                
+//            } else {
+//                
+//                APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"服务端数据为空")
+//                
+//            }
             
         } else {
             
@@ -924,20 +924,20 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         if (rRequestResultTypeSuccess == resultStatus) {
             
             QSSecondHandHouseListReturnData *tempModel = resultData;
-            if ([tempModel.secondHandHouseHeaderData.houseList count] > 0) {
-                
-                for (int i = 0; i < [tempModel.secondHandHouseHeaderData.houseList count]; i++) {
-                    
-                    QSHouseInfoDataModel *secondHouseModel = tempModel.secondHandHouseHeaderData.houseList[i];
-                    [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.id_];
-                    
-                }
-                
-            } else {
-                
-                APPLICATION_LOG_INFO(@"下载服务端浏览二手房信息", @"服务端数据为空")
-                
-            }
+//            if ([tempModel.secondHandHouseHeaderData.houseList count] > 0) {
+//                
+//                for (int i = 0; i < [tempModel.secondHandHouseHeaderData.houseList count]; i++) {
+//                    
+//                    QSHouseInfoDataModel *secondHouseModel = tempModel.secondHandHouseHeaderData.houseList[i];
+//                    [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.id_];
+//                    
+//                }
+//                
+//            } else {
+//                
+//                APPLICATION_LOG_INFO(@"下载服务端浏览二手房信息", @"服务端数据为空")
+//                
+//            }
             
         } else {
             

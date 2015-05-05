@@ -180,6 +180,20 @@
         [self hideKeyboard];
         NSLog(@"appointmentSlotsBt");
         
+        NSString *selectedDay = nil;
+        if (self.calendarView) {
+            
+            selectedDay = [self.calendarView getSelectedDayStr];
+            
+        }
+        
+        if (!selectedDay ) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请先选择预约日期", 1.0f, ^(){})
+
+            return ;
+        }
+        
         QSPTimeHourPickerView *timePickerView = nil;
         for (UIView *subView in [self.navigationController.view subviews]) {
             if ([subView isKindOfClass:[QSPTimeHourPickerView class]]) {
@@ -202,7 +216,6 @@
                 startHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
                 endHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_end;
                 
-                
             }else if ([self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]]) {
                 
                 startHour = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
@@ -212,6 +225,65 @@
                 
                 startHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_start;
                 endHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_end;
+                
+            }
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"YYYY-MM-dd"];
+            NSString *todayStr = [formatter stringFromDate:[NSDate date]];
+            
+            if ([selectedDay isEqualToString:todayStr]) {
+                
+                NSInteger startHourInt = 0;
+                
+                [formatter setDateFormat:@"HH"];
+                
+                NSString *nowHourStr = [formatter stringFromDate:[NSDate date]];
+                
+                NSInteger nowHourInt = nowHourStr.integerValue;
+                
+                NSArray *startHourList = [startHour componentsSeparatedByString:@":"];
+                if (startHourList&&[startHourList count]>=1) {
+                    
+                    NSString *startHourFirst = [startHourList objectAtIndex:0];
+                    if (startHourFirst) {
+                        startHourInt = startHourFirst.integerValue;
+                    }
+                    
+                }
+                
+                if (nowHourInt+1==24) {
+                    
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"已经超过可预约时间，不能再预约今天的时间段了", 1.5f, ^(){})
+                    return;
+                    
+                }else if (nowHourInt+1 >=startHourInt) {
+                    
+                    startHourInt = nowHourInt+1;
+                    
+                }
+                
+                NSInteger endHourInt = 24;
+                NSArray *endHourList = [endHour componentsSeparatedByString:@":"];
+                if (endHourList&&[endHourList count]>=1) {
+                    
+                    NSString *endHourFirst = [endHourList objectAtIndex:0];
+                    if (endHourFirst) {
+                        endHourInt = endHourFirst.integerValue;
+                    }
+                    
+                }
+                
+                if (startHourInt>=endHourInt) {
+                    
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"已经超过可预约时间，不能再预约今天的时间段了", 1.5f, ^(){})
+                    return;
+                    
+                }
+                
+                startHour = [NSString stringWithFormat:@"%2ld:00",(long)startHourInt];
                 
             }
             

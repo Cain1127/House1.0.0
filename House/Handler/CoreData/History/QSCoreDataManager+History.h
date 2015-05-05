@@ -60,25 +60,15 @@
 + (void)saveHistoryDataWithModel:(id)historyModel andHistoryType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
 
 /**
- *  @author yangshengmeng, 15-05-03 20:05:49
+ *  @author             yangshengmeng, 15-05-05 10:05:28
  *
- *  @brief  删除所有的浏览记录
+ *  @brief              删除对应类型的浏览记录
  *
- *  @since  1.0.0
+ *  @param houseType    房源类型
+ *  @param issyServer   是否已删除服务端数据
+ *
+ *  @since              1.0.0
  */
-+ (void)deleteAllHistoryData;
-
-/**
- *  @author                 yangshengmeng, 15-03-19 19:03:11
- *
- *  @brief                  删除给定的浏览数据
- *
- *  @param collectedModel   浏览的数据模型
- *  @param dataType         类型
- *  @param callBack         删除后的回调
- *
- *  @since                  1.0.0
- */
-+ (void)deleteHistoryDataWithID:(NSString *)historyID isSyServer:(BOOL)isSyserver andHistoryType:(FILTER_MAIN_TYPE)dataType andCallBack:(void(^)(BOOL flag))callBack;
++ (void)deleteAllHistoryDataWithType:(FILTER_MAIN_TYPE)houseType isSysServer:(BOOL)issyServer;
 
 @end
