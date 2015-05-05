@@ -11,6 +11,20 @@
 @interface QSCoreDataManager (History)
 
 /**
+ *  @author             yangshengmeng, 15-05-05 15:05:15
+ *
+ *  @brief              检测给定的房源是否已保存本地
+ *
+ *  @param detailID     房源的ID
+ *  @param houseType    房源类型
+ *
+ *  @return             返回检测结果：YES-已保存
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)checkDataIsSaveToLocal:(NSString *)detailID andHouseType:(FILTER_MAIN_TYPE)houseType;
+
+/**
  *  @author yangshengmeng, 15-03-12 14:03:09
  *
  *  @brief  根据房源类型，返回本地保存的浏览数据列表

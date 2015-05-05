@@ -55,6 +55,96 @@
 
 @implementation QSCoreDataManager (History)
 
+#pragma mark - 检测房源是否已收藏
+/**
+ *  @author             yangshengmeng, 15-05-05 15:05:15
+ *
+ *  @brief              检测给定的房源是否已保存本地
+ *
+ *  @param detailID     房源的ID
+ *  @param houseType    房源类型
+ *
+ *  @return             返回检测结果：YES-已保存
+ *
+ *  @since              1.0.0
+ */
++ (BOOL)checkDataIsSaveToLocal:(NSString *)detailID andHouseType:(FILTER_MAIN_TYPE)houseType
+{
+    
+    ///用户ID
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID length] <= 0) {
+        
+        userID = @"-1";
+        
+    }
+
+    switch (houseType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+        
+            ///设置查询过滤
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and history_id = %@",detailID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_NEWHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
+                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                
+            }
+            
+            return NO;
+        
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            ///设置查询过滤
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and history_id = %@",detailID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_SECONDHANDHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
+                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                
+            }
+            
+            return NO;
+            
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            ///设置查询过滤
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_ = %@ and history_id = %@",detailID,userID];
+            NSArray *tempArray = [self searchEntityListWithKey:COREDATA_ENTITYNAME_RENTHOUSE_HISTORY andCustomPredicate:predicate andCustomSort:nil];
+            if ([tempArray count] > 0) {
+                
+                NSObject *tempModel = [tempArray[0] valueForKey:@"house"];
+                NSString *status = [tempModel valueForKey:@"is_syserver"];
+                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                
+            }
+            
+            return NO;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return YES;
+
+}
+
 #pragma mark - 查询浏览数据
 /**
  *  @author yangshengmeng, 15-03-12 14:03:09
