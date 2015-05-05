@@ -123,6 +123,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         if (500210 == button.tag || 500203 == button.tag || 500213 == button.tag || 500231 == button.tag || 500252 == button.tag ) {
             //打电话
             [self callPhone];
+            
         }else if ( 500232 == button.tag || 500257 == button.tag ){
             //议价
             NSString *houseName = @"";
@@ -313,6 +314,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500230 == button.tag){
             //评价房源
             [self commitEvaluationListings];
+            
         }else if (500220 == button.tag || 500258 == button.tag || 500257 == button.tag){
             //房客成交预约订单已看房
             NSString *houseName = @"";

@@ -233,6 +233,23 @@
             
         }
             break;
+        case oOrderButtonTipsViewTypeSelectAction:
+        {
+            //修改白色背景高度
+            CGFloat contentHeight = 180.0f;
+            [self.contentBackgroundView setFrame:CGRectMake(self.contentBackgroundView.frame.origin.x, SIZE_DEVICE_HEIGHT - contentHeight, self.contentBackgroundView.frame.size.width, contentHeight)];
+            
+            ///预约时间信息
+            UILabel *titleTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 32.0f, self.frame.size.width, 60.0f)];
+            titleTipLabel.textAlignment = NSTextAlignmentCenter;
+            titleTipLabel.numberOfLines = 0;
+            titleTipLabel.textColor = COLOR_CHARACTERS_BLACK;
+            titleTipLabel.font = [UIFont systemFontOfSize:FONT_BODY_18];
+            titleTipLabel.text = self.tipStr;
+            [self.contentBackgroundView addSubview:titleTipLabel];
+            
+        }
+            break;
         default:
             break;
     }
@@ -434,6 +451,33 @@
     
     return self;
     
+}
+
+- (instancetype)initWithActionSelectedWithTip:(NSString*)tipTitle andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+{
+    
+    if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
+        
+        ///背景颜色
+        self.backgroundColor = [UIColor clearColor];
+        
+        _viewType = oOrderButtonTipsViewTypeSelectAction;
+        self.tipStr = tipTitle;
+        self.clickBgToCloseFlag = YES;
+        
+        ///搭建UI
+        [self createTipAndButtonsUI];
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.buttonTipsCallBack = callBack;
+            
+        }
+        
+    }
+    
+    return self;
 }
 
 - (instancetype)initWithView:(ORDER_BUTTON_TIPS_VIEW_TYPE)viewType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack

@@ -356,7 +356,22 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailConfirmOrderButtonView:房源非常满意，我要成交按钮");
-                    [self buyerOrSalerCommitAppointmentOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self buyerOrSalerCommitAppointmentOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 default:
                     break;
@@ -395,7 +410,23 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     NSLog(@"QSPOrderDetailChangeAppointmentButtonView:拒绝还价按钮按钮");
-                    [self salerRejectPrice];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"拒绝还价，订单将视为取消订单" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self salerRejectPrice];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                        
+                    }
                     break;
                 default:
                     break;
@@ -645,7 +676,7 @@
             NSString *phoneStr = @"";
             NSString *ownerNameStr = @"";
             
-            QSOrderListOrderInfoPersonInfoDataModel *personInfo = self.orderDetailData.saler_msg;
+            QSUserSimpleDataModel *userSimpleData = [[QSUserSimpleDataModel alloc] init];
             
             if ([self.orderDetailData getUserType] == uUserCountTypeOwner) {
                 
@@ -653,18 +684,23 @@
                 phoneStr = self.orderDetailData.buyer_phone;
                 ownerNameStr = self.orderDetailData.buyer_name;
                 
+                userSimpleData.id_ = self.orderDetailData.buyer_id;
+                userSimpleData.username = ownerNameStr;
+                userSimpleData.mobile = phoneStr;
+                
             }else if ([self.orderDetailData getUserType] == uUserCountTypeTenant) {
                 //房客角色
                 
-                if (personInfo && [personInfo isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
+                if (self.orderDetailData.saler_msg && [self.orderDetailData.saler_msg isKindOfClass:[QSOrderListOrderInfoPersonInfoDataModel class]]) {
                     
-                    ownerNameStr = personInfo.username;
-                    phoneStr = personInfo.mobile;
+                    ownerNameStr = self.orderDetailData.saler_msg.username;
+                    phoneStr = self.orderDetailData.saler_msg.mobile;
                     
+                    userSimpleData = [self.orderDetailData.saler_msg transformToSimpleDataModel];
+
                 }
                 
             }
-            
             
             switch (buttonType) {
                     ///联系业主
@@ -698,9 +734,9 @@
                 case pPersonButtonTypeAsk:
                     {
                         
-                        if (personInfo) {
+                        if (userSimpleData) {
                             
-                            QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[personInfo transformToSimpleDataModel]];
+                            QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:userSimpleData];
                             [self.navigationController pushViewController:talkVC animated:YES];
                             
                         }
@@ -741,7 +777,21 @@
         self.otherPriceView = [[QSPOrderDetailOtherPriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
             
             NSLog(@"接受房价Button");
-            [self salerAcceptPrice];
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                    
+                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    
+                    [self salerAcceptPrice];
+                    
+                }
+                
+            }];
+            
+            [popView setParentViewController:self];
+            [self.view addSubview:popView];
             
         }];
         [scrollView addSubview:self.otherPriceView];
@@ -1007,7 +1057,23 @@
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainAndRejectPriceButtonView:拒绝还价");
                     //房客拒绝还价为直接取消订单
-                    [self cancelAppointmentOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"拒绝还价，订单将视为取消订单" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self cancelAppointmentOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                        
+                    }
                     break;
                 default:
                     break;
@@ -1034,11 +1100,42 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailRejectAndAcceptAppointmentButtonView:拒绝预约");
-                    [self cancelAppointmentOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"拒绝预约，订单将视为取消订单" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self cancelAppointmentOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                        
+                    }
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailRejectAndAcceptAppointmentButtonView:接受预约");
-                    [self commitAppointmentOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受预约" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                               
+                                [self commitAppointmentOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 default:
                     break;
@@ -1061,7 +1158,22 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmBuyerButtonView:取消成交");
-                    [self cacelTransactionOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认取消成交？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self cacelTransactionOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmBuyerButtonView:提醒房客");
@@ -1087,7 +1199,22 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:取消成交");
-                    [self cacelTransactionOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认取消成交？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self cacelTransactionOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:提醒业主");
@@ -1114,11 +1241,41 @@
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:取消成交");
-                    [self cacelTransactionOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认取消成交？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self cacelTransactionOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:确认成交");
-                    [self commitTransactionOrder];
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self commitTransactionOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                    }
                     break;
                 default:
                     break;
@@ -1294,12 +1451,38 @@
                                 if (actionType == oOrderButtonTipsActionTypeCancel) {
                                     
                                     //拒绝再次预约
-                                    [self cancelAppointmentOrder];
+                                    __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否拒绝再次预约" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                                        
+                                        if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                            
+                                        }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                            
+                                            [self cancelAppointmentOrder];
+                                            
+                                        }
+                                        
+                                    }];
+                                    
+                                    [popView setParentViewController:self];
+                                    [self.view addSubview:popView];
                                     
                                 }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
                                     
                                     //接受再次预约
-                                    [self commitAppointmentOrder];
+                                    __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受再次预约" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                                        
+                                        if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                            
+                                        }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                            
+                                            [self commitAppointmentOrder];
+                                            
+                                        }
+                                        
+                                    }];
+                                    
+                                    [popView setParentViewController:self];
+                                    [self.view addSubview:popView];
                                     
                                 }
                                 
