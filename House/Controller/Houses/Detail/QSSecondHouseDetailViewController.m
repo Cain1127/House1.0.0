@@ -394,12 +394,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     ///保存房子基本数据
     self.houseInfo = dataModel.house;
+    
     ///保存用户信息
     self.userInfo = dataModel.user;
+    
     ///保存价钱变动信息
     self.priceChangesInfo = dataModel.price_changes;
-    ///保存评论信息
-//    self.commentInfo = dataModel.commentListReturnData;
+    
     ///保存图片信息
     self.photoArray = dataModel.secondHouse_photo;
     
@@ -1361,8 +1362,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     } else {
         
-       QSCommentListDataModel *tempModel = commentModel.commentList[0];
-
+        QSCommentListDataModel *tempModel = commentModel.commentList[0];
+        
         ///头像
         QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
         userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];

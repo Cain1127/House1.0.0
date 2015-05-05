@@ -500,6 +500,22 @@ typedef enum
     
 }FILTER_MAIN_TYPE;                      //!<过滤器的类型
 
+///浏览历史的类型
+typedef enum
+{
+
+    hHistoryHouseTypeLoupan = 990101,           //!<楼盘浏览历史
+    hHistoryHouseTypeLoupanBuilding = 990102,   //!<楼栋浏览历史
+    hHistoryHouseTypeNewHouse = 990103,         //!<新房浏览历史
+    hHistoryHouseTypeCommunity = 990104,        //!<小区浏览历史
+    hHistoryHouseTypeSecondHandHouse = 990105,  //!<二手房浏览历史
+    hHistoryHouseTypeRentHouse = 990106,        //!<出租房浏览历史
+    hHistoryHouseTypeActivity = 990107,         //!<活动浏览历史
+    hHistoryHouseTypeOrder = 990108,            //!<订单浏览历史
+    hHistoryHouseTypeCommitedOrder = 990109,    //!<成交订单浏览历史
+
+}HISTORY_HOUSE_TYPE;
+
 ///过滤器的状态
 typedef enum
 {
