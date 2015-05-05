@@ -445,11 +445,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }];
     
     ///分数view
-    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y + headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {
-        
-        NSLog(@"");
-        
-    }];
+    QSBlockView *scoreView = [[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, headerImageView.frame.origin.y + headerImageView.frame.size.height-(SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f)/2.0f, SIZE_DEFAULT_MAX_WIDTH-2.0*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_WIDTH*160.0f/750.0f+9.0f) andSingleTapCallBack:^(BOOL flag) {}];
     [self createScoreUI:scoreView andInsideScore:self.detailInfo.house.tj_condition andAroundScore:self.detailInfo.house.tj_environment];
     
     ///房子统计view
@@ -601,6 +597,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///超值盘评分
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
     scoreLabel.text = score;
+    scoreLabel.adjustsFontSizeToFitWidth = YES;
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     scoreLabel.textColor = COLOR_CHARACTERS_BLACK;

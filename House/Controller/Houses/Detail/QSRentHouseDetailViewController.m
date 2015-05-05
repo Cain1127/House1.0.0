@@ -603,6 +603,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///超值盘评分
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(5.0f,10.0f, view.frame.size.width - 10.0f - 20.0f, view.frame.size.height/2.0f-10.f)];
     scoreLabel.text = score;
+    scoreLabel.adjustsFontSizeToFitWidth = YES;
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     scoreLabel.textColor = COLOR_CHARACTERS_BLACK;

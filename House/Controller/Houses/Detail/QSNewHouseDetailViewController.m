@@ -1398,6 +1398,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     titleScoreLabel.text = overflowScore;
     titleScoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     titleScoreLabel.textAlignment = NSTextAlignmentRight;
+    titleScoreLabel.adjustsFontSizeToFitWidth = YES;
     [mainScoreRootView addSubview:titleScoreLabel];
     
     ///中间评分单位
