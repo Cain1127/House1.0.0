@@ -253,6 +253,9 @@
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
                         [btVc setOrderID:self.orderDetailData.id_];
+                        [btVc setPersonName:self.orderDetailData.buyer_name];
+                        [btVc setPersonPhone:self.orderDetailData.buyer_phone];
+                        
                         if (self.orderDetailData.house_msg) {
                             [btVc setHouseInfo:self.orderDetailData.house_msg];
                         }
@@ -485,6 +488,7 @@
                         QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString  *orderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
+                                self.orderID = orderID;
                                 [self getDetailData];
                             }
                             
@@ -1121,7 +1125,7 @@
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailRejectAndAcceptAppointmentButtonView:接受预约");
                     {
-                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受预约" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受房客的预约" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                             
                             if (actionType == oOrderButtonTipsActionTypeCancel) {
                                 

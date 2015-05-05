@@ -148,7 +148,7 @@
             [self.contentBackgroundView addSubview:houseTitleLabel];
             
             ///出价身份
-            UILabel *priceUserLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTitleLabel.frame.origin.y+houseTitleLabel.frame.size.height+12.0f, self.frame.size.width, 30.0f)];
+            UILabel *priceUserLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTitleLabel.frame.origin.y+houseTitleLabel.frame.size.height+2.0f, self.frame.size.width, 30.0f)];
             
             if (self.userType==uUserCountTypeTenant) {
                 
@@ -190,7 +190,7 @@
             [self.contentBackgroundView setFrame:CGRectMake(self.contentBackgroundView.frame.origin.x, SIZE_DEVICE_HEIGHT - contentHeight, self.contentBackgroundView.frame.size.width, contentHeight)];
             
             ///房源出价信息
-            UILabel *priceTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 32.0f, self.frame.size.width, 60.0f)];
+            UILabel *priceTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 22.0f, self.frame.size.width, 60.0f)];
             priceTipLabel.textAlignment = NSTextAlignmentCenter;
             priceTipLabel.numberOfLines = 0;
             priceTipLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -239,7 +239,7 @@
             CGFloat contentHeight = 180.0f;
             [self.contentBackgroundView setFrame:CGRectMake(self.contentBackgroundView.frame.origin.x, SIZE_DEVICE_HEIGHT - contentHeight, self.contentBackgroundView.frame.size.width, contentHeight)];
             
-            ///预约时间信息
+            ///选择提示标题
             UILabel *titleTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 32.0f, self.frame.size.width, 60.0f)];
             titleTipLabel.textAlignment = NSTextAlignmentCenter;
             titleTipLabel.numberOfLines = 0;
@@ -266,7 +266,7 @@
         cancelButtonStyle.title = @"拒绝预约";
     }
     
-    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, self.contentBackgroundView.frame.size.height-VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP-VIEW_SIZE_NORMAL_BUTTON_HEIGHT, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
+    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, self.contentBackgroundView.frame.size.height-2*VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP-VIEW_SIZE_NORMAL_BUTTON_HEIGHT, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
         
         ///回调
         if (self.buttonTipsCallBack) {

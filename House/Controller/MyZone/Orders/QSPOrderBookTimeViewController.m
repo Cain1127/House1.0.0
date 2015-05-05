@@ -41,7 +41,7 @@
 @end
 
 @implementation QSPOrderBookTimeViewController
-@synthesize vcType, houseType, houseInfo, orderID;
+@synthesize vcType, houseType, houseInfo, orderID, personName, personPhone;
 
 #pragma mark - 初始化
 
@@ -301,6 +301,10 @@
     self.personNameField.returnKeyType = UIReturnKeyDone;
     [self.scrollView addSubview:self.personNameField];
     
+    if (self.personName) {
+        [self.personNameField setText:self.personName];
+    }
+    
     ///分隔线
     UILabel *personNameLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(self.personNameField.frame.origin.x, self.personNameField.frame.origin.y + self.personNameField.frame.size.height + 3.5f, self.personNameField.frame.size.width, 0.5f)];
     personNameLineLablel.backgroundColor = COLOR_CHARACTERS_BLACKH;
@@ -313,6 +317,10 @@
     self.phoneNumField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.phoneNumField.returnKeyType = UIReturnKeyDone;
     [self.scrollView addSubview:self.phoneNumField];
+    
+    if (self.personPhone) {
+        [self.phoneNumField setText:self.personPhone];
+    }
     
     ///分隔线
     UILabel *phoneNumLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(self.phoneNumField.frame.origin.x, self.phoneNumField.frame.origin.y + self.phoneNumField.frame.size.height + 3.5f, self.phoneNumField.frame.size.width, 0.5f)];

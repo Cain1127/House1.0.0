@@ -902,7 +902,17 @@
                 //房客角色
                 
                 self.isShowAppointmentSalerAgainButtonView = YES;
-                self.isShowOrderCancelByOwnerTipView = YES;
+                
+                
+                if ([self.order_status isEqualToString:@"500241"]) {
+                    
+                    self.isShowOrderCancelByMeTipView = YES;
+                    
+                }else {
+                    
+                    self.isShowOrderCancelByOwnerTipView = YES;
+                    
+                }
                 
             }
             

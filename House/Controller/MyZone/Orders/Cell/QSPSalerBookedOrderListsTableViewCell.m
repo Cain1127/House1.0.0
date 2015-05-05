@@ -211,7 +211,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
         }else if (500203 == button.tag || 500201 == button.tag ) {
             //房主接受客人的预约
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受房客预约？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受房客的预约？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeCancel) {
                     
