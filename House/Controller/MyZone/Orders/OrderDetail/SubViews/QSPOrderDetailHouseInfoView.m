@@ -147,7 +147,7 @@
                 [self.houseTitleIDLabel setText:[NSString stringWithFormat:@"房源编号 %@",data.house_no]];
             }
             if (self.contentImgView) {
-                [self.contentImgView setImageWithURL:[data.attach_thumb getImageURL]];
+                [self.contentImgView setImageWithURL:[data.attach_file getImageURL]];
             }
             if (self.nameLabel) {
                 [self.nameLabel setText:data.title];

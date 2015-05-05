@@ -87,7 +87,7 @@ static char SignUpCountKey;         //!<报名人数
     userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
         if ([dataModel.attach_thumb length] > 0) {
     
-            [userImageView loadImageWithURL:[dataModel.attach_thumb getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW]];
+            [userImageView loadImageWithURL:[dataModel.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_CHAT_SIXFORM_HOLLOW]];
     
     }
     
