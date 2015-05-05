@@ -1261,7 +1261,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     foodCountUnitLabel.textColor = COLOR_CHARACTERS_GRAY;
     [view addSubview:foodCountUnitLabel];
     
-    
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
