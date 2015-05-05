@@ -14,6 +14,7 @@
 #import "QSCustomHUDView.h"
 
 #import "QSCoreDataManager+History.h"
+#import "QSCoreDataManager+User.h"
 
 #import "QSRequestManager.h"
 #import "MJRefresh.h"
@@ -241,6 +242,20 @@
     
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在清空"];
     
+    ///判断是否已登录
+    if (![QSCoreDataManager isLogin]) {
+        
+        [self clearLocalHistoryData:NO];
+        [hud hiddenCustomHUDWithFooterTips:@"已清空二手房浏览记录" andDelayTime:2.5f andCallBack:^(BOOL flag) {
+            
+            [self.header beginRefreshing];
+            
+        }];
+        
+        return;
+        
+    }
+    
     ///封装参数
     NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
     
@@ -249,7 +264,8 @@
         ///清空成功
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            [hud hiddenCustomHUDWithFooterTips:@"已清空二手房浏览记录" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+            [self clearLocalHistoryData:YES];
+            [hud hiddenCustomHUDWithFooterTips:@"已清空二手房浏览记录" andDelayTime:2.5f andCallBack:^(BOOL flag) {
                 
                 [self.header beginRefreshing];
                 
@@ -257,17 +273,23 @@
             
         } else {
             
-            NSString *tipsString = @"清空失败";
-            if (resultData) {
+            [self clearLocalHistoryData:NO];
+            [hud hiddenCustomHUDWithFooterTips:@"已清空二手房浏览记录" andDelayTime:2.5f andCallBack:^(BOOL flag) {
                 
-                tipsString = [resultData valueForKey:@"info"];
+                [self.header beginRefreshing];
                 
-            }
-            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            }];
             
         }
         
     }];
+    
+}
+
+- (void)clearLocalHistoryData:(BOOL)isSendServer
+{
+    
+    [QSCoreDataManager deleteAllHistoryDataWithType:fFilterMainTypeSecondHouse isSysServer:isSendServer];
     
 }
 
