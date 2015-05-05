@@ -1548,13 +1548,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
             }
             
         } else {
-        
+            
             if ([self.detailInfo.loupan_building.attach_file length] > 0) {
                 
                 [imageView loadImageWithURL:[self.detailInfo.loupan_building.attach_file getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_HOUSES_DETAIL_HEADER_DEFAULT_BG]];
                 
             }
-        
+            
         }
         
         return imageView;
@@ -1969,7 +1969,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
 
 - (void)saveBrowseRecordsToLocal
 {
-
+    
     [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andHistoryType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
         
         if (flag) {
@@ -1983,7 +1983,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
         }
         
     }];
-
+    
 }
 
 - (void)addHistorySecondHandHouseToServer

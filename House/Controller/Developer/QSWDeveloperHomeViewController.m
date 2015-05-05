@@ -24,10 +24,10 @@
 
 -(void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"开发商名称"];
-
+    
 }
 
 -(void)createMainShowUI
@@ -38,14 +38,14 @@
     
     [self getDeveloperInfo];
     
- 
+    
     
 }
 
 #pragma mark -网络请求成功创建UI
 -(void)createDeveloperUI:(QSDeveloperListReturnData *)dataModel
 {
-
+    
     UIImageView *onSaleImageView = [QSImageView createBlockImageViewWithFrame:CGRectMake(15.0f, 84.0f, SIZE_DEVICE_WIDTH*160.0f/375.0f, SIZE_DEVICE_WIDTH*180.0f/375.0f) andSingleTapCallBack:^{
         
         APPLICATION_LOG_INFO(@"点击在线售楼", nil);
@@ -115,8 +115,8 @@
     chatLabel.font = [UIFont systemFontOfSize:FONT_BODY_20];
     [chatImageView addSubview:chatLabel];
     [self.view addSubview:chatImageView];
-
-
+    
+    
 }
 
 ///创建在售楼盘UI
@@ -176,7 +176,7 @@
     unitLabel.textColor = COLOR_CHARACTERS_BLACK;
     [view addSubview:unitLabel];
     
-
+    
     
 }
 
@@ -272,7 +272,7 @@
 
 -(void)getDeveloperInfo
 {
-
+    
     [QSRequestManager requestDataWithType:rRequestTypeDeveloperHomeCountData andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         if (rRequestResultTypeSuccess == resultStatus) {
@@ -283,7 +283,7 @@
             
         }
     }
-
- ];
+     
+     ];
 }
 @end

@@ -40,7 +40,7 @@ static char TableViewKey; //!<活动列表
 
 -(instancetype)initWithTitle:(NSString *)title andConnet:(NSString *)content andStatus:(NSString *)status andSignUpNum:(NSString *)number andImage:(NSString *)image andactivityID:(NSString *)activityID
 {
-
+    
     if (self = [super init]) {
         
         self.activityID = activityID;
@@ -49,23 +49,23 @@ static char TableViewKey; //!<活动列表
         self.status = status;
         self.number = number;
         self.image = image;
-
+        
     }
-
+    
     return self;
 }
 
 -(void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     [self setNavigationBarTitle:self.title ? self.title : @"活动详情"];
-
+    
 }
 
 -(void)createMainShowUI
 {
-
+    
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-64.0f) style:UITableViewStyleGrouped];
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.showsVerticalScrollIndicator = NO;
@@ -79,22 +79,22 @@ static char TableViewKey; //!<活动列表
     [tableView.header beginRefreshing];
     tableView.delegate = self;
     tableView.dataSource = self;
-
+    
 }
 
 #pragma mark -数据源方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     return [self.activityDetailListModel.records count];
-
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     return 80.0f;
-
+    
 }
 
 #pragma mark -返回的每一行
@@ -113,13 +113,13 @@ static char TableViewKey; //!<活动列表
     if ( 0 < self.activityDetailListModel.records.count) {
         
         self.activityDetailDataModel = self.activityDetailListModel.records[indexPath.row];
-       
+        
     }
     ///更新数据
     [cell updateActivityDetailModel:self.activityDetailDataModel];
     return  cell;
-
-
+    
+    
 }
 
 
@@ -189,20 +189,20 @@ static char TableViewKey; //!<活动列表
     [_headerView addSubview:bottomLineLabel];
     
     return _headerView;
-
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-
+    
     return 225.0f;
-
+    
 }
 
 #pragma mark -网络返回数据
 -(void)getDeveloperActivityDetailInfo
 {
-
+    
     UITableView *tableView = objc_getAssociatedObject(self, &TableViewKey);
     NSDictionary *params = @{
                              @"activity_id" : APPLICATION_NSSTRING_SETTING(self.activityID, @""),
@@ -227,24 +227,24 @@ static char TableViewKey; //!<活动列表
                  self.headerView.hidden = NO;
                  
              } else {
-             
+                 
                  [self showNoRecordTips:YES andTips:@"暂无活动详情"];
                  self.headerView.hidden = YES;
                  
              }
              
          } else {
-         
+             
              self.activityDetailListModel = nil;
              [tableView reloadData];
              self.headerView.hidden = YES;
              [self showNoRecordTips:YES andTips:@"暂无活动详情"];
-         
+             
          }
          
          [tableView.header endRefreshing];
          
      }];
-
+    
 }
 @end

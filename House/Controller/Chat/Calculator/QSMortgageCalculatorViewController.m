@@ -86,10 +86,10 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
                 ///住房公积金说明
             case mMortgageAccumulationType:
             {
-            
+                
                 QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanAccumulation];
                 [self.navigationController pushViewController:detailVC animated:YES];
-            
+                
             }
                 break;
                 
@@ -552,7 +552,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
             }
             
             ///刷新数据
- 
+            
             ///月均还款
             monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[accumulationTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeCalculateHousingAccumulationFundLoan andRate:RATE_DEFAULT_ACCUMULATION_VALUE/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f] + [NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
             

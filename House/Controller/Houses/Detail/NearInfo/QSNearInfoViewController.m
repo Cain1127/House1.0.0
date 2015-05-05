@@ -120,7 +120,7 @@
     
     ///循环创建户型信息
     for (int i = 0; i < [packInfos count]; i++) {
-     
+        
         ///配置字典
         NSDictionary *infoDict = packInfos[i];
         
@@ -170,7 +170,7 @@
 #pragma mark - 同步修改按钮状态
 - (void)changeChannelBarButtonStatus:(UIButton *)button
 {
-
+    
     for (UIView *obj in [button.superview subviews]) {
         
         if ([obj isKindOfClass:[UIButton class]]) {
@@ -183,7 +183,7 @@
     }
     
     button.selected = YES;
-
+    
 }
 
 #pragma mark -添加地图信息UI
@@ -219,11 +219,11 @@
     _mapView.compassOrigin = CGPointMake(_mapView.compassOrigin.x, kDefaultControlMargin);
     _mapView.scaleOrigin = CGPointMake(_mapView.scaleOrigin.x, kDefaultControlMargin);
     [_mapView setZoomLevel:kDefaultLocationZoomLevel animated:YES];
-
+    
     [self.mapInfoView addSubview:_mapView];
     
     _mapView.showsUserLocation = YES;
-
+    
     //[self houseAddressAction];
     
     
@@ -241,7 +241,7 @@
         ///大头针加入地图
         [_mapView addAnnotation:annotation];
         [_annotations addObject:annotation];
-
+        
     }
 }
 
@@ -262,7 +262,7 @@
     {
         NSLog(@"search failed");
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
-
+        
         return;
     }
     
@@ -333,11 +333,11 @@
         if (self.mapLineType==mMapBusButtonActionType||self.mapLineType==mMapMetroButtonActionType) {
             
             _infoTextView.text=self.resultAddressString;
-
+            
         }
         else{
             
-        _infoTextView.text=self.resultNameString;
+            _infoTextView.text=self.resultNameString;
             
         }
         //[self houseAddressAction];
@@ -376,7 +376,7 @@
                 
                 if (annotation==_annotation0) {
                     annotationView.image = [UIImage imageNamed:IMAGE_HOUSES_DETAIL_ANNOTION];
-
+                    
                 }
                 break;
                 
@@ -435,7 +435,7 @@
                 break;
                 
             default:
-
+                
                 break;
         }
         
@@ -456,7 +456,7 @@
 {
     
     [self createMapInfoUI];
-
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [_mapInfoView.header endRefreshing];

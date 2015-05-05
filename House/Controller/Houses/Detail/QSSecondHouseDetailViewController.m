@@ -399,7 +399,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///保存价钱变动信息
     self.priceChangesInfo = dataModel.price_changes;
     ///保存评论信息
-//    self.commentInfo = dataModel.commentListReturnData;
+    //    self.commentInfo = dataModel.commentListReturnData;
     ///保存图片信息
     self.photoArray = dataModel.secondHouse_photo;
     
@@ -410,7 +410,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         self.intentionButton.hidden = YES;
         
     } else {
-    
+        
         self.intentionButton.hidden = NO;
         
         if ([self.detailInfo.expandInfo.is_store intValue] == 1) {
@@ -418,7 +418,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             self.intentionButton.selected = YES;
             
         }
-    
+        
     }
     
     ///主题图片
@@ -783,7 +783,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [self createFeaturesSubviews:featuresRootView andDataSource:houseInfoModel.features];
     
     NSString *coordinate_x = ([houseInfoModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfoModel.coordinate_x : houseInfoModel.coordinate_y;
-
+    
     NSString *coordinate_y = ([houseInfoModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? houseInfoModel.coordinate_y : houseInfoModel.coordinate_x;
     
     QSBlockView *mapView=[[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, featuresRootView.frame.origin.y+featuresRootView.frame.size.height, view.frame.size.width, 40.0f) andSingleTapCallBack:^(BOOL flag) {
@@ -963,7 +963,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     CGFloat imageY = SIZE_DEFAULT_MARGIN_LEFT_RIGHT;
     CGFloat gap = 20.0f;
     
-   // CGFloat labelW = 60.0f;
+    // CGFloat labelW = 60.0f;
     CGFloat labelY = imageY+imageH+8.0f;
     
     ///解析配套信息
@@ -1064,7 +1064,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     NSString *localUserID=[QSCoreDataManager getUserID];
     ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
     if ([localUserID isEqualToString:self.userInfo.id_]) {
-
+        
         
         unitLabel2.text = @"%";
         unitLabel2.textAlignment = NSTextAlignmentLeft;
@@ -1085,20 +1085,20 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         return;
     }
     else {
-    ///单位
-    unitLabel2.text = @"万";
-    unitLabel2.textAlignment = NSTextAlignmentLeft;
-    unitLabel2.textColor = COLOR_CHARACTERS_BLACK;
-    unitLabel2.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
-    [view addSubview:unitLabel2];
-    
-    ///金额
-    NSString *changePrice = [NSString stringWithFormat:@"%d",[priceChangeInfoModel.revised_price intValue]/10000 - [priceChangeInfoModel.before_price intValue]/10000];
-    changePriceLabel.text = changePrice;
-    changePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
-    changePriceLabel.textAlignment = NSTextAlignmentRight;
-    changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [view addSubview:changePriceLabel];
+        ///单位
+        unitLabel2.text = @"万";
+        unitLabel2.textAlignment = NSTextAlignmentLeft;
+        unitLabel2.textColor = COLOR_CHARACTERS_BLACK;
+        unitLabel2.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+        [view addSubview:unitLabel2];
+        
+        ///金额
+        NSString *changePrice = [NSString stringWithFormat:@"%d",[priceChangeInfoModel.revised_price intValue]/10000 - [priceChangeInfoModel.before_price intValue]/10000];
+        changePriceLabel.text = changePrice;
+        changePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+        changePriceLabel.textAlignment = NSTextAlignmentRight;
+        changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+        [view addSubview:changePriceLabel];
     }
     ///变动图标
     UIImageView *unitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x  -30.0f-2.0f -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
@@ -1116,7 +1116,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
     [view addSubview:unitImageView];
-   
+    
     ///单位
     UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitImageView.frame.origin.x -15.0f-10.0f-2.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
     unitLabel1.text = @"万";
@@ -1132,7 +1132,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     changeCountLabel1.textAlignment = NSTextAlignmentRight;
     changeCountLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [view addSubview:changeCountLabel1];
-        
+    
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
     bottomLineLabel.backgroundColor = COLOR_HEXCOLORH(0x000000, 0.5f);
@@ -1352,7 +1352,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         commentCountLabel.textAlignment = NSTextAlignmentCenter;
         commentCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_12];
         [view addSubview:commentCountLabel];
-
+        
         
         ///分隔线
         UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -1361,8 +1361,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     } else {
         
-       QSCommentListDataModel *tempModel = commentModel.commentList[0];
-
+        QSCommentListDataModel *tempModel = commentModel.commentList[0];
+        
         ///头像
         QSImageView *userImageView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
         userImageView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
@@ -1404,7 +1404,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         timeLabel.textColor = COLOR_CHARACTERS_GRAY;
         timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
         [view addSubview:timeLabel];
-    
+        
         ///评论内容
         UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, view.frame.size.width-90.0f, 15.0f)];
         commentLabel.text = tempModel.desc ? tempModel.desc : @"";
@@ -1702,7 +1702,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 });
                 
             });
-        
+            
         } else {
             
             UIScrollView *rootView = objc_getAssociatedObject(self, &DetailRootViewKey);
@@ -1724,7 +1724,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 #pragma mark - 暂停发布物业
 - (void)deleteProperty
 {
-
+    
     __block QSYPopCustomView *popView;
     
     QSYOwnerPropertyDeleteTipsPopView *tipsView = [[QSYOwnerPropertyDeleteTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 150.0f, SIZE_DEVICE_WIDTH, 150.0f) andCallBack:^(PROPERTY_DELETE_ACTION_TYPE actionType) {
@@ -1788,7 +1788,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     popView = [QSYPopCustomView popCustomViewWithoutChangeFrame:tipsView andPopViewActionCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
         
     }];
-
+    
 }
 
 #pragma mark - 收藏二手房
@@ -2012,10 +2012,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             tempImage = [UIImage imageWithData:imageData];
             
         }
-
+        
         ///处理不同的分享事件
-        switch (actionType) {                
-
+        switch (actionType) {
+                
                 ///新浪微博
             case sShareChoicesTypeXinLang:
                 
@@ -2028,7 +2028,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 
                 ///朋友圈
             case sShareChoicesTypeFriends:
-
+                
                 //设置分享内容和回调对象
                 [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
@@ -2040,13 +2040,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             case sShareChoicesTypeWeChat:
                 
                 //设置分享内容和回调对象
-
+                
                 [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
                 
                 break;
-
+                
             default:
                 break;
         }
@@ -2085,14 +2085,14 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     } else {
         
         [self addHistorySecondHandHouseToServer];
-    
+        
     }
     
 }
 
 - (void)saveBrowseRecordsToLocal
 {
-
+    
     [QSCoreDataManager saveHistoryDataWithModel:self.detailInfo andHistoryType:fFilterMainTypeSecondHouse andCallBack:^(BOOL flag) {
         
         if (flag) {
@@ -2106,7 +2106,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         }
         
     }];
-
+    
 }
 
 - (void)addHistorySecondHandHouseToServer
@@ -2141,7 +2141,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 #pragma mark - 视图加载后，判断是否进行头部刷新
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     if (self.isRefresh) {
         
         self.isRefresh = NO;
@@ -2154,7 +2154,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }
     [super viewWillAppear:animated];
-
+    
 }
 
 @end

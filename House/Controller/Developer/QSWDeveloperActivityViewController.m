@@ -36,7 +36,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"活动"];
-
+    
 }
 
 -(void)createMainShowUI
@@ -53,7 +53,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     __block UIButton *overButton;
     
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeClear];
-                                            
+    
     buttonStyle.bgColorSelected = COLOR_CHARACTERS_LIGHTYELLOW;
     buttonStyle.titleFont = [UIFont systemFontOfSize:18.0f];
     buttonStyle.title = @"当前活动";
@@ -78,7 +78,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         onlineActivityView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         objc_setAssociatedObject(self, &OnlineActivityViewKey, onlineActivityView, OBJC_ASSOCIATION_ASSIGN);
-
+        
         [onlineActivityView  addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOnlineInfo)];
         
         [onlineActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOnlineMoreInfo)];
@@ -160,7 +160,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
     [onlineActivityView  addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getOnlineInfo)];
     
     [onlineActivityView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getOnlineMoreInfo)];
-//    onlineActivityView.footer.hidden = YES;
+    //    onlineActivityView.footer.hidden = YES;
     
     [onlineActivityView.header beginRefreshing];
     [onlineActivityView.footer beginRefreshing];
@@ -177,22 +177,22 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 #pragma mark -数据源方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     return 80.0f;
     
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     return [self.activityListModel.records count];
-
+    
 }
 
 #pragma mark -返回列表的每一行
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     static NSString *CellIdentifier = @"normalInfoCell";
     QSWDeveloperActivityTableViewCell *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:CellIdentifier];
     
@@ -201,7 +201,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
         cell = [[QSWDeveloperActivityTableViewCell alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT+10.0f, 0.0f, SIZE_DEVICE_WIDTH-SIZE_DEFAULT_MARGIN_LEFT_RIGHT-20.0f, 80.0f)];
         
     }
-
+    
     self.activityDataModel = [[QSDeveloperActivityDataModel alloc] init];
     if (0<self.activityListModel.records.count) {
         
@@ -217,18 +217,18 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 #pragma mark -点击每行事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     QSWDeveloperActivityDetailViewController *VC =[[QSWDeveloperActivityDetailViewController alloc] initWithTitle:self.activityDataModel.title andConnet:self.activityDataModel.content andStatus:self.activityDataModel.status andSignUpNum:self.activityDataModel.apply_num andImage:self.activityDataModel.attach_thumb andactivityID:self.activityDataModel.id_];
     
     [self.navigationController pushViewController:VC animated:YES];
-
+    
 }
 
 #pragma mark -网络数据头部刷新请求
 ///当前活动数据请求
 -(void)getOnlineInfo
 {
-
+    
     UITableView *onlineView = objc_getAssociatedObject(self, &OnlineActivityViewKey);
     
     NSDictionary *params = @{@"page_num":@"10",
@@ -238,51 +238,51 @@ static char OverActivityViewKey;   //!<活动结束关联列表
                              };
     
     [QSRequestManager requestDataWithType:rRequestTypeDeveloperActivityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode)
-    {
-        
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            QSDeveloperActivityListReturnData *returnData = resultData;
-            self.activityListModel = returnData.msg;
-            
-            [onlineView reloadData];
-            
-            ///判断是否有数据
-            if ([self.activityListModel.records count] > 0) {
-                
-                [self showNoRecordTips:NO];
-                onlineView.footer.hidden = NO;
-                if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
-                    
-                    [onlineView.footer noticeNoMoreData];
-                    
-                } else {
-                    
-                    [onlineView.footer resetNoMoreData];
-                    
-                }
-                
-            } else {
-                
-                [self showNoRecordTips:YES andTips:@"暂无活动"];
-                onlineView.footer.hidden = YES;
-                
-            }
-            
-            ///判断是否显示脚部刷新
-            
-        } else {
-            
-            self.activityListModel = nil;
-            [onlineView reloadData];
-            [self showNoRecordTips:YES andTips:@"暂无活动"];
-            onlineView.footer.hidden = YES;
-            
-        }
-        [onlineView.header endRefreshing];
-        
-    }];
-
+     {
+         
+         if (rRequestResultTypeSuccess == resultStatus) {
+             
+             QSDeveloperActivityListReturnData *returnData = resultData;
+             self.activityListModel = returnData.msg;
+             
+             [onlineView reloadData];
+             
+             ///判断是否有数据
+             if ([self.activityListModel.records count] > 0) {
+                 
+                 [self showNoRecordTips:NO];
+                 onlineView.footer.hidden = NO;
+                 if ([returnData.msg.per_page isEqualToString:returnData.msg.next_page]) {
+                     
+                     [onlineView.footer noticeNoMoreData];
+                     
+                 } else {
+                     
+                     [onlineView.footer resetNoMoreData];
+                     
+                 }
+                 
+             } else {
+                 
+                 [self showNoRecordTips:YES andTips:@"暂无活动"];
+                 onlineView.footer.hidden = YES;
+                 
+             }
+             
+             ///判断是否显示脚部刷新
+             
+         } else {
+             
+             self.activityListModel = nil;
+             [onlineView reloadData];
+             [self showNoRecordTips:YES andTips:@"暂无活动"];
+             onlineView.footer.hidden = YES;
+             
+         }
+         [onlineView.header endRefreshing];
+         
+     }];
+    
 }
 
 ///结束活动数据请求
@@ -317,9 +317,9 @@ static char OverActivityViewKey;   //!<活动结束关联列表
                      [overView.footer noticeNoMoreData];
                      
                  } else {
-                 
+                     
                      [overView.footer resetNoMoreData];
-                 
+                     
                  }
                  
              } else {
@@ -349,7 +349,7 @@ static char OverActivityViewKey;   //!<活动结束关联列表
 ///当前活动脚部刷新
 -(void)getOnlineMoreInfo
 {
-
+    
     UITableView *onlineView = objc_getAssociatedObject(self, &OnlineActivityViewKey);
     
     ///判断是否最大页码
@@ -411,13 +411,13 @@ static char OverActivityViewKey;   //!<活动结束关联列表
              [onlineView.footer endRefreshing];
              
          } else {
-         
+             
              [onlineView.footer endRefreshing];
-         
+             
          }
          
      }];
-
+    
 }
 
 ///结束活动脚部刷新
@@ -490,6 +490,6 @@ static char OverActivityViewKey;   //!<活动结束关联列表
          }
          
      }];
-
+    
 }
 @end

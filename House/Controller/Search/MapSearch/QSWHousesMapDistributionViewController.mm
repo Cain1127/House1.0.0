@@ -582,9 +582,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
             ///删除物业后的回调
             detailVC.deletePropertyCallBack = ^(BOOL isDelete){
-            
+                
                 self.isRefresh = YES;
-            
+                
             };
             
             [self.navigationController pushViewController:detailVC animated:YES];

@@ -22,7 +22,7 @@ static char SignUpCountLabelKey;    //!<报名人数
 
 -(instancetype)initWithFrame:(CGRect)frame
 {
-
+    
     if (self = [super initWithFrame:frame]) {
         
         [self createDetailInfo];
@@ -30,13 +30,13 @@ static char SignUpCountLabelKey;    //!<报名人数
     }
     
     return self;
-
+    
 }
 
 #pragma mark - 创建UI
 -(void)createDetailInfo
 {
-
+    
     UILabel *tenantLabel = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, 20.0f, 90.0f, 17.5f)];
     tenantLabel.text = @"房客:谢婷婷";
     tenantLabel.font = [UIFont systemFontOfSize:16.0f];
@@ -81,7 +81,7 @@ static char SignUpCountLabelKey;    //!<报名人数
 #pragma mark -更新数据
 -(void)updateActivityDetailModel:(QSDeveloperActivityDetailDataModel *)dataModel
 {
-
+    
     UILabel *tenantLabel = objc_getAssociatedObject(self, &TenantLabelKey);
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneLabelKey);
     UILabel *signUpCountLabel = objc_getAssociatedObject(self, &SignUpCountLabelKey);
@@ -89,8 +89,8 @@ static char SignUpCountLabelKey;    //!<报名人数
     tenantLabel.text = [NSString stringWithFormat:@"%@%@",@"房客: ",dataModel.buyer_name ? dataModel.buyer_name : @""];
     phoneLabel.text = dataModel.buyer_phone ? dataModel.buyer_phone : @"";
     signUpCountLabel.text = dataModel.o_expand_2 ? dataModel.o_expand_2 : @"";
-
-
+    
+    
 }
 
 

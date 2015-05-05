@@ -1055,10 +1055,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     if ([priceChangesModel.revised_price intValue] >=0 && [priceChangesModel.before_price intValue]>=0)
         
     {
-            changePriceLabel.text = [NSString stringWithFormat:@"%d",[priceChangesModel.revised_price intValue] - [priceChangesModel.before_price intValue]];
+        changePriceLabel.text = [NSString stringWithFormat:@"%d",[priceChangesModel.revised_price intValue] - [priceChangesModel.before_price intValue]];
     }
     else {
-    
+        
         return;
         
     }
@@ -1072,13 +1072,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     if ([changePriceLabel.text intValue] >= 0) {
         
-         changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEUP];
+        changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEUP];
         
     }
     else if ([changePriceLabel.text intValue] < 0)
     {
         
-    changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
+        changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
         
     }
     
@@ -1342,11 +1342,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             
         }
         else {
-        
+            
             timeLabel.text = nil;
             
         }
-  
+        
         timeLabel.textColor = COLOR_CHARACTERS_GRAY;
         timeLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
         [view addSubview:timeLabel];

@@ -270,9 +270,9 @@
                     [self.footer noticeNoMoreData];
                     
                 } else {
-                
+                    
                     [self.footer resetNoMoreData];
-                
+                    
                 }
                 
             });
@@ -299,7 +299,7 @@
             }
             
         }
-     
+        
     }];
     
 }

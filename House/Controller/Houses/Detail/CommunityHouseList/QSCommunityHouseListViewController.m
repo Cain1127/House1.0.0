@@ -473,7 +473,7 @@ static char CollectionViewKey;          //!<列表
             
         }
             
-        break;
+            break;
             
             ///出租房列表
         case fFilterMainTypeRentalHouse:
@@ -514,7 +514,7 @@ static char CollectionViewKey;          //!<列表
             listView.alwaysBounceVertical = YES;
             [self.view addSubview:listView];
             objc_setAssociatedObject(self, &CollectionViewKey, listView, OBJC_ASSOCIATION_ASSIGN);
-        
+            
         }
             
             break;
@@ -568,8 +568,8 @@ static char CollectionViewKey;          //!<列表
     
     ///根据不同的列表，进入同的详情页
     switch (self.listType) {
-        
-        ///进入二手房详情
+            
+            ///进入二手房详情
         case fFilterMainTypeSecondHouse:
         {
             
@@ -581,17 +581,17 @@ static char CollectionViewKey;          //!<列表
             
             ///删除物业时刷新数据
             detailVC.deletePropertyCallBack = ^(BOOL isDelete){
-            
+                
                 self.isNeedRefresh = YES;
-            
+                
             };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
-        break;
-        
-        ///进入出租房详情
+            break;
+            
+            ///进入出租房详情
         case fFilterMainTypeRentalHouse:
         {
             
@@ -602,18 +602,18 @@ static char CollectionViewKey;          //!<列表
             QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([houseInfoModel.title  length] > 0 ? houseInfoModel.title : houseInfoModel.village_name) andDetailID:houseInfoModel.id_ andDetailType:self.listType];
             
             detailVC.deletePropertyCallBack = ^(BOOL isDelete){
-            
+                
                 self.isNeedRefresh = YES;
-            
+                
             };
             
             [self.navigationController pushViewController:detailVC animated:YES];
             
         }
-        break;
-        
+            break;
+            
         default:
-        break;
+            break;
             
     }
     
@@ -622,7 +622,7 @@ static char CollectionViewKey;          //!<列表
 #pragma mark - 将要显示时判断是否需要刷新
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     [super viewWillAppear:animated];
     
     if (self.isNeedRefresh) {
@@ -636,7 +636,7 @@ static char CollectionViewKey;          //!<列表
         });
         
     }
-
+    
 }
 
 @end

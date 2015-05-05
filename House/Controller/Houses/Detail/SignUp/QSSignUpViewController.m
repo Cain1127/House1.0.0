@@ -48,7 +48,7 @@
 
 -(instancetype)initWithtitle:(NSString *)houseTitle andloupanID:(NSString *)loupanID anduserID:(NSString *)userID
 {
-
+    
     if (self = [super init]) {
         
         self.houseTitle=houseTitle;
@@ -58,7 +58,7 @@
     }
     
     return self;
-
+    
 }
 
 -(instancetype)initWithactivityID:(NSString*)activityID andTitle:(NSString *)title andNumber:(NSString *)number andEndTime:(NSString *)endTime andloupanID:(NSString *)loupanID anduserID:(NSString *)userID
@@ -73,22 +73,22 @@
         self.loupanID = loupanID;
         self.userID = userID;
     }
-
+    
     return self;
-
+    
 }
 
 -(void)createNavigationBarUI
 {
-
+    
     [super createNavigationBarUI];
     [self setNavigationBarTitle:@"填写信息"];
-
+    
 }
 
 -(void)createMainShowUI
 {
-
+    
     [super createMainShowUI];
     ///添加活动主view
     _rootView=[[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-124.0f)];
@@ -101,7 +101,7 @@
     _bottomView=[[UIView alloc] initWithFrame:CGRectMake(0, SIZE_DEVICE_HEIGHT-60.0f, SIZE_DEVICE_WIDTH, 60.0f)];
     [self.view addSubview:_bottomView];
     [self createBottomUI:_bottomView];
-
+    
     [_rootView.header beginRefreshing];
 }
 
@@ -128,16 +128,16 @@
     if (self.activityID) {
         
         titleLabel.text=self.title;
-
+        
     }
     else if(!self.activityID)
     {
-    titleLabel.text=self.houseTitle;
+        titleLabel.text=self.houseTitle;
     }
     
     titleLabel.font=[UIFont systemFontOfSize:20.0f];
     titleLabel.textAlignment=NSTextAlignmentCenter;
-
+    
     [view addSubview:titleLabel];
     
     if (self.activityID) {
@@ -161,7 +161,7 @@
 
 -(void)createMiddleUI:(UIView *)view
 {
-
+    
     _linkManView = [UITextField createCustomTextFieldWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"联系人:" andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:cCustomTextFieldStyleLeftTipsGray];
     _linkManView.clearButtonMode = UITextFieldViewModeWhileEditing;
     _linkManView.delegate = self;
@@ -192,7 +192,7 @@
         
         _numberView.clearButtonMode = UITextFieldViewModeWhileEditing;
         _numberView.delegate=self;
-       // _numberView.keyboardType=UIKeyboardTypeNumberPad;
+        // _numberView.keyboardType=UIKeyboardTypeNumberPad;
         [view addSubview:_numberView];
         
         ///分隔线
@@ -201,7 +201,7 @@
         [view addSubview:SignUpNumLineLabel];
         
     }
-
+    
 }
 
 -(void)createBottomUI:(UIView *)view
@@ -257,7 +257,7 @@
             })
             return;
         }
-
+        
         if (self.activityID) {
             
             ///报名人数有效性数据
@@ -269,9 +269,9 @@
                     [_linkManView becomeFirstResponder];
                     
                 })
-        
-            return;
-        }
+                
+                return;
+            }
         }
         ///回收键盘
         [_linkManView resignFirstResponder];
@@ -281,7 +281,7 @@
         ///网络请求
         [self postSignUpInfo];
         
-        }];
+    }];
     [view addSubview:signUpButton];
     
 }
@@ -314,7 +314,7 @@
 #pragma mark -创建UI结束刷新
 -(void)getSignUpInfo
 {
-
+    
     [self createSignUpInfoViewUI];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -322,7 +322,7 @@
         [_rootView.header endRefreshing];
         
     });
-
+    
 }
 
 - (void)postSignUpInfo
@@ -368,7 +368,7 @@
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
                 
-            [self.navigationController popViewControllerAnimated:YES];                
+                [self.navigationController popViewControllerAnimated:YES];
                 
             })
             

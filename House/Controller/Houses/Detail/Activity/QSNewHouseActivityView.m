@@ -50,7 +50,7 @@ static char CommitedCountKey;   //!<已报名人数关联
  */
 - (instancetype)initWithFrame:(CGRect)frame andSignUpButtonCallBack:(void(^)(ACTIVITY_CALLBACK_ACTION_TYPE flag))signButtonCallBack
 {
-
+    
     if (self = [super initWithFrame:frame]) {
         
         ///背景颜色
@@ -69,7 +69,7 @@ static char CommitedCountKey;   //!<已报名人数关联
     }
     
     return self;
-
+    
 }
 
 #pragma mark - UI搭建
@@ -200,7 +200,7 @@ static char CommitedCountKey;   //!<已报名人数关联
     signUpButton.layer.cornerRadius = 6.0f;
     //signUpButton.userInteractionEnabled = NO;
     [infoRootView addSubview:signUpButton];
-
+    
 }
 
 #pragma mark - 刷新UI
@@ -215,7 +215,7 @@ static char CommitedCountKey;   //!<已报名人数关联
  */
 - (void)updateNewHouseActivityUI:(QSActivityDataModel *)model
 {
-
+    
     ///更新活动结束日期
     UILabel *endDataLabel = objc_getAssociatedObject(self, &EndDataKey);
     endDataLabel.text = [[NSDate formatNSTimeToNSDateString:model.end_time] substringToIndex:10];
@@ -239,12 +239,12 @@ static char CommitedCountKey;   //!<已报名人数关联
         [timer fire];
         
     } else {
-    
+        
         ///显示活动过期
         [self activityOverTime];
-    
+        
     }
-
+    
 }
 
 #pragma mark - 开始倒计时
@@ -292,14 +292,14 @@ static char CommitedCountKey;   //!<已报名人数关联
     
     ///更新秒数
     self.totalTime = self.totalTime - 1.0f;
-
+    
 }
 
 #pragma mark - 显示活动过期
 ///显示活动过期
 - (void)activityOverTime
 {
-
+    
     ///清空原信息
     UIView *rootView = objc_getAssociatedObject(self, &InfoRootViewKey);
     
@@ -316,7 +316,7 @@ static char CommitedCountKey;   //!<已报名人数关联
     overTimeLabel.textAlignment = NSTextAlignmentCenter;
     overTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
     [rootView addSubview:overTimeLabel];
-
+    
 }
 
 @end
