@@ -1041,13 +1041,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
     
-    ///变动图标
-    UIImageView *unitLabel2 = [[UIImageView alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
-    unitLabel2.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
-    [view addSubview:unitLabel2];
-    
     ///单位
-    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x  -20.0f- 2.0f,arrowView.frame.origin.y+4.0f , 20.0f, 15.0f)];
+    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -10.0f-2.0f  -20.0f- 2.0f,arrowView.frame.origin.y+4.0f , 20.0f, 15.0f)];
     unitLabel1.text = @"元";
     unitLabel1.textAlignment = NSTextAlignmentLeft;
     unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
@@ -1055,12 +1050,38 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:unitLabel1];
     
     ///金额
-    UILabel *changeCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -70.0f- 2.0f, arrowView.frame.origin.y+1.5f, 70.0f, 20.0f)];
-    changeCountLabel.text = @"800";
-    changeCountLabel.textColor = COLOR_CHARACTERS_YELLOW;
-    changeCountLabel.textAlignment = NSTextAlignmentRight;
-    changeCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [view addSubview:changeCountLabel];
+    UILabel *changePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel1.frame.origin.x -70.0f- 2.0f, arrowView.frame.origin.y+1.5f, 70.0f, 20.0f)];
+    if ([priceChangesModel.revised_price intValue] >=0 && [priceChangesModel.before_price intValue]>=0)
+        
+    {
+            changePriceLabel.text = [NSString stringWithFormat:@"%d",[priceChangesModel.revised_price intValue] - [priceChangesModel.before_price intValue]];
+    }
+    else {
+    
+        return;
+        
+    }
+    changePriceLabel.textColor = COLOR_CHARACTERS_YELLOW;
+    changePriceLabel.textAlignment = NSTextAlignmentRight;
+    changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:changePriceLabel];
+    
+    ///变动图标
+    UIImageView *changeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(arrowView.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
+    
+    if ([changePriceLabel.text intValue] >= 0) {
+        
+         changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEUP];
+        
+    }
+    else if ([changePriceLabel.text intValue] < 0)
+    {
+        
+    changeImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
+        
+    }
+    
+    [view addSubview:changeImageView];
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -1318,7 +1339,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [view addSubview:timeLabel];
         
         ///评论内容
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+3.0f, SIZE_DEFAULT_MAX_WIDTH-40.0f-50.0f, 15.0f)];
         commentLabel.text = APPLICATION_NSSTRING_SETTING(tempModel.desc, @"暂无");
         commentLabel.textColor = COLOR_CHARACTERS_BLACK;
         commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
@@ -1733,6 +1754,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 - (void)shareRentHouse:(UIButton *)button
 {
     
+    static NSString *identify = @"wechat";
+    
     NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.tempTitle,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
     
     ///弹出窗口的指针
@@ -1780,13 +1803,16 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 
                 break;
                 
-                ///微信朋友圈
+                ///微信
             case sShareChoicesTypeWeChat:
                 
                 //设置分享内容和回调对象
                 [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:tempImage socialUIDelegate:self];
                 
+                
                 [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession].snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+                
+                [UMSocialData defaultData].extConfig.wechatSessionData.title = self.tempTitle;
                 
                 break;
                 

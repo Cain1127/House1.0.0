@@ -1067,21 +1067,17 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:unitLabel2];
     
     ///金额
-    UILabel *changeCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x -40.0f- 2.0f, arrowView.frame.origin.y+1.5f, 40.0f, 20.0f)];
+    UILabel *changePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(unitLabel2.frame.origin.x -40.0f- 2.0f, arrowView.frame.origin.y+1.5f, 40.0f, 20.0f)];
     NSString *changePrice = [NSString stringWithFormat:@"%.2f",[priceChangeInfoModel.revised_price floatValue] - [priceChangeInfoModel.before_price floatValue]];
-    changeCountLabel.text = changePrice;
-    changeCountLabel.textColor = COLOR_CHARACTERS_BLACK;
-    changeCountLabel.textAlignment = NSTextAlignmentRight;
-    changeCountLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
-    [view addSubview:changeCountLabel];
+    changePriceLabel.text = changePrice;
+    changePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
+    changePriceLabel.textAlignment = NSTextAlignmentRight;
+    changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
+    [view addSubview:changePriceLabel];
     
-    ///变动图标
-    UIImageView *unitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(changeCountLabel.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
-    unitImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
-    [view addSubview:unitImageView];
-    
+   
     ///单位
-    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(unitImageView.frame.origin.x  -15.0f- 2.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
+    UILabel *unitLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(changePriceLabel.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 15.0f, 20.0f)];
     unitLabel1.text = @"万";
     unitLabel1.textAlignment = NSTextAlignmentLeft;
     unitLabel1.textColor = COLOR_CHARACTERS_BLACK;
@@ -1095,6 +1091,24 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     changeCountLabel1.textAlignment = NSTextAlignmentRight;
     changeCountLabel1.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
     [view addSubview:changeCountLabel1];
+    
+    ///变动图标
+    UIImageView *unitImageView = [[UIImageView alloc] initWithFrame:CGRectMake(changePriceLabel.frame.origin.x -10.0f-2.0f,arrowView.frame.origin.y+4.0f , 10.0f, 15.0f)];
+    
+    if ([changePriceLabel.text intValue] >= 0) {
+        
+        unitImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEUP];
+        
+    }
+    else if ([changePriceLabel.text intValue] < 0)
+    {
+        
+        unitImageView.image=[UIImage imageNamed:IMAGE_HOUSES_DETAIL_PRICEDOWN];
+        
+    }
+    
+    [view addSubview:unitImageView];
+    
     
     ///分隔线
     UILabel *bottomLineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,view.frame.size.height- 0.25f, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT,  0.25f)];
@@ -1287,7 +1301,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 -(void)createCommentViewUI:(UIView *)view andCommentModel:(QSDetailCommentListReturnData *)commentModel
 {
     
-    if (!commentModel.total_num || commentModel.total_num == 0) {
+    if ([commentModel.total_num intValue] <= 0) {
         
         UILabel *nNommentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 20.0f)];
         nNommentLabel.center = CGPointMake(60.0f, view.frame.size.height/2.0f);
@@ -1350,7 +1364,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         [view addSubview:userLabel];
     
         ///评论内容
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH-70.0f, 15.0f)];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabel.frame.origin.x, userLabel.frame.origin.y+userLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH-90.0f, 15.0f)];
         commentLabel.text = tempModel.desc ? tempModel.desc : @"";
         commentLabel.textColor = COLOR_CHARACTERS_BLACK;
         commentLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];

@@ -1562,13 +1562,6 @@
     cdCollectedModel.price_change_create_time = collectedModel.price_changes.create_time;
     cdCollectedModel.price_changes_num = collectedModel.price_changes.price_changes_num;
     
-    ///评论信息
-    QSCommentListDataModel *tempCommentModel = collectedModel.comment.commentList[0];
-    cdCollectedModel.comment_id_ = tempCommentModel.id_;
-    cdCollectedModel.comment_user_id = tempCommentModel.evaluater_id;
-    cdCollectedModel.comment_type = tempCommentModel.evaluater_type;
-    cdCollectedModel.comment_content = tempCommentModel.desc;
-    
     ///时间出戳
     cdCollectedModel.create_time = [NSDate date];
     
