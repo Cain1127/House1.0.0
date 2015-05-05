@@ -26,7 +26,7 @@
 	<key>2029</key>
 	<dict>
 		<key>url</key>
-		<string>viewLog/delViewLog</string>
+		<string>viewLog/delAll</string>
 		<key>class</key>
 		<string>QSYSendVerticalCodeReturnData</string>
 	</dict>

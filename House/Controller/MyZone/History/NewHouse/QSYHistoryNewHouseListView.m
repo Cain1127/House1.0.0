@@ -9,12 +9,14 @@
 #import "QSYHistoryNewHouseListView.h"
 
 #import "QSAttentionCommunityCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSNewHouseListReturnData.h"
 #import "QSNewHouseInfoDataModel.h"
 
 #import "QSCoreDataManager+History.h"
 
+#import "QSRequestManager.h"
 #import "MJRefresh.h"
 
 @interface QSYHistoryNewHouseListView () <UICollectionViewDataSource,UICollectionViewDelegate>
@@ -179,6 +181,31 @@
 
 }
 
+#pragma mark - 设置编辑状态
+/**
+ *  @author             yangshengmeng, 15-05-03 12:05:28
+ *
+ *  @brief              通过给定的数字设置当前的编辑状态
+ *
+ *  @param isEditing    0-未编辑状态；1-编辑状态
+ *
+ *  @since              1.0.0
+ */
+- (void)setIsEditingWithNumber:(NSNumber *)isEditing
+{
+    
+    if ([isEditing intValue] == 1) {
+        
+        self.isEditing = YES;
+        
+    } else {
+        
+        self.isEditing = NO;
+        
+    }
+    
+}
+
 - (void)setIsEditing:(BOOL)isEditing
 {
     
@@ -200,7 +227,35 @@
 - (void)clearHistoryNewHouse
 {
     
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在清空"];
     
+    ///封装参数
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///清空成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"已清空新房浏览记录" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                [self.header beginRefreshing];
+                
+            }];
+            
+        } else {
+        
+            NSString *tipsString = @"清空失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+        
+        }
+        
+    }];
     
 }
 

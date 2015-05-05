@@ -11,9 +11,11 @@
 #import "QSCollectionWaterFlowLayout.h"
 
 #import "QSYHistoryHouseCollectionViewCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSCoreDataManager+History.h"
 
+#import "QSRequestManager.h"
 #import "MJRefresh.h"
 
 @interface QSYHistorySecondHandHouseListView () <QSCollectionWaterFlowLayoutDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
@@ -237,7 +239,35 @@
 - (void)clearHistorySecondHandHouse
 {
     
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在清空"];
     
+    ///封装参数
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///清空成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [hud hiddenCustomHUDWithFooterTips:@"已清空二手房浏览记录" andDelayTime:1.5f andCallBack:^(BOOL flag) {
+                
+                [self.header beginRefreshing];
+                
+            }];
+            
+        } else {
+            
+            NSString *tipsString = @"清空失败";
+            if (resultData) {
+                
+                tipsString = [resultData valueForKey:@"info"];
+                
+            }
+            [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
+            
+        }
+        
+    }];
     
 }
 
