@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>sale_contract_list</key>
+	<array>
+		<dict>
+			<key>file_name</key>
+			<string>ContractBuySecondHandHouseSaletHTML</string>
+			<key>title</key>
+			<string>二手房买卖合同</string>
+		</dict>
+		<dict>
+			<key>file_name</key>
+			<string>ContractBuySecondHandHouseSaleSupplementalAgreementHTML</string>
+			<key>title</key>
+			<string>带补充协议的二手房买卖合同范本</string>
+		</dict>
+		<dict>
+			<key>file_name</key>
+			<string>ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML</string>
+			<key>title</key>
+			<string>买卖定金支付及要约发出通知书的补充协议</string>
+		</dict>
+	</array>
+	<key>rent_contract_list</key>
+	<array>
+		<dict>
+			<key>file_name</key>
+			<string>ContractRentLeaseAgreementHTML</string>
+			<key>title</key>
+			<string>广州市房屋租赁合同</string>
+		</dict>
+	</array>
+</dict>
+</plist>

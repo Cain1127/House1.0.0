@@ -24,6 +24,12 @@
 		180CA3431ADCE3CF00D42493 /* QSSecondHandHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180CA3421ADCE3CF00D42493 /* QSSecondHandHouseListView.m */; };
 		180D27501AEE44AE0077BDE8 /* QSYSystemMessageReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 180D274F1AEE44AE0077BDE8 /* QSYSystemMessageReturnData.m */; };
 		18124B891AFA59180052E65B /* QSYAboutUsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124B881AFA59180052E65B /* QSYAboutUsInfoViewController.m */; };
+		18124B8C1AFA61F90052E65B /* ChatToolInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18124B8B1AFA61F90052E65B /* ChatToolInfo.plist */; };
+		18124B901AFA62ED0052E65B /* QSYLocalHTMLShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124B8F1AFA62ED0052E65B /* QSYLocalHTMLShowViewController.m */; };
+		18124DF21AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF11AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html */; };
+		18124DF41AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF31AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html */; };
+		18124DF61AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF51AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html */; };
+		18124DF81AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */; };
 		1814A3A91AF8799300987908 /* QSYHistoryRentHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */; };
 		1814A3AC1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AB1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m */; };
 		1814A3AF1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AE1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m */; };
@@ -912,6 +918,13 @@
 		180D274F1AEE44AE0077BDE8 /* QSYSystemMessageReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSystemMessageReturnData.m; path = Message/QSYSystemMessageReturnData.m; sourceTree = "<group>"; };
 		18124B871AFA59180052E65B /* QSYAboutUsInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAboutUsInfoViewController.h; path = Setting/AboutUs/QSYAboutUsInfoViewController.h; sourceTree = "<group>"; };
 		18124B881AFA59180052E65B /* QSYAboutUsInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAboutUsInfoViewController.m; path = Setting/AboutUs/QSYAboutUsInfoViewController.m; sourceTree = "<group>"; };
+		18124B8B1AFA61F90052E65B /* ChatToolInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ChatToolInfo.plist; path = Chat/ChatToolInfo.plist; sourceTree = "<group>"; };
+		18124B8E1AFA62ED0052E65B /* QSYLocalHTMLShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYLocalHTMLShowViewController.h; path = Setting/Contract/Detail/QSYLocalHTMLShowViewController.h; sourceTree = "<group>"; };
+		18124B8F1AFA62ED0052E65B /* QSYLocalHTMLShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYLocalHTMLShowViewController.m; path = Setting/Contract/Detail/QSYLocalHTMLShowViewController.m; sourceTree = "<group>"; };
+		18124DF11AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractRentLeaseAgreementHTML.html; sourceTree = "<group>"; };
+		18124DF31AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaletHTML.html; sourceTree = "<group>"; };
+		18124DF51AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html; sourceTree = "<group>"; };
+		18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html; sourceTree = "<group>"; };
 		1814A3A71AF8799300987908 /* QSYHistoryRentHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistoryRentHouseListReturnData.h; path = History/QSYHistoryRentHouseListReturnData.h; sourceTree = "<group>"; };
 		1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHistoryRentHouseListReturnData.m; path = History/QSYHistoryRentHouseListReturnData.m; sourceTree = "<group>"; };
 		1814A3AA1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistorySecondHandHouseListReturnData.h; path = History/QSYHistorySecondHandHouseListReturnData.h; sourceTree = "<group>"; };
@@ -2379,6 +2392,7 @@
 		180CA32D1ADBA22400D42493 /* Contract */ = {
 			isa = PBXGroup;
 			children = (
+				18124B8D1AFA62900052E65B /* Detail */,
 				180CA32E1ADBA24100D42493 /* QSYToolContractViewController.h */,
 				180CA32F1ADBA24100D42493 /* QSYToolContractViewController.m */,
 			);
@@ -2403,6 +2417,51 @@
 				18124B881AFA59180052E65B /* QSYAboutUsInfoViewController.m */,
 			);
 			name = AboutUs;
+			sourceTree = "<group>";
+		};
+		18124B8A1AFA61C30052E65B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				18124B8B1AFA61F90052E65B /* ChatToolInfo.plist */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		18124B8D1AFA62900052E65B /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				18124B8E1AFA62ED0052E65B /* QSYLocalHTMLShowViewController.h */,
+				18124B8F1AFA62ED0052E65B /* QSYLocalHTMLShowViewController.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		18124B911AFA658C0052E65B /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				18124B921AFA658C0052E65B /* Chat */,
+			);
+			name = HTML;
+			path = House/HTML;
+			sourceTree = "<group>";
+		};
+		18124B921AFA658C0052E65B /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				18124B931AFA658C0052E65B /* Contract */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		18124B931AFA658C0052E65B /* Contract */ = {
+			isa = PBXGroup;
+			children = (
+				18124DF11AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html */,
+				18124DF31AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html */,
+				18124DF51AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html */,
+				18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */,
+			);
+			path = Contract;
 			sourceTree = "<group>";
 		};
 		1814A3A61AF8796100987908 /* History */ = {
@@ -2594,6 +2653,7 @@
 			isa = PBXGroup;
 			children = (
 				1893009A1A6903540081D0AA /* Readme.rtf */,
+				18124B911AFA658C0052E65B /* HTML */,
 				18AFAA0A1AB6C5DA00681071 /* Protocol */,
 				189300721A6902E30081D0AA /* Category */,
 				1893007A1A6902E30081D0AA /* Controller */,
@@ -3143,6 +3203,7 @@
 		189300951A6902E30081D0AA /* Plist */ = {
 			isa = PBXGroup;
 			children = (
+				18124B8A1AFA61C30052E65B /* Chat */,
 				CE520FF41ACCFBDB00D6230B /* House */,
 				18BE12771A8AE3DF0036245A /* MyZone */,
 				18F99ACE1A731DD600098FD6 /* Filter */,
@@ -6550,6 +6611,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18124DF81AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html in Resources */,
 				CEACB03B1AD618130010D455 /* houses_detail_rent_xizao_light.png in Resources */,
 				CE52100E1ACD0F1800D6230B /* houses_detail_market_normal.png in Resources */,
 				18B9736F1AF4FB1700652890 /* myzone_contact_list_recommend_normal.png in Resources */,
@@ -6720,9 +6782,11 @@
 				18DFE8D61AC95BEA00C216C3 /* navigationbar_add_normal.png in Resources */,
 				18B973991AF4FB1700652890 /* myzone_oorderlist_cell_rent_mark_tip.png in Resources */,
 				CE52100A1ACD0F1800D6230B /* houses_detail_catering_normal.png in Resources */,
+				18124DF41AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
 				18DFE8B61AC7D09900C216C3 /* public_no_intention_community.png in Resources */,
+				18124DF61AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html in Resources */,
 				CEACB0331AD618130010D455 /* houses_detail_rent_net_light.png in Resources */,
 				184366971AB9843100A81374 /* FilterAdvanceRentHouse.plist in Resources */,
 				18B9739C1AF4FB1700652890 /* myzone_order_result_icon.png in Resources */,
@@ -6808,6 +6872,7 @@
 				18B564651A8366A4009779A0 /* public_row_arrow.png in Resources */,
 				18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */,
 				18B564251A8366A4009779A0 /* houses_appliance.png in Resources */,
+				18124DF21AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html in Resources */,
 				18B972DF1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png in Resources */,
 				18B5645C1A8366A4009779A0 /* public_appointment_success.png in Resources */,
 				18B972E21AF2064C00652890 /* talk_my_sound_message_normal.png in Resources */,
@@ -6864,6 +6929,7 @@
 				CEACB05F1AD62E510010D455 /* house_detail_second_huayuan_light.png in Resources */,
 				18B564021A8366A4009779A0 /* home_background.png in Resources */,
 				CE5210091ACD0F1800D6230B /* houses_detail_catering_highlighted.png in Resources */,
+				18124B8C1AFA61F90052E65B /* ChatToolInfo.plist in Resources */,
 				CE52100B1ACD0F1800D6230B /* houses_detail_hospital_highlighted.png in Resources */,
 				18B564401A8366A4009779A0 /* 640X1136.png in Resources */,
 				18B9739B1AF4FB1700652890 /* myzone_oorderlist_cell_talkprice_bt_selected.png in Resources */,
@@ -7160,6 +7226,7 @@
 				18C8A0D31A6A696200BB9611 /* QSBlockButtonStyleModel.m in Sources */,
 				18F5E0CF1ADE5A1500DA927E /* QSYRecommendTenantInfoDataModel.m in Sources */,
 				18D082011ACE9D90004FA20F /* QSYAskListOrderInfosModel.m in Sources */,
+				18124B901AFA62ED0052E65B /* QSYLocalHTMLShowViewController.m in Sources */,
 				475A4D6A1AC536F2009881CF /* QSPOrderDetailActivitiesPhoneView.m in Sources */,
 				18D081F81ACE8728004FA20F /* QSYContactInfoView.m in Sources */,
 				18D081AD1ACD51EC004FA20F /* QSYReleaseHouseDateInfoViewController.m in Sources */,

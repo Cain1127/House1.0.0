@@ -57,4 +57,7 @@
 ///房源周边信息地图的频道栏按钮配置信息
 #define PLIST_FILE_NAME_HOUSEDETAIL_AROUND_CHANNELBAR @"HouseDetailAroundInfo"
 
+///发现->工具->合同模板
+#define PLIST_FILE_NAME_CHAT_TOOL_CONTRACT @"ChatToolInfo"
+
 #endif
