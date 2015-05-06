@@ -7,7 +7,6 @@
 //
 
 #import <MAMapKit/MAMapKit.h>
-//#import "QSCustomCalloutView.h"
 @interface QSCustomAnnotationView : MAAnnotationView
 
 @property (nonatomic, copy) NSString *deteilID;                 //!<单据ID
@@ -15,6 +14,11 @@
 @property (nonatomic,copy) NSString *buildingID;                //!<新房中，楼栋ID
 @property (nonatomic, copy) NSString *subtitle;                 //!<价钱
 @property (nonatomic,assign)FILTER_MAIN_TYPE houseType;         //!<房源类型
+
+
+- (instancetype)initWithAnnotation:(id <MAAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier andHouseType:(FILTER_MAIN_TYPE)houseType;
+
+
 /*!
  *  @author wangshupeng, 15-03-27 16:03:57
  *

@@ -31,13 +31,14 @@
 
 @implementation QSCustomAnnotationView
 
-- (instancetype)initWithAnnotation:(id <MAAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithAnnotation:(id <MAAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier andHouseType:(FILTER_MAIN_TYPE)houseType
 {
     
     if (self=[super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier]) {
         
         ///信息展示view
         self.annoView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 70.0f)];
+        self.houseType = houseType;
         [self initSubViews];
         
         ///大头针大小

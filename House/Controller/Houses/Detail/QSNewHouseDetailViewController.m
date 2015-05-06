@@ -83,6 +83,8 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
 
 @property (nonatomic,strong) UIButton *intentionButton;             //!<收藏按钮
 
+@property (nonatomic,strong) QSScrollView *houseTypeRootView;
+@property (nonatomic,strong) UILabel *houseTypeSepLine;
 @end
 
 @implementation QSNewHouseDetailViewController
@@ -436,15 +438,25 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     UIView *secondRootView = [[UIView alloc] initWithFrame:CGRectMake(leftGap, openRootView.frame.origin.y + openRootView.frame.size.height, mainInfoWidth, 60.0f)];
     
     ///户型信息
-    QSScrollView *houseTypeRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, mainInfoWidth, 75.0f)];
-    [self createHouseTypeInfoUI:houseTypeRootView];
+    if (self.detailInfo.loupanHouse && (int)[self.detailInfo.loupanHouse count]>0) {
+        
+        self.houseTypeRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, mainInfoWidth, 75.0f)];
+        [self createHouseTypeInfoUI:self.houseTypeRootView];
+        
+        ///分隔线
+        _houseTypeSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.houseTypeRootView.frame.origin.y + self.houseTypeRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
+        _houseTypeSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+        
+    }
     
-    ///分隔线
-    UILabel *houseTypeSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, houseTypeRootView.frame.origin.y + houseTypeRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
-    houseTypeSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
+    else{
+    
+        self.houseTypeRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, mainInfoWidth, 0.25f)];
+
+    }
     
     ///贷款说明信息
-    QSBlockView *provideRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, houseTypeRootView.frame.origin.y + houseTypeRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
+    QSBlockView *provideRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, self.houseTypeRootView.frame.origin.y + self.houseTypeRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入计算器页面
         QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
@@ -491,8 +503,8 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     
     ///将其他信息view加载到第二底view上
     [secondRootView addSubview:openSepLine];
-    [secondRootView addSubview:houseTypeRootView];
-    [secondRootView addSubview:houseTypeSepLine];
+    [secondRootView addSubview:self.houseTypeRootView];
+    [secondRootView addSubview:_houseTypeSepLine];
     [secondRootView addSubview:provideRootView];
     [secondRootView addSubview:provideSepLine];
     [secondRootView addSubview:taxRootView];

@@ -76,6 +76,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (nonatomic,strong) QSCustomPickerView *houseTypePickerView;       //!<户型选择按钮
 @property (nonatomic,strong) QSCustomPickerView *pricePickerView;           //!<总价选择按钮
 
+@property (nonatomic,retain) NSMutableArray *annoArray;                     //!<大头针气泡模型数组
+
 @property (nonatomic,retain) QSCustomHUDView *hud;                          //!<HUD
 @property (assign) BOOL isRefresh;                                          //!<标识视图出现时是否头部刷新
 
@@ -676,8 +678,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     }
     
     _locationmanager = [[CLLocationManager alloc] init];
-    [_locationmanager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
-    [_locationmanager requestWhenInUseAuthorization];     //NSLocationWhenInUseDescription
+    [_locationmanager requestAlwaysAuthorization];
+    [_locationmanager requestWhenInUseAuthorization];
     _locationmanager.delegate = self;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -749,12 +751,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)addNewHouseAnnotations
 {
     
-    NSMutableArray *annoArray=[[NSMutableArray alloc] init];
+    [self.annoArray removeAllObjects];
+    self.annoArray = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < [self.mapNewHouseListData.mapNewHouseListHeaderData.records count]; i++) {
         
         QSMapNewHouseDataModel *tempModel = self.mapNewHouseListData.mapNewHouseListHeaderData.records[i];
-//        self.title = tempModel.mapCommunityDataSubModel.title;
         
         self.subtitle = tempModel.loupanbuilding_msg.price_avg;
         
@@ -764,20 +766,20 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         double latitude = [self.coordinate_y doubleValue];
         double longitude = [self.coordinate_x doubleValue];
         
-        MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
+       MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         
         NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.loupan_msg.title,tempModel.loupan_msg.id_];
         anno.title = tempTitle;
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
-        [annoArray addObject:anno];
+        [self.annoArray addObject:anno];
         
         [_mapView addAnnotation:anno];
         
     }
     
-    [_mapView showAnnotations:annoArray animated:YES];
+    [_mapView showAnnotations:self.annoArray animated:YES];
     
 }
 
@@ -785,7 +787,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)addAnnotations
 {
     
-    NSMutableArray *annoArray=[[NSMutableArray alloc] init];
+    [self.annoArray removeAllObjects];
+     self.annoArray=[[NSMutableArray alloc] init];
     
     for (int i = 0; i < [self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
         
@@ -806,13 +809,13 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
-        [annoArray addObject:anno];
+        [self.annoArray addObject:anno];
         
         [_mapView addAnnotation:anno];
         
     }
     
-    [_mapView showAnnotations:annoArray animated:YES];
+    [_mapView showAnnotations:self.annoArray animated:YES];
     
 }
 
@@ -826,7 +829,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
         if (annotationView == nil)
         {
-            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier];
+            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier andHouseType:self.listType];
         }
         
         /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
