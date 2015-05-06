@@ -1353,11 +1353,11 @@
         self.appointAgainAndApplicationBargainView = [[QSPOrderDetailAppointAgainAndApplicationBargainView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
-                    NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:再次预约");
+                    
                     [self appointmentAgainAction];
+                    
                     break;
                 case bBottomButtonTypeRight:
-                    NSLog(@"QSPOrderDetailAppointAgainAndApplicationBargainView:申请议价");
                     {
                         TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil,@"是否向业主提出议价申请?",@"取消",@"确认",^(int buttonIndex) {
                             
