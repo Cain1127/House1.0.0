@@ -140,7 +140,7 @@ static char PhoneInfoKey;   //!<联系信息
     [self updateUserVIPTag:userModel.level];
     
     ///更新用户联系方式
-    [self updatePhoneInfo:userModel.mobile andStatus:nil];
+    [self updatePhoneInfo:userModel.mobile andStatus:userModel.is_order];
     
     ///更新添加按钮
     [self updateAddContactButton:userModel.id_];
@@ -156,8 +156,20 @@ static char PhoneInfoKey;   //!<联系信息
     UILabel *phoneLabel = objc_getAssociatedObject(self, &PhoneInfoKey);
     if (phoneLabel && [phone length] > 0) {
         
-        phoneLabel.text = [NSString stringWithFormat:@"%@******%@(预约成功后开放)",[phone substringWithRange:NSMakeRange(0, 3)],[phone substringWithRange:NSMakeRange(9, 2)]];
+        if ([status isEqualToString:@"true"]) {
+            
+            phoneLabel.text = phone;
+            
+        } else {
         
+            phoneLabel.text = [NSString stringWithFormat:@"%@******%@(预约成功后开放)",[phone substringWithRange:NSMakeRange(0, 3)],[phone substringWithRange:NSMakeRange(9, 2)]];
+        
+        }
+        
+    } else {
+    
+        phoneLabel.text = @"暂无";
+    
     }
 
 }

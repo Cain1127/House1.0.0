@@ -42,8 +42,10 @@ static char AppointTimeKey; //!<订单预约人的联系方式
 {
 
     ///小区
-    UILabel *communityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f, 160.0f, 20.0f)];
+    UILabel *communityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f, 230.0f, 20.0f)];
     communityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    communityLabel.adjustsFontSizeToFitWidth = YES;
+    communityLabel.minimumScaleFactor = 12.0f;
     [self addSubview:communityLabel];
     objc_setAssociatedObject(self, &CommunityKey, communityLabel, OBJC_ASSOCIATION_ASSIGN);
     
