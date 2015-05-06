@@ -622,7 +622,13 @@ static char PopViewKey;             //!<摇一摇view关联
         case fFilterMainTypeNewHouse:
         {
         
-            QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            __block QSNewHouseListView *listView = [[QSNewHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                if (nil == listView) {
+                    
+                    return;
+                    
+                }
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -665,7 +671,13 @@ static char PopViewKey;             //!<摇一摇view关联
         {
         
             ///创建小区的列表UI
-            QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            __block QSCommunityListView *listView = [[QSCommunityListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                if (nil == listView) {
+                    
+                    return;
+                    
+                }
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -708,7 +720,13 @@ static char PopViewKey;             //!<摇一摇view关联
         {
         
             ///瀑布流布局器
-            QSSecondHandHouseListView *listView = [[QSSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+            __block QSSecondHandHouseListView *listView = [[QSSecondHandHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType,id tempModel) {
+                
+                if (nil == listView) {
+                    
+                    return;
+                    
+                }
                 
                 ///过滤回调类型
                 switch (actionType) {
@@ -757,7 +775,13 @@ static char PopViewKey;             //!<摇一摇view关联
         case fFilterMainTypeRentalHouse:
         {
         
-            QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+            __block QSRentHouseListView *listView = [[QSRentHouseListView alloc] initWithFrame:CGRectMake(0.0f, 64.0f + 40.0f + 20.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 49.0f - 40.0f - 20.0f) andCallBack:^(HOUSE_LIST_ACTION_TYPE actionType, id tempModel) {
+                
+                if (nil == listView) {
+                    
+                    return;
+                    
+                }
                 
                 ///过滤回调类型
                 switch (actionType) {
