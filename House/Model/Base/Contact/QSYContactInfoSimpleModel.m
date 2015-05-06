@@ -24,7 +24,8 @@
                                                     @"linkman_id",
                                                     @"is_import",
                                                     @"remark",
-                                                    @"more_remark"]];
+                                                    @"more_remark",
+                                                    @"show_phone"]];
     
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"user" toKeyPath:@"contactUserInfo" withMapping:[QSUserSimpleDataModel objectMapping]]];
     

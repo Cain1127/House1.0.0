@@ -394,12 +394,13 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     
     ///保存房子基本数据
     self.houseInfo = dataModel.house;
+    
     ///保存用户信息
     self.userInfo = dataModel.user;
+    
     ///保存价钱变动信息
     self.priceChangesInfo = dataModel.price_changes;
-    ///保存评论信息
-    //    self.commentInfo = dataModel.commentListReturnData;
+
     ///保存图片信息
     self.photoArray = dataModel.secondHouse_photo;
     

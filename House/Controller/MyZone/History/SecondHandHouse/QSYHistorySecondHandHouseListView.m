@@ -257,7 +257,7 @@
     }
     
     ///封装参数
-    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse]};
+    NSDictionary *params = @{@"log_type" : [NSString stringWithFormat:@"%d",hHistoryHouseTypeSecondHandHouse]};
     
     [QSRequestManager requestDataWithType:rRequestTypeDeleteHistoryHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         

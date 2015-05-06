@@ -90,7 +90,7 @@
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
-                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                return ([status intValue] == 1) ? YES : NO;
                 
             }
             
@@ -109,7 +109,7 @@
             if ([tempArray count] > 0) {
                 
                 NSString *status = [tempArray[0] valueForKey:@"is_syserver"];
-                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                return ([status intValue] == 1) ? YES : NO;
                 
             }
             
@@ -129,7 +129,7 @@
                 
                 NSObject *tempModel = [tempArray[0] valueForKey:@"house"];
                 NSString *status = [tempModel valueForKey:@"is_syserver"];
-                return (([status intValue] == 1) || ([status intValue] == 0)) ? YES : NO;
+                return ([status intValue] == 1) ? YES : NO;
                 
             }
             
@@ -141,7 +141,8 @@
         default:
             break;
     }
-    return YES;
+    
+    return NO;
 
 }
 

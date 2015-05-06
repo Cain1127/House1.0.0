@@ -296,7 +296,7 @@ static char DeleteButton;   //!<删除标识
     [self updateTitleUnitWithUnit:@"万"];
     
     ///更新背景图片
-    [self updateHouseImage:tempModel.house.attach_thumb];
+    [self updateHouseImage:tempModel.house.attach_file];
     
     ///更新左上角标签
     [self updateHouseTagImage:tempModel.house.house_nature andListType:fFilterMainTypeSecondHouse];
@@ -331,7 +331,7 @@ static char DeleteButton;   //!<删除标识
     [self updateTitleUnitWithUnit:@"元/月"];
     
     ///更新背景图片
-    [self updateHouseImage:tempModel.house.attach_thumb];
+    [self updateHouseImage:tempModel.house.attach_file];
     
     ///更新左上角标签
     [self updateHouseTagImage:tempModel.house.rent_property andListType:fFilterMainTypeRentalHouse];

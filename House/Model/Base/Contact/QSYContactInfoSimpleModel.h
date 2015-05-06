@@ -17,7 +17,8 @@
 @property (nonatomic,copy) NSString *is_import;                     //!<是否重点关注
 @property (nonatomic,copy) NSString *remark;                        //!<备注名
 @property (nonatomic,copy) NSString *more_remark;                   //!<最后消息的时间戳
+@property (nonatomic,copy) NSString *show_phone;                    //!<是否放开手机号码
 
-@property (nonatomic,retain) QSUserSimpleDataModel *contactUserInfo;   //!<联系人的基本信息
+@property (nonatomic,retain) QSUserSimpleDataModel *contactUserInfo;//!<联系人的基本信息
 
 @end
