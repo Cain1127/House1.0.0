@@ -25,10 +25,19 @@
 @property (nonatomic,retain) AFHTTPRequestOperationManager *httpRequestManager;
 
 ///请求任务池：放置的对象为QSRequestTaskDataModel对象或它的子类
-@property (nonatomic,retain) NSMutableArray *taskPool;
+@property (atomic,retain) NSMutableArray *taskPool;
 
-///请求任务处理使用的自定义线程
-@property (nonatomic, strong) dispatch_queue_t requestOperationQueue;
+///请求任务中数据处理使用的自定义串行线程
+@property (nonatomic, strong) dispatch_queue_t requestDataOperationQueue;
+
+///请求任务处理的民步线程
+@property (nonatomic, strong) dispatch_queue_t requestTaskQueue;
+
+///请求网络并发队列使用的子线程
+@property (nonatomic, strong) dispatch_queue_t requestGroupQueue;
+
+///请求任务使用的队列
+@property (nonatomic,strong) dispatch_group_t requestGroup;
 
 @end
 
@@ -86,7 +95,12 @@
     self.taskPool = [[NSMutableArray alloc] init];
     
     ///请求任务操作线程初始化
-    self.requestOperationQueue = dispatch_queue_create(QUEUE_REQUEST_OPERATION, DISPATCH_QUEUE_CONCURRENT);
+    self.requestDataOperationQueue = dispatch_queue_create(QUEUE_REQUEST_DATA_OPERATION,  DISPATCH_QUEUE_SERIAL);
+    self.requestTaskQueue = dispatch_queue_create(QUEUE_REQUEST_TASK_QUEUE, DISPATCH_QUEUE_CONCURRENT);   ;
+    
+    ///请求队列
+    self.requestGroup = dispatch_group_create();
+    self.requestGroupQueue = dispatch_queue_create(QUEUE_REQUEST_GROUP_QUEUE, DISPATCH_QUEUE_CONCURRENT);
     
     ///添加任务池观察
     [self addObserver:self forKeyPath:@"taskPool" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -105,7 +119,7 @@
         
     }
     
-    dispatch_barrier_async(self.requestOperationQueue, ^{
+    dispatch_barrier_async(self.requestDataOperationQueue, ^{
         
         ///查询原来是否已存在消息
         int i = 0;
@@ -137,7 +151,7 @@
 }
 
 ///从任务池中删除第一个任务
-- (void)removeFirstObjectFromTaskPool
+- (void)removeFinishRequestTaskFromTaskPool
 {
 
     ///如果任务池已为空，则不再删除
@@ -148,37 +162,30 @@
     }
     
     ///在指定线程中删除元素
-    dispatch_barrier_async(self.requestOperationQueue, ^{
+    dispatch_barrier_async(self.requestDataOperationQueue, ^{
         
-        [[self mutableArrayValueForKey:@"taskPool"] removeObjectAtIndex:0];
+        for (int i = [self.taskPool count]; i > 0; i--) {
+            
+            QSRequestTaskDataModel *tempModel = self.taskPool[i - 1];
+            if (tempModel.requestStatus >= rRequestTaskStatusFinishSuccess) {
+                
+                [[self mutableArrayValueForKey:@"taskPool"] removeObjectAtIndex:i - 1];
+                
+            }
+            
+        }
         
     });
-
-}
-
-///获取第一个请求任务
-- (QSRequestTaskDataModel *)getFirstObjectFromTaskPool
-{
-
-    if (0 >= [self.taskPool count]) {
-        
-        return nil;
-        
-    }
-    
-    NSArray *tempArray = [self getRequestTaskPool];
-    
-    return tempArray[0];
 
 }
 
 ///返回当前所有的任务请求队列
 - (NSArray *)getRequestTaskPool
 {
-
+    
     __block NSArray *tempArray = nil;
     
-    dispatch_sync(self.requestOperationQueue, ^{
+    dispatch_sync(self.requestDataOperationQueue, ^{
         
         tempArray = [NSArray arrayWithArray:_taskPool];
         
@@ -193,25 +200,63 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
-    ///观察是否清空
-    if (0 >= [self.taskPool count]) {
+    ///在任务处理线程处理请求任务
+    dispatch_async(self.requestTaskQueue, ^{
         
-        return;
+        ///观察是否清空
+        if (0 >= [self.taskPool count]) {
+            
+            return;
+            
+        }
         
-    }
-    
-    ///如若还有请求任务，取第一个任务执行
-    QSRequestTaskDataModel *requestTask = self.taskPool[0];
-    if (requestTask.isCurrentRequest) {
+        ///开启并发队列
+        NSArray *taskList = [self getRequestTaskPool];
+        dispatch_apply([taskList count], self.requestGroupQueue, ^(size_t i){
+            
+            ///进入队列
+            dispatch_group_enter(self.requestGroup);
+            
+            ///如若还有请求任务，取第一个任务执行
+            QSRequestTaskDataModel *requestTask = taskList[i];
+            switch (requestTask.requestStatus) {
+                    ///新添加的请求任务
+                case rRequestTaskStatusDefault:
+                {
+                    
+                    requestTask.requestStatus = rRequestTaskStatusRequesting;
+                    [self startRequestDataWithRequestTaskModel:requestTask];
+                    
+                }
+                    break;
+                    
+                    ///请求任务正在进行中
+                case rRequestTaskStatusRequesting:
+                {
+                    
+                    APPLICATION_LOG_INFO(@"网络请求任务日志", @"当前任务正在请求中，不再重复发起请求")
+                    
+                }
+                    break;
+                    
+                    ///请求任务已完成
+                case rRequestTaskStatusFinishSuccess:
+                    
+                case rRequestTaskStatusFinishFail:
+                {
+                    
+                    APPLICATION_LOG_INFO(@"网络请求任务日志", @"当前任务已完成")
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        });
         
-        NSLog(@"====================当前网络请求请任务正在处理中==========");
-        
-    } else {
-    
-        requestTask.isCurrentRequest = YES;
-        [self startRequestDataWithRequestTaskModel:requestTask];
-    
-    }
+    });
 
 }
 
@@ -225,11 +270,13 @@
         
         [self.httpRequestManager GET:taskModel.requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
+            taskModel.requestStatus = rRequestTaskStatusFinishSuccess;
             [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             ///请求失败时处理失败回调
+            taskModel.requestStatus = rRequestTaskStatusFinishFail;
             [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
             
         }];
@@ -246,6 +293,7 @@
         __block NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
         if (nil == imageData || 0 >= [imageData length]) {
             
+            taskModel.requestStatus = rRequestTaskStatusFinishSuccess;
             [self handleRequestFail:[self createCustomLocalError:REQUEST_ERROR_DOMAIN andErrorCode:rRequestResultTypeImageDataError andErrorInfo:@"图片获取失败"] andFailCallBack:taskModel.requestCallBack];
             return;
             
@@ -262,11 +310,13 @@
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             ///请求成功
+            taskModel.requestStatus = rRequestTaskStatusFinishSuccess;
             [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             ///请求失败时处理失败回调
+            taskModel.requestStatus = rRequestTaskStatusFinishFail;
             [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
             
         }];
@@ -284,11 +334,13 @@
         [self.httpRequestManager POST:taskModel.requestURL parameters:postParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             ///请求成功
+            taskModel.requestStatus = rRequestTaskStatusFinishSuccess;
             [self handleRequestSuccess:responseObject andRespondData:operation.responseData andTaskModel:taskModel];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
             ///请求失败
+            taskModel.requestStatus = rRequestTaskStatusFinishFail;
             [self handleRequestFail:error andFailCallBack:taskModel.requestCallBack];
             
         }];
@@ -319,13 +371,13 @@
                 
                 tempTaskModel.requestCallBack(rRequestResultTypeSuccess,mappingResult,nil,nil);
                 
-                [self removeFirstObjectFromTaskPool];
+                [self removeFinishRequestTaskFromTaskPool];
                 
             } else {
                 
                 ///数据解析失败回调
                 tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                [self removeFirstObjectFromTaskPool];
+                [self removeFinishRequestTaskFromTaskPool];
                 
             }
             
@@ -340,13 +392,13 @@
             if (mappingStatus && mappingResult && taskModel.requestCallBack) {
                 
                 tempTaskModel.requestCallBack(rRequestResultTypeFail,mappingResult,nil,nil);
-                [self removeFirstObjectFromTaskPool];
+                [self removeFinishRequestTaskFromTaskPool];
                 
             } else {
                 
                 ///数据解析失败回调
                 tempTaskModel.requestCallBack(rRequestResultTypeDataAnalyzeFail,nil,@"数据解析失败",@"1000");
-                [self removeFirstObjectFromTaskPool];
+                [self removeFinishRequestTaskFromTaskPool];
                 
             }
             
@@ -370,7 +422,7 @@
     ///开启下一次的请求
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self removeFirstObjectFromTaskPool];
+        [self removeFinishRequestTaskFromTaskPool];
         
     });
     
@@ -635,7 +687,7 @@
     
     ///返回请求类型
     requestTask.httpRequestType = [self getHttpRequestTypeWithType:requestType];
-    requestTask.isCurrentRequest = NO;
+    requestTask.requestStatus = rRequestTaskStatusDefault;
     
     ///是否有请求参数
     if (params) {

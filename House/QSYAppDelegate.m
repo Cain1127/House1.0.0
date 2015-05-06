@@ -68,7 +68,7 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     [self.window makeKeyAndVisible];
     
     ///非主线程任务操作线程初始化
-    self.appDelegateOperationQueue = dispatch_queue_create(QUEUE_REQUEST_OPERATION, DISPATCH_QUEUE_CONCURRENT);
+    self.appDelegateOperationQueue = dispatch_queue_create(QUEUE_APPDELEGATE_QUEUE, DISPATCH_QUEUE_CONCURRENT);
     
     ///判断是否是开发商
     NSString *isDevelop = [[NSUserDefaults standardUserDefaults] objectForKey:@"is_develop"];

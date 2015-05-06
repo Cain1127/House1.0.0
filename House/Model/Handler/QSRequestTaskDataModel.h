@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+///当前请求任务的状态
+typedef enum
+{
+
+    rRequestTaskStatusDefault = 99,     //!<初始的默认状态
+    rRequestTaskStatusRequesting,       //!<请求任务正在进行
+    rRequestTaskStatusFinishSuccess,    //!<请求任务已完成-请求成功
+    rRequestTaskStatusFinishFail,       //!<请求任务已完成-请求失败
+
+}REQUEST_TASK_STATUS;
+
 /**
  *  @author yangshengmeng, 15-01-22 10:01:11
  *
@@ -17,7 +28,15 @@
  */
 @interface QSRequestTaskDataModel : NSObject
 
-@property (nonatomic,assign) BOOL isCurrentRequest;                     //!<当前请求任务的状态：YES-正在请求中
+/**
+ *  @author yangshengmeng, 15-05-06 12:05:36
+ *
+ *  @brief  请求任务的状态:rRequestTaskStatusDefault->rRequestTaskStatusFinishFail
+ *
+ *  @since  1.0.0
+ */
+@property (nonatomic,assign) REQUEST_TASK_STATUS requestStatus;
+
 @property (nonatomic,assign) REQUEST_TYPE requestType;                  //!<请求类型
 @property (nonatomic,assign) REQUEST_HTTPREQUEST_TYPE httpRequestType;  //!<http请求时的类型
 @property (nonatomic,copy) NSString *requestURL;                        //!<请求地址

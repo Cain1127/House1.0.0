@@ -294,7 +294,7 @@
             if (hHouseListActionTypeGotoDetail == actionType) {
                 
                 ///进入详情页
-                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeRentalHouse];
+                [self gotoHouseDetailPage:tempModel andHouseType:fFilterMainTypeNewHouse];
                 
             }
             
