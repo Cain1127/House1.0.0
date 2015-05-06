@@ -129,7 +129,16 @@ static char PhoneInfoKey;   //!<联系号码
     
     if ([model.contactUserInfo.mobile length] == 11) {
         
-        phoneLabel.text = model.contactUserInfo.mobile;
+        ///判断是否开放
+        if ([model.show_phone isEqualToString:@"Y"]) {
+            
+            phoneLabel.text = model.contactUserInfo.mobile;
+            
+        } else {
+        
+            phoneLabel.text = [NSString stringWithFormat:@"%@******%@",[model.contactUserInfo.mobile  substringToIndex:3],[model.contactUserInfo.mobile substringFromIndex:9]];
+        
+        }
         
     } else {
     
