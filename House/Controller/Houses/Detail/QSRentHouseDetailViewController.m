@@ -1103,8 +1103,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [view addSubview:consultLabel];
     
     ///均价
-    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, consultLabel.frame.origin.y+consultLabel.frame.size.height+5.0f, 55.0f, 25.0f)];
-    priceLabel.text = [NSString stringWithFormat:@"%@",averagePrice];
+    UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, consultLabel.frame.origin.y+consultLabel.frame.size.height+5.0f, 80.0f, 25.0f)];
+    priceLabel.text = [NSString stringWithFormat:@"%d",[averagePrice intValue]];
     priceLabel.textColor = COLOR_CHARACTERS_YELLOW;
     priceLabel.textAlignment = NSTextAlignmentLeft;
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
