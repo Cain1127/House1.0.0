@@ -189,6 +189,16 @@
                 
             }
             
+        }else if (uUserCountTypeTenant==userType) {
+            //房客身份
+            
+            if ([@"500252" isEqualToString:tempOrderData.order_status]) {
+                
+                [acceptButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_ACCEPT_BT_NORMAL] forState:UIControlStateNormal];
+                [acceptButton setEnabled:NO];
+                
+            }
+            
         }
         
     }

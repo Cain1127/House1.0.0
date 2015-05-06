@@ -369,7 +369,25 @@
                 leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ASKFORPRICE_BT_SELECTED;
                 [btList addObject:leftBt];
                 
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"咨询";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
+                [btList addObject:rightBt];
+                
+                QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
+                leftBt.bottionActionTag = [self.order_status integerValue];
+                leftBt.buttonName = @"电话";
+                leftBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
+                leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
+                [btList addObject:leftBt];
+                
             }
+            
         }else if ([self.order_status isEqualToString:@"500257"]) {
             //房主已还价格
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -384,7 +402,6 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
