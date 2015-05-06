@@ -8,6 +8,7 @@
 
 #import "QSBaseModel.h"
 
+@class QSBaseHouseInfoDataModel;
 @interface QSYAskListOrderInfosModel : QSBaseModel
 
 /*
@@ -38,5 +39,8 @@
 @property (nonatomic,copy) NSString *add_type;          //!<
 @property (nonatomic,copy) NSString *last_buyer_bid;    //!<购买者最后出价
 @property (nonatomic,copy) NSString *last_saler_bid;    //!<出售者最后出价
+
+///房源信息
+@property (nonatomic,retain) QSBaseHouseInfoDataModel *house_msg;
 
 @end

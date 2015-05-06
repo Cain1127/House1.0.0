@@ -10,6 +10,7 @@
 
 #import "NSDate+Formatter.h"
 
+#import "QSBaseHouseInfoDataModel.h"
 #import "QSYAskListOrderInfosModel.h"
 
 #import <objc/runtime.h>
@@ -101,7 +102,7 @@ static char AppointTimeKey; //!<订单预约人的联系方式
     [self updateAppointedTime:[NSString stringWithFormat:@"%@ %@",model.appoint_date,model.appoint_start_time]];
     [self updateOrderStatus:[NSString getCurrentUserStatusTitleWithStatus:model.order_status andSalerID:model.saler_id andBuyerID:model.buyer_id]];
     [self updateAppointedUserName:model.buyer_name];
-    [self updateCommunityInfo:model.buyer_name];
+    [self updateCommunityInfo:model.house_msg.title];
 
 }
 

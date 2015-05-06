@@ -243,7 +243,7 @@
     buttonStyle.title = @"打电话";
     UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+        if ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"]) {
             
             ///打电话
             [self callContact];
@@ -264,7 +264,7 @@
 {
     
     int statusNum = 3;
-    if (1 == [self.contactInfo.contactInfo.is_order intValue]) {
+    if ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"]) {
         
         statusNum = 5;
         
@@ -288,13 +288,13 @@
         
     }
     
-    if (2 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
+    if (2 == indexPath.row && ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"])) {
         
         return 44.0f;
         
     }
     
-    if (2 == indexPath.row && !(1 == [self.contactInfo.contactInfo.is_order intValue])) {
+    if (2 == indexPath.row && !([self.contactInfo.contactInfo.is_order isEqualToString:@"true"])) {
         
         return 44.0f;
         
@@ -306,7 +306,7 @@
         
     }
     
-    if (4 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
+    if (4 == indexPath.row && ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"])) {
         
         return 44.0f;
         
@@ -386,7 +386,7 @@
     }
     
     ///判断是否有订单
-    if (2 == indexPath.row && ([self.contactInfo.contactInfo.is_order intValue] == 1)) {
+    if (2 == indexPath.row && ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"])) {
         
         static NSString *isOrderCell = @"isOrderCell";
         UITableViewCell *cellHaveOrder = [tableView dequeueReusableCellWithIdentifier:isOrderCell];
@@ -403,20 +403,20 @@
             
             tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 7.0f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 30.0f)];
             tipsLabel.text = @"预约我的历史";
-            tipsLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            tipsLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
             tipsLabel.tag = 5557;
             [cellHaveOrder.contentView addSubview:tipsLabel];
             
         }
         
-        ///指示三角
-        QSImageView *arrowImageView = (QSImageView *)[cellHaveOrder.contentView viewWithTag:5558];
-        if (nil == arrowImageView) {
+        ///分隔线
+        UILabel *tipsSepLabel = (UILabel *)[cellHaveOrder.contentView viewWithTag:5558];
+        if (nil == tipsSepLabel) {
             
-            arrowImageView = [[QSImageView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT - 13.0f, (44.0f - 23.0f) / 2.0f, 13.0f, 23.0f)];
-            arrowImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
-            arrowImageView.tag = 5558;
-            [cellHaveOrder.contentView addSubview:arrowImageView];
+            tipsSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f - 0.25f, SIZE_DEFAULT_MAX_WIDTH - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.25f)];
+            tipsSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
+            tipsSepLabel.tag = 5558;
+            [cellHaveOrder.contentView addSubview:tipsSepLabel];
             
         }
         
@@ -424,7 +424,7 @@
         
     }
     
-    if (2 == indexPath.row && !([self.contactInfo.contactInfo.is_order intValue] == 1)) {
+    if (2 == indexPath.row && !([self.contactInfo.contactInfo.is_order isEqualToString:@"true"])) {
         
         static NSString *titleCell = @"titleCell";
         UITableViewCell *cellTitle = [tableView dequeueReusableCellWithIdentifier:titleCell];
@@ -477,7 +477,7 @@
         
     }
     
-    if (4 == indexPath.row && [self.contactInfo.contactInfo.is_order intValue] == 1) {
+    if (4 == indexPath.row && [self.contactInfo.contactInfo.is_order isEqualToString:@"true"]) {
         
         static NSString *titleCell = @"titleCell";
         UITableViewCell *cellTitle = [tableView dequeueReusableCellWithIdentifier:titleCell];
@@ -572,12 +572,12 @@
             {
                 
                 ///判断是否存在出租物业
-//                if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
-//                    
-//                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
-//                    return;
-//                    
-//                }
+                if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
+                    
+                    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
+                    return;
+                    
+                }
                 
                 QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                     
@@ -601,42 +601,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (0 == indexPath.row) {
-        
-        return;
-        
-    }
-    
-    if (1 == indexPath.row) {
-        
-        return;
-        
-    }
-    
-    if (2 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
-        
-        return;
-        
-    }
-    
-    if (2 == indexPath.row && !(1 == [self.contactInfo.contactInfo.is_order intValue])) {
-        
-        return;
-        
-    }
-    
     if (3 == indexPath.row && [self.orderInfo.id_ length] > 0) {
         
         QSPOrderDetailBookedViewController *orderDetailVC = [[QSPOrderDetailBookedViewController alloc] init];
         orderDetailVC.orderID = self.orderInfo.id_;
         [orderDetailVC setOrderType:mOrderWithUserTypeAppointment];
         [self.navigationController pushViewController:orderDetailVC animated:YES];
-        return;
-        
-    }
-    
-    if (4 == indexPath.row && (1 == [self.contactInfo.contactInfo.is_order intValue])) {
-        
         return;
         
     }
@@ -661,7 +631,7 @@
             self.contactInfo = tempModel;
             
             ///保存列表的起始下标
-            if (1 == [tempModel.contactInfo.is_order intValue]) {
+            if ([tempModel.contactInfo.is_order isEqualToString:@"true"]) {
                 
                 self.askDataStarStep = 5;
                 
