@@ -549,7 +549,6 @@
     if ([textField.text length] > 0) {
         
         self.searchKey = textField.text;
-        textField.text = nil;
         
         ///保存搜索记录
         QSLocalSearchHistoryDataModel *tempModel = [[QSLocalSearchHistoryDataModel alloc] init];
@@ -578,6 +577,21 @@
             
         }
         
+    } else {
+    
+        self.searchKey = textField.text;
+        
+        ///刷新数据
+        if (self.currentListView) {
+            
+            if ([self.currentListView respondsToSelector:@selector(reloadDataWithSearchKey:)]) {
+                
+                [self.currentListView performSelector:@selector(reloadDataWithSearchKey:) withObject:self.searchKey];
+                
+            }
+            
+        }
+    
     }
     
     [textField resignFirstResponder];

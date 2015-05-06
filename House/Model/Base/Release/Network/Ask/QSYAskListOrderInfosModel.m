@@ -7,6 +7,7 @@
 //
 
 #import "QSYAskListOrderInfosModel.h"
+#import "QSBaseHouseInfoDataModel.h"
 
 @implementation QSYAskListOrderInfosModel
 
@@ -39,6 +40,8 @@
                                                     @"add_type",
                                                     @"last_buyer_bid",
                                                     @"last_saler_bid"]];
+    
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"house_msg" toKeyPath:@"house_msg" withMapping:[QSBaseHouseInfoDataModel objectMapping]]];
     
     return shared_mapping;
     

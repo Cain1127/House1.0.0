@@ -10,6 +10,7 @@
 
 #import "NSDate+Formatter.h"
 
+#import "QSBaseHouseInfoDataModel.h"
 #import "QSYAskListOrderInfosModel.h"
 
 #import <objc/runtime.h>
@@ -41,8 +42,10 @@ static char AppointTimeKey; //!<订单预约人的联系方式
 {
 
     ///小区
-    UILabel *communityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f, 160.0f, 20.0f)];
+    UILabel *communityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 20.0f, 230.0f, 20.0f)];
     communityLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    communityLabel.adjustsFontSizeToFitWidth = YES;
+    communityLabel.minimumScaleFactor = 12.0f;
     [self addSubview:communityLabel];
     objc_setAssociatedObject(self, &CommunityKey, communityLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -101,7 +104,7 @@ static char AppointTimeKey; //!<订单预约人的联系方式
     [self updateAppointedTime:[NSString stringWithFormat:@"%@ %@",model.appoint_date,model.appoint_start_time]];
     [self updateOrderStatus:[NSString getCurrentUserStatusTitleWithStatus:model.order_status andSalerID:model.saler_id andBuyerID:model.buyer_id]];
     [self updateAppointedUserName:model.buyer_name];
-    [self updateCommunityInfo:model.buyer_name];
+    [self updateCommunityInfo:model.house_msg.title];
 
 }
 

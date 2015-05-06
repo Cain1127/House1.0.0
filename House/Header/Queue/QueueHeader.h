@@ -18,6 +18,13 @@
  */
 
 ///网络请求使用的线程关键字
-#define QUEUE_REQUEST_OPERATION "com.fdangjia.queue.request"
+#define QUEUE_REQUEST_DATA_OPERATION "com.fdangjia.queue.request.data.operation"
+
+#define QUEUE_REQUEST_GROUP_QUEUE "com.fdangjia.queue.request.group"
+
+#define QUEUE_REQUEST_TASK_QUEUE "com.fdangjia.queue.request.task"
+
+///应用delete中使用的线程
+#define QUEUE_APPDELEGATE_QUEUE "com.fdangjia.queue.appdelegate"
 
 #endif
