@@ -17,7 +17,6 @@ typedef enum
     
 }MORTGAGE_ACTION_TYPE;                  //!<贷款事件类型
 
-
 @interface QSMortgageCalculatorViewController : QSTurnBackViewController
 
 /*!
@@ -31,5 +30,8 @@ typedef enum
  *
  *  @since 1.0.0
  */
--(instancetype)initWithHousePrice:(CGFloat )housePrice;
+- (instancetype)initWithHousePrice:(CGFloat )housePrice;
+- (instancetype)initWithHousePrice:(CGFloat )housePrice andBusinessLoanRate:(CGFloat)businessRate andAccumulationRate:(CGFloat)accumulationRate;
+- (instancetype)initWithHousePrice:(CGFloat )housePrice andBusinessLoanRate:(CGFloat)businessRate andAccumulationRate:(CGFloat)accumulationRate andDefaultLoanType:(MORTGAGE_ACTION_TYPE)loanType;
+
 @end

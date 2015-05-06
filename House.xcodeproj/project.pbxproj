@@ -7542,8 +7542,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
@@ -7588,8 +7588,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer: quanlan huang (QV42NW2BY9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: quanlan huang (QV42NW2BY9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",

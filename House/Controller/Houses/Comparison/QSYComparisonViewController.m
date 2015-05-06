@@ -26,6 +26,7 @@
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSWSecondHouseInfoDataModel.h"
 #import "QSWRentHouseInfoDataModel.h"
+#import "QSRateDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -1220,14 +1221,14 @@
     CGFloat totalPrice = [rentModel.house.house_price floatValue];
     
     ///代款利率
-    CGFloat monthRate = 0.48;
+    CGFloat monthRate = [rentModel.loan.base_rate floatValue];
     
     comparisonModel.price = [NSString stringWithFormat:@"%.0f",totalPrice / 10000.0f];
     comparisonModel.avg_price = [NSString stringWithFormat:@"%.2f",[rentModel.house.price_avg floatValue]];
     comparisonModel.downPayPrice = [NSString stringWithFormat:@"%.0f",totalPrice * 0.3f / 10000.0f];
     
     ///月供
-    CGFloat monthPay = [NSString calculateMonthlyMortgatePayment:totalPrice * 0.3f andPaymentType:lLoadRatefeeBusinessLoan andRate:monthRate andTimes:240];
+    CGFloat monthPay = [NSString calculateMonthlyMortgatePayment:totalPrice andPaymentType:lLoadRatefeeACPIBusinessLoan andRate:monthRate andTimes:240];
     comparisonModel.monthPrice = [NSString stringWithFormat:@"%.0f",monthPay];
     
     comparisonModel.buildingYear = [[NSDate formatNSTimeToNSDateString:rentModel.house.building_year] substringToIndex:4];

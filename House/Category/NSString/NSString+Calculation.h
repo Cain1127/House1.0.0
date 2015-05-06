@@ -12,9 +12,12 @@
 typedef enum
 {
 
-    lLoadRatefeeCalculateHousingAccumulationFundLoan = 0,   //!<住房公积金代款
-    lLoadRatefeeBusinessLoan,                               //!<商业贷款
-    lLoadRatefeeMixLoan,                                    //!<混合贷款
+    lLoadRatefeeACPIAccumulationFundLoan = 10,  //!<等额本息：住房公积金代款
+    lLoadRatefeeACPIBusinessLoan,               //!<等额本息：商业贷款
+    lLoadRatefeeACPIMixLoan,                    //!<等额本息：混合贷款
+    lLoadRatefeeACAccumulationFundLoan,         //!<等额本金：住房公积金代款
+    lLoadRatefeeACBusinessLoan,                 //!<等额本金：商业贷款
+    lLoadRatefeeACMixLoan,                      //!<等额本金：混合贷款
 
 }LOAD_RATEFEE_CALCULATE;
 
@@ -66,10 +69,65 @@ typedef enum
  */
 - (NSURL *)getImageURL;
 
+/**
+ *  @author             yangshengmeng, 15-05-06 17:05:29
+ *
+ *  @brief              计算默认的首付款
+ *
+ *  @param totalValue   当前房子总额
+ *
+ *  @return             返回默认的首付额
+ *
+ *  @since              1.0.0
+ */
 + (CGFloat)calculateDefaultDownPay:(CGFloat)totalValue;
 
+/**
+ *  @author             yangshengmeng, 15-05-06 17:05:06
+ *
+ *  @brief              计算给定房子总额的指定百分比首付款
+ *
+ *  @param totalValue   房子总价
+ *  @param rate         首付比例
+ *
+ *  @return             返回结果
+ *
+ *  @since              1.0.0
+ */
 + (CGFloat)calculateDownPayWithRate:(CGFloat)totalValue andRate:(CGFloat)rate;
 
+/**
+ *  @author             yangshengmeng, 15-05-06 17:05:44
+ *
+ *  @brief              计算纯商业贷款，或纯公积金贷款的月供
+ *
+ *  @param totalValue   贷款总额
+ *  @param payType      贷款类型：参看LOAD_RATEFEE_CALCULATE
+ *  @param rate         贷款利率
+ *  @param sumTimes     总的贷款期数
+ *
+ *  @return             返回计算的月供
+ *
+ *  @since              1.0.0
+ */
 + (CGFloat)calculateMonthlyMortgatePayment:(CGFloat)totalValue andPaymentType:(LOAD_RATEFEE_CALCULATE)payType andRate:(CGFloat)rate andTimes:(NSInteger)sumTimes;
+
+/**
+ *  @author                 yangshengmeng, 15-05-06 17:05:07
+ *
+ *  @brief                  计算混合贷款的月供
+ *
+ *  @param businessPrice    商业贷款的金额
+ *  @param accumulation     公积金贷款的总额
+ *  @param businessRate     商业贷款利率
+ *  @param accumulationRate 公积金贷款利率
+ *  @param sumTimes         总的贷款期数
+ *  @param payType          贷款类型：等额本息，等额本金
+ *
+ *  @return                 返回混合贷款的月供
+ *
+ *  @since                  1.0.0
+ */
++ (CGFloat)calculateMixLoanMonthlyMortgatePayment:(CGFloat)businessPrice andAccumulationPrice:(CGFloat)accumulation andBusinessRate:(CGFloat)businessRate andAccumulationRate:(CGFloat)accumulationRate andTimes:(NSInteger)sumTimes andPaymentType:(LOAD_RATEFEE_CALCULATE)payType;
 
 @end

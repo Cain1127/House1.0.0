@@ -21,6 +21,7 @@
 #import "QSBaseConfigurationDataModel.h"
 
 #import "QSCoreDataManager+House.h"
+#import "QSCoreDataManager+App.h"
 
 #import <objc/runtime.h>
 
@@ -35,34 +36,54 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
 
 @interface QSMortgageCalculatorViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,assign) CGFloat housePrice;
-@property (assign) MORTGAGE_ACTION_TYPE loadType;//!<贷款类型
+@property (nonatomic,assign) CGFloat housePrice;                    //!<贷款总额
+@property (assign) CGFloat businessRate;                            //!<商业贷款利率
+@property (assign) CGFloat accumulationRate;                        //!<公积金贷款利率
+@property (assign) MORTGAGE_ACTION_TYPE loadType;                   //!<贷款类型
+@property (assign) LOAD_RATEFEE_CALCULATE calculateType;            //!<贷款还款计算类型
+@property (nonatomic,unsafe_unretained) UILabel *monthPaymentLabel; //!<首月还款标题
 
 @end
 
 @implementation QSMortgageCalculatorViewController
 
 #pragma mark - 初始化
-/**
- *  @author             yangshengmeng, 15-04-13 15:04:16
+/*!
+ *  @author wangshupeng, 15-04-07 14:04:51
  *
- *  @brief              根据给定的贷款总额，创建计算器
+ *  @brief  新房与二手房入口
  *
- *  @param housePrice   贷款总额
+ *  @param housePrice 新房/二手房贷款总额初始值
  *
- *  @return             返回当前创建的计算器
+ *  @return 贷款总额
  *
- *  @since              1.0.0
+ *  @since 1.0.0
  */
 -(instancetype)initWithHousePrice:(CGFloat )housePrice
 {
     
+    return [self initWithHousePrice:housePrice andBusinessLoanRate:[QSCoreDataManager getCurrentLastBusinessRate] andAccumulationRate:[QSCoreDataManager getCurrentLastAccumulationRate]];
+    
+}
+
+- (instancetype)initWithHousePrice:(CGFloat )housePrice andBusinessLoanRate:(CGFloat)businessRate andAccumulationRate:(CGFloat)accumulationRate
+{
+    
+    return [self initWithHousePrice:housePrice andBusinessLoanRate:businessRate andAccumulationRate:accumulationRate andDefaultLoanType:mMortgageBusinessType];
+    
+}
+
+- (instancetype)initWithHousePrice:(CGFloat )housePrice andBusinessLoanRate:(CGFloat)businessRate andAccumulationRate:(CGFloat)accumulationRate andDefaultLoanType:(MORTGAGE_ACTION_TYPE)loanType
+{
+    
     if (self = [super init]) {
         
+        ///保存参数
         self.housePrice = housePrice;
-        
-        ///初始化时的贷款类型
-        self.loadType = mMortgageBusinessType;
+        self.businessRate = (businessRate > 0.005f && businessRate < 1.0f) ? businessRate : 0.0615f;
+        self.accumulationRate = (accumulationRate > 0.005f && accumulationRate < 1.0f) ? accumulationRate : 0.0405f;
+        self.loadType = loanType;
+        self.calculateType = lLoadRatefeeACPIBusinessLoan;
         
     }
     
@@ -165,12 +186,12 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         
         ///修改当前的贷款类型
         self.loadType = mMortgageAccumulationType;
+        self.calculateType = lLoadRatefeeACPIAccumulationFundLoan;
         
         ///切换列表
         accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(-SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
         accumulationTextField.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:accumulationTextField];
-        
         [self createMortgageView:accumulationTextField andMortgageType:mMortgageAccumulationType];
         
         ///获取当前正在显示的view
@@ -196,6 +217,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         objc_setAssociatedObject(self, &accumulationTextFieldKey, accumulationTextField, OBJC_ASSOCIATION_ASSIGN);
         
     }];
+    accumulationButton.selected = (self.loadType == mMortgageAccumulationType);
     [self.view addSubview:accumulationButton];
     
     ///商业贷款
@@ -216,6 +238,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         
         ///修改当前的贷款类型
         self.loadType = mMortgageBusinessType;
+        self.calculateType = lLoadRatefeeACPIBusinessLoan;
         
         ///坐标
         CGFloat xpoint = -SIZE_DEVICE_WIDTH;
@@ -231,8 +254,8 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         businessView = [[UIView alloc] initWithFrame:CGRectMake(xpoint, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
         businessView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:businessView];
-        
         [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
+        
         ///获取当前正在显示的view
         UIView *tempView = accumulationTextField ? accumulationTextField : groupView;
         
@@ -256,7 +279,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         
         
     }];
-    businessButton.selected=YES;
+    businessButton.selected = (self.loadType == mMortgageBusinessType);
     [self.view addSubview:businessButton];
     
     ///组合贷款
@@ -277,12 +300,14 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         
         ///修改当前的贷款类型
         self.loadType = mMortgageGrounpType;
+        self.calculateType = lLoadRatefeeACPIMixLoan;
         
         ///切换列表
         groupView = [[UIView alloc] initWithFrame:CGRectMake(SIZE_DEVICE_WIDTH, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
         groupView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:groupView];
         [self createMortgageView:groupView andMortgageType:mMortgageGrounpType];
+        
         ///获取当前正在显示的view
         UIView *tempView = accumulationTextField ? accumulationTextField : businessView;
         
@@ -304,17 +329,40 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         }];
         objc_setAssociatedObject(self, &GrounpViewKey, groupView, OBJC_ASSOCIATION_ASSIGN);
         
-        
     }];
+    groupButton.selected = (self.loadType == mMortgageGrounpType);
     [self.view addSubview:groupButton];
     
-    ///初始化时，加载商业贷款列表
-    businessView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
-    [self.view addSubview:businessView];
-    [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
+    ///根据不同的类型，加载不同的初始化页面
+    if (self.loadType == mMortgageAccumulationType) {
+        
+        self.calculateType = lLoadRatefeeACPIAccumulationFundLoan;
+        accumulationTextField = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT-listYPoint)];
+        accumulationTextField.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:accumulationTextField];
+        [self createMortgageView:accumulationTextField andMortgageType:mMortgageAccumulationType];
+        
+    } else if (mMortgageGrounpType == self.loadType) {
+        
+        self.calculateType = lLoadRatefeeACPIBusinessLoan;
+        groupView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
+        groupView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:groupView];
+        [self createMortgageView:groupView andMortgageType:mMortgageGrounpType];
+        
+    } else {
+        
+        self.calculateType = lLoadRatefeeACPIMixLoan;
+        businessView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, listYPoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - listYPoint)];
+        businessView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:businessView];
+        [self createMortgageView:businessView andMortgageType:mMortgageBusinessType];
+        
+    }
     
     ///指示三角
-    arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(businessButton.frame.origin.x+businessButton.frame.size.width / 2.0f - 7.5f, businessButton.frame.origin.y + businessButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
+    UIButton *tempButton = (mMortgageGrounpType == self.loadType) ? groupButton : ((mMortgageAccumulationType == self.loadType) ? accumulationButton : businessButton);
+    arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(tempButton.frame.origin.x+tempButton.frame.size.width / 2.0f - 7.5f, tempButton.frame.origin.y + tempButton.frame.size.height - 5.0f, 15.0f, 5.0f)];
     arrowIndicator.image = [UIImage imageNamed:IMAGE_CHANNELBAR_INDICATE_ARROW];
     [self.view addSubview:arrowIndicator];
     
@@ -327,7 +375,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     __block QSLabel *repayModelResultLabel;
     
     ///还款方式
-    UIView *repayModelView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, 0.0f, SIZE_DEVICE_WIDTH-2.0f*25.0f, 50.0f) andSingleTapCallBack:^(BOOL flag) {
+    UIView *repayModelView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, 0.0f, SIZE_DEVICE_WIDTH-2.0f * 25.0f, 50.0f) andSingleTapCallBack:^(BOOL flag) {
         
         ///获取贷款方式数据
         NSArray *intentArray = [QSCoreDataManager getMortgageTypes];
@@ -347,6 +395,8 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     repayModelResultLabel.textAlignment = NSTextAlignmentRight;
     repayModelResultLabel.textColor = COLOR_CHARACTERS_GRAY;
     repayModelResultLabel.font = [UIFont systemFontOfSize:14.0f];
+    
+    ///指示三角
     UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(repayModelResultLabel.frame.origin.x+repayModelResultLabel.frame.size.width, 13.0f, 13.0f, 23.0f)];
     arrowImageView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [repayModelView addSubview:arrowImageView];
@@ -361,15 +411,14 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     __block UITextField *totalTextField;          //!<总额贷款或商业贷款
     
     if (mortageType == mMortgageGrounpType) {
+        
         ///公积金贷款
         accumulationTextField = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"公积金贷款:"  andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
         accumulationTextField.textAlignment = NSTextAlignmentRight;
         accumulationTextField.textColor = COLOR_CHARACTERS_GRAY;
         accumulationTextField.text = [NSString stringWithFormat:@"%.2f",self.housePrice];
         accumulationTextField.delegate = self;
-        
         [view addSubview:accumulationTextField];
-        
         
         ///分隔线
         UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(accumulationTextField.frame.origin.x, accumulationTextField.frame.origin.y+accumulationTextField.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
@@ -389,8 +438,8 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         sepLabel2.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [view addSubview:sepLabel2];
         
-    }
-    else{
+    } else {
+        
         ///贷款总额
         totalTextField = [QSTextField createCustomTextFieldWithFrame:CGRectMake(25.0f, repayModelView.frame.origin.y+repayModelView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andPlaceHolder:nil andLeftTipsInfo:@"贷款总额:" andRightTipsInfo:@"万元" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleLeftAndRightTipsBlack];
         totalTextField.delegate = self;
@@ -403,17 +452,16 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
         UILabel *sepLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(totalTextField.frame.origin.x, totalTextField.frame.origin.y+totalTextField.frame.size.height-0.25f, repayModelView.frame.size.width, 0.25f)];
         sepLabel1.backgroundColor = COLOR_CHARACTERS_BLACKH;
         [view addSubview:sepLabel1];
+        
     }
     
     ///贷款年限
     __block UILabel *yearResultLabel;
     UIView *yearView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, totalTextField.frame.origin.y+totalTextField.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
         
-        APPLICATION_LOG_INFO(@"点击贷款年限", nil);
         ///获取贷款选择项数据
         NSArray *intentArray = [QSCoreDataManager getMortgageYears];
         [self popMortgageTypePickView:yearResultLabel andDataSource:intentArray];
-        
         
     }];
     QSLabel *yearLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
@@ -442,6 +490,7 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     UIView *rateView = [[QSBlockView alloc] initWithFrame:CGRectMake(25.0f, yearView.frame.origin.y+yearView.frame.size.height, repayModelView.frame.size.width, repayModelView.frame.size.height) andSingleTapCallBack:^(BOOL flag) {
         
         APPLICATION_LOG_INFO(@"点击贷款利率", nil);
+        
     }];
     QSLabel *rateLabel = [[QSLabel alloc] initWithFrame:CGRectMake(0.0f, 15.0f, 80.0f, 20.0f)];
     rateLabel.text = @"贷款利率:";
@@ -456,12 +505,11 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     
     if (mortageType == mMortgageAccumulationType) {
         
-        rateResultLabel.text = [NSString stringWithFormat:@"%.2f", RATE_DEFAULT_ACCUMULATION_VALUE];
+        rateResultLabel.text = [[NSString stringWithFormat:@"%.2f", self.accumulationRate * 100.0f] stringByAppendingString:@"%"];
         
-    }
-    else
-    {
-        rateResultLabel.text = [NSString stringWithFormat:@"%.2f", RATE_DEFAULT_BUSINESS_VALUE];
+    } else {
+        
+        rateResultLabel.text = [[NSString stringWithFormat:@"%.2f", self.businessRate * 100.0f] stringByAppendingString:@"%"];
         
     }
     [rateView addSubview:rateResultLabel];
@@ -505,9 +553,10 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     monthPaymentLabel.text =@"月均还款:";
     payInterestLabel.font = [UIFont systemFontOfSize:16.0f];
     [resultView addSubview:monthPaymentLabel];
+    self.monthPaymentLabel = monthPaymentLabel;
     
     UILabel *monthPaymentResult = [[UILabel alloc] initWithFrame:CGRectMake(monthPaymentLabel.frame.origin.x+monthPaymentLabel.frame.size.width, monthPaymentLabel.frame.origin.y, 160.0f, monthPaymentLabel.frame.size.height)];
-    monthPaymentResult.text = @"0元" ;
+    monthPaymentResult.text = @"0元";
     monthPaymentResult.font = [UIFont systemFontOfSize:20.0f];
     [resultView addSubview:monthPaymentResult];
     
@@ -524,9 +573,9 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     ///计算按钮
     buttonStyel.title = @"计算";
     UIButton *countButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, bottomLine.frame.origin.y+bottomLine.frame.size.height+8.0f, bottomLine.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
-        NSLog(@"计算");
         
         if (mortageType == mMortgageGrounpType) {
+            
             NSString *accumString = accumulationTextField.text;
             if ([accumString length] <= 0) {
                 
@@ -551,20 +600,8 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
                 return;
             }
             
-            ///刷新数据
+        } else {
             
-            ///月均还款
-            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[accumulationTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeCalculateHousingAccumulationFundLoan andRate:RATE_DEFAULT_ACCUMULATION_VALUE/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f] + [NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/100.0f/12.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
-            
-            ///还款总额
-            repaymentToalResult.text = [NSString stringWithFormat:@"%.2f%@",[monthPaymentResult.text floatValue]*[yearResultLabel.text floatValue]*12.0f,@"元"];
-            
-            ///支付利息
-            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[accumulationTextField.text floatValue]*10000.0f -[totalTextField.text floatValue]*10000.0f,@"元"];
-            
-        }
-        
-        else{
             NSString *totalString = totalTextField.text;
             if ([totalString length] <= 0) {
                 
@@ -577,21 +614,135 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
                 return;
             }
             
-            ///刷新数据
-            
-            ///月均还款
-            monthPaymentResult.text = [NSString stringWithFormat:@"%.2f%@",[NSString calculateMonthlyMortgatePayment:[totalTextField.text floatValue]*10000.0f andPaymentType:lLoadRatefeeBusinessLoan andRate:[rateResultLabel.text floatValue]/1200.0f andTimes:[yearResultLabel.text floatValue]*12.0f],@"元"];
-            
-            ///还款总额
-            repaymentToalResult.text = [NSString stringWithFormat:@"%.2f%@",[monthPaymentResult.text floatValue]*[yearResultLabel.text floatValue]*12.0f,@"元"];
-            
-            ///支付利息
-            payInterestResult.text = [NSString stringWithFormat:@"%.2f%@",[repaymentToalResult.text floatValue]-[totalTextField.text floatValue]*10000.0f,@"元"];
         }
         
         ///回收键盘
         [accumulationTextField resignFirstResponder];
         [totalTextField resignFirstResponder];
+        
+        ///贷款信息
+        CGFloat sumPrice = [totalTextField.text floatValue] * 10000.0f;
+        NSInteger sumTimes = [yearResultLabel.text intValue] * 12;
+        CGFloat monthPrice = 0.0f;
+        CGFloat sumPayPrice = 0.0f;
+        
+        switch (self.calculateType) {
+                ///等额本息：住房公积金
+            case lLoadRatefeeACPIAccumulationFundLoan:
+            {
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:self.calculateType andRate:self.accumulationRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                sumPayPrice = monthPrice * sumTimes;
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice - sumPrice];
+                
+            }
+                break;
+                
+                ///等额本息：商业贷款
+            case lLoadRatefeeACPIBusinessLoan:
+            {
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:self.calculateType andRate:self.businessRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                sumPayPrice = monthPrice * sumTimes;
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice - sumPrice];
+                
+            }
+                break;
+                
+                ///等额本息：混合贷款
+            case lLoadRatefeeACPIMixLoan:
+            {
+                
+                CGFloat sumAccumulation = [accumulationTextField.text floatValue] * 10000.0f;
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:lLoadRatefeeACPIBusinessLoan andRate:self.businessRate / 12.0f andTimes:sumTimes] + [NSString calculateMonthlyMortgatePayment:sumAccumulation andPaymentType:lLoadRatefeeACPIAccumulationFundLoan andRate:self.accumulationRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                sumPayPrice = monthPrice * sumTimes;
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayPrice - sumPrice - sumAccumulation];
+                
+            }
+                break;
+                
+                ///等额本金：住房公积金
+            case lLoadRatefeeACAccumulationFundLoan:
+            {
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:self.calculateType andRate:self.accumulationRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                CGFloat sumPayInterestPrice = sumPrice * (self.accumulationRate / 12.0f) * (sumTimes / 2.0f + 0.5f);
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPrice + sumPayInterestPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayInterestPrice];
+                
+            }
+                break;
+                
+                ///等额本息：商业贷款
+            case lLoadRatefeeACBusinessLoan:
+            {
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:self.calculateType andRate:self.businessRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                CGFloat sumPayInterestPrice = sumPrice * (self.businessRate / 12.0f) * (sumTimes / 2.0f + 0.5f);
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPrice + sumPayInterestPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayInterestPrice];
+                
+            }
+                break;
+                
+                ///等额本息：混合贷款
+            case lLoadRatefeeACMixLoan:
+            {
+                
+                CGFloat sumAccumulation = [accumulationTextField.text floatValue] * 10000.0f;
+                
+                ///月均还款
+                monthPrice = [NSString calculateMonthlyMortgatePayment:sumPrice andPaymentType:lLoadRatefeeACBusinessLoan andRate:self.businessRate / 12.0f andTimes:sumTimes] + [NSString calculateMonthlyMortgatePayment:sumAccumulation andPaymentType:lLoadRatefeeACAccumulationFundLoan andRate:self.accumulationRate / 12.0f andTimes:sumTimes];
+                monthPaymentResult.text = [NSString stringWithFormat:@"%.2f元",monthPrice];
+                
+                ///还款总额
+                CGFloat sumPayInterestPrice = (sumPrice * (self.businessRate / 12.0f) * (sumTimes / 2.0f + 0.5f)) + (sumAccumulation * (self.accumulationRate / 12.0f) * (sumTimes / 2.0f + 0.5f));
+                repaymentToalResult.text = [NSString stringWithFormat:@"%.2f元",sumPrice + sumAccumulation + sumPayInterestPrice];
+                
+                ///支付利息
+                payInterestResult.text = [NSString stringWithFormat:@"%.2f元",sumPayInterestPrice];
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
     }];
     
     [view addSubview:countButton];
@@ -602,9 +753,6 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
 - (void)popMortgageTypePickView:(UILabel *)label andDataSource:(NSArray *)intentArray
 {
     
-    ///获取房子装修类型选择项数据
-    //NSArray *intentArray = [QSCoreDataManager getMortgageTypes];
-    
     ///显示房子装修类型选择窗口
     [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:nil andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
         
@@ -612,8 +760,73 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
             
             ///转模型
             QSBaseConfigurationDataModel *tempModel = params;
-            
             label.text = tempModel.val;
+            
+            ///判断类型
+            int pickedType = [tempModel.key intValue];
+            if (pickedType == 1) {
+                
+                self.monthPaymentLabel.text = @"月均还款";
+                
+                switch (self.loadType) {
+                        ///住房公积金
+                    case mMortgageAccumulationType:
+                        
+                        self.calculateType = lLoadRatefeeACPIAccumulationFundLoan;
+                        
+                        break;
+                        
+                        ///商业贷款
+                    case mMortgageBusinessType:
+                        
+                        self.calculateType = lLoadRatefeeACPIBusinessLoan;
+                        
+                        break;
+                        
+                        ///混合贷款
+                    case mMortgageGrounpType:
+                        
+                        self.calculateType = lLoadRatefeeACPIMixLoan;
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }
+            
+            if (pickedType == 2) {
+                
+                self.monthPaymentLabel.text = @"首月还款";
+                
+                switch (self.loadType) {
+                        ///住房公积金
+                    case mMortgageAccumulationType:
+                        
+                        self.calculateType = lLoadRatefeeACAccumulationFundLoan;
+                        
+                        break;
+                        
+                        ///商业贷款
+                    case mMortgageBusinessType:
+                        
+                        self.calculateType = lLoadRatefeeACBusinessLoan;
+                        
+                        break;
+                        
+                        ///混合贷款
+                    case mMortgageGrounpType:
+                        
+                        self.calculateType = lLoadRatefeeACMixLoan;
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+            }
             
         } else if (cCustomPopviewActionTypeUnLimited == actionType) {
             
@@ -631,7 +844,6 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
 {
     
     [textField resignFirstResponder];
-    
     return YES;
     
 }
