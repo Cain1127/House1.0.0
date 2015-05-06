@@ -18,6 +18,8 @@
 #import "QSRentHouseDetailViewController.h"
 #import "QSNewHouseDetailViewController.h"
 #import "QSCommunityDetailViewController.h"
+#import "QSHousesViewController.h"
+
 #import "QSCustomPickerView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
@@ -36,8 +38,10 @@
 
 #import "QSMapCommunityDataModel.h"
 #import "QSMapCommunityListReturnData.h"
-
-#import "QSHousesViewController.h"
+#import "QSMapNewHouseListReturnData.h"
+#import "QSMapNewHouseDataModel.h"
+#import "QSLoupanPhaseDataModel.h"
+#import "QSLoupanInfoDataModel.h"
 
 #import "MJRefresh.h"
 #import "QSCustomHUDView.h"
@@ -76,7 +80,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 @property (assign) BOOL isRefresh;                                          //!<标识视图出现时是否头部刷新
 
 ///数据源
-@property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel;
+@property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel; //!<小区、二手房、出租房数据源
+@property (nonatomic,retain) QSMapNewHouseListReturnData *mapNewHouseListData; //!<新房列表数据
 @property (nonatomic,copy) NSString *title;                                 //!<小区名称
 @property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数或价钱
 @property (nonatomic,assign) CGFloat latitude;                              //!<网络请求的纬度
@@ -740,6 +745,43 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 }
 
 #pragma mark - 添加大头针气泡
+///添加新房大头针
+- (void)addNewHouseAnnotations
+{
+    
+    NSMutableArray *annoArray=[[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < [self.mapNewHouseListData.mapNewHouseListHeaderData.records count]; i++) {
+        
+        QSMapNewHouseDataModel *tempModel = self.mapNewHouseListData.mapNewHouseListHeaderData.records[i];
+//        self.title = tempModel.mapCommunityDataSubModel.title;
+        
+        self.subtitle = tempModel.loupanbuilding_msg.price_avg;
+        
+        self.coordinate_x = ([tempModel.loupan_msg.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.loupan_msg.coordinate_x : tempModel.loupan_msg.coordinate_y;
+        self.coordinate_y = ([tempModel.loupan_msg.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.loupan_msg.coordinate_y : tempModel.loupan_msg.coordinate_x;
+        
+        double latitude = [self.coordinate_y doubleValue];
+        double longitude = [self.coordinate_x doubleValue];
+        
+        MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
+        
+        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.loupan_msg.title,tempModel.loupan_msg.id_];
+        anno.title = tempTitle;
+        anno.subtitle = self.subtitle;
+        anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
+        
+        [annoArray addObject:anno];
+        
+        [_mapView addAnnotation:anno];
+        
+    }
+    
+    [_mapView showAnnotations:annoArray animated:YES];
+    
+}
+
+///添加小区、二手房、出租房大头针
 - (void)addAnnotations
 {
     
@@ -751,8 +793,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         self.title = tempModel.mapCommunityDataSubModel.title;
         self.subtitle = tempModel.total_num;
         
-        self.coordinate_x = tempModel.mapCommunityDataSubModel.coordinate_x;
-        self.coordinate_y = tempModel.mapCommunityDataSubModel.coordinate_y;
+        self.coordinate_x = ([tempModel.mapCommunityDataSubModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.mapCommunityDataSubModel.coordinate_x : tempModel.mapCommunityDataSubModel.coordinate_y;
+        self.coordinate_y = ([tempModel.mapCommunityDataSubModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.mapCommunityDataSubModel.coordinate_y : tempModel.mapCommunityDataSubModel.coordinate_x;
         
         double latitude = [self.coordinate_y doubleValue];
         double longitude = [self.coordinate_x doubleValue];
@@ -823,15 +865,81 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     
     APPLICATION_LOG_INFO(@"网络请求纬度", latitude);
     APPLICATION_LOG_INFO(@"网络请求经度", longtude);
-    ///请求参数
-    NSDictionary *dict = @{@"map_type" : map_type,
-                           @"now_page" : @"1",
-                           @"page_num" : @"10",
-                           @"range" : @"10000",
-                           @"latitude" : latitude,
-                           @"longitude" : longtude
-                           };
     
+    if ([map_type isEqualToString: @"200502"])
+    {
+        
+        ///请求参数
+        NSDictionary *dict = @{
+                               @"now_page" : @"1",
+                               @"page_num" : @"10",
+                               @"range" : @"1000000",
+                               @"latitude" : latitude,
+                               @"longitude" : longtude
+                               };
+    [QSRequestManager requestDataWithType:rRequestTypeMapNewHouse andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            if (resultData) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [hud hiddenCustomHUD];
+                    
+                });
+                
+                ///请求成功后，转换模型
+                QSMapNewHouseListReturnData *resultDataModel = resultData;
+                
+                ///将数据模型置为nil
+                self.mapNewHouseListData = nil;
+                
+                self.mapNewHouseListData=resultDataModel;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [self addNewHouseAnnotations];
+                    
+                });
+            }
+            else{
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此新房数据..."];
+                    
+                });
+                
+            }
+            
+            
+        }
+        
+        else {
+            
+            NSLog(@"=====网络请求失败=======");
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///显示提示信息
+                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." ];
+                
+            });
+            
+        }
+    }];
+    }
+    else
+    {
+        ///请求参数
+        NSDictionary *dict = @{@"map_type" : map_type,
+                               @"now_page" : @"1",
+                               @"page_num" : @"10",
+                               @"range" : @"10000",
+                               @"latitude" : latitude,
+                               @"longitude" : longtude
+                               };
     [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///判断请求
@@ -883,6 +991,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
             
         }
     }];
+    }
     
 }
 

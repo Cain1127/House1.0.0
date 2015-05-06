@@ -87,7 +87,7 @@
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     [connetView addSubview:self.titleLabel];
     
-    if (fFilterMainTypeNewHouse == self.houseType || fFilterMainTypeCommunity == self.houseType) {
+    if (fFilterMainTypeNewHouse == self.houseType) {
         
         ///均价label
         UILabel *avgLabel = [[UILabel alloc] initWithFrame:CGRectMake(15.0f, self.titleLabel.frame.origin.y+self.titleLabel.frame.size.height+8.0f, 35.0f, 15.0f)];
@@ -120,6 +120,7 @@
         
     }
     
+    else {
     /// 添加价钱label
     self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 60.0f, 20.0f)];
     self.subTitleLabel.font = [UIFont systemFontOfSize:18];
@@ -139,7 +140,8 @@
     arrowImageView.center = CGPointMake(60.0f, 60.0f);
     arrowImageView.image = [UIImage imageNamed:@"houses_detail_map_arrow_up"];
     [self.annoView addSubview:arrowImageView];
-    
+    return;
+    }
 }
 
 #pragma mark - 刷新UI

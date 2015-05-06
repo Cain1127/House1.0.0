@@ -653,6 +653,7 @@ typedef enum
     rRequestTypeHistorySecondHandHouseList = 2031,      //!<二手房浏览记录列表
     rRequestTypeHistoryRentHouseList = 2032,            //!<出租房浏览记录列表
     
+    rRequestTypeMapNewHouse = 2046,                     //!<地图新房列表请求
     rRequestTypeMapCommunity = 2045,                    //!<地图小区列表请求
     
     rRequestTypeNewHouseDetail = 2050,                  //!<新房详情请求

@@ -562,6 +562,13 @@
 		<key>url</key>
 		<string>village/list</string>
 	</dict>
+	<key>2046</key>
+	<dict>
+		<key>class</key>
+		<string>QSMapNewHouseListReturnData</string>
+		<key>url</key>
+		<string>LoupanBuilding/mapList</string>
+	</dict>
 	<key>2045</key>
 	<dict>
 		<key>class</key>
