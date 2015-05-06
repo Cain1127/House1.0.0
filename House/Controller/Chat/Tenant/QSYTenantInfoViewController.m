@@ -38,6 +38,7 @@
 
 @property (nonatomic,copy) NSString *tenantName;                        //!<经纪人名
 @property (nonatomic,copy) NSString *tenantID;                          //!<经纪ID
+@property (nonatomic,assign) BOOL isNeedRefresh;                        //!<是否需要刷新
 @property (nonatomic,strong) UITableView *userInfoRootView;             //!<用户消息列表
 @property (nonatomic,assign) NSInteger releaseIndex;                    //!<当前展开的cell下标
 @property (nonatomic,retain) NSMutableArray *askDataSource;             //!<求租求购的记录
@@ -607,6 +608,7 @@
         orderDetailVC.orderID = self.orderInfo.id_;
         [orderDetailVC setOrderType:mOrderWithUserTypeAppointment];
         [self.navigationController pushViewController:orderDetailVC animated:YES];
+        self.isNeedRefresh = YES;
         return;
         
     }
@@ -751,6 +753,21 @@
         
     }];
     
+}
+
+#pragma mark - 视图出现时判断刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        [self.userInfoRootView.header beginRefreshing];
+        
+    }
+
 }
 
 @end
