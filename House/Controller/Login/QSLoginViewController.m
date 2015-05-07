@@ -482,7 +482,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [self deleteHistoryData];
     
     ///下载服务端数据
-    [self downloadServerHistoryData];
+//    [self downloadServerHistoryData];
 
 }
 

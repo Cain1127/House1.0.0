@@ -47,6 +47,7 @@
 #import "QSSecondHousesDetailReturnData.h"
 #import "QSSecondHouseDetailDataModel.h"
 #import "QSUserSimpleDataModel.h"
+#import "QSRateDataModel.h"
 
 #import "QSCoreDataManager+House.h"
 #import "QSCoreDataManager+App.h"
@@ -73,16 +74,14 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 @property (assign) BOOL isRefresh;                          //!<标识视图出现时是否头部刷新
 
 ///详情信息的数据模型
-@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;      //!<返回的基本数据模型，模型下带有4个基本模型，一个数组模型
+@property (nonatomic,retain) QSSecondHouseDetailDataModel *detailInfo;
 @property (nonatomic,retain) QSWSecondHouseInfoDataModel *houseInfo;        //!<基本列表数据模型
 @property (nonatomic,retain) QSUserSimpleDataModel *userInfo;               //!<用户信息模型
 @property (nonatomic,retain) QSHousePriceChangesDataModel *priceChangesInfo;//!<价格变化数据模型
 @property (nonatomic,retain) QSDetailCommentListReturnData *commentInfo;    //!<评论信息
 @property (nonatomic,retain) NSArray *photoArray;                           //!<图集数组
 @property (nonatomic,retain) QSPhotoDataModel *photoInfo;                   //!<图片模型
-
 @property (nonatomic, copy) NSString *phoneNumber;                          //!<电话号码
-
 @property (nonatomic,strong) UIButton *intentionButton;                     //!<收藏按钮
 
 @end
@@ -918,8 +917,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         ///计算器
         UIImageView *calculatorImage = [QSImageView createBlockImageViewWithFrame:CGRectMake(view.frame.size.width - 30.0f, timeLabel.frame.origin.y, 30.0f, 30.0f) andSingleTapCallBack:^{
             
-            NSLog(@"点击计算器");
-            QSMortgageCalculatorViewController *mortgageVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:[houseInfoModel.house_price floatValue]*0.7f/10000];
+            QSMortgageCalculatorViewController *mortgageVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:[houseInfoModel.house_price floatValue] * 0.7f/10000 andBusinessLoanRate:[self.detailInfo.loan.base_rate floatValue] andAccumulationRate:[QSCoreDataManager getCurrentLastAccumulationRate]];
             [self.navigationController pushViewController:mortgageVC animated:YES];
             
         }];
@@ -1084,8 +1082,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         changePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_20];
         [view addSubview:changePriceLabel];
         return;
-    }
-    else {
+        
+    } else {
         ///单位
         unitLabel2.text = @"万";
         unitLabel2.textAlignment = NSTextAlignmentLeft;

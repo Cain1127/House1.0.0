@@ -1340,7 +1340,7 @@
     
     NSMutableArray *houseUsedYearTypeList = [[NSMutableArray alloc] init];
     NSArray *houseUsedYearTypeTempArray = @[@"等额本息",
-                                            @"等息本额"];
+                                            @"等额本金"];
     
     NSArray *houseUsedYearTypeKeyArray = @[@"1",
                                            @"2"];
@@ -1367,7 +1367,7 @@
     
     if (2 == [typeKey intValue]) {
         
-        return @"等息本额";
+        return @"等额本金";
         
     }
     

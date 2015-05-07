@@ -458,8 +458,11 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     ///贷款说明信息
     QSBlockView *provideRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, self.houseTypeRootView.frame.origin.y + self.houseTypeRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
         
+        ///总价
+        CGFloat minTotalPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue] / 10000;
+        
         ///进入计算器页面
-        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
+        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:minTotalPrice andBusinessLoanRate:[self.detailInfo.loan.base_rate floatValue] andAccumulationRate:[QSCoreDataManager getCurrentLastAccumulationRate]];
         [self.navigationController pushViewController:mcVC animated:YES];
         
     }];
