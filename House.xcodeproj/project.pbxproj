@@ -30,6 +30,13 @@
 		18124DF41AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF31AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html */; };
 		18124DF61AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF51AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html */; };
 		18124DF81AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */; };
+		18124DFB1AFB03C30052E65B /* IntructionLeaseXontractEegistrationFuideHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DFA1AFB03C30052E65B /* IntructionLeaseXontractEegistrationFuideHTML.html */; };
+		18124E021AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DFC1AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html */; };
+		18124E031AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DFD1AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html */; };
+		18124E041AFB08220052E65B /* IntructionLawyerWitnessHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DFE1AFB08220052E65B /* IntructionLawyerWitnessHTML.html */; };
+		18124E051AFB08220052E65B /* IntructionPersonalIncomeTaxHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124DFF1AFB08220052E65B /* IntructionPersonalIncomeTaxHTML.html */; };
+		18124E061AFB08220052E65B /* IntructionProceduresLevyPersonalIncomeTaxHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124E001AFB08220052E65B /* IntructionProceduresLevyPersonalIncomeTaxHTML.html */; };
+		18124E071AFB08220052E65B /* IntructionRealEstateTaxHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18124E011AFB08220052E65B /* IntructionRealEstateTaxHTML.html */; };
 		1814A3A91AF8799300987908 /* QSYHistoryRentHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */; };
 		1814A3AC1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AB1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m */; };
 		1814A3AF1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AE1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m */; };
@@ -925,6 +932,13 @@
 		18124DF31AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaletHTML.html; sourceTree = "<group>"; };
 		18124DF51AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html; sourceTree = "<group>"; };
 		18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html; sourceTree = "<group>"; };
+		18124DFA1AFB03C30052E65B /* IntructionLeaseXontractEegistrationFuideHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionLeaseXontractEegistrationFuideHTML.html; path = Instruction/IntructionLeaseXontractEegistrationFuideHTML.html; sourceTree = "<group>"; };
+		18124DFC1AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionEntrustFormalitiesHTML.html; path = Instruction/IntructionEntrustFormalitiesHTML.html; sourceTree = "<group>"; };
+		18124DFD1AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionIncrementTaxLandQAAHTML.html; path = Instruction/IntructionIncrementTaxLandQAAHTML.html; sourceTree = "<group>"; };
+		18124DFE1AFB08220052E65B /* IntructionLawyerWitnessHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionLawyerWitnessHTML.html; path = Instruction/IntructionLawyerWitnessHTML.html; sourceTree = "<group>"; };
+		18124DFF1AFB08220052E65B /* IntructionPersonalIncomeTaxHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionPersonalIncomeTaxHTML.html; path = Instruction/IntructionPersonalIncomeTaxHTML.html; sourceTree = "<group>"; };
+		18124E001AFB08220052E65B /* IntructionProceduresLevyPersonalIncomeTaxHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionProceduresLevyPersonalIncomeTaxHTML.html; path = Instruction/IntructionProceduresLevyPersonalIncomeTaxHTML.html; sourceTree = "<group>"; };
+		18124E011AFB08220052E65B /* IntructionRealEstateTaxHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionRealEstateTaxHTML.html; path = Instruction/IntructionRealEstateTaxHTML.html; sourceTree = "<group>"; };
 		1814A3A71AF8799300987908 /* QSYHistoryRentHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistoryRentHouseListReturnData.h; path = History/QSYHistoryRentHouseListReturnData.h; sourceTree = "<group>"; };
 		1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHistoryRentHouseListReturnData.m; path = History/QSYHistoryRentHouseListReturnData.m; sourceTree = "<group>"; };
 		1814A3AA1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistorySecondHandHouseListReturnData.h; path = History/QSYHistorySecondHandHouseListReturnData.h; sourceTree = "<group>"; };
@@ -2448,6 +2462,7 @@
 		18124B921AFA658C0052E65B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				18124DF91AFAFF770052E65B /* Instruction */,
 				18124B931AFA658C0052E65B /* Contract */,
 			);
 			path = Chat;
@@ -2462,6 +2477,20 @@
 				18124DF71AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html */,
 			);
 			path = Contract;
+			sourceTree = "<group>";
+		};
+		18124DF91AFAFF770052E65B /* Instruction */ = {
+			isa = PBXGroup;
+			children = (
+				18124DFC1AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html */,
+				18124DFD1AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html */,
+				18124DFE1AFB08220052E65B /* IntructionLawyerWitnessHTML.html */,
+				18124DFF1AFB08220052E65B /* IntructionPersonalIncomeTaxHTML.html */,
+				18124E001AFB08220052E65B /* IntructionProceduresLevyPersonalIncomeTaxHTML.html */,
+				18124E011AFB08220052E65B /* IntructionRealEstateTaxHTML.html */,
+				18124DFA1AFB03C30052E65B /* IntructionLeaseXontractEegistrationFuideHTML.html */,
+			);
+			name = Instruction;
 			sourceTree = "<group>";
 		};
 		1814A3A61AF8796100987908 /* History */ = {
@@ -6648,6 +6677,7 @@
 				CE5210121ACD0F1800D6230B /* houses_detail_school_normal.png in Resources */,
 				18B972E81AF2064C00652890 /* talk_sound_highlighted.png in Resources */,
 				18B973A51AF4FB1700652890 /* myzone_renant_community_highlighted.png in Resources */,
+				18124E071AFB08220052E65B /* IntructionRealEstateTaxHTML.html in Resources */,
 				18B9735E1AF4FB1700652890 /* icon_default_158x158.png in Resources */,
 				CEACB0591AD62E510010D455 /* house_detail_second_dianti_light.png in Resources */,
 				18B973661AF4FB1700652890 /* myzone_ask_rent_partner.png in Resources */,
@@ -6659,6 +6689,7 @@
 				18B973901AF4FB1700652890 /* myzone_oorderlist_cell_comment_bt_selected.png in Resources */,
 				18B972D31AF2064C00652890 /* chat_contact_detail_recommend_highlighted.png in Resources */,
 				CE52100D1ACD0F1800D6230B /* houses_detail_market_highlighted.png in Resources */,
+				18124E041AFB08220052E65B /* IntructionLawyerWitnessHTML.html in Resources */,
 				18B564421A8366A4009779A0 /* 720X1280.png in Resources */,
 				CEA9CFCB1AD503B200FEF74A /* houses_detail_catering_annotion.png in Resources */,
 				18B972ED1AF2064C00652890 /* chat_tool_caclulator_normal.png in Resources */,
@@ -6714,6 +6745,7 @@
 				18B973A61AF4FB1700652890 /* myzone_renant_community_normal.png in Resources */,
 				18B564261A8366A4009779A0 /* houses_bag.png in Resources */,
 				18B973741AF4FB1700652890 /* myzone_oorder_selected_bt_normal_icon.png in Resources */,
+				18124E051AFB08220052E65B /* IntructionPersonalIncomeTaxHTML.html in Resources */,
 				18B973921AF4FB1700652890 /* myzone_oorderlist_cell_confirm_bt_selected.png in Resources */,
 				18B564321A8366A4009779A0 /* icon120.png in Resources */,
 				18B564461A8366A4009779A0 /* navigationbar_collected_normal.png in Resources */,
@@ -6819,6 +6851,7 @@
 				18B5643F1A8366A4009779A0 /* 320X480.png in Resources */,
 				18B9737D1AF4FB1700652890 /* myzone_oorderdetail_edite_price_bt_normal.png in Resources */,
 				18B972E71AF2064C00652890 /* talk_sound_can_record_normal.png in Resources */,
+				18124E021AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html in Resources */,
 				18B973881AF4FB1700652890 /* myzone_oorderlist_cell_ask_bt_normal.png in Resources */,
 				18B973871AF4FB1700652890 /* myzone_oorderlist_cell_accept_price_bt_selected.png in Resources */,
 				CEACB05D1AD62E510010D455 /* house_detail_second_gelou_light.png in Resources */,
@@ -6843,6 +6876,7 @@
 				18B564721A8366A4009779A0 /* tabbar_home_normal.png in Resources */,
 				18B5645A1A8366A4009779A0 /* navigationbar_turnback_normal.png in Resources */,
 				18B972E91AF2064C00652890 /* talk_sound_normal.png in Resources */,
+				18124E061AFB08220052E65B /* IntructionProceduresLevyPersonalIncomeTaxHTML.html in Resources */,
 				18BE12361A8869850036245A /* comparison_appointment.png in Resources */,
 				18B972EE1AF2064C00652890 /* chat_tool_contract_highlighted.png in Resources */,
 				18B563FC1A8366A4009779A0 /* guide_houses_haved_circle_tip.png in Resources */,
@@ -6871,6 +6905,7 @@
 				18B973951AF4FB1700652890 /* myzone_oorderlist_cell_reject_bt_normal.png in Resources */,
 				18B564651A8366A4009779A0 /* public_row_arrow.png in Resources */,
 				18DFE83F1AC67E8500C216C3 /* ReleaseRentHouse.plist in Resources */,
+				18124DFB1AFB03C30052E65B /* IntructionLeaseXontractEegistrationFuideHTML.html in Resources */,
 				18B564251A8366A4009779A0 /* houses_appliance.png in Resources */,
 				18124DF21AFA6E510052E65B /* ContractRentLeaseAgreementHTML.html in Resources */,
 				18B972DF1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png in Resources */,
@@ -6951,6 +6986,7 @@
 				CEACB0381AD618130010D455 /* houses_detail_rent_park.png in Resources */,
 				18B973AA1AF4FB1700652890 /* myzone_renant_order_appointed_normal.png in Resources */,
 				18B5640A1A8366A4009779A0 /* home_secondhandhouse_normal.png in Resources */,
+				18124E031AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html in Resources */,
 				18B564001A8366A4009779A0 /* guide_tenant_haved_circle_tip.png in Resources */,
 				18B5641D1A8366A4009779A0 /* houses_detail_score.png in Resources */,
 				CEACB02F1AD618130010D455 /* houses_detail_rent_appliance_light.png in Resources */,
