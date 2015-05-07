@@ -99,15 +99,14 @@
         
         
         /// 添加价钱label
-        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 35.0f, 20.0f)];
-        priceLabel.font = [UIFont systemFontOfSize:18];
-        priceLabel.textColor = [UIColor blackColor];
-        priceLabel.text = self.subtitle ? self.subtitle : @"999";
-        priceLabel.textAlignment = NSTextAlignmentRight;
-        [connetView addSubview:priceLabel];
+        self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 40.0f, 20.0f)];
+        self.subTitleLabel.font = [UIFont systemFontOfSize:16];
+        self.subTitleLabel.textColor = [UIColor blackColor];
+        self.subTitleLabel.textAlignment = NSTextAlignmentRight;
+        [connetView addSubview:self.subTitleLabel];
         
         ///单位
-        UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabel.frame.origin.x+priceLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
+        UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.subTitleLabel.frame.origin.x+self.subTitleLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
         priceUnitLabel.font = [UIFont systemFontOfSize:14.0f];
         priceUnitLabel.text = @"万";
         [connetView addSubview:priceUnitLabel];
@@ -126,7 +125,7 @@
     self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 60.0f, 20.0f)];
     self.subTitleLabel.font = [UIFont systemFontOfSize:18];
     self.subTitleLabel.textColor = [UIColor blackColor];
-    self.subTitleLabel.text = self.subtitle ? self.subtitle : @"999";
+    self.subTitleLabel.text = self.subtitle ? self.subtitle : @"";
     self.subTitleLabel.textAlignment = NSTextAlignmentRight;
     [connetView addSubview:self.subTitleLabel];
     
@@ -162,8 +161,20 @@
     _titleLabel.text = tempArray[0];
     self.deteilID = tempArray[1];
     self.title = tempArray[0];
-    _subTitleLabel.text=annotation.subtitle;
     
+    NSString *map_type=[NSString stringWithFormat:@"%ld",(long)self.houseType];
+
+    if ([map_type isEqualToString:@"200502" ]) {
+        
+         _subTitleLabel.text=[NSString stringWithFormat:@"%.2f",[annotation.subtitle floatValue]/10000.0f];
+    }
+   
+    else
+    {
+        
+        _subTitleLabel.text = annotation.subtitle;
+    
+    }
 }
 
 @end

@@ -824,30 +824,66 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 }
 
 #pragma mark - 创建特色标签
-///创建特色标签
+///创建满五标签
 - (void)createFeaturesSubviews:(UIView *)view andDataSource:(NSString *)featuresString
 {
     
-    if (featuresString && ([featuresString length] > 0)) {
+    ///满五/唯一标签
+    NSString *natureString = self.detailInfo.house.house_nature;
+    NSInteger starCount = 0;
+    
+    ///清空原标签
+    for (UIView *obj in [view subviews]) {
         
-        ///清空原标签
-        for (UIView *obj in [view subviews]) {
+        [obj removeFromSuperview];
+        
+    }
+    
+    if (natureString && ([natureString length] > 0)) {
+        
+        ///将特色标签信息转为数组
+        NSArray *natureList = [natureString componentsSeparatedByString:@","];
+        starCount = [natureList count];
+        
+        ///标签宽度
+        CGFloat width = 55.0f;
+        
+        ///循环创建特色标签
+        for (int i = 0; i < [natureList count] ;i++) {
             
-            [obj removeFromSuperview];
+            ///标签项
+            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(i * (width + 3.0f), 10.0f, width, 20.0f)];
+            
+            ///根据特色标签，查询标签内容
+            NSString *natureVal = [QSCoreDataManager getHouseNatureValueWithKey:natureList[i]];
+            
+            tempLabel.text = natureVal;
+            tempLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+            tempLabel.textAlignment = NSTextAlignmentCenter;
+            tempLabel.backgroundColor = COLOR_CHARACTERS_BLACK;
+            tempLabel.textColor = [UIColor whiteColor];
+            tempLabel.layer.cornerRadius = 4.0f;
+            tempLabel.layer.masksToBounds = YES;
+            tempLabel.adjustsFontSizeToFitWidth = YES;
+            [view addSubview:tempLabel];
             
         }
         
-        ///将标签信息转为数组
+    }
+    
+    if (featuresString && ([featuresString length] > 0)) {
+        
+        ///将特色标签信息转为数组
         NSArray *featuresList = [featuresString componentsSeparatedByString:@","];
         
         ///标签宽度
         CGFloat width = 55.0f;
         
         ///循环创建特色标签
-        for (int i = 0; i < [featuresList count];i++) {
+        for (int i = 0; i < [featuresList count] ;i++) {
             
             ///标签项
-            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake(i * (width + 3.0f), 10.0f, width, 20.0f)];
+            UILabel *tempLabel = [[QSLabel alloc] initWithFrame:CGRectMake((starCount + i) * (width + 3.0f), 10.0f, width, 20.0f)];
             
             ///根据特色标签，查询标签内容
             NSString *featureVal = [QSCoreDataManager getHouseFeatureWithKey:featuresList[i] andFilterType:fFilterMainTypeSecondHouse];
@@ -867,7 +903,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     }
     
 }
-
 
 #pragma mark - 添加房子详情view
 ///添加房子详情view
@@ -1063,7 +1098,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     NSString *localUserID=[QSCoreDataManager getUserID];
     ///根据是房客还是业主，创建不同的功能按钮（等则是业主）
     if ([localUserID isEqualToString:self.userInfo.id_]) {
-        
         
         unitLabel2.text = @"%";
         unitLabel2.textAlignment = NSTextAlignmentLeft;

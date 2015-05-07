@@ -84,7 +84,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 ///数据源
 @property (nonatomic,retain) QSMapCommunityListReturnData *dataSourceModel; //!<小区、二手房、出租房数据源
 @property (nonatomic,retain) QSMapNewHouseListReturnData *mapNewHouseListData; //!<新房列表数据
-@property (nonatomic,copy) NSString *title;                                 //!<小区名称
 @property (nonatomic,copy) NSString *subtitle;                              //!<每个小区的房源套数或价钱
 @property (nonatomic,assign) CGFloat latitude;                              //!<网络请求的纬度
 @property (nonatomic,assign) CGFloat longtude;                              //!<网络请求的经度
@@ -752,7 +751,18 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     [self.annoArray removeAllObjects];
+    for( UIView *obj in [_mapView subviews ]){
+        
+        if ([obj isKindOfClass:[QSCustomAnnotationView class]]) {
+            
+            [obj removeFromSuperview];
+
+        }
+        
+    }
+    
     self.annoArray = [[NSMutableArray alloc] init];
+    
     
     for (int i = 0; i < [self.mapNewHouseListData.mapNewHouseListHeaderData.records count]; i++) {
         
@@ -788,6 +798,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     [self.annoArray removeAllObjects];
+    for( UIView *obj in [self.view subviews ]){
+        
+        if ([obj isKindOfClass:[QSCustomAnnotationView class]]) {
+            
+            [obj removeFromSuperview];
+            
+        }
+        
+    }
+    
      self.annoArray=[[NSMutableArray alloc] init];
     
     for (int i = 0; i < [self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
