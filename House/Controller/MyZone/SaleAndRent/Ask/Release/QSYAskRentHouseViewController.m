@@ -213,6 +213,14 @@ typedef enum
                     
                 } else {
                     
+                    ///判断是否已添加三个，最多只能选择三个
+                    if ([self.releaseModel.features_list count] >= 3) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"最多只能选择三个标签", 1.5f, ^(){})
+                        return;
+                        
+                    }
+                    
                     button.selected = YES;
                     button.layer.borderColor = [COLOR_CHARACTERS_BLACK CGColor];
                     
