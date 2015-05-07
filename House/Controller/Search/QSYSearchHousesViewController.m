@@ -119,6 +119,7 @@
     seachTextField.returnKeyType = UIReturnKeySearch;
     seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     seachTextField.delegate = self;
+    seachTextField.text = APPLICATION_NSSTRING_SETTING_NIL(self.searchKey);
     [self.view addSubview:seachTextField];
     
     ///取消搜索按钮
