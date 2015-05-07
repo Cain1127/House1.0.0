@@ -19,6 +19,7 @@
 #import "QSPSalerBookedOrdersListsViewController.h"
 #import "QSPOrderTipsButtonPopView.h"
 #import "QSPSalerTransactionOrderListViewController.h"
+#import "QSYContactComplaintViewController.h"
 
 ///关联
 static char stateLabelKey;      //!<状态Label关联key
@@ -92,21 +93,51 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             [self callPhone];
         }else if (500203 == button.tag || 500201 == button.tag) {
             //取消预约
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否取消房客预约？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否取消房客预约？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//                
+//                if (actionType == oOrderButtonTipsActionTypeCancel) {
+//                    
+//                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+//                    
+//                    [self cancelAppointmentOrder];
+//                    
+//                }
+//                
+//            }];
+//            
+//            [popView setParentViewController:self.parentViewController];
+//            if (self.parentViewController) {
+//                [self.parentViewController.view addSubview:popView];
+//            }
+            
+            NSString *orderID = @"";
+            
+            if (self.orderData) {
                 
-                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
                     
-                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    NSArray *orderList = self.orderData.orderInfoList;
                     
-                    [self cancelAppointmentOrder];
-                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+                            orderID = orderItem.id_;
+                            
+                        }
+                        
+                    }
                 }
+            }
+            
+            QSYContactComplaintViewController *ccVc = [[QSYContactComplaintViewController alloc] initWithCancelOrderWithSueder:@"SALER" andOrderID:orderID WithDesc:@"业主取消订单" andCallBack:^(BOOL isComplaint) {
                 
             }];
             
-            [popView setParentViewController:self.parentViewController];
             if (self.parentViewController) {
-                [self.parentViewController.view addSubview:popView];
+                [self.parentViewController.navigationController pushViewController:ccVc animated:YES];
             }
 
         }else if (500252 == button.tag ){
@@ -171,6 +202,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             if (self.parentViewController) {
                 [self.parentViewController.view addSubview:popView];
             }
+            
         }else if (500253 == button.tag ){
             //拒绝再议价
             __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否拒绝房客再议价？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
@@ -248,7 +280,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
-        }else if (500252 == button.tag || 500220 == button.tag || 500222 == button.tag){
+        }else if (500252 == button.tag || 500222 == button.tag || 500257 == button.tag){
             //同意还价
             NSString *houseName = @"";
             NSString *housePrice = @"";
@@ -321,24 +353,24 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
-        }else if (500257 == button.tag ){
-            //成交预约订单
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"房客完成看房后，你的联系方式将对他公开？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
-                
-                if (actionType == oOrderButtonTipsActionTypeCancel) {
-                    
-                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
-                    
-                    [self buyerOrSalerCommitAppointmentOrder];
-                    
-                }
-                
-            }];
-            
-            [popView setParentViewController:self.parentViewController];
-            if (self.parentViewController) {
-                [self.parentViewController.view addSubview:popView];
-            }
+//        }else if (500257 == button.tag ){
+//            //成交预约订单
+//            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"房客完成看房后，你的联系方式将对他公开？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//                
+//                if (actionType == oOrderButtonTipsActionTypeCancel) {
+//                    
+//                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+//                    
+//                    [self buyerOrSalerCommitAppointmentOrder];
+//                    
+//                }
+//                
+//            }];
+//            
+//            [popView setParentViewController:self.parentViewController];
+//            if (self.parentViewController) {
+//                [self.parentViewController.view addSubview:popView];
+//            }
             
         }else if (500253 == button.tag ){
             //接受再议价
@@ -359,9 +391,26 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
+        }else if (500220 == button.tag ){
+            //完成预约订单，进入成交流程
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                    
+                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    
+                    [self buyerOrSalerCommitAppointmentOrder];
+                    
+                }
+                
+            }];
+            
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+            
         }
-        
-        
         
     }];
     [self.contentView addSubview:rightBt];
