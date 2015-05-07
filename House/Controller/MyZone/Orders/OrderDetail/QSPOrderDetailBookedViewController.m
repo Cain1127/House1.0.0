@@ -126,7 +126,7 @@
 @property (nonatomic, strong) QSPOrderDetailCancelTransAndWarmSalerButtonView *cancelTransAndWarmSalerButtonView;           //!<取消成交和提醒业主按钮View
 @property (nonatomic, strong) QSPOrderDetailCancelTransAndCompleteButtonView *cancelTransAndCompleteButtonView;         //!<取消成交和确认成交按钮View
 @property (nonatomic, strong) QSPOrderDetailAcceptOrRejectApplicationView *acceptOrRejectApplicationView;      //!<接受申请和拒绝申请按钮View
-@property (nonatomic, strong) QSPOrderDetailAppointAgainOrCancelApplicationView *appointAgainOrCancelApplicationView;       //!<再次预约、取消申请按钮View
+@property (nonatomic, strong) QSPOrderDetailAppointAgainOrCancelApplicationView *appointAgainOrCancelApplicationView;       //!<再次预约、申请议价中View
 @property (nonatomic, strong)  QSPOrderDetailAppointAgainAndApplicationBargainView *appointAgainAndApplicationBargainView;      //!<再次预约、申请议价按钮View
     
 
@@ -1320,18 +1320,18 @@
         
     }
     
-    //!<再次预约、取消申请按钮View
-    if (self.orderDetailData.isShowAppointAgainOrCancelApplicationView) {
+    //!<再次预约、申请议价中按钮View
+    if (self.orderDetailData.isShowAppointAgainOrApplicationingView) {
         
         self.appointAgainOrCancelApplicationView = [[QSPOrderDetailAppointAgainOrCancelApplicationView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) andCallBack:^(BOTTOM_BUTTON_TYPE buttonType, UIButton *button) {
             switch (buttonType) {
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:再次预约");
-                    [self appointmentAgainAction];
+//                    [self appointmentAgainAction];
                     break;
                 case bBottomButtonTypeRight:
-                    NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:取消申请");
-                    [self cancelAppointmentOrder];
+                    NSLog(@"QSPOrderDetailAppointAgainOrCancelApplicationView:申请议价中");
+//                    [self cancelAppointmentOrder];
                     break;
                 default:
                     break;
