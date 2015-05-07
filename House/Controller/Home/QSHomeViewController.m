@@ -15,6 +15,7 @@
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYHomeRecommendSecondHouseViewController.h"
+#import "QSLoginViewController.h"
 
 #import "NSDate+Formatter.h"
 
@@ -68,7 +69,8 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 @interface QSHomeViewController () <QSAutoScrollViewDelegate>
 
-@property (nonatomic,retain) NSMutableArray *collectedDataSource;//!<收藏的数据源
+@property (nonatomic,retain) NSMutableArray *collectedDataSource;   //!<收藏的数据源
+@property (nonatomic,assign) BOOL isRequestCollectedData;           //!<是否请求收藏数据
 
 @end
 
@@ -864,15 +866,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
 
 }
 
-#pragma mark - 笋盘推荐
-///笋盘推荐按钮点击
-- (void)communityRecommendHouseButtonAction
-{
-    
-    
-    
-}
-
 #pragma mark - 刷新数据
 ///刷新UI
 - (void)updateHouseCountData:(QSYHomeReturnData *)model
@@ -980,20 +973,28 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
         if (rRequestResultTypeSuccess == resultStatus) {
             
             QSYHomeReturnData *tempModel = resultData;
+            
             ///刷新UI
             [self updateHouseCountData:tempModel];
             
-            ///移除HUD
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.0f];
+            
+            ///请求收藏数据
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                [hud hiddenCustomHUD];
+                ///判断是否已登录
+                if (lLoginCheckActionTypeLogined == [self checkLogin]) {
+                    
+                    [QSLoginViewController loadCollectedDataToServerWithCommunity];
+                    
+                }
                 
             });
                         
         } else {
         
             ///显示提示信息
-            [hud hiddenCustomHUDWithFooterTips:@"您的网络不给力哦"];
+            [hud hiddenCustomHUDWithFooterTips:@"您的网络不给力哦" andDelayTime:1.0f];
         
         }
         

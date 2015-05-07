@@ -480,9 +480,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     
     ///删除
     [self deleteHistoryData];
-    
-    ///下载服务端数据
-//    [self downloadServerHistoryData];
 
 }
 
@@ -795,7 +792,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     
                     if (!isSave) {
                         
-                        [self downloadServerHistoryNewHouseDetailData:newHouseModel.houseInfo.loupan_id andBuildingID:newHouseModel.houseInfo.loupan_building_id];
+                        [self saveHistoryHouseToLocal:[newHouseModel.houseInfo changeToNewHouseDetailModel] andHouseType:fFilterMainTypeNewHouse];
                         
                     }
                     
@@ -810,33 +807,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         } else {
         
             APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"失败")
-        
-        }
-        
-    }];
-
-}
-
-+ (void)downloadServerHistoryNewHouseDetailData:(NSString *)detailID andBuildingID:(NSString *)buildingID
-{
-
-    ///封装参数
-    NSDictionary *params = @{@"loupan_id" : detailID,
-                             @"loupan_building_id" : buildingID};
-    
-    [QSRequestManager requestDataWithType:rRequestTypeNewHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///请求成功
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            QSNewHousesDetailReturnData *returnModel = resultData;
-            QSNewHouseDetailDataModel *tempModel = returnModel.detailInfo;
-            tempModel.is_syserver = @"1";
-            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeNewHouse];
-            
-        } else {
-        
-            APPLICATION_LOG_INFO(@"下载新房详情", @"失败")
         
         }
         
@@ -869,7 +839,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     
                     if (!isSave) {
                         
-                        [self downloadServerHistoryRentHouseDetailData:rentHouseModel.view_id];
+                        [self saveHistoryHouseToLocal:[rentHouseModel.houseInfo changeToRentHouseDetailModel] andHouseType:fFilterMainTypeRentalHouse];
                         
                     }
                 
@@ -889,32 +859,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
         
     }];
     
-}
-
-+ (void)downloadServerHistoryRentHouseDetailData:(NSString *)detailID
-{
-
-    ///封装参数
-    NSDictionary *params = @{@"id_" : detailID};
-    
-    [QSRequestManager requestDataWithType:rRequestTypeRentalHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///请求成功
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            QSRentHousesDetailReturnData *returnModel = resultData;
-            QSRentHouseDetailDataModel *tempModel = returnModel.detailInfo;
-            tempModel.house.is_syserver = @"1";
-            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeRentalHouse];
-            
-        } else {
-            
-            APPLICATION_LOG_INFO(@"下载出租房详情", @"失败")
-            
-        }
-        
-    }];
-
 }
 
 + (void)downloadServerHistorySecondHandHouseData
@@ -942,7 +886,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     
                     if (!isSave) {
                         
-                        [self downloadServerHistorySecondHandHouseDetailData:secondHouseModel.view_id];
+                        [self saveHistoryHouseToLocal:[secondHouseModel.houseInfo changeToSecondHandHouseDetailModel] andHouseType:fFilterMainTypeSecondHouse];
                         
                     }
                     
@@ -964,32 +908,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     
 }
 
-+ (void)downloadServerHistorySecondHandHouseDetailData:(NSString *)detailID
-{
-
-    ///封装参数
-    NSDictionary *params = @{@"id_" : detailID,};
-    
-    [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseDetail andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///请求成功
-        if (rRequestResultTypeSuccess == resultStatus) {
-            
-            QSSecondHousesDetailReturnData *returnModel = resultData;
-            QSSecondHouseDetailDataModel *tempModel = returnModel.detailInfo;
-            tempModel.is_syserver = @"1";
-            [self saveHistoryHouseToLocal:tempModel andHouseType:fFilterMainTypeSecondHouse];
-            
-        } else {
-            
-            APPLICATION_LOG_INFO(@"下载二手房详情", @"失败")
-            
-        }
-        
-    }];
-
-}
-
 #pragma mark - 将本地的收藏/分享数据上传服务端
 ///将本地的收藏/分享数据上传服务端
 + (void)loadCollectedDataToServer
@@ -1004,6 +922,63 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     ///下载同步服务端数据：保证本地的数据先上传服务端再获取最新数据，所以放在本地数据上传服务端之后再执行
     [self downloadServerCollectedData];
     
+}
+
+/**
+ *  @author yangshengmeng, 15-05-07 14:05:43
+ *
+ *  @brief  同步收藏数据，但是不同步小区相关的数据
+ *
+ *  @since  1.0.0
+ */
++ (void)loadCollectedDataToServerWithCommunity
+{
+
+    [self addCollectedNewHouseToServer];
+    [self addCollectedRentHouseToServer];
+    [self addCollectedSecondHandHouseToServer];
+    [self deleteCollectedNewHouse];
+    [self deleteCollectedRentHouse];
+    [self deleteCollectedSecondHandHouse];
+    [self downloadServerCollectedDataWithoutCommunity];
+
+}
+
+/**
+ *  @author yangshengmeng, 15-05-07 12:05:09
+ *
+ *  @brief  同步收藏小区
+ *
+ *  @since  1.0.0
+ */
++ (void)loadCollectedCommunityDataToServer
+{
+
+    [self addInttentionCommunityToServer];
+    [self deleteCollectedCommunity];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:@"999" forKey:@"page_num"];
+    [params setObject:@"1" forKey:@"now_page"];
+    [params setObject:[NSString stringWithFormat:@"%d",fFilterMainTypeCommunity] forKey:@"type"];
+    
+    ///下载数据
+    [QSRequestManager requestDataWithType:rRequestTypeMyZoneIntentionCommunityList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///判断请求
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSCommunityListReturnData *tempModel = resultData;
+            [self saveServerIntentionCommunity:tempModel.communityListHeaderData.communityList];
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"下载服务端关注小区数据", @"失败")
+            
+        }
+        
+    }];
+
 }
 
 ///下载服务端收藏信息
@@ -1104,6 +1079,137 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     } else {
                         
                         APPLICATION_LOG_INFO(@"下载服务端关注小区数据", @"失败")
+                        
+                    }
+                    
+                }
+                    break;
+                    
+                    ///二手房请求
+                case rRequestTypeMyZoneCollectedSecondHouseList:
+                {
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        QSSecondHandHouseListReturnData *tempModel = resultData;
+                        [self saveServerCollectedSecondHandHouse:tempModel.secondHandHouseHeaderData.houseList];
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"下载服务端收藏二手房数据", @"失败")
+                        
+                    }
+                    
+                }
+                    break;
+                    
+                    ///出租房请求
+                case rRequestTypeMyZoneCollectedRentHouseList:
+                {
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        QSRentHouseListReturnData *tempModel = resultData;
+                        [self saveServerCollectedRentHouse:tempModel.headerData.rentHouseList];
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"下载服务端收藏出租房数据", @"失败")
+                        
+                    }
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            ///离开队列
+            dispatch_group_leave(downloadGroup);
+            
+        }];
+        
+    });
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        
+        ///所有任务完成
+        APPLICATION_LOG_INFO(@"同步网络上的收藏数据", @"同步完成")
+        
+    });
+
+}
+
++ (void)downloadServerCollectedDataWithoutCommunity
+{
+
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    dispatch_apply(3, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i){
+        
+        ///参数
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"999" forKey:@"page_num"];
+        [params setObject:@"1" forKey:@"now_page"];
+        
+        ///请求类型
+        __block REQUEST_TYPE requestType;
+        
+        switch (i) {
+                ///新房
+            case 0:
+            {
+                
+                [params setObject:[NSString stringWithFormat:@"%d",fFilterMainTypeNewHouse] forKey:@"type"];
+                requestType = rRequestTypeMyZoneCollectedNewHouseList;
+                
+            }
+                break;
+                
+                ///二手房
+            case 1:
+            {
+                
+                [params setObject:[NSString stringWithFormat:@"%d",fFilterMainTypeSecondHouse] forKey:@"type"];
+                requestType = rRequestTypeMyZoneCollectedSecondHouseList;
+                
+            }
+                break;
+                
+                ///出租房
+            case 2:
+            {
+                
+                [params setObject:[NSString stringWithFormat:@"%d",fFilterMainTypeRentalHouse] forKey:@"type"];
+                requestType = rRequestTypeMyZoneCollectedRentHouseList;
+                
+            }
+                break;
+                
+            default:
+                break;
+                
+        }
+        
+        dispatch_group_enter(downloadGroup);
+        
+        ///下载数据
+        [QSRequestManager requestDataWithType:requestType andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+            
+            ///判断请求
+            switch (requestType) {
+                    ///新房请求
+                case rRequestTypeMyZoneCollectedNewHouseList:
+                {
+                    
+                    if (rRequestResultTypeSuccess == resultStatus) {
+                        
+                        QSNewHouseListReturnData *tempModel = resultData;
+                        [self saveServerCollectedNewHouse:tempModel.headerData.houseList];
+                        
+                    } else {
+                        
+                        APPLICATION_LOG_INFO(@"下载服务端收藏新房数据", @"失败")
                         
                     }
                     

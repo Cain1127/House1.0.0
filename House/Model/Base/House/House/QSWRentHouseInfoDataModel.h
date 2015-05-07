@@ -13,7 +13,6 @@
 
 @property (nonatomic,copy) NSString *content;                   //!<简述
 @property (nonatomic,copy) NSString *decoration;                //!<装饰
-@property (nonatomic,copy) NSString *update_time;               //!<更新时间
 @property (nonatomic,copy) NSString *tj_look_house_num;         //!<已看房人数
 @property (nonatomic,copy) NSString *tj_wait_look_house_people; //!<待看房数
 @property (nonatomic,copy) NSString *price_avg;                 //!<小区均价
