@@ -56,6 +56,7 @@ typedef enum
 @property (nonatomic,assign) FILTER_SETTINGVC_TYPE filterVCType;//!<过滤设置页面的类型
 @property (nonatomic,retain) QSFilterDataModel *filterModel;    //!<过滤器数据模型
 @property (nonatomic,assign) BOOL isAddAskRent;                 //!<是否同步添加求租求购
+@property (nonatomic,strong) QSScrollView *pickedRootView;      //!<滚动视图
 
 @end
 
@@ -179,6 +180,22 @@ typedef enum
             [super createNavigationBarUI];
             [self setNavigationBarTitle:@"高级过滤"];
             
+            ///添加清空按钮
+            UIButton *clearButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+                
+                ///清空过滤条件
+                [self.filterModel clearFilterInfo];
+                
+                ///重构UI
+                [self createSettingInputUI:self.pickedRootView];
+                
+            }];
+            [clearButton setTitle:@"清空" forState:UIControlStateNormal];
+            [clearButton setTitleColor:COLOR_CHARACTERS_GRAY forState:UIControlStateNormal];
+            [clearButton setTitleColor:COLOR_CHARACTERS_YELLOW forState:UIControlStateHighlighted];
+            clearButton.titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+            [self setNavigationBarRightView:clearButton];
+            
         }
             break;
             
@@ -272,24 +289,12 @@ typedef enum
 - (void)createSettingInputUI:(QSScrollView *)view
 {
 
-    /**
-     *  房子类型 :
-     *  区域 : 
-     *  户型 :
-     *  购房目的 :
-     *  售价 :
-     *  面积 :
-     *  出租方式 :
-     *  租金 :
-     *  租金支付方式 :
-     *  楼层 :
-     *  朝向 :
-     *  装修 :
-     *  房龄 :
-     *  标签 :
-     *  备注 :
-     *  配套 :
-     */
+    ///清空原UI
+    for (UIView *obj in [view subviews]) {
+        
+        [obj removeFromSuperview];
+        
+    }
     
     ///根据类型获取不同的加载plist配置文件信息
     NSDictionary *infoDict = [self getFilterSettingInfoWithType];
@@ -538,9 +543,9 @@ typedef enum
     CGFloat ypoint = 64.0f;
 
     ///过滤条件的底view
-    QSScrollView *pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 25.0f)];
-    [self createSettingInputUI:pickedRootView];
-    [self.view addSubview:pickedRootView];
+    self.pickedRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, ypoint, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - ypoint - 44.0f - 25.0f)];
+    [self createSettingInputUI:self.pickedRootView];
+    [self.view addSubview:self.pickedRootView];
     
     ///底部确定按钮
     UIButton *commitButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 15.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
