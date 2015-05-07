@@ -119,6 +119,7 @@
     seachTextField.returnKeyType = UIReturnKeySearch;
     seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     seachTextField.delegate = self;
+    seachTextField.clearButtonMode = UITextFieldViewModeAlways;
     seachTextField.text = APPLICATION_NSSTRING_SETTING_NIL(self.searchKey);
     [self.view addSubview:seachTextField];
     
