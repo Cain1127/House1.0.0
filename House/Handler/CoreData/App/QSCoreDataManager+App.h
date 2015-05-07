@@ -18,6 +18,29 @@
 @class QSConfigurationDataModel;
 @interface QSCoreDataManager (App)
 
+#pragma mark - 贷款信息获取
+/**
+ *  @author yangshengmeng, 15-05-06 16:05:11
+ *
+ *  @brief  返回当前配置的最新商业贷款利率
+ *
+ *  @return 返回当前最新的商业贷款利率
+ *
+ *  @since  1.0.0
+ */
++ (CGFloat)getCurrentLastBusinessRate;
+
+/**
+ *  @author yangshengmeng, 15-05-06 16:05:43
+ *
+ *  @brief  查找当前最新的租房公积金贷款利率
+ *
+ *  @return 返回查找结果
+ *
+ *  @since  1.0.0
+ */
++ (CGFloat)getCurrentLastAccumulationRate;
+
 #pragma mark - 基本配置信息获取/更新
 /**
  *  @author yangshengmeng, 15-01-26 12:01:37
@@ -29,6 +52,7 @@
  *  @since  1.0.0
  */
 + (BOOL)getApplicationIsFirstLaunchStatus;
+
 ///更新是否第一次运行的状态
 + (BOOL)updateApplicationIsFirstLaunchStatus:(NSString *)netStatus;
 

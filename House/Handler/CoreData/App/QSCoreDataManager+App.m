@@ -20,6 +20,64 @@
 
 @implementation QSCoreDataManager (App)
 
+/**
+ *  @author yangshengmeng, 15-05-06 16:05:11
+ *
+ *  @brief  返回当前配置的最新商业贷款利率
+ *
+ *  @return 返回当前最新的商业贷款利率
+ *
+ *  @since  1.0.0
+ */
++ (CGFloat)getCurrentLastBusinessRate
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"loan_rate_bussiness"]];
+    
+    if ([tempArray count] > 0) {
+        
+        QSCDBaseConfigurationDataModel *tempModel = tempArray[0];
+        if (tempModel) {
+            
+            return [tempModel.val floatValue] / 100.0f;
+            
+        }
+        
+    }
+    
+    return 0.0615f;
+
+}
+
+/**
+ *  @author yangshengmeng, 15-05-06 16:05:43
+ *
+ *  @brief  查找当前最新的租房公积金贷款利率
+ *
+ *  @return 返回查找结果
+ *
+ *  @since  1.0.0
+ */
++ (CGFloat)getCurrentLastAccumulationRate
+{
+
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:[self searchEntityListWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldKey:@"conf" andSearchKey:@"loan_rate_CPF"]];
+    
+    if ([tempArray count] > 0) {
+        
+        QSCDBaseConfigurationDataModel *tempModel = tempArray[0];
+        if (tempModel) {
+            
+            return [tempModel.val floatValue] / 100.0f;
+            
+        }
+        
+    }
+    
+    return 0.0405f;
+
+}
+
 #pragma mark - 返回是否第一次运行应用
 /**
  *  @author yangshengmeng, 15-01-26 12:01:37

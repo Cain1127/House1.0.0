@@ -12,6 +12,7 @@
 #import "QSWSecondHouseInfoDataModel.h"
 #import "QSPhotoDataModel.h"
 #import "QSDetailCommentListReturnData.h"
+#import "QSRateDataModel.h"
 
 #import "NSString+Calculation.h"
 
@@ -48,6 +49,9 @@
     
     ///扩展信息
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"expand_msg" toKeyPath:@"expandInfo" withMapping:[QSSecondHandHouseDetailExpandInfoDataModel objectMapping]]];
+    
+    ///贷款时，利率相关信息
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"loan" toKeyPath:@"loan" withMapping:[QSRateDataModel objectMapping]]];
     
     return shared_mapping;
     

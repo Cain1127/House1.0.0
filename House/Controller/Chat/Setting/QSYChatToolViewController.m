@@ -10,6 +10,7 @@
 #import "QSMortgageCalculatorViewController.h"
 #import "QSYToolContractViewController.h"
 #import "QSYToolQuestionAndAnswerViewController.h"
+#import "QSYNoiseTestViewController.h"
 
 @interface QSYChatToolViewController ()
 
@@ -92,6 +93,8 @@
     UIButton *noiseButton = [UIButton createBlockButtonWithFrame:CGRectMake(gapH, calculatorButton.frame.origin.y + calculatorButton.frame.size.height + 30.0f, width, height) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///噪音检测
+        QSYNoiseTestViewController *noiseVC = [[QSYNoiseTestViewController alloc] init];
+        [self.navigationController pushViewController:noiseVC animated:YES];
         
     }];
     [noiseButton setImage:[UIImage imageNamed:IMAGE_CHAT_TOOL_NOISETEST_NORMAL] forState:UIControlStateNormal];
