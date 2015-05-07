@@ -40,6 +40,15 @@
 + (void)loadHistoryDataToServer;
 
 /**
+ *  @author yangshengmeng, 15-05-07 14:05:23
+ *
+ *  @brief  下载服务端的浏览记录，合并本地数据
+ *
+ *  @since  1.0.0
+ */
++ (void)downloadServerHistoryData;
+
+/**
  *  @author yangshengmeng, 15-05-01 12:05:19
  *
  *  @brief  刷新本地收藏和关注记录
@@ -47,5 +56,23 @@
  *  @since  1.0.0
  */
 + (void)loadCollectedDataToServer;
+
+/**
+ *  @author yangshengmeng, 15-05-07 14:05:43
+ *
+ *  @brief  同步收藏数据，但是不同步小区相关的数据
+ *
+ *  @since  1.0.0
+ */
++ (void)loadCollectedDataToServerWithCommunity;
+
+/**
+ *  @author yangshengmeng, 15-05-07 12:05:09
+ *
+ *  @brief  同步收藏小区
+ *
+ *  @since  1.0.0
+ */
++ (void)loadCollectedCommunityDataToServer;
 
 @end

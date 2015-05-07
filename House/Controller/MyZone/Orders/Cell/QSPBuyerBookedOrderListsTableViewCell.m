@@ -210,19 +210,63 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
         }else if (500302 == button.tag ){
             //确认成交订单
             
-            NSString *houseName = @"";
-            NSString *housePrice = @"";
-            NSString *orderID = @"";
-            NSString *houseType = @"";
+//            NSString *houseName = @"";
+//            NSString *housePrice = @"";
+//            NSString *orderID = @"";
+//            NSString *houseType = @"";
+//            
+//            if (self.orderData) {
+//                
+//                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+//                    
+//                    houseName = self.orderData.houseData.title;
+//                    NSArray *orderList = self.orderData.orderInfoList;
+//                    
+//                    housePrice = self.orderData.houseData.house_price;
+//                    
+//                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+//                        
+//                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+//                        
+//                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+//                            
+//                            housePrice = orderItem.last_saler_bid;
+//                            orderID = orderItem.id_;
+//                            houseType = orderItem.order_type;
+//                            
+//                        }
+//                        
+//                    }
+//                }
+//            }
+//
+//            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithPrice:housePrice withUserType:uUserCountTypeOwner withHouseType:houseType andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+//                
+//                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+//                    //确认成交订单
+//                    if (popView) {
+//                        
+//                        [self commitTransactionOrder];
+//                        
+//                    }
+//                    
+//                }
+//                
+//            }];
+//            [popView setParentViewController:self.parentViewController];
+//            if (self.parentViewController) {
+//                [self.parentViewController.view addSubview:popView];
+//            }
+            
+            NSString *priceStr = @"";
+            
+            NSString *priceUnit = @"";
             
             if (self.orderData) {
                 
                 if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
                     
-                    houseName = self.orderData.houseData.title;
                     NSArray *orderList = self.orderData.orderInfoList;
-                    
-                    housePrice = self.orderData.houseData.house_price;
                     
                     if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
                         
@@ -230,29 +274,40 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                         
                         if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
                             
-                            housePrice = orderItem.last_saler_bid;
-                            orderID = orderItem.id_;
-                            houseType = orderItem.order_type;
+                            priceStr = orderItem.transaction_price;
+                            
+                            if ([orderItem.order_type isEqualToString:@"500103"]) {
+                                
+                                priceUnit = @"元";
+                                
+                            }else {
+                                
+                                priceStr = [NSString conversionPriceUnitToWanWithPriceString:priceStr];
+                                
+                                priceUnit = @"万";
+                                
+                            }
                             
                         }
                         
                     }
                 }
             }
-
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptPriceVieWithPrice:housePrice withUserType:uUserCountTypeOwner withHouseType:houseType andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            
+            NSString *tipStr = [NSString stringWithFormat:@"协商价为:%@%@\n是否确认成交？",priceStr,priceUnit];
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:tipStr andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
-                if (actionType == oOrderButtonTipsActionTypeConfirm) {
-                    //确认成交订单
-                    if (popView) {
-                        
-                        [self commitTransactionOrder];
-                        
-                    }
+                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                    
+                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    
+                    [self commitTransactionOrder];
                     
                 }
                 
             }];
+            
             [popView setParentViewController:self.parentViewController];
             if (self.parentViewController) {
                 [self.parentViewController.view addSubview:popView];
@@ -315,7 +370,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             //评价房源
             [self commitEvaluationListings];
             
-        }else if (500220 == button.tag || 500258 == button.tag || 500257 == button.tag){
+        }else if ( 500258 == button.tag || 500257 == button.tag){
             //房客成交预约订单已看房
             NSString *houseName = @"";
             NSString *housePrice = @"";
@@ -358,10 +413,31 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 }
                 
             }];
+            
             [popView setParentViewController:self.parentViewController];
             if (self.parentViewController) {
                 [self.parentViewController.view addSubview:popView];
             }
+            
+        }else if (500220 == button.tag ){
+            //完成预约订单，进入成交流程
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                    
+                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    
+                    [self buyerOrSalerCommitAppointmentOrder];
+                    
+                }
+                
+            }];
+            
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+            
         }
         
         

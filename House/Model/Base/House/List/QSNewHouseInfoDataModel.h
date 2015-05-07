@@ -15,6 +15,7 @@
  *
  *  @since  1.0.0
  */
+@class QSNewHouseDetailDataModel;
 @interface QSNewHouseInfoDataModel : QSBaseModel
 
 @property (nonatomic,copy) NSString *id_;                   //!<房子ID
@@ -44,5 +45,16 @@
 @property (nonatomic,copy) NSString *activity_name;         //!<活动名称
 
 @property (nonatomic,copy) NSString *is_syserver;           //!<是否已同步服务端:收藏时使用
+
+/**
+ *  @author yangshengmeng, 15-05-07 14:05:55
+ *
+ *  @brief  将当前列且中新房数据模型，转换为新房详情数据模型
+ *
+ *  @return 返回当前转换后的详情数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSNewHouseDetailDataModel *)changeToNewHouseDetailModel;
 
 @end

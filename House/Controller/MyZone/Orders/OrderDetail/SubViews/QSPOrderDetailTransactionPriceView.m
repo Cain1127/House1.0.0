@@ -40,19 +40,55 @@
             return self;
         }
         
-        
         NSString *priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.last_saler_bid];
         
-        if ([@"500220" isEqualToString:tempOrderData.order_status]) {
+        NSString *priceType = @"最后成交";
+        
+        NSString *priceUnit= @"万";
+        
+        NSString *infoString = @"";
+        
+        if ([tempOrderData.order_type isEqualToString:@"500103"]) {
+            //出租房出价
+            priceString = tempOrderData.transaction_price;
+            priceUnit = @"元";
+            
+        }else {
+            
             priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.transaction_price];
+            priceUnit = @"万";
+            
         }
         
-        NSString *infoString = [NSString stringWithFormat:@"最后成交价%@万",priceString];
+        
+        if ([@"500220" isEqualToString:tempOrderData.order_status]||[@"500302" isEqualToString:tempOrderData.order_status]) {
+            
+            priceType = @"协商";
+            
+            if ([tempOrderData.order_type isEqualToString:@"500103"]) {
+                //出租房出价
+                priceString = tempOrderData.transaction_price;
+                
+            }else {
+                
+                priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.transaction_price];
+                
+            }
+            
+        }
+        
+        infoString = [NSString stringWithFormat:@"%@价%@%@",priceType,priceString,priceUnit];
         
         UIColor *color = COLOR_CHARACTERS_GRAY;//COLOR_CHARACTERS_LIGHTYELLOW;
         
-        if ([@"500258" isEqualToString:tempOrderData.order_status] || [@"500301" isEqualToString:tempOrderData.order_status] || [@"500302" isEqualToString:tempOrderData.order_status]|| [@"500320" isEqualToString:tempOrderData.order_status]) {
+        if ([@"500258" isEqualToString:tempOrderData.order_status]
+            || [@"500301" isEqualToString:tempOrderData.order_status]
+            || [@"500302" isEqualToString:tempOrderData.order_status]
+            || [@"500320" isEqualToString:tempOrderData.order_status]
+            || [@"500220" isEqualToString:tempOrderData.order_status]) {
+            
             color = COLOR_CHARACTERS_YELLOW;
+            
         }
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP);
@@ -61,7 +97,7 @@
         [priceInfoString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, priceInfoString.length)];
         
         [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_18] range:NSMakeRange(0, priceInfoString.length)];
-        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(5, priceString.length)];
+        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(priceType.length+1, priceString.length)];
         
         UITextField *inputPriceTextField = [[UITextField alloc]initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, labelWidth, 40.0f)];
         [inputPriceTextField setBackgroundColor:[UIColor whiteColor]];

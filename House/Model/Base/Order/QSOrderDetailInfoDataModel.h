@@ -66,7 +66,7 @@
 @property (nonatomic,assign) BOOL isShowCancelTransAndWarmSalerButtonView;    //!<取消成交和提醒业主按钮View
 @property (nonatomic,assign) BOOL isShowCancelTransAndCompleteButtonView;    //!<取消成交和确认成交按钮View
 @property (nonatomic,assign) BOOL isShowAcceptOrRejectApplicationView;      //!<接受申请、拒绝申请按钮View
-@property (nonatomic,assign) BOOL isShowAppointAgainOrCancelApplicationView;      //!<再次预约、取消申请按钮View
+@property (nonatomic,assign) BOOL isShowAppointAgainOrApplicationingView;      //!<再次预约、申请议价中按钮View
 @property (nonatomic,assign) BOOL isShowAppointAgainAndApplicationBargainView;      //!<再次预约、申请议价按钮View
 
 

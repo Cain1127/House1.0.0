@@ -358,8 +358,7 @@
                     
                 }else if ([orderInfoData.order_status isEqualToString:@"500221"]
                           ||[orderInfoData.order_status isEqualToString:@"500222"]
-                          ||[orderInfoData.order_status isEqualToString:@"500223"]
-                          ||[orderInfoData.order_status isEqualToString:@"500220"]) {
+                          ||[orderInfoData.order_status isEqualToString:@"500223"]) {
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
@@ -369,16 +368,26 @@
                         summaryString = [self priceStringWithTip:@"成交价格:" withPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
                     }
                     
+                }else if ([orderInfoData.order_status isEqualToString:@"500220"]) {
+                    
+                    if ([orderInfoData getUserType] == uUserCountTypeOwner) {
+                        //业主角色
+                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
+                    }else if ([orderInfoData getUserType] == uUserCountTypeTenant) {
+                        //房客角色
+                        summaryString = [self priceStringWithTip:@"协商价格:" withPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
+                    }
+                    
                 }else if ([orderInfoData.order_status isEqualToString:@"500301"]
                           ||[orderInfoData.order_status isEqualToString:@"500302"]) {
                     
                     if ([orderInfoData.order_type isEqualToString:@"500103"]) {
                         
-                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.rent_price floatValue] WithSecondTip:@"元|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
+                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.rent_price floatValue] WithSecondTip:@"元|协商价:" withSecondPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
                         
                     }else{
                         
-                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.house_price floatValue] WithSecondTip:@"万|协商价:" withSecondPricef:[orderInfoData.last_saler_bid floatValue] withIndex:index];
+                        summaryString = [self priceStringWithFirstTip:@"总价:" withFirstPricef:[self.houseData.house_price floatValue] WithSecondTip:@"万|协商价:" withSecondPricef:[orderInfoData.transaction_price floatValue] withIndex:index];
                         
                     }
                     

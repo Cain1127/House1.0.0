@@ -20,6 +20,7 @@
 #import "QSYSystemMessagesViewController.h"
 #import "QSYOwnerPropertyViewController.h"
 #import "QSYRecommendTenantViewController.h"
+#import "QSLoginViewController.h"
 
 #import "QSCustomHUDView.h"
 #import "QSImageView+Block.h"
@@ -900,6 +901,13 @@ static char UserNameKey;    //!<用户名
                     ///刷新UI
                     self.statisticsData = resultData;
                     [self updateMyzoneUIWithLoginData];
+                    
+                    ///下载服务端浏览记录
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [QSLoginViewController downloadServerHistoryData];
+                        
+                    });
                     
                 }];
                 

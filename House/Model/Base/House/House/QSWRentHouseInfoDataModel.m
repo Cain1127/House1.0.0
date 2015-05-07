@@ -89,8 +89,7 @@
                                                     @"tj_wait_look_house_people",
                                                     @"price_avg",
                                                     @"building_structure",
-                                                    @"is_store",
-                                                    @"update_time"]];
+                                                    @"is_store"]];
     
     return shared_mapping;
     

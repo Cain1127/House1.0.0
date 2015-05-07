@@ -16,6 +16,8 @@
 
 @interface QSYContactComplaintViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic,copy) NSString *viewTitle;     //!<界面标题
+@property (nonatomic,copy) NSString *actionTitle;   //!<选择的类别
 @property (nonatomic,strong) NSArray *reasonList;   //!<投诉原因
 @property (nonatomic,copy) NSString *contactID;     //!<被投诉人ID
 //@property (nonatomic,copy) NSString *contactName;   //!<被投诉人姓名
@@ -76,6 +78,10 @@
         self.contactID = contactID;
 //        self.contactName = contactName;
         self.orderID = orderID;
+        
+        self.viewTitle = @"投诉举报";
+        self.actionTitle = @"投诉";
+        
         if (callBack) {
             
             self.complaintCallBack = callBack;
@@ -109,6 +115,9 @@
         self.orderID = orderID;
         self.sueder = sueder;
         self.desc = desc;
+        
+        self.viewTitle = @"投诉举报";
+        self.actionTitle = @"投诉";
         
         self.reasonList = [NSArray array];
         
@@ -145,12 +154,39 @@
     
 }
 
+- (instancetype)initWithCancelOrderWithSueder:(NSString *)sueder andOrderID:(NSString *)orderID WithDesc:(NSString*)desc andCallBack:(void(^)(BOOL isComplaint))callBack
+{
+    
+    if (self = [super init]) {
+        
+        ///保存参数
+        self.orderID = orderID;
+        self.sueder = sueder;
+        self.desc = desc;
+        
+        self.viewTitle = @"取消预约";
+        self.actionTitle = @"取消预约";
+        
+        self.reasonList = [NSArray arrayWithObjects:@"中介骚扰", @"发布虚假信息", @"没有空", @"不想看了", @"其他原因", nil];
+        
+        if (callBack) {
+            
+            self.complaintCallBack = callBack;
+            
+        }
+        
+    }
+    
+    return self;
+    
+}
+
 #pragma mark - UI搭建
 - (void)createNavigationBarUI
 {
 
     [super createNavigationBarUI];
-    [self setNavigationBarTitle:@"投诉举报"];
+    [self setNavigationBarTitle:self.viewTitle];
 
 }
 
@@ -162,7 +198,7 @@
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setFont:[UIFont boldSystemFontOfSize:FONT_BODY_18]];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setText:@"请选择投诉原因"];
+    [titleLabel setText:[NSString stringWithFormat:@"请选择%@原因",self.actionTitle]];
     
     [self.view addSubview:titleLabel];
     
@@ -254,7 +290,8 @@
         NSLog(@"selectedIndexPath : %ld",(long)selectedIndexPath.row);
         
     }else{
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择您要投诉的原因", 1.0f, ^(){})
+        NSString *tipStr = [NSString stringWithFormat:@"请选择您要%@的原因",self.actionTitle];
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(tipStr, 1.0f, ^(){})
         return;
     }
     

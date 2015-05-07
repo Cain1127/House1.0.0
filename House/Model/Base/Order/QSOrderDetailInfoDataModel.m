@@ -505,7 +505,7 @@
     self.isShowCancelTransAndWarmSalerButtonView = flag;
     self.isShowCancelTransAndCompleteButtonView = flag;
     self.isShowAcceptOrRejectApplicationView = flag;
-    self.isShowAppointAgainOrCancelApplicationView = flag;
+    self.isShowAppointAgainOrApplicationingView = flag;
     self.isShowAppointAgainAndApplicationBargainView = flag;
     
     self.isShowChangeOrderButtonEnableView = flag;
@@ -748,8 +748,8 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                //再次预约、取消申请、成交
-                self.isShowAppointAgainOrCancelApplicationView = YES;
+                //再次预约、申请议价中、成交
+                self.isShowAppointAgainOrApplicationingView = YES;
                 self.isShowConfirmOrderButtonView = YES;
                 
             }

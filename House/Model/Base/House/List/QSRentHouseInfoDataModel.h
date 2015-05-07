@@ -9,6 +9,7 @@
 #import "QSBaseHouseInfoDataModel.h"
 
 @class QSReleaseRentHouseDataModel;
+@class QSRentHouseDetailDataModel;
 @interface QSRentHouseInfoDataModel : QSBaseHouseInfoDataModel
 
 @property (nonatomic,copy) NSString *name;                  //!<业主姓名
@@ -50,5 +51,16 @@
 @property (nonatomic,copy) NSString *limited;               //!<限制条件
 
 @property (nonatomic,copy) NSString *is_syserver;           //!<收藏是否已同步服务端
+
+/**
+ *  @author yangshengmeng, 15-05-07 14:05:40
+ *
+ *  @brief  将列表的出租房数据模型，转换为出租房详情数据模型
+ *
+ *  @return 返回当前转换的详情数据模型
+ *
+ *  @since  1.0.0
+ */
+- (QSRentHouseDetailDataModel *)changeToRentHouseDetailModel;
 
 @end

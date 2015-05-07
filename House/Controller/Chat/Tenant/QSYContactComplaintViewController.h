@@ -38,4 +38,16 @@
  */
 - (instancetype)initWithIndicteeId:(NSString *)indicteeId andSueder:(NSString *)sueder andOrderID:(NSString *)orderID WithDesc:(NSString*)desc andCallBack:(void(^)(BOOL isComplaint))callBack;
 
+/**
+ *  根据传入字段创建选择取消订单原因页面
+ *
+ *  @param sueder     投诉者，BUYER:买家投诉卖家，SALER:卖家投诉买家
+ *  @param orderID    订单id（在处理订单投诉时，此参数必须要传）
+ *  @param desc       投诉的附加内容
+ *  @param callBack   回调
+ *
+ *  @return 返回选择取消订单原因页面
+ */
+- (instancetype)initWithCancelOrderWithSueder:(NSString *)sueder andOrderID:(NSString *)orderID WithDesc:(NSString*)desc andCallBack:(void(^)(BOOL isComplaint))callBack;
+
 @end

@@ -16,6 +16,7 @@
  *  @since  1.0.0
  */
 @class QSReleaseSaleHouseDataModel;
+@class QSSecondHouseDetailDataModel;
 @interface QSHouseInfoDataModel : QSBaseHouseInfoDataModel
 
 @property (nonatomic,copy) NSString *name;                  //!<业主姓名
@@ -55,5 +56,16 @@
 @property (nonatomic,copy) NSString *elevator;              //!<是否有电梯：Y-有，N-无
 
 @property (nonatomic,copy) NSString *is_syserver;           //!<收藏是否已同步服务端
+
+/**
+ *  @author yangshengmeng, 15-05-07 14:05:18
+ *
+ *  @brief  当前列表的二手房数据模型，转换为详情数据模型
+ *
+ *  @return 返回转换的结果
+ *
+ *  @since  1.0.0
+ */
+- (QSSecondHouseDetailDataModel *)changeToSecondHandHouseDetailModel;
 
 @end
