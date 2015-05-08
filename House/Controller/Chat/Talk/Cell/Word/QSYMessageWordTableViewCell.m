@@ -134,6 +134,10 @@ static char TimeStampKey;   //!<时间戳
         
         [icontView loadImageWithURL:[model.f_avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
         
+    } else {
+        
+        icontView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
+        
     }
     
     ///更新时间戳
@@ -142,6 +146,10 @@ static char TimeStampKey;   //!<时间戳
         
         timeLabel.text = [NSDate formatNSTimeToNSDateString:model.timeStamp];
         
+    } else {
+    
+        timeLabel.text = nil;
+    
     }
     
     ///更新消息

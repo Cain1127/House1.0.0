@@ -13,6 +13,7 @@
 #import "QSYMessageWordTableViewCell.h"
 #import "QSYMessageVideoTableViewCell.h"
 #import "QSYMessagePictureTableViewCell.h"
+#import "QSYMessageRecommendHouseTableViewCell.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
 #import "NSString+Format.h"
@@ -27,6 +28,7 @@
 #import "QSYSendMessageWord.h"
 #import "QSYSendMessageVideo.h"
 #import "QSYSendMessagePicture.h"
+#import "QSYSendMessageRecommendHouse.h"
 
 #import "MJRefresh.h"
 
@@ -256,6 +258,8 @@
 
     ///根据消息的类型，返回不同的高度
     QSYSendMessageBaseModel *tempModel = self.messagesDataSource[indexPath.row];
+    
+    ///30表示消息体的上下各15间隙；23:表示时间戳信息的高度+时间戳和头像之间的间距
     return tempModel.showHeight + 30.0f + 23.0f;
 
 }
@@ -397,6 +401,52 @@
                 return cellVideoMessageFrom;
                 
             }
+            break;
+            
+            ///文字聊天
+        case qQSCustomProtocolChatMessageTypeRecommendHouse:
+        {
+            
+            ///消息归属类型
+            if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
+                
+                static NSString *wordsMessageMYCell = @"myMessageRecommend";
+                QSYMessageRecommendHouseTableViewCell *cellWordsMesssageMYCell = [tableView dequeueReusableCellWithIdentifier:wordsMessageMYCell];
+                if (nil == cellWordsMesssageMYCell) {
+                    
+                    cellWordsMesssageMYCell = [[QSYMessageRecommendHouseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageMYCell andMessageType:mMessageFromTypeMY];
+                    
+                    ///取消选择样式
+                    cellWordsMesssageMYCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageRecommendHouse *wordModel = (QSYSendMessageRecommendHouse *)tempModel;
+                [cellWordsMesssageMYCell updateMessageWordUI:wordModel];
+                
+                return cellWordsMesssageMYCell;
+                
+            } else {
+                
+                static NSString *wordsMessageFromCell = @"fromMessageRecommend";
+                QSYMessageRecommendHouseTableViewCell *cellWordsMessageFrom = [tableView dequeueReusableCellWithIdentifier:wordsMessageFromCell];
+                if (nil == cellWordsMessageFrom) {
+                    
+                    cellWordsMessageFrom = [[QSYMessageRecommendHouseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:wordsMessageFromCell andMessageType:mMessageFromTypeFriends];
+                    
+                    ///取消选择样式
+                    cellWordsMessageFrom.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+                
+                QSYSendMessageRecommendHouse *wordModel = (QSYSendMessageRecommendHouse *)tempModel;
+                [cellWordsMessageFrom updateMessageWordUI:wordModel];
+                
+                return cellWordsMessageFrom;
+                
+            }
+            
+        }
             break;
             
         default:

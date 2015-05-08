@@ -180,7 +180,7 @@
             messageModel.toID = APPLICATION_NSSTRING_SETTING(self.tenantModel.id_, @"-1");
             messageModel.readTag = @"0";
             messageModel.showWidth = SIZE_DEVICE_WIDTH * 3.0f / 4.0f;
-            messageModel.showHeight = 70.0f;
+            messageModel.showHeight = 90.0f;
             messageModel.timeStamp = [NSDate currentDateTimeStamp];
             
             messageModel.f_name = APPLICATION_NSSTRING_SETTING(currentUserModel.username, @"-1");
@@ -221,16 +221,11 @@
             ///发送消息
             [QSSocketManager sendMessageToPerson:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse];
             
-            ///保存本地
-            [QSCoreDataManager saveMessageData:messageModel andMessageType:qQSCustomProtocolChatMessageTypeRecommendHouse andCallBack:^(BOOL isSave) {
-                
-            }];
-            
             ///隐藏HUD
             [hud hiddenCustomHUDWithFooterTips:@"已发送" andDelayTime:2.0f andCallBack:^(BOOL flag) {
                 
                 ///返回上一页
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
                 
             }];
             

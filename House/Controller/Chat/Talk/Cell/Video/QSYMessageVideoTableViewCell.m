@@ -81,8 +81,16 @@ static char TimeStampKey;   //!<时间戳
         
     }
     
+    ///时间戳
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 180.0f) / 2.0f, 15.0f, 180.0f, 15.0f)];
+    timeLabel.font = [UIFont systemFontOfSize:FONT_BODY_12];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    timeLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
+    [self.contentView addSubview:timeLabel];
+    objc_setAssociatedObject(self, &TimeStampKey, timeLabel, OBJC_ASSOCIATION_ASSIGN);
+    
     ///头像
-    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f, 40.0f)];
+    QSImageView *iconView = [[QSImageView alloc] initWithFrame:CGRectMake(xpointIcon, timeLabel.frame.origin.y + timeLabel.frame.size.height + 8.0f, 40.0f, 40.0f)];
     iconView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
     [self.contentView addSubview:iconView];
     objc_setAssociatedObject(self, &UserIconKey, iconView, OBJC_ASSOCIATION_ASSIGN);
@@ -145,11 +153,23 @@ static char TimeStampKey;   //!<时间戳
 - (void)updateMessageWordUI:(QSYSendMessageVideo *)model
 {
     
+    ///更新时间戳
+    UILabel *timeLabel = objc_getAssociatedObject(self, &TimeStampKey);
+    if (timeLabel && [model.timeStamp length] > 0) {
+        
+        timeLabel.text = [NSDate formatNSTimeToNSDateString:model.timeStamp];
+        
+    }
+    
     ///更新头像
     UIImageView *icontView = objc_getAssociatedObject(self, &UserIconKey);
     if (icontView && [model.f_avatar length] > 0) {
         
         [icontView loadImageWithURL:[model.f_avatar getImageURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_80]];
+        
+    } else {
+        
+        icontView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_80];
         
     }
     

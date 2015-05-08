@@ -43,9 +43,9 @@ using namespace std;
 
 ///服务端地址
 
-//#define QS_SOCKET_SERVER_IP @"192.168.1.145"    //!<测试环境
+#define QS_SOCKET_SERVER_IP @"192.168.1.145"    //!<测试环境
 #define QS_SOCKET_SERVER_PORT 8000
-#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
+//#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
@@ -486,10 +486,10 @@ static QSSocketManager *_socketManager = nil;
             
             break;
             
-            ///抢着房源
+            ///推荐房源
         case qQSCustomProtocolChatMessageTypeRecommendHouse:
             
-            [self sendVideoMessageToPersion:msgModel];
+            [self sendRecommendHouseMessageToPersion:msgModel];
             
             break;
             
@@ -728,7 +728,7 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_building_id([APPLICATION_NSSTRING_SETTING(wordMessageModel.buildingID, @"-1") UTF8String]);
     sendMessage.set_house_type([APPLICATION_NSSTRING_SETTING(wordMessageModel.houseType, @"-1") UTF8String]);
     sendMessage.set_attach_file([APPLICATION_NSSTRING_SETTING(wordMessageModel.originalImage, @"-1") UTF8String]);
-    sendMessage.set_attach_file([APPLICATION_NSSTRING_SETTING(wordMessageModel.smallImage, @"-1") UTF8String]);
+    sendMessage.set_attach_thumb([APPLICATION_NSSTRING_SETTING(wordMessageModel.smallImage, @"-1") UTF8String]);
     sendMessage.set_areaid([APPLICATION_NSSTRING_SETTING(wordMessageModel.districtKey, @"-1") UTF8String]);
     sendMessage.set_area_val([APPLICATION_NSSTRING_SETTING(wordMessageModel.district, @"-1") UTF8String]);
     sendMessage.set_streetid([APPLICATION_NSSTRING_SETTING(wordMessageModel.streetKey, @"-1") UTF8String]);
@@ -755,7 +755,7 @@ static QSSocketManager *_socketManager = nil;
     
     int length = sendMessage.ByteSize();
     int32_t messageLength = static_cast <int32_t> (length + 4);
-    int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeWord);
+    int32_t messageType = static_cast <int32_t> (QSChat::QSCHAT_RECOMMEND_HOUSE);
     
     HTONL(messageLength);
     HTONL(messageType);
@@ -763,11 +763,11 @@ static QSSocketManager *_socketManager = nil;
     ///头信息
     char *buf = new char[length];
     sendMessage.SerializeToArray(buf,length);
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8000];
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8001];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8010];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8011];
     
     ///发主体信息
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8002];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8012];
     
     ///保存消息
     wordMessageModel.readTag = @"1";
@@ -1773,7 +1773,7 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.deviceUUID = [NSString stringWithUTF8String:cppWordModel.device_udid().c_str()];
     
     ocWordModel.showWidth = SIZE_DEVICE_WIDTH * 3.0f / 4.0f;
-    ocWordModel.showHeight = 70.0f;
+    ocWordModel.showHeight = 90.0f;
     
     return ocWordModel;
     
