@@ -558,7 +558,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 
             }
             
-            [QSMapManager updateNearSearchModel:[infoDict valueForKey:@"keywords"] andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
+            [QSMapManager updateNearSearchModel:[infoDict valueForKey:@"keywords"] andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
                 
                 NSLog(@"%@",resultInfo);
                 infoTextView.text = resultInfo;
@@ -574,7 +574,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             
         }];
         
-        [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo) {
+        [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
             
             infoTextView.text = resultInfo;
             

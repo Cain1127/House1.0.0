@@ -48,6 +48,7 @@
 #import "QSCoreDataManager+Collected.h"
 #import "QSCoreDataManager+History.h"
 #import "QSCoreDataManager+User.h"
+#import "QSMapManager.h"
 
 #import "UMSocial.h"
 #import "WXApi.h"
@@ -537,6 +538,10 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
 - (void)createOtherInstallationInfoUI:(UIView *)view
 {
     
+    NSString *coordinate_x = ([self.detailInfo.loupan.coordinate_x doubleValue] - 50.0f > 1.0f) ? self.detailInfo.loupan.coordinate_x : self.detailInfo.loupan.coordinate_y;
+    
+    NSString *coordinate_y = ([self.detailInfo.loupan.coordinate_x doubleValue] - 50.0f > 1.0f) ? self.detailInfo.loupan.coordinate_y : self.detailInfo.loupan.coordinate_x;
+    
     ///间隙
     CGFloat width = 60.0f;
     CGFloat gap = (view.frame.size.width - width * 4.0f - 26.0f) / 3.0f;
@@ -550,7 +555,12 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:busLabel];
     
     UILabel *busCountLable = [[UILabel alloc] initWithFrame:CGRectMake(busLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
-    busCountLable.text = @"28";
+    
+    [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+        
+        busCountLable.text = num ? num : @"";
+        
+    }];
     busCountLable.textAlignment = NSTextAlignmentRight;
     busCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     busCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -577,7 +587,11 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:techLabel];
     
     UILabel *techCountLable = [[UILabel alloc] initWithFrame:CGRectMake(techLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
-    techCountLable.text = @"28";
+    [QSMapManager updateNearSearchModel:@"学校" andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+        
+        techCountLable.text = num ? num : @"";
+        
+    }];
     techCountLable.textAlignment = NSTextAlignmentRight;
     techCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     techCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -604,7 +618,12 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:medicalLabel];
     
     UILabel *medicalCountLable = [[UILabel alloc] initWithFrame:CGRectMake(medicalLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
-    medicalCountLable.text = @"28";
+    
+    [QSMapManager updateNearSearchModel:@"医院" andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+        
+        medicalCountLable.text = num ? num : @"";
+        
+    }];
     medicalCountLable.textAlignment = NSTextAlignmentRight;
     medicalCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     medicalCountLable.textColor = COLOR_CHARACTERS_YELLOW;
@@ -631,7 +650,11 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:foodLabel];
     
     UILabel *foodCountLable = [[UILabel alloc] initWithFrame:CGRectMake(foodLabel.frame.origin.x, 0.0f, width / 2.0f + 5.0f, 25.0f)];
-    foodCountLable.text = @"128";
+    [QSMapManager updateNearSearchModel:@"餐饮" andCoordinate_x:coordinate_x andCoordinate_y:coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+        
+        foodCountLable.text = num ? num : @"";
+        
+    }];
     foodCountLable.textAlignment = NSTextAlignmentRight;
     foodCountLable.font = [UIFont boldSystemFontOfSize:FONT_BODY_18];
     foodCountLable.textColor = COLOR_CHARACTERS_YELLOW;

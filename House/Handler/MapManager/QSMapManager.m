@@ -27,7 +27,7 @@
 
 @property(nonatomic,copy) void (^userLocationCallBack)(BOOL isLocationSuccess,double longitude,double latitude);                                                   //!<获取当前用户经纬度回调
 @property(nonatomic,copy) void (^userLocationPlaceNameCallBack)(BOOL isLocationSuccess, NSString *placeName);                                                         //!<获取当前用户位置的地理名称
-@property(nonatomic,copy) void (^ MapNearSearchActionBack)(NSString* resultInfo);                                                        //!<附近信息回调
+@property(nonatomic,copy) void (^ MapNearSearchActionBack)(NSString* resultInfo,NSString *num);                                                        //!<附近信息回调
 
 @end
 
@@ -164,7 +164,7 @@ static QSMapManager *_QSMapManager= nil;
 
 #pragma mark - 周边信息搜索
 ///根据提供的搜索信息查找附近相关信息
-+(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo))callBack;
++(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo,NSString *num))callBack;
 {
 
     _QSMapManager = [QSMapManager shareMapManager];
@@ -242,8 +242,8 @@ static QSMapManager *_QSMapManager= nil;
             
         }
         
-        self.MapNearSearchActionBack(resultNameString);
-              
+        self.MapNearSearchActionBack(resultNameString,[NSString stringWithFormat:@"%ld",response.pois.count]);
+        
     }
     
 }
