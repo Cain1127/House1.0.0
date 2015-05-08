@@ -130,6 +130,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         ///保存相关参数
         self.tempTitle = title;
         self.detailID = detailID;
+        self.detailType = fFilterMainTypeRentalHouse;
         self.isRefresh = NO;
         
     }

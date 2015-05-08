@@ -494,7 +494,19 @@ static char UserGenderKey;      //!<性别
         BOOL isSave = [imageData writeToFile:savePath atomically:YES];
         if (isSave) {
             
-            [self updateUserIconImage:savePath];
+            if ([NSThread isMainThread]) {
+                
+                [self updateUserIconImage:savePath];
+                
+            } else {
+            
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    
+                    [self updateUserIconImage:savePath];
+                    
+                });
+            
+            }
             
         }
         
@@ -515,8 +527,6 @@ static char UserGenderKey;      //!<性别
     UIImage *image = [UIImage imageWithData:imageData];
     
     ///获取图片二进制流
-    
-    
     if (!image) {
         
         return;
@@ -537,7 +547,7 @@ static char UserGenderKey;      //!<性别
             
             ///修改参数
             QSYLoadImageReturnData *tempModel = resultData;
-            [self updateUserIconImage:tempModel.imageModel.smallImageURl andSmallPath:tempModel.imageModel.originalImageURl andHUD:hud];
+            [self updateUserIconImage:tempModel.imageModel.originalImageURl andSmallPath:tempModel.imageModel.smallImageURl andHUD:hud];
             
         } else {
             
@@ -548,6 +558,7 @@ static char UserGenderKey;      //!<性别
                 tipsString = [resultData valueForKey:@"info"];
                 
             }
+            
             [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
             
         }

@@ -11,6 +11,9 @@
 @class QSYSendMessageRecommendHouse;
 @interface QSYMessageRecommendHouseTableViewCell : UITableViewCell
 
+///单击时进入房源续订
+@property (nonatomic,copy) void(^singleTapCallBack)(void);
+
 /**
  *  @author                 yangshengmeng, 15-05-08 11:05:50
  *
