@@ -16,6 +16,12 @@
 #import "QSCoreDataManager+History.h"
 #import "QSCoreDataManager+User.h"
 
+#import "QSYHistoryRentHouseListReturnData.h"
+#import "QSYHistoryListRentHouseDataModel.h"
+#import "QSRentHouseInfoDataModel.h"
+#import "QSRentHouseDetailDataModel.h"
+#import "QSWRentHouseInfoDataModel.h"
+
 #import "QSRequestManager.h"
 #import "MJRefresh.h"
 
@@ -24,7 +30,9 @@
 ///点击房源时的回调
 @property (nonatomic,copy) void(^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
-@property (nonatomic,retain) NSMutableArray *customDataSource;  //!<数据源
+@property (assign) BOOL isLocalData;                                        //!<是否是本地数据
+@property (nonatomic,retain) NSMutableArray *customDataSource;              //!<数据源
+@property (nonatomic,retain) QSYHistoryRentHouseListReturnData *dataModel;  //!<数据模型
 
 @end
 
@@ -50,6 +58,9 @@
             
         }
         
+        ///判断是否本数据
+        self.isLocalData = ![QSCoreDataManager isLogin];
+        
         self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
@@ -74,6 +85,12 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
+    if (!self.isLocalData) {
+        
+        return [self.dataModel.headerData.dataList count];
+        
+    }
+    
     return [self.customDataSource count];
     
 }
@@ -88,7 +105,20 @@
     ///从复用队列中获取房子信息的cell
     QSYHistoryHouseCollectionViewCell *cellHouse = [collectionView dequeueReusableCellWithReuseIdentifier:houseCellIndentify forIndexPath:indexPath];
     
-    [cellHouse updateHouseInfoCellUIWithDataModel:self.customDataSource[indexPath.row] andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
+    ///数据模型
+    QSRentHouseDetailDataModel *tempModel;
+    if (self.isLocalData) {
+        
+        tempModel = self.customDataSource[indexPath.row];
+        
+    } else {
+    
+        QSYHistoryListRentHouseDataModel *historyModel = self.dataModel.headerData.dataList[indexPath.row];
+        tempModel = [historyModel.houseInfo changeToRentHouseDetailModel];
+    
+    }
+    
+    [cellHouse updateHouseInfoCellUIWithDataModel:tempModel andHouseType:fFilterMainTypeRentalHouse andPickedBoxStatus:NO];
     cellHouse.isEditing = self.isEditing;
     cellHouse.selected = YES;
     
@@ -129,14 +159,23 @@
         return;
         
     }
-
-    if ([self.customDataSource count] > 0) {
+    
+    ///数据模型
+    QSRentHouseDetailDataModel *tempModel;
+    if (self.isLocalData) {
         
-        if (self.houseListTapCallBack) {
-            
-            self.houseListTapCallBack(hHouseListActionTypeGotoDetail,self.customDataSource[indexPath.row]);
-            
-        }
+        tempModel = self.customDataSource[indexPath.row];
+        
+    } else {
+        
+        QSYHistoryListRentHouseDataModel *historyModel = self.dataModel.headerData.dataList[indexPath.row];
+        tempModel = [historyModel.houseInfo changeToRentHouseDetailModel];
+        
+    }
+
+    if (self.houseListTapCallBack) {
+        
+        self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);
         
     }
 
@@ -145,6 +184,15 @@
 #pragma mark - 请求列表数据
 - (void)rentHouseListHeaderRequest
 {
+    
+    ///判断是否已登录
+    if (!self.isLocalData) {
+        
+        ///下载服务端浏览记录
+        [self downloadServerHistoryRentHouseData];
+        return;
+        
+    }
     
     ///获取本地数据
     NSArray *tempArray = [QSCoreDataManager getLocalHistoryDataSourceWithType:fFilterMainTypeRentalHouse];
@@ -180,6 +228,100 @@
     
     }
     
+}
+
+- (void)downloadServerHistoryRentHouseData
+{
+    
+    ///封装参数
+    NSDictionary *params = @{@"view_type" : @"990106",
+                             @"key" : @"",
+                             @"page_num" : @"10",
+                             @"now_page" : @"1"};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeHistoryRentHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///重置数据源
+        self.dataModel = nil;
+        
+        ///下载成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYHistoryRentHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                self.dataModel = tempModel;
+                
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                    
+                }
+                
+                ///刷新数据
+                [self reloadData];
+                
+                ///结束动画
+                [self.header endRefreshing];
+                
+                ///保存数据
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [self saveHistoryRentHouseToLocal];
+                    
+                });
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"服务端数据为空")
+                self.isLocalData = YES;
+                [self rentHouseListHeaderRequest];
+                
+            }
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"下载服务端浏览出租房信息", @"失败")
+            self.isLocalData = YES;
+            [self rentHouseListHeaderRequest];
+            
+        }
+        
+    }];
+    
+}
+
+- (void)saveHistoryRentHouseToLocal
+{
+    
+    for (int i = 0; i < [self.dataModel.headerData.dataList count]; i++) {
+        
+        QSYHistoryListRentHouseDataModel *rentHouseModel = self.dataModel.headerData.dataList[i];
+        
+        BOOL isSave = [QSCoreDataManager checkDataIsSaveToLocal:rentHouseModel.view_id andHouseType:fFilterMainTypeRentalHouse];
+        
+        if (!isSave) {
+            
+            QSRentHouseDetailDataModel *saveModel = [rentHouseModel.houseInfo changeToRentHouseDetailModel];
+            saveModel.house.is_syserver = @"1";
+            [QSCoreDataManager saveHistoryDataWithModel:saveModel andHistoryType:fFilterMainTypeRentalHouse andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    APPLICATION_LOG_INFO(@"浏览记录->出租房->同步服务端后保存本地", @"成功")
+                    
+                } else {
+                    
+                    APPLICATION_LOG_INFO(@"浏览记录->出租房->同步服务端后保存本地", @"失败")
+                    
+                }
+                
+            }];
+            
+        }
+        
+    }
+
 }
 
 #pragma mark - 设置编辑状态

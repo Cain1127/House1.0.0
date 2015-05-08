@@ -17,6 +17,11 @@
 #import "QSCoreDataManager+History.h"
 #import "QSCoreDataManager+User.h"
 
+#import "QSYHistoryNewHouseListReturnData.h"
+#import "QSYHistoryListNewHouseDataModel.h"
+#import "QSNewHouseInfoDataModel.h"
+#import "QSNewHouseDetailDataModel.h"
+
 #import "QSRequestManager.h"
 #import "MJRefresh.h"
 
@@ -25,11 +30,9 @@
 ///点击房源时的回调
 @property (nonatomic,copy) void(^houseListTapCallBack)(HOUSE_LIST_ACTION_TYPE actionType,id tempModel);
 
-@property (nonatomic,retain) NSMutableArray *customDataSource;  //!<数据源
-@property (nonatomic,assign) BOOL isLocalData;                  //!<是否是本地数据
-
-///网络请求返回的数据模型
-@property (nonatomic,retain) QSNewHouseListReturnData *dataSourceModel;
+@property (assign) BOOL isLocalData;                                        //!<是否是本地数据
+@property (nonatomic,retain) NSMutableArray *customDataSource;              //!<数据源
+@property (nonatomic,retain) QSYHistoryNewHouseListReturnData *dataModel;   //!<数据模型
 
 @end
 
@@ -74,6 +77,9 @@
             
         }
         
+        ///判断是否本数据
+        self.isLocalData = ![QSCoreDataManager isLogin];
+        
         self.backgroundColor = [UIColor clearColor];
         self.alwaysBounceVertical = YES;
         self.delegate = self;
@@ -97,6 +103,15 @@
 #pragma mark - 请求列表数据
 - (void)newHouseListHeaderRequest
 {
+    
+    ///判断是否已登录
+    if (!self.isLocalData) {
+        
+        ///下载服务端浏览记录
+        [self downloadServerHistoryNewHouseData];
+        return;
+        
+    }
     
     ///获取本地数据
     NSArray *tempArray = [QSCoreDataManager getLocalHistoryDataSourceWithType:fFilterMainTypeNewHouse];
@@ -133,10 +148,109 @@
     
 }
 
+- (void)downloadServerHistoryNewHouseData
+{
+    
+    ///封装参数
+    NSDictionary *params = @{@"view_type" : @"990103",
+                             @"key" : @"",
+                             @"page_num" : @"10",
+                             @"now_page" : @"1"};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeHistoryNewHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///重置数据源
+        self.dataModel = nil;
+        
+        ///下载成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYHistoryNewHouseListReturnData *tempModel = resultData;
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                self.dataModel = tempModel;
+                
+                if (self.houseListTapCallBack) {
+                    
+                    self.houseListTapCallBack(hHouseListActionTypeHaveRecord,nil);
+                    
+                }
+                
+                ///刷新数据
+                [self reloadData];
+                
+                ///结束动画
+                [self.header endRefreshing];
+                
+                ///保存数据
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    
+                    [self saveHistorySecondHandHouseToLocal];
+                    
+                });
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"服务端数据为空")
+                self.isLocalData = YES;
+                [self newHouseListHeaderRequest];
+                
+            }
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"下载服务端浏览新房信息", @"失败")
+            self.isLocalData = YES;
+            [self newHouseListHeaderRequest];
+            
+        }
+        
+    }];
+    
+}
+
+- (void)saveHistorySecondHandHouseToLocal
+{
+    
+    for (int i = 0; i < [self.dataModel.headerData.dataList count]; i++) {
+        
+        QSYHistoryListNewHouseDataModel *newHouseModel = self.dataModel.headerData.dataList[i];
+        
+        BOOL isSave = [QSCoreDataManager checkDataIsSaveToLocal:newHouseModel.houseInfo.loupan_id andHouseType:fFilterMainTypeNewHouse];
+        
+        if (!isSave) {
+            
+            QSNewHouseDetailDataModel *saveModel = [newHouseModel.houseInfo changeToNewHouseDetailModel];
+            saveModel.is_syserver = @"1";
+            [QSCoreDataManager saveHistoryDataWithModel:saveModel andHistoryType:fFilterMainTypeNewHouse andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    APPLICATION_LOG_INFO(@"浏览记录->新房->同步服务端后保存本地", @"成功")
+                    
+                } else {
+                    
+                    APPLICATION_LOG_INFO(@"浏览记录->新房->同步服务端后保存本地", @"失败")
+                    
+                }
+                
+            }];
+            
+        }
+        
+    }
+    
+}
+
 #pragma mark - 返回当前的房源个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
+    if (!self.isLocalData) {
+        
+        return [self.dataModel.headerData.dataList count];
+        
+    }
     return [self.customDataSource count];
     
 }
@@ -152,6 +266,16 @@
     
     ///获取数据
     QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+    if (self.isLocalData) {
+        
+        tempModel = self.customDataSource[indexPath.row];
+        
+    } else {
+        
+        QSYHistoryListNewHouseDataModel *historyModel = self.dataModel.headerData.dataList[indexPath.row];
+        tempModel = [historyModel.houseInfo changeToNewHouseDetailModel];
+        
+    }
     
     ///刷新数据
     [cellNormal updateHistoryNewHouseInfoCellUIWithDataModel:tempModel];
@@ -174,6 +298,17 @@
 
     ///获取数据
     QSNewHouseDetailDataModel *tempModel = self.customDataSource[indexPath.row];
+    if (self.isLocalData) {
+        
+        tempModel = self.customDataSource[indexPath.row];
+        
+    } else {
+        
+        QSYHistoryListNewHouseDataModel *historyModel = self.dataModel.headerData.dataList[indexPath.row];
+        tempModel = [historyModel.houseInfo changeToNewHouseDetailModel];
+        
+    }
+    
     if (self.houseListTapCallBack) {
         
         self.houseListTapCallBack(hHouseListActionTypeGotoDetail,tempModel);

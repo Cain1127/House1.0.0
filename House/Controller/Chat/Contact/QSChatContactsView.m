@@ -366,6 +366,12 @@
 #pragma mark - 点击联系人
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (0 >= [self.contactDataSource[indexPath.section] count]) {
+        
+        return;
+        
+    }
 
     QSYContactInfoSimpleModel *tempModel = self.contactDataSource[indexPath.section][indexPath.row];
     if (tempModel) {
