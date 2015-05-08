@@ -37,7 +37,7 @@
  *
  *  @since 1.0.0
  */
-+(void)getUserLocation:(void (^)(BOOL isLocationSuccess,double longitude,double latitude))callBack;
++ (void)getUserLocation:(void (^)(BOOL isLocationSuccess,double longitude,double latitude))callBack;
 
 /*!
  *  @author wangshupeng, 15-04-29 15:04:26
@@ -48,21 +48,20 @@
  *
  *  @since 1.0.0
  */
-+(void)getUserLocationPlaceName:(void (^)(BOOL isLocationSuccess, NSString *placeName))callBack;
++ (void)getUserLocationPlaceName:(void (^)(BOOL isLocationSuccess, NSString *placeName))callBack;
 
 /*!
- *  @author wangshupeng, 15-04-01 18:04:36
+ *  @author             wangshupeng, 15-05-08 15:05:47
  *
- *  @brief  初始化周边地址与经纬度信息
+ *  @brief              搜索给定中心点周边关键字的配套信息
  *
- *  @param address      搜索信息
- *  @param coordinate_x 经度
- *  @param coordinate_y 纬度
+ *  @param searchKey    搜索关键字：为空或无效，不进行搜索
+ *  @param longitude    经度
+ *  @param latitude     纬度
+ *  @param callBack     搜索完成后的回调
  *
- *  @return 周边服务信息
- *
- *  @since 1.0.0
+ *  @since              1.0.0
  */
-+(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo,NSString *num))callBack;
++ (void)searchTheSurroundingFacilities:(NSString *)searchKey andCenterLongitude:(NSString *)longitude andCenterLatitude:(NSString *)latitude andCallBack:(void(^)(BOOL isSuccess,NSString* resultInfo,NSString *num))callBack;
 
 @end

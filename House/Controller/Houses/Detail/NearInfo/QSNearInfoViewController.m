@@ -44,7 +44,6 @@
 }
 
 @property(nonatomic,copy) NSString *address;            //!<周边信息地址
-@property(nonatomic,copy) NSString *title;              //!<房子标题
 @property(nonatomic,assign) double coordinate_x;       //!<周边经度
 @property(nonatomic,assign) double coordinate_y;       //!<周边纬度
 
@@ -197,6 +196,7 @@
     self.infoTextView=[[UITextView alloc] initWithFrame:CGRectMake(25.0f, _mapView.frame.origin.y+_mapView.frame.size.height+10.0f, SIZE_DEVICE_WIDTH-50.0f, 100.0f)];
     
     [_mapInfoView addSubview:self.infoTextView];
+    self.infoTextView.font = [UIFont systemFontOfSize:14.0f];
     _mapInfoView.contentSize = CGSizeMake(SIZE_DEVICE_WIDTH, _infoTextView.frame.size.height+_mapView.frame.size.height+10.0f);
     
     [self initSearch];
@@ -251,25 +251,40 @@
 {
     
     _search = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
-    ///默认选中第一个
-    [self searchAction:@"公交"];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        ///默认选中第一个
+        [self searchAction:@"公交"];
+        
+    });
+    
     
 }
 
 - (void)searchAction:(NSString *)keywords
 {
+    
     if (!self.coordinate_x || _search == nil)
     {
-        NSLog(@"search failed");
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
         
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
         return;
+        
     }
     
-    //[_mapInfoView.header beginRefreshing];
-    
     ///清空标注
-    [_mapView removeAnnotations:_annotations];
+    if ([_mapView.overlays count] > 0) {
+        
+        [_mapView removeOverlays:_mapView.overlays];
+        
+    }
+    
+    if ([_mapView.annotations count] > 0) {
+        
+        [_mapView removeAnnotations:_mapView.annotations];
+        
+    }
     [_annotations removeAllObjects];
     
     AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
@@ -277,6 +292,7 @@
     request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_y longitude:self.coordinate_x];
     
     request.keywords = keywords;
+    request.radius = 1000;
     
     [_search AMapPlaceSearch:request];
     
@@ -287,7 +303,7 @@
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error
 {
     ///搜索失败提示
-    NSLog(@"request :%@, error :%@", request, error);
+    APPLICATION_LOG_INFO(request, error);
     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"搜索失败", 1.0f, ^(){})
     
 }
@@ -295,9 +311,6 @@
 ///房子周边信息回调
 - (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
 {
-    
-    NSLog(@"request: %@", request);
-    NSLog(@"response: %@", response);
     
     if (response.pois.count > 0)
     {
@@ -315,7 +328,7 @@
             MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
             annotation.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
             annotation.title = poi.name;
-            annotation.subtitle=poi.address;
+            annotation.subtitle = poi.address;
             
             ///大头针加入地图
             [_mapView addAnnotation:annotation];
@@ -326,34 +339,38 @@
             [resultAddressString appendString:poi.address];
             
         }
-        //[_mapInfoView.header endRefreshing];
-        self.resultNameString=resultNameString;
-        self.resultAddressString=resultAddressString;
+
+        ///小区所在地的大头针
+        self.resultNameString = resultNameString;
+        self.resultAddressString = resultAddressString;
         
-        if (self.mapLineType==mMapBusButtonActionType||self.mapLineType==mMapMetroButtonActionType) {
+        if (self.mapLineType==mMapBusButtonActionType ||
+            self.mapLineType==mMapMetroButtonActionType) {
             
-            _infoTextView.text=self.resultAddressString;
+            _infoTextView.text = self.resultAddressString;
+            
+        } else {
+            
+            _infoTextView.text = self.resultNameString;
             
         }
-        else{
-            
-            _infoTextView.text=self.resultNameString;
-            
-        }
-        //[self houseAddressAction];
+
         ///获取房子的大头针位置
         _annotation0 = [[MAPointAnnotation alloc] init];
         _annotation0.coordinate = CLLocationCoordinate2DMake(self.coordinate_y, self.coordinate_x);
-        _annotation0.title=self.title;
+        _annotation0.title = self.title;
+        
         ///大头针加入地图
         [_mapView addAnnotation:_annotation0];
         [_annotations addObject:_annotation0];
         
         [_mapView selectAnnotation:_annotation0 animated:YES];
+        
         ///地图显示所有大头针
         [_mapView showAnnotations:_annotations animated:YES];
         
     }
+    
 }
 
 #pragma mark - 地图代理方法

@@ -164,7 +164,7 @@
     ///在指定线程中删除元素
     dispatch_barrier_async(self.requestDataOperationQueue, ^{
         
-        for (int i = [self.taskPool count]; i > 0; i--) {
+        for (int i = (int)[self.taskPool count]; i > 0; i--) {
             
             QSRequestTaskDataModel *tempModel = self.taskPool[i - 1];
             if (tempModel.requestStatus >= rRequestTaskStatusFinishSuccess) {

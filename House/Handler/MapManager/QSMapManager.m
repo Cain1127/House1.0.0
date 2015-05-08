@@ -13,26 +13,25 @@
 #define APIKey      @"0f36774bd285a275b3b8e496e45fe6d9"
 
 @interface QSMapManager () <AMapSearchDelegate,CLLocationManagerDelegate>
-{
-    NSArray *_pois;
 
-}
+@property (nonatomic,strong) CLLocationManager *localManager;   //!<定位服务管理器
+@property (nonatomic,strong) AMapSearchAPI *searchManager;      //!<搜索服务管理
 
-@property (nonatomic,strong) CLLocationManager *locMgr;     //!<定位服务管理器
-@property (nonatomic,strong) AMapSearchAPI *searchManager;  //!<搜索服务管理
+@property (nonatomic,copy) NSString *address;                   //!<周边信息地址
+@property (nonatomic,assign) double longitude;                  //!<搜索周边信息传入的经度
+@property (nonatomic,assign) double latitude;                   //!<搜索周边信息传入的纬度
 
-@property(nonatomic,copy) NSString *address;                            //!<周边信息地址
-@property(nonatomic,assign) double coordinate_x;                        //!<搜索周边信息传入的经度
-@property(nonatomic,assign) double coordinate_y;                        //!<搜索周边信息传入的纬度
+@property (nonatomic,retain) NSMutableArray *taskPool;          //!<搜索时使用的任务池
 
-@property(nonatomic,copy) void (^userLocationCallBack)(BOOL isLocationSuccess,double longitude,double latitude);                                                   //!<获取当前用户经纬度回调
-@property(nonatomic,copy) void (^userLocationPlaceNameCallBack)(BOOL isLocationSuccess, NSString *placeName);                                                         //!<获取当前用户位置的地理名称
-@property(nonatomic,copy) void (^ MapNearSearchActionBack)(NSString* resultInfo,NSString *num);                                                        //!<附近信息回调
+///获取当前用户经纬度回调
+@property (nonatomic,copy) void (^userLocationCallBack)(BOOL isLocationSuccess,double longitude,double latitude);
+
+///获取当前用户位置的地理名称
+@property (nonatomic,copy) void (^userLocationPlaceNameCallBack)(BOOL isLocationSuccess, NSString *placeName);
 
 @end
 
-static QSMapManager *_QSMapManager= nil;
-
+static QSMapManager *_mapManager= nil;
 @implementation QSMapManager
 
 #pragma mark - socket单例管理器
@@ -40,49 +39,77 @@ static QSMapManager *_QSMapManager= nil;
 + (QSMapManager *)shareMapManager
 {
     
-    if (nil == _QSMapManager) {
+    if (nil == _mapManager) {
         
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             
-            _QSMapManager = [[QSMapManager alloc] init];
-            [_QSMapManager initParams];            
+            _mapManager = [[QSMapManager alloc] init];
+            [_mapManager initParams];
             
         });
         
     }
     
-    return _QSMapManager;
+    return _mapManager;
     
 }
 
 #pragma mark - 初始化配置参数
--(void)initParams
+- (void)initParams
+{
+    
+    ///创建定位管理者
+    self.localManager = [[CLLocationManager alloc] init];
+    self.localManager.delegate = self;
+    
+    ///初始化任务池
+    self.taskPool = [NSMutableArray array];
+    [self addObserver:self forKeyPath:@"taskPool" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
+    ///搜索服务
+    self.searchManager = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+    
+}
+
+#pragma mark - 任务池改变
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 
-    // 创建定位管理者
-    _locMgr = [[CLLocationManager alloc] init];
+    if ([self.taskPool count] <= 0) {
+        
+        return;
+        
+    }
     
-    // 设置代理
-    _locMgr.delegate=self;
+    ///取出第一个搜索
+    NSMutableDictionary *firstParams = self.taskPool[0];
     
-    _searchManager = [[AMapSearchAPI alloc] initWithSearchKey:APIKey Delegate:self];
+    ///判断任务是否正在请求
+    if (1 == [[firstParams valueForKey:@"is_request"] intValue]) {
+        
+        return;
+        
+    }
+    
+    [firstParams setObject:@"1" forKey:@"is_request"];
+    [self searchAction:[firstParams objectForKey:@"key_word"]];
 
 }
 
 #pragma mark - 定位当前用户经纬度
-+(void)getUserLocation:(void (^)(BOOL isLocationSuccess,double longitude,double latitude))callBack;
++ (void)getUserLocation:(void (^)(BOOL isLocationSuccess,double longitude,double latitude))callBack;
 {
-
-    _QSMapManager = [QSMapManager shareMapManager];
+    
+    QSMapManager *mapManager = [QSMapManager shareMapManager];
     if (callBack) {
         
-        _QSMapManager.userLocationCallBack = callBack;
+        mapManager.userLocationCallBack = callBack;
         
     }
     ///开启用启定位
-    [_QSMapManager.locMgr startUpdatingLocation];
-
+    [mapManager.localManager startUpdatingLocation];
+    
 }
 
 #pragma mark - 用户定位代理方法回调信息
@@ -96,7 +123,6 @@ static QSMapManager *_QSMapManager= nil;
  *
  *  @since 1.0
  */
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
@@ -108,30 +134,33 @@ static QSMapManager *_QSMapManager= nil;
         // 2.取出经纬度
         CLLocationCoordinate2D coordinate = loc.coordinate;
         
-        //3.设置成功的回调
+        // 3.设置成功的回调
         self.userLocationCallBack(YES,coordinate.longitude,coordinate.latitude);
         
     }
     
-    // 停止定位(省电措施：只要不想用定位服务，就马上停止定位服务)
+    ///停止定位(省电措施：只要不想用定位服务，就马上停止定位服务)
     [manager stopUpdatingLocation];
+    
 }
 
 #pragma mark - 查找当前用户位置地理名称
-+(void)getUserLocationPlaceName:(void (^)(BOOL isLocationSuccess, NSString *placeName))callBack
++ (void)getUserLocationPlaceName:(void (^)(BOOL isLocationSuccess, NSString *placeName))callBack
 {
-
-    _QSMapManager = [QSMapManager shareMapManager];
+    
+    QSMapManager *mapManager = [QSMapManager shareMapManager];
     if (callBack) {
         
-        _QSMapManager.userLocationPlaceNameCallBack = callBack;
+        mapManager.userLocationPlaceNameCallBack = callBack;
         
     }
     
     [QSMapManager getUserLocation:^(BOOL isLocationSuccess, double longitude, double latitude) {
         if (!isLocationSuccess) {
-            NSLog(@"=================用户经纬度定位失败=====================");
+            
+            APPLICATION_LOG_INFO(@"用户经纬度定位", @"失败")
             return;
+            
         }
         
         AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
@@ -139,77 +168,97 @@ static QSMapManager *_QSMapManager= nil;
         request.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
         
         ///发起反地理编码
-        [_QSMapManager.searchManager AMapReGoecodeSearch:request];
+        [mapManager.searchManager AMapReGoecodeSearch:request];
         
     }];
-
+    
 }
 
 #pragma mark - 返地理编码回调
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
 {
+    
     ///返回市区镇地址
     AMapAddressComponent *addressComment = [[AMapAddressComponent alloc] init];
     addressComment = response.regeocode.addressComponent;
     NSString *address = [NSString stringWithFormat:@"%@%@%@",addressComment.city,addressComment.district,addressComment.township];
     
     ///返回省市区街道格式化地址
-    //NSString *formattedAddress = response.regeocode.formattedAddress;
+//    NSString *formattedAddress = response.regeocode.formattedAddress;
     
     self.userLocationPlaceNameCallBack(YES,address);
-    
     
 }
 
 
 #pragma mark - 周边信息搜索
-///根据提供的搜索信息查找附近相关信息
-+(void)updateNearSearchModel:(NSString *)searchInfo  andCoordinate_x:(NSString *)coordinate_x andCoordinate_y:(NSString *)coordinate_y andCallBack:(void(^)(NSString* resultInfo,NSString *num))callBack;
+/*!
+ *  @author             wangshupeng, 15-05-08 15:05:47
+ *
+ *  @brief              搜索给定中心点周边关键字的配套信息
+ *
+ *  @param searchKey    搜索关键字：为空或无效，不进行搜索
+ *  @param longitude    经度
+ *  @param latitude     纬度
+ *  @param callBack     搜索完成后的回调
+ *
+ *  @since              1.0.0
+ */
++ (void)searchTheSurroundingFacilities:(NSString *)searchKey andCenterLongitude:(NSString *)longitude andCenterLatitude:(NSString *)latitude andCallBack:(void(^)(BOOL isSuccess,NSString* resultInfo,NSString *num))callBack
 {
-
-    _QSMapManager = [QSMapManager shareMapManager];
-
-    if (callBack) {
+    
+    ///参数判断
+    if ([searchKey length] <= 0 ||
+        [longitude length] <= 0 ||
+        [latitude length] <= 0) {
         
-        _QSMapManager.MapNearSearchActionBack = callBack;
+        callBack(NO,nil,nil);
+        return;
         
     }
     
-    _QSMapManager.coordinate_x=[coordinate_x doubleValue];
-    _QSMapManager.coordinate_y=[coordinate_y doubleValue];
+    QSMapManager *mapManager = [QSMapManager shareMapManager];
+    mapManager.longitude = [longitude doubleValue];
+    mapManager.latitude = [latitude doubleValue];
     
-    [_QSMapManager searchAction:searchInfo];
+    ///保存任务
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+    [tempDict setObject:[callBack copy] forKey:searchKey];
+    [tempDict setObject:@"0" forKey:@"is_request"];
+    [tempDict setObject:searchKey forKey:@"key_word"];
+    [[mapManager mutableArrayValueForKey:@"taskPool"] addObject:tempDict];
 
 }
 
 ///搜索关键词
 - (void)searchAction:(NSString *)keywords
 {
-    if (!self.coordinate_x || _searchManager == nil)
-    {
-        NSLog(@"search failed");
-        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"无法找到该地名", 1.0f, ^(){})
+    
+    if (((self.longitude <= 100.0f) && (self.longitude > 150.0f)) ||
+        ((self.latitude <= 15.0f) && (self.latitude >= 30.0f)) ||
+        (_searchManager == nil)) {
         
+        APPLICATION_LOG_INFO(@"定位服务", @"无法找到该地名")
         return;
+        
     }
-
     
     AMapPlaceSearchRequest *request = [[AMapPlaceSearchRequest alloc] init];
     request.searchType = AMapSearchType_PlaceAround;
-    request.location = [AMapGeoPoint locationWithLatitude:self.coordinate_y longitude:self.coordinate_x];
-    
+    request.location = [AMapGeoPoint locationWithLatitude:self.latitude longitude:self.longitude];
     request.keywords = keywords;
-    
+    request.radius = 1000;
     [_searchManager AMapPlaceSearch:request];
     
 }
 
 #pragma mark - 周边信息搜索代理方法回调
-
+///周边信息搜索代理方法回调
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error
 {
+    
     ///搜索失败提示
-    TIPS_ALERT_MESSAGE_ANDTURNBACK(@"搜索失败", 1.0f, ^(){})
+    APPLICATION_LOG_INFO(@"地图搜索", @"搜索失败")
     
 }
 
@@ -217,24 +266,14 @@ static QSMapManager *_QSMapManager= nil;
 - (void)onPlaceSearchDone:(AMapPlaceSearchRequest *)request response:(AMapPlaceSearchResponse *)response
 {
     
-    if (response.pois.count > 0)
-    {
-        
-        _pois = [NSArray arrayWithArray:response.pois];
+    if (response.pois.count > 0) {
         
         NSMutableString *resultNameString = [[NSMutableString alloc] init];
         NSMutableString *resultAddressString = [[NSMutableString alloc] init];
         
         for (int i = 0; i < response.pois.count;i++) {
             
-            AMapPOI *poi = _pois[i];
-            
-            ///获取返回的大头针位置
-            MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
-            annotation.coordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
-            annotation.title = poi.name;
-            annotation.subtitle=poi.address;
-            
+            AMapPOI *poi = response.pois[i];
             
             ///拼接搜索反回结果
             [resultNameString appendString:poi.name];
@@ -242,11 +281,21 @@ static QSMapManager *_QSMapManager= nil;
             
         }
         
-        self.MapNearSearchActionBack(resultNameString,[NSString stringWithFormat:@"%ld",response.pois.count]);
+        ///回调
+        NSDictionary *tempDict = [self.taskPool firstObject];
+        id tempBlock = [tempDict objectForKey:request.keywords];
+        void(^callBack)(BOOL isSuccess,NSString *info,NSString *num) = tempBlock;
+        if (callBack) {
+            
+            callBack(YES,resultNameString,[@([response.pois count]) stringValue]);
+            
+        }
+        
+        ///删除任务
+        [[self mutableArrayValueForKey:@"taskPool"] removeObjectAtIndex:0];
         
     }
     
 }
-
 
 @end

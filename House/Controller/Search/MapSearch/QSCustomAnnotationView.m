@@ -97,7 +97,6 @@
         avgLabel.textAlignment = NSTextAlignmentRight;
         [connetView addSubview:avgLabel];
         
-        
         /// 添加价钱label
         self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(avgLabel.frame.origin.x+avgLabel.frame.size.width,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 40.0f, 20.0f)];
         self.subTitleLabel.font = [UIFont systemFontOfSize:16];
@@ -118,30 +117,31 @@
         [self.annoView addSubview:arrowImageView];
         return;
         
+    } else {
+        
+        /// 添加价钱label
+        self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 60.0f, 20.0f)];
+        self.subTitleLabel.font = [UIFont systemFontOfSize:18];
+        self.subTitleLabel.textColor = [UIColor blackColor];
+        self.subTitleLabel.text = self.subtitle ? self.subtitle : @"";
+        self.subTitleLabel.textAlignment = NSTextAlignmentRight;
+        [connetView addSubview:self.subTitleLabel];
+        
+        ///单位
+        UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.subTitleLabel.frame.origin.x+self.subTitleLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
+        priceUnitLabel.font = [UIFont systemFontOfSize:14.0f];
+        priceUnitLabel.text = @"套";
+        [connetView addSubview:priceUnitLabel];
+        
+        ///向下箭头
+        UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+        arrowImageView.center = CGPointMake(60.0f, 60.0f);
+        arrowImageView.image = [UIImage imageNamed:@"houses_detail_map_arrow_up"];
+        [self.annoView addSubview:arrowImageView];
+        return;
+        
     }
     
-    else {
-    /// 添加价钱label
-    self.subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f,_titleLabel.frame.origin.y+_titleLabel.frame.size.height+4.0f, 60.0f, 20.0f)];
-    self.subTitleLabel.font = [UIFont systemFontOfSize:18];
-    self.subTitleLabel.textColor = [UIColor blackColor];
-    self.subTitleLabel.text = self.subtitle ? self.subtitle : @"";
-    self.subTitleLabel.textAlignment = NSTextAlignmentRight;
-    [connetView addSubview:self.subTitleLabel];
-    
-    ///单位
-    UILabel *priceUnitLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.subTitleLabel.frame.origin.x+self.subTitleLabel.frame.size.width, _titleLabel.frame.origin.y+_titleLabel.frame.size.height+8.0f, 15.0f, 15.0f)];
-    priceUnitLabel.font = [UIFont systemFontOfSize:14.0f];
-    priceUnitLabel.text = @"套";
-    [connetView addSubview:priceUnitLabel];
-    
-    ///向下箭头
-    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
-    arrowImageView.center = CGPointMake(60.0f, 60.0f);
-    arrowImageView.image = [UIImage imageNamed:@"houses_detail_map_arrow_up"];
-    [self.annoView addSubview:arrowImageView];
-    return;
-    }
 }
 
 #pragma mark - 刷新UI
@@ -163,18 +163,17 @@
     self.title = tempArray[0];
     
     NSString *map_type=[NSString stringWithFormat:@"%ld",(long)self.houseType];
-
+    
     if ([map_type isEqualToString:@"200502" ]) {
         
-         _subTitleLabel.text=[NSString stringWithFormat:@"%.2f",[annotation.subtitle floatValue]/10000.0f];
-    }
-   
-    else
-    {
+        _subTitleLabel.text=[NSString stringWithFormat:@"%.2f",[annotation.subtitle floatValue]/10000.0f];
+        
+    } else {
         
         _subTitleLabel.text = annotation.subtitle;
-    
+        
     }
+    
 }
 
 @end

@@ -27,4 +27,7 @@
 ///应用delete中使用的线程
 #define QUEUE_APPDELEGATE_QUEUE "com.fdangjia.queue.appdelegate"
 
+///应用定位管理器使用的线程
+#define QUEUE_LOCALMANAGER_QUEUE "com.fdangjia.queue.local"
+
 #endif

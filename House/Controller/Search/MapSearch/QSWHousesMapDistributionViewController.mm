@@ -124,6 +124,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         ///保存列表类型
         self.listType = mainType;
+        self.annoArray = [[NSMutableArray alloc] init];
         
         ///获取过滤器模型
         self.filterModel = [QSCoreDataManager getLocalFilterWithType:self.listType];
@@ -751,12 +752,14 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 {
     
     [self.annoArray removeAllObjects];
+    [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
     for( UIView *obj in [_mapView subviews ]){
         
         if ([obj isKindOfClass:[QSCustomAnnotationView class]]) {
             
             [obj removeFromSuperview];
-
+            
         }
         
     }
@@ -776,7 +779,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         double latitude = [self.coordinate_y doubleValue];
         double longitude = [self.coordinate_x doubleValue];
         
-       MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
+        MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         
         NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.loupan_msg.title,tempModel.loupan_msg.id_];
         anno.title = tempTitle;
@@ -797,19 +800,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (void)addAnnotations
 {
     
+    ///删除原来大头针
+    [_mapView removeAnnotations:self.annoArray];
+    [_mapView removeOverlays:_mapView.overlays];
+    [_mapView removeAnnotations:_mapView.annotations];
+    
     [self.annoArray removeAllObjects];
-    for( UIView *obj in [self.view subviews ]){
-        
-        if ([obj isKindOfClass:[QSCustomAnnotationView class]]) {
-            
-            [obj removeFromSuperview];
-            
-        }
-        
-    }
-    
-     self.annoArray=[[NSMutableArray alloc] init];
-    
     for (int i = 0; i < [self.dataSourceModel.mapCommunityListHeaderData.communityList count]; i++) {
         
         QSMapCommunityDataModel *tempModel = self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
@@ -823,14 +819,12 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         double longitude = [self.coordinate_x doubleValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
-        
         NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.id_];
         anno.title = tempTitle;
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
         
         [self.annoArray addObject:anno];
-        
         [_mapView addAnnotation:anno];
         
     }
@@ -843,28 +837,147 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
     
-    if ([annotation isKindOfClass:[MAPointAnnotation class]])
-    {
-        static NSString *reuseIndetifier = @"annotationReuseIndetifier";
-        QSCustomAnnotationView *annotationView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIndetifier];
-        if (annotationView == nil)
+    switch (self.listType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
         {
-            annotationView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIndetifier andHouseType:self.listType];
+        
+            if ([annotation isKindOfClass:[MAPointAnnotation class]])
+            {
+                static NSString *newHouseCell = @"newHouse";
+                QSCustomAnnotationView *annotationNewHouseView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:newHouseCell];
+                
+                if (annotationNewHouseView == nil)
+                {
+                    annotationNewHouseView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:newHouseCell andHouseType:self.listType];
+                }
+                
+                /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
+                annotationNewHouseView.canShowCallout = NO;
+                
+                /// 设置偏移量
+                annotationNewHouseView.centerOffset = CGPointMake(0.0f, -annotationNewHouseView.frame.size.height/2.0f);
+                
+                ///更新大头针数据
+                [annotationNewHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+                    
+                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    
+                }];
+                
+                return annotationNewHouseView;
+                
+            }
+        
         }
-        
-        /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
-        annotationView.canShowCallout = NO;
-        /// 设置偏移量
-        annotationView.centerOffset = CGPointMake(0.0f, -annotationView.frame.size.height/2.0f);
-        ///更新大头针数据
-        [annotationView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+            break;
             
-            [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
             
-        }];
-        
-        return annotationView;
-        
+            if ([annotation isKindOfClass:[MAPointAnnotation class]])
+            {
+                static NSString *communityHouseCell = @"community";
+                QSCustomAnnotationView *annotationCommunityView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:communityHouseCell];
+                
+                if (annotationCommunityView == nil)
+                {
+                    annotationCommunityView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:communityHouseCell andHouseType:self.listType];
+                }
+                
+                /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
+                annotationCommunityView.canShowCallout = NO;
+                
+                /// 设置偏移量
+                annotationCommunityView.centerOffset = CGPointMake(0.0f, -annotationCommunityView.frame.size.height/2.0f);
+                
+                ///更新大头针数据
+                [annotationCommunityView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+                    
+                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    
+                }];
+                
+                return annotationCommunityView;
+                
+            }
+            
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            if ([annotation isKindOfClass:[MAPointAnnotation class]])
+            {
+                static NSString *secondHandHouseCell = @"SecondHandHouse";
+                QSCustomAnnotationView *annotationSecondHandHouseView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:secondHandHouseCell];
+                
+                if (annotationSecondHandHouseView == nil)
+                {
+                    
+                    annotationSecondHandHouseView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:secondHandHouseCell andHouseType:self.listType];
+                    
+                }
+                
+                /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
+                annotationSecondHandHouseView.canShowCallout = NO;
+                
+                /// 设置偏移量
+                annotationSecondHandHouseView.centerOffset = CGPointMake(0.0f, -annotationSecondHandHouseView.frame.size.height/2.0f);
+                
+                ///更新大头针数据
+                [annotationSecondHandHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+                    
+                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    
+                }];
+                
+                return annotationSecondHandHouseView;
+                
+            }
+            
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            if ([annotation isKindOfClass:[MAPointAnnotation class]])
+            {
+                static NSString *rentHouseCell = @"rentHouse";
+                QSCustomAnnotationView *annotationRentHouseView = (QSCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:rentHouseCell];
+                
+                if (annotationRentHouseView == nil)
+                {
+                    annotationRentHouseView = [[QSCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:rentHouseCell andHouseType:self.listType];
+                }
+                
+                /// 设置为NO，用以调用自定义的calloutView,设置为YES显示点击大头针则显示气泡
+                annotationRentHouseView.canShowCallout = NO;
+                
+                /// 设置偏移量
+                annotationRentHouseView.centerOffset = CGPointMake(0.0f, -annotationRentHouseView.frame.size.height/2.0f);
+                
+                ///更新大头针数据
+                [annotationRentHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+                    
+                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    
+                }];
+                
+                return annotationRentHouseView;
+                
+            }
+            
+        }
+            break;
+            
+        default:
+            break;
     }
     
     return nil;
@@ -884,13 +997,9 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///网络请求坐标
     NSString *latitude=[NSString stringWithFormat:@"%lf",_latitude ? _latitude : clatitude];
     NSString *longtude=[NSString stringWithFormat:@"%lf",_longtude ? _longtude : clongitude];
-    NSString *map_type=[NSString stringWithFormat:@"%ld",(long)self.listType];
     
-    APPLICATION_LOG_INFO(@"网络请求纬度", latitude);
-    APPLICATION_LOG_INFO(@"网络请求经度", longtude);
-    
-    if ([map_type isEqualToString: @"200502"])
-    {
+    ///新房请求
+    if (fFilterMainTypeNewHouse == self.listType) {
         
         ///请求参数
         NSDictionary *dict = @{
@@ -900,120 +1009,89 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                                @"latitude" : latitude,
                                @"longitude" : longtude
                                };
-    [QSRequestManager requestDataWithType:rRequestTypeMapNewHouse andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
-        
-        ///判断请求
-        if (rRequestResultTypeSuccess == resultStatus) {
+        [QSRequestManager requestDataWithType:rRequestTypeMapNewHouse andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            if (resultData) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    [hud hiddenCustomHUD];
-                    
-                });
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
                 
-                ///请求成功后，转换模型
-                QSMapNewHouseListReturnData *resultDataModel = resultData;
-                
-                ///将数据模型置为nil
-                self.mapNewHouseListData = nil;
-                
-                self.mapNewHouseListData=resultDataModel;
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (resultData) {
                     
-                    [self addNewHouseAnnotations];
+                    ///请求成功后，转换模型
+                    QSMapNewHouseListReturnData *resultDataModel = resultData;
                     
-                });
-            }
-            else{
+                    ///将数据模型置为nil
+                    self.mapNewHouseListData = nil;
+                    
+                    self.mapNewHouseListData=resultDataModel;
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [self addNewHouseAnnotations];
+                        
+                    });
+                    
+                    [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.0f];
+                    
+                } else {
+                    
+                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此新房数据..." andDelayTime:1.0f];
+                    
+                }
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此新房数据..."];
-                    
-                });
-                
-            }
-            
-            
-        }
-        
-        else {
-            
-            NSLog(@"=====网络请求失败=======");
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            } else {
                 
                 ///显示提示信息
-                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." ];
+                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." andDelayTime:1.0f];
                 
-            });
-            
-        }
-    }];
-    }
-    else
-    {
+            }
+        }];
+        
+    } else {
+        
         ///请求参数
-        NSDictionary *dict = @{@"map_type" : map_type,
+        NSDictionary *dict = @{@"map_type" : [NSString stringWithFormat:@"%d",self.listType],
                                @"now_page" : @"1",
                                @"page_num" : @"10",
                                @"range" : @"10000",
                                @"latitude" : latitude,
                                @"longitude" : longtude
                                };
-    [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        ///判断请求
-        if (rRequestResultTypeSuccess == resultStatus) {
+        [QSRequestManager requestDataWithType:rRequestTypeMapCommunity andParams:dict andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
             
-            if (resultData) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    [hud hiddenCustomHUD];
-                    
-                });
+            ///判断请求
+            if (rRequestResultTypeSuccess == resultStatus) {
                 
-                ///请求成功后，转换模型
-                QSMapCommunityListReturnData *resultDataModel = resultData;
-                
-                ///将数据模型置为nil
-                self.dataSourceModel = nil;
-                self.dataSourceModel=resultDataModel;
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (resultData) {
                     
-                    [self addAnnotations];
+                    ///请求成功后，转换模型
+                    QSMapCommunityListReturnData *resultDataModel = resultData;
                     
-                });
-            }
-            else{
+                    ///将数据模型置为nil
+                    self.dataSourceModel = nil;
+                    self.dataSourceModel=resultDataModel;
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        
+                        [self addAnnotations];
+                        
+                    });
+                    
+                    [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.0f];
+                    
+                } else {
+                    
+                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..." andDelayTime:1.0f];
+                    
+                }
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    
-                    [self.hud hiddenCustomHUDWithFooterTips:@"暂无此小区数据..."];
-                    
-                });
-                
-            }
-            
-            
-        }
-        
-        else {
-            
-            NSLog(@"=====网络请求失败=======");
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            } else {
                 
                 ///显示提示信息
-                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." ];
+                [hud hiddenCustomHUDWithFooterTips:@"网络请求失败..." andDelayTime:1.0f];
                 
-            });
-            
-        }
-    }];
+            }
+        }];
     }
     
 }

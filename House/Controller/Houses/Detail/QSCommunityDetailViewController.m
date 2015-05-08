@@ -558,9 +558,10 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                 
             }
             
-            [QSMapManager updateNearSearchModel:[infoDict valueForKey:@"keywords"] andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+            NSString *longitude = [self.houseInfo.coordinate_x doubleValue] > 100.0f ? self.houseInfo.coordinate_x : self.houseInfo.coordinate_y;
+            NSString *latitude = [self.houseInfo.coordinate_x doubleValue] > 100.0f ? self.houseInfo.coordinate_y : self.houseInfo.coordinate_x;
+            [QSMapManager searchTheSurroundingFacilities:[infoDict valueForKey:@"keywords"] andCenterLongitude:longitude andCenterLatitude:latitude andCallBack:^(BOOL isSuccess, NSString *resultInfo, NSString *num) {
                 
-                NSLog(@"%@",resultInfo);
                 infoTextView.text = resultInfo;
                 
             }];
@@ -574,7 +575,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
             
         }];
         
-        [QSMapManager updateNearSearchModel:@"公交" andCoordinate_x:self.houseInfo.coordinate_x andCoordinate_y:self.houseInfo.coordinate_y andCallBack:^(NSString *resultInfo,NSString *num) {
+        NSString *longitude = [self.houseInfo.coordinate_x doubleValue] > 100.0f ? self.houseInfo.coordinate_x : self.houseInfo.coordinate_y;
+        NSString *latitude = [self.houseInfo.coordinate_x doubleValue] > 100.0f ? self.houseInfo.coordinate_y : self.houseInfo.coordinate_x;
+        [QSMapManager searchTheSurroundingFacilities:@"公交" andCenterLongitude:longitude andCenterLatitude:latitude andCallBack:^(BOOL isSuccess, NSString *resultInfo, NSString *num) {
             
             infoTextView.text = resultInfo;
             
