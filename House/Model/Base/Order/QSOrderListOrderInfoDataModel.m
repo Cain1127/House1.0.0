@@ -284,7 +284,18 @@
                 leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
                 [btList addObject:leftBt];
                 
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                
+                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
+                rightBt.bottionActionTag = [self.order_status integerValue];
+                rightBt.buttonName = @"议价";
+                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_TALKPRICE_BT_NORMAL;
+                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_TALKPRICE_BT_SELECTED;
+                [btList addObject:rightBt];
+                
             }
+            
         }else if ([self.order_status isEqualToString:@"500252"]) {
             //客户已还价格
             if ([self getUserType] == uUserCountTypeOwner) {

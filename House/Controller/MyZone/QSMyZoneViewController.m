@@ -905,7 +905,7 @@ static char UserNameKey;    //!<用户名
                     ///下载服务端浏览记录
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         
-                        [QSLoginViewController downloadServerHistoryData];
+//                        [QSLoginViewController downloadServerHistoryData];
                         
                     });
                     

@@ -672,8 +672,8 @@
                 //房客角色
                 
                 self.isShowHousePriceView = YES;
-                self.isShowInputMyPriceView = YES;
-                self.isShowSubmitPriceButtonView = YES;
+                self.isShowAppointAgainAndPriceAgainButtonView = YES;
+                self.isShowConfirmOrderButtonView = YES;
                 
             }
         }else if ([self.order_status isEqualToString:@"500252"]) {
