@@ -32,6 +32,10 @@ static char PickedImageRootViewKey;//!<图片选择底view
 ///出售物业的数据模型
 @property (nonatomic,retain) QSReleaseSaleHouseDataModel *saleHouseReleaseModel;
 
+///临时图片数据模型
+@property (nonatomic,retain) QSReleaseSaleHousePhotoDataModel *tempPhotoModel;
+@property (assign) BOOL isAddNewPhoto;                      //!<是否上传新图片
+
 @property (nonatomic,strong) UITextField *titleField;       //!<标题输入框
 @property (nonatomic,strong) UITextView *detailInfoField;   //!<详细信息输入框
 
@@ -443,25 +447,10 @@ static char PickedImageRootViewKey;//!<图片选择底view
         UIImage *smallImage = [rightImage thumbnailWithSize:CGSizeMake(SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT * 0.5f)];
         
         ///保存图片
-        QSReleaseSaleHousePhotoDataModel *photoModel = [[QSReleaseSaleHousePhotoDataModel alloc] init];
-        photoModel.image = smallImage;
-        [self.saleHouseReleaseModel.imagesList addObject:photoModel];
-        
-        ///上传图片
-        [self loadImageToServer:[self.saleHouseReleaseModel.imagesList lastObject] andCallBack:^(BOOL flag) {
-            
-            if (flag) {
-                
-                ///修改UI
-                [self createImagePickedView];
-                
-            } else {
-            
-                [self.saleHouseReleaseModel.imagesList removeLastObject];
-            
-            }
-            
-        }];
+        self.tempPhotoModel = nil;
+        self.tempPhotoModel = [[QSReleaseSaleHousePhotoDataModel alloc] init];
+        self.tempPhotoModel.image = smallImage;
+        self.isAddNewPhoto = YES;
         
     }
     
@@ -593,6 +582,37 @@ static char PickedImageRootViewKey;//!<图片选择底view
         }
         
     }];
+
+}
+
+#pragma mark - 视图将要显示时判断是否有上传图片任务
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isAddNewPhoto) {
+        
+        self.isAddNewPhoto = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            ///上传图片
+            [self loadImageToServer:self.tempPhotoModel andCallBack:^(BOOL flag) {
+                
+                if (flag) {
+                    
+                    [self.saleHouseReleaseModel.imagesList addObject:self.tempPhotoModel];
+                    
+                    ///修改UI
+                    [self createImagePickedView];
+                    
+                }
+                
+            }];
+            
+        });
+        
+    }
 
 }
 
