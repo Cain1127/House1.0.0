@@ -212,10 +212,9 @@
             messageModel.originalImage = APPLICATION_NSSTRING_SETTING(houseInfoModel.attach_file, @"-1");
             messageModel.smallImage = APPLICATION_NSSTRING_SETTING(houseInfoModel.attach_thumb, @"-1");
             
-            ///区域
-            NSString *districtString = [QSCoreDataManager getDistrictValWithDistrictKey:houseInfoModel.areaid];
-            messageModel.district = APPLICATION_NSSTRING_SETTING(districtString, @"-1");
-            messageModel.districtKey = APPLICATION_NSSTRING_SETTING(houseInfoModel.areaid, @"-1");
+            ///小区信息
+            messageModel.district = APPLICATION_NSSTRING_SETTING(houseInfoModel.village_name, @"-1");
+            messageModel.districtKey = APPLICATION_NSSTRING_SETTING(houseInfoModel.village_id, @"-1");
             
             ///街道
             NSString *streetString = [QSCoreDataManager getStreetValWithStreetKey:houseInfoModel.street];
