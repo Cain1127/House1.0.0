@@ -413,6 +413,13 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                                     }];
                                     
                                 });
+                                
+                                ///下载用户相关数据
+                                [QSLoginViewController loadHistoryDataToServer];
+                                [QSLoginViewController loadIntentionCommunityDataToServer];
+                                [QSLoginViewController loadCollectedSecondHandHouseDataToServer];
+                                [QSLoginViewController loadCollectedRentHouseDataToServer];
+                                [QSLoginViewController loadCollectedNewHouseDataToServer];
                              
                             }];
                             
@@ -421,16 +428,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                     }];
                     
                 }];
-                
-            });
-        
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-               
-                [QSLoginViewController loadHistoryDataToServer];
-                [QSLoginViewController loadIntentionCommunityDataToServer];
-                [QSLoginViewController loadCollectedSecondHandHouseDataToServer];
-                [QSLoginViewController loadCollectedRentHouseDataToServer];
-                [QSLoginViewController loadCollectedNewHouseDataToServer];
                 
             });
             
