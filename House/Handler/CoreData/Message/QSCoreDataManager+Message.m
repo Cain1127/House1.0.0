@@ -116,9 +116,12 @@
                 break;
                 
                 ///推荐房源消息
+            case qQSCustomProtocolChatMessageTypeRecommendHouseHistory:
             case qQSCustomProtocolChatMessageTypeRecommendHouse:
                 
                 [resultTempArray addObject:[self message_ChangeMessageRecommendHouseCDModel_TO_OCModel:tempModel]];
+                
+                break;
                 
                 ///系统消息
             case qQSCustomProtocolChatMessageTypeSystem:

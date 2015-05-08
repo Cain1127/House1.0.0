@@ -539,6 +539,7 @@
                     QSYTenantDetailRecommendRentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendRentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                         
                     }];
+                    pickedHouseVC.tenantModel = [self.contactInfo.contactInfo contactDetailChangeToSimpleUserModel];
                     [self.navigationController pushViewController:pickedHouseVC animated:YES];
                 
                 }
@@ -583,6 +584,7 @@
                 QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
                     
                 }];
+                pickedHouseVC.tenantModel = [self.contactInfo.contactInfo contactDetailChangeToSimpleUserModel];
                 [self.navigationController pushViewController:pickedHouseVC animated:YES];
                 
             }
