@@ -229,7 +229,8 @@
                     //预约时间
                     summaryString = [self blackWithString:[orderInfoData getAppointmentTimeString]];
                     
-                }else if ([orderInfoData.order_status isEqualToString:@"500231"]) {
+                }else if ([orderInfoData.order_status isEqualToString:@"500231"]
+                          ||[orderInfoData.order_status isEqualToString:@"500250"]) {
                     //再预约中状态
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {
                         //业主角色
@@ -264,14 +265,14 @@
                         
                     }
                     
-                }else if ([orderInfoData.order_status isEqualToString:@"500250"]) {
-                    
-                    if ([orderInfoData getUserType] == uUserCountTypeOwner) {
-                        //业主角色
-                        //预约时间
-                        summaryString = [self blackWithString:[orderInfoData getAppointmentTimeString]];
-                    }
-                    
+//                }else if ([orderInfoData.order_status isEqualToString:@"500250"]) {
+//                    
+//                    if ([orderInfoData getUserType] == uUserCountTypeOwner) {
+//                        //业主角色
+//                        //预约时间
+//                        summaryString = [self blackWithString:[orderInfoData getAppointmentTimeString]];
+//                    }
+//                    
                 }else if ([orderInfoData.order_status isEqualToString:@"500252"]) {
                     
                     if ([orderInfoData getUserType] == uUserCountTypeOwner) {

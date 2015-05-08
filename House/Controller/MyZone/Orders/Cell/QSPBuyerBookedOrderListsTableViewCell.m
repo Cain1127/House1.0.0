@@ -189,7 +189,28 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
 
+        }else if ( 500259 == button.tag ){
+            //申请议价
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否向业主提出议价申请?" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeCancel) {
+                    
+                }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    
+                    [self buyerAskForBargainAgain];
+                    
+                }
+                
+            }];
+            
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+            
         }
+    
         
     }];
     [self.contentView addSubview:leftBt];
@@ -419,7 +440,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
-        }else if (500220 == button.tag ){
+        }else if (500220 == button.tag  || 500259 == button.tag ){
             //完成预约订单，进入成交流程
             __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
@@ -438,8 +459,72 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
+        }else if ( 500250 == button.tag ){
+            //议价
+            NSString *houseName = @"";
+            NSString *housePrice = @"";
+            NSString *orderID = @"";
+            NSString *houseType = @"";
+            if (self.orderData) {
+                
+                if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+                    
+                    houseName = self.orderData.houseData.title;
+                    NSArray *orderList = self.orderData.orderInfoList;
+                    housePrice = self.orderData.houseData.house_price;
+                    
+                    if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                        
+                        QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                        
+                        if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                            
+                            if (500257 == button.tag) {
+                                housePrice = orderItem.last_saler_bid;
+                            }
+                            orderID = orderItem.id_;
+                            houseType = orderItem.order_type;
+                            
+                        }
+                        
+                    }
+                }
+            }
+            
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithInputPriceVieWithHouseTitle:houseName WithPrice:housePrice withUserType:uUserCountTypeOwner withHouseType:houseType andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                
+                if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                    //提交还价
+                    if (popView) {
+                        
+                        NSString *inputPrice = [popView getInputPrice];
+                        NSScanner* scan = [NSScanner scannerWithString:inputPrice];
+                        float val;
+                        BOOL flag = [scan scanFloat:&val] && [scan isAtEnd];
+                        
+                        if (flag) {
+                            
+                            [self submitMyInputPrice:inputPrice ToOrderID:orderID];
+                            
+                        }else {
+                            
+                            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入正确的价格格式", 1.0f, ^(){
+                                
+                            })
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+            }];
+            [popView setParentViewController:self.parentViewController];
+            if (self.parentViewController) {
+                [self.parentViewController.view addSubview:popView];
+            }
+            
         }
-        
         
         
     }];
@@ -1104,6 +1189,88 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     [tempParam setObject:priceStr forKey:@"price"];
     
     [QSRequestManager requestDataWithType:rRequestTypeOrderSubmitBid andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            if (self.parentViewController) {
+                if ([self.parentViewController isKindOfClass:[QSPBuyerBookedOrdersListsViewController class]]) {
+                    [(QSPBuyerBookedOrdersListsViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+                else if ([self.parentViewController isKindOfClass:[QSPBuyerTransactionOrderListViewController class]]) {
+                    [(QSPBuyerTransactionOrderListViewController*)(self.parentViewController) reloadCurrentShowList];
+                }
+            }
+            
+        }
+        
+        ///转换模型
+        if (headerModel) {
+            
+            if (headerModel&&[headerModel isKindOfClass:[QSPOrderDetailActionReturnBaseDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.msg, 1.0f, ^(){
+                    
+                    
+                })
+            }else if (headerModel&&[headerModel isKindOfClass:[QSHeaderDataModel class]]) {
+                TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+                    
+                    
+                })
+            }
+            
+        }
+        
+        [hud hiddenCustomHUD];
+        
+    }];
+    
+}
+
+#pragma mark - 房客申请议价
+- (void)buyerAskForBargainAgain
+{
+    
+    NSString *orderID = nil;
+    
+    if (self.orderData) {
+        
+        if ([self.orderData isKindOfClass:[QSOrderListItemData class]]) {
+            
+            NSArray *orderList = self.orderData.orderInfoList;
+            
+            if (orderList&&[orderList isKindOfClass:[NSArray class]]&&_selectedIndex<[orderList count]) {
+                
+                QSOrderListOrderInfoDataModel *orderItem = [orderList objectAtIndex:_selectedIndex];
+                
+                if (orderItem && [orderItem isKindOfClass:[QSOrderListOrderInfoDataModel class]]) {
+                    orderID = orderItem.id_;
+                }
+            }
+        }
+    }
+    
+    QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
+    
+    //    必选	类型及范围	说明
+    //    user_id	true	string	用户id
+    //    order_id	true	string	订单id
+    
+    if (!orderID || [orderID isEqualToString:@""]) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"订单ID错误", 1.0f, ^(){
+            
+        })
+        [hud hiddenCustomHUD];
+        return;
+    }
+    
+    NSMutableDictionary *tempParam = [NSMutableDictionary dictionaryWithDictionary:0];
+    
+    [tempParam setObject:orderID forKey:@"order_id"];
+    
+    [QSRequestManager requestDataWithType:rRequestTypeOrderAppointmentaApplyBargain andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         QSPOrderDetailActionReturnBaseDataModel *headerModel = (QSPOrderDetailActionReturnBaseDataModel*)resultData;
         

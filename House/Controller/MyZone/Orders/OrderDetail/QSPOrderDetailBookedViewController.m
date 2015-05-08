@@ -493,10 +493,10 @@
             switch (buttonType) {
                 case bBottomButtonTypeOne:
                     {
-                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString  *orderID) {
+                        QSPOrderBookTimeViewController *bookTimeVc = [[QSPOrderBookTimeViewController alloc] initWithSubmitCallBack:^(BOOKTIME_RESULT_TYPE resultTag,NSString  *returnOrderID) {
                             
                             if (bBookResultTypeSucess == resultTag) {
-                                self.orderID = orderID;
+                                self.orderID = returnOrderID;
                                 [self getDetailData];
                             }
                             
@@ -837,10 +837,6 @@
             }
             
             if (self.submitPriceButtonView) {
-                [self.submitPriceButtonView setHidden:YES];
-            }
-            
-            if (self.submitPriceButtonView) {
                 [self.submitPriceButtonView setHidden:NO];
             }
             
@@ -999,7 +995,25 @@
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailComplaintAndCompletedButtonView:完成看房");
-                    [self salerCommitInspectedOrder];
+                    
+                    {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否已看完房？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                            
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                                
+                                [self salerCommitInspectedOrder];
+                                
+                            }
+                            
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                        
+                    }
+                    
                     break;
                 default:
                     break;
@@ -1048,6 +1062,23 @@
                     break;
                 case bBottomButtonTypeRight:
                     NSLog(@"QSPOrderDetailAppointAgainAndPriceAgainButtonView:我要议价");
+                    
+                    if (self.inputMyPriceView) {
+                        [self.inputMyPriceView setFrameHeightToShowHeight];
+                    }
+                    
+                    if (self.appointAgainAndPriceAgainButtonView) {
+                        [self.appointAgainAndPriceAgainButtonView setHidden:YES];
+                    }
+                    
+                    if (self.confirmOrderButtonView) {
+                        [self.confirmOrderButtonView setHidden:YES];
+                    }
+                    
+                    if (self.submitPriceButtonView) {
+                        [self.submitPriceButtonView setHidden:NO];
+                    }
+                    
                     break;
                 default:
                     break;
@@ -1404,16 +1435,22 @@
                     break;
                 case bBottomButtonTypeRight:
                     {
-                        TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil,@"是否向业主提出议价申请?",@"取消",@"确认",^(int buttonIndex) {
+                        
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否向业主提出议价申请?" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                             
-                            ///判断按钮事件:0取消
-                            if (1 == buttonIndex) {
+                            if (actionType == oOrderButtonTipsActionTypeCancel) {
+                                
+                            }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
                                 
                                 [self buyerAskForBargainAgain];
                                 
                             }
                             
-                        })
+                        }];
+                        
+                        [popView setParentViewController:self];
+                        [self.view addSubview:popView];
+                        
                     }
                     break;
                 default:

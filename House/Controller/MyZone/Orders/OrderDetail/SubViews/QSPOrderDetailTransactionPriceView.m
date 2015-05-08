@@ -77,7 +77,23 @@
             
         }
         
-        infoString = [NSString stringWithFormat:@"%@价%@%@",priceType,priceString,priceUnit];
+        if ([@"500253" isEqualToString:tempOrderData.order_status]
+            || [@"500254" isEqualToString:tempOrderData.order_status]
+            || [@"500259" isEqualToString:tempOrderData.order_status]) {
+            
+            priceType = @"业主一口";
+            
+            if ([tempOrderData.order_type isEqualToString:@"500103"]) {
+                //出租房出价
+                priceString = tempOrderData.house_msg.rent_price;
+                
+            }else {
+                
+                priceString = [NSString conversionPriceUnitToWanWithPriceString:tempOrderData.house_msg.house_price];
+                
+            }
+            
+        }
         
         UIColor *color = COLOR_CHARACTERS_GRAY;//COLOR_CHARACTERS_LIGHTYELLOW;
         
@@ -85,11 +101,17 @@
             || [@"500301" isEqualToString:tempOrderData.order_status]
             || [@"500302" isEqualToString:tempOrderData.order_status]
             || [@"500320" isEqualToString:tempOrderData.order_status]
-            || [@"500220" isEqualToString:tempOrderData.order_status]) {
+            || [@"500220" isEqualToString:tempOrderData.order_status]
+            || [@"500253" isEqualToString:tempOrderData.order_status]
+            || [@"500254" isEqualToString:tempOrderData.order_status]
+            || [@"500259" isEqualToString:tempOrderData.order_status]) {
             
             color = COLOR_CHARACTERS_YELLOW;
             
         }
+        
+        infoString = [NSString stringWithFormat:@"%@价%@%@",priceType,priceString,priceUnit];
+        
         
         CGFloat labelWidth = (SIZE_DEVICE_WIDTH - 2.0f * CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP);
         
