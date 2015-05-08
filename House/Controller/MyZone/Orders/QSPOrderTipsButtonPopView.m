@@ -45,14 +45,13 @@
     QSBlockButtonStyleModel *bgBtStyleModel = [QSBlockButtonStyleModel alloc];
     UIButton *bgBt = [UIButton createBlockButtonWithFrame:self.frame andButtonStyle:bgBtStyleModel andCallBack:^(UIButton *button) {
         
-        if (self.buttonTipsCallBack) {
-            
-            self.buttonTipsCallBack(button,oOrderButtonTipsActionTypeCancel);
-            
-        }
-        
         if (self.clickBgToCloseFlag) {
             
+            if (self.buttonTipsCallBack) {
+                
+                self.buttonTipsCallBack(button,oOrderButtonTipsActionTypeCancel);
+                
+            }
             [self hideView];
             
         }

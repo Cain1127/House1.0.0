@@ -350,6 +350,10 @@
                 scrollOffset = (int)scrollOffset;
                 [_collectionView setContentOffset:CGPointMake((int)scrollOffset * _collectionView.fs_width, _collectionView.contentOffset.y)];
                 
+            }else{
+                
+                _header.scrollOffset = 1;
+                
             }
             
             _header.scrollOffset = scrollOffset;
@@ -712,10 +716,12 @@
 
 - (void)reloadData
 {
+    
     NSIndexPath *selectedPath = [_collectionView indexPathsForSelectedItems].lastObject;
     [_collectionView reloadData];
     [_collectionView selectItemAtIndexPath:selectedPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [_header reloadData];
+    
 }
 
 #pragma mark - Private
@@ -737,6 +743,7 @@
         _header.scrollOffset = 1;
         _header.scrollOffset = scrollOffset;
     }
+    
 }
 
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath
@@ -849,6 +856,7 @@
         [self reloadData];
     }
     [_weekdays setValue:_weekdayFont forKey:@"font"];
+    
 }
 
 @end

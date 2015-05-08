@@ -104,7 +104,8 @@
             || [@"500220" isEqualToString:tempOrderData.order_status]
             || [@"500253" isEqualToString:tempOrderData.order_status]
             || [@"500254" isEqualToString:tempOrderData.order_status]
-            || [@"500259" isEqualToString:tempOrderData.order_status]) {
+            || [@"500259" isEqualToString:tempOrderData.order_status]
+            || [@"500221" isEqualToString:tempOrderData.order_status]) {
             
             color = COLOR_CHARACTERS_YELLOW;
             

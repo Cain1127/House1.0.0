@@ -205,7 +205,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
             
         }else if (500253 == button.tag ){
             //拒绝再议价
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否拒绝房客再议价？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否拒绝房客申请议价？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeCancel) {
                     
@@ -372,9 +372,9 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 //                [self.parentViewController.view addSubview:popView];
 //            }
             
-        }else if (500253 == button.tag ){
+        }else if ( 500253 == button.tag ){
             //接受再议价
-            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受再议价？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+            __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否接受房客申请议价？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 
                 if (actionType == oOrderButtonTipsActionTypeCancel) {
                     
@@ -1490,7 +1490,5 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
     }];
     
 }
-
-
 
 @end

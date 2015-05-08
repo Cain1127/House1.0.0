@@ -189,7 +189,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
 
-        }else if ( 500259 == button.tag ){
+        }else if ( 500254 == button.tag || 500259 == button.tag ){
             //申请议价
             
             __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否向业主提出议价申请?" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
@@ -440,7 +440,7 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
                 [self.parentViewController.view addSubview:popView];
             }
             
-        }else if (500220 == button.tag  || 500259 == button.tag ){
+        }else if (500220 == button.tag  || 500254 == button.tag || 500259 == button.tag || 500253 == button.tag){
             //完成预约订单，进入成交流程
             __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"确认成交该房源，进入成交流程！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                 

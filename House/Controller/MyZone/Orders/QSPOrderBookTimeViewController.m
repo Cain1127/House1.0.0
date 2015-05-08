@@ -359,7 +359,7 @@
         
         buttomOffsetY = cancelAppointmentLineLablel.frame.origin.y+cancelAppointmentLineLablel.frame.size.height;
     }
-    
+
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, buttomOffsetY+30.0f)];
     
     if (buttomButtonsView) {
@@ -386,6 +386,12 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    
+    if (self.calendarView) {
+        
+        [self.calendarView reloadData];
+        
+    }
     
     [super viewDidDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];

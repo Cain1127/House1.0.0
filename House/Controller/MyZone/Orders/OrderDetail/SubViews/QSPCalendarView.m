@@ -133,6 +133,9 @@
 
     if (self.calendar) {
         [self.calendar reloadData];
+        
+        [self.calendar goToNextMonth:99];
+        
     }
     
 }
