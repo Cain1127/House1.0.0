@@ -36,15 +36,16 @@ namespace QSChat {
     
     class QuestionOnline;
     class QuestionOffline;
+    class QuestionSendedAnswerBack;
     class QuestionHistory;
     class QuestionWord;
-    class QuestionSpecial;
     class QuestionPic;
     class QuestionVideo;
+    class QuestionRecommendHouse;
     class AnswerWord;
     class AnswerPic;
     class AnswerVideo;
-    class AnswerOnline;
+    class AnswerRecommendHouse;
     class AnswerOffline;
     class AnswerSpecial;
     class AnswerSystem;
@@ -60,11 +61,15 @@ namespace QSChat {
         QSCHAT_HISTORY_WORD = 9007,
         QSCHAT_HISTORY_PIC = 9008,
         QSCHAT_HISTORY_VIDEO = 9009,
-        QSCHAT_HISTORY = 9010
+        QSCHAT_HISTORY = 9010,
+        QSCHAT_HISTORY_SP = 9011,
+        QSCHAT_RECOMMEND_HOUSE = 9012,
+        QSCHAT_HISTORY_RECOMMEND_HOUSE = 9013,
+        QSCHAT_SENDED_ANSWER_BACK = 9999
     };
     bool QSChatMessageType_IsValid(int value);
     const QSChatMessageType QSChatMessageType_MIN = QSCHAT_WORD;
-    const QSChatMessageType QSChatMessageType_MAX = QSCHAT_HISTORY;
+    const QSChatMessageType QSChatMessageType_MAX = QSCHAT_SENDED_ANSWER_BACK;
     const int QSChatMessageType_ARRAYSIZE = QSChatMessageType_MAX + 1;
     
     const ::google::protobuf::EnumDescriptor* QSChatMessageType_descriptor();
@@ -307,52 +312,281 @@ namespace QSChat {
         inline ::std::string* release_token();
         inline void set_allocated_token(::std::string* token);
         
-        // required string user_id = 2;
-        inline bool has_user_id() const;
-        inline void clear_user_id();
-        static const int kUserIdFieldNumber = 2;
-        inline const ::std::string& user_id() const;
-        inline void set_user_id(const ::std::string& value);
-        inline void set_user_id(const char* value);
-        inline void set_user_id(const char* value, size_t size);
-        inline ::std::string* mutable_user_id();
-        inline ::std::string* release_user_id();
-        inline void set_allocated_user_id(::std::string* user_id);
+        // required string device_udid = 2;
+        inline bool has_device_udid() const;
+        inline void clear_device_udid();
+        static const int kDeviceUdidFieldNumber = 2;
+        inline const ::std::string& device_udid() const;
+        inline void set_device_udid(const ::std::string& value);
+        inline void set_device_udid(const char* value);
+        inline void set_device_udid(const char* value, size_t size);
+        inline ::std::string* mutable_device_udid();
+        inline ::std::string* release_device_udid();
+        inline void set_allocated_device_udid(::std::string* device_udid);
         
-        // required string info = 3;
-        inline bool has_info() const;
-        inline void clear_info();
-        static const int kInfoFieldNumber = 3;
-        inline const ::std::string& info() const;
-        inline void set_info(const ::std::string& value);
-        inline void set_info(const char* value);
-        inline void set_info(const char* value, size_t size);
-        inline ::std::string* mutable_info();
-        inline ::std::string* release_info();
-        inline void set_allocated_info(::std::string* info);
+        // required string device_info = 3;
+        inline bool has_device_info() const;
+        inline void clear_device_info();
+        static const int kDeviceInfoFieldNumber = 3;
+        inline const ::std::string& device_info() const;
+        inline void set_device_info(const ::std::string& value);
+        inline void set_device_info(const char* value);
+        inline void set_device_info(const char* value, size_t size);
+        inline ::std::string* mutable_device_info();
+        inline ::std::string* release_device_info();
+        inline void set_allocated_device_info(::std::string* device_info);
+        
+        // required string local_info = 4;
+        inline bool has_local_info() const;
+        inline void clear_local_info();
+        static const int kLocalInfoFieldNumber = 4;
+        inline const ::std::string& local_info() const;
+        inline void set_local_info(const ::std::string& value);
+        inline void set_local_info(const char* value);
+        inline void set_local_info(const char* value, size_t size);
+        inline ::std::string* mutable_local_info();
+        inline ::std::string* release_local_info();
+        inline void set_allocated_local_info(::std::string* local_info);
+        
+        // required string time_stamp = 5;
+        inline bool has_time_stamp() const;
+        inline void clear_time_stamp();
+        static const int kTimeStampFieldNumber = 5;
+        inline const ::std::string& time_stamp() const;
+        inline void set_time_stamp(const ::std::string& value);
+        inline void set_time_stamp(const char* value);
+        inline void set_time_stamp(const char* value, size_t size);
+        inline ::std::string* mutable_time_stamp();
+        inline ::std::string* release_time_stamp();
+        inline void set_allocated_time_stamp(::std::string* time_stamp);
+        
+        // required int64 fid = 6;
+        inline bool has_fid() const;
+        inline void clear_fid();
+        static const int kFidFieldNumber = 6;
+        inline ::google::protobuf::int64 fid() const;
+        inline void set_fid(::google::protobuf::int64 value);
+        
+        // required string f_avatar = 7;
+        inline bool has_f_avatar() const;
+        inline void clear_f_avatar();
+        static const int kFAvatarFieldNumber = 7;
+        inline const ::std::string& f_avatar() const;
+        inline void set_f_avatar(const ::std::string& value);
+        inline void set_f_avatar(const char* value);
+        inline void set_f_avatar(const char* value, size_t size);
+        inline ::std::string* mutable_f_avatar();
+        inline ::std::string* release_f_avatar();
+        inline void set_allocated_f_avatar(::std::string* f_avatar);
+        
+        // required string f_name = 8;
+        inline bool has_f_name() const;
+        inline void clear_f_name();
+        static const int kFNameFieldNumber = 8;
+        inline const ::std::string& f_name() const;
+        inline void set_f_name(const ::std::string& value);
+        inline void set_f_name(const char* value);
+        inline void set_f_name(const char* value, size_t size);
+        inline ::std::string* mutable_f_name();
+        inline ::std::string* release_f_name();
+        inline void set_allocated_f_name(::std::string* f_name);
+        
+        // required string f_leve = 9;
+        inline bool has_f_leve() const;
+        inline void clear_f_leve();
+        static const int kFLeveFieldNumber = 9;
+        inline const ::std::string& f_leve() const;
+        inline void set_f_leve(const ::std::string& value);
+        inline void set_f_leve(const char* value);
+        inline void set_f_leve(const char* value, size_t size);
+        inline ::std::string* mutable_f_leve();
+        inline ::std::string* release_f_leve();
+        inline void set_allocated_f_leve(::std::string* f_leve);
+        
+        // required string f_user_type = 10;
+        inline bool has_f_user_type() const;
+        inline void clear_f_user_type();
+        static const int kFUserTypeFieldNumber = 10;
+        inline const ::std::string& f_user_type() const;
+        inline void set_f_user_type(const ::std::string& value);
+        inline void set_f_user_type(const char* value);
+        inline void set_f_user_type(const char* value, size_t size);
+        inline ::std::string* mutable_f_user_type();
+        inline ::std::string* release_f_user_type();
+        inline void set_allocated_f_user_type(::std::string* f_user_type);
         
         // @@protoc_insertion_point(class_scope:QSChat.QuestionOffline)
     private:
         inline void set_has_token();
         inline void clear_has_token();
-        inline void set_has_user_id();
-        inline void clear_has_user_id();
-        inline void set_has_info();
-        inline void clear_has_info();
+        inline void set_has_device_udid();
+        inline void clear_has_device_udid();
+        inline void set_has_device_info();
+        inline void clear_has_device_info();
+        inline void set_has_local_info();
+        inline void clear_has_local_info();
+        inline void set_has_time_stamp();
+        inline void clear_has_time_stamp();
+        inline void set_has_fid();
+        inline void clear_has_fid();
+        inline void set_has_f_avatar();
+        inline void clear_has_f_avatar();
+        inline void set_has_f_name();
+        inline void clear_has_f_name();
+        inline void set_has_f_leve();
+        inline void clear_has_f_leve();
+        inline void set_has_f_user_type();
+        inline void clear_has_f_user_type();
         
         ::google::protobuf::UnknownFieldSet _unknown_fields_;
         
         ::google::protobuf::uint32 _has_bits_[1];
         mutable int _cached_size_;
         ::std::string* token_;
-        ::std::string* user_id_;
-        ::std::string* info_;
+        ::std::string* device_udid_;
+        ::std::string* device_info_;
+        ::std::string* local_info_;
+        ::std::string* time_stamp_;
+        ::google::protobuf::int64 fid_;
+        ::std::string* f_avatar_;
+        ::std::string* f_name_;
+        ::std::string* f_leve_;
+        ::std::string* f_user_type_;
         friend void  protobuf_AddDesc_qschat_2eproto();
         friend void protobuf_AssignDesc_qschat_2eproto();
         friend void protobuf_ShutdownFile_qschat_2eproto();
         
         void InitAsDefaultInstance();
         static QuestionOffline* default_instance_;
+    };
+    // -------------------------------------------------------------------
+    
+    class QuestionSendedAnswerBack : public ::google::protobuf::Message {
+    public:
+        QuestionSendedAnswerBack();
+        virtual ~QuestionSendedAnswerBack();
+        
+        QuestionSendedAnswerBack(const QuestionSendedAnswerBack& from);
+        
+        inline QuestionSendedAnswerBack& operator=(const QuestionSendedAnswerBack& from) {
+            CopyFrom(from);
+            return *this;
+        }
+        
+        inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+            return _unknown_fields_;
+        }
+        
+        inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+            return &_unknown_fields_;
+        }
+        
+        static const ::google::protobuf::Descriptor* descriptor();
+        static const QuestionSendedAnswerBack& default_instance();
+        
+        void Swap(QuestionSendedAnswerBack* other);
+        
+        // implements Message ----------------------------------------------
+        
+        QuestionSendedAnswerBack* New() const;
+        void CopyFrom(const ::google::protobuf::Message& from);
+        void MergeFrom(const ::google::protobuf::Message& from);
+        void CopyFrom(const QuestionSendedAnswerBack& from);
+        void MergeFrom(const QuestionSendedAnswerBack& from);
+        void Clear();
+        bool IsInitialized() const;
+        
+        int ByteSize() const;
+        bool MergePartialFromCodedStream(
+                                         ::google::protobuf::io::CodedInputStream* input);
+        void SerializeWithCachedSizes(
+                                      ::google::protobuf::io::CodedOutputStream* output) const;
+        ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+        int GetCachedSize() const { return _cached_size_; }
+    private:
+        void SharedCtor();
+        void SharedDtor();
+        void SetCachedSize(int size) const;
+    public:
+        ::google::protobuf::Metadata GetMetadata() const;
+        
+        // nested types ----------------------------------------------------
+        
+        // accessors -------------------------------------------------------
+        
+        // required string f_time_stamp = 1;
+        inline bool has_f_time_stamp() const;
+        inline void clear_f_time_stamp();
+        static const int kFTimeStampFieldNumber = 1;
+        inline const ::std::string& f_time_stamp() const;
+        inline void set_f_time_stamp(const ::std::string& value);
+        inline void set_f_time_stamp(const char* value);
+        inline void set_f_time_stamp(const char* value, size_t size);
+        inline ::std::string* mutable_f_time_stamp();
+        inline ::std::string* release_f_time_stamp();
+        inline void set_allocated_f_time_stamp(::std::string* f_time_stamp);
+        
+        // required string f_user_id = 2;
+        inline bool has_f_user_id() const;
+        inline void clear_f_user_id();
+        static const int kFUserIdFieldNumber = 2;
+        inline const ::std::string& f_user_id() const;
+        inline void set_f_user_id(const ::std::string& value);
+        inline void set_f_user_id(const char* value);
+        inline void set_f_user_id(const char* value, size_t size);
+        inline ::std::string* mutable_f_user_id();
+        inline ::std::string* release_f_user_id();
+        inline void set_allocated_f_user_id(::std::string* f_user_id);
+        
+        // required string f_udid = 3;
+        inline bool has_f_udid() const;
+        inline void clear_f_udid();
+        static const int kFUdidFieldNumber = 3;
+        inline const ::std::string& f_udid() const;
+        inline void set_f_udid(const ::std::string& value);
+        inline void set_f_udid(const char* value);
+        inline void set_f_udid(const char* value, size_t size);
+        inline ::std::string* mutable_f_udid();
+        inline ::std::string* release_f_udid();
+        inline void set_allocated_f_udid(::std::string* f_udid);
+        
+        // required string server_time_stamp = 4;
+        inline bool has_server_time_stamp() const;
+        inline void clear_server_time_stamp();
+        static const int kServerTimeStampFieldNumber = 4;
+        inline const ::std::string& server_time_stamp() const;
+        inline void set_server_time_stamp(const ::std::string& value);
+        inline void set_server_time_stamp(const char* value);
+        inline void set_server_time_stamp(const char* value, size_t size);
+        inline ::std::string* mutable_server_time_stamp();
+        inline ::std::string* release_server_time_stamp();
+        inline void set_allocated_server_time_stamp(::std::string* server_time_stamp);
+        
+        // @@protoc_insertion_point(class_scope:QSChat.QuestionSendedAnswerBack)
+    private:
+        inline void set_has_f_time_stamp();
+        inline void clear_has_f_time_stamp();
+        inline void set_has_f_user_id();
+        inline void clear_has_f_user_id();
+        inline void set_has_f_udid();
+        inline void clear_has_f_udid();
+        inline void set_has_server_time_stamp();
+        inline void clear_has_server_time_stamp();
+        
+        ::google::protobuf::UnknownFieldSet _unknown_fields_;
+        
+        ::google::protobuf::uint32 _has_bits_[1];
+        mutable int _cached_size_;
+        ::std::string* f_time_stamp_;
+        ::std::string* f_user_id_;
+        ::std::string* f_udid_;
+        ::std::string* server_time_stamp_;
+        friend void  protobuf_AddDesc_qschat_2eproto();
+        friend void protobuf_AssignDesc_qschat_2eproto();
+        friend void protobuf_ShutdownFile_qschat_2eproto();
+        
+        void InitAsDefaultInstance();
+        static QuestionSendedAnswerBack* default_instance_;
     };
     // -------------------------------------------------------------------
     
@@ -577,130 +811,17 @@ namespace QSChat {
         inline ::google::protobuf::int64 tid() const;
         inline void set_tid(::google::protobuf::int64 value);
         
-        // required string time_stamp = 3;
-        inline bool has_time_stamp() const;
-        inline void clear_time_stamp();
-        static const int kTimeStampFieldNumber = 3;
-        inline const ::std::string& time_stamp() const;
-        inline void set_time_stamp(const ::std::string& value);
-        inline void set_time_stamp(const char* value);
-        inline void set_time_stamp(const char* value, size_t size);
-        inline ::std::string* mutable_time_stamp();
-        inline ::std::string* release_time_stamp();
-        inline void set_allocated_time_stamp(::std::string* time_stamp);
+        // required .QSChat.ChatRequestType ctype = 3;
+        inline bool has_ctype() const;
+        inline void clear_ctype();
+        static const int kCtypeFieldNumber = 3;
+        inline ::QSChat::ChatRequestType ctype() const;
+        inline void set_ctype(::QSChat::ChatRequestType value);
         
-        // required string t_avatar = 4;
-        inline bool has_t_avatar() const;
-        inline void clear_t_avatar();
-        static const int kTAvatarFieldNumber = 4;
-        inline const ::std::string& t_avatar() const;
-        inline void set_t_avatar(const ::std::string& value);
-        inline void set_t_avatar(const char* value);
-        inline void set_t_avatar(const char* value, size_t size);
-        inline ::std::string* mutable_t_avatar();
-        inline ::std::string* release_t_avatar();
-        inline void set_allocated_t_avatar(::std::string* t_avatar);
-        
-        // required string t_name = 5;
-        inline bool has_t_name() const;
-        inline void clear_t_name();
-        static const int kTNameFieldNumber = 5;
-        inline const ::std::string& t_name() const;
-        inline void set_t_name(const ::std::string& value);
-        inline void set_t_name(const char* value);
-        inline void set_t_name(const char* value, size_t size);
-        inline ::std::string* mutable_t_name();
-        inline ::std::string* release_t_name();
-        inline void set_allocated_t_name(::std::string* t_name);
-        
-        // required string t_leve = 6;
-        inline bool has_t_leve() const;
-        inline void clear_t_leve();
-        static const int kTLeveFieldNumber = 6;
-        inline const ::std::string& t_leve() const;
-        inline void set_t_leve(const ::std::string& value);
-        inline void set_t_leve(const char* value);
-        inline void set_t_leve(const char* value, size_t size);
-        inline ::std::string* mutable_t_leve();
-        inline ::std::string* release_t_leve();
-        inline void set_allocated_t_leve(::std::string* t_leve);
-        
-        // required string t_user_type = 7;
-        inline bool has_t_user_type() const;
-        inline void clear_t_user_type();
-        static const int kTUserTypeFieldNumber = 7;
-        inline const ::std::string& t_user_type() const;
-        inline void set_t_user_type(const ::std::string& value);
-        inline void set_t_user_type(const char* value);
-        inline void set_t_user_type(const char* value, size_t size);
-        inline ::std::string* mutable_t_user_type();
-        inline ::std::string* release_t_user_type();
-        inline void set_allocated_t_user_type(::std::string* t_user_type);
-        
-        // required string m_avatar = 8;
-        inline bool has_m_avatar() const;
-        inline void clear_m_avatar();
-        static const int kMAvatarFieldNumber = 8;
-        inline const ::std::string& m_avatar() const;
-        inline void set_m_avatar(const ::std::string& value);
-        inline void set_m_avatar(const char* value);
-        inline void set_m_avatar(const char* value, size_t size);
-        inline ::std::string* mutable_m_avatar();
-        inline ::std::string* release_m_avatar();
-        inline void set_allocated_m_avatar(::std::string* m_avatar);
-        
-        // required string m_name = 9;
-        inline bool has_m_name() const;
-        inline void clear_m_name();
-        static const int kMNameFieldNumber = 9;
-        inline const ::std::string& m_name() const;
-        inline void set_m_name(const ::std::string& value);
-        inline void set_m_name(const char* value);
-        inline void set_m_name(const char* value, size_t size);
-        inline ::std::string* mutable_m_name();
-        inline ::std::string* release_m_name();
-        inline void set_allocated_m_name(::std::string* m_name);
-        
-        // required string m_leve = 10;
-        inline bool has_m_leve() const;
-        inline void clear_m_leve();
-        static const int kMLeveFieldNumber = 10;
-        inline const ::std::string& m_leve() const;
-        inline void set_m_leve(const ::std::string& value);
-        inline void set_m_leve(const char* value);
-        inline void set_m_leve(const char* value, size_t size);
-        inline ::std::string* mutable_m_leve();
-        inline ::std::string* release_m_leve();
-        inline void set_allocated_m_leve(::std::string* m_leve);
-        
-        // required string m_user_type = 11;
-        inline bool has_m_user_type() const;
-        inline void clear_m_user_type();
-        static const int kMUserTypeFieldNumber = 11;
-        inline const ::std::string& m_user_type() const;
-        inline void set_m_user_type(const ::std::string& value);
-        inline void set_m_user_type(const char* value);
-        inline void set_m_user_type(const char* value, size_t size);
-        inline ::std::string* mutable_m_user_type();
-        inline ::std::string* release_m_user_type();
-        inline void set_allocated_m_user_type(::std::string* m_user_type);
-        
-        // required string device_udid = 12;
-        inline bool has_device_udid() const;
-        inline void clear_device_udid();
-        static const int kDeviceUdidFieldNumber = 12;
-        inline const ::std::string& device_udid() const;
-        inline void set_device_udid(const ::std::string& value);
-        inline void set_device_udid(const char* value);
-        inline void set_device_udid(const char* value, size_t size);
-        inline ::std::string* mutable_device_udid();
-        inline ::std::string* release_device_udid();
-        inline void set_allocated_device_udid(::std::string* device_udid);
-        
-        // required string message = 13;
+        // required string message = 4;
         inline bool has_message() const;
         inline void clear_message();
-        static const int kMessageFieldNumber = 13;
+        static const int kMessageFieldNumber = 4;
         inline const ::std::string& message() const;
         inline void set_message(const ::std::string& value);
         inline void set_message(const char* value);
@@ -709,204 +830,10 @@ namespace QSChat {
         inline ::std::string* release_message();
         inline void set_allocated_message(::std::string* message);
         
-        // required .QSChat.ChatRequestType ctype = 14;
-        inline bool has_ctype() const;
-        inline void clear_ctype();
-        static const int kCtypeFieldNumber = 14;
-        inline ::QSChat::ChatRequestType ctype() const;
-        inline void set_ctype(::QSChat::ChatRequestType value);
-        
-        // @@protoc_insertion_point(class_scope:QSChat.QuestionWord)
-    private:
-        inline void set_has_mid();
-        inline void clear_has_mid();
-        inline void set_has_tid();
-        inline void clear_has_tid();
-        inline void set_has_time_stamp();
-        inline void clear_has_time_stamp();
-        inline void set_has_t_avatar();
-        inline void clear_has_t_avatar();
-        inline void set_has_t_name();
-        inline void clear_has_t_name();
-        inline void set_has_t_leve();
-        inline void clear_has_t_leve();
-        inline void set_has_t_user_type();
-        inline void clear_has_t_user_type();
-        inline void set_has_m_avatar();
-        inline void clear_has_m_avatar();
-        inline void set_has_m_name();
-        inline void clear_has_m_name();
-        inline void set_has_m_leve();
-        inline void clear_has_m_leve();
-        inline void set_has_m_user_type();
-        inline void clear_has_m_user_type();
-        inline void set_has_device_udid();
-        inline void clear_has_device_udid();
-        inline void set_has_message();
-        inline void clear_has_message();
-        inline void set_has_ctype();
-        inline void clear_has_ctype();
-        
-        ::google::protobuf::UnknownFieldSet _unknown_fields_;
-        
-        ::google::protobuf::uint32 _has_bits_[1];
-        mutable int _cached_size_;
-        ::google::protobuf::int64 mid_;
-        ::google::protobuf::int64 tid_;
-        ::std::string* time_stamp_;
-        ::std::string* t_avatar_;
-        ::std::string* t_name_;
-        ::std::string* t_leve_;
-        ::std::string* t_user_type_;
-        ::std::string* m_avatar_;
-        ::std::string* m_name_;
-        ::std::string* m_leve_;
-        ::std::string* m_user_type_;
-        ::std::string* device_udid_;
-        ::std::string* message_;
-        int ctype_;
-        friend void  protobuf_AddDesc_qschat_2eproto();
-        friend void protobuf_AssignDesc_qschat_2eproto();
-        friend void protobuf_ShutdownFile_qschat_2eproto();
-        
-        void InitAsDefaultInstance();
-        static QuestionWord* default_instance_;
-    };
-    // -------------------------------------------------------------------
-    
-    class QuestionSpecial : public ::google::protobuf::Message {
-    public:
-        QuestionSpecial();
-        virtual ~QuestionSpecial();
-        
-        QuestionSpecial(const QuestionSpecial& from);
-        
-        inline QuestionSpecial& operator=(const QuestionSpecial& from) {
-            CopyFrom(from);
-            return *this;
-        }
-        
-        inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-            return _unknown_fields_;
-        }
-        
-        inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-            return &_unknown_fields_;
-        }
-        
-        static const ::google::protobuf::Descriptor* descriptor();
-        static const QuestionSpecial& default_instance();
-        
-        void Swap(QuestionSpecial* other);
-        
-        // implements Message ----------------------------------------------
-        
-        QuestionSpecial* New() const;
-        void CopyFrom(const ::google::protobuf::Message& from);
-        void MergeFrom(const ::google::protobuf::Message& from);
-        void CopyFrom(const QuestionSpecial& from);
-        void MergeFrom(const QuestionSpecial& from);
-        void Clear();
-        bool IsInitialized() const;
-        
-        int ByteSize() const;
-        bool MergePartialFromCodedStream(
-                                         ::google::protobuf::io::CodedInputStream* input);
-        void SerializeWithCachedSizes(
-                                      ::google::protobuf::io::CodedOutputStream* output) const;
-        ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-        int GetCachedSize() const { return _cached_size_; }
-    private:
-        void SharedCtor();
-        void SharedDtor();
-        void SetCachedSize(int size) const;
-    public:
-        ::google::protobuf::Metadata GetMetadata() const;
-        
-        // nested types ----------------------------------------------------
-        
-        // accessors -------------------------------------------------------
-        
-        // required int64 mid = 1;
-        inline bool has_mid() const;
-        inline void clear_mid();
-        static const int kMidFieldNumber = 1;
-        inline ::google::protobuf::int64 mid() const;
-        inline void set_mid(::google::protobuf::int64 value);
-        
-        // required int64 cid = 2;
-        inline bool has_cid() const;
-        inline void clear_cid();
-        static const int kCidFieldNumber = 2;
-        inline ::google::protobuf::int64 cid() const;
-        inline void set_cid(::google::protobuf::int64 value);
-        
-        // required .QSChat.ChatRequestType ctype = 3;
-        inline bool has_ctype() const;
-        inline void clear_ctype();
-        static const int kCtypeFieldNumber = 3;
-        inline ::QSChat::ChatRequestType ctype() const;
-        inline void set_ctype(::QSChat::ChatRequestType value);
-        
-        // required int64 fid = 4;
-        inline bool has_fid() const;
-        inline void clear_fid();
-        static const int kFidFieldNumber = 4;
-        inline ::google::protobuf::int64 fid() const;
-        inline void set_fid(::google::protobuf::int64 value);
-        
-        // required string type = 5;
-        inline bool has_type() const;
-        inline void clear_type();
-        static const int kTypeFieldNumber = 5;
-        inline const ::std::string& type() const;
-        inline void set_type(const ::std::string& value);
-        inline void set_type(const char* value);
-        inline void set_type(const char* value, size_t size);
-        inline ::std::string* mutable_type();
-        inline ::std::string* release_type();
-        inline void set_allocated_type(::std::string* type);
-        
-        // required string name = 6;
-        inline bool has_name() const;
-        inline void clear_name();
-        static const int kNameFieldNumber = 6;
-        inline const ::std::string& name() const;
-        inline void set_name(const ::std::string& value);
-        inline void set_name(const char* value);
-        inline void set_name(const char* value, size_t size);
-        inline ::std::string* mutable_name();
-        inline ::std::string* release_name();
-        inline void set_allocated_name(::std::string* name);
-        
-        // required string pic = 7;
-        inline bool has_pic() const;
-        inline void clear_pic();
-        static const int kPicFieldNumber = 7;
-        inline const ::std::string& pic() const;
-        inline void set_pic(const ::std::string& value);
-        inline void set_pic(const char* value);
-        inline void set_pic(const char* value, size_t size);
-        inline ::std::string* mutable_pic();
-        inline ::std::string* release_pic();
-        inline void set_allocated_pic(::std::string* pic);
-        
-        // required string desc = 8;
-        inline bool has_desc() const;
-        inline void clear_desc();
-        static const int kDescFieldNumber = 8;
-        inline const ::std::string& desc() const;
-        inline void set_desc(const ::std::string& value);
-        inline void set_desc(const char* value);
-        inline void set_desc(const char* value, size_t size);
-        inline ::std::string* mutable_desc();
-        inline ::std::string* release_desc();
-        inline void set_allocated_desc(::std::string* desc);
-        
-        // required string time_stamp = 9;
+        // required string time_stamp = 5;
         inline bool has_time_stamp() const;
         inline void clear_time_stamp();
-        static const int kTimeStampFieldNumber = 9;
+        static const int kTimeStampFieldNumber = 5;
         inline const ::std::string& time_stamp() const;
         inline void set_time_stamp(const ::std::string& value);
         inline void set_time_stamp(const char* value);
@@ -915,10 +842,10 @@ namespace QSChat {
         inline ::std::string* release_time_stamp();
         inline void set_allocated_time_stamp(::std::string* time_stamp);
         
-        // required string t_avatar = 10;
+        // required string t_avatar = 6;
         inline bool has_t_avatar() const;
         inline void clear_t_avatar();
-        static const int kTAvatarFieldNumber = 10;
+        static const int kTAvatarFieldNumber = 6;
         inline const ::std::string& t_avatar() const;
         inline void set_t_avatar(const ::std::string& value);
         inline void set_t_avatar(const char* value);
@@ -927,10 +854,10 @@ namespace QSChat {
         inline ::std::string* release_t_avatar();
         inline void set_allocated_t_avatar(::std::string* t_avatar);
         
-        // required string t_name = 11;
+        // required string t_name = 7;
         inline bool has_t_name() const;
         inline void clear_t_name();
-        static const int kTNameFieldNumber = 11;
+        static const int kTNameFieldNumber = 7;
         inline const ::std::string& t_name() const;
         inline void set_t_name(const ::std::string& value);
         inline void set_t_name(const char* value);
@@ -939,10 +866,10 @@ namespace QSChat {
         inline ::std::string* release_t_name();
         inline void set_allocated_t_name(::std::string* t_name);
         
-        // required string t_leve = 12;
+        // required string t_leve = 8;
         inline bool has_t_leve() const;
         inline void clear_t_leve();
-        static const int kTLeveFieldNumber = 12;
+        static const int kTLeveFieldNumber = 8;
         inline const ::std::string& t_leve() const;
         inline void set_t_leve(const ::std::string& value);
         inline void set_t_leve(const char* value);
@@ -951,10 +878,10 @@ namespace QSChat {
         inline ::std::string* release_t_leve();
         inline void set_allocated_t_leve(::std::string* t_leve);
         
-        // required string t_user_type = 13;
+        // required string t_user_type = 9;
         inline bool has_t_user_type() const;
         inline void clear_t_user_type();
-        static const int kTUserTypeFieldNumber = 13;
+        static const int kTUserTypeFieldNumber = 9;
         inline const ::std::string& t_user_type() const;
         inline void set_t_user_type(const ::std::string& value);
         inline void set_t_user_type(const char* value);
@@ -963,10 +890,10 @@ namespace QSChat {
         inline ::std::string* release_t_user_type();
         inline void set_allocated_t_user_type(::std::string* t_user_type);
         
-        // required string m_avatar = 14;
+        // required string m_avatar = 10;
         inline bool has_m_avatar() const;
         inline void clear_m_avatar();
-        static const int kMAvatarFieldNumber = 14;
+        static const int kMAvatarFieldNumber = 10;
         inline const ::std::string& m_avatar() const;
         inline void set_m_avatar(const ::std::string& value);
         inline void set_m_avatar(const char* value);
@@ -975,10 +902,10 @@ namespace QSChat {
         inline ::std::string* release_m_avatar();
         inline void set_allocated_m_avatar(::std::string* m_avatar);
         
-        // required string m_name = 15;
+        // required string m_name = 11;
         inline bool has_m_name() const;
         inline void clear_m_name();
-        static const int kMNameFieldNumber = 15;
+        static const int kMNameFieldNumber = 11;
         inline const ::std::string& m_name() const;
         inline void set_m_name(const ::std::string& value);
         inline void set_m_name(const char* value);
@@ -987,10 +914,10 @@ namespace QSChat {
         inline ::std::string* release_m_name();
         inline void set_allocated_m_name(::std::string* m_name);
         
-        // required string m_leve = 16;
+        // required string m_leve = 12;
         inline bool has_m_leve() const;
         inline void clear_m_leve();
-        static const int kMLeveFieldNumber = 16;
+        static const int kMLeveFieldNumber = 12;
         inline const ::std::string& m_leve() const;
         inline void set_m_leve(const ::std::string& value);
         inline void set_m_leve(const char* value);
@@ -999,10 +926,10 @@ namespace QSChat {
         inline ::std::string* release_m_leve();
         inline void set_allocated_m_leve(::std::string* m_leve);
         
-        // required string m_user_type = 17;
+        // required string m_user_type = 13;
         inline bool has_m_user_type() const;
         inline void clear_m_user_type();
-        static const int kMUserTypeFieldNumber = 17;
+        static const int kMUserTypeFieldNumber = 13;
         inline const ::std::string& m_user_type() const;
         inline void set_m_user_type(const ::std::string& value);
         inline void set_m_user_type(const char* value);
@@ -1011,10 +938,10 @@ namespace QSChat {
         inline ::std::string* release_m_user_type();
         inline void set_allocated_m_user_type(::std::string* m_user_type);
         
-        // required string device_udid = 18;
+        // optional string device_udid = 14;
         inline bool has_device_udid() const;
         inline void clear_device_udid();
-        static const int kDeviceUdidFieldNumber = 18;
+        static const int kDeviceUdidFieldNumber = 14;
         inline const ::std::string& device_udid() const;
         inline void set_device_udid(const ::std::string& value);
         inline void set_device_udid(const char* value);
@@ -1023,24 +950,16 @@ namespace QSChat {
         inline ::std::string* release_device_udid();
         inline void set_allocated_device_udid(::std::string* device_udid);
         
-        // @@protoc_insertion_point(class_scope:QSChat.QuestionSpecial)
+        // @@protoc_insertion_point(class_scope:QSChat.QuestionWord)
     private:
         inline void set_has_mid();
         inline void clear_has_mid();
-        inline void set_has_cid();
-        inline void clear_has_cid();
+        inline void set_has_tid();
+        inline void clear_has_tid();
         inline void set_has_ctype();
         inline void clear_has_ctype();
-        inline void set_has_fid();
-        inline void clear_has_fid();
-        inline void set_has_type();
-        inline void clear_has_type();
-        inline void set_has_name();
-        inline void clear_has_name();
-        inline void set_has_pic();
-        inline void clear_has_pic();
-        inline void set_has_desc();
-        inline void clear_has_desc();
+        inline void set_has_message();
+        inline void clear_has_message();
         inline void set_has_time_stamp();
         inline void clear_has_time_stamp();
         inline void set_has_t_avatar();
@@ -1067,12 +986,8 @@ namespace QSChat {
         ::google::protobuf::uint32 _has_bits_[1];
         mutable int _cached_size_;
         ::google::protobuf::int64 mid_;
-        ::google::protobuf::int64 cid_;
-        ::google::protobuf::int64 fid_;
-        ::std::string* type_;
-        ::std::string* name_;
-        ::std::string* pic_;
-        ::std::string* desc_;
+        ::google::protobuf::int64 tid_;
+        ::std::string* message_;
         ::std::string* time_stamp_;
         ::std::string* t_avatar_;
         ::std::string* t_name_;
@@ -1089,7 +1004,7 @@ namespace QSChat {
         friend void protobuf_ShutdownFile_qschat_2eproto();
         
         void InitAsDefaultInstance();
-        static QuestionSpecial* default_instance_;
+        static QuestionWord* default_instance_;
     };
     // -------------------------------------------------------------------
     
@@ -1287,7 +1202,7 @@ namespace QSChat {
         inline ::std::string* release_m_user_type();
         inline void set_allocated_m_user_type(::std::string* m_user_type);
         
-        // required string device_udid = 14;
+        // optional string device_udid = 14;
         inline bool has_device_udid() const;
         inline void clear_device_udid();
         static const int kDeviceUdidFieldNumber = 14;
@@ -1551,7 +1466,7 @@ namespace QSChat {
         inline ::std::string* release_m_user_type();
         inline void set_allocated_m_user_type(::std::string* m_user_type);
         
-        // required string device_udid = 14;
+        // optional string device_udid = 14;
         inline bool has_device_udid() const;
         inline void clear_device_udid();
         static const int kDeviceUdidFieldNumber = 14;
@@ -1618,6 +1533,480 @@ namespace QSChat {
         
         void InitAsDefaultInstance();
         static QuestionVideo* default_instance_;
+    };
+    // -------------------------------------------------------------------
+    
+    class QuestionRecommendHouse : public ::google::protobuf::Message {
+    public:
+        QuestionRecommendHouse();
+        virtual ~QuestionRecommendHouse();
+        
+        QuestionRecommendHouse(const QuestionRecommendHouse& from);
+        
+        inline QuestionRecommendHouse& operator=(const QuestionRecommendHouse& from) {
+            CopyFrom(from);
+            return *this;
+        }
+        
+        inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+            return _unknown_fields_;
+        }
+        
+        inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+            return &_unknown_fields_;
+        }
+        
+        static const ::google::protobuf::Descriptor* descriptor();
+        static const QuestionRecommendHouse& default_instance();
+        
+        void Swap(QuestionRecommendHouse* other);
+        
+        // implements Message ----------------------------------------------
+        
+        QuestionRecommendHouse* New() const;
+        void CopyFrom(const ::google::protobuf::Message& from);
+        void MergeFrom(const ::google::protobuf::Message& from);
+        void CopyFrom(const QuestionRecommendHouse& from);
+        void MergeFrom(const QuestionRecommendHouse& from);
+        void Clear();
+        bool IsInitialized() const;
+        
+        int ByteSize() const;
+        bool MergePartialFromCodedStream(
+                                         ::google::protobuf::io::CodedInputStream* input);
+        void SerializeWithCachedSizes(
+                                      ::google::protobuf::io::CodedOutputStream* output) const;
+        ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+        int GetCachedSize() const { return _cached_size_; }
+    private:
+        void SharedCtor();
+        void SharedDtor();
+        void SetCachedSize(int size) const;
+    public:
+        ::google::protobuf::Metadata GetMetadata() const;
+        
+        // nested types ----------------------------------------------------
+        
+        // accessors -------------------------------------------------------
+        
+        // required int64 mid = 1;
+        inline bool has_mid() const;
+        inline void clear_mid();
+        static const int kMidFieldNumber = 1;
+        inline ::google::protobuf::int64 mid() const;
+        inline void set_mid(::google::protobuf::int64 value);
+        
+        // required int64 tid = 2;
+        inline bool has_tid() const;
+        inline void clear_tid();
+        static const int kTidFieldNumber = 2;
+        inline ::google::protobuf::int64 tid() const;
+        inline void set_tid(::google::protobuf::int64 value);
+        
+        // required .QSChat.ChatRequestType ctype = 3;
+        inline bool has_ctype() const;
+        inline void clear_ctype();
+        static const int kCtypeFieldNumber = 3;
+        inline ::QSChat::ChatRequestType ctype() const;
+        inline void set_ctype(::QSChat::ChatRequestType value);
+        
+        // required string house_id = 4;
+        inline bool has_house_id() const;
+        inline void clear_house_id();
+        static const int kHouseIdFieldNumber = 4;
+        inline const ::std::string& house_id() const;
+        inline void set_house_id(const ::std::string& value);
+        inline void set_house_id(const char* value);
+        inline void set_house_id(const char* value, size_t size);
+        inline ::std::string* mutable_house_id();
+        inline ::std::string* release_house_id();
+        inline void set_allocated_house_id(::std::string* house_id);
+        
+        // optional string building_id = 5;
+        inline bool has_building_id() const;
+        inline void clear_building_id();
+        static const int kBuildingIdFieldNumber = 5;
+        inline const ::std::string& building_id() const;
+        inline void set_building_id(const ::std::string& value);
+        inline void set_building_id(const char* value);
+        inline void set_building_id(const char* value, size_t size);
+        inline ::std::string* mutable_building_id();
+        inline ::std::string* release_building_id();
+        inline void set_allocated_building_id(::std::string* building_id);
+        
+        // required string house_type = 6;
+        inline bool has_house_type() const;
+        inline void clear_house_type();
+        static const int kHouseTypeFieldNumber = 6;
+        inline const ::std::string& house_type() const;
+        inline void set_house_type(const ::std::string& value);
+        inline void set_house_type(const char* value);
+        inline void set_house_type(const char* value, size_t size);
+        inline ::std::string* mutable_house_type();
+        inline ::std::string* release_house_type();
+        inline void set_allocated_house_type(::std::string* house_type);
+        
+        // required string attach_file = 7;
+        inline bool has_attach_file() const;
+        inline void clear_attach_file();
+        static const int kAttachFileFieldNumber = 7;
+        inline const ::std::string& attach_file() const;
+        inline void set_attach_file(const ::std::string& value);
+        inline void set_attach_file(const char* value);
+        inline void set_attach_file(const char* value, size_t size);
+        inline ::std::string* mutable_attach_file();
+        inline ::std::string* release_attach_file();
+        inline void set_allocated_attach_file(::std::string* attach_file);
+        
+        // required string attach_thumb = 8;
+        inline bool has_attach_thumb() const;
+        inline void clear_attach_thumb();
+        static const int kAttachThumbFieldNumber = 8;
+        inline const ::std::string& attach_thumb() const;
+        inline void set_attach_thumb(const ::std::string& value);
+        inline void set_attach_thumb(const char* value);
+        inline void set_attach_thumb(const char* value, size_t size);
+        inline ::std::string* mutable_attach_thumb();
+        inline ::std::string* release_attach_thumb();
+        inline void set_allocated_attach_thumb(::std::string* attach_thumb);
+        
+        // required string areaid = 9;
+        inline bool has_areaid() const;
+        inline void clear_areaid();
+        static const int kAreaidFieldNumber = 9;
+        inline const ::std::string& areaid() const;
+        inline void set_areaid(const ::std::string& value);
+        inline void set_areaid(const char* value);
+        inline void set_areaid(const char* value, size_t size);
+        inline ::std::string* mutable_areaid();
+        inline ::std::string* release_areaid();
+        inline void set_allocated_areaid(::std::string* areaid);
+        
+        // required string area_val = 10;
+        inline bool has_area_val() const;
+        inline void clear_area_val();
+        static const int kAreaValFieldNumber = 10;
+        inline const ::std::string& area_val() const;
+        inline void set_area_val(const ::std::string& value);
+        inline void set_area_val(const char* value);
+        inline void set_area_val(const char* value, size_t size);
+        inline ::std::string* mutable_area_val();
+        inline ::std::string* release_area_val();
+        inline void set_allocated_area_val(::std::string* area_val);
+        
+        // required string streetid = 11;
+        inline bool has_streetid() const;
+        inline void clear_streetid();
+        static const int kStreetidFieldNumber = 11;
+        inline const ::std::string& streetid() const;
+        inline void set_streetid(const ::std::string& value);
+        inline void set_streetid(const char* value);
+        inline void set_streetid(const char* value, size_t size);
+        inline ::std::string* mutable_streetid();
+        inline ::std::string* release_streetid();
+        inline void set_allocated_streetid(::std::string* streetid);
+        
+        // required string street_val = 12;
+        inline bool has_street_val() const;
+        inline void clear_street_val();
+        static const int kStreetValFieldNumber = 12;
+        inline const ::std::string& street_val() const;
+        inline void set_street_val(const ::std::string& value);
+        inline void set_street_val(const char* value);
+        inline void set_street_val(const char* value, size_t size);
+        inline ::std::string* mutable_street_val();
+        inline ::std::string* release_street_val();
+        inline void set_allocated_street_val(::std::string* street_val);
+        
+        // required string house_shi = 13;
+        inline bool has_house_shi() const;
+        inline void clear_house_shi();
+        static const int kHouseShiFieldNumber = 13;
+        inline const ::std::string& house_shi() const;
+        inline void set_house_shi(const ::std::string& value);
+        inline void set_house_shi(const char* value);
+        inline void set_house_shi(const char* value, size_t size);
+        inline ::std::string* mutable_house_shi();
+        inline ::std::string* release_house_shi();
+        inline void set_allocated_house_shi(::std::string* house_shi);
+        
+        // required string house_ting = 14;
+        inline bool has_house_ting() const;
+        inline void clear_house_ting();
+        static const int kHouseTingFieldNumber = 14;
+        inline const ::std::string& house_ting() const;
+        inline void set_house_ting(const ::std::string& value);
+        inline void set_house_ting(const char* value);
+        inline void set_house_ting(const char* value, size_t size);
+        inline ::std::string* mutable_house_ting();
+        inline ::std::string* release_house_ting();
+        inline void set_allocated_house_ting(::std::string* house_ting);
+        
+        // required string house_area = 15;
+        inline bool has_house_area() const;
+        inline void clear_house_area();
+        static const int kHouseAreaFieldNumber = 15;
+        inline const ::std::string& house_area() const;
+        inline void set_house_area(const ::std::string& value);
+        inline void set_house_area(const char* value);
+        inline void set_house_area(const char* value, size_t size);
+        inline ::std::string* mutable_house_area();
+        inline ::std::string* release_house_area();
+        inline void set_allocated_house_area(::std::string* house_area);
+        
+        // optional string house_price = 16;
+        inline bool has_house_price() const;
+        inline void clear_house_price();
+        static const int kHousePriceFieldNumber = 16;
+        inline const ::std::string& house_price() const;
+        inline void set_house_price(const ::std::string& value);
+        inline void set_house_price(const char* value);
+        inline void set_house_price(const char* value, size_t size);
+        inline ::std::string* mutable_house_price();
+        inline ::std::string* release_house_price();
+        inline void set_allocated_house_price(::std::string* house_price);
+        
+        // optional string rent_price = 17;
+        inline bool has_rent_price() const;
+        inline void clear_rent_price();
+        static const int kRentPriceFieldNumber = 17;
+        inline const ::std::string& rent_price() const;
+        inline void set_rent_price(const ::std::string& value);
+        inline void set_rent_price(const char* value);
+        inline void set_rent_price(const char* value, size_t size);
+        inline ::std::string* mutable_rent_price();
+        inline ::std::string* release_rent_price();
+        inline void set_allocated_rent_price(::std::string* rent_price);
+        
+        // required string title = 18;
+        inline bool has_title() const;
+        inline void clear_title();
+        static const int kTitleFieldNumber = 18;
+        inline const ::std::string& title() const;
+        inline void set_title(const ::std::string& value);
+        inline void set_title(const char* value);
+        inline void set_title(const char* value, size_t size);
+        inline ::std::string* mutable_title();
+        inline ::std::string* release_title();
+        inline void set_allocated_title(::std::string* title);
+        
+        // required string time_stamp = 19;
+        inline bool has_time_stamp() const;
+        inline void clear_time_stamp();
+        static const int kTimeStampFieldNumber = 19;
+        inline const ::std::string& time_stamp() const;
+        inline void set_time_stamp(const ::std::string& value);
+        inline void set_time_stamp(const char* value);
+        inline void set_time_stamp(const char* value, size_t size);
+        inline ::std::string* mutable_time_stamp();
+        inline ::std::string* release_time_stamp();
+        inline void set_allocated_time_stamp(::std::string* time_stamp);
+        
+        // required string t_avatar = 20;
+        inline bool has_t_avatar() const;
+        inline void clear_t_avatar();
+        static const int kTAvatarFieldNumber = 20;
+        inline const ::std::string& t_avatar() const;
+        inline void set_t_avatar(const ::std::string& value);
+        inline void set_t_avatar(const char* value);
+        inline void set_t_avatar(const char* value, size_t size);
+        inline ::std::string* mutable_t_avatar();
+        inline ::std::string* release_t_avatar();
+        inline void set_allocated_t_avatar(::std::string* t_avatar);
+        
+        // required string t_name = 21;
+        inline bool has_t_name() const;
+        inline void clear_t_name();
+        static const int kTNameFieldNumber = 21;
+        inline const ::std::string& t_name() const;
+        inline void set_t_name(const ::std::string& value);
+        inline void set_t_name(const char* value);
+        inline void set_t_name(const char* value, size_t size);
+        inline ::std::string* mutable_t_name();
+        inline ::std::string* release_t_name();
+        inline void set_allocated_t_name(::std::string* t_name);
+        
+        // required string t_leve = 22;
+        inline bool has_t_leve() const;
+        inline void clear_t_leve();
+        static const int kTLeveFieldNumber = 22;
+        inline const ::std::string& t_leve() const;
+        inline void set_t_leve(const ::std::string& value);
+        inline void set_t_leve(const char* value);
+        inline void set_t_leve(const char* value, size_t size);
+        inline ::std::string* mutable_t_leve();
+        inline ::std::string* release_t_leve();
+        inline void set_allocated_t_leve(::std::string* t_leve);
+        
+        // required string t_user_type = 23;
+        inline bool has_t_user_type() const;
+        inline void clear_t_user_type();
+        static const int kTUserTypeFieldNumber = 23;
+        inline const ::std::string& t_user_type() const;
+        inline void set_t_user_type(const ::std::string& value);
+        inline void set_t_user_type(const char* value);
+        inline void set_t_user_type(const char* value, size_t size);
+        inline ::std::string* mutable_t_user_type();
+        inline ::std::string* release_t_user_type();
+        inline void set_allocated_t_user_type(::std::string* t_user_type);
+        
+        // required string m_avatar = 24;
+        inline bool has_m_avatar() const;
+        inline void clear_m_avatar();
+        static const int kMAvatarFieldNumber = 24;
+        inline const ::std::string& m_avatar() const;
+        inline void set_m_avatar(const ::std::string& value);
+        inline void set_m_avatar(const char* value);
+        inline void set_m_avatar(const char* value, size_t size);
+        inline ::std::string* mutable_m_avatar();
+        inline ::std::string* release_m_avatar();
+        inline void set_allocated_m_avatar(::std::string* m_avatar);
+        
+        // required string m_name = 25;
+        inline bool has_m_name() const;
+        inline void clear_m_name();
+        static const int kMNameFieldNumber = 25;
+        inline const ::std::string& m_name() const;
+        inline void set_m_name(const ::std::string& value);
+        inline void set_m_name(const char* value);
+        inline void set_m_name(const char* value, size_t size);
+        inline ::std::string* mutable_m_name();
+        inline ::std::string* release_m_name();
+        inline void set_allocated_m_name(::std::string* m_name);
+        
+        // required string m_leve = 26;
+        inline bool has_m_leve() const;
+        inline void clear_m_leve();
+        static const int kMLeveFieldNumber = 26;
+        inline const ::std::string& m_leve() const;
+        inline void set_m_leve(const ::std::string& value);
+        inline void set_m_leve(const char* value);
+        inline void set_m_leve(const char* value, size_t size);
+        inline ::std::string* mutable_m_leve();
+        inline ::std::string* release_m_leve();
+        inline void set_allocated_m_leve(::std::string* m_leve);
+        
+        // required string m_user_type = 27;
+        inline bool has_m_user_type() const;
+        inline void clear_m_user_type();
+        static const int kMUserTypeFieldNumber = 27;
+        inline const ::std::string& m_user_type() const;
+        inline void set_m_user_type(const ::std::string& value);
+        inline void set_m_user_type(const char* value);
+        inline void set_m_user_type(const char* value, size_t size);
+        inline ::std::string* mutable_m_user_type();
+        inline ::std::string* release_m_user_type();
+        inline void set_allocated_m_user_type(::std::string* m_user_type);
+        
+        // optional string device_udid = 28;
+        inline bool has_device_udid() const;
+        inline void clear_device_udid();
+        static const int kDeviceUdidFieldNumber = 28;
+        inline const ::std::string& device_udid() const;
+        inline void set_device_udid(const ::std::string& value);
+        inline void set_device_udid(const char* value);
+        inline void set_device_udid(const char* value, size_t size);
+        inline ::std::string* mutable_device_udid();
+        inline ::std::string* release_device_udid();
+        inline void set_allocated_device_udid(::std::string* device_udid);
+        
+        // @@protoc_insertion_point(class_scope:QSChat.QuestionRecommendHouse)
+    private:
+        inline void set_has_mid();
+        inline void clear_has_mid();
+        inline void set_has_tid();
+        inline void clear_has_tid();
+        inline void set_has_ctype();
+        inline void clear_has_ctype();
+        inline void set_has_house_id();
+        inline void clear_has_house_id();
+        inline void set_has_building_id();
+        inline void clear_has_building_id();
+        inline void set_has_house_type();
+        inline void clear_has_house_type();
+        inline void set_has_attach_file();
+        inline void clear_has_attach_file();
+        inline void set_has_attach_thumb();
+        inline void clear_has_attach_thumb();
+        inline void set_has_areaid();
+        inline void clear_has_areaid();
+        inline void set_has_area_val();
+        inline void clear_has_area_val();
+        inline void set_has_streetid();
+        inline void clear_has_streetid();
+        inline void set_has_street_val();
+        inline void clear_has_street_val();
+        inline void set_has_house_shi();
+        inline void clear_has_house_shi();
+        inline void set_has_house_ting();
+        inline void clear_has_house_ting();
+        inline void set_has_house_area();
+        inline void clear_has_house_area();
+        inline void set_has_house_price();
+        inline void clear_has_house_price();
+        inline void set_has_rent_price();
+        inline void clear_has_rent_price();
+        inline void set_has_title();
+        inline void clear_has_title();
+        inline void set_has_time_stamp();
+        inline void clear_has_time_stamp();
+        inline void set_has_t_avatar();
+        inline void clear_has_t_avatar();
+        inline void set_has_t_name();
+        inline void clear_has_t_name();
+        inline void set_has_t_leve();
+        inline void clear_has_t_leve();
+        inline void set_has_t_user_type();
+        inline void clear_has_t_user_type();
+        inline void set_has_m_avatar();
+        inline void clear_has_m_avatar();
+        inline void set_has_m_name();
+        inline void clear_has_m_name();
+        inline void set_has_m_leve();
+        inline void clear_has_m_leve();
+        inline void set_has_m_user_type();
+        inline void clear_has_m_user_type();
+        inline void set_has_device_udid();
+        inline void clear_has_device_udid();
+        
+        ::google::protobuf::UnknownFieldSet _unknown_fields_;
+        
+        ::google::protobuf::uint32 _has_bits_[1];
+        mutable int _cached_size_;
+        ::google::protobuf::int64 mid_;
+        ::google::protobuf::int64 tid_;
+        ::std::string* house_id_;
+        ::std::string* building_id_;
+        ::std::string* house_type_;
+        ::std::string* attach_file_;
+        ::std::string* attach_thumb_;
+        ::std::string* areaid_;
+        ::std::string* area_val_;
+        ::std::string* streetid_;
+        ::std::string* street_val_;
+        ::std::string* house_shi_;
+        ::std::string* house_ting_;
+        ::std::string* house_area_;
+        ::std::string* house_price_;
+        ::std::string* rent_price_;
+        ::std::string* title_;
+        ::std::string* time_stamp_;
+        ::std::string* t_avatar_;
+        ::std::string* t_name_;
+        ::std::string* t_leve_;
+        ::std::string* t_user_type_;
+        ::std::string* m_avatar_;
+        ::std::string* m_name_;
+        ::std::string* m_leve_;
+        ::std::string* m_user_type_;
+        ::std::string* device_udid_;
+        int ctype_;
+        friend void  protobuf_AddDesc_qschat_2eproto();
+        friend void protobuf_AssignDesc_qschat_2eproto();
+        friend void protobuf_ShutdownFile_qschat_2eproto();
+        
+        void InitAsDefaultInstance();
+        static QuestionRecommendHouse* default_instance_;
     };
     // -------------------------------------------------------------------
     
@@ -2308,14 +2697,14 @@ namespace QSChat {
     };
     // -------------------------------------------------------------------
     
-    class AnswerOnline : public ::google::protobuf::Message {
+    class AnswerRecommendHouse : public ::google::protobuf::Message {
     public:
-        AnswerOnline();
-        virtual ~AnswerOnline();
+        AnswerRecommendHouse();
+        virtual ~AnswerRecommendHouse();
         
-        AnswerOnline(const AnswerOnline& from);
+        AnswerRecommendHouse(const AnswerRecommendHouse& from);
         
-        inline AnswerOnline& operator=(const AnswerOnline& from) {
+        inline AnswerRecommendHouse& operator=(const AnswerRecommendHouse& from) {
             CopyFrom(from);
             return *this;
         }
@@ -2329,17 +2718,17 @@ namespace QSChat {
         }
         
         static const ::google::protobuf::Descriptor* descriptor();
-        static const AnswerOnline& default_instance();
+        static const AnswerRecommendHouse& default_instance();
         
-        void Swap(AnswerOnline* other);
+        void Swap(AnswerRecommendHouse* other);
         
         // implements Message ----------------------------------------------
         
-        AnswerOnline* New() const;
+        AnswerRecommendHouse* New() const;
         void CopyFrom(const ::google::protobuf::Message& from);
         void MergeFrom(const ::google::protobuf::Message& from);
-        void CopyFrom(const AnswerOnline& from);
-        void MergeFrom(const AnswerOnline& from);
+        void CopyFrom(const AnswerRecommendHouse& from);
+        void MergeFrom(const AnswerRecommendHouse& from);
         void Clear();
         bool IsInitialized() const;
         
@@ -2361,12 +2750,17 @@ namespace QSChat {
         
         // accessors -------------------------------------------------------
         
-        // required int32 result = 1;
+        // required string result = 1;
         inline bool has_result() const;
         inline void clear_result();
         static const int kResultFieldNumber = 1;
-        inline ::google::protobuf::int32 result() const;
-        inline void set_result(::google::protobuf::int32 value);
+        inline const ::std::string& result() const;
+        inline void set_result(const ::std::string& value);
+        inline void set_result(const char* value);
+        inline void set_result(const char* value, size_t size);
+        inline ::std::string* mutable_result();
+        inline ::std::string* release_result();
+        inline void set_allocated_result(::std::string* result);
         
         // required string msg_id = 2;
         inline bool has_msg_id() const;
@@ -2380,29 +2774,197 @@ namespace QSChat {
         inline ::std::string* release_msg_id();
         inline void set_allocated_msg_id(::std::string* msg_id);
         
-        // required string time_stamp = 3;
-        inline bool has_time_stamp() const;
-        inline void clear_time_stamp();
-        static const int kTimeStampFieldNumber = 3;
-        inline const ::std::string& time_stamp() const;
-        inline void set_time_stamp(const ::std::string& value);
-        inline void set_time_stamp(const char* value);
-        inline void set_time_stamp(const char* value, size_t size);
-        inline ::std::string* mutable_time_stamp();
-        inline ::std::string* release_time_stamp();
-        inline void set_allocated_time_stamp(::std::string* time_stamp);
+        // required string house_id = 3;
+        inline bool has_house_id() const;
+        inline void clear_house_id();
+        static const int kHouseIdFieldNumber = 3;
+        inline const ::std::string& house_id() const;
+        inline void set_house_id(const ::std::string& value);
+        inline void set_house_id(const char* value);
+        inline void set_house_id(const char* value, size_t size);
+        inline ::std::string* mutable_house_id();
+        inline ::std::string* release_house_id();
+        inline void set_allocated_house_id(::std::string* house_id);
         
-        // required int64 fid = 4;
+        // optional string building_id = 4;
+        inline bool has_building_id() const;
+        inline void clear_building_id();
+        static const int kBuildingIdFieldNumber = 4;
+        inline const ::std::string& building_id() const;
+        inline void set_building_id(const ::std::string& value);
+        inline void set_building_id(const char* value);
+        inline void set_building_id(const char* value, size_t size);
+        inline ::std::string* mutable_building_id();
+        inline ::std::string* release_building_id();
+        inline void set_allocated_building_id(::std::string* building_id);
+        
+        // required string house_type = 5;
+        inline bool has_house_type() const;
+        inline void clear_house_type();
+        static const int kHouseTypeFieldNumber = 5;
+        inline const ::std::string& house_type() const;
+        inline void set_house_type(const ::std::string& value);
+        inline void set_house_type(const char* value);
+        inline void set_house_type(const char* value, size_t size);
+        inline ::std::string* mutable_house_type();
+        inline ::std::string* release_house_type();
+        inline void set_allocated_house_type(::std::string* house_type);
+        
+        // required string attach_file = 6;
+        inline bool has_attach_file() const;
+        inline void clear_attach_file();
+        static const int kAttachFileFieldNumber = 6;
+        inline const ::std::string& attach_file() const;
+        inline void set_attach_file(const ::std::string& value);
+        inline void set_attach_file(const char* value);
+        inline void set_attach_file(const char* value, size_t size);
+        inline ::std::string* mutable_attach_file();
+        inline ::std::string* release_attach_file();
+        inline void set_allocated_attach_file(::std::string* attach_file);
+        
+        // required string attach_thumb = 7;
+        inline bool has_attach_thumb() const;
+        inline void clear_attach_thumb();
+        static const int kAttachThumbFieldNumber = 7;
+        inline const ::std::string& attach_thumb() const;
+        inline void set_attach_thumb(const ::std::string& value);
+        inline void set_attach_thumb(const char* value);
+        inline void set_attach_thumb(const char* value, size_t size);
+        inline ::std::string* mutable_attach_thumb();
+        inline ::std::string* release_attach_thumb();
+        inline void set_allocated_attach_thumb(::std::string* attach_thumb);
+        
+        // required string areaid = 8;
+        inline bool has_areaid() const;
+        inline void clear_areaid();
+        static const int kAreaidFieldNumber = 8;
+        inline const ::std::string& areaid() const;
+        inline void set_areaid(const ::std::string& value);
+        inline void set_areaid(const char* value);
+        inline void set_areaid(const char* value, size_t size);
+        inline ::std::string* mutable_areaid();
+        inline ::std::string* release_areaid();
+        inline void set_allocated_areaid(::std::string* areaid);
+        
+        // required string area_val = 9;
+        inline bool has_area_val() const;
+        inline void clear_area_val();
+        static const int kAreaValFieldNumber = 9;
+        inline const ::std::string& area_val() const;
+        inline void set_area_val(const ::std::string& value);
+        inline void set_area_val(const char* value);
+        inline void set_area_val(const char* value, size_t size);
+        inline ::std::string* mutable_area_val();
+        inline ::std::string* release_area_val();
+        inline void set_allocated_area_val(::std::string* area_val);
+        
+        // required string streetid = 10;
+        inline bool has_streetid() const;
+        inline void clear_streetid();
+        static const int kStreetidFieldNumber = 10;
+        inline const ::std::string& streetid() const;
+        inline void set_streetid(const ::std::string& value);
+        inline void set_streetid(const char* value);
+        inline void set_streetid(const char* value, size_t size);
+        inline ::std::string* mutable_streetid();
+        inline ::std::string* release_streetid();
+        inline void set_allocated_streetid(::std::string* streetid);
+        
+        // required string street_val = 11;
+        inline bool has_street_val() const;
+        inline void clear_street_val();
+        static const int kStreetValFieldNumber = 11;
+        inline const ::std::string& street_val() const;
+        inline void set_street_val(const ::std::string& value);
+        inline void set_street_val(const char* value);
+        inline void set_street_val(const char* value, size_t size);
+        inline ::std::string* mutable_street_val();
+        inline ::std::string* release_street_val();
+        inline void set_allocated_street_val(::std::string* street_val);
+        
+        // required string house_shi = 12;
+        inline bool has_house_shi() const;
+        inline void clear_house_shi();
+        static const int kHouseShiFieldNumber = 12;
+        inline const ::std::string& house_shi() const;
+        inline void set_house_shi(const ::std::string& value);
+        inline void set_house_shi(const char* value);
+        inline void set_house_shi(const char* value, size_t size);
+        inline ::std::string* mutable_house_shi();
+        inline ::std::string* release_house_shi();
+        inline void set_allocated_house_shi(::std::string* house_shi);
+        
+        // required string house_ting = 13;
+        inline bool has_house_ting() const;
+        inline void clear_house_ting();
+        static const int kHouseTingFieldNumber = 13;
+        inline const ::std::string& house_ting() const;
+        inline void set_house_ting(const ::std::string& value);
+        inline void set_house_ting(const char* value);
+        inline void set_house_ting(const char* value, size_t size);
+        inline ::std::string* mutable_house_ting();
+        inline ::std::string* release_house_ting();
+        inline void set_allocated_house_ting(::std::string* house_ting);
+        
+        // required string house_area = 14;
+        inline bool has_house_area() const;
+        inline void clear_house_area();
+        static const int kHouseAreaFieldNumber = 14;
+        inline const ::std::string& house_area() const;
+        inline void set_house_area(const ::std::string& value);
+        inline void set_house_area(const char* value);
+        inline void set_house_area(const char* value, size_t size);
+        inline ::std::string* mutable_house_area();
+        inline ::std::string* release_house_area();
+        inline void set_allocated_house_area(::std::string* house_area);
+        
+        // optional string house_price = 15;
+        inline bool has_house_price() const;
+        inline void clear_house_price();
+        static const int kHousePriceFieldNumber = 15;
+        inline const ::std::string& house_price() const;
+        inline void set_house_price(const ::std::string& value);
+        inline void set_house_price(const char* value);
+        inline void set_house_price(const char* value, size_t size);
+        inline ::std::string* mutable_house_price();
+        inline ::std::string* release_house_price();
+        inline void set_allocated_house_price(::std::string* house_price);
+        
+        // optional string rent_price = 16;
+        inline bool has_rent_price() const;
+        inline void clear_rent_price();
+        static const int kRentPriceFieldNumber = 16;
+        inline const ::std::string& rent_price() const;
+        inline void set_rent_price(const ::std::string& value);
+        inline void set_rent_price(const char* value);
+        inline void set_rent_price(const char* value, size_t size);
+        inline ::std::string* mutable_rent_price();
+        inline ::std::string* release_rent_price();
+        inline void set_allocated_rent_price(::std::string* rent_price);
+        
+        // required string title = 17;
+        inline bool has_title() const;
+        inline void clear_title();
+        static const int kTitleFieldNumber = 17;
+        inline const ::std::string& title() const;
+        inline void set_title(const ::std::string& value);
+        inline void set_title(const char* value);
+        inline void set_title(const char* value, size_t size);
+        inline ::std::string* mutable_title();
+        inline ::std::string* release_title();
+        inline void set_allocated_title(::std::string* title);
+        
+        // required int64 fid = 18;
         inline bool has_fid() const;
         inline void clear_fid();
-        static const int kFidFieldNumber = 4;
+        static const int kFidFieldNumber = 18;
         inline ::google::protobuf::int64 fid() const;
         inline void set_fid(::google::protobuf::int64 value);
         
-        // required string f_avatar = 5;
+        // required string f_avatar = 19;
         inline bool has_f_avatar() const;
         inline void clear_f_avatar();
-        static const int kFAvatarFieldNumber = 5;
+        static const int kFAvatarFieldNumber = 19;
         inline const ::std::string& f_avatar() const;
         inline void set_f_avatar(const ::std::string& value);
         inline void set_f_avatar(const char* value);
@@ -2411,10 +2973,10 @@ namespace QSChat {
         inline ::std::string* release_f_avatar();
         inline void set_allocated_f_avatar(::std::string* f_avatar);
         
-        // required string f_name = 6;
+        // required string f_name = 20;
         inline bool has_f_name() const;
         inline void clear_f_name();
-        static const int kFNameFieldNumber = 6;
+        static const int kFNameFieldNumber = 20;
         inline const ::std::string& f_name() const;
         inline void set_f_name(const ::std::string& value);
         inline void set_f_name(const char* value);
@@ -2423,10 +2985,10 @@ namespace QSChat {
         inline ::std::string* release_f_name();
         inline void set_allocated_f_name(::std::string* f_name);
         
-        // required string f_leve = 7;
+        // required string f_leve = 21;
         inline bool has_f_leve() const;
         inline void clear_f_leve();
-        static const int kFLeveFieldNumber = 7;
+        static const int kFLeveFieldNumber = 21;
         inline const ::std::string& f_leve() const;
         inline void set_f_leve(const ::std::string& value);
         inline void set_f_leve(const char* value);
@@ -2435,10 +2997,10 @@ namespace QSChat {
         inline ::std::string* release_f_leve();
         inline void set_allocated_f_leve(::std::string* f_leve);
         
-        // required string f_user_type = 8;
+        // required string f_user_type = 22;
         inline bool has_f_user_type() const;
         inline void clear_f_user_type();
-        static const int kFUserTypeFieldNumber = 8;
+        static const int kFUserTypeFieldNumber = 22;
         inline const ::std::string& f_user_type() const;
         inline void set_f_user_type(const ::std::string& value);
         inline void set_f_user_type(const char* value);
@@ -2447,10 +3009,10 @@ namespace QSChat {
         inline ::std::string* release_f_user_type();
         inline void set_allocated_f_user_type(::std::string* f_user_type);
         
-        // required string f_unread_count = 9;
+        // required string f_unread_count = 23;
         inline bool has_f_unread_count() const;
         inline void clear_f_unread_count();
-        static const int kFUnreadCountFieldNumber = 9;
+        static const int kFUnreadCountFieldNumber = 23;
         inline const ::std::string& f_unread_count() const;
         inline void set_f_unread_count(const ::std::string& value);
         inline void set_f_unread_count(const char* value);
@@ -2459,10 +3021,10 @@ namespace QSChat {
         inline ::std::string* release_f_unread_count();
         inline void set_allocated_f_unread_count(::std::string* f_unread_count);
         
-        // required string device_udid = 10;
+        // required string device_udid = 24;
         inline bool has_device_udid() const;
         inline void clear_device_udid();
-        static const int kDeviceUdidFieldNumber = 10;
+        static const int kDeviceUdidFieldNumber = 24;
         inline const ::std::string& device_udid() const;
         inline void set_device_udid(const ::std::string& value);
         inline void set_device_udid(const char* value);
@@ -2471,14 +3033,42 @@ namespace QSChat {
         inline ::std::string* release_device_udid();
         inline void set_allocated_device_udid(::std::string* device_udid);
         
-        // @@protoc_insertion_point(class_scope:QSChat.AnswerOnline)
+        // @@protoc_insertion_point(class_scope:QSChat.AnswerRecommendHouse)
     private:
         inline void set_has_result();
         inline void clear_has_result();
         inline void set_has_msg_id();
         inline void clear_has_msg_id();
-        inline void set_has_time_stamp();
-        inline void clear_has_time_stamp();
+        inline void set_has_house_id();
+        inline void clear_has_house_id();
+        inline void set_has_building_id();
+        inline void clear_has_building_id();
+        inline void set_has_house_type();
+        inline void clear_has_house_type();
+        inline void set_has_attach_file();
+        inline void clear_has_attach_file();
+        inline void set_has_attach_thumb();
+        inline void clear_has_attach_thumb();
+        inline void set_has_areaid();
+        inline void clear_has_areaid();
+        inline void set_has_area_val();
+        inline void clear_has_area_val();
+        inline void set_has_streetid();
+        inline void clear_has_streetid();
+        inline void set_has_street_val();
+        inline void clear_has_street_val();
+        inline void set_has_house_shi();
+        inline void clear_has_house_shi();
+        inline void set_has_house_ting();
+        inline void clear_has_house_ting();
+        inline void set_has_house_area();
+        inline void clear_has_house_area();
+        inline void set_has_house_price();
+        inline void clear_has_house_price();
+        inline void set_has_rent_price();
+        inline void clear_has_rent_price();
+        inline void set_has_title();
+        inline void clear_has_title();
         inline void set_has_fid();
         inline void clear_has_fid();
         inline void set_has_f_avatar();
@@ -2498,8 +3088,23 @@ namespace QSChat {
         
         ::google::protobuf::uint32 _has_bits_[1];
         mutable int _cached_size_;
+        ::std::string* result_;
         ::std::string* msg_id_;
-        ::std::string* time_stamp_;
+        ::std::string* house_id_;
+        ::std::string* building_id_;
+        ::std::string* house_type_;
+        ::std::string* attach_file_;
+        ::std::string* attach_thumb_;
+        ::std::string* areaid_;
+        ::std::string* area_val_;
+        ::std::string* streetid_;
+        ::std::string* street_val_;
+        ::std::string* house_shi_;
+        ::std::string* house_ting_;
+        ::std::string* house_area_;
+        ::std::string* house_price_;
+        ::std::string* rent_price_;
+        ::std::string* title_;
         ::google::protobuf::int64 fid_;
         ::std::string* f_avatar_;
         ::std::string* f_name_;
@@ -2507,13 +3112,12 @@ namespace QSChat {
         ::std::string* f_user_type_;
         ::std::string* f_unread_count_;
         ::std::string* device_udid_;
-        ::google::protobuf::int32 result_;
         friend void  protobuf_AddDesc_qschat_2eproto();
         friend void protobuf_AssignDesc_qschat_2eproto();
         friend void protobuf_ShutdownFile_qschat_2eproto();
         
         void InitAsDefaultInstance();
-        static AnswerOnline* default_instance_;
+        static AnswerRecommendHouse* default_instance_;
     };
     // -------------------------------------------------------------------
     
@@ -2830,12 +3434,17 @@ namespace QSChat {
         inline ::std::string* release_desc();
         inline void set_allocated_desc(::std::string* desc);
         
-        // required int64 fid = 4;
+        // required string fid = 4;
         inline bool has_fid() const;
         inline void clear_fid();
         static const int kFidFieldNumber = 4;
-        inline ::google::protobuf::int64 fid() const;
-        inline void set_fid(::google::protobuf::int64 value);
+        inline const ::std::string& fid() const;
+        inline void set_fid(const ::std::string& value);
+        inline void set_fid(const char* value);
+        inline void set_fid(const char* value, size_t size);
+        inline ::std::string* mutable_fid();
+        inline ::std::string* release_fid();
+        inline void set_allocated_fid(::std::string* fid);
         
         // required string type = 5;
         inline bool has_type() const;
@@ -2849,18 +3458,6 @@ namespace QSChat {
         inline ::std::string* release_type();
         inline void set_allocated_type(::std::string* type);
         
-        // required string device_udid = 6;
-        inline bool has_device_udid() const;
-        inline void clear_device_udid();
-        static const int kDeviceUdidFieldNumber = 6;
-        inline const ::std::string& device_udid() const;
-        inline void set_device_udid(const ::std::string& value);
-        inline void set_device_udid(const char* value);
-        inline void set_device_udid(const char* value, size_t size);
-        inline ::std::string* mutable_device_udid();
-        inline ::std::string* release_device_udid();
-        inline void set_allocated_device_udid(::std::string* device_udid);
-        
         // @@protoc_insertion_point(class_scope:QSChat.AnswerSpecial)
     private:
         inline void set_has_name();
@@ -2873,8 +3470,6 @@ namespace QSChat {
         inline void clear_has_fid();
         inline void set_has_type();
         inline void clear_has_type();
-        inline void set_has_device_udid();
-        inline void clear_has_device_udid();
         
         ::google::protobuf::UnknownFieldSet _unknown_fields_;
         
@@ -2883,9 +3478,8 @@ namespace QSChat {
         ::std::string* name_;
         ::std::string* pic_;
         ::std::string* desc_;
-        ::google::protobuf::int64 fid_;
+        ::std::string* fid_;
         ::std::string* type_;
-        ::std::string* device_udid_;
         friend void  protobuf_AddDesc_qschat_2eproto();
         friend void protobuf_AssignDesc_qschat_2eproto();
         friend void protobuf_ShutdownFile_qschat_2eproto();
@@ -2984,22 +3578,10 @@ namespace QSChat {
         inline ::std::string* release_time();
         inline void set_allocated_time(::std::string* time);
         
-        // required string mid = 4;
-        inline bool has_mid() const;
-        inline void clear_mid();
-        static const int kMidFieldNumber = 4;
-        inline const ::std::string& mid() const;
-        inline void set_mid(const ::std::string& value);
-        inline void set_mid(const char* value);
-        inline void set_mid(const char* value, size_t size);
-        inline ::std::string* mutable_mid();
-        inline ::std::string* release_mid();
-        inline void set_allocated_mid(::std::string* mid);
-        
-        // required string type = 5;
+        // required string type = 4;
         inline bool has_type() const;
         inline void clear_type();
-        static const int kTypeFieldNumber = 5;
+        static const int kTypeFieldNumber = 4;
         inline const ::std::string& type() const;
         inline void set_type(const ::std::string& value);
         inline void set_type(const char* value);
@@ -3008,10 +3590,10 @@ namespace QSChat {
         inline ::std::string* release_type();
         inline void set_allocated_type(::std::string* type);
         
-        // required string url = 6;
+        // required string url = 5;
         inline bool has_url() const;
         inline void clear_url();
-        static const int kUrlFieldNumber = 6;
+        static const int kUrlFieldNumber = 5;
         inline const ::std::string& url() const;
         inline void set_url(const ::std::string& value);
         inline void set_url(const char* value);
@@ -3020,17 +3602,65 @@ namespace QSChat {
         inline ::std::string* release_url();
         inline void set_allocated_url(::std::string* url);
         
-        // required string device_udid = 7;
-        inline bool has_device_udid() const;
-        inline void clear_device_udid();
-        static const int kDeviceUdidFieldNumber = 7;
-        inline const ::std::string& device_udid() const;
-        inline void set_device_udid(const ::std::string& value);
-        inline void set_device_udid(const char* value);
-        inline void set_device_udid(const char* value, size_t size);
-        inline ::std::string* mutable_device_udid();
-        inline ::std::string* release_device_udid();
-        inline void set_allocated_device_udid(::std::string* device_udid);
+        // optional string exp_1 = 6;
+        inline bool has_exp_1() const;
+        inline void clear_exp_1();
+        static const int kExp1FieldNumber = 6;
+        inline const ::std::string& exp_1() const;
+        inline void set_exp_1(const ::std::string& value);
+        inline void set_exp_1(const char* value);
+        inline void set_exp_1(const char* value, size_t size);
+        inline ::std::string* mutable_exp_1();
+        inline ::std::string* release_exp_1();
+        inline void set_allocated_exp_1(::std::string* exp_1);
+        
+        // optional string exp_2 = 7;
+        inline bool has_exp_2() const;
+        inline void clear_exp_2();
+        static const int kExp2FieldNumber = 7;
+        inline const ::std::string& exp_2() const;
+        inline void set_exp_2(const ::std::string& value);
+        inline void set_exp_2(const char* value);
+        inline void set_exp_2(const char* value, size_t size);
+        inline ::std::string* mutable_exp_2();
+        inline ::std::string* release_exp_2();
+        inline void set_allocated_exp_2(::std::string* exp_2);
+        
+        // optional string exp_3 = 8;
+        inline bool has_exp_3() const;
+        inline void clear_exp_3();
+        static const int kExp3FieldNumber = 8;
+        inline const ::std::string& exp_3() const;
+        inline void set_exp_3(const ::std::string& value);
+        inline void set_exp_3(const char* value);
+        inline void set_exp_3(const char* value, size_t size);
+        inline ::std::string* mutable_exp_3();
+        inline ::std::string* release_exp_3();
+        inline void set_allocated_exp_3(::std::string* exp_3);
+        
+        // optional string exp_4 = 9;
+        inline bool has_exp_4() const;
+        inline void clear_exp_4();
+        static const int kExp4FieldNumber = 9;
+        inline const ::std::string& exp_4() const;
+        inline void set_exp_4(const ::std::string& value);
+        inline void set_exp_4(const char* value);
+        inline void set_exp_4(const char* value, size_t size);
+        inline ::std::string* mutable_exp_4();
+        inline ::std::string* release_exp_4();
+        inline void set_allocated_exp_4(::std::string* exp_4);
+        
+        // optional string exp_5 = 10;
+        inline bool has_exp_5() const;
+        inline void clear_exp_5();
+        static const int kExp5FieldNumber = 10;
+        inline const ::std::string& exp_5() const;
+        inline void set_exp_5(const ::std::string& value);
+        inline void set_exp_5(const char* value);
+        inline void set_exp_5(const char* value, size_t size);
+        inline ::std::string* mutable_exp_5();
+        inline ::std::string* release_exp_5();
+        inline void set_allocated_exp_5(::std::string* exp_5);
         
         // @@protoc_insertion_point(class_scope:QSChat.AnswerSystem)
     private:
@@ -3040,14 +3670,20 @@ namespace QSChat {
         inline void clear_has_desc();
         inline void set_has_time();
         inline void clear_has_time();
-        inline void set_has_mid();
-        inline void clear_has_mid();
         inline void set_has_type();
         inline void clear_has_type();
         inline void set_has_url();
         inline void clear_has_url();
-        inline void set_has_device_udid();
-        inline void clear_has_device_udid();
+        inline void set_has_exp_1();
+        inline void clear_has_exp_1();
+        inline void set_has_exp_2();
+        inline void clear_has_exp_2();
+        inline void set_has_exp_3();
+        inline void clear_has_exp_3();
+        inline void set_has_exp_4();
+        inline void clear_has_exp_4();
+        inline void set_has_exp_5();
+        inline void clear_has_exp_5();
         
         ::google::protobuf::UnknownFieldSet _unknown_fields_;
         
@@ -3056,10 +3692,13 @@ namespace QSChat {
         ::std::string* title_;
         ::std::string* desc_;
         ::std::string* time_;
-        ::std::string* mid_;
         ::std::string* type_;
         ::std::string* url_;
-        ::std::string* device_udid_;
+        ::std::string* exp_1_;
+        ::std::string* exp_2_;
+        ::std::string* exp_3_;
+        ::std::string* exp_4_;
+        ::std::string* exp_5_;
         friend void  protobuf_AddDesc_qschat_2eproto();
         friend void protobuf_AssignDesc_qschat_2eproto();
         friend void protobuf_ShutdownFile_qschat_2eproto();
@@ -3534,156 +4173,944 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.token)
     }
     
-    // required string user_id = 2;
-    inline bool QuestionOffline::has_user_id() const {
+    // required string device_udid = 2;
+    inline bool QuestionOffline::has_device_udid() const {
         return (_has_bits_[0] & 0x00000002u) != 0;
     }
-    inline void QuestionOffline::set_has_user_id() {
+    inline void QuestionOffline::set_has_device_udid() {
         _has_bits_[0] |= 0x00000002u;
     }
-    inline void QuestionOffline::clear_has_user_id() {
+    inline void QuestionOffline::clear_has_device_udid() {
         _has_bits_[0] &= ~0x00000002u;
     }
-    inline void QuestionOffline::clear_user_id() {
-        if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            user_id_->clear();
+    inline void QuestionOffline::clear_device_udid() {
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_->clear();
         }
-        clear_has_user_id();
+        clear_has_device_udid();
     }
-    inline const ::std::string& QuestionOffline::user_id() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.user_id)
-        return *user_id_;
+    inline const ::std::string& QuestionOffline::device_udid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.device_udid)
+        return *device_udid_;
     }
-    inline void QuestionOffline::set_user_id(const ::std::string& value) {
-        set_has_user_id();
-        if (user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            user_id_ = new ::std::string;
+    inline void QuestionOffline::set_device_udid(const ::std::string& value) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
         }
-        user_id_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.user_id)
+        device_udid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.device_udid)
     }
-    inline void QuestionOffline::set_user_id(const char* value) {
-        set_has_user_id();
-        if (user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            user_id_ = new ::std::string;
+    inline void QuestionOffline::set_device_udid(const char* value) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
         }
-        user_id_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.user_id)
+        device_udid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.device_udid)
     }
-    inline void QuestionOffline::set_user_id(const char* value, size_t size) {
-        set_has_user_id();
-        if (user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            user_id_ = new ::std::string;
+    inline void QuestionOffline::set_device_udid(const char* value, size_t size) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
         }
-        user_id_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.user_id)
+        device_udid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.device_udid)
     }
-    inline ::std::string* QuestionOffline::mutable_user_id() {
-        set_has_user_id();
-        if (user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            user_id_ = new ::std::string;
+    inline ::std::string* QuestionOffline::mutable_device_udid() {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.user_id)
-        return user_id_;
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.device_udid)
+        return device_udid_;
     }
-    inline ::std::string* QuestionOffline::release_user_id() {
-        clear_has_user_id();
-        if (user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    inline ::std::string* QuestionOffline::release_device_udid() {
+        clear_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
         } else {
-            ::std::string* temp = user_id_;
-            user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            ::std::string* temp = device_udid_;
+            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
             return temp;
         }
     }
-    inline void QuestionOffline::set_allocated_user_id(::std::string* user_id) {
-        if (user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete user_id_;
+    inline void QuestionOffline::set_allocated_device_udid(::std::string* device_udid) {
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
         }
-        if (user_id) {
-            set_has_user_id();
-            user_id_ = user_id;
+        if (device_udid) {
+            set_has_device_udid();
+            device_udid_ = device_udid;
         } else {
-            clear_has_user_id();
-            user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            clear_has_device_udid();
+            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.user_id)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.device_udid)
     }
     
-    // required string info = 3;
-    inline bool QuestionOffline::has_info() const {
+    // required string device_info = 3;
+    inline bool QuestionOffline::has_device_info() const {
         return (_has_bits_[0] & 0x00000004u) != 0;
     }
-    inline void QuestionOffline::set_has_info() {
+    inline void QuestionOffline::set_has_device_info() {
         _has_bits_[0] |= 0x00000004u;
     }
-    inline void QuestionOffline::clear_has_info() {
+    inline void QuestionOffline::clear_has_device_info() {
         _has_bits_[0] &= ~0x00000004u;
     }
-    inline void QuestionOffline::clear_info() {
-        if (info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            info_->clear();
+    inline void QuestionOffline::clear_device_info() {
+        if (device_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_info_->clear();
         }
-        clear_has_info();
+        clear_has_device_info();
     }
-    inline const ::std::string& QuestionOffline::info() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.info)
-        return *info_;
+    inline const ::std::string& QuestionOffline::device_info() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.device_info)
+        return *device_info_;
     }
-    inline void QuestionOffline::set_info(const ::std::string& value) {
-        set_has_info();
-        if (info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            info_ = new ::std::string;
+    inline void QuestionOffline::set_device_info(const ::std::string& value) {
+        set_has_device_info();
+        if (device_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_info_ = new ::std::string;
         }
-        info_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.info)
+        device_info_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.device_info)
     }
-    inline void QuestionOffline::set_info(const char* value) {
-        set_has_info();
-        if (info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            info_ = new ::std::string;
+    inline void QuestionOffline::set_device_info(const char* value) {
+        set_has_device_info();
+        if (device_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_info_ = new ::std::string;
         }
-        info_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.info)
+        device_info_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.device_info)
     }
-    inline void QuestionOffline::set_info(const char* value, size_t size) {
-        set_has_info();
-        if (info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            info_ = new ::std::string;
+    inline void QuestionOffline::set_device_info(const char* value, size_t size) {
+        set_has_device_info();
+        if (device_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_info_ = new ::std::string;
         }
-        info_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.info)
+        device_info_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.device_info)
     }
-    inline ::std::string* QuestionOffline::mutable_info() {
-        set_has_info();
-        if (info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            info_ = new ::std::string;
+    inline ::std::string* QuestionOffline::mutable_device_info() {
+        set_has_device_info();
+        if (device_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_info_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.info)
-        return info_;
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.device_info)
+        return device_info_;
     }
-    inline ::std::string* QuestionOffline::release_info() {
-        clear_has_info();
-        if (info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    inline ::std::string* QuestionOffline::release_device_info() {
+        clear_has_device_info();
+        if (device_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
         } else {
-            ::std::string* temp = info_;
-            info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            ::std::string* temp = device_info_;
+            device_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
             return temp;
         }
     }
-    inline void QuestionOffline::set_allocated_info(::std::string* info) {
-        if (info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete info_;
+    inline void QuestionOffline::set_allocated_device_info(::std::string* device_info) {
+        if (device_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_info_;
         }
-        if (info) {
-            set_has_info();
-            info_ = info;
+        if (device_info) {
+            set_has_device_info();
+            device_info_ = device_info;
         } else {
-            clear_has_info();
-            info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            clear_has_device_info();
+            device_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.info)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.device_info)
+    }
+    
+    // required string local_info = 4;
+    inline bool QuestionOffline::has_local_info() const {
+        return (_has_bits_[0] & 0x00000008u) != 0;
+    }
+    inline void QuestionOffline::set_has_local_info() {
+        _has_bits_[0] |= 0x00000008u;
+    }
+    inline void QuestionOffline::clear_has_local_info() {
+        _has_bits_[0] &= ~0x00000008u;
+    }
+    inline void QuestionOffline::clear_local_info() {
+        if (local_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            local_info_->clear();
+        }
+        clear_has_local_info();
+    }
+    inline const ::std::string& QuestionOffline::local_info() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.local_info)
+        return *local_info_;
+    }
+    inline void QuestionOffline::set_local_info(const ::std::string& value) {
+        set_has_local_info();
+        if (local_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            local_info_ = new ::std::string;
+        }
+        local_info_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.local_info)
+    }
+    inline void QuestionOffline::set_local_info(const char* value) {
+        set_has_local_info();
+        if (local_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            local_info_ = new ::std::string;
+        }
+        local_info_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.local_info)
+    }
+    inline void QuestionOffline::set_local_info(const char* value, size_t size) {
+        set_has_local_info();
+        if (local_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            local_info_ = new ::std::string;
+        }
+        local_info_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.local_info)
+    }
+    inline ::std::string* QuestionOffline::mutable_local_info() {
+        set_has_local_info();
+        if (local_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            local_info_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.local_info)
+        return local_info_;
+    }
+    inline ::std::string* QuestionOffline::release_local_info() {
+        clear_has_local_info();
+        if (local_info_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = local_info_;
+            local_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_local_info(::std::string* local_info) {
+        if (local_info_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete local_info_;
+        }
+        if (local_info) {
+            set_has_local_info();
+            local_info_ = local_info;
+        } else {
+            clear_has_local_info();
+            local_info_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.local_info)
+    }
+    
+    // required string time_stamp = 5;
+    inline bool QuestionOffline::has_time_stamp() const {
+        return (_has_bits_[0] & 0x00000010u) != 0;
+    }
+    inline void QuestionOffline::set_has_time_stamp() {
+        _has_bits_[0] |= 0x00000010u;
+    }
+    inline void QuestionOffline::clear_has_time_stamp() {
+        _has_bits_[0] &= ~0x00000010u;
+    }
+    inline void QuestionOffline::clear_time_stamp() {
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_->clear();
+        }
+        clear_has_time_stamp();
+    }
+    inline const ::std::string& QuestionOffline::time_stamp() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.time_stamp)
+        return *time_stamp_;
+    }
+    inline void QuestionOffline::set_time_stamp(const ::std::string& value) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.time_stamp)
+    }
+    inline void QuestionOffline::set_time_stamp(const char* value) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.time_stamp)
+    }
+    inline void QuestionOffline::set_time_stamp(const char* value, size_t size) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.time_stamp)
+    }
+    inline ::std::string* QuestionOffline::mutable_time_stamp() {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.time_stamp)
+        return time_stamp_;
+    }
+    inline ::std::string* QuestionOffline::release_time_stamp() {
+        clear_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = time_stamp_;
+            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_time_stamp(::std::string* time_stamp) {
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (time_stamp) {
+            set_has_time_stamp();
+            time_stamp_ = time_stamp;
+        } else {
+            clear_has_time_stamp();
+            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.time_stamp)
+    }
+    
+    // required int64 fid = 6;
+    inline bool QuestionOffline::has_fid() const {
+        return (_has_bits_[0] & 0x00000020u) != 0;
+    }
+    inline void QuestionOffline::set_has_fid() {
+        _has_bits_[0] |= 0x00000020u;
+    }
+    inline void QuestionOffline::clear_has_fid() {
+        _has_bits_[0] &= ~0x00000020u;
+    }
+    inline void QuestionOffline::clear_fid() {
+        fid_ = GOOGLE_LONGLONG(0);
+        clear_has_fid();
+    }
+    inline ::google::protobuf::int64 QuestionOffline::fid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.fid)
+        return fid_;
+    }
+    inline void QuestionOffline::set_fid(::google::protobuf::int64 value) {
+        set_has_fid();
+        fid_ = value;
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.fid)
+    }
+    
+    // required string f_avatar = 7;
+    inline bool QuestionOffline::has_f_avatar() const {
+        return (_has_bits_[0] & 0x00000040u) != 0;
+    }
+    inline void QuestionOffline::set_has_f_avatar() {
+        _has_bits_[0] |= 0x00000040u;
+    }
+    inline void QuestionOffline::clear_has_f_avatar() {
+        _has_bits_[0] &= ~0x00000040u;
+    }
+    inline void QuestionOffline::clear_f_avatar() {
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_avatar_->clear();
+        }
+        clear_has_f_avatar();
+    }
+    inline const ::std::string& QuestionOffline::f_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.f_avatar)
+        return *f_avatar_;
+    }
+    inline void QuestionOffline::set_f_avatar(const ::std::string& value) {
+        set_has_f_avatar();
+        if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_avatar_ = new ::std::string;
+        }
+        f_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.f_avatar)
+    }
+    inline void QuestionOffline::set_f_avatar(const char* value) {
+        set_has_f_avatar();
+        if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_avatar_ = new ::std::string;
+        }
+        f_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.f_avatar)
+    }
+    inline void QuestionOffline::set_f_avatar(const char* value, size_t size) {
+        set_has_f_avatar();
+        if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_avatar_ = new ::std::string;
+        }
+        f_avatar_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.f_avatar)
+    }
+    inline ::std::string* QuestionOffline::mutable_f_avatar() {
+        set_has_f_avatar();
+        if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_avatar_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.f_avatar)
+        return f_avatar_;
+    }
+    inline ::std::string* QuestionOffline::release_f_avatar() {
+        clear_has_f_avatar();
+        if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_avatar_;
+            f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_f_avatar(::std::string* f_avatar) {
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_avatar) {
+            set_has_f_avatar();
+            f_avatar_ = f_avatar;
+        } else {
+            clear_has_f_avatar();
+            f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.f_avatar)
+    }
+    
+    // required string f_name = 8;
+    inline bool QuestionOffline::has_f_name() const {
+        return (_has_bits_[0] & 0x00000080u) != 0;
+    }
+    inline void QuestionOffline::set_has_f_name() {
+        _has_bits_[0] |= 0x00000080u;
+    }
+    inline void QuestionOffline::clear_has_f_name() {
+        _has_bits_[0] &= ~0x00000080u;
+    }
+    inline void QuestionOffline::clear_f_name() {
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_name_->clear();
+        }
+        clear_has_f_name();
+    }
+    inline const ::std::string& QuestionOffline::f_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.f_name)
+        return *f_name_;
+    }
+    inline void QuestionOffline::set_f_name(const ::std::string& value) {
+        set_has_f_name();
+        if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_name_ = new ::std::string;
+        }
+        f_name_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.f_name)
+    }
+    inline void QuestionOffline::set_f_name(const char* value) {
+        set_has_f_name();
+        if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_name_ = new ::std::string;
+        }
+        f_name_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.f_name)
+    }
+    inline void QuestionOffline::set_f_name(const char* value, size_t size) {
+        set_has_f_name();
+        if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_name_ = new ::std::string;
+        }
+        f_name_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.f_name)
+    }
+    inline ::std::string* QuestionOffline::mutable_f_name() {
+        set_has_f_name();
+        if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_name_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.f_name)
+        return f_name_;
+    }
+    inline ::std::string* QuestionOffline::release_f_name() {
+        clear_has_f_name();
+        if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_name_;
+            f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_f_name(::std::string* f_name) {
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_name) {
+            set_has_f_name();
+            f_name_ = f_name;
+        } else {
+            clear_has_f_name();
+            f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.f_name)
+    }
+    
+    // required string f_leve = 9;
+    inline bool QuestionOffline::has_f_leve() const {
+        return (_has_bits_[0] & 0x00000100u) != 0;
+    }
+    inline void QuestionOffline::set_has_f_leve() {
+        _has_bits_[0] |= 0x00000100u;
+    }
+    inline void QuestionOffline::clear_has_f_leve() {
+        _has_bits_[0] &= ~0x00000100u;
+    }
+    inline void QuestionOffline::clear_f_leve() {
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_leve_->clear();
+        }
+        clear_has_f_leve();
+    }
+    inline const ::std::string& QuestionOffline::f_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.f_leve)
+        return *f_leve_;
+    }
+    inline void QuestionOffline::set_f_leve(const ::std::string& value) {
+        set_has_f_leve();
+        if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_leve_ = new ::std::string;
+        }
+        f_leve_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.f_leve)
+    }
+    inline void QuestionOffline::set_f_leve(const char* value) {
+        set_has_f_leve();
+        if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_leve_ = new ::std::string;
+        }
+        f_leve_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.f_leve)
+    }
+    inline void QuestionOffline::set_f_leve(const char* value, size_t size) {
+        set_has_f_leve();
+        if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_leve_ = new ::std::string;
+        }
+        f_leve_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.f_leve)
+    }
+    inline ::std::string* QuestionOffline::mutable_f_leve() {
+        set_has_f_leve();
+        if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_leve_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.f_leve)
+        return f_leve_;
+    }
+    inline ::std::string* QuestionOffline::release_f_leve() {
+        clear_has_f_leve();
+        if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_leve_;
+            f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_f_leve(::std::string* f_leve) {
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_leve) {
+            set_has_f_leve();
+            f_leve_ = f_leve;
+        } else {
+            clear_has_f_leve();
+            f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.f_leve)
+    }
+    
+    // required string f_user_type = 10;
+    inline bool QuestionOffline::has_f_user_type() const {
+        return (_has_bits_[0] & 0x00000200u) != 0;
+    }
+    inline void QuestionOffline::set_has_f_user_type() {
+        _has_bits_[0] |= 0x00000200u;
+    }
+    inline void QuestionOffline::clear_has_f_user_type() {
+        _has_bits_[0] &= ~0x00000200u;
+    }
+    inline void QuestionOffline::clear_f_user_type() {
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_type_->clear();
+        }
+        clear_has_f_user_type();
+    }
+    inline const ::std::string& QuestionOffline::f_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionOffline.f_user_type)
+        return *f_user_type_;
+    }
+    inline void QuestionOffline::set_f_user_type(const ::std::string& value) {
+        set_has_f_user_type();
+        if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_type_ = new ::std::string;
+        }
+        f_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionOffline.f_user_type)
+    }
+    inline void QuestionOffline::set_f_user_type(const char* value) {
+        set_has_f_user_type();
+        if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_type_ = new ::std::string;
+        }
+        f_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionOffline.f_user_type)
+    }
+    inline void QuestionOffline::set_f_user_type(const char* value, size_t size) {
+        set_has_f_user_type();
+        if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_type_ = new ::std::string;
+        }
+        f_user_type_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionOffline.f_user_type)
+    }
+    inline ::std::string* QuestionOffline::mutable_f_user_type() {
+        set_has_f_user_type();
+        if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_type_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionOffline.f_user_type)
+        return f_user_type_;
+    }
+    inline ::std::string* QuestionOffline::release_f_user_type() {
+        clear_has_f_user_type();
+        if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_user_type_;
+            f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionOffline::set_allocated_f_user_type(::std::string* f_user_type) {
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_user_type) {
+            set_has_f_user_type();
+            f_user_type_ = f_user_type;
+        } else {
+            clear_has_f_user_type();
+            f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionOffline.f_user_type)
+    }
+    
+    // -------------------------------------------------------------------
+    
+    // QuestionSendedAnswerBack
+    
+    // required string f_time_stamp = 1;
+    inline bool QuestionSendedAnswerBack::has_f_time_stamp() const {
+        return (_has_bits_[0] & 0x00000001u) != 0;
+    }
+    inline void QuestionSendedAnswerBack::set_has_f_time_stamp() {
+        _has_bits_[0] |= 0x00000001u;
+    }
+    inline void QuestionSendedAnswerBack::clear_has_f_time_stamp() {
+        _has_bits_[0] &= ~0x00000001u;
+    }
+    inline void QuestionSendedAnswerBack::clear_f_time_stamp() {
+        if (f_time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_time_stamp_->clear();
+        }
+        clear_has_f_time_stamp();
+    }
+    inline const ::std::string& QuestionSendedAnswerBack::f_time_stamp() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+        return *f_time_stamp_;
+    }
+    inline void QuestionSendedAnswerBack::set_f_time_stamp(const ::std::string& value) {
+        set_has_f_time_stamp();
+        if (f_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_time_stamp_ = new ::std::string;
+        }
+        f_time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+    }
+    inline void QuestionSendedAnswerBack::set_f_time_stamp(const char* value) {
+        set_has_f_time_stamp();
+        if (f_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_time_stamp_ = new ::std::string;
+        }
+        f_time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+    }
+    inline void QuestionSendedAnswerBack::set_f_time_stamp(const char* value, size_t size) {
+        set_has_f_time_stamp();
+        if (f_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_time_stamp_ = new ::std::string;
+        }
+        f_time_stamp_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+    }
+    inline ::std::string* QuestionSendedAnswerBack::mutable_f_time_stamp() {
+        set_has_f_time_stamp();
+        if (f_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_time_stamp_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+        return f_time_stamp_;
+    }
+    inline ::std::string* QuestionSendedAnswerBack::release_f_time_stamp() {
+        clear_has_f_time_stamp();
+        if (f_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_time_stamp_;
+            f_time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionSendedAnswerBack::set_allocated_f_time_stamp(::std::string* f_time_stamp) {
+        if (f_time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_time_stamp_;
+        }
+        if (f_time_stamp) {
+            set_has_f_time_stamp();
+            f_time_stamp_ = f_time_stamp;
+        } else {
+            clear_has_f_time_stamp();
+            f_time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSendedAnswerBack.f_time_stamp)
+    }
+    
+    // required string f_user_id = 2;
+    inline bool QuestionSendedAnswerBack::has_f_user_id() const {
+        return (_has_bits_[0] & 0x00000002u) != 0;
+    }
+    inline void QuestionSendedAnswerBack::set_has_f_user_id() {
+        _has_bits_[0] |= 0x00000002u;
+    }
+    inline void QuestionSendedAnswerBack::clear_has_f_user_id() {
+        _has_bits_[0] &= ~0x00000002u;
+    }
+    inline void QuestionSendedAnswerBack::clear_f_user_id() {
+        if (f_user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_id_->clear();
+        }
+        clear_has_f_user_id();
+    }
+    inline const ::std::string& QuestionSendedAnswerBack::f_user_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionSendedAnswerBack.f_user_id)
+        return *f_user_id_;
+    }
+    inline void QuestionSendedAnswerBack::set_f_user_id(const ::std::string& value) {
+        set_has_f_user_id();
+        if (f_user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_id_ = new ::std::string;
+        }
+        f_user_id_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionSendedAnswerBack.f_user_id)
+    }
+    inline void QuestionSendedAnswerBack::set_f_user_id(const char* value) {
+        set_has_f_user_id();
+        if (f_user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_id_ = new ::std::string;
+        }
+        f_user_id_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSendedAnswerBack.f_user_id)
+    }
+    inline void QuestionSendedAnswerBack::set_f_user_id(const char* value, size_t size) {
+        set_has_f_user_id();
+        if (f_user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_id_ = new ::std::string;
+        }
+        f_user_id_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSendedAnswerBack.f_user_id)
+    }
+    inline ::std::string* QuestionSendedAnswerBack::mutable_f_user_id() {
+        set_has_f_user_id();
+        if (f_user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_user_id_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSendedAnswerBack.f_user_id)
+        return f_user_id_;
+    }
+    inline ::std::string* QuestionSendedAnswerBack::release_f_user_id() {
+        clear_has_f_user_id();
+        if (f_user_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_user_id_;
+            f_user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionSendedAnswerBack::set_allocated_f_user_id(::std::string* f_user_id) {
+        if (f_user_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_id_;
+        }
+        if (f_user_id) {
+            set_has_f_user_id();
+            f_user_id_ = f_user_id;
+        } else {
+            clear_has_f_user_id();
+            f_user_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSendedAnswerBack.f_user_id)
+    }
+    
+    // required string f_udid = 3;
+    inline bool QuestionSendedAnswerBack::has_f_udid() const {
+        return (_has_bits_[0] & 0x00000004u) != 0;
+    }
+    inline void QuestionSendedAnswerBack::set_has_f_udid() {
+        _has_bits_[0] |= 0x00000004u;
+    }
+    inline void QuestionSendedAnswerBack::clear_has_f_udid() {
+        _has_bits_[0] &= ~0x00000004u;
+    }
+    inline void QuestionSendedAnswerBack::clear_f_udid() {
+        if (f_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_udid_->clear();
+        }
+        clear_has_f_udid();
+    }
+    inline const ::std::string& QuestionSendedAnswerBack::f_udid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionSendedAnswerBack.f_udid)
+        return *f_udid_;
+    }
+    inline void QuestionSendedAnswerBack::set_f_udid(const ::std::string& value) {
+        set_has_f_udid();
+        if (f_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_udid_ = new ::std::string;
+        }
+        f_udid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionSendedAnswerBack.f_udid)
+    }
+    inline void QuestionSendedAnswerBack::set_f_udid(const char* value) {
+        set_has_f_udid();
+        if (f_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_udid_ = new ::std::string;
+        }
+        f_udid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSendedAnswerBack.f_udid)
+    }
+    inline void QuestionSendedAnswerBack::set_f_udid(const char* value, size_t size) {
+        set_has_f_udid();
+        if (f_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_udid_ = new ::std::string;
+        }
+        f_udid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSendedAnswerBack.f_udid)
+    }
+    inline ::std::string* QuestionSendedAnswerBack::mutable_f_udid() {
+        set_has_f_udid();
+        if (f_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            f_udid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSendedAnswerBack.f_udid)
+        return f_udid_;
+    }
+    inline ::std::string* QuestionSendedAnswerBack::release_f_udid() {
+        clear_has_f_udid();
+        if (f_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = f_udid_;
+            f_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionSendedAnswerBack::set_allocated_f_udid(::std::string* f_udid) {
+        if (f_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_udid_;
+        }
+        if (f_udid) {
+            set_has_f_udid();
+            f_udid_ = f_udid;
+        } else {
+            clear_has_f_udid();
+            f_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSendedAnswerBack.f_udid)
+    }
+    
+    // required string server_time_stamp = 4;
+    inline bool QuestionSendedAnswerBack::has_server_time_stamp() const {
+        return (_has_bits_[0] & 0x00000008u) != 0;
+    }
+    inline void QuestionSendedAnswerBack::set_has_server_time_stamp() {
+        _has_bits_[0] |= 0x00000008u;
+    }
+    inline void QuestionSendedAnswerBack::clear_has_server_time_stamp() {
+        _has_bits_[0] &= ~0x00000008u;
+    }
+    inline void QuestionSendedAnswerBack::clear_server_time_stamp() {
+        if (server_time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            server_time_stamp_->clear();
+        }
+        clear_has_server_time_stamp();
+    }
+    inline const ::std::string& QuestionSendedAnswerBack::server_time_stamp() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionSendedAnswerBack.server_time_stamp)
+        return *server_time_stamp_;
+    }
+    inline void QuestionSendedAnswerBack::set_server_time_stamp(const ::std::string& value) {
+        set_has_server_time_stamp();
+        if (server_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            server_time_stamp_ = new ::std::string;
+        }
+        server_time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionSendedAnswerBack.server_time_stamp)
+    }
+    inline void QuestionSendedAnswerBack::set_server_time_stamp(const char* value) {
+        set_has_server_time_stamp();
+        if (server_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            server_time_stamp_ = new ::std::string;
+        }
+        server_time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSendedAnswerBack.server_time_stamp)
+    }
+    inline void QuestionSendedAnswerBack::set_server_time_stamp(const char* value, size_t size) {
+        set_has_server_time_stamp();
+        if (server_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            server_time_stamp_ = new ::std::string;
+        }
+        server_time_stamp_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSendedAnswerBack.server_time_stamp)
+    }
+    inline ::std::string* QuestionSendedAnswerBack::mutable_server_time_stamp() {
+        set_has_server_time_stamp();
+        if (server_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            server_time_stamp_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSendedAnswerBack.server_time_stamp)
+        return server_time_stamp_;
+    }
+    inline ::std::string* QuestionSendedAnswerBack::release_server_time_stamp() {
+        clear_has_server_time_stamp();
+        if (server_time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = server_time_stamp_;
+            server_time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionSendedAnswerBack::set_allocated_server_time_stamp(::std::string* server_time_stamp) {
+        if (server_time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete server_time_stamp_;
+        }
+        if (server_time_stamp) {
+            set_has_server_time_stamp();
+            server_time_stamp_ = server_time_stamp;
+        } else {
+            clear_has_server_time_stamp();
+            server_time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSendedAnswerBack.server_time_stamp)
     }
     
     // -------------------------------------------------------------------
@@ -4147,775 +5574,40 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set:QSChat.QuestionWord.tid)
     }
     
-    // required string time_stamp = 3;
-    inline bool QuestionWord::has_time_stamp() const {
+    // required .QSChat.ChatRequestType ctype = 3;
+    inline bool QuestionWord::has_ctype() const {
         return (_has_bits_[0] & 0x00000004u) != 0;
     }
-    inline void QuestionWord::set_has_time_stamp() {
+    inline void QuestionWord::set_has_ctype() {
         _has_bits_[0] |= 0x00000004u;
     }
-    inline void QuestionWord::clear_has_time_stamp() {
+    inline void QuestionWord::clear_has_ctype() {
         _has_bits_[0] &= ~0x00000004u;
     }
-    inline void QuestionWord::clear_time_stamp() {
-        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_->clear();
-        }
-        clear_has_time_stamp();
+    inline void QuestionWord::clear_ctype() {
+        ctype_ = 8000;
+        clear_has_ctype();
     }
-    inline const ::std::string& QuestionWord::time_stamp() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.time_stamp)
-        return *time_stamp_;
+    inline ::QSChat::ChatRequestType QuestionWord::ctype() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.ctype)
+        return static_cast< ::QSChat::ChatRequestType >(ctype_);
     }
-    inline void QuestionWord::set_time_stamp(const ::std::string& value) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
-        }
-        time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.time_stamp)
-    }
-    inline void QuestionWord::set_time_stamp(const char* value) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
-        }
-        time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.time_stamp)
-    }
-    inline void QuestionWord::set_time_stamp(const char* value, size_t size) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
-        }
-        time_stamp_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.time_stamp)
-    }
-    inline ::std::string* QuestionWord::mutable_time_stamp() {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.time_stamp)
-        return time_stamp_;
-    }
-    inline ::std::string* QuestionWord::release_time_stamp() {
-        clear_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = time_stamp_;
-            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_time_stamp(::std::string* time_stamp) {
-        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete time_stamp_;
-        }
-        if (time_stamp) {
-            set_has_time_stamp();
-            time_stamp_ = time_stamp;
-        } else {
-            clear_has_time_stamp();
-            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.time_stamp)
+    inline void QuestionWord::set_ctype(::QSChat::ChatRequestType value) {
+        assert(::QSChat::ChatRequestType_IsValid(value));
+        set_has_ctype();
+        ctype_ = value;
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.ctype)
     }
     
-    // required string t_avatar = 4;
-    inline bool QuestionWord::has_t_avatar() const {
+    // required string message = 4;
+    inline bool QuestionWord::has_message() const {
         return (_has_bits_[0] & 0x00000008u) != 0;
     }
-    inline void QuestionWord::set_has_t_avatar() {
+    inline void QuestionWord::set_has_message() {
         _has_bits_[0] |= 0x00000008u;
     }
-    inline void QuestionWord::clear_has_t_avatar() {
-        _has_bits_[0] &= ~0x00000008u;
-    }
-    inline void QuestionWord::clear_t_avatar() {
-        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_avatar_->clear();
-        }
-        clear_has_t_avatar();
-    }
-    inline const ::std::string& QuestionWord::t_avatar() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_avatar)
-        return *t_avatar_;
-    }
-    inline void QuestionWord::set_t_avatar(const ::std::string& value) {
-        set_has_t_avatar();
-        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_avatar_ = new ::std::string;
-        }
-        t_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_avatar)
-    }
-    inline void QuestionWord::set_t_avatar(const char* value) {
-        set_has_t_avatar();
-        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_avatar_ = new ::std::string;
-        }
-        t_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_avatar)
-    }
-    inline void QuestionWord::set_t_avatar(const char* value, size_t size) {
-        set_has_t_avatar();
-        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_avatar_ = new ::std::string;
-        }
-        t_avatar_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_avatar)
-    }
-    inline ::std::string* QuestionWord::mutable_t_avatar() {
-        set_has_t_avatar();
-        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_avatar_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_avatar)
-        return t_avatar_;
-    }
-    inline ::std::string* QuestionWord::release_t_avatar() {
-        clear_has_t_avatar();
-        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = t_avatar_;
-            t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_t_avatar(::std::string* t_avatar) {
-        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete t_avatar_;
-        }
-        if (t_avatar) {
-            set_has_t_avatar();
-            t_avatar_ = t_avatar;
-        } else {
-            clear_has_t_avatar();
-            t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_avatar)
-    }
-    
-    // required string t_name = 5;
-    inline bool QuestionWord::has_t_name() const {
-        return (_has_bits_[0] & 0x00000010u) != 0;
-    }
-    inline void QuestionWord::set_has_t_name() {
-        _has_bits_[0] |= 0x00000010u;
-    }
-    inline void QuestionWord::clear_has_t_name() {
-        _has_bits_[0] &= ~0x00000010u;
-    }
-    inline void QuestionWord::clear_t_name() {
-        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_name_->clear();
-        }
-        clear_has_t_name();
-    }
-    inline const ::std::string& QuestionWord::t_name() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_name)
-        return *t_name_;
-    }
-    inline void QuestionWord::set_t_name(const ::std::string& value) {
-        set_has_t_name();
-        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_name_ = new ::std::string;
-        }
-        t_name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_name)
-    }
-    inline void QuestionWord::set_t_name(const char* value) {
-        set_has_t_name();
-        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_name_ = new ::std::string;
-        }
-        t_name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_name)
-    }
-    inline void QuestionWord::set_t_name(const char* value, size_t size) {
-        set_has_t_name();
-        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_name_ = new ::std::string;
-        }
-        t_name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_name)
-    }
-    inline ::std::string* QuestionWord::mutable_t_name() {
-        set_has_t_name();
-        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_name_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_name)
-        return t_name_;
-    }
-    inline ::std::string* QuestionWord::release_t_name() {
-        clear_has_t_name();
-        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = t_name_;
-            t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_t_name(::std::string* t_name) {
-        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete t_name_;
-        }
-        if (t_name) {
-            set_has_t_name();
-            t_name_ = t_name;
-        } else {
-            clear_has_t_name();
-            t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_name)
-    }
-    
-    // required string t_leve = 6;
-    inline bool QuestionWord::has_t_leve() const {
-        return (_has_bits_[0] & 0x00000020u) != 0;
-    }
-    inline void QuestionWord::set_has_t_leve() {
-        _has_bits_[0] |= 0x00000020u;
-    }
-    inline void QuestionWord::clear_has_t_leve() {
-        _has_bits_[0] &= ~0x00000020u;
-    }
-    inline void QuestionWord::clear_t_leve() {
-        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_leve_->clear();
-        }
-        clear_has_t_leve();
-    }
-    inline const ::std::string& QuestionWord::t_leve() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_leve)
-        return *t_leve_;
-    }
-    inline void QuestionWord::set_t_leve(const ::std::string& value) {
-        set_has_t_leve();
-        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_leve_ = new ::std::string;
-        }
-        t_leve_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_leve)
-    }
-    inline void QuestionWord::set_t_leve(const char* value) {
-        set_has_t_leve();
-        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_leve_ = new ::std::string;
-        }
-        t_leve_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_leve)
-    }
-    inline void QuestionWord::set_t_leve(const char* value, size_t size) {
-        set_has_t_leve();
-        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_leve_ = new ::std::string;
-        }
-        t_leve_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_leve)
-    }
-    inline ::std::string* QuestionWord::mutable_t_leve() {
-        set_has_t_leve();
-        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_leve_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_leve)
-        return t_leve_;
-    }
-    inline ::std::string* QuestionWord::release_t_leve() {
-        clear_has_t_leve();
-        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = t_leve_;
-            t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_t_leve(::std::string* t_leve) {
-        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete t_leve_;
-        }
-        if (t_leve) {
-            set_has_t_leve();
-            t_leve_ = t_leve;
-        } else {
-            clear_has_t_leve();
-            t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_leve)
-    }
-    
-    // required string t_user_type = 7;
-    inline bool QuestionWord::has_t_user_type() const {
-        return (_has_bits_[0] & 0x00000040u) != 0;
-    }
-    inline void QuestionWord::set_has_t_user_type() {
-        _has_bits_[0] |= 0x00000040u;
-    }
-    inline void QuestionWord::clear_has_t_user_type() {
-        _has_bits_[0] &= ~0x00000040u;
-    }
-    inline void QuestionWord::clear_t_user_type() {
-        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_user_type_->clear();
-        }
-        clear_has_t_user_type();
-    }
-    inline const ::std::string& QuestionWord::t_user_type() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_user_type)
-        return *t_user_type_;
-    }
-    inline void QuestionWord::set_t_user_type(const ::std::string& value) {
-        set_has_t_user_type();
-        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_user_type_ = new ::std::string;
-        }
-        t_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_user_type)
-    }
-    inline void QuestionWord::set_t_user_type(const char* value) {
-        set_has_t_user_type();
-        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_user_type_ = new ::std::string;
-        }
-        t_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_user_type)
-    }
-    inline void QuestionWord::set_t_user_type(const char* value, size_t size) {
-        set_has_t_user_type();
-        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_user_type_ = new ::std::string;
-        }
-        t_user_type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_user_type)
-    }
-    inline ::std::string* QuestionWord::mutable_t_user_type() {
-        set_has_t_user_type();
-        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            t_user_type_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_user_type)
-        return t_user_type_;
-    }
-    inline ::std::string* QuestionWord::release_t_user_type() {
-        clear_has_t_user_type();
-        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = t_user_type_;
-            t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_t_user_type(::std::string* t_user_type) {
-        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete t_user_type_;
-        }
-        if (t_user_type) {
-            set_has_t_user_type();
-            t_user_type_ = t_user_type;
-        } else {
-            clear_has_t_user_type();
-            t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_user_type)
-    }
-    
-    // required string m_avatar = 8;
-    inline bool QuestionWord::has_m_avatar() const {
-        return (_has_bits_[0] & 0x00000080u) != 0;
-    }
-    inline void QuestionWord::set_has_m_avatar() {
-        _has_bits_[0] |= 0x00000080u;
-    }
-    inline void QuestionWord::clear_has_m_avatar() {
-        _has_bits_[0] &= ~0x00000080u;
-    }
-    inline void QuestionWord::clear_m_avatar() {
-        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_avatar_->clear();
-        }
-        clear_has_m_avatar();
-    }
-    inline const ::std::string& QuestionWord::m_avatar() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_avatar)
-        return *m_avatar_;
-    }
-    inline void QuestionWord::set_m_avatar(const ::std::string& value) {
-        set_has_m_avatar();
-        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_avatar_ = new ::std::string;
-        }
-        m_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_avatar)
-    }
-    inline void QuestionWord::set_m_avatar(const char* value) {
-        set_has_m_avatar();
-        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_avatar_ = new ::std::string;
-        }
-        m_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_avatar)
-    }
-    inline void QuestionWord::set_m_avatar(const char* value, size_t size) {
-        set_has_m_avatar();
-        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_avatar_ = new ::std::string;
-        }
-        m_avatar_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_avatar)
-    }
-    inline ::std::string* QuestionWord::mutable_m_avatar() {
-        set_has_m_avatar();
-        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_avatar_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_avatar)
-        return m_avatar_;
-    }
-    inline ::std::string* QuestionWord::release_m_avatar() {
-        clear_has_m_avatar();
-        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = m_avatar_;
-            m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_m_avatar(::std::string* m_avatar) {
-        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete m_avatar_;
-        }
-        if (m_avatar) {
-            set_has_m_avatar();
-            m_avatar_ = m_avatar;
-        } else {
-            clear_has_m_avatar();
-            m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_avatar)
-    }
-    
-    // required string m_name = 9;
-    inline bool QuestionWord::has_m_name() const {
-        return (_has_bits_[0] & 0x00000100u) != 0;
-    }
-    inline void QuestionWord::set_has_m_name() {
-        _has_bits_[0] |= 0x00000100u;
-    }
-    inline void QuestionWord::clear_has_m_name() {
-        _has_bits_[0] &= ~0x00000100u;
-    }
-    inline void QuestionWord::clear_m_name() {
-        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_name_->clear();
-        }
-        clear_has_m_name();
-    }
-    inline const ::std::string& QuestionWord::m_name() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_name)
-        return *m_name_;
-    }
-    inline void QuestionWord::set_m_name(const ::std::string& value) {
-        set_has_m_name();
-        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_name_ = new ::std::string;
-        }
-        m_name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_name)
-    }
-    inline void QuestionWord::set_m_name(const char* value) {
-        set_has_m_name();
-        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_name_ = new ::std::string;
-        }
-        m_name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_name)
-    }
-    inline void QuestionWord::set_m_name(const char* value, size_t size) {
-        set_has_m_name();
-        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_name_ = new ::std::string;
-        }
-        m_name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_name)
-    }
-    inline ::std::string* QuestionWord::mutable_m_name() {
-        set_has_m_name();
-        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_name_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_name)
-        return m_name_;
-    }
-    inline ::std::string* QuestionWord::release_m_name() {
-        clear_has_m_name();
-        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = m_name_;
-            m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_m_name(::std::string* m_name) {
-        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete m_name_;
-        }
-        if (m_name) {
-            set_has_m_name();
-            m_name_ = m_name;
-        } else {
-            clear_has_m_name();
-            m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_name)
-    }
-    
-    // required string m_leve = 10;
-    inline bool QuestionWord::has_m_leve() const {
-        return (_has_bits_[0] & 0x00000200u) != 0;
-    }
-    inline void QuestionWord::set_has_m_leve() {
-        _has_bits_[0] |= 0x00000200u;
-    }
-    inline void QuestionWord::clear_has_m_leve() {
-        _has_bits_[0] &= ~0x00000200u;
-    }
-    inline void QuestionWord::clear_m_leve() {
-        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_leve_->clear();
-        }
-        clear_has_m_leve();
-    }
-    inline const ::std::string& QuestionWord::m_leve() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_leve)
-        return *m_leve_;
-    }
-    inline void QuestionWord::set_m_leve(const ::std::string& value) {
-        set_has_m_leve();
-        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_leve_ = new ::std::string;
-        }
-        m_leve_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_leve)
-    }
-    inline void QuestionWord::set_m_leve(const char* value) {
-        set_has_m_leve();
-        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_leve_ = new ::std::string;
-        }
-        m_leve_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_leve)
-    }
-    inline void QuestionWord::set_m_leve(const char* value, size_t size) {
-        set_has_m_leve();
-        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_leve_ = new ::std::string;
-        }
-        m_leve_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_leve)
-    }
-    inline ::std::string* QuestionWord::mutable_m_leve() {
-        set_has_m_leve();
-        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_leve_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_leve)
-        return m_leve_;
-    }
-    inline ::std::string* QuestionWord::release_m_leve() {
-        clear_has_m_leve();
-        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = m_leve_;
-            m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_m_leve(::std::string* m_leve) {
-        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete m_leve_;
-        }
-        if (m_leve) {
-            set_has_m_leve();
-            m_leve_ = m_leve;
-        } else {
-            clear_has_m_leve();
-            m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_leve)
-    }
-    
-    // required string m_user_type = 11;
-    inline bool QuestionWord::has_m_user_type() const {
-        return (_has_bits_[0] & 0x00000400u) != 0;
-    }
-    inline void QuestionWord::set_has_m_user_type() {
-        _has_bits_[0] |= 0x00000400u;
-    }
-    inline void QuestionWord::clear_has_m_user_type() {
-        _has_bits_[0] &= ~0x00000400u;
-    }
-    inline void QuestionWord::clear_m_user_type() {
-        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_user_type_->clear();
-        }
-        clear_has_m_user_type();
-    }
-    inline const ::std::string& QuestionWord::m_user_type() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_user_type)
-        return *m_user_type_;
-    }
-    inline void QuestionWord::set_m_user_type(const ::std::string& value) {
-        set_has_m_user_type();
-        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_user_type_ = new ::std::string;
-        }
-        m_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_user_type)
-    }
-    inline void QuestionWord::set_m_user_type(const char* value) {
-        set_has_m_user_type();
-        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_user_type_ = new ::std::string;
-        }
-        m_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_user_type)
-    }
-    inline void QuestionWord::set_m_user_type(const char* value, size_t size) {
-        set_has_m_user_type();
-        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_user_type_ = new ::std::string;
-        }
-        m_user_type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_user_type)
-    }
-    inline ::std::string* QuestionWord::mutable_m_user_type() {
-        set_has_m_user_type();
-        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            m_user_type_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_user_type)
-        return m_user_type_;
-    }
-    inline ::std::string* QuestionWord::release_m_user_type() {
-        clear_has_m_user_type();
-        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = m_user_type_;
-            m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_m_user_type(::std::string* m_user_type) {
-        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete m_user_type_;
-        }
-        if (m_user_type) {
-            set_has_m_user_type();
-            m_user_type_ = m_user_type;
-        } else {
-            clear_has_m_user_type();
-            m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_user_type)
-    }
-    
-    // required string device_udid = 12;
-    inline bool QuestionWord::has_device_udid() const {
-        return (_has_bits_[0] & 0x00000800u) != 0;
-    }
-    inline void QuestionWord::set_has_device_udid() {
-        _has_bits_[0] |= 0x00000800u;
-    }
-    inline void QuestionWord::clear_has_device_udid() {
-        _has_bits_[0] &= ~0x00000800u;
-    }
-    inline void QuestionWord::clear_device_udid() {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_->clear();
-        }
-        clear_has_device_udid();
-    }
-    inline const ::std::string& QuestionWord::device_udid() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.device_udid)
-        return *device_udid_;
-    }
-    inline void QuestionWord::set_device_udid(const ::std::string& value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.device_udid)
-    }
-    inline void QuestionWord::set_device_udid(const char* value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.device_udid)
-    }
-    inline void QuestionWord::set_device_udid(const char* value, size_t size) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.device_udid)
-    }
-    inline ::std::string* QuestionWord::mutable_device_udid() {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.device_udid)
-        return device_udid_;
-    }
-    inline ::std::string* QuestionWord::release_device_udid() {
-        clear_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = device_udid_;
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionWord::set_allocated_device_udid(::std::string* device_udid) {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete device_udid_;
-        }
-        if (device_udid) {
-            set_has_device_udid();
-            device_udid_ = device_udid;
-        } else {
-            clear_has_device_udid();
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.device_udid)
-    }
-    
-    // required string message = 13;
-    inline bool QuestionWord::has_message() const {
-        return (_has_bits_[0] & 0x00001000u) != 0;
-    }
-    inline void QuestionWord::set_has_message() {
-        _has_bits_[0] |= 0x00001000u;
-    }
     inline void QuestionWord::clear_has_message() {
-        _has_bits_[0] &= ~0x00001000u;
+        _has_bits_[0] &= ~0x00000008u;
     }
     inline void QuestionWord::clear_message() {
         if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -4983,489 +5675,59 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.message)
     }
     
-    // required .QSChat.ChatRequestType ctype = 14;
-    inline bool QuestionWord::has_ctype() const {
-        return (_has_bits_[0] & 0x00002000u) != 0;
-    }
-    inline void QuestionWord::set_has_ctype() {
-        _has_bits_[0] |= 0x00002000u;
-    }
-    inline void QuestionWord::clear_has_ctype() {
-        _has_bits_[0] &= ~0x00002000u;
-    }
-    inline void QuestionWord::clear_ctype() {
-        ctype_ = 8000;
-        clear_has_ctype();
-    }
-    inline ::QSChat::ChatRequestType QuestionWord::ctype() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.ctype)
-        return static_cast< ::QSChat::ChatRequestType >(ctype_);
-    }
-    inline void QuestionWord::set_ctype(::QSChat::ChatRequestType value) {
-        assert(::QSChat::ChatRequestType_IsValid(value));
-        set_has_ctype();
-        ctype_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.ctype)
-    }
-    
-    // -------------------------------------------------------------------
-    
-    // QuestionSpecial
-    
-    // required int64 mid = 1;
-    inline bool QuestionSpecial::has_mid() const {
-        return (_has_bits_[0] & 0x00000001u) != 0;
-    }
-    inline void QuestionSpecial::set_has_mid() {
-        _has_bits_[0] |= 0x00000001u;
-    }
-    inline void QuestionSpecial::clear_has_mid() {
-        _has_bits_[0] &= ~0x00000001u;
-    }
-    inline void QuestionSpecial::clear_mid() {
-        mid_ = GOOGLE_LONGLONG(0);
-        clear_has_mid();
-    }
-    inline ::google::protobuf::int64 QuestionSpecial::mid() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.mid)
-        return mid_;
-    }
-    inline void QuestionSpecial::set_mid(::google::protobuf::int64 value) {
-        set_has_mid();
-        mid_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.mid)
-    }
-    
-    // required int64 cid = 2;
-    inline bool QuestionSpecial::has_cid() const {
-        return (_has_bits_[0] & 0x00000002u) != 0;
-    }
-    inline void QuestionSpecial::set_has_cid() {
-        _has_bits_[0] |= 0x00000002u;
-    }
-    inline void QuestionSpecial::clear_has_cid() {
-        _has_bits_[0] &= ~0x00000002u;
-    }
-    inline void QuestionSpecial::clear_cid() {
-        cid_ = GOOGLE_LONGLONG(0);
-        clear_has_cid();
-    }
-    inline ::google::protobuf::int64 QuestionSpecial::cid() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.cid)
-        return cid_;
-    }
-    inline void QuestionSpecial::set_cid(::google::protobuf::int64 value) {
-        set_has_cid();
-        cid_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.cid)
-    }
-    
-    // required .QSChat.ChatRequestType ctype = 3;
-    inline bool QuestionSpecial::has_ctype() const {
-        return (_has_bits_[0] & 0x00000004u) != 0;
-    }
-    inline void QuestionSpecial::set_has_ctype() {
-        _has_bits_[0] |= 0x00000004u;
-    }
-    inline void QuestionSpecial::clear_has_ctype() {
-        _has_bits_[0] &= ~0x00000004u;
-    }
-    inline void QuestionSpecial::clear_ctype() {
-        ctype_ = 8000;
-        clear_has_ctype();
-    }
-    inline ::QSChat::ChatRequestType QuestionSpecial::ctype() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.ctype)
-        return static_cast< ::QSChat::ChatRequestType >(ctype_);
-    }
-    inline void QuestionSpecial::set_ctype(::QSChat::ChatRequestType value) {
-        assert(::QSChat::ChatRequestType_IsValid(value));
-        set_has_ctype();
-        ctype_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.ctype)
-    }
-    
-    // required int64 fid = 4;
-    inline bool QuestionSpecial::has_fid() const {
-        return (_has_bits_[0] & 0x00000008u) != 0;
-    }
-    inline void QuestionSpecial::set_has_fid() {
-        _has_bits_[0] |= 0x00000008u;
-    }
-    inline void QuestionSpecial::clear_has_fid() {
-        _has_bits_[0] &= ~0x00000008u;
-    }
-    inline void QuestionSpecial::clear_fid() {
-        fid_ = GOOGLE_LONGLONG(0);
-        clear_has_fid();
-    }
-    inline ::google::protobuf::int64 QuestionSpecial::fid() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.fid)
-        return fid_;
-    }
-    inline void QuestionSpecial::set_fid(::google::protobuf::int64 value) {
-        set_has_fid();
-        fid_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.fid)
-    }
-    
-    // required string type = 5;
-    inline bool QuestionSpecial::has_type() const {
+    // required string time_stamp = 5;
+    inline bool QuestionWord::has_time_stamp() const {
         return (_has_bits_[0] & 0x00000010u) != 0;
     }
-    inline void QuestionSpecial::set_has_type() {
+    inline void QuestionWord::set_has_time_stamp() {
         _has_bits_[0] |= 0x00000010u;
     }
-    inline void QuestionSpecial::clear_has_type() {
+    inline void QuestionWord::clear_has_time_stamp() {
         _has_bits_[0] &= ~0x00000010u;
     }
-    inline void QuestionSpecial::clear_type() {
-        if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            type_->clear();
-        }
-        clear_has_type();
-    }
-    inline const ::std::string& QuestionSpecial::type() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.type)
-        return *type_;
-    }
-    inline void QuestionSpecial::set_type(const ::std::string& value) {
-        set_has_type();
-        if (type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            type_ = new ::std::string;
-        }
-        type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.type)
-    }
-    inline void QuestionSpecial::set_type(const char* value) {
-        set_has_type();
-        if (type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            type_ = new ::std::string;
-        }
-        type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.type)
-    }
-    inline void QuestionSpecial::set_type(const char* value, size_t size) {
-        set_has_type();
-        if (type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            type_ = new ::std::string;
-        }
-        type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.type)
-    }
-    inline ::std::string* QuestionSpecial::mutable_type() {
-        set_has_type();
-        if (type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            type_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.type)
-        return type_;
-    }
-    inline ::std::string* QuestionSpecial::release_type() {
-        clear_has_type();
-        if (type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = type_;
-            type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionSpecial::set_allocated_type(::std::string* type) {
-        if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete type_;
-        }
-        if (type) {
-            set_has_type();
-            type_ = type;
-        } else {
-            clear_has_type();
-            type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.type)
-    }
-    
-    // required string name = 6;
-    inline bool QuestionSpecial::has_name() const {
-        return (_has_bits_[0] & 0x00000020u) != 0;
-    }
-    inline void QuestionSpecial::set_has_name() {
-        _has_bits_[0] |= 0x00000020u;
-    }
-    inline void QuestionSpecial::clear_has_name() {
-        _has_bits_[0] &= ~0x00000020u;
-    }
-    inline void QuestionSpecial::clear_name() {
-        if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            name_->clear();
-        }
-        clear_has_name();
-    }
-    inline const ::std::string& QuestionSpecial::name() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.name)
-        return *name_;
-    }
-    inline void QuestionSpecial::set_name(const ::std::string& value) {
-        set_has_name();
-        if (name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            name_ = new ::std::string;
-        }
-        name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.name)
-    }
-    inline void QuestionSpecial::set_name(const char* value) {
-        set_has_name();
-        if (name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            name_ = new ::std::string;
-        }
-        name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.name)
-    }
-    inline void QuestionSpecial::set_name(const char* value, size_t size) {
-        set_has_name();
-        if (name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            name_ = new ::std::string;
-        }
-        name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.name)
-    }
-    inline ::std::string* QuestionSpecial::mutable_name() {
-        set_has_name();
-        if (name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            name_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.name)
-        return name_;
-    }
-    inline ::std::string* QuestionSpecial::release_name() {
-        clear_has_name();
-        if (name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = name_;
-            name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionSpecial::set_allocated_name(::std::string* name) {
-        if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete name_;
-        }
-        if (name) {
-            set_has_name();
-            name_ = name;
-        } else {
-            clear_has_name();
-            name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.name)
-    }
-    
-    // required string pic = 7;
-    inline bool QuestionSpecial::has_pic() const {
-        return (_has_bits_[0] & 0x00000040u) != 0;
-    }
-    inline void QuestionSpecial::set_has_pic() {
-        _has_bits_[0] |= 0x00000040u;
-    }
-    inline void QuestionSpecial::clear_has_pic() {
-        _has_bits_[0] &= ~0x00000040u;
-    }
-    inline void QuestionSpecial::clear_pic() {
-        if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            pic_->clear();
-        }
-        clear_has_pic();
-    }
-    inline const ::std::string& QuestionSpecial::pic() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.pic)
-        return *pic_;
-    }
-    inline void QuestionSpecial::set_pic(const ::std::string& value) {
-        set_has_pic();
-        if (pic_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            pic_ = new ::std::string;
-        }
-        pic_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.pic)
-    }
-    inline void QuestionSpecial::set_pic(const char* value) {
-        set_has_pic();
-        if (pic_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            pic_ = new ::std::string;
-        }
-        pic_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.pic)
-    }
-    inline void QuestionSpecial::set_pic(const char* value, size_t size) {
-        set_has_pic();
-        if (pic_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            pic_ = new ::std::string;
-        }
-        pic_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.pic)
-    }
-    inline ::std::string* QuestionSpecial::mutable_pic() {
-        set_has_pic();
-        if (pic_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            pic_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.pic)
-        return pic_;
-    }
-    inline ::std::string* QuestionSpecial::release_pic() {
-        clear_has_pic();
-        if (pic_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = pic_;
-            pic_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionSpecial::set_allocated_pic(::std::string* pic) {
-        if (pic_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete pic_;
-        }
-        if (pic) {
-            set_has_pic();
-            pic_ = pic;
-        } else {
-            clear_has_pic();
-            pic_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.pic)
-    }
-    
-    // required string desc = 8;
-    inline bool QuestionSpecial::has_desc() const {
-        return (_has_bits_[0] & 0x00000080u) != 0;
-    }
-    inline void QuestionSpecial::set_has_desc() {
-        _has_bits_[0] |= 0x00000080u;
-    }
-    inline void QuestionSpecial::clear_has_desc() {
-        _has_bits_[0] &= ~0x00000080u;
-    }
-    inline void QuestionSpecial::clear_desc() {
-        if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            desc_->clear();
-        }
-        clear_has_desc();
-    }
-    inline const ::std::string& QuestionSpecial::desc() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.desc)
-        return *desc_;
-    }
-    inline void QuestionSpecial::set_desc(const ::std::string& value) {
-        set_has_desc();
-        if (desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            desc_ = new ::std::string;
-        }
-        desc_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.desc)
-    }
-    inline void QuestionSpecial::set_desc(const char* value) {
-        set_has_desc();
-        if (desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            desc_ = new ::std::string;
-        }
-        desc_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.desc)
-    }
-    inline void QuestionSpecial::set_desc(const char* value, size_t size) {
-        set_has_desc();
-        if (desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            desc_ = new ::std::string;
-        }
-        desc_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.desc)
-    }
-    inline ::std::string* QuestionSpecial::mutable_desc() {
-        set_has_desc();
-        if (desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            desc_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.desc)
-        return desc_;
-    }
-    inline ::std::string* QuestionSpecial::release_desc() {
-        clear_has_desc();
-        if (desc_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = desc_;
-            desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void QuestionSpecial::set_allocated_desc(::std::string* desc) {
-        if (desc_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete desc_;
-        }
-        if (desc) {
-            set_has_desc();
-            desc_ = desc;
-        } else {
-            clear_has_desc();
-            desc_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.desc)
-    }
-    
-    // required string time_stamp = 9;
-    inline bool QuestionSpecial::has_time_stamp() const {
-        return (_has_bits_[0] & 0x00000100u) != 0;
-    }
-    inline void QuestionSpecial::set_has_time_stamp() {
-        _has_bits_[0] |= 0x00000100u;
-    }
-    inline void QuestionSpecial::clear_has_time_stamp() {
-        _has_bits_[0] &= ~0x00000100u;
-    }
-    inline void QuestionSpecial::clear_time_stamp() {
+    inline void QuestionWord::clear_time_stamp() {
         if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             time_stamp_->clear();
         }
         clear_has_time_stamp();
     }
-    inline const ::std::string& QuestionSpecial::time_stamp() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.time_stamp)
+    inline const ::std::string& QuestionWord::time_stamp() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.time_stamp)
         return *time_stamp_;
     }
-    inline void QuestionSpecial::set_time_stamp(const ::std::string& value) {
+    inline void QuestionWord::set_time_stamp(const ::std::string& value) {
         set_has_time_stamp();
         if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             time_stamp_ = new ::std::string;
         }
         time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.time_stamp)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.time_stamp)
     }
-    inline void QuestionSpecial::set_time_stamp(const char* value) {
+    inline void QuestionWord::set_time_stamp(const char* value) {
         set_has_time_stamp();
         if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             time_stamp_ = new ::std::string;
         }
         time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.time_stamp)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.time_stamp)
     }
-    inline void QuestionSpecial::set_time_stamp(const char* value, size_t size) {
+    inline void QuestionWord::set_time_stamp(const char* value, size_t size) {
         set_has_time_stamp();
         if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             time_stamp_ = new ::std::string;
         }
         time_stamp_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.time_stamp)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.time_stamp)
     }
-    inline ::std::string* QuestionSpecial::mutable_time_stamp() {
+    inline ::std::string* QuestionWord::mutable_time_stamp() {
         set_has_time_stamp();
         if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             time_stamp_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.time_stamp)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.time_stamp)
         return time_stamp_;
     }
-    inline ::std::string* QuestionSpecial::release_time_stamp() {
+    inline ::std::string* QuestionWord::release_time_stamp() {
         clear_has_time_stamp();
         if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5475,7 +5737,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_time_stamp(::std::string* time_stamp) {
+    inline void QuestionWord::set_allocated_time_stamp(::std::string* time_stamp) {
         if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete time_stamp_;
         }
@@ -5486,62 +5748,62 @@ namespace QSChat {
             clear_has_time_stamp();
             time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.time_stamp)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.time_stamp)
     }
     
-    // required string t_avatar = 10;
-    inline bool QuestionSpecial::has_t_avatar() const {
-        return (_has_bits_[0] & 0x00000200u) != 0;
+    // required string t_avatar = 6;
+    inline bool QuestionWord::has_t_avatar() const {
+        return (_has_bits_[0] & 0x00000020u) != 0;
     }
-    inline void QuestionSpecial::set_has_t_avatar() {
-        _has_bits_[0] |= 0x00000200u;
+    inline void QuestionWord::set_has_t_avatar() {
+        _has_bits_[0] |= 0x00000020u;
     }
-    inline void QuestionSpecial::clear_has_t_avatar() {
-        _has_bits_[0] &= ~0x00000200u;
+    inline void QuestionWord::clear_has_t_avatar() {
+        _has_bits_[0] &= ~0x00000020u;
     }
-    inline void QuestionSpecial::clear_t_avatar() {
+    inline void QuestionWord::clear_t_avatar() {
         if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_avatar_->clear();
         }
         clear_has_t_avatar();
     }
-    inline const ::std::string& QuestionSpecial::t_avatar() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.t_avatar)
+    inline const ::std::string& QuestionWord::t_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_avatar)
         return *t_avatar_;
     }
-    inline void QuestionSpecial::set_t_avatar(const ::std::string& value) {
+    inline void QuestionWord::set_t_avatar(const ::std::string& value) {
         set_has_t_avatar();
         if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_avatar_ = new ::std::string;
         }
         t_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.t_avatar)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_avatar)
     }
-    inline void QuestionSpecial::set_t_avatar(const char* value) {
+    inline void QuestionWord::set_t_avatar(const char* value) {
         set_has_t_avatar();
         if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_avatar_ = new ::std::string;
         }
         t_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.t_avatar)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_avatar)
     }
-    inline void QuestionSpecial::set_t_avatar(const char* value, size_t size) {
+    inline void QuestionWord::set_t_avatar(const char* value, size_t size) {
         set_has_t_avatar();
         if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_avatar_ = new ::std::string;
         }
         t_avatar_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.t_avatar)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_avatar)
     }
-    inline ::std::string* QuestionSpecial::mutable_t_avatar() {
+    inline ::std::string* QuestionWord::mutable_t_avatar() {
         set_has_t_avatar();
         if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_avatar_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.t_avatar)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_avatar)
         return t_avatar_;
     }
-    inline ::std::string* QuestionSpecial::release_t_avatar() {
+    inline ::std::string* QuestionWord::release_t_avatar() {
         clear_has_t_avatar();
         if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5551,7 +5813,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_t_avatar(::std::string* t_avatar) {
+    inline void QuestionWord::set_allocated_t_avatar(::std::string* t_avatar) {
         if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete t_avatar_;
         }
@@ -5562,62 +5824,62 @@ namespace QSChat {
             clear_has_t_avatar();
             t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.t_avatar)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_avatar)
     }
     
-    // required string t_name = 11;
-    inline bool QuestionSpecial::has_t_name() const {
-        return (_has_bits_[0] & 0x00000400u) != 0;
+    // required string t_name = 7;
+    inline bool QuestionWord::has_t_name() const {
+        return (_has_bits_[0] & 0x00000040u) != 0;
     }
-    inline void QuestionSpecial::set_has_t_name() {
-        _has_bits_[0] |= 0x00000400u;
+    inline void QuestionWord::set_has_t_name() {
+        _has_bits_[0] |= 0x00000040u;
     }
-    inline void QuestionSpecial::clear_has_t_name() {
-        _has_bits_[0] &= ~0x00000400u;
+    inline void QuestionWord::clear_has_t_name() {
+        _has_bits_[0] &= ~0x00000040u;
     }
-    inline void QuestionSpecial::clear_t_name() {
+    inline void QuestionWord::clear_t_name() {
         if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_name_->clear();
         }
         clear_has_t_name();
     }
-    inline const ::std::string& QuestionSpecial::t_name() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.t_name)
+    inline const ::std::string& QuestionWord::t_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_name)
         return *t_name_;
     }
-    inline void QuestionSpecial::set_t_name(const ::std::string& value) {
+    inline void QuestionWord::set_t_name(const ::std::string& value) {
         set_has_t_name();
         if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_name_ = new ::std::string;
         }
         t_name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.t_name)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_name)
     }
-    inline void QuestionSpecial::set_t_name(const char* value) {
+    inline void QuestionWord::set_t_name(const char* value) {
         set_has_t_name();
         if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_name_ = new ::std::string;
         }
         t_name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.t_name)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_name)
     }
-    inline void QuestionSpecial::set_t_name(const char* value, size_t size) {
+    inline void QuestionWord::set_t_name(const char* value, size_t size) {
         set_has_t_name();
         if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_name_ = new ::std::string;
         }
         t_name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.t_name)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_name)
     }
-    inline ::std::string* QuestionSpecial::mutable_t_name() {
+    inline ::std::string* QuestionWord::mutable_t_name() {
         set_has_t_name();
         if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_name_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.t_name)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_name)
         return t_name_;
     }
-    inline ::std::string* QuestionSpecial::release_t_name() {
+    inline ::std::string* QuestionWord::release_t_name() {
         clear_has_t_name();
         if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5627,7 +5889,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_t_name(::std::string* t_name) {
+    inline void QuestionWord::set_allocated_t_name(::std::string* t_name) {
         if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete t_name_;
         }
@@ -5638,62 +5900,62 @@ namespace QSChat {
             clear_has_t_name();
             t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.t_name)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_name)
     }
     
-    // required string t_leve = 12;
-    inline bool QuestionSpecial::has_t_leve() const {
-        return (_has_bits_[0] & 0x00000800u) != 0;
+    // required string t_leve = 8;
+    inline bool QuestionWord::has_t_leve() const {
+        return (_has_bits_[0] & 0x00000080u) != 0;
     }
-    inline void QuestionSpecial::set_has_t_leve() {
-        _has_bits_[0] |= 0x00000800u;
+    inline void QuestionWord::set_has_t_leve() {
+        _has_bits_[0] |= 0x00000080u;
     }
-    inline void QuestionSpecial::clear_has_t_leve() {
-        _has_bits_[0] &= ~0x00000800u;
+    inline void QuestionWord::clear_has_t_leve() {
+        _has_bits_[0] &= ~0x00000080u;
     }
-    inline void QuestionSpecial::clear_t_leve() {
+    inline void QuestionWord::clear_t_leve() {
         if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_leve_->clear();
         }
         clear_has_t_leve();
     }
-    inline const ::std::string& QuestionSpecial::t_leve() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.t_leve)
+    inline const ::std::string& QuestionWord::t_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_leve)
         return *t_leve_;
     }
-    inline void QuestionSpecial::set_t_leve(const ::std::string& value) {
+    inline void QuestionWord::set_t_leve(const ::std::string& value) {
         set_has_t_leve();
         if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_leve_ = new ::std::string;
         }
         t_leve_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.t_leve)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_leve)
     }
-    inline void QuestionSpecial::set_t_leve(const char* value) {
+    inline void QuestionWord::set_t_leve(const char* value) {
         set_has_t_leve();
         if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_leve_ = new ::std::string;
         }
         t_leve_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.t_leve)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_leve)
     }
-    inline void QuestionSpecial::set_t_leve(const char* value, size_t size) {
+    inline void QuestionWord::set_t_leve(const char* value, size_t size) {
         set_has_t_leve();
         if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_leve_ = new ::std::string;
         }
         t_leve_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.t_leve)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_leve)
     }
-    inline ::std::string* QuestionSpecial::mutable_t_leve() {
+    inline ::std::string* QuestionWord::mutable_t_leve() {
         set_has_t_leve();
         if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_leve_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.t_leve)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_leve)
         return t_leve_;
     }
-    inline ::std::string* QuestionSpecial::release_t_leve() {
+    inline ::std::string* QuestionWord::release_t_leve() {
         clear_has_t_leve();
         if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5703,7 +5965,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_t_leve(::std::string* t_leve) {
+    inline void QuestionWord::set_allocated_t_leve(::std::string* t_leve) {
         if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete t_leve_;
         }
@@ -5714,62 +5976,62 @@ namespace QSChat {
             clear_has_t_leve();
             t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.t_leve)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_leve)
     }
     
-    // required string t_user_type = 13;
-    inline bool QuestionSpecial::has_t_user_type() const {
-        return (_has_bits_[0] & 0x00001000u) != 0;
+    // required string t_user_type = 9;
+    inline bool QuestionWord::has_t_user_type() const {
+        return (_has_bits_[0] & 0x00000100u) != 0;
     }
-    inline void QuestionSpecial::set_has_t_user_type() {
-        _has_bits_[0] |= 0x00001000u;
+    inline void QuestionWord::set_has_t_user_type() {
+        _has_bits_[0] |= 0x00000100u;
     }
-    inline void QuestionSpecial::clear_has_t_user_type() {
-        _has_bits_[0] &= ~0x00001000u;
+    inline void QuestionWord::clear_has_t_user_type() {
+        _has_bits_[0] &= ~0x00000100u;
     }
-    inline void QuestionSpecial::clear_t_user_type() {
+    inline void QuestionWord::clear_t_user_type() {
         if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_user_type_->clear();
         }
         clear_has_t_user_type();
     }
-    inline const ::std::string& QuestionSpecial::t_user_type() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.t_user_type)
+    inline const ::std::string& QuestionWord::t_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.t_user_type)
         return *t_user_type_;
     }
-    inline void QuestionSpecial::set_t_user_type(const ::std::string& value) {
+    inline void QuestionWord::set_t_user_type(const ::std::string& value) {
         set_has_t_user_type();
         if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_user_type_ = new ::std::string;
         }
         t_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.t_user_type)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.t_user_type)
     }
-    inline void QuestionSpecial::set_t_user_type(const char* value) {
+    inline void QuestionWord::set_t_user_type(const char* value) {
         set_has_t_user_type();
         if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_user_type_ = new ::std::string;
         }
         t_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.t_user_type)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.t_user_type)
     }
-    inline void QuestionSpecial::set_t_user_type(const char* value, size_t size) {
+    inline void QuestionWord::set_t_user_type(const char* value, size_t size) {
         set_has_t_user_type();
         if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_user_type_ = new ::std::string;
         }
         t_user_type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.t_user_type)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.t_user_type)
     }
-    inline ::std::string* QuestionSpecial::mutable_t_user_type() {
+    inline ::std::string* QuestionWord::mutable_t_user_type() {
         set_has_t_user_type();
         if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             t_user_type_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.t_user_type)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.t_user_type)
         return t_user_type_;
     }
-    inline ::std::string* QuestionSpecial::release_t_user_type() {
+    inline ::std::string* QuestionWord::release_t_user_type() {
         clear_has_t_user_type();
         if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5779,7 +6041,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_t_user_type(::std::string* t_user_type) {
+    inline void QuestionWord::set_allocated_t_user_type(::std::string* t_user_type) {
         if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete t_user_type_;
         }
@@ -5790,62 +6052,62 @@ namespace QSChat {
             clear_has_t_user_type();
             t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.t_user_type)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.t_user_type)
     }
     
-    // required string m_avatar = 14;
-    inline bool QuestionSpecial::has_m_avatar() const {
-        return (_has_bits_[0] & 0x00002000u) != 0;
+    // required string m_avatar = 10;
+    inline bool QuestionWord::has_m_avatar() const {
+        return (_has_bits_[0] & 0x00000200u) != 0;
     }
-    inline void QuestionSpecial::set_has_m_avatar() {
-        _has_bits_[0] |= 0x00002000u;
+    inline void QuestionWord::set_has_m_avatar() {
+        _has_bits_[0] |= 0x00000200u;
     }
-    inline void QuestionSpecial::clear_has_m_avatar() {
-        _has_bits_[0] &= ~0x00002000u;
+    inline void QuestionWord::clear_has_m_avatar() {
+        _has_bits_[0] &= ~0x00000200u;
     }
-    inline void QuestionSpecial::clear_m_avatar() {
+    inline void QuestionWord::clear_m_avatar() {
         if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_avatar_->clear();
         }
         clear_has_m_avatar();
     }
-    inline const ::std::string& QuestionSpecial::m_avatar() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.m_avatar)
+    inline const ::std::string& QuestionWord::m_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_avatar)
         return *m_avatar_;
     }
-    inline void QuestionSpecial::set_m_avatar(const ::std::string& value) {
+    inline void QuestionWord::set_m_avatar(const ::std::string& value) {
         set_has_m_avatar();
         if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_avatar_ = new ::std::string;
         }
         m_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.m_avatar)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_avatar)
     }
-    inline void QuestionSpecial::set_m_avatar(const char* value) {
+    inline void QuestionWord::set_m_avatar(const char* value) {
         set_has_m_avatar();
         if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_avatar_ = new ::std::string;
         }
         m_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.m_avatar)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_avatar)
     }
-    inline void QuestionSpecial::set_m_avatar(const char* value, size_t size) {
+    inline void QuestionWord::set_m_avatar(const char* value, size_t size) {
         set_has_m_avatar();
         if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_avatar_ = new ::std::string;
         }
         m_avatar_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.m_avatar)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_avatar)
     }
-    inline ::std::string* QuestionSpecial::mutable_m_avatar() {
+    inline ::std::string* QuestionWord::mutable_m_avatar() {
         set_has_m_avatar();
         if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_avatar_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.m_avatar)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_avatar)
         return m_avatar_;
     }
-    inline ::std::string* QuestionSpecial::release_m_avatar() {
+    inline ::std::string* QuestionWord::release_m_avatar() {
         clear_has_m_avatar();
         if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5855,7 +6117,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_m_avatar(::std::string* m_avatar) {
+    inline void QuestionWord::set_allocated_m_avatar(::std::string* m_avatar) {
         if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_avatar_;
         }
@@ -5866,62 +6128,62 @@ namespace QSChat {
             clear_has_m_avatar();
             m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.m_avatar)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_avatar)
     }
     
-    // required string m_name = 15;
-    inline bool QuestionSpecial::has_m_name() const {
-        return (_has_bits_[0] & 0x00004000u) != 0;
+    // required string m_name = 11;
+    inline bool QuestionWord::has_m_name() const {
+        return (_has_bits_[0] & 0x00000400u) != 0;
     }
-    inline void QuestionSpecial::set_has_m_name() {
-        _has_bits_[0] |= 0x00004000u;
+    inline void QuestionWord::set_has_m_name() {
+        _has_bits_[0] |= 0x00000400u;
     }
-    inline void QuestionSpecial::clear_has_m_name() {
-        _has_bits_[0] &= ~0x00004000u;
+    inline void QuestionWord::clear_has_m_name() {
+        _has_bits_[0] &= ~0x00000400u;
     }
-    inline void QuestionSpecial::clear_m_name() {
+    inline void QuestionWord::clear_m_name() {
         if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_name_->clear();
         }
         clear_has_m_name();
     }
-    inline const ::std::string& QuestionSpecial::m_name() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.m_name)
+    inline const ::std::string& QuestionWord::m_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_name)
         return *m_name_;
     }
-    inline void QuestionSpecial::set_m_name(const ::std::string& value) {
+    inline void QuestionWord::set_m_name(const ::std::string& value) {
         set_has_m_name();
         if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_name_ = new ::std::string;
         }
         m_name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.m_name)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_name)
     }
-    inline void QuestionSpecial::set_m_name(const char* value) {
+    inline void QuestionWord::set_m_name(const char* value) {
         set_has_m_name();
         if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_name_ = new ::std::string;
         }
         m_name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.m_name)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_name)
     }
-    inline void QuestionSpecial::set_m_name(const char* value, size_t size) {
+    inline void QuestionWord::set_m_name(const char* value, size_t size) {
         set_has_m_name();
         if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_name_ = new ::std::string;
         }
         m_name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.m_name)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_name)
     }
-    inline ::std::string* QuestionSpecial::mutable_m_name() {
+    inline ::std::string* QuestionWord::mutable_m_name() {
         set_has_m_name();
         if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_name_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.m_name)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_name)
         return m_name_;
     }
-    inline ::std::string* QuestionSpecial::release_m_name() {
+    inline ::std::string* QuestionWord::release_m_name() {
         clear_has_m_name();
         if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -5931,7 +6193,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_m_name(::std::string* m_name) {
+    inline void QuestionWord::set_allocated_m_name(::std::string* m_name) {
         if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_name_;
         }
@@ -5942,62 +6204,62 @@ namespace QSChat {
             clear_has_m_name();
             m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.m_name)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_name)
     }
     
-    // required string m_leve = 16;
-    inline bool QuestionSpecial::has_m_leve() const {
-        return (_has_bits_[0] & 0x00008000u) != 0;
+    // required string m_leve = 12;
+    inline bool QuestionWord::has_m_leve() const {
+        return (_has_bits_[0] & 0x00000800u) != 0;
     }
-    inline void QuestionSpecial::set_has_m_leve() {
-        _has_bits_[0] |= 0x00008000u;
+    inline void QuestionWord::set_has_m_leve() {
+        _has_bits_[0] |= 0x00000800u;
     }
-    inline void QuestionSpecial::clear_has_m_leve() {
-        _has_bits_[0] &= ~0x00008000u;
+    inline void QuestionWord::clear_has_m_leve() {
+        _has_bits_[0] &= ~0x00000800u;
     }
-    inline void QuestionSpecial::clear_m_leve() {
+    inline void QuestionWord::clear_m_leve() {
         if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_leve_->clear();
         }
         clear_has_m_leve();
     }
-    inline const ::std::string& QuestionSpecial::m_leve() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.m_leve)
+    inline const ::std::string& QuestionWord::m_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_leve)
         return *m_leve_;
     }
-    inline void QuestionSpecial::set_m_leve(const ::std::string& value) {
+    inline void QuestionWord::set_m_leve(const ::std::string& value) {
         set_has_m_leve();
         if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_leve_ = new ::std::string;
         }
         m_leve_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.m_leve)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_leve)
     }
-    inline void QuestionSpecial::set_m_leve(const char* value) {
+    inline void QuestionWord::set_m_leve(const char* value) {
         set_has_m_leve();
         if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_leve_ = new ::std::string;
         }
         m_leve_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.m_leve)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_leve)
     }
-    inline void QuestionSpecial::set_m_leve(const char* value, size_t size) {
+    inline void QuestionWord::set_m_leve(const char* value, size_t size) {
         set_has_m_leve();
         if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_leve_ = new ::std::string;
         }
         m_leve_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.m_leve)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_leve)
     }
-    inline ::std::string* QuestionSpecial::mutable_m_leve() {
+    inline ::std::string* QuestionWord::mutable_m_leve() {
         set_has_m_leve();
         if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_leve_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.m_leve)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_leve)
         return m_leve_;
     }
-    inline ::std::string* QuestionSpecial::release_m_leve() {
+    inline ::std::string* QuestionWord::release_m_leve() {
         clear_has_m_leve();
         if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -6007,7 +6269,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_m_leve(::std::string* m_leve) {
+    inline void QuestionWord::set_allocated_m_leve(::std::string* m_leve) {
         if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_leve_;
         }
@@ -6018,62 +6280,62 @@ namespace QSChat {
             clear_has_m_leve();
             m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.m_leve)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_leve)
     }
     
-    // required string m_user_type = 17;
-    inline bool QuestionSpecial::has_m_user_type() const {
-        return (_has_bits_[0] & 0x00010000u) != 0;
+    // required string m_user_type = 13;
+    inline bool QuestionWord::has_m_user_type() const {
+        return (_has_bits_[0] & 0x00001000u) != 0;
     }
-    inline void QuestionSpecial::set_has_m_user_type() {
-        _has_bits_[0] |= 0x00010000u;
+    inline void QuestionWord::set_has_m_user_type() {
+        _has_bits_[0] |= 0x00001000u;
     }
-    inline void QuestionSpecial::clear_has_m_user_type() {
-        _has_bits_[0] &= ~0x00010000u;
+    inline void QuestionWord::clear_has_m_user_type() {
+        _has_bits_[0] &= ~0x00001000u;
     }
-    inline void QuestionSpecial::clear_m_user_type() {
+    inline void QuestionWord::clear_m_user_type() {
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_user_type_->clear();
         }
         clear_has_m_user_type();
     }
-    inline const ::std::string& QuestionSpecial::m_user_type() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.m_user_type)
+    inline const ::std::string& QuestionWord::m_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.m_user_type)
         return *m_user_type_;
     }
-    inline void QuestionSpecial::set_m_user_type(const ::std::string& value) {
+    inline void QuestionWord::set_m_user_type(const ::std::string& value) {
         set_has_m_user_type();
         if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_user_type_ = new ::std::string;
         }
         m_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.m_user_type)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.m_user_type)
     }
-    inline void QuestionSpecial::set_m_user_type(const char* value) {
+    inline void QuestionWord::set_m_user_type(const char* value) {
         set_has_m_user_type();
         if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_user_type_ = new ::std::string;
         }
         m_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.m_user_type)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.m_user_type)
     }
-    inline void QuestionSpecial::set_m_user_type(const char* value, size_t size) {
+    inline void QuestionWord::set_m_user_type(const char* value, size_t size) {
         set_has_m_user_type();
         if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_user_type_ = new ::std::string;
         }
         m_user_type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.m_user_type)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.m_user_type)
     }
-    inline ::std::string* QuestionSpecial::mutable_m_user_type() {
+    inline ::std::string* QuestionWord::mutable_m_user_type() {
         set_has_m_user_type();
         if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             m_user_type_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.m_user_type)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.m_user_type)
         return m_user_type_;
     }
-    inline ::std::string* QuestionSpecial::release_m_user_type() {
+    inline ::std::string* QuestionWord::release_m_user_type() {
         clear_has_m_user_type();
         if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -6083,7 +6345,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_m_user_type(::std::string* m_user_type) {
+    inline void QuestionWord::set_allocated_m_user_type(::std::string* m_user_type) {
         if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete m_user_type_;
         }
@@ -6094,62 +6356,62 @@ namespace QSChat {
             clear_has_m_user_type();
             m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.m_user_type)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.m_user_type)
     }
     
-    // required string device_udid = 18;
-    inline bool QuestionSpecial::has_device_udid() const {
-        return (_has_bits_[0] & 0x00020000u) != 0;
+    // optional string device_udid = 14;
+    inline bool QuestionWord::has_device_udid() const {
+        return (_has_bits_[0] & 0x00002000u) != 0;
     }
-    inline void QuestionSpecial::set_has_device_udid() {
-        _has_bits_[0] |= 0x00020000u;
+    inline void QuestionWord::set_has_device_udid() {
+        _has_bits_[0] |= 0x00002000u;
     }
-    inline void QuestionSpecial::clear_has_device_udid() {
-        _has_bits_[0] &= ~0x00020000u;
+    inline void QuestionWord::clear_has_device_udid() {
+        _has_bits_[0] &= ~0x00002000u;
     }
-    inline void QuestionSpecial::clear_device_udid() {
+    inline void QuestionWord::clear_device_udid() {
         if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_->clear();
         }
         clear_has_device_udid();
     }
-    inline const ::std::string& QuestionSpecial::device_udid() const {
-        // @@protoc_insertion_point(field_get:QSChat.QuestionSpecial.device_udid)
+    inline const ::std::string& QuestionWord::device_udid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionWord.device_udid)
         return *device_udid_;
     }
-    inline void QuestionSpecial::set_device_udid(const ::std::string& value) {
+    inline void QuestionWord::set_device_udid(const ::std::string& value) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.QuestionSpecial.device_udid)
+        // @@protoc_insertion_point(field_set:QSChat.QuestionWord.device_udid)
     }
-    inline void QuestionSpecial::set_device_udid(const char* value) {
+    inline void QuestionWord::set_device_udid(const char* value) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.QuestionSpecial.device_udid)
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionWord.device_udid)
     }
-    inline void QuestionSpecial::set_device_udid(const char* value, size_t size) {
+    inline void QuestionWord::set_device_udid(const char* value, size_t size) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionSpecial.device_udid)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionWord.device_udid)
     }
-    inline ::std::string* QuestionSpecial::mutable_device_udid() {
+    inline ::std::string* QuestionWord::mutable_device_udid() {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.QuestionSpecial.device_udid)
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionWord.device_udid)
         return device_udid_;
     }
-    inline ::std::string* QuestionSpecial::release_device_udid() {
+    inline ::std::string* QuestionWord::release_device_udid() {
         clear_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -6159,7 +6421,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void QuestionSpecial::set_allocated_device_udid(::std::string* device_udid) {
+    inline void QuestionWord::set_allocated_device_udid(::std::string* device_udid) {
         if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete device_udid_;
         }
@@ -6170,7 +6432,7 @@ namespace QSChat {
             clear_has_device_udid();
             device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionSpecial.device_udid)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionWord.device_udid)
     }
     
     // -------------------------------------------------------------------
@@ -7010,7 +7272,7 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionPic.m_user_type)
     }
     
-    // required string device_udid = 14;
+    // optional string device_udid = 14;
     inline bool QuestionPic::has_device_udid() const {
         return (_has_bits_[0] & 0x00002000u) != 0;
     }
@@ -7923,7 +8185,7 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionVideo.m_user_type)
     }
     
-    // required string device_udid = 14;
+    // optional string device_udid = 14;
     inline bool QuestionVideo::has_device_udid() const {
         return (_has_bits_[0] & 0x00002000u) != 0;
     }
@@ -7997,6 +8259,1983 @@ namespace QSChat {
             device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
         // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionVideo.device_udid)
+    }
+    
+    // -------------------------------------------------------------------
+    
+    // QuestionRecommendHouse
+    
+    // required int64 mid = 1;
+    inline bool QuestionRecommendHouse::has_mid() const {
+        return (_has_bits_[0] & 0x00000001u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_mid() {
+        _has_bits_[0] |= 0x00000001u;
+    }
+    inline void QuestionRecommendHouse::clear_has_mid() {
+        _has_bits_[0] &= ~0x00000001u;
+    }
+    inline void QuestionRecommendHouse::clear_mid() {
+        mid_ = GOOGLE_LONGLONG(0);
+        clear_has_mid();
+    }
+    inline ::google::protobuf::int64 QuestionRecommendHouse::mid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.mid)
+        return mid_;
+    }
+    inline void QuestionRecommendHouse::set_mid(::google::protobuf::int64 value) {
+        set_has_mid();
+        mid_ = value;
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.mid)
+    }
+    
+    // required int64 tid = 2;
+    inline bool QuestionRecommendHouse::has_tid() const {
+        return (_has_bits_[0] & 0x00000002u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_tid() {
+        _has_bits_[0] |= 0x00000002u;
+    }
+    inline void QuestionRecommendHouse::clear_has_tid() {
+        _has_bits_[0] &= ~0x00000002u;
+    }
+    inline void QuestionRecommendHouse::clear_tid() {
+        tid_ = GOOGLE_LONGLONG(0);
+        clear_has_tid();
+    }
+    inline ::google::protobuf::int64 QuestionRecommendHouse::tid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.tid)
+        return tid_;
+    }
+    inline void QuestionRecommendHouse::set_tid(::google::protobuf::int64 value) {
+        set_has_tid();
+        tid_ = value;
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.tid)
+    }
+    
+    // required .QSChat.ChatRequestType ctype = 3;
+    inline bool QuestionRecommendHouse::has_ctype() const {
+        return (_has_bits_[0] & 0x00000004u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_ctype() {
+        _has_bits_[0] |= 0x00000004u;
+    }
+    inline void QuestionRecommendHouse::clear_has_ctype() {
+        _has_bits_[0] &= ~0x00000004u;
+    }
+    inline void QuestionRecommendHouse::clear_ctype() {
+        ctype_ = 8000;
+        clear_has_ctype();
+    }
+    inline ::QSChat::ChatRequestType QuestionRecommendHouse::ctype() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.ctype)
+        return static_cast< ::QSChat::ChatRequestType >(ctype_);
+    }
+    inline void QuestionRecommendHouse::set_ctype(::QSChat::ChatRequestType value) {
+        assert(::QSChat::ChatRequestType_IsValid(value));
+        set_has_ctype();
+        ctype_ = value;
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.ctype)
+    }
+    
+    // required string house_id = 4;
+    inline bool QuestionRecommendHouse::has_house_id() const {
+        return (_has_bits_[0] & 0x00000008u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_id() {
+        _has_bits_[0] |= 0x00000008u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_id() {
+        _has_bits_[0] &= ~0x00000008u;
+    }
+    inline void QuestionRecommendHouse::clear_house_id() {
+        if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_->clear();
+        }
+        clear_has_house_id();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_id)
+        return *house_id_;
+    }
+    inline void QuestionRecommendHouse::set_house_id(const ::std::string& value) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
+        }
+        house_id_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_id)
+    }
+    inline void QuestionRecommendHouse::set_house_id(const char* value) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
+        }
+        house_id_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_id)
+    }
+    inline void QuestionRecommendHouse::set_house_id(const char* value, size_t size) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
+        }
+        house_id_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_id)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_id() {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_id)
+        return house_id_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_id() {
+        clear_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_id_;
+            house_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_id(::std::string* house_id) {
+        if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_id_;
+        }
+        if (house_id) {
+            set_has_house_id();
+            house_id_ = house_id;
+        } else {
+            clear_has_house_id();
+            house_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_id)
+    }
+    
+    // optional string building_id = 5;
+    inline bool QuestionRecommendHouse::has_building_id() const {
+        return (_has_bits_[0] & 0x00000010u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_building_id() {
+        _has_bits_[0] |= 0x00000010u;
+    }
+    inline void QuestionRecommendHouse::clear_has_building_id() {
+        _has_bits_[0] &= ~0x00000010u;
+    }
+    inline void QuestionRecommendHouse::clear_building_id() {
+        if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_->clear();
+        }
+        clear_has_building_id();
+    }
+    inline const ::std::string& QuestionRecommendHouse::building_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.building_id)
+        return *building_id_;
+    }
+    inline void QuestionRecommendHouse::set_building_id(const ::std::string& value) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.building_id)
+    }
+    inline void QuestionRecommendHouse::set_building_id(const char* value) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.building_id)
+    }
+    inline void QuestionRecommendHouse::set_building_id(const char* value, size_t size) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.building_id)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_building_id() {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.building_id)
+        return building_id_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_building_id() {
+        clear_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = building_id_;
+            building_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_building_id(::std::string* building_id) {
+        if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete building_id_;
+        }
+        if (building_id) {
+            set_has_building_id();
+            building_id_ = building_id;
+        } else {
+            clear_has_building_id();
+            building_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.building_id)
+    }
+    
+    // required string house_type = 6;
+    inline bool QuestionRecommendHouse::has_house_type() const {
+        return (_has_bits_[0] & 0x00000020u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_type() {
+        _has_bits_[0] |= 0x00000020u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_type() {
+        _has_bits_[0] &= ~0x00000020u;
+    }
+    inline void QuestionRecommendHouse::clear_house_type() {
+        if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_->clear();
+        }
+        clear_has_house_type();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_type)
+        return *house_type_;
+    }
+    inline void QuestionRecommendHouse::set_house_type(const ::std::string& value) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_type)
+    }
+    inline void QuestionRecommendHouse::set_house_type(const char* value) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_type)
+    }
+    inline void QuestionRecommendHouse::set_house_type(const char* value, size_t size) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_type)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_type() {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_type)
+        return house_type_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_type() {
+        clear_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_type_;
+            house_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_type(::std::string* house_type) {
+        if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_type_;
+        }
+        if (house_type) {
+            set_has_house_type();
+            house_type_ = house_type;
+        } else {
+            clear_has_house_type();
+            house_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_type)
+    }
+    
+    // required string attach_file = 7;
+    inline bool QuestionRecommendHouse::has_attach_file() const {
+        return (_has_bits_[0] & 0x00000040u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_attach_file() {
+        _has_bits_[0] |= 0x00000040u;
+    }
+    inline void QuestionRecommendHouse::clear_has_attach_file() {
+        _has_bits_[0] &= ~0x00000040u;
+    }
+    inline void QuestionRecommendHouse::clear_attach_file() {
+        if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_->clear();
+        }
+        clear_has_attach_file();
+    }
+    inline const ::std::string& QuestionRecommendHouse::attach_file() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.attach_file)
+        return *attach_file_;
+    }
+    inline void QuestionRecommendHouse::set_attach_file(const ::std::string& value) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.attach_file)
+    }
+    inline void QuestionRecommendHouse::set_attach_file(const char* value) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.attach_file)
+    }
+    inline void QuestionRecommendHouse::set_attach_file(const char* value, size_t size) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.attach_file)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_attach_file() {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.attach_file)
+        return attach_file_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_attach_file() {
+        clear_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = attach_file_;
+            attach_file_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_attach_file(::std::string* attach_file) {
+        if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_file_;
+        }
+        if (attach_file) {
+            set_has_attach_file();
+            attach_file_ = attach_file;
+        } else {
+            clear_has_attach_file();
+            attach_file_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.attach_file)
+    }
+    
+    // required string attach_thumb = 8;
+    inline bool QuestionRecommendHouse::has_attach_thumb() const {
+        return (_has_bits_[0] & 0x00000080u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_attach_thumb() {
+        _has_bits_[0] |= 0x00000080u;
+    }
+    inline void QuestionRecommendHouse::clear_has_attach_thumb() {
+        _has_bits_[0] &= ~0x00000080u;
+    }
+    inline void QuestionRecommendHouse::clear_attach_thumb() {
+        if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_->clear();
+        }
+        clear_has_attach_thumb();
+    }
+    inline const ::std::string& QuestionRecommendHouse::attach_thumb() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.attach_thumb)
+        return *attach_thumb_;
+    }
+    inline void QuestionRecommendHouse::set_attach_thumb(const ::std::string& value) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.attach_thumb)
+    }
+    inline void QuestionRecommendHouse::set_attach_thumb(const char* value) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.attach_thumb)
+    }
+    inline void QuestionRecommendHouse::set_attach_thumb(const char* value, size_t size) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.attach_thumb)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_attach_thumb() {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.attach_thumb)
+        return attach_thumb_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_attach_thumb() {
+        clear_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = attach_thumb_;
+            attach_thumb_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_attach_thumb(::std::string* attach_thumb) {
+        if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_thumb_;
+        }
+        if (attach_thumb) {
+            set_has_attach_thumb();
+            attach_thumb_ = attach_thumb;
+        } else {
+            clear_has_attach_thumb();
+            attach_thumb_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.attach_thumb)
+    }
+    
+    // required string areaid = 9;
+    inline bool QuestionRecommendHouse::has_areaid() const {
+        return (_has_bits_[0] & 0x00000100u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_areaid() {
+        _has_bits_[0] |= 0x00000100u;
+    }
+    inline void QuestionRecommendHouse::clear_has_areaid() {
+        _has_bits_[0] &= ~0x00000100u;
+    }
+    inline void QuestionRecommendHouse::clear_areaid() {
+        if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_->clear();
+        }
+        clear_has_areaid();
+    }
+    inline const ::std::string& QuestionRecommendHouse::areaid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.areaid)
+        return *areaid_;
+    }
+    inline void QuestionRecommendHouse::set_areaid(const ::std::string& value) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.areaid)
+    }
+    inline void QuestionRecommendHouse::set_areaid(const char* value) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.areaid)
+    }
+    inline void QuestionRecommendHouse::set_areaid(const char* value, size_t size) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.areaid)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_areaid() {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.areaid)
+        return areaid_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_areaid() {
+        clear_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = areaid_;
+            areaid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_areaid(::std::string* areaid) {
+        if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete areaid_;
+        }
+        if (areaid) {
+            set_has_areaid();
+            areaid_ = areaid;
+        } else {
+            clear_has_areaid();
+            areaid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.areaid)
+    }
+    
+    // required string area_val = 10;
+    inline bool QuestionRecommendHouse::has_area_val() const {
+        return (_has_bits_[0] & 0x00000200u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_area_val() {
+        _has_bits_[0] |= 0x00000200u;
+    }
+    inline void QuestionRecommendHouse::clear_has_area_val() {
+        _has_bits_[0] &= ~0x00000200u;
+    }
+    inline void QuestionRecommendHouse::clear_area_val() {
+        if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_->clear();
+        }
+        clear_has_area_val();
+    }
+    inline const ::std::string& QuestionRecommendHouse::area_val() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.area_val)
+        return *area_val_;
+    }
+    inline void QuestionRecommendHouse::set_area_val(const ::std::string& value) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.area_val)
+    }
+    inline void QuestionRecommendHouse::set_area_val(const char* value) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.area_val)
+    }
+    inline void QuestionRecommendHouse::set_area_val(const char* value, size_t size) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.area_val)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_area_val() {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.area_val)
+        return area_val_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_area_val() {
+        clear_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = area_val_;
+            area_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_area_val(::std::string* area_val) {
+        if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete area_val_;
+        }
+        if (area_val) {
+            set_has_area_val();
+            area_val_ = area_val;
+        } else {
+            clear_has_area_val();
+            area_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.area_val)
+    }
+    
+    // required string streetid = 11;
+    inline bool QuestionRecommendHouse::has_streetid() const {
+        return (_has_bits_[0] & 0x00000400u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_streetid() {
+        _has_bits_[0] |= 0x00000400u;
+    }
+    inline void QuestionRecommendHouse::clear_has_streetid() {
+        _has_bits_[0] &= ~0x00000400u;
+    }
+    inline void QuestionRecommendHouse::clear_streetid() {
+        if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_->clear();
+        }
+        clear_has_streetid();
+    }
+    inline const ::std::string& QuestionRecommendHouse::streetid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.streetid)
+        return *streetid_;
+    }
+    inline void QuestionRecommendHouse::set_streetid(const ::std::string& value) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.streetid)
+    }
+    inline void QuestionRecommendHouse::set_streetid(const char* value) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.streetid)
+    }
+    inline void QuestionRecommendHouse::set_streetid(const char* value, size_t size) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.streetid)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_streetid() {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.streetid)
+        return streetid_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_streetid() {
+        clear_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = streetid_;
+            streetid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_streetid(::std::string* streetid) {
+        if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete streetid_;
+        }
+        if (streetid) {
+            set_has_streetid();
+            streetid_ = streetid;
+        } else {
+            clear_has_streetid();
+            streetid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.streetid)
+    }
+    
+    // required string street_val = 12;
+    inline bool QuestionRecommendHouse::has_street_val() const {
+        return (_has_bits_[0] & 0x00000800u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_street_val() {
+        _has_bits_[0] |= 0x00000800u;
+    }
+    inline void QuestionRecommendHouse::clear_has_street_val() {
+        _has_bits_[0] &= ~0x00000800u;
+    }
+    inline void QuestionRecommendHouse::clear_street_val() {
+        if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_->clear();
+        }
+        clear_has_street_val();
+    }
+    inline const ::std::string& QuestionRecommendHouse::street_val() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.street_val)
+        return *street_val_;
+    }
+    inline void QuestionRecommendHouse::set_street_val(const ::std::string& value) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.street_val)
+    }
+    inline void QuestionRecommendHouse::set_street_val(const char* value) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.street_val)
+    }
+    inline void QuestionRecommendHouse::set_street_val(const char* value, size_t size) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.street_val)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_street_val() {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.street_val)
+        return street_val_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_street_val() {
+        clear_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = street_val_;
+            street_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_street_val(::std::string* street_val) {
+        if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete street_val_;
+        }
+        if (street_val) {
+            set_has_street_val();
+            street_val_ = street_val;
+        } else {
+            clear_has_street_val();
+            street_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.street_val)
+    }
+    
+    // required string house_shi = 13;
+    inline bool QuestionRecommendHouse::has_house_shi() const {
+        return (_has_bits_[0] & 0x00001000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_shi() {
+        _has_bits_[0] |= 0x00001000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_shi() {
+        _has_bits_[0] &= ~0x00001000u;
+    }
+    inline void QuestionRecommendHouse::clear_house_shi() {
+        if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_->clear();
+        }
+        clear_has_house_shi();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_shi() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_shi)
+        return *house_shi_;
+    }
+    inline void QuestionRecommendHouse::set_house_shi(const ::std::string& value) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_shi)
+    }
+    inline void QuestionRecommendHouse::set_house_shi(const char* value) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_shi)
+    }
+    inline void QuestionRecommendHouse::set_house_shi(const char* value, size_t size) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_shi)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_shi() {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_shi)
+        return house_shi_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_shi() {
+        clear_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_shi_;
+            house_shi_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_shi(::std::string* house_shi) {
+        if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_shi_;
+        }
+        if (house_shi) {
+            set_has_house_shi();
+            house_shi_ = house_shi;
+        } else {
+            clear_has_house_shi();
+            house_shi_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_shi)
+    }
+    
+    // required string house_ting = 14;
+    inline bool QuestionRecommendHouse::has_house_ting() const {
+        return (_has_bits_[0] & 0x00002000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_ting() {
+        _has_bits_[0] |= 0x00002000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_ting() {
+        _has_bits_[0] &= ~0x00002000u;
+    }
+    inline void QuestionRecommendHouse::clear_house_ting() {
+        if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_->clear();
+        }
+        clear_has_house_ting();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_ting() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_ting)
+        return *house_ting_;
+    }
+    inline void QuestionRecommendHouse::set_house_ting(const ::std::string& value) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_ting)
+    }
+    inline void QuestionRecommendHouse::set_house_ting(const char* value) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_ting)
+    }
+    inline void QuestionRecommendHouse::set_house_ting(const char* value, size_t size) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_ting)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_ting() {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_ting)
+        return house_ting_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_ting() {
+        clear_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_ting_;
+            house_ting_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_ting(::std::string* house_ting) {
+        if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_ting_;
+        }
+        if (house_ting) {
+            set_has_house_ting();
+            house_ting_ = house_ting;
+        } else {
+            clear_has_house_ting();
+            house_ting_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_ting)
+    }
+    
+    // required string house_area = 15;
+    inline bool QuestionRecommendHouse::has_house_area() const {
+        return (_has_bits_[0] & 0x00004000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_area() {
+        _has_bits_[0] |= 0x00004000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_area() {
+        _has_bits_[0] &= ~0x00004000u;
+    }
+    inline void QuestionRecommendHouse::clear_house_area() {
+        if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_->clear();
+        }
+        clear_has_house_area();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_area() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_area)
+        return *house_area_;
+    }
+    inline void QuestionRecommendHouse::set_house_area(const ::std::string& value) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_area)
+    }
+    inline void QuestionRecommendHouse::set_house_area(const char* value) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_area)
+    }
+    inline void QuestionRecommendHouse::set_house_area(const char* value, size_t size) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_area)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_area() {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_area)
+        return house_area_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_area() {
+        clear_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_area_;
+            house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_area(::std::string* house_area) {
+        if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_area_;
+        }
+        if (house_area) {
+            set_has_house_area();
+            house_area_ = house_area;
+        } else {
+            clear_has_house_area();
+            house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_area)
+    }
+    
+    // optional string house_price = 16;
+    inline bool QuestionRecommendHouse::has_house_price() const {
+        return (_has_bits_[0] & 0x00008000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_house_price() {
+        _has_bits_[0] |= 0x00008000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_house_price() {
+        _has_bits_[0] &= ~0x00008000u;
+    }
+    inline void QuestionRecommendHouse::clear_house_price() {
+        if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_->clear();
+        }
+        clear_has_house_price();
+    }
+    inline const ::std::string& QuestionRecommendHouse::house_price() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.house_price)
+        return *house_price_;
+    }
+    inline void QuestionRecommendHouse::set_house_price(const ::std::string& value) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.house_price)
+    }
+    inline void QuestionRecommendHouse::set_house_price(const char* value) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.house_price)
+    }
+    inline void QuestionRecommendHouse::set_house_price(const char* value, size_t size) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.house_price)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_house_price() {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.house_price)
+        return house_price_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_house_price() {
+        clear_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_price_;
+            house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_house_price(::std::string* house_price) {
+        if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_price_;
+        }
+        if (house_price) {
+            set_has_house_price();
+            house_price_ = house_price;
+        } else {
+            clear_has_house_price();
+            house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.house_price)
+    }
+    
+    // optional string rent_price = 17;
+    inline bool QuestionRecommendHouse::has_rent_price() const {
+        return (_has_bits_[0] & 0x00010000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_rent_price() {
+        _has_bits_[0] |= 0x00010000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_rent_price() {
+        _has_bits_[0] &= ~0x00010000u;
+    }
+    inline void QuestionRecommendHouse::clear_rent_price() {
+        if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_->clear();
+        }
+        clear_has_rent_price();
+    }
+    inline const ::std::string& QuestionRecommendHouse::rent_price() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.rent_price)
+        return *rent_price_;
+    }
+    inline void QuestionRecommendHouse::set_rent_price(const ::std::string& value) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.rent_price)
+    }
+    inline void QuestionRecommendHouse::set_rent_price(const char* value) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.rent_price)
+    }
+    inline void QuestionRecommendHouse::set_rent_price(const char* value, size_t size) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.rent_price)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_rent_price() {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.rent_price)
+        return rent_price_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_rent_price() {
+        clear_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = rent_price_;
+            rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_rent_price(::std::string* rent_price) {
+        if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete rent_price_;
+        }
+        if (rent_price) {
+            set_has_rent_price();
+            rent_price_ = rent_price;
+        } else {
+            clear_has_rent_price();
+            rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.rent_price)
+    }
+    
+    // required string title = 18;
+    inline bool QuestionRecommendHouse::has_title() const {
+        return (_has_bits_[0] & 0x00020000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_title() {
+        _has_bits_[0] |= 0x00020000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_title() {
+        _has_bits_[0] &= ~0x00020000u;
+    }
+    inline void QuestionRecommendHouse::clear_title() {
+        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_->clear();
+        }
+        clear_has_title();
+    }
+    inline const ::std::string& QuestionRecommendHouse::title() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.title)
+        return *title_;
+    }
+    inline void QuestionRecommendHouse::set_title(const ::std::string& value) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.title)
+    }
+    inline void QuestionRecommendHouse::set_title(const char* value) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.title)
+    }
+    inline void QuestionRecommendHouse::set_title(const char* value, size_t size) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.title)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_title() {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.title)
+        return title_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_title() {
+        clear_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = title_;
+            title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_title(::std::string* title) {
+        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete title_;
+        }
+        if (title) {
+            set_has_title();
+            title_ = title;
+        } else {
+            clear_has_title();
+            title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.title)
+    }
+    
+    // required string time_stamp = 19;
+    inline bool QuestionRecommendHouse::has_time_stamp() const {
+        return (_has_bits_[0] & 0x00040000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_time_stamp() {
+        _has_bits_[0] |= 0x00040000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_time_stamp() {
+        _has_bits_[0] &= ~0x00040000u;
+    }
+    inline void QuestionRecommendHouse::clear_time_stamp() {
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_->clear();
+        }
+        clear_has_time_stamp();
+    }
+    inline const ::std::string& QuestionRecommendHouse::time_stamp() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.time_stamp)
+        return *time_stamp_;
+    }
+    inline void QuestionRecommendHouse::set_time_stamp(const ::std::string& value) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.time_stamp)
+    }
+    inline void QuestionRecommendHouse::set_time_stamp(const char* value) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.time_stamp)
+    }
+    inline void QuestionRecommendHouse::set_time_stamp(const char* value, size_t size) {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        time_stamp_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.time_stamp)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_time_stamp() {
+        set_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            time_stamp_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.time_stamp)
+        return time_stamp_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_time_stamp() {
+        clear_has_time_stamp();
+        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = time_stamp_;
+            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_time_stamp(::std::string* time_stamp) {
+        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete time_stamp_;
+        }
+        if (time_stamp) {
+            set_has_time_stamp();
+            time_stamp_ = time_stamp;
+        } else {
+            clear_has_time_stamp();
+            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.time_stamp)
+    }
+    
+    // required string t_avatar = 20;
+    inline bool QuestionRecommendHouse::has_t_avatar() const {
+        return (_has_bits_[0] & 0x00080000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_t_avatar() {
+        _has_bits_[0] |= 0x00080000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_t_avatar() {
+        _has_bits_[0] &= ~0x00080000u;
+    }
+    inline void QuestionRecommendHouse::clear_t_avatar() {
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_avatar_->clear();
+        }
+        clear_has_t_avatar();
+    }
+    inline const ::std::string& QuestionRecommendHouse::t_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.t_avatar)
+        return *t_avatar_;
+    }
+    inline void QuestionRecommendHouse::set_t_avatar(const ::std::string& value) {
+        set_has_t_avatar();
+        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_avatar_ = new ::std::string;
+        }
+        t_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.t_avatar)
+    }
+    inline void QuestionRecommendHouse::set_t_avatar(const char* value) {
+        set_has_t_avatar();
+        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_avatar_ = new ::std::string;
+        }
+        t_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.t_avatar)
+    }
+    inline void QuestionRecommendHouse::set_t_avatar(const char* value, size_t size) {
+        set_has_t_avatar();
+        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_avatar_ = new ::std::string;
+        }
+        t_avatar_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.t_avatar)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_t_avatar() {
+        set_has_t_avatar();
+        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_avatar_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.t_avatar)
+        return t_avatar_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_t_avatar() {
+        clear_has_t_avatar();
+        if (t_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = t_avatar_;
+            t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_t_avatar(::std::string* t_avatar) {
+        if (t_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_avatar_;
+        }
+        if (t_avatar) {
+            set_has_t_avatar();
+            t_avatar_ = t_avatar;
+        } else {
+            clear_has_t_avatar();
+            t_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.t_avatar)
+    }
+    
+    // required string t_name = 21;
+    inline bool QuestionRecommendHouse::has_t_name() const {
+        return (_has_bits_[0] & 0x00100000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_t_name() {
+        _has_bits_[0] |= 0x00100000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_t_name() {
+        _has_bits_[0] &= ~0x00100000u;
+    }
+    inline void QuestionRecommendHouse::clear_t_name() {
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_name_->clear();
+        }
+        clear_has_t_name();
+    }
+    inline const ::std::string& QuestionRecommendHouse::t_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.t_name)
+        return *t_name_;
+    }
+    inline void QuestionRecommendHouse::set_t_name(const ::std::string& value) {
+        set_has_t_name();
+        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_name_ = new ::std::string;
+        }
+        t_name_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.t_name)
+    }
+    inline void QuestionRecommendHouse::set_t_name(const char* value) {
+        set_has_t_name();
+        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_name_ = new ::std::string;
+        }
+        t_name_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.t_name)
+    }
+    inline void QuestionRecommendHouse::set_t_name(const char* value, size_t size) {
+        set_has_t_name();
+        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_name_ = new ::std::string;
+        }
+        t_name_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.t_name)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_t_name() {
+        set_has_t_name();
+        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_name_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.t_name)
+        return t_name_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_t_name() {
+        clear_has_t_name();
+        if (t_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = t_name_;
+            t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_t_name(::std::string* t_name) {
+        if (t_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_name_;
+        }
+        if (t_name) {
+            set_has_t_name();
+            t_name_ = t_name;
+        } else {
+            clear_has_t_name();
+            t_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.t_name)
+    }
+    
+    // required string t_leve = 22;
+    inline bool QuestionRecommendHouse::has_t_leve() const {
+        return (_has_bits_[0] & 0x00200000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_t_leve() {
+        _has_bits_[0] |= 0x00200000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_t_leve() {
+        _has_bits_[0] &= ~0x00200000u;
+    }
+    inline void QuestionRecommendHouse::clear_t_leve() {
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_leve_->clear();
+        }
+        clear_has_t_leve();
+    }
+    inline const ::std::string& QuestionRecommendHouse::t_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.t_leve)
+        return *t_leve_;
+    }
+    inline void QuestionRecommendHouse::set_t_leve(const ::std::string& value) {
+        set_has_t_leve();
+        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_leve_ = new ::std::string;
+        }
+        t_leve_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.t_leve)
+    }
+    inline void QuestionRecommendHouse::set_t_leve(const char* value) {
+        set_has_t_leve();
+        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_leve_ = new ::std::string;
+        }
+        t_leve_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.t_leve)
+    }
+    inline void QuestionRecommendHouse::set_t_leve(const char* value, size_t size) {
+        set_has_t_leve();
+        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_leve_ = new ::std::string;
+        }
+        t_leve_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.t_leve)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_t_leve() {
+        set_has_t_leve();
+        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_leve_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.t_leve)
+        return t_leve_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_t_leve() {
+        clear_has_t_leve();
+        if (t_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = t_leve_;
+            t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_t_leve(::std::string* t_leve) {
+        if (t_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_leve_;
+        }
+        if (t_leve) {
+            set_has_t_leve();
+            t_leve_ = t_leve;
+        } else {
+            clear_has_t_leve();
+            t_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.t_leve)
+    }
+    
+    // required string t_user_type = 23;
+    inline bool QuestionRecommendHouse::has_t_user_type() const {
+        return (_has_bits_[0] & 0x00400000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_t_user_type() {
+        _has_bits_[0] |= 0x00400000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_t_user_type() {
+        _has_bits_[0] &= ~0x00400000u;
+    }
+    inline void QuestionRecommendHouse::clear_t_user_type() {
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_user_type_->clear();
+        }
+        clear_has_t_user_type();
+    }
+    inline const ::std::string& QuestionRecommendHouse::t_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.t_user_type)
+        return *t_user_type_;
+    }
+    inline void QuestionRecommendHouse::set_t_user_type(const ::std::string& value) {
+        set_has_t_user_type();
+        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_user_type_ = new ::std::string;
+        }
+        t_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.t_user_type)
+    }
+    inline void QuestionRecommendHouse::set_t_user_type(const char* value) {
+        set_has_t_user_type();
+        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_user_type_ = new ::std::string;
+        }
+        t_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.t_user_type)
+    }
+    inline void QuestionRecommendHouse::set_t_user_type(const char* value, size_t size) {
+        set_has_t_user_type();
+        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_user_type_ = new ::std::string;
+        }
+        t_user_type_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.t_user_type)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_t_user_type() {
+        set_has_t_user_type();
+        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            t_user_type_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.t_user_type)
+        return t_user_type_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_t_user_type() {
+        clear_has_t_user_type();
+        if (t_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = t_user_type_;
+            t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_t_user_type(::std::string* t_user_type) {
+        if (t_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete t_user_type_;
+        }
+        if (t_user_type) {
+            set_has_t_user_type();
+            t_user_type_ = t_user_type;
+        } else {
+            clear_has_t_user_type();
+            t_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.t_user_type)
+    }
+    
+    // required string m_avatar = 24;
+    inline bool QuestionRecommendHouse::has_m_avatar() const {
+        return (_has_bits_[0] & 0x00800000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_m_avatar() {
+        _has_bits_[0] |= 0x00800000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_m_avatar() {
+        _has_bits_[0] &= ~0x00800000u;
+    }
+    inline void QuestionRecommendHouse::clear_m_avatar() {
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_avatar_->clear();
+        }
+        clear_has_m_avatar();
+    }
+    inline const ::std::string& QuestionRecommendHouse::m_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.m_avatar)
+        return *m_avatar_;
+    }
+    inline void QuestionRecommendHouse::set_m_avatar(const ::std::string& value) {
+        set_has_m_avatar();
+        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_avatar_ = new ::std::string;
+        }
+        m_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.m_avatar)
+    }
+    inline void QuestionRecommendHouse::set_m_avatar(const char* value) {
+        set_has_m_avatar();
+        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_avatar_ = new ::std::string;
+        }
+        m_avatar_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.m_avatar)
+    }
+    inline void QuestionRecommendHouse::set_m_avatar(const char* value, size_t size) {
+        set_has_m_avatar();
+        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_avatar_ = new ::std::string;
+        }
+        m_avatar_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.m_avatar)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_m_avatar() {
+        set_has_m_avatar();
+        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_avatar_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.m_avatar)
+        return m_avatar_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_m_avatar() {
+        clear_has_m_avatar();
+        if (m_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = m_avatar_;
+            m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_m_avatar(::std::string* m_avatar) {
+        if (m_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_avatar_;
+        }
+        if (m_avatar) {
+            set_has_m_avatar();
+            m_avatar_ = m_avatar;
+        } else {
+            clear_has_m_avatar();
+            m_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.m_avatar)
+    }
+    
+    // required string m_name = 25;
+    inline bool QuestionRecommendHouse::has_m_name() const {
+        return (_has_bits_[0] & 0x01000000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_m_name() {
+        _has_bits_[0] |= 0x01000000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_m_name() {
+        _has_bits_[0] &= ~0x01000000u;
+    }
+    inline void QuestionRecommendHouse::clear_m_name() {
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_name_->clear();
+        }
+        clear_has_m_name();
+    }
+    inline const ::std::string& QuestionRecommendHouse::m_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.m_name)
+        return *m_name_;
+    }
+    inline void QuestionRecommendHouse::set_m_name(const ::std::string& value) {
+        set_has_m_name();
+        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_name_ = new ::std::string;
+        }
+        m_name_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.m_name)
+    }
+    inline void QuestionRecommendHouse::set_m_name(const char* value) {
+        set_has_m_name();
+        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_name_ = new ::std::string;
+        }
+        m_name_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.m_name)
+    }
+    inline void QuestionRecommendHouse::set_m_name(const char* value, size_t size) {
+        set_has_m_name();
+        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_name_ = new ::std::string;
+        }
+        m_name_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.m_name)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_m_name() {
+        set_has_m_name();
+        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_name_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.m_name)
+        return m_name_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_m_name() {
+        clear_has_m_name();
+        if (m_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = m_name_;
+            m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_m_name(::std::string* m_name) {
+        if (m_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_name_;
+        }
+        if (m_name) {
+            set_has_m_name();
+            m_name_ = m_name;
+        } else {
+            clear_has_m_name();
+            m_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.m_name)
+    }
+    
+    // required string m_leve = 26;
+    inline bool QuestionRecommendHouse::has_m_leve() const {
+        return (_has_bits_[0] & 0x02000000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_m_leve() {
+        _has_bits_[0] |= 0x02000000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_m_leve() {
+        _has_bits_[0] &= ~0x02000000u;
+    }
+    inline void QuestionRecommendHouse::clear_m_leve() {
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_leve_->clear();
+        }
+        clear_has_m_leve();
+    }
+    inline const ::std::string& QuestionRecommendHouse::m_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.m_leve)
+        return *m_leve_;
+    }
+    inline void QuestionRecommendHouse::set_m_leve(const ::std::string& value) {
+        set_has_m_leve();
+        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_leve_ = new ::std::string;
+        }
+        m_leve_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.m_leve)
+    }
+    inline void QuestionRecommendHouse::set_m_leve(const char* value) {
+        set_has_m_leve();
+        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_leve_ = new ::std::string;
+        }
+        m_leve_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.m_leve)
+    }
+    inline void QuestionRecommendHouse::set_m_leve(const char* value, size_t size) {
+        set_has_m_leve();
+        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_leve_ = new ::std::string;
+        }
+        m_leve_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.m_leve)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_m_leve() {
+        set_has_m_leve();
+        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_leve_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.m_leve)
+        return m_leve_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_m_leve() {
+        clear_has_m_leve();
+        if (m_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = m_leve_;
+            m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_m_leve(::std::string* m_leve) {
+        if (m_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_leve_;
+        }
+        if (m_leve) {
+            set_has_m_leve();
+            m_leve_ = m_leve;
+        } else {
+            clear_has_m_leve();
+            m_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.m_leve)
+    }
+    
+    // required string m_user_type = 27;
+    inline bool QuestionRecommendHouse::has_m_user_type() const {
+        return (_has_bits_[0] & 0x04000000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_m_user_type() {
+        _has_bits_[0] |= 0x04000000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_m_user_type() {
+        _has_bits_[0] &= ~0x04000000u;
+    }
+    inline void QuestionRecommendHouse::clear_m_user_type() {
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_user_type_->clear();
+        }
+        clear_has_m_user_type();
+    }
+    inline const ::std::string& QuestionRecommendHouse::m_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.m_user_type)
+        return *m_user_type_;
+    }
+    inline void QuestionRecommendHouse::set_m_user_type(const ::std::string& value) {
+        set_has_m_user_type();
+        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_user_type_ = new ::std::string;
+        }
+        m_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.m_user_type)
+    }
+    inline void QuestionRecommendHouse::set_m_user_type(const char* value) {
+        set_has_m_user_type();
+        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_user_type_ = new ::std::string;
+        }
+        m_user_type_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.m_user_type)
+    }
+    inline void QuestionRecommendHouse::set_m_user_type(const char* value, size_t size) {
+        set_has_m_user_type();
+        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_user_type_ = new ::std::string;
+        }
+        m_user_type_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.m_user_type)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_m_user_type() {
+        set_has_m_user_type();
+        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            m_user_type_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.m_user_type)
+        return m_user_type_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_m_user_type() {
+        clear_has_m_user_type();
+        if (m_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = m_user_type_;
+            m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_m_user_type(::std::string* m_user_type) {
+        if (m_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete m_user_type_;
+        }
+        if (m_user_type) {
+            set_has_m_user_type();
+            m_user_type_ = m_user_type;
+        } else {
+            clear_has_m_user_type();
+            m_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.m_user_type)
+    }
+    
+    // optional string device_udid = 28;
+    inline bool QuestionRecommendHouse::has_device_udid() const {
+        return (_has_bits_[0] & 0x08000000u) != 0;
+    }
+    inline void QuestionRecommendHouse::set_has_device_udid() {
+        _has_bits_[0] |= 0x08000000u;
+    }
+    inline void QuestionRecommendHouse::clear_has_device_udid() {
+        _has_bits_[0] &= ~0x08000000u;
+    }
+    inline void QuestionRecommendHouse::clear_device_udid() {
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_->clear();
+        }
+        clear_has_device_udid();
+    }
+    inline const ::std::string& QuestionRecommendHouse::device_udid() const {
+        // @@protoc_insertion_point(field_get:QSChat.QuestionRecommendHouse.device_udid)
+        return *device_udid_;
+    }
+    inline void QuestionRecommendHouse::set_device_udid(const ::std::string& value) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
+        }
+        device_udid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.QuestionRecommendHouse.device_udid)
+    }
+    inline void QuestionRecommendHouse::set_device_udid(const char* value) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
+        }
+        device_udid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.QuestionRecommendHouse.device_udid)
+    }
+    inline void QuestionRecommendHouse::set_device_udid(const char* value, size_t size) {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
+        }
+        device_udid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.QuestionRecommendHouse.device_udid)
+    }
+    inline ::std::string* QuestionRecommendHouse::mutable_device_udid() {
+        set_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            device_udid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.QuestionRecommendHouse.device_udid)
+        return device_udid_;
+    }
+    inline ::std::string* QuestionRecommendHouse::release_device_udid() {
+        clear_has_device_udid();
+        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = device_udid_;
+            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void QuestionRecommendHouse::set_allocated_device_udid(::std::string* device_udid) {
+        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete device_udid_;
+        }
+        if (device_udid) {
+            set_has_device_udid();
+            device_udid_ = device_udid;
+        } else {
+            clear_has_device_udid();
+            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.QuestionRecommendHouse.device_udid)
     }
     
     // -------------------------------------------------------------------
@@ -10365,85 +12604,137 @@ namespace QSChat {
     
     // -------------------------------------------------------------------
     
-    // AnswerOnline
+    // AnswerRecommendHouse
     
-    // required int32 result = 1;
-    inline bool AnswerOnline::has_result() const {
+    // required string result = 1;
+    inline bool AnswerRecommendHouse::has_result() const {
         return (_has_bits_[0] & 0x00000001u) != 0;
     }
-    inline void AnswerOnline::set_has_result() {
+    inline void AnswerRecommendHouse::set_has_result() {
         _has_bits_[0] |= 0x00000001u;
     }
-    inline void AnswerOnline::clear_has_result() {
+    inline void AnswerRecommendHouse::clear_has_result() {
         _has_bits_[0] &= ~0x00000001u;
     }
-    inline void AnswerOnline::clear_result() {
-        result_ = 0;
+    inline void AnswerRecommendHouse::clear_result() {
+        if (result_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            result_->clear();
+        }
         clear_has_result();
     }
-    inline ::google::protobuf::int32 AnswerOnline::result() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.result)
+    inline const ::std::string& AnswerRecommendHouse::result() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.result)
+        return *result_;
+    }
+    inline void AnswerRecommendHouse::set_result(const ::std::string& value) {
+        set_has_result();
+        if (result_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            result_ = new ::std::string;
+        }
+        result_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.result)
+    }
+    inline void AnswerRecommendHouse::set_result(const char* value) {
+        set_has_result();
+        if (result_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            result_ = new ::std::string;
+        }
+        result_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.result)
+    }
+    inline void AnswerRecommendHouse::set_result(const char* value, size_t size) {
+        set_has_result();
+        if (result_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            result_ = new ::std::string;
+        }
+        result_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.result)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_result() {
+        set_has_result();
+        if (result_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            result_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.result)
         return result_;
     }
-    inline void AnswerOnline::set_result(::google::protobuf::int32 value) {
-        set_has_result();
-        result_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.result)
+    inline ::std::string* AnswerRecommendHouse::release_result() {
+        clear_has_result();
+        if (result_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = result_;
+            result_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_result(::std::string* result) {
+        if (result_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete result_;
+        }
+        if (result) {
+            set_has_result();
+            result_ = result;
+        } else {
+            clear_has_result();
+            result_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.result)
     }
     
     // required string msg_id = 2;
-    inline bool AnswerOnline::has_msg_id() const {
+    inline bool AnswerRecommendHouse::has_msg_id() const {
         return (_has_bits_[0] & 0x00000002u) != 0;
     }
-    inline void AnswerOnline::set_has_msg_id() {
+    inline void AnswerRecommendHouse::set_has_msg_id() {
         _has_bits_[0] |= 0x00000002u;
     }
-    inline void AnswerOnline::clear_has_msg_id() {
+    inline void AnswerRecommendHouse::clear_has_msg_id() {
         _has_bits_[0] &= ~0x00000002u;
     }
-    inline void AnswerOnline::clear_msg_id() {
+    inline void AnswerRecommendHouse::clear_msg_id() {
         if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             msg_id_->clear();
         }
         clear_has_msg_id();
     }
-    inline const ::std::string& AnswerOnline::msg_id() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.msg_id)
+    inline const ::std::string& AnswerRecommendHouse::msg_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.msg_id)
         return *msg_id_;
     }
-    inline void AnswerOnline::set_msg_id(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_msg_id(const ::std::string& value) {
         set_has_msg_id();
         if (msg_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             msg_id_ = new ::std::string;
         }
         msg_id_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.msg_id)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.msg_id)
     }
-    inline void AnswerOnline::set_msg_id(const char* value) {
+    inline void AnswerRecommendHouse::set_msg_id(const char* value) {
         set_has_msg_id();
         if (msg_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             msg_id_ = new ::std::string;
         }
         msg_id_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.msg_id)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.msg_id)
     }
-    inline void AnswerOnline::set_msg_id(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_msg_id(const char* value, size_t size) {
         set_has_msg_id();
         if (msg_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             msg_id_ = new ::std::string;
         }
         msg_id_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.msg_id)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.msg_id)
     }
-    inline ::std::string* AnswerOnline::mutable_msg_id() {
+    inline ::std::string* AnswerRecommendHouse::mutable_msg_id() {
         set_has_msg_id();
         if (msg_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             msg_id_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.msg_id)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.msg_id)
         return msg_id_;
     }
-    inline ::std::string* AnswerOnline::release_msg_id() {
+    inline ::std::string* AnswerRecommendHouse::release_msg_id() {
         clear_has_msg_id();
         if (msg_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10453,7 +12744,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_msg_id(::std::string* msg_id) {
+    inline void AnswerRecommendHouse::set_allocated_msg_id(::std::string* msg_id) {
         if (msg_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete msg_id_;
         }
@@ -10464,162 +12755,1226 @@ namespace QSChat {
             clear_has_msg_id();
             msg_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.msg_id)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.msg_id)
     }
     
-    // required string time_stamp = 3;
-    inline bool AnswerOnline::has_time_stamp() const {
+    // required string house_id = 3;
+    inline bool AnswerRecommendHouse::has_house_id() const {
         return (_has_bits_[0] & 0x00000004u) != 0;
     }
-    inline void AnswerOnline::set_has_time_stamp() {
+    inline void AnswerRecommendHouse::set_has_house_id() {
         _has_bits_[0] |= 0x00000004u;
     }
-    inline void AnswerOnline::clear_has_time_stamp() {
+    inline void AnswerRecommendHouse::clear_has_house_id() {
         _has_bits_[0] &= ~0x00000004u;
     }
-    inline void AnswerOnline::clear_time_stamp() {
-        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_->clear();
+    inline void AnswerRecommendHouse::clear_house_id() {
+        if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_->clear();
         }
-        clear_has_time_stamp();
+        clear_has_house_id();
     }
-    inline const ::std::string& AnswerOnline::time_stamp() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.time_stamp)
-        return *time_stamp_;
+    inline const ::std::string& AnswerRecommendHouse::house_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_id)
+        return *house_id_;
     }
-    inline void AnswerOnline::set_time_stamp(const ::std::string& value) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
+    inline void AnswerRecommendHouse::set_house_id(const ::std::string& value) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
         }
-        time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.time_stamp)
+        house_id_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_id)
     }
-    inline void AnswerOnline::set_time_stamp(const char* value) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
+    inline void AnswerRecommendHouse::set_house_id(const char* value) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
         }
-        time_stamp_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.time_stamp)
+        house_id_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_id)
     }
-    inline void AnswerOnline::set_time_stamp(const char* value, size_t size) {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
+    inline void AnswerRecommendHouse::set_house_id(const char* value, size_t size) {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
         }
-        time_stamp_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.time_stamp)
+        house_id_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_id)
     }
-    inline ::std::string* AnswerOnline::mutable_time_stamp() {
-        set_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            time_stamp_ = new ::std::string;
+    inline ::std::string* AnswerRecommendHouse::mutable_house_id() {
+        set_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_id_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.time_stamp)
-        return time_stamp_;
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_id)
+        return house_id_;
     }
-    inline ::std::string* AnswerOnline::release_time_stamp() {
-        clear_has_time_stamp();
-        if (time_stamp_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    inline ::std::string* AnswerRecommendHouse::release_house_id() {
+        clear_has_house_id();
+        if (house_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
         } else {
-            ::std::string* temp = time_stamp_;
-            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            ::std::string* temp = house_id_;
+            house_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_time_stamp(::std::string* time_stamp) {
-        if (time_stamp_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete time_stamp_;
+    inline void AnswerRecommendHouse::set_allocated_house_id(::std::string* house_id) {
+        if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_id_;
         }
-        if (time_stamp) {
-            set_has_time_stamp();
-            time_stamp_ = time_stamp;
+        if (house_id) {
+            set_has_house_id();
+            house_id_ = house_id;
         } else {
-            clear_has_time_stamp();
-            time_stamp_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            clear_has_house_id();
+            house_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.time_stamp)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_id)
     }
     
-    // required int64 fid = 4;
-    inline bool AnswerOnline::has_fid() const {
+    // optional string building_id = 4;
+    inline bool AnswerRecommendHouse::has_building_id() const {
         return (_has_bits_[0] & 0x00000008u) != 0;
     }
-    inline void AnswerOnline::set_has_fid() {
+    inline void AnswerRecommendHouse::set_has_building_id() {
         _has_bits_[0] |= 0x00000008u;
     }
-    inline void AnswerOnline::clear_has_fid() {
+    inline void AnswerRecommendHouse::clear_has_building_id() {
         _has_bits_[0] &= ~0x00000008u;
     }
-    inline void AnswerOnline::clear_fid() {
+    inline void AnswerRecommendHouse::clear_building_id() {
+        if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_->clear();
+        }
+        clear_has_building_id();
+    }
+    inline const ::std::string& AnswerRecommendHouse::building_id() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.building_id)
+        return *building_id_;
+    }
+    inline void AnswerRecommendHouse::set_building_id(const ::std::string& value) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.building_id)
+    }
+    inline void AnswerRecommendHouse::set_building_id(const char* value) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.building_id)
+    }
+    inline void AnswerRecommendHouse::set_building_id(const char* value, size_t size) {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        building_id_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.building_id)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_building_id() {
+        set_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            building_id_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.building_id)
+        return building_id_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_building_id() {
+        clear_has_building_id();
+        if (building_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = building_id_;
+            building_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_building_id(::std::string* building_id) {
+        if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete building_id_;
+        }
+        if (building_id) {
+            set_has_building_id();
+            building_id_ = building_id;
+        } else {
+            clear_has_building_id();
+            building_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.building_id)
+    }
+    
+    // required string house_type = 5;
+    inline bool AnswerRecommendHouse::has_house_type() const {
+        return (_has_bits_[0] & 0x00000010u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_house_type() {
+        _has_bits_[0] |= 0x00000010u;
+    }
+    inline void AnswerRecommendHouse::clear_has_house_type() {
+        _has_bits_[0] &= ~0x00000010u;
+    }
+    inline void AnswerRecommendHouse::clear_house_type() {
+        if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_->clear();
+        }
+        clear_has_house_type();
+    }
+    inline const ::std::string& AnswerRecommendHouse::house_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_type)
+        return *house_type_;
+    }
+    inline void AnswerRecommendHouse::set_house_type(const ::std::string& value) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_type)
+    }
+    inline void AnswerRecommendHouse::set_house_type(const char* value) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_type)
+    }
+    inline void AnswerRecommendHouse::set_house_type(const char* value, size_t size) {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        house_type_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_type)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_house_type() {
+        set_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_type_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_type)
+        return house_type_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_house_type() {
+        clear_has_house_type();
+        if (house_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_type_;
+            house_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_house_type(::std::string* house_type) {
+        if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_type_;
+        }
+        if (house_type) {
+            set_has_house_type();
+            house_type_ = house_type;
+        } else {
+            clear_has_house_type();
+            house_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_type)
+    }
+    
+    // required string attach_file = 6;
+    inline bool AnswerRecommendHouse::has_attach_file() const {
+        return (_has_bits_[0] & 0x00000020u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_attach_file() {
+        _has_bits_[0] |= 0x00000020u;
+    }
+    inline void AnswerRecommendHouse::clear_has_attach_file() {
+        _has_bits_[0] &= ~0x00000020u;
+    }
+    inline void AnswerRecommendHouse::clear_attach_file() {
+        if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_->clear();
+        }
+        clear_has_attach_file();
+    }
+    inline const ::std::string& AnswerRecommendHouse::attach_file() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.attach_file)
+        return *attach_file_;
+    }
+    inline void AnswerRecommendHouse::set_attach_file(const ::std::string& value) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.attach_file)
+    }
+    inline void AnswerRecommendHouse::set_attach_file(const char* value) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.attach_file)
+    }
+    inline void AnswerRecommendHouse::set_attach_file(const char* value, size_t size) {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        attach_file_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.attach_file)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_attach_file() {
+        set_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_file_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.attach_file)
+        return attach_file_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_attach_file() {
+        clear_has_attach_file();
+        if (attach_file_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = attach_file_;
+            attach_file_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_attach_file(::std::string* attach_file) {
+        if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_file_;
+        }
+        if (attach_file) {
+            set_has_attach_file();
+            attach_file_ = attach_file;
+        } else {
+            clear_has_attach_file();
+            attach_file_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.attach_file)
+    }
+    
+    // required string attach_thumb = 7;
+    inline bool AnswerRecommendHouse::has_attach_thumb() const {
+        return (_has_bits_[0] & 0x00000040u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_attach_thumb() {
+        _has_bits_[0] |= 0x00000040u;
+    }
+    inline void AnswerRecommendHouse::clear_has_attach_thumb() {
+        _has_bits_[0] &= ~0x00000040u;
+    }
+    inline void AnswerRecommendHouse::clear_attach_thumb() {
+        if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_->clear();
+        }
+        clear_has_attach_thumb();
+    }
+    inline const ::std::string& AnswerRecommendHouse::attach_thumb() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.attach_thumb)
+        return *attach_thumb_;
+    }
+    inline void AnswerRecommendHouse::set_attach_thumb(const ::std::string& value) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.attach_thumb)
+    }
+    inline void AnswerRecommendHouse::set_attach_thumb(const char* value) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.attach_thumb)
+    }
+    inline void AnswerRecommendHouse::set_attach_thumb(const char* value, size_t size) {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        attach_thumb_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.attach_thumb)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_attach_thumb() {
+        set_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            attach_thumb_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.attach_thumb)
+        return attach_thumb_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_attach_thumb() {
+        clear_has_attach_thumb();
+        if (attach_thumb_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = attach_thumb_;
+            attach_thumb_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_attach_thumb(::std::string* attach_thumb) {
+        if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_thumb_;
+        }
+        if (attach_thumb) {
+            set_has_attach_thumb();
+            attach_thumb_ = attach_thumb;
+        } else {
+            clear_has_attach_thumb();
+            attach_thumb_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.attach_thumb)
+    }
+    
+    // required string areaid = 8;
+    inline bool AnswerRecommendHouse::has_areaid() const {
+        return (_has_bits_[0] & 0x00000080u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_areaid() {
+        _has_bits_[0] |= 0x00000080u;
+    }
+    inline void AnswerRecommendHouse::clear_has_areaid() {
+        _has_bits_[0] &= ~0x00000080u;
+    }
+    inline void AnswerRecommendHouse::clear_areaid() {
+        if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_->clear();
+        }
+        clear_has_areaid();
+    }
+    inline const ::std::string& AnswerRecommendHouse::areaid() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.areaid)
+        return *areaid_;
+    }
+    inline void AnswerRecommendHouse::set_areaid(const ::std::string& value) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.areaid)
+    }
+    inline void AnswerRecommendHouse::set_areaid(const char* value) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.areaid)
+    }
+    inline void AnswerRecommendHouse::set_areaid(const char* value, size_t size) {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        areaid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.areaid)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_areaid() {
+        set_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            areaid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.areaid)
+        return areaid_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_areaid() {
+        clear_has_areaid();
+        if (areaid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = areaid_;
+            areaid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_areaid(::std::string* areaid) {
+        if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete areaid_;
+        }
+        if (areaid) {
+            set_has_areaid();
+            areaid_ = areaid;
+        } else {
+            clear_has_areaid();
+            areaid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.areaid)
+    }
+    
+    // required string area_val = 9;
+    inline bool AnswerRecommendHouse::has_area_val() const {
+        return (_has_bits_[0] & 0x00000100u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_area_val() {
+        _has_bits_[0] |= 0x00000100u;
+    }
+    inline void AnswerRecommendHouse::clear_has_area_val() {
+        _has_bits_[0] &= ~0x00000100u;
+    }
+    inline void AnswerRecommendHouse::clear_area_val() {
+        if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_->clear();
+        }
+        clear_has_area_val();
+    }
+    inline const ::std::string& AnswerRecommendHouse::area_val() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.area_val)
+        return *area_val_;
+    }
+    inline void AnswerRecommendHouse::set_area_val(const ::std::string& value) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.area_val)
+    }
+    inline void AnswerRecommendHouse::set_area_val(const char* value) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.area_val)
+    }
+    inline void AnswerRecommendHouse::set_area_val(const char* value, size_t size) {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        area_val_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.area_val)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_area_val() {
+        set_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            area_val_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.area_val)
+        return area_val_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_area_val() {
+        clear_has_area_val();
+        if (area_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = area_val_;
+            area_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_area_val(::std::string* area_val) {
+        if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete area_val_;
+        }
+        if (area_val) {
+            set_has_area_val();
+            area_val_ = area_val;
+        } else {
+            clear_has_area_val();
+            area_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.area_val)
+    }
+    
+    // required string streetid = 10;
+    inline bool AnswerRecommendHouse::has_streetid() const {
+        return (_has_bits_[0] & 0x00000200u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_streetid() {
+        _has_bits_[0] |= 0x00000200u;
+    }
+    inline void AnswerRecommendHouse::clear_has_streetid() {
+        _has_bits_[0] &= ~0x00000200u;
+    }
+    inline void AnswerRecommendHouse::clear_streetid() {
+        if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_->clear();
+        }
+        clear_has_streetid();
+    }
+    inline const ::std::string& AnswerRecommendHouse::streetid() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.streetid)
+        return *streetid_;
+    }
+    inline void AnswerRecommendHouse::set_streetid(const ::std::string& value) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.streetid)
+    }
+    inline void AnswerRecommendHouse::set_streetid(const char* value) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.streetid)
+    }
+    inline void AnswerRecommendHouse::set_streetid(const char* value, size_t size) {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        streetid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.streetid)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_streetid() {
+        set_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            streetid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.streetid)
+        return streetid_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_streetid() {
+        clear_has_streetid();
+        if (streetid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = streetid_;
+            streetid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_streetid(::std::string* streetid) {
+        if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete streetid_;
+        }
+        if (streetid) {
+            set_has_streetid();
+            streetid_ = streetid;
+        } else {
+            clear_has_streetid();
+            streetid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.streetid)
+    }
+    
+    // required string street_val = 11;
+    inline bool AnswerRecommendHouse::has_street_val() const {
+        return (_has_bits_[0] & 0x00000400u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_street_val() {
+        _has_bits_[0] |= 0x00000400u;
+    }
+    inline void AnswerRecommendHouse::clear_has_street_val() {
+        _has_bits_[0] &= ~0x00000400u;
+    }
+    inline void AnswerRecommendHouse::clear_street_val() {
+        if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_->clear();
+        }
+        clear_has_street_val();
+    }
+    inline const ::std::string& AnswerRecommendHouse::street_val() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.street_val)
+        return *street_val_;
+    }
+    inline void AnswerRecommendHouse::set_street_val(const ::std::string& value) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.street_val)
+    }
+    inline void AnswerRecommendHouse::set_street_val(const char* value) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.street_val)
+    }
+    inline void AnswerRecommendHouse::set_street_val(const char* value, size_t size) {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        street_val_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.street_val)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_street_val() {
+        set_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            street_val_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.street_val)
+        return street_val_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_street_val() {
+        clear_has_street_val();
+        if (street_val_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = street_val_;
+            street_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_street_val(::std::string* street_val) {
+        if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete street_val_;
+        }
+        if (street_val) {
+            set_has_street_val();
+            street_val_ = street_val;
+        } else {
+            clear_has_street_val();
+            street_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.street_val)
+    }
+    
+    // required string house_shi = 12;
+    inline bool AnswerRecommendHouse::has_house_shi() const {
+        return (_has_bits_[0] & 0x00000800u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_house_shi() {
+        _has_bits_[0] |= 0x00000800u;
+    }
+    inline void AnswerRecommendHouse::clear_has_house_shi() {
+        _has_bits_[0] &= ~0x00000800u;
+    }
+    inline void AnswerRecommendHouse::clear_house_shi() {
+        if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_->clear();
+        }
+        clear_has_house_shi();
+    }
+    inline const ::std::string& AnswerRecommendHouse::house_shi() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_shi)
+        return *house_shi_;
+    }
+    inline void AnswerRecommendHouse::set_house_shi(const ::std::string& value) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_shi)
+    }
+    inline void AnswerRecommendHouse::set_house_shi(const char* value) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_shi)
+    }
+    inline void AnswerRecommendHouse::set_house_shi(const char* value, size_t size) {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        house_shi_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_shi)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_house_shi() {
+        set_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_shi_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_shi)
+        return house_shi_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_house_shi() {
+        clear_has_house_shi();
+        if (house_shi_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_shi_;
+            house_shi_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_house_shi(::std::string* house_shi) {
+        if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_shi_;
+        }
+        if (house_shi) {
+            set_has_house_shi();
+            house_shi_ = house_shi;
+        } else {
+            clear_has_house_shi();
+            house_shi_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_shi)
+    }
+    
+    // required string house_ting = 13;
+    inline bool AnswerRecommendHouse::has_house_ting() const {
+        return (_has_bits_[0] & 0x00001000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_house_ting() {
+        _has_bits_[0] |= 0x00001000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_house_ting() {
+        _has_bits_[0] &= ~0x00001000u;
+    }
+    inline void AnswerRecommendHouse::clear_house_ting() {
+        if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_->clear();
+        }
+        clear_has_house_ting();
+    }
+    inline const ::std::string& AnswerRecommendHouse::house_ting() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_ting)
+        return *house_ting_;
+    }
+    inline void AnswerRecommendHouse::set_house_ting(const ::std::string& value) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_ting)
+    }
+    inline void AnswerRecommendHouse::set_house_ting(const char* value) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_ting)
+    }
+    inline void AnswerRecommendHouse::set_house_ting(const char* value, size_t size) {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        house_ting_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_ting)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_house_ting() {
+        set_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_ting_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_ting)
+        return house_ting_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_house_ting() {
+        clear_has_house_ting();
+        if (house_ting_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_ting_;
+            house_ting_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_house_ting(::std::string* house_ting) {
+        if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_ting_;
+        }
+        if (house_ting) {
+            set_has_house_ting();
+            house_ting_ = house_ting;
+        } else {
+            clear_has_house_ting();
+            house_ting_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_ting)
+    }
+    
+    // required string house_area = 14;
+    inline bool AnswerRecommendHouse::has_house_area() const {
+        return (_has_bits_[0] & 0x00002000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_house_area() {
+        _has_bits_[0] |= 0x00002000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_house_area() {
+        _has_bits_[0] &= ~0x00002000u;
+    }
+    inline void AnswerRecommendHouse::clear_house_area() {
+        if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_->clear();
+        }
+        clear_has_house_area();
+    }
+    inline const ::std::string& AnswerRecommendHouse::house_area() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_area)
+        return *house_area_;
+    }
+    inline void AnswerRecommendHouse::set_house_area(const ::std::string& value) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_area)
+    }
+    inline void AnswerRecommendHouse::set_house_area(const char* value) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_area)
+    }
+    inline void AnswerRecommendHouse::set_house_area(const char* value, size_t size) {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        house_area_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_area)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_house_area() {
+        set_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_area_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_area)
+        return house_area_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_house_area() {
+        clear_has_house_area();
+        if (house_area_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_area_;
+            house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_house_area(::std::string* house_area) {
+        if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_area_;
+        }
+        if (house_area) {
+            set_has_house_area();
+            house_area_ = house_area;
+        } else {
+            clear_has_house_area();
+            house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_area)
+    }
+    
+    // optional string house_price = 15;
+    inline bool AnswerRecommendHouse::has_house_price() const {
+        return (_has_bits_[0] & 0x00004000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_house_price() {
+        _has_bits_[0] |= 0x00004000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_house_price() {
+        _has_bits_[0] &= ~0x00004000u;
+    }
+    inline void AnswerRecommendHouse::clear_house_price() {
+        if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_->clear();
+        }
+        clear_has_house_price();
+    }
+    inline const ::std::string& AnswerRecommendHouse::house_price() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.house_price)
+        return *house_price_;
+    }
+    inline void AnswerRecommendHouse::set_house_price(const ::std::string& value) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.house_price)
+    }
+    inline void AnswerRecommendHouse::set_house_price(const char* value) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.house_price)
+    }
+    inline void AnswerRecommendHouse::set_house_price(const char* value, size_t size) {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        house_price_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.house_price)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_house_price() {
+        set_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            house_price_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.house_price)
+        return house_price_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_house_price() {
+        clear_has_house_price();
+        if (house_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = house_price_;
+            house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_house_price(::std::string* house_price) {
+        if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_price_;
+        }
+        if (house_price) {
+            set_has_house_price();
+            house_price_ = house_price;
+        } else {
+            clear_has_house_price();
+            house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.house_price)
+    }
+    
+    // optional string rent_price = 16;
+    inline bool AnswerRecommendHouse::has_rent_price() const {
+        return (_has_bits_[0] & 0x00008000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_rent_price() {
+        _has_bits_[0] |= 0x00008000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_rent_price() {
+        _has_bits_[0] &= ~0x00008000u;
+    }
+    inline void AnswerRecommendHouse::clear_rent_price() {
+        if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_->clear();
+        }
+        clear_has_rent_price();
+    }
+    inline const ::std::string& AnswerRecommendHouse::rent_price() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.rent_price)
+        return *rent_price_;
+    }
+    inline void AnswerRecommendHouse::set_rent_price(const ::std::string& value) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.rent_price)
+    }
+    inline void AnswerRecommendHouse::set_rent_price(const char* value) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.rent_price)
+    }
+    inline void AnswerRecommendHouse::set_rent_price(const char* value, size_t size) {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        rent_price_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.rent_price)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_rent_price() {
+        set_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            rent_price_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.rent_price)
+        return rent_price_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_rent_price() {
+        clear_has_rent_price();
+        if (rent_price_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = rent_price_;
+            rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_rent_price(::std::string* rent_price) {
+        if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete rent_price_;
+        }
+        if (rent_price) {
+            set_has_rent_price();
+            rent_price_ = rent_price;
+        } else {
+            clear_has_rent_price();
+            rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.rent_price)
+    }
+    
+    // required string title = 17;
+    inline bool AnswerRecommendHouse::has_title() const {
+        return (_has_bits_[0] & 0x00010000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_title() {
+        _has_bits_[0] |= 0x00010000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_title() {
+        _has_bits_[0] &= ~0x00010000u;
+    }
+    inline void AnswerRecommendHouse::clear_title() {
+        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_->clear();
+        }
+        clear_has_title();
+    }
+    inline const ::std::string& AnswerRecommendHouse::title() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.title)
+        return *title_;
+    }
+    inline void AnswerRecommendHouse::set_title(const ::std::string& value) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.title)
+    }
+    inline void AnswerRecommendHouse::set_title(const char* value) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.title)
+    }
+    inline void AnswerRecommendHouse::set_title(const char* value, size_t size) {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        title_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.title)
+    }
+    inline ::std::string* AnswerRecommendHouse::mutable_title() {
+        set_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            title_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.title)
+        return title_;
+    }
+    inline ::std::string* AnswerRecommendHouse::release_title() {
+        clear_has_title();
+        if (title_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = title_;
+            title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerRecommendHouse::set_allocated_title(::std::string* title) {
+        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete title_;
+        }
+        if (title) {
+            set_has_title();
+            title_ = title;
+        } else {
+            clear_has_title();
+            title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.title)
+    }
+    
+    // required int64 fid = 18;
+    inline bool AnswerRecommendHouse::has_fid() const {
+        return (_has_bits_[0] & 0x00020000u) != 0;
+    }
+    inline void AnswerRecommendHouse::set_has_fid() {
+        _has_bits_[0] |= 0x00020000u;
+    }
+    inline void AnswerRecommendHouse::clear_has_fid() {
+        _has_bits_[0] &= ~0x00020000u;
+    }
+    inline void AnswerRecommendHouse::clear_fid() {
         fid_ = GOOGLE_LONGLONG(0);
         clear_has_fid();
     }
-    inline ::google::protobuf::int64 AnswerOnline::fid() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.fid)
+    inline ::google::protobuf::int64 AnswerRecommendHouse::fid() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.fid)
         return fid_;
     }
-    inline void AnswerOnline::set_fid(::google::protobuf::int64 value) {
+    inline void AnswerRecommendHouse::set_fid(::google::protobuf::int64 value) {
         set_has_fid();
         fid_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.fid)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.fid)
     }
     
-    // required string f_avatar = 5;
-    inline bool AnswerOnline::has_f_avatar() const {
-        return (_has_bits_[0] & 0x00000010u) != 0;
+    // required string f_avatar = 19;
+    inline bool AnswerRecommendHouse::has_f_avatar() const {
+        return (_has_bits_[0] & 0x00040000u) != 0;
     }
-    inline void AnswerOnline::set_has_f_avatar() {
-        _has_bits_[0] |= 0x00000010u;
+    inline void AnswerRecommendHouse::set_has_f_avatar() {
+        _has_bits_[0] |= 0x00040000u;
     }
-    inline void AnswerOnline::clear_has_f_avatar() {
-        _has_bits_[0] &= ~0x00000010u;
+    inline void AnswerRecommendHouse::clear_has_f_avatar() {
+        _has_bits_[0] &= ~0x00040000u;
     }
-    inline void AnswerOnline::clear_f_avatar() {
+    inline void AnswerRecommendHouse::clear_f_avatar() {
         if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_avatar_->clear();
         }
         clear_has_f_avatar();
     }
-    inline const ::std::string& AnswerOnline::f_avatar() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.f_avatar)
+    inline const ::std::string& AnswerRecommendHouse::f_avatar() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.f_avatar)
         return *f_avatar_;
     }
-    inline void AnswerOnline::set_f_avatar(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_f_avatar(const ::std::string& value) {
         set_has_f_avatar();
         if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_avatar_ = new ::std::string;
         }
         f_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.f_avatar)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.f_avatar)
     }
-    inline void AnswerOnline::set_f_avatar(const char* value) {
+    inline void AnswerRecommendHouse::set_f_avatar(const char* value) {
         set_has_f_avatar();
         if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_avatar_ = new ::std::string;
         }
         f_avatar_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.f_avatar)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.f_avatar)
     }
-    inline void AnswerOnline::set_f_avatar(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_f_avatar(const char* value, size_t size) {
         set_has_f_avatar();
         if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_avatar_ = new ::std::string;
         }
         f_avatar_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.f_avatar)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.f_avatar)
     }
-    inline ::std::string* AnswerOnline::mutable_f_avatar() {
+    inline ::std::string* AnswerRecommendHouse::mutable_f_avatar() {
         set_has_f_avatar();
         if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_avatar_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.f_avatar)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.f_avatar)
         return f_avatar_;
     }
-    inline ::std::string* AnswerOnline::release_f_avatar() {
+    inline ::std::string* AnswerRecommendHouse::release_f_avatar() {
         clear_has_f_avatar();
         if (f_avatar_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10629,7 +13984,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_f_avatar(::std::string* f_avatar) {
+    inline void AnswerRecommendHouse::set_allocated_f_avatar(::std::string* f_avatar) {
         if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_avatar_;
         }
@@ -10640,62 +13995,62 @@ namespace QSChat {
             clear_has_f_avatar();
             f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.f_avatar)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.f_avatar)
     }
     
-    // required string f_name = 6;
-    inline bool AnswerOnline::has_f_name() const {
-        return (_has_bits_[0] & 0x00000020u) != 0;
+    // required string f_name = 20;
+    inline bool AnswerRecommendHouse::has_f_name() const {
+        return (_has_bits_[0] & 0x00080000u) != 0;
     }
-    inline void AnswerOnline::set_has_f_name() {
-        _has_bits_[0] |= 0x00000020u;
+    inline void AnswerRecommendHouse::set_has_f_name() {
+        _has_bits_[0] |= 0x00080000u;
     }
-    inline void AnswerOnline::clear_has_f_name() {
-        _has_bits_[0] &= ~0x00000020u;
+    inline void AnswerRecommendHouse::clear_has_f_name() {
+        _has_bits_[0] &= ~0x00080000u;
     }
-    inline void AnswerOnline::clear_f_name() {
+    inline void AnswerRecommendHouse::clear_f_name() {
         if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_name_->clear();
         }
         clear_has_f_name();
     }
-    inline const ::std::string& AnswerOnline::f_name() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.f_name)
+    inline const ::std::string& AnswerRecommendHouse::f_name() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.f_name)
         return *f_name_;
     }
-    inline void AnswerOnline::set_f_name(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_f_name(const ::std::string& value) {
         set_has_f_name();
         if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_name_ = new ::std::string;
         }
         f_name_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.f_name)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.f_name)
     }
-    inline void AnswerOnline::set_f_name(const char* value) {
+    inline void AnswerRecommendHouse::set_f_name(const char* value) {
         set_has_f_name();
         if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_name_ = new ::std::string;
         }
         f_name_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.f_name)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.f_name)
     }
-    inline void AnswerOnline::set_f_name(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_f_name(const char* value, size_t size) {
         set_has_f_name();
         if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_name_ = new ::std::string;
         }
         f_name_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.f_name)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.f_name)
     }
-    inline ::std::string* AnswerOnline::mutable_f_name() {
+    inline ::std::string* AnswerRecommendHouse::mutable_f_name() {
         set_has_f_name();
         if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_name_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.f_name)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.f_name)
         return f_name_;
     }
-    inline ::std::string* AnswerOnline::release_f_name() {
+    inline ::std::string* AnswerRecommendHouse::release_f_name() {
         clear_has_f_name();
         if (f_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10705,7 +14060,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_f_name(::std::string* f_name) {
+    inline void AnswerRecommendHouse::set_allocated_f_name(::std::string* f_name) {
         if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_name_;
         }
@@ -10716,62 +14071,62 @@ namespace QSChat {
             clear_has_f_name();
             f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.f_name)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.f_name)
     }
     
-    // required string f_leve = 7;
-    inline bool AnswerOnline::has_f_leve() const {
-        return (_has_bits_[0] & 0x00000040u) != 0;
+    // required string f_leve = 21;
+    inline bool AnswerRecommendHouse::has_f_leve() const {
+        return (_has_bits_[0] & 0x00100000u) != 0;
     }
-    inline void AnswerOnline::set_has_f_leve() {
-        _has_bits_[0] |= 0x00000040u;
+    inline void AnswerRecommendHouse::set_has_f_leve() {
+        _has_bits_[0] |= 0x00100000u;
     }
-    inline void AnswerOnline::clear_has_f_leve() {
-        _has_bits_[0] &= ~0x00000040u;
+    inline void AnswerRecommendHouse::clear_has_f_leve() {
+        _has_bits_[0] &= ~0x00100000u;
     }
-    inline void AnswerOnline::clear_f_leve() {
+    inline void AnswerRecommendHouse::clear_f_leve() {
         if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_leve_->clear();
         }
         clear_has_f_leve();
     }
-    inline const ::std::string& AnswerOnline::f_leve() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.f_leve)
+    inline const ::std::string& AnswerRecommendHouse::f_leve() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.f_leve)
         return *f_leve_;
     }
-    inline void AnswerOnline::set_f_leve(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_f_leve(const ::std::string& value) {
         set_has_f_leve();
         if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_leve_ = new ::std::string;
         }
         f_leve_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.f_leve)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.f_leve)
     }
-    inline void AnswerOnline::set_f_leve(const char* value) {
+    inline void AnswerRecommendHouse::set_f_leve(const char* value) {
         set_has_f_leve();
         if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_leve_ = new ::std::string;
         }
         f_leve_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.f_leve)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.f_leve)
     }
-    inline void AnswerOnline::set_f_leve(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_f_leve(const char* value, size_t size) {
         set_has_f_leve();
         if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_leve_ = new ::std::string;
         }
         f_leve_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.f_leve)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.f_leve)
     }
-    inline ::std::string* AnswerOnline::mutable_f_leve() {
+    inline ::std::string* AnswerRecommendHouse::mutable_f_leve() {
         set_has_f_leve();
         if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_leve_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.f_leve)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.f_leve)
         return f_leve_;
     }
-    inline ::std::string* AnswerOnline::release_f_leve() {
+    inline ::std::string* AnswerRecommendHouse::release_f_leve() {
         clear_has_f_leve();
         if (f_leve_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10781,7 +14136,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_f_leve(::std::string* f_leve) {
+    inline void AnswerRecommendHouse::set_allocated_f_leve(::std::string* f_leve) {
         if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_leve_;
         }
@@ -10792,62 +14147,62 @@ namespace QSChat {
             clear_has_f_leve();
             f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.f_leve)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.f_leve)
     }
     
-    // required string f_user_type = 8;
-    inline bool AnswerOnline::has_f_user_type() const {
-        return (_has_bits_[0] & 0x00000080u) != 0;
+    // required string f_user_type = 22;
+    inline bool AnswerRecommendHouse::has_f_user_type() const {
+        return (_has_bits_[0] & 0x00200000u) != 0;
     }
-    inline void AnswerOnline::set_has_f_user_type() {
-        _has_bits_[0] |= 0x00000080u;
+    inline void AnswerRecommendHouse::set_has_f_user_type() {
+        _has_bits_[0] |= 0x00200000u;
     }
-    inline void AnswerOnline::clear_has_f_user_type() {
-        _has_bits_[0] &= ~0x00000080u;
+    inline void AnswerRecommendHouse::clear_has_f_user_type() {
+        _has_bits_[0] &= ~0x00200000u;
     }
-    inline void AnswerOnline::clear_f_user_type() {
+    inline void AnswerRecommendHouse::clear_f_user_type() {
         if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_user_type_->clear();
         }
         clear_has_f_user_type();
     }
-    inline const ::std::string& AnswerOnline::f_user_type() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.f_user_type)
+    inline const ::std::string& AnswerRecommendHouse::f_user_type() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.f_user_type)
         return *f_user_type_;
     }
-    inline void AnswerOnline::set_f_user_type(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_f_user_type(const ::std::string& value) {
         set_has_f_user_type();
         if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_user_type_ = new ::std::string;
         }
         f_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.f_user_type)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.f_user_type)
     }
-    inline void AnswerOnline::set_f_user_type(const char* value) {
+    inline void AnswerRecommendHouse::set_f_user_type(const char* value) {
         set_has_f_user_type();
         if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_user_type_ = new ::std::string;
         }
         f_user_type_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.f_user_type)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.f_user_type)
     }
-    inline void AnswerOnline::set_f_user_type(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_f_user_type(const char* value, size_t size) {
         set_has_f_user_type();
         if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_user_type_ = new ::std::string;
         }
         f_user_type_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.f_user_type)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.f_user_type)
     }
-    inline ::std::string* AnswerOnline::mutable_f_user_type() {
+    inline ::std::string* AnswerRecommendHouse::mutable_f_user_type() {
         set_has_f_user_type();
         if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_user_type_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.f_user_type)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.f_user_type)
         return f_user_type_;
     }
-    inline ::std::string* AnswerOnline::release_f_user_type() {
+    inline ::std::string* AnswerRecommendHouse::release_f_user_type() {
         clear_has_f_user_type();
         if (f_user_type_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10857,7 +14212,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_f_user_type(::std::string* f_user_type) {
+    inline void AnswerRecommendHouse::set_allocated_f_user_type(::std::string* f_user_type) {
         if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_user_type_;
         }
@@ -10868,62 +14223,62 @@ namespace QSChat {
             clear_has_f_user_type();
             f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.f_user_type)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.f_user_type)
     }
     
-    // required string f_unread_count = 9;
-    inline bool AnswerOnline::has_f_unread_count() const {
-        return (_has_bits_[0] & 0x00000100u) != 0;
+    // required string f_unread_count = 23;
+    inline bool AnswerRecommendHouse::has_f_unread_count() const {
+        return (_has_bits_[0] & 0x00400000u) != 0;
     }
-    inline void AnswerOnline::set_has_f_unread_count() {
-        _has_bits_[0] |= 0x00000100u;
+    inline void AnswerRecommendHouse::set_has_f_unread_count() {
+        _has_bits_[0] |= 0x00400000u;
     }
-    inline void AnswerOnline::clear_has_f_unread_count() {
-        _has_bits_[0] &= ~0x00000100u;
+    inline void AnswerRecommendHouse::clear_has_f_unread_count() {
+        _has_bits_[0] &= ~0x00400000u;
     }
-    inline void AnswerOnline::clear_f_unread_count() {
+    inline void AnswerRecommendHouse::clear_f_unread_count() {
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_unread_count_->clear();
         }
         clear_has_f_unread_count();
     }
-    inline const ::std::string& AnswerOnline::f_unread_count() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.f_unread_count)
+    inline const ::std::string& AnswerRecommendHouse::f_unread_count() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.f_unread_count)
         return *f_unread_count_;
     }
-    inline void AnswerOnline::set_f_unread_count(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_f_unread_count(const ::std::string& value) {
         set_has_f_unread_count();
         if (f_unread_count_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_unread_count_ = new ::std::string;
         }
         f_unread_count_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.f_unread_count)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.f_unread_count)
     }
-    inline void AnswerOnline::set_f_unread_count(const char* value) {
+    inline void AnswerRecommendHouse::set_f_unread_count(const char* value) {
         set_has_f_unread_count();
         if (f_unread_count_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_unread_count_ = new ::std::string;
         }
         f_unread_count_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.f_unread_count)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.f_unread_count)
     }
-    inline void AnswerOnline::set_f_unread_count(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_f_unread_count(const char* value, size_t size) {
         set_has_f_unread_count();
         if (f_unread_count_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_unread_count_ = new ::std::string;
         }
         f_unread_count_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.f_unread_count)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.f_unread_count)
     }
-    inline ::std::string* AnswerOnline::mutable_f_unread_count() {
+    inline ::std::string* AnswerRecommendHouse::mutable_f_unread_count() {
         set_has_f_unread_count();
         if (f_unread_count_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             f_unread_count_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.f_unread_count)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.f_unread_count)
         return f_unread_count_;
     }
-    inline ::std::string* AnswerOnline::release_f_unread_count() {
+    inline ::std::string* AnswerRecommendHouse::release_f_unread_count() {
         clear_has_f_unread_count();
         if (f_unread_count_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -10933,7 +14288,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_f_unread_count(::std::string* f_unread_count) {
+    inline void AnswerRecommendHouse::set_allocated_f_unread_count(::std::string* f_unread_count) {
         if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_unread_count_;
         }
@@ -10944,62 +14299,62 @@ namespace QSChat {
             clear_has_f_unread_count();
             f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.f_unread_count)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.f_unread_count)
     }
     
-    // required string device_udid = 10;
-    inline bool AnswerOnline::has_device_udid() const {
-        return (_has_bits_[0] & 0x00000200u) != 0;
+    // required string device_udid = 24;
+    inline bool AnswerRecommendHouse::has_device_udid() const {
+        return (_has_bits_[0] & 0x00800000u) != 0;
     }
-    inline void AnswerOnline::set_has_device_udid() {
-        _has_bits_[0] |= 0x00000200u;
+    inline void AnswerRecommendHouse::set_has_device_udid() {
+        _has_bits_[0] |= 0x00800000u;
     }
-    inline void AnswerOnline::clear_has_device_udid() {
-        _has_bits_[0] &= ~0x00000200u;
+    inline void AnswerRecommendHouse::clear_has_device_udid() {
+        _has_bits_[0] &= ~0x00800000u;
     }
-    inline void AnswerOnline::clear_device_udid() {
+    inline void AnswerRecommendHouse::clear_device_udid() {
         if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_->clear();
         }
         clear_has_device_udid();
     }
-    inline const ::std::string& AnswerOnline::device_udid() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerOnline.device_udid)
+    inline const ::std::string& AnswerRecommendHouse::device_udid() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerRecommendHouse.device_udid)
         return *device_udid_;
     }
-    inline void AnswerOnline::set_device_udid(const ::std::string& value) {
+    inline void AnswerRecommendHouse::set_device_udid(const ::std::string& value) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerOnline.device_udid)
+        // @@protoc_insertion_point(field_set:QSChat.AnswerRecommendHouse.device_udid)
     }
-    inline void AnswerOnline::set_device_udid(const char* value) {
+    inline void AnswerRecommendHouse::set_device_udid(const char* value) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerOnline.device_udid)
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerRecommendHouse.device_udid)
     }
-    inline void AnswerOnline::set_device_udid(const char* value, size_t size) {
+    inline void AnswerRecommendHouse::set_device_udid(const char* value, size_t size) {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
         device_udid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerOnline.device_udid)
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerRecommendHouse.device_udid)
     }
-    inline ::std::string* AnswerOnline::mutable_device_udid() {
+    inline ::std::string* AnswerRecommendHouse::mutable_device_udid() {
         set_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             device_udid_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerOnline.device_udid)
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerRecommendHouse.device_udid)
         return device_udid_;
     }
-    inline ::std::string* AnswerOnline::release_device_udid() {
+    inline ::std::string* AnswerRecommendHouse::release_device_udid() {
         clear_has_device_udid();
         if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
@@ -11009,7 +14364,7 @@ namespace QSChat {
             return temp;
         }
     }
-    inline void AnswerOnline::set_allocated_device_udid(::std::string* device_udid) {
+    inline void AnswerRecommendHouse::set_allocated_device_udid(::std::string* device_udid) {
         if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete device_udid_;
         }
@@ -11020,7 +14375,7 @@ namespace QSChat {
             clear_has_device_udid();
             device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerOnline.device_udid)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerRecommendHouse.device_udid)
     }
     
     // -------------------------------------------------------------------
@@ -11991,7 +15346,7 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSpecial.desc)
     }
     
-    // required int64 fid = 4;
+    // required string fid = 4;
     inline bool AnswerSpecial::has_fid() const {
         return (_has_bits_[0] & 0x00000008u) != 0;
     }
@@ -12002,17 +15357,69 @@ namespace QSChat {
         _has_bits_[0] &= ~0x00000008u;
     }
     inline void AnswerSpecial::clear_fid() {
-        fid_ = GOOGLE_LONGLONG(0);
+        if (fid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            fid_->clear();
+        }
         clear_has_fid();
     }
-    inline ::google::protobuf::int64 AnswerSpecial::fid() const {
+    inline const ::std::string& AnswerSpecial::fid() const {
         // @@protoc_insertion_point(field_get:QSChat.AnswerSpecial.fid)
+        return *fid_;
+    }
+    inline void AnswerSpecial::set_fid(const ::std::string& value) {
+        set_has_fid();
+        if (fid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            fid_ = new ::std::string;
+        }
+        fid_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSpecial.fid)
+    }
+    inline void AnswerSpecial::set_fid(const char* value) {
+        set_has_fid();
+        if (fid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            fid_ = new ::std::string;
+        }
+        fid_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSpecial.fid)
+    }
+    inline void AnswerSpecial::set_fid(const char* value, size_t size) {
+        set_has_fid();
+        if (fid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            fid_ = new ::std::string;
+        }
+        fid_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSpecial.fid)
+    }
+    inline ::std::string* AnswerSpecial::mutable_fid() {
+        set_has_fid();
+        if (fid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            fid_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSpecial.fid)
         return fid_;
     }
-    inline void AnswerSpecial::set_fid(::google::protobuf::int64 value) {
-        set_has_fid();
-        fid_ = value;
-        // @@protoc_insertion_point(field_set:QSChat.AnswerSpecial.fid)
+    inline ::std::string* AnswerSpecial::release_fid() {
+        clear_has_fid();
+        if (fid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = fid_;
+            fid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerSpecial::set_allocated_fid(::std::string* fid) {
+        if (fid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete fid_;
+        }
+        if (fid) {
+            set_has_fid();
+            fid_ = fid;
+        } else {
+            clear_has_fid();
+            fid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSpecial.fid)
     }
     
     // required string type = 5;
@@ -12089,82 +15496,6 @@ namespace QSChat {
             type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
         // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSpecial.type)
-    }
-    
-    // required string device_udid = 6;
-    inline bool AnswerSpecial::has_device_udid() const {
-        return (_has_bits_[0] & 0x00000020u) != 0;
-    }
-    inline void AnswerSpecial::set_has_device_udid() {
-        _has_bits_[0] |= 0x00000020u;
-    }
-    inline void AnswerSpecial::clear_has_device_udid() {
-        _has_bits_[0] &= ~0x00000020u;
-    }
-    inline void AnswerSpecial::clear_device_udid() {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_->clear();
-        }
-        clear_has_device_udid();
-    }
-    inline const ::std::string& AnswerSpecial::device_udid() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerSpecial.device_udid)
-        return *device_udid_;
-    }
-    inline void AnswerSpecial::set_device_udid(const ::std::string& value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerSpecial.device_udid)
-    }
-    inline void AnswerSpecial::set_device_udid(const char* value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSpecial.device_udid)
-    }
-    inline void AnswerSpecial::set_device_udid(const char* value, size_t size) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        device_udid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSpecial.device_udid)
-    }
-    inline ::std::string* AnswerSpecial::mutable_device_udid() {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSpecial.device_udid)
-        return device_udid_;
-    }
-    inline ::std::string* AnswerSpecial::release_device_udid() {
-        clear_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = device_udid_;
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void AnswerSpecial::set_allocated_device_udid(::std::string* device_udid) {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete device_udid_;
-        }
-        if (device_udid) {
-            set_has_device_udid();
-            device_udid_ = device_udid;
-        } else {
-            clear_has_device_udid();
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSpecial.device_udid)
     }
     
     // -------------------------------------------------------------------
@@ -12399,91 +15730,15 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.time)
     }
     
-    // required string mid = 4;
-    inline bool AnswerSystem::has_mid() const {
+    // required string type = 4;
+    inline bool AnswerSystem::has_type() const {
         return (_has_bits_[0] & 0x00000008u) != 0;
     }
-    inline void AnswerSystem::set_has_mid() {
+    inline void AnswerSystem::set_has_type() {
         _has_bits_[0] |= 0x00000008u;
     }
-    inline void AnswerSystem::clear_has_mid() {
-        _has_bits_[0] &= ~0x00000008u;
-    }
-    inline void AnswerSystem::clear_mid() {
-        if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            mid_->clear();
-        }
-        clear_has_mid();
-    }
-    inline const ::std::string& AnswerSystem::mid() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.mid)
-        return *mid_;
-    }
-    inline void AnswerSystem::set_mid(const ::std::string& value) {
-        set_has_mid();
-        if (mid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            mid_ = new ::std::string;
-        }
-        mid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.mid)
-    }
-    inline void AnswerSystem::set_mid(const char* value) {
-        set_has_mid();
-        if (mid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            mid_ = new ::std::string;
-        }
-        mid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.mid)
-    }
-    inline void AnswerSystem::set_mid(const char* value, size_t size) {
-        set_has_mid();
-        if (mid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            mid_ = new ::std::string;
-        }
-        mid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.mid)
-    }
-    inline ::std::string* AnswerSystem::mutable_mid() {
-        set_has_mid();
-        if (mid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            mid_ = new ::std::string;
-        }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.mid)
-        return mid_;
-    }
-    inline ::std::string* AnswerSystem::release_mid() {
-        clear_has_mid();
-        if (mid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            return NULL;
-        } else {
-            ::std::string* temp = mid_;
-            mid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-            return temp;
-        }
-    }
-    inline void AnswerSystem::set_allocated_mid(::std::string* mid) {
-        if (mid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete mid_;
-        }
-        if (mid) {
-            set_has_mid();
-            mid_ = mid;
-        } else {
-            clear_has_mid();
-            mid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.mid)
-    }
-    
-    // required string type = 5;
-    inline bool AnswerSystem::has_type() const {
-        return (_has_bits_[0] & 0x00000010u) != 0;
-    }
-    inline void AnswerSystem::set_has_type() {
-        _has_bits_[0] |= 0x00000010u;
-    }
     inline void AnswerSystem::clear_has_type() {
-        _has_bits_[0] &= ~0x00000010u;
+        _has_bits_[0] &= ~0x00000008u;
     }
     inline void AnswerSystem::clear_type() {
         if (type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -12551,15 +15806,15 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.type)
     }
     
-    // required string url = 6;
+    // required string url = 5;
     inline bool AnswerSystem::has_url() const {
-        return (_has_bits_[0] & 0x00000020u) != 0;
+        return (_has_bits_[0] & 0x00000010u) != 0;
     }
     inline void AnswerSystem::set_has_url() {
-        _has_bits_[0] |= 0x00000020u;
+        _has_bits_[0] |= 0x00000010u;
     }
     inline void AnswerSystem::clear_has_url() {
-        _has_bits_[0] &= ~0x00000020u;
+        _has_bits_[0] &= ~0x00000010u;
     }
     inline void AnswerSystem::clear_url() {
         if (url_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -12627,80 +15882,384 @@ namespace QSChat {
         // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.url)
     }
     
-    // required string device_udid = 7;
-    inline bool AnswerSystem::has_device_udid() const {
-        return (_has_bits_[0] & 0x00000040u) != 0;
+    // optional string exp_1 = 6;
+    inline bool AnswerSystem::has_exp_1() const {
+        return (_has_bits_[0] & 0x00000020u) != 0;
     }
-    inline void AnswerSystem::set_has_device_udid() {
-        _has_bits_[0] |= 0x00000040u;
+    inline void AnswerSystem::set_has_exp_1() {
+        _has_bits_[0] |= 0x00000020u;
     }
-    inline void AnswerSystem::clear_has_device_udid() {
-        _has_bits_[0] &= ~0x00000040u;
+    inline void AnswerSystem::clear_has_exp_1() {
+        _has_bits_[0] &= ~0x00000020u;
     }
-    inline void AnswerSystem::clear_device_udid() {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_->clear();
+    inline void AnswerSystem::clear_exp_1() {
+        if (exp_1_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_1_->clear();
         }
-        clear_has_device_udid();
+        clear_has_exp_1();
     }
-    inline const ::std::string& AnswerSystem::device_udid() const {
-        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.device_udid)
-        return *device_udid_;
+    inline const ::std::string& AnswerSystem::exp_1() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.exp_1)
+        return *exp_1_;
     }
-    inline void AnswerSystem::set_device_udid(const ::std::string& value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
+    inline void AnswerSystem::set_exp_1(const ::std::string& value) {
+        set_has_exp_1();
+        if (exp_1_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_1_ = new ::std::string;
         }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.device_udid)
+        exp_1_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.exp_1)
     }
-    inline void AnswerSystem::set_device_udid(const char* value) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
+    inline void AnswerSystem::set_exp_1(const char* value) {
+        set_has_exp_1();
+        if (exp_1_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_1_ = new ::std::string;
         }
-        device_udid_->assign(value);
-        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.device_udid)
+        exp_1_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.exp_1)
     }
-    inline void AnswerSystem::set_device_udid(const char* value, size_t size) {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
+    inline void AnswerSystem::set_exp_1(const char* value, size_t size) {
+        set_has_exp_1();
+        if (exp_1_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_1_ = new ::std::string;
         }
-        device_udid_->assign(reinterpret_cast<const char*>(value), size);
-        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.device_udid)
+        exp_1_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.exp_1)
     }
-    inline ::std::string* AnswerSystem::mutable_device_udid() {
-        set_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            device_udid_ = new ::std::string;
+    inline ::std::string* AnswerSystem::mutable_exp_1() {
+        set_has_exp_1();
+        if (exp_1_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_1_ = new ::std::string;
         }
-        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.device_udid)
-        return device_udid_;
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.exp_1)
+        return exp_1_;
     }
-    inline ::std::string* AnswerSystem::release_device_udid() {
-        clear_has_device_udid();
-        if (device_udid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    inline ::std::string* AnswerSystem::release_exp_1() {
+        clear_has_exp_1();
+        if (exp_1_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             return NULL;
         } else {
-            ::std::string* temp = device_udid_;
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            ::std::string* temp = exp_1_;
+            exp_1_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
             return temp;
         }
     }
-    inline void AnswerSystem::set_allocated_device_udid(::std::string* device_udid) {
-        if (device_udid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete device_udid_;
+    inline void AnswerSystem::set_allocated_exp_1(::std::string* exp_1) {
+        if (exp_1_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete exp_1_;
         }
-        if (device_udid) {
-            set_has_device_udid();
-            device_udid_ = device_udid;
+        if (exp_1) {
+            set_has_exp_1();
+            exp_1_ = exp_1;
         } else {
-            clear_has_device_udid();
-            device_udid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            clear_has_exp_1();
+            exp_1_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         }
-        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.device_udid)
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.exp_1)
+    }
+    
+    // optional string exp_2 = 7;
+    inline bool AnswerSystem::has_exp_2() const {
+        return (_has_bits_[0] & 0x00000040u) != 0;
+    }
+    inline void AnswerSystem::set_has_exp_2() {
+        _has_bits_[0] |= 0x00000040u;
+    }
+    inline void AnswerSystem::clear_has_exp_2() {
+        _has_bits_[0] &= ~0x00000040u;
+    }
+    inline void AnswerSystem::clear_exp_2() {
+        if (exp_2_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_2_->clear();
+        }
+        clear_has_exp_2();
+    }
+    inline const ::std::string& AnswerSystem::exp_2() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.exp_2)
+        return *exp_2_;
+    }
+    inline void AnswerSystem::set_exp_2(const ::std::string& value) {
+        set_has_exp_2();
+        if (exp_2_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_2_ = new ::std::string;
+        }
+        exp_2_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.exp_2)
+    }
+    inline void AnswerSystem::set_exp_2(const char* value) {
+        set_has_exp_2();
+        if (exp_2_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_2_ = new ::std::string;
+        }
+        exp_2_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.exp_2)
+    }
+    inline void AnswerSystem::set_exp_2(const char* value, size_t size) {
+        set_has_exp_2();
+        if (exp_2_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_2_ = new ::std::string;
+        }
+        exp_2_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.exp_2)
+    }
+    inline ::std::string* AnswerSystem::mutable_exp_2() {
+        set_has_exp_2();
+        if (exp_2_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_2_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.exp_2)
+        return exp_2_;
+    }
+    inline ::std::string* AnswerSystem::release_exp_2() {
+        clear_has_exp_2();
+        if (exp_2_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = exp_2_;
+            exp_2_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerSystem::set_allocated_exp_2(::std::string* exp_2) {
+        if (exp_2_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete exp_2_;
+        }
+        if (exp_2) {
+            set_has_exp_2();
+            exp_2_ = exp_2;
+        } else {
+            clear_has_exp_2();
+            exp_2_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.exp_2)
+    }
+    
+    // optional string exp_3 = 8;
+    inline bool AnswerSystem::has_exp_3() const {
+        return (_has_bits_[0] & 0x00000080u) != 0;
+    }
+    inline void AnswerSystem::set_has_exp_3() {
+        _has_bits_[0] |= 0x00000080u;
+    }
+    inline void AnswerSystem::clear_has_exp_3() {
+        _has_bits_[0] &= ~0x00000080u;
+    }
+    inline void AnswerSystem::clear_exp_3() {
+        if (exp_3_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_3_->clear();
+        }
+        clear_has_exp_3();
+    }
+    inline const ::std::string& AnswerSystem::exp_3() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.exp_3)
+        return *exp_3_;
+    }
+    inline void AnswerSystem::set_exp_3(const ::std::string& value) {
+        set_has_exp_3();
+        if (exp_3_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_3_ = new ::std::string;
+        }
+        exp_3_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.exp_3)
+    }
+    inline void AnswerSystem::set_exp_3(const char* value) {
+        set_has_exp_3();
+        if (exp_3_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_3_ = new ::std::string;
+        }
+        exp_3_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.exp_3)
+    }
+    inline void AnswerSystem::set_exp_3(const char* value, size_t size) {
+        set_has_exp_3();
+        if (exp_3_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_3_ = new ::std::string;
+        }
+        exp_3_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.exp_3)
+    }
+    inline ::std::string* AnswerSystem::mutable_exp_3() {
+        set_has_exp_3();
+        if (exp_3_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_3_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.exp_3)
+        return exp_3_;
+    }
+    inline ::std::string* AnswerSystem::release_exp_3() {
+        clear_has_exp_3();
+        if (exp_3_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = exp_3_;
+            exp_3_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerSystem::set_allocated_exp_3(::std::string* exp_3) {
+        if (exp_3_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete exp_3_;
+        }
+        if (exp_3) {
+            set_has_exp_3();
+            exp_3_ = exp_3;
+        } else {
+            clear_has_exp_3();
+            exp_3_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.exp_3)
+    }
+    
+    // optional string exp_4 = 9;
+    inline bool AnswerSystem::has_exp_4() const {
+        return (_has_bits_[0] & 0x00000100u) != 0;
+    }
+    inline void AnswerSystem::set_has_exp_4() {
+        _has_bits_[0] |= 0x00000100u;
+    }
+    inline void AnswerSystem::clear_has_exp_4() {
+        _has_bits_[0] &= ~0x00000100u;
+    }
+    inline void AnswerSystem::clear_exp_4() {
+        if (exp_4_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_4_->clear();
+        }
+        clear_has_exp_4();
+    }
+    inline const ::std::string& AnswerSystem::exp_4() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.exp_4)
+        return *exp_4_;
+    }
+    inline void AnswerSystem::set_exp_4(const ::std::string& value) {
+        set_has_exp_4();
+        if (exp_4_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_4_ = new ::std::string;
+        }
+        exp_4_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.exp_4)
+    }
+    inline void AnswerSystem::set_exp_4(const char* value) {
+        set_has_exp_4();
+        if (exp_4_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_4_ = new ::std::string;
+        }
+        exp_4_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.exp_4)
+    }
+    inline void AnswerSystem::set_exp_4(const char* value, size_t size) {
+        set_has_exp_4();
+        if (exp_4_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_4_ = new ::std::string;
+        }
+        exp_4_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.exp_4)
+    }
+    inline ::std::string* AnswerSystem::mutable_exp_4() {
+        set_has_exp_4();
+        if (exp_4_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_4_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.exp_4)
+        return exp_4_;
+    }
+    inline ::std::string* AnswerSystem::release_exp_4() {
+        clear_has_exp_4();
+        if (exp_4_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = exp_4_;
+            exp_4_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerSystem::set_allocated_exp_4(::std::string* exp_4) {
+        if (exp_4_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete exp_4_;
+        }
+        if (exp_4) {
+            set_has_exp_4();
+            exp_4_ = exp_4;
+        } else {
+            clear_has_exp_4();
+            exp_4_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.exp_4)
+    }
+    
+    // optional string exp_5 = 10;
+    inline bool AnswerSystem::has_exp_5() const {
+        return (_has_bits_[0] & 0x00000200u) != 0;
+    }
+    inline void AnswerSystem::set_has_exp_5() {
+        _has_bits_[0] |= 0x00000200u;
+    }
+    inline void AnswerSystem::clear_has_exp_5() {
+        _has_bits_[0] &= ~0x00000200u;
+    }
+    inline void AnswerSystem::clear_exp_5() {
+        if (exp_5_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_5_->clear();
+        }
+        clear_has_exp_5();
+    }
+    inline const ::std::string& AnswerSystem::exp_5() const {
+        // @@protoc_insertion_point(field_get:QSChat.AnswerSystem.exp_5)
+        return *exp_5_;
+    }
+    inline void AnswerSystem::set_exp_5(const ::std::string& value) {
+        set_has_exp_5();
+        if (exp_5_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_5_ = new ::std::string;
+        }
+        exp_5_->assign(value);
+        // @@protoc_insertion_point(field_set:QSChat.AnswerSystem.exp_5)
+    }
+    inline void AnswerSystem::set_exp_5(const char* value) {
+        set_has_exp_5();
+        if (exp_5_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_5_ = new ::std::string;
+        }
+        exp_5_->assign(value);
+        // @@protoc_insertion_point(field_set_char:QSChat.AnswerSystem.exp_5)
+    }
+    inline void AnswerSystem::set_exp_5(const char* value, size_t size) {
+        set_has_exp_5();
+        if (exp_5_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_5_ = new ::std::string;
+        }
+        exp_5_->assign(reinterpret_cast<const char*>(value), size);
+        // @@protoc_insertion_point(field_set_pointer:QSChat.AnswerSystem.exp_5)
+    }
+    inline ::std::string* AnswerSystem::mutable_exp_5() {
+        set_has_exp_5();
+        if (exp_5_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            exp_5_ = new ::std::string;
+        }
+        // @@protoc_insertion_point(field_mutable:QSChat.AnswerSystem.exp_5)
+        return exp_5_;
+    }
+    inline ::std::string* AnswerSystem::release_exp_5() {
+        clear_has_exp_5();
+        if (exp_5_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            return NULL;
+        } else {
+            ::std::string* temp = exp_5_;
+            exp_5_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+            return temp;
+        }
+    }
+    inline void AnswerSystem::set_allocated_exp_5(::std::string* exp_5) {
+        if (exp_5_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete exp_5_;
+        }
+        if (exp_5) {
+            set_has_exp_5();
+            exp_5_ = exp_5;
+        } else {
+            clear_has_exp_5();
+            exp_5_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        }
+        // @@protoc_insertion_point(field_set_allocated:QSChat.AnswerSystem.exp_5)
     }
     
     
