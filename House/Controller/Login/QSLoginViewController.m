@@ -919,9 +919,6 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     ///删除
     [self deleteCollectedData];
     
-    ///下载同步服务端数据：保证本地的数据先上传服务端再获取最新数据，所以放在本地数据上传服务端之后再执行
-    [self downloadServerCollectedData];
-    
 }
 
 /**

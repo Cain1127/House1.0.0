@@ -978,18 +978,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
             [self updateHouseCountData:tempModel];
             
             [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.0f];
-            
-            ///请求收藏数据
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                ///判断是否已登录
-                if (lLoginCheckActionTypeLogined == [self checkLogin]) {
-                    
-                    [QSLoginViewController loadCollectedDataToServerWithCommunity];
-                    
-                }
-                
-            });
                         
         } else {
         
