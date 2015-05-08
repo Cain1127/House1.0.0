@@ -166,6 +166,9 @@
     ///弹出提示
     QSYRecommendHuoseMessageTipsPopView *tipsView = [[QSYRecommendHuoseMessageTipsPopView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 228.0f, SIZE_DEVICE_WIDTH, 228.0f) andHouseModel:houseInfoModel andHouseType:fFilterMainTypeRentalHouse andCallBack:^(RECOMMEND_HOUSE_MESSAGE_ACTION_TYPE actionType, NSString *titleString) {
         
+        ///回收弹出框
+        [popView hiddenCustomPopview];
+        
         ///确认推送房源
         if (rRecommendHouseMessageActionTypeConfirm == actionType) {
             
