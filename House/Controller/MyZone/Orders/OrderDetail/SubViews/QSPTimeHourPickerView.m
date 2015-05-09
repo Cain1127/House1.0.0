@@ -105,7 +105,7 @@
         }];
         
         [buttomButtonsView setFrame:CGRectMake(buttomButtonsView.frame.origin.x, self.frame.size.height -buttomButtonsView.frame.size.height, buttomButtonsView.frame.size.width, buttomButtonsView.frame.size.height)];
-        [buttomButtonsView setLeftBtBackgroundColor:COLOR_CHARACTERS_GRAY];
+        [buttomButtonsView setLeftBtBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
         
         ///picker
         self.pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SIZE_DEVICE_HEIGHT-180-buttomButtonsView.frame.size.height, SIZE_DEVICE_WIDTH, 180)];

@@ -91,11 +91,15 @@
     
     self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, -15, SIZE_DEVICE_WIDTH-12, 32*2)];
     [self.placeholderLabel setBackgroundColor:[UIColor clearColor]];
-    [self.placeholderLabel setText:@"输入具体评价描述(选填项)"];
+    [self.placeholderLabel setText:@"输入具体评价描述"];
     [self.placeholderLabel setNumberOfLines:0];
     [self.placeholderLabel setFont:[UIFont systemFontOfSize:FONT_BODY_16]];
     [self.placeholderLabel setTextColor:COLOR_CHARACTERS_LIGHTGRAY];
     [self.contentTextView addSubview:self.placeholderLabel];
+    
+    [self.contentTextView setText:@"房子不错！"];
+    [self.placeholderLabel setHidden:YES];
+    
     viewContentOffsetY = self.contentTextView.frame.origin.y+self.contentTextView.frame.size.height;
     
     UILabel *markTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, viewContentOffsetY+12, SIZE_DEVICE_WIDTH-12, 24)];
@@ -195,6 +199,15 @@
         return;
     }
     
+    if ( !self.contentTextView || [[self.contentTextView text] isEqualToString:@""] ) {
+        
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入具体评价描述", 1.0f, ^(){
+            
+        })
+        return;
+        
+    }
+    
     if (![self.suitableButtonView getSelectedState] && ![self.unSuitableButtonView getSelectedState]) {
         
         TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请选择房源是否合适您", 1.0f, ^(){
@@ -203,6 +216,7 @@
         return;
         
     }
+    
     
     //    必选	类型及范围	说明
     //    user_id	true	string	操作用户id
@@ -225,6 +239,8 @@
     [tempParam setObject:self.orderID forKey:@"order_id"];
     [tempParam setObject:[NSString stringWithFormat:@"%ld",[self.totalStarsView getSelectedIndex]*2] forKey:@"score"];
     [tempParam setObject:[NSString stringWithFormat:@"%ld",[self.salerStarsView getSelectedIndex]*2] forKey:@"manner_score"];
+    NSString *descStr = @" ";
+
     [tempParam setObject:[self.contentTextView text] forKey:@"desc"];
     [tempParam setObject:suitableStr forKey:@"suitable"];//1:合适 4：不合适 (如果不是1，全部为不合适----房客确认的时候才需要)
     

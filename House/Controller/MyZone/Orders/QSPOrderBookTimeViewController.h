@@ -36,8 +36,9 @@ typedef enum
 @property ( nonatomic, strong ) id houseInfo;           //!<新预约时只需要传房源信息数据模型
 
 @property ( nonatomic, strong ) NSString *orderID;      //!<修改订单时需要传订单ID
-@property ( nonatomic, strong ) NSString *personName;   //!<修改订单时需要传预约姓名
-@property ( nonatomic, strong ) NSString *personPhone;  //!<修改订单时需要传预约号码
-
+@property ( nonatomic, strong ) NSString *lastPersonName;   //!<修改订单时需要传上一次预约姓名
+@property ( nonatomic, strong ) NSString *lastPersonPhone;  //!<修改订单时需要传上一次预约号码
+@property ( nonatomic, strong ) NSString *startHour;        //!<修改订单时需要传上一次预约开始时段
+@property ( nonatomic, strong ) NSString *endHour;          //!<修改订单时需要传上一次预约结束时段
 
 @end

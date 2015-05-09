@@ -15,7 +15,7 @@
     if (self = [super initAtTopLeft:topLeftPoint withButtonCount:2 andCallBack:callBack]) {
         
         [self setLeftBtTitle:@"再次预约"];
-        [self setRightBtTitle:@"取消申请"];
+        [self setRightBtTitle:@"申请议价中"];
         
         [self setLeftButtonType:nNormalButtonTypeCornerLightYellow];
         [self setRightButtonType:nNormalButtonTypeCornerYellow];

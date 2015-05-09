@@ -103,8 +103,8 @@
 @property (nonatomic, strong) QSPOrderDetailShowingsTimeView *showingsTimeView; //!<看房时间View
 @property (nonatomic, strong) QSPOrderDetailShowingsActivitiesView *showingsActivitiesView; //!<看房活动简介View
 @property (nonatomic, strong) QSPOrderDetailHouseInfoView *houseInfoView;  //!<房源简介View
-@property (nonatomic, strong) QSPOrderDetailHousePriceView *housePriceView;         //!<房源售价单价View
 @property (nonatomic, strong) QSPOrderDetailAddressView *addressView;   //!<地址栏View
+@property (nonatomic, strong) QSPOrderDetailHousePriceView *housePriceView;         //!<房源售价单价View
 @property (nonatomic, strong) QSPOrderDetailPersonInfoView *personView; //!<业主信息View
 @property (nonatomic, strong) QSPOrderDetailActivitiesPhoneView *activitiesPhoneView;    //!<看房活动联系电话View
 @property (nonatomic, strong) QSPOrderDetailOtherPriceView *otherPriceView;         //!<对方出价View
@@ -253,8 +253,10 @@
                         }];
                         [btVc setVcType:bBookTypeViewControllerChange];
                         [btVc setOrderID:self.orderDetailData.id_];
-                        [btVc setPersonName:self.orderDetailData.buyer_name];
-                        [btVc setPersonPhone:self.orderDetailData.buyer_phone];
+                        [btVc setLastPersonName:self.orderDetailData.buyer_name];
+                        [btVc setLastPersonPhone:self.orderDetailData.buyer_phone];
+                        [btVc setStartHour:self.orderDetailData.appoint_start_time];
+                        [btVc setEndHour:self.orderDetailData.appoint_end_time];
                         
                         if (self.orderDetailData.house_msg) {
                             [btVc setHouseInfo:self.orderDetailData.house_msg];
@@ -616,6 +618,35 @@
         
     }
     
+    ///地址栏
+    if (self.orderDetailData.isShowAddressView) {
+        self.addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withHouseData:houseData andCallBack:^(UIButton *button) {
+            
+            NSLog(@"地图定位 clickBt");
+            
+            if (!self.orderDetailData || ![self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
+                NSLog(@"QSOrderDetailInfoDataModel 错误");
+                return;
+            }
+            
+            if (self.orderDetailData.house_msg) {
+                
+                //房源坐标
+                //            self.orderDetailData.house_msg.coordinate_x;
+                //            self.orderDetailData.house_msg.coordinate_y;
+                QSSearchMapViewController *mapSearchVC = [[QSSearchMapViewController alloc] initWithTitle:self.orderDetailData.house_msg.title andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
+                [self.navigationController pushViewController:mapSearchVC animated:YES];
+                
+            }
+            
+        }];
+        [scrollView addSubview:_addressView];
+        ///将地址栏引用添加进看房时间控件管理作动态高度扩展
+        [self.showingsTimeView addAfterView:&_addressView];
+        viewContentOffsetY = _addressView.frame.origin.y+_addressView.frame.size.height;
+        
+    }
+    
     ///房源价格
     if (self.orderDetailData.isShowHousePriceView) {
         
@@ -648,35 +679,6 @@
         ///将房源价格引用添加进看房时间控件管理作动态高度扩展
         [self.showingsTimeView addAfterView:&_housePriceView];
         viewContentOffsetY = self.housePriceView.frame.origin.y+self.housePriceView.frame.size.height;
-        
-    }
-    
-    ///地址栏
-    if (self.orderDetailData.isShowAddressView) {
-        self.addressView = [[QSPOrderDetailAddressView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withHouseData:houseData andCallBack:^(UIButton *button) {
-            
-            NSLog(@"地图定位 clickBt");
-            
-            if (!self.orderDetailData || ![self.orderDetailData isKindOfClass:[QSOrderDetailInfoDataModel class]]) {
-                NSLog(@"QSOrderDetailInfoDataModel 错误");
-                return;
-            }
-            
-            if (self.orderDetailData.house_msg) {
-                
-                //房源坐标
-                //            self.orderDetailData.house_msg.coordinate_x;
-                //            self.orderDetailData.house_msg.coordinate_y;
-                QSSearchMapViewController *mapSearchVC = [[QSSearchMapViewController alloc] initWithTitle:self.orderDetailData.house_msg.title andCoordinate_x:self.orderDetailData.house_msg.coordinate_x andCoordinate_y:self.orderDetailData.house_msg.coordinate_y];
-                [self.navigationController pushViewController:mapSearchVC animated:YES];
-                
-            }
-            
-        }];
-        [scrollView addSubview:_addressView];
-        ///将地址栏引用添加进看房时间控件管理作动态高度扩展
-        [self.showingsTimeView addAfterView:&_addressView];
-        viewContentOffsetY = _addressView.frame.origin.y+_addressView.frame.size.height;
         
     }
     
@@ -828,8 +830,13 @@
         self.myPriceView = [[QSPOrderDetailMyPriceView alloc] initAtTopLeft:CGPointMake(0.0f, viewContentOffsetY) withOrderData:self.orderDetailData andCallBack:^(UIButton *button) {
             
             NSLog(@"出价Button");
+            
+            SetHeightToZero(self.myPriceView);
+            
             if (self.inputMyPriceView) {
+                
                 [self.inputMyPriceView setFrameHeightToShowHeight];
+                
             }
             
             if (self.rejectPriceButtonView) {
@@ -1572,7 +1579,7 @@
                             QSPOrderTipsButtonPopView *acceptOrRejectAppointmentPopView = [[QSPOrderTipsButtonPopView alloc] initWithAcceptOrRejectAppointmentViewWithTip:[NSString stringWithFormat:@"房客再次预约看房\n预约时间:%@",timeItem.time] withUserType:[self.orderDetailData getUserType] andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                                 
                                 if (actionType == oOrderButtonTipsActionTypeCancel) {
-                                    
+                                
                                     //拒绝再次预约
                                     [self cancelAppointmentOrder];
                                     
@@ -1714,6 +1721,18 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             self.orderDetailData = headerModel.orderDetailData;
+            
+            //500221, 50222 返回列表界面
+            if (self.orderDetailData) {
+                NSString *orderStatus = self.orderDetailData.order_status;
+                if (orderStatus && ([orderStatus isEqualToString:@"500221"] || [orderStatus isEqualToString:@"500222"])) {
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                    [hud hiddenCustomHUD];
+                    return ;
+                }
+            }
+            
             [self.orderDetailData updateViewsFlags];
             [self createSubViewsUI];
             

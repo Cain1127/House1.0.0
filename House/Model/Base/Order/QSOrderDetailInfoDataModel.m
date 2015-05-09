@@ -634,6 +634,7 @@
                 //房客角色
                 
                 self.isShowHousePriceView = YES;
+                self.isShowAddressView = YES;
                 
                 //G-06-4-按钮不能点击 再次预约、议价、我要成交
                 self.isShowAppointAgainAndPriceAgainButtonView = YES;
@@ -670,7 +671,7 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                
+                self.isShowAddressView = YES;
                 self.isShowHousePriceView = YES;
                 self.isShowAppointAgainAndPriceAgainButtonView = YES;
                 self.isShowConfirmOrderButtonView = YES;
@@ -681,6 +682,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowOtherPriceView = YES;
@@ -713,6 +715,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -736,6 +739,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -759,6 +763,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -779,6 +784,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowOtherPriceView = YES;
@@ -800,6 +806,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -820,6 +827,7 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -842,6 +850,7 @@
             
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -862,6 +871,7 @@
             
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -882,6 +892,7 @@
             
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -920,6 +931,7 @@
             //成交订单待房客确认成交
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -940,6 +952,7 @@
             //成交订单待业主确认成交
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -960,6 +973,7 @@
             //成交订单已成交
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
@@ -971,6 +985,7 @@
             //成交订单已取消
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;

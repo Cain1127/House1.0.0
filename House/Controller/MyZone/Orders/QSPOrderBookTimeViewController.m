@@ -23,6 +23,7 @@
 #import "QSPOrderDetailActionReturnBaseDataModel.h"
 #import "QSPOrderCancelReasonViewController.h"
 #import "QSYShakeRecommendHouseViewController.h"
+#import "QSPOrderTipsButtonPopView.h"
 
 @interface QSPOrderBookTimeViewController ()<UITextFieldDelegate, QSPTimeHourPickerViewDelegate>
 
@@ -31,8 +32,6 @@
 @property (nonatomic, strong) QSScrollView *scrollView;
 @property (nonatomic, strong) UITextField *appointmentSlotsField;
 @property (nonatomic, strong) QSPCalendarView *calendarView;
-@property (nonatomic, strong) NSString *startHour;
-@property (nonatomic, strong) NSString *endHour;
 @property (nonatomic, strong) UITextField *personNameField;
 @property (nonatomic, strong) UITextField *phoneNumField;
 
@@ -41,7 +40,7 @@
 @end
 
 @implementation QSPOrderBookTimeViewController
-@synthesize vcType, houseType, houseInfo, orderID, personName, personPhone;
+@synthesize vcType, houseType, houseInfo, orderID, lastPersonName, lastPersonPhone, startHour, endHour;
 
 #pragma mark - 初始化
 
@@ -128,7 +127,21 @@
             NSLog(@"buttomButtonsView clickButton：%d",buttonType);
             if (buttonType == bBottomButtonTypeLeft) {
                 //左边取消按钮
-                [self cancelAppointmentOrder];
+                
+                QSPOrderTipsButtonPopView *acceptOrRejectAppointmentPopView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否确认取消此预约？" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                    
+                    if (actionType == oOrderButtonTipsActionTypeCancel) {
+                        
+                    }else if (actionType == oOrderButtonTipsActionTypeConfirm) {
+                        
+                        //取消预约
+                        [self cancelAppointmentOrder];
+                        
+                    }
+                    
+                }];
+                
+                [self.navigationController.view addSubview:acceptOrRejectAppointmentPopView];
                 
             }else if (buttonType == bBottomButtonTypeRight) {
                 //右边确定按钮
@@ -141,7 +154,7 @@
         }];
         
         [buttomButtonsView setFrame:CGRectMake(buttomButtonsView.frame.origin.x, SIZE_DEVICE_HEIGHT -buttomButtonsView.frame.size.height, buttomButtonsView.frame.size.width, buttomButtonsView.frame.size.height)];
-        [buttomButtonsView setLeftBtBackgroundColor:COLOR_CHARACTERS_GRAY];
+        [buttomButtonsView setLeftBtBackgroundColor:COLOR_CHARACTERS_LIGHTYELLOW];
         buttomViewHeight = buttomButtonsView.frame.size.height;
         
     }
@@ -169,6 +182,15 @@
     self.appointmentSlotsField.delegate = self;
     self.appointmentSlotsField.enabled = NO;
     [self.scrollView addSubview:self.appointmentSlotsField];
+    
+    NSString *lastTime = @"";
+    if (self.startHour) {
+        lastTime = [NSString stringWithFormat:@"%@-",self.startHour];
+    }
+    if (self.endHour) {
+        lastTime = [NSString stringWithFormat:@"%@%@",lastTime,self.endHour];
+    }
+    [self.appointmentSlotsField setText:lastTime];
     
     ///分隔线
     UILabel *appointmentSlotsLineLablel = [[UILabel alloc] initWithFrame:CGRectMake(self.appointmentSlotsField.frame.origin.x, self.appointmentSlotsField.frame.origin.y + self.appointmentSlotsField.frame.size.height + 3.5f, self.appointmentSlotsField.frame.size.width, 0.5f)];
@@ -208,23 +230,23 @@
         [timePickerView setDelegate:self];
         if (self.houseInfo) {
             
-            NSString *startHour = nil;
-            NSString *endHour = nil;
+            NSString *tempStartHour = nil;
+            NSString *tempEndHour = nil;
             
             if ([self.houseInfo isKindOfClass:[QSWSecondHouseInfoDataModel class]]) {
                 
-                startHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
-                endHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_end;
+                tempStartHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
+                tempEndHour = ((QSWSecondHouseInfoDataModel*)(self.houseInfo)).time_interval_end;
                 
             }else if ([self.houseInfo isKindOfClass:[QSWRentHouseInfoDataModel class]]) {
                 
-                startHour = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
-                endHour = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_end;
+                tempStartHour = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_start;
+                tempEndHour = ((QSWRentHouseInfoDataModel*)(self.houseInfo)).time_interval_end;
                 
             }else if ([self.houseInfo isKindOfClass:[QSOrderDetailInfoHouseDataModel class]]) {
                 
-                startHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_start;
-                endHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_end;
+                tempStartHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_start;
+                tempEndHour = ((QSOrderDetailInfoHouseDataModel*)(self.houseInfo)).time_interval_end;
                 
             }
             
@@ -244,7 +266,7 @@
                 
                 NSInteger nowHourInt = nowHourStr.integerValue;
                 
-                NSArray *startHourList = [startHour componentsSeparatedByString:@":"];
+                NSArray *startHourList = [tempStartHour componentsSeparatedByString:@":"];
                 if (startHourList&&[startHourList count]>=1) {
                     
                     NSString *startHourFirst = [startHourList objectAtIndex:0];
@@ -254,14 +276,14 @@
                     
                 }
                 
-                if (nowHourInt+1==24) {
+                if (nowHourInt==24) {
                     
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"已经超过可预约时间，不能再预约今天的时间段了", 1.5f, ^(){})
                     return;
                     
-                }else if (nowHourInt+1 >=startHourInt) {
+                }else {
                     
-                    startHourInt = nowHourInt+1;
+                    startHourInt = nowHourInt;
                     
                 }
                 
@@ -283,11 +305,11 @@
                     
                 }
                 
-                startHour = [NSString stringWithFormat:@"%2ld:00",(long)startHourInt];
+                tempStartHour = [NSString stringWithFormat:@"%2ld:00",(long)startHourInt];
                 
             }
             
-            [timePickerView updateDataFormHour:startHour toHour:endHour];
+            [timePickerView updateDataFormHour:tempStartHour toHour:tempEndHour];
             
         }
         [timePickerView showTimeHourPickerView];
@@ -301,8 +323,8 @@
     self.personNameField.returnKeyType = UIReturnKeyDone;
     [self.scrollView addSubview:self.personNameField];
     
-    if (self.personName) {
-        [self.personNameField setText:self.personName];
+    if (self.lastPersonName) {
+        [self.personNameField setText:self.lastPersonName];
     }
     
     ///分隔线
@@ -318,8 +340,8 @@
     self.phoneNumField.returnKeyType = UIReturnKeyDone;
     [self.scrollView addSubview:self.phoneNumField];
     
-    if (self.personPhone) {
-        [self.phoneNumField setText:self.personPhone];
+    if (self.lastPersonPhone) {
+        [self.phoneNumField setText:self.lastPersonPhone];
     }
     
     ///分隔线
