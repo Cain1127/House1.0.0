@@ -50,6 +50,8 @@ static char UserGenderKey;      //!<性别
 @interface QSYMySettingViewController () <UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,retain) QSUserDataModel *userModel;    //!<用户信息数据模型
+@property (nonatomic,copy) NSString *iconNewLocalPath;      //!<新用户头像的地址
+@property (assign) BOOL isUpdateUserIcon;                   //!<是否更新用户头像
 
 @end
 
@@ -494,7 +496,8 @@ static char UserGenderKey;      //!<性别
         BOOL isSave = [imageData writeToFile:savePath atomically:YES];
         if (isSave) {
             
-            [self updateUserIconImage:savePath];
+            self.isUpdateUserIcon = YES;
+            self.iconNewLocalPath = savePath;
             
         }
         
@@ -505,18 +508,22 @@ static char UserGenderKey;      //!<性别
 }
 
 ///联网更新用户图片
-- (void)updateUserIconImage:(NSString *)filePath
+- (void)updateUserIconImage
 {
+    
+    if ([self.iconNewLocalPath length] <= 0) {
+        
+        return;
+        
+    }
 
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在上传图片"];
     
     ///获取图片
-    NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+    NSData *imageData = [NSData dataWithContentsOfFile:self.iconNewLocalPath];
     UIImage *image = [UIImage imageWithData:imageData];
     
     ///获取图片二进制流
-    
-    
     if (!image) {
         
         return;
@@ -527,7 +534,7 @@ static char UserGenderKey;      //!<性别
     NSDictionary *params = @{@"source" : @"iOS",
                              @"thumb_width" : [NSString stringWithFormat:@"%.2f",image.size.width],
                              @"thumb_height" : [NSString stringWithFormat:@"%.2f",image.size.height],
-                             @"attach_file" : filePath};
+                             @"attach_file" : self.iconNewLocalPath};
     
     ///上传图片
     [QSRequestManager requestDataWithType:rRequestTypeLoadImage andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -537,7 +544,7 @@ static char UserGenderKey;      //!<性别
             
             ///修改参数
             QSYLoadImageReturnData *tempModel = resultData;
-            [self updateUserIconImage:tempModel.imageModel.smallImageURl andSmallPath:tempModel.imageModel.originalImageURl andHUD:hud];
+            [self updateUserIconImage:tempModel.imageModel.originalImageURl andSmallPath:tempModel.imageModel.smallImageURl andHUD:hud];
             
         } else {
             
@@ -548,6 +555,7 @@ static char UserGenderKey;      //!<性别
                 tipsString = [resultData valueForKey:@"info"];
                 
             }
+            
             [hud hiddenCustomHUDWithFooterTips:tipsString andDelayTime:1.5f];
             
         }
@@ -601,6 +609,25 @@ static char UserGenderKey;      //!<性别
         }
         
     }];
+
+}
+
+#pragma mark - 视图将要出现是判断是否需要刷新头像
+- (void)viewWillAppear:(BOOL)animated
+{
+
+    [super viewWillAppear:animated];
+    
+    if (self.isUpdateUserIcon) {
+        
+        self.isUpdateUserIcon = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self updateUserIconImage];
+            
+        });
+        
+    }
 
 }
 

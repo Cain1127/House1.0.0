@@ -9,6 +9,8 @@
 #import "QSYTalkPTPViewController.h"
 #import "QSYTenantInfoViewController.h"
 #import "QSYOwnerInfoViewController.h"
+#import "QSSecondHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
 
 #import "QSYMessageWordTableViewCell.h"
 #import "QSYMessageVideoTableViewCell.h"
@@ -424,6 +426,29 @@
                 QSYSendMessageRecommendHouse *wordModel = (QSYSendMessageRecommendHouse *)tempModel;
                 [cellWordsMesssageMYCell updateMessageWordUI:wordModel];
                 
+                ///单击进入房源详情
+                cellWordsMesssageMYCell.singleTapCallBack = ^(void){
+                
+                    ///进入出租房详情
+                    if (fFilterMainTypeRentalHouse == [wordModel.houseType intValue]) {
+                        
+                        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:wordModel.title andDetailID:wordModel.houseID];
+                        [self.navigationController pushViewController:detailVC animated:YES];
+                        return;
+                        
+                    }
+                    
+                    ///进入二手房详情
+                    if (fFilterMainTypeSecondHouse == [wordModel.houseType intValue]) {
+                        
+                        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:wordModel.title andDetailID:wordModel.houseID];
+                        [self.navigationController pushViewController:detailVC animated:YES];
+                        return;
+                        
+                    }
+                
+                };
+                
                 return cellWordsMesssageMYCell;
                 
             } else {
@@ -441,6 +466,29 @@
                 
                 QSYSendMessageRecommendHouse *wordModel = (QSYSendMessageRecommendHouse *)tempModel;
                 [cellWordsMessageFrom updateMessageWordUI:wordModel];
+                
+                ///单击进入房源详情
+                cellWordsMessageFrom.singleTapCallBack = ^(void){
+                    
+                    ///进入出租房详情
+                    if (fFilterMainTypeRentalHouse == [wordModel.houseType intValue]) {
+                        
+                        QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:wordModel.title andDetailID:wordModel.houseID];
+                        [self.navigationController pushViewController:detailVC animated:YES];
+                        return;
+                        
+                    }
+                    
+                    ///进入二手房详情
+                    if (fFilterMainTypeSecondHouse == [wordModel.houseType intValue]) {
+                        
+                        QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:wordModel.title andDetailID:wordModel.houseID];
+                        [self.navigationController pushViewController:detailVC animated:YES];
+                        return;
+                        
+                    }
+                    
+                };
                 
                 return cellWordsMessageFrom;
                 

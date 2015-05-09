@@ -234,7 +234,7 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
                             ///重置收藏和关注记录
                             dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                                 
-                                [QSLoginViewController loadCollectedCommunityDataToServer];
+                                [QSLoginViewController loadIntentionCommunityDataToServer];
                                 
                             });
                             

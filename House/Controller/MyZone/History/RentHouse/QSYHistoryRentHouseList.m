@@ -355,7 +355,9 @@
     _isEditing = isEditing;
     
     ///判断是否是删除
-    if (!isEditing && [self.customDataSource count] > 0) {
+    if (!isEditing &&
+        ([self.customDataSource count] > 0 ||
+         [self.dataModel.headerData.dataList count] > 0)) {
         
         [self clearHistoryRentHouse];
         

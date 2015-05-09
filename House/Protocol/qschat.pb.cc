@@ -56,6 +56,12 @@ namespace QSChat {
         const ::google::protobuf::Descriptor* AnswerRecommendHouse_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         AnswerRecommendHouse_reflection_ = NULL;
+        const ::google::protobuf::Descriptor* AnswerRecHouse_descriptor_ = NULL;
+        const ::google::protobuf::internal::GeneratedMessageReflection*
+        AnswerRecHouse_reflection_ = NULL;
+        const ::google::protobuf::Descriptor* Finfo_descriptor_ = NULL;
+        const ::google::protobuf::internal::GeneratedMessageReflection*
+        Finfo_reflection_ = NULL;
         const ::google::protobuf::Descriptor* AnswerOffline_descriptor_ = NULL;
         const ::google::protobuf::internal::GeneratedMessageReflection*
         AnswerOffline_reflection_ = NULL;
@@ -377,7 +383,7 @@ namespace QSChat {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, house_area_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, house_price_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, rent_price_),
-            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, title_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, title__),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, fid_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, f_avatar_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecommendHouse, f_name_),
@@ -397,7 +403,58 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerRecommendHouse));
-        AnswerOffline_descriptor_ = file->message_type(12);
+        AnswerRecHouse_descriptor_ = file->message_type(12);
+        static const int AnswerRecHouse_offsets_[14] = {
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, msg_id__),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, finfo_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, attach_file_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, attach_thumb_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, areaid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, area_val_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, streetid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, street_val_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, house_shi_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, house_ting_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, house_area_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, house_price_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, rent_price_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, title__),
+        };
+        AnswerRecHouse_reflection_ =
+        new ::google::protobuf::internal::GeneratedMessageReflection(
+                                                                     AnswerRecHouse_descriptor_,
+                                                                     AnswerRecHouse::default_instance_,
+                                                                     AnswerRecHouse_offsets_,
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, _has_bits_[0]),
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerRecHouse, _unknown_fields_),
+                                                                     -1,
+                                                                     ::google::protobuf::DescriptorPool::generated_pool(),
+                                                                     ::google::protobuf::MessageFactory::generated_factory(),
+                                                                     sizeof(AnswerRecHouse));
+        Finfo_descriptor_ = file->message_type(13);
+        static const int Finfo_offsets_[9] = {
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, fid_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, f_avatar_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, f_name_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, f_leve_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, f_user_type_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, f_unread_count_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, house_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, building_id_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, house_type_),
+        };
+        Finfo_reflection_ =
+        new ::google::protobuf::internal::GeneratedMessageReflection(
+                                                                     Finfo_descriptor_,
+                                                                     Finfo::default_instance_,
+                                                                     Finfo_offsets_,
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, _has_bits_[0]),
+                                                                     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Finfo, _unknown_fields_),
+                                                                     -1,
+                                                                     ::google::protobuf::DescriptorPool::generated_pool(),
+                                                                     ::google::protobuf::MessageFactory::generated_factory(),
+                                                                     sizeof(Finfo));
+        AnswerOffline_descriptor_ = file->message_type(14);
         static const int AnswerOffline_offsets_[11] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, result_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerOffline, msg_),
@@ -422,7 +479,7 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerOffline));
-        AnswerSpecial_descriptor_ = file->message_type(13);
+        AnswerSpecial_descriptor_ = file->message_type(15);
         static const int AnswerSpecial_offsets_[5] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, name_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSpecial, pic_),
@@ -441,7 +498,7 @@ namespace QSChat {
                                                                      ::google::protobuf::DescriptorPool::generated_pool(),
                                                                      ::google::protobuf::MessageFactory::generated_factory(),
                                                                      sizeof(AnswerSpecial));
-        AnswerSystem_descriptor_ = file->message_type(14);
+        AnswerSystem_descriptor_ = file->message_type(16);
         static const int AnswerSystem_offsets_[10] = {
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, title_),
             GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(AnswerSystem, desc_),
@@ -504,6 +561,10 @@ namespace QSChat {
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerRecommendHouse_descriptor_, &AnswerRecommendHouse::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+                                                                                 AnswerRecHouse_descriptor_, &AnswerRecHouse::default_instance());
+            ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+                                                                                 Finfo_descriptor_, &Finfo::default_instance());
+            ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerOffline_descriptor_, &AnswerOffline::default_instance());
             ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
                                                                                  AnswerSpecial_descriptor_, &AnswerSpecial::default_instance());
@@ -538,6 +599,10 @@ namespace QSChat {
         delete AnswerVideo_reflection_;
         delete AnswerRecommendHouse::default_instance_;
         delete AnswerRecommendHouse_reflection_;
+        delete AnswerRecHouse::default_instance_;
+        delete AnswerRecHouse_reflection_;
+        delete Finfo::default_instance_;
+        delete Finfo_reflection_;
         delete AnswerOffline::default_instance_;
         delete AnswerOffline_reflection_;
         delete AnswerSpecial::default_instance_;
@@ -592,17 +657,17 @@ namespace QSChat {
                                                                      "QuestionRecommendHouse\022\013\n\003mid\030\001 \002(\003\022\013\n\003t"
                                                                      "id\030\002 \002(\003\022&\n\005ctype\030\003 \002(\0162\027.QSChat.ChatReq"
                                                                      "uestType\022\020\n\010house_id\030\004 \002(\t\022\023\n\013building_i"
-                                                                     "d\030\005 \001(\t\022\022\n\nhouse_type\030\006 \002(\t\022\023\n\013attach_fi"
+                                                                     "d\030\005 \002(\t\022\022\n\nhouse_type\030\006 \002(\t\022\023\n\013attach_fi"
                                                                      "le\030\007 \002(\t\022\024\n\014attach_thumb\030\010 \002(\t\022\016\n\006areaid"
                                                                      "\030\t \002(\t\022\020\n\010area_val\030\n \002(\t\022\020\n\010streetid\030\013 \002"
                                                                      "(\t\022\022\n\nstreet_val\030\014 \002(\t\022\021\n\thouse_shi\030\r \002("
                                                                      "\t\022\022\n\nhouse_ting\030\016 \002(\t\022\022\n\nhouse_area\030\017 \002("
-                                                                     "\t\022\023\n\013house_price\030\020 \001(\t\022\022\n\nrent_price\030\021 \001"
+                                                                     "\t\022\023\n\013house_price\030\020 \002(\t\022\022\n\nrent_price\030\021 \002"
                                                                      "(\t\022\r\n\005title\030\022 \002(\t\022\022\n\ntime_stamp\030\023 \002(\t\022\020\n"
                                                                      "\010t_avatar\030\024 \002(\t\022\016\n\006t_name\030\025 \002(\t\022\016\n\006t_lev"
                                                                      "e\030\026 \002(\t\022\023\n\013t_user_type\030\027 \002(\t\022\020\n\010m_avatar"
                                                                      "\030\030 \002(\t\022\016\n\006m_name\030\031 \002(\t\022\016\n\006m_leve\030\032 \002(\t\022\023"
-                                                                     "\n\013m_user_type\030\033 \002(\t\022\023\n\013device_udid\030\034 \001(\t"
+                                                                     "\n\013m_user_type\030\033 \002(\t\022\023\n\013device_udid\030\034 \002(\t"
                                                                      "\"\322\001\n\nAnswerWord\022\016\n\006result\030\001 \002(\t\022\017\n\007messa"
                                                                      "ge\030\002 \002(\t\022\016\n\006msg_id\030\003 \002(\t\022\022\n\ntime_stamp\030\004"
                                                                      " \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f"
@@ -618,7 +683,7 @@ namespace QSChat {
                                                                      " \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022\020\n"
                                                                      "\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_lev"
                                                                      "e\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_unread"
-                                                                     "_count\030\n \002(\t\022\023\n\013device_udid\030\013 \002(\t\"\330\003\n\024An"
+                                                                     "_count\030\n \002(\t\022\023\n\013device_udid\030\013 \002(\t\"\331\003\n\024An"
                                                                      "swerRecommendHouse\022\016\n\006result\030\001 \002(\t\022\016\n\006ms"
                                                                      "g_id\030\002 \002(\t\022\020\n\010house_id\030\003 \002(\t\022\023\n\013building"
                                                                      "_id\030\004 \001(\t\022\022\n\nhouse_type\030\005 \002(\t\022\023\n\013attach_"
@@ -627,34 +692,46 @@ namespace QSChat {
                                                                      " \002(\t\022\022\n\nstreet_val\030\013 \002(\t\022\021\n\thouse_shi\030\014 "
                                                                      "\002(\t\022\022\n\nhouse_ting\030\r \002(\t\022\022\n\nhouse_area\030\016 "
                                                                      "\002(\t\022\023\n\013house_price\030\017 \001(\t\022\022\n\nrent_price\030\020"
-                                                                     " \001(\t\022\r\n\005title\030\021 \002(\t\022\013\n\003fid\030\022 \002(\003\022\020\n\010f_av"
-                                                                     "atar\030\023 \002(\t\022\016\n\006f_name\030\024 \002(\t\022\016\n\006f_leve\030\025 \002"
-                                                                     "(\t\022\023\n\013f_user_type\030\026 \002(\t\022\026\n\016f_unread_coun"
-                                                                     "t\030\027 \002(\t\022\023\n\013device_udid\030\030 \002(\t\"\321\001\n\rAnswerO"
-                                                                     "ffline\022\016\n\006result\030\001 \002(\005\022\013\n\003msg\030\002 \002(\t\022\016\n\006m"
-                                                                     "sg_id\030\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005"
-                                                                     " \002(\003\022\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016"
-                                                                     "\n\006f_leve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f"
-                                                                     "_unread_count\030\n \002(\t\022\023\n\013device_udid\030\013 \002(\t"
-                                                                     "\"S\n\rAnswerSpecial\022\014\n\004name\030\001 \002(\t\022\013\n\003pic\030\002"
-                                                                     " \002(\t\022\014\n\004desc\030\003 \002(\t\022\013\n\003fid\030\004 \002(\t\022\014\n\004type\030"
-                                                                     "\005 \002(\t\"\237\001\n\014AnswerSystem\022\r\n\005title\030\001 \002(\t\022\014\n"
-                                                                     "\004desc\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\014\n\004type\030\004 \002(\t\022"
-                                                                     "\013\n\003url\030\005 \002(\t\022\r\n\005exp_1\030\006 \001(\t\022\r\n\005exp_2\030\007 \001"
-                                                                     "(\t\022\r\n\005exp_3\030\010 \001(\t\022\r\n\005exp_4\030\t \001(\t\022\r\n\005exp_"
-                                                                     "5\030\n \001(\t*\370\002\n\021QSChatMessageType\022\020\n\013QSCHAT_"
-                                                                     "WORD\020\250F\022\017\n\nQSCHAT_PIC\020\251F\022\021\n\014QSCHAT_VIDEO"
-                                                                     "\020\252F\022\022\n\rQSCHAT_ONLINE\020\253F\022\023\n\016QSCHAT_OFFLIN"
-                                                                     "E\020\254F\022\023\n\016QSCHAT_SPECIAL\020\255F\022\022\n\rQSCHAT_SYST"
-                                                                     "EM\020\256F\022\030\n\023QSCHAT_HISTORY_WORD\020\257F\022\027\n\022QSCHA"
-                                                                     "T_HISTORY_PIC\020\260F\022\031\n\024QSCHAT_HISTORY_VIDEO"
-                                                                     "\020\261F\022\023\n\016QSCHAT_HISTORY\020\262F\022\026\n\021QSCHAT_HISTO"
-                                                                     "RY_SP\020\263F\022\033\n\026QSCHAT_RECOMMEND_HOUSE\020\264F\022#\n"
-                                                                     "\036QSCHAT_HISTORY_RECOMMEND_HOUSE\020\265F\022\036\n\031QS"
-                                                                     "CHAT_SENDED_ANSWER_BACK\020\217N*=\n\017ChatReques"
-                                                                     "tType\022\024\n\017ChatTypeSendPTP\020\300>\022\024\n\017ChatTypeS"
-                                                                     "endPTG\020\301>B$\n\032com.fangdangjia.fdj.structB"
-                                                                     "\006QSChat", 4047);
+                                                                     " \001(\t\022\016\n\006title_\030\021 \002(\t\022\013\n\003fid\030\022 \002(\003\022\020\n\010f_a"
+                                                                     "vatar\030\023 \002(\t\022\016\n\006f_name\030\024 \002(\t\022\016\n\006f_leve\030\025 "
+                                                                     "\002(\t\022\023\n\013f_user_type\030\026 \002(\t\022\026\n\016f_unread_cou"
+                                                                     "nt\030\027 \002(\t\022\023\n\013device_udid\030\030 \002(\t\"\246\002\n\016Answer"
+                                                                     "RecHouse\022\017\n\007msg_id_\030\001 \002(\t\022\034\n\005finfo\030\002 \002(\013"
+                                                                     "2\r.QSChat.Finfo\022\023\n\013attach_file\030\003 \001(\t\022\024\n\014"
+                                                                     "attach_thumb\030\004 \001(\t\022\016\n\006areaid\030\005 \001(\t\022\020\n\010ar"
+                                                                     "ea_val\030\006 \001(\t\022\020\n\010streetid\030\007 \001(\t\022\022\n\nstreet"
+                                                                     "_val\030\010 \001(\t\022\021\n\thouse_shi\030\t \001(\t\022\022\n\nhouse_t"
+                                                                     "ing\030\n \001(\t\022\022\n\nhouse_area\030\013 \001(\t\022\023\n\013house_p"
+                                                                     "rice\030\014 \001(\t\022\022\n\nrent_price\030\r \001(\t\022\016\n\006title_"
+                                                                     "\030\016 \001(\t\"\256\001\n\005Finfo\022\013\n\003fid\030\001 \002(\003\022\020\n\010f_avata"
+                                                                     "r\030\002 \002(\t\022\016\n\006f_name\030\003 \002(\t\022\016\n\006f_leve\030\004 \002(\t\022"
+                                                                     "\023\n\013f_user_type\030\005 \002(\t\022\026\n\016f_unread_count\030\006"
+                                                                     " \002(\t\022\020\n\010house_id\030\007 \002(\t\022\023\n\013building_id\030\010 "
+                                                                     "\002(\t\022\022\n\nhouse_type\030\t \002(\t\"\321\001\n\rAnswerOfflin"
+                                                                     "e\022\016\n\006result\030\001 \002(\005\022\013\n\003msg\030\002 \002(\t\022\016\n\006msg_id"
+                                                                     "\030\003 \002(\t\022\022\n\ntime_stamp\030\004 \002(\t\022\013\n\003fid\030\005 \002(\003\022"
+                                                                     "\020\n\010f_avatar\030\006 \002(\t\022\016\n\006f_name\030\007 \002(\t\022\016\n\006f_l"
+                                                                     "eve\030\010 \002(\t\022\023\n\013f_user_type\030\t \002(\t\022\026\n\016f_unre"
+                                                                     "ad_count\030\n \002(\t\022\023\n\013device_udid\030\013 \002(\t\"S\n\rA"
+                                                                     "nswerSpecial\022\014\n\004name\030\001 \002(\t\022\013\n\003pic\030\002 \002(\t\022"
+                                                                     "\014\n\004desc\030\003 \002(\t\022\013\n\003fid\030\004 \002(\t\022\014\n\004type\030\005 \002(\t"
+                                                                     "\"\237\001\n\014AnswerSystem\022\r\n\005title\030\001 \002(\t\022\014\n\004desc"
+                                                                     "\030\002 \002(\t\022\014\n\004time\030\003 \002(\t\022\014\n\004type\030\004 \002(\t\022\013\n\003ur"
+                                                                     "l\030\005 \002(\t\022\r\n\005exp_1\030\006 \001(\t\022\r\n\005exp_2\030\007 \001(\t\022\r\n"
+                                                                     "\005exp_3\030\010 \001(\t\022\r\n\005exp_4\030\t \001(\t\022\r\n\005exp_5\030\n \001"
+                                                                     "(\t*\370\002\n\021QSChatMessageType\022\020\n\013QSCHAT_WORD\020"
+                                                                     "\250F\022\017\n\nQSCHAT_PIC\020\251F\022\021\n\014QSCHAT_VIDEO\020\252F\022\022"
+                                                                     "\n\rQSCHAT_ONLINE\020\253F\022\023\n\016QSCHAT_OFFLINE\020\254F\022"
+                                                                     "\023\n\016QSCHAT_SPECIAL\020\255F\022\022\n\rQSCHAT_SYSTEM\020\256F"
+                                                                     "\022\030\n\023QSCHAT_HISTORY_WORD\020\257F\022\027\n\022QSCHAT_HIS"
+                                                                     "TORY_PIC\020\260F\022\031\n\024QSCHAT_HISTORY_VIDEO\020\261F\022\023"
+                                                                     "\n\016QSCHAT_HISTORY\020\262F\022\026\n\021QSCHAT_HISTORY_SP"
+                                                                     "\020\263F\022\033\n\026QSCHAT_RECOMMEND_HOUSE\020\264F\022#\n\036QSCH"
+                                                                     "AT_HISTORY_RECOMMEND_HOUSE\020\265F\022\036\n\031QSCHAT_"
+                                                                     "SENDED_ANSWER_BACK\020\217N*=\n\017ChatRequestType"
+                                                                     "\022\024\n\017ChatTypeSendPTP\020\300>\022\024\n\017ChatTypeSendPT"
+                                                                     "G\020\301>B$\n\032com.fangdangjia.fdj.structB\006QSCh"
+                                                                     "at", 4522);
         ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
                                                                           "qschat.proto", &protobuf_RegisterTypes);
         QuestionOnline::default_instance_ = new QuestionOnline();
@@ -669,6 +746,8 @@ namespace QSChat {
         AnswerPic::default_instance_ = new AnswerPic();
         AnswerVideo::default_instance_ = new AnswerVideo();
         AnswerRecommendHouse::default_instance_ = new AnswerRecommendHouse();
+        AnswerRecHouse::default_instance_ = new AnswerRecHouse();
+        Finfo::default_instance_ = new Finfo();
         AnswerOffline::default_instance_ = new AnswerOffline();
         AnswerSpecial::default_instance_ = new AnswerSpecial();
         AnswerSystem::default_instance_ = new AnswerSystem();
@@ -684,6 +763,8 @@ namespace QSChat {
         AnswerPic::default_instance_->InitAsDefaultInstance();
         AnswerVideo::default_instance_->InitAsDefaultInstance();
         AnswerRecommendHouse::default_instance_->InitAsDefaultInstance();
+        AnswerRecHouse::default_instance_->InitAsDefaultInstance();
+        Finfo::default_instance_->InitAsDefaultInstance();
         AnswerOffline::default_instance_->InitAsDefaultInstance();
         AnswerSpecial::default_instance_->InitAsDefaultInstance();
         AnswerSystem::default_instance_->InitAsDefaultInstance();
@@ -6262,7 +6343,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // optional string building_id = 5;
+                    // required string building_id = 5;
                 case 5: {
                     if (tag == 42) {
                     parse_building_id:
@@ -6449,7 +6530,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // optional string house_price = 16;
+                    // required string house_price = 16;
                 case 16: {
                     if (tag == 130) {
                     parse_house_price:
@@ -6466,7 +6547,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // optional string rent_price = 17;
+                    // required string rent_price = 17;
                 case 17: {
                     if (tag == 138) {
                     parse_rent_price:
@@ -6653,7 +6734,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     break;
                 }
                     
-                    // optional string device_udid = 28;
+                    // required string device_udid = 28;
                 case 28: {
                     if (tag == 226) {
                     parse_device_udid:
@@ -6721,7 +6802,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   4, this->house_id(), output);
         }
         
-        // optional string building_id = 5;
+        // required string building_id = 5;
         if (has_building_id()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->building_id().data(), this->building_id().length(),
@@ -6831,7 +6912,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   15, this->house_area(), output);
         }
         
-        // optional string house_price = 16;
+        // required string house_price = 16;
         if (has_house_price()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->house_price().data(), this->house_price().length(),
@@ -6841,7 +6922,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   16, this->house_price(), output);
         }
         
-        // optional string rent_price = 17;
+        // required string rent_price = 17;
         if (has_rent_price()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->rent_price().data(), this->rent_price().length(),
@@ -6951,7 +7032,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   27, this->m_user_type(), output);
         }
         
-        // optional string device_udid = 28;
+        // required string device_udid = 28;
         if (has_device_udid()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->device_udid().data(), this->device_udid().length(),
@@ -6998,7 +7079,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              4, this->house_id(), target);
         }
         
-        // optional string building_id = 5;
+        // required string building_id = 5;
         if (has_building_id()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->building_id().data(), this->building_id().length(),
@@ -7119,7 +7200,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              15, this->house_area(), target);
         }
         
-        // optional string house_price = 16;
+        // required string house_price = 16;
         if (has_house_price()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->house_price().data(), this->house_price().length(),
@@ -7130,7 +7211,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              16, this->house_price(), target);
         }
         
-        // optional string rent_price = 17;
+        // required string rent_price = 17;
         if (has_rent_price()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->rent_price().data(), this->rent_price().length(),
@@ -7251,7 +7332,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              27, this->m_user_type(), target);
         }
         
-        // optional string device_udid = 28;
+        // required string device_udid = 28;
         if (has_device_udid()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
                                                                                  this->device_udid().data(), this->device_udid().length(),
@@ -7301,7 +7382,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->house_id());
             }
             
-            // optional string building_id = 5;
+            // required string building_id = 5;
             if (has_building_id()) {
                 total_size += 1 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7380,7 +7461,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->house_area());
             }
             
-            // optional string house_price = 16;
+            // required string house_price = 16;
             if (has_house_price()) {
                 total_size += 2 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7389,7 +7470,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             
         }
         if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-            // optional string rent_price = 17;
+            // required string rent_price = 17;
             if (has_rent_price()) {
                 total_size += 2 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7468,7 +7549,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                          this->m_user_type());
             }
             
-            // optional string device_udid = 28;
+            // required string device_udid = 28;
             if (has_device_udid()) {
                 total_size += 2 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -7609,7 +7690,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
     }
     
     bool QuestionRecommendHouse::IsInitialized() const {
-        if ((_has_bits_[0] & 0x07fe7fef) != 0x07fe7fef) return false;
+        if ((_has_bits_[0] & 0x0fffffff) != 0x0fffffff) return false;
         
         return true;
     }
@@ -10165,7 +10246,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-        title_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        title__ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         fid_ = GOOGLE_LONGLONG(0);
         f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
         f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -10230,8 +10311,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete rent_price_;
         }
-        if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-            delete title_;
+        if (title__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete title__;
         }
         if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
             delete f_avatar_;
@@ -10362,9 +10443,9 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
         if (_has_bits_[16 / 32] & 16711680) {
-            if (has_title()) {
-                if (title_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-                    title_->clear();
+            if (has_title_()) {
+                if (title__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    title__->clear();
                 }
             }
             fid_ = GOOGLE_LONGLONG(0);
@@ -10680,20 +10761,20 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                     } else {
                         goto handle_unusual;
                     }
-                    if (input->ExpectTag(138)) goto parse_title;
+                    if (input->ExpectTag(138)) goto parse_title_;
                     break;
                 }
                     
-                    // required string title = 17;
+                    // required string title_ = 17;
                 case 17: {
                     if (tag == 138) {
-                    parse_title:
+                    parse_title_:
                         DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                                                                                     input, this->mutable_title()));
+                                                                                     input, this->mutable_title_()));
                         ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                             this->title().data(), this->title().length(),
+                                                                                             this->title_().data(), this->title_().length(),
                                                                                              ::google::protobuf::internal::WireFormat::PARSE,
-                                                                                             "title");
+                                                                                             "title_");
                     } else {
                         goto handle_unusual;
                     }
@@ -11003,14 +11084,14 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                                   16, this->rent_price(), output);
         }
         
-        // required string title = 17;
-        if (has_title()) {
+        // required string title_ = 17;
+        if (has_title_()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->title().data(), this->title().length(),
+                                                                                 this->title_().data(), this->title_().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "title");
+                                                                                 "title_");
             ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-                                                                                  17, this->title(), output);
+                                                                                  17, this->title_(), output);
         }
         
         // required int64 fid = 18;
@@ -11264,15 +11345,15 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
                                                                              16, this->rent_price(), target);
         }
         
-        // required string title = 17;
-        if (has_title()) {
+        // required string title_ = 17;
+        if (has_title_()) {
             ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-                                                                                 this->title().data(), this->title().length(),
+                                                                                 this->title_().data(), this->title_().length(),
                                                                                  ::google::protobuf::internal::WireFormat::SERIALIZE,
-                                                                                 "title");
+                                                                                 "title_");
             target =
             ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-                                                                             17, this->title(), target);
+                                                                             17, this->title_(), target);
         }
         
         // required int64 fid = 18;
@@ -11474,11 +11555,11 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             
         }
         if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-            // required string title = 17;
-            if (has_title()) {
+            // required string title_ = 17;
+            if (has_title_()) {
                 total_size += 2 +
                 ::google::protobuf::internal::WireFormatLite::StringSize(
-                                                                         this->title());
+                                                                         this->title_());
             }
             
             // required int64 fid = 18;
@@ -11609,8 +11690,8 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             }
         }
         if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-            if (from.has_title()) {
-                set_title(from.title());
+            if (from.has_title_()) {
+                set_title_(from.title_());
             }
             if (from.has_fid()) {
                 set_fid(from.fid());
@@ -11673,7 +11754,7 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
             std::swap(house_area_, other->house_area_);
             std::swap(house_price_, other->house_price_);
             std::swap(rent_price_, other->rent_price_);
-            std::swap(title_, other->title_);
+            std::swap(title__, other->title__);
             std::swap(fid_, other->fid_);
             std::swap(f_avatar_, other->f_avatar_);
             std::swap(f_name_, other->f_name_);
@@ -11692,6 +11773,1715 @@ size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
         ::google::protobuf::Metadata metadata;
         metadata.descriptor = AnswerRecommendHouse_descriptor_;
         metadata.reflection = AnswerRecommendHouse_reflection_;
+        return metadata;
+    }
+    
+    
+    // ===================================================================
+    
+#ifndef _MSC_VER
+    const int AnswerRecHouse::kMsgIdFieldNumber;
+    const int AnswerRecHouse::kFinfoFieldNumber;
+    const int AnswerRecHouse::kAttachFileFieldNumber;
+    const int AnswerRecHouse::kAttachThumbFieldNumber;
+    const int AnswerRecHouse::kAreaidFieldNumber;
+    const int AnswerRecHouse::kAreaValFieldNumber;
+    const int AnswerRecHouse::kStreetidFieldNumber;
+    const int AnswerRecHouse::kStreetValFieldNumber;
+    const int AnswerRecHouse::kHouseShiFieldNumber;
+    const int AnswerRecHouse::kHouseTingFieldNumber;
+    const int AnswerRecHouse::kHouseAreaFieldNumber;
+    const int AnswerRecHouse::kHousePriceFieldNumber;
+    const int AnswerRecHouse::kRentPriceFieldNumber;
+    const int AnswerRecHouse::kTitleFieldNumber;
+#endif  // !_MSC_VER
+    
+    AnswerRecHouse::AnswerRecHouse()
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        // @@protoc_insertion_point(constructor:QSChat.AnswerRecHouse)
+    }
+    
+    void AnswerRecHouse::InitAsDefaultInstance() {
+        finfo_ = const_cast< ::QSChat::Finfo*>(&::QSChat::Finfo::default_instance());
+    }
+    
+    AnswerRecHouse::AnswerRecHouse(const AnswerRecHouse& from)
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        MergeFrom(from);
+        // @@protoc_insertion_point(copy_constructor:QSChat.AnswerRecHouse)
+    }
+    
+    void AnswerRecHouse::SharedCtor() {
+        ::google::protobuf::internal::GetEmptyString();
+        _cached_size_ = 0;
+        msg_id__ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        finfo_ = NULL;
+        attach_file_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        attach_thumb_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        areaid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        area_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        streetid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        street_val_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_shi_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_ting_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_area_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        rent_price_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        title__ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+    }
+    
+    AnswerRecHouse::~AnswerRecHouse() {
+        // @@protoc_insertion_point(destructor:QSChat.AnswerRecHouse)
+        SharedDtor();
+    }
+    
+    void AnswerRecHouse::SharedDtor() {
+        if (msg_id__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete msg_id__;
+        }
+        if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_file_;
+        }
+        if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete attach_thumb_;
+        }
+        if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete areaid_;
+        }
+        if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete area_val_;
+        }
+        if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete streetid_;
+        }
+        if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete street_val_;
+        }
+        if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_shi_;
+        }
+        if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_ting_;
+        }
+        if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_area_;
+        }
+        if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_price_;
+        }
+        if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete rent_price_;
+        }
+        if (title__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete title__;
+        }
+        if (this != default_instance_) {
+            delete finfo_;
+        }
+    }
+    
+    void AnswerRecHouse::SetCachedSize(int size) const {
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    }
+    const ::google::protobuf::Descriptor* AnswerRecHouse::descriptor() {
+        protobuf_AssignDescriptorsOnce();
+        return AnswerRecHouse_descriptor_;
+    }
+    
+    const AnswerRecHouse& AnswerRecHouse::default_instance() {
+        if (default_instance_ == NULL) protobuf_AddDesc_qschat_2eproto();
+        return *default_instance_;
+    }
+    
+    AnswerRecHouse* AnswerRecHouse::default_instance_ = NULL;
+    
+    AnswerRecHouse* AnswerRecHouse::New() const {
+        return new AnswerRecHouse;
+    }
+    
+    void AnswerRecHouse::Clear() {
+        if (_has_bits_[0 / 32] & 255) {
+            if (has_msg_id_()) {
+                if (msg_id__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    msg_id__->clear();
+                }
+            }
+            if (has_finfo()) {
+                if (finfo_ != NULL) finfo_->::QSChat::Finfo::Clear();
+            }
+            if (has_attach_file()) {
+                if (attach_file_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    attach_file_->clear();
+                }
+            }
+            if (has_attach_thumb()) {
+                if (attach_thumb_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    attach_thumb_->clear();
+                }
+            }
+            if (has_areaid()) {
+                if (areaid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    areaid_->clear();
+                }
+            }
+            if (has_area_val()) {
+                if (area_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    area_val_->clear();
+                }
+            }
+            if (has_streetid()) {
+                if (streetid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    streetid_->clear();
+                }
+            }
+            if (has_street_val()) {
+                if (street_val_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    street_val_->clear();
+                }
+            }
+        }
+        if (_has_bits_[8 / 32] & 16128) {
+            if (has_house_shi()) {
+                if (house_shi_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    house_shi_->clear();
+                }
+            }
+            if (has_house_ting()) {
+                if (house_ting_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    house_ting_->clear();
+                }
+            }
+            if (has_house_area()) {
+                if (house_area_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    house_area_->clear();
+                }
+            }
+            if (has_house_price()) {
+                if (house_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    house_price_->clear();
+                }
+            }
+            if (has_rent_price()) {
+                if (rent_price_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    rent_price_->clear();
+                }
+            }
+            if (has_title_()) {
+                if (title__ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    title__->clear();
+                }
+            }
+        }
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+        mutable_unknown_fields()->Clear();
+    }
+    
+    bool AnswerRecHouse::MergePartialFromCodedStream(
+                                                     ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+        ::google::protobuf::uint32 tag;
+        // @@protoc_insertion_point(parse_start:QSChat.AnswerRecHouse)
+        for (;;) {
+            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+            tag = p.first;
+            if (!p.second) goto handle_unusual;
+            switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+                    // required string msg_id_ = 1;
+                case 1: {
+                    if (tag == 10) {
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_msg_id_()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->msg_id_().data(), this->msg_id_().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "msg_id_");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_finfo;
+                    break;
+                }
+                    
+                    // required .QSChat.Finfo finfo = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_finfo:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                                                                                               input, mutable_finfo()));
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_attach_file;
+                    break;
+                }
+                    
+                    // optional string attach_file = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_attach_file:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_attach_file()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->attach_file().data(), this->attach_file().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "attach_file");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_attach_thumb;
+                    break;
+                }
+                    
+                    // optional string attach_thumb = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_attach_thumb:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_attach_thumb()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->attach_thumb().data(), this->attach_thumb().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "attach_thumb");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_areaid;
+                    break;
+                }
+                    
+                    // optional string areaid = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_areaid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_areaid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->areaid().data(), this->areaid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "areaid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_area_val;
+                    break;
+                }
+                    
+                    // optional string area_val = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_area_val:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_area_val()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->area_val().data(), this->area_val().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "area_val");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_streetid;
+                    break;
+                }
+                    
+                    // optional string streetid = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_streetid:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_streetid()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->streetid().data(), this->streetid().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "streetid");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_street_val;
+                    break;
+                }
+                    
+                    // optional string street_val = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_street_val:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_street_val()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->street_val().data(), this->street_val().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "street_val");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_house_shi;
+                    break;
+                }
+                    
+                    // optional string house_shi = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_house_shi:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_shi()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_shi().data(), this->house_shi().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_shi");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(82)) goto parse_house_ting;
+                    break;
+                }
+                    
+                    // optional string house_ting = 10;
+                case 10: {
+                    if (tag == 82) {
+                    parse_house_ting:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_ting()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_ting().data(), this->house_ting().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_ting");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(90)) goto parse_house_area;
+                    break;
+                }
+                    
+                    // optional string house_area = 11;
+                case 11: {
+                    if (tag == 90) {
+                    parse_house_area:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_area()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_area().data(), this->house_area().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_area");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(98)) goto parse_house_price;
+                    break;
+                }
+                    
+                    // optional string house_price = 12;
+                case 12: {
+                    if (tag == 98) {
+                    parse_house_price:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_price()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_price().data(), this->house_price().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_price");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(106)) goto parse_rent_price;
+                    break;
+                }
+                    
+                    // optional string rent_price = 13;
+                case 13: {
+                    if (tag == 106) {
+                    parse_rent_price:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_rent_price()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->rent_price().data(), this->rent_price().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "rent_price");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(114)) goto parse_title_;
+                    break;
+                }
+                    
+                    // optional string title_ = 14;
+                case 14: {
+                    if (tag == 114) {
+                    parse_title_:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_title_()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->title_().data(), this->title_().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "title_");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectAtEnd()) goto success;
+                    break;
+                }
+                    
+                default: {
+                handle_unusual:
+                    if (tag == 0 ||
+                        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                        goto success;
+                    }
+                    DO_(::google::protobuf::internal::WireFormat::SkipField(
+                                                                            input, tag, mutable_unknown_fields()));
+                    break;
+                }
+            }
+        }
+    success:
+        // @@protoc_insertion_point(parse_success:QSChat.AnswerRecHouse)
+        return true;
+    failure:
+        // @@protoc_insertion_point(parse_failure:QSChat.AnswerRecHouse)
+        return false;
+#undef DO_
+    }
+    
+    void AnswerRecHouse::SerializeWithCachedSizes(
+                                                  ::google::protobuf::io::CodedOutputStream* output) const {
+        // @@protoc_insertion_point(serialize_start:QSChat.AnswerRecHouse)
+        // required string msg_id_ = 1;
+        if (has_msg_id_()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id_().data(), this->msg_id_().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id_");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  1, this->msg_id_(), output);
+        }
+        
+        // required .QSChat.Finfo finfo = 2;
+        if (has_finfo()) {
+            ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+                                                                                   2, this->finfo(), output);
+        }
+        
+        // optional string attach_file = 3;
+        if (has_attach_file()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->attach_file().data(), this->attach_file().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "attach_file");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->attach_file(), output);
+        }
+        
+        // optional string attach_thumb = 4;
+        if (has_attach_thumb()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->attach_thumb().data(), this->attach_thumb().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "attach_thumb");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->attach_thumb(), output);
+        }
+        
+        // optional string areaid = 5;
+        if (has_areaid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->areaid().data(), this->areaid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "areaid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->areaid(), output);
+        }
+        
+        // optional string area_val = 6;
+        if (has_area_val()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->area_val().data(), this->area_val().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "area_val");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->area_val(), output);
+        }
+        
+        // optional string streetid = 7;
+        if (has_streetid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->streetid().data(), this->streetid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "streetid");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->streetid(), output);
+        }
+        
+        // optional string street_val = 8;
+        if (has_street_val()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->street_val().data(), this->street_val().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "street_val");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->street_val(), output);
+        }
+        
+        // optional string house_shi = 9;
+        if (has_house_shi()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_shi().data(), this->house_shi().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_shi");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->house_shi(), output);
+        }
+        
+        // optional string house_ting = 10;
+        if (has_house_ting()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_ting().data(), this->house_ting().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_ting");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  10, this->house_ting(), output);
+        }
+        
+        // optional string house_area = 11;
+        if (has_house_area()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_area().data(), this->house_area().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_area");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  11, this->house_area(), output);
+        }
+        
+        // optional string house_price = 12;
+        if (has_house_price()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_price().data(), this->house_price().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_price");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  12, this->house_price(), output);
+        }
+        
+        // optional string rent_price = 13;
+        if (has_rent_price()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->rent_price().data(), this->rent_price().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "rent_price");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  13, this->rent_price(), output);
+        }
+        
+        // optional string title_ = 14;
+        if (has_title_()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->title_().data(), this->title_().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "title_");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  14, this->title_(), output);
+        }
+        
+        if (!unknown_fields().empty()) {
+            ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+                                                                             unknown_fields(), output);
+        }
+        // @@protoc_insertion_point(serialize_end:QSChat.AnswerRecHouse)
+    }
+    
+    ::google::protobuf::uint8* AnswerRecHouse::SerializeWithCachedSizesToArray(
+                                                                               ::google::protobuf::uint8* target) const {
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.AnswerRecHouse)
+        // required string msg_id_ = 1;
+        if (has_msg_id_()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->msg_id_().data(), this->msg_id_().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "msg_id_");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             1, this->msg_id_(), target);
+        }
+        
+        // required .QSChat.Finfo finfo = 2;
+        if (has_finfo()) {
+            target = ::google::protobuf::internal::WireFormatLite::
+            WriteMessageNoVirtualToArray(
+                                         2, this->finfo(), target);
+        }
+        
+        // optional string attach_file = 3;
+        if (has_attach_file()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->attach_file().data(), this->attach_file().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "attach_file");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->attach_file(), target);
+        }
+        
+        // optional string attach_thumb = 4;
+        if (has_attach_thumb()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->attach_thumb().data(), this->attach_thumb().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "attach_thumb");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->attach_thumb(), target);
+        }
+        
+        // optional string areaid = 5;
+        if (has_areaid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->areaid().data(), this->areaid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "areaid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->areaid(), target);
+        }
+        
+        // optional string area_val = 6;
+        if (has_area_val()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->area_val().data(), this->area_val().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "area_val");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->area_val(), target);
+        }
+        
+        // optional string streetid = 7;
+        if (has_streetid()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->streetid().data(), this->streetid().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "streetid");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->streetid(), target);
+        }
+        
+        // optional string street_val = 8;
+        if (has_street_val()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->street_val().data(), this->street_val().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "street_val");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->street_val(), target);
+        }
+        
+        // optional string house_shi = 9;
+        if (has_house_shi()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_shi().data(), this->house_shi().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_shi");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->house_shi(), target);
+        }
+        
+        // optional string house_ting = 10;
+        if (has_house_ting()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_ting().data(), this->house_ting().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_ting");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             10, this->house_ting(), target);
+        }
+        
+        // optional string house_area = 11;
+        if (has_house_area()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_area().data(), this->house_area().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_area");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             11, this->house_area(), target);
+        }
+        
+        // optional string house_price = 12;
+        if (has_house_price()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_price().data(), this->house_price().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_price");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             12, this->house_price(), target);
+        }
+        
+        // optional string rent_price = 13;
+        if (has_rent_price()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->rent_price().data(), this->rent_price().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "rent_price");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             13, this->rent_price(), target);
+        }
+        
+        // optional string title_ = 14;
+        if (has_title_()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->title_().data(), this->title_().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "title_");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             14, this->title_(), target);
+        }
+        
+        if (!unknown_fields().empty()) {
+            target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+                                                                                             unknown_fields(), target);
+        }
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.AnswerRecHouse)
+        return target;
+    }
+    
+    int AnswerRecHouse::ByteSize() const {
+        int total_size = 0;
+        
+        if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            // required string msg_id_ = 1;
+            if (has_msg_id_()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->msg_id_());
+            }
+            
+            // required .QSChat.Finfo finfo = 2;
+            if (has_finfo()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                                                                                   this->finfo());
+            }
+            
+            // optional string attach_file = 3;
+            if (has_attach_file()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->attach_file());
+            }
+            
+            // optional string attach_thumb = 4;
+            if (has_attach_thumb()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->attach_thumb());
+            }
+            
+            // optional string areaid = 5;
+            if (has_areaid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->areaid());
+            }
+            
+            // optional string area_val = 6;
+            if (has_area_val()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->area_val());
+            }
+            
+            // optional string streetid = 7;
+            if (has_streetid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->streetid());
+            }
+            
+            // optional string street_val = 8;
+            if (has_street_val()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->street_val());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // optional string house_shi = 9;
+            if (has_house_shi()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_shi());
+            }
+            
+            // optional string house_ting = 10;
+            if (has_house_ting()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_ting());
+            }
+            
+            // optional string house_area = 11;
+            if (has_house_area()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_area());
+            }
+            
+            // optional string house_price = 12;
+            if (has_house_price()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_price());
+            }
+            
+            // optional string rent_price = 13;
+            if (has_rent_price()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->rent_price());
+            }
+            
+            // optional string title_ = 14;
+            if (has_title_()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->title_());
+            }
+            
+        }
+        if (!unknown_fields().empty()) {
+            total_size +=
+            ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+                                                                               unknown_fields());
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = total_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        return total_size;
+    }
+    
+    void AnswerRecHouse::MergeFrom(const ::google::protobuf::Message& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        const AnswerRecHouse* source =
+        ::google::protobuf::internal::dynamic_cast_if_available<const AnswerRecHouse*>(
+                                                                                       &from);
+        if (source == NULL) {
+            ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+        } else {
+            MergeFrom(*source);
+        }
+    }
+    
+    void AnswerRecHouse::MergeFrom(const AnswerRecHouse& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            if (from.has_msg_id_()) {
+                set_msg_id_(from.msg_id_());
+            }
+            if (from.has_finfo()) {
+                mutable_finfo()->::QSChat::Finfo::MergeFrom(from.finfo());
+            }
+            if (from.has_attach_file()) {
+                set_attach_file(from.attach_file());
+            }
+            if (from.has_attach_thumb()) {
+                set_attach_thumb(from.attach_thumb());
+            }
+            if (from.has_areaid()) {
+                set_areaid(from.areaid());
+            }
+            if (from.has_area_val()) {
+                set_area_val(from.area_val());
+            }
+            if (from.has_streetid()) {
+                set_streetid(from.streetid());
+            }
+            if (from.has_street_val()) {
+                set_street_val(from.street_val());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_house_shi()) {
+                set_house_shi(from.house_shi());
+            }
+            if (from.has_house_ting()) {
+                set_house_ting(from.house_ting());
+            }
+            if (from.has_house_area()) {
+                set_house_area(from.house_area());
+            }
+            if (from.has_house_price()) {
+                set_house_price(from.house_price());
+            }
+            if (from.has_rent_price()) {
+                set_rent_price(from.rent_price());
+            }
+            if (from.has_title_()) {
+                set_title_(from.title_());
+            }
+        }
+        mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+    }
+    
+    void AnswerRecHouse::CopyFrom(const ::google::protobuf::Message& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    void AnswerRecHouse::CopyFrom(const AnswerRecHouse& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    bool AnswerRecHouse::IsInitialized() const {
+        if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+        
+        if (has_finfo()) {
+            if (!this->finfo().IsInitialized()) return false;
+        }
+        return true;
+    }
+    
+    void AnswerRecHouse::Swap(AnswerRecHouse* other) {
+        if (other != this) {
+            std::swap(msg_id__, other->msg_id__);
+            std::swap(finfo_, other->finfo_);
+            std::swap(attach_file_, other->attach_file_);
+            std::swap(attach_thumb_, other->attach_thumb_);
+            std::swap(areaid_, other->areaid_);
+            std::swap(area_val_, other->area_val_);
+            std::swap(streetid_, other->streetid_);
+            std::swap(street_val_, other->street_val_);
+            std::swap(house_shi_, other->house_shi_);
+            std::swap(house_ting_, other->house_ting_);
+            std::swap(house_area_, other->house_area_);
+            std::swap(house_price_, other->house_price_);
+            std::swap(rent_price_, other->rent_price_);
+            std::swap(title__, other->title__);
+            std::swap(_has_bits_[0], other->_has_bits_[0]);
+            _unknown_fields_.Swap(&other->_unknown_fields_);
+            std::swap(_cached_size_, other->_cached_size_);
+        }
+    }
+    
+    ::google::protobuf::Metadata AnswerRecHouse::GetMetadata() const {
+        protobuf_AssignDescriptorsOnce();
+        ::google::protobuf::Metadata metadata;
+        metadata.descriptor = AnswerRecHouse_descriptor_;
+        metadata.reflection = AnswerRecHouse_reflection_;
+        return metadata;
+    }
+    
+    
+    // ===================================================================
+    
+#ifndef _MSC_VER
+    const int Finfo::kFidFieldNumber;
+    const int Finfo::kFAvatarFieldNumber;
+    const int Finfo::kFNameFieldNumber;
+    const int Finfo::kFLeveFieldNumber;
+    const int Finfo::kFUserTypeFieldNumber;
+    const int Finfo::kFUnreadCountFieldNumber;
+    const int Finfo::kHouseIdFieldNumber;
+    const int Finfo::kBuildingIdFieldNumber;
+    const int Finfo::kHouseTypeFieldNumber;
+#endif  // !_MSC_VER
+    
+    Finfo::Finfo()
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        // @@protoc_insertion_point(constructor:QSChat.Finfo)
+    }
+    
+    void Finfo::InitAsDefaultInstance() {
+    }
+    
+    Finfo::Finfo(const Finfo& from)
+    : ::google::protobuf::Message() {
+        SharedCtor();
+        MergeFrom(from);
+        // @@protoc_insertion_point(copy_constructor:QSChat.Finfo)
+    }
+    
+    void Finfo::SharedCtor() {
+        ::google::protobuf::internal::GetEmptyString();
+        _cached_size_ = 0;
+        fid_ = GOOGLE_LONGLONG(0);
+        f_avatar_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_leve_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_user_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        f_unread_count_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        building_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        house_type_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+    }
+    
+    Finfo::~Finfo() {
+        // @@protoc_insertion_point(destructor:QSChat.Finfo)
+        SharedDtor();
+    }
+    
+    void Finfo::SharedDtor() {
+        if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_avatar_;
+        }
+        if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_name_;
+        }
+        if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_leve_;
+        }
+        if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_user_type_;
+        }
+        if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete f_unread_count_;
+        }
+        if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_id_;
+        }
+        if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete building_id_;
+        }
+        if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+            delete house_type_;
+        }
+        if (this != default_instance_) {
+        }
+    }
+    
+    void Finfo::SetCachedSize(int size) const {
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    }
+    const ::google::protobuf::Descriptor* Finfo::descriptor() {
+        protobuf_AssignDescriptorsOnce();
+        return Finfo_descriptor_;
+    }
+    
+    const Finfo& Finfo::default_instance() {
+        if (default_instance_ == NULL) protobuf_AddDesc_qschat_2eproto();
+        return *default_instance_;
+    }
+    
+    Finfo* Finfo::default_instance_ = NULL;
+    
+    Finfo* Finfo::New() const {
+        return new Finfo;
+    }
+    
+    void Finfo::Clear() {
+        if (_has_bits_[0 / 32] & 255) {
+            fid_ = GOOGLE_LONGLONG(0);
+            if (has_f_avatar()) {
+                if (f_avatar_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_avatar_->clear();
+                }
+            }
+            if (has_f_name()) {
+                if (f_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_name_->clear();
+                }
+            }
+            if (has_f_leve()) {
+                if (f_leve_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_leve_->clear();
+                }
+            }
+            if (has_f_user_type()) {
+                if (f_user_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_user_type_->clear();
+                }
+            }
+            if (has_f_unread_count()) {
+                if (f_unread_count_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    f_unread_count_->clear();
+                }
+            }
+            if (has_house_id()) {
+                if (house_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    house_id_->clear();
+                }
+            }
+            if (has_building_id()) {
+                if (building_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                    building_id_->clear();
+                }
+            }
+        }
+        if (has_house_type()) {
+            if (house_type_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+                house_type_->clear();
+            }
+        }
+        ::memset(_has_bits_, 0, sizeof(_has_bits_));
+        mutable_unknown_fields()->Clear();
+    }
+    
+    bool Finfo::MergePartialFromCodedStream(
+                                            ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+        ::google::protobuf::uint32 tag;
+        // @@protoc_insertion_point(parse_start:QSChat.Finfo)
+        for (;;) {
+            ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+            tag = p.first;
+            if (!p.second) goto handle_unusual;
+            switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+                    // required int64 fid = 1;
+                case 1: {
+                    if (tag == 8) {
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                                                                                                                  input, &fid_)));
+                        set_has_fid();
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(18)) goto parse_f_avatar;
+                    break;
+                }
+                    
+                    // required string f_avatar = 2;
+                case 2: {
+                    if (tag == 18) {
+                    parse_f_avatar:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_avatar()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_avatar().data(), this->f_avatar().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_avatar");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(26)) goto parse_f_name;
+                    break;
+                }
+                    
+                    // required string f_name = 3;
+                case 3: {
+                    if (tag == 26) {
+                    parse_f_name:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_name()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_name().data(), this->f_name().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_name");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(34)) goto parse_f_leve;
+                    break;
+                }
+                    
+                    // required string f_leve = 4;
+                case 4: {
+                    if (tag == 34) {
+                    parse_f_leve:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_leve()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_leve().data(), this->f_leve().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_leve");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(42)) goto parse_f_user_type;
+                    break;
+                }
+                    
+                    // required string f_user_type = 5;
+                case 5: {
+                    if (tag == 42) {
+                    parse_f_user_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_user_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_user_type().data(), this->f_user_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_user_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(50)) goto parse_f_unread_count;
+                    break;
+                }
+                    
+                    // required string f_unread_count = 6;
+                case 6: {
+                    if (tag == 50) {
+                    parse_f_unread_count:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_f_unread_count()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "f_unread_count");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(58)) goto parse_house_id;
+                    break;
+                }
+                    
+                    // required string house_id = 7;
+                case 7: {
+                    if (tag == 58) {
+                    parse_house_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_id().data(), this->house_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(66)) goto parse_building_id;
+                    break;
+                }
+                    
+                    // required string building_id = 8;
+                case 8: {
+                    if (tag == 66) {
+                    parse_building_id:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_building_id()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->building_id().data(), this->building_id().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "building_id");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectTag(74)) goto parse_house_type;
+                    break;
+                }
+                    
+                    // required string house_type = 9;
+                case 9: {
+                    if (tag == 74) {
+                    parse_house_type:
+                        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                                                                                     input, this->mutable_house_type()));
+                        ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                             this->house_type().data(), this->house_type().length(),
+                                                                                             ::google::protobuf::internal::WireFormat::PARSE,
+                                                                                             "house_type");
+                    } else {
+                        goto handle_unusual;
+                    }
+                    if (input->ExpectAtEnd()) goto success;
+                    break;
+                }
+                    
+                default: {
+                handle_unusual:
+                    if (tag == 0 ||
+                        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                        goto success;
+                    }
+                    DO_(::google::protobuf::internal::WireFormat::SkipField(
+                                                                            input, tag, mutable_unknown_fields()));
+                    break;
+                }
+            }
+        }
+    success:
+        // @@protoc_insertion_point(parse_success:QSChat.Finfo)
+        return true;
+    failure:
+        // @@protoc_insertion_point(parse_failure:QSChat.Finfo)
+        return false;
+#undef DO_
+    }
+    
+    void Finfo::SerializeWithCachedSizes(
+                                         ::google::protobuf::io::CodedOutputStream* output) const {
+        // @@protoc_insertion_point(serialize_start:QSChat.Finfo)
+        // required int64 fid = 1;
+        if (has_fid()) {
+            ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->fid(), output);
+        }
+        
+        // required string f_avatar = 2;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  2, this->f_avatar(), output);
+        }
+        
+        // required string f_name = 3;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  3, this->f_name(), output);
+        }
+        
+        // required string f_leve = 4;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  4, this->f_leve(), output);
+        }
+        
+        // required string f_user_type = 5;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  5, this->f_user_type(), output);
+        }
+        
+        // required string f_unread_count = 6;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  6, this->f_unread_count(), output);
+        }
+        
+        // required string house_id = 7;
+        if (has_house_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_id().data(), this->house_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  7, this->house_id(), output);
+        }
+        
+        // required string building_id = 8;
+        if (has_building_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->building_id().data(), this->building_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "building_id");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  8, this->building_id(), output);
+        }
+        
+        // required string house_type = 9;
+        if (has_house_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_type().data(), this->house_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_type");
+            ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+                                                                                  9, this->house_type(), output);
+        }
+        
+        if (!unknown_fields().empty()) {
+            ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+                                                                             unknown_fields(), output);
+        }
+        // @@protoc_insertion_point(serialize_end:QSChat.Finfo)
+    }
+    
+    ::google::protobuf::uint8* Finfo::SerializeWithCachedSizesToArray(
+                                                                      ::google::protobuf::uint8* target) const {
+        // @@protoc_insertion_point(serialize_to_array_start:QSChat.Finfo)
+        // required int64 fid = 1;
+        if (has_fid()) {
+            target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->fid(), target);
+        }
+        
+        // required string f_avatar = 2;
+        if (has_f_avatar()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_avatar().data(), this->f_avatar().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_avatar");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             2, this->f_avatar(), target);
+        }
+        
+        // required string f_name = 3;
+        if (has_f_name()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_name().data(), this->f_name().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_name");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             3, this->f_name(), target);
+        }
+        
+        // required string f_leve = 4;
+        if (has_f_leve()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_leve().data(), this->f_leve().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_leve");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             4, this->f_leve(), target);
+        }
+        
+        // required string f_user_type = 5;
+        if (has_f_user_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_user_type().data(), this->f_user_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_user_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             5, this->f_user_type(), target);
+        }
+        
+        // required string f_unread_count = 6;
+        if (has_f_unread_count()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->f_unread_count().data(), this->f_unread_count().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "f_unread_count");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             6, this->f_unread_count(), target);
+        }
+        
+        // required string house_id = 7;
+        if (has_house_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_id().data(), this->house_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             7, this->house_id(), target);
+        }
+        
+        // required string building_id = 8;
+        if (has_building_id()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->building_id().data(), this->building_id().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "building_id");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             8, this->building_id(), target);
+        }
+        
+        // required string house_type = 9;
+        if (has_house_type()) {
+            ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
+                                                                                 this->house_type().data(), this->house_type().length(),
+                                                                                 ::google::protobuf::internal::WireFormat::SERIALIZE,
+                                                                                 "house_type");
+            target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                                                                             9, this->house_type(), target);
+        }
+        
+        if (!unknown_fields().empty()) {
+            target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+                                                                                             unknown_fields(), target);
+        }
+        // @@protoc_insertion_point(serialize_to_array_end:QSChat.Finfo)
+        return target;
+    }
+    
+    int Finfo::ByteSize() const {
+        int total_size = 0;
+        
+        if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            // required int64 fid = 1;
+            if (has_fid()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int64Size(
+                                                                        this->fid());
+            }
+            
+            // required string f_avatar = 2;
+            if (has_f_avatar()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_avatar());
+            }
+            
+            // required string f_name = 3;
+            if (has_f_name()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_name());
+            }
+            
+            // required string f_leve = 4;
+            if (has_f_leve()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_leve());
+            }
+            
+            // required string f_user_type = 5;
+            if (has_f_user_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_user_type());
+            }
+            
+            // required string f_unread_count = 6;
+            if (has_f_unread_count()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->f_unread_count());
+            }
+            
+            // required string house_id = 7;
+            if (has_house_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_id());
+            }
+            
+            // required string building_id = 8;
+            if (has_building_id()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->building_id());
+            }
+            
+        }
+        if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            // required string house_type = 9;
+            if (has_house_type()) {
+                total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::StringSize(
+                                                                         this->house_type());
+            }
+            
+        }
+        if (!unknown_fields().empty()) {
+            total_size +=
+            ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+                                                                               unknown_fields());
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _cached_size_ = total_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        return total_size;
+    }
+    
+    void Finfo::MergeFrom(const ::google::protobuf::Message& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        const Finfo* source =
+        ::google::protobuf::internal::dynamic_cast_if_available<const Finfo*>(
+                                                                              &from);
+        if (source == NULL) {
+            ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+        } else {
+            MergeFrom(*source);
+        }
+    }
+    
+    void Finfo::MergeFrom(const Finfo& from) {
+        GOOGLE_CHECK_NE(&from, this);
+        if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+            if (from.has_fid()) {
+                set_fid(from.fid());
+            }
+            if (from.has_f_avatar()) {
+                set_f_avatar(from.f_avatar());
+            }
+            if (from.has_f_name()) {
+                set_f_name(from.f_name());
+            }
+            if (from.has_f_leve()) {
+                set_f_leve(from.f_leve());
+            }
+            if (from.has_f_user_type()) {
+                set_f_user_type(from.f_user_type());
+            }
+            if (from.has_f_unread_count()) {
+                set_f_unread_count(from.f_unread_count());
+            }
+            if (from.has_house_id()) {
+                set_house_id(from.house_id());
+            }
+            if (from.has_building_id()) {
+                set_building_id(from.building_id());
+            }
+        }
+        if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+            if (from.has_house_type()) {
+                set_house_type(from.house_type());
+            }
+        }
+        mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+    }
+    
+    void Finfo::CopyFrom(const ::google::protobuf::Message& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    void Finfo::CopyFrom(const Finfo& from) {
+        if (&from == this) return;
+        Clear();
+        MergeFrom(from);
+    }
+    
+    bool Finfo::IsInitialized() const {
+        if ((_has_bits_[0] & 0x000001ff) != 0x000001ff) return false;
+        
+        return true;
+    }
+    
+    void Finfo::Swap(Finfo* other) {
+        if (other != this) {
+            std::swap(fid_, other->fid_);
+            std::swap(f_avatar_, other->f_avatar_);
+            std::swap(f_name_, other->f_name_);
+            std::swap(f_leve_, other->f_leve_);
+            std::swap(f_user_type_, other->f_user_type_);
+            std::swap(f_unread_count_, other->f_unread_count_);
+            std::swap(house_id_, other->house_id_);
+            std::swap(building_id_, other->building_id_);
+            std::swap(house_type_, other->house_type_);
+            std::swap(_has_bits_[0], other->_has_bits_[0]);
+            _unknown_fields_.Swap(&other->_unknown_fields_);
+            std::swap(_cached_size_, other->_cached_size_);
+        }
+    }
+    
+    ::google::protobuf::Metadata Finfo::GetMetadata() const {
+        protobuf_AssignDescriptorsOnce();
+        ::google::protobuf::Metadata metadata;
+        metadata.descriptor = Finfo_descriptor_;
+        metadata.reflection = Finfo_reflection_;
         return metadata;
     }
     

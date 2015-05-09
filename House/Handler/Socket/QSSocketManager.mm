@@ -1048,7 +1048,7 @@ static QSSocketManager *_socketManager = nil;
                     string messageString = string(messageBuf);
                     
                     ///返回的信息
-                    QSChat::AnswerRecommendHouse wordMessage = QSChat::AnswerRecommendHouse();
+                    QSChat::AnswerRecHouse wordMessage = QSChat::AnswerRecHouse();
                     wordMessage.ParseFromString(messageString);
                     
                     ///转模型关回调
@@ -1733,25 +1733,25 @@ static QSSocketManager *_socketManager = nil;
     
 }
 
-- (QSYSendMessageRecommendHouse *)talk_ChangeCPPToOCModel_RecommendHouse:(QSChat::AnswerRecommendHouse)cppWordModel
+- (QSYSendMessageRecommendHouse *)talk_ChangeCPPToOCModel_RecommendHouse:(QSChat::AnswerRecHouse)cppWordModel
 {
     
     ///OC数据模型
     QSYSendMessageRecommendHouse *ocWordModel = [[QSYSendMessageRecommendHouse alloc] init];
     ocWordModel.msgType = qQSCustomProtocolChatMessageTypeRecommendHouse;
     ocWordModel.sendType = qQSCustomProtocolChatSendTypePTP;
-    ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
+    ocWordModel.msgID = [NSString stringWithUTF8String:cppWordModel.msg_id_().c_str()];
     ocWordModel.readTag = @"0";
     
-    int64_t fIDINT32 = cppWordModel.fid();
+    int64_t fIDINT32 = cppWordModel.finfo().fid();
     ocWordModel.fromID = [NSString stringWithFormat:@"%d",(int)fIDINT32];
     ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
-    ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.msg_id().c_str()];
+    ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.msg_id_().c_str()];
     
     ///房源信息
-    ocWordModel.houseID = [NSString stringWithUTF8String:cppWordModel.house_id().c_str()];
-    ocWordModel.buildingID = [NSString stringWithUTF8String:cppWordModel.building_id().c_str()];
-    ocWordModel.houseType = [NSString stringWithUTF8String:cppWordModel.house_type().c_str()];
+    ocWordModel.houseID = [NSString stringWithUTF8String:cppWordModel.finfo().house_id().c_str()];
+    ocWordModel.buildingID = [NSString stringWithUTF8String:cppWordModel.finfo().building_id().c_str()];
+    ocWordModel.houseType = [NSString stringWithUTF8String:cppWordModel.finfo().house_type().c_str()];
     ocWordModel.originalImage = [NSString stringWithUTF8String:cppWordModel.attach_file().c_str()];
     ocWordModel.smallImage = [NSString stringWithUTF8String:cppWordModel.attach_thumb().c_str()];
     ocWordModel.districtKey = [NSString stringWithUTF8String:cppWordModel.areaid().c_str()];
@@ -1763,14 +1763,14 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.houseArea = [NSString stringWithUTF8String:cppWordModel.house_area().c_str()];
     ocWordModel.housePrice = [NSString stringWithUTF8String:cppWordModel.house_price().c_str()];
     ocWordModel.rentPrice = [NSString stringWithUTF8String:cppWordModel.rent_price().c_str()];
-    ocWordModel.title = [NSString stringWithUTF8String:cppWordModel.title().c_str()];
+    ocWordModel.title = [NSString stringWithUTF8String:cppWordModel.title_().c_str()];
     
-    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
-    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
-    ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
-    ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
-    ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.f_unread_count().c_str()];
-    ocWordModel.deviceUUID = [NSString stringWithUTF8String:cppWordModel.device_udid().c_str()];
+    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.finfo().f_avatar().c_str()];
+    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.finfo().f_name().c_str()];
+    ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.finfo().f_user_type().c_str()];
+    ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.finfo().f_leve().c_str()];
+    ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.finfo().f_unread_count().c_str()];
+    ocWordModel.deviceUUID = @"-1";
     
     ocWordModel.showWidth = SIZE_DEVICE_WIDTH * 3.0f / 4.0f;
     ocWordModel.showHeight = 90.0f;

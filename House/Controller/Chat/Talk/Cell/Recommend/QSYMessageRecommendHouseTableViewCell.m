@@ -56,6 +56,12 @@ static char PriceKey;       //!<房源售价或租金关联
         ///创建UI
         [self createRecommendHouseMessageUI];
         
+        ///添加点击事件
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoHouseDetail:)];
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:tap];
+        
     }
     
     return self;
@@ -157,6 +163,18 @@ static char PriceKey;       //!<房源售价或租金关联
     [rootView addSubview:priceLabel];
     objc_setAssociatedObject(self, &PriceKey, priceLabel, OBJC_ASSOCIATION_ASSIGN);
     
+}
+
+#pragma mark - 单击事件
+- (void)gotoHouseDetail:(UITapGestureRecognizer *)tap
+{
+
+    if (self.singleTapCallBack) {
+        
+        self.singleTapCallBack();
+        
+    }
+
 }
 
 #pragma mark - 刷新UI
