@@ -449,14 +449,13 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     ///应用退出前进行保存动作
     [self saveContextWithWait:YES];
     
+    ///保存离线消息
+    [QSSocketManager saveMemoryMessage];
+    
     ///退出登录状态
     [QSRequestManager requestDataWithType:rRequestTypeLogout andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
-            
-            
-            
-        }];
+        [QSCoreDataManager updateUnirecordFieldWithKey:@"QSCDUserDataModel" andUpdateField:@"is_login" andFieldNewValue:@"0"];
         
     }];
     

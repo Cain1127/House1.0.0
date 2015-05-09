@@ -127,6 +127,54 @@ static QSSocketManager *_socketManager = nil;
 
 }
 
+#pragma mark - 应用退出时保存消息
+/**
+ *  @author yangshengmeng, 15-05-09 11:05:42
+ *
+ *  @brief  保存当前内存中的离线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)saveMemoryMessage
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    [socketManager saveMemoryMessage];
+
+}
+
+- (void)saveMemoryMessage
+{
+    
+    if ([self.messageList count] <= 0) {
+        
+        return;
+        
+    }
+
+    for (int i = 0; i < [self.messageList count]; i++) {
+        
+        QSYSendMessageBaseModel *ocWordModel = self.messageList[i];
+        
+        ocWordModel.readTag = @"1";
+        [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+            
+            if (isSave) {
+                
+                APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"成功")
+                
+            } else {
+                
+                APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"失败")
+                
+            }
+            
+        }];
+        
+    }
+
+}
+
 #pragma mark - 返回指定用户的消息
 /**
  *  @author         yangshengmeng, 15-04-10 13:04:29
@@ -1631,6 +1679,20 @@ static QSSocketManager *_socketManager = nil;
     showHeight = showHeight + 20.0f;
     ocWordModel.showWidth = showWidth;
     ocWordModel.showHeight = showHeight;
+    
+    [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+        
+        if (isSave) {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"失败")
+            
+        }
+        
+    }];
 
     return ocWordModel;
 
@@ -1689,6 +1751,20 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.showWidth = showWidth;
     ocWordModel.showHeight = showHeight;
     
+    [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+        
+        if (isSave) {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"失败")
+            
+        }
+        
+    }];
+    
     return ocWordModel;
     
 }
@@ -1728,6 +1804,20 @@ static QSSocketManager *_socketManager = nil;
 //    showHeight = showHeight + 20.0f;
 //    ocWordModel.showWidth = showWidth;
 //    ocWordModel.showHeight = showHeight;
+    
+    [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+        
+        if (isSave) {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"失败")
+            
+        }
+        
+    }];
     
     return ocWordModel;
     
@@ -1774,6 +1864,21 @@ static QSSocketManager *_socketManager = nil;
     
     ocWordModel.showWidth = SIZE_DEVICE_WIDTH * 3.0f / 4.0f;
     ocWordModel.showHeight = 90.0f;
+    
+    ///保存消息
+    [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
+        
+        if (isSave) {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"聊天消息->退出应用->保存本地", @"失败")
+            
+        }
+        
+    }];
     
     return ocWordModel;
     
@@ -1936,6 +2041,9 @@ void int32ToByte(int32_t i,char *bytes)
     if (callBack) {
         
         manager.currentUnReadMessageNumCallBack = callBack;
+        
+        ///回调一次当前离线消息数量
+        callBack((int)[manager.messageList count]);
         
     }
 

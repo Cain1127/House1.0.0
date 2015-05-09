@@ -31,6 +31,15 @@ typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,
 + (QSSocketManager *)shareSocketManager;
 
 /**
+ *  @author yangshengmeng, 15-05-09 11:05:42
+ *
+ *  @brief  保存当前内存中的离线消息
+ *
+ *  @since  1.0.0
+ */
++ (void)saveMemoryMessage;
+
+/**
  *  @author         yangshengmeng, 15-04-10 13:04:29
  *
  *  @brief          获取指定人员的当前内存离线消息
