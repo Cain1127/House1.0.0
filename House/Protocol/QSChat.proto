@@ -1,0 +1,619 @@
+package QSChat;
+option java_package = "com.fangdangjia.fdj.struct";
+option java_outer_classname = "QSChat";
+
+/**
+ *
+ *  @brief QSCHAT_WORD                      文字消息
+ *  @brief QSCHAT_PIC                       图片消息
+ *  @brief QSCHAT_VIDEO                     语音消息
+ *  @brief QSCHAT_ONLINE                    上线消息
+ *  @brief QSCHAT_OFFLINE                   下线/被踢下线消息
+ *  @brief QSCHAT_SPECIAL                   系统推荐房源消息
+ *  @brief QSCHAT_SYSTEM                    系统消息
+ *  @brief QSCHAT_HISTORY_WORD              历史文字消息
+ *  @brief QSCHAT_HISTORY_PIC               历史图片消息
+ *  @brief QSCHAT_HISTORY_VIDEO             历史语音消息
+ *  @brief QSCHAT_HISTORY                   获取历史消息
+ *  @brief QSCHAT_HISTORY_SP                历史系统推送房源消息
+ *  @brief QSCHAT_RECOMMEND_HOUSE           业主推送房源消息
+ *  @brief QSCHAT_HISTORY_RECOMMEND_HOUSE   业主历史推送房源消息
+ *  @brief QSCHAT_SEND_BACK                 发送消息后服务端返回结果
+ *
+ */
+enum QSChatMessageType
+{
+
+    QSCHAT_WORD  = 9000;
+    QSCHAT_PIC   = 9001;
+    QSCHAT_VIDEO = 9002;
+    QSCHAT_ONLINE  = 9003;
+    QSCHAT_OFFLINE = 9004;
+    QSCHAT_SPECIAL = 9005;
+    QSCHAT_SYSTEM  = 9006;
+    QSCHAT_HISTORY_WORD = 9007;
+    QSCHAT_HISTORY_PIC = 9008;
+    QSCHAT_HISTORY_VIDEO  = 9009;
+    QSCHAT_HISTORY     = 9010;
+    QSCHAT_HISTORY_SP  = 9011;
+    QSCHAT_RECOMMEND_HOUSE = 9012;
+    QSCHAT_HISTORY_RECOMMEND_HOUSE = 9013;
+
+    QSCHAT_SENDED_ANSWER_BACK = 9999;
+
+}
+
+/**
+ *
+ *  @brief ChatTypeSendPTP      单对单聊天
+ *  @brief ChatTypeSendPTG      群聊
+ *
+ */
+enum ChatRequestType
+{
+
+    ChatTypeSendPTP = 8000;
+    ChatTypeSendPTG = 8001;
+
+}
+
+/**
+ *
+ *  @brief token        当前授权的服务端返回token
+ *  @brief user_id      当前上线用户ID
+ *  @brief device_udid  当前上线设备的udid
+ *  @brief device_info  当前上线时的相关信息：设备信息，型号，手机户名
+ *  @brief local_info   当前上线所在地址信息
+ *
+ */
+message QuestionOnline
+{
+
+    required string token = 1;
+    required string user_id = 2;
+    required string device_udid = 3;
+    required string device_info = 4;
+    optional string local_info = 5;
+
+}
+
+/**
+ *
+ *  @brief token        当前授权的服务端返回token
+ *  @brief device_udid  当前下线设备的udid
+ *  @brief device_info  下线设备相关信息：设备信息，型号，手机户名等
+ *  @brief local_info   下线所在地址信息
+ *  @brief time_stamp   时间戳
+ *  @brief fid          下线用户ID
+ *  @brief f_avatar     下线用户头像URL
+ *  @brief f_name       下线用户姓名
+ *  @brief f_leve       下线用户的VIP水平
+ *  @brief f_user_type  下线用户的类型：业主...
+ *
+ */
+message QuestionOffline
+{
+
+    required string token = 1;
+    required string device_udid = 2;
+    required string device_info = 3;
+    required string local_info = 4;
+
+    required string time_stamp = 5;
+    required int64  fid = 6;
+    required string f_avatar = 7;
+    required string f_name = 8;
+    required string f_leve = 9;
+    required string f_user_type = 10;
+
+}
+
+/**
+ *
+ *  @brief f_time_stamp      消息发出端生成的时间戳
+ *  @brief f_user_id         消息发出人的用户ID
+ *  @brief f_udid            消息发出设备的唯一标识
+ *  @brief server_time_stamp 服务端的时间戳
+ *
+ */
+message QuestionSendedAnswerBack
+{
+
+    required string f_time_stamp = 1;
+    required string f_user_id = 2;
+    required string f_udid = 3;
+    required string server_time_stamp = 4;
+
+}
+
+/**
+ *
+ *  @brief ctype        聊天消息的类型：一对一，群聊
+ *  @brief token        当前授权的服务端返回token
+ *  @brief wid          消息的发出者ID:一对一聊-消息发送人ID，群聊时-群ID
+ *  @brief page_num     每一页的消息总数
+ *  @brief current_page 获取的当前分页页码
+ *  @brief last_id      历史消息的起始ID，但不包括此ID消息：实际内容为时间戳
+ *
+ */
+message QuestionHistory
+{
+
+    required ChatRequestType ctype = 1;
+    required string token = 2;
+    required string wid = 3;
+    required string page_num = 4;
+    required string current_page = 5;
+    required string last_id = 6;
+
+}
+
+/**
+ *
+ *  @brief mid          消息发出人的ID
+ *  @brief tid          消息接收者的ID
+ *  @brief ctype        消息类型：一对一，群聊
+ *  @brief message      文字内容
+ *  @brief time_stamp   客户端发送消息时的时间戳
+ *  @brief t_avatar     消息接收者的头像URL
+ *  @brief t_name       消息接收者的名字：如若有备注，则为备注名
+ *  @brief t_leve       消息接收者的VIP水平
+ *  @brief t_user_type  消息接收者的账号类型：业主，房客等
+ *  @brief m_avatar     消息发出人的头像URL
+ *  @brief m_name       消息发出人的用户名
+ *  @brief m_leve       消息发出人的VIP水平
+ *  @brief m_user_type  消息发出人的用户类型：业主、房客等
+ *  @brief device_udid  历史消息的起始ID，但不包括此ID消息：实际内容为时间戳
+ *
+ */
+message QuestionWord
+{
+
+    required int64 mid = 1;
+    required int64 tid = 2;
+    required ChatRequestType ctype = 3;
+    required string message = 4;
+    required string time_stamp = 5;
+    required string t_avatar = 6;
+    required string t_name = 7;
+    required string t_leve = 8;
+    required string t_user_type = 9;
+    required string m_avatar = 10;
+    required string m_name = 11;
+    required string m_leve = 12;
+    required string m_user_type = 13;
+    optional string device_udid = 14;
+
+}
+
+/**
+ *
+ *  @brief mid          消息发出人的ID
+ *  @brief tid          消息接收者的ID
+ *  @brief ctype        消息类型：一对一，群聊
+ *  @brief pic          图片内容
+ *  @brief time_stamp   客户端发送消息时的时间戳
+ *  @brief t_avatar     消息接收者的头像URL
+ *  @brief t_name       消息接收者的名字：如若有备注，则为备注名
+ *  @brief t_leve       消息接收者的VIP水平
+ *  @brief t_user_type  消息接收者的账号类型：业主，房客等
+ *  @brief m_avatar     消息发出人的头像URL
+ *  @brief m_name       消息发出人的用户名
+ *  @brief m_leve       消息发出人的VIP水平
+ *  @brief m_user_type  消息发出人的用户类型：业主、房客等
+ *  @brief device_udid  消息接收者使用设备的udid
+ *
+ */
+message QuestionPic
+{
+
+    required int64 mid = 1;
+    required int64 tid = 2;
+    required ChatRequestType ctype = 3;
+    required bytes pic = 4;
+
+    required string time_stamp = 5;
+    required string t_avatar = 6;
+    required string t_name = 7;
+    required string t_leve = 8;
+    required string t_user_type = 9;
+
+    required string m_avatar = 10;
+    required string m_name = 11;
+    required string m_leve = 12;
+    required string m_user_type = 13;
+    optional string device_udid = 14;
+
+}
+
+/**
+ *
+ *  @brief mid          消息发出人的ID
+ *  @brief tid          消息接收者的ID
+ *  @brief ctype        消息类型：一对一，群聊
+ *  @brief video        语音内容
+ *  @brief time_stamp   客户端发送消息时的时间戳
+ *  @brief t_avatar     消息接收者的头像URL
+ *  @brief t_name       消息接收者的名字：如若有备注，则为备注名
+ *  @brief t_leve       消息接收者的VIP水平
+ *  @brief t_user_type  消息接收者的账号类型：业主，房客等
+ *  @brief m_avatar     消息发出人的头像URL
+ *  @brief m_name       消息发出人的用户名
+ *  @brief m_leve       消息发出人的VIP水平
+ *  @brief m_user_type  消息发出人的用户类型：业主、房客等
+ *  @brief device_udid  消息接收者使用设备的udid
+ *
+ */
+message QuestionVideo
+{
+
+  required int64 mid = 1;
+  required int64 tid = 2;
+  required ChatRequestType ctype = 3;
+  required bytes video = 4;
+
+  required string time_stamp = 5;
+  required string t_avatar = 6;
+  required string t_name = 7;
+  required string t_leve = 8;
+  required string t_user_type = 9;
+
+  required string m_avatar = 10;
+  required string m_name = 11;
+  required string m_leve = 12;
+  required string m_user_type = 13;
+  optional string device_udid = 14;
+
+}
+
+/**
+ *
+ *  @brief mid              消息发出人的ID
+ *  @brief tid              消息接收者的ID
+ *  @brief ctype            消息类型：一对一，群聊
+ *
+ *  @brief house_id         房源ID:新房时为楼盘ID
+ *  @brief building_id      房源所在楼栋ID：新房进入详情需要
+ *  @brief house_type       房源类型：新房，二手房等
+ *  @brief attach_file      房源的大图
+ *  @brief attach_thumb     房源的小图
+ *  @brief areaid           所在区的ID
+ *  @brief area_val         所在区信息
+ *  @brief streetid         所在街道ID
+ *  @brief street_val       所在街道信息
+ *  @brief house_shi        房源的室数量
+ *  @brief house_ting       房源的厅数量
+ *  @brief house_area       房源面积
+ *  @brief house_price      二手房的售价
+ *  @brief rent_price       出租房的租金
+ *  @brief title            房源标题
+ *
+ *  @brief time_stamp       客户端发送消息时的时间戳
+ *
+ *  @brief t_avatar         消息接收者的头像URL
+ *  @brief t_name           消息接收者的名字：如若有备注，则为备注名
+ *  @brief t_leve           消息接收者的VIP水平
+ *  @brief t_user_type      消息接收者的账号类型：业主，房客等
+ *
+ *  @brief m_avatar         消息发出人的头像URL
+ *  @brief m_name           消息发出人的用户名
+ *  @brief m_leve           消息发出人的VIP水平
+ *  @brief m_user_type      消息发出人的用户类型：业主、房客等
+ *  @brief device_udid      消息接收者使用设备的udid
+ *
+ */
+message QuestionRecommendHouse
+{
+
+    required int64 mid = 1;
+    required int64 tid = 2;
+    required ChatRequestType ctype = 3;
+
+    required string house_id = 4;
+    required string building_id = 5;
+    required string house_type = 6;
+    required string attach_file = 7;
+    required string attach_thumb = 8;
+    required string areaid = 9;
+    required string area_val = 10;
+    required string streetid = 11;
+    required string street_val = 12;
+    required string house_shi = 13;
+    required string house_ting = 14;
+    required string house_area = 15;
+    required string house_price = 16;
+    required string rent_price = 17;
+    required string title = 18;
+
+    required string time_stamp = 19;
+    required string t_avatar = 20;
+    required string t_name = 21;
+    required string t_leve = 22;
+    required string t_user_type = 23;
+
+    required string m_avatar = 24;
+    required string m_name = 25;
+    required string m_leve = 26;
+    required string m_user_type = 27;
+    required string device_udid = 28;
+
+}
+
+
+/**
+ *
+ *  @brief result           保存字段
+ *  @brief message          消息内容
+ *  @brief msg_id           消息自身的入库ID
+ *  @brief time_stamp       服务端时间戳
+ *  @brief fid              客户端发送消息时的时间戳
+ *  @brief f_avatar         消息接收者的头像URL
+ *  @brief f_name           消息接收者的名字：如若有备注，则为备注名
+ *  @brief f_leve           消息接收者的VIP水平
+ *  @brief f_user_type      消息接收者的账号类型：业主，房客等
+ *  @brief f_unread_count   所有消息发出者对应当前接收人的未数据消息总数
+ *  @brief device_udid      消息发出人使用设备的udid
+ *
+ */
+message AnswerWord
+{
+
+    required string result = 1;
+    required string message = 2;
+    required string msg_id = 3;
+  
+    required string time_stamp = 4;
+    required int64  fid = 5;
+    required string f_avatar = 6;
+    required string f_name = 7;
+    required string f_leve = 8;
+    required string f_user_type = 9;
+    required string f_unread_count = 10;
+    required string device_udid = 11;
+
+}
+
+/**
+ *
+ *  @brief result           保留字段
+ *  @brief pic              图片内容
+ *  @brief msg_id           消息本身的入库ID
+ *  @brief time_stamp       时间戳
+ *  @brief fid              客户端发送消息时的时间戳
+ *  @brief f_avatar         消息接收者的头像URL
+ *  @brief f_name           消息接收者的名字：如若有备注，则为备注名
+ *  @brief f_leve           消息接收者的VIP水平
+ *  @brief f_user_type      消息接收者的账号类型：业主，房客等
+ *  @brief f_unread_count   所有消息发出者对应当前接收人的未数据消息总数
+ *  @brief device_udid      消息发出人使用设备的udid
+ *
+ */
+message AnswerPic
+{
+
+    required string result = 1;
+    required bytes pic = 2;
+    required string msg_id = 3;
+
+    required string time_stamp = 4;
+    required int64  fid = 5;
+    required string f_avatar = 6;
+    required string f_name = 7;
+    required string f_leve = 8;
+    required string f_user_type = 9;
+    required string f_unread_count = 10;
+    required string device_udid = 11;
+
+}
+
+/**
+ *
+ *  @brief result           保留字段
+ *  @brief video            语音内容
+ *  @brief msg_id           消息本身的入库ID
+ *  @brief time_stamp       时间戳
+ *  @brief fid              客户端发送消息时的时间戳
+ *  @brief f_avatar         消息接收者的头像URL
+ *  @brief f_name           消息接收者的名字：如若有备注，则为备注名
+ *  @brief f_leve           消息接收者的VIP水平
+ *  @brief f_user_type      消息接收者的账号类型：业主，房客等
+ *  @brief f_unread_count   所有消息发出者对应当前接收人的未数据消息总数
+ *  @brief device_udid      消息发出人使用设备的udid
+ *
+ */
+message AnswerVideo
+{
+
+    required string result = 1;
+    required bytes video = 2;
+    required string msg_id = 3;
+  
+    required string time_stamp = 4;
+    required int64  fid = 5;
+    required string f_avatar = 6;
+    required string f_name = 7;
+    required string f_leve = 8;
+    required string f_user_type = 9;
+    required string f_unread_count = 10;
+    required string device_udid = 11;
+
+}
+
+/**
+ *
+ *  @brief result           消息发出人的ID
+ *  @brief msg_id           消息接收者的ID
+ *
+ *  @brief house_id         房源ID:新房时为楼盘ID
+ *  @brief building_id      房源所在楼栋ID：新房进入详情需要
+ *  @brief house_type       房源类型：新房，二手房等
+ *  @brief attach_file      房源的大图
+ *  @brief attach_thumb     房源的小图
+ *  @brief areaid           所在区的ID
+ *  @brief area_val         所在区信息
+ *  @brief streetid         所在街道ID
+ *  @brief street_val       所在街道信息
+ *  @brief house_shi        房源的室数量
+ *  @brief house_ting       房源的厅数量
+ *  @brief house_area       房源面积
+ *  @brief house_price      二手房的售价
+ *  @brief rent_price       出租房的租金
+ *  @brief title            房源标题
+ *
+ *  @brief time_stamp       客户端发送消息时的时间戳
+ *
+ *  @brief fid              消息发出人的用户ID
+ *  @brief f_avatar         消息发出人的头像URL
+ *  @brief f_name           消息发出人的用户名
+ *  @brief f_leve           消息发出人的VIP水平
+ *  @brief f_user_type      消息发出人的用户类型：业主、房客等
+ *  @brief f_unread_count   所有消息发出者对应当前接收人的未数据消息总数
+ *  @brief device_udid      消息发出人使用设备的udid
+ *
+ */
+message AnswerRecommendHouse
+{
+
+    required string result = 1;
+    required string msg_id = 2;
+
+    required string house_id = 3;
+    optional string building_id = 4;
+    required string house_type = 5;
+    required string attach_file = 6;
+    required string attach_thumb = 7;
+    required string areaid = 8;
+    required string area_val = 9;
+    required string streetid = 10;
+    required string street_val = 11;
+    required string house_shi = 12;
+    required string house_ting = 13;
+    required string house_area = 14;
+    optional string house_price = 15;
+    optional string rent_price = 16;
+    required string title_ = 17;
+
+    required int64  fid = 18;
+    required string f_avatar = 19;
+    required string f_name = 20;
+    required string f_leve = 21;
+    required string f_user_type = 22;
+    required string f_unread_count = 23;
+    required string device_udid = 24;
+
+}
+
+message AnswerRecHouse
+{
+    required string msg_id_ = 1;
+    required Finfo  finfo   = 2;
+    optional string attach_file = 3;
+    optional string attach_thumb = 4;
+    optional string areaid = 5;
+    optional string area_val = 6;
+    optional string streetid = 7;
+    optional string street_val = 8;
+    optional string house_shi = 9;
+    optional string house_ting = 10;
+    optional string house_area = 11;
+    optional string house_price = 12;
+    optional string rent_price = 13;
+    optional string title_ = 14;
+}
+
+message Finfo
+{
+    required int64  fid = 1;
+    required string f_avatar = 2;
+    required string f_name = 3;
+    required string f_leve = 4;
+    required string f_user_type = 5;
+    required string f_unread_count = 6;
+    required string house_id = 7;
+    required string building_id = 8;
+    required string house_type = 9;
+}
+
+/**
+ *
+ *  @brief result           保留字段
+ *  @brief msg              下线提示信息
+ *  @brief msg_id           消息本身的入库ID
+ *  @brief time_stamp       时间戳
+ *  @brief fid              下线人的用户ID
+ *  @brief f_avatar         下线人的头像URL
+ *  @brief f_name           下线人的名字：如若有备注，则为备注名
+ *  @brief f_leve           下线人的VIP水平
+ *  @brief f_user_type      下线人的账号类型：业主，房客等
+ *  @brief f_unread_count   所有下线人对应当前接收人的未数据消息总数
+ *  @brief device_udid      下线发起设备的udid
+ *
+ */
+message AnswerOffline
+{
+
+    required int32 result = 1;
+    required string msg   = 2;
+    required string msg_id = 3;
+
+    required string time_stamp = 4;
+    required int64  fid = 5;
+    required string f_avatar = 6;
+    required string f_name = 7;
+    required string f_leve = 8;
+    required string f_user_type = 9;
+    required string f_unread_count = 10;
+    required string device_udid = 11;
+
+}
+
+/**
+ *
+ *  @brief name         推送房源的标题
+ *  @brief pic          推荐房源的图片URL
+ *  @brief desc         推荐房源的描述
+ *  @brief fid          推荐房源的ID
+ *  @brief type         推荐房源类型：新房
+ *
+ */
+message AnswerSpecial
+{
+
+    required string name = 1;
+    required string pic = 2;
+    required string desc = 3;
+    required string fid = 4;
+    required string type = 5;
+
+}
+
+/**
+ *
+ *  @brief title    系统消息的标题
+ *  @brief desc     系统消息的描述
+ *  @brief time     系统消息的发出时间戳
+ *  @brief type     系统消息的类型
+ *  @brief url      系统消息的跳转url
+ *  @brief exp_1    系统消息推展1
+ *  @brief exp_2    系统消息推展2
+ *  @brief exp_3    系统消息推展3
+ *  @brief exp_4    系统消息推展4
+ *  @brief exp_5    系统消息推展5
+ *
+ */
+message AnswerSystem
+{
+
+    required string title = 1;
+    required string desc  = 2;
+    required string time  = 3;
+    required string type  = 4;
+    required string url   = 5;
+
+    optional string exp_1 = 6;
+    optional string exp_2 = 7;
+    optional string exp_3 = 8;
+    optional string exp_4 = 9;
+    optional string exp_5 = 10;
+
+}
