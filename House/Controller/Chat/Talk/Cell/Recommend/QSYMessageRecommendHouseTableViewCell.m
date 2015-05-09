@@ -134,7 +134,7 @@ static char PriceKey;       //!<房源售价或租金关联
     ///地址信息
     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.frame.size.width + 5.0f, imageView.frame.origin.y, rootView.frame.size.width - imageView.frame.size.width - 25.0f, 15.0f)];
     addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    addressLabel.textColor = [UIColor whiteColor];
+    addressLabel.textColor = COLOR_CHARACTERS_BLACK;
     if (mMessageFromTypeMY == self.messageType) {
         
         addressLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -147,7 +147,7 @@ static char PriceKey;       //!<房源售价或租金关联
     ///室厅面积信息
     UILabel *houseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabel.frame.origin.x, addressLabel.frame.origin.y + addressLabel.frame.size.height, addressLabel.frame.size.width, addressLabel.frame.size.height)];
     houseNumLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    houseNumLabel.textColor = [UIColor whiteColor];
+    houseNumLabel.textColor = COLOR_CHARACTERS_BLACK;
     if (mMessageFromTypeMY == self.messageType) {
         
         houseNumLabel.textColor = COLOR_CHARACTERS_BLACK;
