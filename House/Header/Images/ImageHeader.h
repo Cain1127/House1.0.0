@@ -368,6 +368,14 @@
 #define IMAGE_CHAT_SOUND_NORMAL @"talk_sound_normal"
 #define IMAGE_CHAT_SOUND_HIGHLIGHTED @"talk_sound_highlighted"
 
+///音频录入功能的返回按钮
+#define IMAGE_CHAT_SOUND_BACK_NORMAL @"talk_sound_can_record_normal"
+#define IMAGE_CHAT_SOUND_BACK_HIGHLIGHTED @"talk_sound_can_record_highlighted"
+
+///录单提示图片
+#define IMAGE_CHAT_RECORDING @"talk_sound_recording"
+#define IMAGE_CHAT_SOUND_SENDING @"talk_sound_sending"
+
 ///图片
 #define IMAGE_CHAT_PHOTO_NORMAL @"talk_photo_normal"
 #define IMAGE_CHAT_PHOTO_HIGHLIGHTED @"talk_photo_highlighted"

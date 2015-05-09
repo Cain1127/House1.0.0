@@ -16,8 +16,10 @@
 #import "QSYMessageVideoTableViewCell.h"
 #import "QSYMessagePictureTableViewCell.h"
 #import "QSYMessageRecommendHouseTableViewCell.h"
+#import "QSYRecordSoundTipsPopView.h"
 
 #import "QSBlockButtonStyleModel+NavigationBar.h"
+#import "QSBlockButtonStyleModel+Normal.h"
 #import "NSString+Format.h"
 #import "NSString+Calculation.h"
 #import "NSDate+Formatter.h"
@@ -45,7 +47,9 @@
 @property (nonatomic,retain) QSUserDataModel *myUserModel;                  //!<当前用户数据模型
 @property (atomic,assign) BOOL isLocalMessage;                              //!<是否获取本地保存的消息
 
-@property (nonatomic,strong) UIView *rootView;                              //!<底view，方便滑动
+@property (nonatomic,strong) UIView *normalInputRootView;                   //!<普通消息发送功能底view
+@property (nonatomic,strong) UIView *soundInputRootView;                    //!<语音消息发送功能底view
+@property (nonatomic,strong) QSYRecordSoundTipsPopView *recordView;         //!<录音时的提示view
 @property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
 @property (nonatomic,retain) NSMutableArray *messagesDataSource;            //!<消息数据
 
@@ -119,13 +123,9 @@
 
 - (void)createMainShowUI
 {
-
-    ///底view，方便弹出键盘时，往上滑动
-    self.rootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f)];
-    [self.view addSubview:self.rootView];
     
     ///消息列表
-    self.messagesListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, self.rootView.frame.size.height - 50.0f) style:UITableViewStylePlain];
+    self.messagesListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 50.0f) style:UITableViewStylePlain];
     
     ///取消滚动条
     self.messagesListView.showsHorizontalScrollIndicator = NO;
@@ -138,20 +138,23 @@
     self.messagesListView.dataSource = self;
     self.messagesListView.delegate = self;
     
-    [self.rootView addSubview:self.messagesListView];
-    
+    [self.view addSubview:self.messagesListView];
     [self.messagesListView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(loadUnReadMessage)];
     
     ///分隔线
-    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.rootView.frame.size.height - 50.0f, SIZE_DEVICE_WIDTH, 0.25f)];
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 50.0f, SIZE_DEVICE_WIDTH, 0.25f)];
     lineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self.rootView addSubview:lineLabel];
+    [self.view addSubview:lineLabel];
+    
+    ///普通消息发送功能底view
+    self.normalInputRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT - 49.0f, SIZE_DEVICE_WIDTH, 49.0f)];
+    [self.view addSubview:self.normalInputRootView];
     
     ///文字输入框
     __block UITextField *inputField;
     
     ///相机
-    UIButton *cameraButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *cameraButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, 2.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///回收键盘
         [inputField resignFirstResponder];
@@ -163,26 +166,75 @@
     }];
     [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_NORMAL] forState:UIControlStateNormal];
     [cameraButton setImage:[UIImage imageNamed:IMAGE_CHAT_PHOTO_HIGHLIGHTED] forState:UIControlStateHighlighted];
-    [self.rootView addSubview:cameraButton];
+    [self.normalInputRootView addSubview:cameraButton];
     
     ///文字输入框
-    inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, self.rootView.frame.size.height - 45.0f, self.rootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
+    inputField = [[UITextField alloc] initWithFrame:CGRectMake(cameraButton.frame.origin.x + cameraButton.frame.size.width + 5.0f, 4.5f, self.normalInputRootView.frame.size.width - 20.0f - 88.0f, 40.0f)];
     inputField.borderStyle = UITextBorderStyleRoundedRect;
     inputField.delegate = self;
     inputField.placeholder = @"请输入信息……";
     inputField.returnKeyType = UIReturnKeySend;
-    [self.rootView addSubview:inputField];
+    [self.normalInputRootView addSubview:inputField];
     
     ///音频
-    UIButton *soundButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.rootView.frame.size.width - 5.0f - 44.0f, self.rootView.frame.size.height - 47.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    UIButton *soundButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.normalInputRootView.frame.size.width - 5.0f - 44.0f, 2.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
         ///进入录制音频
-        
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            self.normalInputRootView.frame = CGRectMake(self.normalInputRootView.frame.origin.x, SIZE_DEVICE_HEIGHT - 2.0f * self.normalInputRootView.frame.size.height, self.normalInputRootView.frame.size.width, self.normalInputRootView.frame.size.height);
+            self.normalInputRootView.alpha = 0.0f;
+            
+            self.soundInputRootView.frame = CGRectMake(self.soundInputRootView.frame.origin.x, SIZE_DEVICE_HEIGHT - self.soundInputRootView.frame.size.height, self.soundInputRootView.frame.size.width, self.soundInputRootView.frame.size.height);
+            self.soundInputRootView.alpha = 1.0f;
+            
+        }];
         
     }];
     [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_NORMAL] forState:UIControlStateNormal];
     [soundButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_HIGHLIGHTED] forState:UIControlStateHighlighted];
-    [self.rootView addSubview:soundButton];
+    [self.normalInputRootView addSubview:soundButton];
+    
+    ///发送语音功能底view
+    self.soundInputRootView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, SIZE_DEVICE_HEIGHT + 49.0f, SIZE_DEVICE_WIDTH, 49.0f)];
+    self.soundInputRootView.alpha = 0.0f;
+    [self.view addSubview:self.soundInputRootView];
+    
+    ///返回
+    UIButton *soundBackButton = [UIButton createBlockButtonWithFrame:CGRectMake(5.0f, 2.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+        
+        ///返回普通输入
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            self.normalInputRootView.frame = CGRectMake(self.normalInputRootView.frame.origin.x, SIZE_DEVICE_HEIGHT - self.normalInputRootView.frame.size.height, self.normalInputRootView.frame.size.width, self.normalInputRootView.frame.size.height);
+            self.normalInputRootView.alpha = 1.0f;
+            
+            self.soundInputRootView.frame = CGRectMake(self.soundInputRootView.frame.origin.x, SIZE_DEVICE_HEIGHT + self.soundInputRootView.frame.size.height, self.soundInputRootView.frame.size.width, self.soundInputRootView.frame.size.height);
+            self.soundInputRootView.alpha = 0.0f;
+            
+        }];
+        
+    }];
+    [soundBackButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_BACK_NORMAL] forState:UIControlStateNormal];
+    [soundBackButton setImage:[UIImage imageNamed:IMAGE_CHAT_SOUND_BACK_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [self.soundInputRootView addSubview:soundBackButton];
+    
+    ///按住录音按钮
+    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
+    buttonStyle.title = @"按住录音";
+    buttonStyle.titleFont = [UIFont systemFontOfSize:FONT_BODY_14];
+    buttonStyle.titleNormalColor = COLOR_CHARACTERS_GRAY;
+    buttonStyle.titleHightedColor = COLOR_CHARACTERS_YELLOW;
+    
+    UIButton *recordSoundButton = [UIButton createBlockButtonWithFrame:CGRectMake(soundBackButton.frame.origin.x + soundBackButton.frame.size.width + 5.0f, 7.0f, self.soundInputRootView.frame.size.width - 20.0f - 88.0f, 35.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {}];
+    [self.soundInputRootView addSubview:recordSoundButton];
+    [recordSoundButton addTarget:self action:@selector(recordSoundBeginAction:) forControlEvents:UIControlEventTouchDown];
+    [recordSoundButton addTarget:self action:@selector(recordSoundCheckDataAction:) forControlEvents:UIControlEventTouchUpInside];
+    [recordSoundButton addTarget:self action:@selector(recordSoundCancelAction:) forControlEvents:UIControlEventTouchUpOutside];
+    
+    ///将功能view移到背后
+    [self.view sendSubviewToBack:self.normalInputRootView];
+    [self.view sendSubviewToBack:self.soundInputRootView];
     
     ///注册消息监听
     [QSSocketManager registCurrentTalkMessageNotificationWithUserID:self.userModel.id_ andCallBack:^(BOOL flag, id messageModel) {
@@ -211,6 +263,96 @@
         [self.messagesListView.header beginRefreshing];
         
     });
+
+}
+
+///返回录单view
+- (QSYRecordSoundTipsPopView *)recordView
+{
+
+    if (nil == _recordView) {
+        
+        _recordView = [[QSYRecordSoundTipsPopView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 115.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 115.0f) / 2.0f, 115.0f, 115.0f)];
+        _recordView.alpha = 0.0f;
+        
+    }
+    
+    return _recordView;
+
+}
+
+#pragma mark - 录音
+- (void)recordSoundBeginAction:(UIButton *)button
+{
+
+    ///按下时
+    [self.view addSubview:self.recordView];
+    
+    ///显示录音图标
+    [UIView animateWithDuration:0.3f animations:^{
+        
+        self.recordView.alpha = 1.0f;
+        [self.recordView starRecordingSoundMessage];
+        
+    }];
+
+}
+
+- (void)recordSoundCheckDataAction:(UIButton *)button
+{
+
+    ///判断
+    if (self.recordView) {
+        
+        ///判断是否存在数据
+        [self.recordView stopRecordingSoundMessage];
+        if (self.recordView.isHaveSoundData) {
+            
+            QSYSendMessageVideo *tempModel = [self.recordView starSendingSoundMessage:self.userModel];
+            ///绑定消息回调
+            [self addNewMessage:tempModel];
+            
+            ///排序
+            [self resortCurrentMessage];
+            
+            ///刷新消息列表
+            [self.messagesListView reloadData];
+            
+            ///显示最后一行
+            if ([self.messagesDataSource count] > 5) {
+                
+                [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                
+            }
+            
+        } else {
+        
+            [self recordSoundCancelAction:button];
+        
+        }
+        
+    }
+
+}
+
+- (void)recordSoundCancelAction:(UIButton *)button
+{
+
+    if (self.recordView) {
+        
+        [self.recordView stopRecordingSoundMessage];
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            self.recordView.alpha = 0.0f;
+            
+        } completion:^(BOOL finished) {
+            
+            [self.recordView removeFromSuperview];
+            self.recordView = nil;
+            
+        }];
+        
+    }
 
 }
 

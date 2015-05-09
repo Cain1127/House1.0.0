@@ -388,7 +388,7 @@ static QSSocketManager *_socketManager = nil;
     
     ///设置发送消息
     QSChat::QuestionOnline onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1") UTF8String]);
     onLineMessage.set_user_id([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID],@"-1") UTF8String]);
     onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"-1") UTF8String]);
     onLineMessage.set_device_info([deviceInfoString UTF8String]);
@@ -428,7 +428,7 @@ static QSSocketManager *_socketManager = nil;
     
     ///设置发送消息
     QSChat::QuestionOffline onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING(userInfoModel.id_, @"-1") UTF8String]);
     onLineMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(self.currentDeviceUUID,@"-1") UTF8String]);
     onLineMessage.set_device_info([APPLICATION_NSSTRING_SETTING(deviceInfoString,@"-1") UTF8String]);
     onLineMessage.set_local_info([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getCurrentUserCity],@"-1") UTF8String]);
@@ -474,7 +474,7 @@ static QSSocketManager *_socketManager = nil;
 
     ///设置发送消息
     QSChat::QuestionHistory onLineMessage;
-    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getApplicationCurrentTokenID], @"-1") UTF8String]);
+    onLineMessage.set_token([APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1") UTF8String]);
     onLineMessage.set_ctype(QSChat::ChatTypeSendPTP);
     onLineMessage.set_wid([APPLICATION_NSSTRING_SETTING(self.currentContactUserID,@"-1") UTF8String]);
     onLineMessage.set_page_num("999");

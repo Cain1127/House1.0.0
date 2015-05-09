@@ -43,6 +43,7 @@
 		18124E161AFC67540052E65B /* QSYMessageRecommendHouseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124E151AFC67540052E65B /* QSYMessageRecommendHouseTableViewCell.m */; };
 		18124E1A1AFD96800052E65B /* QSChat.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 18124E171AFD96800052E65B /* QSChat.pb.cc */; };
 		18124E1B1AFD96800052E65B /* QSChat.proto in Resources */ = {isa = PBXBuildFile; fileRef = 18124E191AFD96800052E65B /* QSChat.proto */; };
+		18124E1F1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124E1E1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.m */; };
 		1814A3A91AF8799300987908 /* QSYHistoryRentHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */; };
 		1814A3AC1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AB1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m */; };
 		1814A3AF1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AE1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m */; };
@@ -953,6 +954,8 @@
 		18124E171AFD96800052E65B /* QSChat.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QSChat.pb.cc; sourceTree = "<group>"; };
 		18124E181AFD96800052E65B /* QSChat.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSChat.pb.h; sourceTree = "<group>"; };
 		18124E191AFD96800052E65B /* QSChat.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QSChat.proto; sourceTree = "<group>"; };
+		18124E1D1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYRecordSoundTipsPopView.h; path = Talk/Pop/QSYRecordSoundTipsPopView.h; sourceTree = "<group>"; };
+		18124E1E1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYRecordSoundTipsPopView.m; path = Talk/Pop/QSYRecordSoundTipsPopView.m; sourceTree = "<group>"; };
 		1814A3A71AF8799300987908 /* QSYHistoryRentHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistoryRentHouseListReturnData.h; path = History/QSYHistoryRentHouseListReturnData.h; sourceTree = "<group>"; };
 		1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHistoryRentHouseListReturnData.m; path = History/QSYHistoryRentHouseListReturnData.m; sourceTree = "<group>"; };
 		1814A3AA1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistorySecondHandHouseListReturnData.h; path = History/QSYHistorySecondHandHouseListReturnData.h; sourceTree = "<group>"; };
@@ -2522,6 +2525,15 @@
 				18124E151AFC67540052E65B /* QSYMessageRecommendHouseTableViewCell.m */,
 			);
 			name = Recommend;
+			sourceTree = "<group>";
+		};
+		18124E1C1AFDC17A0052E65B /* Pop */ = {
+			isa = PBXGroup;
+			children = (
+				18124E1D1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.h */,
+				18124E1E1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.m */,
+			);
+			name = Pop;
 			sourceTree = "<group>";
 		};
 		1814A3A61AF8796100987908 /* History */ = {
@@ -5543,6 +5555,7 @@
 		18DFE8E31AC9A25C00C216C3 /* Talk */ = {
 			isa = PBXGroup;
 			children = (
+				18124E1C1AFDC17A0052E65B /* Pop */,
 				183571F71AD608A900A29607 /* Cell */,
 				18DFE8E41AC9A29300C216C3 /* QSYTalkPTPViewController.h */,
 				18DFE8E51AC9A29300C216C3 /* QSYTalkPTPViewController.m */,
@@ -7214,6 +7227,7 @@
 				18AFA9DC1AB3E84F00681071 /* QSYLoginReturnData.m in Sources */,
 				183572001AD608C400A29607 /* QSYMessagePictureTableViewCell.m in Sources */,
 				18B572951AC16D1600C75682 /* extension_set_heavy.cc in Sources */,
+				18124E1F1AFDC1C50052E65B /* QSYRecordSoundTipsPopView.m in Sources */,
 				18D081AA1ACD51EC004FA20F /* QSYReleaseRentHouseImageViewController.m in Sources */,
 				184366CC1ABA82E700A81374 /* QSCDCollectedCommunityHouseDataModel.m in Sources */,
 				18CAFCCE1A70E45A00C90C90 /* QSAdvertReturnData.m in Sources */,
@@ -7702,8 +7716,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -7750,8 +7762,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_IDENTITY = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: SHENGYUE CHEN (YGDDA798E6)";
 				FRAMEWORK_SEARCH_PATHS = (
