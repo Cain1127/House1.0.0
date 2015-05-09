@@ -106,7 +106,7 @@ static char PriceKey;       //!<房源售价或租金关联
     
     ///指示三角
     QSImageView *arrowIndicator = [[QSImageView alloc] initWithFrame:CGRectMake(xpointArrow, iconView.frame.origin.y + 20.0f - 7.5f, 5.0f, 15.0f)];
-    arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_SENDER_ARROW_NORMAL];
+    arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_SENDER_ARROW_HIGHLIGHTED];
     if (mMessageFromTypeMY == self.messageType) {
         
         arrowIndicator.image = [UIImage imageNamed:IMAGE_CHAT_MESSAGE_MY_ARROW_NORMAL];;
@@ -114,10 +114,10 @@ static char PriceKey;       //!<房源售价或租金关联
     }
     [self.contentView addSubview:arrowIndicator];
     
-    ///消息图片底view
+    ///消息底view
     UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 90.0f)];
     rootView.layer.cornerRadius = 4.0f;
-    rootView.backgroundColor = COLOR_CHARACTERS_GRAY;
+    rootView.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     if (mMessageFromTypeMY == self.messageType) {
         
         rootView.backgroundColor = COLOR_CHARACTERS_YELLOW;
@@ -134,7 +134,7 @@ static char PriceKey;       //!<房源售价或租金关联
     ///地址信息
     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.frame.size.width + 5.0f, imageView.frame.origin.y, rootView.frame.size.width - imageView.frame.size.width - 25.0f, 15.0f)];
     addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    addressLabel.textColor = COLOR_CHARACTERS_GRAY;
+    addressLabel.textColor = [UIColor whiteColor];
     if (mMessageFromTypeMY == self.messageType) {
         
         addressLabel.textColor = COLOR_CHARACTERS_BLACK;
@@ -147,7 +147,7 @@ static char PriceKey;       //!<房源售价或租金关联
     ///室厅面积信息
     UILabel *houseNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabel.frame.origin.x, addressLabel.frame.origin.y + addressLabel.frame.size.height, addressLabel.frame.size.width, addressLabel.frame.size.height)];
     houseNumLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    houseNumLabel.textColor = COLOR_CHARACTERS_GRAY;
+    houseNumLabel.textColor = [UIColor whiteColor];
     if (mMessageFromTypeMY == self.messageType) {
         
         houseNumLabel.textColor = COLOR_CHARACTERS_BLACK;
