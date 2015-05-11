@@ -55,4 +55,13 @@ typedef enum
 - (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData;
 + (IMAGE_VALID_TYPE)checkJPEGValid:(NSData *)tempData;
 
+/**
+ *  @author yangshengmeng, 15-05-11 15:05:03
+ *
+ *  @brief  清空缓存图片
+ *
+ *  @since  1.0.0
+ */
++ (void)clearLoadImageCache:(void(^)(BOOL isClear))callBack;
+
 @end

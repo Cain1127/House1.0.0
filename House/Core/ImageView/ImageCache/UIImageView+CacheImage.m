@@ -241,6 +241,29 @@
     
 }
 
+///返回缓存路径
++ (NSString *)getImageCacheDirectory
+{
+    
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/imageCache"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
 #pragma mark - 将网络请求返回的图片存放本地
 ///将图片信息保存在本地
 - (void)saveImageWithImage:(NSData *)data andIndentify:(NSString *)indentify
@@ -346,6 +369,38 @@
     ///图片完整
     return iImageValidTypeValid;
     
+}
+
+#pragma mark - 清空缓存
+/**
+ *  @author yangshengmeng, 15-05-11 15:05:03
+ *
+ *  @brief  清空缓存图片
+ *
+ *  @since  1.0.0
+ */
++ (void)clearLoadImageCache:(void(^)(BOOL isClear))callBack
+{
+
+    NSString *path = [self getImageCacheDirectory];
+    if (nil == path) {
+        
+        callBack(YES);
+        
+    }
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *contents = [fileManager contentsOfDirectoryAtPath:path error:NULL];
+    NSEnumerator *e = [contents objectEnumerator];
+    NSString *filename;
+    while ((filename = [e nextObject])) {
+        
+        [fileManager removeItemAtPath:[path stringByAppendingPathComponent:filename] error:NULL];
+        
+    }
+    
+    callBack(YES);
+
 }
 
 @end

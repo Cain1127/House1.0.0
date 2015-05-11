@@ -16,6 +16,7 @@
 #import "UITextField+CustomField.h"
 
 #import "QSCoreDataManager+User.h"
+#import "UIImageView+CacheImage.h"
 
 #import "QSSocketManager.h"
 
@@ -235,7 +236,14 @@ typedef enum
         case sSettingFieldActionTypeClearCache:
         {
             
-            APPLICATION_LOG_INFO(@"清空缓存", @"")
+            ///显示HUD
+            __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在清除缓存"];
+            
+            [UIImageView clearLoadImageCache:^(BOOL isClear) {
+                
+                [hud hiddenCustomHUDWithFooterTips:@"已清除" andDelayTime:1.5f];
+                
+            }];
             
         }
             break;
