@@ -548,7 +548,7 @@
     
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
     
-    ///数据数据源
+    ///数据源
     __block NSMutableArray *tempArray = [NSMutableArray array];
     
     ///判断是否是本地数据
@@ -611,7 +611,7 @@
         }
         
         ///刷新数据
-        [self reloadData];
+        [self.header beginRefreshing];
         
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];

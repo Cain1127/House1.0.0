@@ -15,6 +15,7 @@
 
 #import "QSAttentionCommunityCell.h"
 #import "QSCommunityCollectionViewCell.h"
+#import "QSCustomHUDView.h"
 
 #import "QSCoreDataManager+Collected.h"
 
@@ -88,13 +89,21 @@
         ///当前非编辑状态，进入删除状态
         if (button.selected) {
             
+            if ([self.seletedDataSource count] > 0) {
+                
+                [self deleteIntentionCommunity:button];
+                return;
+                
+            }
+            
             self.isEditing = NO;
             button.selected = NO;
             [self.collectionView reloadData];
             
         } else {
         
-            if ([self.dataSource count] > 0) {
+            if ([self.dataSource count] > 0 ||
+                [self.dataSourceModel.communityListHeaderData.communityList count] > 0) {
                 
                 self.isEditing = YES;
                 button.selected = YES;
@@ -424,6 +433,172 @@
     
     }
 
+}
+
+#pragma mark - 删除关注
+- (void)deleteIntentionCommunity:(UIButton *)button
+{
+    
+    __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正在删除"];
+    
+    ///数据源
+    __block NSMutableArray *tempArray = [NSMutableArray array];
+    
+    ///判断是否是本地数据
+    if (self.isLocalData) {
+        
+        [tempArray addObjectsFromArray:self.dataSource];
+        
+    } else {
+        
+        [tempArray addObjectsFromArray:self.dataSourceModel.communityListHeaderData.communityList];
+        
+    }
+    
+    __block NSMutableIndexSet *tempIndexSet = [NSMutableIndexSet indexSet];
+    
+    dispatch_group_t downloadGroup = dispatch_group_create();
+    dispatch_apply([self.seletedDataSource count], dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(size_t i){
+        
+        ///进入队列
+        dispatch_group_enter(downloadGroup);
+        
+        NSIndexPath *indexPath = self.seletedDataSource[i];
+        [tempIndexSet addIndex:indexPath.row];
+        
+        NSString *houseID;
+        if (self.isLocalData) {
+            
+            QSCommunityHouseDetailDataModel *tempModel = self.dataSource[indexPath.row];
+            houseID = tempModel.village.id_;
+            
+        } else {
+            
+            QSCommunityDataModel *tempModel = self.dataSourceModel.communityListHeaderData.communityList[indexPath.row];
+            houseID = tempModel.id_;
+            
+        }
+        
+        [self deleteIntentionCommunity:houseID andCallBack:^(BOOL isFinish) {
+            
+            ///离开队列
+            dispatch_group_leave(downloadGroup);
+            
+        }];
+        
+    });
+    
+    dispatch_group_notify(downloadGroup, dispatch_get_main_queue(), ^{
+        
+        ///所有任务完成
+        [tempArray removeObjectsAtIndexes:tempIndexSet];
+        if (self.isLocalData) {
+            
+            [self.dataSource removeAllObjects];
+            [self.dataSource addObjectsFromArray:tempArray];
+            
+        } else {
+            
+            self.dataSourceModel.communityListHeaderData.communityList = [NSArray arrayWithArray:tempArray];
+            
+        }
+        
+        ///刷新数据
+        [self.collectionView.header beginRefreshing];
+        self.isEditing = NO;
+        button.selected = NO;
+        
+        ///隐藏HUD
+        [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
+        
+    });
+    
+}
+
+///删除收藏
+- (void)deleteIntentionCommunity:(NSString *)houseID andCallBack:(void(^)(BOOL isFinish))callBack
+{
+    
+    ///判断当前收藏是否已同步服务端，若未同步，不需要联网删除
+    QSCommunityHouseDetailDataModel *localDataModel = [QSCoreDataManager searchCollectedDataWithID:houseID andCollectedType:fFilterMainTypeCommunity];
+    if (0 == [localDataModel.is_syserver intValue]) {
+        
+        ///删除本地数据
+        [self deleteIntentionCommunityWithStatus:YES andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///判断是否已登录
+    if (lLoginCheckActionTypeUnLogin == [self checkLogin]) {
+        
+        ///删除本地数据
+        [self deleteIntentionCommunityWithStatus:NO andCollectedID:houseID];
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+        return;
+        
+    }
+    
+    ///封装参数
+    NSDictionary *params = @{@"obj_id" : houseID,
+                             @"type" : [NSString stringWithFormat:@"%d",fFilterMainTypeCommunity]};
+    
+    [QSRequestManager requestDataWithType:rRequestTypeCommunityDeleteIntention andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        ///同步服务端成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            [self deleteIntentionCommunityWithStatus:YES andCollectedID:houseID];
+            
+        } else {
+            
+            [self deleteIntentionCommunityWithStatus:NO andCollectedID:houseID];
+            
+        }
+        
+        if (callBack) {
+            
+            callBack(YES);
+            
+        }
+        
+    }];
+    
+}
+
+///取消当前房源的收藏
+- (void)deleteIntentionCommunityWithStatus:(BOOL)isSendServer andCollectedID:(NSString *)houseID
+{
+    
+    ///删除本地收藏房源
+    [QSCoreDataManager deleteCollectedDataWithID:houseID isSyServer:isSendServer andCollectedType:fFilterMainTypeCommunity andCallBack:^(BOOL flag) {
+        
+        ///显示删除信息
+        if (flag) {
+            
+            APPLICATION_LOG_INFO(@"小区关注->删除", @"成功")
+            
+        } else {
+            
+            APPLICATION_LOG_INFO(@"小区关注->删除", @"失败")
+            
+        }
+        
+    }];
+    
 }
 
 #pragma mark - 请求更多数据

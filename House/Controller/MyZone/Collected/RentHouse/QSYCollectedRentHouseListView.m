@@ -622,7 +622,7 @@
         }
         
         ///刷新数据
-        [self reloadData];
+        [self.header beginRefreshing];
         
         ///隐藏HUD
         [hud hiddenCustomHUDWithFooterTips:@"删除成功" andDelayTime:1.5f];
