@@ -110,7 +110,7 @@
     filterModel.floor_key = APPLICATION_NSSTRING_SETTING(self.floor_which, @"");
     filterModel.floor_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFloorTypeWithKey:self.floor_which], @"");
     filterModel.house_face_key = APPLICATION_NSSTRING_SETTING(self.house_face, @"");
-    filterModel.house_face_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFloorTypeWithKey:self.house_face], @"");
+    filterModel.house_face_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFaceTypeWithKey:self.house_face], @"");
     filterModel.decoration_key = APPLICATION_NSSTRING_SETTING(self.decoration_type, @"");
     filterModel.decoration_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseDecorationTypeWithKey:self.decoration_type], @"");
     filterModel.comment = APPLICATION_NSSTRING_SETTING(self.content, @"");
@@ -145,7 +145,7 @@
     
     filterModel.filter_id = self.id_;
     filterModel.rent_type_key = APPLICATION_NSSTRING_SETTING(self.rent_property, @"");
-    filterModel.rent_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentTypeWithKey:self.rent_property], @"");
+    filterModel.rent_type_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseRentPropertyWithKey:self.rent_property], @"");
     
     QSBaseConfigurationDataModel *cityModel = [QSCoreDataManager getCityModelWithDitrictKey:self.areaid];
     QSBaseConfigurationDataModel *districtModel = [QSCoreDataManager getDistrictModelWithStreetKey:self.street];
@@ -167,7 +167,7 @@
     filterModel.floor_key = APPLICATION_NSSTRING_SETTING(self.floor_which, @"");
     filterModel.floor_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFloorTypeWithKey:self.floor_which], @"");
     filterModel.house_face_key = APPLICATION_NSSTRING_SETTING(self.house_face, @"");
-    filterModel.house_face_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFloorTypeWithKey:self.house_face], @"");
+    filterModel.house_face_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseFaceTypeWithKey:self.house_face], @"");
     filterModel.decoration_key = APPLICATION_NSSTRING_SETTING(self.decoration_type, @"");
     filterModel.decoration_val = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getHouseDecorationTypeWithKey:self.decoration_type], @"");
     filterModel.comment = APPLICATION_NSSTRING_SETTING(self.content, @"");

@@ -87,6 +87,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseRentType;
++ (NSString *)getHouseRentPropertyWithKey:(NSString *)keyString;
 
 /**
  *  @author yangshengmeng, 15-02-02 09:02:29

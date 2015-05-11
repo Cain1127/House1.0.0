@@ -262,6 +262,14 @@
     
 }
 
++ (NSString *)getHouseRentPropertyWithKey:(NSString *)keyString
+{
+
+    QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"rent_property" andSecondFieldName:@"key" andSecndFieldValue:keyString];
+    return tempModel.val;
+
+}
+
 /**
  *  @author yangshengmeng, 15-02-02 09:02:29
  *

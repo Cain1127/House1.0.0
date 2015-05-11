@@ -131,6 +131,7 @@ static char SettingButton;  //!<设置按钮
     areaLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_25];
     areaLabel.textColor = COLOR_CHARACTERS_BLACK;
     areaLabel.textAlignment = NSTextAlignmentRight;
+    areaLabel.adjustsFontSizeToFitWidth = YES;
     [areaRootView addSubview:areaLabel];
     objc_setAssociatedObject(self, &AreaKey, areaLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -421,7 +422,7 @@ static char SettingButton;  //!<设置按钮
     [self updateHouseNumberInfo:model.house_shi andTingNum:model.house_ting];
     
     ///更新面积
-    [self updateHouseArea:[QSCoreDataManager getHouseAreaTypeWithKey:model.areaid]];
+    [self updateHouseArea:model.house_area];
     
     ///求租求购标识
     [self updateHouseTagImage:IMAGE_ZONE_ASK_TAG_BUY];
@@ -719,8 +720,12 @@ static char SettingButton;  //!<设置按钮
     UILabel *labelArea = objc_getAssociatedObject(self, &AreaKey);
     if (labelArea && area) {
         
-        labelArea.text = [NSString stringWithFormat:@"%.0f",[area floatValue]];
+        labelArea.text = area;
         
+    } else {
+    
+        labelArea.text = nil;
+    
     }
 
 }
