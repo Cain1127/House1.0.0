@@ -128,6 +128,14 @@
  */
 + (NSString *)getApplicationCurrentToken
 {
+    
+    QSCoreDataManager *manager = [self shareCoreDataManager];
+    NSString *memoryToken = [manager valueForKey:@"tokenString"];
+    if ([memoryToken length] > 3) {
+        
+        return memoryToken;
+        
+    }
 
     return (NSString *)[self getUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andKeyword:@"app_token"];
 
@@ -150,6 +158,9 @@
         return NO;
         
     }
+    
+    QSCoreDataManager *manager = [self shareCoreDataManager];
+    [manager setValue:token forKey:@"tokenString"];
     
     return [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_APPLICATION_INFO andUpdateField:@"app_token" andFieldNewValue:token];
 
