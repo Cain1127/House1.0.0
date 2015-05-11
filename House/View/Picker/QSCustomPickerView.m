@@ -832,7 +832,7 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         case cCustomPickerTypeChannelBarDistrict:
         {
         
-            QSDistrictListView *districtPickerView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedStreetKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel) {
+            QSDistrictListView *districtPickerView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 10.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 114.0f) andSelectedStreetKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSBaseConfigurationDataModel *distictModel,QSBaseConfigurationDataModel *streetModel) {
                 
                 ///判断是否选择有内容
                 if (cCustomDistrictPickerActionTypePickedStreet == pickedActionType) {

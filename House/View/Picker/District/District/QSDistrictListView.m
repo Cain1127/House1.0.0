@@ -27,10 +27,10 @@ static char StreetRootViewKey;              //!<街道的底view
 @interface QSDistrictListView ()
 
 ///选择地区后的回调
-@property (nonatomic,copy) void(^districtPickedCallBack)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel);
+@property (nonatomic,copy) void(^districtPickedCallBack)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *distictModel,QSBaseConfigurationDataModel *streetModel);
 
 ///当前选择区
-@property (nonatomic,retain) QSCDBaseConfigurationDataModel *currentSelectedDistrict;
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedDistrict;
 
 @end
 
@@ -50,7 +50,7 @@ static char StreetRootViewKey;              //!<街道的底view
  *
  *  @since                      1.0.0
  */
-- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSCDBaseConfigurationDataModel *distictModel,QSCDBaseConfigurationDataModel *streetModel))callBack
+- (instancetype)initWithFrame:(CGRect)frame andSelectedStreetKey:(NSString *)selectedStreetKey andDistrictPickeredCallBack:(void(^)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *distictModel,QSBaseConfigurationDataModel *streetModel))callBack
 {
 
     if (self = [super initWithFrame:frame]) {
@@ -188,7 +188,10 @@ static char StreetRootViewKey;              //!<街道的底view
     for (int i = 0; i < [districtList count]; i++) {
         
         ///获取数据模型
-        QSCDBaseConfigurationDataModel *tempModel = districtList[i];
+        QSBaseConfigurationDataModel *tempModel = districtList[i];
+        
+        buttonStyle.titleSelectedColor = COLOR_CHARACTERS_BLACK;
+        buttonStyle.bgColorSelected = COLOR_CHARACTERS_LIGHTYELLOW;
         
         ///标题
         buttonStyle.title = tempModel.val;
@@ -323,7 +326,7 @@ static char StreetRootViewKey;              //!<街道的底view
     for (int i = 0; i < [streetList count]; i++) {
         
         ///获取数据模型
-        QSCDBaseConfigurationDataModel *tempModel = streetList[i];
+        QSBaseConfigurationDataModel *tempModel = streetList[i];
         
         ///标题
         buttonStyle.title = tempModel.val;

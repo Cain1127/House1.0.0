@@ -16,9 +16,9 @@
 ///选择地区完成后的回调
 @property (nonatomic,copy) void(^districtPickeredCallBack)(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType,QSBaseConfigurationDataModel *districtModel,QSBaseConfigurationDataModel *streetModel);
 
-@property (nonatomic,assign) BOOL isUnLimited;                                          //!<当前是否是不限
-@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedDistrict;   //!<当前选择的区
-@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedStreet;     //!<当前选择的街道
+@property (nonatomic,assign) BOOL isUnLimited;                                      //!<当前是否是不限
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedDistrict; //!<当前选择的区
+@property (nonatomic,retain) QSBaseConfigurationDataModel *currentSelectedStreet;   //!<当前选择的街道
 
 @end
 
@@ -71,7 +71,7 @@
 - (void)createDistrictPickerUIWithSelectedStreetKey:(NSString *)selectedStreetKey
 {
     
-    QSDistrictListView *districtListView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height - 84.0f) andSelectedStreetKey:selectedStreetKey andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSCDBaseConfigurationDataModel *distictModel, QSCDBaseConfigurationDataModel *streetModel) {
+    QSDistrictListView *districtListView = [[QSDistrictListView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height - 84.0f) andSelectedStreetKey:selectedStreetKey andDistrictPickeredCallBack:^(CUSTOM_DISTRICT_PICKER_ACTION_TYPE pickedActionType, QSBaseConfigurationDataModel *distictModel, QSBaseConfigurationDataModel *streetModel) {
         
         ///判断选择的状态
         if (cCustomDistrictPickerActionTypeUnLimitedStreet == pickedActionType) {
