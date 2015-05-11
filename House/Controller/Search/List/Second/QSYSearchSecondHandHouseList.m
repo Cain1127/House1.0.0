@@ -111,8 +111,8 @@
             int recommendCount = (int)[self.dataSourceModel.secondHandHouseHeaderData.referrals_list count];
             if (recommendCount > 10) {
                 
-                
                 recommendCount = 10;
+                
             }
             sumCount = [NSString stringWithFormat:@"%d",recommendCount];
             
