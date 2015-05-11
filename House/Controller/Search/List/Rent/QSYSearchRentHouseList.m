@@ -102,7 +102,23 @@
         QSHouseListTitleCollectionViewCell *cellTitle = [collectionView dequeueReusableCellWithReuseIdentifier:titleCellIndentify forIndexPath:indexPath];
         
         ///更新数据
-        [cellTitle updateTitleInfoWithTitle:[self.dataSourceModel.headerData.total_num stringValue] andSubTitle:@"套出租房信息"];
+        NSString *sumCount;
+        if ([self.dataSourceModel.headerData.rentHouseList count] > 0) {
+            
+            sumCount = [self.dataSourceModel.headerData.total_num stringValue];
+            
+        } else if ([self.dataSourceModel.headerData.referrals_list count] > 0) {
+            
+            int recommendCount = (int)[self.dataSourceModel.headerData.referrals_list count];
+            if (recommendCount > 10) {
+                
+                
+                recommendCount = 10;
+            }
+            sumCount = [NSString stringWithFormat:@"%d",recommendCount];
+            
+        }
+        [cellTitle updateTitleInfoWithTitle:sumCount andSubTitle:@"套出租房信息"];
         
         return cellTitle;
         
