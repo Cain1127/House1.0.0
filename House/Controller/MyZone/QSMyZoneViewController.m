@@ -168,13 +168,6 @@ static char UserNameKey;    //!<用户名
     ///功能UI
     [self createMyZoneFunctionUI:self.rootView andStartYPoint:170.0f];
     
-    ///开始就请求数据
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self getMyZoneCalculationData];
-        
-    });
-    
 }
 
 ///创建头像
@@ -1024,17 +1017,11 @@ static char UserNameKey;    //!<用户名
         
     }];
     
-    if (self.isNeedRefresh) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        self.isNeedRefresh = NO;
+        [self getMyZoneCalculationData];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self getMyZoneCalculationData];
-            
-        });
-        
-    }
+    });
     
     [self hiddenBottomTabbar:NO];
     [super viewWillAppear:animated];
