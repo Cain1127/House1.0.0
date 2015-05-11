@@ -16,6 +16,9 @@ static QSCoreDataManager *_coredataManager = nil;
 ///服务端返回的token信息
 @property (nonatomic,copy) NSString *tokenString;
 
+///服务端授权的tokenID
+@property (nonatomic,copy) NSString *tokenIDString;
+
 ///小区关注数据有变动时的回调block
 @property (nonatomic,copy) COREDATACHANGEBLOCK communityIntentionChangeCallBack;
 
