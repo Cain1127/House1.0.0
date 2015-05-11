@@ -5,14 +5,14 @@
 	<key>1005</key>
 	<dict>
 		<key>url</key>
-		<string>tj/guide_page3</string>
+		<string>tj/guide_page2</string>
 		<key>class</key>
 		<string>QSYGuideSaleHouseReturnData</string>
 	</dict>
 	<key>1004</key>
 	<dict>
 		<key>url</key>
-		<string>tj/guide_page2</string>
+		<string>tj/guide_page3</string>
 		<key>class</key>
 		<string>QSYGuideFindHouseReturnData</string>
 	</dict>

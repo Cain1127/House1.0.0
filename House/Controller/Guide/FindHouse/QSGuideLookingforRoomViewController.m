@@ -113,7 +113,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     threeHouseInfoRootView.layer.cornerRadius = 40.0f;
     threeHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     threeHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:&HousesTypeTwoCountKey];
+    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:&HousesTypeThreeCountKey];
     [view addSubview:threeHouseInfoRootView];
     
     ///四房房源数据
@@ -381,10 +381,10 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
         if (rRequestResultTypeSuccess == resultStatus) {
             
             QSYGuideFindHouseReturnData *tempModel = resultData;
-            UILabel *houseNum = objc_getAssociatedObject(self, &HousesSumCountKey);
-            
             NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
             formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            
+            UILabel *houseNum = objc_getAssociatedObject(self, &HousesSumCountKey);
             houseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_num intValue]]];
             
             UILabel *oneHouseNum = objc_getAssociatedObject(self, &HousesTypeOneCountKey);

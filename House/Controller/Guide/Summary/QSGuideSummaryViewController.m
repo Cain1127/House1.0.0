@@ -251,10 +251,10 @@ static char TenantNumberKey;        //!<房客数量
 }
 
 #pragma mark - 请求统计数据
-- (void)viewDidDisappear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
 
-    [super viewDidDisappear:animated];
+    [super viewDidAppear:animated];
     
     ///请求数据
     [QSRequestManager requestDataWithType:rRequestTypeAppBaseGuideHome andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
