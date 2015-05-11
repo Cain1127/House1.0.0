@@ -83,6 +83,10 @@
             
             priceType = @"业主一口";
             
+            if ( uUserCountTypeOwner == [tempOrderData getUserType] ) {
+                priceType = @"一口";
+            }
+            
             if ([tempOrderData.order_type isEqualToString:@"500103"]) {
                 //出租房出价
                 priceString = tempOrderData.house_msg.rent_price;

@@ -58,7 +58,7 @@
         UIImageView *myPriceBgView = [[UIImageView alloc] initWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, CONTENT_TOP_BOTTOM_OFFSETY, 73, 44)];
         [myPriceBgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_MY_PRICE_YELLOW_BG]];
         
-        //对方还价标题
+        //我的出价标题
         self.myNameTipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, myPriceBgView.frame.size.width-4, myPriceBgView.frame.size.height)];
         [self.myNameTipLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
         [self.myNameTipLabel setText:@"我的出价"];
@@ -197,7 +197,15 @@
                 [editePriceButton setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_EDITE_PROCE_BT_NORMAL] forState:UIControlStateNormal];
                 [editePriceButton setEnabled:NO];
                 
+            }else if ([@"500252" isEqualToString:tempOrderData.order_status]) {
+                
+                [self.myNameTipLabel setTextColor:[UIColor blackColor]];
+                [myPriceBgView setImage:[UIImage imageNamed:IMAGE_ZONE_ORDER_DETAIL_OTHER_PRICE_GRAY_BG]];
+                [self.myPriceLabel.layer setBorderColor:COLOR_CHARACTERS_GRAY.CGColor];
+                
             }
+            
+            
             
         }
         

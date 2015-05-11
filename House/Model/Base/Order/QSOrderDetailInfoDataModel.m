@@ -232,10 +232,11 @@
     
     UIColor *textColor = COLOR_CHARACTERS_YELLOW;
     
-    if (!priceStr || [priceStr isEqualToString:@""] || [priceStr isEqualToString:@"0"]) {
+    if (!priceStr || [priceStr isEqualToString:@""] || [priceStr isEqualToString:@"0"] || ( [self.order_status isEqualToString:@"500252"] && uUserCountTypeOwner == userType )) {
         
         tempString = @"输入您的还价";
         textColor = COLOR_CHARACTERS_GRAY;
+        
     }else{
         
         tempString = [NSString stringWithFormat:@"%@万",priceStr];
@@ -254,7 +255,12 @@
     [priceInfoString addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, priceInfoString.length)];
     
     [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_16] range:NSMakeRange(0, priceInfoString.length)];
-    [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
+    
+    if ( !( [self.order_status isEqualToString:@"500252"] && uUserCountTypeOwner == userType ) ) {
+        
+        [priceInfoString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_25] range:NSMakeRange(0, priceStr.length)];
+        
+    }
     
     return priceInfoString;
     
@@ -599,6 +605,7 @@
         
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
+            self.isShowAddressView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowCommentNoteTipsView = YES;
@@ -646,6 +653,7 @@
             
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
+            self.isShowAddressView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowPersonInfoView = YES;
             
@@ -664,6 +672,8 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
+            self.isShowAddressView = YES;
+            self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -671,8 +681,6 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
-                self.isShowAddressView = YES;
-                self.isShowHousePriceView = YES;
                 self.isShowAppointAgainAndPriceAgainButtonView = YES;
                 self.isShowConfirmOrderButtonView = YES;
                 
