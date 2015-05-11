@@ -633,6 +633,9 @@ typedef enum
     rRequestTypeAppBaseInfo = 1000,                     //!<应用中的基本信息版本请求：如可选城市
     rRequestTypeAppBaseInfoConfiguration = 1001,        //!<具体某个配置信息的请求
     rRequestTypeAppBaseCityInfo = 1002,                 //!<城市信息
+    rRequestTypeAppBaseGuideHome = 1003,                //!<指引页首页
+    rRequestTypeAppBaseGuideFindHouse = 1004,           //!<指引页找房页
+    rRequestTypeAppBaseGuideSaleHouse = 1005,           //!<指引页出售物业
 
     rRequestTypeBuilding = 2000,                        //!<楼盘列表请求
     rRequestTypeNewHouse = 2001,                        //!<新房列表请求
