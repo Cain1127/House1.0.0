@@ -199,6 +199,17 @@ static char TenantNumberKey;        //!<房客数量
     whiteButtonStyle.title = TITLE_GUIDE_SUMMARY_SALEHOUSE_BUTTON;
     UIButton *saleHouseButton = [UIButton createBlockButtonWithButtonStyle:whiteButtonStyle andCallBack:^(UIButton *button) {
         
+        ///判断本地是否已有默认城市：已经设置过默认城市，则不再弹出城市选择
+        QSBaseConfigurationDataModel *userDefaultCity = [QSCoreDataManager getCurrentUserCityModel];
+        if (userDefaultCity.key && [userDefaultCity.key length] > 0) {
+            
+            ///跳转到出售物业界面
+            QSGuideSaleHouseViewController *saleHouseVC = [[QSGuideSaleHouseViewController alloc] init];
+            [self.navigationController pushViewController:saleHouseVC animated:YES];
+            return;
+            
+        }
+        
         ///弹出省份选择窗口
         [QSCustomCitySelectedView showCustomCitySelectedPopviewWithCitySelectedKey:nil andCityPickeredCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
             
