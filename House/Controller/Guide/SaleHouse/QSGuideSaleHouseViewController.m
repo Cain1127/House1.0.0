@@ -17,14 +17,17 @@
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+Guide.h"
 
+#import "QSYGuideSaleHouseReturnData.h"
+#import "QSYGuideSaleHouseDataModel.h"
+
 #import "QSCustomHUDView.h"
 
 #import <objc/runtime.h>
 
 ///关联
 static char TenantSumCountDataKey;  //!<当前房客总数
-static char TenantCountDataKey;     //!<当前房客总数
-static char BuyerCountDataKey;      //!<当前房客总数
+static char TenantCountDataKey;     //!<当前找出租房的房客总数
+static char BuyerCountDataKey;      //!<当前找二手房的房客总数
 
 @interface QSGuideSaleHouseViewController ()
 
@@ -366,14 +369,30 @@ static char BuyerCountDataKey;      //!<当前房客总数
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
     ///下载统计数据
-    
-    
-    ///隐藏HUD
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseGuideSaleHouse andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [hud hiddenCustomHUD];
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYGuideSaleHouseReturnData *tempModel = resultData;
+            
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            
+            UILabel *houseNum = objc_getAssociatedObject(self, &TenantSumCountDataKey);
+            houseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.rent_people_num intValue] + [tempModel.headerData.bug_people_num intValue]]];
+            
+            UILabel *rentNum = objc_getAssociatedObject(self, &TenantCountDataKey);
+            rentNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.rent_people_num intValue]]];
+            
+            UILabel *saleNum = objc_getAssociatedObject(self, &BuyerCountDataKey);
+            saleNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.bug_people_num intValue]]];
+            
+        }
         
-    });
+        ///隐藏hud
+        [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f];
+        
+    }];
     
 }
 

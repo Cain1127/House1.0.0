@@ -17,13 +17,8 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     [shared_mapping addAttributeMappingsFromArray:@[
-                                                    @"house_num",
-                                                    @"house_shi_0",
-                                                    @"house_shi_1",
-                                                    @"house_shi_2",
-                                                    @"house_shi_3",
-                                                    @"house_shi_4",
-                                                    @"house_shi_5"
+                                                    @"rent_people_num",
+                                                    @"bug_people_num"
                                                     ]];
     
     return shared_mapping;

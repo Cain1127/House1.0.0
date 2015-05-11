@@ -14,9 +14,17 @@
 
 #import "QSCDBaseConfigurationDataModel.h"
 #import "QSBaseConfigurationDataModel.h"
+#import "QSYGuideHomeReturnData.h"
+#import "QSYGuideHomeDataModel.h"
 
 #import "QSCoreDataManager+User.h"
 #import "QSCoreDataManager+Filter.h"
+
+#import <objc/runtime.h>
+
+///关联
+static char HouseNumberKey;         //!<房源数量
+static char TenantNumberKey;        //!<房客数量
 
 @interface QSGuideSummaryViewController ()
 
@@ -64,6 +72,7 @@
     countLabel.textColor = [UIColor blackColor];
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:countLabel];
+    objc_setAssociatedObject(self, &HouseNumberKey, countLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///约束view字典
     NSDictionary *___VFLViewsDict = NSDictionaryOfVariableBindings(houseHavedImageView,houseHavedTipsImageView,countLabel);
@@ -105,6 +114,7 @@
     countLabel.textColor = [UIColor blackColor];
     countLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [view addSubview:countLabel];
+    objc_setAssociatedObject(self, &TenantNumberKey, countLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///约束view字典
     NSDictionary *___VFLViewsDict = NSDictionaryOfVariableBindings(tenantHavedTipsImageView,tenantHavedImageView,countLabel);
@@ -238,6 +248,33 @@
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_saleButton options:NSLayoutFormatAlignAllCenterY metrics:___VFLSizeDict views:___VFLViewsDict]];
     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_all options:NSLayoutFormatAlignAllCenterX metrics:___VFLSizeDict views:___VFLViewsDict]];
     
+}
+
+#pragma mark - 请求统计数据
+- (void)viewDidDisappear:(BOOL)animated
+{
+
+    [super viewDidDisappear:animated];
+    
+    ///请求数据
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseGuideHome andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+        
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYGuideHomeReturnData *tempModel = resultData;
+            UILabel *houseNum = objc_getAssociatedObject(self, &HouseNumberKey);
+            
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            houseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_num intValue]]];
+            
+            UILabel *tenantNum = objc_getAssociatedObject(self, &TenantNumberKey);
+            tenantNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_user_num intValue]]];
+            
+        }
+        
+    }];
+
 }
 
 @end

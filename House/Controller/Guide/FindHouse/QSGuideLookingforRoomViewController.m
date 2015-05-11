@@ -16,6 +16,9 @@
 #import "QSCoreDataManager+Filter.h"
 #import "QSCoreDataManager+Guide.h"
 
+#import "QSYGuideFindHouseReturnData.h"
+#import "QSYGuideFindHouseDataModel.h"
+
 #import <objc/runtime.h>
 
 ///关联
@@ -90,7 +93,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     oneHouseInfoRootView.layer.cornerRadius = 40.0f;
     oneHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     oneHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:oneHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_ONE_TIP andAssociatinKey:HousesTypeOneCountKey];
+    [self createHouseTypeInfoUI:oneHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_ONE_TIP andAssociatinKey:&HousesTypeOneCountKey];
     [view addSubview:oneHouseInfoRootView];
     
     ///二房源数据
@@ -100,7 +103,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     twoHouseInfoRootView.layer.cornerRadius = 40.0f;
     twoHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     twoHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:twoHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP andAssociatinKey:HousesTypeTwoCountKey];
+    [self createHouseTypeInfoUI:twoHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_TWO_TIP andAssociatinKey:&HousesTypeTwoCountKey];
     [view addSubview:twoHouseInfoRootView];
     
     ///三房房源数据
@@ -110,7 +113,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     threeHouseInfoRootView.layer.cornerRadius = 40.0f;
     threeHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     threeHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:HousesTypeTwoCountKey];
+    [self createHouseTypeInfoUI:threeHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_THREE_TIP andAssociatinKey:&HousesTypeTwoCountKey];
     [view addSubview:threeHouseInfoRootView];
     
     ///四房房源数据
@@ -120,13 +123,13 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     fourHouseInfoRootView.layer.cornerRadius = 40.0f;
     fourHouseInfoRootView.layer.borderColor = [COLOR_CHARACTERS_BLACKH CGColor];
     fourHouseInfoRootView.layer.borderWidth = 0.5f;
-    [self createHouseTypeInfoUI:fourHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_FOUR_TIP andAssociatinKey:HousesTypeFourCountKey];
+    [self createHouseTypeInfoUI:fourHouseInfoRootView andTitle:TITLE_GUIDE_FINDHOUSE_HOUSETYPE_FOUR_TIP andAssociatinKey:&HousesTypeFourCountKey];
     [view addSubview:fourHouseInfoRootView];
     
 }
 
 ///创建不同户型的统计信息UI
-- (void)createHouseTypeInfoUI:(UIView *)view andTitle:(NSString *)title andAssociatinKey:(char)key
+- (void)createHouseTypeInfoUI:(UIView *)view andTitle:(NSString *)title andAssociatinKey:(const void *)key
 {
     
     ///标题
@@ -146,7 +149,7 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     dataLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:dataLabel];
     
-    objc_setAssociatedObject(self, &key, dataLabel, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, key, dataLabel, OBJC_ASSOCIATION_ASSIGN);
     
 }
 
@@ -373,14 +376,39 @@ static char HousesTypeFourCountKey;     //!<四房房型的统计数量
     __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
     ///下载统计数据
-    
-    
-    ///隐藏HUD
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [QSRequestManager requestDataWithType:rRequestTypeAppBaseGuideFindHouse andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [hud hiddenCustomHUD];
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYGuideFindHouseReturnData *tempModel = resultData;
+            UILabel *houseNum = objc_getAssociatedObject(self, &HousesSumCountKey);
+            
+            NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+            formatter.numberStyle = NSNumberFormatterDecimalStyle;
+            houseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_num intValue]]];
+            
+            UILabel *oneHouseNum = objc_getAssociatedObject(self, &HousesTypeOneCountKey);
+            oneHouseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_shi_1 intValue]]];
+            
+            UILabel *twoHouseNum = objc_getAssociatedObject(self, &HousesTypeTwoCountKey);
+            twoHouseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_shi_2 intValue]]];
+            
+            UILabel *threeHouseNum = objc_getAssociatedObject(self, &HousesTypeThreeCountKey);
+            threeHouseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_shi_3 intValue]]];
+            
+            UILabel *fourHouseNum = objc_getAssociatedObject(self, &HousesTypeFourCountKey);
+            fourHouseNum.text = [formatter stringFromNumber:[NSNumber numberWithInt:[tempModel.headerData.house_shi_4 intValue]]];
+            
+            ///隐藏hud
+            [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f];
+            
+        } else {
         
-    });
+            [hud hiddenCustomHUDWithFooterTips:@"加载成功" andDelayTime:1.5f];
+        
+        }
+        
+    }];
 
 }
 

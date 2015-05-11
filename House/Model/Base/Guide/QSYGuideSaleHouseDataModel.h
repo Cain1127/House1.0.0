@@ -10,12 +10,7 @@
 
 @interface QSYGuideSaleHouseDataModel : QSBaseModel
 
-@property (nonatomic,copy) NSString *house_num;     //!<房源总数
-@property (nonatomic,copy) NSString *house_shi_0;   //!<单间房源数量
-@property (nonatomic,copy) NSString *house_shi_1;   //!<一房房源数量
-@property (nonatomic,copy) NSString *house_shi_2;   //!<两房房源数量
-@property (nonatomic,copy) NSString *house_shi_3;   //!<三房房源数量
-@property (nonatomic,copy) NSString *house_shi_4;   //!<四房房源数量
-@property (nonatomic,copy) NSString *house_shi_5;   //!<五房房源数量
+@property (nonatomic,copy) NSString *rent_people_num;   //!<租房的房客数量
+@property (nonatomic,copy) NSString *bug_people_num;    //!<买房的房客数量
 
 @end
