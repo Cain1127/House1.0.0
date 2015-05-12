@@ -129,6 +129,7 @@
 - (void)stopRecordingSoundMessage
 {
 
+    self.endDate = [NSDate date];
     [self.audioRecorder stop];
     self.timer.fireDate=[NSDate distantFuture];
     
@@ -393,7 +394,6 @@
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
 {
     
-    self.endDate = [NSDate date];
     APPLICATION_LOG_INFO(@"录音", @"完成")
     
 }
