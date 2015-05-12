@@ -21,11 +21,15 @@ static char UserIconKey;    //!<头像关联
 static char SecondKey;      //!<秒数关联
 static char TimeStampKey;   //!<时间戳
 
-@interface QSYMessageVideoTableViewCell ()
+@interface QSYMessageVideoTableViewCell () <AVAudioPlayerDelegate>
 
 @property (nonatomic,assign) MESSAGE_FROM_TYPE messageType; //!<消息的归属类型
 @property (nonatomic,strong) AVAudioPlayer *audioPlayer;    //!<音频播放器，用于播放录音文件
 @property (nonatomic,copy) NSString *audioFileName;         //!<语音文件地址
+@property (nonatomic,strong) UIView *indicatorRootView;     //!<语音消息指示的底view
+@property (nonatomic,strong) UIButton *indicatorView;       //!<语音消息指示图片
+@property (nonatomic,strong) NSTimer *timer;                //!<播放语音时的动画定时器
+@property (assign) CGRect indicatorFrame;                   //!<语音播放指示图片的原始frame
 
 @end
 
@@ -80,7 +84,7 @@ static char TimeStampKey;   //!<时间戳
         xpointArrow = xpointIcon - 3.0f - 5.0f;
         xpointMessage = xpointArrow - widthMessage;
         xpointSecond = xpointMessage - 2.0f - widthSecond;
-        xpointIndicator = widthMessage - 40.0f;
+        xpointIndicator = widthMessage - 49.0f;
         
     }
     
@@ -132,24 +136,70 @@ static char TimeStampKey;   //!<时间戳
     }
     [self.contentView addSubview:rootView];
     
+    ///语音指示的底图
+    self.indicatorFrame = CGRectMake(xpointIndicator, 3.0f, 44.0f, 44.0f);
+    self.indicatorRootView = [[UIView alloc] initWithFrame:self.indicatorFrame];
+    self.indicatorView.clipsToBounds = YES;
+    [rootView addSubview:self.indicatorRootView];
+    
     ///语音图片
-    UIButton *indicatorView = [UIButton createBlockButtonWithFrame:CGRectMake(xpointIndicator, 0.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
+    self.indicatorView = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        ///播放音频
-        [self audioPlayerWithAudioName:self.audioFileName];
+        ///判断是否正在播放
+        if (![_audioPlayer isPlaying]) {
+            
+            ///播放音频
+            [self audioPlayerWithAudioName:self.audioFileName];
+            
+            ///改变指示动画
+            button.selected = YES;
+            self.timer.fireDate = [NSDate distantPast];
+            
+        }
         
     }];
-    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_NORMAL] forState:UIControlStateNormal];
-    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
-    [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_SELECTED] forState:UIControlStateSelected];
+    [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_NORMAL] forState:UIControlStateNormal];
+    [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
+    [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_SELECTED] forState:UIControlStateSelected];
     if (mMessageFromTypeMY) {
         
-        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_NORMAL] forState:UIControlStateNormal];
-        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
-        [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_SELECTED] forState:UIControlStateSelected];
+        [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_NORMAL] forState:UIControlStateNormal];
+        [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_HIGHLIGHTED] forState:UIControlStateHighlighted];
+        [self.indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_MY_INDICATOR_SELECTED] forState:UIControlStateSelected];
         
     }
-    [rootView addSubview:indicatorView];
+    [self.indicatorRootView addSubview:self.indicatorView];
+
+}
+
+#pragma mark - 播放语音时的动画定时器
+- (NSTimer *)timer
+{
+
+    if (nil == _timer) {
+        
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(changePlayingImage) userInfo:nil repeats:YES];
+        
+    }
+    
+    return _timer;
+
+}
+
+- (void)changePlayingImage
+{
+    
+    int rangeWith = rand() % 30;
+    
+    ///设置当前声波
+    CGFloat xpointIndicator = 10.0f;
+    CGFloat widthIndicator = 14.0f + rangeWith;
+    if (mMessageFromTypeMY == self.messageType) {
+        
+        xpointIndicator = 120.0f - widthIndicator - 5.0f;
+        
+    }
+    self.indicatorRootView.frame = CGRectMake(xpointIndicator, self.indicatorFrame.origin.y, widthIndicator, self.indicatorFrame.size.height);
 
 }
 
@@ -167,11 +217,18 @@ static char TimeStampKey;   //!<时间戳
     NSURL *audioURL = [self getSavePathWithFileName:audioFileName];
     
     ///停止原播放器
+    if ([_audioPlayer isPlaying]) {
+        
+        [_audioPlayer stop];
+        _audioPlayer = nil;
+        
+    }
     
     NSError *error = nil;
     _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
     _audioPlayer.numberOfLoops = 0;
     [_audioPlayer prepareToPlay];
+    _audioPlayer.delegate = self;
     if (error) {
         
         APPLICATION_LOG_INFO(@"创建播放器->发生错误->错误信息：", error.localizedDescription)
@@ -250,6 +307,18 @@ static char TimeStampKey;   //!<时间戳
     
     }
     
+}
+
+#pragma mark - 录音播放
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+    
+    self.indicatorRootView.frame = self.indicatorFrame;
+    self.indicatorView.selected = NO;
+    self.timer.fireDate = [NSDate distantFuture];
+    [self.timer invalidate];
+    self.timer = nil;
+
 }
 
 @end

@@ -363,12 +363,12 @@
 		18B972DB1AF2064C00652890 /* talk_contact_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972B91AF2064C00652890 /* talk_contact_indicate_arrow_normal.png */; };
 		18B972DC1AF2064C00652890 /* talk_contact_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BA1AF2064C00652890 /* talk_contact_sound_message_highlighted.png */; };
 		18B972DD1AF2064C00652890 /* talk_contact_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BB1AF2064C00652890 /* talk_contact_sound_message_normal.png */; };
-		18B972DE1AF2064C00652890 /* talk_contact_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BC1AF2064C00652890 /* talk_contact_sound_message_selected.png */; };
+		18B972DE1AF2064C00652890 /* talk_my_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BC1AF2064C00652890 /* talk_my_sound_message_selected.png */; };
 		18B972DF1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BD1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png */; };
 		18B972E01AF2064C00652890 /* talk_my_indicate_arrow_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BE1AF2064C00652890 /* talk_my_indicate_arrow_normal.png */; };
 		18B972E11AF2064C00652890 /* talk_my_sound_message_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972BF1AF2064C00652890 /* talk_my_sound_message_highlighted.png */; };
 		18B972E21AF2064C00652890 /* talk_my_sound_message_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C01AF2064C00652890 /* talk_my_sound_message_normal.png */; };
-		18B972E31AF2064C00652890 /* talk_my_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C11AF2064C00652890 /* talk_my_sound_message_selected.png */; };
+		18B972E31AF2064C00652890 /* talk_contact_sound_message_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C11AF2064C00652890 /* talk_contact_sound_message_selected.png */; };
 		18B972E41AF2064C00652890 /* talk_photo_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C21AF2064C00652890 /* talk_photo_highlighted.png */; };
 		18B972E51AF2064C00652890 /* talk_photo_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C31AF2064C00652890 /* talk_photo_normal.png */; };
 		18B972E61AF2064C00652890 /* talk_sound_can_record_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B972C41AF2064C00652890 /* talk_sound_can_record_highlighted.png */; };
@@ -1457,12 +1457,12 @@
 		18B972B91AF2064C00652890 /* talk_contact_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_indicate_arrow_normal.png; sourceTree = "<group>"; };
 		18B972BA1AF2064C00652890 /* talk_contact_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_highlighted.png; sourceTree = "<group>"; };
 		18B972BB1AF2064C00652890 /* talk_contact_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_normal.png; sourceTree = "<group>"; };
-		18B972BC1AF2064C00652890 /* talk_contact_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_selected.png; sourceTree = "<group>"; };
+		18B972BC1AF2064C00652890 /* talk_my_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_selected.png; sourceTree = "<group>"; };
 		18B972BD1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_highlighted.png; sourceTree = "<group>"; };
 		18B972BE1AF2064C00652890 /* talk_my_indicate_arrow_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_indicate_arrow_normal.png; sourceTree = "<group>"; };
 		18B972BF1AF2064C00652890 /* talk_my_sound_message_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_highlighted.png; sourceTree = "<group>"; };
 		18B972C01AF2064C00652890 /* talk_my_sound_message_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_normal.png; sourceTree = "<group>"; };
-		18B972C11AF2064C00652890 /* talk_my_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_my_sound_message_selected.png; sourceTree = "<group>"; };
+		18B972C11AF2064C00652890 /* talk_contact_sound_message_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_contact_sound_message_selected.png; sourceTree = "<group>"; };
 		18B972C21AF2064C00652890 /* talk_photo_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_highlighted.png; sourceTree = "<group>"; };
 		18B972C31AF2064C00652890 /* talk_photo_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_photo_normal.png; sourceTree = "<group>"; };
 		18B972C41AF2064C00652890 /* talk_sound_can_record_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talk_sound_can_record_highlighted.png; sourceTree = "<group>"; };
@@ -4366,12 +4366,12 @@
 				18B972B91AF2064C00652890 /* talk_contact_indicate_arrow_normal.png */,
 				18B972BA1AF2064C00652890 /* talk_contact_sound_message_highlighted.png */,
 				18B972BB1AF2064C00652890 /* talk_contact_sound_message_normal.png */,
-				18B972BC1AF2064C00652890 /* talk_contact_sound_message_selected.png */,
+				18B972BC1AF2064C00652890 /* talk_my_sound_message_selected.png */,
 				18B972BD1AF2064C00652890 /* talk_my_indicate_arrow_highlighted.png */,
 				18B972BE1AF2064C00652890 /* talk_my_indicate_arrow_normal.png */,
 				18B972BF1AF2064C00652890 /* talk_my_sound_message_highlighted.png */,
 				18B972C01AF2064C00652890 /* talk_my_sound_message_normal.png */,
-				18B972C11AF2064C00652890 /* talk_my_sound_message_selected.png */,
+				18B972C11AF2064C00652890 /* talk_contact_sound_message_selected.png */,
 				18B972C21AF2064C00652890 /* talk_photo_highlighted.png */,
 				18B972C31AF2064C00652890 /* talk_photo_normal.png */,
 				18B972C41AF2064C00652890 /* talk_sound_can_record_highlighted.png */,
@@ -7035,7 +7035,7 @@
 				18B564531A8366A4009779A0 /* navigationbar_setting_highlighted.png in Resources */,
 				18EC15891AC2A58A00D2AD3A /* ReleaseSaleHouse.plist in Resources */,
 				18DFE8D11AC9008C00C216C3 /* comparison_recommend_house_indecator_highlighted.png in Resources */,
-				18B972DE1AF2064C00652890 /* talk_contact_sound_message_selected.png in Resources */,
+				18B972DE1AF2064C00652890 /* talk_my_sound_message_selected.png in Resources */,
 				18B9735F1AF4FB1700652890 /* icon_default_80x80.png in Resources */,
 				18B564191A8366A4009779A0 /* houses_detail_refresh_highlighted.png in Resources */,
 				18B564051A8366A4009779A0 /* home_bridalchamber_highlighted.png in Resources */,
@@ -7043,7 +7043,7 @@
 				18DFE83D1AC66DA100C216C3 /* public_sixform_hollow_100x80.png in Resources */,
 				18B973631AF4FB1700652890 /* myzone_ask_list_setting_highlighted.png in Resources */,
 				18BE12321A8869760036245A /* calendar_sixform.png in Resources */,
-				18B972E31AF2064C00652890 /* talk_my_sound_message_selected.png in Resources */,
+				18B972E31AF2064C00652890 /* talk_contact_sound_message_selected.png in Resources */,
 				18B5644F1A8366A4009779A0 /* navigationbar_message_highlighted.png in Resources */,
 				CED32B9B1AB6830B00F17C26 /* houses_detail_priceup.png in Resources */,
 				18B973A91AF4FB1700652890 /* myzone_renant_order_appointed_highlighted.png in Resources */,
