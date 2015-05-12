@@ -200,26 +200,6 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
     ///存在高级筛选时，其他按钮需要减去的宽度
     CGFloat isAdvanceWith = 0.0f;
     
-    ///如果是二手房/出租房，则创建高级筛选按钮
-    if (fFilterMainTypeSecondHouse == self.listType ||
-        fFilterMainTypeRentalHouse == self.listType) {
-        
-        ///高级筛选按钮
-        UIButton *advanceFilterButton = [UIButton createBlockButtonWithFrame:CGRectMake(view.frame.size.width - 49.0f, 0.0f, 49.0f, 40.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
-            
-            ///隐藏所有弹窗
-            [self hiddenAllPickerView];
-            
-        }];
-        [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_NORMAL] forState:UIControlStateNormal];
-        [advanceFilterButton setImage:[UIImage imageNamed:IMAGE_CHANNELBAR_ADVANCEFILTER_HIGHLIGHTED] forState:UIControlStateHighlighted];
-        [view addSubview:advanceFilterButton];
-        
-        ///重置需要减掉的宽度
-        isAdvanceWith = 55.0f;
-        
-    }
-    
     ///计算每个按钮的间隙
     CGFloat gap = SIZE_DEVICE_WIDTH > 320.0f ? 15.0f : 10.0f;
     CGFloat width = (view.frame.size.width - gap * 3.0f - isAdvanceWith) / 3.0f;
