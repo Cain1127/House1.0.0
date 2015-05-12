@@ -331,9 +331,6 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     bottomMiddelLineLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:bottomMiddelLineLabel];
     
-    ///请求数据
-    [self requestHomeCountData];
-    
 }
 
 ///创建统计信息展现UI
@@ -995,6 +992,13 @@ static char FiveHouseTypeDataKey;   //!<一房房源关联
     
     [self hiddenBottomTabbar:NO];
     [super viewWillAppear:animated];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        ///请求数据
+        [self requestHomeCountData];
+        
+    });
     
 }
 
