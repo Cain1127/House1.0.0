@@ -13,6 +13,20 @@
 @interface QSYRecordSoundTipsPopView : UIView
 
 /**
+ *  @author         yangshengmeng, 15-05-12 10:05:11
+ *
+ *  @brief          根据当前语音聊天用户的ID，创建一个录音view
+ *
+ *  @param frame    大小和位置
+ *  @param userID   当前聊天对象的用户ID
+ *
+ *  @return         返回当前的录音view
+ *
+ *  @since          1.0.0
+ */
+- (instancetype)initWithFrame:(CGRect)frame withUserID:(NSString *)userID;
+
+/**
  *  @author yangshengmeng, 15-05-09 13:05:22
  *
  *  @brief  判断当前否存在录音数据

@@ -14,6 +14,7 @@
 #import "QSYSendMessageVideo.h"
 
 #import <objc/runtime.h>
+#import <AVFoundation/AVFoundation.h>
 
 ///关联
 static char UserIconKey;    //!<头像关联
@@ -22,7 +23,9 @@ static char TimeStampKey;   //!<时间戳
 
 @interface QSYMessageVideoTableViewCell ()
 
-@property (nonatomic,assign) MESSAGE_FROM_TYPE messageType;//!<消息的归属类型
+@property (nonatomic,assign) MESSAGE_FROM_TYPE messageType; //!<消息的归属类型
+@property (nonatomic,strong) AVAudioPlayer *audioPlayer;    //!<音频播放器，用于播放录音文件
+@property (nonatomic,copy) NSString *audioFileName;         //!<语音文件地址
 
 @end
 
@@ -132,7 +135,8 @@ static char TimeStampKey;   //!<时间戳
     ///语音图片
     UIButton *indicatorView = [UIButton createBlockButtonWithFrame:CGRectMake(xpointIndicator, 0.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        
+        ///播放音频
+        [self audioPlayerWithAudioName:self.audioFileName];
         
     }];
     [indicatorView setImage:[UIImage imageNamed:IMAGE_CHAT_MESSAGE_SOUND_SENDER_INDICATOR_NORMAL] forState:UIControlStateNormal];
@@ -147,6 +151,56 @@ static char TimeStampKey;   //!<时间戳
     }
     [rootView addSubview:indicatorView];
 
+}
+
+#pragma mark - 录音播放
+///录音播放对象
+- (void)audioPlayerWithAudioName:(NSString *)audioFileName
+{
+    
+    if ([audioFileName length] <= 0) {
+        
+        return;
+        
+    }
+    
+    NSURL *audioURL = [self getSavePathWithFileName:audioFileName];
+    
+    ///停止原播放器
+    
+    NSError *error = nil;
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioURL error:&error];
+    _audioPlayer.numberOfLoops = 0;
+    [_audioPlayer prepareToPlay];
+    if (error) {
+        
+        APPLICATION_LOG_INFO(@"创建播放器->发生错误->错误信息：", error.localizedDescription)
+        return;
+        
+    }
+    
+    [_audioPlayer play];
+    
+}
+
+- (NSURL *)getSavePathWithFileName:(NSString *)fileName
+{
+    
+    NSString *rootPath = [self getSavePathString];
+    NSString *filePath = [rootPath stringByAppendingString:[NSString stringWithFormat:@"/%@",fileName]];
+    NSURL *saveURL = [NSURL fileURLWithPath:filePath];
+    
+    return saveURL;
+    
+}
+
+- (NSString *)getSavePathString
+{
+    
+    NSString *savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *rootPath = [savePath stringByAppendingPathComponent:@"/audioCache"];
+    return rootPath;
+    
 }
 
 #pragma mark - 刷新UI
@@ -175,10 +229,25 @@ static char TimeStampKey;   //!<时间戳
     
     ///更新音频秒数
     UILabel *secondLabel = objc_getAssociatedObject(self, &SecondKey);
-    if (secondLabel) {
+    if ([model.playTime floatValue] > 0.5f) {
         
+        secondLabel.text = [NSString stringWithFormat:@"%@''",model.playTime];
         
+    } else {
+    
+        secondLabel.text = nil;
+    
+    }
+    
+    ///保存语音本地路径
+    if ([model.videoURL length] > 0) {
         
+        self.audioFileName = model.videoURL;
+        
+    } else {
+    
+        self.audioFileName = nil;
+    
     }
     
 }

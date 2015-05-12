@@ -272,7 +272,7 @@
 
     if (nil == _recordView) {
         
-        _recordView = [[QSYRecordSoundTipsPopView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 115.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 115.0f) / 2.0f, 115.0f, 115.0f)];
+        _recordView = [[QSYRecordSoundTipsPopView alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - 115.0f) / 2.0f, (SIZE_DEVICE_HEIGHT - 115.0f) / 2.0f, 115.0f, 115.0f) withUserID:self.userModel.id_];
         _recordView.alpha = 0.0f;
         
     }
@@ -292,7 +292,14 @@
     [UIView animateWithDuration:0.3f animations:^{
         
         self.recordView.alpha = 1.0f;
-        [self.recordView starRecordingSoundMessage];
+        
+    } completion:^(BOOL finished) {
+        
+        if (finished) {
+            
+            [self.recordView starRecordingSoundMessage];
+            
+        }
         
     }];
 
@@ -324,6 +331,9 @@
                 [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                 
             }
+            
+            ///隐藏录音
+            [self recordSoundCancelAction:button];
             
         } else {
         

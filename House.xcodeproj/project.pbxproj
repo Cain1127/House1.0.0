@@ -50,6 +50,7 @@
 		18124E2D1B0040E90052E65B /* QSYGuideHomeReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124E2C1B0040E90052E65B /* QSYGuideHomeReturnData.m */; };
 		18124E301B0041B70052E65B /* QSYGuideFindHouseReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124E2F1B0041B70052E65B /* QSYGuideFindHouseReturnData.m */; };
 		18124E331B0041E60052E65B /* QSYGuideSaleHouseReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18124E321B0041E60052E65B /* QSYGuideSaleHouseReturnData.m */; };
+		18124E351B0196D40052E65B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18124E341B0196D40052E65B /* AVFoundation.framework */; };
 		1814A3A91AF8799300987908 /* QSYHistoryRentHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */; };
 		1814A3AC1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AB1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.m */; };
 		1814A3AF1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1814A3AE1AF879C700987908 /* QSYHistoryNewHouseListReturnData.m */; };
@@ -974,6 +975,7 @@
 		18124E2F1B0041B70052E65B /* QSYGuideFindHouseReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYGuideFindHouseReturnData.m; sourceTree = "<group>"; };
 		18124E311B0041E60052E65B /* QSYGuideSaleHouseReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYGuideSaleHouseReturnData.h; sourceTree = "<group>"; };
 		18124E321B0041E60052E65B /* QSYGuideSaleHouseReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYGuideSaleHouseReturnData.m; sourceTree = "<group>"; };
+		18124E341B0196D40052E65B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1814A3A71AF8799300987908 /* QSYHistoryRentHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistoryRentHouseListReturnData.h; path = History/QSYHistoryRentHouseListReturnData.h; sourceTree = "<group>"; };
 		1814A3A81AF8799300987908 /* QSYHistoryRentHouseListReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYHistoryRentHouseListReturnData.m; path = History/QSYHistoryRentHouseListReturnData.m; sourceTree = "<group>"; };
 		1814A3AA1AF879B400987908 /* QSYHistorySecondHandHouseListReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYHistorySecondHandHouseListReturnData.h; path = History/QSYHistorySecondHandHouseListReturnData.h; sourceTree = "<group>"; };
@@ -2324,6 +2326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18124E351B0196D40052E65B /* AVFoundation.framework in Frameworks */,
 				CE2029901AE48B3800E78CEF /* libc++.dylib in Frameworks */,
 				CE20298E1AE48B2500E78CEF /* libz.dylib in Frameworks */,
 				CE20298C1AE48B1200E78CEF /* libsqlite3.dylib in Frameworks */,
@@ -2802,6 +2805,7 @@
 		183CC65D1A68FC8800B8F97D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18124E341B0196D40052E65B /* AVFoundation.framework */,
 				CE20298F1AE48B3800E78CEF /* libc++.dylib */,
 				CE20298D1AE48B2500E78CEF /* libz.dylib */,
 				CE20298B1AE48B1200E78CEF /* libsqlite3.dylib */,

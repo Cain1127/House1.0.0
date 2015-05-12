@@ -45,6 +45,6 @@
  *
  *  @since  1.0.0
  */
-+ (NSString*)getDeviceUUID;
++ (NSString *)getDeviceUUID;
 
 @end
