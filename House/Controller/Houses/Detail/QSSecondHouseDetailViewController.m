@@ -579,12 +579,12 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     [self createOverflowScoreInfoUI:middleImageView andScore:overflowScore];
     [view addSubview:middleImageView];
     
-    ///周边评分底view
+    ///内部评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
     [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"周边条件" andScore:aroundScore];
     [view addSubview:rightScoreRootView];
     
-    ///内部评分底view
+    ///周边评分底view
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
     [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"内部条件" andScore:insideScore];
     [view addSubview:leftScoreRootView];

@@ -448,9 +448,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
         _houseTypeSepLine = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, self.houseTypeRootView.frame.origin.y + self.houseTypeRootView.frame.size.height + 20.0f, mainInfoWidth, 0.25f)];
         _houseTypeSepLine.backgroundColor = COLOR_CHARACTERS_BLACKH;
         
-    }
-    
-    else{
+    } else {
         
         self.houseTypeRootView = [[QSScrollView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, mainInfoWidth, 0.25f)];
         
@@ -1481,12 +1479,12 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     
     ///右侧评分底view
     QSImageView *rightScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 60.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"内部条件" andScoreKey:insideScore];
+    [self createDetailScoreInfoUI:rightScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore];
     [view addSubview:rightScoreRootView];
     
     ///左侧评分底view
     QSImageView *leftScoreRootView = [[QSImageView alloc] initWithFrame:CGRectMake(0.0f, (view.frame.size.height - 64.0f) / 2.0f, 60.0f, 64.0f)];
-    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"周边条件" andScoreKey:aroundScore];
+    [self createDetailScoreInfoUI:leftScoreRootView andDetailTitle:@"内部条件" andScoreKey:insideScore];
     [view addSubview:leftScoreRootView];
     
 }
