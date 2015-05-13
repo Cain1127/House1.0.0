@@ -31,6 +31,7 @@
 
 @interface QSYMyHistoryViewController ()
 
+@property (nonatomic,strong) UIButton *editButton;                          //!<编辑按钮
 @property (nonatomic,strong) UIView *noRecordsRootView;                     //!<无记录底view
 @property (nonatomic,unsafe_unretained) UICollectionView *currentListView;  //!<当前房源列表
 @property (assign) BOOL isNeedRefresh;                                      //!<是否需要刷新
@@ -49,7 +50,7 @@
     ///编辑按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeClear];
     
-    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///当前非编辑状态，进入删除状态
         if (button.selected) {
@@ -73,7 +74,7 @@
         }
         
     }];
-    [self setNavigationBarRightView:editButton];
+    [self setNavigationBarRightView:self.editButton];
 
 }
 
@@ -128,6 +129,7 @@
             if (hHouseListActionTypeNoRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = NO;
+                self.editButton.hidden = YES;
                 return;
                 
             }
@@ -136,6 +138,7 @@
             if (hHouseListActionTypeHaveRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = YES;
+                self.editButton.hidden = NO;
                 return;
                 
             }
@@ -209,6 +212,7 @@
             if (hHouseListActionTypeNoRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = NO;
+                self.editButton.hidden = YES;
                 return;
                 
             }
@@ -217,6 +221,7 @@
             if (hHouseListActionTypeHaveRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = YES;
+                self.editButton.hidden = NO;
                 return;
                 
             }
@@ -279,6 +284,7 @@
             if (hHouseListActionTypeNoRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = NO;
+                self.editButton.hidden = YES;
                 return;
                 
             }
@@ -287,6 +293,7 @@
             if (hHouseListActionTypeHaveRecord == actionType) {
                 
                 self.noRecordsRootView.hidden = YES;
+                self.editButton.hidden = NO;
                 return;
                 
             }
