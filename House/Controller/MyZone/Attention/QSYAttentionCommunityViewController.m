@@ -34,6 +34,7 @@
 @property (nonatomic,retain) NSMutableArray *dataSource;        //!<数据源
 @property (nonatomic,retain) NSMutableArray *seletedDataSource; //!<删除关注时的数据源
 @property (nonatomic,strong) UIView *noRecordsView;             //!<无记录提示页面
+@property (nonatomic,strong) UIButton *editButton;              //!<编辑按钮
 
 ///网络请求的数据
 @property (nonatomic,retain) QSCommunityListReturnData *dataSourceModel;
@@ -84,7 +85,7 @@
     ///编辑按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeEdit];
     
-    UIButton *editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
+    self.editButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///当前非编辑状态，进入删除状态
         if (button.selected) {
@@ -114,7 +115,8 @@
         }
         
     }];
-    [self setNavigationBarRightView:editButton];
+    self.editButton.hidden = YES;
+    [self setNavigationBarRightView:self.editButton];
 
 }
 
@@ -344,6 +346,7 @@
                 if ([resultDataModel.communityListHeaderData.communityList count] > 0) {
                     
                     self.noRecordsView.hidden = YES;
+                    self.editButton.hidden = NO;
                     [self.view sendSubviewToBack:self.noRecordsView];
                     
                     ///更新数据源
@@ -370,6 +373,7 @@
                 } else {
                 
                     self.noRecordsView.hidden = NO;
+                    self.editButton.hidden = YES;
                     [self.view bringSubviewToFront:self.noRecordsView];
                     [self.collectionView reloadData];
                     self.collectionView.footer.hidden = YES;
@@ -391,6 +395,7 @@
                 [self.collectionView reloadData];
                 
                 self.noRecordsView.hidden = NO;
+                self.editButton.hidden = YES;
                 [self.view bringSubviewToFront:self.noRecordsView];
                 
                 self.collectionView.footer.hidden = YES;
@@ -415,6 +420,7 @@
             
             ///显示无记录页
             self.noRecordsView.hidden = YES;
+            self.editButton.hidden = NO;
             [self.view sendSubviewToBack:self.noRecordsView];
             
             self.collectionView.footer.hidden = NO;
@@ -425,6 +431,7 @@
         
             self.collectionView.footer.hidden = YES;
             self.noRecordsView.hidden = NO;
+            self.editButton.hidden = YES;
             [self.view bringSubviewToFront:self.noRecordsView];
         
         }
