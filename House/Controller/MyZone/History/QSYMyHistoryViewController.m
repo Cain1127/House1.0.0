@@ -74,6 +74,7 @@
         }
         
     }];
+    self.editButton.hidden = YES;
     [self setNavigationBarRightView:self.editButton];
 
 }
