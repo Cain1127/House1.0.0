@@ -73,8 +73,9 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [housePriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            housePriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
         
@@ -86,8 +87,9 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            salerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
         
@@ -99,9 +101,10 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
-            
+//            NSInteger priceInt = (NSInteger)pricef;
+//            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            buyerPriceStr = [NSString stringWithFormat:@"%1f",pricef];
+
         }
         
     }
@@ -175,8 +178,9 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [housePriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            housePriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
     }
@@ -187,8 +191,9 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            salerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
         
@@ -200,8 +205,9 @@
         if (![houseType isEqualToString:@"500103"]) {
             
             CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            buyerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
     }
@@ -335,8 +341,9 @@
             if (![self.order_type isEqualToString:@"500103"]) {
                 
                 CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-                NSInteger priceInt = (NSInteger)pricef;
-                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//                NSInteger priceInt = (NSInteger)pricef;
+//                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                salerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
                 
             }
 
@@ -350,8 +357,9 @@
         if (![self.order_type isEqualToString:@"500103"]) {
             
             CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-            NSInteger priceInt = (NSInteger)pricef;
-            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//            NSInteger priceInt = (NSInteger)pricef;
+//            buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+            buyerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             
         }
     }
@@ -961,7 +969,6 @@
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
             self.isShowAddressView = YES;
-            self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
@@ -981,14 +988,11 @@
             //成交订单已成交
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowAddressView = YES;
             self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
-            self.isShowBargainingPriceHistoryView = YES;
             
         }else if ([self.order_status isEqualToString:@"500340"]
-                  ||[self.order_status isEqualToString:@"500341"]
                   ||[self.order_status isEqualToString:@"500346"]) {
             //成交订单已取消
             self.isShowTitleView = YES;
@@ -998,6 +1002,27 @@
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;
+            
+        }else if ([self.order_status isEqualToString:@"500341"]) {
+            //成交订单已取消
+            self.isShowTitleView = YES;
+            self.isShowHouseInfoView = YES;
+            self.isShowPersonInfoView = YES;
+            self.isShowTransactionPriceView = YES;
+            self.isShowBargainingPriceHistoryView = YES;
+        
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
+                //取消原因：我取消
+                self.isShowOrderCancelByMeTipView = YES;
+                
+            }else if ([self getUserType] == uUserCountTypeTenant) {
+                //房客角色
+                //取消原因，业主取消
+                self.isShowOrderCancelByOwnerTipView = YES;
+                self.isShowAppointmentSalerAgainButtonView = YES;
+                
+            }
             
         }
         

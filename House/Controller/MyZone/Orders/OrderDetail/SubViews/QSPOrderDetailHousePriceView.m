@@ -167,7 +167,7 @@
         //转换单位为万的价格
         if (![houseType isEqualToString:@"500103"]) {
             
-            totalPriceStr = [NSString stringWithFormat:@"%d",(int)(totalPriceStr.floatValue/10000.0)];
+            totalPriceStr = [NSString stringWithFormat:@"%.1f",(totalPriceStr.floatValue/10000.0)];
             
         }
         

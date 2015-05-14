@@ -1224,7 +1224,7 @@
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmBuyerButtonView:取消成交");
                     {
-                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否取消此订单成交，\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithCancelTransationOrderViewWithTip:@"是否取消此订单成交？\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                             
                             if (actionType == oOrderButtonTipsActionTypeCancel) {
                                 
@@ -1265,7 +1265,7 @@
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndWarmSalerButtonView:取消成交");
                     {
-                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否取消此订单成交，\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithCancelTransationOrderViewWithTip:@"是否取消此订单成交？\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                             
                             if (actionType == oOrderButtonTipsActionTypeCancel) {
                                 
@@ -1307,7 +1307,7 @@
                 case bBottomButtonTypeLeft:
                     NSLog(@"QSPOrderDetailCancelTransAndCompleteButtonView:取消成交");
                     {
-                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithActionSelectedWithTip:@"是否取消此订单成交，\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
+                        __block QSPOrderTipsButtonPopView *popView = [[QSPOrderTipsButtonPopView alloc] initWithCancelTransationOrderViewWithTip:@"是否取消此订单成交？\n取消后订单将完成已取消状态！" andCallBack:^(UIButton *button, ORDER_BUTTON_TIPS_ACTION_TYPE actionType) {
                             
                             if (actionType == oOrderButtonTipsActionTypeCancel) {
                                 

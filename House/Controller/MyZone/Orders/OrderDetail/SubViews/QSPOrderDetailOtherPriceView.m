@@ -109,9 +109,9 @@
             }else{
                 
                 CGFloat pricef = [housePriceStr floatValue]/10000.0;
-                NSInteger priceInt = (NSInteger)pricef;
-                housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
-                
+//                NSInteger priceInt = (NSInteger)pricef;
+//                housePriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                housePriceStr = [NSString stringWithFormat:@"%.1f",pricef];
             }
         }
         
@@ -122,8 +122,9 @@
             }else{
                 
                 CGFloat pricef = [salerPriceStr floatValue]/10000.0;
-                NSInteger priceInt = (NSInteger)pricef;
-                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//                NSInteger priceInt = (NSInteger)pricef;
+//                salerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                salerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
                 
             }
         }
@@ -135,8 +136,9 @@
             }else{
                 
                 CGFloat pricef = [buyerPriceStr floatValue]/10000.0;
-                NSInteger priceInt = (NSInteger)pricef;
-                buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+//                NSInteger priceInt = (NSInteger)pricef;
+//                buyerPriceStr = [NSString stringWithFormat:@"%ld",(long)priceInt];
+                buyerPriceStr = [NSString stringWithFormat:@"%.1f",pricef];
                 
             }
         }

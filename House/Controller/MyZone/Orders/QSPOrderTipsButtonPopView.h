@@ -26,6 +26,7 @@ typedef enum
     oOrderButtonTipsViewTypeTransactionBuyerOrSalerPrice,   //!<业主/房客成交价格
     oOrderButtonTipsViewTypeAcceptBuyerOrSalerPrice,        //!<业主/房客接受房客还价
     oOrderButtonTipsViewTypeAcceptOrRejectAppointment,      //!<接受拒绝再预约
+    oOrderButtonTipsViewTypeCancelTransationOrder,          //!<取消成交订单
     oOrderButtonTipsViewTypeSelectAction,                   //!<选择标题
     
 }ORDER_BUTTON_TIPS_VIEW_TYPE;
@@ -93,8 +94,25 @@ typedef enum
 - (instancetype)initWithAcceptOrRejectAppointmentViewWithTip:(NSString*)tipInfo withUserType:(USER_COUNT_TYPE)userType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 
-
+/**
+ *  初始化一个自定义标题的取消确定覆盖View
+ *
+ *  @param tipTitle 自定义标题
+ *  @param callBack 按钮响应回调
+ *
+ *  @return 自定义标题的取消确定覆盖View界面
+ */
 - (instancetype)initWithActionSelectedWithTip:(NSString*)tipTitle andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
+
+/**
+ *  初始化一个取消成交订单覆盖View
+ *
+ *  @param tipTitle 自定义标题
+ *  @param callBack 按钮响应回调
+ *
+ *  @return 自定义标题的取消成交订单覆盖View界面
+ */
+- (instancetype)initWithCancelTransationOrderViewWithTip:(NSString*)tipTitle andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack;
 
 @end

@@ -233,6 +233,7 @@
         }
             break;
         case oOrderButtonTipsViewTypeSelectAction:
+        case oOrderButtonTipsViewTypeCancelTransationOrder:
         {
             //修改白色背景高度
             CGFloat contentHeight = 180.0f;
@@ -263,6 +264,8 @@
     
     if (oOrderButtonTipsViewTypeAcceptOrRejectAppointment == _viewType) {
         cancelButtonStyle.title = @"拒绝预约";
+    }else if (oOrderButtonTipsViewTypeCancelTransationOrder == _viewType) {
+        cancelButtonStyle.title = @"返回";
     }
     
     UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(xpoint, self.contentBackgroundView.frame.size.height-2*VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP-VIEW_SIZE_NORMAL_BUTTON_HEIGHT, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:cancelButtonStyle andCallBack:^(UIButton *button) {
@@ -288,6 +291,8 @@
         confirmButtonStyle.title = @"成交";
     }else if (oOrderButtonTipsViewTypeAcceptOrRejectAppointment == _viewType) {
         confirmButtonStyle.title = @"接受预约";
+    }else if (oOrderButtonTipsViewTypeCancelTransationOrder == _viewType) {
+        confirmButtonStyle.title = @"取消成交";
     }
     
     UIButton *confirmButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width / 2.0f + 4.0f, cancelButton.frame.origin.y, width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:confirmButtonStyle andCallBack:^(UIButton *button) {
@@ -477,6 +482,34 @@
     }
     
     return self;
+}
+
+- (instancetype)initWithCancelTransationOrderViewWithTip:(NSString*)tipTitle andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack
+{
+    
+    if (self = [super initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT)]) {
+        
+        ///背景颜色
+        self.backgroundColor = [UIColor clearColor];
+        
+        _viewType = oOrderButtonTipsViewTypeCancelTransationOrder;
+        self.tipStr = tipTitle;
+        self.clickBgToCloseFlag = YES;
+        
+        ///搭建UI
+        [self createTipAndButtonsUI];
+        
+        ///保存回调
+        if (callBack) {
+            
+            self.buttonTipsCallBack = callBack;
+            
+        }
+        
+    }
+    
+    return self;
+    
 }
 
 - (instancetype)initWithView:(ORDER_BUTTON_TIPS_VIEW_TYPE)viewType andCallBack:(void(^)(UIButton *button,ORDER_BUTTON_TIPS_ACTION_TYPE actionType))callBack

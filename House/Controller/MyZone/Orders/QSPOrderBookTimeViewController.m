@@ -281,14 +281,15 @@
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"已经超过可预约时间，不能再预约今天的时间段了", 1.5f, ^(){})
                     return;
                     
-                }else {
+                }
+                
+                if (startHourInt < nowHourInt) {
                     
                     startHourInt = nowHourInt;
-                    
                 }
                 
                 NSInteger endHourInt = 24;
-                NSArray *endHourList = [endHour componentsSeparatedByString:@":"];
+                NSArray *endHourList = [tempEndHour componentsSeparatedByString:@":"];
                 if (endHourList&&[endHourList count]>=1) {
                     
                     NSString *endHourFirst = [endHourList objectAtIndex:0];

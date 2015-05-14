@@ -16,6 +16,4 @@
 
 - (void)setOrderData:(id)orderData;
 
-- (void)addAfterView:(UIView* __strong *)view;
-
 @end
