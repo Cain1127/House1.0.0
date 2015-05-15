@@ -1890,7 +1890,6 @@ static QSSocketManager *_socketManager = nil;
     ///OC数据模型
     QSYSendMessageSystem *ocWordModel = [[QSYSendMessageSystem alloc] init];
     
-    
     return ocWordModel;
     
 }

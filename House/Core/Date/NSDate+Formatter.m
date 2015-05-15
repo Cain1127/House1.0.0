@@ -61,8 +61,7 @@
 + (NSString *)formatNSDateToTimeStamp:(NSDate *)date
 {
     
-    NSDate *currentData = [NSDate date];
-    NSTimeInterval interval = [currentData timeIntervalSince1970];
+    NSTimeInterval interval = [date timeIntervalSince1970];
     return [NSString stringWithFormat:@"%.2f",interval];
     
 }
