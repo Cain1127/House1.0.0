@@ -19,6 +19,7 @@
 #import "QSNewHouseDetailViewController.h"
 #import "QSCommunityDetailViewController.h"
 #import "QSHousesViewController.h"
+#import "QSCommunityHouseListViewController.h"
 
 #import "QSCustomPickerView.h"
 
@@ -799,7 +800,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         double longitude = [self.coordinate_x doubleValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
-        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.id_];
+        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.village_id];
         anno.title = tempTitle;
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
@@ -911,7 +912,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 ///更新大头针数据
                 [annotationSecondHandHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
                     
-                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    QSCommunityHouseListViewController *secondHandHouseVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:detailID];
+                    [self.navigationController pushViewController:secondHandHouseVC animated:YES];
                     
                 }];
                 
@@ -945,7 +947,8 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 ///更新大头针数据
                 [annotationRentHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
                     
-                    [self gotoHouseDetail:title andDetailID:detailID andBuildingID:buildingID];
+                    QSCommunityHouseListViewController *rentHouseVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeRentalHouse andVillageID:detailID];
+                    [self.navigationController pushViewController:rentHouseVC animated:YES];
                     
                 }];
                 
