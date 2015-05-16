@@ -34,10 +34,13 @@
 
 ///分享访问链接
 static NSString *const app_URL = @"http://www.baidu.com/";
+
 ///友盟分享appkey
 static NSString *const shareSDK_Key = @"5535be0d67e58e4e96003357";
+
  ///微信分享appID
 static NSString *const Wechat_Key = @"wxc1d288df9337eb74";
+
 ///微信分享appSecret
 static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 
