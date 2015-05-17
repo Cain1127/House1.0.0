@@ -800,7 +800,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         double longitude = [self.coordinate_x doubleValue];
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
-        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.village_id];
+        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.mapCommunityDataSubModel.title,tempModel.mapCommunityDataSubModel.id_];
         anno.title = tempTitle;
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);
@@ -912,6 +912,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 ///更新大头针数据
                 [annotationSecondHandHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
                     
+                    ///判断
+                    MAPointAnnotation *customAnn = annotation;
+                    NSString *sum = customAnn.subtitle;
+                    if ([sum intValue] <= 0) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"暂无房源", 1.0f, ^(){})
+                        return;
+                        
+                    }
+                    
                     QSCommunityHouseListViewController *secondHandHouseVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeSecondHouse andVillageID:detailID];
                     [self.navigationController pushViewController:secondHandHouseVC animated:YES];
                     
@@ -946,6 +956,16 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
                 
                 ///更新大头针数据
                 [annotationRentHouseView  updateAnnotation:annotation andHouseType:self.listType andCallBack:^(NSString *detailID, NSString *title, FILTER_MAIN_TYPE houseType, NSString *buildingID) {
+                    
+                    ///判断
+                    MAPointAnnotation *customAnn = annotation;
+                    NSString *sum = customAnn.subtitle;
+                    if ([sum intValue] <= 0) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"暂无房源", 1.0f, ^(){})
+                        return;
+                        
+                    }
                     
                     QSCommunityHouseListViewController *rentHouseVC = [[QSCommunityHouseListViewController alloc] initWithHouseMainType:fFilterMainTypeRentalHouse andVillageID:detailID];
                     [self.navigationController pushViewController:rentHouseVC animated:YES];

@@ -166,7 +166,7 @@
     
     if ([map_type isEqualToString:@"200502" ]) {
         
-        _subTitleLabel.text=[NSString stringWithFormat:@"%.2f",[annotation.subtitle floatValue]/10000.0f];
+        _subTitleLabel.text = [NSString stringWithFormat:@"%.2f",[annotation.subtitle floatValue]/10000.0f];
         
     } else {
         
