@@ -152,9 +152,21 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
             TIPS_ALERT_MESSAGE_ANDTURNBACK(tipsString, 2.5f, ^(){
                 
                 ///重新创建主页
-                QSTabBarViewController *rootView = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
-                rootView.selectedIndex = 0;
-                self.window.rootViewController = rootView;
+                if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+                    
+                    UINavigationController *rootView = (UINavigationController *)self.window.rootViewController;
+                    [rootView popToRootViewControllerAnimated:YES];
+                    
+                }
+                
+                if ([self.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+                    
+                    QSTabBarViewController *rootView = (QSTabBarViewController *)self.window.rootViewController;
+                    UINavigationController *firstNavigationVC = (UINavigationController *)rootView.selectedViewController;
+                    UIViewController *firstVC = (UIViewController *)[firstNavigationVC.viewControllers lastObject];
+                    [firstVC.navigationController popToRootViewControllerAnimated:YES];
+                    
+                }
                 
             })
             
