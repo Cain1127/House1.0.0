@@ -28,10 +28,12 @@
 #import "QSUserSimpleDataModel.h"
 #import "QSYPostMessageSimpleModel.h"
 
-@interface QSChatViewController ()
+@interface QSChatViewController () <UINavigationControllerDelegate>
 
 @property (assign) BOOL isRefreshDidAppear;                                 //!<视图出现时，是否刷新
 @property (nonatomic,unsafe_unretained) QSChatContactsView *contactListView;//!<联系人视图
+@property (assign) BOOL isStopListenSystemMessage;                          //!<是否监听系统消息
+@property (assign) BOOL isStopListenSpecialMessage;                         //!<是否监听系统消息
 
 @end
 
@@ -109,7 +111,14 @@
                     ///推荐房源
                 case mMessageListActionTypeGotoRecommendHouse:
                 {
+                    
+                    [QSSocketManager registUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSpecial];
                 
+                    ///清空内存推送消息
+                    [QSSocketManager clearSystemMessageAndSpecialMessage:@"special"];
+                    
+                    self.isStopListenSpecialMessage = YES;
+                    
                     QSYHomeRecommendSecondHouseViewController *recommendSecondHouseVC = [[QSYHomeRecommendSecondHouseViewController alloc] init];
                     [self hiddenBottomTabbar:YES];
                     [self.navigationController pushViewController:recommendSecondHouseVC animated:YES];
@@ -120,6 +129,16 @@
                     ///进入系统消息页
                 case mMessageListActionTypeGotoSystemMessage:
                 {
+                    
+                    [QSSocketManager registUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSystem];
+                    
+                    ///发送系统消息监听
+                    [[NSNotificationCenter defaultCenter] postNotificationName:nChatSystemMessageChange object:@"2"];
+                    
+                    self.isStopListenSystemMessage = YES;
+                    
+                    ///清空内存系统消息
+                    [QSSocketManager clearSystemMessageAndSpecialMessage:@"system"];
                     
                     QSYSystemMessagesViewController *systemMessage = [[QSYSystemMessagesViewController alloc] init];
                     [self hiddenBottomTabbar:YES];
@@ -345,6 +364,13 @@
             case mMessageListActionTypeGotoRecommendHouse:
             {
                 
+                [QSSocketManager registUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSpecial];
+                
+                ///清空内存推送消息
+                [QSSocketManager clearSystemMessageAndSpecialMessage:@"special"];
+                
+                self.isStopListenSpecialMessage = YES;
+                
                 QSYHomeRecommendSecondHouseViewController *recommendSecondHouseVC = [[QSYHomeRecommendSecondHouseViewController alloc] init];
                 [self hiddenBottomTabbar:YES];
                 [self.navigationController pushViewController:recommendSecondHouseVC animated:YES];
@@ -355,6 +381,16 @@
                 ///进入系统消息页
             case mMessageListActionTypeGotoSystemMessage:
             {
+                
+                [QSSocketManager registUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSystem];
+                
+                ///发送系统消息监听
+                [[NSNotificationCenter defaultCenter] postNotificationName:nChatSystemMessageChange object:@"2"];
+                
+                self.isStopListenSystemMessage = YES;
+                
+                ///清空内存系统消息
+                [QSSocketManager clearSystemMessageAndSpecialMessage:@"system"];
             
                 QSYSystemMessagesViewController *systemMessage = [[QSYSystemMessagesViewController alloc] init];
                 [self hiddenBottomTabbar:YES];
@@ -407,6 +443,27 @@
             [self.contactListView regetContactListInfo];
             
         }
+        
+    }
+    
+    ///判断是否需要重新添加系统消息监听
+    if (self.isStopListenSystemMessage) {
+        
+        self.isStopListenSystemMessage = NO;
+        
+        ///发送系统消息监听
+        [[NSNotificationCenter defaultCenter] postNotificationName:nChatSystemMessageChange object:@"1"];
+        
+        ///开启系统消息的监听
+        [QSSocketManager offUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSystem];
+        
+    }
+    
+    ///判断推送房源消息
+    if (self.isStopListenSpecialMessage) {
+        
+        self.isStopListenSpecialMessage = NO;
+        [QSSocketManager offUNRecieveMessageType:qQSCustomProtocolChatMessageTypeSpecial];
         
     }
 

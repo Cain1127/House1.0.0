@@ -40,6 +40,17 @@ typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,
 + (void)saveMemoryMessage;
 
 /**
+ *  @author             yangshengmeng, 15-05-18 15:05:28
+ *
+ *  @brief              清空内存中的系统消息或推送房源消息
+ *
+ *  @param messageID    消息ID
+ *
+ *  @since              1.0.0
+ */
++ (void)clearSystemMessageAndSpecialMessage:(NSString *)messageID;
+
+/**
  *  @author         yangshengmeng, 15-04-10 13:04:29
  *
  *  @brief          获取指定人员的当前内存离线消息
@@ -162,5 +173,17 @@ typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,
  */
 + (void)registSocketServerOffLineNotification:(SERVER_OFF_LINE_NOTIFICATION)callBack;
 + (void)offRegistSocketServerOffLineNotification;
+
+/**
+ *  @author             yangshengmeng, 15-05-18 16:05:49
+ *
+ *  @brief              注册不接收的消息类型
+ *
+ *  @param messageType  消息类型
+ *
+ *  @since              1.0.0
+ */
++ (void)registUNRecieveMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType;
++ (void)offUNRecieveMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType;
 
 @end

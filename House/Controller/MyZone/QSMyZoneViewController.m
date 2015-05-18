@@ -136,6 +136,9 @@ static char UserNameKey;    //!<用户名
         ///注销系统消息数量监听
         [QSSocketManager offsSystemMessageReceiveNotification];
         
+        ///清空内存系统消息
+        [QSSocketManager clearSystemMessageAndSpecialMessage:@"system"];
+        
         ///进入消息页
         [self gotoMessageViewController];
         
@@ -168,6 +171,60 @@ static char UserNameKey;    //!<用户名
     ///功能UI
     [self createMyZoneFunctionUI:self.rootView andStartYPoint:170.0f];
     
+    ///注册系统消息通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(systemMessageChangeNotification:) name:nChatSystemMessageChange object:nil];
+    
+}
+
+///系统消息通知
+- (void)systemMessageChangeNotification:(NSNotification *)notice
+{
+
+    NSString *param = notice.object;
+    ///添加系统消息监听
+    if ([param intValue] == 1) {
+        
+        ///注册系统消息监听
+        [QSSocketManager registSystemMessageReceiveNotification:^(int msgNum) {
+            
+            if (msgNum > 0) {
+                
+                NSString *tipsString;
+                if (msgNum > 99) {
+                    
+                    tipsString = @"99+";
+                    
+                } else {
+                    
+                    tipsString = [NSString stringWithFormat:@"%d",msgNum];
+                    
+                }
+                
+                self.systemMessageCountTipsLabel.text = tipsString;
+                self.systemMessageCountTipsLabel.hidden = NO;
+                
+            } else {
+                
+                self.systemMessageCountTipsLabel.text = @"0";
+                self.systemMessageCountTipsLabel.hidden = YES;
+                
+            }
+            
+        }];
+        
+    }
+    
+    ///删除监听
+    if ([param intValue] == 2) {
+        
+        self.systemMessageCountTipsLabel.text = @"0";
+        self.systemMessageCountTipsLabel.hidden = YES;
+        
+        ///注销系统消息数量监听
+        [QSSocketManager offsSystemMessageReceiveNotification];
+        
+    }
+
 }
 
 ///创建头像

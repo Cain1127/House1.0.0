@@ -67,10 +67,11 @@ using namespace std;
 ///socket连接器
 @property (nonatomic,strong) AsyncSocket *tcpSocket;
 
-@property (nonatomic,copy) NSString *currentContactUserID;      //!<当前对话用户的ID
-@property (nonatomic,copy) NSString *currentDeviceUUID;         //!<当前设备的UUID
-@property (atomic,retain) NSMutableArray *messageList;          //!<消息数据源
-@property (assign) BOOL isWaitConnect;                          //!<当前是否等连接中
+@property (nonatomic,copy) NSString *currentContactUserID;          //!<当前对话用户的ID
+@property (nonatomic,copy) NSString *currentDeviceUUID;             //!<当前设备的UUID
+@property (atomic,retain) NSMutableArray *messageList;              //!<消息数据源
+@property (assign) BOOL isWaitConnect;                              //!<当前是否等连接中
+@property (nonatomic,retain) NSMutableArray *unRecieveMessageTypes; //!<不处理的消息类型集合
 
 @end
 
@@ -124,6 +125,7 @@ static QSSocketManager *_socketManager = nil;
     ///相关参数初始化
     self.currentDeviceUUID = [NSString getDeviceUUID];
     self.messageList = [[NSMutableArray alloc] init];
+    self.unRecieveMessageTypes = [NSMutableArray array];
 
 }
 
@@ -173,6 +175,60 @@ static QSSocketManager *_socketManager = nil;
         
     }
 
+}
+
+#pragma mark - 清空系统和推荐房源消息
+/**
+ *  @author             yangshengmeng, 15-05-18 15:05:28
+ *
+ *  @brief              清空内存中的系统消息或推送房源消息
+ *
+ *  @param messageID    消息ID
+ *
+ *  @since              1.0.0
+ */
++ (void)clearSystemMessageAndSpecialMessage:(NSString *)messageID
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    
+    ///临时数据
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:socketManager.messageList];
+    NSMutableArray *resultArray = [NSMutableArray array];
+    NSMutableArray *indexsArray = [NSMutableArray array];
+    NSInteger sumMessage = [tempArray count];
+    for (int i = 0; i < sumMessage; i++) {
+        
+        QSYSendMessageRootModel *tempModel = socketManager.messageList[i];
+        if ([tempModel.readTag isEqualToString:@"0"] &&
+            [tempModel.fromID isEqualToString:messageID]) {
+            
+            [resultArray addObject:tempModel];
+            [indexsArray addObject:[NSString stringWithFormat:@"%d",i]];
+            
+            ///保存一个数据
+            tempModel.readTag = @"1";
+            [QSCoreDataManager saveMessageData:tempModel andMessageType:tempModel.msgType andCallBack:^(BOOL isSave) {
+                
+                if (isSave) {
+                    
+                    APPLICATION_LOG_INFO(@"离线消息->读取->保存本地", @"成功")
+                    
+                } else {
+                    
+                    APPLICATION_LOG_INFO(@"离线消息->读取->保存本地", @"失败")
+                    
+                }
+                
+            }];
+            
+        }
+        
+    }
+    
+    ///删除已取数据
+    [socketManager clearCautchMessage:[NSArray arrayWithArray:indexsArray]];
+    
 }
 
 #pragma mark - 返回指定用户的消息
@@ -956,6 +1012,15 @@ static QSSocketManager *_socketManager = nil;
             messageTypeNetwork = intbytesToInt32(messageTypeBuf);
             NTOHL(messageTypeNetwork);
             
+            ///判断类型
+            if ([self checkMessageTypeISUnRecieve:messageTypeNetwork]) {
+                
+                ///更新消息数据列
+                tempData = [tempData subdataWithRange:NSMakeRange(messageLengthNetwork + 4, tempData.length - messageLengthNetwork - 4)];
+                continue;
+                
+            }
+            
             ///根据不同的类型，转不同的模型
             switch (messageTypeNetwork) {
                     ///上线
@@ -1521,6 +1586,25 @@ static QSSocketManager *_socketManager = nil;
     
 }
 
+#pragma mark - 检测是否是不处理的消息类型
+- (BOOL)checkMessageTypeISUnRecieve:(int32_t)messageType
+{
+
+    for (int i = 0; i < [self.unRecieveMessageTypes count]; i++) {
+        
+        NSNumber *localType = self.unRecieveMessageTypes[i];
+        if ([localType intValue] == messageType) {
+            
+            return YES;
+            
+        }
+        
+    }
+    
+    return NO;
+
+}
+
 ///推送房源
 - (void)handleReceiveSpecialMessage:(QSYSendMessageSpecial *)ocWordModel
 {
@@ -2079,7 +2163,7 @@ void int32ToByte(int32_t i,char *bytes)
 
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     socketManager.systemMessageCountNumCallBack = nil;
-
+    
 }
 
 /**
@@ -2113,6 +2197,52 @@ void int32ToByte(int32_t i,char *bytes)
 
     QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
     socketManager.serverOffLineNotification = nil;
+
+}
+
+#pragma mark - 注册不接收的消息
+/**
+ *  @author             yangshengmeng, 15-05-18 16:05:49
+ *
+ *  @brief              注册不接收的消息类型
+ *
+ *  @param messageType  消息类型
+ *
+ *  @since              1.0.0
+ */
++ (void)registUNRecieveMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType
+{
+
+    QSSocketManager *manager = [QSSocketManager shareSocketManager];
+    for (int i = 0; i < [manager.unRecieveMessageTypes count]; i++) {
+        
+        NSNumber *localType = manager.unRecieveMessageTypes[i];
+        if ([localType intValue] == messageType) {
+            
+            return;
+            
+        }
+        
+    }
+    
+    [manager.unRecieveMessageTypes addObject:@(messageType)];
+
+}
+
++ (void)offUNRecieveMessageType:(QSCUSTOM_PROTOCOL_CHAT_MESSAGE_TYPE)messageType
+{
+
+    QSSocketManager *manager = [QSSocketManager shareSocketManager];
+    for (int i = [manager.unRecieveMessageTypes count]; i > 0; i--) {
+        
+        NSNumber *localType = manager.unRecieveMessageTypes[i - 1];
+        if ([localType intValue] == messageType) {
+            
+            [manager.unRecieveMessageTypes removeObjectAtIndex:i - 1];
+            
+        }
+        
+    }
 
 }
 

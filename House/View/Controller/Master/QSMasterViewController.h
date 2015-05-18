@@ -16,6 +16,9 @@ static NSString *nHomeCommunityActionNotification = @"nHomeCommunityActionNotifi
 static NSString *nHouseMapListFilterInfoChanggeActionNotification = @"nHouseMapListFilterInfoChanggeActionNotification";
 static NSString *nHouseMapListFilterChanggeActionNotification = @"nHouseMapListFilterChanggeActionNotification";
 
+///在发现模块已读取系统消息
+static NSString *nChatSystemMessageChange = @"nChatSystemMessageChange";
+
 ///用户默认城市修改
 static NSString *nUserDefaultCityChanged = @"nUserDefaultCityChanged";
 

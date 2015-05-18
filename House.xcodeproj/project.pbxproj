@@ -67,6 +67,7 @@
 		1815241E1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815241D1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m */; };
 		181524211ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524201ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m */; };
 		181524241ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524231ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m */; };
+		1824C0FC1B09CF2B003E4A2D /* QSYSendMessageRootModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824C0FB1B09CF2B003E4A2D /* QSYSendMessageRootModel.m */; };
 		182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */; };
 		182C2ACC1A7795ED00591F02 /* QSCoreDataManager+House.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C2ACB1A7795ED00591F02 /* QSCoreDataManager+House.m */; };
 		182C88181A7A1DAB00DA64E9 /* QSImageView+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C88171A7A1DAB00DA64E9 /* QSImageView+Block.m */; };
@@ -1008,6 +1009,8 @@
 		181524201ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedNewHouseActivityDataModel.m; path = Collected/NewHouse/QSCDCollectedNewHouseActivityDataModel.m; sourceTree = "<group>"; };
 		181524221ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedNewHouseDataModel.h; path = Collected/NewHouse/QSCDCollectedNewHouseDataModel.h; sourceTree = "<group>"; };
 		181524231ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedNewHouseDataModel.m; path = Collected/NewHouse/QSCDCollectedNewHouseDataModel.m; sourceTree = "<group>"; };
+		1824C0FA1B09CF2B003E4A2D /* QSYSendMessageRootModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageRootModel.h; sourceTree = "<group>"; };
+		1824C0FB1B09CF2B003E4A2D /* QSYSendMessageRootModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageRootModel.m; sourceTree = "<group>"; };
 		182997A31AB6DA2900705DDB /* QSYMySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYMySettingViewController.h; path = Setting/QSYMySettingViewController.h; sourceTree = "<group>"; };
 		182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYMySettingViewController.m; path = Setting/QSYMySettingViewController.m; sourceTree = "<group>"; };
 		182C2ACA1A7795ED00591F02 /* QSCoreDataManager+House.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QSCoreDataManager+House.h"; path = "House/QSCoreDataManager+House.h"; sourceTree = "<group>"; };
@@ -4968,6 +4971,8 @@
 				183572381AD8AB9800A29607 /* QSYSendMessageSpecial.m */,
 				18B973061AF386F400652890 /* QSYSendMessageRecommendHouse.h */,
 				18B973071AF386F400652890 /* QSYSendMessageRecommendHouse.m */,
+				1824C0FA1B09CF2B003E4A2D /* QSYSendMessageRootModel.h */,
+				1824C0FB1B09CF2B003E4A2D /* QSYSendMessageRootModel.m */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -7333,6 +7338,7 @@
 				18EC15801AC29D2900D2AD3A /* QSReleaseHouseDataModel.m in Sources */,
 				18D082261AD14971004FA20F /* QSYDeleteAskRentAndBuyHouseTipsPopView.m in Sources */,
 				47E5DAAC1AD39D5F00A0A64F /* QSPOrderDetailAppointAgainOrCancelApplicationView.m in Sources */,
+				1824C0FC1B09CF2B003E4A2D /* QSYSendMessageRootModel.m in Sources */,
 				180CA3131ADA248F00D42493 /* QSYMySettingChangeUserReadNameTipsPopView.m in Sources */,
 				1865E3C61AB165A100FAEC9E /* QSCollectedCommunityDataModel.m in Sources */,
 				CE7F505A1AC8EA30004E6032 /* QSHouseTypeDetailViewController.m in Sources */,
