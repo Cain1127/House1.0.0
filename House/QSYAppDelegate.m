@@ -81,14 +81,14 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     if (remoteNotification) {
         
         ///取得 APNs 标准信息内容
-        NSDictionary *aps = [launchOptions valueForKey:@"aps"];
-        NSString *content = [aps valueForKey:@"alert"];             //!<推送主体消息
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"is_push_in"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
-        ///弹出说明
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:content delegate:nil cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
-        [alert show];
-//        return YES;
-        
+    } else {
+    
+        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_push_in"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
     }
     
     ///判断是否是开发商

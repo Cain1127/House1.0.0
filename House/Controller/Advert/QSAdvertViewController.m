@@ -187,6 +187,28 @@
     ///加载tabbar控制器
     QSTabBarViewController *tabbarVC = [[QSTabBarViewController alloc] initWithCurrentIndex:0];
     
+    ///判断是否进入系统消息列表
+    NSString *is_push = [[NSUserDefaults standardUserDefaults] valueForKey:@"is_push_in"];
+    if (1 == [is_push intValue]) {
+        
+        tabbarVC.selectedIndex = 3;
+        UIViewController *myVC = tabbarVC.viewControllers[3];
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        if ([myVC respondsToSelector:@selector(gotoMessageViewController)]) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [myVC performSelector:@selector(gotoMessageViewController)];
+                
+            });
+            
+        }
+#pragma clang diagnostic pop
+        
+    }
+    
     ///加载到rootViewController上
     QSYAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.window.rootViewController = tabbarVC;
