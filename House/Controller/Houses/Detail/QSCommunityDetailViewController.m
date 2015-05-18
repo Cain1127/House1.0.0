@@ -192,6 +192,9 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
     }
     
+    ///重置标题
+    [self setNavigationBarTitle:self.detailInfo.village.title];
+    
     ///收藏按钮
     NSString *localUserID = [QSCoreDataManager getUserID];
     if ([localUserID isEqualToString:self.detailInfo.user.id_]) {

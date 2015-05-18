@@ -490,7 +490,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入详情页面
-        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"rent"];
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.village_name andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"rent"];
         [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
@@ -525,21 +525,30 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f+5.0f+35.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
             
-            ///检测登录
-            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE loginStatus) {
                 
-                if (lLoginCheckActionTypeLogined == flag) {
+                switch (loginStatus) {
+                        ///已登录
+                    case lLoginCheckActionTypeLogined:
+                    {
                     
-                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeRentalHouse];
-                    [self.navigationController pushViewController:ownerInfoVC animated:YES];
+                        QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeRentalHouse];
+                        [self.navigationController pushViewController:ownerInfoVC animated:YES];
                     
-                }
-                
-                if (lLoginCheckActionTypeReLogin == flag) {
+                    }
+                        break;
+                        
+                        ///新登录
+                    case lLoginCheckActionTypeReLogin:
+                    {
                     
-                    ///刷新数据
-                    self.isRefresh = YES;
+                        self.isRefresh = YES;
                     
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
                 
             }];
@@ -1767,8 +1776,6 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
 ///分享出租房
 - (void)shareRentHouse:(UIButton *)button
 {
-    
-    static NSString *identify = @"wechat";
     
     NSString *shareText = [NSString stringWithFormat:@"%@ %@ %@/%@ %@室%@厅 %@",self.tempTitle,self.houseInfo.address,self.houseInfo.house_area,APPLICATION_AREAUNIT,self.houseInfo.house_shi,self.houseInfo.house_ting,self.houseInfo.rent_price];
     

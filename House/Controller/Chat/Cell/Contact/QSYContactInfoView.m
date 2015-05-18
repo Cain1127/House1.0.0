@@ -101,7 +101,16 @@ static char PhoneInfoKey;   //!<联系信息
     ///添加联系人按钮
     UIButton *addButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width - 44.0f, 28.0f, 44.0f, 44.0f) andButtonStyle:nil andCallBack:^(UIButton *button) {
         
-        [self addContact:button];
+        ///判断是否是回调
+        if (self.contactInfoCallBack) {
+            
+            self.contactInfoCallBack(button);
+            
+        } else {
+        
+            [self addContact:button];
+        
+        }
         
     }];
     [addButton setImage:[UIImage imageNamed:IMAGE_NAVIGATIONBAR_COLLECT_NORMAL] forState:UIControlStateNormal];

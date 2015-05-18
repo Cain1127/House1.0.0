@@ -92,89 +92,117 @@
     
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.ownerID andContactName:self.ownerName isFriends:self.contactInfo.contactInfo.id_ isImport:self.contactInfo.contactInfo.is_import andCallBack:^(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType, id params) {
+        ///判断登录
+        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
             
-            switch (actionType) {
-                    ///添加成为联系人
-                case cContactSettingCallBackActionTypeAddContact:
+            switch (flag) {
+                    ///新登录
+                case lLoginCheckActionTypeReLogin:
+                {
+                    
+                    ///刷新数据
+                    self.isNeedRefresh = YES;
+                    
+                }
+                    break;
+                    
+                    ///已登录
+                case lLoginCheckActionTypeLogined:
                 {
                 
-                    self.contactInfo.contactInfo.id_ = params;
-                    [self.userInfoRootView reloadData];
-                    
-                    ///回调通知联系人改变
-                    if (self.contactInfoChangeCallBack) {
+                    QSYContactSettingViewController *contactSettingVC = [[QSYContactSettingViewController alloc] initWithContactID:self.ownerID andContactName:self.ownerName isFriends:self.contactInfo.contactInfo.id_ isImport:self.contactInfo.contactInfo.is_import andCallBack:^(CONTACT_SETTING_CALLBACK_ACTION_TYPE actionType, id params) {
                         
-                        self.contactInfoChangeCallBack(YES);
+                        switch (actionType) {
+                                ///添加成为联系人
+                            case cContactSettingCallBackActionTypeAddContact:
+                            {
+                                
+                                self.contactInfo.contactInfo.id_ = params;
+                                [self.userInfoRootView reloadData];
+                                
+                                ///回调通知联系人改变
+                                if (self.contactInfoChangeCallBack) {
+                                    
+                                    self.contactInfoChangeCallBack(YES);
+                                    
+                                }
+                                
+                            }
+                                break;
+                                
+                                ///删除联系人
+                            case cContactSettingCallBackActionTypeDeleteContact:
+                            {
+                                
+                                self.contactInfo.contactInfo.id_ = @"0";
+                                [self.userInfoRootView reloadData];
+                                
+                                ///回调通知联系人改变
+                                if (self.contactInfoChangeCallBack) {
+                                    
+                                    self.contactInfoChangeCallBack(YES);
+                                    
+                                }
+                                
+                            }
+                                break;
+                                
+                                ///设置为重点联系人
+                            case cContactSettingCallBackActionTypeSetImport:
+                            {
+                                
+                                self.contactInfo.contactInfo.is_import = @"1";
+                                
+                                ///回调通知联系人改变
+                                if (self.contactInfoChangeCallBack) {
+                                    
+                                    self.contactInfoChangeCallBack(YES);
+                                    
+                                }
+                                
+                            }
+                                break;
+                                
+                                ///设置为普通联系人
+                            case cContactSettingCallBackActionTypeSetUNImport:
+                            {
+                                
+                                self.contactInfo.contactInfo.is_import = @"0";
+                                
+                                ///回调通知联系人改变
+                                if (self.contactInfoChangeCallBack) {
+                                    
+                                    self.contactInfoChangeCallBack(YES);
+                                    
+                                }
+                                
+                            }
+                                break;
+                                
+                                ///备注联系人
+                            case cContactSettingCallBackActionTypeRemarkContact:
+                            {
+                                
+                                self.contactInfo.contactInfo.remark = APPLICATION_NSSTRING_SETTING_NIL(params);
+                                [self.userInfoRootView reloadData];
+                                
+                                ///回调通知联系人改变
+                                if (self.contactInfoChangeCallBack) {
+                                    
+                                    self.contactInfoChangeCallBack(YES);
+                                    
+                                }
+                                
+                            }
+                                break;
+                                
+                            default:
+                                break;
+                        }
                         
-                    }
+                    }];
+                    [self.navigationController pushViewController:contactSettingVC animated:YES];
                 
-                }
-                    break;
-                    
-                    ///删除联系人
-                case cContactSettingCallBackActionTypeDeleteContact:
-                {
-                    
-                    self.contactInfo.contactInfo.id_ = @"0";
-                    [self.userInfoRootView reloadData];
-                    
-                    ///回调通知联系人改变
-                    if (self.contactInfoChangeCallBack) {
-                        
-                        self.contactInfoChangeCallBack(YES);
-                        
-                    }
-                    
-                }
-                    break;
-                    
-                    ///设置为重点联系人
-                case cContactSettingCallBackActionTypeSetImport:
-                {
-                    
-                    self.contactInfo.contactInfo.is_import = @"1";
-                    
-                    ///回调通知联系人改变
-                    if (self.contactInfoChangeCallBack) {
-                        
-                        self.contactInfoChangeCallBack(YES);
-                        
-                    }
-                    
-                }
-                    break;
-                    
-                    ///设置为普通联系人
-                case cContactSettingCallBackActionTypeSetUNImport:
-                {
-                    
-                    self.contactInfo.contactInfo.is_import = @"0";
-                    
-                    ///回调通知联系人改变
-                    if (self.contactInfoChangeCallBack) {
-                        
-                        self.contactInfoChangeCallBack(YES);
-                        
-                    }
-                    
-                }
-                    break;
-                    
-                    ///备注联系人
-                case cContactSettingCallBackActionTypeRemarkContact:
-                {
-                    
-                    self.contactInfo.contactInfo.remark = APPLICATION_NSSTRING_SETTING_NIL(params);
-                    [self.userInfoRootView reloadData];
-                    
-                    ///回调通知联系人改变
-                    if (self.contactInfoChangeCallBack) {
-                        
-                        self.contactInfoChangeCallBack(YES);
-                        
-                    }
-                    
                 }
                     break;
                     
@@ -183,7 +211,6 @@
             }
             
         }];
-        [self.navigationController pushViewController:contactSettingVC animated:YES];
         
     }];
     [self setNavigationBarRightView:detailButton];
@@ -235,9 +262,32 @@
     buttonStyle.title = @"发送消息";
     UIButton *sendMessageButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, SIZE_DEVICE_HEIGHT - 44.0f - 8.0f, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        ///进入聊天页
-        QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[self.contactInfo.contactInfo contactDetailChangeToSimpleUserModel]];
-        [self.navigationController pushViewController:talkVC animated:YES];
+        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+            
+            switch (flag) {
+                    ///新登录
+                case lLoginCheckActionTypeReLogin:
+                {
+                
+                    self.isNeedRefresh = YES;
+                
+                }
+                    break;
+                    
+                    ///已登录
+                case lLoginCheckActionTypeLogined:
+                {
+                
+                    ///进入聊天页
+                    QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:[self.contactInfo.contactInfo contactDetailChangeToSimpleUserModel]];
+                    [self.navigationController pushViewController:talkVC animated:YES];
+                
+                }
+                default:
+                    break;
+            }
+            
+        }];
         
     }];
     [self.view addSubview:sendMessageButton];
@@ -246,16 +296,39 @@
     buttonStyle.title = @"打电话";
     UIButton *callButton = [UIButton createBlockButtonWithFrame:CGRectMake(sendMessageButton.frame.origin.x + sendMessageButton.frame.size.width + 8.0f,sendMessageButton.frame.origin.y, widthButton, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+        [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
             
-            ///打电话
-            [self callContactOwner];
+            switch (flag) {
+                    ///新登录
+                case lLoginCheckActionTypeReLogin:
+                {
+                    
+                    self.isNeedRefresh = YES;
+                    
+                }
+                    break;
+                    
+                    ///已登录
+                case lLoginCheckActionTypeLogined:
+                {
+                    
+                    if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+                        
+                        ///打电话
+                        [self callContactOwner];
+                        
+                    } else {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
+                        
+                    }
+                    
+                }
+                default:
+                    break;
+            }
             
-        } else {
-        
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请您先预约看房，预约成功后方可拨打业主电话", 1.0f, ^(){})
-        
-        }
+        }];
         
     }];
     [self.view addSubview:callButton];
@@ -332,6 +405,41 @@
         }
         
         ///刷新数据
+        __weak QSYContactInfoView *contactInfoWeakView = infoRootView;
+        infoRootView.contactInfoCallBack = ^(UIButton *button){
+        
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+                
+                switch (flag) {
+                        ///已登录
+                    case lLoginCheckActionTypeLogined:
+                    {
+                    
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            
+                            [contactInfoWeakView addContact:button];
+                            
+                        });
+                    
+                    }
+                        break;
+                        
+                        ///新登录
+                    case lLoginCheckActionTypeReLogin:
+                    {
+                    
+                        ///刷新数据
+                        self.isNeedRefresh = YES;
+                    
+                    }
+                        
+                    default:
+                        break;
+                }
+                
+            }];
+        
+        };
         [infoRootView updateContactInfoUI:self.contactInfo.contactInfo];
         
         ///预约回复信息

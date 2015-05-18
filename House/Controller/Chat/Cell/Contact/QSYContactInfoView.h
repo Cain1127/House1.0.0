@@ -11,6 +11,9 @@
 @class QSYContactDetailInfoModel;
 @interface QSYContactInfoView : UIView
 
+///未登录时的回调
+@property (nonatomic,copy) void(^contactInfoCallBack)(UIButton *button);
+
 /**
  *  @author             yangshengmeng, 15-04-03 17:04:01
  *
@@ -21,5 +24,16 @@
  *  @since              1.0.0
  */
 - (void)updateContactInfoUI:(QSYContactDetailInfoModel *)userModel;
+
+/**
+ *  @author         yangshengmeng, 15-05-18 11:05:21
+ *
+ *  @brief          添加联系人
+ *
+ *  @param button   当前点击的按钮
+ *
+ *  @since          1.0.0
+ */
+- (void)addContact:(UIButton *)button;
 
 @end

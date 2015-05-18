@@ -473,7 +473,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     QSBlockView *districtAveragePriceView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, priceChangeView.frame.origin.y+priceChangeView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 20.0f*2.0f+5.0f+2*SIZE_DEFAULT_MARGIN_LEFT_RIGHT) andSingleTapCallBack:^(BOOL flag) {
         
         ///进入详情页面
-        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.title andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"second"];
+        QSCommunityDetailViewController *detailVC = [[QSCommunityDetailViewController alloc] initWithTitle:dataModel.house.village_name andCommunityID:dataModel.house.village_id andCommendNum:@"10" andHouseType:@"second"];
         [self.navigationController pushViewController:detailVC animated:YES];
         
     }];
@@ -509,29 +509,30 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
         
         QSBlockView *ownerView=[[QSBlockView alloc] initWithFrame:CGRectMake(2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, commentView.frame.origin.y+commentView.frame.size.height, SIZE_DEFAULT_MAX_WIDTH-2.0f*SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 40.0f+5.0f+35.0f+3*SIZE_DEFAULT_MARGIN_LEFT_RIGHT)andSingleTapCallBack:^(BOOL flag) {
             
-            ///检测登录
-            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE flag) {
+            [self checkLoginAndShowLoginWithBlock:^(LOGIN_CHECK_ACTION_TYPE loginStatus) {
                 
-                if (lLoginCheckActionTypeLogined == flag) {
-                    
-#if 0
-                    QSYTenantInfoViewController *contactVC = [[QSYTenantInfoViewController alloc] initWithName:self.detailInfo.user.username andAgentID:self.detailInfo.user.id_];
-                    [self hiddenBottomTabbar:YES];
-                    [self.navigationController pushViewController:contactVC animated:YES];
-#endif
-                    
-#if 1
-                    QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeSecondHouse];
-                    [self.navigationController pushViewController:ownerInfoVC animated:YES];
-#endif
-                    
-                }
-                
-                if (lLoginCheckActionTypeReLogin == flag) {
-                    
-                    ///刷新数据
-                    self.isRefresh = YES;
-                    
+                switch (loginStatus) {
+                        ///重新登录
+                    case lLoginCheckActionTypeReLogin:
+                    {
+                        
+                        self.isRefresh = YES;
+                        
+                    }
+                        break;
+                        
+                        ///已登录
+                    case lLoginCheckActionTypeLogined:
+                    {
+                        
+                        QSYOwnerInfoViewController *ownerInfoVC = [[QSYOwnerInfoViewController alloc] initWithName:self.detailInfo.user.username andOwnerID:self.detailInfo.user.id_ andDefaultHouseType:fFilterMainTypeSecondHouse];
+                        [self.navigationController pushViewController:ownerInfoVC animated:YES];
+                        
+                    }
+                        break;
+                        
+                    default:
+                        break;
                 }
                 
             }];
