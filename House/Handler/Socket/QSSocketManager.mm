@@ -2233,7 +2233,7 @@ void int32ToByte(int32_t i,char *bytes)
 {
 
     QSSocketManager *manager = [QSSocketManager shareSocketManager];
-    for (int i = [manager.unRecieveMessageTypes count]; i > 0; i--) {
+    for (int i = (int)[manager.unRecieveMessageTypes count]; i > 0; i--) {
         
         NSNumber *localType = manager.unRecieveMessageTypes[i - 1];
         if ([localType intValue] == messageType) {
