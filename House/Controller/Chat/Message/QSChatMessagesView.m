@@ -201,7 +201,6 @@ static char MessageListKey;//!<消息列表关联
             {
             
                 QSYSendMessageSpecial *recommendModel = tempModel;
-                recommendModel.unread_count = [NSString stringWithFormat:@"%d",msgNum];
                 self.recommendHouseMessage = recommendModel;
             
             }

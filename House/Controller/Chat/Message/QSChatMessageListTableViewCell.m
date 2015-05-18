@@ -138,7 +138,7 @@ static char CommentInfoKey;     //!<简述信息key
     lastTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     lastTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
     lastTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    lastTimeLabel.text = @"2015-2-15";
+    lastTimeLabel.text = nil;
     [self.contentView addSubview:lastTimeLabel];
     objc_setAssociatedObject(self, &LastTimeKey, lastTimeLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -325,7 +325,7 @@ static char CommentInfoKey;     //!<简述信息key
 {
 
     ///更新消息数量
-    [self updateInfoCountTips:model.unread_count];
+    [self updateInfoCountTips:@"1"];
     
     ///更新日期
     [self updateLastTime:model.timeStamp];

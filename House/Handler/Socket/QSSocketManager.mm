@@ -1470,82 +1470,54 @@ static QSSocketManager *_socketManager = nil;
 - (void)handleReceiveSystemMessage:(QSYSendMessageSystem *)ocWordModel
 {
     
-    ///回调
-    if (self.currentTalkMessageCallBack) {
+    ///保存消息
+    [self.messageList addObject:ocWordModel];
+    
+    ///回调离线消息数量
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
+    NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+    
+    ///回调消息数量
+    if (self.currentUnReadMessageNumCallBack) {
         
         dispatch_sync(dispatch_get_main_queue(), ^{
             
-            self.currentTalkMessageCallBack(YES,ocWordModel);
+            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
             
         });
         
-        ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
-        ocWordModel.readTag = @"1";
-        [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
-            
-            if (isSave) {
-                
-                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"成功")
-                
-            } else {
-                
-                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"失败")
-                
-            }
-            
-        }];
+    }
+    
+    ///如果当前有监听系统消息，则回调系统消息
+    if (self.systemMessageCountNumCallBack) {
         
-    } else {
-        
-        ///保存消息
-        [self.messageList addObject:ocWordModel];
-        
-        ///回调离线消息数量
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
-        NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
-        
-        ///回调消息数量
-        if (self.currentUnReadMessageNumCallBack) {
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                
-                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
-                
-            });
-            
-        }
-        
-        ///如果当前有监听系统消息，则回调系统消息
-        if (self.systemMessageCountNumCallBack) {
-            
-            NSPredicate *systemPredicate = [NSPredicate predicateWithFormat:@"msgType == %@",ocWordModel.fromID,ocWordModel.msgType];
-            NSArray *systemArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:systemPredicate]];
-            self.systemMessageCountNumCallBack((int)[systemArray count]);
-            
-        }
-        
-        ///回调消息列表
-        if (self.instantMessageNotification) {
-            
-            QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
-            userSimple.id_ = ocWordModel.fromID;
-            userSimple.avatar = ocWordModel.f_avatar;
-            userSimple.username = ocWordModel.f_name;
-            userSimple.user_type = @"-1";
-            userSimple.level = @"-1";
-            
-            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType == %@",ocWordModel.fromID,ocWordModel.msgType];
-            NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                
-                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,nil,userSimple);
-                
-            });
-            
-        }
+        NSPredicate *systemPredicate = [NSPredicate predicateWithFormat:@"msgType == %@",ocWordModel.fromID,ocWordModel.msgType];
+        NSArray *systemArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:systemPredicate]];
+        self.systemMessageCountNumCallBack((int)[systemArray count]);
         
     }
+    
+    ///回调消息列表
+    if (self.instantMessageNotification) {
+        
+        QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+        userSimple.id_ = ocWordModel.fromID;
+        userSimple.avatar = ocWordModel.f_avatar;
+        userSimple.username = ocWordModel.f_name;
+        userSimple.user_type = @"-1";
+        userSimple.level = @"-1";
+        
+        NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType == %@",ocWordModel.fromID,ocWordModel.msgType];
+        NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,ocWordModel.desc,userSimple);
+            
+        });
+        
+    }
+
     
 }
 
@@ -1553,88 +1525,58 @@ static QSSocketManager *_socketManager = nil;
 - (void)handleReceiveSpecialMessage:(QSYSendMessageSpecial *)ocWordModel
 {
     
-    ///回调
-    if (self.currentTalkMessageCallBack &&
-        [self.currentContactUserID isEqualToString:ocWordModel.fromID]) {
+    ///保存消息
+    NSPredicate *addPredicate = [NSPredicate predicateWithFormat:@"msgType == %@",ocWordModel.msgType];
+    NSArray *tempAddArray = [self.messageList filteredArrayUsingPredicate:addPredicate];
+    if ([tempAddArray count] > 0) {
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        QSYSendMessageSpecial *localModel = tempAddArray[0];
+        NSInteger localIndex = [self.messageList indexOfObject:localModel];
+        if (localIndex >= 0 && localIndex < [self.messageList count]) {
             
-            self.currentTalkMessageCallBack(YES,ocWordModel);
+            [self.messageList replaceObjectAtIndex:localIndex withObject:ocWordModel];
             
-        });
-        
-        ///由于当前用户已接收并显示消息，所以不再将消息保存在内存中，同时保存本
-        ocWordModel.readTag = @"1";
-        [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
-            
-            if (isSave) {
-                
-                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"成功")
-                
-            } else {
-                
-                APPLICATION_LOG_INFO(@"聊天消息->已回调当前窗口->保存本地", @"失败")
-                
-            }
-            
-        }];
+        }
         
     } else {
         
-        ///保存消息
-        NSPredicate *addPredicate = [NSPredicate predicateWithFormat:@"msgType == %@",ocWordModel.msgType];
-        NSArray *tempAddArray = [self.messageList filteredArrayUsingPredicate:addPredicate];
-        if ([tempAddArray count] > 0) {
-            
-            QSYSendMessageSpecial *localModel = tempAddArray[0];
-            NSInteger localIndex = [self.messageList indexOfObject:localModel];
-            if (localIndex >= 0 && localIndex < [self.messageList count]) {
-                
-                [self.messageList replaceObjectAtIndex:localIndex withObject:ocWordModel];
-                
-            }
-            
-        } else {
+        [self.messageList addObject:ocWordModel];
         
-            [self.messageList addObject:ocWordModel];
+    }
+    
+    ///回调离线消息数量
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
+    NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+    
+    ///回调消息数量
+    if (self.currentUnReadMessageNumCallBack) {
         
-        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            self.currentUnReadMessageNumCallBack((int)[tempArray count]);
+            
+        });
         
-        ///回调离线消息数量
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"readTag == %@",@"0"];
-        NSArray *tempArray = [NSArray arrayWithArray:[self.messageList filteredArrayUsingPredicate:predicate]];
+    }
+    
+    ///回调消息列表
+    if (self.instantMessageNotification) {
         
-        ///回调消息数量
-        if (self.currentUnReadMessageNumCallBack) {
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                
-                self.currentUnReadMessageNumCallBack((int)[tempArray count]);
-                
-            });
-            
-        }
+        QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
+        userSimple.id_ = ocWordModel.fromID;
+        userSimple.avatar = ocWordModel.f_avatar;
+        userSimple.username = ocWordModel.f_name;
+        userSimple.user_type = @"-1";
+        userSimple.level = @"-1";
         
-        ///回调消息列表
-        if (self.instantMessageNotification) {
+        NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType = %@",ocWordModel.fromID,ocWordModel.msgType];
+        NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
             
-            QSUserSimpleDataModel *userSimple = [[QSUserSimpleDataModel alloc] init];
-            userSimple.id_ = ocWordModel.fromID;
-            userSimple.avatar = ocWordModel.f_avatar;
-            userSimple.username = ocWordModel.f_name;
-            userSimple.user_type = @"-1";
-            userSimple.level = @"-1";
+            self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,ocWordModel,userSimple);
             
-            NSPredicate *personPredicate = [NSPredicate predicateWithFormat:@"fromID == %@ and msgType = %@",ocWordModel.fromID,ocWordModel.msgType];
-            NSArray *personArray = [NSArray arrayWithArray:[tempArray filteredArrayUsingPredicate:personPredicate]];
-            
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                
-                self.instantMessageNotification(ocWordModel.msgType,(int)[personArray count],ocWordModel.title,ocWordModel,userSimple);
-                
-            });
-            
-        }
+        });
         
     }
     
@@ -1890,6 +1832,23 @@ static QSSocketManager *_socketManager = nil;
     ///OC数据模型
     QSYSendMessageSystem *ocWordModel = [[QSYSendMessageSystem alloc] init];
     
+    ocWordModel.fromID = @"system";
+    ocWordModel.readTag = @"0";
+    ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time().c_str()];
+    ocWordModel.title = [NSString stringWithUTF8String:cppWordModel.title().c_str()];
+    ocWordModel.desc = [NSString stringWithUTF8String:cppWordModel.desc().c_str()];
+    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.url().c_str()];
+    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.type().c_str()];
+    ocWordModel.unread_count = @"1";
+    ocWordModel.msgType = qQSCustomProtocolChatMessageTypeSystem;
+    
+    ///扩展字段
+    ocWordModel.exp_1 = [NSString stringWithUTF8String:cppWordModel.exp_1().c_str()];
+    ocWordModel.exp_2 = [NSString stringWithUTF8String:cppWordModel.exp_2().c_str()];
+    ocWordModel.exp_3 = [NSString stringWithUTF8String:cppWordModel.exp_3().c_str()];
+    ocWordModel.exp_4 = [NSString stringWithUTF8String:cppWordModel.exp_4().c_str()];
+    ocWordModel.exp_5 = [NSString stringWithUTF8String:cppWordModel.exp_5().c_str()];
+    
     return ocWordModel;
     
 }
@@ -1900,6 +1859,15 @@ static QSSocketManager *_socketManager = nil;
     ///OC数据模型
     QSYSendMessageSpecial *ocWordModel = [[QSYSendMessageSpecial alloc] init];
     
+    ocWordModel.fromID = @"special";
+    ocWordModel.readTag = @"0";
+    ocWordModel.timeStamp = [NSDate currentDateTimeStamp];
+    ocWordModel.title = [NSString stringWithUTF8String:cppWordModel.name().c_str()];
+    ocWordModel.desc = [NSString stringWithUTF8String:cppWordModel.desc().c_str()];
+    ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.type().c_str()];
+    ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.pic().c_str()];
+    ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.fid().c_str()];
+    ocWordModel.msgType = qQSCustomProtocolChatMessageTypeSpecial;
     
     return ocWordModel;
 
