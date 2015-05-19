@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A52FA0D183D72E4861E9BEBF"
+               BlueprintIdentifier = "AD987BF46AAD56153FA090D2"
                BuildableName = "libPods-BaiduPushSDK.a"
                BlueprintName = "Pods-BaiduPushSDK"
                ReferencedContainer = "container:Pods.xcodeproj">

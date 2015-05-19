@@ -96,6 +96,12 @@
 #define COCOAPODS_VERSION_MINOR_MJRefresh 4
 #define COCOAPODS_VERSION_PATCH_MJRefresh 6
 
+// PinYin4Objc
+#define COCOAPODS_POD_AVAILABLE_PinYin4Objc
+#define COCOAPODS_VERSION_MAJOR_PinYin4Objc 1
+#define COCOAPODS_VERSION_MINOR_PinYin4Objc 1
+#define COCOAPODS_VERSION_PATCH_PinYin4Objc 1
+
 // RKValueTransformers
 #define COCOAPODS_POD_AVAILABLE_RKValueTransformers
 #define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1

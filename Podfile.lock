@@ -29,6 +29,7 @@ PODS:
     - RKValueTransformers (~> 1.1.0)
   - MBProgressHUD (0.9.1)
   - MJRefresh (1.4.6)
+  - PinYin4Objc (1.1.1)
   - RestKit/ObjectMapping (0.23.3):
     - ISO8601DateFormatterValueTransformer (~> 0.6.0)
     - RestKit/Support
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - IQKeyboardManager (~> 3.2.3)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 1.4.1)
+  - PinYin4Objc (~> 1.1.1)
   - RestKit/ObjectMapping (~> 0.23.3)
   - UMengSocial (~> 4.2.2)
 
@@ -61,6 +63,7 @@ SPEC CHECKSUMS:
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: 2eaa3fd8f67fbb86497840fb0167446f7eb61dc7
+  PinYin4Objc: 3fa9673610368330e2dfb688b1d19a35c3930a78
   RestKit: e761211cf026c0d56b01d0c2fa1fe8903dc4e4f3
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
   TransitionKit: bc306605fb5e05a743c18d42239dc0e211619547
