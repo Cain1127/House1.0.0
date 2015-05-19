@@ -403,7 +403,7 @@
                 [outputFormat setToneType:ToneTypeWithoutTone];
                 [outputFormat setVCharType:VCharTypeWithV];
                 [outputFormat setCaseType:CaseTypeLowercase];
-                NSString *tempPinYinStr=[PinyinHelper toHanyuPinyinStringWithNSString:tempModel.search_keywork withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
+                NSString *tempPinYinStr = [PinyinHelper toHanyuPinyinStringWithNSString:tempModel.search_keywork withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
                 
                 NSRange titleResult = [tempPinYinStr rangeOfString:tempSearchKey options:NSCaseInsensitiveSearch];
                 
