@@ -307,7 +307,7 @@ static char StreetRootViewKey;              //!<街道的底view
         ///回调
         if (self.districtPickedCallBack) {
             
-            self.districtPickedCallBack(cCustomDistrictPickerActionTypeUnLimitedDistrict,nil,nil);
+            self.districtPickedCallBack(cCustomDistrictPickerActionTypeUnLimitedStreet,nil,nil);
             
         }
         
