@@ -25,7 +25,12 @@ static char ImageKey;   //!<图片关联
 static char PriceKey;   //!<售价关联
 static char AreaKey;    //!<面积关联
 static char TitleKey;   //!<标题信息
-static char AddressKey; //!<地址信息关联
+
+@interface QSYHomeRecommendHouseHeaderCollectionViewCell ()
+
+@property (nonatomic,strong) UILabel *addressLabel;//!<地址信息关联
+
+@end
 
 @implementation QSYHomeRecommendHouseHeaderCollectionViewCell
 
@@ -113,20 +118,19 @@ static char AddressKey; //!<地址信息关联
     objc_setAssociatedObject(self, &TitleKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///地址附加信息
-    UILabel *addressLabel = [[UILabel alloc] init];
-    addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
-    [rootView addSubview:addressLabel];
-    objc_setAssociatedObject(self, &AddressKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
+    self.addressLabel = [[UILabel alloc] init];
+    self.addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.addressLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    [rootView addSubview:self.addressLabel];
     
     ///控件
-    NSDictionary *viewDict = NSDictionaryOfVariableBindings(priceLabel,priceUnitLabel,areaLabel,areaUnitLabel,titleLabel,addressLabel);
+    NSDictionary *viewDict = NSDictionaryOfVariableBindings(priceLabel,priceUnitLabel,areaLabel,areaUnitLabel,titleLabel,_addressLabel);
     
     ///约束
     NSString *___hVFL_price = @"H:|-20-[priceLabel(>=40,<=120)]-0-[priceUnitLabel(20)]-(>=10)-[areaLabel(>=40,<=80)]-0-[areaUnitLabel(30)]-20-|";
     NSString *___hVFL_title = @"H:|-20-[titleLabel]-20-|";
-    NSString *___hVFL_address = @"H:|-20-[addressLabel]-20-|";
-    NSString *___vVFL_most = @"V:|-20-[priceLabel(30)]-10-[titleLabel(15)]-10-[addressLabel(15)]-20-|";
+    NSString *___hVFL_address = @"H:|-20-[_addressLabel]-20-|";
+    NSString *___vVFL_most = @"V:|-20-[priceLabel(30)]-10-[titleLabel(15)]-10-[_addressLabel(15)]-20-|";
     
     ///添加约束
     [rootView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_price options:NSLayoutFormatAlignAllBottom metrics:nil views:viewDict]];
@@ -183,39 +187,37 @@ static char AddressKey; //!<地址信息关联
 ///更新地址信息
 - (void)updateAddressInfo:(NSString *)streetKey andCommunity:(NSString *)community andHouseType:(NSString *)houseType
 {
-
-    UILabel *addressLabel = objc_getAssociatedObject(self, &AddressKey);
-    NSMutableString *info = [NSMutableString string];
-    
-    if ([streetKey length] > 0) {
         
-        [info appendString:[QSCoreDataManager getStreetValWithStreetKey:streetKey]];
+        NSMutableString *info = [NSMutableString string];
+        if ( streetKey && [streetKey length] > 0) {
+            
+            [info appendString:APPLICATION_NSSTRING_SETTING([QSCoreDataManager getStreetValWithStreetKey:streetKey], @"")];
+            
+        }
         
-    }
-    
-    if ([community length] > 0) {
+        if ([community length] > 0) {
+            
+            [info appendString:@" | "];
+            [info appendString:community];
+            
+        }
         
-        [info appendString:@" | "];
-        [info appendString:community];
+        if ([houseType length] > 0) {
+            
+            [info appendString:@" | "];
+            [info appendString:houseType];
+            
+        }
         
-    }
-    
-    if ([houseType length] > 0) {
-        
-        [info appendString:@" | "];
-        [info appendString:houseType];
-        
-    }
-    
-    if ([info length] > 0) {
-        
-        addressLabel.text = info;
-        
-    } else {
-    
-        addressLabel.text = nil;
-    
-    }
+        if ([info length] > 0) {
+            
+            self.addressLabel.text = info;
+            
+        } else {
+            
+            self.addressLabel.text = nil;
+            
+        }
 
 }
 
