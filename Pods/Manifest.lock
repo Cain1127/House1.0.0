@@ -23,12 +23,12 @@ PODS:
   - AMap2DMap (2.4.2)
   - AMapSearch (2.4.1)
   - ASDepthModal (1.0.0)
+  - BaiduPushSDK (1.1.0)
   - IQKeyboardManager (3.2.3)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
   - MBProgressHUD (0.9.1)
-  - MJRefresh (1.4.5)
-  - Reachability (3.1.1)
+  - MJRefresh (1.4.6)
   - RestKit/ObjectMapping (0.23.3):
     - ISO8601DateFormatterValueTransformer (~> 0.6.0)
     - RestKit/Support
@@ -44,10 +44,10 @@ DEPENDENCIES:
   - AMap2DMap (~> 2.4.2)
   - AMapSearch (~> 2.4.1)
   - ASDepthModal (~> 1.0.0)
+  - BaiduPushSDK (~> 1.1.0)
   - IQKeyboardManager (~> 3.2.3)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh (~> 1.4.1)
-  - Reachability (~> 3.1.1)
   - RestKit/ObjectMapping (~> 0.23.3)
   - UMengSocial (~> 4.2.2)
 
@@ -56,14 +56,14 @@ SPEC CHECKSUMS:
   AMap2DMap: 6f19f93b3410c8105c34ef93dd9dbb537f7ea897
   AMapSearch: e48c562fc7713f7e5f719863a15141a847e16c04
   ASDepthModal: c84ba6596c8f6aef3cadacdc979d287ed2915c64
+  BaiduPushSDK: 2fdf3700016754329a1c4b76b26ede1954a1b227
   IQKeyboardManager: 6ca5c54e3776eb54af4c7caf515833f3cd761d59
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  MJRefresh: 4b24394e577ea399fbc926e5b6072317aae2c152
-  Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
+  MJRefresh: 2eaa3fd8f67fbb86497840fb0167446f7eb61dc7
   RestKit: e761211cf026c0d56b01d0c2fa1fe8903dc4e4f3
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
   TransitionKit: bc306605fb5e05a743c18d42239dc0e211619547
   UMengSocial: c608958b8aec7831d2a0964b62fc4cd1ed0bd9c3
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.1

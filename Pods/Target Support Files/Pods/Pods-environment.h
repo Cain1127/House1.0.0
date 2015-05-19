@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_ASDepthModal 0
 #define COCOAPODS_VERSION_PATCH_ASDepthModal 0
 
+// BaiduPushSDK
+#define COCOAPODS_POD_AVAILABLE_BaiduPushSDK
+#define COCOAPODS_VERSION_MAJOR_BaiduPushSDK 1
+#define COCOAPODS_VERSION_MINOR_BaiduPushSDK 1
+#define COCOAPODS_VERSION_PATCH_BaiduPushSDK 0
+
 // IQKeyboardManager
 #define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
 #define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3
@@ -88,19 +94,13 @@
 #define COCOAPODS_POD_AVAILABLE_MJRefresh
 #define COCOAPODS_VERSION_MAJOR_MJRefresh 1
 #define COCOAPODS_VERSION_MINOR_MJRefresh 4
-#define COCOAPODS_VERSION_PATCH_MJRefresh 5
+#define COCOAPODS_VERSION_PATCH_MJRefresh 6
 
 // RKValueTransformers
 #define COCOAPODS_POD_AVAILABLE_RKValueTransformers
 #define COCOAPODS_VERSION_MAJOR_RKValueTransformers 1
 #define COCOAPODS_VERSION_MINOR_RKValueTransformers 1
 #define COCOAPODS_VERSION_PATCH_RKValueTransformers 2
-
-// Reachability
-#define COCOAPODS_POD_AVAILABLE_Reachability
-#define COCOAPODS_VERSION_MAJOR_Reachability 3
-#define COCOAPODS_VERSION_MINOR_Reachability 1
-#define COCOAPODS_VERSION_PATCH_Reachability 1
 
 // RestKit/ObjectMapping
 #define COCOAPODS_POD_AVAILABLE_RestKit_ObjectMapping
