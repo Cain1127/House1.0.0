@@ -33,7 +33,7 @@
 
 #import "MJRefresh.h"
 
-@interface QSYSearchHousesViewController () <UITextFieldDelegate>
+@interface QSYSearchHousesViewController () <UISearchBarDelegate>
 
 @property (nonatomic,assign) FILTER_MAIN_TYPE houseType;                    //!<房源类型
 @property (nonatomic,copy) NSString *searchKey;                             //!<搜索关键字
@@ -80,7 +80,7 @@
 {
 
     ///指针
-    __block UITextField *seachTextField;
+    __block UISearchBar *seachTextField;
     
     ///中间选择列表类型按钮
     QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",self.houseType]];
@@ -111,16 +111,17 @@
     [self.view addSubview:self.houseTypePicker];
     
     ///创建导航栏搜索输入框
-    seachTextField = [[UITextField alloc]initWithFrame:CGRectMake(self.houseTypePicker.frame.origin.x +  self.houseTypePicker.frame.size.width + 8.0f, 27.0f, SIZE_DEVICE_WIDTH - self.houseTypePicker.frame.size.width - 44.0f - 15.0f, 30.0f)];
-    seachTextField.backgroundColor = [UIColor whiteColor];
+    seachTextField = [[UISearchBar alloc]initWithFrame:CGRectMake(self.houseTypePicker.frame.origin.x +  self.houseTypePicker.frame.size.width + 8.0f, 27.0f, SIZE_DEVICE_WIDTH - self.houseTypePicker.frame.size.width - 44.0f - 15.0f, 30.0f)];
+    seachTextField.backgroundImage = [UIImage imageNamed:IMAGE_PUBLIC_SEARCHBAR_BG];
     seachTextField.placeholder = [NSString stringWithFormat:@"请输入小区名称或地址"];
-    seachTextField.font = [UIFont systemFontOfSize:14.0f];
-    seachTextField.borderStyle = UITextBorderStyleRoundedRect;
     seachTextField.returnKeyType = UIReturnKeySearch;
     seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     seachTextField.delegate = self;
-    seachTextField.clearButtonMode = UITextFieldViewModeAlways;
     seachTextField.text = APPLICATION_NSSTRING_SETTING_NIL(self.searchKey);
+    seachTextField.clipsToBounds = YES;
+    seachTextField.layer.cornerRadius = 6.0f;
+    seachTextField.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+    seachTextField.layer.borderWidth = 1.0f;
     [self.view addSubview:seachTextField];
     
     ///取消搜索按钮
@@ -545,12 +546,12 @@
 }
 
 #pragma mark - 点击键盘上的搜索
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
 
-    if ([textField.text length] > 0) {
+    if ([searchBar.text length] > 0) {
         
-        self.searchKey = textField.text;
+        self.searchKey = searchBar.text;
         
         ///保存搜索记录
         QSLocalSearchHistoryDataModel *tempModel = [[QSLocalSearchHistoryDataModel alloc] init];
@@ -581,7 +582,7 @@
         
     } else {
     
-        self.searchKey = textField.text;
+        self.searchKey = searchBar.text;
         
         ///刷新数据
         if (self.currentListView) {
@@ -596,10 +597,8 @@
     
     }
     
-    [textField resignFirstResponder];
+    [searchBar resignFirstResponder];
     
-    return YES;
-
 }
 
 #pragma mark - 视图将要显示时判断是否刷新

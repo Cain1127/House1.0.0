@@ -22,13 +22,16 @@
 #import "QSBaseConfigurationDataModel.h"
 
 #import "MJRefresh.h"
+#import "Pinyin4Objc.h"
 
-@interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface QSHouseKeySearchViewController () <UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
 @property (assign) BOOL isRefresh;                                  //!<视图出现时是否更新列表
 @property (nonatomic,strong) UITableView *searchItemView;           //!<列表
+@property (nonatomic,strong) UISearchBar *seachTextField;           //!<搜索框
 @property (nonatomic,strong) UIView *noRecordsRootView;             //!<没有记录底view
 @property (nonatomic,strong) QSCustomPickerView *houseTypePicker;   //!<导航栏列表类型选择
+@property (nonatomic,retain) NSMutableArray *localDataSource;       //!<本地数据
 @property (nonatomic,retain) NSMutableArray *searchDataSource;      //!<数据源
 @property (nonatomic,assign) FILTER_MAIN_TYPE houseType;            //!<房源类型
 
@@ -56,9 +59,6 @@
 -(void)createNavigationBarUI
 {
     
-    ///指针
-    __block UITextField *seachTextField;
-    
     ///中间选择列表类型按钮
     QSBaseConfigurationDataModel *tempModel = [QSCoreDataManager getHouseListMainTypeModelWithID:[NSString stringWithFormat:@"%d",self.houseType]];
     self.houseTypePicker = [[QSCustomPickerView alloc] initWithFrame:CGRectMake(5.0f, 22.0f, 80.0f, 40.0f) andPickerType:cCustomPickerTypeNavigationBarHouseMainType andPickerViewStyle:cCustomPickerStyleLeftArrow andCurrentSelectedModel:tempModel andIndicaterCenterXPoint:0.0f andPickedCallBack:^(PICKER_CALLBACK_ACTION_TYPE callBackType,NSString *selectedKey, NSString *selectedVal) {
@@ -66,7 +66,7 @@
         ///弹出时，回收键盘
         if (pPickerCallBackActionTypeShow == callBackType) {
             
-            [seachTextField resignFirstResponder];
+            [self.seachTextField resignFirstResponder];
             
         }
         
@@ -85,15 +85,17 @@
     [self.view addSubview:self.houseTypePicker];
     
     ///创建导航栏搜索输入框
-    seachTextField = [[UITextField alloc]initWithFrame:CGRectMake(self.houseTypePicker.frame.origin.x +  self.houseTypePicker.frame.size.width + 8.0f, 27.0f, SIZE_DEVICE_WIDTH - self.houseTypePicker.frame.size.width - 44.0f - 15.0f, 30.0f)];
-    seachTextField.backgroundColor = [UIColor whiteColor];
-    seachTextField.placeholder = [NSString stringWithFormat:@"请输入小区名称或地址"];
-    seachTextField.font = [UIFont systemFontOfSize:14.0f];
-    seachTextField.borderStyle = UITextBorderStyleRoundedRect;
-    seachTextField.returnKeyType = UIReturnKeySearch;
-    seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    seachTextField.delegate = self;
-    [self.view addSubview:seachTextField];
+    self.seachTextField = [[UISearchBar alloc]initWithFrame:CGRectMake(self.houseTypePicker.frame.origin.x +  self.houseTypePicker.frame.size.width + 8.0f, 27.0f, SIZE_DEVICE_WIDTH - self.houseTypePicker.frame.size.width - 44.0f - 15.0f, 30.0f)];
+    self.seachTextField.placeholder = [NSString stringWithFormat:@"请输入小区名称或地址"];
+    self.seachTextField.returnKeyType = UIReturnKeySearch;
+    self.seachTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.seachTextField.delegate = self;
+    self.seachTextField.backgroundImage = [UIImage imageNamed:IMAGE_PUBLIC_SEARCHBAR_BG];
+    self.seachTextField.clipsToBounds = YES;
+    self.seachTextField.layer.cornerRadius = 6.0f;
+    self.seachTextField.layer.borderColor = [COLOR_CHARACTERS_LIGHTGRAY CGColor];
+    self.seachTextField.layer.borderWidth = 1.0f;
+    [self.view addSubview:self.seachTextField];
     
     ///取消搜索按钮
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeCancel];
@@ -124,6 +126,7 @@
     [self.view addSubview:self.noRecordsRootView];
     
     ///初始化数据源
+    self.localDataSource = [NSMutableArray array];
     self.searchDataSource = [[NSMutableArray alloc] init];
     
     self.searchItemView = [[UITableView alloc]initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f) style:UITableViewStylePlain];
@@ -187,6 +190,7 @@
         
         cellSearchItem = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:searchItemCell];
         cellSearchItem.backgroundColor = [UIColor whiteColor];
+        cellSearchItem.selectionStyle = UITableViewCellSelectionStyleNone;
         
         ///分隔线
         UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 44.0f - 0.25f, SIZE_DEVICE_WIDTH - 20.0f, 0.25f)];
@@ -254,6 +258,9 @@
 #pragma mark - 选择搜索历史
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    ///回收键盘
+    [self.seachTextField resignFirstResponder];
 
     if ([self.searchDataSource count] > 0) {
         
@@ -283,11 +290,13 @@
 {
     
     ///清空原数据
+    [self.localDataSource removeAllObjects];
     [self.searchDataSource removeAllObjects];
 
     NSArray *tempArray = [QSCoreDataManager getLocalSearchHistoryWithHouseType:self.houseType];
     if ([tempArray count] > 0) {
         
+        [self.localDataSource addObjectsFromArray:tempArray];
         [self.searchDataSource addObjectsFromArray:tempArray];
         self.noRecordsRootView.hidden = YES;
         
@@ -306,16 +315,23 @@
 }
 
 #pragma mark - 点击键盘搜索事件
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+
+    [self searchBarTextDidEndEditing:searchBar];
+
+}
+
 ///键盘回收
--(BOOL)textFieldShouldReturn:(UITextField *)textField
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     
-    [textField resignFirstResponder];
+    [searchBar resignFirstResponder];
     
     ///保存搜索
-    if ([textField.text length] > 0) {
+    if ([searchBar.text length] > 0) {
         
-        NSString *inputString = textField.text;
+        NSString *inputString = searchBar.text;
         
         ///保存搜索记录
         QSLocalSearchHistoryDataModel *tempModel = [[QSLocalSearchHistoryDataModel alloc] init];
@@ -329,7 +345,7 @@
         [self.searchItemView.header beginRefreshing];
         
         ///清空原信息
-        textField.text = nil;
+        searchBar.text = nil;
         
         ///进入搜索房源结果页
         QSYSearchHousesViewController *searchHouseVC = [[QSYSearchHousesViewController alloc] initWithHouseType:self.houseType andSearchKey:inputString];
@@ -348,8 +364,124 @@
         
     }
     
-    return YES;
+}
+
+#pragma mark - 搜索框内容改变时匹配结果
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
     
+    ///获取输入的关键字
+    NSString *searchKey = searchText;
+    
+    ///判断是否清空事件
+    if (nil == searchText || 0 >= [searchText length]) {
+        
+        self.noRecordsRootView.hidden = YES;
+        [self.searchDataSource removeAllObjects];
+        [self.searchDataSource addObjectsFromArray:self.localDataSource];
+        [self.searchItemView reloadData];
+        return;
+        
+    }
+    
+    ///清空原数据
+    [self.searchDataSource removeAllObjects];
+    
+    if (searchKey.length > 0 && ![self isIncludeChineseInString:searchKey]) {
+        
+        ///搜索关键字转为小写
+        NSString *tempSearchKey = [searchKey lowercaseString];
+        
+        for (int i = 0;i < self.localDataSource.count;i++) {
+            
+            ///临时模型
+            QSLocalSearchHistoryDataModel *tempModel = self.localDataSource[i];
+            
+            if ([self isIncludeChineseInString:tempModel.search_keywork]) {
+                
+                HanyuPinyinOutputFormat *outputFormat=[[HanyuPinyinOutputFormat alloc] init];
+                [outputFormat setToneType:ToneTypeWithoutTone];
+                [outputFormat setVCharType:VCharTypeWithV];
+                [outputFormat setCaseType:CaseTypeLowercase];
+                NSString *tempPinYinStr=[PinyinHelper toHanyuPinyinStringWithNSString:tempModel.search_keywork withHanyuPinyinOutputFormat:outputFormat withNSString:@" "];
+                
+                NSRange titleResult = [tempPinYinStr rangeOfString:tempSearchKey options:NSCaseInsensitiveSearch];
+                
+                if (titleResult.length > 0) {
+                    
+                    [self.searchDataSource addObject:tempModel];
+                    continue;
+                    
+                }
+                
+                NSArray *tempArray = [tempPinYinStr componentsSeparatedByString:@" "];
+                NSMutableString *tempPinYinHeadStr = [NSMutableString string];
+                for (int i = 0; i < [tempArray count]; i++) {
+                    
+                    NSString *singleWord = tempArray[i];
+                    if ([singleWord length] > 0) {
+                        
+                        char firstChar = [singleWord characterAtIndex:0];
+                        if (firstChar >= 97 && firstChar <= 122) {
+                            
+                            [tempPinYinHeadStr appendString:[singleWord substringToIndex:1]];
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                NSRange titleHeadResult = [tempPinYinHeadStr rangeOfString:searchKey options:NSCaseInsensitiveSearch];
+                
+                if (titleHeadResult.length > 0) {
+                    
+                    [self.searchDataSource addObject:tempModel];
+                    
+                }
+                
+            } else {
+                
+                NSRange titleResult = [tempModel.search_keywork rangeOfString:searchKey options:NSCaseInsensitiveSearch];
+                if (titleResult.length > 0) {
+                    
+                    [self.searchDataSource addObject:tempModel];
+                    
+                }
+                
+            }
+            
+        }
+        
+    } else if (searchKey.length > 0 && [self isIncludeChineseInString:searchKey]) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"search_keywork CONTAINS %@",searchKey];
+        [self.searchDataSource addObjectsFromArray:[self.localDataSource filteredArrayUsingPredicate:predicate]];
+        
+    }
+    
+    ///判断是否需要显示记录
+    if ([self.searchDataSource count] > 0) {
+        
+        self.noRecordsRootView.hidden = YES;
+        
+    } else {
+    
+        self.noRecordsRootView.hidden = NO;
+    
+    }
+    
+    ///刷新数据
+    [self.searchItemView reloadData];
+    
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
+    [super touchesBegan:touches withEvent:event];
+    [self.seachTextField resignFirstResponder];
+
 }
 
 #pragma mark - 将要显示时判断是否需要主动刷新
@@ -369,6 +501,24 @@
         
     }
 
+}
+
+- (BOOL)isIncludeChineseInString:(NSString*)str
+{
+    
+    for (int i=0; i<str.length; i++) {
+        
+        unichar ch = [str characterAtIndex:i];
+        if (0x4e00 < ch  && ch < 0x9fff) {
+            
+            return true;
+            
+        }
+        
+    }
+    
+    return false;
+    
 }
 
 @end

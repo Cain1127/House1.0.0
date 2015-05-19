@@ -72,6 +72,9 @@
 #define IMAGE_PUBLIC_APPLOGO_320 @"public_app_logo320x320"
 #define IMAGE_PUBLIC_APPLOGO_HOLLOW_320 @"public_app_logo_hollow320x320"
 
+///搜索框的背景图片
+#define IMAGE_PUBLIC_SEARCHBAR_BG @"public_searchbar_backgroud"
+
 #pragma mark - 导航栏图片资源
 /**
  *  @author yangshengmeng, 15-01-17 21:01:26
