@@ -362,7 +362,7 @@
             [self.footer endRefreshing];
             
             ///回调告知ViewController，当前已满足摇一摇的触发条件
-            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue]) % 2 == 0) {
+            if (([self.dataSourceModel.secondHandHouseHeaderData.per_page intValue]) % 8 == 0) {
                 
                 if (self.houseListTapCallBack) {
                     
