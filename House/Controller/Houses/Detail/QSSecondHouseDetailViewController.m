@@ -717,7 +717,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *priceLabel=[[UILabel alloc] init];
     priceLabel.translatesAutoresizingMaskIntoConstraints=NO;
     priceLabel.textAlignment=NSTextAlignmentRight;
-    priceLabel.text = [NSString stringWithFormat:@"%.2f",[houseInfoModel.house_price floatValue]/10000.0f];
+    priceLabel.text = [NSString stringWithFormat:@"%.0f",[houseInfoModel.house_price floatValue]/10000.0f];
     priceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
     priceLabel.textColor = COLOR_CHARACTERS_BLACK;
     [rootView addSubview:priceLabel];
@@ -938,7 +938,8 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     UILabel *decoreteLabel=[[UILabel alloc] initWithFrame:CGRectMake(0.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
     decoreteLabel.textAlignment=NSTextAlignmentLeft;
     decoreteLabel.font=[UIFont systemFontOfSize:14.0f];
-    decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];;
+    
+    decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type]];
     [view addSubview:decoreteLabel];
     
     UILabel *timeLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, layerCountLabel.frame.origin.y+layerCountLabel.frame.size.height+5.0f, SIZE_DEFAULT_MAX_WIDTH/2.0f-40.0f, 20.0f)];
