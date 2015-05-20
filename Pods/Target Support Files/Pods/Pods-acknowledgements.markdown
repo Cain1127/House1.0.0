@@ -57,10 +57,6 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## BaiduPushSDK
-
-LICENSE  ©2013 Baidu, Inc. All rights reserved.
-
 ## IQKeyboardManager
 
 IQKeyboardManager license
@@ -924,6 +920,10 @@ third-party archives.
    See the License for the specific language governing permissions and
    limitations under the License.
 
+
+## SS-BaiduPushSDK
+
+LICENSE  ©2015 Baidu, Inc. All rights reserved
 
 ## TransitionKit
 

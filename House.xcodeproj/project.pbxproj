@@ -7779,6 +7779,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4CBFD97D9288D186B71D455 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7787,7 +7788,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
-					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7814,6 +7815,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7822,6 +7824,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98AAD2983A901C3518338D05 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -7830,7 +7833,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
-					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7857,6 +7860,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

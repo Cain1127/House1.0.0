@@ -86,14 +86,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>LICENSE  &#169;2013 Baidu, Inc. All rights reserved.</string>
-			<key>Title</key>
-			<string>BaiduPushSDK</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>IQKeyboardManager license
 =========================
 
@@ -981,6 +973,14 @@ third-party archives.
 </string>
 			<key>Title</key>
 			<string>RestKit</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>LICENSE  &#169;2015 Baidu, Inc. All rights reserved</string>
+			<key>Title</key>
+			<string>SS-BaiduPushSDK</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

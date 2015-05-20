@@ -1,2 +1,0 @@
-PODS_BAIDUPUSHSDK_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/BaiduPushSDK/**"
-PODS_BAIDUPUSHSDK_OTHER_LDFLAGS = -l"BPush" -l"z" -framework "CFNetwork" -framework "CoreTelephony" -framework "SystemConfiguration"

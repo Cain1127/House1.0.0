@@ -32,7 +32,7 @@
 
 #import "QSMapManager.h"
 
-#import <BaiduPushSDK/BPush.h>
+#import <SS-BaiduPushSDK/BPush.h>
 
 ///分享访问链接
 static NSString *const app_URL = @"http://www.baidu.com/";
@@ -94,6 +94,8 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     
     ///判断是否是通过通知列表进入：弹出提示，同时保存通知
     NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"is_push_in"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     if (remoteNotification) {
         
         ///取得 APNs 标准信息内容
@@ -135,7 +137,16 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     }
     
     ///注册通知
-    [BPush setupChannel:launchOptions]; //!<添加基本配置必须
+#if DEBUG
+    
+    [BPush registerChannel:launchOptions apiKey:@"a4QADUNM2sylBmheZEkT3ouM" pushMode:BPushModeDevelopment isDebug:YES];
+    
+#else
+    
+    [BPush registerChannel:launchOptions apiKey:@"jVUzHmRuyWQ3ik76KxGZDbKZ" pushMode:BPushModeProduction isDebug:NO];
+    
+#endif
+    
     [BPush setDelegate:self];           //!<设置代理必须
     NSString *userID = [QSCoreDataManager getUserID];
     if ([userID intValue] <= 0) {
@@ -669,6 +680,13 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 }
 
 #pragma mark - 百度推送
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    
+    [application registerForRemoteNotifications];
+    
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     
@@ -680,7 +698,7 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
 
-    NSLog(@"通知注册失败：%@",error);
+    APPLICATION_NSSTRING_SETTING(@"推送注册失败：", error);
 
 }
 
@@ -689,18 +707,46 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 - (void) onMethod:(NSString *)method response:(NSDictionary *)data
 {
     
-    if ([BPushRequestMethod_Bind isEqualToString:method]) {
+    /** method 说明
+     *  NSString *const BpushRequestMethod_Bind;    bind ⽅方法。
+     *  NSString *const BpushRequestMethod_Unbind;  unbind ⽅方法。
+     *  NSString *const BpushRequestMethod_SetTag;  setTags ⽅方法。
+     *  NSString *const BpushRequestMethod_DelTag;  delTags ⽅方法。
+     *  NSString *const BpushRequestMethod_ListTag; listTag ⽅方法。
+     */
+    
+    /** data中的数据说明
+     *
+     *  NSString *const BPushRequestErrorCodeKey;   错误码。0成功,其它失败,具体参⻅见BpushErrorCode。
+     *  NSString *const BPushRequestErrorMsgKey;    错误信息。成功时为空。
+     *  NSString *const BPushRequestRequestIdKey;   向百度Push服务发起请求的请求ID,⽤用来追踪定位问题。
+     *  NSString *const BPushRequesAppIdKey;        向百度Push服务发起请求的请求ID,⽤用来追踪定位问题。
+     *  NSString *const BPushRequesAppIdKey;        绑定成功时返回的app id。
+     *  NSString *const BPushRequestUserIdKey;      绑定成功时返回的user id。
+     *  NSString *const BPushRequestChannelIdKey;   绑定成功时,返回的channel id。
+     */
+    
+    /** BPushRequestErrorCodeKey对应信息
+     *
+     *  BPushErrorCode_Success = 0, 
+     *  BPushErrorCode_MethodTooOften = 22,                             // 调⽤用过于频繁
+     *  BPushErrorCode_NetworkInvalible = 10002,                        // ⺴⽹网络连接问题
+     *  BPushErrorCode_InternalError = 30600,                           // 服务器内部错误
+     *  BPushErrorCode_MethodNodAllowed = 30601,                        // 请求⽅方法不允许
+     *  BPushErrorCode_ParamsNotValid = 30602,                          // 请求参数错误
+     *  BPushErrorCode_AuthenFailed = 30603,                            // 权限验证失败
+     *  BPushErrorCode_DataNotFound = 30605,                            // 请求数据不存在
+     *  BPushErrorCode_RequestExpired = 30606,                          // 请求时间戳验证超时
+     *  BPushErrorCode_BindNotExists = 30608,                           // 绑定关系不存在
+     */
+    
+    APPLICATION_LOG_INFO(@"百度推送代理回调日志", data)
+    
+    ///注册百度推送失败的回调
+    if ([method isEqualToString:BPushRequestMethodUnbind]) {
         
-        APPLICATION_LOG_INFO(@"百度推送代理回调日志", data)
-        
-#if 0
-        NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
-        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
-        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
-        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
-        int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
-        NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
-#endif
+        ///重新注册
+        [BPush bindChannel];
         
     }
     

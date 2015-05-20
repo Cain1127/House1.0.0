@@ -52,7 +52,6 @@
 #import "QSSocketManager.h"
 
 #import <objc/runtime.h>
-#import <BaiduPushSDK/BPush.h>
 
 ///关联
 static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
@@ -300,7 +299,9 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     
     ///保存登录之前的用户类型
     __block USER_COUNT_TYPE originalType = [QSCoreDataManager getUserType];
+#ifdef ___BPush_setting___
     __block NSString *oldUserID = [QSCoreDataManager getUserID];
+#endif
     
     ///参数
     NSDictionary *params = @{@"mobile" : count,
@@ -325,6 +326,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             QSYLoginReturnData *tempModel = resultData;
                             QSUserDataModel *userModel = tempModel.userInfo;
                             
+#ifdef ___BPush_setting___
                             ///更新百度推送的tag
                             if ([oldUserID intValue] > 0) {
                                 
@@ -336,6 +338,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             ///添加新的tag
                             NSString *newUserID = [NSString stringWithFormat:@"%@_",userModel.id_];
                             [BPush setTag:APPLICATION_NSSTRING_SETTING(newUserID, @"-1")];
+#endif
                             
                             [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                                 
@@ -454,6 +457,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 
             }
             
+#ifdef ___BPush_setting___
             if ([oldUserID intValue] <= 0) {
                 
                 [BPush setTag:@"-1"];
@@ -465,6 +469,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                 [BPush setTag:@"-1"];
                 
             }
+#endif
             
             ///显示提示信息
             [mbHUD hiddenCustomHUDWithFooterTips:tips andDelayTime:1.5f];
