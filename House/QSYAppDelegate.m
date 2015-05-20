@@ -874,22 +874,4 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     
 }
 
-#pragma mark - 分享系统回调
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-//{
-//    
-//    return  [UMSocialSnsService handleOpenURL:url];
-//    
-//}
-//- (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//  sourceApplication:(NSString *)sourceApplication
-//         annotation:(id)annotation
-//{
-//    
-//    return  [UMSocialSnsService handleOpenURL:url];
-//    
-//}
-
-
 @end

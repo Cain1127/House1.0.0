@@ -7788,7 +7788,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
-					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7813,6 +7813,7 @@
 				INFOPLIST_FILE = "House/House-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -7833,7 +7834,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
-					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.3_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7858,6 +7859,7 @@
 				INFOPLIST_FILE = "House/House-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
 				VALID_ARCHS = "arm64 armv7 armv7s";
