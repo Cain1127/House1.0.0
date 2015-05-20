@@ -49,5 +49,10 @@
 @property (nonatomic, retain) NSString * housePrice;
 @property (nonatomic, retain) NSString * rentPrice;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * s_exp_1;
+@property (nonatomic, retain) NSString * s_exp_2;
+@property (nonatomic, retain) NSString * s_exp_3;
+@property (nonatomic, retain) NSString * s_exp_4;
+@property (nonatomic, retain) NSString * s_exp_5;
 
 @end

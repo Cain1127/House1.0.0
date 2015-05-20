@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>9009</key>
+	<dict>
+		<key>url</key>
+		<string>pushMessage/noteList</string>
+		<key>class</key>
+		<string>pushMessage/noteList</string>
+	</dict>
 	<key>1005</key>
 	<dict>
 		<key>url</key>

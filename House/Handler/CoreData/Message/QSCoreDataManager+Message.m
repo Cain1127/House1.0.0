@@ -961,6 +961,12 @@
     NSString *msgTypeString = [NSString stringWithFormat:@"%d",ocModel.msgType];
     cdModel.msgType = APPLICATION_NSSTRING_SETTING(msgTypeString, @"");
     
+    cdModel.s_exp_1 = APPLICATION_NSSTRING_SETTING(ocModel.exp_1, @"");
+    cdModel.s_exp_2 = APPLICATION_NSSTRING_SETTING(ocModel.exp_2, @"");
+    cdModel.s_exp_3 = APPLICATION_NSSTRING_SETTING(ocModel.exp_3, @"");
+    cdModel.s_exp_4 = APPLICATION_NSSTRING_SETTING(ocModel.exp_4, @"");
+    cdModel.s_exp_5 = APPLICATION_NSSTRING_SETTING(ocModel.exp_5, @"");
+    
 }
 
 + (QSYSendMessageSystem *)message_ChangeMessageSystemCDModel_TO_OCModel:(QSCDChatMessagesDataModel *)cdModel
@@ -979,6 +985,12 @@
     ocModel.unread_count = APPLICATION_NSSTRING_SETTING(cdModel.unread_count, @"");
     
     ocModel.msgType = [cdModel.msgType intValue];
+    
+    ocModel.exp_1 = APPLICATION_NSSTRING_SETTING(cdModel.s_exp_1, @"");
+    ocModel.exp_2 = APPLICATION_NSSTRING_SETTING(cdModel.s_exp_2, @"");
+    ocModel.exp_3 = APPLICATION_NSSTRING_SETTING(cdModel.s_exp_3, @"");
+    ocModel.exp_4 = APPLICATION_NSSTRING_SETTING(cdModel.s_exp_4, @"");
+    ocModel.exp_5 = APPLICATION_NSSTRING_SETTING(cdModel.s_exp_5, @"");
     
     return ocModel;
     

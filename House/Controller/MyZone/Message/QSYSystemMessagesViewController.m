@@ -11,6 +11,7 @@
 #import "QSChatMessageListTableViewCell.h"
 
 #import "QSYSystemMessageReturnData.h"
+#import "QSYSystemMessageListDataModel.h"
 
 #import "MJRefresh.h"
 
@@ -85,7 +86,8 @@
     }
     
     ///刷新系统消息
-    [cellSystem updateSystemMessageTipsCellUI:nil];
+    QSYSystemMessageListDataModel *tempModel = self.returnData.headerData.dataList[indexPath.row];
+    [cellSystem updateSystemMessageTipsCellUI:[tempModel changeToSimpleSystemMessageModel]];
     
     return cellSystem;
 
@@ -94,13 +96,51 @@
 #pragma mark - 请求系统消息数据
 - (void)requestSystemMessageData
 {
+    
+    ///封装参数
+    NSDictionary *prarams = @{@"key" : @"",
+                              @"page_num" : @"15",
+                              @"now_page" : @"1"};
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [QSRequestManager requestDataWithType:rRequestTypeSystemMessageList andParams:prarams andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        [self showNoRecordTips:YES andTips:@"暂无系统消息"];
-        [self.messageListView.header endRefreshing];
+        self.returnData = nil;
         
-    });
+        ///请求成功
+        if (rRequestResultTypeSuccess == resultStatus) {
+            
+            QSYSystemMessageReturnData *tempModel = resultData;
+            
+            if ([tempModel.headerData.dataList count] > 0) {
+                
+                [self showNoRecordTips:NO andTips:@"暂无系统消息"];
+                
+                self.returnData = tempModel;
+                [self.messageListView reloadData];
+                [self.messageListView.header endRefreshing];
+                
+            } else {
+            
+                ///停止刷新
+                [self.messageListView reloadData];
+                
+                [self showNoRecordTips:YES andTips:@"暂无系统消息"];
+                [self.messageListView.header endRefreshing];
+            
+            }
+            
+            
+        } else {
+            
+            ///停止刷新
+            [self.messageListView reloadData];
+            
+            [self showNoRecordTips:YES andTips:@"暂无系统消息"];
+            [self.messageListView.header endRefreshing];
+        
+        }
+        
+    }];
 
 }
 

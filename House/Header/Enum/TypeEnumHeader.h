@@ -730,6 +730,7 @@ typedef enum
     rRequestTypeResetLoginPassword = 9006,              //!<重置密码
     rRequestTypeForgetLoginPassword = 9007,             //!<密码密码并修改
     rRequestTypeResetMobile = 9008,                     //!<修改手机
+    rRequestTypeSystemMessageList = 9009,               //!<系统消息列表
     
     rRequestTypeOrderSubmitBid = 10002,                 //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003,         //!<订单详情里取消预约订单

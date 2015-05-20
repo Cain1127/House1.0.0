@@ -67,6 +67,7 @@
 		1815241E1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815241D1ABFE31900C609B0 /* QSCDCollectedNewHouseRecommendHousesDataModel.m */; };
 		181524211ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524201ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m */; };
 		181524241ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181524231ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m */; };
+		181C1C7A1B0C54ED00E519C6 /* QSYSystemMessageListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C1C791B0C54ED00E519C6 /* QSYSystemMessageListDataModel.m */; };
 		1820946D1B0B2E70005C00B8 /* public_searchbar_backgroud.png in Resources */ = {isa = PBXBuildFile; fileRef = 1820946C1B0B2E70005C00B8 /* public_searchbar_backgroud.png */; };
 		1824C0FC1B09CF2B003E4A2D /* QSYSendMessageRootModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1824C0FB1B09CF2B003E4A2D /* QSYSendMessageRootModel.m */; };
 		182997A51AB6DA2900705DDB /* QSYMySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182997A41AB6DA2900705DDB /* QSYMySettingViewController.m */; };
@@ -1009,6 +1010,8 @@
 		181524201ABFE31900C609B0 /* QSCDCollectedNewHouseActivityDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedNewHouseActivityDataModel.m; path = Collected/NewHouse/QSCDCollectedNewHouseActivityDataModel.m; sourceTree = "<group>"; };
 		181524221ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDCollectedNewHouseDataModel.h; path = Collected/NewHouse/QSCDCollectedNewHouseDataModel.h; sourceTree = "<group>"; };
 		181524231ABFE38E00C609B0 /* QSCDCollectedNewHouseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCDCollectedNewHouseDataModel.m; path = Collected/NewHouse/QSCDCollectedNewHouseDataModel.m; sourceTree = "<group>"; };
+		181C1C781B0C54ED00E519C6 /* QSYSystemMessageListDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSystemMessageListDataModel.h; path = Message/QSYSystemMessageListDataModel.h; sourceTree = "<group>"; };
+		181C1C791B0C54ED00E519C6 /* QSYSystemMessageListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSystemMessageListDataModel.m; path = Message/QSYSystemMessageListDataModel.m; sourceTree = "<group>"; };
 		1820946C1B0B2E70005C00B8 /* public_searchbar_backgroud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = public_searchbar_backgroud.png; sourceTree = "<group>"; };
 		1824C0FA1B09CF2B003E4A2D /* QSYSendMessageRootModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSYSendMessageRootModel.h; sourceTree = "<group>"; };
 		1824C0FB1B09CF2B003E4A2D /* QSYSendMessageRootModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSYSendMessageRootModel.m; sourceTree = "<group>"; };
@@ -5082,6 +5085,8 @@
 			children = (
 				18D081591ACC59FC004FA20F /* QSYPostMessageSimpleModel.h */,
 				18D0815A1ACC59FC004FA20F /* QSYPostMessageSimpleModel.m */,
+				181C1C781B0C54ED00E519C6 /* QSYSystemMessageListDataModel.h */,
+				181C1C791B0C54ED00E519C6 /* QSYSystemMessageListDataModel.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -7407,6 +7412,7 @@
 				18AFAA081AB6B79600681071 /* AsyncSocket.m in Sources */,
 				475A4D971AC5392D009881CF /* QSPOrderDetailChangeOrderButtonView.m in Sources */,
 				CEEB6D771AC0099E00EC215D /* QSCommunityDetailViewCell.m in Sources */,
+				181C1C7A1B0C54ED00E519C6 /* QSYSystemMessageListDataModel.m in Sources */,
 				18BE127D1A8B579A0036245A /* QSMyZoneOwnerView.m in Sources */,
 				180CA3301ADBA24100D42493 /* QSYToolContractViewController.m in Sources */,
 				478645FA1ACE9C7F00B41F0F /* QSPOrderDetailCancelAppointmentButtonView.m in Sources */,
@@ -7810,7 +7816,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -7856,7 +7862,7 @@
 					"$(PROJECT_DIR)/House/Lib/JPush1_8_2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

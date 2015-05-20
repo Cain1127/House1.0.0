@@ -623,6 +623,13 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     
 }
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+
+    NSLog(@"通知注册失败：%@",error);
+
+}
+
 ///必须，如果正确调用了setDelegate，在bindChannel之后，结果在这个回调中返回。
 ///若绑定失败，请进行重新绑定，确保至少绑定成功一次
 - (void) onMethod:(NSString *)method response:(NSDictionary *)data

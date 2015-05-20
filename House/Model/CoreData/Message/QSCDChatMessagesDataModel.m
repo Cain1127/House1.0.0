@@ -48,5 +48,10 @@
 @dynamic housePrice;
 @dynamic rentPrice;
 @dynamic title;
+@dynamic s_exp_1;
+@dynamic s_exp_2;
+@dynamic s_exp_3;
+@dynamic s_exp_4;
+@dynamic s_exp_5;
 
 @end

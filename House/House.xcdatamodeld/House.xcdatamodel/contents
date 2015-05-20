@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="QSCDApplicationInfoDataModel" syncable="YES">
         <attribute name="advert_last_show_time" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="app_token" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,6 +37,11 @@
         <attribute name="playTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="readTag" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="rentPrice" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_exp_1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_exp_2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_exp_3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_exp_4" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="s_exp_5" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sendType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="showHeight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="showWidth" optional="YES" attributeType="String" syncable="YES"/>
@@ -1155,7 +1160,7 @@
     <elements>
         <element name="QSCDApplicationInfoDataModel" positionX="-587" positionY="45" width="128" height="148"/>
         <element name="QSCDBaseConfigurationDataModel" positionX="-137" positionY="153" width="128" height="90"/>
-        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="600"/>
+        <element name="QSCDChatMessagesDataModel" positionX="-0" positionY="45" width="128" height="675"/>
         <element name="QSCDCollectedCommunityDataModel" positionX="-378" positionY="198" width="128" height="1243"/>
         <element name="QSCDCollectedCommunityHouseDataModel" positionX="-360" positionY="216" width="128" height="808"/>
         <element name="QSCDCollectedCommunityPhotoDataModel" positionX="-378" positionY="198" width="128" height="148"/>

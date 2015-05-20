@@ -7,6 +7,7 @@
 //
 
 #import "QSYSystemMessageReturnData.h"
+#import "QSYSystemMessageListDataModel.h"
 
 @implementation QSYSystemMessageReturnData
 
@@ -34,7 +35,7 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-//    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"msg" toKeyPath:@"dataList" withMapping:[ objectMapping]]];
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"records" toKeyPath:@"dataList" withMapping:[QSYSystemMessageListDataModel objectMapping]]];
     
     return shared_mapping;
     
