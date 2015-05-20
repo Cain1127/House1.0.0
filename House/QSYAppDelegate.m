@@ -32,6 +32,8 @@
 
 #import "QSMapManager.h"
 
+#import <BaiduPushSDK/BPush.h>
+
 ///分享访问链接
 static NSString *const app_URL = @"http://www.baidu.com/";
 
@@ -44,7 +46,7 @@ static NSString *const Wechat_Key = @"wxc1d288df9337eb74";
 ///微信分享appSecret
 static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 
-@interface QSYAppDelegate ()
+@interface QSYAppDelegate () <BPushDelegate>
 
 ///非主线程任务处理使用的自定义线程
 @property (nonatomic, strong) dispatch_queue_t appDelegateOperationQueue;
@@ -136,6 +138,16 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
         }];
     
     }
+    
+    ///注册通知
+    [BPush setupChannel:launchOptions]; //!<必须
+    [BPush setDelegate:self];           //!<必须。参数对象必须实现onMethod: response:方法，本示例中为self
+    
+    ///注册通知接收类型
+    [application registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeAlert
+     | UIRemoteNotificationTypeBadge
+     | UIRemoteNotificationTypeSound];
     
     ///注册被踢下线时的监听
     [QSSocketManager registSocketServerOffLineNotification:^(LOGIN_CHECK_ACTION_TYPE loginStatus, NSString *info) {
@@ -589,6 +601,44 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 
 }
 
+#pragma mark - 百度推送
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    
+    [BPush registerDeviceToken:deviceToken];
+    [BPush bindChannel];
+    
+}
+
+///必须，如果正确调用了setDelegate，在bindChannel之后，结果在这个回调中返回。
+///若绑定失败，请进行重新绑定，确保至少绑定成功一次
+- (void) onMethod:(NSString *)method response:(NSDictionary *)data
+{
+    
+    if ([BPushRequestMethod_Bind isEqualToString:method]) {
+        
+        APPLICATION_LOG_INFO(@"百度推送代理回调日志", data)
+        
+#if 0
+        NSDictionary* res = [[NSDictionary alloc] initWithDictionary:data];
+        NSString *appid = [res valueForKey:BPushRequestAppIdKey];
+        NSString *userid = [res valueForKey:BPushRequestUserIdKey];
+        NSString *channelid = [res valueForKey:BPushRequestChannelIdKey];
+        int returnCode = [[res valueForKey:BPushRequestErrorCodeKey] intValue];
+        NSString *requestid = [res valueForKey:BPushRequestRequestIdKey];
+#endif
+        
+    }
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    [BPush handleNotification:userInfo];
+    
+}
 
 #pragma mark - CoreData相关操作
 

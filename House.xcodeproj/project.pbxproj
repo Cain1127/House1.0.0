@@ -159,6 +159,7 @@
 		18AFAA091AB6B79600681071 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFAA051AB6B79600681071 /* AsyncUdpSocket.m */; };
 		18B0E2431ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E2421ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m */; };
 		18B0E24A1ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0E2491ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m */; };
+		18B2EB151B0C18E7000EFAD6 /* BPushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18B2EB141B0C18E7000EFAD6 /* BPushConfig.plist */; };
 		18B562DE1A7F32EA009779A0 /* QSCityInfoReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */; };
 		18B562E91A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562E81A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.m */; };
 		18B563151A81AA40009779A0 /* QSAlertMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B562EC1A81AA40009779A0 /* QSAlertMessageViewController.m */; };
@@ -673,8 +674,6 @@
 		18F99AEA1A735CA500098FD6 /* UITextField+CustomField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AE91A735CA500098FD6 /* UITextField+CustomField.m */; };
 		18F99AF11A75D95200098FD6 /* QSBaseConfigurationDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */; };
 		18F99AF41A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */; };
-		18FABCFF1A775E55007AC345 /* libPushSDK-1.8.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */; };
-		18FABD001A775E55007AC345 /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FABCFE1A775E55007AC345 /* PushConfig.plist */; };
 		18FABD071A776D07007AC345 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD061A776D07007AC345 /* CFNetwork.framework */; };
 		18FABD091A776D20007AC345 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD081A776D20007AC345 /* CoreFoundation.framework */; };
 		18FABD0B1A776D2D007AC345 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */; };
@@ -1169,6 +1168,7 @@
 		18B0E2421ACA9E5800C8EE9E /* QSYAskRentAndBuyReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskRentAndBuyReturnData.m; path = Release/Ask/QSYAskRentAndBuyReturnData.m; sourceTree = "<group>"; };
 		18B0E2481ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYAskRentAndBuyDataModel.h; path = Release/Network/Ask/QSYAskRentAndBuyDataModel.h; sourceTree = "<group>"; };
 		18B0E2491ACAA01100C8EE9E /* QSYAskRentAndBuyDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYAskRentAndBuyDataModel.m; path = Release/Network/Ask/QSYAskRentAndBuyDataModel.m; sourceTree = "<group>"; };
+		18B2EB141B0C18E7000EFAD6 /* BPushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BPushConfig.plist; sourceTree = "<group>"; };
 		18B562DC1A7F32EA009779A0 /* QSCityInfoReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCityInfoReturnData.h; sourceTree = "<group>"; };
 		18B562DD1A7F32EA009779A0 /* QSCityInfoReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCityInfoReturnData.m; sourceTree = "<group>"; };
 		18B562E71A80CB7E009779A0 /* QSCDBaseConfigurationDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCDBaseConfigurationDataModel.h; path = Configuration/QSCDBaseConfigurationDataModel.h; sourceTree = "<group>"; };
@@ -1954,9 +1954,6 @@
 		18F99AF01A75D95200098FD6 /* QSBaseConfigurationDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationDataModel.m; sourceTree = "<group>"; };
 		18F99AF21A75DA0D00098FD6 /* QSBaseConfigurationReturnData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBaseConfigurationReturnData.h; sourceTree = "<group>"; };
 		18F99AF31A75DA0D00098FD6 /* QSBaseConfigurationReturnData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBaseConfigurationReturnData.m; sourceTree = "<group>"; };
-		18FABCFC1A775E55007AC345 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPushSDK-1.8.2.a"; sourceTree = "<group>"; };
-		18FABCFE1A775E55007AC345 /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
 		18FABD061A776D07007AC345 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		18FABD081A776D20007AC345 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		18FABD0A1A776D2D007AC345 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -2350,7 +2347,6 @@
 				183CC6631A68FC8800B8F97D /* UIKit.framework in Frameworks */,
 				183CC65F1A68FC8800B8F97D /* Foundation.framework in Frameworks */,
 				2E6FE37EDFAB0AE51AF4857D /* libPods.a in Frameworks */,
-				18FABCFF1A775E55007AC345 /* libPushSDK-1.8.2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3318,9 +3314,9 @@
 		189300931A6902E30081D0AA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				18B2EB131B0C18E7000EFAD6 /* BPush */,
 				47A2075E1AB7E46000F51797 /* FSCalendar */,
 				18AFA9FB1AB6B79600681071 /* AsyncSocket */,
-				18FABCFB1A775E55007AC345 /* JPush1_8_2 */,
 			);
 			name = Lib;
 			path = House/Lib;
@@ -3685,6 +3681,14 @@
 				18D082001ACE9D90004FA20F /* QSYAskListOrderInfosModel.m */,
 			);
 			name = Ask;
+			sourceTree = "<group>";
+		};
+		18B2EB131B0C18E7000EFAD6 /* BPush */ = {
+			isa = PBXGroup;
+			children = (
+				18B2EB141B0C18E7000EFAD6 /* BPushConfig.plist */,
+			);
+			path = BPush;
 			sourceTree = "<group>";
 		};
 		18B562EA1A81AA40009779A0 /* Alert */ = {
@@ -6000,16 +6004,6 @@
 			name = TextField;
 			sourceTree = "<group>";
 		};
-		18FABCFB1A775E55007AC345 /* JPush1_8_2 */ = {
-			isa = PBXGroup;
-			children = (
-				18FABCFC1A775E55007AC345 /* APService.h */,
-				18FABCFD1A775E55007AC345 /* libPushSDK-1.8.2.a */,
-				18FABCFE1A775E55007AC345 /* PushConfig.plist */,
-			);
-			path = JPush1_8_2;
-			sourceTree = "<group>";
-		};
 		475A4CF71AC3E65A009881CF /* Orders */ = {
 			isa = PBXGroup;
 			children = (
@@ -6874,6 +6868,7 @@
 				18F99AD21A732AFF00098FD6 /* FilterFindHouseRenantHouse.plist in Resources */,
 				18B564311A8366A4009779A0 /* icon114.png in Resources */,
 				18B973781AF4FB1700652890 /* myzone_oorderdetail_accept_bt_normal.png in Resources */,
+				18B2EB151B0C18E7000EFAD6 /* BPushConfig.plist in Resources */,
 				18B973671AF4FB1700652890 /* myzone_calendar_day_selected_bt.png in Resources */,
 				18B9737A1AF4FB1700652890 /* myzone_oorderdetail_computer_bt_normal.png in Resources */,
 				18B564471A8366A4009779A0 /* navigationbar_confirm_highlighted.png in Resources */,
@@ -7022,7 +7017,6 @@
 				18B5645C1A8366A4009779A0 /* public_appointment_success.png in Resources */,
 				18B972E21AF2064C00652890 /* talk_my_sound_message_normal.png in Resources */,
 				18B564281A8366A4009779A0 /* houses_features_hezu.png in Resources */,
-				18FABD001A775E55007AC345 /* PushConfig.plist in Resources */,
 				18B972DB1AF2064C00652890 /* talk_contact_indicate_arrow_normal.png in Resources */,
 				18B5642A1A8366A4009779A0 /* houses_features_zhengzu.png in Resources */,
 				CEACB05E1AD62E510010D455 /* house_detail_second_gelou.png in Resources */,
