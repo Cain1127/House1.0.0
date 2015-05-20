@@ -44,7 +44,7 @@
         self.backgroundColor = bgColor ? bgColor : [UIColor lightGrayColor];
         
         ///验证码个数
-        self.vercodeNumber = verNum >= 6 ? verNum : 6;
+        self.vercodeNumber = verNum >= 2 ? verNum : 4;
         
         ///文本颜色
         self.textColor = textColor ? textColor : nil;
