@@ -78,6 +78,20 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     ///非主线程任务操作线程初始化
     self.appDelegateOperationQueue = dispatch_queue_create(QUEUE_APPDELEGATE_QUEUE, DISPATCH_QUEUE_CONCURRENT);
     
+    ///更新本地通知状态
+    NSString *is_recieve_push = [[NSUserDefaults standardUserDefaults] valueForKey:@"is_recieve_push"];
+    if ([is_recieve_push intValue] == 9000) {
+        
+        ///不接收通知
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    } else {
+    
+        [[NSUserDefaults standardUserDefaults] setObject:@"1000" forKey:@"is_recieve_push"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    }
+    
     ///判断是否是通过通知列表进入：弹出提示，同时保存通知
     NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification) {
@@ -697,6 +711,24 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     
     [BPush handleNotification:userInfo];
     
+}
+
+///应用进入后台时，启动本地通知
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+
+    [[NSUserDefaults standardUserDefaults] setObject:@"2000" forKey:@"is_recieve_push"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+///应用进入前台时，关闭本地通知
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+
+    [[NSUserDefaults standardUserDefaults] setObject:@"1000" forKey:@"is_recieve_push"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 #pragma mark - CoreData相关操作
