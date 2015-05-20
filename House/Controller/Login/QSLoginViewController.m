@@ -135,7 +135,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     [rootView addSubview:vertificationCodeField];
     
     ///验证码生成view
-    QSVerticalCodeView *verInfoView = [[QSVerticalCodeView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f) andVercodeNum:6 andBackgroudColor:COLOR_HEXCOLOR(0xEBEBEB) andTextColor:COLOR_HEXCOLOR(0xFB7503) andTextFont:16.0f andVerCodeChangeCallBack:^(NSString *verCode) {
+    QSVerticalCodeView *verInfoView = [[QSVerticalCodeView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 30.0f) andVercodeNum:4 andBackgroudColor:COLOR_HEXCOLOR(0xEBEBEB) andTextColor:COLOR_HEXCOLOR(0xFB7503) andTextFont:16.0f andVerCodeChangeCallBack:^(NSString *verCode) {
         
         ///保存验证码
         if ([verCode length] > 0) {
