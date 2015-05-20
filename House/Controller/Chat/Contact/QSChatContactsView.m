@@ -489,6 +489,14 @@
     for (int i = 0; i < [originalArray count]; i++) {
         
         QSYContactInfoSimpleModel *contactModel = originalArray[i];
+        
+        ///判断是否有脏数据
+        if ([contactModel.linkman_id isEqualToString:contactModel.user_id]) {
+            
+            continue;
+            
+        }
+        
         if ([contactModel.is_import intValue] == 1) {
             
             [importArray addObject:contactModel];
