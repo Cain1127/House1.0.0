@@ -52,6 +52,9 @@
 #import "QSSocketManager.h"
 
 #import <objc/runtime.h>
+#import <SS-BaiduPushSDK/BPush.h>
+
+#define ___BPush_setting___
 
 ///关联
 static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view

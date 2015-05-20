@@ -19,6 +19,7 @@
 #import "QSCoreDataManager+App.h"
 
 #import "QSRequestManager.h"
+#import <SS-BaiduPushSDK/BPush.h>
 
 ///应用配置信息的CoreData模型
 #define COREDATA_ENTITYNAME_USER_INFO @"QSCDUserDataModel"
@@ -139,7 +140,7 @@
                         
                     }
                     
-#if 0
+#if 1
                     ///更新百度推送的tag
                     NSString *oldUserID = [QSCoreDataManager getUserID];
                     if ([oldUserID intValue] > 0) {
