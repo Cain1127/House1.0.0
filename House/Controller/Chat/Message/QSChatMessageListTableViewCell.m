@@ -325,7 +325,7 @@ static char CommentInfoKey;     //!<简述信息key
 {
 
     ///更新消息数量
-    [self updateInfoCountTips:@"1"];
+    [self updateInfoCountTips:model.unread_count];
     
     ///更新日期
     [self updateLastTime:model.timeStamp];
