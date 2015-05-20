@@ -140,14 +140,33 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     }
     
     ///注册通知
-    [BPush setupChannel:launchOptions]; //!<必须
-    [BPush setDelegate:self];           //!<必须。参数对象必须实现onMethod: response:方法，本示例中为self
+    [BPush setupChannel:launchOptions]; //!<添加基本配置必须
+    [BPush setDelegate:self];           //!<设置代理必须
     
     ///注册通知接收类型
-    [application registerForRemoteNotificationTypes:
-     UIRemoteNotificationTypeAlert
-     | UIRemoteNotificationTypeBadge
-     | UIRemoteNotificationTypeSound];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        
+        [application registerUserNotificationSettings:
+         [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
+                                                       UIUserNotificationTypeAlert |
+                                                       UIUserNotificationTypeBadge)
+                                           categories:nil]];
+        [application registerForRemoteNotifications];
+        
+    } else {
+        
+        [application registerForRemoteNotificationTypes:
+         UIRemoteNotificationTypeAlert
+         | UIRemoteNotificationTypeBadge
+         | UIRemoteNotificationTypeSound];
+        
+    }
+    
+    ///设置友盟key
+    [UMSocialData setAppKey:shareSDK_Key];
+    
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+    [UMSocialWechatHandler setWXAppId:Wechat_Key appSecret:appSecret_Key url:app_URL];
     
     ///注册被踢下线时的监听
     [QSSocketManager registSocketServerOffLineNotification:^(LOGIN_CHECK_ACTION_TYPE loginStatus, NSString *info) {
@@ -217,12 +236,6 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
         [self downloadApplicationBasInfo];
         
     });
-    
-    ///设置友盟key
-    [UMSocialData setAppKey:shareSDK_Key];
-    
-    //设置微信AppId，设置分享url，默认使用友盟的网址
-    [UMSocialWechatHandler setWXAppId:Wechat_Key appSecret:appSecret_Key url:app_URL];
     
     ///获取当前用户经纬度
     [QSMapManager getUserLocation:^(BOOL isLocationSuccess, double longitude, double latitude) {
@@ -602,8 +615,7 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
 }
 
 #pragma mark - 百度推送
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     
     [BPush registerDeviceToken:deviceToken];
