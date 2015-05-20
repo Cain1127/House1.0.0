@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4C1F316825F856334EFA8764"
-               BuildableName = "libPods-TransitionKit.a"
-               BlueprintName = "Pods-TransitionKit"
+               BlueprintIdentifier = "D3BE81B766417035004A1495"
+               BuildableName = "DOPDropDownMenu.bundle"
+               BlueprintName = "Pods-DOPDropDownMenu-DOPDropDownMenu"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

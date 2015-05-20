@@ -74,6 +74,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/SocialSDKXib/UMSShareListController.xib"
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/en.lproj"
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/zh-Hans.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/DOPDropDownMenu.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMap2DMap/MAMapKit.framework/Versions/2.4.2.19ad4bb/Resources/AMap.bundle"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/SocialSDKXib/UMSShareListController.xib"
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/en.lproj"
   install_resource "UMengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_4.2.2/zh-Hans.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/DOPDropDownMenu.bundle"
 fi
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

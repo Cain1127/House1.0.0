@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_ASDepthModal 0
 #define COCOAPODS_VERSION_PATCH_ASDepthModal 0
 
+// DOPDropDownMenu
+#define COCOAPODS_POD_AVAILABLE_DOPDropDownMenu
+#define COCOAPODS_VERSION_MAJOR_DOPDropDownMenu 0
+#define COCOAPODS_VERSION_MINOR_DOPDropDownMenu 1
+#define COCOAPODS_VERSION_PATCH_DOPDropDownMenu 0
+
 // IQKeyboardManager
 #define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
 #define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3
