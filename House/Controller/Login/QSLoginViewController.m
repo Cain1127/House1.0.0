@@ -52,14 +52,15 @@
 #import "QSSocketManager.h"
 
 #import <objc/runtime.h>
+#import <BaiduPushSDK/BPush.h>
 
 ///关联
 static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
 
 @interface QSLoginViewController ()<UITextFieldDelegate>
 
-@property (nonatomic,copy) void(^loginCallBack)(LOGIN_CHECK_ACTION_TYPE flag); //!<登录后的回调
-@property (nonatomic,copy) NSString *verCode;               //!<生成的本地验证码
+@property (nonatomic,copy) void(^loginCallBack)(LOGIN_CHECK_ACTION_TYPE flag);  //!<登录后的回调
+@property (nonatomic,copy) NSString *verCode;                                   //!<生成的本地验证码
 
 @end
 
@@ -299,6 +300,7 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
     
     ///保存登录之前的用户类型
     __block USER_COUNT_TYPE originalType = [QSCoreDataManager getUserType];
+    __block NSString *oldUserID = [QSCoreDataManager getUserID];
     
     ///参数
     NSDictionary *params = @{@"mobile" : count,
@@ -322,6 +324,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
                             
                             QSYLoginReturnData *tempModel = resultData;
                             QSUserDataModel *userModel = tempModel.userInfo;
+                            
+                            ///更新百度推送的tag
+                            if ([oldUserID intValue] > 0) {
+                                
+                                NSString *oldUseUserID = [NSString stringWithFormat:@"%@_",oldUserID];
+                                [BPush delTag:APPLICATION_NSSTRING_SETTING(oldUseUserID, @"-1")];
+                                
+                            }
+                            
+                            ///添加新的tag
+                            NSString *newUserID = [NSString stringWithFormat:@"%@_",userModel.id_];
+                            [BPush setTag:APPLICATION_NSSTRING_SETTING(newUserID, @"-1")];
                             
                             [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
                                 
@@ -437,6 +451,18 @@ static char InputLoginInfoRootViewKey;//!<所有登录信息输入框的底view
             if (resultData) {
                 
                 tips = [resultData valueForKey:@"info"];
+                
+            }
+            
+            if ([oldUserID intValue] <= 0) {
+                
+                [BPush setTag:@"-1"];
+                
+            } else {
+                
+                NSString *useUserID = [NSString stringWithFormat:@"%@_",oldUserID];
+                [BPush delTag:APPLICATION_NSSTRING_SETTING(useUserID, @"-1")];
+                [BPush setTag:@"-1"];
                 
             }
             

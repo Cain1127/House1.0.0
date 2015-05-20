@@ -19,6 +19,7 @@
 #import "UIImageView+CacheImage.h"
 
 #import "QSSocketManager.h"
+#import <BaiduPushSDK/BPush.h>
 
 ///不过的自定义按钮tag
 typedef enum
@@ -306,6 +307,16 @@ typedef enum
                     
                     ///通知关注小区改变
                     [QSCoreDataManager performCoredataChangeCallBack:cCoredataDataTypeCommunityIntention andChangeType:dDataChangeTypeReduce andParamsID:nil andParams:nil];
+                    
+                    ///更新百度推送的tag
+                    NSString *oldUserID = [QSCoreDataManager getUserID];
+                    if ([oldUserID intValue] > 0) {
+                        
+                        NSString *oldUseUserID = [NSString stringWithFormat:@"%@_",oldUserID];
+                        [BPush delTag:APPLICATION_NSSTRING_SETTING(oldUseUserID, @"-1")];
+                        [BPush setTag:@"-1"];
+                        
+                    }
                     
                 }
                 

@@ -120,6 +120,16 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     
     }
     
+    ///注册通知
+    [BPush setupChannel:launchOptions]; //!<添加基本配置必须
+    [BPush setDelegate:self];           //!<设置代理必须
+    NSString *userID = [QSCoreDataManager getUserID];
+    if ([userID intValue] <= 0) {
+        
+        [BPush setTag:@"-1"];
+        
+    }
+    
     ///开始自登录
     NSString *localCount = [QSCoreDataManager getLoginCount];
     NSString *psw = [QSCoreDataManager getLoginPassword];
@@ -131,6 +141,15 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
         
         ///进入应用即连接socket
         [QSSocketManager sendOnLineMessage];
+        
+        ///百度推送tag值
+        if ([userID intValue] > 0) {
+            
+            NSString *useUserID = [NSString stringWithFormat:@"%@_",userID];
+            [BPush delTag:APPLICATION_NSSTRING_SETTING(useUserID, @"-1")];
+            [BPush setTag:@"-1"];
+            
+        }
     
         ///将登录状态信息改为非登录
         [QSCoreDataManager updateLoginStatus:NO andCallBack:^(BOOL flag) {
@@ -138,10 +157,6 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
         }];
     
     }
-    
-    ///注册通知
-    [BPush setupChannel:launchOptions]; //!<添加基本配置必须
-    [BPush setDelegate:self];           //!<设置代理必须
     
     ///注册通知接收类型
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -265,6 +280,8 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     NSDictionary *params = @{@"mobile" : count,
                              @"password" : password};
     
+    __block NSString *oldUserID = [QSCoreDataManager getUserID];
+    
     ///登录
     [QSRequestManager requestDataWithType:rRequestTypeLogin andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
@@ -285,6 +302,16 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
                             
                             ///重新发送上线
                             [QSSocketManager sendOnLineMessage];
+                            
+                            ///重置推送tag
+                            if ([oldUserID intValue] > 0) {
+                                
+                                NSString *oldUseUserID = [NSString stringWithFormat:@"%@_",oldUserID];
+                                [BPush delTag:APPLICATION_NSSTRING_SETTING(oldUseUserID, @"-1")];
+                                
+                            }
+                            NSString *userID = [NSString stringWithFormat:@"%@_",userModel.id_];
+                            [BPush setTag:APPLICATION_NSSTRING_SETTING(userID, @"-1")];
                             
                             ///显示提示信息
                              APPLICATION_LOG_INFO(@"登录", @"成功")
@@ -311,6 +338,19 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
                 
                 tips = [resultData valueForKey:@"info"];
                 
+            }
+            
+            ///设置推送tag
+            if ([oldUserID intValue] <= 0) {
+                
+                [BPush setTag:@"-1"];
+                
+            } else {
+            
+                NSString *useUserID = [NSString stringWithFormat:@"%@_",oldUserID];
+                [BPush delTag:APPLICATION_NSSTRING_SETTING(useUserID, @"-1")];
+                [BPush setTag:@"-1"];
+            
             }
             
             ///打印提示信息
