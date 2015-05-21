@@ -79,14 +79,15 @@ static char PhoneInfoKey;   //!<联系信息
     objc_setAssociatedObject(self, &VIPFlagKey, vipImage, OBJC_ASSOCIATION_ASSIGN);
     
     ///是否诚信用户
-    UILabel *creditTag = [[UILabel alloc] initWithFrame:CGRectMake(vipImage.frame.origin.x + vipImage.frame.size.width + 30.0f, vipImage.frame.origin.y + 5.0f, 60.0f, 15.0f)];
-    creditTag.text = @"诚信房客";
+    UILabel *creditTag = [[UILabel alloc] initWithFrame:CGRectMake(vipImage.frame.origin.x + 10.0f, vipImage.frame.origin.y + 5.0f, 60.0f, 15.0f)];
+    creditTag.text = @"普通用户";
     creditTag.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     creditTag.textColor = [UIColor whiteColor];
     creditTag.font = [UIFont systemFontOfSize:FONT_BODY_12];
     creditTag.layer.cornerRadius = 4.0f;
     creditTag.layer.masksToBounds = YES;
     creditTag.textAlignment = NSTextAlignmentCenter;
+    creditTag.hidden = YES;
     [self addSubview:creditTag];
     objc_setAssociatedObject(self, &CreditTagKey, creditTag, OBJC_ASSOCIATION_ASSIGN);
     
@@ -148,6 +149,9 @@ static char PhoneInfoKey;   //!<联系信息
     ///更新vip标识
     [self updateUserVIPTag:userModel.level];
     
+    ///更新诚信用户
+    [self updateUserLevel:userModel.level];
+    
     ///更新用户联系方式
     [self updatePhoneInfo:userModel.mobile andStatus:userModel.is_order];
     
@@ -156,6 +160,38 @@ static char PhoneInfoKey;   //!<联系信息
 
     ///更新头像
     [self updateUserIcon:userModel.avatar];
+
+}
+
+- (void)updateUserLevel:(NSString *)level
+{
+
+    UILabel *textLabel = objc_getAssociatedObject(self, &CreditTagKey);
+    if ([level intValue] == 1) {
+        
+        textLabel.text = @"普通用户";
+        textLabel.hidden = NO;
+        
+    } else if ([level intValue] == 2) {
+    
+        textLabel.text = @"诚信用户";
+        textLabel.hidden = NO;
+    
+    } else if ([level intValue] == -1) {
+        
+        textLabel.text = @"低诚信";
+        textLabel.hidden = NO;
+    
+    } else if ([level intValue] == -2) {
+    
+        textLabel.text = @"中介";
+        textLabel.hidden = NO;
+    
+    } else {
+    
+        textLabel.hidden = YES;
+    
+    }
 
 }
 
@@ -214,10 +250,14 @@ static char PhoneInfoKey;   //!<联系信息
 {
 
     UILabel *vipLabel = objc_getAssociatedObject(self, &VIPFlagKey);
-    if (vipLabel && [flag length] > 0) {
+    if ([flag intValue] == 3) {
         
+        vipLabel.hidden = NO;
         
-        
+    } else {
+    
+        vipLabel.hidden = YES;
+    
     }
 
 }

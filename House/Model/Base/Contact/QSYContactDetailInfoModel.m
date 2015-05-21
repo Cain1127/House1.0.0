@@ -31,7 +31,8 @@
                                                     @"is_import",
                                                     @"remark",
                                                     @"more_remark",
-                                                    @"is_order"]];
+                                                    @"is_order",
+                                                    @"level"]];
         
     return shared_mapping;
     

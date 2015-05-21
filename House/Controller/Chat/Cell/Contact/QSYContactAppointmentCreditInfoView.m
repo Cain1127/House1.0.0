@@ -182,9 +182,25 @@ static char CoolCountKey;       //!<回复率
 - (void)updateContactInfoUI:(QSYContactDetailInfoModel *)userModel
 {
 
+    ///更新爽约率
     [self updateCoolRate:userModel.break_rate];
-    [self updateAppointCount:userModel.reply_rate];
-    [self updateReplyRate:userModel.reservation_num];
+    
+    ///更新回复率
+    [self updateReplyRate:userModel.reply_rate];
+    
+    ///更新确认时间或者预约次数
+    if (uUserCountTypeTenant == self.userType) {
+        
+        [self updateAppointCount:userModel.reservation_num];
+        
+    }
+    
+    if (uUserCountTypeOwner == self.userType ||
+        uUserCountTypeAgency == self.userType) {
+        
+        [self updateAppointCount:userModel.reservation_num];
+        
+    }
 
 }
 
