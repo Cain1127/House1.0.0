@@ -49,6 +49,18 @@
 			<key>title</key>
 			<string>办理个人所得税退税条件如何？哪个机关具体办理?</string>
 		</dict>
+		<dict>
+			<key>file_name</key>
+			<string>IntructionAverageCapitalPlusinterestHTML</string>
+			<key>title</key>
+			<string>等额本息还贷法</string>
+		</dict>
+		<dict>
+			<key>file_name</key>
+			<string>IntructionAverageCapitalHTML</string>
+			<key>title</key>
+			<string>等额本金还贷法</string>
+		</dict>
 	</array>
 	<key>sale_contract_list</key>
 	<array>

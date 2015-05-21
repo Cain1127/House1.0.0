@@ -140,6 +140,8 @@
 		18A88EBA1A8CA94100596E11 /* QSUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EB91A8CA94100596E11 /* QSUserDataModel.m */; };
 		18A88EBD1A8CA96B00596E11 /* QSUserSimpleDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EBC1A8CA96B00596E11 /* QSUserSimpleDataModel.m */; };
 		18A88EC01A8CBC5400596E11 /* QSCommunityCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A88EBF1A8CBC5400596E11 /* QSCommunityCollectionViewCell.m */; };
+		18A9A6EA1B0DC54500B0A776 /* IntructionAverageCapitalHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18A9A6E81B0DC54500B0A776 /* IntructionAverageCapitalHTML.html */; };
+		18A9A6EB1B0DC54500B0A776 /* IntructionAverageCapitalPlusinterestHTML.html in Resources */ = {isa = PBXBuildFile; fileRef = 18A9A6E91B0DC54500B0A776 /* IntructionAverageCapitalPlusinterestHTML.html */; };
 		18AFA9B91AB2BED200681071 /* QSYPopCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9B81AB2BED200681071 /* QSYPopCustomView.m */; };
 		18AFA9BE1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9BD1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.m */; };
 		18AFA9C21AB2C9B900681071 /* QSVerticalCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AFA9C11AB2C9B900681071 /* QSVerticalCodeView.m */; };
@@ -1131,6 +1133,8 @@
 		18A88EBC1A8CA96B00596E11 /* QSUserSimpleDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSUserSimpleDataModel.m; path = User/QSUserSimpleDataModel.m; sourceTree = "<group>"; };
 		18A88EBE1A8CBC5400596E11 /* QSCommunityCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSCommunityCollectionViewCell.h; path = Cell/QSCommunityCollectionViewCell.h; sourceTree = "<group>"; };
 		18A88EBF1A8CBC5400596E11 /* QSCommunityCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCommunityCollectionViewCell.m; path = Cell/QSCommunityCollectionViewCell.m; sourceTree = "<group>"; };
+		18A9A6E81B0DC54500B0A776 /* IntructionAverageCapitalHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionAverageCapitalHTML.html; path = Instruction/IntructionAverageCapitalHTML.html; sourceTree = "<group>"; };
+		18A9A6E91B0DC54500B0A776 /* IntructionAverageCapitalPlusinterestHTML.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = IntructionAverageCapitalPlusinterestHTML.html; path = Instruction/IntructionAverageCapitalPlusinterestHTML.html; sourceTree = "<group>"; };
 		18AFA9B71AB2BED200681071 /* QSYPopCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYPopCustomView.h; path = Pop/QSYPopCustomView.h; sourceTree = "<group>"; };
 		18AFA9B81AB2BED200681071 /* QSYPopCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYPopCustomView.m; path = Pop/QSYPopCustomView.m; sourceTree = "<group>"; };
 		18AFA9BC1AB2C25700681071 /* QSYSaleOrRentHouseTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSaleOrRentHouseTipsView.h; path = Pop/Sale/QSYSaleOrRentHouseTipsView.h; sourceTree = "<group>"; };
@@ -2523,6 +2527,8 @@
 		18124DF91AFAFF770052E65B /* Instruction */ = {
 			isa = PBXGroup;
 			children = (
+				18A9A6E81B0DC54500B0A776 /* IntructionAverageCapitalHTML.html */,
+				18A9A6E91B0DC54500B0A776 /* IntructionAverageCapitalPlusinterestHTML.html */,
 				18124DFC1AFB08220052E65B /* IntructionEntrustFormalitiesHTML.html */,
 				18124DFD1AFB08220052E65B /* IntructionIncrementTaxLandQAAHTML.html */,
 				18124DFE1AFB08220052E65B /* IntructionLawyerWitnessHTML.html */,
@@ -6746,6 +6752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A9A6EB1B0DC54500B0A776 /* IntructionAverageCapitalPlusinterestHTML.html in Resources */,
 				18124DF81AFA7C1F0052E65B /* ContractBuySecondHandHouseSaleDownSupplementalAgreementHTML.html in Resources */,
 				CEACB03B1AD618130010D455 /* houses_detail_rent_xizao_light.png in Resources */,
 				CE52100E1ACD0F1800D6230B /* houses_detail_market_normal.png in Resources */,
@@ -6925,6 +6932,7 @@
 				18124DF41AFA7B6F0052E65B /* ContractBuySecondHandHouseSaletHTML.html in Resources */,
 				18B564041A8366A4009779A0 /* home_bambooplate_normal.png in Resources */,
 				18B564211A8366A4009779A0 /* houses_detail_starlevel_yellow.png in Resources */,
+				18A9A6EA1B0DC54500B0A776 /* IntructionAverageCapitalHTML.html in Resources */,
 				18DFE8B61AC7D09900C216C3 /* public_no_intention_community.png in Resources */,
 				18124DF61AFA7BC60052E65B /* ContractBuySecondHandHouseSaleSupplementalAgreementHTML.html in Resources */,
 				CEACB0331AD618130010D455 /* houses_detail_rent_net_light.png in Resources */,

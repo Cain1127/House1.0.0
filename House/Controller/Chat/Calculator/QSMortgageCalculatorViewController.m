@@ -8,6 +8,7 @@
 
 #import "QSMortgageCalculatorViewController.h"
 #import "QSYToolQAADetailViewController.h"
+#import "QSYLocalHTMLShowViewController.h"
 
 #import "QSCustomSingleSelectedPopView.h"
 
@@ -103,32 +104,26 @@ static char GrounpViewKey;              //!<组合贷款关联KEY
     UIButton *detailButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
         ///进入说明页
-        switch (self.loadType) {
-                ///住房公积金说明
-            case mMortgageAccumulationType:
+        switch (self.calculateType) {
+                ///等额本息还贷法
+            case lLoadRatefeeACPIBusinessLoan:
+            case lLoadRatefeeACPIMixLoan:
+            case lLoadRatefeeACPIAccumulationFundLoan:
             {
                 
-                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanAccumulation];
+                QSYLocalHTMLShowViewController *detailVC = [[QSYLocalHTMLShowViewController alloc] initWithTitle:@"说明" andLocalHTMLFileName:@"IntructionAverageCapitalPlusinterestHTML"];
                 [self.navigationController pushViewController:detailVC animated:YES];
                 
             }
                 break;
                 
-                ///商业贷款说明
-            case mMortgageBusinessType:
+                ///等额本金还贷法
+            case lLoadRatefeeACAccumulationFundLoan:
+            case lLoadRatefeeACBusinessLoan:
+            case lLoadRatefeeACMixLoan:
             {
                 
-                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanBusiness];
-                [self.navigationController pushViewController:detailVC animated:YES];
-                
-            }
-                break;
-                
-                ///混合贷款说明
-            case mMortgageGrounpType:
-            {
-                
-                QSYToolQAADetailViewController *detailVC = [[QSYToolQAADetailViewController alloc] initWithDetailType:qQAADetailTypeLoanMix];
+                QSYLocalHTMLShowViewController *detailVC = [[QSYLocalHTMLShowViewController alloc] initWithTitle:@"说明" andLocalHTMLFileName:@"IntructionAverageCapitalHTML"];
                 [self.navigationController pushViewController:detailVC animated:YES];
                 
             }
