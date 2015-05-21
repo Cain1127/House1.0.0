@@ -25,6 +25,9 @@ typedef void(^APPOINT_MESSAGE_LASTCOUNT_NOTIFICATION)(int msgNum);
 ///被踢下线时的监听
 typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,NSString *info);
 
+///当前socket断开状态回调
+typedef void(^SOCKET_LINK_STATUS_NOTIFICATION)(BOOL isLink);
+
 @interface QSSocketManager : NSObject
 
 ///socket单例管理器
@@ -127,6 +130,16 @@ typedef void(^SERVER_OFF_LINE_NOTIFICATION)(LOGIN_CHECK_ACTION_TYPE loginStatus,
  */
 + (void)registCurrentTalkMessageNotificationWithUserID:(NSString *)userID andCallBack:(CURRENT_TALK_MESSAGE_NOTIFICATION)callBack;
 + (void)offsCurrentTalkCallBack;
+
+/**
+ *  @author yangshengmeng, 15-04-01 12:04:28
+ *
+ *  @brief  当前socket加接状态回调
+ *
+ *  @since  1.0.0
+ */
++ (void)registCurrentSocketLinkStatusNotification:(SOCKET_LINK_STATUS_NOTIFICATION)callBack;
++ (void)offCurrentSocketLinkStatusNotification;
 
 /**
  *  @author yangshengmeng, 15-04-02 13:04:23

@@ -51,6 +51,7 @@
 @property (nonatomic,strong) UIView *soundInputRootView;                    //!<语音消息发送功能底view
 @property (nonatomic,strong) QSYRecordSoundTipsPopView *recordView;         //!<录音时的提示view
 @property (nonatomic,strong) UITableView *messagesListView;                 //!<消息列表view
+@property (nonatomic,strong) UILabel *noNetworkTipsLabel;                   //!<没有网络时的提示
 @property (nonatomic,retain) NSMutableArray *messagesDataSource;            //!<消息数据
 
 @end
@@ -123,6 +124,14 @@
 
 - (void)createMainShowUI
 {
+    
+    ///无网络状态提示
+    self.noNetworkTipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, 0.0f)];
+    self.noNetworkTipsLabel.alpha = 0.0f;
+    self.noNetworkTipsLabel.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
+    self.noNetworkTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
+    self.noNetworkTipsLabel.text = @"当前网络未连接，请检查你的网络设置";
+    [self.view addSubview:self.noNetworkTipsLabel];
     
     ///消息列表
     self.messagesListView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 64.0f, SIZE_DEVICE_WIDTH, SIZE_DEVICE_HEIGHT - 64.0f - 50.0f) style:UITableViewStylePlain];
@@ -253,6 +262,58 @@
             
             [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             
+        }
+        
+    }];
+    
+    ///注册无网络监听
+    [QSSocketManager registCurrentSocketLinkStatusNotification:^(BOOL isLink) {
+        
+        ///回收提示
+        if (isLink) {
+            
+            ///判断
+            if (self.noNetworkTipsLabel.frame.size.height > 10.0f) {
+                
+                ///销定用户操作
+                self.view.userInteractionEnabled = NO;
+                [UIView animateWithDuration:0.3f animations:^{
+                    
+                    self.noNetworkTipsLabel.alpha = 0.0f;
+                    self.noNetworkTipsLabel.frame = CGRectMake(self.noNetworkTipsLabel.frame.origin.x, self.noNetworkTipsLabel.frame.origin.y, self.noNetworkTipsLabel.frame.size.width, 0.0f);
+                    self.messagesListView.frame = CGRectMake(self.messagesListView.frame.origin.x, 64.0f, self.messagesListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 50.0f);
+                    
+                } completion:^(BOOL finished) {
+                    
+                    self.view.userInteractionEnabled = YES;
+                    
+                }];
+                
+            }
+            
+        } else {
+            
+            ///判断
+            if (self.noNetworkTipsLabel.frame.size.height > 10.0f) {
+                
+                return;
+                
+            }
+        
+            ///弹出提示
+            self.view.userInteractionEnabled = NO;
+            [UIView animateWithDuration:0.3f animations:^{
+                
+                self.noNetworkTipsLabel.alpha = 1.0f;
+                self.noNetworkTipsLabel.frame = CGRectMake(self.noNetworkTipsLabel.frame.origin.x, self.noNetworkTipsLabel.frame.origin.y, self.noNetworkTipsLabel.frame.size.width, 44.0f);
+                self.messagesListView.frame = CGRectMake(self.messagesListView.frame.origin.x, 64.0f + 44.0f, self.messagesListView.frame.size.width, SIZE_DEVICE_HEIGHT - 64.0f - 50.0f - 44.0f);
+                
+            } completion:^(BOOL finished) {
+                
+                self.view.userInteractionEnabled = YES;
+                
+            }];
+        
         }
         
     }];
@@ -1071,6 +1132,7 @@
 {
 
     [QSSocketManager offsCurrentTalkCallBack];
+    [QSSocketManager offCurrentSocketLinkStatusNotification];
     [super gotoTurnBackAction];
 
 }

@@ -64,6 +64,9 @@ using namespace std;
 ///被踢下线时的提醒回调
 @property (nonatomic,copy) SERVER_OFF_LINE_NOTIFICATION serverOffLineNotification;
 
+///当前socket连接状态的提醒回调
+@property (nonatomic,copy) SOCKET_LINK_STATUS_NOTIFICATION socketLinkStatusNotification;
+
 ///socket连接器
 @property (nonatomic,strong) AsyncSocket *tcpSocket;
 
@@ -933,6 +936,29 @@ static QSSocketManager *_socketManager = nil;
 
 }
 
+/**
+ *  @author yangshengmeng, 15-04-01 12:04:28
+ *
+ *  @brief  当前socket加接状态回调
+ *
+ *  @since  1.0.0
+ */
++ (void)registCurrentSocketLinkStatusNotification:(SOCKET_LINK_STATUS_NOTIFICATION)callBack
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    socketManager.socketLinkStatusNotification = callBack;
+
+}
+
++ (void)offCurrentSocketLinkStatusNotification
+{
+
+    QSSocketManager *socketManager = [QSSocketManager shareSocketManager];
+    socketManager.socketLinkStatusNotification = nil;
+
+}
+
 #pragma mark - socket代理
 ///socket连接到服务器时执行
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -957,6 +983,13 @@ static QSSocketManager *_socketManager = nil;
 {
 
     APPLICATION_LOG_INFO(@"socket日志", @"socket连接已断开，正在重连")
+    
+    ///回调通知当前socket已断开
+    if (self.socketLinkStatusNotification) {
+        
+        self.socketLinkStatusNotification(NO);
+        
+    }
     
     if (self.isWaitConnect) {
         
@@ -983,6 +1016,12 @@ static QSSocketManager *_socketManager = nil;
             
             APPLICATION_LOG_INFO(@"socket日志->连接成功：", @"无错误")
             [self sendOnLineMessage];
+            
+            if (self.socketLinkStatusNotification) {
+                
+                self.socketLinkStatusNotification(YES);
+                
+            }
             
         }
         
