@@ -64,7 +64,7 @@
 
 ///房屋性质
 @property (nonatomic,copy) NSString *natureString;
-@property (nonatomic,copy) NSMutableArray *natureList;
+@property (nonatomic,retain) NSMutableArray *natureList;
 
 ///返回图片数组
 - (NSArray *)getCurrentPickedImages;

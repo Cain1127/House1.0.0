@@ -348,11 +348,45 @@ typedef enum
                 
                 if (cCustomPopviewActionTypeMultipleSelected == actionType) {
                     
+                    if ([params count] > 0) {
+                        
+                        ///拼装显示信息
+                        NSMutableString *showString = [[NSMutableString alloc] init];
+                        for (int i = 0;i < [params count];i++) {
+                            
+                            QSBaseConfigurationDataModel *tempModel = params[i];
+                            
+                            ///非第一个元素时，添加逗号
+                            if (i != 0) {
+                                
+                                [showString appendString:@","];
+                                
+                            }
+                            
+                            [showString appendString:tempModel.val];
+                            
+                        }
+                        
+                        textField.text = showString;
+                        self.rentHouseReleaseModel.installationString = showString;
+                        [self.rentHouseReleaseModel.installationList removeAllObjects];
+                        [self.rentHouseReleaseModel.installationList addObjectsFromArray:params];
+                        
+                    } else {
+                    
+                        textField.text = nil;
+                        self.rentHouseReleaseModel.installationString = nil;
+                        [self.rentHouseReleaseModel.installationList removeAllObjects];
+                    
+                    }
+                    
+                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
+                    
                     ///拼装显示信息
                     NSMutableString *showString = [[NSMutableString alloc] init];
-                    for (int i = 0;i < [params count];i++) {
+                    for (int i = 0;i < [intentArray count];i++) {
                         
-                        QSBaseConfigurationDataModel *tempModel = params[i];
+                        QSBaseConfigurationDataModel *tempModel = intentArray[i];
                         
                         ///非第一个元素时，添加逗号
                         if (i != 0) {
@@ -368,13 +402,7 @@ typedef enum
                     textField.text = showString;
                     self.rentHouseReleaseModel.installationString = showString;
                     [self.rentHouseReleaseModel.installationList removeAllObjects];
-                    [self.rentHouseReleaseModel.installationList addObjectsFromArray:params];
-                    
-                } else if (cCustomPopviewActionTypeUnLimited == actionType) {
-                    
-                    textField.text = nil;
-                    self.rentHouseReleaseModel.installationString = nil;
-                    [self.rentHouseReleaseModel.installationList removeAllObjects];;
+                    [self.rentHouseReleaseModel.installationList addObjectsFromArray:intentArray];
                     
                 }
                 

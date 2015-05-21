@@ -121,6 +121,9 @@
             
         }
         
+        ///清空原记录
+        [tempModel.installationList removeAllObjects];
+        
         ///切分配套
         NSMutableString *tempString = [NSMutableString string];
         NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
@@ -173,6 +176,9 @@
             
         }
         
+        ///清空原记录
+        [tempModel.weekInfos removeAllObjects];
+        
         NSMutableString *tempString = [NSMutableString string];
         NSArray *weekKeyList = [self.house.cycle componentsSeparatedByString:@","];
         for (int i = 0; i < [weekKeyList count]; i++) {
@@ -201,6 +207,9 @@
             tempModel.imagesList = [[NSMutableArray alloc] init];
             
         }
+        
+        ///清空原记录
+        [tempModel.imagesList removeAllObjects];
         
         ///转换模型半保存
         for (int i = 0; i < [self.rentHouse_photo count]; i++) {

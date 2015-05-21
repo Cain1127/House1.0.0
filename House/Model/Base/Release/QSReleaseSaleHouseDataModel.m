@@ -32,7 +32,7 @@
         self.weekInfos = [[NSMutableArray alloc] init];
         
         ///房屋性质
-        self.natureList = [NSMutableArray array];
+        self.natureList = [[NSMutableArray alloc] init];
         
     }
     

@@ -114,9 +114,11 @@
         
         if (!tempModel.natureList) {
             
-            tempModel.natureList = [NSMutableArray array];
+            tempModel.natureList = [[NSMutableArray alloc] init];
             
         }
+        
+        [tempModel.natureList removeAllObjects];
         
         ///切分配置
         NSMutableString *tempString = [NSMutableString string];
@@ -148,6 +150,8 @@
             
         }
         
+        [tempModel.installationList removeAllObjects];
+        
         ///切分配套
         NSMutableString *tempString = [NSMutableString string];
         NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
@@ -178,12 +182,18 @@
             
         }
         
+        [tempModel.featuresList removeAllObjects];
+        
         ///切分标签
-        NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
+        NSArray *installKeyList = [self.house.features componentsSeparatedByString:@","];
         for (int i = 0;i < [installKeyList count]; i++) {
             
-            QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseFeatureModelWithKey:installKeyList[i] andFilterType:fFilterMainTypeSecondHouse];
-            [tempModel.featuresList addObject:installationModel];
+            QSBaseConfigurationDataModel *tempFeatureModel = [QSCoreDataManager getHouseFeatureModelWithKey:installKeyList[i] andFilterType:fFilterMainTypeSecondHouse];
+            if (tempFeatureModel) {
+                
+                [tempModel.featuresList addObject:tempFeatureModel];
+                
+            }
             
         }
         
@@ -197,6 +207,8 @@
             tempModel.weekInfos = [[NSMutableArray alloc] init];
             
         }
+        
+        [tempModel.weekInfos removeAllObjects];
         
         NSMutableString *tempString = [NSMutableString string];
         NSArray *weekKeyList = [self.house.cycle componentsSeparatedByString:@","];
@@ -226,6 +238,8 @@
             tempModel.imagesList = [[NSMutableArray alloc] init];
             
         }
+        
+        [tempModel.imagesList removeAllObjects];
         
         ///转换模型半保存
         for (int i = 0; i < [self.secondHouse_photo count]; i++) {
