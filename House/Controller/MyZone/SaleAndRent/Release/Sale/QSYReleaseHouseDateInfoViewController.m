@@ -508,7 +508,7 @@ static char unExlusiveKey;  //!<非独家按钮关联
                 QSYSendVerticalCodeReturnData *tempModel = resultData;
                
                 ///提示发布成功
-                QSYReleaseSaleTipsViewController *tipsVC = [[QSYReleaseSaleTipsViewController alloc] initWithTitle:self.saleHouseReleaseModel.title andDetailID:tempModel.msg];
+                QSYReleaseSaleTipsViewController *tipsVC = [[QSYReleaseSaleTipsViewController alloc] initWithTitle:self.saleHouseReleaseModel.title andDetailID:([self.saleHouseReleaseModel.propertyID intValue] > 0 ? self.saleHouseReleaseModel.propertyID : tempModel.msg)];
                 [self.navigationController pushViewController:tipsVC animated:YES];
                 
             }];

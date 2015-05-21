@@ -573,7 +573,7 @@
             case tTenantAskRentAndBuyBuyCellActionTypeRecommendHouse:
             {
                 
-                ///判断是否存在出租物业
+                ///判断是否存在出售物业
                 if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
                     
                     TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})

@@ -8,10 +8,16 @@
 
 #import "QSYRecommendTenantViewController.h"
 #import "QSYTalkPTPViewController.h"
+#import "QSYTenantDetailRecommendRentHouseViewController.h"
+#import "QSYTenantDetailRecommendAparmentHouseViewController.h"
 
 #import "QSYRecommendTenantTableViewCell.h"
 
 #import "QSYRecommendTenantListReturnData.h"
+#import "QSUserSimpleDataModel.h"
+#import "QSYRecommendTenantInfoDataModel.h"
+
+#import "QSCoreDataManager+User.h"
 
 #import "MJRefresh.h"
 
@@ -98,15 +104,65 @@
     }
     
     ///刷新数据
-    [cellTenantInfo updateRecommendTenantInfoCellUI:self.returnData.headerData.dataList[indexPath.row] andCallBack:^(RECOMMEND_TENANT_CELL_ACTION_TYPE actionType, id params) {
+    QSYRecommendTenantInfoDataModel *dataModel = self.returnData.headerData.dataList[indexPath.row];
+    [cellTenantInfo updateRecommendTenantInfoCellUI:dataModel andCallBack:^(RECOMMEND_TENANT_CELL_ACTION_TYPE actionType, id params) {
         
         switch (actionType) {
                 ///进入聊天
             case rRecommendTenantCellActionTypeTalk:
             {
             
-                QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:params];
+                QSYTalkPTPViewController *talkVC = [[QSYTalkPTPViewController alloc] initWithUserModel:dataModel.buyer_msg];
                 [self.navigationController pushViewController:talkVC animated:YES];
+            
+            }
+                break;
+                
+                ///推荐房源
+            case rRecommendTenantCellActionTypeRecommend:
+            {
+            
+                ///求租
+                if (1 == [dataModel.connection_type intValue]) {
+                    
+                    ///判断当前用户是否有足够的出租房源可以推荐
+                    if (0 >= [QSCoreDataManager getUserRentPropertySumCount]) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出租物业", 1.5f, ^(){})
+                        return;
+                        
+                    }
+                    
+                    QSYTenantDetailRecommendRentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendRentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
+                        
+                    }];
+                    pickedHouseVC.tenantModel = dataModel.buyer_msg;
+                    [self.navigationController pushViewController:pickedHouseVC animated:YES];
+                    
+                    return;
+                    
+                }
+                
+                ///求购
+                if (2 == [dataModel.connection_type intValue]) {
+                    
+                    ///判断当前用户是否有足够的出售房源可以推荐
+                    if (0 >= [QSCoreDataManager getUserSalePropertySumCount]) {
+                        
+                        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"您当前暂无出售物业", 1.5f, ^(){})
+                        return;
+                        
+                    }
+                    
+                    QSYTenantDetailRecommendAparmentHouseViewController *pickedHouseVC = [[QSYTenantDetailRecommendAparmentHouseViewController alloc] initWithCallBack:^(BOOL isPicked, QSBaseModel *houseModel, NSString *commend) {
+                        
+                    }];
+                    pickedHouseVC.tenantModel = dataModel.buyer_msg;
+                    [self.navigationController pushViewController:pickedHouseVC animated:YES];
+                    
+                    return;
+                    
+                }
             
             }
                 break;
@@ -142,6 +198,7 @@
 {
     
     self.tenantListView.footer.hidden = YES;
+    [self showNoRecordTips:NO];
 
     ///封装参数
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -181,11 +238,17 @@
                 
                 [self.tenantListView.footer noticeNoMoreData];
                 
+            } else {
+            
+                [self.tenantListView.footer resetNoMoreData];
+            
             }
             
         } else {
         
+            [self showNoRecordTips:YES];
             [self.tenantListView.footer resetNoMoreData];
+            self.tenantListView.footer.hidden = YES;
             [self showNoRecordTips:YES andTips:@"暂无推荐房客"];
         
         }
@@ -241,16 +304,15 @@
         [self.tenantListView reloadData];
         
         ///如果已无更多数据，则显示脚刷新提示
-        if ([self.returnData.headerData.dataList count] > 0) {
+        if ([self.returnData.headerData.per_page intValue] ==
+            [self.returnData.headerData.next_page intValue]) {
             
-            self.tenantListView.footer.hidden = NO;
-            if ([self.returnData.headerData.per_page intValue] ==
-                [self.returnData.headerData.next_page intValue]) {
-                
-                [self.tenantListView.footer noticeNoMoreData];
-                
-            }
+            [self.tenantListView.footer noticeNoMoreData];
             
+        } else {
+        
+            [self.tenantListView.footer resetNoMoreData];
+        
         }
         
         ///结束刷新
