@@ -245,6 +245,7 @@
  *  @since      1.0.0
  */
 + (NSArray *)getHouseFeatureListWithType:(FILTER_MAIN_TYPE)filterType;
++ (QSBaseConfigurationDataModel *)getHouseFeatureModelWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType;
 + (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType;
 
 /**
@@ -257,6 +258,7 @@
  *  @since  1.0.0
  */
 + (NSArray *)getHouseNatureTypes;
++ (QSBaseConfigurationDataModel *)getHouseNatureModelWithKey:(NSString *)keyString;
 + (NSString *)getHouseNatureValueWithKey:(NSString *)keyString;
 
 /**

@@ -112,7 +112,7 @@
     tempModel.endTime = self.house.time_interval_end;
     tempModel.video_url = self.house.video_url;
     
-    ///配置
+    ///配套
     if ([self.house.installation length] > 0) {
         
         if (!tempModel.installationList) {
@@ -121,7 +121,7 @@
             
         }
         
-        ///切分配置
+        ///切分配套
         NSMutableString *tempString = [NSMutableString string];
         NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
         for (int i = 0;i < [installKeyList count]; i++) {
@@ -141,6 +141,28 @@
         tempModel.installationString = [NSString stringWithString:tempString];
         
     }
+    
+#if 0
+    ///标签
+    if ([self.house.features length] > 0) {
+        
+        if (!tempModel.featuresList) {
+            
+            tempModel.featuresList = [NSMutableArray array];
+            
+        }
+        
+        ///切分标签
+        NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
+        for (int i = 0;i < [installKeyList count]; i++) {
+            
+            QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseFeatureModelWithKey:installKeyList[i] andFilterType:fFilterMainTypeSecondHouse];
+            [tempModel.featuresList addObject:installationModel];
+            
+        }
+        
+    }
+#endif
     
     ///可以预约日期信息
     if ([self.house.cycle length] > 0) {

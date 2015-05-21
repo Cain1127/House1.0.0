@@ -861,6 +861,58 @@
 
 }
 
++ (QSBaseConfigurationDataModel *)getHouseFeatureModelWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType
+{
+
+    switch (listType) {
+            ///新房
+        case fFilterMainTypeNewHouse:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_loupan" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel;
+            
+        }
+            break;
+            
+            ///小区
+        case fFilterMainTypeCommunity:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_loupan" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel;
+            
+        }
+            break;
+            
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel;
+            
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+            
+            QSBaseConfigurationDataModel *tempModel = [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"features_rent" andSecondFieldName:@"key" andSecndFieldValue:key];
+            return tempModel;
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nil;
+
+}
+
 + (NSString *)getHouseFeatureWithKey:(NSString *)key andFilterType:(FILTER_MAIN_TYPE)listType
 {
     
@@ -938,6 +990,13 @@
     }];
     
     return [NSArray arrayWithArray:tempArray];
+
+}
+
++ (QSBaseConfigurationDataModel *)getHouseNatureModelWithKey:(NSString *)keyString
+{
+
+    return [self searchEntityWithKey:COREDATA_ENTITYNAME_BASECONFIGURATION_INFO andFieldName:@"conf" andFieldSearchKey:@"house_nature" andSecondFieldName:@"key" andSecndFieldValue:keyString];
 
 }
 

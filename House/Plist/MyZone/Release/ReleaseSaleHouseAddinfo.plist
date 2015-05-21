@@ -15,7 +15,7 @@
 		<key>left_title</key>
 		<string>房屋性质</string>
 		<key>filter_key</key>
-		<string>nature</string>
+		<string>natureString</string>
 	</dict>
 	<key>building_year</key>
 	<dict>

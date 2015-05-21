@@ -291,23 +291,38 @@ typedef enum
             ///获取房屋性质选择项数组
             NSArray *intentArray = [QSCoreDataManager getHouseNatureTypes];
             
-            ///显示房屋性质选择项窗口
-            [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:intentArray andCurrentSelectedKey:([self.saleHouseReleaseModel.natureKey length] > 0 ? self.saleHouseReleaseModel.natureKey : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+            ///显示配套选择项窗口
+            [QSMultipleSelectedPopView showMultipleSelectedViewWithDataSource:intentArray andSelectedSource:([self.saleHouseReleaseModel.natureList count] > 0 ? self.saleHouseReleaseModel.natureList : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
                 
-                if (cCustomPopviewActionTypeSingleSelected == actionType) {
+                if (cCustomPopviewActionTypeMultipleSelected == actionType) {
                     
-                    ///转模型
-                    QSBaseConfigurationDataModel *tempModel = params;
+                    ///拼装显示信息
+                    NSMutableString *showString = [[NSMutableString alloc] init];
+                    for (int i = 0;i < [params count];i++) {
+                        
+                        QSBaseConfigurationDataModel *tempModel = params[i];
+                        
+                        ///非第一个元素时，添加逗号
+                        if (i != 0) {
+                            
+                            [showString appendString:@","];
+                            
+                        }
+                        
+                        [showString appendString:tempModel.val];
+                        
+                    }
                     
-                    textField.text = tempModel.val;
-                    self.saleHouseReleaseModel.nature = tempModel.val;
-                    self.saleHouseReleaseModel.natureKey = tempModel.key;
+                    textField.text = showString;
+                    self.saleHouseReleaseModel.natureString = showString;
+                    [self.saleHouseReleaseModel.natureList removeAllObjects];
+                    [self.saleHouseReleaseModel.natureList addObjectsFromArray:params];
                     
                 } else if (cCustomPopviewActionTypeUnLimited == actionType) {
                     
                     textField.text = nil;
-                    self.saleHouseReleaseModel.nature = nil;
-                    self.saleHouseReleaseModel.natureKey = nil;
+                    self.saleHouseReleaseModel.natureString = nil;
+                    [self.saleHouseReleaseModel.natureList removeAllObjects];;
                     
                 }
                 

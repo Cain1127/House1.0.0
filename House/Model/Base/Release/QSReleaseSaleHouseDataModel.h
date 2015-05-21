@@ -29,8 +29,6 @@
 @property (nonatomic,copy) NSString *salePriceKey;                  //!<售价key
 @property (nonatomic,copy) NSString *negotiatedPrice;               //!<是否议价
 @property (nonatomic,copy) NSString *negotiatedPriceKey;            //!<是否议价key
-@property (nonatomic,copy) NSString *nature;                        //!<房屋性质
-@property (nonatomic,copy) NSString *natureKey;                     //!<房屋性质key
 @property (nonatomic,copy) NSString *buildingYear;                  //!<建筑年代
 @property (nonatomic,copy) NSString *buildingYearKey;               //!<建筑年代key
 @property (nonatomic,copy) NSString *propertyRightYear;             //!<产权年限
@@ -63,6 +61,10 @@
 ///配套信息
 @property (nonatomic,copy) NSString *installationString;
 @property (nonatomic,retain) NSMutableArray *installationList;
+
+///房屋性质
+@property (nonatomic,copy) NSString *natureString;
+@property (nonatomic,copy) NSMutableArray *natureList;
 
 ///返回图片数组
 - (NSArray *)getCurrentPickedImages;

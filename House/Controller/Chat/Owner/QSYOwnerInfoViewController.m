@@ -312,7 +312,7 @@
                 case lLoginCheckActionTypeLogined:
                 {
                     
-                    if ([self.contactInfo.contactInfo.is_order intValue] == 1) {
+                    if ([self.contactInfo.contactInfo.is_order isEqualToString:@"true"]) {
                         
                         ///打电话
                         [self callContactOwner];

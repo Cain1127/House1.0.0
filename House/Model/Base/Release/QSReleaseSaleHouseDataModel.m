@@ -31,6 +31,9 @@
         ///星期几
         self.weekInfos = [[NSMutableArray alloc] init];
         
+        ///房屋性质
+        self.natureList = [NSMutableArray array];
+        
     }
     
     return self;
@@ -89,7 +92,7 @@
             @"house_area" : APPLICATION_NSSTRING_SETTING(self.areaKey, @""),
             @"house_price" : APPLICATION_NSSTRING_SETTING(salePrice, @""),
             @"negotiated" : APPLICATION_NSSTRING_SETTING(self.negotiatedPriceKey, @""),
-            @"house_nature" : APPLICATION_NSSTRING_SETTING(self.natureKey, @""),
+            @"house_nature" : APPLICATION_NSSTRING_SETTING([self getHouseNaturePostParams], @""),
             @"building_year" : APPLICATION_NSSTRING_SETTING(self.buildingYearKey, @""),
             @"used_year" : APPLICATION_NSSTRING_SETTING(self.propertyRightYearKey, @""),
             @"floor_which" : APPLICATION_NSSTRING_SETTING(self.floorKey, @""),
@@ -114,6 +117,29 @@
     ///返回发布出租房参数
     return @{@"secondHouse_photo" : [NSArray arrayWithArray:photosArray],
              @"secondHouse" : houseParams};
+
+}
+
+///性质
+- (NSString *)getHouseNaturePostParams
+{
+
+    NSMutableString *tempString = [[NSMutableString alloc] init];
+    for (QSBaseConfigurationDataModel *obj in self.natureList) {
+        
+        [tempString appendString:obj.key];
+        [tempString appendString:@","];
+        
+    }
+    
+    ///删除最后的分号
+    if ([tempString length] > 0) {
+        
+        [tempString deleteCharactersInRange:NSMakeRange([tempString length] - 1, 1)];
+        
+    }
+    
+    return [NSString stringWithString:tempString];
 
 }
 

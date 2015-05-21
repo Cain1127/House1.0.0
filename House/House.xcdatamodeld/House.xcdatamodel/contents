@@ -975,6 +975,8 @@
         <attribute name="time_interval_start" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_condition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_environment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_look_house_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
@@ -1090,6 +1092,8 @@
         <attribute name="time_interval_start" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_second" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_condition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tj_environment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_look_house_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_rentHouse_num" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tj_secondHouse_num" optional="YES" attributeType="String" syncable="YES"/>
@@ -1182,9 +1186,9 @@
         <element name="QSCDHistoryNewHouseDataModel" positionX="-378" positionY="198" width="128" height="1590"/>
         <element name="QSCDHistoryNewHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
         <element name="QSCDHistoryNewHouseRecommendHousesDataModel" positionX="-342" positionY="234" width="128" height="358"/>
-        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1620"/>
+        <element name="QSCDHistoryRentHouseDataModel" positionX="-378" positionY="198" width="128" height="1650"/>
         <element name="QSCDHistoryRentHousePhotoDataModel" positionX="-369" positionY="207" width="128" height="148"/>
-        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="317" width="128" height="1590"/>
+        <element name="QSCDHistorySecondHandHouseDataModel" positionX="-333" positionY="317" width="128" height="1620"/>
         <element name="QSCDHistorySecondHandHousePhotoDataModel" positionX="-137" positionY="261" width="128" height="148"/>
         <element name="QSCDLocalSearchHistoryDataModel" positionX="-297" positionY="45" width="128" height="103"/>
         <element name="QSCDUserDataModel" positionX="-434" positionY="45" width="128" height="585"/>

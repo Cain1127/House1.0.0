@@ -92,7 +92,7 @@
             CGFloat sumScore1 = [[tempModel1 valueForKey:@"tj_condition"] floatValue] + [[tempModel1 valueForKey:@"tj_environment"] floatValue];
             CGFloat sumScore2 = [[tempModel2 valueForKey:@"tj_condition"] floatValue] + [[tempModel2 valueForKey:@"tj_environment"] floatValue];
             
-            return sumScore1 < sumScore2;
+            return sumScore1 > sumScore2;
             
         }];
         

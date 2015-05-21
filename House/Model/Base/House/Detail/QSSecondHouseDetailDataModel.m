@@ -84,13 +84,10 @@
     tempModel.houseTypeKey = self.house.house_shi;
     tempModel.area = self.house.house_area;
     tempModel.areaKey = self.house.house_area;
-    
     tempModel.salePrice = [NSString stringWithFormat:@"%.2f",[self.house.house_price floatValue] / 10000];
     tempModel.salePriceKey = [NSString stringWithFormat:@"%.2f",[self.house.house_price floatValue] / 10000];
     tempModel.negotiatedPrice = [QSCoreDataManager getHouseIsNegotiatedPriceTypeWithKey:self.house.negotiated];
     tempModel.negotiatedPriceKey = self.house.negotiated;
-    tempModel.nature = [QSCoreDataManager getHouseNatureValueWithKey:self.house.house_nature];
-    tempModel.natureKey = self.house.house_nature;
     tempModel.buildingYear = [NSString stringWithFormat:@"%@年",self.house.building_year];
     tempModel.buildingYearKey = self.house.building_year;
     tempModel.propertyRightYear = [QSCoreDataManager getHousePropertyRightValueWithKey:self.house.used_year];
@@ -112,7 +109,37 @@
     tempModel.endTime = self.house.time_interval_end;
     tempModel.video_url = self.house.video_url;
     
-    ///配置
+    ///房屋性质
+    if ([self.house.house_nature length] > 0) {
+        
+        if (!tempModel.natureList) {
+            
+            tempModel.natureList = [NSMutableArray array];
+            
+        }
+        
+        ///切分配置
+        NSMutableString *tempString = [NSMutableString string];
+        NSArray *installKeyList = [self.house.house_nature componentsSeparatedByString:@","];
+        for (int i = 0;i < [installKeyList count]; i++) {
+            
+            QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseNatureModelWithKey:installKeyList[i]];
+            [tempString appendString:installationModel.val];
+            [tempString appendString:@","];
+            [tempModel.natureList addObject:installationModel];
+            
+        }
+        
+        if ([tempString length] > 0) {
+            
+            [tempString deleteCharactersInRange:NSMakeRange(tempString.length - 1, 1)];
+            
+        }
+        tempModel.natureString = [NSString stringWithString:tempString];
+        
+    }
+    
+    ///配套
     if ([self.house.installation length] > 0) {
         
         if (!tempModel.installationList) {
@@ -121,7 +148,7 @@
             
         }
         
-        ///切分配置
+        ///切分配套
         NSMutableString *tempString = [NSMutableString string];
         NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
         for (int i = 0;i < [installKeyList count]; i++) {
@@ -139,6 +166,26 @@
             
         }
         tempModel.installationString = [NSString stringWithString:tempString];
+        
+    }
+    
+    ///标签
+    if ([self.house.features length] > 0) {
+        
+        if (!tempModel.featuresList) {
+            
+            tempModel.featuresList = [NSMutableArray array];
+            
+        }
+        
+        ///切分标签
+        NSArray *installKeyList = [self.house.installation componentsSeparatedByString:@","];
+        for (int i = 0;i < [installKeyList count]; i++) {
+            
+            QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseFeatureModelWithKey:installKeyList[i] andFilterType:fFilterMainTypeSecondHouse];
+            [tempModel.featuresList addObject:installationModel];
+            
+        }
         
     }
     

@@ -114,6 +114,8 @@
 @dynamic village_name;
 @dynamic history_id;
 @dynamic create_time;
+@dynamic tj_environment;
+@dynamic tj_condition;
 @dynamic photos;
 
 @end

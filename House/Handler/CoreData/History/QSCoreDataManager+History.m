@@ -1543,6 +1543,9 @@
     cdCollectedModel.coordinate_y = collectedModel.house.coordinate_y;
     cdCollectedModel.tj_look_house_num = collectedModel.house.tj_look_house_num;
     cdCollectedModel.tj_wait_look_house_people = collectedModel.house.tj_wait_look_house_people;
+    cdCollectedModel.tj_condition = collectedModel.house.tj_condition;
+    cdCollectedModel.tj_environment = collectedModel.house.tj_environment;
+    cdCollectedModel.is_syserver = collectedModel.is_syserver;
     
     ///业主信息
     cdCollectedModel.user_type = collectedModel.user.user_type;
@@ -1667,6 +1670,9 @@
     collectedModel.house.coordinate_y = cdCollectedModel.coordinate_y;
     collectedModel.house.tj_look_house_num = cdCollectedModel.tj_look_house_num;
     collectedModel.house.tj_wait_look_house_people = cdCollectedModel.tj_wait_look_house_people;
+    collectedModel.is_syserver = cdCollectedModel.is_syserver;
+    collectedModel.house.tj_condition = cdCollectedModel.tj_condition;
+    collectedModel.house.tj_environment = cdCollectedModel.tj_environment;
     
     ///业主信息
     collectedModel.user.id_ = cdCollectedModel.user_id;
@@ -1786,6 +1792,8 @@
     cdCollectedModel.tj_wait_look_house_people = collectedModel.house.tj_wait_look_house_people;
     cdCollectedModel.price_avg = collectedModel.house.price_avg;
     cdCollectedModel.is_syserver = collectedModel.house.is_syserver;
+    cdCollectedModel.tj_condition = collectedModel.house.tj_condition;
+    cdCollectedModel.tj_environment = collectedModel.house.tj_environment;
     
     ///业主信息
     cdCollectedModel.user_type = collectedModel.user.user_type;
@@ -1913,6 +1921,8 @@
     collectedModel.house.tj_wait_look_house_people = cdCollectedModel.tj_wait_look_house_people;
     collectedModel.house.price_avg = cdCollectedModel.price_avg;
     collectedModel.house.is_syserver = cdCollectedModel.is_syserver;
+    collectedModel.house.tj_environment = cdCollectedModel.tj_environment;
+    collectedModel.house.tj_condition = cdCollectedModel.tj_condition;
     
     ///业主信息
     collectedModel.user.id_ = cdCollectedModel.user_id;

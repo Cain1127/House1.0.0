@@ -135,6 +135,7 @@ typedef enum
     msgTipsSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:msgTipsSepLabel];
     
+#if 0
     ///消息免打扰
     UITextField *disturbMessageField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, msgTipsLabel.frame.origin.y + msgTipsLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"消息免打扰" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     disturbMessageField.delegate = self;
@@ -156,9 +157,10 @@ typedef enum
     UILabel *bloackListSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(bloackListField.frame.origin.x + 5.0f, bloackListField.frame.origin.y + bloackListField.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
     bloackListSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:bloackListSepLabel];
+#endif
     
     ///备注设置
-    UITextField *remarkField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, bloackListField.frame.origin.y + bloackListField.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"备注设置" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    UITextField *remarkField = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, msgTipsLabel.frame.origin.y + msgTipsLabel.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"备注设置" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     remarkField.delegate = self;
     remarkField.tag = cContactSettingFieldActionTypeRemark;
     [self.view addSubview:remarkField];

@@ -921,12 +921,11 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     decoreteLabel.text=[NSString stringWithFormat:@"装修:%@",[QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] ? [QSCoreDataManager getHouseDecorationTypeWithKey:houseInfoModel.decoration_type] :@""];
     [view addSubview:decoreteLabel];
     
-    
-    
     UILabel *stateLabel=[[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MAX_WIDTH/2.0f, decoreteLabel.frame.origin.y, SIZE_DEFAULT_MAX_WIDTH/2.0f, 20.0f)];
-    stateLabel.textAlignment=NSTextAlignmentLeft;
-    stateLabel.font=[UIFont systemFontOfSize:14.0f];
-    stateLabel.text=[NSString stringWithFormat:@"状态:%@",houseInfoModel.house_status ? houseInfoModel.house_status : @""];
+    stateLabel.textAlignment = NSTextAlignmentLeft;
+    stateLabel.font = [UIFont systemFontOfSize:14.0f];
+    BOOL houseStatus = [houseInfoModel.house_status intValue] >= 1 && [houseInfoModel.house_status intValue] <= 3;
+    stateLabel.text = [NSString stringWithFormat:@"状态:%@",houseStatus ? [QSCoreDataManager getRentHouseStatusTypeValueWithKey:houseInfoModel.house_status] : @""];
     [view addSubview:stateLabel];
     
     NSString *leadTime =[[NSDate formatNSTimeToNSDateString:houseInfoModel.lead_time] substringToIndex:10];

@@ -114,6 +114,8 @@
 @property (nonatomic, retain) NSString * village_id;
 @property (nonatomic, retain) NSString * village_name;
 @property (nonatomic, retain) NSString * history_id;
+@property (nonatomic, retain) NSString * tj_condition;
+@property (nonatomic, retain) NSString * tj_environment;
 @property (nonatomic, retain) NSDate * create_time;
 @property (nonatomic, retain) NSSet *photos;
 
