@@ -7815,7 +7815,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
+				PROVISIONING_PROFILE = "eb0dc6ad-aec3-49da-a0ea-96f9080b1922";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -7861,7 +7861,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ee153a26-372c-4fd2-ba71-4d605ea69027";
+				PROVISIONING_PROFILE = "eb0dc6ad-aec3-49da-a0ea-96f9080b1922";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
