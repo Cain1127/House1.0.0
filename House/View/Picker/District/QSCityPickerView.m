@@ -101,7 +101,7 @@ static char SubViewKey;     //!<第二栏view的关联
     [self addSubview:sepLabel];
     
     ///省选择列
-    UIScrollView *provincePickerRootView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, tipsLabel.frame.size.height + 10.0f, self.frame.size.width / 2.0f - 25.0f, self.frame.size.height - tipsLabel.frame.size.height - 84.0f - 20.0f)];
+    UIScrollView *provincePickerRootView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, tipsLabel.frame.size.height + 10.0f, self.frame.size.width / 2.0f - 25.0f, self.frame.size.height - tipsLabel.frame.size.height - 20.0f)];
     currentSelectedCityKey = [self createProvinceSelectedItemUI:provincePickerRootView andSelectedProvinceKey:selectedProvinceKey];
     provincePickerRootView.backgroundColor = [UIColor clearColor];
     provincePickerRootView.showsHorizontalScrollIndicator = NO;
@@ -121,40 +121,6 @@ static char SubViewKey;     //!<第二栏view的关联
         objc_setAssociatedObject(self, &SubViewKey, cityPickerRootView, OBJC_ASSOCIATION_ASSIGN);
         
     });
-    
-    ///取消按钮
-    QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerWhite];
-    buttonStyle.title = @"取消";
-    CGFloat widthOfButton = (SIZE_DEFAULT_MAX_WIDTH - SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f;
-    UIButton *cancelButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, self.frame.size.height - 69.0f, widthOfButton, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        
-        if (self.cityPickedCallBack) {
-            
-            self.cityPickedCallBack(cCustomCityPickerActionTypeUnLimitedProvince,nil,nil);
-            
-        }
-        
-    }];
-    [self addSubview:cancelButton];
-    
-    ///确认按钮
-    buttonStyle = [QSBlockButtonStyleModel createNormalButtonWithType:nNormalButtonTypeCornerYellow];
-    buttonStyle.title = @"确定";
-    UIButton *confirmButton = [UIButton createBlockButtonWithFrame:CGRectMake(self.frame.size.width / 2.0f + SIZE_DEFAULT_MARGIN_LEFT_RIGHT / 2.0f, cancelButton.frame.origin.y, widthOfButton, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        
-        if (self.cityPickedCallBack) {
-            
-            self.cityPickedCallBack(cCustomCityPickerActionTypePickedCity,self.currentSelectedProvinceModel,self.currentSelectedCityModel);
-            
-        }
-        
-    }];
-    [self addSubview:confirmButton];
-    
-    ///分隔线
-    UILabel *buttonLineLable = [[UILabel alloc] initWithFrame:CGRectMake(cancelButton.frame.origin.x, confirmButton.frame.origin.y - 14.5f, self.frame.size.width  - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 0.5f)];
-    buttonLineLable.backgroundColor = COLOR_CHARACTERS_BLACKH;
-    [self addSubview:buttonLineLable];
     
 }
 
@@ -310,15 +276,11 @@ static char SubViewKey;     //!<第二栏view的关联
         ///选择项按钮
         UIButton *tempButton = [UIButton createBlockButtonWithFrame:CGRectMake(0.0f, i * VIEW_SIZE_NORMAL_BUTTON_HEIGHT, selectedRootView.frame.size.width, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
-            ///已是选择状态的按钮，不再重复触发事件
-            if (button.selected) {
+            if (self.cityPickedCallBack) {
                 
-                return;
+                self.cityPickedCallBack(cCustomCityPickerActionTypePickedCity,self.currentSelectedProvinceModel,tempModel);
                 
             }
-            
-            ///修改当前选择的城市
-            self.currentSelectedCityModel = tempModel;
             
         }];
         

@@ -748,11 +748,11 @@ static char CurrentPopViewKey;  //!<当前弹出框的关联key
         
     }
     
-    ///获取列表源
+    ///获取数据源
     NSArray *dataSource = [self getPickerListDataSource];
     
     ///弹出选择窗口
-    [QSCustomSingleSelectedPopView showSingleSelectedViewWithDataSource:dataSource andCurrentSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
+    [QSCustomSingleSelectedPopView showSingleSelectedViewNoConfirmWithDataSource:dataSource andCurrentSelectedKey:(self.currentPickedModel ? self.currentPickedModel.key : nil) andSelectedCallBack:^(CUSTOM_POPVIEW_ACTION_TYPE actionType, id params, int selectedIndex) {
         
         ///更换状态
         self.isPicking = NO;
