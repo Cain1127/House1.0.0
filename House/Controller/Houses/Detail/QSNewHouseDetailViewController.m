@@ -777,6 +777,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     referencePriceLabel.text = [NSString stringWithFormat:@"%.2f元",contractTax];
     referencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     referencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    referencePriceLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:referencePriceLabel];
     
     ///公证费
@@ -790,6 +791,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     priovideLabel.text = [NSString stringWithFormat:@"%.2f元",notarialFees];
     priovideLabel.textColor = COLOR_CHARACTERS_BLACK;
     priovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    priovideLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:priovideLabel];
     
     ///印花税
@@ -803,6 +805,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     rateLabel.text = [NSString stringWithFormat:@"%.2f元",stampTax];
     rateLabel.textColor = COLOR_CHARACTERS_BLACK;
     rateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    rateLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:rateLabel];
     
     ///产权手续
@@ -816,6 +819,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     downPayLabel.text = [NSString stringWithFormat:@"%.2f元",propertyCharges];
     downPayLabel.textColor = COLOR_CHARACTERS_BLACK;
     downPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    downPayLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:downPayLabel];
     
     ///右侧箭头
@@ -877,6 +881,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     referencePriceLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice / 10000];
     referencePriceLabel.textColor = COLOR_CHARACTERS_BLACK;
     referencePriceLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    referencePriceLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:referencePriceLabel];
     
     UILabel *unitReferencePriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(referencePriceLabel.frame.origin.x + referencePriceLabel.frame.size.width + 2.0f, referencePriceLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
@@ -897,6 +902,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     priovideLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.7f / 10000];
     priovideLabel.textColor = COLOR_CHARACTERS_BLACK;
     priovideLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    priovideLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:priovideLabel];
     
     UILabel *unitPriovideLabel = [[UILabel alloc] initWithFrame:CGRectMake(priovideLabel.frame.origin.x + priovideLabel.frame.size.width + 2.0f, priovideLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
@@ -917,6 +923,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     rateLabel.text = [[NSString stringWithFormat:@"%@",self.detailInfo.loan.base_rate] stringByAppendingString:@"%"];
     rateLabel.textColor = COLOR_CHARACTERS_BLACK;
     rateLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    rateLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:rateLabel];
     
     ///参考格价
@@ -930,6 +937,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     downPayLabel.text = [NSString stringWithFormat:@"%.2f",minTotalPrice * 0.3f / 10000];
     downPayLabel.textColor = COLOR_CHARACTERS_BLACK;
     downPayLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_14];
+    downPayLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:downPayLabel];
     
     UILabel *unitDownPayLabel = [[UILabel alloc] initWithFrame:CGRectMake(downPayLabel.frame.origin.x + downPayLabel.frame.size.width + 2.0f, downPayLabel.frame.origin.y + 3.0f, 15.0f, 10.0f)];
