@@ -167,7 +167,7 @@
             [tempString deleteCharactersInRange:NSMakeRange(tempString.length - 1, 1)];
             
         }
-        tempModel.installationString = [NSString stringWithString:tempString];
+        tempModel.weekInfoString = [NSString stringWithString:tempString];
         
     }
     
