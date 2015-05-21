@@ -14,7 +14,6 @@
 
 @interface QSYReleaseRentTipsViewController ()
 
-@property (nonatomic,copy) NSString *title;     //!<标题
 @property (nonatomic,copy) NSString *detailID;  //!<发布房源的详情ID
 
 @end
@@ -108,7 +107,7 @@
         }
         
         ///进入物业管理页
-        QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeSecondHouse];
+        QSYOwnerPropertyViewController *propertyVC = [[QSYOwnerPropertyViewController alloc] initWithHouseType:fFilterMainTypeRentalHouse];
         [propertyVC setTurnBackDistanceStep:7];
         [self.navigationController pushViewController:propertyVC animated:YES];
         

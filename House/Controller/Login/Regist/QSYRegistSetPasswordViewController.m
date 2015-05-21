@@ -233,7 +233,7 @@
     NSDictionary *params = @{@"mobile" : self.phone,
                              @"password" : psw,
                              @"vercode" : self.verCode,
-                             @"username" : ([count length] > 3 ? count : @"")};
+                             @"username" : ([count length] > 1 ? count : @"")};
     
     ///网络注册
     [QSRequestManager requestDataWithType:rRequestTypeRegistPhone andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {

@@ -55,12 +55,14 @@ static char UserNameKey;    //!<用户名
 @property (nonatomic,strong) QSScrollView *rootView;    //!<所有信息的底view
 @property (nonatomic,copy) NSString *is_release;        //!<是否是指引页进入发布房源
 @property (assign) BOOL isNeedRefresh;                  //!<是否需要刷新
+@property (assign) BOOL isRefreshUserType;              //!<是否更新用户类型
 
 ///个人中心右上角系统消息数量提示
 @property (nonatomic,strong) UILabel *systemMessageCountTipsLabel;
 
 ///用户信息
 @property (nonatomic,retain) QSUserDataModel *userInfoData;
+
 ///统计数据
 @property (nonatomic,retain) QSYMyzoneStatisticsReturnData *statisticsData;
 
@@ -806,8 +808,11 @@ static char UserNameKey;    //!<用户名
     ///注册用户信息变动的监听
     [QSCoreDataManager setCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andCallBack:^(COREDATA_DATA_TYPE dataType, DATA_CHANGE_TYPE changeType, NSString *paramsID, id params) {
         
-        ///重构业主UI
-        [ownerView rebuildOwnerFunctionUI:[QSCoreDataManager getCurrentUserCountType]];
+        ///更换本地用户类型
+        self.userType = [QSCoreDataManager getCurrentUserCountType];
+        
+        self.isRefreshUserType = YES;
+        [ownerView rebuildOwnerFunctionUI:self.userType];
         
         ///重新请求数据
         self.isNeedRefresh = YES;
@@ -929,6 +934,17 @@ static char UserNameKey;    //!<用户名
 #pragma mark - 请求个人数据
 - (void)getMyZoneCalculationData
 {
+    
+    ///判断是否需要进入系统消息
+    NSString *is_push = [[NSUserDefaults standardUserDefaults] valueForKey:@"is_push_in"];
+    if (1 == [is_push intValue]) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"is_push_in"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self gotoMessageViewController];
+        return;
+        
+    }
 
     ///已经登录，才请求数据
     if (lLoginCheckActionTypeLogined == [self checkLogin]) {
@@ -981,6 +997,17 @@ static char UserNameKey;    //!<用户名
 #pragma mark - 更新UI
 - (void)updateMyzoneUIWithLoginData
 {
+    
+    ///判断是否更换用户类型
+    if (self.isRefreshUserType) {
+        
+        self.isRefreshUserType = NO;
+        
+        ///重构业主UI
+        QSMyZoneOwnerView *ownerView = objc_getAssociatedObject(self, &OwnerRootView);
+        [ownerView rebuildOwnerFunctionUI:self.userType];
+        
+    }
 
     [self updateRenantCountInfo];
     [self updateOwnerCountInfo];

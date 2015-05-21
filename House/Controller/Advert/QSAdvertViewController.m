@@ -194,19 +194,6 @@
         tabbarVC.selectedIndex = 3;
         UIViewController *myVC = tabbarVC.viewControllers[3];
         
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-        if ([myVC respondsToSelector:@selector(gotoMessageViewController)]) {
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                [myVC performSelector:@selector(gotoMessageViewController)];
-                
-            });
-            
-        }
-#pragma clang diagnostic pop
-        
     }
     
     ///加载到rootViewController上

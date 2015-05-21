@@ -159,6 +159,7 @@
     NSString *title = annotation.title;
     NSArray *tempArray = [title componentsSeparatedByString:@"#"];
     _titleLabel.text = tempArray[0];
+    _titleLabel.adjustsFontSizeToFitWidth = YES;
     self.deteilID = tempArray[1];
     self.title = tempArray[0];
     

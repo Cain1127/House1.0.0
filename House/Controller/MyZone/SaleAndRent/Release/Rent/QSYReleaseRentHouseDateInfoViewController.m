@@ -497,6 +497,8 @@ static char unExlusiveKey;  //!<非独家按钮关联
                     
                     if (rReleasePropertyStatusNew == self.rentHouseReleaseModel.propertyStatus) {
                         
+                        [[NSUserDefaults standardUserDefaults] setValue:@"99" forKey:@"is_release_property"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
                         [QSCoreDataManager reloadUserInfoFromServer];
                         
                     }

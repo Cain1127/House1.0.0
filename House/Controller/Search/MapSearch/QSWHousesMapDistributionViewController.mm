@@ -762,7 +762,7 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         MAPointAnnotation *anno = [[MAPointAnnotation alloc] init];
         
-        NSString *tempTitle = [NSString stringWithFormat:@"%@#%@",tempModel.loupan_msg.title,tempModel.loupan_msg.id_];
+        NSString *tempTitle = [NSString stringWithFormat:@"%@%@#%@",tempModel.loupan_msg.title,tempModel.loupanbuilding_msg.loupan_periods,tempModel.loupan_msg.id_];
         anno.title = tempTitle;
         anno.subtitle = self.subtitle;
         anno.coordinate = CLLocationCoordinate2DMake(latitude , longitude);

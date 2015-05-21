@@ -101,6 +101,7 @@ static char DeleteButton;       //!<删除按钮状态
     communityNameLabel.text = @"碧桂园清泉城";
     communityNameLabel.textColor = COLOR_CHARACTERS_BLACK;
     communityNameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    communityNameLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:communityNameLabel];
     objc_setAssociatedObject(self, &CommunityInfoKey, communityNameLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -206,7 +207,7 @@ static char DeleteButton;       //!<删除按钮状态
     [self updateTitleInfo:[NSString stringWithFormat:@"%.1f",[tempModel.price_avg floatValue] / 10000]];
     
     ///更新小区信息
-    [self updateCommunityInfo:tempModel.title];
+    [self updateCommunityInfo:[NSString stringWithFormat:@"%@ %@",tempModel.title,tempModel.loupan_periods]];
     
     ///更新特色标签
     [self updateFeaturesWithArray:tempModel.features];

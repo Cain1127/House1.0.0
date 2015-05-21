@@ -215,7 +215,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, view.frame.size.width - 2.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 44.0f) andButtonStyle:buttonStyel andCallBack:^(UIButton *button) {
             
             ///免费通话
-            [self contactHouseOwner:self.detailInfo.user.mobile andOwer:self.detailInfo.user.nickname];
+            [self contactHouseOwner:self.detailInfo.user.tel andOwer:self.detailInfo.user.username];
             
         }];
         [view addSubview:callFreeButton];
@@ -231,7 +231,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
         UIButton *callFreeButton = [UIButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, (view.frame.size.width - 3.0f * SIZE_DEFAULT_MARGIN_LEFT_RIGHT) / 2.0f, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
             
             ///免费通话
-            [self contactHouseOwner:self.detailInfo.user.mobile andOwer:self.detailInfo.user.nickname];
+            [self contactHouseOwner:self.detailInfo.user.tel andOwer:self.detailInfo.user.username];
             
         }];
         [view addSubview:callFreeButton];
@@ -474,9 +474,14 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     ///税金参考
     QSBlockView *taxRootView = [[QSBlockView alloc] initWithFrame:CGRectMake(0.0f, provideRootView.frame.origin.y + provideRootView.frame.size.height + 40.0f, mainInfoWidth, 70.0f) andSingleTapCallBack:^(BOOL flag) {
         
-        ///进入税金计算页面
-        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:0.0f];
+#if 0
+        ///总价
+        CGFloat minTotalPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue] / 10000;
+        
+        ///进入计算器页面
+        QSMortgageCalculatorViewController *mcVC = [[QSMortgageCalculatorViewController alloc] initWithHousePrice:minTotalPrice andBusinessLoanRate:[self.detailInfo.loan.base_rate floatValue] andAccumulationRate:[QSCoreDataManager getCurrentLastAccumulationRate]];
         [self.navigationController pushViewController:mcVC animated:YES];
+#endif
         
     }];
     [self createTaxInfoUI:taxRootView];
@@ -738,12 +743,16 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     
     ///税
     CGFloat minTotalPrice = [self.detailInfo.loupan_building.price_avg floatValue] * [self.detailInfo.loupan_building.min_house_area floatValue];
+    
     ///契税
     CGFloat contractTax = minTotalPrice * 0.015;
+    
     ///印花税
     CGFloat stampTax = minTotalPrice * 0.0005;
+    
     ///公证费
     CGFloat notarialFees = minTotalPrice * 0.015;
+    
     ///产权手续
     CGFloat propertyCharges = 500.0f;
     
@@ -822,10 +831,12 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     downPayLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:downPayLabel];
     
+#if 0
     ///右侧箭头
     QSImageView *arrowView = [[QSImageView alloc] initWithFrame:CGRectMake(view.frame.size.width - 13.0f - 8.0f, view.frame.size.height / 2.0f - 11.5f, 13.0f, 23.0f)];
     arrowView.image = [UIImage imageNamed:IMAGE_PUBLIC_RIGHT_ARROW];
     [view addSubview:arrowView];
+#endif
     
 }
 
@@ -1046,6 +1057,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     openTimeLabel.text = [[NSDate formatNSTimeToNSDateString:openedTime] substringToIndex:10];
     openTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     openTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    openTimeLabel.adjustsFontSizeToFitWidth = YES;
     [tempRootView addSubview:openTimeLabel];
     
     ///入住日期
@@ -1059,6 +1071,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     checkInTimeLabel.text = [[NSDate formatNSTimeToNSDateString:checkInData] substringToIndex:10];
     checkInTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     checkInTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    checkInTimeLabel.adjustsFontSizeToFitWidth = YES;
     [tempRootView addSubview:checkInTimeLabel];
     
     ///商业类型
@@ -1069,10 +1082,10 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [tempRootView addSubview:tradeTipsLabel];
     
     UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
-    
     tradeTimeLabel.text =  [NSString stringWithFormat:@"%@(%@)",[QSCoreDataManager getHouseTradeTypeWithKey:tradeType],tradeType];
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    tradeTimeLabel.adjustsFontSizeToFitWidth = YES;
     [tempRootView addSubview:tradeTimeLabel];
     
     ///装修类型
@@ -1086,6 +1099,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     decoratorTimeLabel.text = [QSCoreDataManager getHouseDecorationTypeWithKey:decType];
     decoratorTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     decoratorTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    decoratorTimeLabel.adjustsFontSizeToFitWidth = YES;
     [tempRootView addSubview:decoratorTimeLabel];
     
     ///计算器
@@ -1221,6 +1235,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     areaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.area_covered,APPLICATION_AREAUNIT];
     areaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     areaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    areaInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:areaInfoLabel];
     
     ///建筑面积
@@ -1234,6 +1249,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     buildAreaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.areabuilt,APPLICATION_AREAUNIT];
     buildAreaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     buildAreaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    buildAreaInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:buildAreaInfoLabel];
     
     ///住户数
@@ -1247,6 +1263,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     housesNumInfoLabel.text = [NSString stringWithFormat:@"%@户",self.detailInfo.loupan_building.households_num];
     housesNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     housesNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    housesNumInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:housesNumInfoLabel];
     
     ///停车位
@@ -1260,6 +1277,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     partNumInfoLabel.text = [NSString stringWithFormat:@"%@位",self.detailInfo.loupan.parking_lot];
     partNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     partNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    partNumInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:partNumInfoLabel];
     
     ///容积率
@@ -1273,6 +1291,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue]] stringByAppendingString:@"%"];
     volumeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     volumeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    volumeInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:volumeInfoLabel];
     
     ///绿化率
@@ -1286,6 +1305,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue]] stringByAppendingString:@"%"];
     greenInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     greenInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    greenInfoLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:greenInfoLabel];
     
     ///开发商信息
@@ -1293,6 +1313,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     developLabel.text = [NSString stringWithFormat:@"%@(许可证号%@)",self.detailInfo.user.developer_name,self.detailInfo.loupan.licence];
     developLabel.textColor = COLOR_CHARACTERS_BLACK;
     developLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    developLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:developLabel];
     
     ///物业管理公司
@@ -1300,6 +1321,7 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     estateLabel.text = [NSString stringWithFormat:@"%@ | %@元/%@/月 物业费",self.detailInfo.loupan.company_property,self.detailInfo.loupan.fee,APPLICATION_AREAUNIT];
     estateLabel.textColor = COLOR_CHARACTERS_BLACK;
     estateLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
+    estateLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:estateLabel];
     
 }

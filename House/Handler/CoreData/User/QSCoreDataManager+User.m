@@ -75,30 +75,38 @@
         if (rRequestResultTypeSuccess == resultStatus) {
             
             ///修改用户登录状态
-            [QSCoreDataManager updateLoginStatus:YES andCallBack:^(BOOL flag) {
+            [self updateUnirecordFieldWithKey:COREDATA_ENTITYNAME_USER_INFO andUpdateField:@"is_login" andFieldNewValue:@"1"];
+            
+            ///保存用户信息
+            QSYLoginReturnData *tempModel = resultData;
+            QSUserDataModel *userModel = tempModel.userInfo;
+            
+            ///判断是否是发送物业
+            NSString *isRelease = [[NSUserDefaults standardUserDefaults] valueForKey:@"is_release_property"];
+            if ([isRelease intValue] == 99) {
                 
-                ///保存用户信息
-                QSYLoginReturnData *tempModel = resultData;
-                QSUserDataModel *userModel = tempModel.userInfo;
+                [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"is_release_property"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                userModel.user_type = [NSString stringWithFormat:@"%d",uUserCountTypeOwner];
                 
-                [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+            }
+            
+            [QSCoreDataManager saveLoginUserData:userModel andCallBack:^(BOOL flag) {
+                
+                if (flag) {
                     
-                    if (flag) {
-                        
-                        ///打印日志
-                        APPLICATION_LOG_INFO(@"更新用户信息", @"成功")
-                        
-                        ///回调通知用户信息已修改
-                        [self performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
-                        
-                    } else {
+                    ///打印日志
+                    APPLICATION_LOG_INFO(@"更新用户信息", @"成功")
                     
-                        ///打印日志
-                        APPLICATION_LOG_INFO(@"更新用户信息", @"失败")
+                    ///回调通知用户信息已修改
+                    [self performCoredataChangeCallBack:cCoredataDataTypeMyZoneUserInfoChange andChangeType:dDataChangeTypeUserInfoChanged andParamsID:nil andParams:nil];
                     
-                    }
+                } else {
                     
-                }];
+                    ///打印日志
+                    APPLICATION_LOG_INFO(@"更新用户信息", @"失败")
+                    
+                }
                 
             }];
             
