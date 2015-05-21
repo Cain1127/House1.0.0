@@ -606,6 +606,7 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.infoRootView addSubview:titleLabel];
     
     ///评分
@@ -882,6 +883,7 @@
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
     titleLabel.adjustsFontSizeToFitWidth = YES;
     titleLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:titleLabel];
     
     ///评分
@@ -891,6 +893,7 @@
     scoreLabel.textAlignment = NSTextAlignmentRight;
     scoreLabel.adjustsFontSizeToFitWidth = YES;
     scoreLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    scoreLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:scoreLabel];
     
     ///评分单位
