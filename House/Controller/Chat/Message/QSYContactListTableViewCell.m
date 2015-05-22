@@ -121,9 +121,17 @@ static char PhoneInfoKey;   //!<联系号码
     
     }
     
-    if (vipLabel) {
+    if ([model.contactUserInfo.level length] == 1) {
         
+        if ([model.contactUserInfo.level intValue] == 3) {
+            
+            vipLabel.hidden = NO;
+            
+        } else {
         
+            vipLabel.hidden = YES;
+        
+        }
         
     }
     

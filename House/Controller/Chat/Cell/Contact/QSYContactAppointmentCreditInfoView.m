@@ -225,7 +225,7 @@ static char CoolCountKey;       //!<回复率
     UILabel *label = objc_getAssociatedObject(self, &AppointCountKey);
     if (label && [replyRate length] > 0) {
         
-        label.text = [NSString stringWithFormat:@"%.2f",[replyRate floatValue]];
+        label.text = [NSString stringWithFormat:@"%.0f",[replyRate floatValue]];
         
     }
     
