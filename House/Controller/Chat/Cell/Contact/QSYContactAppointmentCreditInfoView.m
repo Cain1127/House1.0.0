@@ -188,17 +188,18 @@ static char CoolCountKey;       //!<回复率
     ///更新回复率
     [self updateReplyRate:userModel.reply_rate];
     
-    ///更新确认时间或者预约次数
+    ///更新预约次数
     if (uUserCountTypeTenant == self.userType) {
         
         [self updateAppointCount:userModel.reservation_num];
         
     }
     
+    ///确认时间
     if (uUserCountTypeOwner == self.userType ||
         uUserCountTypeAgency == self.userType) {
         
-        [self updateAppointCount:userModel.reservation_num];
+        [self updateAppointCount:userModel.affirm_time];
         
     }
 

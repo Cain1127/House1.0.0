@@ -163,6 +163,8 @@
                     
                 }
                 
+                self.footer.hidden = YES;
+                
             } else {
                 
                 ///移除暂无记录
@@ -175,13 +177,6 @@
                 ///更新数据源
                 self.dataSourceModel = resultDataModel;
                 
-            }
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                
-                ///刷新数据
-                [self reloadData];
-                
                 self.footer.hidden = NO;
                 if ([self.dataSourceModel.communityListHeaderData.per_page intValue] ==
                     [self.dataSourceModel.communityListHeaderData.next_page intValue]) {
@@ -193,6 +188,13 @@
                     [self.footer resetNoMoreData];
                     
                 }
+                
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                ///刷新数据
+                [self reloadData];
                 
             });
             
