@@ -23,6 +23,7 @@
 #import "NSString+Format.h"
 #import "NSString+Calculation.h"
 #import "NSDate+Formatter.h"
+#import "NSString+Calculation.h"
 
 #import "QSSocketManager.h"
 #import "QSCoreDataManager+User.h"
@@ -87,7 +88,26 @@
 {
 
     [super createNavigationBarUI];
-    [self setNavigationBarTitle:self.userModel.username];
+    
+    ///计算姓名显示的宽度
+    CGFloat widthTitle = [self.userModel.username calculateStringDisplayWidthByFixedHeight:44.0f andFontSize:FONT_NAVIGATIONBAR_TITLE];
+    widthTitle = widthTitle > 160.0f ? 160.0f : (widthTitle < 40.0f ? 40.0f : widthTitle);
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((SIZE_DEVICE_WIDTH - widthTitle) / 2.0f, 20.0f, widthTitle, 44.0f)];
+    nameLabel.text = self.userModel.username;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.font = [UIFont boldSystemFontOfSize:FONT_NAVIGATIONBAR_TITLE];
+    nameLabel.textColor = COLOR_CHARACTERS_GRAY;
+    [self.view addSubview:nameLabel];
+    
+    ///VIP标识
+    if ([self.userModel.level intValue] == 3) {
+        
+        QSImageView *vipImage = [[QSImageView alloc] initWithFrame:CGRectMake(nameLabel.frame.origin.x + nameLabel.frame.size.width, nameLabel.frame.origin.y + 11.0f, 20.0f, 20.0f)];
+        vipImage.image = [UIImage imageNamed:IMAGE_PUBLIC_VIP];
+        [self.view addSubview:vipImage];
+        
+    }
     
     ///查看联系人详情
     QSBlockButtonStyleModel *buttonStyle = [QSBlockButtonStyleModel createNavigationBarButtonStyleWithType:nNavigationBarButtonLocalTypeRight andButtonType:nNavigationBarButtonTypeUserDetail];

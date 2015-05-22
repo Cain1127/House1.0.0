@@ -55,6 +55,7 @@ static char PhoneInfoKey;   //!<联系号码
     ///姓名
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconView.frame.origin.x + iconView.frame.size.width + 5.0f, iconView.frame.origin.y, 120.0f, 20.0f)];
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
+    nameLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:nameLabel];
     objc_setAssociatedObject(self, &UserNameKey, nameLabel, OBJC_ASSOCIATION_ASSIGN);
     
@@ -68,7 +69,7 @@ static char PhoneInfoKey;   //!<联系号码
     ///手机号码
     UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconView.frame.origin.x + iconView.frame.size.width + 5.0f, nameLabel.frame.origin.y + nameLabel.frame.size.height, 240.0f, 20.0f)];
     phoneLabel.textColor = COLOR_CHARACTERS_LIGHTGRAY;
-    phoneLabel.text = @"13800000000";
+    phoneLabel.text = @"138******00";
     phoneLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     [self.contentView addSubview:phoneLabel];
     objc_setAssociatedObject(self, &PhoneInfoKey, phoneLabel, OBJC_ASSOCIATION_ASSIGN);

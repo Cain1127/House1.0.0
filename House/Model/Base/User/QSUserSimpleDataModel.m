@@ -27,7 +27,8 @@
                                                     @"mobile",
                                                     @"realname",
                                                     @"tj_secondHouse_num",
-                                                    @"tj_rentHouse_num"]];
+                                                    @"tj_rentHouse_num",
+                                                    @"level"]];
     
     return shared_mapping;
     

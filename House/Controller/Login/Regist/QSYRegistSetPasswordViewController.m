@@ -162,12 +162,12 @@
         
         ///有户名有效性数据
         NSString *nameString = nameField.text;
-        if ([nameString length] > 0 && [nameString length] < 2) {
+        if ([nameString length] > 0 && ([nameString length] < 2 || [nameString length] > 16)) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-11个字符", 1.0f, ^(){
-            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入4-16个字符(一个汉字两个字符)", 1.0f, ^(){
+                
                 [nameField becomeFirstResponder];
-            
+                
             })
             return;
             
