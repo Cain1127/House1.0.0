@@ -56,10 +56,18 @@
     
     UIButton *publishButton = [QSBlockButton createBlockButtonWithFrame:CGRectMake(CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, self.contentTextView.frame.origin.y+self.contentTextView.frame.size.height+10.0f, SIZE_DEVICE_WIDTH-2.0f*CONTENT_VIEW_MARGIN_LEFT_RIGHT_GAP, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
         
-        NSLog(@"发表");
+        ///判断内容
+        if ([self.contentTextView.text length] <= 0) {
+            
+            TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请先填写意见内容", 1.0f, ^(){})
+            return;
+            
+        }
+        
+        ///回收键盘
+        [self.contentTextView resignFirstResponder];
         [[NSUserDefaults standardUserDefaults] setObject:self.contentTextView.text forKey:@"publishString"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        
         [self postRequesPublishInfo];
         
     }];
@@ -108,19 +116,24 @@
 
     QSCustomHUDView *hud = [QSCustomHUDView showCustomHUD];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [QSRequestManager requestDataWithType:rRequestTypeCompanyComment andParams:@{@"discuss" : APPLICATION_NSSTRING_SETTING(self.contentTextView.text, @"")} andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
-        
-        [hud hiddenCustomHUD];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (rRequestResultTypeSuccess == resultStatus) {
             
-            [self.navigationController popViewControllerAnimated:YES];
-
-        });
+            [hud hiddenCustomHUDWithFooterTips:@"谢谢您的支持！" andDelayTime:1.5f andCallBack:^(BOOL isFinish){
+            
+                ///返回上一页
+                [self.navigationController popViewControllerAnimated:YES];
+            
+            }];
+            
+        } else {
         
+            [hud hiddenCustomHUDWithFooterTips:@"提交失败" andDelayTime:1.0f];
         
-    });
+        }
+        
+    }];
 
 }
 @end

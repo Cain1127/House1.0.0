@@ -17,6 +17,7 @@
 
 #import "QSCoreDataManager+User.h"
 #import "UIImageView+CacheImage.h"
+#import "QSYSendVerticalCodeReturnData.h"
 
 #import "QSSocketManager.h"
 #import <SS-BaiduPushSDK/BPush.h>
@@ -204,7 +205,7 @@ typedef enum
                 ///判断按钮事件:0取消
                 if (1 == buttonIndex) {
                     
-                    NSString *url = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=490062954";
+                    NSString *url = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=997682840";
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
                     
                 }
@@ -228,7 +229,45 @@ typedef enum
         case sSettingFieldActionTypeCheckVersion:
         {
             
-            APPLICATION_LOG_INFO(@"版本检测", @"")
+            __block QSCustomHUDView *hud = [QSCustomHUDView showCustomHUDWithTips:@"正要检测"];
+            [QSRequestManager requestDataWithType:rRequestTypeApplicationVersion andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
+                
+                if (rRequestResultTypeSuccess == resultStatus) {
+                    
+                    QSYSendVerticalCodeReturnData *tempModel = resultData;
+                    
+                    ///判断版本
+                    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+                    NSString *localVersion = [infoDic objectForKey:@"CFBundleVersion"];
+                    if (![localVersion isEqualToString:tempModel.msg]) {
+                        
+                        ///隐藏hud
+                        [hud hiddenCustomHUDWithFooterTips:@"检测完成"];
+                        NSString *tipsMessage = [NSString stringWithFormat:@"发现新版本：%@",tempModel.msg];
+                        TIPS_ALERT_MESSAGE_CONFIRMBUTTON(nil, tipsMessage, @"以后再说", @"立即去更新", ^(int index){
+                        
+                            ///马上更新
+                            if (index == 1) {
+                                
+                                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://itunes.apple.com"]];
+                                
+                            }
+                        
+                        })
+                        
+                    } else {
+                    
+                        [hud hiddenCustomHUDWithFooterTips:@"当前已是最新版本" andDelayTime:1.5f];
+                    
+                    }
+                    
+                } else {
+                
+                    [hud hiddenCustomHUDWithFooterTips:@"检测失败，请稍后再试" andDelayTime:1.0f];
+                
+                }
+                
+            }];
             
         }
             break;

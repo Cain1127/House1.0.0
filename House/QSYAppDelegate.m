@@ -35,7 +35,7 @@
 #import <SS-BaiduPushSDK/BPush.h>
 
 ///分享访问链接
-static NSString *const app_URL = @"http://www.baidu.com/";
+static NSString *const app_URL = @"http://www.fdangjia.net/site/mobile_download";
 
 ///友盟分享appkey
 static NSString *const shareSDK_Key = @"5535be0d67e58e4e96003357";

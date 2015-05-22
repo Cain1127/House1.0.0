@@ -735,7 +735,6 @@ typedef enum
     rRequestTypeOrderAppointmentaApplyBargain = 8005,   //!<预约订单申请议价
     rRequestTypeOrderAppointmentAcceptOrRejectApplyBargain = 8006,   //!<预约订单接受拒绝再议价
     rRequestTypeBookOrderListData = 8008,               //!<预约订单列表数据
-    
     rRequestTypeOrderAddAppointment = 8011,             //!<添加预约订单数据
     
     rRequestTypeSendPhoneVertical = 9000,               //!<发送手机验证码
@@ -748,6 +747,8 @@ typedef enum
     rRequestTypeForgetLoginPassword = 9007,             //!<密码密码并修改
     rRequestTypeResetMobile = 9008,                     //!<修改手机
     rRequestTypeSystemMessageList = 9009,               //!<系统消息列表
+    rRequestTypeApplicationVersion = 9010,              //!<应用版本检测
+    rRequestTypeCompanyComment = 9011,                  //!<意见反馈
     
     rRequestTypeOrderSubmitBid = 10002,                 //!<提交我的出价
     rRequestTypeOrderCancelAppointment = 10003,         //!<订单详情里取消预约订单
