@@ -94,11 +94,11 @@
         ///更多备注
         NSString *moreRemark = moreRemarkField.text;
         
-        
         if ([name length] <= 0 && [moreRemark length] <= 0) {
             
             TIPS_ALERT_MESSAGE_ANDTURNBACK(@"请输入备注信息", 1.0f, ^(){})
             return;
+            
         }
         
         ///回收键盘
