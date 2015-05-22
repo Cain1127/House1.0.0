@@ -91,6 +91,23 @@ typedef enum
 /**
  *  @author yangshengmeng, 15-01-27 10:01:49
  *
+ *  @brief  房源类型
+ *
+ *  @since  1.0.0
+ */
+typedef enum
+{
+
+    hHouseTradeTypeApartment = 1,       //!<公寓
+    hHouseTradeTypeResidence = 2,       //!<住宅
+    hHouseTradeTypeWellroom = 3,        //!<经适房
+    hHouseTradeTypeCommercial = 4,      //!<商住两用
+
+}HOUSE_TRADE_TYPE;
+
+/**
+ *  @author yangshengmeng, 15-01-27 10:01:49
+ *
  *  @brief  使用年限：used_year
  *
  *  @since  1.0.0

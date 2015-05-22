@@ -1054,7 +1054,12 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [tempRootView addSubview:openTipsLabel];
     
     UILabel *openTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(width, 0.0f, infoWidth - width - 5.0f, height)];
-    openTimeLabel.text = [[NSDate formatNSTimeToNSDateString:openedTime] substringToIndex:10];
+    
+    if ([openedTime length]) {
+        
+       openTimeLabel.text = [[NSDate formatNSTimeToNSDateString:openedTime] substringToIndex:10];
+        
+    }
     openTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     openTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     openTimeLabel.adjustsFontSizeToFitWidth = YES;
@@ -1068,7 +1073,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [tempRootView addSubview:checkInTipsLabel];
     
     UILabel *checkInTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkInTipsLabel.frame.origin.x + checkInTipsLabel.frame.size.width, checkInTipsLabel.frame.origin.y, infoWidth - width - 5.0f, height)];
-    checkInTimeLabel.text = [[NSDate formatNSTimeToNSDateString:checkInData] substringToIndex:10];
+    
+    if ([checkInData length]) {
+        
+        checkInTimeLabel.text = [[NSDate formatNSTimeToNSDateString:checkInData] substringToIndex:10];
+        
+    }
+    
     checkInTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     checkInTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     checkInTimeLabel.adjustsFontSizeToFitWidth = YES;
@@ -1082,7 +1093,14 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [tempRootView addSubview:tradeTipsLabel];
     
     UILabel *tradeTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(openTipsLabel.frame.size.width, tradeTipsLabel.frame.origin.y, infoWidth - tradeTipsLabel.frame.size.width - 5.0f, tradeTipsLabel.frame.size.height)];
-    tradeTimeLabel.text =  [NSString stringWithFormat:@"%@(%@)",[QSCoreDataManager getHouseTradeTypeWithKey:tradeType],tradeType];
+    
+    if ([tradeType intValue] >= hHouseTradeTypeApartment &&
+        [tradeType intValue] <= hHouseTradeTypeCommercial) {
+        
+        tradeTimeLabel.text = [QSCoreDataManager getHouseTradeTypeWithKey:tradeType];
+        
+    }
+    
     tradeTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     tradeTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     tradeTimeLabel.adjustsFontSizeToFitWidth = YES;
@@ -1096,7 +1114,14 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [tempRootView addSubview:decoratorTipsLabel];
     
     UILabel *decoratorTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(decoratorTipsLabel.frame.origin.x + decoratorTipsLabel.frame.size.width, decoratorTipsLabel.frame.origin.y, infoWidth - decoratorTipsLabel.frame.size.width - 5.0f, decoratorTipsLabel.frame.size.height)];
-    decoratorTimeLabel.text = [QSCoreDataManager getHouseDecorationTypeWithKey:decType];
+    
+    if ([decType intValue] >= hHouseDecorationTypeLuxurious &&
+        [decType intValue] <= hHouseDecorationTypeRough) {
+        
+        decoratorTimeLabel.text = [QSCoreDataManager getHouseDecorationTypeWithKey:decType];
+        
+    }
+    
     decoratorTimeLabel.textColor = COLOR_CHARACTERS_BLACK;
     decoratorTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     decoratorTimeLabel.adjustsFontSizeToFitWidth = YES;
@@ -1232,7 +1257,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:areaTipsLabel];
     
     UILabel *areaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(areaTipsLabel.frame.origin.x + areaTipsLabel.frame.size.width, areaTipsLabel.frame.origin.y, infoWidth - areaTipsLabel.frame.size.width - 5.0f, areaTipsLabel.frame.size.height)];
-    areaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.area_covered,APPLICATION_AREAUNIT];
+    
+    if ([self.detailInfo.loupan.area_covered floatValue] > 1.0f) {
+        
+        areaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.area_covered,APPLICATION_AREAUNIT];
+        
+    }
+    
     areaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     areaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     areaInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1246,7 +1277,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:buildAreaTipsLabel];
     
     UILabel *buildAreaInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(buildAreaTipsLabel.frame.origin.x + buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.origin.y, infoWidth - 5.0f - buildAreaTipsLabel.frame.size.width, buildAreaTipsLabel.frame.size.height)];
-    buildAreaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.areabuilt,APPLICATION_AREAUNIT];
+    
+    if ([self.detailInfo.loupan.areabuilt floatValue] > 1.0f) {
+        
+        buildAreaInfoLabel.text = [NSString stringWithFormat:@"%@%@",self.detailInfo.loupan.areabuilt,APPLICATION_AREAUNIT];
+        
+    }
+    
     buildAreaInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     buildAreaInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     buildAreaInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1260,7 +1297,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:housesNumTipsLabel];
     
     UILabel *housesNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(housesNumTipsLabel.frame.origin.x + housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.origin.y, infoWidth - 5.0f - housesNumTipsLabel.frame.size.width, housesNumTipsLabel.frame.size.height)];
-    housesNumInfoLabel.text = [NSString stringWithFormat:@"%@户",self.detailInfo.loupan_building.households_num];
+    
+    if ([self.detailInfo.loupan_building.households_num intValue] > 1) {
+        
+        housesNumInfoLabel.text = [NSString stringWithFormat:@"%@户",self.detailInfo.loupan_building.households_num];
+        
+    }
+    
     housesNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     housesNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     housesNumInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1274,7 +1317,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:partNumTipsLabel];
     
     UILabel *partNumInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(partNumTipsLabel.frame.origin.x + partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.origin.y, infoWidth - 5.0f - partNumTipsLabel.frame.size.width, partNumTipsLabel.frame.size.height)];
-    partNumInfoLabel.text = [NSString stringWithFormat:@"%@位",self.detailInfo.loupan.parking_lot];
+    
+    if ([self.detailInfo.loupan.parking_lot intValue] > 1) {
+        
+        partNumInfoLabel.text = [NSString stringWithFormat:@"%@位",self.detailInfo.loupan.parking_lot];
+        
+    }
+    
     partNumInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     partNumInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     partNumInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1288,7 +1337,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:volumeTipsLabel];
     
     UILabel *volumeInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(volumeTipsLabel.frame.origin.x + volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.origin.y, infoWidth - 5.0f - volumeTipsLabel.frame.size.width, volumeTipsLabel.frame.size.height)];
-    volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue]] stringByAppendingString:@"%"];
+    
+    if ([self.detailInfo.loupan.volume_rate length] > 0) {
+        
+        volumeInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.volume_rate floatValue]] stringByAppendingString:@"%"];
+        
+    }
+    
     volumeInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     volumeInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     volumeInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1302,7 +1357,13 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     [view addSubview:greenTipsLabel];
     
     UILabel *greenInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(greenTipsLabel.frame.origin.x + greenTipsLabel.frame.size.width, greenTipsLabel.frame.origin.y, infoWidth - 5.0f - greenTipsLabel.frame.size.width, greenTipsLabel.frame.size.height)];
-    greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue]] stringByAppendingString:@"%"];
+    
+    if ([self.detailInfo.loupan.green_rate  length] > 0) {
+        
+        greenInfoLabel.text = [[NSString stringWithFormat:@"%.2f",[self.detailInfo.loupan.green_rate floatValue]] stringByAppendingString:@"%"];
+        
+    }
+    
     greenInfoLabel.textColor = COLOR_CHARACTERS_BLACK;
     greenInfoLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     greenInfoLabel.adjustsFontSizeToFitWidth = YES;
@@ -1310,7 +1371,26 @@ static char SecondInfoRootViewKey;  //!<详情信息以下所有信息的底view
     
     ///开发商信息
     UILabel *developLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, volumeTipsLabel.frame.origin.y + volumeTipsLabel.frame.size.height + 20.0f, view.frame.size.width, height)];
-    developLabel.text = [NSString stringWithFormat:@"%@(许可证号%@)",self.detailInfo.user.developer_name,self.detailInfo.loupan.licence];
+    
+    NSMutableString *developString = [NSMutableString string];
+    if ([self.detailInfo.user.developer_name length] > 0) {
+        
+        [developString appendString:self.detailInfo.user.developer_name];
+        
+    }
+    
+    if ([self.detailInfo.loupan.licence length] > 0) {
+        
+        [developString appendFormat:@"(许可证号%@)",self.detailInfo.loupan.licence];
+        
+    }
+    
+    if ([developString length]  > 0) {
+        
+        developLabel.text = developString;
+        
+    }
+
     developLabel.textColor = COLOR_CHARACTERS_BLACK;
     developLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     developLabel.adjustsFontSizeToFitWidth = YES;

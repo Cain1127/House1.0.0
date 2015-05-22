@@ -520,6 +520,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
     ///每个控件的宽度
     CGFloat width = 65.0f;
     CGFloat height =55.0f;
+    
     ///每个户型信息项之间的间隙
     CGFloat gap = 0.0f;
     

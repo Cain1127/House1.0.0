@@ -17,9 +17,7 @@
     RKObjectMapping *shared_mapping = [super objectMapping];
     
     ///在超类的mapping规则之上添加子类mapping
-    [shared_mapping addAttributeMappingsFromArray:@[@"coordinate_x",
-                                                    @"coordinate_y",
-                                                    @"is_store"]];
+    [shared_mapping addAttributeMappingsFromArray:@[@"is_store"]];
     
     return shared_mapping;
     
