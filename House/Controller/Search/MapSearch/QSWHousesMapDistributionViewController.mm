@@ -791,7 +791,21 @@ static char ChannelButtonRootView;  //!<频道栏底view关联
         
         QSMapCommunityDataModel *tempModel = self.dataSourceModel.mapCommunityListHeaderData.communityList[i];
         self.title = tempModel.mapCommunityDataSubModel.title;
-        self.subtitle = tempModel.total_num;
+        
+        ///根据类型封装数量
+        if (fFilterMainTypeCommunity == self.listType) {
+            
+            self.subtitle = tempModel.total_num;
+            
+        } else if (fFilterMainTypeRentalHouse == self.listType) {
+        
+            self.subtitle = tempModel.rent_house_num;
+        
+        } else if (fFilterMainTypeSecondHouse == self.listType) {
+        
+            self.subtitle = tempModel.resold_apartment_num;
+        
+        }
         
         self.coordinate_x = ([tempModel.mapCommunityDataSubModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.mapCommunityDataSubModel.coordinate_x : tempModel.mapCommunityDataSubModel.coordinate_y;
         self.coordinate_y = ([tempModel.mapCommunityDataSubModel.coordinate_x doubleValue] - 50.0f > 1.0f) ? tempModel.mapCommunityDataSubModel.coordinate_y : tempModel.mapCommunityDataSubModel.coordinate_x;

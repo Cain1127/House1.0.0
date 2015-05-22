@@ -11,6 +11,8 @@
 @class QSMapCommunityDataSubModel;
 @interface QSMapCommunityDataModel :QSBaseModel
 
+@property (nonatomic,copy) NSString *rent_house_num;                                //!<小区内的出租房
+@property (nonatomic,copy) NSString *resold_apartment_num;                          //!<小区内的二手房
 @property (nonatomic,copy) NSString *total_num;                                     //!<小区房源套数;
 @property (nonatomic,retain) QSMapCommunityDataSubModel *mapCommunityDataSubModel;  //!<小区基本模型数据
 

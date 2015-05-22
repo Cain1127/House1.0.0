@@ -102,6 +102,7 @@
         self.subTitleLabel.font = [UIFont systemFontOfSize:16];
         self.subTitleLabel.textColor = [UIColor blackColor];
         self.subTitleLabel.textAlignment = NSTextAlignmentRight;
+        self.subTitleLabel.adjustsFontSizeToFitWidth = YES;
         [connetView addSubview:self.subTitleLabel];
         
         ///单位

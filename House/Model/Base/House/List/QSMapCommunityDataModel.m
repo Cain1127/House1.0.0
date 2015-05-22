@@ -19,7 +19,9 @@
     shared_mapping = [RKObjectMapping mappingForClass:[self class]];
     
     //mapping字典
-    NSDictionary *mappingDict = @{@"total_num":@"total_num"
+    NSDictionary *mappingDict = @{@"total_num":@"total_num",
+                                  @"resold_apartment_num" : @"resold_apartment_num",
+                                  @"rent_house_num" : @"rent_house_num"
                                   };
     [shared_mapping addAttributeMappingsFromDictionary:mappingDict];
     [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"houseing_estate_msg" toKeyPath:@"mapCommunityDataSubModel" withMapping:[QSMapCommunityDataSubModel objectMapping]]];
