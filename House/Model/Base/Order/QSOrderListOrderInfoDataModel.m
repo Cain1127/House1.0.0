@@ -92,6 +92,8 @@
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 
+                //接受房客的预约
+                
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"接受";
@@ -118,17 +120,12 @@
             rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_ASK_BT_SELECTED;
             [btList addObject:rightBt];
             
-            QSOrderButtonActionModel *leftBt = [[QSOrderButtonActionModel alloc] init];
-            leftBt.bottionActionTag = [self.order_status integerValue];
-            leftBt.buttonName = @"电话";
-            leftBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_NORMAL;
-            leftBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CALL_BT_SELECTED;
-            [btList addObject:leftBt];
-            
         }else if ([self.order_status isEqualToString:@"500203"]) {
             //房客修改看房时间
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
+                
+                //接受房客的预约
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
@@ -195,7 +192,7 @@
                 //房客角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"评价";
+                rightBt.buttonName = @"评价房源";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_COMMENT_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_COMMENT_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -338,6 +335,7 @@
             if ([self getUserType] == uUserCountTypeOwner) {
                 //业主角色
                 
+                //是否接受房客申请议价
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"接受";
@@ -354,6 +352,9 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                
+                //完成预约订单，进入成交流程
+                
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
@@ -366,6 +367,9 @@
             //房主拒绝还价
             if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                
+                //完成预约订单，进入成交流程
+                
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
@@ -406,13 +410,16 @@
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交-成交预约订单";
+                rightBt.buttonName = @"同意还价";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                
+                //房客成交预约已看房订单
+                
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
@@ -449,6 +456,7 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                //房客成交预约已看房订单
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
                 rightBt.buttonName = @"成交";
@@ -461,6 +469,8 @@
             //一口价待接受
             if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+            
+                //完成预约订单，进入成交流程
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
@@ -488,50 +498,11 @@
             
         }else if ([self.order_status isEqualToString:@"500221"]) {
             //客户确认成功
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                
-                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
-                rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"提醒";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_SELECTED;
-                [btList addObject:rightBt];
-                
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
-                rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
-                [btList addObject:rightBt];
-                
-            }
+            //不处理
+            
         }else if ([self.order_status isEqualToString:@"500222"]) {
             //商家确认成功
-            if ([self getUserType] == uUserCountTypeOwner) {
-                //业主角色
-                
-                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
-                rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
-                [btList addObject:rightBt];
-                
-                
-            }else if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
-                
-                QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
-                rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"提醒";
-                rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_NORMAL;
-                rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_REMIND_BT_SELECTED;
-                [btList addObject:rightBt];
-                
-            }
+            //不处理
         }else if ([self.order_status isEqualToString:@"500223"]) {
             //双方都确认成功
             
@@ -556,7 +527,7 @@
                 
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交-确认完成订单";
+                rightBt.buttonName = @"确认完成待成交订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
@@ -589,7 +560,7 @@
                 //房客角色
                 QSOrderButtonActionModel *rightBt = [[QSOrderButtonActionModel alloc] init];
                 rightBt.bottionActionTag = [self.order_status integerValue];
-                rightBt.buttonName = @"成交待成交订单";
+                rightBt.buttonName = @"确认完成待成交订单";
                 rightBt.normalImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_NORMAL;
                 rightBt.highLightImg = IMAGE_ZONE_ORDER_LIST_CELL_CONFIRM_BT_SELECTED;
                 [btList addObject:rightBt];
