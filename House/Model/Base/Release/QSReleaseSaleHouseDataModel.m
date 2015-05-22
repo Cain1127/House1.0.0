@@ -112,7 +112,9 @@
             @"entrust" : (self.exclusiveCompany ? @"Y" : @"N"),
             @"entrust_company" : APPLICATION_NSSTRING_SETTING([self.exclusiveCompany valueForKey:@"title"], @""),
             @"attach_file" : APPLICATION_NSSTRING_SETTING(houseImageModel.originalImageURL, @""),
-            @"attach_thumb" : APPLICATION_NSSTRING_SETTING(houseImageModel.smallImageURL, @"")};
+            @"attach_thumb" : APPLICATION_NSSTRING_SETTING(houseImageModel.smallImageURL, @""),
+            @"coordinate_x" : APPLICATION_NSSTRING_SETTING(self.longitude, @""),
+            @"coordinate_y" : APPLICATION_NSSTRING_SETTING(self.latitude, @"")};
     
     ///返回发布出租房参数
     return @{@"secondHouse_photo" : [NSArray arrayWithArray:photosArray],

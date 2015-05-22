@@ -51,7 +51,9 @@
                                                     @"tj_secondHouse_num",
                                                     @"tj_rentHouse_num",
                                                     @"tj_condition",
-                                                    @"tj_environment"]];
+                                                    @"tj_environment",
+                                                    @"coordinate_x",
+                                                    @"coordinate_y"]];
     
     return shared_mapping;
     

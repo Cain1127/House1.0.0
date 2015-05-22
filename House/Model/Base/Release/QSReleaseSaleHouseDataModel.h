@@ -47,6 +47,8 @@
 @property (nonatomic,copy) NSString *starTime;                      //!<开始时间
 @property (nonatomic,copy) NSString *endTime;                       //!<结束时间
 @property (nonatomic,copy) NSString *video_url;                     //!<视频地址
+@property (nonatomic,copy) NSString *longitude;                     //!<经度
+@property (nonatomic,copy) NSString *latitude;                      //!<纬度
 
 @property (nonatomic,retain) id exclusiveCompany;                   //!<独家公司
 

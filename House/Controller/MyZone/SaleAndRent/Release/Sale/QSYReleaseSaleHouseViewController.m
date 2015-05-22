@@ -480,6 +480,11 @@ typedef enum
                     self.saleHouseReleaseModel.community = pickCommunity.title;
                     self.saleHouseReleaseModel.communityKey = pickCommunity.id_;
                     
+                    NSString *longitude = [pickCommunity.coordinate_x floatValue] > [pickCommunity.coordinate_y floatValue] ? pickCommunity.coordinate_x : pickCommunity.coordinate_y;
+                    NSString *latitude = [pickCommunity.coordinate_x floatValue] > [pickCommunity.coordinate_y floatValue] ? pickCommunity.coordinate_y : pickCommunity.coordinate_x;
+                    self.saleHouseReleaseModel.longitude = longitude;
+                    self.saleHouseReleaseModel.latitude = latitude;
+                    
                 }
                 
             }];

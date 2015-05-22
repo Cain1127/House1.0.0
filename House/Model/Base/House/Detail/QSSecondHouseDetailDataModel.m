@@ -109,6 +109,11 @@
     tempModel.endTime = self.house.time_interval_end;
     tempModel.video_url = self.house.video_url;
     
+    NSString *longitude = [self.house.coordinate_x floatValue] > [self.house.coordinate_y floatValue] ? self.house.coordinate_y : self.house.coordinate_x;
+    NSString *latitude = [self.house.coordinate_x floatValue] > [self.house.coordinate_y floatValue] ? self.house.coordinate_x : self.house.coordinate_y;
+    tempModel.longitude = longitude;
+    tempModel.latitude = latitude;
+    
     ///房屋性质
     if ([self.house.house_nature length] > 0) {
         

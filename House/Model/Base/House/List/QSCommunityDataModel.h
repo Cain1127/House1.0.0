@@ -47,6 +47,8 @@
 @property (nonatomic,copy) NSString *tj_five_shi_price_avg;     //!<五室平均价
 @property (nonatomic,copy) NSString *tj_secondHouse_num;        //!<二手房数量
 @property (nonatomic,copy) NSString *tj_rentHouse_num;          //!<出租方数量
+@property (nonatomic,copy) NSString *coordinate_x;              //!<小区所在经度
+@property (nonatomic,copy) NSString *coordinate_y;              //!<小区所在伟度
 
 @property (nonatomic,copy) NSString *tj_condition;              //!<内部条件评分
 @property (nonatomic,copy) NSString *tj_environment;            //!<周边环境评分
