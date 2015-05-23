@@ -855,9 +855,11 @@ static NSString *const appSecret_Key = @"0c4264acc43c08c808c1d01181a23387";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         
         ///在这里添加CoreData错误处理代理
+        TIPS_ALERT_MESSAGE_ANDTURNBACK(@"版本更换，需要删除原来版本再重新安装，谢谢您的支持！", 2.0f, ^(){
         
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+            abort();
+        
+        })
         
     }    
     
