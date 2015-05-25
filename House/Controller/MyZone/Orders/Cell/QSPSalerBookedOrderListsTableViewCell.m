@@ -60,15 +60,16 @@ static char rightActionBtKey;   //!<右部右边按钮关联key
 {
     
     //状态
-    UILabel *stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 16.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH-100, 24)];
-    [stateLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
+    UILabel *stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 16.0f, MY_ZONE_ORDER_LIST_CELL_WIDTH-100, 20)];
+    [stateLabel setFont:[UIFont systemFontOfSize:FONT_BODY_12]];
     [self.contentView addSubview:stateLabel];
     
     objc_setAssociatedObject(self, &stateLabelKey, stateLabel, OBJC_ASSOCIATION_ASSIGN);
     
     //业主、经纪人、开发商
-    UILabel *personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(stateLabel.frame.origin.x, stateLabel.frame.origin.y+stateLabel.frame.size.height+4, stateLabel.frame.size.width, 20)];
+    UILabel *personNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(stateLabel.frame.origin.x, stateLabel.frame.origin.y+stateLabel.frame.size.height, stateLabel.frame.size.width, 20)];
     [personNameLabel setFont:[UIFont systemFontOfSize:FONT_BODY_14]];
+    [personNameLabel setTextColor:COLOR_CHARACTERS_BLACK];
     [self.contentView addSubview:personNameLabel];
     
     objc_setAssociatedObject(self, &personNameLabelKey, personNameLabel, OBJC_ASSOCIATION_ASSIGN);

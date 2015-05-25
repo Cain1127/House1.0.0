@@ -419,9 +419,9 @@
 {
     
     NSMutableAttributedString *tempString = [[NSMutableAttributedString alloc] initWithString:string];
-    [tempString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, string.length)];
+    [tempString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, string.length)];
     //设置字体大小
-    [tempString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_12] range:NSMakeRange(0, string.length)];
+    [tempString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, string.length)];
 
     return tempString;
     
@@ -463,9 +463,11 @@
     }
     
     NSMutableAttributedString *summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
-    [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tipString.length, priceStr.length)];
     //设置字体大小
-    [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_12] range:NSMakeRange(0, summaryString.length)];
+    [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, summaryString.length)];
+    [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, summaryString.length)];
+    
+    [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tipString.length, priceStr.length)];
     [summaryString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:FONT_BODY_14] range:NSMakeRange(tipString.length, priceStr.length)];
     return summaryString;
     
@@ -521,7 +523,7 @@
         }
         
         summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
-        
+        [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, summaryString.length)];
         [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, summaryString.length)];
         [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tip1String.length, price1Str.length)];
         [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(tip1String.length+price1Str.length+tip2String.length, price2Str.length)];

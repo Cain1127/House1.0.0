@@ -167,6 +167,7 @@ static char oepnActionBtKey;    //!<右部展开按钮关联key
     }
     NSString *tempString = [NSString stringWithFormat:@"共有%@%@",countStr,lastString];
     NSMutableAttributedString *summaryString = [[NSMutableAttributedString alloc] initWithString:tempString];
+    [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_GRAY range:NSMakeRange(0, tempString.length)];
     [summaryString addAttribute:NSForegroundColorAttributeName value:COLOR_CHARACTERS_YELLOW range:NSMakeRange(2, countStr.length)];
     //设置字体大小
     [summaryString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:FONT_BODY_14] range:NSMakeRange(0, summaryString.length)];
