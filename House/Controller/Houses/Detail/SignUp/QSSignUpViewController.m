@@ -103,6 +103,7 @@
     [self createBottomUI:_bottomView];
     
     [_rootView.header beginRefreshing];
+    
 }
 
 #pragma mark -创建UI
@@ -165,7 +166,6 @@
     _linkManView = [UITextField createCustomTextFieldWithFrame:CGRectMake(0.0f, 0.0f, view.frame.size.width, 44.0f) andPlaceHolder:nil andLeftTipsInfo:@"联系人:" andLeftTipsTextAlignment:NSTextAlignmentCenter andTextFieldStyle:cCustomTextFieldStyleLeftTipsGray];
     _linkManView.clearButtonMode = UITextFieldViewModeWhileEditing;
     _linkManView.delegate = self;
-    //linkMan.keyboardType = UIKeyboardTypeASCIICapable;
     [view addSubview:_linkManView];
     
     ///分隔线
@@ -178,7 +178,6 @@
     
     _phoneView.clearButtonMode = UITextFieldViewModeWhileEditing;
     _phoneView.delegate = self;
-    //_phoneView.keyboardType = UIKeyboardTypeNumberPad;
     [view addSubview:_phoneView];
     
     ///分隔线
@@ -192,7 +191,6 @@
         
         _numberView.clearButtonMode = UITextFieldViewModeWhileEditing;
         _numberView.delegate=self;
-        // _numberView.keyboardType=UIKeyboardTypeNumberPad;
         [view addSubview:_numberView];
         
         ///分隔线
@@ -271,7 +269,9 @@
                 })
                 
                 return;
+                
             }
+            
         }
         ///回收键盘
         [_linkManView resignFirstResponder];
@@ -358,26 +358,29 @@
     [tempParam setObject:self.userID forKey:@"saler_id"];
     [tempParam setObject:@"0" forKey:@"add_type"];
     
-    NSLog(@"请求参数：%@",tempParam);
-    
     [QSRequestManager requestDataWithType:rRequestTypeOrderAddAppointment andParams:tempParam andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
         
         ///转换模型
-        QSPAppointmentOrderReturnData *headerModel = resultData;
         if (rRequestResultTypeSuccess == resultStatus) {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){
+            [hud hiddenCustomHUDWithFooterTips:@"报名成功!" andDelayTime:1.5f andCallBack:^(BOOL flag) {
                 
                 [self.navigationController popViewControllerAnimated:YES];
                 
-            })
+            }];
             
-        }else{
+        } else {
             
-            TIPS_ALERT_MESSAGE_ANDTURNBACK(headerModel.info, 1.0f, ^(){})
+            NSString *tipsSring = @"报名失败，请稍后再试";
+            if (resultData) {
+                
+                tipsSring = [resultData valueForKey:@"info"];
+                
+            }
+            
+            [hud hiddenCustomHUDWithFooterTips:tipsSring andDelayTime:1.5f];
+            
         }
-        
-        [hud hiddenCustomHUD];
         
     }];
     

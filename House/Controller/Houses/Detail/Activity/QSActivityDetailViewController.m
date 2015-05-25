@@ -164,8 +164,6 @@ static char RootViewKey;     //!<顶部信息关联key
 -(void)createBottomUI:(UIView *)view
 {
     
-    //    UIView *view=objc_getAssociatedObject(self, &BottomViewKey);
-    
     ///分隔线
     UILabel *sepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, SIZE_DEVICE_WIDTH, 0.25f)];
     sepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
@@ -178,8 +176,6 @@ static char RootViewKey;     //!<顶部信息关联key
     buttonStyle.titleNormalColor=COLOR_CHARACTERS_BLACK;
     
     UIButton *signUpButton=[QSBlockButton createBlockButtonWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, 8.0f, SIZE_DEFAULT_MAX_WIDTH, 44.0f) andButtonStyle:buttonStyle andCallBack:^(UIButton *button) {
-        
-        APPLICATION_LOG_INFO(@"马上报名按钮事件", nil);
         
         QSSignUpViewController *VC=[[QSSignUpViewController alloc] initWithactivityID:self.activityID andTitle:self.detailInfo.loupan_activity.title andNumber:self.detailInfo.loupan_activity.people_num andEndTime:self.detailInfo.loupan_activity.end_time andloupanID:self.detailInfo.loupan_activity.loupan_id anduserID:self.userID];
         
