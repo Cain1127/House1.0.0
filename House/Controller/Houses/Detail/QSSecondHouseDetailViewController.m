@@ -301,7 +301,7 @@ static char MainInfoRootViewKey;    //!<主信息的底view关联
                     
                     if (1 <= [self.detailInfo.expandInfo.is_book length]) {
                         
-                        ///已登录进入预约
+                        ///已登录进入预约详情
                         QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
                         orderDetailPage.orderID = self.detailInfo.expandInfo.is_book;
                         [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];

@@ -7,6 +7,12 @@
 //
 
 #import "QSYSystemMessagesViewController.h"
+#import "QSYSystemMessageDetailViewController.h"
+#import "QSYSystemAdvertViewController.h"
+#import "QSSecondHouseDetailViewController.h"
+#import "QSNewHouseDetailViewController.h"
+#import "QSRentHouseDetailViewController.h"
+#import "QSPOrderDetailBookedViewController.h"
 
 #import "QSChatMessageListTableViewCell.h"
 
@@ -19,6 +25,7 @@
 
 @property (nonatomic,strong) UITableView *messageListView;          //!<消息列表
 @property (nonatomic,retain) QSYSystemMessageReturnData *returnData;//!<服务端返回数据
+@property (assign) BOOL isNeedRefresh;                              //!<出现时是否刷新
 
 @end
 
@@ -93,9 +100,100 @@
 
 }
 
+#pragma mark - 进入消息详情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    if (nil == self.returnData ||
+        [self.returnData.headerData.dataList count] <= 0) {
+        
+        return;
+        
+    }
+    
+    QSYSystemMessageListDataModel *tempModel = self.returnData.headerData.dataList[indexPath.row];
+    
+    ///获取类型
+    NSString *messageType = tempModel.expand.source_type;
+    
+    /**
+     *  NOTE    :   系统通知
+     *  ORDER   :   订单通知
+     *  AD      :   广告
+     *  SH      :   推荐二手房
+     *  NH      :   推送新房
+     *  RH      :   推送出租房
+     */
+
+    ///普通消息
+    if ([messageType length] <= 0 || [messageType isEqualToString:@"NOTE"]) {
+        
+        QSYSystemMessageDetailViewController *detailVC = [[QSYSystemMessageDetailViewController alloc] init];
+        detailVC.detailModel = tempModel;
+        [self.navigationController pushViewController:detailVC animated:YES];
+        
+    }
+    
+    ///进入订单详情
+    if ([messageType isEqualToString:@"ORDER"]) {
+        
+        QSPOrderDetailBookedViewController *orderDetailPage = [[QSPOrderDetailBookedViewController alloc] init];
+        orderDetailPage.orderID = tempModel.expand.message_id;
+        [orderDetailPage setOrderType:mOrderWithUserTypeAppointment];
+        [self.navigationController pushViewController:orderDetailPage animated:YES];
+        
+    }
+    
+    ///广告
+    if ([messageType isEqualToString:@"AD"]) {
+        
+        QSYSystemAdvertViewController *advertVC = [[QSYSystemAdvertViewController alloc] init];
+        advertVC.advertURLString = tempModel.expand.expand_2;
+        advertVC.advertTitle = tempModel.title;
+        [self.navigationController pushViewController:advertVC animated:YES];
+        
+    }
+    
+    ///二手房
+    if ([messageType isEqualToString:@"SH"]) {
+        
+        QSSecondHouseDetailViewController *secondHandHouseDetailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:tempModel.expand.expand_1 andDetailID:tempModel.expand.expand_2];
+        [self.navigationController pushViewController:secondHandHouseDetailVC animated:YES];
+        
+    }
+    
+    ///新房
+    if ([messageType isEqualToString:@"NH"]) {
+        
+        NSString *newHouseInfo = tempModel.expand.expand_2;
+        NSArray *infoArray = [newHouseInfo componentsSeparatedByString:@"#"];
+        
+        if ([infoArray count] != 2) {
+            
+            return;
+            
+        }
+        
+        QSNewHouseDetailViewController *newHouseDetailVC = [[QSNewHouseDetailViewController alloc] initWithTitle:tempModel.expand.expand_1 andLoupanID:infoArray[0] andLoupanBuildingID:infoArray[1] andDetailType:fFilterMainTypeNewHouse];
+        [self.navigationController pushViewController:newHouseDetailVC animated:YES];
+        
+    }
+    
+    ///出租房
+    if ([messageType isEqualToString:@"RH"]) {
+        
+        QSRentHouseDetailViewController *rentHouseDetailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:tempModel.expand.expand_1 andDetailID:tempModel.expand.expand_2];
+        [self.navigationController pushViewController:rentHouseDetailVC animated:YES];
+        
+    }
+
+}
+
 #pragma mark - 请求系统消息数据
 - (void)requestSystemMessageData
 {
+    
+    [self showNoRecordTips:NO andTips:@"暂无系统消息"];
     
     ///封装参数
     NSDictionary *prarams = @{@"key" : @"",

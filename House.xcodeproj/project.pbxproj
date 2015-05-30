@@ -133,6 +133,8 @@
 		187CA8D41AA3067900841A7E /* QSRentHouseListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187CA8D31AA3067900841A7E /* QSRentHouseListView.m */; };
 		188728F11AC1AA6E00C88AA1 /* QSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188728F01AC1AA6E00C88AA1 /* QSCollectionView.m */; };
 		188728F51AC1B0F800C88AA1 /* QSAttentionCommunityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188728F41AC1B0F800C88AA1 /* QSAttentionCommunityCell.m */; };
+		188BE7451B1979800057519B /* QSYSystemMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BE7441B1979800057519B /* QSYSystemMessageDetailViewController.m */; };
+		188BE7481B197CC30057519B /* QSYSystemAdvertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BE7471B197CC20057519B /* QSYSystemAdvertViewController.m */; };
 		1890B7821AB8475400B94E9B /* QSSocketManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1890B7811AB8475400B94E9B /* QSSocketManager.mm */; };
 		1893009B1A6903540081D0AA /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1893009A1A6903540081D0AA /* Readme.rtf */; };
 		18983A081AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png in Resources */ = {isa = PBXBuildFile; fileRef = 18983A071AAD8B1D006069A7 /* houses_detail_header_load_fail750x562.png */; };
@@ -1121,6 +1123,10 @@
 		188728F01AC1AA6E00C88AA1 /* QSCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSCollectionView.m; path = CollectionView/QSCollectionView.m; sourceTree = "<group>"; };
 		188728F31AC1B0F800C88AA1 /* QSAttentionCommunityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSAttentionCommunityCell.h; path = Cell/QSAttentionCommunityCell.h; sourceTree = "<group>"; };
 		188728F41AC1B0F800C88AA1 /* QSAttentionCommunityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSAttentionCommunityCell.m; path = Cell/QSAttentionCommunityCell.m; sourceTree = "<group>"; };
+		188BE7431B1979800057519B /* QSYSystemMessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSystemMessageDetailViewController.h; path = Message/QSYSystemMessageDetailViewController.h; sourceTree = "<group>"; };
+		188BE7441B1979800057519B /* QSYSystemMessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSystemMessageDetailViewController.m; path = Message/QSYSystemMessageDetailViewController.m; sourceTree = "<group>"; };
+		188BE7461B197CC20057519B /* QSYSystemAdvertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSYSystemAdvertViewController.h; path = Message/QSYSystemAdvertViewController.h; sourceTree = "<group>"; };
+		188BE7471B197CC20057519B /* QSYSystemAdvertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSYSystemAdvertViewController.m; path = Message/QSYSystemAdvertViewController.m; sourceTree = "<group>"; };
 		1890B7801AB8475400B94E9B /* QSSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSocketManager.h; sourceTree = "<group>"; };
 		1890B7811AB8475400B94E9B /* QSSocketManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QSSocketManager.mm; sourceTree = "<group>"; };
 		1893009A1A6903540081D0AA /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
@@ -2919,6 +2925,10 @@
 			children = (
 				184366B51ABA617600A81374 /* QSYSystemMessagesViewController.h */,
 				184366B61ABA617600A81374 /* QSYSystemMessagesViewController.m */,
+				188BE7431B1979800057519B /* QSYSystemMessageDetailViewController.h */,
+				188BE7441B1979800057519B /* QSYSystemMessageDetailViewController.m */,
+				188BE7461B197CC20057519B /* QSYSystemAdvertViewController.h */,
+				188BE7471B197CC20057519B /* QSYSystemAdvertViewController.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -7321,6 +7331,7 @@
 				18CACE2C1AE110640053CA84 /* QSYOwnerPropertyDeleteTipsPopView.m in Sources */,
 				18124E301B0041B70052E65B /* QSYGuideFindHouseReturnData.m in Sources */,
 				477B327D1AD8C282004D374E /* QSPOrderDetailActionReturnBaseDataModel.m in Sources */,
+				188BE7481B197CC30057519B /* QSYSystemAdvertViewController.m in Sources */,
 				475A4D941AC53919009881CF /* QSPOrderDetailCancelTransAndWarmBuyerButtonView.m in Sources */,
 				475A4D3D1AC3E65A009881CF /* QSPOrderDetailAddressView.m in Sources */,
 				18EC15C51AC50E4B00D2AD3A /* QSYWeekPickedView.m in Sources */,
@@ -7391,6 +7402,7 @@
 				47E5DAB51AD3AB8B00A0A64F /* QSPOrderDetailCancelTransAndWarmSalerButtonView.m in Sources */,
 				18C8A2151A6D622000BB9611 /* QSCoreDataManager.m in Sources */,
 				188728F51AC1B0F800C88AA1 /* QSAttentionCommunityCell.m in Sources */,
+				188BE7451B1979800057519B /* QSYSystemMessageDetailViewController.m in Sources */,
 				18B973011AF227F900652890 /* QSYTenantDetailRecommendRentTableViewCell.m in Sources */,
 				18D081C01ACD891D004FA20F /* QSYOwnerPropertyViewController.m in Sources */,
 				18D082041ACEA8D5004FA20F /* QSYContactAppointmentCreditInfoView.m in Sources */,

@@ -34,6 +34,8 @@
                                                     @"notice_type",
                                                     @"log",
                                                     @"sign"]];
+    
+    [shared_mapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"extend" toKeyPath:@"expand" withMapping:[QSYSystemMessageListDataExtand objectMapping]]];
         
     return shared_mapping;
     

@@ -20,5 +20,4 @@
  */
 @property (nonatomic,retain) QSRentHouseDetailDataModel *detailInfo;//!<详情数据模型
 
-
 @end

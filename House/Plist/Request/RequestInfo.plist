@@ -21,7 +21,7 @@
 		<key>url</key>
 		<string>pushMessage/noteList</string>
 		<key>class</key>
-		<string>pushMessage/noteList</string>
+		<string>QSYSystemMessageReturnData</string>
 	</dict>
 	<key>1005</key>
 	<dict>
