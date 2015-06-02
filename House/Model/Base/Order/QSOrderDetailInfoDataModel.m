@@ -680,8 +680,6 @@
             self.isShowTitleView = YES;
             self.isShowShowingsTimeView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowAddressView = YES;
-            self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             
             if ([self getUserType] == uUserCountTypeOwner) {
@@ -689,6 +687,8 @@
                 
             }else if ([self getUserType] == uUserCountTypeTenant) {
                 //房客角色
+                
+                self.isShowHousePriceView = YES;
                 self.isShowAppointAgainAndPriceAgainButtonView = YES;
                 self.isShowConfirmOrderButtonView = YES;
                 
@@ -968,7 +968,7 @@
             //成交订单待业主确认成交
             self.isShowTitleView = YES;
             self.isShowHouseInfoView = YES;
-            self.isShowAddressView = YES;
+            self.isShowHousePriceView = YES;
             self.isShowPersonInfoView = YES;
             self.isShowTransactionPriceView = YES;
             self.isShowBargainingPriceHistoryView = YES;

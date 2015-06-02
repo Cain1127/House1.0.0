@@ -458,7 +458,7 @@
     }else {
         
         priceStr = [NSString stringWithFormat:@"%ld",(long)((NSInteger)pricef)];
-        tempString = [NSString stringWithFormat:@"%@%@元",tipString,priceStr];
+        tempString = [NSString stringWithFormat:@"%@%@元/月",tipString,priceStr];
         
     }
     

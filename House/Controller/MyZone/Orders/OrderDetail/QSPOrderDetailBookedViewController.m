@@ -860,7 +860,7 @@
     
     if ([self.orderDetailData.order_type isEqualToString:@"500103"]) {
         //出租房出价
-        [self.inputMyPriceView setPlaceholder:@"输入您的房源估价（单位为元）"];
+        [self.inputMyPriceView setPlaceholder:@"输入您的房租价格（元）"];
         
     }else {
         
