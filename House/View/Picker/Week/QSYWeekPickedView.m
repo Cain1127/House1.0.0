@@ -211,12 +211,18 @@
 #pragma mark - 删除选择项
 - (void)deleteWeekData:(QSBaseConfigurationDataModel *)model
 {
-
-    for (QSBaseConfigurationDataModel *obj in self.pickedDataInfo) {
+    
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.pickedDataInfo];
+    
+    for (QSBaseConfigurationDataModel *obj in tempArray) {
         
         if ([obj.key isEqualToString:model.key]) {
             
-            [self.pickedDataInfo removeObject:obj];
+            [tempArray removeObject:obj];
+            
+            self.pickedDataInfo = tempArray;
+            
+            break;
             
         }
         

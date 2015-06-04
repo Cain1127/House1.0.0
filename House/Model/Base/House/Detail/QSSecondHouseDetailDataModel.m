@@ -163,9 +163,14 @@
         for (int i = 0;i < [installKeyList count]; i++) {
             
             QSBaseConfigurationDataModel *installationModel = [QSCoreDataManager getHouseInstallationModelWithKey:installKeyList[i] andHouseType:fFilterMainTypeSecondHouse];
-            [tempString appendString:installationModel.val];
-            [tempString appendString:@","];
-            [tempModel.installationList addObject:installationModel];
+            
+            if (installationModel) {
+                
+                [tempString appendString:installationModel.val];
+                [tempString appendString:@","];
+                [tempModel.installationList addObject:installationModel];
+                
+            }
             
         }
         

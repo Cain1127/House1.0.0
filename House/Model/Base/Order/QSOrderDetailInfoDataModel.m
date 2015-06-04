@@ -838,6 +838,7 @@
                 self.isShowAppointAgainAndApplicationBargainView = YES;
                 
             }
+            
         }else if ([self.order_status isEqualToString:@"500220"]) {
             
             self.isShowTitleView = YES;
@@ -1025,8 +1026,6 @@
             }
             
         }
-        
-        //缺 成交订单  – 已取消 状态码未确定
         
     }
     

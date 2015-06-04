@@ -365,8 +365,8 @@
             }
         }else if ([self.order_status isEqualToString:@"500254"]) {
             //房主拒绝还价
-            if ([self getUserType] == uUserCountTypeTenant) {
-                //房客角色
+            if ([self getUserType] == uUserCountTypeOwner) {
+                //业主角色
                 
                 //完成预约订单，进入成交流程
                 
