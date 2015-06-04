@@ -267,13 +267,14 @@
         [self.returnData.headerData.next_page intValue]) {
         
         [self.tenantListView.footer noticeNoMoreData];
+        return;
         
     }
 
     ///封装参数
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:@"10" forKey:@"page_num"];
-    [params setObject:@"1" forKey:self.returnData.headerData.next_page];
+    [params setObject:self.returnData.headerData.next_page forKey:@"now_page"];
     [params setObject:@"" forKey:@"key"];
     [params setObject:[self getPostRecommendType] forKey:@"referrals_type"];
     
