@@ -10,6 +10,8 @@
 #import "QSYReleaseSaleHouseViewController.h"
 #import "QSYReleaseRentHouseViewController.h"
 #import "QSYRecommendTenantViewController.h"
+#import "QSRentHouseDetailViewController.h"
+#import "QSSecondHouseDetailViewController.h"
 
 #import "QSYOwnerPropertyDeleteTipsPopView.h"
 #import "QSYPopCustomView.h"
@@ -47,6 +49,9 @@
 
 ///当前展开的下标
 @property (nonatomic,assign) int releaseIndex;
+
+///是否重新刷新
+@property (assign) BOOL isNeedRefresh;
 
 ///数据模型
 @property (nonatomic,retain) QSSecondHandHouseListReturnData *secondHousesModel;
@@ -494,6 +499,56 @@
 
 }
 
+#pragma mark - 进入物业详情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    switch (self.houseType) {
+            ///二手房
+        case fFilterMainTypeSecondHouse:
+        {
+        
+            QSHouseInfoDataModel *tempModel = self.secondHousesModel.secondHandHouseHeaderData.houseList[indexPath.row];
+            
+            QSSecondHouseDetailViewController *detailVC = [[QSSecondHouseDetailViewController alloc] initWithTitle:([tempModel.title length] > 0 ? tempModel.title : tempModel.village_name) andDetailID:tempModel.id_ andDetailType:self.houseType];
+            
+            ///删除物业时回调刷新
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+                
+                self.isNeedRefresh  = YES;
+                
+            };
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
+        
+        }
+            break;
+            
+            ///出租房
+        case fFilterMainTypeRentalHouse:
+        {
+        
+            QSRentHouseInfoDataModel *tempModel = self.rentModel.headerData.rentHouseList[indexPath.row];
+            
+            QSRentHouseDetailViewController *detailVC = [[QSRentHouseDetailViewController alloc] initWithTitle:([tempModel.title  length] > 0 ? tempModel.title : tempModel.village_name) andDetailID:tempModel.id_ andDetailType:self.houseType];
+            
+            detailVC.deletePropertyCallBack = ^(BOOL isDelete){
+                
+                self.isNeedRefresh = YES;
+                
+            };
+            
+            [self.navigationController pushViewController:detailVC animated:YES];
+        
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+}
+
 #pragma mark - 请求数据
 - (void)getReleaseHouseHeaderData
 {
@@ -796,6 +851,25 @@
 {
 
     [self.recordsListView.header beginRefreshing];
+
+}
+
+#pragma mark - 是否刷新
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:animated];
+
+    if (self.isNeedRefresh) {
+        
+        self.isNeedRefresh = NO;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.recordsListView.header beginRefreshing];
+            
+        });
+        
+    }
 
 }
 
