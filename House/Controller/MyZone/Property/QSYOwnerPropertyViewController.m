@@ -580,6 +580,7 @@
     ///封装参数
     NSString *userID = [QSCoreDataManager getUserID];
     NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(userID, @"")};
+    self.noRecordsLabel.hidden = YES;
     
     ///请求
     [QSRequestManager requestDataWithType:rRequestTypeSecondHandHouseList andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -593,6 +594,18 @@
                 
             }
             
+            ///判断是否存在数据
+            if ([tempModel.secondHandHouseHeaderData.houseList count] <= 0) {
+                
+                self.noRecordsLabel.text = @"暂无发售房源，\n马上发布一个吧！";
+                self.noRecordsLabel.hidden = NO;
+                
+            } else {
+            
+                self.noRecordsLabel.hidden = YES;
+            
+            }
+            
             ///结束刷新
             [self.recordsListView reloadData];
             [self.recordsListView.header endRefreshing];
@@ -601,6 +614,8 @@
             
             [self.recordsListView reloadData];
             [self.recordsListView.header endRefreshing];
+            self.noRecordsLabel.text = @"暂无发售房源，\n马上发布一个吧！";
+            self.noRecordsLabel.hidden = NO;
             
         }
         
@@ -615,6 +630,7 @@
     ///封装参数
     NSString *userID = [QSCoreDataManager getUserID];
     NSDictionary *params = @{@"data_user_id" : APPLICATION_NSSTRING_SETTING(userID, @"")};
+    self.noRecordsLabel.hidden = YES;
     
     ///请求
     [QSRequestManager requestDataWithType:rRequestTypeRentalHouse andParams:params andCallBack:^(REQUEST_RESULT_STATUS resultStatus, id resultData, NSString *errorInfo, NSString *errorCode) {
@@ -628,6 +644,18 @@
                 
             }
             
+            ///判断是否存在数据
+            if ([tempModel.headerData.rentHouseList count] <= 0) {
+                
+                self.noRecordsLabel.text = @"暂无出租房源，\n马上发布一个吧！";
+                self.noRecordsLabel.hidden = NO;
+                
+            } else {
+                
+                self.noRecordsLabel.hidden = YES;
+                
+            }
+            
             ///结束刷新
             [self.recordsListView reloadData];
             [self.recordsListView.header endRefreshing];
@@ -636,6 +664,8 @@
             
             [self.recordsListView reloadData];
             [self.recordsListView.header endRefreshing];
+            self.noRecordsLabel.text = @"暂无出租房源，\n马上发布一个吧！";
+            self.noRecordsLabel.hidden = NO;
             
         }
         
