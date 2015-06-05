@@ -52,7 +52,6 @@ static char TableViewKey;   //!<楼盘列表
     [tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getBuildingsInfo)];
     [tableView.header beginRefreshing];
     
-    
 }
 
 #pragma mark -数据源方法

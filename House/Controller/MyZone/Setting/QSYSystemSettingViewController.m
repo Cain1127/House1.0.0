@@ -104,6 +104,7 @@ typedef enum
     aboutusSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:aboutusSepLabel];
     
+#if 0
     ///版本检测
     UITextField *checkVersion = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, aboutUs.frame.origin.y + aboutUs.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"版本检测" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     checkVersion.delegate = self;
@@ -114,9 +115,10 @@ typedef enum
     UILabel *checkVersionSepLabel = [[UILabel alloc] initWithFrame:CGRectMake(checkVersion.frame.origin.x + 5.0f, checkVersion.frame.origin.y + checkVersion.frame.size.height + 3.5f, SIZE_DEFAULT_MAX_WIDTH - 10.0f, 0.5f)];
     checkVersionSepLabel.backgroundColor = COLOR_CHARACTERS_BLACKH;
     [self.view addSubview:checkVersionSepLabel];
+#endif
     
     ///清空缓存
-    UITextField *clearCaches = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, checkVersion.frame.origin.y + checkVersion.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"清空缓存" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
+    UITextField *clearCaches = [UITextField createCustomTextFieldWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, aboutUs.frame.origin.y + aboutUs.frame.size.height + VIEW_SIZE_NORMAL_VIEW_VERTICAL_GAP, SIZE_DEFAULT_MAX_WIDTH, VIEW_SIZE_NORMAL_BUTTON_HEIGHT) andPlaceHolder:@"" andLeftTipsInfo:@"清空缓存" andLeftTipsTextAlignment:NSTextAlignmentLeft andTextFieldStyle:cCustomTextFieldStyleRightArrowLeftTipsGray];
     clearCaches.delegate = self;
     clearCaches.tag = sSettingFieldActionTypeClearCache;
     [self.view addSubview:clearCaches];
