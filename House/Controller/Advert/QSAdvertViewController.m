@@ -284,7 +284,7 @@
     QSAdvertInfoDataModel *model = self.advertsDataSource[index];
     
     ///加载图片
-    [advertView loadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,model.img]] placeholderImage:nil];
+    [advertView loadImageWithURL:[NSURL URLWithString:[[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,model.img] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:nil];
     
     return advertView;
 

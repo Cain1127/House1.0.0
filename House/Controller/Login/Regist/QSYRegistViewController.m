@@ -14,7 +14,7 @@
 
 #import "QSNetworkVerticalCodeView.h"
 
-#define ___VERCODE_AUTOWRITE_TO_FIELD___
+//#define ___VERCODE_AUTOWRITE_TO_FIELD___
 
 @interface QSYRegistViewController () <UITextFieldDelegate>
 

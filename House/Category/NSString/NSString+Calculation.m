@@ -73,7 +73,7 @@
 
     if (self.length > 0) {
         
-        return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,self]];
+        return [NSURL URLWithString:[[NSString stringWithFormat:@"%@/%@",URLFDangJiaImageIPHome,self] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
     }
     

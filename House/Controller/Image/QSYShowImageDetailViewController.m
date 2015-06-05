@@ -342,7 +342,7 @@
         
     }
     
-    return [NSURL URLWithString:imageURLString];
+    return [NSURL URLWithString:[imageURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
 }
 

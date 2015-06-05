@@ -20,7 +20,8 @@
 //
 //房当家IP根地址
 //
-static NSString *const URLFDangJiaIPHome = @"http://117.41.235.107:9527";
+static NSString *const URLFDangJiaIPHome = @"http://117.41.235.110:9527/";
+//static NSString *const URLFDangJiaIPHome = @"http://117.41.235.107:9527/";
 
 //
 //房当家域名根地址
@@ -46,10 +47,5 @@ static NSString *const URLFDangJiaImageDomainHome = @"http://img.fdangjia.com/";
 //小区与新房详情页最新均价根地址
 //
 static NSString *const URLFDangJiaAvgPriceTotal = @"http://117.41.235.107:9527/total/resoldApartment/";
-
-//
-//新房户型详情地址
-//
-static NSString *const URLFDangJiaHouseType = @"http://117.41.235.102:7788/";
 
 #endif

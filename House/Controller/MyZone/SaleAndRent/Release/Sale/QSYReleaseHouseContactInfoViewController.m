@@ -16,7 +16,7 @@
 
 #import "QSReleaseSaleHouseDataModel.h"
 
-#define ___VERCODE_AUTOWRITE_TO_FIELD___
+//#define ___VERCODE_AUTOWRITE_TO_FIELD___
 
 @interface QSYReleaseHouseContactInfoViewController () <UITextFieldDelegate>
 
