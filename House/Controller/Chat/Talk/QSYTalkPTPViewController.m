@@ -151,6 +151,7 @@
     self.noNetworkTipsLabel.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     self.noNetworkTipsLabel.textColor = COLOR_CHARACTERS_BLACK;
     self.noNetworkTipsLabel.text = @"当前网络未连接，请检查你的网络设置";
+    self.noNetworkTipsLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.noNetworkTipsLabel];
     
     ///消息列表
@@ -875,7 +876,7 @@
         [self.messagesDataSource addObject:wordMessageModel];
         
         ///刷新消息列表
-        [self.messagesListView reloadData];
+        [self.messagesListView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.messagesDataSource count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
         
         ///显示最后一行
         [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -990,7 +991,7 @@
         NSString *timeStamp = [NSDate currentDateTimeStamp];
         NSString *rootPath = [self getTalkImageSavePath];
         NSString *savePath = [rootPath stringByAppendingString:timeStamp];
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.5f);
+        NSData *imageData = UIImageJPEGRepresentation(smallImage, 0.2f);
         
         ///保存本地
         BOOL isSave = [imageData writeToFile:savePath atomically:YES];
@@ -1033,19 +1034,19 @@
         pictureMessageModel.showHeight = showHeight;
         
         ///发送消息
-#if 0
+#if 1
        
         [QSSocketManager sendMessageToPerson:pictureMessageModel andMessageType:qQSCustomProtocolChatMessageTypePicture];
         
 #endif
         
-#if 1
         ///加载当前消息
         [self.messagesDataSource addObject:pictureMessageModel];
         
         ///刷新数据
-        [self.messagesListView reloadData];
-#endif
+        [self.messagesListView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.messagesDataSource count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+        
+        [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         
     }
     

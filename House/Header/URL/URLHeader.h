@@ -20,8 +20,8 @@
 //
 //房当家IP根地址
 //
-//static NSString *const URLFDangJiaIPHome = @"http://117.41.235.110:9527/";
-static NSString *const URLFDangJiaIPHome = @"http://117.41.235.107:9527/";
+static NSString *const URLFDangJiaIPHome = @"http://117.41.235.110:9527/";
+//static NSString *const URLFDangJiaIPHome = @"http://117.41.235.107:9527/";
 
 //
 //房当家域名根地址

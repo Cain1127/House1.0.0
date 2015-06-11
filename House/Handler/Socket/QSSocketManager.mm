@@ -43,9 +43,9 @@ using namespace std;
 
 ///服务端地址
 
-//#define QS_SOCKET_SERVER_IP @"192.168.1.145"    //!<测试环境
+#define QS_SOCKET_SERVER_IP @"192.168.1.137"    //!<测试环境
 #define QS_SOCKET_SERVER_PORT 8000
-#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
+//#define QS_SOCKET_SERVER_IP @"117.41.235.107"   //!<正式环境
 
 @interface QSSocketManager () <AsyncSocketDelegate,NSStreamDelegate>
 
@@ -702,7 +702,10 @@ static QSSocketManager *_socketManager = nil;
         
     }
     
-    sendMessage.set_pic(imageData.bytes, [imageData length]);
+    UIImage *tempImage = [UIImage imageWithData:imageData];
+    NSData *sendImageData = UIImagePNGRepresentation(tempImage);
+    
+    sendMessage.set_pic("-1");
     sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
     sendMessage.set_m_avatar([wordMessageModel.f_avatar UTF8String]);
     sendMessage.set_m_name([wordMessageModel.f_name UTF8String]);
@@ -715,20 +718,28 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_t_user_type([wordMessageModel.t_user_type UTF8String]);
     
     int length = sendMessage.ByteSize();
-    int32_t messageLength = static_cast <int32_t> (length + 4);
+    int32_t messageLength = static_cast <int32_t> (length);
     int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypePicture);
+    int32_t totalLength = static_cast<int32_t>([sendImageData length] + messageLength + 4);
     
     HTONL(messageLength);
     HTONL(messageType);
+    HTONL(totalLength);
     
     ///头信息
     char *buf = new char[length];
     sendMessage.SerializeToArray(buf,length);
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8100];
+    
+    ///发送头信息
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&totalLength length:(sizeof totalLength)] withTimeout:-1 tag:8102];
     [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8101];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8100];
     
     ///发主体信息
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8102];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8103];
+    
+    ///切分发送图片
+    [socketManager.tcpSocket writeData:sendImageData withTimeout:-1 tag:8104];
     
     ///保存消息
     wordMessageModel.readTag = @"1";
@@ -1778,29 +1789,36 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.toID = APPLICATION_NSSTRING_SETTING([QSCoreDataManager getUserID], @"-1");
     ocWordModel.timeStamp = [NSString stringWithUTF8String:cppWordModel.time_stamp().c_str()];
     
-    ///获取图片，保存本地
-    NSString *imageDataString = [NSString stringWithUTF8String:cppWordModel.pic().c_str()];
-    NSData *imageData = [imageDataString dataUsingEncoding:NSUTF8StringEncoding];
-    UIImage *imageSend = [UIImage imageWithData:imageData];
-    NSString *rootPath = [self getTalkImageSavePath];
-    NSString *savePath = [rootPath stringByAppendingString:ocWordModel.timeStamp];
-    
-    BOOL isSave = [imageData writeToFile:savePath atomically:YES];
-    if (isSave) {
-        
-        ocWordModel.pictureURL = savePath;
-        
-    } else {
-    
-        APPLICATION_LOG_INFO(@"图片消息", @"图片保存失败")
-    
-    }
+    ///图片地址
+    ocWordModel.pictureURL = [NSString stringWithUTF8String:cppWordModel.pic().c_str()];
     
     ocWordModel.f_avatar = [NSString stringWithUTF8String:cppWordModel.f_avatar().c_str()];
     ocWordModel.f_name = [NSString stringWithUTF8String:cppWordModel.f_name().c_str()];
     ocWordModel.f_user_type = [NSString stringWithUTF8String:cppWordModel.f_user_type().c_str()];
     ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
     ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.f_unread_count().c_str()];
+    
+    ///请求图片数据
+    UIImage *imageSend = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:ocWordModel.pictureURL]]];
+    
+    ///图片保存本地
+    NSString *timeStamp = [NSDate currentDateTimeStamp];
+    NSString *rootPath = [self getTalkImageSavePath];
+    NSString *savePath = [rootPath stringByAppendingString:timeStamp];
+    NSData *imageData = UIImageJPEGRepresentation(imageSend, 1.0f);
+    
+    ///保存本地
+    BOOL isSave = [imageData writeToFile:savePath atomically:YES];
+    if (!isSave) {
+        
+        ///提示发送失败
+        NSLog(@"聊天图片保存本地失败");
+        
+    } else {
+    
+        ocWordModel.pictureURL = savePath;
+    
+    }
     
     CGFloat showWidth = imageSend.size.width;
     CGFloat showHeight = imageSend.size.height;

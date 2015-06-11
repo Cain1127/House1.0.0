@@ -170,8 +170,17 @@ static char TimeStampKey;   //!<时间戳
         
         if ([model.pictureURL length] > 0) {
             
-            NSData *imageData = [NSData dataWithContentsOfFile:model.pictureURL];
-            messageView.image = [UIImage imageWithData:imageData];
+            if ([model.pictureURL hasPrefix:@"http"]) {
+                
+                ///从网络获取
+                [messageView loadImageWithURL:[NSURL URLWithString:model.pictureURL] placeholderImage:[UIImage imageNamed:IMAGE_USERICON_DEFAULT_100]];
+                
+            } else {
+            
+                NSData *imageData = [NSData dataWithContentsOfFile:model.pictureURL];
+                messageView.image = [UIImage imageWithData:imageData];
+            
+            }
             
         }
         
