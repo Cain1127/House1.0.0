@@ -70,13 +70,13 @@
 #define COCOAPODS_POD_AVAILABLE_DOPDropDownMenu
 #define COCOAPODS_VERSION_MAJOR_DOPDropDownMenu 0
 #define COCOAPODS_VERSION_MINOR_DOPDropDownMenu 1
-#define COCOAPODS_VERSION_PATCH_DOPDropDownMenu 0
+#define COCOAPODS_VERSION_PATCH_DOPDropDownMenu 1
 
 // IQKeyboardManager
 #define COCOAPODS_POD_AVAILABLE_IQKeyboardManager
 #define COCOAPODS_VERSION_MAJOR_IQKeyboardManager 3
 #define COCOAPODS_VERSION_MINOR_IQKeyboardManager 2
-#define COCOAPODS_VERSION_PATCH_IQKeyboardManager 3
+#define COCOAPODS_VERSION_PATCH_IQKeyboardManager 4
 
 // ISO8601DateFormatterValueTransformer
 #define COCOAPODS_POD_AVAILABLE_ISO8601DateFormatterValueTransformer
@@ -94,7 +94,7 @@
 #define COCOAPODS_POD_AVAILABLE_MJRefresh
 #define COCOAPODS_VERSION_MAJOR_MJRefresh 1
 #define COCOAPODS_VERSION_MINOR_MJRefresh 4
-#define COCOAPODS_VERSION_PATCH_MJRefresh 6
+#define COCOAPODS_VERSION_PATCH_MJRefresh 7
 
 // PinYin4Objc
 #define COCOAPODS_POD_AVAILABLE_PinYin4Objc
@@ -137,4 +137,10 @@
 #define COCOAPODS_VERSION_MAJOR_UMengSocial 4
 #define COCOAPODS_VERSION_MINOR_UMengSocial 2
 #define COCOAPODS_VERSION_PATCH_UMengSocial 2
+
+// mp3lame-for-ios
+#define COCOAPODS_POD_AVAILABLE_mp3lame_for_ios
+#define COCOAPODS_VERSION_MAJOR_mp3lame_for_ios 0
+#define COCOAPODS_VERSION_MINOR_mp3lame_for_ios 1
+#define COCOAPODS_VERSION_PATCH_mp3lame_for_ios 1
 

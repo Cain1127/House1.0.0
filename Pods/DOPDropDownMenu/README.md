@@ -9,27 +9,21 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+## 平台要求
+iOS 7.1
 
-## Installation
+## 说明
 
 DOPDropDownMenu is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-DOPDropDownMenu 添加双列表 优化版 （double tableView, The optimization version ）
+个人并未去和原作者联系，并获得授权，希望大家用的时候，请清楚，原作者，我这里提供cocoaPod支持，只是为了我和我的朋友使用方便，希望作者能包涵，谢谢。
+第一版本作者：https://github.com/dopcn/DOPDropDownMenu
+第二版本作者：https://github.com/12207480/DOPDropDownMenu-Enhanced
 
-首先 感谢 DOPDropDownMenu 作者的无私奉献和允许, https://github.com/dopcn/DOPDropDownMenu/https://github.com/12207480/DOPDropDownMenu-Enhanced
-
-由于作者的原库不上传到cocoaPod的spec中，所以我这里添加这个支持，以便使用更方便！
-
-我在此基础上美化来了界面，添加了双列表的应用，优化了代码，增强了稳定性，希望大家喜欢
-
-First, I would like to thank the author of the DOPDropDownMenu for their selfless dedication.
-
-This enhanced version includes beautiful improvements to the interface, double tableview capability, optimized code, and improved stability. Enjoy!
+第二版本的作者，在原版上美化了界面，添加了双列表的应用，优化了代码，增强了稳定性。
 
 ## 用法
-#pragma mark - data source protocol
 @class DOPDropDownMenu;
 
 @protocol DOPDropDownMenuDataSource <NSObject>
@@ -66,7 +60,6 @@ This enhanced version includes beautiful improvements to the interface, double t
 - (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath;
 @end
 
-#pragma mark - delegate
 @protocol DOPDropDownMenuDelegate <NSObject>
 @optional
 /**
@@ -75,13 +68,10 @@ This enhanced version includes beautiful improvements to the interface, double t
 - (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath;
 @end
 
-```ruby
-pod "DOPDropDownMenu"
-```
-
 ## Author
 
-ysmeng, 49427823@163.com
+Weizhou,  shiwoow@gmail.com
+12207480, 122074809@qq.com
 
 ## License
 

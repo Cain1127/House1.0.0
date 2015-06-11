@@ -7809,6 +7809,7 @@
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
 					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/mp3lame-for-ios\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7821,6 +7822,7 @@
 					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
 					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
 					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/mp3lame-for-ios\"",
 					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
 					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
 					"\"${PODS_ROOT}/Headers/Public/RestKit/ObjectMapping\"",
@@ -7855,6 +7857,7 @@
 					"\"$(PODS_ROOT)/AMap2DMap\"",
 					"\"$(PODS_ROOT)/AMapSearch\"",
 					"\"$(PODS_ROOT)/UmengSocial/umeng_ios_social_sdk_4.2.2_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI/\"",
+					"\"$(PODS_ROOT)/mp3lame-for-ios\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "House/House-Prefix.pch";
@@ -7867,6 +7870,7 @@
 					"\"${PODS_ROOT}/Headers/Public/ISO8601DateFormatterValueTransformer\"",
 					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
 					"\"${PODS_ROOT}/Headers/Public/RKValueTransformers\"",
+					"\"${PODS_ROOT}/Headers/Public/mp3lame-for-ios\"",
 					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
 					"\"${PODS_ROOT}/Headers/Public/RestKit\"",
 					"\"${PODS_ROOT}/Headers/Public/RestKit/ObjectMapping\"",
