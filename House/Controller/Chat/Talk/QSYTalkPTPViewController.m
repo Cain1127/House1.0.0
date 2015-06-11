@@ -11,6 +11,7 @@
 #import "QSYOwnerInfoViewController.h"
 #import "QSSecondHouseDetailViewController.h"
 #import "QSRentHouseDetailViewController.h"
+#import "QSYShowImageDetailViewController.h"
 
 #import "QSYMessageWordTableViewCell.h"
 #import "QSYMessageVideoTableViewCell.h"
@@ -574,6 +575,20 @@
                 QSYSendMessagePicture *wordModel = (QSYSendMessagePicture *)tempModel;
                 [cellPictureMessageMY updateMessageWordUI:wordModel];
                 
+                ///查看大图
+                cellPictureMessageMY.lookOriginalImage = ^(UIImage *image){
+                
+                    if (image) {
+                        
+                        QSYShowImageDetailViewController *imageVC = [[QSYShowImageDetailViewController alloc] initWithImage:image andTitle:@"原图" andType:sShowImageOriginalVCTypeSingleEdit andCallBack:^(SHOW_IMAGE_ORIGINAL_ACTION_TYPE actionType, id deleteObject, int deleteIndex) {
+                            
+                        }];
+                        [self.navigationController pushViewController:imageVC animated:YES];
+                        
+                    }
+                
+                };
+                
                 return cellPictureMessageMY;
                 
             } else {
@@ -639,7 +654,7 @@
             }
             break;
             
-            ///文字聊天
+            ///推荐房源
         case qQSCustomProtocolChatMessageTypeRecommendHouse:
         {
             

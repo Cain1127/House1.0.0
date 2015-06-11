@@ -105,8 +105,19 @@ static char TimeStampKey;   //!<时间戳
     }
     [self.contentView addSubview:arrowIndicator];
     
+    __block QSImageView *pictureView;
+    
     ///消息图片底view
-    UIView *rootView = [[UIView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 100.0f)];
+    UIView *rootView = [[QSBlockView alloc] initWithFrame:CGRectMake(xpointMessage, iconView.frame.origin.y, widthMessage, 100.0f) andSingleTapCallBack:^(BOOL flag) {
+        
+        ///回调查看原图
+        if (self.lookOriginalImage) {
+            
+            self.lookOriginalImage(pictureView.image);
+            
+        }
+        
+    }];
     rootView.layer.cornerRadius = 4.0f;
     rootView.backgroundColor = COLOR_CHARACTERS_LIGHTGRAY;
     if (mMessageFromTypeMY == self.messageType) {
@@ -117,7 +128,7 @@ static char TimeStampKey;   //!<时间戳
     [self.contentView addSubview:rootView];
     
     ///图片消息
-    QSImageView *pictureView = [[QSImageView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f)];
+    pictureView = [[QSImageView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, rootView.frame.size.width - 20.0f, rootView.frame.size.height - 20.0f)];
     pictureView.image = [UIImage imageNamed:IMAGE_USERICON_DEFAULT_100];
     [rootView addSubview:pictureView];
     objc_setAssociatedObject(self, &ImageMessageKey, pictureView, OBJC_ASSOCIATION_ASSIGN);

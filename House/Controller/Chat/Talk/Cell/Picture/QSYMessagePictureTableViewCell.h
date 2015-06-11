@@ -11,6 +11,8 @@
 @class QSYSendMessagePicture;
 @interface QSYMessagePictureTableViewCell : UITableViewCell
 
+@property (nonatomic,copy) void(^lookOriginalImage)(UIImage *image);
+
 /**
  *  @author                 yangshengmeng, 15-04-06 13:04:23
  *
