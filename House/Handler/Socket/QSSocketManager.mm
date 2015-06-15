@@ -778,7 +778,9 @@ static QSSocketManager *_socketManager = nil;
     
     ///获取本地音频数据
     NSData *videoData = [NSData dataWithContentsOfFile:wordMessageModel.videoURL];
-    sendMessage.set_video(videoData.bytes, [videoData length]);
+    
+    NSString *videoLength = [NSString stringWithFormat:@"%d",(int)videoLength.length];
+    sendMessage.set_video(videoLength.UTF8String, [videoLength length]);
     
     sendMessage.set_time_stamp([wordMessageModel.timeStamp UTF8String]);
     
@@ -793,20 +795,24 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_t_user_type([wordMessageModel.t_user_type UTF8String]);
     
     int length = sendMessage.ByteSize();
-    int32_t messageLength = static_cast <int32_t> (length + 4);
+    int32_t messageLength = static_cast <int32_t> (length);
     int32_t messageType = static_cast <int32_t> (qQSCustomProtocolChatMessageTypeVideo);
+    int32_t totalLength = static_cast <int32_t> (length + 4 + videoData.length);
     
     HTONL(messageLength);
     HTONL(messageType);
+    HTONL(totalLength);
     
     ///头信息
     char *buf = new char[length];
     sendMessage.SerializeToArray(buf,length);
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8200];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&totalLength length:(sizeof totalLength)] withTimeout:-1 tag:8200];
     [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageType length:(sizeof messageType)] withTimeout:-1 tag:8201];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:&messageLength length:(sizeof messageLength)] withTimeout:-1 tag:8202];
     
     ///发主体信息
-    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8202];
+    [socketManager.tcpSocket writeData:[NSData dataWithBytes:buf length:length] withTimeout:-1 tag:8203];
+    [socketManager.tcpSocket writeData:videoData withTimeout:-1 tag:8204];
     
     ///保存消息
     wordMessageModel.readTag = @"1";
@@ -1874,19 +1880,32 @@ static QSSocketManager *_socketManager = nil;
     ocWordModel.f_leve = [NSString stringWithUTF8String:cppWordModel.f_leve().c_str()];
     ocWordModel.unread_count = [NSString stringWithUTF8String:cppWordModel.f_unread_count().c_str()];
     
-//    CGFloat showHeight = 30.0f;
-//    CGFloat showWidth = [ocWordModel.message calculateStringDisplayWidthByFixedHeight:showHeight andFontSize:FONT_BODY_16];
-//    if (showWidth > (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f)) {
-//        
-//        showWidth = (SIZE_DEVICE_WIDTH * 3.0f / 5.0f - 20.0f);
-//        showHeight = [ocWordModel.message calculateStringDisplayHeightByFixedWidth:showWidth andFontSize:FONT_BODY_16];
-//        
-//    }
+    ///下载mp3数据
+    NSData *mp3Data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithUTF8String:cppWordModel.video().c_str()]]];
+    if (mp3Data.length <= 0) {
+        
+        NSLog(@"语音消息获取失败");
+        
+    }
     
-//    showWidth = showWidth + 20.0f;
-//    showHeight = showHeight + 20.0f;
-//    ocWordModel.showWidth = showWidth;
-//    ocWordModel.showHeight = showHeight;
+    ///保存本地
+    NSString *timeStamp = [NSDate currentDateTimeStamp];
+    NSString *rootPath = [self getTalkImageSavePath];
+    NSString *savePath = [rootPath stringByAppendingString:timeStamp];
+    savePath = [savePath stringByAppendingString:@".mp3"];
+    BOOL isSave = [mp3Data writeToFile:savePath atomically:YES];
+    if (!isSave) {
+        
+        NSLog(@"语音保存本地失败");
+        
+    } else {
+    
+        ocWordModel.videoURL = savePath;
+    
+    }
+    
+    ocWordModel.showWidth = 240.0f;
+    ocWordModel.showHeight = 50.0f;
     
     [QSCoreDataManager saveMessageData:ocWordModel andMessageType:ocWordModel.msgType andCallBack:^(BOOL isSave) {
         

@@ -399,6 +399,10 @@
         if (self.recordView.isHaveSoundData) {
             
             QSYSendMessageVideo *tempModel = [self.recordView starSendingSoundMessage:self.userModel];
+            
+            ///发送消息
+            [QSSocketManager sendMessageToPerson:tempModel andMessageType:qQSCustomProtocolChatMessageTypeVideo];
+            
             ///绑定消息回调
             [self addNewMessage:tempModel];
             
@@ -406,14 +410,12 @@
             [self resortCurrentMessage];
             
             ///刷新消息列表
-            [self.messagesListView reloadData];
+            [self.messagesDataSource addObject:tempModel];
             
-            ///显示最后一行
-            if ([self.messagesDataSource count] > 5) {
-                
-                [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                
-            }
+            ///刷新数据
+            [self.messagesListView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.messagesDataSource count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+            
+            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             
             ///隐藏录音
             [self recordSoundCancelAction:button];

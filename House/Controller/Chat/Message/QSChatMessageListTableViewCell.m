@@ -22,7 +22,6 @@
 static char IconKey;            //!<头像key
 static char InfoCountTipsKey;   //!<消息数量提醒key
 static char UserNameKey;        //!<用户名key
-static char VIPFlagKey;         //!<vip标识图片key
 static char LastTimeKey;        //!<最新消息日期key
 static char CommentInfoKey;     //!<简述信息key
 
@@ -114,48 +113,24 @@ static char CommentInfoKey;     //!<简述信息key
     objc_setAssociatedObject(self, &InfoCountTipsKey, countTipsLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///姓名
-    UILabel *nameLabel = [[QSLabel alloc] init];
+    CGFloat ___xpointVFL = iconImageView.frame.origin.x + iconImageView.frame.size.width + 10.0f;
+    UILabel *nameLabel = [[QSLabel alloc] initWithFrame:CGRectMake(___xpointVFL, 20.0f, 80.0f, 20.0f)];
     nameLabel.textAlignment = NSTextAlignmentLeft;
     nameLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_16];
-    nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     nameLabel.textColor = COLOR_CHARACTERS_BLACK;
     nameLabel.text = [self getSenderName];
     nameLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:nameLabel];
     objc_setAssociatedObject(self, &UserNameKey, nameLabel, OBJC_ASSOCIATION_ASSIGN);
     
-    ///是否vip认证
-    QSImageView *vipImage = [[QSImageView alloc] init];
-    vipImage.image = [UIImage imageNamed:IMAGE_PUBLIC_VIP];
-    vipImage.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addSubview:vipImage];
-    vipImage.hidden = YES;
-    objc_setAssociatedObject(self, &VIPFlagKey, vipImage, OBJC_ASSOCIATION_ASSIGN);
-    
     ///最新消息日期
-    UILabel *lastTimeLabel = [[QSLabel alloc] init];
+    UILabel *lastTimeLabel = [[QSLabel alloc] initWithFrame:CGRectMake(width - 120.0f, 20.0f, 120.0f, 20.0f)];
     lastTimeLabel.textAlignment = NSTextAlignmentRight;
     lastTimeLabel.font = [UIFont systemFontOfSize:FONT_BODY_14];
     lastTimeLabel.textColor = COLOR_CHARACTERS_GRAY;
-    lastTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     lastTimeLabel.text = nil;
     [self.contentView addSubview:lastTimeLabel];
     objc_setAssociatedObject(self, &LastTimeKey, lastTimeLabel, OBJC_ASSOCIATION_ASSIGN);
-    
-    ///约束参数
-    NSDictionary *___viewsVFL = NSDictionaryOfVariableBindings(nameLabel,vipImage,lastTimeLabel);
-    CGFloat ___xpointVFL = iconImageView.frame.origin.x + iconImageView.frame.size.width + 10.0f;
-    NSDictionary *___sizeVFL = @{@"xpoint" : [NSString stringWithFormat:@"%.2f",___xpointVFL]};
-    
-    ///约束串
-    NSString *___hVFL_all = @"H:|-xpoint-[nameLabel(>=30,<=150)][vipImage(20)]-(>=5)-[lastTimeLabel(90)]|";
-    NSString *___vVFL_name = @"V:|-20-[nameLabel(20)]-40-|";
-    NSString *___vVFL_vip = @"V:|-20-[vipImage(20)]-40-|";
-    
-    ///添加约束
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___hVFL_all options:NSLayoutFormatAlignAllCenterY metrics:___sizeVFL views:___viewsVFL]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_name options:0 metrics:nil views:___viewsVFL]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:___vVFL_vip options:0 metrics:nil views:___viewsVFL]];
     
     ///最新消息的大概
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(___xpointVFL, 40.0f, width - ___xpointVFL, 20.0f)];
@@ -343,19 +318,6 @@ static char CommentInfoKey;     //!<简述信息key
     if (lastMessage) {
         
         lastMessage.text = comment;
-        
-    }
-
-}
-
-///更新VIP标识
-- (void)updateVIPFlag:(NSString *)vipFlag
-{
-
-    UILabel *labelVIP = objc_getAssociatedObject(self, &VIPFlagKey);
-    if (labelVIP && vipFlag) {
-        
-        
         
     }
 

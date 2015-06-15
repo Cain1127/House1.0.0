@@ -179,10 +179,10 @@
     messageModel.sendType = qQSCustomProtocolChatSendTypePTP;
     messageModel.msgType = qQSCustomProtocolChatMessageTypeVideo;
     
-    messageModel.videoURL = self.localFileName;
+    messageModel.videoURL = self.localMP3FileName;
     messageModel.playTime = [NSString stringWithFormat:@"%.0f",[self.endDate timeIntervalSinceDate:self.starDate]];
     
-    ///发送消息
+    ///发送消息：目前已改成在聊天窗口的VC上发送
 #if 0
     
     [QSSocketManager sendMessageToPerson:messageModel andMessageType:qQSCustomProtocolChatMessageTypeVideo];
@@ -247,31 +247,63 @@
 - (NSString *)getSavePathString
 {
 
-    NSString *savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *rootPath = [savePath stringByAppendingPathComponent:@"/audioCache"];
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/video"];
     
     ///判断文件夹是否存在，存在直接返回，不存在则创建
     BOOL isDir = NO;
-    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:rootPath isDirectory:&isDir];
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
     
     ///如果已存在对应的路径，返回
     if (isDir && isExitDirector) {
         
-        return rootPath;
+        return path;
         
     }
     
     ///不存在创建
-    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:rootPath withIntermediateDirectories:YES attributes:nil error:nil];
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
     
     if (isCreateSuccessDirector) {
         
-        return rootPath;
+        return path;
         
     }
     
     return nil;
 
+}
+
+- (NSString *)getContactRootPath
+{
+    
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/contact"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    ///不存在创建
+    BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    if (isCreateSuccessDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
 }
 
 ///当前录音的文件名
