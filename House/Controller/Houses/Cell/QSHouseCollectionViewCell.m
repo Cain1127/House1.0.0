@@ -176,6 +176,7 @@ static char DeleteButton;   //!<删除标识
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.textAlignment = NSTextAlignmentRight;
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleLabelKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
     

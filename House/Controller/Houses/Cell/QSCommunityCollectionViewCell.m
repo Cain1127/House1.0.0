@@ -122,6 +122,7 @@ static char DeleteButton;       //!<删除按钮状态
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = COLOR_CHARACTERS_BLACK;
     titleLabel.font = [UIFont boldSystemFontOfSize:FONT_BODY_30];
+    titleLabel.adjustsFontSizeToFitWidth = YES;
     [view addSubview:titleLabel];
     objc_setAssociatedObject(self, &TitleInfoKey, titleLabel, OBJC_ASSOCIATION_ASSIGN);
     

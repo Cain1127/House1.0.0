@@ -538,7 +538,7 @@
     NSString *k = [self paramsMD5Encryption:k_temp];
     
     ///参数
-    NSMutableDictionary *resultTempDictionary = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *resultTempDictionary = [[NSMutableDictionary alloc] init];
     [resultTempDictionary setValue:k forKey:@"k"];
     [resultTempDictionary setValue:d forKey:@"d"];
     [resultTempDictionary setValue:t forKey:@"t"];
