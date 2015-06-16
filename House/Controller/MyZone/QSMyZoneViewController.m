@@ -601,6 +601,15 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeStayAround:
                 //待看房
             {
+                
+                ///如果当前用户非业主，则不允许进入订单页
+                if (uUserCountTypeTenant == self.userType ||
+                    uUserCountTypeDeveloper == self.userType) {
+                    
+                    return;
+                    
+                }
+                
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
@@ -620,6 +629,14 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeHavedAround:
                 //已看房
             {
+                
+                ///如果当前用户非业主，则不允许进入订单页
+                if (uUserCountTypeTenant == self.userType ||
+                    uUserCountTypeDeveloper == self.userType) {
+                    
+                    return;
+                    
+                }
                 
                 QSPSalerBookedOrdersListsViewController *bolVc = [[QSPSalerBookedOrdersListsViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
@@ -641,12 +658,20 @@ static char UserNameKey;    //!<用户名
                 //待成交
             {
                 
+                ///如果当前用户非业主，则不允许进入订单页
+                if (uUserCountTypeTenant == self.userType ||
+                    uUserCountTypeDeveloper == self.userType) {
+                    
+                    return;
+                    
+                }
+                
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     
                     [self checkLoginAndShowLogin];
                     
-                }else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
+                } else if ([self checkLogin] == lLoginCheckActionTypeLogined || [self checkLogin] == lLoginCheckActionTypeReLogin ) {
                     
                     [bolVc setSelectedType:mSalerTransactionOrderListTypePending];
                     [self hiddenBottomTabbar:YES];
@@ -660,6 +685,15 @@ static char UserNameKey;    //!<用户名
             case oOwnerZoneActionTypeCommited:
                 ///已成交
             {
+                
+                ///如果当前用户非业主，则不允许进入订单页
+                if (uUserCountTypeTenant == self.userType ||
+                    uUserCountTypeDeveloper == self.userType) {
+                    
+                    return;
+                    
+                }
+                
                 QSPSalerTransactionOrderListViewController *bolVc = [[QSPSalerTransactionOrderListViewController alloc] init];
                 if ([self checkLogin] == lLoginCheckActionTypeUnLogin) {
                     

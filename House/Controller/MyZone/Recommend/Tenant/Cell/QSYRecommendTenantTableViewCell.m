@@ -133,7 +133,7 @@ static char CommentKey;     //!<备注
     objc_setAssociatedObject(self, &AddressKey, addressLabel, OBJC_ASSOCIATION_ASSIGN);
     
     ///购买目的或者租金支付方式
-    UILabel *targetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, addressLabel.frame.origin.y + addressLabel.frame.size.height + 5.0f, 120.0f, 15.0f)];
+    UILabel *targetLabel = [[UILabel alloc] initWithFrame:CGRectMake(SIZE_DEFAULT_MARGIN_LEFT_RIGHT, addressLabel.frame.origin.y + addressLabel.frame.size.height + 5.0f, 120.0f, 15.0f)];
     targetLabel.font = [UIFont systemFontOfSize:FONT_BODY_16];
     targetLabel.textColor = COLOR_CHARACTERS_BLACK;
     [self.contentView addSubview:targetLabel];
