@@ -216,6 +216,23 @@ static char TimeStampKey;   //!<时间戳
     
     NSURL *audioURL = [self getSavePathWithFileName:audioFileName];
     
+    ///判断是否存在文件
+    if (nil == audioURL) {
+        
+        NSLog(@"播放错误：文件不存在：%@",audioURL);
+        
+        ///停止原播放器
+        if ([_audioPlayer isPlaying]) {
+            
+            [_audioPlayer stop];
+            _audioPlayer = nil;
+            
+        }
+        
+        return;
+        
+    }
+    
     ///停止原播放器
     if ([_audioPlayer isPlaying]) {
         
@@ -245,6 +262,14 @@ static char TimeStampKey;   //!<时间戳
     
     NSString *rootPath = [self getSavePathString];
     NSString *filePath = [rootPath stringByAppendingString:[NSString stringWithFormat:@"/%@",fileName]];
+    
+    ///判断文件是否存在
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        
+        return nil;
+        
+    }
+    
     NSURL *saveURL = [NSURL fileURLWithPath:filePath];
     
     return saveURL;
@@ -254,9 +279,44 @@ static char TimeStampKey;   //!<时间戳
 - (NSString *)getSavePathString
 {
     
-    NSString *savePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *rootPath = [savePath stringByAppendingPathComponent:@"/audioCache"];
-    return rootPath;
+    ///沙盒目录
+    NSString *rootPath = [self getContactRootPath];
+    NSString *path = [rootPath stringByAppendingPathComponent:@"/video"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
+    
+}
+
+- (NSString *)getContactRootPath
+{
+    
+    ///沙盒目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/contact"];
+    
+    ///判断文件夹是否存在，存在直接返回，不存在则创建
+    BOOL isDir = NO;
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
+    
+    ///如果已存在对应的路径，返回
+    if (isDir && isExitDirector) {
+        
+        return path;
+        
+    }
+    
+    return nil;
     
 }
 

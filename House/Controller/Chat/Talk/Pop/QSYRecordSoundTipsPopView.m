@@ -148,6 +148,19 @@
  */
 - (QSYSendMessageVideo *)starSendingSoundMessage:(QSUserSimpleDataModel *)contactModel
 {
+    
+#if 1
+    ///判断语音文件是否存在
+    NSString *cafFilePath = [[self getSavePathString] stringByAppendingString:self.localFileName];
+    
+    ///判断文件是否存在
+    if (![[NSFileManager defaultManager] fileExistsAtPath:cafFilePath]) {
+        
+        NSLog(@"lame文件不存在");
+        return nil;
+        
+    }
+#endif
 
     QSYSendMessageVideo *messageModel = [[QSYSendMessageVideo alloc] init];
     
@@ -178,7 +191,7 @@
     messageModel.sendType = qQSCustomProtocolChatSendTypePTP;
     messageModel.msgType = qQSCustomProtocolChatMessageTypeVideo;
     
-    messageModel.videoURL = self.localFileName;
+    messageModel.videoURL = self.localMP3FileName;
     messageModel.playTime = [NSString stringWithFormat:@"%.0f",[self.endDate timeIntervalSinceDate:self.starDate]];
     
     return messageModel;
@@ -226,6 +239,10 @@
                  NSURL *saveURL = [NSURL fileURLWithPath:filePath];
                 return saveURL;
                 
+            } else {
+            
+                NSLog(@"录音文件创建失败");
+            
             }
         
         }
@@ -337,17 +354,22 @@
         //设置录音格式
         [_recordSetting setObject:@(kAudioFormatLinearPCM) forKey:AVFormatIDKey];
         
+        [_recordSetting setObject:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
+        [_recordSetting setObject:@(16) forKey:AVEncoderBitRateKey];
+        
         //设置录音采样率，8000是电话采样率，对于一般录音已经够了
-        [_recordSetting setObject:@(11025.0f) forKey:AVSampleRateKey];
+        [_recordSetting setObject:@(44100.0f) forKey:AVSampleRateKey];
         
         //设置通道,这里采用双声道
         [_recordSetting setObject:@(2) forKey:AVNumberOfChannelsKey];
         
+#if 0
         //每个采样点位数,分为8、16、24、32
         [_recordSetting setObject:@(8) forKey:AVLinearPCMBitDepthKey];
         
         //是否使用浮点数采样
         [_recordSetting setObject:@(YES) forKey:AVLinearPCMIsFloatKey];
+#endif
         
         //....其他设置等
         
@@ -435,6 +457,9 @@
     
     if (flag) {
         
+        ///保存结束时间戳
+        self.endDate = [NSDate date];
+        
         ///转码
         [self audio_PCMtoMP3];
         
@@ -447,14 +472,35 @@
 - (void)audio_PCMtoMP3
 {
     
-    NSString *mp3FilePath = [[self getSavePathString] stringByAppendingString:self.localMP3FileName];
+    NSString *mp3FilePath = [[self getSavePathString] stringByAppendingString:[NSString stringWithFormat:@"/%@",self.localMP3FileName]];
+    
+    ///判断文件是否存在，不存在则创建
+    BOOL isExitDirector = [[NSFileManager defaultManager] fileExistsAtPath:mp3FilePath];
+    
+    ///如果不存在对应的路径，创建
+    if (!isExitDirector) {
+        
+        ///不存在创建
+        BOOL isCreateSuccessDirector = [[NSFileManager defaultManager] createFileAtPath:mp3FilePath contents:nil attributes:nil];
+        
+        if (isCreateSuccessDirector) {
+            
+            NSLog(@"录音mp3文件创建成功");
+            
+        } else {
+            
+            NSLog(@"录音mp3文件创建失败");
+            return;
+            
+        }
+        
+    }
     
     @try {
         
         int read, write;
         
-        NSString *cafFilePath = [[self getSavePathString] stringByAppendingString:self.localFileName];
-        NSLog(@"cafFilePath : %@",cafFilePath);
+        NSString *cafFilePath = [[self getSavePathString] stringByAppendingString:[NSString stringWithFormat:@"/%@",self.localFileName]];
         
         ///判断文件是否存在
         if (![[NSFileManager defaultManager] fileExistsAtPath:cafFilePath]) {
@@ -474,18 +520,28 @@
             
         }
         
-        fseek(pcm, 4 * 1024, SEEK_CUR);                                   //skip file header
+        fseek(pcm, 4 * 1024, SEEK_CUR);                                 //skip file header
         FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
         
         const int PCM_SIZE = 8192;
         const int MP3_SIZE = 8192;
-        short int pcm_buffer[PCM_SIZE*2];
+        short int pcm_buffer[PCM_SIZE * 2];
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
+        lame_set_in_samplerate(lame, 44100);
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
+        
+#if 0
+        //设置1为单通道，默认为2双通道
+        lame_set_num_channels(lame,2);
+        lame_set_brate(lame,16);
+        lame_set_mode(lame,3);
+        
+        /* 2=high 5 = medium 7=low 音质*/
+        lame_set_quality(lame,5);
+#endif
         
         do {
             
