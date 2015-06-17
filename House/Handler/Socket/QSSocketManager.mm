@@ -777,7 +777,7 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取本地音频数据
-    NSData *videoData = [NSData dataWithContentsOfFile:[[socketManager getTalkVideoSavePath] stringByAppendingString:wordMessageModel.videoURL]];
+    NSData *videoData = [NSData dataWithContentsOfFile:[[socketManager getTalkVideoSavePath] stringByAppendingString:[NSString stringWithFormat:@"/%@",wordMessageModel.videoURL]]];
     
     NSString *videoLength = [NSString stringWithFormat:@"%d",(int)videoLength.length];
     sendMessage.set_video(videoLength.UTF8String, [videoLength length]);
@@ -1889,10 +1889,10 @@ static QSSocketManager *_socketManager = nil;
     }
     
     ///保存本地
-    NSString *timeStamp = [NSDate currentDateTimeStamp];
-    NSString *rootPath = [self getTalkImageSavePath];
-    NSString *savePath = [rootPath stringByAppendingString:timeStamp];
-    savePath = [savePath stringByAppendingString:@".mp3"];
+    NSString *rootPath = [self getTalkVideoSavePath];
+    NSString *fileName = [ocWordModel.timeStamp stringByReplacingOccurrencesOfString:@"." withString:@""];
+    fileName = [fileName stringByAppendingString:@".mp3"];
+    NSString *savePath = [rootPath stringByAppendingString:[NSString stringWithFormat:@"/%@",fileName]];
     BOOL isSave = [mp3Data writeToFile:savePath atomically:YES];
     if (!isSave) {
         
@@ -1900,7 +1900,7 @@ static QSSocketManager *_socketManager = nil;
         
     } else {
     
-        ocWordModel.videoURL = savePath;
+        ocWordModel.videoURL = fileName;
     
     }
     
