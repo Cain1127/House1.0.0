@@ -16,7 +16,6 @@
 #import "QSUserSimpleDataModel.h"
 
 #import "QSCoreDataManager+User.h"
-#import "QSSocketManager.h"
 
 #import <lame/lame.h>
 #import <AVFoundation/AVFoundation.h>
@@ -179,15 +178,8 @@
     messageModel.sendType = qQSCustomProtocolChatSendTypePTP;
     messageModel.msgType = qQSCustomProtocolChatMessageTypeVideo;
     
-    messageModel.videoURL = self.localMP3FileName;
+    messageModel.videoURL = self.localFileName;
     messageModel.playTime = [NSString stringWithFormat:@"%.0f",[self.endDate timeIntervalSinceDate:self.starDate]];
-    
-    ///发送消息：目前已改成在聊天窗口的VC上发送
-#if 0
-    
-    [QSSocketManager sendMessageToPerson:messageModel andMessageType:qQSCustomProtocolChatMessageTypeVideo];
-    
-#endif
     
     return messageModel;
 
@@ -312,7 +304,7 @@
     
     if (nil == _localFileName) {
         
-        _localFileName = [NSString stringWithFormat:@"%@_%@.caf",self.userID,[NSDate currentDateTimeStamp]];
+        _localFileName = [NSString stringWithFormat:@"%@_%@.caf",self.userID,[[NSDate currentDateTimeStamp] stringByReplacingOccurrencesOfString:@"." withString:@""]];
         
     }
     
@@ -325,7 +317,7 @@
 
     if (nil == _localMP3FileName) {
         
-        _localFileName = [self.localFileName stringByReplacingOccurrencesOfString:@".caf" withString:@".mp3"];
+        _localMP3FileName = [self.localFileName stringByReplacingOccurrencesOfString:@".caf" withString:@".mp3"];
         
     }
     
@@ -346,10 +338,10 @@
         [_recordSetting setObject:@(kAudioFormatLinearPCM) forKey:AVFormatIDKey];
         
         //设置录音采样率，8000是电话采样率，对于一般录音已经够了
-        [_recordSetting setObject:@(8000) forKey:AVSampleRateKey];
+        [_recordSetting setObject:@(11025.0f) forKey:AVSampleRateKey];
         
-        //设置通道,这里采用单声道
-        [_recordSetting setObject:@(1) forKey:AVNumberOfChannelsKey];
+        //设置通道,这里采用双声道
+        [_recordSetting setObject:@(2) forKey:AVNumberOfChannelsKey];
         
         //每个采样点位数,分为8、16、24、32
         [_recordSetting setObject:@(8) forKey:AVLinearPCMBitDepthKey];
@@ -441,67 +433,75 @@
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag
 {
     
-    ///转码
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-       
+    if (flag) {
+        
+        ///转码
         [self audio_PCMtoMP3];
         
-    });
-    
-    APPLICATION_LOG_INFO(@"录音", @"完成")
+        APPLICATION_LOG_INFO(@"录音", @"完成")
+        
+    }
     
 }
 
 - (void)audio_PCMtoMP3
 {
     
-    ///本地mp3保存路径
-    NSURL *mp3FilePath = [self getSavePathWithFileName:self.localMP3FileName];
+    NSString *mp3FilePath = [[self getSavePathString] stringByAppendingString:self.localMP3FileName];
     
     @try {
         
         int read, write;
         
-        ///source 被转换的音频文件位置
-        FILE *pcm = fopen([self.localFileName cStringUsingEncoding:1], "rb");
+        NSString *cafFilePath = [[self getSavePathString] stringByAppendingString:self.localFileName];
+        NSLog(@"cafFilePath : %@",cafFilePath);
         
-        ///skip file header
-        fseek(pcm, 4 * 1024, SEEK_CUR);
+        ///判断文件是否存在
+        if (![[NSFileManager defaultManager] fileExistsAtPath:cafFilePath]) {
+            
+            NSLog(@"lame文件不存在");
+            return;
+            
+        }
         
-        ///output 输出生成的Mp3文件位置
-        FILE *mp3 = fopen([mp3FilePath.absoluteString cStringUsingEncoding:1], "wb");
+        FILE *pcm = fopen([cafFilePath cStringUsingEncoding:1], "rb");  //source 被转换的音频文件位置
+        
+        ///判断文件是否存在
+        if (!pcm) {
+            
+            NSLog(@"lame文件不存在");
+            return;
+            
+        }
+        
+        fseek(pcm, 4 * 1024, SEEK_CUR);                                   //skip file header
+        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");  //output 输出生成的Mp3文件位置
         
         const int PCM_SIZE = 8192;
         const int MP3_SIZE = 8192;
-        short int pcm_buffer[PCM_SIZE * 2];
+        short int pcm_buffer[PCM_SIZE*2];
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 8000.0f);
+        lame_set_in_samplerate(lame, 11025.0);
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
-        
-        //设置1为单通道，默认为2双通道
-        lame_set_num_channels(lame,1);
-        lame_set_brate(lame,8);
-        lame_set_mode(lame,3);
-        
-        /* 2=high 5 = medium 7=low 音质*/
-        lame_set_quality(lame,5);
         
         do {
             
             read = fread(pcm_buffer, 2 * sizeof(short int), PCM_SIZE, pcm);
-            if (read == 0) {
+            if (read == 0)
+            {
                 
                 write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
                 
-            } else {
+            } else
+            {
                 
                 write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
                 
             }
-            
+        
             fwrite(mp3_buffer, write, 1, mp3);
             
         } while (read != 0);
@@ -510,13 +510,14 @@
         fclose(mp3);
         fclose(pcm);
         
-    } @catch (NSException *exception) {
+    }
+    @catch (NSException *exception) {
         
         NSLog(@"%@",[exception description]);
         
-    } @finally {
+    }
+    @finally {
         
-        self.localMP3FileName = mp3FilePath.absoluteString;
         NSLog(@"MP3生成成功: %@",self.localMP3FileName);
         
     }

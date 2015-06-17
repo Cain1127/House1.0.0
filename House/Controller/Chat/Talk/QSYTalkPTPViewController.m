@@ -400,22 +400,21 @@
             
             QSYSendMessageVideo *tempModel = [self.recordView starSendingSoundMessage:self.userModel];
             
-            ///发送消息
-            [QSSocketManager sendMessageToPerson:tempModel andMessageType:qQSCustomProtocolChatMessageTypeVideo];
-            
-            ///绑定消息回调
-            [self addNewMessage:tempModel];
-            
-            ///排序
-            [self resortCurrentMessage];
-            
-            ///刷新消息列表
-            [self.messagesDataSource addObject:tempModel];
-            
-            ///刷新数据
-            [self.messagesListView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.messagesDataSource count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
-            
-            [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            ///判断消息是否有效
+            if (tempModel) {
+                
+                ///发送消息
+                [QSSocketManager sendMessageToPerson:tempModel andMessageType:qQSCustomProtocolChatMessageTypeVideo];
+                
+                ///绑定消息回调
+                [self.messagesDataSource addObject:tempModel];
+                
+                ///刷新数据
+                [self.messagesListView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.messagesDataSource count] - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
+                
+                [self.messagesListView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messagesDataSource count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                
+            }
             
             ///隐藏录音
             [self recordSoundCancelAction:button];
@@ -616,6 +615,8 @@
             
             ///音频聊天
         case qQSCustomProtocolChatMessageTypeVideo:
+        {
+            
             ///消息归属类型
             if ([tempModel.fromID isEqualToString:self.myUserModel.id_]) {
                 
@@ -654,6 +655,8 @@
                 return cellVideoMessageFrom;
                 
             }
+            
+        }
             break;
             
             ///推荐房源

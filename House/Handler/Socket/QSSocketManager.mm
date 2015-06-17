@@ -777,7 +777,7 @@ static QSSocketManager *_socketManager = nil;
     sendMessage.set_device_udid([APPLICATION_NSSTRING_SETTING(wordMessageModel.deviceUUID, @"-1") UTF8String]);
     
     ///获取本地音频数据
-    NSData *videoData = [NSData dataWithContentsOfFile:wordMessageModel.videoURL];
+    NSData *videoData = [NSData dataWithContentsOfFile:[[socketManager getTalkVideoSavePath] stringByAppendingString:wordMessageModel.videoURL]];
     
     NSString *videoLength = [NSString stringWithFormat:@"%d",(int)videoLength.length];
     sendMessage.set_video(videoLength.UTF8String, [videoLength length]);
