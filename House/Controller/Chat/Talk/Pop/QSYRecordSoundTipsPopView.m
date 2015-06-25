@@ -149,7 +149,7 @@
 - (QSYSendMessageVideo *)starSendingSoundMessage:(QSUserSimpleDataModel *)contactModel
 {
     
-#if 1
+#if 0
     ///判断语音文件是否存在
     NSString *cafFilePath = [[self getSavePathString] stringByAppendingString:self.localFileName];
     
